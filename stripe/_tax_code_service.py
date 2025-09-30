@@ -9,8 +9,10 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._tax_code_list_params import TaxCodeListParams
-    from stripe.params._tax_code_retrieve_params import TaxCodeRetrieveParams
+    from stripe.params.v1._tax_code_list_params import TaxCodeListParams
+    from stripe.params.v1._tax_code_retrieve_params import (
+        TaxCodeRetrieveParams,
+    )
 
 
 class TaxCodeService(StripeService):

@@ -8,12 +8,12 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.apps._secret_create_params import SecretCreateParams
-    from stripe.params.apps._secret_delete_where_params import (
+    from stripe.params.v1.apps._secret_create_params import SecretCreateParams
+    from stripe.params.v1.apps._secret_delete_where_params import (
         SecretDeleteWhereParams,
     )
-    from stripe.params.apps._secret_find_params import SecretFindParams
-    from stripe.params.apps._secret_list_params import SecretListParams
+    from stripe.params.v1.apps._secret_find_params import SecretFindParams
+    from stripe.params.v1.apps._secret_list_params import SecretListParams
 
 
 class SecretService(StripeService):

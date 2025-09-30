@@ -15,25 +15,25 @@ if TYPE_CHECKING:
     from stripe.financial_connections._account_ownership import (
         AccountOwnership,
     )
-    from stripe.params.financial_connections._account_disconnect_params import (
+    from stripe.params.v1.financial_connections._account_disconnect_params import (
         AccountDisconnectParams,
     )
-    from stripe.params.financial_connections._account_list_owners_params import (
+    from stripe.params.v1.financial_connections._account_list_owners_params import (
         AccountListOwnersParams,
     )
-    from stripe.params.financial_connections._account_list_params import (
+    from stripe.params.v1.financial_connections._account_list_params import (
         AccountListParams,
     )
-    from stripe.params.financial_connections._account_refresh_account_params import (
+    from stripe.params.v1.financial_connections._account_refresh_account_params import (
         AccountRefreshAccountParams,
     )
-    from stripe.params.financial_connections._account_retrieve_params import (
+    from stripe.params.v1.financial_connections._account_retrieve_params import (
         AccountRetrieveParams,
     )
-    from stripe.params.financial_connections._account_subscribe_params import (
+    from stripe.params.v1.financial_connections._account_subscribe_params import (
         AccountSubscribeParams,
     )
-    from stripe.params.financial_connections._account_unsubscribe_params import (
+    from stripe.params.v1.financial_connections._account_unsubscribe_params import (
         AccountUnsubscribeParams,
     )
 

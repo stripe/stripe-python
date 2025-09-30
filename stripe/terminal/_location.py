@@ -11,17 +11,19 @@ from typing import ClassVar, Dict, Optional, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.terminal._location_create_params import (
+    from stripe.params.v1.terminal._location_create_params import (
         LocationCreateParams,
     )
-    from stripe.params.terminal._location_delete_params import (
+    from stripe.params.v1.terminal._location_delete_params import (
         LocationDeleteParams,
     )
-    from stripe.params.terminal._location_list_params import LocationListParams
-    from stripe.params.terminal._location_modify_params import (
+    from stripe.params.v1.terminal._location_list_params import (
+        LocationListParams,
+    )
+    from stripe.params.v1.terminal._location_modify_params import (
         LocationModifyParams,
     )
-    from stripe.params.terminal._location_retrieve_params import (
+    from stripe.params.v1.terminal._location_retrieve_params import (
         LocationRetrieveParams,
     )
 

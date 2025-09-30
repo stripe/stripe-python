@@ -11,10 +11,10 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._customer_cash_balance_transaction_list_params import (
+    from stripe.params.v1._customer_cash_balance_transaction_list_params import (
         CustomerCashBalanceTransactionListParams,
     )
-    from stripe.params._customer_cash_balance_transaction_retrieve_params import (
+    from stripe.params.v1._customer_cash_balance_transaction_retrieve_params import (
         CustomerCashBalanceTransactionRetrieveParams,
     )
 

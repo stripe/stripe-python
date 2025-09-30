@@ -9,19 +9,19 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._subscription_item_create_params import (
+    from stripe.params.v1._subscription_item_create_params import (
         SubscriptionItemCreateParams,
     )
-    from stripe.params._subscription_item_delete_params import (
+    from stripe.params.v1._subscription_item_delete_params import (
         SubscriptionItemDeleteParams,
     )
-    from stripe.params._subscription_item_list_params import (
+    from stripe.params.v1._subscription_item_list_params import (
         SubscriptionItemListParams,
     )
-    from stripe.params._subscription_item_retrieve_params import (
+    from stripe.params.v1._subscription_item_retrieve_params import (
         SubscriptionItemRetrieveParams,
     )
-    from stripe.params._subscription_item_update_params import (
+    from stripe.params.v1._subscription_item_update_params import (
         SubscriptionItemUpdateParams,
     )
 

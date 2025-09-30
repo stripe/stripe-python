@@ -14,25 +14,25 @@ from typing_extensions import Literal, Type, Unpack, TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe._file import File
     from stripe.issuing._physical_bundle import PhysicalBundle
-    from stripe.params.issuing._personalization_design_activate_params import (
+    from stripe.params.v1.issuing._personalization_design_activate_params import (
         PersonalizationDesignActivateParams,
     )
-    from stripe.params.issuing._personalization_design_create_params import (
+    from stripe.params.v1.issuing._personalization_design_create_params import (
         PersonalizationDesignCreateParams,
     )
-    from stripe.params.issuing._personalization_design_deactivate_params import (
+    from stripe.params.v1.issuing._personalization_design_deactivate_params import (
         PersonalizationDesignDeactivateParams,
     )
-    from stripe.params.issuing._personalization_design_list_params import (
+    from stripe.params.v1.issuing._personalization_design_list_params import (
         PersonalizationDesignListParams,
     )
-    from stripe.params.issuing._personalization_design_modify_params import (
+    from stripe.params.v1.issuing._personalization_design_modify_params import (
         PersonalizationDesignModifyParams,
     )
-    from stripe.params.issuing._personalization_design_reject_params import (
+    from stripe.params.v1.issuing._personalization_design_reject_params import (
         PersonalizationDesignRejectParams,
     )
-    from stripe.params.issuing._personalization_design_retrieve_params import (
+    from stripe.params.v1.issuing._personalization_design_retrieve_params import (
         PersonalizationDesignRetrieveParams,
     )
 

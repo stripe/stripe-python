@@ -12,16 +12,16 @@ from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._file import File
-    from stripe.params.issuing._cardholder_create_params import (
+    from stripe.params.v1.issuing._cardholder_create_params import (
         CardholderCreateParams,
     )
-    from stripe.params.issuing._cardholder_list_params import (
+    from stripe.params.v1.issuing._cardholder_list_params import (
         CardholderListParams,
     )
-    from stripe.params.issuing._cardholder_modify_params import (
+    from stripe.params.v1.issuing._cardholder_modify_params import (
         CardholderModifyParams,
     )
-    from stripe.params.issuing._cardholder_retrieve_params import (
+    from stripe.params.v1.issuing._cardholder_retrieve_params import (
         CardholderRetrieveParams,
     )
 

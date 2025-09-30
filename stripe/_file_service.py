@@ -9,9 +9,9 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._file_create_params import FileCreateParams
-    from stripe.params._file_list_params import FileListParams
-    from stripe.params._file_retrieve_params import FileRetrieveParams
+    from stripe.params.v1._file_create_params import FileCreateParams
+    from stripe.params.v1._file_list_params import FileListParams
+    from stripe.params.v1._file_retrieve_params import FileRetrieveParams
 
 
 class FileService(StripeService):

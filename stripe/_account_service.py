@@ -15,15 +15,15 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._account_create_params import AccountCreateParams
-    from stripe.params._account_delete_params import AccountDeleteParams
-    from stripe.params._account_list_params import AccountListParams
-    from stripe.params._account_reject_params import AccountRejectParams
-    from stripe.params._account_retrieve_current_params import (
+    from stripe.params.v1._account_create_params import AccountCreateParams
+    from stripe.params.v1._account_delete_params import AccountDeleteParams
+    from stripe.params.v1._account_list_params import AccountListParams
+    from stripe.params.v1._account_reject_params import AccountRejectParams
+    from stripe.params.v1._account_retrieve_current_params import (
         AccountRetrieveCurrentParams,
     )
-    from stripe.params._account_retrieve_params import AccountRetrieveParams
-    from stripe.params._account_update_params import AccountUpdateParams
+    from stripe.params.v1._account_retrieve_params import AccountRetrieveParams
+    from stripe.params.v1._account_update_params import AccountUpdateParams
 
 
 class AccountService(StripeService):

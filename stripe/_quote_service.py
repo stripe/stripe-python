@@ -13,16 +13,16 @@ from typing import Any, Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._quote_accept_params import QuoteAcceptParams
-    from stripe.params._quote_cancel_params import QuoteCancelParams
-    from stripe.params._quote_create_params import QuoteCreateParams
-    from stripe.params._quote_finalize_quote_params import (
+    from stripe.params.v1._quote_accept_params import QuoteAcceptParams
+    from stripe.params.v1._quote_cancel_params import QuoteCancelParams
+    from stripe.params.v1._quote_create_params import QuoteCreateParams
+    from stripe.params.v1._quote_finalize_quote_params import (
         QuoteFinalizeQuoteParams,
     )
-    from stripe.params._quote_list_params import QuoteListParams
-    from stripe.params._quote_pdf_params import QuotePdfParams
-    from stripe.params._quote_retrieve_params import QuoteRetrieveParams
-    from stripe.params._quote_update_params import QuoteUpdateParams
+    from stripe.params.v1._quote_list_params import QuoteListParams
+    from stripe.params.v1._quote_pdf_params import QuotePdfParams
+    from stripe.params.v1._quote_retrieve_params import QuoteRetrieveParams
+    from stripe.params.v1._quote_update_params import QuoteUpdateParams
 
 
 class QuoteService(StripeService):

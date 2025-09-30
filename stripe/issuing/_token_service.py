@@ -9,11 +9,11 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.issuing._token_list_params import TokenListParams
-    from stripe.params.issuing._token_retrieve_params import (
+    from stripe.params.v1.issuing._token_list_params import TokenListParams
+    from stripe.params.v1.issuing._token_retrieve_params import (
         TokenRetrieveParams,
     )
-    from stripe.params.issuing._token_update_params import TokenUpdateParams
+    from stripe.params.v1.issuing._token_update_params import TokenUpdateParams
 
 
 class TokenService(StripeService):

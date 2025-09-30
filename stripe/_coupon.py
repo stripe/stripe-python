@@ -11,11 +11,11 @@ from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._coupon_create_params import CouponCreateParams
-    from stripe.params._coupon_delete_params import CouponDeleteParams
-    from stripe.params._coupon_list_params import CouponListParams
-    from stripe.params._coupon_modify_params import CouponModifyParams
-    from stripe.params._coupon_retrieve_params import CouponRetrieveParams
+    from stripe.params.v1._coupon_create_params import CouponCreateParams
+    from stripe.params.v1._coupon_delete_params import CouponDeleteParams
+    from stripe.params.v1._coupon_list_params import CouponListParams
+    from stripe.params.v1._coupon_modify_params import CouponModifyParams
+    from stripe.params.v1._coupon_retrieve_params import CouponRetrieveParams
 
 
 class Coupon(

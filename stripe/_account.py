@@ -21,51 +21,51 @@ if TYPE_CHECKING:
     from stripe._file import File
     from stripe._login_link import LoginLink
     from stripe._tax_id import TaxId
-    from stripe.params._account_create_external_account_params import (
+    from stripe.params.v1._account_create_external_account_params import (
         AccountCreateExternalAccountParams,
     )
-    from stripe.params._account_create_login_link_params import (
+    from stripe.params.v1._account_create_login_link_params import (
         AccountCreateLoginLinkParams,
     )
-    from stripe.params._account_create_params import AccountCreateParams
-    from stripe.params._account_create_person_params import (
+    from stripe.params.v1._account_create_params import AccountCreateParams
+    from stripe.params.v1._account_create_person_params import (
         AccountCreatePersonParams,
     )
-    from stripe.params._account_delete_external_account_params import (
+    from stripe.params.v1._account_delete_external_account_params import (
         AccountDeleteExternalAccountParams,
     )
-    from stripe.params._account_delete_params import AccountDeleteParams
-    from stripe.params._account_delete_person_params import (
+    from stripe.params.v1._account_delete_params import AccountDeleteParams
+    from stripe.params.v1._account_delete_person_params import (
         AccountDeletePersonParams,
     )
-    from stripe.params._account_list_capabilities_params import (
+    from stripe.params.v1._account_list_capabilities_params import (
         AccountListCapabilitiesParams,
     )
-    from stripe.params._account_list_external_accounts_params import (
+    from stripe.params.v1._account_list_external_accounts_params import (
         AccountListExternalAccountsParams,
     )
-    from stripe.params._account_list_params import AccountListParams
-    from stripe.params._account_list_persons_params import (
+    from stripe.params.v1._account_list_params import AccountListParams
+    from stripe.params.v1._account_list_persons_params import (
         AccountListPersonsParams,
     )
-    from stripe.params._account_modify_capability_params import (
+    from stripe.params.v1._account_modify_capability_params import (
         AccountModifyCapabilityParams,
     )
-    from stripe.params._account_modify_external_account_params import (
+    from stripe.params.v1._account_modify_external_account_params import (
         AccountModifyExternalAccountParams,
     )
-    from stripe.params._account_modify_person_params import (
+    from stripe.params.v1._account_modify_person_params import (
         AccountModifyPersonParams,
     )
-    from stripe.params._account_persons_params import AccountPersonsParams
-    from stripe.params._account_reject_params import AccountRejectParams
-    from stripe.params._account_retrieve_capability_params import (
+    from stripe.params.v1._account_persons_params import AccountPersonsParams
+    from stripe.params.v1._account_reject_params import AccountRejectParams
+    from stripe.params.v1._account_retrieve_capability_params import (
         AccountRetrieveCapabilityParams,
     )
-    from stripe.params._account_retrieve_external_account_params import (
+    from stripe.params.v1._account_retrieve_external_account_params import (
         AccountRetrieveExternalAccountParams,
     )
-    from stripe.params._account_retrieve_person_params import (
+    from stripe.params.v1._account_retrieve_person_params import (
         AccountRetrievePersonParams,
     )
 

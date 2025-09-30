@@ -8,7 +8,7 @@ from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._payment_method import PaymentMethod
-    from stripe.params._mandate_retrieve_params import MandateRetrieveParams
+    from stripe.params.v1._mandate_retrieve_params import MandateRetrieveParams
 
 
 class Mandate(APIResource["Mandate"]):

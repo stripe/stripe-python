@@ -26,10 +26,10 @@ if TYPE_CHECKING:
     from stripe.issuing._authorization import Authorization
     from stripe.issuing._dispute import Dispute as IssuingDisputeResource
     from stripe.issuing._transaction import Transaction
-    from stripe.params._balance_transaction_list_params import (
+    from stripe.params.v1._balance_transaction_list_params import (
         BalanceTransactionListParams,
     )
-    from stripe.params._balance_transaction_retrieve_params import (
+    from stripe.params.v1._balance_transaction_retrieve_params import (
         BalanceTransactionRetrieveParams,
     )
 

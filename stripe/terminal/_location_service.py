@@ -9,17 +9,19 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.terminal._location_create_params import (
+    from stripe.params.v1.terminal._location_create_params import (
         LocationCreateParams,
     )
-    from stripe.params.terminal._location_delete_params import (
+    from stripe.params.v1.terminal._location_delete_params import (
         LocationDeleteParams,
     )
-    from stripe.params.terminal._location_list_params import LocationListParams
-    from stripe.params.terminal._location_retrieve_params import (
+    from stripe.params.v1.terminal._location_list_params import (
+        LocationListParams,
+    )
+    from stripe.params.v1.terminal._location_retrieve_params import (
         LocationRetrieveParams,
     )
-    from stripe.params.terminal._location_update_params import (
+    from stripe.params.v1.terminal._location_update_params import (
         LocationUpdateParams,
     )
 

@@ -8,8 +8,8 @@ from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.climate._supplier import Supplier
-    from stripe.params.climate._product_list_params import ProductListParams
-    from stripe.params.climate._product_retrieve_params import (
+    from stripe.params.v1.climate._product_list_params import ProductListParams
+    from stripe.params.v1.climate._product_retrieve_params import (
         ProductRetrieveParams,
     )
 

@@ -12,22 +12,22 @@ from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.identity._verification_report import VerificationReport
-    from stripe.params.identity._verification_session_cancel_params import (
+    from stripe.params.v1.identity._verification_session_cancel_params import (
         VerificationSessionCancelParams,
     )
-    from stripe.params.identity._verification_session_create_params import (
+    from stripe.params.v1.identity._verification_session_create_params import (
         VerificationSessionCreateParams,
     )
-    from stripe.params.identity._verification_session_list_params import (
+    from stripe.params.v1.identity._verification_session_list_params import (
         VerificationSessionListParams,
     )
-    from stripe.params.identity._verification_session_modify_params import (
+    from stripe.params.v1.identity._verification_session_modify_params import (
         VerificationSessionModifyParams,
     )
-    from stripe.params.identity._verification_session_redact_params import (
+    from stripe.params.v1.identity._verification_session_redact_params import (
         VerificationSessionRedactParams,
     )
-    from stripe.params.identity._verification_session_retrieve_params import (
+    from stripe.params.v1.identity._verification_session_retrieve_params import (
         VerificationSessionRetrieveParams,
     )
 

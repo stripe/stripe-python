@@ -10,17 +10,19 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.checkout._session_create_params import (
+    from stripe.params.v1.checkout._session_create_params import (
         SessionCreateParams,
     )
-    from stripe.params.checkout._session_expire_params import (
+    from stripe.params.v1.checkout._session_expire_params import (
         SessionExpireParams,
     )
-    from stripe.params.checkout._session_list_params import SessionListParams
-    from stripe.params.checkout._session_retrieve_params import (
+    from stripe.params.v1.checkout._session_list_params import (
+        SessionListParams,
+    )
+    from stripe.params.v1.checkout._session_retrieve_params import (
         SessionRetrieveParams,
     )
-    from stripe.params.checkout._session_update_params import (
+    from stripe.params.v1.checkout._session_update_params import (
         SessionUpdateParams,
     )
 

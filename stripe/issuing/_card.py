@@ -14,19 +14,25 @@ from typing_extensions import Literal, Type, Unpack, TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe.issuing._cardholder import Cardholder
     from stripe.issuing._personalization_design import PersonalizationDesign
-    from stripe.params.issuing._card_create_params import CardCreateParams
-    from stripe.params.issuing._card_deliver_card_params import (
+    from stripe.params.v1.issuing._card_create_params import CardCreateParams
+    from stripe.params.v1.issuing._card_deliver_card_params import (
         CardDeliverCardParams,
     )
-    from stripe.params.issuing._card_fail_card_params import CardFailCardParams
-    from stripe.params.issuing._card_list_params import CardListParams
-    from stripe.params.issuing._card_modify_params import CardModifyParams
-    from stripe.params.issuing._card_retrieve_params import CardRetrieveParams
-    from stripe.params.issuing._card_return_card_params import (
+    from stripe.params.v1.issuing._card_fail_card_params import (
+        CardFailCardParams,
+    )
+    from stripe.params.v1.issuing._card_list_params import CardListParams
+    from stripe.params.v1.issuing._card_modify_params import CardModifyParams
+    from stripe.params.v1.issuing._card_retrieve_params import (
+        CardRetrieveParams,
+    )
+    from stripe.params.v1.issuing._card_return_card_params import (
         CardReturnCardParams,
     )
-    from stripe.params.issuing._card_ship_card_params import CardShipCardParams
-    from stripe.params.issuing._card_submit_card_params import (
+    from stripe.params.v1.issuing._card_ship_card_params import (
+        CardShipCardParams,
+    )
+    from stripe.params.v1.issuing._card_submit_card_params import (
         CardSubmitCardParams,
     )
 

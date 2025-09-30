@@ -10,19 +10,19 @@ from typing import ClassVar, Optional, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._payment_method_domain_create_params import (
+    from stripe.params.v1._payment_method_domain_create_params import (
         PaymentMethodDomainCreateParams,
     )
-    from stripe.params._payment_method_domain_list_params import (
+    from stripe.params.v1._payment_method_domain_list_params import (
         PaymentMethodDomainListParams,
     )
-    from stripe.params._payment_method_domain_modify_params import (
+    from stripe.params.v1._payment_method_domain_modify_params import (
         PaymentMethodDomainModifyParams,
     )
-    from stripe.params._payment_method_domain_retrieve_params import (
+    from stripe.params.v1._payment_method_domain_retrieve_params import (
         PaymentMethodDomainRetrieveParams,
     )
-    from stripe.params._payment_method_domain_validate_params import (
+    from stripe.params.v1._payment_method_domain_validate_params import (
         PaymentMethodDomainValidateParams,
     )
 

@@ -9,10 +9,10 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._tax_id_create_params import TaxIdCreateParams
-    from stripe.params._tax_id_delete_params import TaxIdDeleteParams
-    from stripe.params._tax_id_list_params import TaxIdListParams
-    from stripe.params._tax_id_retrieve_params import TaxIdRetrieveParams
+    from stripe.params.v1._tax_id_create_params import TaxIdCreateParams
+    from stripe.params.v1._tax_id_delete_params import TaxIdDeleteParams
+    from stripe.params.v1._tax_id_list_params import TaxIdListParams
+    from stripe.params.v1._tax_id_retrieve_params import TaxIdRetrieveParams
 
 
 class TaxIdService(StripeService):

@@ -8,8 +8,8 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._token_create_params import TokenCreateParams
-    from stripe.params._token_retrieve_params import TokenRetrieveParams
+    from stripe.params.v1._token_create_params import TokenCreateParams
+    from stripe.params.v1._token_retrieve_params import TokenRetrieveParams
 
 
 class TokenService(StripeService):

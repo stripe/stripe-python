@@ -12,11 +12,11 @@ from typing import Optional, Union, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._source_create_params import SourceCreateParams
-    from stripe.params._source_detach_params import SourceDetachParams
-    from stripe.params._source_retrieve_params import SourceRetrieveParams
-    from stripe.params._source_update_params import SourceUpdateParams
-    from stripe.params._source_verify_params import SourceVerifyParams
+    from stripe.params.v1._source_create_params import SourceCreateParams
+    from stripe.params.v1._source_detach_params import SourceDetachParams
+    from stripe.params.v1._source_retrieve_params import SourceRetrieveParams
+    from stripe.params.v1._source_update_params import SourceUpdateParams
+    from stripe.params.v1._source_verify_params import SourceVerifyParams
 
 
 class SourceService(StripeService):

@@ -23,22 +23,26 @@ if TYPE_CHECKING:
     from stripe.billing._credit_balance_transaction import (
         CreditBalanceTransaction,
     )
-    from stripe.params._credit_note_create_params import CreditNoteCreateParams
-    from stripe.params._credit_note_list_lines_params import (
+    from stripe.params.v1._credit_note_create_params import (
+        CreditNoteCreateParams,
+    )
+    from stripe.params.v1._credit_note_list_lines_params import (
         CreditNoteListLinesParams,
     )
-    from stripe.params._credit_note_list_params import CreditNoteListParams
-    from stripe.params._credit_note_modify_params import CreditNoteModifyParams
-    from stripe.params._credit_note_preview_lines_params import (
+    from stripe.params.v1._credit_note_list_params import CreditNoteListParams
+    from stripe.params.v1._credit_note_modify_params import (
+        CreditNoteModifyParams,
+    )
+    from stripe.params.v1._credit_note_preview_lines_params import (
         CreditNotePreviewLinesParams,
     )
-    from stripe.params._credit_note_preview_params import (
+    from stripe.params.v1._credit_note_preview_params import (
         CreditNotePreviewParams,
     )
-    from stripe.params._credit_note_retrieve_params import (
+    from stripe.params.v1._credit_note_retrieve_params import (
         CreditNoteRetrieveParams,
     )
-    from stripe.params._credit_note_void_credit_note_params import (
+    from stripe.params.v1._credit_note_void_credit_note_params import (
         CreditNoteVoidCreditNoteParams,
     )
 

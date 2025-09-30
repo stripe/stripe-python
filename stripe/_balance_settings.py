@@ -7,10 +7,10 @@ from typing import ClassVar, Dict, List, Optional, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._balance_settings_modify_params import (
+    from stripe.params.v1._balance_settings_modify_params import (
         BalanceSettingsModifyParams,
     )
-    from stripe.params._balance_settings_retrieve_params import (
+    from stripe.params.v1._balance_settings_retrieve_params import (
         BalanceSettingsRetrieveParams,
     )
 

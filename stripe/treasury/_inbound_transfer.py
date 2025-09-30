@@ -12,25 +12,25 @@ from typing_extensions import Literal, Type, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._mandate import Mandate
-    from stripe.params.treasury._inbound_transfer_cancel_params import (
+    from stripe.params.v1.treasury._inbound_transfer_cancel_params import (
         InboundTransferCancelParams,
     )
-    from stripe.params.treasury._inbound_transfer_create_params import (
+    from stripe.params.v1.treasury._inbound_transfer_create_params import (
         InboundTransferCreateParams,
     )
-    from stripe.params.treasury._inbound_transfer_fail_params import (
+    from stripe.params.v1.treasury._inbound_transfer_fail_params import (
         InboundTransferFailParams,
     )
-    from stripe.params.treasury._inbound_transfer_list_params import (
+    from stripe.params.v1.treasury._inbound_transfer_list_params import (
         InboundTransferListParams,
     )
-    from stripe.params.treasury._inbound_transfer_retrieve_params import (
+    from stripe.params.v1.treasury._inbound_transfer_retrieve_params import (
         InboundTransferRetrieveParams,
     )
-    from stripe.params.treasury._inbound_transfer_return_inbound_transfer_params import (
+    from stripe.params.v1.treasury._inbound_transfer_return_inbound_transfer_params import (
         InboundTransferReturnInboundTransferParams,
     )
-    from stripe.params.treasury._inbound_transfer_succeed_params import (
+    from stripe.params.v1.treasury._inbound_transfer_succeed_params import (
         InboundTransferSucceedParams,
     )
     from stripe.treasury._transaction import Transaction

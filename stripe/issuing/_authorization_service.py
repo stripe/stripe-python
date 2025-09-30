@@ -9,19 +9,19 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.issuing._authorization_approve_params import (
+    from stripe.params.v1.issuing._authorization_approve_params import (
         AuthorizationApproveParams,
     )
-    from stripe.params.issuing._authorization_decline_params import (
+    from stripe.params.v1.issuing._authorization_decline_params import (
         AuthorizationDeclineParams,
     )
-    from stripe.params.issuing._authorization_list_params import (
+    from stripe.params.v1.issuing._authorization_list_params import (
         AuthorizationListParams,
     )
-    from stripe.params.issuing._authorization_retrieve_params import (
+    from stripe.params.v1.issuing._authorization_retrieve_params import (
         AuthorizationRetrieveParams,
     )
-    from stripe.params.issuing._authorization_update_params import (
+    from stripe.params.v1.issuing._authorization_update_params import (
         AuthorizationUpdateParams,
     )
 

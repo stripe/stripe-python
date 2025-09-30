@@ -13,16 +13,16 @@ from typing_extensions import Literal, Unpack, TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe._coupon import Coupon
     from stripe._customer import Customer
-    from stripe.params._promotion_code_create_params import (
+    from stripe.params.v1._promotion_code_create_params import (
         PromotionCodeCreateParams,
     )
-    from stripe.params._promotion_code_list_params import (
+    from stripe.params.v1._promotion_code_list_params import (
         PromotionCodeListParams,
     )
-    from stripe.params._promotion_code_modify_params import (
+    from stripe.params.v1._promotion_code_modify_params import (
         PromotionCodeModifyParams,
     )
-    from stripe.params._promotion_code_retrieve_params import (
+    from stripe.params.v1._promotion_code_retrieve_params import (
         PromotionCodeRetrieveParams,
     )
 

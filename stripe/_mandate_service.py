@@ -8,7 +8,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._mandate_retrieve_params import MandateRetrieveParams
+    from stripe.params.v1._mandate_retrieve_params import MandateRetrieveParams
 
 
 class MandateService(StripeService):

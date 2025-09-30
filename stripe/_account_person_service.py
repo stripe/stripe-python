@@ -9,19 +9,19 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._account_person_create_params import (
+    from stripe.params.v1._account_person_create_params import (
         AccountPersonCreateParams,
     )
-    from stripe.params._account_person_delete_params import (
+    from stripe.params.v1._account_person_delete_params import (
         AccountPersonDeleteParams,
     )
-    from stripe.params._account_person_list_params import (
+    from stripe.params.v1._account_person_list_params import (
         AccountPersonListParams,
     )
-    from stripe.params._account_person_retrieve_params import (
+    from stripe.params.v1._account_person_retrieve_params import (
         AccountPersonRetrieveParams,
     )
-    from stripe.params._account_person_update_params import (
+    from stripe.params.v1._account_person_update_params import (
         AccountPersonUpdateParams,
     )
 

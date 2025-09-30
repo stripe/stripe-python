@@ -8,16 +8,16 @@ from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.tax._transaction_create_from_calculation_params import (
+    from stripe.params.v1.tax._transaction_create_from_calculation_params import (
         TransactionCreateFromCalculationParams,
     )
-    from stripe.params.tax._transaction_create_reversal_params import (
+    from stripe.params.v1.tax._transaction_create_reversal_params import (
         TransactionCreateReversalParams,
     )
-    from stripe.params.tax._transaction_list_line_items_params import (
+    from stripe.params.v1.tax._transaction_list_line_items_params import (
         TransactionListLineItemsParams,
     )
-    from stripe.params.tax._transaction_retrieve_params import (
+    from stripe.params.v1.tax._transaction_retrieve_params import (
         TransactionRetrieveParams,
     )
     from stripe.tax._transaction_line_item import TransactionLineItem

@@ -7,8 +7,10 @@ from typing import ClassVar, Dict, List
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._country_spec_list_params import CountrySpecListParams
-    from stripe.params._country_spec_retrieve_params import (
+    from stripe.params.v1._country_spec_list_params import (
+        CountrySpecListParams,
+    )
+    from stripe.params.v1._country_spec_retrieve_params import (
         CountrySpecRetrieveParams,
     )
 

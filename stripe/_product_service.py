@@ -11,12 +11,12 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._product_create_params import ProductCreateParams
-    from stripe.params._product_delete_params import ProductDeleteParams
-    from stripe.params._product_list_params import ProductListParams
-    from stripe.params._product_retrieve_params import ProductRetrieveParams
-    from stripe.params._product_search_params import ProductSearchParams
-    from stripe.params._product_update_params import ProductUpdateParams
+    from stripe.params.v1._product_create_params import ProductCreateParams
+    from stripe.params.v1._product_delete_params import ProductDeleteParams
+    from stripe.params.v1._product_list_params import ProductListParams
+    from stripe.params.v1._product_retrieve_params import ProductRetrieveParams
+    from stripe.params.v1._product_search_params import ProductSearchParams
+    from stripe.params.v1._product_update_params import ProductUpdateParams
 
 
 class ProductService(StripeService):

@@ -9,10 +9,12 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._file_link_create_params import FileLinkCreateParams
-    from stripe.params._file_link_list_params import FileLinkListParams
-    from stripe.params._file_link_retrieve_params import FileLinkRetrieveParams
-    from stripe.params._file_link_update_params import FileLinkUpdateParams
+    from stripe.params.v1._file_link_create_params import FileLinkCreateParams
+    from stripe.params.v1._file_link_list_params import FileLinkListParams
+    from stripe.params.v1._file_link_retrieve_params import (
+        FileLinkRetrieveParams,
+    )
+    from stripe.params.v1._file_link_update_params import FileLinkUpdateParams
 
 
 class FileLinkService(StripeService):

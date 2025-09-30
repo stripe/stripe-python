@@ -9,10 +9,10 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._invoice_line_item_list_params import (
+    from stripe.params.v1._invoice_line_item_list_params import (
         InvoiceLineItemListParams,
     )
-    from stripe.params._invoice_line_item_update_params import (
+    from stripe.params.v1._invoice_line_item_update_params import (
         InvoiceLineItemUpdateParams,
     )
 

@@ -9,10 +9,10 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.treasury._transaction_list_params import (
+    from stripe.params.v1.treasury._transaction_list_params import (
         TransactionListParams,
     )
-    from stripe.params.treasury._transaction_retrieve_params import (
+    from stripe.params.v1.treasury._transaction_retrieve_params import (
         TransactionRetrieveParams,
     )
 

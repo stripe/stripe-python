@@ -9,11 +9,11 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._plan_create_params import PlanCreateParams
-    from stripe.params._plan_delete_params import PlanDeleteParams
-    from stripe.params._plan_list_params import PlanListParams
-    from stripe.params._plan_retrieve_params import PlanRetrieveParams
-    from stripe.params._plan_update_params import PlanUpdateParams
+    from stripe.params.v1._plan_create_params import PlanCreateParams
+    from stripe.params.v1._plan_delete_params import PlanDeleteParams
+    from stripe.params.v1._plan_list_params import PlanListParams
+    from stripe.params.v1._plan_retrieve_params import PlanRetrieveParams
+    from stripe.params.v1._plan_update_params import PlanUpdateParams
 
 
 class PlanService(StripeService):

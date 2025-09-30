@@ -7,8 +7,10 @@ from typing import ClassVar, Dict
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._exchange_rate_list_params import ExchangeRateListParams
-    from stripe.params._exchange_rate_retrieve_params import (
+    from stripe.params.v1._exchange_rate_list_params import (
+        ExchangeRateListParams,
+    )
+    from stripe.params.v1._exchange_rate_retrieve_params import (
         ExchangeRateRetrieveParams,
     )
 

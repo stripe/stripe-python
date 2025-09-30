@@ -6,7 +6,7 @@ from typing import ClassVar, List, Optional
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._balance_retrieve_params import BalanceRetrieveParams
+    from stripe.params.v1._balance_retrieve_params import BalanceRetrieveParams
 
 
 class Balance(SingletonAPIResource["Balance"]):

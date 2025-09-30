@@ -8,7 +8,7 @@ from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.billing_portal._configuration import Configuration
-    from stripe.params.billing_portal._session_create_params import (
+    from stripe.params.v1.billing_portal._session_create_params import (
         SessionCreateParams,
     )
 

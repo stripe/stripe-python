@@ -9,11 +9,13 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.forwarding._request_create_params import (
+    from stripe.params.v1.forwarding._request_create_params import (
         RequestCreateParams,
     )
-    from stripe.params.forwarding._request_list_params import RequestListParams
-    from stripe.params.forwarding._request_retrieve_params import (
+    from stripe.params.v1.forwarding._request_list_params import (
+        RequestListParams,
+    )
+    from stripe.params.v1.forwarding._request_retrieve_params import (
         RequestRetrieveParams,
     )
 

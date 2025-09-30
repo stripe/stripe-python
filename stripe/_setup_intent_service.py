@@ -9,23 +9,25 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._setup_intent_cancel_params import (
+    from stripe.params.v1._setup_intent_cancel_params import (
         SetupIntentCancelParams,
     )
-    from stripe.params._setup_intent_confirm_params import (
+    from stripe.params.v1._setup_intent_confirm_params import (
         SetupIntentConfirmParams,
     )
-    from stripe.params._setup_intent_create_params import (
+    from stripe.params.v1._setup_intent_create_params import (
         SetupIntentCreateParams,
     )
-    from stripe.params._setup_intent_list_params import SetupIntentListParams
-    from stripe.params._setup_intent_retrieve_params import (
+    from stripe.params.v1._setup_intent_list_params import (
+        SetupIntentListParams,
+    )
+    from stripe.params.v1._setup_intent_retrieve_params import (
         SetupIntentRetrieveParams,
     )
-    from stripe.params._setup_intent_update_params import (
+    from stripe.params.v1._setup_intent_update_params import (
         SetupIntentUpdateParams,
     )
-    from stripe.params._setup_intent_verify_microdeposits_params import (
+    from stripe.params.v1._setup_intent_verify_microdeposits_params import (
         SetupIntentVerifyMicrodepositsParams,
     )
 

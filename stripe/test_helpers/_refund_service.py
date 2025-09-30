@@ -8,7 +8,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.test_helpers._refund_expire_params import (
+    from stripe.params.v1.test_helpers._refund_expire_params import (
         RefundExpireParams,
     )
 

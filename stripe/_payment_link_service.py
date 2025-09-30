@@ -10,14 +10,16 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._payment_link_create_params import (
+    from stripe.params.v1._payment_link_create_params import (
         PaymentLinkCreateParams,
     )
-    from stripe.params._payment_link_list_params import PaymentLinkListParams
-    from stripe.params._payment_link_retrieve_params import (
+    from stripe.params.v1._payment_link_list_params import (
+        PaymentLinkListParams,
+    )
+    from stripe.params.v1._payment_link_retrieve_params import (
         PaymentLinkRetrieveParams,
     )
-    from stripe.params._payment_link_update_params import (
+    from stripe.params.v1._payment_link_update_params import (
         PaymentLinkUpdateParams,
     )
 

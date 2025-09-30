@@ -8,9 +8,9 @@ from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._file_link import FileLink
-    from stripe.params._file_create_params import FileCreateParams
-    from stripe.params._file_list_params import FileListParams
-    from stripe.params._file_retrieve_params import FileRetrieveParams
+    from stripe.params.v1._file_create_params import FileCreateParams
+    from stripe.params.v1._file_list_params import FileListParams
+    from stripe.params.v1._file_retrieve_params import FileRetrieveParams
 
 
 class File(CreateableAPIResource["File"], ListableAPIResource["File"]):

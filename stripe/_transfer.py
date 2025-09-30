@@ -15,20 +15,22 @@ if TYPE_CHECKING:
     from stripe._balance_transaction import BalanceTransaction
     from stripe._charge import Charge
     from stripe._reversal import Reversal
-    from stripe.params._transfer_create_params import TransferCreateParams
-    from stripe.params._transfer_create_reversal_params import (
+    from stripe.params.v1._transfer_create_params import TransferCreateParams
+    from stripe.params.v1._transfer_create_reversal_params import (
         TransferCreateReversalParams,
     )
-    from stripe.params._transfer_list_params import TransferListParams
-    from stripe.params._transfer_list_reversals_params import (
+    from stripe.params.v1._transfer_list_params import TransferListParams
+    from stripe.params.v1._transfer_list_reversals_params import (
         TransferListReversalsParams,
     )
-    from stripe.params._transfer_modify_params import TransferModifyParams
-    from stripe.params._transfer_modify_reversal_params import (
+    from stripe.params.v1._transfer_modify_params import TransferModifyParams
+    from stripe.params.v1._transfer_modify_reversal_params import (
         TransferModifyReversalParams,
     )
-    from stripe.params._transfer_retrieve_params import TransferRetrieveParams
-    from stripe.params._transfer_retrieve_reversal_params import (
+    from stripe.params.v1._transfer_retrieve_params import (
+        TransferRetrieveParams,
+    )
+    from stripe.params.v1._transfer_retrieve_reversal_params import (
         TransferRetrieveReversalParams,
     )
 

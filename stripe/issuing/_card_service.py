@@ -9,10 +9,12 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.issuing._card_create_params import CardCreateParams
-    from stripe.params.issuing._card_list_params import CardListParams
-    from stripe.params.issuing._card_retrieve_params import CardRetrieveParams
-    from stripe.params.issuing._card_update_params import CardUpdateParams
+    from stripe.params.v1.issuing._card_create_params import CardCreateParams
+    from stripe.params.v1.issuing._card_list_params import CardListParams
+    from stripe.params.v1.issuing._card_retrieve_params import (
+        CardRetrieveParams,
+    )
+    from stripe.params.v1.issuing._card_update_params import CardUpdateParams
 
 
 class CardService(StripeService):

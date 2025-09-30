@@ -7,10 +7,12 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.tax._settings_retrieve_params import (
+    from stripe.params.v1.tax._settings_retrieve_params import (
         SettingsRetrieveParams,
     )
-    from stripe.params.tax._settings_update_params import SettingsUpdateParams
+    from stripe.params.v1.tax._settings_update_params import (
+        SettingsUpdateParams,
+    )
 
 
 class SettingsService(StripeService):

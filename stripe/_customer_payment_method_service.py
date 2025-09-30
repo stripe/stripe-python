@@ -9,10 +9,10 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._customer_payment_method_list_params import (
+    from stripe.params.v1._customer_payment_method_list_params import (
         CustomerPaymentMethodListParams,
     )
-    from stripe.params._customer_payment_method_retrieve_params import (
+    from stripe.params.v1._customer_payment_method_retrieve_params import (
         CustomerPaymentMethodRetrieveParams,
     )
 

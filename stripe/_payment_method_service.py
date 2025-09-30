@@ -9,22 +9,22 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._payment_method_attach_params import (
+    from stripe.params.v1._payment_method_attach_params import (
         PaymentMethodAttachParams,
     )
-    from stripe.params._payment_method_create_params import (
+    from stripe.params.v1._payment_method_create_params import (
         PaymentMethodCreateParams,
     )
-    from stripe.params._payment_method_detach_params import (
+    from stripe.params.v1._payment_method_detach_params import (
         PaymentMethodDetachParams,
     )
-    from stripe.params._payment_method_list_params import (
+    from stripe.params.v1._payment_method_list_params import (
         PaymentMethodListParams,
     )
-    from stripe.params._payment_method_retrieve_params import (
+    from stripe.params.v1._payment_method_retrieve_params import (
         PaymentMethodRetrieveParams,
     )
-    from stripe.params._payment_method_update_params import (
+    from stripe.params.v1._payment_method_update_params import (
         PaymentMethodUpdateParams,
     )
 

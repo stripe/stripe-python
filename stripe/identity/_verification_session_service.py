@@ -9,22 +9,22 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.identity._verification_session_cancel_params import (
+    from stripe.params.v1.identity._verification_session_cancel_params import (
         VerificationSessionCancelParams,
     )
-    from stripe.params.identity._verification_session_create_params import (
+    from stripe.params.v1.identity._verification_session_create_params import (
         VerificationSessionCreateParams,
     )
-    from stripe.params.identity._verification_session_list_params import (
+    from stripe.params.v1.identity._verification_session_list_params import (
         VerificationSessionListParams,
     )
-    from stripe.params.identity._verification_session_redact_params import (
+    from stripe.params.v1.identity._verification_session_redact_params import (
         VerificationSessionRedactParams,
     )
-    from stripe.params.identity._verification_session_retrieve_params import (
+    from stripe.params.v1.identity._verification_session_retrieve_params import (
         VerificationSessionRetrieveParams,
     )
-    from stripe.params.identity._verification_session_update_params import (
+    from stripe.params.v1.identity._verification_session_update_params import (
         VerificationSessionUpdateParams,
     )
 

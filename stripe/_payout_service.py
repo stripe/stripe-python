@@ -9,12 +9,12 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._payout_cancel_params import PayoutCancelParams
-    from stripe.params._payout_create_params import PayoutCreateParams
-    from stripe.params._payout_list_params import PayoutListParams
-    from stripe.params._payout_retrieve_params import PayoutRetrieveParams
-    from stripe.params._payout_reverse_params import PayoutReverseParams
-    from stripe.params._payout_update_params import PayoutUpdateParams
+    from stripe.params.v1._payout_cancel_params import PayoutCancelParams
+    from stripe.params.v1._payout_create_params import PayoutCreateParams
+    from stripe.params.v1._payout_list_params import PayoutListParams
+    from stripe.params.v1._payout_retrieve_params import PayoutRetrieveParams
+    from stripe.params.v1._payout_reverse_params import PayoutReverseParams
+    from stripe.params.v1._payout_update_params import PayoutUpdateParams
 
 
 class PayoutService(StripeService):

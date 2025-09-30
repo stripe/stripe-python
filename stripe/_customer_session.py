@@ -8,7 +8,7 @@ from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._customer import Customer
-    from stripe.params._customer_session_create_params import (
+    from stripe.params.v1._customer_session_create_params import (
         CustomerSessionCreateParams,
     )
 

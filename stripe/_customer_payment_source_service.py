@@ -12,22 +12,22 @@ from typing import Optional, Union, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._customer_payment_source_create_params import (
+    from stripe.params.v1._customer_payment_source_create_params import (
         CustomerPaymentSourceCreateParams,
     )
-    from stripe.params._customer_payment_source_delete_params import (
+    from stripe.params.v1._customer_payment_source_delete_params import (
         CustomerPaymentSourceDeleteParams,
     )
-    from stripe.params._customer_payment_source_list_params import (
+    from stripe.params.v1._customer_payment_source_list_params import (
         CustomerPaymentSourceListParams,
     )
-    from stripe.params._customer_payment_source_retrieve_params import (
+    from stripe.params.v1._customer_payment_source_retrieve_params import (
         CustomerPaymentSourceRetrieveParams,
     )
-    from stripe.params._customer_payment_source_update_params import (
+    from stripe.params.v1._customer_payment_source_update_params import (
         CustomerPaymentSourceUpdateParams,
     )
-    from stripe.params._customer_payment_source_verify_params import (
+    from stripe.params.v1._customer_payment_source_verify_params import (
         CustomerPaymentSourceVerifyParams,
     )
 

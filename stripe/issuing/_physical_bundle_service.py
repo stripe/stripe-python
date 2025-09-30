@@ -9,10 +9,10 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.issuing._physical_bundle_list_params import (
+    from stripe.params.v1.issuing._physical_bundle_list_params import (
         PhysicalBundleListParams,
     )
-    from stripe.params.issuing._physical_bundle_retrieve_params import (
+    from stripe.params.v1.issuing._physical_bundle_retrieve_params import (
         PhysicalBundleRetrieveParams,
     )
 

@@ -9,8 +9,8 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.climate._product_list_params import ProductListParams
-    from stripe.params.climate._product_retrieve_params import (
+    from stripe.params.v1.climate._product_list_params import ProductListParams
+    from stripe.params.v1.climate._product_retrieve_params import (
         ProductRetrieveParams,
     )
 

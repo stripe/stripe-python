@@ -18,7 +18,9 @@ if TYPE_CHECKING:
     from stripe._payment_method import PaymentMethod
     from stripe._setup_intent import SetupIntent
     from stripe._source import Source
-    from stripe.params._setup_attempt_list_params import SetupAttemptListParams
+    from stripe.params.v1._setup_attempt_list_params import (
+        SetupAttemptListParams,
+    )
 
 
 class SetupAttempt(ListableAPIResource["SetupAttempt"]):

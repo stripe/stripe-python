@@ -21,23 +21,25 @@ if TYPE_CHECKING:
     from stripe._payment_method import PaymentMethod
     from stripe._setup_attempt import SetupAttempt
     from stripe._source import Source
-    from stripe.params._setup_intent_cancel_params import (
+    from stripe.params.v1._setup_intent_cancel_params import (
         SetupIntentCancelParams,
     )
-    from stripe.params._setup_intent_confirm_params import (
+    from stripe.params.v1._setup_intent_confirm_params import (
         SetupIntentConfirmParams,
     )
-    from stripe.params._setup_intent_create_params import (
+    from stripe.params.v1._setup_intent_create_params import (
         SetupIntentCreateParams,
     )
-    from stripe.params._setup_intent_list_params import SetupIntentListParams
-    from stripe.params._setup_intent_modify_params import (
+    from stripe.params.v1._setup_intent_list_params import (
+        SetupIntentListParams,
+    )
+    from stripe.params.v1._setup_intent_modify_params import (
         SetupIntentModifyParams,
     )
-    from stripe.params._setup_intent_retrieve_params import (
+    from stripe.params.v1._setup_intent_retrieve_params import (
         SetupIntentRetrieveParams,
     )
-    from stripe.params._setup_intent_verify_microdeposits_params import (
+    from stripe.params.v1._setup_intent_verify_microdeposits_params import (
         SetupIntentVerifyMicrodepositsParams,
     )
 

@@ -9,14 +9,16 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._shipping_rate_create_params import (
+    from stripe.params.v1._shipping_rate_create_params import (
         ShippingRateCreateParams,
     )
-    from stripe.params._shipping_rate_list_params import ShippingRateListParams
-    from stripe.params._shipping_rate_retrieve_params import (
+    from stripe.params.v1._shipping_rate_list_params import (
+        ShippingRateListParams,
+    )
+    from stripe.params.v1._shipping_rate_retrieve_params import (
         ShippingRateRetrieveParams,
     )
-    from stripe.params._shipping_rate_update_params import (
+    from stripe.params.v1._shipping_rate_update_params import (
         ShippingRateUpdateParams,
     )
 

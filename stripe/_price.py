@@ -22,11 +22,11 @@ from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._product import Product
-    from stripe.params._price_create_params import PriceCreateParams
-    from stripe.params._price_list_params import PriceListParams
-    from stripe.params._price_modify_params import PriceModifyParams
-    from stripe.params._price_retrieve_params import PriceRetrieveParams
-    from stripe.params._price_search_params import PriceSearchParams
+    from stripe.params.v1._price_create_params import PriceCreateParams
+    from stripe.params.v1._price_list_params import PriceListParams
+    from stripe.params.v1._price_modify_params import PriceModifyParams
+    from stripe.params.v1._price_retrieve_params import PriceRetrieveParams
+    from stripe.params.v1._price_search_params import PriceSearchParams
 
 
 class Price(

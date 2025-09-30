@@ -11,13 +11,13 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.tax._transaction_create_from_calculation_params import (
+    from stripe.params.v1.tax._transaction_create_from_calculation_params import (
         TransactionCreateFromCalculationParams,
     )
-    from stripe.params.tax._transaction_create_reversal_params import (
+    from stripe.params.v1.tax._transaction_create_reversal_params import (
         TransactionCreateReversalParams,
     )
-    from stripe.params.tax._transaction_retrieve_params import (
+    from stripe.params.v1.tax._transaction_retrieve_params import (
         TransactionRetrieveParams,
     )
 

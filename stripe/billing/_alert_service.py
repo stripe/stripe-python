@@ -9,16 +9,18 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.billing._alert_activate_params import (
+    from stripe.params.v1.billing._alert_activate_params import (
         AlertActivateParams,
     )
-    from stripe.params.billing._alert_archive_params import AlertArchiveParams
-    from stripe.params.billing._alert_create_params import AlertCreateParams
-    from stripe.params.billing._alert_deactivate_params import (
+    from stripe.params.v1.billing._alert_archive_params import (
+        AlertArchiveParams,
+    )
+    from stripe.params.v1.billing._alert_create_params import AlertCreateParams
+    from stripe.params.v1.billing._alert_deactivate_params import (
         AlertDeactivateParams,
     )
-    from stripe.params.billing._alert_list_params import AlertListParams
-    from stripe.params.billing._alert_retrieve_params import (
+    from stripe.params.v1.billing._alert_list_params import AlertListParams
+    from stripe.params.v1.billing._alert_retrieve_params import (
         AlertRetrieveParams,
     )
 

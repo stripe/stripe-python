@@ -13,10 +13,10 @@ if TYPE_CHECKING:
     from stripe.financial_connections._account import (
         Account as FinancialConnectionsAccountResource,
     )
-    from stripe.params.financial_connections._session_create_params import (
+    from stripe.params.v1.financial_connections._session_create_params import (
         SessionCreateParams,
     )
-    from stripe.params.financial_connections._session_retrieve_params import (
+    from stripe.params.v1.financial_connections._session_retrieve_params import (
         SessionRetrieveParams,
     )
 

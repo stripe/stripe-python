@@ -40,78 +40,80 @@ if TYPE_CHECKING:
     from stripe._source import Source
     from stripe._subscription import Subscription
     from stripe._tax_id import TaxId
-    from stripe.params._customer_create_balance_transaction_params import (
+    from stripe.params.v1._customer_create_balance_transaction_params import (
         CustomerCreateBalanceTransactionParams,
     )
-    from stripe.params._customer_create_funding_instructions_params import (
+    from stripe.params.v1._customer_create_funding_instructions_params import (
         CustomerCreateFundingInstructionsParams,
     )
-    from stripe.params._customer_create_params import CustomerCreateParams
-    from stripe.params._customer_create_source_params import (
+    from stripe.params.v1._customer_create_params import CustomerCreateParams
+    from stripe.params.v1._customer_create_source_params import (
         CustomerCreateSourceParams,
     )
-    from stripe.params._customer_create_tax_id_params import (
+    from stripe.params.v1._customer_create_tax_id_params import (
         CustomerCreateTaxIdParams,
     )
-    from stripe.params._customer_delete_discount_params import (
+    from stripe.params.v1._customer_delete_discount_params import (
         CustomerDeleteDiscountParams,
     )
-    from stripe.params._customer_delete_params import CustomerDeleteParams
-    from stripe.params._customer_delete_source_params import (
+    from stripe.params.v1._customer_delete_params import CustomerDeleteParams
+    from stripe.params.v1._customer_delete_source_params import (
         CustomerDeleteSourceParams,
     )
-    from stripe.params._customer_delete_tax_id_params import (
+    from stripe.params.v1._customer_delete_tax_id_params import (
         CustomerDeleteTaxIdParams,
     )
-    from stripe.params._customer_fund_cash_balance_params import (
+    from stripe.params.v1._customer_fund_cash_balance_params import (
         CustomerFundCashBalanceParams,
     )
-    from stripe.params._customer_list_balance_transactions_params import (
+    from stripe.params.v1._customer_list_balance_transactions_params import (
         CustomerListBalanceTransactionsParams,
     )
-    from stripe.params._customer_list_cash_balance_transactions_params import (
+    from stripe.params.v1._customer_list_cash_balance_transactions_params import (
         CustomerListCashBalanceTransactionsParams,
     )
-    from stripe.params._customer_list_params import CustomerListParams
-    from stripe.params._customer_list_payment_methods_params import (
+    from stripe.params.v1._customer_list_params import CustomerListParams
+    from stripe.params.v1._customer_list_payment_methods_params import (
         CustomerListPaymentMethodsParams,
     )
-    from stripe.params._customer_list_sources_params import (
+    from stripe.params.v1._customer_list_sources_params import (
         CustomerListSourcesParams,
     )
-    from stripe.params._customer_list_tax_ids_params import (
+    from stripe.params.v1._customer_list_tax_ids_params import (
         CustomerListTaxIdsParams,
     )
-    from stripe.params._customer_modify_balance_transaction_params import (
+    from stripe.params.v1._customer_modify_balance_transaction_params import (
         CustomerModifyBalanceTransactionParams,
     )
-    from stripe.params._customer_modify_cash_balance_params import (
+    from stripe.params.v1._customer_modify_cash_balance_params import (
         CustomerModifyCashBalanceParams,
     )
-    from stripe.params._customer_modify_params import CustomerModifyParams
-    from stripe.params._customer_modify_source_params import (
+    from stripe.params.v1._customer_modify_params import CustomerModifyParams
+    from stripe.params.v1._customer_modify_source_params import (
         CustomerModifySourceParams,
     )
-    from stripe.params._customer_retrieve_balance_transaction_params import (
+    from stripe.params.v1._customer_retrieve_balance_transaction_params import (
         CustomerRetrieveBalanceTransactionParams,
     )
-    from stripe.params._customer_retrieve_cash_balance_params import (
+    from stripe.params.v1._customer_retrieve_cash_balance_params import (
         CustomerRetrieveCashBalanceParams,
     )
-    from stripe.params._customer_retrieve_cash_balance_transaction_params import (
+    from stripe.params.v1._customer_retrieve_cash_balance_transaction_params import (
         CustomerRetrieveCashBalanceTransactionParams,
     )
-    from stripe.params._customer_retrieve_params import CustomerRetrieveParams
-    from stripe.params._customer_retrieve_payment_method_params import (
+    from stripe.params.v1._customer_retrieve_params import (
+        CustomerRetrieveParams,
+    )
+    from stripe.params.v1._customer_retrieve_payment_method_params import (
         CustomerRetrievePaymentMethodParams,
     )
-    from stripe.params._customer_retrieve_source_params import (
+    from stripe.params.v1._customer_retrieve_source_params import (
         CustomerRetrieveSourceParams,
     )
-    from stripe.params._customer_retrieve_tax_id_params import (
+    from stripe.params.v1._customer_retrieve_tax_id_params import (
         CustomerRetrieveTaxIdParams,
     )
-    from stripe.params._customer_search_params import CustomerSearchParams
+    from stripe.params.v1._customer_search_params import CustomerSearchParams
     from stripe.test_helpers._test_clock import TestClock
 
 

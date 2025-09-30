@@ -10,10 +10,12 @@ from typing import ClassVar, Dict, Optional, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._tax_rate_create_params import TaxRateCreateParams
-    from stripe.params._tax_rate_list_params import TaxRateListParams
-    from stripe.params._tax_rate_modify_params import TaxRateModifyParams
-    from stripe.params._tax_rate_retrieve_params import TaxRateRetrieveParams
+    from stripe.params.v1._tax_rate_create_params import TaxRateCreateParams
+    from stripe.params.v1._tax_rate_list_params import TaxRateListParams
+    from stripe.params.v1._tax_rate_modify_params import TaxRateModifyParams
+    from stripe.params.v1._tax_rate_retrieve_params import (
+        TaxRateRetrieveParams,
+    )
 
 
 class TaxRate(

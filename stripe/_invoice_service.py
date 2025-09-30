@@ -11,36 +11,38 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._invoice_add_lines_params import InvoiceAddLinesParams
-    from stripe.params._invoice_attach_payment_params import (
+    from stripe.params.v1._invoice_add_lines_params import (
+        InvoiceAddLinesParams,
+    )
+    from stripe.params.v1._invoice_attach_payment_params import (
         InvoiceAttachPaymentParams,
     )
-    from stripe.params._invoice_create_params import InvoiceCreateParams
-    from stripe.params._invoice_create_preview_params import (
+    from stripe.params.v1._invoice_create_params import InvoiceCreateParams
+    from stripe.params.v1._invoice_create_preview_params import (
         InvoiceCreatePreviewParams,
     )
-    from stripe.params._invoice_delete_params import InvoiceDeleteParams
-    from stripe.params._invoice_finalize_invoice_params import (
+    from stripe.params.v1._invoice_delete_params import InvoiceDeleteParams
+    from stripe.params.v1._invoice_finalize_invoice_params import (
         InvoiceFinalizeInvoiceParams,
     )
-    from stripe.params._invoice_list_params import InvoiceListParams
-    from stripe.params._invoice_mark_uncollectible_params import (
+    from stripe.params.v1._invoice_list_params import InvoiceListParams
+    from stripe.params.v1._invoice_mark_uncollectible_params import (
         InvoiceMarkUncollectibleParams,
     )
-    from stripe.params._invoice_pay_params import InvoicePayParams
-    from stripe.params._invoice_remove_lines_params import (
+    from stripe.params.v1._invoice_pay_params import InvoicePayParams
+    from stripe.params.v1._invoice_remove_lines_params import (
         InvoiceRemoveLinesParams,
     )
-    from stripe.params._invoice_retrieve_params import InvoiceRetrieveParams
-    from stripe.params._invoice_search_params import InvoiceSearchParams
-    from stripe.params._invoice_send_invoice_params import (
+    from stripe.params.v1._invoice_retrieve_params import InvoiceRetrieveParams
+    from stripe.params.v1._invoice_search_params import InvoiceSearchParams
+    from stripe.params.v1._invoice_send_invoice_params import (
         InvoiceSendInvoiceParams,
     )
-    from stripe.params._invoice_update_lines_params import (
+    from stripe.params.v1._invoice_update_lines_params import (
         InvoiceUpdateLinesParams,
     )
-    from stripe.params._invoice_update_params import InvoiceUpdateParams
-    from stripe.params._invoice_void_invoice_params import (
+    from stripe.params.v1._invoice_update_params import InvoiceUpdateParams
+    from stripe.params.v1._invoice_void_invoice_params import (
         InvoiceVoidInvoiceParams,
     )
 

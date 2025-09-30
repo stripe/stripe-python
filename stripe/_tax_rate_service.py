@@ -9,10 +9,12 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._tax_rate_create_params import TaxRateCreateParams
-    from stripe.params._tax_rate_list_params import TaxRateListParams
-    from stripe.params._tax_rate_retrieve_params import TaxRateRetrieveParams
-    from stripe.params._tax_rate_update_params import TaxRateUpdateParams
+    from stripe.params.v1._tax_rate_create_params import TaxRateCreateParams
+    from stripe.params.v1._tax_rate_list_params import TaxRateListParams
+    from stripe.params.v1._tax_rate_retrieve_params import (
+        TaxRateRetrieveParams,
+    )
+    from stripe.params.v1._tax_rate_update_params import TaxRateUpdateParams
 
 
 class TaxRateService(StripeService):
