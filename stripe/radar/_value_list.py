@@ -4,19 +4,25 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, Dict, List, Optional, cast, overload
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing import ClassVar, Dict, Optional, cast, overload
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.params.radar._value_list_create_params import (
+        ValueListCreateParams,
+    )
+    from stripe.params.radar._value_list_delete_params import (
+        ValueListDeleteParams,
+    )
+    from stripe.params.radar._value_list_list_params import ValueListListParams
+    from stripe.params.radar._value_list_modify_params import (
+        ValueListModifyParams,
+    )
+    from stripe.params.radar._value_list_retrieve_params import (
+        ValueListRetrieveParams,
+    )
     from stripe.radar._value_list_item import ValueListItem
 
 
@@ -33,117 +39,6 @@ class ValueList(
     """
 
     OBJECT_NAME: ClassVar[Literal["radar.value_list"]] = "radar.value_list"
-
-    class CreateParams(RequestOptions):
-        alias: str
-        """
-        The name of the value list for use in rules.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        item_type: NotRequired[
-            Literal[
-                "card_bin",
-                "card_fingerprint",
-                "case_sensitive_string",
-                "country",
-                "customer_id",
-                "email",
-                "ip_address",
-                "sepa_debit_fingerprint",
-                "string",
-                "us_bank_account_fingerprint",
-            ]
-        ]
-        """
-        Type of the items in the value list. One of `card_fingerprint`, `card_bin`, `email`, `ip_address`, `country`, `string`, `case_sensitive_string`, `customer_id`, `sepa_debit_fingerprint`, or `us_bank_account_fingerprint`. Use `string` if the item type is unknown or mixed.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        name: str
-        """
-        The human-readable name of the value list.
-        """
-
-    class DeleteParams(RequestOptions):
-        pass
-
-    class ListParams(RequestOptions):
-        alias: NotRequired[str]
-        """
-        The alias used to reference the value list when writing rules.
-        """
-        contains: NotRequired[str]
-        """
-        A value contained within a value list - returns all value lists containing this value.
-        """
-        created: NotRequired["ValueList.ListParamsCreated|int"]
-        """
-        Only return value lists that were created during the given date interval.
-        """
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired[int]
-        """
-        Minimum value to filter by (exclusive)
-        """
-        gte: NotRequired[int]
-        """
-        Minimum value to filter by (inclusive)
-        """
-        lt: NotRequired[int]
-        """
-        Maximum value to filter by (exclusive)
-        """
-        lte: NotRequired[int]
-        """
-        Maximum value to filter by (inclusive)
-        """
-
-    class ModifyParams(RequestOptions):
-        alias: NotRequired[str]
-        """
-        The name of the value list for use in rules.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        name: NotRequired[str]
-        """
-        The human-readable name of the value list.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     alias: str
     """
     The name of the value list for use in rules.
@@ -201,7 +96,7 @@ class ValueList(
     """
 
     @classmethod
-    def create(cls, **params: Unpack["ValueList.CreateParams"]) -> "ValueList":
+    def create(cls, **params: Unpack["ValueListCreateParams"]) -> "ValueList":
         """
         Creates a new ValueList object, which can then be referenced in rules.
         """
@@ -216,7 +111,7 @@ class ValueList(
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["ValueList.CreateParams"]
+        cls, **params: Unpack["ValueListCreateParams"]
     ) -> "ValueList":
         """
         Creates a new ValueList object, which can then be referenced in rules.
@@ -232,7 +127,7 @@ class ValueList(
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["ValueList.DeleteParams"]
+        cls, sid: str, **params: Unpack["ValueListDeleteParams"]
     ) -> "ValueList":
         """
         Deletes a ValueList object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.
@@ -250,7 +145,7 @@ class ValueList(
     @overload
     @staticmethod
     def delete(
-        sid: str, **params: Unpack["ValueList.DeleteParams"]
+        sid: str, **params: Unpack["ValueListDeleteParams"]
     ) -> "ValueList":
         """
         Deletes a ValueList object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.
@@ -258,9 +153,7 @@ class ValueList(
         ...
 
     @overload
-    def delete(
-        self, **params: Unpack["ValueList.DeleteParams"]
-    ) -> "ValueList":
+    def delete(self, **params: Unpack["ValueListDeleteParams"]) -> "ValueList":
         """
         Deletes a ValueList object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.
         """
@@ -268,7 +161,7 @@ class ValueList(
 
     @class_method_variant("_cls_delete")
     def delete(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["ValueList.DeleteParams"]
+        self, **params: Unpack["ValueListDeleteParams"]
     ) -> "ValueList":
         """
         Deletes a ValueList object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.
@@ -281,7 +174,7 @@ class ValueList(
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["ValueList.DeleteParams"]
+        cls, sid: str, **params: Unpack["ValueListDeleteParams"]
     ) -> "ValueList":
         """
         Deletes a ValueList object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.
@@ -299,7 +192,7 @@ class ValueList(
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["ValueList.DeleteParams"]
+        sid: str, **params: Unpack["ValueListDeleteParams"]
     ) -> "ValueList":
         """
         Deletes a ValueList object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.
@@ -308,7 +201,7 @@ class ValueList(
 
     @overload
     async def delete_async(
-        self, **params: Unpack["ValueList.DeleteParams"]
+        self, **params: Unpack["ValueListDeleteParams"]
     ) -> "ValueList":
         """
         Deletes a ValueList object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.
@@ -317,7 +210,7 @@ class ValueList(
 
     @class_method_variant("_cls_delete_async")
     async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["ValueList.DeleteParams"]
+        self, **params: Unpack["ValueListDeleteParams"]
     ) -> "ValueList":
         """
         Deletes a ValueList object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.
@@ -330,7 +223,7 @@ class ValueList(
 
     @classmethod
     def list(
-        cls, **params: Unpack["ValueList.ListParams"]
+        cls, **params: Unpack["ValueListListParams"]
     ) -> ListObject["ValueList"]:
         """
         Returns a list of ValueList objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
@@ -350,7 +243,7 @@ class ValueList(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["ValueList.ListParams"]
+        cls, **params: Unpack["ValueListListParams"]
     ) -> ListObject["ValueList"]:
         """
         Returns a list of ValueList objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
@@ -370,7 +263,7 @@ class ValueList(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["ValueList.ModifyParams"]
+        cls, id: str, **params: Unpack["ValueListModifyParams"]
     ) -> "ValueList":
         """
         Updates a ValueList object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Note that item_type is immutable.
@@ -387,7 +280,7 @@ class ValueList(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["ValueList.ModifyParams"]
+        cls, id: str, **params: Unpack["ValueListModifyParams"]
     ) -> "ValueList":
         """
         Updates a ValueList object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Note that item_type is immutable.
@@ -404,7 +297,7 @@ class ValueList(
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["ValueList.RetrieveParams"]
+        cls, id: str, **params: Unpack["ValueListRetrieveParams"]
     ) -> "ValueList":
         """
         Retrieves a ValueList object.
@@ -415,7 +308,7 @@ class ValueList(
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["ValueList.RetrieveParams"]
+        cls, id: str, **params: Unpack["ValueListRetrieveParams"]
     ) -> "ValueList":
         """
         Retrieves a ValueList object.

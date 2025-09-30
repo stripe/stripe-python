@@ -4,21 +4,26 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, List, Optional, cast, overload
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._customer import Customer
     from stripe.billing._meter import Meter
+    from stripe.params.billing._alert_activate_params import (
+        AlertActivateParams,
+    )
+    from stripe.params.billing._alert_archive_params import AlertArchiveParams
+    from stripe.params.billing._alert_create_params import AlertCreateParams
+    from stripe.params.billing._alert_deactivate_params import (
+        AlertDeactivateParams,
+    )
+    from stripe.params.billing._alert_list_params import AlertListParams
+    from stripe.params.billing._alert_retrieve_params import (
+        AlertRetrieveParams,
+    )
 
 
 class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
@@ -54,102 +59,6 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
         """
         _inner_class_types = {"filters": Filter}
 
-    class ActivateParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class ArchiveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class CreateParams(RequestOptions):
-        alert_type: Literal["usage_threshold"]
-        """
-        The type of alert to create.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        title: str
-        """
-        The title of the alert.
-        """
-        usage_threshold: NotRequired["Alert.CreateParamsUsageThreshold"]
-        """
-        The configuration of the usage threshold.
-        """
-
-    class CreateParamsUsageThreshold(TypedDict):
-        filters: NotRequired[List["Alert.CreateParamsUsageThresholdFilter"]]
-        """
-        The filters allows limiting the scope of this usage alert. You can only specify up to one filter at this time.
-        """
-        gte: int
-        """
-        Defines at which value the alert will fire.
-        """
-        meter: str
-        """
-        The [Billing Meter](https://docs.stripe.com/api/billing/meter) ID whose usage is monitored.
-        """
-        recurrence: Literal["one_time"]
-        """
-        Defines how the alert will behave.
-        """
-
-    class CreateParamsUsageThresholdFilter(TypedDict):
-        customer: NotRequired[str]
-        """
-        Limit the scope to this usage alert only to this customer.
-        """
-        type: Literal["customer"]
-        """
-        What type of filter is being applied to this usage alert.
-        """
-
-    class DeactivateParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class ListParams(RequestOptions):
-        alert_type: NotRequired[Literal["usage_threshold"]]
-        """
-        Filter results to only include this type of alert.
-        """
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        meter: NotRequired[str]
-        """
-        Filter results to only include alerts with the given meter.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     alert_type: Literal["usage_threshold"]
     """
     Defines the type of the alert.
@@ -181,7 +90,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
 
     @classmethod
     def _cls_activate(
-        cls, id: str, **params: Unpack["Alert.ActivateParams"]
+        cls, id: str, **params: Unpack["AlertActivateParams"]
     ) -> "Alert":
         """
         Reactivates this alert, allowing it to trigger again.
@@ -197,14 +106,14 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
 
     @overload
     @staticmethod
-    def activate(id: str, **params: Unpack["Alert.ActivateParams"]) -> "Alert":
+    def activate(id: str, **params: Unpack["AlertActivateParams"]) -> "Alert":
         """
         Reactivates this alert, allowing it to trigger again.
         """
         ...
 
     @overload
-    def activate(self, **params: Unpack["Alert.ActivateParams"]) -> "Alert":
+    def activate(self, **params: Unpack["AlertActivateParams"]) -> "Alert":
         """
         Reactivates this alert, allowing it to trigger again.
         """
@@ -212,7 +121,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
 
     @class_method_variant("_cls_activate")
     def activate(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Alert.ActivateParams"]
+        self, **params: Unpack["AlertActivateParams"]
     ) -> "Alert":
         """
         Reactivates this alert, allowing it to trigger again.
@@ -230,7 +139,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
 
     @classmethod
     async def _cls_activate_async(
-        cls, id: str, **params: Unpack["Alert.ActivateParams"]
+        cls, id: str, **params: Unpack["AlertActivateParams"]
     ) -> "Alert":
         """
         Reactivates this alert, allowing it to trigger again.
@@ -247,7 +156,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
     @overload
     @staticmethod
     async def activate_async(
-        id: str, **params: Unpack["Alert.ActivateParams"]
+        id: str, **params: Unpack["AlertActivateParams"]
     ) -> "Alert":
         """
         Reactivates this alert, allowing it to trigger again.
@@ -256,7 +165,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
 
     @overload
     async def activate_async(
-        self, **params: Unpack["Alert.ActivateParams"]
+        self, **params: Unpack["AlertActivateParams"]
     ) -> "Alert":
         """
         Reactivates this alert, allowing it to trigger again.
@@ -265,7 +174,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
 
     @class_method_variant("_cls_activate_async")
     async def activate_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Alert.ActivateParams"]
+        self, **params: Unpack["AlertActivateParams"]
     ) -> "Alert":
         """
         Reactivates this alert, allowing it to trigger again.
@@ -283,7 +192,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
 
     @classmethod
     def _cls_archive(
-        cls, id: str, **params: Unpack["Alert.ArchiveParams"]
+        cls, id: str, **params: Unpack["AlertArchiveParams"]
     ) -> "Alert":
         """
         Archives this alert, removing it from the list view and APIs. This is non-reversible.
@@ -299,14 +208,14 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
 
     @overload
     @staticmethod
-    def archive(id: str, **params: Unpack["Alert.ArchiveParams"]) -> "Alert":
+    def archive(id: str, **params: Unpack["AlertArchiveParams"]) -> "Alert":
         """
         Archives this alert, removing it from the list view and APIs. This is non-reversible.
         """
         ...
 
     @overload
-    def archive(self, **params: Unpack["Alert.ArchiveParams"]) -> "Alert":
+    def archive(self, **params: Unpack["AlertArchiveParams"]) -> "Alert":
         """
         Archives this alert, removing it from the list view and APIs. This is non-reversible.
         """
@@ -314,7 +223,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
 
     @class_method_variant("_cls_archive")
     def archive(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Alert.ArchiveParams"]
+        self, **params: Unpack["AlertArchiveParams"]
     ) -> "Alert":
         """
         Archives this alert, removing it from the list view and APIs. This is non-reversible.
@@ -332,7 +241,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
 
     @classmethod
     async def _cls_archive_async(
-        cls, id: str, **params: Unpack["Alert.ArchiveParams"]
+        cls, id: str, **params: Unpack["AlertArchiveParams"]
     ) -> "Alert":
         """
         Archives this alert, removing it from the list view and APIs. This is non-reversible.
@@ -349,7 +258,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
     @overload
     @staticmethod
     async def archive_async(
-        id: str, **params: Unpack["Alert.ArchiveParams"]
+        id: str, **params: Unpack["AlertArchiveParams"]
     ) -> "Alert":
         """
         Archives this alert, removing it from the list view and APIs. This is non-reversible.
@@ -358,7 +267,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
 
     @overload
     async def archive_async(
-        self, **params: Unpack["Alert.ArchiveParams"]
+        self, **params: Unpack["AlertArchiveParams"]
     ) -> "Alert":
         """
         Archives this alert, removing it from the list view and APIs. This is non-reversible.
@@ -367,7 +276,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
 
     @class_method_variant("_cls_archive_async")
     async def archive_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Alert.ArchiveParams"]
+        self, **params: Unpack["AlertArchiveParams"]
     ) -> "Alert":
         """
         Archives this alert, removing it from the list view and APIs. This is non-reversible.
@@ -384,7 +293,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
         )
 
     @classmethod
-    def create(cls, **params: Unpack["Alert.CreateParams"]) -> "Alert":
+    def create(cls, **params: Unpack["AlertCreateParams"]) -> "Alert":
         """
         Creates a billing alert
         """
@@ -399,7 +308,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["Alert.CreateParams"]
+        cls, **params: Unpack["AlertCreateParams"]
     ) -> "Alert":
         """
         Creates a billing alert
@@ -415,7 +324,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
 
     @classmethod
     def _cls_deactivate(
-        cls, id: str, **params: Unpack["Alert.DeactivateParams"]
+        cls, id: str, **params: Unpack["AlertDeactivateParams"]
     ) -> "Alert":
         """
         Deactivates this alert, preventing it from triggering.
@@ -434,7 +343,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
     @overload
     @staticmethod
     def deactivate(
-        id: str, **params: Unpack["Alert.DeactivateParams"]
+        id: str, **params: Unpack["AlertDeactivateParams"]
     ) -> "Alert":
         """
         Deactivates this alert, preventing it from triggering.
@@ -442,9 +351,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
         ...
 
     @overload
-    def deactivate(
-        self, **params: Unpack["Alert.DeactivateParams"]
-    ) -> "Alert":
+    def deactivate(self, **params: Unpack["AlertDeactivateParams"]) -> "Alert":
         """
         Deactivates this alert, preventing it from triggering.
         """
@@ -452,7 +359,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
 
     @class_method_variant("_cls_deactivate")
     def deactivate(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Alert.DeactivateParams"]
+        self, **params: Unpack["AlertDeactivateParams"]
     ) -> "Alert":
         """
         Deactivates this alert, preventing it from triggering.
@@ -470,7 +377,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
 
     @classmethod
     async def _cls_deactivate_async(
-        cls, id: str, **params: Unpack["Alert.DeactivateParams"]
+        cls, id: str, **params: Unpack["AlertDeactivateParams"]
     ) -> "Alert":
         """
         Deactivates this alert, preventing it from triggering.
@@ -489,7 +396,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
     @overload
     @staticmethod
     async def deactivate_async(
-        id: str, **params: Unpack["Alert.DeactivateParams"]
+        id: str, **params: Unpack["AlertDeactivateParams"]
     ) -> "Alert":
         """
         Deactivates this alert, preventing it from triggering.
@@ -498,7 +405,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
 
     @overload
     async def deactivate_async(
-        self, **params: Unpack["Alert.DeactivateParams"]
+        self, **params: Unpack["AlertDeactivateParams"]
     ) -> "Alert":
         """
         Deactivates this alert, preventing it from triggering.
@@ -507,7 +414,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
 
     @class_method_variant("_cls_deactivate_async")
     async def deactivate_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Alert.DeactivateParams"]
+        self, **params: Unpack["AlertDeactivateParams"]
     ) -> "Alert":
         """
         Deactivates this alert, preventing it from triggering.
@@ -524,7 +431,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
         )
 
     @classmethod
-    def list(cls, **params: Unpack["Alert.ListParams"]) -> ListObject["Alert"]:
+    def list(cls, **params: Unpack["AlertListParams"]) -> ListObject["Alert"]:
         """
         Lists billing active and inactive alerts
         """
@@ -543,7 +450,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["Alert.ListParams"]
+        cls, **params: Unpack["AlertListParams"]
     ) -> ListObject["Alert"]:
         """
         Lists billing active and inactive alerts
@@ -563,7 +470,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["Alert.RetrieveParams"]
+        cls, id: str, **params: Unpack["AlertRetrieveParams"]
     ) -> "Alert":
         """
         Retrieves a billing alert given an ID
@@ -574,7 +481,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["Alert.RetrieveParams"]
+        cls, id: str, **params: Unpack["AlertRetrieveParams"]
     ) -> "Alert":
         """
         Retrieves a billing alert given an ID

@@ -3,68 +3,19 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe.billing._credit_balance_summary import CreditBalanceSummary
-from typing import List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.billing._credit_balance_summary_retrieve_params import (
+        CreditBalanceSummaryRetrieveParams,
+    )
 
 
 class CreditBalanceSummaryService(StripeService):
-    class RetrieveParams(TypedDict):
-        customer: NotRequired[str]
-        """
-        The customer for which to fetch credit balance summary.
-        """
-        customer_account: NotRequired[str]
-        """
-        The account for which to fetch credit balance summary.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        filter: "CreditBalanceSummaryService.RetrieveParamsFilter"
-        """
-        The filter criteria for the credit balance summary.
-        """
-
-    class RetrieveParamsFilter(TypedDict):
-        applicability_scope: NotRequired[
-            "CreditBalanceSummaryService.RetrieveParamsFilterApplicabilityScope"
-        ]
-        """
-        The billing credit applicability scope for which to fetch credit balance summary.
-        """
-        credit_grant: NotRequired[str]
-        """
-        The credit grant for which to fetch credit balance summary.
-        """
-        type: Literal["applicability_scope", "credit_grant"]
-        """
-        Specify the type of this filter.
-        """
-
-    class RetrieveParamsFilterApplicabilityScope(TypedDict):
-        price_type: NotRequired[Literal["metered"]]
-        """
-        The price type that credit grants can apply to. We currently only support the `metered` price type. Cannot be used in combination with `prices`.
-        """
-        prices: NotRequired[
-            List[
-                "CreditBalanceSummaryService.RetrieveParamsFilterApplicabilityScopePrice"
-            ]
-        ]
-        """
-        A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`.
-        """
-
-    class RetrieveParamsFilterApplicabilityScopePrice(TypedDict):
-        id: str
-        """
-        The price ID this credit grant should apply to.
-        """
-
     def retrieve(
         self,
-        params: "CreditBalanceSummaryService.RetrieveParams",
+        params: "CreditBalanceSummaryRetrieveParams",
         options: Optional[RequestOptions] = None,
     ) -> CreditBalanceSummary:
         """
@@ -83,7 +34,7 @@ class CreditBalanceSummaryService(StripeService):
 
     async def retrieve_async(
         self,
-        params: "CreditBalanceSummaryService.RetrieveParams",
+        params: "CreditBalanceSummaryRetrieveParams",
         options: Optional[RequestOptions] = None,
     ) -> CreditBalanceSummary:
         """

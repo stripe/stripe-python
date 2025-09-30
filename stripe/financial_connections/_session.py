@@ -3,22 +3,21 @@
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from typing import ClassVar, List, Optional, cast
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._account import Account as AccountResource
     from stripe._customer import Customer
     from stripe.financial_connections._account import (
         Account as FinancialConnectionsAccountResource,
+    )
+    from stripe.params.financial_connections._session_create_params import (
+        SessionCreateParams,
+    )
+    from stripe.params.financial_connections._session_retrieve_params import (
+        SessionRetrieveParams,
     )
 
 
@@ -89,113 +88,6 @@ class Session(CreateableAPIResource["Session"]):
         cancelled: Optional[Cancelled]
         _inner_class_types = {"cancelled": Cancelled}
 
-    class CreateParams(RequestOptions):
-        account_holder: "Session.CreateParamsAccountHolder"
-        """
-        The account holder to link accounts for.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        filters: NotRequired["Session.CreateParamsFilters"]
-        """
-        Filters to restrict the kinds of accounts to collect.
-        """
-        limits: NotRequired["Session.CreateParamsLimits"]
-        """
-        Settings for configuring Session-specific limits.
-        """
-        manual_entry: NotRequired["Session.CreateParamsManualEntry"]
-        """
-        Customize manual entry behavior
-        """
-        permissions: List[
-            Literal["balances", "ownership", "payment_method", "transactions"]
-        ]
-        """
-        List of data features that you would like to request access to.
-
-        Possible values are `balances`, `transactions`, `ownership`, and `payment_method`.
-        """
-        prefetch: NotRequired[
-            List[
-                Literal[
-                    "balances",
-                    "inferred_balances",
-                    "ownership",
-                    "transactions",
-                ]
-            ]
-        ]
-        """
-        List of data features that you would like to retrieve upon account creation.
-        """
-        return_url: NotRequired[str]
-        """
-        For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
-        """
-
-    class CreateParamsAccountHolder(TypedDict):
-        account: NotRequired[str]
-        """
-        The ID of the Stripe account whose accounts will be retrieved. Should only be present if `type` is `account`.
-        """
-        customer: NotRequired[str]
-        """
-        The ID of the Stripe customer whose accounts will be retrieved. Should only be present if `type` is `customer`.
-        """
-        customer_account: NotRequired[str]
-        """
-        The ID of the Stripe customer Account whose accounts will be retrieved. Should only be present if `type` is `customer`.
-        """
-        type: Literal["account", "customer"]
-        """
-        Type of account holder to collect accounts for.
-        """
-
-    class CreateParamsFilters(TypedDict):
-        account_subcategories: NotRequired[
-            List[
-                Literal[
-                    "checking",
-                    "credit_card",
-                    "line_of_credit",
-                    "mortgage",
-                    "savings",
-                ]
-            ]
-        ]
-        """
-        Restricts the Session to subcategories of accounts that can be linked. Valid subcategories are: `checking`, `savings`, `mortgage`, `line_of_credit`, `credit_card`.
-        """
-        countries: NotRequired[List[str]]
-        """
-        List of countries from which to collect accounts.
-        """
-        institution: NotRequired[str]
-        """
-        Stripe ID of the institution with which the customer should be directed to log in.
-        """
-
-    class CreateParamsLimits(TypedDict):
-        accounts: int
-        """
-        The number of accounts that can be linked in this Session.
-        """
-
-    class CreateParamsManualEntry(TypedDict):
-        mode: NotRequired[Literal["automatic", "custom"]]
-        """
-        Whether manual entry will be handled by Stripe during the Session.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     account_holder: Optional[AccountHolder]
     """
     The account holder for whom accounts are collected in this session.
@@ -250,7 +142,7 @@ class Session(CreateableAPIResource["Session"]):
     status_details: Optional[StatusDetails]
 
     @classmethod
-    def create(cls, **params: Unpack["Session.CreateParams"]) -> "Session":
+    def create(cls, **params: Unpack["SessionCreateParams"]) -> "Session":
         """
         To launch the Financial Connections authorization flow, create a Session. The session's client_secret can be used to launch the flow using Stripe.js.
         """
@@ -265,7 +157,7 @@ class Session(CreateableAPIResource["Session"]):
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["Session.CreateParams"]
+        cls, **params: Unpack["SessionCreateParams"]
     ) -> "Session":
         """
         To launch the Financial Connections authorization flow, create a Session. The session's client_secret can be used to launch the flow using Stripe.js.
@@ -281,7 +173,7 @@ class Session(CreateableAPIResource["Session"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["Session.RetrieveParams"]
+        cls, id: str, **params: Unpack["SessionRetrieveParams"]
     ) -> "Session":
         """
         Retrieves the details of a Financial Connections Session
@@ -292,7 +184,7 @@ class Session(CreateableAPIResource["Session"]):
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["Session.RetrieveParams"]
+        cls, id: str, **params: Unpack["SessionRetrieveParams"]
     ) -> "Session":
         """
         Retrieves the details of a Financial Connections Session

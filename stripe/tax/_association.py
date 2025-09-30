@@ -1,10 +1,14 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._api_resource import APIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from typing import ClassVar, List, Optional, cast
-from typing_extensions import Literal, NotRequired, Unpack
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.tax._association_find_params import (
+        AssociationFindParams,
+    )
 
 
 class Association(APIResource["Association"]):
@@ -45,16 +49,6 @@ class Association(APIResource["Association"]):
         """
         _inner_class_types = {"committed": Committed, "errored": Errored}
 
-    class FindParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        payment_intent: str
-        """
-        Valid [PaymentIntent](https://stripe.com/docs/api/payment_intents/object) id
-        """
-
     calculation: str
     """
     The [Tax Calculation](https://stripe.com/docs/api/tax/calculations/object) that was included in PaymentIntent.
@@ -77,7 +71,7 @@ class Association(APIResource["Association"]):
     """
 
     @classmethod
-    def find(cls, **params: Unpack["Association.FindParams"]) -> "Association":
+    def find(cls, **params: Unpack["AssociationFindParams"]) -> "Association":
         """
         Finds a tax association object by PaymentIntent id.
         """
@@ -92,7 +86,7 @@ class Association(APIResource["Association"]):
 
     @classmethod
     async def find_async(
-        cls, **params: Unpack["Association.FindParams"]
+        cls, **params: Unpack["AssociationFindParams"]
     ) -> "Association":
         """
         Finds a tax association object by PaymentIntent id.

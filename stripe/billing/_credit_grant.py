@@ -4,21 +4,32 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._customer import Customer
+    from stripe.params.billing._credit_grant_create_params import (
+        CreditGrantCreateParams,
+    )
+    from stripe.params.billing._credit_grant_expire_params import (
+        CreditGrantExpireParams,
+    )
+    from stripe.params.billing._credit_grant_list_params import (
+        CreditGrantListParams,
+    )
+    from stripe.params.billing._credit_grant_modify_params import (
+        CreditGrantModifyParams,
+    )
+    from stripe.params.billing._credit_grant_retrieve_params import (
+        CreditGrantRetrieveParams,
+    )
+    from stripe.params.billing._credit_grant_void_grant_params import (
+        CreditGrantVoidGrantParams,
+    )
     from stripe.test_helpers._test_clock import TestClock
 
 
@@ -78,154 +89,6 @@ class CreditGrant(
 
         scope: Scope
         _inner_class_types = {"scope": Scope}
-
-    class CreateParams(RequestOptions):
-        amount: "CreditGrant.CreateParamsAmount"
-        """
-        Amount of this credit grant.
-        """
-        applicability_config: "CreditGrant.CreateParamsApplicabilityConfig"
-        """
-        Configuration specifying what this credit grant applies to. We currently only support `metered` prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them.
-        """
-        category: Literal["paid", "promotional"]
-        """
-        The category of this credit grant.
-        """
-        customer: NotRequired[str]
-        """
-        ID of the customer to receive the billing credits.
-        """
-        customer_account: NotRequired[str]
-        """
-        ID of the account to receive the billing credits.
-        """
-        effective_at: NotRequired[int]
-        """
-        The time when the billing credits become effective-when they're eligible for use. It defaults to the current timestamp if not specified.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        expires_at: NotRequired[int]
-        """
-        The time when the billing credits expire. If not specified, the billing credits don't expire.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of key-value pairs that you can attach to an object. You can use this to store additional information about the object (for example, cost basis) in a structured format.
-        """
-        name: NotRequired[str]
-        """
-        A descriptive name shown in the Dashboard.
-        """
-        priority: NotRequired[int]
-        """
-        The desired priority for applying this credit grant. If not specified, it will be set to the default value of 50. The highest priority is 0 and the lowest is 100.
-        """
-
-    class CreateParamsAmount(TypedDict):
-        monetary: NotRequired["CreditGrant.CreateParamsAmountMonetary"]
-        """
-        The monetary amount.
-        """
-        type: Literal["monetary"]
-        """
-        The type of this amount. We currently only support `monetary` billing credits.
-        """
-
-    class CreateParamsAmountMonetary(TypedDict):
-        currency: str
-        """
-        Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `value` parameter.
-        """
-        value: int
-        """
-        A positive integer representing the amount of the credit grant.
-        """
-
-    class CreateParamsApplicabilityConfig(TypedDict):
-        scope: "CreditGrant.CreateParamsApplicabilityConfigScope"
-        """
-        Specify the scope of this applicability config.
-        """
-
-    class CreateParamsApplicabilityConfigScope(TypedDict):
-        price_type: NotRequired[Literal["metered"]]
-        """
-        The price type that credit grants can apply to. We currently only support the `metered` price type. Cannot be used in combination with `prices`.
-        """
-        prices: NotRequired[
-            List["CreditGrant.CreateParamsApplicabilityConfigScopePrice"]
-        ]
-        """
-        A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`.
-        """
-
-    class CreateParamsApplicabilityConfigScopePrice(TypedDict):
-        id: str
-        """
-        The price ID this credit grant should apply to.
-        """
-
-    class ExpireParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class ListParams(RequestOptions):
-        customer: NotRequired[str]
-        """
-        Only return credit grants for this customer.
-        """
-        customer_account: NotRequired[str]
-        """
-        Only return credit grants for this account.
-        """
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class ModifyParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        expires_at: NotRequired["Literal['']|int"]
-        """
-        The time when the billing credits created by this credit grant expire. If set to empty, the billing credits never expire.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of key-value pairs you can attach to an object. You can use this to store additional information about the object (for example, cost basis) in a structured format.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class VoidGrantParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
 
     amount: Amount
     applicability_config: ApplicabilityConfig
@@ -292,7 +155,7 @@ class CreditGrant(
 
     @classmethod
     def create(
-        cls, **params: Unpack["CreditGrant.CreateParams"]
+        cls, **params: Unpack["CreditGrantCreateParams"]
     ) -> "CreditGrant":
         """
         Creates a credit grant.
@@ -308,7 +171,7 @@ class CreditGrant(
 
     @classmethod
     async def create_async(
-        cls, **params: Unpack["CreditGrant.CreateParams"]
+        cls, **params: Unpack["CreditGrantCreateParams"]
     ) -> "CreditGrant":
         """
         Creates a credit grant.
@@ -324,7 +187,7 @@ class CreditGrant(
 
     @classmethod
     def _cls_expire(
-        cls, id: str, **params: Unpack["CreditGrant.ExpireParams"]
+        cls, id: str, **params: Unpack["CreditGrantExpireParams"]
     ) -> "CreditGrant":
         """
         Expires a credit grant.
@@ -343,7 +206,7 @@ class CreditGrant(
     @overload
     @staticmethod
     def expire(
-        id: str, **params: Unpack["CreditGrant.ExpireParams"]
+        id: str, **params: Unpack["CreditGrantExpireParams"]
     ) -> "CreditGrant":
         """
         Expires a credit grant.
@@ -352,7 +215,7 @@ class CreditGrant(
 
     @overload
     def expire(
-        self, **params: Unpack["CreditGrant.ExpireParams"]
+        self, **params: Unpack["CreditGrantExpireParams"]
     ) -> "CreditGrant":
         """
         Expires a credit grant.
@@ -361,7 +224,7 @@ class CreditGrant(
 
     @class_method_variant("_cls_expire")
     def expire(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["CreditGrant.ExpireParams"]
+        self, **params: Unpack["CreditGrantExpireParams"]
     ) -> "CreditGrant":
         """
         Expires a credit grant.
@@ -379,7 +242,7 @@ class CreditGrant(
 
     @classmethod
     async def _cls_expire_async(
-        cls, id: str, **params: Unpack["CreditGrant.ExpireParams"]
+        cls, id: str, **params: Unpack["CreditGrantExpireParams"]
     ) -> "CreditGrant":
         """
         Expires a credit grant.
@@ -398,7 +261,7 @@ class CreditGrant(
     @overload
     @staticmethod
     async def expire_async(
-        id: str, **params: Unpack["CreditGrant.ExpireParams"]
+        id: str, **params: Unpack["CreditGrantExpireParams"]
     ) -> "CreditGrant":
         """
         Expires a credit grant.
@@ -407,7 +270,7 @@ class CreditGrant(
 
     @overload
     async def expire_async(
-        self, **params: Unpack["CreditGrant.ExpireParams"]
+        self, **params: Unpack["CreditGrantExpireParams"]
     ) -> "CreditGrant":
         """
         Expires a credit grant.
@@ -416,7 +279,7 @@ class CreditGrant(
 
     @class_method_variant("_cls_expire_async")
     async def expire_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["CreditGrant.ExpireParams"]
+        self, **params: Unpack["CreditGrantExpireParams"]
     ) -> "CreditGrant":
         """
         Expires a credit grant.
@@ -434,7 +297,7 @@ class CreditGrant(
 
     @classmethod
     def list(
-        cls, **params: Unpack["CreditGrant.ListParams"]
+        cls, **params: Unpack["CreditGrantListParams"]
     ) -> ListObject["CreditGrant"]:
         """
         Retrieve a list of credit grants.
@@ -454,7 +317,7 @@ class CreditGrant(
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["CreditGrant.ListParams"]
+        cls, **params: Unpack["CreditGrantListParams"]
     ) -> ListObject["CreditGrant"]:
         """
         Retrieve a list of credit grants.
@@ -474,7 +337,7 @@ class CreditGrant(
 
     @classmethod
     def modify(
-        cls, id: str, **params: Unpack["CreditGrant.ModifyParams"]
+        cls, id: str, **params: Unpack["CreditGrantModifyParams"]
     ) -> "CreditGrant":
         """
         Updates a credit grant.
@@ -491,7 +354,7 @@ class CreditGrant(
 
     @classmethod
     async def modify_async(
-        cls, id: str, **params: Unpack["CreditGrant.ModifyParams"]
+        cls, id: str, **params: Unpack["CreditGrantModifyParams"]
     ) -> "CreditGrant":
         """
         Updates a credit grant.
@@ -508,7 +371,7 @@ class CreditGrant(
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["CreditGrant.RetrieveParams"]
+        cls, id: str, **params: Unpack["CreditGrantRetrieveParams"]
     ) -> "CreditGrant":
         """
         Retrieves a credit grant.
@@ -519,7 +382,7 @@ class CreditGrant(
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["CreditGrant.RetrieveParams"]
+        cls, id: str, **params: Unpack["CreditGrantRetrieveParams"]
     ) -> "CreditGrant":
         """
         Retrieves a credit grant.
@@ -530,7 +393,7 @@ class CreditGrant(
 
     @classmethod
     def _cls_void_grant(
-        cls, id: str, **params: Unpack["CreditGrant.VoidGrantParams"]
+        cls, id: str, **params: Unpack["CreditGrantVoidGrantParams"]
     ) -> "CreditGrant":
         """
         Voids a credit grant.
@@ -549,7 +412,7 @@ class CreditGrant(
     @overload
     @staticmethod
     def void_grant(
-        id: str, **params: Unpack["CreditGrant.VoidGrantParams"]
+        id: str, **params: Unpack["CreditGrantVoidGrantParams"]
     ) -> "CreditGrant":
         """
         Voids a credit grant.
@@ -558,7 +421,7 @@ class CreditGrant(
 
     @overload
     def void_grant(
-        self, **params: Unpack["CreditGrant.VoidGrantParams"]
+        self, **params: Unpack["CreditGrantVoidGrantParams"]
     ) -> "CreditGrant":
         """
         Voids a credit grant.
@@ -567,7 +430,7 @@ class CreditGrant(
 
     @class_method_variant("_cls_void_grant")
     def void_grant(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["CreditGrant.VoidGrantParams"]
+        self, **params: Unpack["CreditGrantVoidGrantParams"]
     ) -> "CreditGrant":
         """
         Voids a credit grant.
@@ -585,7 +448,7 @@ class CreditGrant(
 
     @classmethod
     async def _cls_void_grant_async(
-        cls, id: str, **params: Unpack["CreditGrant.VoidGrantParams"]
+        cls, id: str, **params: Unpack["CreditGrantVoidGrantParams"]
     ) -> "CreditGrant":
         """
         Voids a credit grant.
@@ -604,7 +467,7 @@ class CreditGrant(
     @overload
     @staticmethod
     async def void_grant_async(
-        id: str, **params: Unpack["CreditGrant.VoidGrantParams"]
+        id: str, **params: Unpack["CreditGrantVoidGrantParams"]
     ) -> "CreditGrant":
         """
         Voids a credit grant.
@@ -613,7 +476,7 @@ class CreditGrant(
 
     @overload
     async def void_grant_async(
-        self, **params: Unpack["CreditGrant.VoidGrantParams"]
+        self, **params: Unpack["CreditGrantVoidGrantParams"]
     ) -> "CreditGrant":
         """
         Voids a credit grant.
@@ -622,7 +485,7 @@ class CreditGrant(
 
     @class_method_variant("_cls_void_grant_async")
     async def void_grant_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["CreditGrant.VoidGrantParams"]
+        self, **params: Unpack["CreditGrantVoidGrantParams"]
     ) -> "CreditGrant":
         """
         Voids a credit grant.

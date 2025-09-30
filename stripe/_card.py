@@ -5,7 +5,6 @@ from stripe._customer import Customer
 from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._error import InvalidRequestError
 from stripe._expandable_field import ExpandableField
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
@@ -14,6 +13,7 @@ from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._bank_account import BankAccount
+    from stripe.params._card_delete_params import CardDeleteParams
 
 
 class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
@@ -32,9 +32,6 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
         """
         The preferred network for co-branded cards. Can be `cartes_bancaires`, `mastercard`, `visa` or `invalid_preference` if requested network is not valid for the card.
         """
-
-    class DeleteParams(RequestOptions):
-        pass
 
     account: Optional[ExpandableField["Account"]]
     address_city: Optional[str]
@@ -179,7 +176,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
 
     @classmethod
     def _cls_delete(
-        cls, sid: str, **params: Unpack["Card.DeleteParams"]
+        cls, sid: str, **params: Unpack["CardDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -197,7 +194,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     @overload
     @staticmethod
     def delete(
-        sid: str, **params: Unpack["Card.DeleteParams"]
+        sid: str, **params: Unpack["CardDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -206,7 +203,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
 
     @overload
     def delete(
-        self, **params: Unpack["Card.DeleteParams"]
+        self, **params: Unpack["CardDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -215,7 +212,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
 
     @class_method_variant("_cls_delete")
     def delete(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Card.DeleteParams"]
+        self, **params: Unpack["CardDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -228,7 +225,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
 
     @classmethod
     async def _cls_delete_async(
-        cls, sid: str, **params: Unpack["Card.DeleteParams"]
+        cls, sid: str, **params: Unpack["CardDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -246,7 +243,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     @overload
     @staticmethod
     async def delete_async(
-        sid: str, **params: Unpack["Card.DeleteParams"]
+        sid: str, **params: Unpack["CardDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -255,7 +252,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
 
     @overload
     async def delete_async(
-        self, **params: Unpack["Card.DeleteParams"]
+        self, **params: Unpack["CardDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -264,7 +261,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
 
     @class_method_variant("_cls_delete_async")
     async def delete_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["Card.DeleteParams"]
+        self, **params: Unpack["CardDeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.

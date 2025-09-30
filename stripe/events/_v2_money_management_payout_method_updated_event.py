@@ -3,7 +3,7 @@
 from stripe._stripe_client import StripeClient
 from stripe._stripe_object import StripeObject
 from stripe._util import get_api_mode
-from stripe.v2._event import Event, EventNotification, RelatedObject
+from stripe.v2.core._event import Event, EventNotification, RelatedObject
 from stripe.v2.money_management._payout_method import PayoutMethod
 from typing import Any, Dict, cast
 from typing_extensions import Literal, override

@@ -2,13 +2,16 @@
 # File generated from our OpenAPI spec
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from typing import ClassVar, Dict, List, Optional
-from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.climate._supplier import Supplier
+    from stripe.params.climate._product_list_params import ProductListParams
+    from stripe.params.climate._product_retrieve_params import (
+        ProductRetrieveParams,
+    )
 
 
 class Product(ListableAPIResource["Product"]):
@@ -31,30 +34,6 @@ class Product(ListableAPIResource["Product"]):
         amount_total: int
         """
         Total for one metric ton of carbon removal (including fees) in the currency's smallest unit.
-        """
-
-    class ListParams(RequestOptions):
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
         """
 
     created: int
@@ -98,7 +77,7 @@ class Product(ListableAPIResource["Product"]):
 
     @classmethod
     def list(
-        cls, **params: Unpack["Product.ListParams"]
+        cls, **params: Unpack["ProductListParams"]
     ) -> ListObject["Product"]:
         """
         Lists all available Climate product objects.
@@ -118,7 +97,7 @@ class Product(ListableAPIResource["Product"]):
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["Product.ListParams"]
+        cls, **params: Unpack["ProductListParams"]
     ) -> ListObject["Product"]:
         """
         Lists all available Climate product objects.
@@ -138,7 +117,7 @@ class Product(ListableAPIResource["Product"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["Product.RetrieveParams"]
+        cls, id: str, **params: Unpack["ProductRetrieveParams"]
     ) -> "Product":
         """
         Retrieves the details of a Climate product with the given ID.
@@ -149,7 +128,7 @@ class Product(ListableAPIResource["Product"]):
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["Product.RetrieveParams"]
+        cls, id: str, **params: Unpack["ProductRetrieveParams"]
     ) -> "Product":
         """
         Retrieves the details of a Climate product with the given ID.

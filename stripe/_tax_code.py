@@ -2,9 +2,12 @@
 # File generated from our OpenAPI spec
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._request_options import RequestOptions
-from typing import ClassVar, List
-from typing_extensions import Literal, NotRequired, Unpack
+from typing import ClassVar
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params._tax_code_list_params import TaxCodeListParams
+    from stripe.params._tax_code_retrieve_params import TaxCodeRetrieveParams
 
 
 class TaxCode(ListableAPIResource["TaxCode"]):
@@ -13,31 +16,6 @@ class TaxCode(ListableAPIResource["TaxCode"]):
     """
 
     OBJECT_NAME: ClassVar[Literal["tax_code"]] = "tax_code"
-
-    class ListParams(RequestOptions):
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     description: str
     """
     A detailed description of which types of products the tax code represents.
@@ -57,7 +35,7 @@ class TaxCode(ListableAPIResource["TaxCode"]):
 
     @classmethod
     def list(
-        cls, **params: Unpack["TaxCode.ListParams"]
+        cls, **params: Unpack["TaxCodeListParams"]
     ) -> ListObject["TaxCode"]:
         """
         A list of [all tax codes available](https://stripe.com/docs/tax/tax-categories) to add to Products in order to allow specific tax calculations.
@@ -77,7 +55,7 @@ class TaxCode(ListableAPIResource["TaxCode"]):
 
     @classmethod
     async def list_async(
-        cls, **params: Unpack["TaxCode.ListParams"]
+        cls, **params: Unpack["TaxCodeListParams"]
     ) -> ListObject["TaxCode"]:
         """
         A list of [all tax codes available](https://stripe.com/docs/tax/tax-categories) to add to Products in order to allow specific tax calculations.
@@ -97,7 +75,7 @@ class TaxCode(ListableAPIResource["TaxCode"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, **params: Unpack["TaxCode.RetrieveParams"]
+        cls, id: str, **params: Unpack["TaxCodeRetrieveParams"]
     ) -> "TaxCode":
         """
         Retrieves the details of an existing tax code. Supply the unique tax code ID and Stripe will return the corresponding tax code information.
@@ -108,7 +86,7 @@ class TaxCode(ListableAPIResource["TaxCode"]):
 
     @classmethod
     async def retrieve_async(
-        cls, id: str, **params: Unpack["TaxCode.RetrieveParams"]
+        cls, id: str, **params: Unpack["TaxCodeRetrieveParams"]
     ) -> "TaxCode":
         """
         Retrieves the details of an existing tax code. Supply the unique tax code ID and Stripe will return the corresponding tax code information.

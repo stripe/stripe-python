@@ -5,93 +5,22 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.treasury._transaction_entry import TransactionEntry
-from typing import List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.treasury._transaction_entry_list_params import (
+        TransactionEntryListParams,
+    )
+    from stripe.params.treasury._transaction_entry_retrieve_params import (
+        TransactionEntryRetrieveParams,
+    )
 
 
 class TransactionEntryService(StripeService):
-    class ListParams(TypedDict):
-        created: NotRequired["TransactionEntryService.ListParamsCreated|int"]
-        """
-        Only return TransactionEntries that were created during the given date interval.
-        """
-        effective_at: NotRequired[
-            "TransactionEntryService.ListParamsEffectiveAt|int"
-        ]
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        financial_account: str
-        """
-        Returns objects associated with this FinancialAccount.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        order_by: NotRequired[Literal["created", "effective_at"]]
-        """
-        The results are in reverse chronological order by `created` or `effective_at`. The default is `created`.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-        transaction: NotRequired[str]
-        """
-        Only return TransactionEntries associated with this Transaction.
-        """
-
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired[int]
-        """
-        Minimum value to filter by (exclusive)
-        """
-        gte: NotRequired[int]
-        """
-        Minimum value to filter by (inclusive)
-        """
-        lt: NotRequired[int]
-        """
-        Maximum value to filter by (exclusive)
-        """
-        lte: NotRequired[int]
-        """
-        Maximum value to filter by (inclusive)
-        """
-
-    class ListParamsEffectiveAt(TypedDict):
-        gt: NotRequired[int]
-        """
-        Minimum value to filter by (exclusive)
-        """
-        gte: NotRequired[int]
-        """
-        Minimum value to filter by (inclusive)
-        """
-        lt: NotRequired[int]
-        """
-        Maximum value to filter by (exclusive)
-        """
-        lte: NotRequired[int]
-        """
-        Maximum value to filter by (inclusive)
-        """
-
-    class RetrieveParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
     def list(
         self,
-        params: "TransactionEntryService.ListParams",
+        params: "TransactionEntryListParams",
         options: Optional[RequestOptions] = None,
     ) -> ListObject[TransactionEntry]:
         """
@@ -110,7 +39,7 @@ class TransactionEntryService(StripeService):
 
     async def list_async(
         self,
-        params: "TransactionEntryService.ListParams",
+        params: "TransactionEntryListParams",
         options: Optional[RequestOptions] = None,
     ) -> ListObject[TransactionEntry]:
         """
@@ -130,7 +59,7 @@ class TransactionEntryService(StripeService):
     def retrieve(
         self,
         id: str,
-        params: Optional["TransactionEntryService.RetrieveParams"] = None,
+        params: Optional["TransactionEntryRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> TransactionEntry:
         """
@@ -152,7 +81,7 @@ class TransactionEntryService(StripeService):
     async def retrieve_async(
         self,
         id: str,
-        params: Optional["TransactionEntryService.RetrieveParams"] = None,
+        params: Optional["TransactionEntryRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> TransactionEntry:
         """

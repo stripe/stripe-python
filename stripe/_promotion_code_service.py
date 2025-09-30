@@ -5,202 +5,28 @@ from stripe._promotion_code import PromotionCode
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Dict, List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing import Optional, cast
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params._promotion_code_create_params import (
+        PromotionCodeCreateParams,
+    )
+    from stripe.params._promotion_code_list_params import (
+        PromotionCodeListParams,
+    )
+    from stripe.params._promotion_code_retrieve_params import (
+        PromotionCodeRetrieveParams,
+    )
+    from stripe.params._promotion_code_update_params import (
+        PromotionCodeUpdateParams,
+    )
 
 
 class PromotionCodeService(StripeService):
-    class CreateParams(TypedDict):
-        active: NotRequired[bool]
-        """
-        Whether the promotion code is currently active.
-        """
-        code: NotRequired[str]
-        """
-        The customer-facing code. Regardless of case, this code must be unique across all active promotion codes for a specific customer. Valid characters are lower case letters (a-z), upper case letters (A-Z), and digits (0-9).
-
-        If left blank, we will generate one automatically.
-        """
-        customer: NotRequired[str]
-        """
-        The customer that this promotion code can be used by. If not set, the promotion code can be used by all customers.
-        """
-        customer_account: NotRequired[str]
-        """
-        The account that this promotion code can be used by. If not set, the promotion code can be used by all accounts.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        expires_at: NotRequired[int]
-        """
-        The timestamp at which this promotion code will expire. If the coupon has specified a `redeems_by`, then this value cannot be after the coupon's `redeems_by`.
-        """
-        max_redemptions: NotRequired[int]
-        """
-        A positive integer specifying the number of times the promotion code can be redeemed. If the coupon has specified a `max_redemptions`, then this value cannot be greater than the coupon's `max_redemptions`.
-        """
-        metadata: NotRequired[Dict[str, str]]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        promotion: "PromotionCodeService.CreateParamsPromotion"
-        """
-        The promotion referenced by this promotion code.
-        """
-        restrictions: NotRequired[
-            "PromotionCodeService.CreateParamsRestrictions"
-        ]
-        """
-        Settings that restrict the redemption of the promotion code.
-        """
-
-    class CreateParamsPromotion(TypedDict):
-        coupon: NotRequired[str]
-        """
-        If promotion `type` is `coupon`, the coupon for this promotion code.
-        """
-        type: Literal["coupon"]
-        """
-        Specifies the type of promotion.
-        """
-
-    class CreateParamsRestrictions(TypedDict):
-        currency_options: NotRequired[
-            Dict[
-                str,
-                "PromotionCodeService.CreateParamsRestrictionsCurrencyOptions",
-            ]
-        ]
-        """
-        Promotion codes defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
-        """
-        first_time_transaction: NotRequired[bool]
-        """
-        A Boolean indicating if the Promotion Code should only be redeemed for Customers without any successful payments or invoices
-        """
-        minimum_amount: NotRequired[int]
-        """
-        Minimum amount required to redeem this Promotion Code into a Coupon (e.g., a purchase must be $100 or more to work).
-        """
-        minimum_amount_currency: NotRequired[str]
-        """
-        Three-letter [ISO code](https://stripe.com/docs/currencies) for minimum_amount
-        """
-
-    class CreateParamsRestrictionsCurrencyOptions(TypedDict):
-        minimum_amount: NotRequired[int]
-        """
-        Minimum amount required to redeem this Promotion Code into a Coupon (e.g., a purchase must be $100 or more to work).
-        """
-
-    class ListParams(TypedDict):
-        active: NotRequired[bool]
-        """
-        Filter promotion codes by whether they are active.
-        """
-        code: NotRequired[str]
-        """
-        Only return promotion codes that have this case-insensitive code.
-        """
-        coupon: NotRequired[str]
-        """
-        Only return promotion codes for this coupon.
-        """
-        created: NotRequired["PromotionCodeService.ListParamsCreated|int"]
-        """
-        A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options.
-        """
-        customer: NotRequired[str]
-        """
-        Only return promotion codes that are restricted to this customer.
-        """
-        customer_account: NotRequired[str]
-        """
-        Only return promotion codes that are restricted to this account.
-        """
-        ending_before: NotRequired[str]
-        """
-        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        limit: NotRequired[int]
-        """
-        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-        """
-        starting_after: NotRequired[str]
-        """
-        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-        """
-
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired[int]
-        """
-        Minimum value to filter by (exclusive)
-        """
-        gte: NotRequired[int]
-        """
-        Minimum value to filter by (inclusive)
-        """
-        lt: NotRequired[int]
-        """
-        Maximum value to filter by (exclusive)
-        """
-        lte: NotRequired[int]
-        """
-        Maximum value to filter by (inclusive)
-        """
-
-    class RetrieveParams(TypedDict):
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-
-    class UpdateParams(TypedDict):
-        active: NotRequired[bool]
-        """
-        Whether the promotion code is currently active. A promotion code can only be reactivated when the coupon is still valid and the promotion code is otherwise redeemable.
-        """
-        expand: NotRequired[List[str]]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        metadata: NotRequired["Literal['']|Dict[str, str]"]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        restrictions: NotRequired[
-            "PromotionCodeService.UpdateParamsRestrictions"
-        ]
-        """
-        Settings that restrict the redemption of the promotion code.
-        """
-
-    class UpdateParamsRestrictions(TypedDict):
-        currency_options: NotRequired[
-            Dict[
-                str,
-                "PromotionCodeService.UpdateParamsRestrictionsCurrencyOptions",
-            ]
-        ]
-        """
-        Promotion codes defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
-        """
-
-    class UpdateParamsRestrictionsCurrencyOptions(TypedDict):
-        minimum_amount: NotRequired[int]
-        """
-        Minimum amount required to redeem this Promotion Code into a Coupon (e.g., a purchase must be $100 or more to work).
-        """
-
     def list(
         self,
-        params: Optional["PromotionCodeService.ListParams"] = None,
+        params: Optional["PromotionCodeListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[PromotionCode]:
         """
@@ -219,7 +45,7 @@ class PromotionCodeService(StripeService):
 
     async def list_async(
         self,
-        params: Optional["PromotionCodeService.ListParams"] = None,
+        params: Optional["PromotionCodeListParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> ListObject[PromotionCode]:
         """
@@ -238,7 +64,7 @@ class PromotionCodeService(StripeService):
 
     def create(
         self,
-        params: "PromotionCodeService.CreateParams",
+        params: "PromotionCodeCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> PromotionCode:
         """
@@ -257,7 +83,7 @@ class PromotionCodeService(StripeService):
 
     async def create_async(
         self,
-        params: "PromotionCodeService.CreateParams",
+        params: "PromotionCodeCreateParams",
         options: Optional[RequestOptions] = None,
     ) -> PromotionCode:
         """
@@ -277,7 +103,7 @@ class PromotionCodeService(StripeService):
     def retrieve(
         self,
         promotion_code: str,
-        params: Optional["PromotionCodeService.RetrieveParams"] = None,
+        params: Optional["PromotionCodeRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PromotionCode:
         """
@@ -299,7 +125,7 @@ class PromotionCodeService(StripeService):
     async def retrieve_async(
         self,
         promotion_code: str,
-        params: Optional["PromotionCodeService.RetrieveParams"] = None,
+        params: Optional["PromotionCodeRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PromotionCode:
         """
@@ -321,7 +147,7 @@ class PromotionCodeService(StripeService):
     def update(
         self,
         promotion_code: str,
-        params: Optional["PromotionCodeService.UpdateParams"] = None,
+        params: Optional["PromotionCodeUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PromotionCode:
         """
@@ -343,7 +169,7 @@ class PromotionCodeService(StripeService):
     async def update_async(
         self,
         promotion_code: str,
-        params: Optional["PromotionCodeService.UpdateParams"] = None,
+        params: Optional["PromotionCodeUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
     ) -> PromotionCode:
         """

@@ -15,10 +15,7 @@ import warnings
 from stripe._api_version import _ApiVersion
 from stripe._api_requestor import _APIRequestor
 
-# We must import the app_info module early to populate it into
-# `sys.modules`; otherwise doing `import stripe.app_info` will end up
-# importing that module, and not the global `AppInfo` name from below.
-import stripe.app_info
+
 from stripe._app_info import AppInfo as AppInfo
 from stripe._version import VERSION as VERSION
 
@@ -126,6 +123,7 @@ def add_beta_version(
     beta_name: str,
     beta_version: str,
 ):
+    global api_version
     # Validate beta_version format
     if not beta_version.startswith("v") or not beta_version[1:].isdigit():
         raise ValueError(
@@ -134,24 +132,22 @@ def add_beta_version(
 
     # Check if beta_name already exists
     beta_entry = f"; {beta_name}="
-    if beta_entry in stripe.api_version:
-        start_index = stripe.api_version.index(beta_entry) + len(beta_entry)
-        end_index = stripe.api_version.find(";", start_index)
-        end_index = end_index if end_index != -1 else len(stripe.api_version)
-        existing_version = int(
-            stripe.api_version[(start_index + 1) : end_index]
-        )
+    if beta_entry in api_version:
+        start_index = api_version.index(beta_entry) + len(beta_entry)
+        end_index = api_version.find(";", start_index)
+        end_index = end_index if end_index != -1 else len(api_version)
+        existing_version = int(api_version[(start_index + 1) : end_index])
         new_version = int(beta_version[1:])
         if new_version <= existing_version:
             return  # Keep the higher version, no update needed
         # Remove the existing beta entry
-        stripe.api_version = (
-            stripe.api_version[: stripe.api_version.index(beta_entry)]
-            + stripe.api_version[end_index:]
+        api_version = (
+            api_version[: api_version.index(beta_entry)]
+            + api_version[end_index:]
         )
 
     # Add the new beta version
-    stripe.api_version = f"{stripe.api_version}; {beta_name}={beta_version}"
+    api_version = f"{api_version}; {beta_name}={beta_version}"
 
 
 # Infrastructure types
@@ -235,51 +231,12 @@ from stripe._http_client import (
     UrlFetchClient as UrlFetchClient,
     HTTPXClient as HTTPXClient,
     AIOHTTPClient as AIOHTTPClient,
+    UrllibClient as UrllibClient,
     new_default_http_client as new_default_http_client,
 )
 
 # Util
 from stripe._util import convert_to_stripe_object as convert_to_stripe_object
-
-# Backwards compatibility re-exports
-if not TYPE_CHECKING:
-    from stripe import _stripe_response as stripe_response
-    from stripe import _stripe_object as stripe_object
-    from stripe import _error_object as error_object
-    from stripe import _error as error
-    from stripe import _http_client as http_client
-    from stripe import _util as util
-    from stripe import _oauth as oauth
-    from stripe import _webhook as webhook
-    from stripe import _multipart_data_generator as multipart_data_generator
-    from stripe import _request_metrics as request_metrics
-    from stripe._file import File as FileUpload
-
-    # Python 3.7+ supports module level __getattr__ that allows us to lazy load deprecated modules
-    # this matters because if we pre-load all modules from api_resources while suppressing warning
-    # users will never see those warnings
-    if _sys.version_info[:2] >= (3, 7):
-
-        def __getattr__(name):
-            if name == "abstract":
-                import stripe.api_resources.abstract as _abstract
-
-                return _abstract
-            if name == "api_resources":
-                import stripe.api_resources as _api_resources
-
-                return _api_resources
-            raise AttributeError(
-                f"module {__name__!r} has no attribute {name!r}"
-            )
-
-    else:
-        with warnings.catch_warnings():
-            warnings.filterwarnings("ignore", category=DeprecationWarning)
-
-            import stripe.api_resources.abstract as abstract
-            import stripe.api_resources as api_resources
-
 
 # API resources
 
@@ -297,6 +254,7 @@ from stripe import (
     forwarding as forwarding,
     identity as identity,
     issuing as issuing,
+    params as params,
     privacy as privacy,
     radar as radar,
     reporting as reporting,
