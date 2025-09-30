@@ -15,12 +15,12 @@ if TYPE_CHECKING:
     from stripe._balance_transaction import BalanceTransaction
     from stripe._bank_account import BankAccount
     from stripe._card import Card
-    from stripe.params._payout_cancel_params import PayoutCancelParams
-    from stripe.params._payout_create_params import PayoutCreateParams
-    from stripe.params._payout_list_params import PayoutListParams
-    from stripe.params._payout_modify_params import PayoutModifyParams
-    from stripe.params._payout_retrieve_params import PayoutRetrieveParams
-    from stripe.params._payout_reverse_params import PayoutReverseParams
+    from stripe.param._payout_cancel_params import PayoutCancelParams
+    from stripe.param._payout_create_params import PayoutCreateParams
+    from stripe.param._payout_list_params import PayoutListParams
+    from stripe.param._payout_modify_params import PayoutModifyParams
+    from stripe.param._payout_retrieve_params import PayoutRetrieveParams
+    from stripe.param._payout_reverse_params import PayoutReverseParams
 
 
 class Payout(

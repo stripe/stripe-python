@@ -8,7 +8,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._setup_attempt_list_params import SetupAttemptListParams
+    from stripe.param._setup_attempt_list_params import SetupAttemptListParams
 
 
 class SetupAttemptService(StripeService):

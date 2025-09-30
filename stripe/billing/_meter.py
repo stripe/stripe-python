@@ -12,21 +12,19 @@ from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.billing._meter_event_summary import MeterEventSummary
-    from stripe.params.billing._meter_create_params import MeterCreateParams
-    from stripe.params.billing._meter_deactivate_params import (
+    from stripe.param.billing._meter_create_params import MeterCreateParams
+    from stripe.param.billing._meter_deactivate_params import (
         MeterDeactivateParams,
     )
-    from stripe.params.billing._meter_list_event_summaries_params import (
+    from stripe.param.billing._meter_list_event_summaries_params import (
         MeterListEventSummariesParams,
     )
-    from stripe.params.billing._meter_list_params import MeterListParams
-    from stripe.params.billing._meter_modify_params import MeterModifyParams
-    from stripe.params.billing._meter_reactivate_params import (
+    from stripe.param.billing._meter_list_params import MeterListParams
+    from stripe.param.billing._meter_modify_params import MeterModifyParams
+    from stripe.param.billing._meter_reactivate_params import (
         MeterReactivateParams,
     )
-    from stripe.params.billing._meter_retrieve_params import (
-        MeterRetrieveParams,
-    )
+    from stripe.param.billing._meter_retrieve_params import MeterRetrieveParams
 
 
 @nested_resource_class_methods("event_summary")

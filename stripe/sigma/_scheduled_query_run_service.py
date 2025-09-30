@@ -9,10 +9,10 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.sigma._scheduled_query_run_list_params import (
+    from stripe.param.sigma._scheduled_query_run_list_params import (
         ScheduledQueryRunListParams,
     )
-    from stripe.params.sigma._scheduled_query_run_retrieve_params import (
+    from stripe.param.sigma._scheduled_query_run_retrieve_params import (
         ScheduledQueryRunRetrieveParams,
     )
 

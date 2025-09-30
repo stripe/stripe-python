@@ -8,16 +8,16 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.test_helpers.treasury._outbound_payment_fail_params import (
+    from stripe.param.test_helpers.treasury._outbound_payment_fail_params import (
         OutboundPaymentFailParams,
     )
-    from stripe.params.test_helpers.treasury._outbound_payment_post_params import (
+    from stripe.param.test_helpers.treasury._outbound_payment_post_params import (
         OutboundPaymentPostParams,
     )
-    from stripe.params.test_helpers.treasury._outbound_payment_return_outbound_payment_params import (
+    from stripe.param.test_helpers.treasury._outbound_payment_return_outbound_payment_params import (
         OutboundPaymentReturnOutboundPaymentParams,
     )
-    from stripe.params.test_helpers.treasury._outbound_payment_update_params import (
+    from stripe.param.test_helpers.treasury._outbound_payment_update_params import (
         OutboundPaymentUpdateParams,
     )
 

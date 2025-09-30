@@ -8,10 +8,10 @@ from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.issuing._authorization import Authorization
-    from stripe.params.treasury._transaction_list_params import (
+    from stripe.param.treasury._transaction_list_params import (
         TransactionListParams,
     )
-    from stripe.params.treasury._transaction_retrieve_params import (
+    from stripe.param.treasury._transaction_retrieve_params import (
         TransactionRetrieveParams,
     )
     from stripe.treasury._credit_reversal import CreditReversal

@@ -10,10 +10,10 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._application_fee_list_params import (
+    from stripe.param._application_fee_list_params import (
         ApplicationFeeListParams,
     )
-    from stripe.params._application_fee_retrieve_params import (
+    from stripe.param._application_fee_retrieve_params import (
         ApplicationFeeRetrieveParams,
     )
 

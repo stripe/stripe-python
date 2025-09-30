@@ -9,16 +9,16 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.treasury._outbound_payment_cancel_params import (
+    from stripe.param.treasury._outbound_payment_cancel_params import (
         OutboundPaymentCancelParams,
     )
-    from stripe.params.treasury._outbound_payment_create_params import (
+    from stripe.param.treasury._outbound_payment_create_params import (
         OutboundPaymentCreateParams,
     )
-    from stripe.params.treasury._outbound_payment_list_params import (
+    from stripe.param.treasury._outbound_payment_list_params import (
         OutboundPaymentListParams,
     )
-    from stripe.params.treasury._outbound_payment_retrieve_params import (
+    from stripe.param.treasury._outbound_payment_retrieve_params import (
         OutboundPaymentRetrieveParams,
     )
 

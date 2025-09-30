@@ -14,19 +14,13 @@ if TYPE_CHECKING:
     from stripe._balance_transaction import BalanceTransaction
     from stripe._file import File
     from stripe.issuing._transaction import Transaction
-    from stripe.params.issuing._dispute_create_params import (
-        DisputeCreateParams,
-    )
-    from stripe.params.issuing._dispute_list_params import DisputeListParams
-    from stripe.params.issuing._dispute_modify_params import (
-        DisputeModifyParams,
-    )
-    from stripe.params.issuing._dispute_retrieve_params import (
+    from stripe.param.issuing._dispute_create_params import DisputeCreateParams
+    from stripe.param.issuing._dispute_list_params import DisputeListParams
+    from stripe.param.issuing._dispute_modify_params import DisputeModifyParams
+    from stripe.param.issuing._dispute_retrieve_params import (
         DisputeRetrieveParams,
     )
-    from stripe.params.issuing._dispute_submit_params import (
-        DisputeSubmitParams,
-    )
+    from stripe.param.issuing._dispute_submit_params import DisputeSubmitParams
 
 
 class Dispute(

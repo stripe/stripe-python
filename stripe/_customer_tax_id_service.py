@@ -9,16 +9,16 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._customer_tax_id_create_params import (
+    from stripe.param._customer_tax_id_create_params import (
         CustomerTaxIdCreateParams,
     )
-    from stripe.params._customer_tax_id_delete_params import (
+    from stripe.param._customer_tax_id_delete_params import (
         CustomerTaxIdDeleteParams,
     )
-    from stripe.params._customer_tax_id_list_params import (
+    from stripe.param._customer_tax_id_list_params import (
         CustomerTaxIdListParams,
     )
-    from stripe.params._customer_tax_id_retrieve_params import (
+    from stripe.param._customer_tax_id_retrieve_params import (
         CustomerTaxIdRetrieveParams,
     )
 

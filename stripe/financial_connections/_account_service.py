@@ -12,22 +12,22 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.financial_connections._account_disconnect_params import (
+    from stripe.param.financial_connections._account_disconnect_params import (
         AccountDisconnectParams,
     )
-    from stripe.params.financial_connections._account_list_params import (
+    from stripe.param.financial_connections._account_list_params import (
         AccountListParams,
     )
-    from stripe.params.financial_connections._account_refresh_params import (
+    from stripe.param.financial_connections._account_refresh_params import (
         AccountRefreshParams,
     )
-    from stripe.params.financial_connections._account_retrieve_params import (
+    from stripe.param.financial_connections._account_retrieve_params import (
         AccountRetrieveParams,
     )
-    from stripe.params.financial_connections._account_subscribe_params import (
+    from stripe.param.financial_connections._account_subscribe_params import (
         AccountSubscribeParams,
     )
-    from stripe.params.financial_connections._account_unsubscribe_params import (
+    from stripe.param.financial_connections._account_unsubscribe_params import (
         AccountUnsubscribeParams,
     )
 

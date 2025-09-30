@@ -9,19 +9,19 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._payment_method_domain_create_params import (
+    from stripe.param._payment_method_domain_create_params import (
         PaymentMethodDomainCreateParams,
     )
-    from stripe.params._payment_method_domain_list_params import (
+    from stripe.param._payment_method_domain_list_params import (
         PaymentMethodDomainListParams,
     )
-    from stripe.params._payment_method_domain_retrieve_params import (
+    from stripe.param._payment_method_domain_retrieve_params import (
         PaymentMethodDomainRetrieveParams,
     )
-    from stripe.params._payment_method_domain_update_params import (
+    from stripe.param._payment_method_domain_update_params import (
         PaymentMethodDomainUpdateParams,
     )
-    from stripe.params._payment_method_domain_validate_params import (
+    from stripe.param._payment_method_domain_validate_params import (
         PaymentMethodDomainValidateParams,
     )
 

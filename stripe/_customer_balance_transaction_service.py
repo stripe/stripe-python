@@ -9,16 +9,16 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._customer_balance_transaction_create_params import (
+    from stripe.param._customer_balance_transaction_create_params import (
         CustomerBalanceTransactionCreateParams,
     )
-    from stripe.params._customer_balance_transaction_list_params import (
+    from stripe.param._customer_balance_transaction_list_params import (
         CustomerBalanceTransactionListParams,
     )
-    from stripe.params._customer_balance_transaction_retrieve_params import (
+    from stripe.param._customer_balance_transaction_retrieve_params import (
         CustomerBalanceTransactionRetrieveParams,
     )
-    from stripe.params._customer_balance_transaction_update_params import (
+    from stripe.param._customer_balance_transaction_update_params import (
         CustomerBalanceTransactionUpdateParams,
     )
 

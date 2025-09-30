@@ -9,16 +9,16 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.treasury._inbound_transfer_cancel_params import (
+    from stripe.param.treasury._inbound_transfer_cancel_params import (
         InboundTransferCancelParams,
     )
-    from stripe.params.treasury._inbound_transfer_create_params import (
+    from stripe.param.treasury._inbound_transfer_create_params import (
         InboundTransferCreateParams,
     )
-    from stripe.params.treasury._inbound_transfer_list_params import (
+    from stripe.param.treasury._inbound_transfer_list_params import (
         InboundTransferListParams,
     )
-    from stripe.params.treasury._inbound_transfer_retrieve_params import (
+    from stripe.param.treasury._inbound_transfer_retrieve_params import (
         InboundTransferRetrieveParams,
     )
 

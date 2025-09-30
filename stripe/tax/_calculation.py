@@ -8,13 +8,13 @@ from typing import ClassVar, List, Optional, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.tax._calculation_create_params import (
+    from stripe.param.tax._calculation_create_params import (
         CalculationCreateParams,
     )
-    from stripe.params.tax._calculation_list_line_items_params import (
+    from stripe.param.tax._calculation_list_line_items_params import (
         CalculationListLineItemsParams,
     )
-    from stripe.params.tax._calculation_retrieve_params import (
+    from stripe.param.tax._calculation_retrieve_params import (
         CalculationRetrieveParams,
     )
     from stripe.tax._calculation_line_item import CalculationLineItem

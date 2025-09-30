@@ -9,19 +9,19 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.terminal._configuration_create_params import (
+    from stripe.param.terminal._configuration_create_params import (
         ConfigurationCreateParams,
     )
-    from stripe.params.terminal._configuration_delete_params import (
+    from stripe.param.terminal._configuration_delete_params import (
         ConfigurationDeleteParams,
     )
-    from stripe.params.terminal._configuration_list_params import (
+    from stripe.param.terminal._configuration_list_params import (
         ConfigurationListParams,
     )
-    from stripe.params.terminal._configuration_retrieve_params import (
+    from stripe.param.terminal._configuration_retrieve_params import (
         ConfigurationRetrieveParams,
     )
-    from stripe.params.terminal._configuration_update_params import (
+    from stripe.param.terminal._configuration_update_params import (
         ConfigurationUpdateParams,
     )
 

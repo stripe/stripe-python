@@ -28,15 +28,15 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._customer_create_params import CustomerCreateParams
-    from stripe.params._customer_delete_discount_params import (
+    from stripe.param._customer_create_params import CustomerCreateParams
+    from stripe.param._customer_delete_discount_params import (
         CustomerDeleteDiscountParams,
     )
-    from stripe.params._customer_delete_params import CustomerDeleteParams
-    from stripe.params._customer_list_params import CustomerListParams
-    from stripe.params._customer_retrieve_params import CustomerRetrieveParams
-    from stripe.params._customer_search_params import CustomerSearchParams
-    from stripe.params._customer_update_params import CustomerUpdateParams
+    from stripe.param._customer_delete_params import CustomerDeleteParams
+    from stripe.param._customer_list_params import CustomerListParams
+    from stripe.param._customer_retrieve_params import CustomerRetrieveParams
+    from stripe.param._customer_search_params import CustomerSearchParams
+    from stripe.param._customer_update_params import CustomerUpdateParams
 
 
 class CustomerService(StripeService):

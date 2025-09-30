@@ -5,7 +5,7 @@ from typing import ClassVar, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._account_link_create_params import (
+    from stripe.param._account_link_create_params import (
         AccountLinkCreateParams,
     )
 

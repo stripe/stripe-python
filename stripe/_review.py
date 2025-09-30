@@ -11,9 +11,9 @@ from typing_extensions import Literal, Unpack, TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe._charge import Charge
     from stripe._payment_intent import PaymentIntent
-    from stripe.params._review_approve_params import ReviewApproveParams
-    from stripe.params._review_list_params import ReviewListParams
-    from stripe.params._review_retrieve_params import ReviewRetrieveParams
+    from stripe.param._review_approve_params import ReviewApproveParams
+    from stripe.param._review_list_params import ReviewListParams
+    from stripe.param._review_retrieve_params import ReviewRetrieveParams
 
 
 class Review(ListableAPIResource["Review"]):

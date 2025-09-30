@@ -11,28 +11,28 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.v2.core._event_destination_create_params import (
+    from stripe.param.v2.core._event_destination_create_params import (
         EventDestinationCreateParams,
     )
-    from stripe.params.v2.core._event_destination_delete_params import (
+    from stripe.param.v2.core._event_destination_delete_params import (
         EventDestinationDeleteParams,
     )
-    from stripe.params.v2.core._event_destination_disable_params import (
+    from stripe.param.v2.core._event_destination_disable_params import (
         EventDestinationDisableParams,
     )
-    from stripe.params.v2.core._event_destination_enable_params import (
+    from stripe.param.v2.core._event_destination_enable_params import (
         EventDestinationEnableParams,
     )
-    from stripe.params.v2.core._event_destination_list_params import (
+    from stripe.param.v2.core._event_destination_list_params import (
         EventDestinationListParams,
     )
-    from stripe.params.v2.core._event_destination_ping_params import (
+    from stripe.param.v2.core._event_destination_ping_params import (
         EventDestinationPingParams,
     )
-    from stripe.params.v2.core._event_destination_retrieve_params import (
+    from stripe.param.v2.core._event_destination_retrieve_params import (
         EventDestinationRetrieveParams,
     )
-    from stripe.params.v2.core._event_destination_update_params import (
+    from stripe.param.v2.core._event_destination_update_params import (
         EventDestinationUpdateParams,
     )
 

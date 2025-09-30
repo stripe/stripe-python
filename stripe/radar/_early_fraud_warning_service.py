@@ -9,10 +9,10 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.radar._early_fraud_warning_list_params import (
+    from stripe.param.radar._early_fraud_warning_list_params import (
         EarlyFraudWarningListParams,
     )
-    from stripe.params.radar._early_fraud_warning_retrieve_params import (
+    from stripe.param.radar._early_fraud_warning_retrieve_params import (
         EarlyFraudWarningRetrieveParams,
     )
 

@@ -9,10 +9,10 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._dispute_close_params import DisputeCloseParams
-    from stripe.params._dispute_list_params import DisputeListParams
-    from stripe.params._dispute_retrieve_params import DisputeRetrieveParams
-    from stripe.params._dispute_update_params import DisputeUpdateParams
+    from stripe.param._dispute_close_params import DisputeCloseParams
+    from stripe.param._dispute_list_params import DisputeListParams
+    from stripe.param._dispute_retrieve_params import DisputeRetrieveParams
+    from stripe.param._dispute_update_params import DisputeUpdateParams
 
 
 class DisputeService(StripeService):

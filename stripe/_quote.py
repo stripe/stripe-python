@@ -20,22 +20,22 @@ if TYPE_CHECKING:
     from stripe._subscription import Subscription
     from stripe._subscription_schedule import SubscriptionSchedule
     from stripe._tax_rate import TaxRate
-    from stripe.params._quote_accept_params import QuoteAcceptParams
-    from stripe.params._quote_cancel_params import QuoteCancelParams
-    from stripe.params._quote_create_params import QuoteCreateParams
-    from stripe.params._quote_finalize_quote_params import (
+    from stripe.param._quote_accept_params import QuoteAcceptParams
+    from stripe.param._quote_cancel_params import QuoteCancelParams
+    from stripe.param._quote_create_params import QuoteCreateParams
+    from stripe.param._quote_finalize_quote_params import (
         QuoteFinalizeQuoteParams,
     )
-    from stripe.params._quote_list_computed_upfront_line_items_params import (
+    from stripe.param._quote_list_computed_upfront_line_items_params import (
         QuoteListComputedUpfrontLineItemsParams,
     )
-    from stripe.params._quote_list_line_items_params import (
+    from stripe.param._quote_list_line_items_params import (
         QuoteListLineItemsParams,
     )
-    from stripe.params._quote_list_params import QuoteListParams
-    from stripe.params._quote_modify_params import QuoteModifyParams
-    from stripe.params._quote_pdf_params import QuotePdfParams
-    from stripe.params._quote_retrieve_params import QuoteRetrieveParams
+    from stripe.param._quote_list_params import QuoteListParams
+    from stripe.param._quote_modify_params import QuoteModifyParams
+    from stripe.param._quote_pdf_params import QuotePdfParams
+    from stripe.param._quote_retrieve_params import QuoteRetrieveParams
     from stripe.test_helpers._test_clock import TestClock
 
 

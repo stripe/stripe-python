@@ -9,11 +9,11 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._coupon_create_params import CouponCreateParams
-    from stripe.params._coupon_delete_params import CouponDeleteParams
-    from stripe.params._coupon_list_params import CouponListParams
-    from stripe.params._coupon_retrieve_params import CouponRetrieveParams
-    from stripe.params._coupon_update_params import CouponUpdateParams
+    from stripe.param._coupon_create_params import CouponCreateParams
+    from stripe.param._coupon_delete_params import CouponDeleteParams
+    from stripe.param._coupon_list_params import CouponListParams
+    from stripe.param._coupon_retrieve_params import CouponRetrieveParams
+    from stripe.param._coupon_update_params import CouponUpdateParams
 
 
 class CouponService(StripeService):

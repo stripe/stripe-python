@@ -12,14 +12,14 @@ from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._tax_code import TaxCode
-    from stripe.params._shipping_rate_create_params import (
+    from stripe.param._shipping_rate_create_params import (
         ShippingRateCreateParams,
     )
-    from stripe.params._shipping_rate_list_params import ShippingRateListParams
-    from stripe.params._shipping_rate_modify_params import (
+    from stripe.param._shipping_rate_list_params import ShippingRateListParams
+    from stripe.param._shipping_rate_modify_params import (
         ShippingRateModifyParams,
     )
-    from stripe.params._shipping_rate_retrieve_params import (
+    from stripe.param._shipping_rate_retrieve_params import (
         ShippingRateRetrieveParams,
     )
 

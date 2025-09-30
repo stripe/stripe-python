@@ -14,22 +14,22 @@ if TYPE_CHECKING:
     from stripe._charge import Charge
     from stripe._customer import Customer
     from stripe._setup_attempt import SetupAttempt
-    from stripe.params._payment_method_attach_params import (
+    from stripe.param._payment_method_attach_params import (
         PaymentMethodAttachParams,
     )
-    from stripe.params._payment_method_create_params import (
+    from stripe.param._payment_method_create_params import (
         PaymentMethodCreateParams,
     )
-    from stripe.params._payment_method_detach_params import (
+    from stripe.param._payment_method_detach_params import (
         PaymentMethodDetachParams,
     )
-    from stripe.params._payment_method_list_params import (
+    from stripe.param._payment_method_list_params import (
         PaymentMethodListParams,
     )
-    from stripe.params._payment_method_modify_params import (
+    from stripe.param._payment_method_modify_params import (
         PaymentMethodModifyParams,
     )
-    from stripe.params._payment_method_retrieve_params import (
+    from stripe.param._payment_method_retrieve_params import (
         PaymentMethodRetrieveParams,
     )
 

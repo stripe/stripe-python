@@ -9,13 +9,13 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.reporting._report_run_create_params import (
+    from stripe.param.reporting._report_run_create_params import (
         ReportRunCreateParams,
     )
-    from stripe.params.reporting._report_run_list_params import (
+    from stripe.param.reporting._report_run_list_params import (
         ReportRunListParams,
     )
-    from stripe.params.reporting._report_run_retrieve_params import (
+    from stripe.param.reporting._report_run_retrieve_params import (
         ReportRunRetrieveParams,
     )
 

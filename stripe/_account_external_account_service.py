@@ -10,19 +10,19 @@ from typing import Optional, Union, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._account_external_account_create_params import (
+    from stripe.param._account_external_account_create_params import (
         AccountExternalAccountCreateParams,
     )
-    from stripe.params._account_external_account_delete_params import (
+    from stripe.param._account_external_account_delete_params import (
         AccountExternalAccountDeleteParams,
     )
-    from stripe.params._account_external_account_list_params import (
+    from stripe.param._account_external_account_list_params import (
         AccountExternalAccountListParams,
     )
-    from stripe.params._account_external_account_retrieve_params import (
+    from stripe.param._account_external_account_retrieve_params import (
         AccountExternalAccountRetrieveParams,
     )
-    from stripe.params._account_external_account_update_params import (
+    from stripe.param._account_external_account_update_params import (
         AccountExternalAccountUpdateParams,
     )
 

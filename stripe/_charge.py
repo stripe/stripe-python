@@ -38,18 +38,18 @@ if TYPE_CHECKING:
     from stripe._review import Review
     from stripe._source import Source
     from stripe._transfer import Transfer
-    from stripe.params._charge_capture_params import ChargeCaptureParams
-    from stripe.params._charge_create_params import ChargeCreateParams
-    from stripe.params._charge_list_params import ChargeListParams
-    from stripe.params._charge_list_refunds_params import (
+    from stripe.param._charge_capture_params import ChargeCaptureParams
+    from stripe.param._charge_create_params import ChargeCreateParams
+    from stripe.param._charge_list_params import ChargeListParams
+    from stripe.param._charge_list_refunds_params import (
         ChargeListRefundsParams,
     )
-    from stripe.params._charge_modify_params import ChargeModifyParams
-    from stripe.params._charge_retrieve_params import ChargeRetrieveParams
-    from stripe.params._charge_retrieve_refund_params import (
+    from stripe.param._charge_modify_params import ChargeModifyParams
+    from stripe.param._charge_retrieve_params import ChargeRetrieveParams
+    from stripe.param._charge_retrieve_refund_params import (
         ChargeRetrieveRefundParams,
     )
-    from stripe.params._charge_search_params import ChargeSearchParams
+    from stripe.param._charge_search_params import ChargeSearchParams
 
 
 @nested_resource_class_methods("refund")

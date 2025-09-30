@@ -11,29 +11,29 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._subscription_cancel_params import (
+    from stripe.param._subscription_cancel_params import (
         SubscriptionCancelParams,
     )
-    from stripe.params._subscription_create_params import (
+    from stripe.param._subscription_create_params import (
         SubscriptionCreateParams,
     )
-    from stripe.params._subscription_delete_discount_params import (
+    from stripe.param._subscription_delete_discount_params import (
         SubscriptionDeleteDiscountParams,
     )
-    from stripe.params._subscription_list_params import SubscriptionListParams
-    from stripe.params._subscription_migrate_params import (
+    from stripe.param._subscription_list_params import SubscriptionListParams
+    from stripe.param._subscription_migrate_params import (
         SubscriptionMigrateParams,
     )
-    from stripe.params._subscription_resume_params import (
+    from stripe.param._subscription_resume_params import (
         SubscriptionResumeParams,
     )
-    from stripe.params._subscription_retrieve_params import (
+    from stripe.param._subscription_retrieve_params import (
         SubscriptionRetrieveParams,
     )
-    from stripe.params._subscription_search_params import (
+    from stripe.param._subscription_search_params import (
         SubscriptionSearchParams,
     )
-    from stripe.params._subscription_update_params import (
+    from stripe.param._subscription_update_params import (
         SubscriptionUpdateParams,
     )
 

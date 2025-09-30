@@ -8,10 +8,10 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._customer_cash_balance_retrieve_params import (
+    from stripe.param._customer_cash_balance_retrieve_params import (
         CustomerCashBalanceRetrieveParams,
     )
-    from stripe.params._customer_cash_balance_update_params import (
+    from stripe.param._customer_cash_balance_update_params import (
         CustomerCashBalanceUpdateParams,
     )
 

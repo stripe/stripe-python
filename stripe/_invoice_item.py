@@ -16,17 +16,17 @@ if TYPE_CHECKING:
     from stripe._discount import Discount
     from stripe._invoice import Invoice
     from stripe._tax_rate import TaxRate
-    from stripe.params._invoice_item_create_params import (
+    from stripe.param._invoice_item_create_params import (
         InvoiceItemCreateParams,
     )
-    from stripe.params._invoice_item_delete_params import (
+    from stripe.param._invoice_item_delete_params import (
         InvoiceItemDeleteParams,
     )
-    from stripe.params._invoice_item_list_params import InvoiceItemListParams
-    from stripe.params._invoice_item_modify_params import (
+    from stripe.param._invoice_item_list_params import InvoiceItemListParams
+    from stripe.param._invoice_item_modify_params import (
         InvoiceItemModifyParams,
     )
-    from stripe.params._invoice_item_retrieve_params import (
+    from stripe.param._invoice_item_retrieve_params import (
         InvoiceItemRetrieveParams,
     )
     from stripe.test_helpers._test_clock import TestClock

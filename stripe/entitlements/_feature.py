@@ -9,16 +9,16 @@ from typing import ClassVar, Dict, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.entitlements._feature_create_params import (
+    from stripe.param.entitlements._feature_create_params import (
         FeatureCreateParams,
     )
-    from stripe.params.entitlements._feature_list_params import (
+    from stripe.param.entitlements._feature_list_params import (
         FeatureListParams,
     )
-    from stripe.params.entitlements._feature_modify_params import (
+    from stripe.param.entitlements._feature_modify_params import (
         FeatureModifyParams,
     )
-    from stripe.params.entitlements._feature_retrieve_params import (
+    from stripe.param.entitlements._feature_retrieve_params import (
         FeatureRetrieveParams,
     )
 

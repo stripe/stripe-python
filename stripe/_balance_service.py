@@ -7,7 +7,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._balance_retrieve_params import BalanceRetrieveParams
+    from stripe.param._balance_retrieve_params import BalanceRetrieveParams
 
 
 class BalanceService(StripeService):

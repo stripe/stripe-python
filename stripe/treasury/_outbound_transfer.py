@@ -12,28 +12,28 @@ from typing_extensions import Literal, Type, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._mandate import Mandate
-    from stripe.params.treasury._outbound_transfer_cancel_params import (
+    from stripe.param.treasury._outbound_transfer_cancel_params import (
         OutboundTransferCancelParams,
     )
-    from stripe.params.treasury._outbound_transfer_create_params import (
+    from stripe.param.treasury._outbound_transfer_create_params import (
         OutboundTransferCreateParams,
     )
-    from stripe.params.treasury._outbound_transfer_fail_params import (
+    from stripe.param.treasury._outbound_transfer_fail_params import (
         OutboundTransferFailParams,
     )
-    from stripe.params.treasury._outbound_transfer_list_params import (
+    from stripe.param.treasury._outbound_transfer_list_params import (
         OutboundTransferListParams,
     )
-    from stripe.params.treasury._outbound_transfer_post_params import (
+    from stripe.param.treasury._outbound_transfer_post_params import (
         OutboundTransferPostParams,
     )
-    from stripe.params.treasury._outbound_transfer_retrieve_params import (
+    from stripe.param.treasury._outbound_transfer_retrieve_params import (
         OutboundTransferRetrieveParams,
     )
-    from stripe.params.treasury._outbound_transfer_return_outbound_transfer_params import (
+    from stripe.param.treasury._outbound_transfer_return_outbound_transfer_params import (
         OutboundTransferReturnOutboundTransferParams,
     )
-    from stripe.params.treasury._outbound_transfer_update_params import (
+    from stripe.param.treasury._outbound_transfer_update_params import (
         OutboundTransferUpdateParams,
     )
     from stripe.treasury._transaction import Transaction

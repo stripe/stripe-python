@@ -23,22 +23,22 @@ if TYPE_CHECKING:
     from stripe._subscription import Subscription
     from stripe._tax_id import TaxId
     from stripe._tax_rate import TaxRate
-    from stripe.params._subscription_schedule_cancel_params import (
+    from stripe.param._subscription_schedule_cancel_params import (
         SubscriptionScheduleCancelParams,
     )
-    from stripe.params._subscription_schedule_create_params import (
+    from stripe.param._subscription_schedule_create_params import (
         SubscriptionScheduleCreateParams,
     )
-    from stripe.params._subscription_schedule_list_params import (
+    from stripe.param._subscription_schedule_list_params import (
         SubscriptionScheduleListParams,
     )
-    from stripe.params._subscription_schedule_modify_params import (
+    from stripe.param._subscription_schedule_modify_params import (
         SubscriptionScheduleModifyParams,
     )
-    from stripe.params._subscription_schedule_release_params import (
+    from stripe.param._subscription_schedule_release_params import (
         SubscriptionScheduleReleaseParams,
     )
-    from stripe.params._subscription_schedule_retrieve_params import (
+    from stripe.param._subscription_schedule_retrieve_params import (
         SubscriptionScheduleRetrieveParams,
     )
     from stripe.test_helpers._test_clock import TestClock

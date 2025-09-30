@@ -7,7 +7,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.test_helpers.treasury._received_credit_create_params import (
+    from stripe.param.test_helpers.treasury._received_credit_create_params import (
         ReceivedCreditCreateParams,
     )
 

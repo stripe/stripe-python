@@ -9,17 +9,17 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._invoice_item_create_params import (
+    from stripe.param._invoice_item_create_params import (
         InvoiceItemCreateParams,
     )
-    from stripe.params._invoice_item_delete_params import (
+    from stripe.param._invoice_item_delete_params import (
         InvoiceItemDeleteParams,
     )
-    from stripe.params._invoice_item_list_params import InvoiceItemListParams
-    from stripe.params._invoice_item_retrieve_params import (
+    from stripe.param._invoice_item_list_params import InvoiceItemListParams
+    from stripe.param._invoice_item_retrieve_params import (
         InvoiceItemRetrieveParams,
     )
-    from stripe.params._invoice_item_update_params import (
+    from stripe.param._invoice_item_update_params import (
         InvoiceItemUpdateParams,
     )
 

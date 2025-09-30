@@ -10,10 +10,10 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._transfer_create_params import TransferCreateParams
-    from stripe.params._transfer_list_params import TransferListParams
-    from stripe.params._transfer_retrieve_params import TransferRetrieveParams
-    from stripe.params._transfer_update_params import TransferUpdateParams
+    from stripe.param._transfer_create_params import TransferCreateParams
+    from stripe.param._transfer_list_params import TransferListParams
+    from stripe.param._transfer_retrieve_params import TransferRetrieveParams
+    from stripe.param._transfer_update_params import TransferUpdateParams
 
 
 class TransferService(StripeService):

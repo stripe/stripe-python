@@ -11,10 +11,10 @@ if TYPE_CHECKING:
     from stripe._charge import Charge
     from stripe._invoice import Invoice
     from stripe._payment_intent import PaymentIntent
-    from stripe.params._invoice_payment_list_params import (
+    from stripe.param._invoice_payment_list_params import (
         InvoicePaymentListParams,
     )
-    from stripe.params._invoice_payment_retrieve_params import (
+    from stripe.param._invoice_payment_retrieve_params import (
         InvoicePaymentRetrieveParams,
     )
 

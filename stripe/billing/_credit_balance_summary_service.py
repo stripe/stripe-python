@@ -7,7 +7,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.billing._credit_balance_summary_retrieve_params import (
+    from stripe.param.billing._credit_balance_summary_retrieve_params import (
         CreditBalanceSummaryRetrieveParams,
     )
 

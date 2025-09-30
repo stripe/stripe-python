@@ -9,19 +9,19 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._webhook_endpoint_create_params import (
+    from stripe.param._webhook_endpoint_create_params import (
         WebhookEndpointCreateParams,
     )
-    from stripe.params._webhook_endpoint_delete_params import (
+    from stripe.param._webhook_endpoint_delete_params import (
         WebhookEndpointDeleteParams,
     )
-    from stripe.params._webhook_endpoint_list_params import (
+    from stripe.param._webhook_endpoint_list_params import (
         WebhookEndpointListParams,
     )
-    from stripe.params._webhook_endpoint_retrieve_params import (
+    from stripe.param._webhook_endpoint_retrieve_params import (
         WebhookEndpointRetrieveParams,
     )
-    from stripe.params._webhook_endpoint_update_params import (
+    from stripe.param._webhook_endpoint_update_params import (
         WebhookEndpointUpdateParams,
     )
 

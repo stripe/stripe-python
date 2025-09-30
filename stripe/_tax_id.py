@@ -14,10 +14,10 @@ if TYPE_CHECKING:
     from stripe._account import Account
     from stripe._application import Application
     from stripe._customer import Customer
-    from stripe.params._tax_id_create_params import TaxIdCreateParams
-    from stripe.params._tax_id_delete_params import TaxIdDeleteParams
-    from stripe.params._tax_id_list_params import TaxIdListParams
-    from stripe.params._tax_id_retrieve_params import TaxIdRetrieveParams
+    from stripe.param._tax_id_create_params import TaxIdCreateParams
+    from stripe.param._tax_id_delete_params import TaxIdDeleteParams
+    from stripe.param._tax_id_list_params import TaxIdListParams
+    from stripe.param._tax_id_retrieve_params import TaxIdRetrieveParams
 
 
 class TaxId(

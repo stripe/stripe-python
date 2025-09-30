@@ -8,13 +8,13 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.test_helpers.terminal._reader_present_payment_method_params import (
+    from stripe.param.test_helpers.terminal._reader_present_payment_method_params import (
         ReaderPresentPaymentMethodParams,
     )
-    from stripe.params.test_helpers.terminal._reader_succeed_input_collection_params import (
+    from stripe.param.test_helpers.terminal._reader_succeed_input_collection_params import (
         ReaderSucceedInputCollectionParams,
     )
-    from stripe.params.test_helpers.terminal._reader_timeout_input_collection_params import (
+    from stripe.param.test_helpers.terminal._reader_timeout_input_collection_params import (
         ReaderTimeoutInputCollectionParams,
     )
 

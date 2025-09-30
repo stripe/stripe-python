@@ -25,20 +25,20 @@ if TYPE_CHECKING:
     from stripe._subscription import Subscription
     from stripe._tax_id import TaxId as TaxIdResource
     from stripe._tax_rate import TaxRate
-    from stripe.params.checkout._session_create_params import (
+    from stripe.param.checkout._session_create_params import (
         SessionCreateParams,
     )
-    from stripe.params.checkout._session_expire_params import (
+    from stripe.param.checkout._session_expire_params import (
         SessionExpireParams,
     )
-    from stripe.params.checkout._session_list_line_items_params import (
+    from stripe.param.checkout._session_list_line_items_params import (
         SessionListLineItemsParams,
     )
-    from stripe.params.checkout._session_list_params import SessionListParams
-    from stripe.params.checkout._session_modify_params import (
+    from stripe.param.checkout._session_list_params import SessionListParams
+    from stripe.param.checkout._session_modify_params import (
         SessionModifyParams,
     )
-    from stripe.params.checkout._session_retrieve_params import (
+    from stripe.param.checkout._session_retrieve_params import (
         SessionRetrieveParams,
     )
 

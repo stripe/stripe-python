@@ -10,10 +10,10 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.treasury._financial_account_features_retrieve_params import (
+    from stripe.param.treasury._financial_account_features_retrieve_params import (
         FinancialAccountFeaturesRetrieveParams,
     )
-    from stripe.params.treasury._financial_account_features_update_params import (
+    from stripe.param.treasury._financial_account_features_update_params import (
         FinancialAccountFeaturesUpdateParams,
     )
 

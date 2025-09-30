@@ -9,16 +9,16 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._transfer_reversal_create_params import (
+    from stripe.param._transfer_reversal_create_params import (
         TransferReversalCreateParams,
     )
-    from stripe.params._transfer_reversal_list_params import (
+    from stripe.param._transfer_reversal_list_params import (
         TransferReversalListParams,
     )
-    from stripe.params._transfer_reversal_retrieve_params import (
+    from stripe.param._transfer_reversal_retrieve_params import (
         TransferReversalRetrieveParams,
     )
-    from stripe.params._transfer_reversal_update_params import (
+    from stripe.param._transfer_reversal_update_params import (
         TransferReversalUpdateParams,
     )
 

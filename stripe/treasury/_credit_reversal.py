@@ -9,13 +9,13 @@ from typing import ClassVar, Dict, Optional, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.treasury._credit_reversal_create_params import (
+    from stripe.param.treasury._credit_reversal_create_params import (
         CreditReversalCreateParams,
     )
-    from stripe.params.treasury._credit_reversal_list_params import (
+    from stripe.param.treasury._credit_reversal_list_params import (
         CreditReversalListParams,
     )
-    from stripe.params.treasury._credit_reversal_retrieve_params import (
+    from stripe.param.treasury._credit_reversal_retrieve_params import (
         CreditReversalRetrieveParams,
     )
     from stripe.treasury._transaction import Transaction

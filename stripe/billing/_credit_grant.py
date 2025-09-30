@@ -12,22 +12,22 @@ from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._customer import Customer
-    from stripe.params.billing._credit_grant_create_params import (
+    from stripe.param.billing._credit_grant_create_params import (
         CreditGrantCreateParams,
     )
-    from stripe.params.billing._credit_grant_expire_params import (
+    from stripe.param.billing._credit_grant_expire_params import (
         CreditGrantExpireParams,
     )
-    from stripe.params.billing._credit_grant_list_params import (
+    from stripe.param.billing._credit_grant_list_params import (
         CreditGrantListParams,
     )
-    from stripe.params.billing._credit_grant_modify_params import (
+    from stripe.param.billing._credit_grant_modify_params import (
         CreditGrantModifyParams,
     )
-    from stripe.params.billing._credit_grant_retrieve_params import (
+    from stripe.param.billing._credit_grant_retrieve_params import (
         CreditGrantRetrieveParams,
     )
-    from stripe.params.billing._credit_grant_void_grant_params import (
+    from stripe.param.billing._credit_grant_void_grant_params import (
         CreditGrantVoidGrantParams,
     )
     from stripe.test_helpers._test_clock import TestClock

@@ -9,16 +9,16 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.issuing._personalization_design_create_params import (
+    from stripe.param.issuing._personalization_design_create_params import (
         PersonalizationDesignCreateParams,
     )
-    from stripe.params.issuing._personalization_design_list_params import (
+    from stripe.param.issuing._personalization_design_list_params import (
         PersonalizationDesignListParams,
     )
-    from stripe.params.issuing._personalization_design_retrieve_params import (
+    from stripe.param.issuing._personalization_design_retrieve_params import (
         PersonalizationDesignRetrieveParams,
     )
-    from stripe.params.issuing._personalization_design_update_params import (
+    from stripe.param.issuing._personalization_design_update_params import (
         PersonalizationDesignUpdateParams,
     )
 

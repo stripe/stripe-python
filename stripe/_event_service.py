@@ -9,8 +9,8 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._event_list_params import EventListParams
-    from stripe.params._event_retrieve_params import EventRetrieveParams
+    from stripe.param._event_list_params import EventListParams
+    from stripe.param._event_retrieve_params import EventRetrieveParams
 
 
 class EventService(StripeService):

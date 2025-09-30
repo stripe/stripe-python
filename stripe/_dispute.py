@@ -14,10 +14,10 @@ if TYPE_CHECKING:
     from stripe._charge import Charge
     from stripe._file import File
     from stripe._payment_intent import PaymentIntent
-    from stripe.params._dispute_close_params import DisputeCloseParams
-    from stripe.params._dispute_list_params import DisputeListParams
-    from stripe.params._dispute_modify_params import DisputeModifyParams
-    from stripe.params._dispute_retrieve_params import DisputeRetrieveParams
+    from stripe.param._dispute_close_params import DisputeCloseParams
+    from stripe.param._dispute_list_params import DisputeListParams
+    from stripe.param._dispute_modify_params import DisputeModifyParams
+    from stripe.param._dispute_retrieve_params import DisputeRetrieveParams
 
 
 class Dispute(

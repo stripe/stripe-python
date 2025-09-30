@@ -9,11 +9,11 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._refund_cancel_params import RefundCancelParams
-    from stripe.params._refund_create_params import RefundCreateParams
-    from stripe.params._refund_list_params import RefundListParams
-    from stripe.params._refund_retrieve_params import RefundRetrieveParams
-    from stripe.params._refund_update_params import RefundUpdateParams
+    from stripe.param._refund_cancel_params import RefundCancelParams
+    from stripe.param._refund_create_params import RefundCreateParams
+    from stripe.param._refund_list_params import RefundListParams
+    from stripe.param._refund_retrieve_params import RefundRetrieveParams
+    from stripe.param._refund_update_params import RefundUpdateParams
 
 
 class RefundService(StripeService):

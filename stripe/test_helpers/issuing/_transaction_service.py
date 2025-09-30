@@ -8,13 +8,13 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.test_helpers.issuing._transaction_create_force_capture_params import (
+    from stripe.param.test_helpers.issuing._transaction_create_force_capture_params import (
         TransactionCreateForceCaptureParams,
     )
-    from stripe.params.test_helpers.issuing._transaction_create_unlinked_refund_params import (
+    from stripe.param.test_helpers.issuing._transaction_create_unlinked_refund_params import (
         TransactionCreateUnlinkedRefundParams,
     )
-    from stripe.params.test_helpers.issuing._transaction_refund_params import (
+    from stripe.param.test_helpers.issuing._transaction_refund_params import (
         TransactionRefundParams,
     )
 

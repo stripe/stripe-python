@@ -9,8 +9,8 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._country_spec_list_params import CountrySpecListParams
-    from stripe.params._country_spec_retrieve_params import (
+    from stripe.param._country_spec_list_params import CountrySpecListParams
+    from stripe.param._country_spec_retrieve_params import (
         CountrySpecRetrieveParams,
     )
 

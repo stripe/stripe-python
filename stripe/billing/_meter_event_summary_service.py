@@ -9,7 +9,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.billing._meter_event_summary_list_params import (
+    from stripe.param.billing._meter_event_summary_list_params import (
         MeterEventSummaryListParams,
     )
 

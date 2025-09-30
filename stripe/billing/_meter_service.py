@@ -12,18 +12,16 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.billing._meter_create_params import MeterCreateParams
-    from stripe.params.billing._meter_deactivate_params import (
+    from stripe.param.billing._meter_create_params import MeterCreateParams
+    from stripe.param.billing._meter_deactivate_params import (
         MeterDeactivateParams,
     )
-    from stripe.params.billing._meter_list_params import MeterListParams
-    from stripe.params.billing._meter_reactivate_params import (
+    from stripe.param.billing._meter_list_params import MeterListParams
+    from stripe.param.billing._meter_reactivate_params import (
         MeterReactivateParams,
     )
-    from stripe.params.billing._meter_retrieve_params import (
-        MeterRetrieveParams,
-    )
-    from stripe.params.billing._meter_update_params import MeterUpdateParams
+    from stripe.param.billing._meter_retrieve_params import MeterRetrieveParams
+    from stripe.param.billing._meter_update_params import MeterUpdateParams
 
 
 class MeterService(StripeService):

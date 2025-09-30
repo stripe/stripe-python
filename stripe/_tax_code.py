@@ -6,8 +6,8 @@ from typing import ClassVar
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._tax_code_list_params import TaxCodeListParams
-    from stripe.params._tax_code_retrieve_params import TaxCodeRetrieveParams
+    from stripe.param._tax_code_list_params import TaxCodeListParams
+    from stripe.param._tax_code_retrieve_params import TaxCodeRetrieveParams
 
 
 class TaxCode(ListableAPIResource["TaxCode"]):

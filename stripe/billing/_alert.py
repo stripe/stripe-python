@@ -12,18 +12,14 @@ from typing_extensions import Literal, Unpack, TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe._customer import Customer
     from stripe.billing._meter import Meter
-    from stripe.params.billing._alert_activate_params import (
-        AlertActivateParams,
-    )
-    from stripe.params.billing._alert_archive_params import AlertArchiveParams
-    from stripe.params.billing._alert_create_params import AlertCreateParams
-    from stripe.params.billing._alert_deactivate_params import (
+    from stripe.param.billing._alert_activate_params import AlertActivateParams
+    from stripe.param.billing._alert_archive_params import AlertArchiveParams
+    from stripe.param.billing._alert_create_params import AlertCreateParams
+    from stripe.param.billing._alert_deactivate_params import (
         AlertDeactivateParams,
     )
-    from stripe.params.billing._alert_list_params import AlertListParams
-    from stripe.params.billing._alert_retrieve_params import (
-        AlertRetrieveParams,
-    )
+    from stripe.param.billing._alert_list_params import AlertListParams
+    from stripe.param.billing._alert_retrieve_params import AlertRetrieveParams
 
 
 class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):

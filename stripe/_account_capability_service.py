@@ -9,13 +9,13 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._account_capability_list_params import (
+    from stripe.param._account_capability_list_params import (
         AccountCapabilityListParams,
     )
-    from stripe.params._account_capability_retrieve_params import (
+    from stripe.param._account_capability_retrieve_params import (
         AccountCapabilityRetrieveParams,
     )
-    from stripe.params._account_capability_update_params import (
+    from stripe.param._account_capability_update_params import (
         AccountCapabilityUpdateParams,
     )
 

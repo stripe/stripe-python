@@ -7,7 +7,7 @@ from typing import ClassVar, Optional, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._ephemeral_key_delete_params import (
+    from stripe.param._ephemeral_key_delete_params import (
         EphemeralKeyDeleteParams,
     )
 

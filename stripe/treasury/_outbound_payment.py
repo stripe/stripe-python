@@ -12,28 +12,28 @@ from typing_extensions import Literal, Type, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._mandate import Mandate
-    from stripe.params.treasury._outbound_payment_cancel_params import (
+    from stripe.param.treasury._outbound_payment_cancel_params import (
         OutboundPaymentCancelParams,
     )
-    from stripe.params.treasury._outbound_payment_create_params import (
+    from stripe.param.treasury._outbound_payment_create_params import (
         OutboundPaymentCreateParams,
     )
-    from stripe.params.treasury._outbound_payment_fail_params import (
+    from stripe.param.treasury._outbound_payment_fail_params import (
         OutboundPaymentFailParams,
     )
-    from stripe.params.treasury._outbound_payment_list_params import (
+    from stripe.param.treasury._outbound_payment_list_params import (
         OutboundPaymentListParams,
     )
-    from stripe.params.treasury._outbound_payment_post_params import (
+    from stripe.param.treasury._outbound_payment_post_params import (
         OutboundPaymentPostParams,
     )
-    from stripe.params.treasury._outbound_payment_retrieve_params import (
+    from stripe.param.treasury._outbound_payment_retrieve_params import (
         OutboundPaymentRetrieveParams,
     )
-    from stripe.params.treasury._outbound_payment_return_outbound_payment_params import (
+    from stripe.param.treasury._outbound_payment_return_outbound_payment_params import (
         OutboundPaymentReturnOutboundPaymentParams,
     )
-    from stripe.params.treasury._outbound_payment_update_params import (
+    from stripe.param.treasury._outbound_payment_update_params import (
         OutboundPaymentUpdateParams,
     )
     from stripe.treasury._transaction import Transaction

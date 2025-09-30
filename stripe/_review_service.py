@@ -9,9 +9,9 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._review_approve_params import ReviewApproveParams
-    from stripe.params._review_list_params import ReviewListParams
-    from stripe.params._review_retrieve_params import ReviewRetrieveParams
+    from stripe.param._review_approve_params import ReviewApproveParams
+    from stripe.param._review_list_params import ReviewListParams
+    from stripe.param._review_retrieve_params import ReviewRetrieveParams
 
 
 class ReviewService(StripeService):

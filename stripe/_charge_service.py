@@ -10,12 +10,12 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params._charge_capture_params import ChargeCaptureParams
-    from stripe.params._charge_create_params import ChargeCreateParams
-    from stripe.params._charge_list_params import ChargeListParams
-    from stripe.params._charge_retrieve_params import ChargeRetrieveParams
-    from stripe.params._charge_search_params import ChargeSearchParams
-    from stripe.params._charge_update_params import ChargeUpdateParams
+    from stripe.param._charge_capture_params import ChargeCaptureParams
+    from stripe.param._charge_create_params import ChargeCreateParams
+    from stripe.param._charge_list_params import ChargeListParams
+    from stripe.param._charge_retrieve_params import ChargeRetrieveParams
+    from stripe.param._charge_search_params import ChargeSearchParams
+    from stripe.param._charge_update_params import ChargeUpdateParams
 
 
 class ChargeService(StripeService):

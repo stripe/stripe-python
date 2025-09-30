@@ -9,37 +9,37 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.terminal._reader_cancel_action_params import (
+    from stripe.param.terminal._reader_cancel_action_params import (
         ReaderCancelActionParams,
     )
-    from stripe.params.terminal._reader_collect_inputs_params import (
+    from stripe.param.terminal._reader_collect_inputs_params import (
         ReaderCollectInputsParams,
     )
-    from stripe.params.terminal._reader_collect_payment_method_params import (
+    from stripe.param.terminal._reader_collect_payment_method_params import (
         ReaderCollectPaymentMethodParams,
     )
-    from stripe.params.terminal._reader_confirm_payment_intent_params import (
+    from stripe.param.terminal._reader_confirm_payment_intent_params import (
         ReaderConfirmPaymentIntentParams,
     )
-    from stripe.params.terminal._reader_create_params import ReaderCreateParams
-    from stripe.params.terminal._reader_delete_params import ReaderDeleteParams
-    from stripe.params.terminal._reader_list_params import ReaderListParams
-    from stripe.params.terminal._reader_process_payment_intent_params import (
+    from stripe.param.terminal._reader_create_params import ReaderCreateParams
+    from stripe.param.terminal._reader_delete_params import ReaderDeleteParams
+    from stripe.param.terminal._reader_list_params import ReaderListParams
+    from stripe.param.terminal._reader_process_payment_intent_params import (
         ReaderProcessPaymentIntentParams,
     )
-    from stripe.params.terminal._reader_process_setup_intent_params import (
+    from stripe.param.terminal._reader_process_setup_intent_params import (
         ReaderProcessSetupIntentParams,
     )
-    from stripe.params.terminal._reader_refund_payment_params import (
+    from stripe.param.terminal._reader_refund_payment_params import (
         ReaderRefundPaymentParams,
     )
-    from stripe.params.terminal._reader_retrieve_params import (
+    from stripe.param.terminal._reader_retrieve_params import (
         ReaderRetrieveParams,
     )
-    from stripe.params.terminal._reader_set_reader_display_params import (
+    from stripe.param.terminal._reader_set_reader_display_params import (
         ReaderSetReaderDisplayParams,
     )
-    from stripe.params.terminal._reader_update_params import ReaderUpdateParams
+    from stripe.param.terminal._reader_update_params import ReaderUpdateParams
 
 
 class ReaderService(StripeService):

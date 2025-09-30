@@ -13,7 +13,7 @@ from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._bank_account import BankAccount
-    from stripe.params._card_delete_params import CardDeleteParams
+    from stripe.param._card_delete_params import CardDeleteParams
 
 
 class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):

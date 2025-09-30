@@ -9,10 +9,10 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.identity._verification_report_list_params import (
+    from stripe.param.identity._verification_report_list_params import (
         VerificationReportListParams,
     )
-    from stripe.params.identity._verification_report_retrieve_params import (
+    from stripe.param.identity._verification_report_retrieve_params import (
         VerificationReportRetrieveParams,
     )
 
