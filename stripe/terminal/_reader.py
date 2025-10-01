@@ -566,6 +566,10 @@ class Reader(
     """
     Custom label given to the reader for easier identification.
     """
+    last_seen_at: Optional[int]
+    """
+    The last time this reader reported to Stripe backend.
+    """
     livemode: bool
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
