@@ -125,7 +125,7 @@ This release changes the pinned API version to `2025-09-30.clover` and contains 
 * [#1569](https://github.com/stripe/stripe-python/pull/1569) Renamed Urllib2Client to UrllibClient
   - ⚠️ Rename `http_client.Urllib2Client` to `http_client.UrllibClient` as Python `urllib2` was renamed to `urllib` in Python 3.
 * [#1606](https://github.com/stripe/stripe-python/pull/1606) ⚠️ drop support for Python 3.6 & clarify version policy
-  - Read our new [language version support policy](https://docs.stripe.com/sdks/versioning?server=python#stripe-sdk-language-version-support-policy)
+  - Read our new [language version support policy](https://docs.stripe.com/sdks/versioning?lang=python#stripe-sdk-language-version-support-policy)
       - ⚠️ In this release, we drop support for Python 3.6
       - Support for Python 3.7 is deprecated and will be removed in the next scheduled major release (March 2026)
 * [#1596](https://github.com/stripe/stripe-python/pull/1596) ⚠️ Unify resource and service method parameters into one class
