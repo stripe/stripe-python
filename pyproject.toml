@@ -1,12 +1,12 @@
 [project]
 name = "stripe"
-version = "12.5.1"
+version = "13.0.0"
 readme = "README.md"
 description = "Python bindings for the Stripe API"
 authors = [{ name = "Stripe", email = "support@stripe.com" }]
 license-files = ["LICENSE"]
 keywords = ["stripe", "api", "payments"]
-requires-python = ">=3.6"
+requires-python = ">=3.7"
 dependencies = [
   "typing_extensions <= 4.2.0, > 3.7.2; python_version < '3.7'",
   # The best typing support comes from 4.5.0+ but we can support down to
@@ -22,7 +22,6 @@ classifiers = [
   "Programming Language :: Python",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3 :: Only",
-  "Programming Language :: Python :: 3.6",
   "Programming Language :: Python :: 3.7",
   "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
