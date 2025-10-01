@@ -142,9 +142,9 @@ jobs:
           source .venv/bin/activate
           export VERSION=$(cat VERSION)
           gpg --detach-sign --local-user $GPG_SIGNING_KEYID  --pinentry-mode loopback --passphrase $GPG_SIGNING_PASSPHRASE -a dist/stripe-$VERSION.tar.gz
-          gpg --detach-sign --local-user $GPG_SIGNING_KEYID  --pinentry-mode loopback --passphrase $GPG_SIGNING_PASSPHRASE -a dist/stripe-$VERSION-py2.py3-none-any.whl
+          gpg --detach-sign --local-user $GPG_SIGNING_KEYID  --pinentry-mode loopback --passphrase $GPG_SIGNING_PASSPHRASE -a dist/stripe-$VERSION-py3-none-any.whl
 
-          python -m twine upload --verbose dist/stripe-$VERSION.tar.gz  dist/stripe-$VERSION-py2.py3-none-any.whl dist/stripe-$VERSION.tar.gz.asc dist/stripe-$VERSION-py2.py3-none-any.whl.asc
+          python -m twine upload --verbose dist/stripe-$VERSION.tar.gz  dist/stripe-$VERSION-py3-none-any.whl dist/stripe-$VERSION.tar.gz.asc dist/stripe-$VERSION-py3-none-any.whl.asc
         env:
           GPG_SIGNING_KEYID: ${{ secrets.GPG_SIGNING_KEYID }}
           TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
