@@ -46,9 +46,13 @@ from stripe.params.test_helpers.treasury._received_credit_create_params import (
     ReceivedCreditCreateParams as ReceivedCreditCreateParams,
     ReceivedCreditCreateParamsInitiatingPaymentMethodDetails as ReceivedCreditCreateParamsInitiatingPaymentMethodDetails,
     ReceivedCreditCreateParamsInitiatingPaymentMethodDetailsUsBankAccount as ReceivedCreditCreateParamsInitiatingPaymentMethodDetailsUsBankAccount,
+    ReceivedCreditCreateParamsNetworkDetails as ReceivedCreditCreateParamsNetworkDetails,
+    ReceivedCreditCreateParamsNetworkDetailsAch as ReceivedCreditCreateParamsNetworkDetailsAch,
 )
 from stripe.params.test_helpers.treasury._received_debit_create_params import (
     ReceivedDebitCreateParams as ReceivedDebitCreateParams,
     ReceivedDebitCreateParamsInitiatingPaymentMethodDetails as ReceivedDebitCreateParamsInitiatingPaymentMethodDetails,
     ReceivedDebitCreateParamsInitiatingPaymentMethodDetailsUsBankAccount as ReceivedDebitCreateParamsInitiatingPaymentMethodDetailsUsBankAccount,
+    ReceivedDebitCreateParamsNetworkDetails as ReceivedDebitCreateParamsNetworkDetails,
+    ReceivedDebitCreateParamsNetworkDetailsAch as ReceivedDebitCreateParamsNetworkDetailsAch,
 )
