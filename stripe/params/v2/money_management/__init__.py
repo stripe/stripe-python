@@ -8,9 +8,11 @@ from stripe.params.v2.money_management._adjustment_retrieve_params import (
 )
 from stripe.params.v2.money_management._financial_account_close_params import (
     FinancialAccountCloseParams as FinancialAccountCloseParams,
+    FinancialAccountCloseParamsForwardingSettings as FinancialAccountCloseParamsForwardingSettings,
 )
 from stripe.params.v2.money_management._financial_account_create_params import (
     FinancialAccountCreateParams as FinancialAccountCreateParams,
+    FinancialAccountCreateParamsStorage as FinancialAccountCreateParamsStorage,
 )
 from stripe.params.v2.money_management._financial_account_list_params import (
     FinancialAccountListParams as FinancialAccountListParams,
@@ -20,6 +22,7 @@ from stripe.params.v2.money_management._financial_account_retrieve_params import
 )
 from stripe.params.v2.money_management._financial_address_create_params import (
     FinancialAddressCreateParams as FinancialAddressCreateParams,
+    FinancialAddressCreateParamsSepaBankAccount as FinancialAddressCreateParamsSepaBankAccount,
 )
 from stripe.params.v2.money_management._financial_address_list_params import (
     FinancialAddressListParams as FinancialAddressListParams,
@@ -29,6 +32,8 @@ from stripe.params.v2.money_management._financial_address_retrieve_params import
 )
 from stripe.params.v2.money_management._inbound_transfer_create_params import (
     InboundTransferCreateParams as InboundTransferCreateParams,
+    InboundTransferCreateParamsFrom as InboundTransferCreateParamsFrom,
+    InboundTransferCreateParamsTo as InboundTransferCreateParamsTo,
 )
 from stripe.params.v2.money_management._inbound_transfer_list_params import (
     InboundTransferListParams as InboundTransferListParams,
@@ -41,12 +46,19 @@ from stripe.params.v2.money_management._outbound_payment_cancel_params import (
 )
 from stripe.params.v2.money_management._outbound_payment_create_params import (
     OutboundPaymentCreateParams as OutboundPaymentCreateParams,
+    OutboundPaymentCreateParamsDeliveryOptions as OutboundPaymentCreateParamsDeliveryOptions,
+    OutboundPaymentCreateParamsFrom as OutboundPaymentCreateParamsFrom,
+    OutboundPaymentCreateParamsRecipientNotification as OutboundPaymentCreateParamsRecipientNotification,
+    OutboundPaymentCreateParamsTo as OutboundPaymentCreateParamsTo,
 )
 from stripe.params.v2.money_management._outbound_payment_list_params import (
     OutboundPaymentListParams as OutboundPaymentListParams,
 )
 from stripe.params.v2.money_management._outbound_payment_quote_create_params import (
     OutboundPaymentQuoteCreateParams as OutboundPaymentQuoteCreateParams,
+    OutboundPaymentQuoteCreateParamsDeliveryOptions as OutboundPaymentQuoteCreateParamsDeliveryOptions,
+    OutboundPaymentQuoteCreateParamsFrom as OutboundPaymentQuoteCreateParamsFrom,
+    OutboundPaymentQuoteCreateParamsTo as OutboundPaymentQuoteCreateParamsTo,
 )
 from stripe.params.v2.money_management._outbound_payment_quote_retrieve_params import (
     OutboundPaymentQuoteRetrieveParams as OutboundPaymentQuoteRetrieveParams,
@@ -59,6 +71,10 @@ from stripe.params.v2.money_management._outbound_setup_intent_cancel_params impo
 )
 from stripe.params.v2.money_management._outbound_setup_intent_create_params import (
     OutboundSetupIntentCreateParams as OutboundSetupIntentCreateParams,
+    OutboundSetupIntentCreateParamsPayoutMethodData as OutboundSetupIntentCreateParamsPayoutMethodData,
+    OutboundSetupIntentCreateParamsPayoutMethodDataBankAccount as OutboundSetupIntentCreateParamsPayoutMethodDataBankAccount,
+    OutboundSetupIntentCreateParamsPayoutMethodDataCard as OutboundSetupIntentCreateParamsPayoutMethodDataCard,
+    OutboundSetupIntentCreateParamsPayoutMethodDataCryptoWallet as OutboundSetupIntentCreateParamsPayoutMethodDataCryptoWallet,
 )
 from stripe.params.v2.money_management._outbound_setup_intent_list_params import (
     OutboundSetupIntentListParams as OutboundSetupIntentListParams,
@@ -68,12 +84,18 @@ from stripe.params.v2.money_management._outbound_setup_intent_retrieve_params im
 )
 from stripe.params.v2.money_management._outbound_setup_intent_update_params import (
     OutboundSetupIntentUpdateParams as OutboundSetupIntentUpdateParams,
+    OutboundSetupIntentUpdateParamsPayoutMethodData as OutboundSetupIntentUpdateParamsPayoutMethodData,
+    OutboundSetupIntentUpdateParamsPayoutMethodDataBankAccount as OutboundSetupIntentUpdateParamsPayoutMethodDataBankAccount,
+    OutboundSetupIntentUpdateParamsPayoutMethodDataCard as OutboundSetupIntentUpdateParamsPayoutMethodDataCard,
 )
 from stripe.params.v2.money_management._outbound_transfer_cancel_params import (
     OutboundTransferCancelParams as OutboundTransferCancelParams,
 )
 from stripe.params.v2.money_management._outbound_transfer_create_params import (
     OutboundTransferCreateParams as OutboundTransferCreateParams,
+    OutboundTransferCreateParamsDeliveryOptions as OutboundTransferCreateParamsDeliveryOptions,
+    OutboundTransferCreateParamsFrom as OutboundTransferCreateParamsFrom,
+    OutboundTransferCreateParamsTo as OutboundTransferCreateParamsTo,
 )
 from stripe.params.v2.money_management._outbound_transfer_list_params import (
     OutboundTransferListParams as OutboundTransferListParams,
@@ -86,6 +108,7 @@ from stripe.params.v2.money_management._payout_method_archive_params import (
 )
 from stripe.params.v2.money_management._payout_method_list_params import (
     PayoutMethodListParams as PayoutMethodListParams,
+    PayoutMethodListParamsUsageStatus as PayoutMethodListParamsUsageStatus,
 )
 from stripe.params.v2.money_management._payout_method_retrieve_params import (
     PayoutMethodRetrieveParams as PayoutMethodRetrieveParams,

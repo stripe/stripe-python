@@ -9,6 +9,18 @@ from stripe.params.billing._alert_archive_params import (
 )
 from stripe.params.billing._alert_create_params import (
     AlertCreateParams as AlertCreateParams,
+    AlertCreateParamsCreditBalanceThreshold as AlertCreateParamsCreditBalanceThreshold,
+    AlertCreateParamsCreditBalanceThresholdFilter as AlertCreateParamsCreditBalanceThresholdFilter,
+    AlertCreateParamsCreditBalanceThresholdFilterCreditGrants as AlertCreateParamsCreditBalanceThresholdFilterCreditGrants,
+    AlertCreateParamsCreditBalanceThresholdFilterCreditGrantsApplicabilityConfig as AlertCreateParamsCreditBalanceThresholdFilterCreditGrantsApplicabilityConfig,
+    AlertCreateParamsCreditBalanceThresholdFilterCreditGrantsApplicabilityConfigScope as AlertCreateParamsCreditBalanceThresholdFilterCreditGrantsApplicabilityConfigScope,
+    AlertCreateParamsCreditBalanceThresholdFilterCreditGrantsApplicabilityConfigScopeBillableItem as AlertCreateParamsCreditBalanceThresholdFilterCreditGrantsApplicabilityConfigScopeBillableItem,
+    AlertCreateParamsCreditBalanceThresholdFilterCreditGrantsApplicabilityConfigScopePrice as AlertCreateParamsCreditBalanceThresholdFilterCreditGrantsApplicabilityConfigScopePrice,
+    AlertCreateParamsCreditBalanceThresholdLte as AlertCreateParamsCreditBalanceThresholdLte,
+    AlertCreateParamsCreditBalanceThresholdLteCustomPricingUnit as AlertCreateParamsCreditBalanceThresholdLteCustomPricingUnit,
+    AlertCreateParamsCreditBalanceThresholdLteMonetary as AlertCreateParamsCreditBalanceThresholdLteMonetary,
+    AlertCreateParamsUsageThreshold as AlertCreateParamsUsageThreshold,
+    AlertCreateParamsUsageThresholdFilter as AlertCreateParamsUsageThresholdFilter,
 )
 from stripe.params.billing._alert_deactivate_params import (
     AlertDeactivateParams as AlertDeactivateParams,
@@ -21,6 +33,10 @@ from stripe.params.billing._alert_retrieve_params import (
 )
 from stripe.params.billing._credit_balance_summary_retrieve_params import (
     CreditBalanceSummaryRetrieveParams as CreditBalanceSummaryRetrieveParams,
+    CreditBalanceSummaryRetrieveParamsFilter as CreditBalanceSummaryRetrieveParamsFilter,
+    CreditBalanceSummaryRetrieveParamsFilterApplicabilityScope as CreditBalanceSummaryRetrieveParamsFilterApplicabilityScope,
+    CreditBalanceSummaryRetrieveParamsFilterApplicabilityScopeBillableItem as CreditBalanceSummaryRetrieveParamsFilterApplicabilityScopeBillableItem,
+    CreditBalanceSummaryRetrieveParamsFilterApplicabilityScopePrice as CreditBalanceSummaryRetrieveParamsFilterApplicabilityScopePrice,
 )
 from stripe.params.billing._credit_balance_transaction_list_params import (
     CreditBalanceTransactionListParams as CreditBalanceTransactionListParams,
@@ -30,6 +46,13 @@ from stripe.params.billing._credit_balance_transaction_retrieve_params import (
 )
 from stripe.params.billing._credit_grant_create_params import (
     CreditGrantCreateParams as CreditGrantCreateParams,
+    CreditGrantCreateParamsAmount as CreditGrantCreateParamsAmount,
+    CreditGrantCreateParamsAmountCustomPricingUnit as CreditGrantCreateParamsAmountCustomPricingUnit,
+    CreditGrantCreateParamsAmountMonetary as CreditGrantCreateParamsAmountMonetary,
+    CreditGrantCreateParamsApplicabilityConfig as CreditGrantCreateParamsApplicabilityConfig,
+    CreditGrantCreateParamsApplicabilityConfigScope as CreditGrantCreateParamsApplicabilityConfigScope,
+    CreditGrantCreateParamsApplicabilityConfigScopeBillableItem as CreditGrantCreateParamsApplicabilityConfigScopeBillableItem,
+    CreditGrantCreateParamsApplicabilityConfigScopePrice as CreditGrantCreateParamsApplicabilityConfigScopePrice,
 )
 from stripe.params.billing._credit_grant_expire_params import (
     CreditGrantExpireParams as CreditGrantExpireParams,
@@ -51,12 +74,16 @@ from stripe.params.billing._credit_grant_void_grant_params import (
 )
 from stripe.params.billing._meter_create_params import (
     MeterCreateParams as MeterCreateParams,
+    MeterCreateParamsCustomerMapping as MeterCreateParamsCustomerMapping,
+    MeterCreateParamsDefaultAggregation as MeterCreateParamsDefaultAggregation,
+    MeterCreateParamsValueSettings as MeterCreateParamsValueSettings,
 )
 from stripe.params.billing._meter_deactivate_params import (
     MeterDeactivateParams as MeterDeactivateParams,
 )
 from stripe.params.billing._meter_event_adjustment_create_params import (
     MeterEventAdjustmentCreateParams as MeterEventAdjustmentCreateParams,
+    MeterEventAdjustmentCreateParamsCancel as MeterEventAdjustmentCreateParamsCancel,
 )
 from stripe.params.billing._meter_event_create_params import (
     MeterEventCreateParams as MeterEventCreateParams,

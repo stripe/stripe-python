@@ -2,6 +2,9 @@
 # File generated from our OpenAPI spec
 from stripe.params.v2.billing.pricing_plans._component_create_params import (
     ComponentCreateParams as ComponentCreateParams,
+    ComponentCreateParamsLicenseFee as ComponentCreateParamsLicenseFee,
+    ComponentCreateParamsRateCard as ComponentCreateParamsRateCard,
+    ComponentCreateParamsServiceAction as ComponentCreateParamsServiceAction,
 )
 from stripe.params.v2.billing.pricing_plans._component_delete_params import (
     ComponentDeleteParams as ComponentDeleteParams,

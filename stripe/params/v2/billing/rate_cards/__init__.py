@@ -2,6 +2,9 @@
 # File generated from our OpenAPI spec
 from stripe.params.v2.billing.rate_cards._rate_create_params import (
     RateCreateParams as RateCreateParams,
+    RateCreateParamsCustomPricingUnitAmount as RateCreateParamsCustomPricingUnitAmount,
+    RateCreateParamsTier as RateCreateParamsTier,
+    RateCreateParamsTransformQuantity as RateCreateParamsTransformQuantity,
 )
 from stripe.params.v2.billing.rate_cards._rate_delete_params import (
     RateDeleteParams as RateDeleteParams,
