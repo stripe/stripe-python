@@ -189,6 +189,8 @@ from stripe.params.treasury._outbound_transfer_create_params import (
     OutboundTransferCreateParamsDestinationPaymentMethodData as OutboundTransferCreateParamsDestinationPaymentMethodData,
     OutboundTransferCreateParamsDestinationPaymentMethodOptions as OutboundTransferCreateParamsDestinationPaymentMethodOptions,
     OutboundTransferCreateParamsDestinationPaymentMethodOptionsUsBankAccount as OutboundTransferCreateParamsDestinationPaymentMethodOptionsUsBankAccount,
+    OutboundTransferCreateParamsNetworkDetails as OutboundTransferCreateParamsNetworkDetails,
+    OutboundTransferCreateParamsNetworkDetailsAch as OutboundTransferCreateParamsNetworkDetailsAch,
 )
 from stripe.params.treasury._outbound_transfer_fail_params import (
     OutboundTransferFailParams as OutboundTransferFailParams,
@@ -216,6 +218,8 @@ from stripe.params.treasury._received_credit_create_params import (
     ReceivedCreditCreateParams as ReceivedCreditCreateParams,
     ReceivedCreditCreateParamsInitiatingPaymentMethodDetails as ReceivedCreditCreateParamsInitiatingPaymentMethodDetails,
     ReceivedCreditCreateParamsInitiatingPaymentMethodDetailsUsBankAccount as ReceivedCreditCreateParamsInitiatingPaymentMethodDetailsUsBankAccount,
+    ReceivedCreditCreateParamsNetworkDetails as ReceivedCreditCreateParamsNetworkDetails,
+    ReceivedCreditCreateParamsNetworkDetailsAch as ReceivedCreditCreateParamsNetworkDetailsAch,
 )
 from stripe.params.treasury._received_credit_list_params import (
     ReceivedCreditListParams as ReceivedCreditListParams,
@@ -228,6 +232,8 @@ from stripe.params.treasury._received_debit_create_params import (
     ReceivedDebitCreateParams as ReceivedDebitCreateParams,
     ReceivedDebitCreateParamsInitiatingPaymentMethodDetails as ReceivedDebitCreateParamsInitiatingPaymentMethodDetails,
     ReceivedDebitCreateParamsInitiatingPaymentMethodDetailsUsBankAccount as ReceivedDebitCreateParamsInitiatingPaymentMethodDetailsUsBankAccount,
+    ReceivedDebitCreateParamsNetworkDetails as ReceivedDebitCreateParamsNetworkDetails,
+    ReceivedDebitCreateParamsNetworkDetailsAch as ReceivedDebitCreateParamsNetworkDetailsAch,
 )
 from stripe.params.treasury._received_debit_list_params import (
     ReceivedDebitListParams as ReceivedDebitListParams,
