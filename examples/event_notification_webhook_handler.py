@@ -43,13 +43,13 @@ def webhook():
         if event_notif.type == "v1.billing.meter.error_report_triggered":
             # in this block, event_notification is typed as a V1BillingMeterErrorReportTriggeredEventNotification
 
-            # it has a related_object property you can use for logging
-            print(f"Meter id: {event_notif.related_object.id}")
+            # it has a related_object property you can use for basic logging
+            print(f"Meter w/ id {event_notif.related_object.id} had a problem")
 
             # or you can fetch the full object from the API for more details:
             meter = event_notif.fetch_related_object()
             print(
-                f"Err! Meter {meter.id} w/ window {meter.event_time_window} had a problem"
+                f"Err! Meter {meter.display_name} ({meter.id}) had a problem"
             )
 
             # And you can always fetch the full event:
