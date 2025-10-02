@@ -2,6 +2,8 @@
 # File generated from our OpenAPI spec
 from stripe.params.v2.core._event_destination_create_params import (
     EventDestinationCreateParams as EventDestinationCreateParams,
+    EventDestinationCreateParamsAmazonEventbridge as EventDestinationCreateParamsAmazonEventbridge,
+    EventDestinationCreateParamsWebhookEndpoint as EventDestinationCreateParamsWebhookEndpoint,
 )
 from stripe.params.v2.core._event_destination_delete_params import (
     EventDestinationDeleteParams as EventDestinationDeleteParams,
@@ -23,6 +25,7 @@ from stripe.params.v2.core._event_destination_retrieve_params import (
 )
 from stripe.params.v2.core._event_destination_update_params import (
     EventDestinationUpdateParams as EventDestinationUpdateParams,
+    EventDestinationUpdateParamsWebhookEndpoint as EventDestinationUpdateParamsWebhookEndpoint,
 )
 from stripe.params.v2.core._event_list_params import (
     EventListParams as EventListParams,
