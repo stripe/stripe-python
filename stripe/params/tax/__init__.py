@@ -24,6 +24,7 @@ from stripe.params.tax._calculation_retrieve_params import (
 )
 from stripe.params.tax._form_list_params import (
     FormListParams as FormListParams,
+    FormListParamsPayee as FormListParamsPayee,
 )
 from stripe.params.tax._form_pdf_params import FormPdfParams as FormPdfParams
 from stripe.params.tax._form_retrieve_params import (

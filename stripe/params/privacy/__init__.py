@@ -5,6 +5,7 @@ from stripe.params.privacy._redaction_job_cancel_params import (
 )
 from stripe.params.privacy._redaction_job_create_params import (
     RedactionJobCreateParams as RedactionJobCreateParams,
+    RedactionJobCreateParamsObjects as RedactionJobCreateParamsObjects,
 )
 from stripe.params.privacy._redaction_job_list_params import (
     RedactionJobListParams as RedactionJobListParams,

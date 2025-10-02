@@ -2,6 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe.params.capital._financing_offer_list_params import (
     FinancingOfferListParams as FinancingOfferListParams,
+    FinancingOfferListParamsCreated as FinancingOfferListParamsCreated,
 )
 from stripe.params.capital._financing_offer_mark_delivered_params import (
     FinancingOfferMarkDeliveredParams as FinancingOfferMarkDeliveredParams,

@@ -5,6 +5,7 @@ from stripe.params.terminal._configuration_create_params import (
     ConfigurationCreateParamsBbposWisepad3 as ConfigurationCreateParamsBbposWisepad3,
     ConfigurationCreateParamsBbposWiseposE as ConfigurationCreateParamsBbposWiseposE,
     ConfigurationCreateParamsOffline as ConfigurationCreateParamsOffline,
+    ConfigurationCreateParamsReaderSecurity as ConfigurationCreateParamsReaderSecurity,
     ConfigurationCreateParamsRebootWindow as ConfigurationCreateParamsRebootWindow,
     ConfigurationCreateParamsStripeS700 as ConfigurationCreateParamsStripeS700,
     ConfigurationCreateParamsTipping as ConfigurationCreateParamsTipping,
@@ -46,6 +47,7 @@ from stripe.params.terminal._configuration_modify_params import (
     ConfigurationModifyParamsBbposWisepad3 as ConfigurationModifyParamsBbposWisepad3,
     ConfigurationModifyParamsBbposWiseposE as ConfigurationModifyParamsBbposWiseposE,
     ConfigurationModifyParamsOffline as ConfigurationModifyParamsOffline,
+    ConfigurationModifyParamsReaderSecurity as ConfigurationModifyParamsReaderSecurity,
     ConfigurationModifyParamsRebootWindow as ConfigurationModifyParamsRebootWindow,
     ConfigurationModifyParamsStripeS700 as ConfigurationModifyParamsStripeS700,
     ConfigurationModifyParamsTipping as ConfigurationModifyParamsTipping,
@@ -84,6 +86,7 @@ from stripe.params.terminal._configuration_update_params import (
     ConfigurationUpdateParamsBbposWisepad3 as ConfigurationUpdateParamsBbposWisepad3,
     ConfigurationUpdateParamsBbposWiseposE as ConfigurationUpdateParamsBbposWiseposE,
     ConfigurationUpdateParamsOffline as ConfigurationUpdateParamsOffline,
+    ConfigurationUpdateParamsReaderSecurity as ConfigurationUpdateParamsReaderSecurity,
     ConfigurationUpdateParamsRebootWindow as ConfigurationUpdateParamsRebootWindow,
     ConfigurationUpdateParamsStripeS700 as ConfigurationUpdateParamsStripeS700,
     ConfigurationUpdateParamsTipping as ConfigurationUpdateParamsTipping,
@@ -146,6 +149,8 @@ from stripe.params.terminal._location_update_params import (
 )
 from stripe.params.terminal._onboarding_link_create_params import (
     OnboardingLinkCreateParams as OnboardingLinkCreateParams,
+    OnboardingLinkCreateParamsLinkOptions as OnboardingLinkCreateParamsLinkOptions,
+    OnboardingLinkCreateParamsLinkOptionsAppleTermsAndConditions as OnboardingLinkCreateParamsLinkOptionsAppleTermsAndConditions,
 )
 from stripe.params.terminal._reader_cancel_action_params import (
     ReaderCancelActionParams as ReaderCancelActionParams,
