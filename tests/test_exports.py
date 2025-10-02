@@ -130,3 +130,11 @@ def test_can_import_namespaced_service() -> None:
 
     assert_output("stripe.tax is not None", "True")
     assert_output("stripe.tax.CalculationService is not None", "True")
+
+
+def test_can_import_nested_params_types() -> None:
+    from stripe.params.checkout import (
+        SessionCreateParamsLineItem,
+    )
+
+    assert SessionCreateParamsLineItem is not None
