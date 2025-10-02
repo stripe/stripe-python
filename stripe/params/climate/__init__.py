@@ -5,18 +5,21 @@ from stripe.params.climate._order_cancel_params import (
 )
 from stripe.params.climate._order_create_params import (
     OrderCreateParams as OrderCreateParams,
+    OrderCreateParamsBeneficiary as OrderCreateParamsBeneficiary,
 )
 from stripe.params.climate._order_list_params import (
     OrderListParams as OrderListParams,
 )
 from stripe.params.climate._order_modify_params import (
     OrderModifyParams as OrderModifyParams,
+    OrderModifyParamsBeneficiary as OrderModifyParamsBeneficiary,
 )
 from stripe.params.climate._order_retrieve_params import (
     OrderRetrieveParams as OrderRetrieveParams,
 )
 from stripe.params.climate._order_update_params import (
     OrderUpdateParams as OrderUpdateParams,
+    OrderUpdateParamsBeneficiary as OrderUpdateParamsBeneficiary,
 )
 from stripe.params.climate._product_list_params import (
     ProductListParams as ProductListParams,

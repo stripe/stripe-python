@@ -8,6 +8,7 @@ from stripe.params.v2.core.vault._gb_bank_account_archive_params import (
 )
 from stripe.params.v2.core.vault._gb_bank_account_create_params import (
     GbBankAccountCreateParams as GbBankAccountCreateParams,
+    GbBankAccountCreateParamsConfirmationOfPayee as GbBankAccountCreateParamsConfirmationOfPayee,
 )
 from stripe.params.v2.core.vault._gb_bank_account_initiate_confirmation_of_payee_params import (
     GbBankAccountInitiateConfirmationOfPayeeParams as GbBankAccountInitiateConfirmationOfPayeeParams,
