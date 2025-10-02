@@ -45,7 +45,7 @@ requires = ["flit_core >=3.11, <4"]
 build-backend = "flit_core.buildapi"
 
 [tool.flit.sdist]
-include = ["tests/", "justfile", "examples/", "CHANGELOG.md"]
+include = ["tests/", "justfile", "examples/", "CHANGELOG.md", "deps/"]
 
 [tool.ruff]
 # same as our black config
