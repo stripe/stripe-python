@@ -23330,6 +23330,109 @@ class TestGeneratedExamples(object):
     ) -> None:
         http_client_mock.stub_request(
             "post",
+            "/v1/promotion_codes",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.promotion_codes.create(
+            {
+                "promotion": {"type": "coupon", "coupon": "Z4OV52SU"},
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/promotion_codes",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="promotion[type]=coupon&promotion[coupon]=Z4OV52SU",
+        )
+
+    def test_promotion_codes_post(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        stripe.PromotionCode.create(
+            promotion={"type": "coupon", "coupon": "Z4OV52SU"},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/promotion_codes",
+            query_string="",
+            post_data="promotion[type]=coupon&promotion[coupon]=Z4OV52SU",
+        )
+
+    def test_promotion_codes_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/promotion_codes",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v1.promotion_codes.create(
+            {
+                "promotion": {"type": "coupon", "coupon": "Z4OV52SU"},
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/promotion_codes",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="promotion[type]=coupon&promotion[coupon]=Z4OV52SU",
+        )
+
+    @pytest.mark.anyio
+    async def test_promotion_codes_post_async(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        await stripe.PromotionCode.create_async(
+            promotion={"type": "coupon", "coupon": "Z4OV52SU"},
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/promotion_codes",
+            query_string="",
+            post_data="promotion[type]=coupon&promotion[coupon]=Z4OV52SU",
+        )
+
+    @pytest.mark.anyio
+    async def test_promotion_codes_post_service_async(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v1/promotion_codes",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        await client.v1.promotion_codes.create_async(
+            {
+                "promotion": {"type": "coupon", "coupon": "Z4OV52SU"},
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/promotion_codes",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="promotion[type]=coupon&promotion[coupon]=Z4OV52SU",
+        )
+
+    def test_promotion_codes_post_2_service_non_namespaced(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
             "/v1/promotion_codes/promo_xxxxxxxxxxxxx",
         )
         client = StripeClient(
@@ -23349,7 +23452,7 @@ class TestGeneratedExamples(object):
             post_data="metadata[order_id]=6735",
         )
 
-    def test_promotion_codes_post(
+    def test_promotion_codes_post_2(
         self, http_client_mock: HTTPClientMock
     ) -> None:
         stripe.PromotionCode.modify(
@@ -23363,7 +23466,7 @@ class TestGeneratedExamples(object):
             post_data="metadata[order_id]=6735",
         )
 
-    def test_promotion_codes_post_service(
+    def test_promotion_codes_post_2_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
         http_client_mock.stub_request(
@@ -23388,7 +23491,7 @@ class TestGeneratedExamples(object):
         )
 
     @pytest.mark.anyio
-    async def test_promotion_codes_post_async(
+    async def test_promotion_codes_post_2_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
         await stripe.PromotionCode.modify_async(
@@ -23403,7 +23506,7 @@ class TestGeneratedExamples(object):
         )
 
     @pytest.mark.anyio
-    async def test_promotion_codes_post_service_async(
+    async def test_promotion_codes_post_2_service_async(
         self, http_client_mock: HTTPClientMock
     ) -> None:
         http_client_mock.stub_request(
