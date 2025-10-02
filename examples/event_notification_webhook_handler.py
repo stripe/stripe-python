@@ -1,5 +1,5 @@
 """
-event_notification_webhook_handler.py - receive and process thin events like the v1.billing.meter.error_report_triggered and v1.billing.meter.no_meter_found events.
+event_notification_webhook_handler.py - receive and process event notifications (AKA thin events) like the v1.billing.meter.error_report_triggered and v1.billing.meter.no_meter_found events.
 
 In this example, we:
     - create a StripeClient called client
@@ -80,9 +80,10 @@ def webhook():
             # continue matching on the type property
             # from this point on, the `related_object` property _may_ be None (depending on the event type)
             if event_notif.type == "some.new.event":
-                if event_notif.related_object:
-                    obj = event_notif.fetch_related_object()
-                    print(f"Related object: {obj}")
+                # if this event type has a related object, you can fetch it
+                obj = event_notif.fetch_related_object()
+                # otherwise, `obj` will just be `None`
+                print(f"Related object: {obj}")
 
                 # you can still fetch the full event, but it will be untyped
                 event = event_notif.fetch_event()
