@@ -1,5 +1,8 @@
 # Changelog
 
+## 13.1.1a1 - 2025-10-03
+* Contains bug fixes and improvements from [v13.0.1](https://github.com/stripe/stripe-python/blob/master/CHANGELOG.md#1301---2025-10-03).
+
 ## 13.1.0b1 - 2025-09-30
 This release changes the pinned API version to `2025-09-30.preview`. It is built on top of SDK version 13.0.0 which contains breaking changes. Please review the [changelog for 13.0.0](https://github.com/stripe/stripe-go/blob/master/CHANGELOG.md#1300---2025-09-30) if upgrading from older SDK versions.
 
