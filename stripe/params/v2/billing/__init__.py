@@ -109,6 +109,7 @@ from stripe.params.v2.billing._licensed_item_update_params import (
 )
 from stripe.params.v2.billing._meter_event_adjustment_create_params import (
     MeterEventAdjustmentCreateParams as MeterEventAdjustmentCreateParams,
+    MeterEventAdjustmentCreateParamsCancel as MeterEventAdjustmentCreateParamsCancel,
 )
 from stripe.params.v2.billing._meter_event_create_params import (
     MeterEventCreateParams as MeterEventCreateParams,
@@ -118,6 +119,7 @@ from stripe.params.v2.billing._meter_event_session_create_params import (
 )
 from stripe.params.v2.billing._meter_event_stream_create_params import (
     MeterEventStreamCreateParams as MeterEventStreamCreateParams,
+    MeterEventStreamCreateParamsEvent as MeterEventStreamCreateParamsEvent,
 )
 from stripe.params.v2.billing._metered_item_create_params import (
     MeteredItemCreateParams as MeteredItemCreateParams,
