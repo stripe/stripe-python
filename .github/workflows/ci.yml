@@ -78,7 +78,7 @@ jobs:
       matrix:
         python_version:
           # The last ~5 versions, once we're on schedule
-          # https://docs.stripe.com/sdks/versioning?server=python#stripe-sdk-language-version-support-policy
+          # https://docs.stripe.com/sdks/versioning?lang=python#stripe-sdk-language-version-support-policy
           - "3.7"
           - "3.8"
           - "3.9"
@@ -125,30 +125,19 @@ jobs:
         with:
           python-version: "3.10"
 
-      - name: Configure GPG Key
-        run: |
-          set -ex
-          echo $GPG_SIGNING_PRIVKEY | base64 --decode | gpg --import --batch --yes --pinentry-mode loopback --passphrase "$GPG_SIGNING_PASSPHRASE"
-        env:
-          GPG_SIGNING_PRIVKEY: ${{ secrets.GPG_SIGNING_PRIVKEY }}
-          GPG_SIGNING_PASSPHRASE: ${{ secrets.GPG_SIGNING_PASSPHRASE }}
       - name: Install tools
         run: just install-build-deps
+
       - name: Publish packages to PyPI
         # could probably move this into a just recipe too?
         run: |
           set -ex
           source .venv/bin/activate
-          export VERSION=$(cat VERSION)
-          gpg --detach-sign --local-user $GPG_SIGNING_KEYID  --pinentry-mode loopback --passphrase $GPG_SIGNING_PASSPHRASE -a dist/stripe-$VERSION.tar.gz
-          gpg --detach-sign --local-user $GPG_SIGNING_KEYID  --pinentry-mode loopback --passphrase $GPG_SIGNING_PASSPHRASE -a dist/stripe-$VERSION-py3-none-any.whl
 
-          python -m twine upload --verbose dist/stripe-$VERSION.tar.gz  dist/stripe-$VERSION-py3-none-any.whl dist/stripe-$VERSION.tar.gz.asc dist/stripe-$VERSION-py3-none-any.whl.asc
+          python -m twine upload --verbose dist/*
         env:
-          GPG_SIGNING_KEYID: ${{ secrets.GPG_SIGNING_KEYID }}
           TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
           TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
-          GPG_SIGNING_PASSPHRASE: ${{ secrets.GPG_SIGNING_PASSPHRASE }}
       - uses: stripe/openapi/actions/notify-release@master
         if: always()
         with:
