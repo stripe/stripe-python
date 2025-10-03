@@ -1,12 +1,12 @@
 ## 13.0.1 - 2025-10-03
 * [#1626](https://github.com/stripe/stripe-python/pull/1626) Make the new nested params classes correctly importable
-  - For example, `from stripe.params.checkout import SessionCreateParamsDiscount` would raise an error when it shouldn't have. This is fixed.
+  - For example, `from stripe.params.checkout import SessionCreateParamsDiscount` would raise an error in `13.0.0` when it shouldn't have. This is fixed.
   - reported in https://github.com/stripe/stripe-python/issues/1625
 * [#1633](https://github.com/stripe/stripe-python/pull/1633) Add new `async` optional dependency
   - Now, `pip install stripe[async]` gets you everything you need to make async HTTP calls out of the box.
-  - reported in https://github.com/stripe/stripe-python/issues/1558
+  - Reported in https://github.com/stripe/stripe-python/issues/1558
 * [#1627](https://github.com/stripe/stripe-python/pull/1627) Re-add `tests` to our `sdist`
-  - reported in https://github.com/stripe/stripe-python/issues/1616
+  - Reported in https://github.com/stripe/stripe-python/issues/1616
 * [#1632](https://github.com/stripe/stripe-python/pull/1632) remove gpg step from publish. PyPI has ignored these for years, so we took the opportunity to simplify our build process
 
 ## 13.0.0 - 2025-09-30
