@@ -14,6 +14,11 @@ dependencies = [
   "typing_extensions >= 4.5.0; python_version >= '3.7'",
   "requests >= 2.20; python_version >= '3.0'",
 ]
+
+[project.optional-dependencies]
+# `pip install stripe[async]` gets you everything + `httpx`, so our async stuff works out of the box
+async = ["httpx"]
+
 classifiers = [
   "Development Status :: 5 - Production/Stable",
   "Intended Audience :: Developers",
@@ -45,7 +50,8 @@ requires = ["flit_core >=3.11, <4"]
 build-backend = "flit_core.buildapi"
 
 [tool.flit.sdist]
-include = ["tests/", "justfile", "examples/", "CHANGELOG.md", "deps/"]
+# see: https://github.com/stripe/stripe-python/issues/1616
+include = ["tests/"]
 
 [tool.ruff]
 # same as our black config
