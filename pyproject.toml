@@ -7,18 +7,6 @@ authors = [{ name = "Stripe", email = "support@stripe.com" }]
 license-files = ["LICENSE"]
 keywords = ["stripe", "api", "payments"]
 requires-python = ">=3.7"
-dependencies = [
-  "typing_extensions <= 4.2.0, > 3.7.2; python_version < '3.7'",
-  # The best typing support comes from 4.5.0+ but we can support down to
-  # 3.7.2 without throwing exceptions.
-  "typing_extensions >= 4.5.0; python_version >= '3.7'",
-  "requests >= 2.20; python_version >= '3.0'",
-]
-
-[project.optional-dependencies]
-# `pip install stripe[async]` gets you everything + `httpx`, so our async stuff works out of the box
-async = ["httpx"]
-
 classifiers = [
   "Development Status :: 5 - Production/Stable",
   "Intended Audience :: Developers",
@@ -37,6 +25,18 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: PyPy",
   "Topic :: Software Development :: Libraries :: Python Modules",
 ]
+
+dependencies = [
+  "typing_extensions <= 4.2.0, > 3.7.2; python_version < '3.7'",
+  # The best typing support comes from 4.5.0+ but we can support down to
+  # 3.7.2 without throwing exceptions.
+  "typing_extensions >= 4.5.0; python_version >= '3.7'",
+  "requests >= 2.20; python_version >= '3.0'",
+]
+
+[project.optional-dependencies]
+# `pip install stripe[async]` gets you everything + `httpx`, so our async stuff works out of the box
+async = ["httpx"]
 
 [project.urls]
 homepage = "https://stripe.com/"
