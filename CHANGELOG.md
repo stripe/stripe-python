@@ -65,6 +65,18 @@ This release changes the pinned API version to `2025-09-30.preview`. It is built
   * Add support for `billed_until` on `SubscriptionItem`
   * Add support for error codes `financial_connections_account_pending_account_numbers` and `financial_connections_account_unavailable_account_numbers` on `QuotePreviewInvoice.LastFinalizationError`
 
+## 13.0.1 - 2025-10-03
+* [#1633](https://github.com/stripe/stripe-python/pull/1633) add httpx to optional deps and only ship tests in sdist
+  
+  - Add new `async` optional dependency. Now, `pip install stripe[async]` gets you everything you need to make async HTTP calls out of the box.
+* [#1632](https://github.com/stripe/stripe-python/pull/1632) remove gpg step from publish
+* [#1627](https://github.com/stripe/stripe-python/pull/1627) Re-add `tests` to our `sdist`
+* [#1626](https://github.com/stripe/stripe-python/pull/1626) Make nested params classes importable
+  * Make newly combined nested params classes importable, as raised in https://github.com/stripe/stripe-python/issues/1625
+    * For example, `from stripe.params.checkout import SessionCreateParamsDiscount` would raise an error. Now it is valid
+* [#1620](https://github.com/stripe/stripe-python/pull/1620) Remove manual promotion code test
+* [#1619](https://github.com/stripe/stripe-python/pull/1619) Update param in deprecation docs link
+
 ## 13.0.0 - 2025-09-30
 This release changes the pinned API version to `2025-09-30.clover` and contains breaking changes (prefixed with ⚠️ below)
 
@@ -88,7 +100,7 @@ This release changes the pinned API version to `2025-09-30.clover` and contains 
 * [#1569](https://github.com/stripe/stripe-python/pull/1569) Renamed Urllib2Client to UrllibClient
   - ⚠️ Rename `http_client.Urllib2Client` to `http_client.UrllibClient` as Python `urllib2` was renamed to `urllib` in Python 3.
 * [#1606](https://github.com/stripe/stripe-python/pull/1606) ⚠️ drop support for Python 3.6 & clarify version policy
-  - Read our new [language version support policy](https://docs.stripe.com/sdks/versioning?server=python#stripe-sdk-language-version-support-policy)
+  - Read our new [language version support policy](https://docs.stripe.com/sdks/versioning?lang=python#stripe-sdk-language-version-support-policy)
       - ⚠️ In this release, we drop support for Python 3.6
       - Support for Python 3.7 is deprecated and will be removed in the next scheduled major release (March 2026)
 * [#1596](https://github.com/stripe/stripe-python/pull/1596) ⚠️ Unify resource and service method parameters into one class

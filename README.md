@@ -29,9 +29,9 @@ python -m pip install .
 
 ### Requirements
 
-Per our [Language Version Support Policy](https://docs.stripe.com/sdks/versioning?server=python#stripe-sdk-language-version-support-policy), we currently support **Python 3.7+**.
+Per our [Language Version Support Policy](https://docs.stripe.com/sdks/versioning?lang=python#stripe-sdk-language-version-support-policy), we currently support **Python 3.7+**.
 
-Support for Python 3.7 and 3.8 is deprecated and will be removed in an upcoming major version. Read more and see the full schedule in the docs: https://docs.stripe.com/sdks/versioning?server=python#stripe-sdk-language-version-support-policy
+Support for Python 3.7 and 3.8 is deprecated and will be removed in an upcoming major version. Read more and see the full schedule in the docs: https://docs.stripe.com/sdks/versioning?lang=python#stripe-sdk-language-version-support-policy
 
 #### Extended Support
 
@@ -312,6 +312,8 @@ The default HTTP client uses `requests` for making synchronous requests but
 `httpx` for making async requests. If you're migrating to async, we recommend
 you to explicitly initialize your own http client and pass it to StripeClient
 or set it as the global default.
+
+If you don't already have a dependency on an async-compatible HTTP library, `pip install stripe[async]` will install one for you (new in `v13.0.1`).
 
 ```python
 # By default, an explicitly initialized HTTPXClient will raise an exception if you
