@@ -1,7 +1,7 @@
 ## 13.0.1 - 2025-10-03
 * [#1626](https://github.com/stripe/stripe-python/pull/1626) Make the new nested params classes correctly importable
-  - For example, `from stripe.params.checkout import SessionCreateParamsDiscount` would raise an error in `13.0.0` when it shouldn't have. This is fixed.
-  - reported in https://github.com/stripe/stripe-python/issues/1625
+  - For example, In SDK `v13.0.0`, `from stripe.params.checkout import SessionCreateParamsDiscount` would raise an error when it shouldn't have. This is fixed.
+  - Reported in https://github.com/stripe/stripe-python/issues/1625
 * [#1633](https://github.com/stripe/stripe-python/pull/1633) Add new `async` optional dependency
   - Now, `pip install stripe[async]` gets you everything you need to make async HTTP calls out of the box.
   - Reported in https://github.com/stripe/stripe-python/issues/1558
