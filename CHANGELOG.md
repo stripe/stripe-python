@@ -1,3 +1,15 @@
+## 13.0.1 - 2025-10-03
+* [#1633](https://github.com/stripe/stripe-python/pull/1633) add httpx to optional deps and only ship tests in sdist
+  
+  - Add new `async` optional dependency. Now, `pip install stripe[async]` gets you everything you need to make async HTTP calls out of the box.
+* [#1632](https://github.com/stripe/stripe-python/pull/1632) remove gpg step from publish
+* [#1627](https://github.com/stripe/stripe-python/pull/1627) Re-add `tests` to our `sdist`
+* [#1626](https://github.com/stripe/stripe-python/pull/1626) Make nested params classes importable
+  * Make newly combined nested params classes importable, as raised in https://github.com/stripe/stripe-python/issues/1625
+    * For example, `from stripe.params.checkout import SessionCreateParamsDiscount` would raise an error. Now it is valid
+* [#1620](https://github.com/stripe/stripe-python/pull/1620) Remove manual promotion code test
+* [#1619](https://github.com/stripe/stripe-python/pull/1619) Update param in deprecation docs link
+
 ## 13.0.0 - 2025-09-30
 This release changes the pinned API version to `2025-09-30.clover` and contains breaking changes (prefixed with ⚠️ below)
 
