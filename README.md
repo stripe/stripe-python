@@ -313,6 +313,8 @@ The default HTTP client uses `requests` for making synchronous requests but
 you to explicitly initialize your own http client and pass it to StripeClient
 or set it as the global default.
 
+If you don't already have a dependency on an async-compatible HTTP library, `pip install stripe[async]` will install one for you (new in `v13.0.1`).
+
 ```python
 # By default, an explicitly initialized HTTPXClient will raise an exception if you
 # attempt to call a sync method. If you intend to only use async, this is useful to
