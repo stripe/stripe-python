@@ -16,10 +16,6 @@ from stripe.events._v1_billing_meter_no_meter_found_event import (
     V1BillingMeterNoMeterFoundEvent as V1BillingMeterNoMeterFoundEvent,
     V1BillingMeterNoMeterFoundEventNotification as V1BillingMeterNoMeterFoundEventNotification,
 )
-from stripe.events._v2_billing_bill_setting_updated_event import (
-    V2BillingBillSettingUpdatedEvent as V2BillingBillSettingUpdatedEvent,
-    V2BillingBillSettingUpdatedEventNotification as V2BillingBillSettingUpdatedEventNotification,
-)
 from stripe.events._v2_core_account_closed_event import (
     V2CoreAccountClosedEvent as V2CoreAccountClosedEvent,
     V2CoreAccountClosedEventNotification as V2CoreAccountClosedEventNotification,

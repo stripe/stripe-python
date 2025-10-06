@@ -1882,7 +1882,10 @@ class Charge(
             pass
 
         class Rechnung(StripeObject):
-            pass
+            payment_portal_url: Optional[str]
+            """
+            Payment portal URL.
+            """
 
         class RevolutPay(StripeObject):
             class Funding(StripeObject):
