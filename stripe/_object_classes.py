@@ -103,6 +103,7 @@ OBJECT_CLASSES = {
     stripe.PaymentIntentAmountDetailsLineItem.OBJECT_NAME: stripe.PaymentIntentAmountDetailsLineItem,
     stripe.PaymentLink.OBJECT_NAME: stripe.PaymentLink,
     stripe.PaymentMethod.OBJECT_NAME: stripe.PaymentMethod,
+    stripe.PaymentMethodBalance.OBJECT_NAME: stripe.PaymentMethodBalance,
     stripe.PaymentMethodConfiguration.OBJECT_NAME: stripe.PaymentMethodConfiguration,
     stripe.PaymentMethodDomain.OBJECT_NAME: stripe.PaymentMethodDomain,
     stripe.PaymentRecord.OBJECT_NAME: stripe.PaymentRecord,

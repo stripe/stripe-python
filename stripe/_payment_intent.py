@@ -1426,6 +1426,16 @@ class PaymentIntent(
         }
 
     class PaymentDetails(StripeObject):
+        class Benefit(StripeObject):
+            class FrMealVoucher(StripeObject):
+                siret: Optional[str]
+                """
+                The 14-digit SIRET of the meal voucher acceptor.
+                """
+
+            fr_meal_voucher: Optional[FrMealVoucher]
+            _inner_class_types = {"fr_meal_voucher": FrMealVoucher}
+
         class CarRental(StripeObject):
             class Affiliate(StripeObject):
                 name: Optional[str]
@@ -1759,6 +1769,7 @@ class PaymentIntent(
                 "billing_interval": BillingInterval,
             }
 
+        benefit: Optional[Benefit]
         car_rental: Optional[CarRental]
         customer_reference: Optional[str]
         """
@@ -1771,6 +1782,7 @@ class PaymentIntent(
         """
         subscription: Optional[Subscription]
         _inner_class_types = {
+            "benefit": Benefit,
             "car_rental": CarRental,
             "event_details": EventDetails,
             "subscription": Subscription,

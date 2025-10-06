@@ -514,6 +514,10 @@ class PaymentIntentCreateParamsMandateDataCustomerAcceptanceOnline(TypedDict):
 
 
 class PaymentIntentCreateParamsPaymentDetails(TypedDict):
+    benefit: NotRequired["PaymentIntentCreateParamsPaymentDetailsBenefit"]
+    """
+    Benefit details for this PaymentIntent
+    """
     car_rental: NotRequired["PaymentIntentCreateParamsPaymentDetailsCarRental"]
     """
     Car rental details for this PaymentIntent.
@@ -545,6 +549,22 @@ class PaymentIntentCreateParamsPaymentDetails(TypedDict):
     ]
     """
     Subscription details for this PaymentIntent
+    """
+
+
+class PaymentIntentCreateParamsPaymentDetailsBenefit(TypedDict):
+    fr_meal_voucher: NotRequired[
+        "PaymentIntentCreateParamsPaymentDetailsBenefitFrMealVoucher"
+    ]
+    """
+    French meal voucher benefit details for this PaymentIntent.
+    """
+
+
+class PaymentIntentCreateParamsPaymentDetailsBenefitFrMealVoucher(TypedDict):
+    siret: str
+    """
+    The 14-digit SIRET of the meal voucher acceptor.
     """
 
 

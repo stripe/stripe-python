@@ -42,6 +42,10 @@ class SetupIntentConfirmParams(RequestOptions):
     If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme.
     This parameter is only used for cards and other redirect-based payment methods.
     """
+    setup_details: NotRequired["SetupIntentConfirmParamsSetupDetails"]
+    """
+    Provides industry-specific information about the SetupIntent.
+    """
     use_stripe_sdk: NotRequired[bool]
     """
     Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions.
@@ -1681,4 +1685,27 @@ class SetupIntentConfirmParamsPaymentMethodOptionsUsBankAccountNetworks(
     requested: NotRequired[List[Literal["ach", "us_domestic_wire"]]]
     """
     Triggers validations to run across the selected networks
+    """
+
+
+class SetupIntentConfirmParamsSetupDetails(TypedDict):
+    benefit: NotRequired["SetupIntentConfirmParamsSetupDetailsBenefit"]
+    """
+    Benefit details for this SetupIntent
+    """
+
+
+class SetupIntentConfirmParamsSetupDetailsBenefit(TypedDict):
+    fr_meal_voucher: NotRequired[
+        "SetupIntentConfirmParamsSetupDetailsBenefitFrMealVoucher"
+    ]
+    """
+    French meal voucher benefit details for this SetupIntent.
+    """
+
+
+class SetupIntentConfirmParamsSetupDetailsBenefitFrMealVoucher(TypedDict):
+    siret: str
+    """
+    The 14-digit SIRET of the meal voucher acceptor.
     """

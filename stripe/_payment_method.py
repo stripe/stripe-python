@@ -14,9 +14,13 @@ if TYPE_CHECKING:
     from stripe._charge import Charge
     from stripe._customer import Customer
     from stripe._mandate import Mandate
+    from stripe._payment_method_balance import PaymentMethodBalance
     from stripe._setup_attempt import SetupAttempt
     from stripe.params._payment_method_attach_params import (
         PaymentMethodAttachParams,
+    )
+    from stripe.params._payment_method_check_balance_params import (
+        PaymentMethodCheckBalanceParams,
     )
     from stripe.params._payment_method_create_params import (
         PaymentMethodCreateParams,
@@ -184,6 +188,16 @@ class PaymentMethod(
         """
 
     class Card(StripeObject):
+        class Benefits(StripeObject):
+            issuer: Optional[str]
+            """
+            Issuer of this benefit card
+            """
+            programs: Optional[List[str]]
+            """
+            Available benefit programs for this card
+            """
+
         class Checks(StripeObject):
             address_line1_check: Optional[str]
             """
@@ -608,6 +622,7 @@ class PaymentMethod(
                 "visa_checkout": VisaCheckout,
             }
 
+        benefits: Optional[Benefits]
         brand: str
         """
         Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
@@ -679,6 +694,7 @@ class PaymentMethod(
         If this Card is part of a card wallet, this contains the details of the card wallet.
         """
         _inner_class_types = {
+            "benefits": Benefits,
             "checks": Checks,
             "generated_from": GeneratedFrom,
             "networks": Networks,
@@ -1796,6 +1812,122 @@ class PaymentMethod(
             await self._request_async(
                 "post",
                 "/v1/payment_methods/{payment_method}/attach".format(
+                    payment_method=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def _cls_check_balance(
+        cls,
+        payment_method: str,
+        **params: Unpack["PaymentMethodCheckBalanceParams"],
+    ) -> "PaymentMethodBalance":
+        """
+        Retrieves a payment method's balance.
+        """
+        return cast(
+            "PaymentMethodBalance",
+            cls._static_request(
+                "post",
+                "/v1/payment_methods/{payment_method}/check_balance".format(
+                    payment_method=sanitize_id(payment_method)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def check_balance(
+        payment_method: str,
+        **params: Unpack["PaymentMethodCheckBalanceParams"],
+    ) -> "PaymentMethodBalance":
+        """
+        Retrieves a payment method's balance.
+        """
+        ...
+
+    @overload
+    def check_balance(
+        self, **params: Unpack["PaymentMethodCheckBalanceParams"]
+    ) -> "PaymentMethodBalance":
+        """
+        Retrieves a payment method's balance.
+        """
+        ...
+
+    @class_method_variant("_cls_check_balance")
+    def check_balance(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentMethodCheckBalanceParams"]
+    ) -> "PaymentMethodBalance":
+        """
+        Retrieves a payment method's balance.
+        """
+        return cast(
+            "PaymentMethodBalance",
+            self._request(
+                "post",
+                "/v1/payment_methods/{payment_method}/check_balance".format(
+                    payment_method=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_check_balance_async(
+        cls,
+        payment_method: str,
+        **params: Unpack["PaymentMethodCheckBalanceParams"],
+    ) -> "PaymentMethodBalance":
+        """
+        Retrieves a payment method's balance.
+        """
+        return cast(
+            "PaymentMethodBalance",
+            await cls._static_request_async(
+                "post",
+                "/v1/payment_methods/{payment_method}/check_balance".format(
+                    payment_method=sanitize_id(payment_method)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def check_balance_async(
+        payment_method: str,
+        **params: Unpack["PaymentMethodCheckBalanceParams"],
+    ) -> "PaymentMethodBalance":
+        """
+        Retrieves a payment method's balance.
+        """
+        ...
+
+    @overload
+    async def check_balance_async(
+        self, **params: Unpack["PaymentMethodCheckBalanceParams"]
+    ) -> "PaymentMethodBalance":
+        """
+        Retrieves a payment method's balance.
+        """
+        ...
+
+    @class_method_variant("_cls_check_balance_async")
+    async def check_balance_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentMethodCheckBalanceParams"]
+    ) -> "PaymentMethodBalance":
+        """
+        Retrieves a payment method's balance.
+        """
+        return cast(
+            "PaymentMethodBalance",
+            await self._request_async(
+                "post",
+                "/v1/payment_methods/{payment_method}/check_balance".format(
                     payment_method=sanitize_id(self.get("id"))
                 ),
                 params=params,

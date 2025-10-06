@@ -371,6 +371,10 @@ class PaymentIntentConfirmParamsMandateDataCustomerAcceptanceOnline(TypedDict):
 
 
 class PaymentIntentConfirmParamsPaymentDetails(TypedDict):
+    benefit: NotRequired["PaymentIntentConfirmParamsPaymentDetailsBenefit"]
+    """
+    Benefit details for this PaymentIntent
+    """
     car_rental: NotRequired[
         "PaymentIntentConfirmParamsPaymentDetailsCarRental"
     ]
@@ -404,6 +408,22 @@ class PaymentIntentConfirmParamsPaymentDetails(TypedDict):
     ]
     """
     Subscription details for this PaymentIntent
+    """
+
+
+class PaymentIntentConfirmParamsPaymentDetailsBenefit(TypedDict):
+    fr_meal_voucher: NotRequired[
+        "PaymentIntentConfirmParamsPaymentDetailsBenefitFrMealVoucher"
+    ]
+    """
+    French meal voucher benefit details for this PaymentIntent.
+    """
+
+
+class PaymentIntentConfirmParamsPaymentDetailsBenefitFrMealVoucher(TypedDict):
+    siret: str
+    """
+    The 14-digit SIRET of the meal voucher acceptor.
     """
 
 

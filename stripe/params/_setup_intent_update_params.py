@@ -66,6 +66,10 @@ class SetupIntentUpdateParams(TypedDict):
     """
     The list of payment method types (for example, card) that this SetupIntent can set up. If you don't provide this, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods). A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
     """
+    setup_details: NotRequired["SetupIntentUpdateParamsSetupDetails"]
+    """
+    Provides industry-specific information about the SetupIntent.
+    """
 
 
 class SetupIntentUpdateParamsPaymentMethodData(TypedDict):
@@ -1642,4 +1646,27 @@ class SetupIntentUpdateParamsPaymentMethodOptionsUsBankAccountNetworks(
     requested: NotRequired[List[Literal["ach", "us_domestic_wire"]]]
     """
     Triggers validations to run across the selected networks
+    """
+
+
+class SetupIntentUpdateParamsSetupDetails(TypedDict):
+    benefit: NotRequired["SetupIntentUpdateParamsSetupDetailsBenefit"]
+    """
+    Benefit details for this SetupIntent
+    """
+
+
+class SetupIntentUpdateParamsSetupDetailsBenefit(TypedDict):
+    fr_meal_voucher: NotRequired[
+        "SetupIntentUpdateParamsSetupDetailsBenefitFrMealVoucher"
+    ]
+    """
+    French meal voucher benefit details for this SetupIntent.
+    """
+
+
+class SetupIntentUpdateParamsSetupDetailsBenefitFrMealVoucher(TypedDict):
+    siret: str
+    """
+    The 14-digit SIRET of the meal voucher acceptor.
     """

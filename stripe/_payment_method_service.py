@@ -2,6 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._list_object import ListObject
 from stripe._payment_method import PaymentMethod
+from stripe._payment_method_balance import PaymentMethodBalance
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
@@ -11,6 +12,9 @@ from typing_extensions import TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe.params._payment_method_attach_params import (
         PaymentMethodAttachParams,
+    )
+    from stripe.params._payment_method_check_balance_params import (
+        PaymentMethodCheckBalanceParams,
     )
     from stripe.params._payment_method_create_params import (
         PaymentMethodCreateParams,
@@ -258,6 +262,50 @@ class PaymentMethodService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/payment_methods/{payment_method}/attach".format(
+                    payment_method=sanitize_id(payment_method),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def check_balance(
+        self,
+        payment_method: str,
+        params: Optional["PaymentMethodCheckBalanceParams"] = None,
+        options: Optional[RequestOptions] = None,
+    ) -> PaymentMethodBalance:
+        """
+        Retrieves a payment method's balance.
+        """
+        return cast(
+            PaymentMethodBalance,
+            self._request(
+                "post",
+                "/v1/payment_methods/{payment_method}/check_balance".format(
+                    payment_method=sanitize_id(payment_method),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def check_balance_async(
+        self,
+        payment_method: str,
+        params: Optional["PaymentMethodCheckBalanceParams"] = None,
+        options: Optional[RequestOptions] = None,
+    ) -> PaymentMethodBalance:
+        """
+        Retrieves a payment method's balance.
+        """
+        return cast(
+            PaymentMethodBalance,
+            await self._request_async(
+                "post",
+                "/v1/payment_methods/{payment_method}/check_balance".format(
                     payment_method=sanitize_id(payment_method),
                 ),
                 base_address="api",

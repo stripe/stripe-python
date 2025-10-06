@@ -753,10 +753,6 @@ from stripe.events._v1_transfer_updated_event import (
     V1TransferUpdatedEvent,
     V1TransferUpdatedEventNotification,
 )
-from stripe.events._v2_billing_bill_setting_updated_event import (
-    V2BillingBillSettingUpdatedEvent,
-    V2BillingBillSettingUpdatedEventNotification,
-)
 from stripe.events._v2_billing_cadence_billed_event import (
     V2BillingCadenceBilledEvent,
     V2BillingCadenceBilledEventNotification,
@@ -1440,7 +1436,6 @@ V2_EVENT_CLASS_LOOKUP = {
     V1TransferCreatedEvent.LOOKUP_TYPE: V1TransferCreatedEvent,
     V1TransferReversedEvent.LOOKUP_TYPE: V1TransferReversedEvent,
     V1TransferUpdatedEvent.LOOKUP_TYPE: V1TransferUpdatedEvent,
-    V2BillingBillSettingUpdatedEvent.LOOKUP_TYPE: V2BillingBillSettingUpdatedEvent,
     V2BillingCadenceBilledEvent.LOOKUP_TYPE: V2BillingCadenceBilledEvent,
     V2BillingCadenceCanceledEvent.LOOKUP_TYPE: V2BillingCadenceCanceledEvent,
     V2BillingCadenceCreatedEvent.LOOKUP_TYPE: V2BillingCadenceCreatedEvent,
@@ -1755,7 +1750,6 @@ V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
     V1TransferCreatedEventNotification.LOOKUP_TYPE: V1TransferCreatedEventNotification,
     V1TransferReversedEventNotification.LOOKUP_TYPE: V1TransferReversedEventNotification,
     V1TransferUpdatedEventNotification.LOOKUP_TYPE: V1TransferUpdatedEventNotification,
-    V2BillingBillSettingUpdatedEventNotification.LOOKUP_TYPE: V2BillingBillSettingUpdatedEventNotification,
     V2BillingCadenceBilledEventNotification.LOOKUP_TYPE: V2BillingCadenceBilledEventNotification,
     V2BillingCadenceCanceledEventNotification.LOOKUP_TYPE: V2BillingCadenceCanceledEventNotification,
     V2BillingCadenceCreatedEventNotification.LOOKUP_TYPE: V2BillingCadenceCreatedEventNotification,
@@ -2070,7 +2064,6 @@ ALL_EVENT_NOTIFICATIONS = Union[
     V1TransferCreatedEventNotification,
     V1TransferReversedEventNotification,
     V1TransferUpdatedEventNotification,
-    V2BillingBillSettingUpdatedEventNotification,
     V2BillingCadenceBilledEventNotification,
     V2BillingCadenceCanceledEventNotification,
     V2BillingCadenceCreatedEventNotification,

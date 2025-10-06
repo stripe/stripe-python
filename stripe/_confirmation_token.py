@@ -232,6 +232,16 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             """
 
         class Card(StripeObject):
+            class Benefits(StripeObject):
+                issuer: Optional[str]
+                """
+                Issuer of this benefit card
+                """
+                programs: Optional[List[str]]
+                """
+                Available benefit programs for this card
+                """
+
             class Checks(StripeObject):
                 address_line1_check: Optional[str]
                 """
@@ -661,6 +671,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                     "visa_checkout": VisaCheckout,
                 }
 
+            benefits: Optional[Benefits]
             brand: str
             """
             Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
@@ -732,6 +743,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             If this Card is part of a card wallet, this contains the details of the card wallet.
             """
             _inner_class_types = {
+                "benefits": Benefits,
                 "checks": Checks,
                 "generated_from": GeneratedFrom,
                 "networks": Networks,

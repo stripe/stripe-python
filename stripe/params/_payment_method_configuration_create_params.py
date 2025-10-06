@@ -156,6 +156,10 @@ class PaymentMethodConfigurationCreateParams(RequestOptions):
     """
     [Link](https://stripe.com/docs/payments/link) is a payment method network. With Link, users save their payment details once, then reuse that information to pay with one click for any business on the network.
     """
+    mb_way: NotRequired["PaymentMethodConfigurationCreateParamsMbWay"]
+    """
+    MB WAY is the most popular wallet in Portugal. After entering their phone number in your checkout, customers approve the payment directly in their MB WAY app. Check this [page](https://stripe.com/docs/payments/mb-way) for more details.
+    """
     mobilepay: NotRequired["PaymentMethodConfigurationCreateParamsMobilepay"]
     """
     MobilePay is a [single-use](https://stripe.com/docs/payments/payment-methods#usage) card wallet payment method used in Denmark and Finland. It allows customers to [authenticate and approve](https://stripe.com/docs/payments/payment-methods#customer-actions) payments using the MobilePay app. Check this [page](https://stripe.com/docs/payments/mobilepay) for more details.
@@ -836,6 +840,22 @@ class PaymentMethodConfigurationCreateParamsLink(TypedDict):
 
 
 class PaymentMethodConfigurationCreateParamsLinkDisplayPreference(TypedDict):
+    preference: NotRequired[Literal["none", "off", "on"]]
+    """
+    The account's preference for whether or not to display this payment method.
+    """
+
+
+class PaymentMethodConfigurationCreateParamsMbWay(TypedDict):
+    display_preference: NotRequired[
+        "PaymentMethodConfigurationCreateParamsMbWayDisplayPreference"
+    ]
+    """
+    Whether or not the payment method should be displayed.
+    """
+
+
+class PaymentMethodConfigurationCreateParamsMbWayDisplayPreference(TypedDict):
     preference: NotRequired[Literal["none", "off", "on"]]
     """
     The account's preference for whether or not to display this payment method.

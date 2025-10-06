@@ -27,6 +27,16 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
 
     OBJECT_NAME: ClassVar[Literal["card"]] = "card"
 
+    class Benefits(StripeObject):
+        issuer: Optional[str]
+        """
+        Issuer of this benefit card
+        """
+        programs: Optional[List[str]]
+        """
+        Available benefit programs for this card
+        """
+
     class Networks(StripeObject):
         preferred: Optional[str]
         """
@@ -74,6 +84,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     """
     A set of available payout methods for this card. Only values from this set should be passed as the `method` when creating a payout.
     """
+    benefits: Optional[Benefits]
     brand: str
     """
     Card brand. Can be `American Express`, `Cartes Bancaires`, `Diners Club`, `Discover`, `Eftpos Australia`, `Girocard`, `JCB`, `MasterCard`, `UnionPay`, `Visa`, or `Unknown`.
@@ -325,4 +336,4 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
             "(see https://stripe.com/docs/api/external_account_cards/retrieve)."
         )
 
-    _inner_class_types = {"networks": Networks}
+    _inner_class_types = {"benefits": Benefits, "networks": Networks}

@@ -760,10 +760,6 @@ from stripe.events._v1_transfer_updated_event import (
     V1TransferUpdatedEvent as V1TransferUpdatedEvent,
     V1TransferUpdatedEventNotification as V1TransferUpdatedEventNotification,
 )
-from stripe.events._v2_billing_bill_setting_updated_event import (
-    V2BillingBillSettingUpdatedEvent as V2BillingBillSettingUpdatedEvent,
-    V2BillingBillSettingUpdatedEventNotification as V2BillingBillSettingUpdatedEventNotification,
-)
 from stripe.events._v2_billing_cadence_billed_event import (
     V2BillingCadenceBilledEvent as V2BillingCadenceBilledEvent,
     V2BillingCadenceBilledEventNotification as V2BillingCadenceBilledEventNotification,

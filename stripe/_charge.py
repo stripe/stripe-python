@@ -462,6 +462,12 @@ class Charge(
             """
 
         class Card(StripeObject):
+            class Benefits(StripeObject):
+                issuer: Optional[str]
+                """
+                Issuer of the benefit card utilized on this payment
+                """
+
             class Checks(StripeObject):
                 address_line1_check: Optional[str]
                 """
@@ -820,6 +826,7 @@ class Charge(
             """
             Authorization code on the charge.
             """
+            benefits: Optional[Benefits]
             brand: Optional[str]
             """
             Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
@@ -915,6 +922,7 @@ class Charge(
             If this Card is part of a card wallet, this contains the details of the card wallet.
             """
             _inner_class_types = {
+                "benefits": Benefits,
                 "checks": Checks,
                 "decremental_authorization": DecrementalAuthorization,
                 "extended_authorization": ExtendedAuthorization,
@@ -1882,7 +1890,10 @@ class Charge(
             pass
 
         class Rechnung(StripeObject):
-            pass
+            payment_portal_url: Optional[str]
+            """
+            Payment portal URL.
+            """
 
         class RevolutPay(StripeObject):
             class Funding(StripeObject):

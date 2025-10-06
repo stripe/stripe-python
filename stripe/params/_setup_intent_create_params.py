@@ -95,6 +95,10 @@ class SetupIntentCreateParams(RequestOptions):
     """
     The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. To redirect to a mobile application, you can alternatively supply an application URI scheme. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/setup_intents/create#create_setup_intent-confirm).
     """
+    setup_details: NotRequired["SetupIntentCreateParamsSetupDetails"]
+    """
+    Provides industry-specific information about the SetupIntent.
+    """
     single_use: NotRequired["SetupIntentCreateParamsSingleUse"]
     """
     If you populate this hash, this SetupIntent generates a `single_use` mandate after successful completion.
@@ -1743,6 +1747,29 @@ class SetupIntentCreateParamsPaymentMethodOptionsUsBankAccountNetworks(
     requested: NotRequired[List[Literal["ach", "us_domestic_wire"]]]
     """
     Triggers validations to run across the selected networks
+    """
+
+
+class SetupIntentCreateParamsSetupDetails(TypedDict):
+    benefit: NotRequired["SetupIntentCreateParamsSetupDetailsBenefit"]
+    """
+    Benefit details for this SetupIntent
+    """
+
+
+class SetupIntentCreateParamsSetupDetailsBenefit(TypedDict):
+    fr_meal_voucher: NotRequired[
+        "SetupIntentCreateParamsSetupDetailsBenefitFrMealVoucher"
+    ]
+    """
+    French meal voucher benefit details for this SetupIntent.
+    """
+
+
+class SetupIntentCreateParamsSetupDetailsBenefitFrMealVoucher(TypedDict):
+    siret: str
+    """
+    The 14-digit SIRET of the meal voucher acceptor.
     """
 
 
