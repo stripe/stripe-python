@@ -41,7 +41,8 @@ def webhook():
 
         # type checkers will narrow the type based on the `type` property
         if event_notif.type == "v1.billing.meter.error_report_triggered":
-            # in this block, event_notification is typed as a V1BillingMeterErrorReportTriggeredEventNotification
+            # in this block, event_notification is typed as
+            # a V1BillingMeterErrorReportTriggeredEventNotification
 
             # there's basic info about the related object in the notification
             print(f"Meter w/ id {event_notif.related_object.id} had a problem")
@@ -55,9 +56,11 @@ def webhook():
             print(f"More info: {event.data.developer_message_summary}")
 
         elif event_notif.type == "v1.billing.meter.no_meter_found":
-            # in this block, event_notification is typed as a V1BillingMeterNoMeterFoundEventNotification
+            # in this block, event_notification is typed as
+            # a V1BillingMeterNoMeterFoundEventNotification
 
-            # that class doesn't define `fetch_related_object` because the event has no related object
+            # that class doesn't define `fetch_related_object` because the event
+            # has no related object.
             # so this line would correctly give a type error:
             # meter = event_notif.fetch_related_object()
 
@@ -67,8 +70,10 @@ def webhook():
                 f"Err! No meter found: {event.data.developer_message_summary}"
             )
 
-        # the above approach works for all event types that predate the SDK you're using
-        # but, you also may need to handle event types that the SDK doesn't know about
+        # Events that were introduced after this SDK version release are
+        # represented as `UnknownEventNotification`s.
+        # They're valid, the SDK just doesn't have corresponding classes for them.
+        # You must match on the "type" property instead.
         elif isinstance(event_notif, UnknownEventNotification):
             # these lines are optional, but will give you more accurate typing in this block
             from typing import cast
@@ -76,7 +81,8 @@ def webhook():
             event_notif = cast(UnknownEventNotification, event_notif)
 
             # continue matching on the type property
-            # from this point on, the `related_object` property _may_ be None (depending on the event type)
+            # from this point on, the `related_object` property _may_ be None
+            # (depending on the event type)
             if event_notif.type == "some.new.event":
                 # if this event type has a related object, you can fetch it
                 obj = event_notif.fetch_related_object()
