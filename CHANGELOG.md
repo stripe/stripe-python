@@ -3,7 +3,20 @@
 ## 13.1.0a1 - 2025-10-01
 This release changes the pinned API version to `2025-09-30.preview`. It is built on top of SDK version 13.0.0 and 13.1.0-beta.1 which contain breaking changes. Please review the changelog for these versions if upgrading from older SDK versions.
 
-* [#1587](https://github.com/stripe/stripe-python/pull/1587) Update generated code for private-preview
+* [#1587](https://github.com/stripe/stripe-python/pull/1587), [#1588](https://github.com/stripe/stripe-python/pull/1588) Update generated code for private-preview
+  * Add support for `paypay_payments` on `Account.Capability`, `Account.CreateParamsCapability`, and `Account.ModifyParamsCapability`
+  * Remove support for values `saturday` and `sunday` from enums `Account.CreateParamsSettingPayoutSchedule.weekly_payout_days`, `Account.ModifyParamsSettingPayoutSchedule.weekly_payout_days`, `Account.Setting.Payout.Schedule.weekly_payout_days`,
+  * Add support for `credit_grants` on `billing.Alert.CreateParamsCreditBalanceThresholdFilter`
+  * Add support for `location` and `reader` on `Charge.PaymentMethodDetail.Paynow`
+  * Add support for `payment_record_refund` and `type` on `CreditNote.CreateParamsRefund`, `CreditNote.PreviewLinesParamsRefund`, `CreditNote.PreviewParamsRefund`, and `CreditNote.Refund`
+  * Add support for `billing_cadence` on `Invoice.ListParams` 
+  * Add support for `paypay` on `Charge.PaymentMethodDetail`, `ConfirmationToken.CreateParamsPaymentMethodDatum`, `ConfirmationToken.PaymentMethodPreview`, `PaymentAttemptRecord.PaymentMethodDetail`, `PaymentIntent.ConfirmParamsPaymentMethodDatum`, `PaymentIntent.ConfirmParamsPaymentMethodOption`, `PaymentIntent.CreateParamsPaymentMethodDatum`, `PaymentIntent.CreateParamsPaymentMethodOption`, `PaymentIntent.ModifyParamsPaymentMethodDatum`, `PaymentIntent.ModifyParamsPaymentMethodOption`, `PaymentIntent.PaymentMethodOption`, `PaymentMethod.CreateParams`, `PaymentMethodConfiguration.CreateParams`, `PaymentMethodConfiguration.ModifyParams`, `PaymentMethodConfiguration`, `PaymentMethod`, `PaymentRecord.PaymentMethodDetail`, `SetupIntent.ConfirmParamsPaymentMethodDatum`, `SetupIntent.CreateParamsPaymentMethodDatum`, and `SetupIntent.ModifyParamsPaymentMethodDatum`
+  * Add support for new value `paypay` on enums `PaymentIntent.CreateParams.excluded_payment_method_types` and `PaymentIntent.excluded_payment_method_types`
+  * Add support for new value `paypay` on enums `PaymentLink.CreateParams.payment_method_types`, `PaymentLink.ModifyParams.payment_method_types`, and `PaymentLink.payment_method_types`
+  * Add support for new value `paypay` on enums `Customer.ListPaymentMethodsParams.type`, `PaymentMethod.CreateParams.type`, and `PaymentMethod.ListParams.type`
+  * Add support for new value `paypay` on enum `checkout.Session.CreateParams.payment_method_types`
+  * Add support for new value `paypay` on enums `ConfirmationToken.CreateParamsPaymentMethodDatum.type`, `PaymentIntent.ConfirmParamsPaymentMethodDatum.type`, `PaymentIntent.CreateParamsPaymentMethodDatum.type`, `PaymentIntent.ModifyParamsPaymentMethodDatum.type`, `SetupIntent.ConfirmParamsPaymentMethodDatum.type`, `SetupIntent.CreateParamsPaymentMethodDatum.type`, and `SetupIntent.ModifyParamsPaymentMethodDatum.type`
+  * Add support for new value `paypay` on enums `ConfirmationToken.PaymentMethodPreview.type` and `PaymentMethod.type`
   * Add support for new resource `v2.money_management.RecipientVerification`
   * Add support for `acknowledge`, `create`, `recipient_verifications`, and `retrieve` methods on resource `v2.money_management.RecipientVerification`
   * Add support for `modify` method on resources `v2.billing.PricingPlanSubscription` and `v2.billing.ServiceAction`
@@ -229,7 +242,7 @@ This release changes the pinned API version to `2025-09-30.clover` and contains 
 
 ## 12.6.0a2 - 2025-09-17
 * [#1571](https://github.com/stripe/stripe-python/pull/1571) generate private-preview SDK w/ mid Sept changes
-  * Add support for `retrieve` method on resource `v2.core.ClaimableSandbox`
+  * Add support for `retrieve` method on resource `V2.core.ClaimableSandbox`
   * Add support for `month_of_year` on `V2.Billing.Cadence.BillingCycle.Month` and `v2.billing.Cadence.CreateParamsBillingCycleMonth`
   * Add support for `claimed_at`, `expires_at`, `sandbox_details`, and `status` on `V2.Core.ClaimableSandbox`
   * Remove support for `api_keys` on `V2.Core.ClaimableSandbox`
