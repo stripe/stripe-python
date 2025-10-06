@@ -70,6 +70,17 @@ This release changes the pinned API version to `2025-09-30.preview`. It is built
   * Add support for `billed_until` on `SubscriptionItem`
   * Add support for error codes `financial_connections_account_pending_account_numbers` and `financial_connections_account_unavailable_account_numbers` on `QuotePreviewInvoice.LastFinalizationError`
 
+## 13.0.1 - 2025-10-03
+* [#1626](https://github.com/stripe/stripe-python/pull/1626) Make the new nested params classes correctly importable
+  - For example, In SDK `v13.0.0`, `from stripe.params.checkout import SessionCreateParamsDiscount` would raise an error when it shouldn't have. This is fixed.
+  - Reported in https://github.com/stripe/stripe-python/issues/1625
+* [#1633](https://github.com/stripe/stripe-python/pull/1633) Add new `async` optional dependency
+  - Now, `pip install stripe[async]` gets you everything you need to make async HTTP calls out of the box.
+  - Reported in https://github.com/stripe/stripe-python/issues/1558
+* [#1627](https://github.com/stripe/stripe-python/pull/1627) Re-add `tests` to our `sdist`
+  - Reported in https://github.com/stripe/stripe-python/issues/1616
+* [#1632](https://github.com/stripe/stripe-python/pull/1632) remove gpg step from publish. PyPI has ignored these for years, so we took the opportunity to simplify our build process
+
 ## 13.0.0 - 2025-09-30
 This release changes the pinned API version to `2025-09-30.clover` and contains breaking changes (prefixed with ⚠️ below)
 
