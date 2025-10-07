@@ -3374,6 +3374,13 @@ from stripe.params._payment_record_report_payment_params import (
     PaymentRecordReportPaymentParamsShippingDetails as PaymentRecordReportPaymentParamsShippingDetails,
     PaymentRecordReportPaymentParamsShippingDetailsAddress as PaymentRecordReportPaymentParamsShippingDetailsAddress,
 )
+from stripe.params._payment_record_report_refund_params import (
+    PaymentRecordReportRefundParams as PaymentRecordReportRefundParams,
+    PaymentRecordReportRefundParamsAmount as PaymentRecordReportRefundParamsAmount,
+    PaymentRecordReportRefundParamsProcessorDetails as PaymentRecordReportRefundParamsProcessorDetails,
+    PaymentRecordReportRefundParamsProcessorDetailsCustom as PaymentRecordReportRefundParamsProcessorDetailsCustom,
+    PaymentRecordReportRefundParamsRefunded as PaymentRecordReportRefundParamsRefunded,
+)
 from stripe.params._payment_record_retrieve_params import (
     PaymentRecordRetrieveParams as PaymentRecordRetrieveParams,
 )
