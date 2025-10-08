@@ -780,7 +780,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
             The wallet address of the customer.
             """
-            network: Optional[Literal["base", "ethereum", "polygon", "solana"]]
+            network: Optional[Literal["base", "ethereum", "polygon"]]
             """
             The blockchain network that the transaction was sent on.
             """
@@ -1553,10 +1553,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             pass
 
         class Rechnung(StripeObject):
-            payment_portal_url: Optional[str]
-            """
-            Payment portal URL.
-            """
+            pass
 
         class RevolutPay(StripeObject):
             class Funding(StripeObject):

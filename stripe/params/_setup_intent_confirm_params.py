@@ -42,13 +42,13 @@ class SetupIntentConfirmParams(RequestOptions):
     If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme.
     This parameter is only used for cards and other redirect-based payment methods.
     """
-    setup_details: NotRequired["SetupIntentConfirmParamsSetupDetails"]
-    """
-    Provides industry-specific information about the SetupIntent.
-    """
     use_stripe_sdk: NotRequired[bool]
     """
     Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions.
+    """
+    setup_details: NotRequired["SetupIntentConfirmParamsSetupDetails"]
+    """
+    Provides industry-specific information about the SetupIntent.
     """
 
 

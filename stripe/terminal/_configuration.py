@@ -212,20 +212,6 @@ class Configuration(
             Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             """
 
-        class Gip(StripeObject):
-            fixed_amounts: Optional[List[int]]
-            """
-            Fixed amounts displayed when collecting a tip
-            """
-            percentages: Optional[List[int]]
-            """
-            Percentages displayed when collecting a tip
-            """
-            smart_tip_threshold: Optional[int]
-            """
-            Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-            """
-
         class Hkd(StripeObject):
             fixed_amounts: Optional[List[int]]
             """
@@ -403,7 +389,6 @@ class Configuration(
         dkk: Optional[Dkk]
         eur: Optional[Eur]
         gbp: Optional[Gbp]
-        gip: Optional[Gip]
         hkd: Optional[Hkd]
         huf: Optional[Huf]
         jpy: Optional[Jpy]
@@ -426,7 +411,6 @@ class Configuration(
             "dkk": Dkk,
             "eur": Eur,
             "gbp": Gbp,
-            "gip": Gip,
             "hkd": Hkd,
             "huf": Huf,
             "jpy": Jpy,

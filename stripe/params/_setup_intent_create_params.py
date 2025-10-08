@@ -95,10 +95,6 @@ class SetupIntentCreateParams(RequestOptions):
     """
     The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. To redirect to a mobile application, you can alternatively supply an application URI scheme. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/setup_intents/create#create_setup_intent-confirm).
     """
-    setup_details: NotRequired["SetupIntentCreateParamsSetupDetails"]
-    """
-    Provides industry-specific information about the SetupIntent.
-    """
     single_use: NotRequired["SetupIntentCreateParamsSingleUse"]
     """
     If you populate this hash, this SetupIntent generates a `single_use` mandate after successful completion.
@@ -112,6 +108,10 @@ class SetupIntentCreateParams(RequestOptions):
     use_stripe_sdk: NotRequired[bool]
     """
     Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions.
+    """
+    setup_details: NotRequired["SetupIntentCreateParamsSetupDetails"]
+    """
+    Provides industry-specific information about the SetupIntent.
     """
 
 
@@ -1750,6 +1750,17 @@ class SetupIntentCreateParamsPaymentMethodOptionsUsBankAccountNetworks(
     """
 
 
+class SetupIntentCreateParamsSingleUse(TypedDict):
+    amount: int
+    """
+    Amount the customer is granting permission to collect later. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
+    """
+    currency: str
+    """
+    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+    """
+
+
 class SetupIntentCreateParamsSetupDetails(TypedDict):
     benefit: NotRequired["SetupIntentCreateParamsSetupDetailsBenefit"]
     """
@@ -1770,15 +1781,4 @@ class SetupIntentCreateParamsSetupDetailsBenefitFrMealVoucher(TypedDict):
     siret: str
     """
     The 14-digit SIRET of the meal voucher acceptor.
-    """
-
-
-class SetupIntentCreateParamsSingleUse(TypedDict):
-    amount: int
-    """
-    Amount the customer is granting permission to collect later. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
-    """
-    currency: str
-    """
-    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """

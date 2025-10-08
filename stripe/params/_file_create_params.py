@@ -28,7 +28,6 @@ class FileCreateParams(RequestOptions):
         "identity_document",
         "issuing_regulatory_reporting",
         "pci_document",
-        "platform_terms_of_service",
         "tax_document_user_upload",
         "terminal_android_apk",
         "terminal_reader_splashscreen",

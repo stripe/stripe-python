@@ -732,28 +732,6 @@ class PaymentMethodConfiguration(
         display_preference: DisplayPreference
         _inner_class_types = {"display_preference": DisplayPreference}
 
-    class MbWay(StripeObject):
-        class DisplayPreference(StripeObject):
-            overridable: Optional[bool]
-            """
-            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
-            """
-            preference: Literal["none", "off", "on"]
-            """
-            The account's display preference.
-            """
-            value: Literal["off", "on"]
-            """
-            The effective display preference value.
-            """
-
-        available: bool
-        """
-        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
-        """
-        display_preference: DisplayPreference
-        _inner_class_types = {"display_preference": DisplayPreference}
-
     class Mobilepay(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
@@ -1377,7 +1355,6 @@ class PaymentMethodConfiguration(
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
-    mb_way: Optional[MbWay]
     mobilepay: Optional[Mobilepay]
     multibanco: Optional[Multibanco]
     name: str
@@ -1585,7 +1562,6 @@ class PaymentMethodConfiguration(
         "konbini": Konbini,
         "kr_card": KrCard,
         "link": Link,
-        "mb_way": MbWay,
         "mobilepay": Mobilepay,
         "multibanco": Multibanco,
         "naver_pay": NaverPay,

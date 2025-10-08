@@ -514,10 +514,6 @@ class PaymentIntentCreateParamsMandateDataCustomerAcceptanceOnline(TypedDict):
 
 
 class PaymentIntentCreateParamsPaymentDetails(TypedDict):
-    benefit: NotRequired["PaymentIntentCreateParamsPaymentDetailsBenefit"]
-    """
-    Benefit details for this PaymentIntent
-    """
     car_rental: NotRequired["PaymentIntentCreateParamsPaymentDetailsCarRental"]
     """
     Car rental details for this PaymentIntent.
@@ -550,21 +546,9 @@ class PaymentIntentCreateParamsPaymentDetails(TypedDict):
     """
     Subscription details for this PaymentIntent
     """
-
-
-class PaymentIntentCreateParamsPaymentDetailsBenefit(TypedDict):
-    fr_meal_voucher: NotRequired[
-        "PaymentIntentCreateParamsPaymentDetailsBenefitFrMealVoucher"
-    ]
+    benefit: NotRequired["PaymentIntentCreateParamsPaymentDetailsBenefit"]
     """
-    French meal voucher benefit details for this PaymentIntent.
-    """
-
-
-class PaymentIntentCreateParamsPaymentDetailsBenefitFrMealVoucher(TypedDict):
-    siret: str
-    """
-    The 14-digit SIRET of the meal voucher acceptor.
+    Benefit details for this PaymentIntent
     """
 
 
@@ -1262,6 +1246,22 @@ class PaymentIntentCreateParamsPaymentDetailsSubscriptionBillingInterval(
     interval: Literal["day", "month", "week", "year"]
     """
     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+    """
+
+
+class PaymentIntentCreateParamsPaymentDetailsBenefit(TypedDict):
+    fr_meal_voucher: NotRequired[
+        "PaymentIntentCreateParamsPaymentDetailsBenefitFrMealVoucher"
+    ]
+    """
+    French meal voucher benefit details for this PaymentIntent.
+    """
+
+
+class PaymentIntentCreateParamsPaymentDetailsBenefitFrMealVoucher(TypedDict):
+    siret: str
+    """
+    The 14-digit SIRET of the meal voucher acceptor.
     """
 
 
