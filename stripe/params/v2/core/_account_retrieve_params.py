@@ -8,6 +8,7 @@ class AccountRetrieveParams(TypedDict):
     include: NotRequired[
         List[
             Literal[
+                "configuration.card_creator",
                 "configuration.customer",
                 "configuration.merchant",
                 "configuration.recipient",
