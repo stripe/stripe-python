@@ -323,6 +323,31 @@ class PaymentLink(
         """
         _inner_class_types = {"invoice_data": InvoiceData}
 
+    class NameCollection(StripeObject):
+        class Business(StripeObject):
+            enabled: bool
+            """
+            Indicates whether business name collection is enabled for the payment link.
+            """
+            optional: bool
+            """
+            Whether the customer is required to complete the field before checking out. Defaults to `false`.
+            """
+
+        class Individual(StripeObject):
+            enabled: bool
+            """
+            Indicates whether individual name collection is enabled for the payment link.
+            """
+            optional: bool
+            """
+            Whether the customer is required to complete the field before checking out. Defaults to `false`.
+            """
+
+        business: Optional[Business]
+        individual: Optional[Individual]
+        _inner_class_types = {"business": Business, "individual": Individual}
+
     class OptionalItem(StripeObject):
         class AdjustableQuantity(StripeObject):
             enabled: bool
@@ -788,6 +813,7 @@ class PaymentLink(
     """
     Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
+    name_collection: Optional[NameCollection]
     object: Literal["payment_link"]
     """
     String representing the object's type. Objects of the same type share the same value.
@@ -1141,6 +1167,7 @@ class PaymentLink(
         "custom_fields": CustomField,
         "custom_text": CustomText,
         "invoice_creation": InvoiceCreation,
+        "name_collection": NameCollection,
         "optional_items": OptionalItem,
         "payment_intent_data": PaymentIntentData,
         "phone_number_collection": PhoneNumberCollection,
