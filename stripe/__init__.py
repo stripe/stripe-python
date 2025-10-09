@@ -25,6 +25,7 @@ DEFAULT_CONNECT_API_BASE: str = "https://connect.stripe.com"
 DEFAULT_UPLOAD_API_BASE: str = "https://files.stripe.com"
 DEFAULT_METER_EVENTS_API_BASE: str = "https://meter-events.stripe.com"
 
+raise RuntimeError("this should fail in CI!")
 
 api_key: Optional[str] = None
 client_id: Optional[str] = None
