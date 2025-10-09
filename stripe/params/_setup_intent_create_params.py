@@ -109,6 +109,10 @@ class SetupIntentCreateParams(RequestOptions):
     """
     Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions.
     """
+    setup_details: NotRequired["SetupIntentCreateParamsSetupDetails"]
+    """
+    Provides industry-specific information about the SetupIntent.
+    """
 
 
 class SetupIntentCreateParamsAutomaticPaymentMethods(TypedDict):
@@ -1754,4 +1758,27 @@ class SetupIntentCreateParamsSingleUse(TypedDict):
     currency: str
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+    """
+
+
+class SetupIntentCreateParamsSetupDetails(TypedDict):
+    benefit: NotRequired["SetupIntentCreateParamsSetupDetailsBenefit"]
+    """
+    Benefit details for this SetupIntent
+    """
+
+
+class SetupIntentCreateParamsSetupDetailsBenefit(TypedDict):
+    fr_meal_voucher: NotRequired[
+        "SetupIntentCreateParamsSetupDetailsBenefitFrMealVoucher"
+    ]
+    """
+    French meal voucher benefit details for this SetupIntent.
+    """
+
+
+class SetupIntentCreateParamsSetupDetailsBenefitFrMealVoucher(TypedDict):
+    siret: str
+    """
+    The 14-digit SIRET of the meal voucher acceptor.
     """

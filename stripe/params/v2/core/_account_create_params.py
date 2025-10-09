@@ -33,6 +33,7 @@ class AccountCreateParams(TypedDict):
     include: NotRequired[
         List[
             Literal[
+                "configuration.card_creator",
                 "configuration.customer",
                 "configuration.merchant",
                 "configuration.recipient",
@@ -53,6 +54,10 @@ class AccountCreateParams(TypedDict):
 
 
 class AccountCreateParamsConfiguration(TypedDict):
+    card_creator: NotRequired["AccountCreateParamsConfigurationCardCreator"]
+    """
+    The CardCreator Configuration allows the Account to create and issue cards to users.
+    """
     customer: NotRequired["AccountCreateParamsConfigurationCustomer"]
     """
     The Customer Configuration allows the Account to be used in inbound payment flows.
@@ -68,6 +73,152 @@ class AccountCreateParamsConfiguration(TypedDict):
     storer: NotRequired["AccountCreateParamsConfigurationStorer"]
     """
     The Storer Configuration allows the Account to store and move funds using stored-value FinancialAccounts.
+    """
+
+
+class AccountCreateParamsConfigurationCardCreator(TypedDict):
+    capabilities: NotRequired[
+        "AccountCreateParamsConfigurationCardCreatorCapabilities"
+    ]
+    """
+    Capabilities to request on the CardCreator Configuration.
+    """
+
+
+class AccountCreateParamsConfigurationCardCreatorCapabilities(TypedDict):
+    commercial: NotRequired[
+        "AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercial"
+    ]
+    """
+    Can create cards for commercial issuing use cases.
+    """
+
+
+class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercial(
+    TypedDict,
+):
+    celtic: NotRequired[
+        "AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCeltic"
+    ]
+    """
+    Can create commercial issuing cards with Celtic as BIN sponsor.
+    """
+    cross_river_bank: NotRequired[
+        "AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCrossRiverBank"
+    ]
+    """
+    Can create commercial issuing cards with Cross River Bank as BIN sponsor.
+    """
+    stripe: NotRequired[
+        "AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialStripe"
+    ]
+    """
+    Can create commercial issuing cards with Stripe as BIN sponsor.
+    """
+
+
+class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCeltic(
+    TypedDict,
+):
+    charge_card: NotRequired[
+        "AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCelticChargeCard"
+    ]
+    """
+    Can create commercial issuing charge cards with Celtic as BIN sponsor.
+    """
+    spend_card: NotRequired[
+        "AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCelticSpendCard"
+    ]
+    """
+    Can create commercial issuing spend cards with Celtic as BIN sponsor.
+    """
+
+
+class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCelticChargeCard(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCelticSpendCard(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCrossRiverBank(
+    TypedDict,
+):
+    charge_card: NotRequired[
+        "AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCrossRiverBankChargeCard"
+    ]
+    """
+    Can create commercial issuing charge cards with Cross River Bank as BIN sponsor.
+    """
+    spend_card: NotRequired[
+        "AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCrossRiverBankSpendCard"
+    ]
+    """
+    Can create commercial issuing spend cards with Cross River Bank as BIN sponsor.
+    """
+
+
+class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCrossRiverBankChargeCard(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCrossRiverBankSpendCard(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialStripe(
+    TypedDict,
+):
+    charge_card: NotRequired[
+        "AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialStripeChargeCard"
+    ]
+    """
+    Can create commercial issuing charge cards with Stripe as BIN sponsor.
+    """
+    prepaid_card: NotRequired[
+        "AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialStripePrepaidCard"
+    ]
+    """
+    Can create commercial issuing prepaid cards with Stripe as BIN sponsor.
+    """
+
+
+class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialStripeChargeCard(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialStripePrepaidCard(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
     """
 
 
@@ -1599,6 +1750,12 @@ class AccountCreateParamsIdentityAttestationsTermsOfService(TypedDict):
     """
     Details on the Account's acceptance of the [Stripe Services Agreement](https://docs.stripe.com/connect/updating-accounts#tos-acceptance).
     """
+    card_creator: NotRequired[
+        "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreator"
+    ]
+    """
+    Details on the Account's acceptance of Issuing-specific terms of service.
+    """
     storer: NotRequired[
         "AccountCreateParamsIdentityAttestationsTermsOfServiceStorer"
     ]
@@ -1608,6 +1765,387 @@ class AccountCreateParamsIdentityAttestationsTermsOfService(TypedDict):
 
 
 class AccountCreateParamsIdentityAttestationsTermsOfServiceAccount(TypedDict):
+    date: str
+    """
+    The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+    """
+    ip: str
+    """
+    The IP address from which the Account's representative accepted the terms of service.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser from which the Account's representative accepted the terms of service.
+    """
+
+
+class AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreator(
+    TypedDict,
+):
+    commercial: NotRequired[
+        "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercial"
+    ]
+    """
+    Terms of service acceptances to create cards for commercial issuing use cases.
+    """
+
+
+class AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercial(
+    TypedDict,
+):
+    account_holder: NotRequired[
+        "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialAccountHolder"
+    ]
+    """
+    Terms of service acceptances for Stripe commercial card issuing.
+    """
+    celtic: NotRequired[
+        "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCeltic"
+    ]
+    """
+    Terms of service acceptances for commercial issuing cards with Celtic as BIN sponsor.
+    """
+    cross_river_bank: NotRequired[
+        "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBank"
+    ]
+    """
+    Terms of service acceptances for commercial issuing cards with Cross River Bank as BIN sponsor.
+    """
+
+
+class AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialAccountHolder(
+    TypedDict,
+):
+    date: str
+    """
+    The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+    """
+    ip: str
+    """
+    The IP address from which the Account's representative accepted the terms of service.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser from which the Account's representative accepted the terms of service.
+    """
+
+
+class AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCeltic(
+    TypedDict,
+):
+    apple_pay: NotRequired[
+        "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCelticApplePay"
+    ]
+    """
+    Terms of service acceptances for commercial issuing Apple Pay cards with Celtic as BIN sponsor.
+    """
+    charge_card: NotRequired[
+        "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCelticChargeCard"
+    ]
+    """
+    Terms of service acceptances for commercial issuing charge cards with Celtic as BIN sponsor.
+    """
+    spend_card: NotRequired[
+        "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCelticSpendCard"
+    ]
+    """
+    Terms of service acceptances for commercial issuing spend cards with Celtic as BIN sponsor.
+    """
+
+
+class AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCelticApplePay(
+    TypedDict,
+):
+    date: str
+    """
+    The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+    """
+    ip: str
+    """
+    The IP address from which the Account's representative accepted the terms of service.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser from which the Account's representative accepted the terms of service.
+    """
+
+
+class AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCelticChargeCard(
+    TypedDict,
+):
+    bank_terms: NotRequired[
+        "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCelticChargeCardBankTerms"
+    ]
+    """
+    Bank terms of service acceptance for commercial issuing charge cards with Celtic as BIN sponsor.
+    """
+    platform: NotRequired[
+        "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCelticChargeCardPlatform"
+    ]
+    """
+    Platform terms of service acceptance for commercial issuing charge cards with Celtic as BIN sponsor.
+    """
+
+
+class AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCelticChargeCardBankTerms(
+    TypedDict,
+):
+    date: str
+    """
+    The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+    """
+    ip: str
+    """
+    The IP address from which the Account's representative accepted the terms of service.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser from which the Account's representative accepted the terms of service.
+    """
+
+
+class AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCelticChargeCardPlatform(
+    TypedDict,
+):
+    date: str
+    """
+    The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+    """
+    ip: str
+    """
+    The IP address from which the Account's representative accepted the terms of service.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser from which the Account's representative accepted the terms of service.
+    """
+
+
+class AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCelticSpendCard(
+    TypedDict,
+):
+    bank_terms: NotRequired[
+        "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCelticSpendCardBankTerms"
+    ]
+    """
+    Bank terms of service acceptance for commercial issuing spend cards with Celtic as BIN sponsor.
+    """
+    financing_disclosures: NotRequired[
+        "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCelticSpendCardFinancingDisclosures"
+    ]
+    """
+    Financial disclosures terms of service acceptance for commercial issuing spend cards with Celtic as BIN sponsor.
+    """
+    platform: NotRequired[
+        "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCelticSpendCardPlatform"
+    ]
+    """
+    Platform terms of service acceptance for commercial issuing spend cards with Celtic as BIN sponsor.
+    """
+
+
+class AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCelticSpendCardBankTerms(
+    TypedDict,
+):
+    date: str
+    """
+    The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+    """
+    ip: str
+    """
+    The IP address from which the Account's representative accepted the terms of service.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser from which the Account's representative accepted the terms of service.
+    """
+
+
+class AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCelticSpendCardFinancingDisclosures(
+    TypedDict,
+):
+    date: str
+    """
+    The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+    """
+    ip: str
+    """
+    The IP address from which the Account's representative accepted the terms of service.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser from which the Account's representative accepted the terms of service.
+    """
+
+
+class AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCelticSpendCardPlatform(
+    TypedDict,
+):
+    date: str
+    """
+    The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+    """
+    ip: str
+    """
+    The IP address from which the Account's representative accepted the terms of service.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser from which the Account's representative accepted the terms of service.
+    """
+
+
+class AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBank(
+    TypedDict,
+):
+    apple_pay: NotRequired[
+        "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankApplePay"
+    ]
+    """
+    Terms of service acceptances for commercial issuing Apple Pay cards with Cross River Bank as BIN sponsor.
+    """
+    charge_card: NotRequired[
+        "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankChargeCard"
+    ]
+    """
+    Terms of service acceptances for commercial issuing charge cards with Cross River Bank as BIN sponsor.
+    """
+    spend_card: NotRequired[
+        "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCard"
+    ]
+    """
+    Terms of service acceptances for commercial issuing spend cards with Cross River Bank as BIN sponsor.
+    """
+
+
+class AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankApplePay(
+    TypedDict,
+):
+    date: str
+    """
+    The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+    """
+    ip: str
+    """
+    The IP address from which the Account's representative accepted the terms of service.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser from which the Account's representative accepted the terms of service.
+    """
+
+
+class AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankChargeCard(
+    TypedDict,
+):
+    bank_terms: NotRequired[
+        "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankChargeCardBankTerms"
+    ]
+    """
+    Bank terms of service acceptance for commercial issuing charge cards with Cross River Bank as BIN sponsor.
+    """
+    financing_disclosures: NotRequired[
+        "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankChargeCardFinancingDisclosures"
+    ]
+    """
+    Financial disclosures terms of service acceptance for commercial issuing charge cards with Cross River Bank as BIN sponsor.
+    """
+    platform: NotRequired[
+        "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankChargeCardPlatform"
+    ]
+    """
+    Platform terms of service acceptance for commercial issuing charge cards with Cross River Bank as BIN sponsor.
+    """
+
+
+class AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankChargeCardBankTerms(
+    TypedDict,
+):
+    date: str
+    """
+    The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+    """
+    ip: str
+    """
+    The IP address from which the Account's representative accepted the terms of service.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser from which the Account's representative accepted the terms of service.
+    """
+
+
+class AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankChargeCardFinancingDisclosures(
+    TypedDict,
+):
+    date: str
+    """
+    The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+    """
+    ip: str
+    """
+    The IP address from which the Account's representative accepted the terms of service.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser from which the Account's representative accepted the terms of service.
+    """
+
+
+class AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankChargeCardPlatform(
+    TypedDict,
+):
+    date: str
+    """
+    The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+    """
+    ip: str
+    """
+    The IP address from which the Account's representative accepted the terms of service.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser from which the Account's representative accepted the terms of service.
+    """
+
+
+class AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCard(
+    TypedDict,
+):
+    bank_terms: NotRequired[
+        "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCardBankTerms"
+    ]
+    """
+    Bank terms of service acceptance for commercial issuing spend cards with Cross River Bank as BIN sponsor.
+    """
+    financing_disclosures: NotRequired[
+        "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCardFinancingDisclosures"
+    ]
+    """
+    Financial disclosures terms of service acceptance for commercial issuing spend cards with Cross River Bank as BIN sponsor.
+    """
+
+
+class AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCardBankTerms(
+    TypedDict,
+):
+    date: str
+    """
+    The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+    """
+    ip: str
+    """
+    The IP address from which the Account's representative accepted the terms of service.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser from which the Account's representative accepted the terms of service.
+    """
+
+
+class AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCardFinancingDisclosures(
+    TypedDict,
+):
     date: str
     """
     The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.

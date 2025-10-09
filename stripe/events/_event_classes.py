@@ -753,10 +753,6 @@ from stripe.events._v1_transfer_updated_event import (
     V1TransferUpdatedEvent,
     V1TransferUpdatedEventNotification,
 )
-from stripe.events._v2_billing_bill_setting_updated_event import (
-    V2BillingBillSettingUpdatedEvent,
-    V2BillingBillSettingUpdatedEventNotification,
-)
 from stripe.events._v2_billing_cadence_billed_event import (
     V2BillingCadenceBilledEvent,
     V2BillingCadenceBilledEventNotification,
@@ -916,6 +912,14 @@ from stripe.events._v2_core_account_created_event import (
 from stripe.events._v2_core_account_updated_event import (
     V2CoreAccountUpdatedEvent,
     V2CoreAccountUpdatedEventNotification,
+)
+from stripe.events._v2_core_account_including_configuration_card_creator_capability_status_updated_event import (
+    V2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEvent,
+    V2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEventNotification,
+)
+from stripe.events._v2_core_account_including_configuration_card_creator_updated_event import (
+    V2CoreAccountIncludingConfigurationCardCreatorUpdatedEvent,
+    V2CoreAccountIncludingConfigurationCardCreatorUpdatedEventNotification,
 )
 from stripe.events._v2_core_account_including_configuration_customer_capability_status_updated_event import (
     V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent,
@@ -1440,7 +1444,6 @@ V2_EVENT_CLASS_LOOKUP = {
     V1TransferCreatedEvent.LOOKUP_TYPE: V1TransferCreatedEvent,
     V1TransferReversedEvent.LOOKUP_TYPE: V1TransferReversedEvent,
     V1TransferUpdatedEvent.LOOKUP_TYPE: V1TransferUpdatedEvent,
-    V2BillingBillSettingUpdatedEvent.LOOKUP_TYPE: V2BillingBillSettingUpdatedEvent,
     V2BillingCadenceBilledEvent.LOOKUP_TYPE: V2BillingCadenceBilledEvent,
     V2BillingCadenceCanceledEvent.LOOKUP_TYPE: V2BillingCadenceCanceledEvent,
     V2BillingCadenceCreatedEvent.LOOKUP_TYPE: V2BillingCadenceCreatedEvent,
@@ -1480,6 +1483,8 @@ V2_EVENT_CLASS_LOOKUP = {
     V2BillingRateCardVersionCreatedEvent.LOOKUP_TYPE: V2BillingRateCardVersionCreatedEvent,
     V2CoreAccountClosedEvent.LOOKUP_TYPE: V2CoreAccountClosedEvent,
     V2CoreAccountCreatedEvent.LOOKUP_TYPE: V2CoreAccountCreatedEvent,
+    V2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEvent,
+    V2CoreAccountIncludingConfigurationCardCreatorUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationCardCreatorUpdatedEvent,
     V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent,
     V2CoreAccountIncludingConfigurationCustomerUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationCustomerUpdatedEvent,
     V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEvent,
@@ -1755,7 +1760,6 @@ V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
     V1TransferCreatedEventNotification.LOOKUP_TYPE: V1TransferCreatedEventNotification,
     V1TransferReversedEventNotification.LOOKUP_TYPE: V1TransferReversedEventNotification,
     V1TransferUpdatedEventNotification.LOOKUP_TYPE: V1TransferUpdatedEventNotification,
-    V2BillingBillSettingUpdatedEventNotification.LOOKUP_TYPE: V2BillingBillSettingUpdatedEventNotification,
     V2BillingCadenceBilledEventNotification.LOOKUP_TYPE: V2BillingCadenceBilledEventNotification,
     V2BillingCadenceCanceledEventNotification.LOOKUP_TYPE: V2BillingCadenceCanceledEventNotification,
     V2BillingCadenceCreatedEventNotification.LOOKUP_TYPE: V2BillingCadenceCreatedEventNotification,
@@ -1795,6 +1799,8 @@ V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
     V2BillingRateCardVersionCreatedEventNotification.LOOKUP_TYPE: V2BillingRateCardVersionCreatedEventNotification,
     V2CoreAccountClosedEventNotification.LOOKUP_TYPE: V2CoreAccountClosedEventNotification,
     V2CoreAccountCreatedEventNotification.LOOKUP_TYPE: V2CoreAccountCreatedEventNotification,
+    V2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEventNotification.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEventNotification,
+    V2CoreAccountIncludingConfigurationCardCreatorUpdatedEventNotification.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationCardCreatorUpdatedEventNotification,
     V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEventNotification.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEventNotification,
     V2CoreAccountIncludingConfigurationCustomerUpdatedEventNotification.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationCustomerUpdatedEventNotification,
     V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEventNotification.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEventNotification,
@@ -2070,7 +2076,6 @@ ALL_EVENT_NOTIFICATIONS = Union[
     V1TransferCreatedEventNotification,
     V1TransferReversedEventNotification,
     V1TransferUpdatedEventNotification,
-    V2BillingBillSettingUpdatedEventNotification,
     V2BillingCadenceBilledEventNotification,
     V2BillingCadenceCanceledEventNotification,
     V2BillingCadenceCreatedEventNotification,
@@ -2110,6 +2115,8 @@ ALL_EVENT_NOTIFICATIONS = Union[
     V2BillingRateCardVersionCreatedEventNotification,
     V2CoreAccountClosedEventNotification,
     V2CoreAccountCreatedEventNotification,
+    V2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEventNotification,
+    V2CoreAccountIncludingConfigurationCardCreatorUpdatedEventNotification,
     V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEventNotification,
     V2CoreAccountIncludingConfigurationCustomerUpdatedEventNotification,
     V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEventNotification,

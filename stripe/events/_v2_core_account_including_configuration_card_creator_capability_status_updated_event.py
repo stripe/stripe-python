@@ -6,15 +6,21 @@ from stripe._stripe_client import StripeClient
 from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
 from stripe._util import get_api_mode
-from stripe.v2.billing._bill_setting import BillSetting
+from stripe.v2.core._account import Account
 from stripe.v2.core._event import Event, EventNotification, RelatedObject
 from typing import Any, Dict, Optional, cast
 from typing_extensions import Literal, override
 
 
-class V2BillingBillSettingUpdatedEventNotification(EventNotification):
-    LOOKUP_TYPE = "v2.billing.bill_setting.updated"
-    type: Literal["v2.billing.bill_setting.updated"]
+class V2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEventNotification(
+    EventNotification,
+):
+    LOOKUP_TYPE = (
+        "v2.core.account[configuration.card_creator].capability_status_updated"
+    )
+    type: Literal[
+        "v2.core.account[configuration.card_creator].capability_status_updated"
+    ]
     related_object: RelatedObject
 
     def __init__(
@@ -27,13 +33,15 @@ class V2BillingBillSettingUpdatedEventNotification(EventNotification):
         self.related_object = RelatedObject(parsed_body["related_object"])
 
     @override
-    def fetch_event(self) -> "V2BillingBillSettingUpdatedEvent":
+    def fetch_event(
+        self,
+    ) -> "V2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEvent":
         return cast(
-            "V2BillingBillSettingUpdatedEvent",
+            "V2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEvent",
             super().fetch_event(),
         )
 
-    def fetch_related_object(self) -> "BillSetting":
+    def fetch_related_object(self) -> "Account":
         response = self._client.raw_request(
             "get",
             self.related_object.url,
@@ -41,7 +49,7 @@ class V2BillingBillSettingUpdatedEventNotification(EventNotification):
             usage=["fetch_related_object"],
         )
         return cast(
-            "BillSetting",
+            "Account",
             self._client.deserialize(
                 response,
                 api_mode=get_api_mode(self.related_object.url),
@@ -49,13 +57,15 @@ class V2BillingBillSettingUpdatedEventNotification(EventNotification):
         )
 
     @override
-    async def fetch_event_async(self) -> "V2BillingBillSettingUpdatedEvent":
+    async def fetch_event_async(
+        self,
+    ) -> "V2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEvent":
         return cast(
-            "V2BillingBillSettingUpdatedEvent",
+            "V2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEvent",
             await super().fetch_event_async(),
         )
 
-    async def fetch_related_object_async(self) -> "BillSetting":
+    async def fetch_related_object_async(self) -> "Account":
         response = await self._client.raw_request_async(
             "get",
             self.related_object.url,
@@ -63,7 +73,7 @@ class V2BillingBillSettingUpdatedEventNotification(EventNotification):
             usage=["fetch_related_object"],
         )
         return cast(
-            "BillSetting",
+            "Account",
             self._client.deserialize(
                 response,
                 api_mode=get_api_mode(self.related_object.url),
@@ -71,19 +81,34 @@ class V2BillingBillSettingUpdatedEventNotification(EventNotification):
         )
 
 
-class V2BillingBillSettingUpdatedEvent(Event):
-    LOOKUP_TYPE = "v2.billing.bill_setting.updated"
-    type: Literal["v2.billing.bill_setting.updated"]
+class V2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEvent(
+    Event,
+):
+    LOOKUP_TYPE = (
+        "v2.core.account[configuration.card_creator].capability_status_updated"
+    )
+    type: Literal[
+        "v2.core.account[configuration.card_creator].capability_status_updated"
+    ]
 
-    class V2BillingBillSettingUpdatedEventData(StripeObject):
-        updated: str
+    class V2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEventData(
+        StripeObject,
+    ):
+        updated_capability: Literal[
+            "commercial.celtic.charge_card",
+            "commercial.celtic.spend_card",
+            "commercial.cross_river_bank.charge_card",
+            "commercial.cross_river_bank.spend_card",
+            "commercial.stripe.charge_card",
+            "commercial.stripe.prepaid_card",
+        ]
         """
-        Timestamp of when the object was updated.
+        Open Enum. The capability which had its status updated.
         """
 
-    data: V2BillingBillSettingUpdatedEventData
+    data: V2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEventData
     """
-    Data for the v2.billing.bill_setting.updated event
+    Data for the v2.core.account[configuration.card_creator].capability_status_updated event
     """
 
     @classmethod
@@ -94,7 +119,7 @@ class V2BillingBillSettingUpdatedEvent(Event):
         last_response: Optional[StripeResponse] = None,
         requestor: "_APIRequestor",
         api_mode: ApiMode,
-    ) -> "V2BillingBillSettingUpdatedEvent":
+    ) -> "V2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEvent":
         evt = super()._construct_from(
             values=values,
             last_response=last_response,
@@ -102,7 +127,7 @@ class V2BillingBillSettingUpdatedEvent(Event):
             api_mode=api_mode,
         )
         if hasattr(evt, "data"):
-            evt.data = V2BillingBillSettingUpdatedEvent.V2BillingBillSettingUpdatedEventData._construct_from(
+            evt.data = V2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEvent.V2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEventData._construct_from(
                 values=evt.data,
                 last_response=last_response,
                 requestor=requestor,
@@ -129,12 +154,12 @@ class V2BillingBillSettingUpdatedEvent(Event):
     Object containing the reference to API resource relevant to the event
     """
 
-    def fetch_related_object(self) -> BillSetting:
+    def fetch_related_object(self) -> Account:
         """
         Retrieves the related object from the API. Makes an API request on every call.
         """
         return cast(
-            BillSetting,
+            Account,
             self._requestor.request(
                 "get",
                 self.related_object.url,

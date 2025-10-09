@@ -495,6 +495,9 @@ from stripe._payment_link_service import (
     PaymentLinkService as PaymentLinkService,
 )
 from stripe._payment_method import PaymentMethod as PaymentMethod
+from stripe._payment_method_balance import (
+    PaymentMethodBalance as PaymentMethodBalance,
+)
 from stripe._payment_method_configuration import (
     PaymentMethodConfiguration as PaymentMethodConfiguration,
 )
