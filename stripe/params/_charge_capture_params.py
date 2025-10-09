@@ -55,10 +55,6 @@ class ChargeCaptureParamsPaymentDetails(TypedDict):
     """
     Car rental details for this PaymentIntent.
     """
-    customer_reference: NotRequired["Literal['']|str"]
-    """
-    Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
-    """
     event_details: NotRequired["ChargeCaptureParamsPaymentDetailsEventDetails"]
     """
     Event details for this PaymentIntent
@@ -70,10 +66,6 @@ class ChargeCaptureParamsPaymentDetails(TypedDict):
     lodging: NotRequired["ChargeCaptureParamsPaymentDetailsLodging"]
     """
     Lodging reservation details for this PaymentIntent
-    """
-    order_reference: NotRequired["Literal['']|str"]
-    """
-    A unique value assigned by the business to identify the transaction.
     """
     subscription: NotRequired["ChargeCaptureParamsPaymentDetailsSubscription"]
     """
