@@ -86,6 +86,10 @@ class PaymentMethodConfigurationModifyParams(RequestOptions):
     """
     Cash App is a popular consumer app in the US that allows customers to bank, invest, send, and receive money using their digital wallet. Check this [page](https://stripe.com/docs/payments/cash-app-pay) for more details.
     """
+    crypto: NotRequired["PaymentMethodConfigurationModifyParamsCrypto"]
+    """
+    [Stablecoin payments](https://stripe.com/docs/payments/stablecoin-payments) enable customers to pay in stablecoins like USDC from 100s of wallets including Phantom and Metamask.
+    """
     customer_balance: NotRequired[
         "PaymentMethodConfigurationModifyParamsCustomerBalance"
     ]
@@ -568,6 +572,22 @@ class PaymentMethodConfigurationModifyParamsCashapp(TypedDict):
 class PaymentMethodConfigurationModifyParamsCashappDisplayPreference(
     TypedDict
 ):
+    preference: NotRequired[Literal["none", "off", "on"]]
+    """
+    The account's preference for whether or not to display this payment method.
+    """
+
+
+class PaymentMethodConfigurationModifyParamsCrypto(TypedDict):
+    display_preference: NotRequired[
+        "PaymentMethodConfigurationModifyParamsCryptoDisplayPreference"
+    ]
+    """
+    Whether or not the payment method should be displayed.
+    """
+
+
+class PaymentMethodConfigurationModifyParamsCryptoDisplayPreference(TypedDict):
     preference: NotRequired[Literal["none", "off", "on"]]
     """
     The account's preference for whether or not to display this payment method.

@@ -887,6 +887,7 @@ from stripe.params._credit_note_create_params import (
     CreditNoteCreateParamsLine as CreditNoteCreateParamsLine,
     CreditNoteCreateParamsLineTaxAmount as CreditNoteCreateParamsLineTaxAmount,
     CreditNoteCreateParamsRefund as CreditNoteCreateParamsRefund,
+    CreditNoteCreateParamsRefundPaymentRecordRefund as CreditNoteCreateParamsRefundPaymentRecordRefund,
     CreditNoteCreateParamsShippingCost as CreditNoteCreateParamsShippingCost,
 )
 from stripe.params._credit_note_line_item_list_params import (
@@ -907,6 +908,7 @@ from stripe.params._credit_note_preview_lines_list_params import (
     CreditNotePreviewLinesListParamsLine as CreditNotePreviewLinesListParamsLine,
     CreditNotePreviewLinesListParamsLineTaxAmount as CreditNotePreviewLinesListParamsLineTaxAmount,
     CreditNotePreviewLinesListParamsRefund as CreditNotePreviewLinesListParamsRefund,
+    CreditNotePreviewLinesListParamsRefundPaymentRecordRefund as CreditNotePreviewLinesListParamsRefundPaymentRecordRefund,
     CreditNotePreviewLinesListParamsShippingCost as CreditNotePreviewLinesListParamsShippingCost,
 )
 from stripe.params._credit_note_preview_lines_params import (
@@ -914,6 +916,7 @@ from stripe.params._credit_note_preview_lines_params import (
     CreditNotePreviewLinesParamsLine as CreditNotePreviewLinesParamsLine,
     CreditNotePreviewLinesParamsLineTaxAmount as CreditNotePreviewLinesParamsLineTaxAmount,
     CreditNotePreviewLinesParamsRefund as CreditNotePreviewLinesParamsRefund,
+    CreditNotePreviewLinesParamsRefundPaymentRecordRefund as CreditNotePreviewLinesParamsRefundPaymentRecordRefund,
     CreditNotePreviewLinesParamsShippingCost as CreditNotePreviewLinesParamsShippingCost,
 )
 from stripe.params._credit_note_preview_params import (
@@ -921,6 +924,7 @@ from stripe.params._credit_note_preview_params import (
     CreditNotePreviewParamsLine as CreditNotePreviewParamsLine,
     CreditNotePreviewParamsLineTaxAmount as CreditNotePreviewParamsLineTaxAmount,
     CreditNotePreviewParamsRefund as CreditNotePreviewParamsRefund,
+    CreditNotePreviewParamsRefundPaymentRecordRefund as CreditNotePreviewParamsRefundPaymentRecordRefund,
     CreditNotePreviewParamsShippingCost as CreditNotePreviewParamsShippingCost,
 )
 from stripe.params._credit_note_retrieve_params import (
@@ -2893,6 +2897,8 @@ from stripe.params._payment_method_configuration_create_params import (
     PaymentMethodConfigurationCreateParamsCartesBancairesDisplayPreference as PaymentMethodConfigurationCreateParamsCartesBancairesDisplayPreference,
     PaymentMethodConfigurationCreateParamsCashapp as PaymentMethodConfigurationCreateParamsCashapp,
     PaymentMethodConfigurationCreateParamsCashappDisplayPreference as PaymentMethodConfigurationCreateParamsCashappDisplayPreference,
+    PaymentMethodConfigurationCreateParamsCrypto as PaymentMethodConfigurationCreateParamsCrypto,
+    PaymentMethodConfigurationCreateParamsCryptoDisplayPreference as PaymentMethodConfigurationCreateParamsCryptoDisplayPreference,
     PaymentMethodConfigurationCreateParamsCustomerBalance as PaymentMethodConfigurationCreateParamsCustomerBalance,
     PaymentMethodConfigurationCreateParamsCustomerBalanceDisplayPreference as PaymentMethodConfigurationCreateParamsCustomerBalanceDisplayPreference,
     PaymentMethodConfigurationCreateParamsEps as PaymentMethodConfigurationCreateParamsEps,
@@ -3019,6 +3025,8 @@ from stripe.params._payment_method_configuration_modify_params import (
     PaymentMethodConfigurationModifyParamsCartesBancairesDisplayPreference as PaymentMethodConfigurationModifyParamsCartesBancairesDisplayPreference,
     PaymentMethodConfigurationModifyParamsCashapp as PaymentMethodConfigurationModifyParamsCashapp,
     PaymentMethodConfigurationModifyParamsCashappDisplayPreference as PaymentMethodConfigurationModifyParamsCashappDisplayPreference,
+    PaymentMethodConfigurationModifyParamsCrypto as PaymentMethodConfigurationModifyParamsCrypto,
+    PaymentMethodConfigurationModifyParamsCryptoDisplayPreference as PaymentMethodConfigurationModifyParamsCryptoDisplayPreference,
     PaymentMethodConfigurationModifyParamsCustomerBalance as PaymentMethodConfigurationModifyParamsCustomerBalance,
     PaymentMethodConfigurationModifyParamsCustomerBalanceDisplayPreference as PaymentMethodConfigurationModifyParamsCustomerBalanceDisplayPreference,
     PaymentMethodConfigurationModifyParamsEps as PaymentMethodConfigurationModifyParamsEps,
@@ -3145,6 +3153,8 @@ from stripe.params._payment_method_configuration_update_params import (
     PaymentMethodConfigurationUpdateParamsCartesBancairesDisplayPreference as PaymentMethodConfigurationUpdateParamsCartesBancairesDisplayPreference,
     PaymentMethodConfigurationUpdateParamsCashapp as PaymentMethodConfigurationUpdateParamsCashapp,
     PaymentMethodConfigurationUpdateParamsCashappDisplayPreference as PaymentMethodConfigurationUpdateParamsCashappDisplayPreference,
+    PaymentMethodConfigurationUpdateParamsCrypto as PaymentMethodConfigurationUpdateParamsCrypto,
+    PaymentMethodConfigurationUpdateParamsCryptoDisplayPreference as PaymentMethodConfigurationUpdateParamsCryptoDisplayPreference,
     PaymentMethodConfigurationUpdateParamsCustomerBalance as PaymentMethodConfigurationUpdateParamsCustomerBalance,
     PaymentMethodConfigurationUpdateParamsCustomerBalanceDisplayPreference as PaymentMethodConfigurationUpdateParamsCustomerBalanceDisplayPreference,
     PaymentMethodConfigurationUpdateParamsEps as PaymentMethodConfigurationUpdateParamsEps,

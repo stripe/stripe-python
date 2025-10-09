@@ -34,7 +34,7 @@ class ReaderRefundPaymentParams(RequestOptions):
         "ReaderRefundPaymentParamsRefundPaymentConfig"
     ]
     """
-    Configuration overrides
+    Configuration overrides for this refund, such as customer cancellation settings.
     """
     reverse_transfer: NotRequired[bool]
     """

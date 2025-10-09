@@ -12,7 +12,7 @@ class ReaderCollectInputsParams(RequestOptions):
     """
     inputs: List["ReaderCollectInputsParamsInput"]
     """
-    List of inputs to be collected using the Reader
+    List of inputs to be collected from the customer using the Reader. Maximum 5 inputs.
     """
     metadata: NotRequired[Dict[str, str]]
     """
@@ -52,11 +52,11 @@ class ReaderCollectInputsParamsInputCustomText(TypedDict):
     """
     skip_button: NotRequired[str]
     """
-    The skip button text
+    Custom text for the skip button. Maximum 14 characters.
     """
     submit_button: NotRequired[str]
     """
-    The submit button text
+    Custom text for the submit button. Maximum 30 characters.
     """
     title: str
     """
@@ -78,7 +78,7 @@ class ReaderCollectInputsParamsInputSelectionChoice(TypedDict):
     """
     style: NotRequired[Literal["primary", "secondary"]]
     """
-    The style of the button which will be shown for this choice
+    The style of the button which will be shown for this choice. Can be `primary` or `secondary`.
     """
     text: str
     """
@@ -89,13 +89,13 @@ class ReaderCollectInputsParamsInputSelectionChoice(TypedDict):
 class ReaderCollectInputsParamsInputToggle(TypedDict):
     default_value: NotRequired[Literal["disabled", "enabled"]]
     """
-    The default value of the toggle
+    The default value of the toggle. Can be `enabled` or `disabled`.
     """
     description: NotRequired[str]
     """
-    The description which will be displayed for the toggle
+    The description which will be displayed for the toggle. Maximum 50 characters. At least one of title or description must be provided.
     """
     title: NotRequired[str]
     """
-    The title which will be displayed for the toggle
+    The title which will be displayed for the toggle. Maximum 50 characters. At least one of title or description must be provided.
     """
