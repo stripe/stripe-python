@@ -82,6 +82,10 @@ class PaymentMethodConfigurationCreateParams(RequestOptions):
     """
     Cash App is a popular consumer app in the US that allows customers to bank, invest, send, and receive money using their digital wallet. Check this [page](https://stripe.com/docs/payments/cash-app-pay) for more details.
     """
+    crypto: NotRequired["PaymentMethodConfigurationCreateParamsCrypto"]
+    """
+    [Stablecoin payments](https://stripe.com/docs/payments/stablecoin-payments) enable customers to pay in stablecoins like USDC from 100s of wallets including Phantom and Metamask.
+    """
     customer_balance: NotRequired[
         "PaymentMethodConfigurationCreateParamsCustomerBalance"
     ]
@@ -155,6 +159,10 @@ class PaymentMethodConfigurationCreateParams(RequestOptions):
     link: NotRequired["PaymentMethodConfigurationCreateParamsLink"]
     """
     [Link](https://stripe.com/docs/payments/link) is a payment method network. With Link, users save their payment details once, then reuse that information to pay with one click for any business on the network.
+    """
+    mb_way: NotRequired["PaymentMethodConfigurationCreateParamsMbWay"]
+    """
+    MB WAY is the most popular wallet in Portugal. After entering their phone number in your checkout, customers approve the payment directly in their MB WAY app. Check this [page](https://stripe.com/docs/payments/mb-way) for more details.
     """
     mobilepay: NotRequired["PaymentMethodConfigurationCreateParamsMobilepay"]
     """
@@ -570,6 +578,22 @@ class PaymentMethodConfigurationCreateParamsCashappDisplayPreference(
     """
 
 
+class PaymentMethodConfigurationCreateParamsCrypto(TypedDict):
+    display_preference: NotRequired[
+        "PaymentMethodConfigurationCreateParamsCryptoDisplayPreference"
+    ]
+    """
+    Whether or not the payment method should be displayed.
+    """
+
+
+class PaymentMethodConfigurationCreateParamsCryptoDisplayPreference(TypedDict):
+    preference: NotRequired[Literal["none", "off", "on"]]
+    """
+    The account's preference for whether or not to display this payment method.
+    """
+
+
 class PaymentMethodConfigurationCreateParamsCustomerBalance(TypedDict):
     display_preference: NotRequired[
         "PaymentMethodConfigurationCreateParamsCustomerBalanceDisplayPreference"
@@ -836,6 +860,22 @@ class PaymentMethodConfigurationCreateParamsLink(TypedDict):
 
 
 class PaymentMethodConfigurationCreateParamsLinkDisplayPreference(TypedDict):
+    preference: NotRequired[Literal["none", "off", "on"]]
+    """
+    The account's preference for whether or not to display this payment method.
+    """
+
+
+class PaymentMethodConfigurationCreateParamsMbWay(TypedDict):
+    display_preference: NotRequired[
+        "PaymentMethodConfigurationCreateParamsMbWayDisplayPreference"
+    ]
+    """
+    Whether or not the payment method should be displayed.
+    """
+
+
+class PaymentMethodConfigurationCreateParamsMbWayDisplayPreference(TypedDict):
     preference: NotRequired[Literal["none", "off", "on"]]
     """
     The account's preference for whether or not to display this payment method.

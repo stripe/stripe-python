@@ -10,7 +10,7 @@ class ReaderConfirmPaymentIntentParams(RequestOptions):
         "ReaderConfirmPaymentIntentParamsConfirmConfig"
     ]
     """
-    Configuration overrides.
+    Configuration overrides for this confirmation, such as surcharge settings and return URL.
     """
     expand: NotRequired[List[str]]
     """
@@ -18,7 +18,7 @@ class ReaderConfirmPaymentIntentParams(RequestOptions):
     """
     payment_intent: str
     """
-    PaymentIntent ID.
+    The ID of the PaymentIntent to confirm.
     """
 
 

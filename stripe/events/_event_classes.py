@@ -9,10 +9,6 @@ from stripe.events._v1_billing_meter_no_meter_found_event import (
     V1BillingMeterNoMeterFoundEvent,
     V1BillingMeterNoMeterFoundEventNotification,
 )
-from stripe.events._v2_billing_bill_setting_updated_event import (
-    V2BillingBillSettingUpdatedEvent,
-    V2BillingBillSettingUpdatedEventNotification,
-)
 from stripe.events._v2_core_account_closed_event import (
     V2CoreAccountClosedEvent,
     V2CoreAccountClosedEventNotification,
@@ -262,7 +258,6 @@ from stripe.events._v2_payments_off_session_payment_succeeded_event import (
 V2_EVENT_CLASS_LOOKUP = {
     V1BillingMeterErrorReportTriggeredEvent.LOOKUP_TYPE: V1BillingMeterErrorReportTriggeredEvent,
     V1BillingMeterNoMeterFoundEvent.LOOKUP_TYPE: V1BillingMeterNoMeterFoundEvent,
-    V2BillingBillSettingUpdatedEvent.LOOKUP_TYPE: V2BillingBillSettingUpdatedEvent,
     V2CoreAccountClosedEvent.LOOKUP_TYPE: V2CoreAccountClosedEvent,
     V2CoreAccountCreatedEvent.LOOKUP_TYPE: V2CoreAccountCreatedEvent,
     V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent,
@@ -329,7 +324,6 @@ V2_EVENT_CLASS_LOOKUP = {
 V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
     V1BillingMeterErrorReportTriggeredEventNotification.LOOKUP_TYPE: V1BillingMeterErrorReportTriggeredEventNotification,
     V1BillingMeterNoMeterFoundEventNotification.LOOKUP_TYPE: V1BillingMeterNoMeterFoundEventNotification,
-    V2BillingBillSettingUpdatedEventNotification.LOOKUP_TYPE: V2BillingBillSettingUpdatedEventNotification,
     V2CoreAccountClosedEventNotification.LOOKUP_TYPE: V2CoreAccountClosedEventNotification,
     V2CoreAccountCreatedEventNotification.LOOKUP_TYPE: V2CoreAccountCreatedEventNotification,
     V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEventNotification.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEventNotification,
@@ -396,7 +390,6 @@ V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
 ALL_EVENT_NOTIFICATIONS = Union[
     V1BillingMeterErrorReportTriggeredEventNotification,
     V1BillingMeterNoMeterFoundEventNotification,
-    V2BillingBillSettingUpdatedEventNotification,
     V2CoreAccountClosedEventNotification,
     V2CoreAccountCreatedEventNotification,
     V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEventNotification,

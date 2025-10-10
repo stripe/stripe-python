@@ -26,6 +26,9 @@ if TYPE_CHECKING:
     from stripe.params._payment_record_report_payment_params import (
         PaymentRecordReportPaymentParams,
     )
+    from stripe.params._payment_record_report_refund_params import (
+        PaymentRecordReportRefundParams,
+    )
     from stripe.params._payment_record_retrieve_params import (
         PaymentRecordRetrieveParams,
     )
@@ -296,6 +299,52 @@ class PaymentRecordService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/payment_records/{id}/report_payment_attempt_informational".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def report_refund(
+        self,
+        id: str,
+        params: "PaymentRecordReportRefundParams",
+        options: Optional[RequestOptions] = None,
+    ) -> PaymentRecord:
+        """
+        Report that the most recent payment attempt on the specified Payment Record
+         was refunded.
+        """
+        return cast(
+            PaymentRecord,
+            self._request(
+                "post",
+                "/v1/payment_records/{id}/report_refund".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def report_refund_async(
+        self,
+        id: str,
+        params: "PaymentRecordReportRefundParams",
+        options: Optional[RequestOptions] = None,
+    ) -> PaymentRecord:
+        """
+        Report that the most recent payment attempt on the specified Payment Record
+         was refunded.
+        """
+        return cast(
+            PaymentRecord,
+            await self._request_async(
+                "post",
+                "/v1/payment_records/{id}/report_refund".format(
                     id=sanitize_id(id),
                 ),
                 base_address="api",
