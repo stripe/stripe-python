@@ -74,6 +74,7 @@ OBJECT_CLASSES = {
     stripe.forwarding.Request.OBJECT_NAME: stripe.forwarding.Request,
     stripe.FundingInstructions.OBJECT_NAME: stripe.FundingInstructions,
     stripe.FxQuote.OBJECT_NAME: stripe.FxQuote,
+    stripe.identity.BlocklistEntry.OBJECT_NAME: stripe.identity.BlocklistEntry,
     stripe.identity.VerificationReport.OBJECT_NAME: stripe.identity.VerificationReport,
     stripe.identity.VerificationSession.OBJECT_NAME: stripe.identity.VerificationSession,
     stripe.Invoice.OBJECT_NAME: stripe.Invoice,
