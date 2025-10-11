@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject
@@ -7,6 +8,7 @@ from typing import ClassVar, List, Optional
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.identity._blocklist_entry import BlocklistEntry
     from stripe.params.identity._verification_report_list_params import (
         VerificationReportListParams,
     )
@@ -122,6 +124,10 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
         address: Optional[Address]
         """
         Address as it appears in the document.
+        """
+        blocked_by_entry: Optional[ExpandableField["BlocklistEntry"]]
+        """
+        If document was not verified due to extracted data being on the blocklist, this is the token of the BlocklistEntry that blocked it
         """
         dob: Optional[Dob]
         """
@@ -352,6 +358,10 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
             A human-readable message giving the reason for the failure. These messages can be shown to your users.
             """
 
+        blocked_by_entry: Optional[ExpandableField["BlocklistEntry"]]
+        """
+        If selfie was not verified due to being on the blocklist, this is the token of the BlocklistEntry that blocked it
+        """
         document: Optional[str]
         """
         ID of the [File](https://stripe.com/docs/api/files) holding the image of the identity document used in this check.
