@@ -1,6 +1,5 @@
 from typing_extensions import TYPE_CHECKING, Literal
 from typing import Optional
-import sys as _sys
 import os
 import warnings
 
@@ -13,7 +12,7 @@ import warnings
 
 # Configuration variables
 from stripe._api_version import _ApiVersion
-from stripe._api_requestor import _APIRequestor
+# from stripe._api_requestor import _APIRequestor
 
 
 from stripe._app_info import AppInfo as AppInfo
