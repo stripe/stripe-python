@@ -1,3 +1,4 @@
+import importlib
 from typing_extensions import TYPE_CHECKING, Literal
 from typing import Optional
 import os
@@ -209,329 +210,543 @@ from stripe._util import convert_to_stripe_object as convert_to_stripe_object
 # API resources
 
 # The beginning of the section generated from our OpenAPI spec
-from stripe import (
-    apps as apps,
-    billing as billing,
-    billing_portal as billing_portal,
-    checkout as checkout,
-    climate as climate,
-    entitlements as entitlements,
-    events as events,
-    financial_connections as financial_connections,
-    forwarding as forwarding,
-    identity as identity,
-    issuing as issuing,
-    params as params,
-    radar as radar,
-    reporting as reporting,
-    sigma as sigma,
-    tax as tax,
-    terminal as terminal,
-    test_helpers as test_helpers,
-    treasury as treasury,
-    v2 as v2,
-)
-from stripe._account import Account as Account
-from stripe._account_capability_service import (
-    AccountCapabilityService as AccountCapabilityService,
-)
-from stripe._account_external_account_service import (
-    AccountExternalAccountService as AccountExternalAccountService,
-)
-from stripe._account_link import AccountLink as AccountLink
-from stripe._account_link_service import (
-    AccountLinkService as AccountLinkService,
-)
-from stripe._account_login_link_service import (
-    AccountLoginLinkService as AccountLoginLinkService,
-)
-from stripe._account_person_service import (
-    AccountPersonService as AccountPersonService,
-)
-from stripe._account_service import AccountService as AccountService
-from stripe._account_session import AccountSession as AccountSession
-from stripe._account_session_service import (
-    AccountSessionService as AccountSessionService,
-)
-from stripe._apple_pay_domain import ApplePayDomain as ApplePayDomain
-from stripe._apple_pay_domain_service import (
-    ApplePayDomainService as ApplePayDomainService,
-)
-from stripe._application import Application as Application
-from stripe._application_fee import ApplicationFee as ApplicationFee
-from stripe._application_fee_refund import (
-    ApplicationFeeRefund as ApplicationFeeRefund,
-)
-from stripe._application_fee_refund_service import (
-    ApplicationFeeRefundService as ApplicationFeeRefundService,
-)
-from stripe._application_fee_service import (
-    ApplicationFeeService as ApplicationFeeService,
-)
-from stripe._apps_service import AppsService as AppsService
-from stripe._balance import Balance as Balance
-from stripe._balance_service import BalanceService as BalanceService
-from stripe._balance_settings import BalanceSettings as BalanceSettings
-from stripe._balance_settings_service import (
-    BalanceSettingsService as BalanceSettingsService,
-)
-from stripe._balance_transaction import (
-    BalanceTransaction as BalanceTransaction,
-)
-from stripe._balance_transaction_service import (
-    BalanceTransactionService as BalanceTransactionService,
-)
-from stripe._bank_account import BankAccount as BankAccount
-from stripe._billing_portal_service import (
-    BillingPortalService as BillingPortalService,
-)
-from stripe._billing_service import BillingService as BillingService
-from stripe._capability import Capability as Capability
-from stripe._card import Card as Card
-from stripe._cash_balance import CashBalance as CashBalance
-from stripe._charge import Charge as Charge
-from stripe._charge_service import ChargeService as ChargeService
-from stripe._checkout_service import CheckoutService as CheckoutService
-from stripe._climate_service import ClimateService as ClimateService
-from stripe._confirmation_token import ConfirmationToken as ConfirmationToken
-from stripe._confirmation_token_service import (
-    ConfirmationTokenService as ConfirmationTokenService,
-)
-from stripe._connect_collection_transfer import (
-    ConnectCollectionTransfer as ConnectCollectionTransfer,
-)
-from stripe._country_spec import CountrySpec as CountrySpec
-from stripe._country_spec_service import (
-    CountrySpecService as CountrySpecService,
-)
-from stripe._coupon import Coupon as Coupon
-from stripe._coupon_service import CouponService as CouponService
-from stripe._credit_note import CreditNote as CreditNote
-from stripe._credit_note_line_item import (
-    CreditNoteLineItem as CreditNoteLineItem,
-)
-from stripe._credit_note_line_item_service import (
-    CreditNoteLineItemService as CreditNoteLineItemService,
-)
-from stripe._credit_note_preview_lines_service import (
-    CreditNotePreviewLinesService as CreditNotePreviewLinesService,
-)
-from stripe._credit_note_service import CreditNoteService as CreditNoteService
-from stripe._customer import Customer as Customer
-from stripe._customer_balance_transaction import (
-    CustomerBalanceTransaction as CustomerBalanceTransaction,
-)
-from stripe._customer_balance_transaction_service import (
-    CustomerBalanceTransactionService as CustomerBalanceTransactionService,
-)
-from stripe._customer_cash_balance_service import (
-    CustomerCashBalanceService as CustomerCashBalanceService,
-)
-from stripe._customer_cash_balance_transaction import (
-    CustomerCashBalanceTransaction as CustomerCashBalanceTransaction,
-)
-from stripe._customer_cash_balance_transaction_service import (
-    CustomerCashBalanceTransactionService as CustomerCashBalanceTransactionService,
-)
-from stripe._customer_funding_instructions_service import (
-    CustomerFundingInstructionsService as CustomerFundingInstructionsService,
-)
-from stripe._customer_payment_method_service import (
-    CustomerPaymentMethodService as CustomerPaymentMethodService,
-)
-from stripe._customer_payment_source_service import (
-    CustomerPaymentSourceService as CustomerPaymentSourceService,
-)
-from stripe._customer_service import CustomerService as CustomerService
-from stripe._customer_session import CustomerSession as CustomerSession
-from stripe._customer_session_service import (
-    CustomerSessionService as CustomerSessionService,
-)
-from stripe._customer_tax_id_service import (
-    CustomerTaxIdService as CustomerTaxIdService,
-)
-from stripe._discount import Discount as Discount
-from stripe._dispute import Dispute as Dispute
-from stripe._dispute_service import DisputeService as DisputeService
-from stripe._entitlements_service import (
-    EntitlementsService as EntitlementsService,
-)
-from stripe._ephemeral_key import EphemeralKey as EphemeralKey
-from stripe._ephemeral_key_service import (
-    EphemeralKeyService as EphemeralKeyService,
-)
-from stripe._error import (
-    TemporarySessionExpiredError as TemporarySessionExpiredError,
-)
-from stripe._event import Event as Event
-from stripe._event_service import EventService as EventService
-from stripe._exchange_rate import ExchangeRate as ExchangeRate
-from stripe._exchange_rate_service import (
-    ExchangeRateService as ExchangeRateService,
-)
-from stripe._file import File as File
-from stripe._file_link import FileLink as FileLink
-from stripe._file_link_service import FileLinkService as FileLinkService
-from stripe._file_service import FileService as FileService
-from stripe._financial_connections_service import (
-    FinancialConnectionsService as FinancialConnectionsService,
-)
-from stripe._forwarding_service import ForwardingService as ForwardingService
-from stripe._funding_instructions import (
-    FundingInstructions as FundingInstructions,
-)
-from stripe._identity_service import IdentityService as IdentityService
-from stripe._invoice import Invoice as Invoice
-from stripe._invoice_item import InvoiceItem as InvoiceItem
-from stripe._invoice_item_service import (
-    InvoiceItemService as InvoiceItemService,
-)
-from stripe._invoice_line_item import InvoiceLineItem as InvoiceLineItem
-from stripe._invoice_line_item_service import (
-    InvoiceLineItemService as InvoiceLineItemService,
-)
-from stripe._invoice_payment import InvoicePayment as InvoicePayment
-from stripe._invoice_payment_service import (
-    InvoicePaymentService as InvoicePaymentService,
-)
-from stripe._invoice_rendering_template import (
-    InvoiceRenderingTemplate as InvoiceRenderingTemplate,
-)
-from stripe._invoice_rendering_template_service import (
-    InvoiceRenderingTemplateService as InvoiceRenderingTemplateService,
-)
-from stripe._invoice_service import InvoiceService as InvoiceService
-from stripe._issuing_service import IssuingService as IssuingService
-from stripe._line_item import LineItem as LineItem
-from stripe._login_link import LoginLink as LoginLink
-from stripe._mandate import Mandate as Mandate
-from stripe._mandate_service import MandateService as MandateService
-from stripe._payment_intent import PaymentIntent as PaymentIntent
-from stripe._payment_intent_service import (
-    PaymentIntentService as PaymentIntentService,
-)
-from stripe._payment_link import PaymentLink as PaymentLink
-from stripe._payment_link_line_item_service import (
-    PaymentLinkLineItemService as PaymentLinkLineItemService,
-)
-from stripe._payment_link_service import (
-    PaymentLinkService as PaymentLinkService,
-)
-from stripe._payment_method import PaymentMethod as PaymentMethod
-from stripe._payment_method_configuration import (
-    PaymentMethodConfiguration as PaymentMethodConfiguration,
-)
-from stripe._payment_method_configuration_service import (
-    PaymentMethodConfigurationService as PaymentMethodConfigurationService,
-)
-from stripe._payment_method_domain import (
-    PaymentMethodDomain as PaymentMethodDomain,
-)
-from stripe._payment_method_domain_service import (
-    PaymentMethodDomainService as PaymentMethodDomainService,
-)
-from stripe._payment_method_service import (
-    PaymentMethodService as PaymentMethodService,
-)
-from stripe._payout import Payout as Payout
-from stripe._payout_service import PayoutService as PayoutService
-from stripe._person import Person as Person
-from stripe._plan import Plan as Plan
-from stripe._plan_service import PlanService as PlanService
-from stripe._price import Price as Price
-from stripe._price_service import PriceService as PriceService
-from stripe._product import Product as Product
-from stripe._product_feature import ProductFeature as ProductFeature
-from stripe._product_feature_service import (
-    ProductFeatureService as ProductFeatureService,
-)
-from stripe._product_service import ProductService as ProductService
-from stripe._promotion_code import PromotionCode as PromotionCode
-from stripe._promotion_code_service import (
-    PromotionCodeService as PromotionCodeService,
-)
-from stripe._quote import Quote as Quote
-from stripe._quote_computed_upfront_line_items_service import (
-    QuoteComputedUpfrontLineItemsService as QuoteComputedUpfrontLineItemsService,
-)
-from stripe._quote_line_item_service import (
-    QuoteLineItemService as QuoteLineItemService,
-)
-from stripe._quote_service import QuoteService as QuoteService
-from stripe._radar_service import RadarService as RadarService
-from stripe._refund import Refund as Refund
-from stripe._refund_service import RefundService as RefundService
-from stripe._reporting_service import ReportingService as ReportingService
-from stripe._reserve_transaction import (
-    ReserveTransaction as ReserveTransaction,
-)
-from stripe._reversal import Reversal as Reversal
-from stripe._review import Review as Review
-from stripe._review_service import ReviewService as ReviewService
-from stripe._setup_attempt import SetupAttempt as SetupAttempt
-from stripe._setup_attempt_service import (
-    SetupAttemptService as SetupAttemptService,
-)
-from stripe._setup_intent import SetupIntent as SetupIntent
-from stripe._setup_intent_service import (
-    SetupIntentService as SetupIntentService,
-)
-from stripe._shipping_rate import ShippingRate as ShippingRate
-from stripe._shipping_rate_service import (
-    ShippingRateService as ShippingRateService,
-)
-from stripe._sigma_service import SigmaService as SigmaService
-from stripe._source import Source as Source
-from stripe._source_mandate_notification import (
-    SourceMandateNotification as SourceMandateNotification,
-)
-from stripe._source_service import SourceService as SourceService
-from stripe._source_transaction import SourceTransaction as SourceTransaction
-from stripe._source_transaction_service import (
-    SourceTransactionService as SourceTransactionService,
-)
-from stripe._subscription import Subscription as Subscription
-from stripe._subscription_item import SubscriptionItem as SubscriptionItem
-from stripe._subscription_item_service import (
-    SubscriptionItemService as SubscriptionItemService,
-)
-from stripe._subscription_schedule import (
-    SubscriptionSchedule as SubscriptionSchedule,
-)
-from stripe._subscription_schedule_service import (
-    SubscriptionScheduleService as SubscriptionScheduleService,
-)
-from stripe._subscription_service import (
-    SubscriptionService as SubscriptionService,
-)
-from stripe._tax_code import TaxCode as TaxCode
-from stripe._tax_code_service import TaxCodeService as TaxCodeService
-from stripe._tax_deducted_at_source import (
-    TaxDeductedAtSource as TaxDeductedAtSource,
-)
-from stripe._tax_id import TaxId as TaxId
-from stripe._tax_id_service import TaxIdService as TaxIdService
-from stripe._tax_rate import TaxRate as TaxRate
-from stripe._tax_rate_service import TaxRateService as TaxRateService
-from stripe._tax_service import TaxService as TaxService
-from stripe._terminal_service import TerminalService as TerminalService
-from stripe._test_helpers_service import (
-    TestHelpersService as TestHelpersService,
-)
-from stripe._token import Token as Token
-from stripe._token_service import TokenService as TokenService
-from stripe._topup import Topup as Topup
-from stripe._topup_service import TopupService as TopupService
-from stripe._transfer import Transfer as Transfer
-from stripe._transfer_reversal_service import (
-    TransferReversalService as TransferReversalService,
-)
-from stripe._transfer_service import TransferService as TransferService
-from stripe._treasury_service import TreasuryService as TreasuryService
-from stripe._v1_services import V1Services as V1Services
-from stripe._v2_services import V2Services as V2Services
-from stripe._webhook_endpoint import WebhookEndpoint as WebhookEndpoint
-from stripe._webhook_endpoint_service import (
-    WebhookEndpointService as WebhookEndpointService,
-)
+from importlib import import_module
+
+if TYPE_CHECKING:
+    from stripe import (
+        apps as apps,
+        billing as billing,
+        billing_portal as billing_portal,
+        checkout as checkout,
+        climate as climate,
+        entitlements as entitlements,
+        events as events,
+        financial_connections as financial_connections,
+        forwarding as forwarding,
+        identity as identity,
+        issuing as issuing,
+        params as params,
+        radar as radar,
+        reporting as reporting,
+        sigma as sigma,
+        tax as tax,
+        terminal as terminal,
+        test_helpers as test_helpers,
+        treasury as treasury,
+        v2 as v2,
+    )
+    from stripe._account import Account as Account
+    from stripe._account_capability_service import (
+        AccountCapabilityService as AccountCapabilityService,
+    )
+    from stripe._account_external_account_service import (
+        AccountExternalAccountService as AccountExternalAccountService,
+    )
+    from stripe._account_link import AccountLink as AccountLink
+    from stripe._account_link_service import (
+        AccountLinkService as AccountLinkService,
+    )
+    from stripe._account_login_link_service import (
+        AccountLoginLinkService as AccountLoginLinkService,
+    )
+    from stripe._account_person_service import (
+        AccountPersonService as AccountPersonService,
+    )
+    from stripe._account_service import AccountService as AccountService
+    from stripe._account_session import AccountSession as AccountSession
+    from stripe._account_session_service import (
+        AccountSessionService as AccountSessionService,
+    )
+    from stripe._apple_pay_domain import ApplePayDomain as ApplePayDomain
+    from stripe._apple_pay_domain_service import (
+        ApplePayDomainService as ApplePayDomainService,
+    )
+    from stripe._application import Application as Application
+    from stripe._application_fee import ApplicationFee as ApplicationFee
+    from stripe._application_fee_refund import (
+        ApplicationFeeRefund as ApplicationFeeRefund,
+    )
+    from stripe._application_fee_refund_service import (
+        ApplicationFeeRefundService as ApplicationFeeRefundService,
+    )
+    from stripe._application_fee_service import (
+        ApplicationFeeService as ApplicationFeeService,
+    )
+    from stripe._apps_service import AppsService as AppsService
+    from stripe._balance import Balance as Balance
+    from stripe._balance_service import BalanceService as BalanceService
+    from stripe._balance_settings import BalanceSettings as BalanceSettings
+    from stripe._balance_settings_service import (
+        BalanceSettingsService as BalanceSettingsService,
+    )
+    from stripe._balance_transaction import (
+        BalanceTransaction as BalanceTransaction,
+    )
+    from stripe._balance_transaction_service import (
+        BalanceTransactionService as BalanceTransactionService,
+    )
+    from stripe._bank_account import BankAccount as BankAccount
+    from stripe._billing_portal_service import (
+        BillingPortalService as BillingPortalService,
+    )
+    from stripe._billing_service import BillingService as BillingService
+    from stripe._capability import Capability as Capability
+    from stripe._card import Card as Card
+    from stripe._cash_balance import CashBalance as CashBalance
+    from stripe._charge import Charge as Charge
+    from stripe._charge_service import ChargeService as ChargeService
+    from stripe._checkout_service import CheckoutService as CheckoutService
+    from stripe._climate_service import ClimateService as ClimateService
+    from stripe._confirmation_token import (
+        ConfirmationToken as ConfirmationToken,
+    )
+    from stripe._confirmation_token_service import (
+        ConfirmationTokenService as ConfirmationTokenService,
+    )
+    from stripe._connect_collection_transfer import (
+        ConnectCollectionTransfer as ConnectCollectionTransfer,
+    )
+    from stripe._country_spec import CountrySpec as CountrySpec
+    from stripe._country_spec_service import (
+        CountrySpecService as CountrySpecService,
+    )
+    from stripe._coupon import Coupon as Coupon
+    from stripe._coupon_service import CouponService as CouponService
+    from stripe._credit_note import CreditNote as CreditNote
+    from stripe._credit_note_line_item import (
+        CreditNoteLineItem as CreditNoteLineItem,
+    )
+    from stripe._credit_note_line_item_service import (
+        CreditNoteLineItemService as CreditNoteLineItemService,
+    )
+    from stripe._credit_note_preview_lines_service import (
+        CreditNotePreviewLinesService as CreditNotePreviewLinesService,
+    )
+    from stripe._credit_note_service import (
+        CreditNoteService as CreditNoteService,
+    )
+    from stripe._customer import Customer as Customer
+    from stripe._customer_balance_transaction import (
+        CustomerBalanceTransaction as CustomerBalanceTransaction,
+    )
+    from stripe._customer_balance_transaction_service import (
+        CustomerBalanceTransactionService as CustomerBalanceTransactionService,
+    )
+    from stripe._customer_cash_balance_service import (
+        CustomerCashBalanceService as CustomerCashBalanceService,
+    )
+    from stripe._customer_cash_balance_transaction import (
+        CustomerCashBalanceTransaction as CustomerCashBalanceTransaction,
+    )
+    from stripe._customer_cash_balance_transaction_service import (
+        CustomerCashBalanceTransactionService as CustomerCashBalanceTransactionService,
+    )
+    from stripe._customer_funding_instructions_service import (
+        CustomerFundingInstructionsService as CustomerFundingInstructionsService,
+    )
+    from stripe._customer_payment_method_service import (
+        CustomerPaymentMethodService as CustomerPaymentMethodService,
+    )
+    from stripe._customer_payment_source_service import (
+        CustomerPaymentSourceService as CustomerPaymentSourceService,
+    )
+    from stripe._customer_service import CustomerService as CustomerService
+    from stripe._customer_session import CustomerSession as CustomerSession
+    from stripe._customer_session_service import (
+        CustomerSessionService as CustomerSessionService,
+    )
+    from stripe._customer_tax_id_service import (
+        CustomerTaxIdService as CustomerTaxIdService,
+    )
+    from stripe._discount import Discount as Discount
+    from stripe._dispute import Dispute as Dispute
+    from stripe._dispute_service import DisputeService as DisputeService
+    from stripe._entitlements_service import (
+        EntitlementsService as EntitlementsService,
+    )
+    from stripe._ephemeral_key import EphemeralKey as EphemeralKey
+    from stripe._ephemeral_key_service import (
+        EphemeralKeyService as EphemeralKeyService,
+    )
+    from stripe._error import (
+        TemporarySessionExpiredError as TemporarySessionExpiredError,
+    )
+    from stripe._event import Event as Event
+    from stripe._event_service import EventService as EventService
+    from stripe._exchange_rate import ExchangeRate as ExchangeRate
+    from stripe._exchange_rate_service import (
+        ExchangeRateService as ExchangeRateService,
+    )
+    from stripe._file import File as File
+    from stripe._file_link import FileLink as FileLink
+    from stripe._file_link_service import FileLinkService as FileLinkService
+    from stripe._file_service import FileService as FileService
+    from stripe._financial_connections_service import (
+        FinancialConnectionsService as FinancialConnectionsService,
+    )
+    from stripe._forwarding_service import (
+        ForwardingService as ForwardingService,
+    )
+    from stripe._funding_instructions import (
+        FundingInstructions as FundingInstructions,
+    )
+    from stripe._identity_service import IdentityService as IdentityService
+    from stripe._invoice import Invoice as Invoice
+    from stripe._invoice_item import InvoiceItem as InvoiceItem
+    from stripe._invoice_item_service import (
+        InvoiceItemService as InvoiceItemService,
+    )
+    from stripe._invoice_line_item import InvoiceLineItem as InvoiceLineItem
+    from stripe._invoice_line_item_service import (
+        InvoiceLineItemService as InvoiceLineItemService,
+    )
+    from stripe._invoice_payment import InvoicePayment as InvoicePayment
+    from stripe._invoice_payment_service import (
+        InvoicePaymentService as InvoicePaymentService,
+    )
+    from stripe._invoice_rendering_template import (
+        InvoiceRenderingTemplate as InvoiceRenderingTemplate,
+    )
+    from stripe._invoice_rendering_template_service import (
+        InvoiceRenderingTemplateService as InvoiceRenderingTemplateService,
+    )
+    from stripe._invoice_service import InvoiceService as InvoiceService
+    from stripe._issuing_service import IssuingService as IssuingService
+    from stripe._line_item import LineItem as LineItem
+    from stripe._login_link import LoginLink as LoginLink
+    from stripe._mandate import Mandate as Mandate
+    from stripe._mandate_service import MandateService as MandateService
+    from stripe._payment_intent import PaymentIntent as PaymentIntent
+    from stripe._payment_intent_service import (
+        PaymentIntentService as PaymentIntentService,
+    )
+    from stripe._payment_link import PaymentLink as PaymentLink
+    from stripe._payment_link_line_item_service import (
+        PaymentLinkLineItemService as PaymentLinkLineItemService,
+    )
+    from stripe._payment_link_service import (
+        PaymentLinkService as PaymentLinkService,
+    )
+    from stripe._payment_method import PaymentMethod as PaymentMethod
+    from stripe._payment_method_configuration import (
+        PaymentMethodConfiguration as PaymentMethodConfiguration,
+    )
+    from stripe._payment_method_configuration_service import (
+        PaymentMethodConfigurationService as PaymentMethodConfigurationService,
+    )
+    from stripe._payment_method_domain import (
+        PaymentMethodDomain as PaymentMethodDomain,
+    )
+    from stripe._payment_method_domain_service import (
+        PaymentMethodDomainService as PaymentMethodDomainService,
+    )
+    from stripe._payment_method_service import (
+        PaymentMethodService as PaymentMethodService,
+    )
+    from stripe._payout import Payout as Payout
+    from stripe._payout_service import PayoutService as PayoutService
+    from stripe._person import Person as Person
+    from stripe._plan import Plan as Plan
+    from stripe._plan_service import PlanService as PlanService
+    from stripe._price import Price as Price
+    from stripe._price_service import PriceService as PriceService
+    from stripe._product import Product as Product
+    from stripe._product_feature import ProductFeature as ProductFeature
+    from stripe._product_feature_service import (
+        ProductFeatureService as ProductFeatureService,
+    )
+    from stripe._product_service import ProductService as ProductService
+    from stripe._promotion_code import PromotionCode as PromotionCode
+    from stripe._promotion_code_service import (
+        PromotionCodeService as PromotionCodeService,
+    )
+    from stripe._quote import Quote as Quote
+    from stripe._quote_computed_upfront_line_items_service import (
+        QuoteComputedUpfrontLineItemsService as QuoteComputedUpfrontLineItemsService,
+    )
+    from stripe._quote_line_item_service import (
+        QuoteLineItemService as QuoteLineItemService,
+    )
+    from stripe._quote_service import QuoteService as QuoteService
+    from stripe._radar_service import RadarService as RadarService
+    from stripe._refund import Refund as Refund
+    from stripe._refund_service import RefundService as RefundService
+    from stripe._reporting_service import ReportingService as ReportingService
+    from stripe._reserve_transaction import (
+        ReserveTransaction as ReserveTransaction,
+    )
+    from stripe._reversal import Reversal as Reversal
+    from stripe._review import Review as Review
+    from stripe._review_service import ReviewService as ReviewService
+    from stripe._setup_attempt import SetupAttempt as SetupAttempt
+    from stripe._setup_attempt_service import (
+        SetupAttemptService as SetupAttemptService,
+    )
+    from stripe._setup_intent import SetupIntent as SetupIntent
+    from stripe._setup_intent_service import (
+        SetupIntentService as SetupIntentService,
+    )
+    from stripe._shipping_rate import ShippingRate as ShippingRate
+    from stripe._shipping_rate_service import (
+        ShippingRateService as ShippingRateService,
+    )
+    from stripe._sigma_service import SigmaService as SigmaService
+    from stripe._source import Source as Source
+    from stripe._source_mandate_notification import (
+        SourceMandateNotification as SourceMandateNotification,
+    )
+    from stripe._source_service import SourceService as SourceService
+    from stripe._source_transaction import (
+        SourceTransaction as SourceTransaction,
+    )
+    from stripe._source_transaction_service import (
+        SourceTransactionService as SourceTransactionService,
+    )
+    from stripe._subscription import Subscription as Subscription
+    from stripe._subscription_item import SubscriptionItem as SubscriptionItem
+    from stripe._subscription_item_service import (
+        SubscriptionItemService as SubscriptionItemService,
+    )
+    from stripe._subscription_schedule import (
+        SubscriptionSchedule as SubscriptionSchedule,
+    )
+    from stripe._subscription_schedule_service import (
+        SubscriptionScheduleService as SubscriptionScheduleService,
+    )
+    from stripe._subscription_service import (
+        SubscriptionService as SubscriptionService,
+    )
+    from stripe._tax_code import TaxCode as TaxCode
+    from stripe._tax_code_service import TaxCodeService as TaxCodeService
+    from stripe._tax_deducted_at_source import (
+        TaxDeductedAtSource as TaxDeductedAtSource,
+    )
+    from stripe._tax_id import TaxId as TaxId
+    from stripe._tax_id_service import TaxIdService as TaxIdService
+    from stripe._tax_rate import TaxRate as TaxRate
+    from stripe._tax_rate_service import TaxRateService as TaxRateService
+    from stripe._tax_service import TaxService as TaxService
+    from stripe._terminal_service import TerminalService as TerminalService
+    from stripe._test_helpers_service import (
+        TestHelpersService as TestHelpersService,
+    )
+    from stripe._token import Token as Token
+    from stripe._token_service import TokenService as TokenService
+    from stripe._topup import Topup as Topup
+    from stripe._topup_service import TopupService as TopupService
+    from stripe._transfer import Transfer as Transfer
+    from stripe._transfer_reversal_service import (
+        TransferReversalService as TransferReversalService,
+    )
+    from stripe._transfer_service import TransferService as TransferService
+    from stripe._treasury_service import TreasuryService as TreasuryService
+    from stripe._v1_services import V1Services as V1Services
+    from stripe._v2_services import V2Services as V2Services
+    from stripe._webhook_endpoint import WebhookEndpoint as WebhookEndpoint
+    from stripe._webhook_endpoint_service import (
+        WebhookEndpointService as WebhookEndpointService,
+    )
+
+_submodules = {
+    "apps": "stripe",
+    "billing": "stripe",
+    "billing_portal": "stripe",
+    "checkout": "stripe",
+    "climate": "stripe",
+    "entitlements": "stripe",
+    "events": "stripe",
+    "financial_connections": "stripe",
+    "forwarding": "stripe",
+    "identity": "stripe",
+    "issuing": "stripe",
+    "params": "stripe",
+    "radar": "stripe",
+    "reporting": "stripe",
+    "sigma": "stripe",
+    "tax": "stripe",
+    "terminal": "stripe",
+    "test_helpers": "stripe",
+    "treasury": "stripe",
+    "v2": "stripe",
+    "Account": "stripe._account",
+    "AccountCapabilityService": "stripe._account_capability_service",
+    "AccountExternalAccountService": "stripe._account_external_account_service",
+    "AccountLink": "stripe._account_link",
+    "AccountLinkService": "stripe._account_link_service",
+    "AccountLoginLinkService": "stripe._account_login_link_service",
+    "AccountPersonService": "stripe._account_person_service",
+    "AccountService": "stripe._account_service",
+    "AccountSession": "stripe._account_session",
+    "AccountSessionService": "stripe._account_session_service",
+    "ApplePayDomain": "stripe._apple_pay_domain",
+    "ApplePayDomainService": "stripe._apple_pay_domain_service",
+    "Application": "stripe._application",
+    "ApplicationFee": "stripe._application_fee",
+    "ApplicationFeeRefund": "stripe._application_fee_refund",
+    "ApplicationFeeRefundService": "stripe._application_fee_refund_service",
+    "ApplicationFeeService": "stripe._application_fee_service",
+    "AppsService": "stripe._apps_service",
+    "Balance": "stripe._balance",
+    "BalanceService": "stripe._balance_service",
+    "BalanceSettings": "stripe._balance_settings",
+    "BalanceSettingsService": "stripe._balance_settings_service",
+    "BalanceTransaction": "stripe._balance_transaction",
+    "BalanceTransactionService": "stripe._balance_transaction_service",
+    "BankAccount": "stripe._bank_account",
+    "BillingPortalService": "stripe._billing_portal_service",
+    "BillingService": "stripe._billing_service",
+    "Capability": "stripe._capability",
+    "Card": "stripe._card",
+    "CashBalance": "stripe._cash_balance",
+    "Charge": "stripe._charge",
+    "ChargeService": "stripe._charge_service",
+    "CheckoutService": "stripe._checkout_service",
+    "ClimateService": "stripe._climate_service",
+    "ConfirmationToken": "stripe._confirmation_token",
+    "ConfirmationTokenService": "stripe._confirmation_token_service",
+    "ConnectCollectionTransfer": "stripe._connect_collection_transfer",
+    "CountrySpec": "stripe._country_spec",
+    "CountrySpecService": "stripe._country_spec_service",
+    "Coupon": "stripe._coupon",
+    "CouponService": "stripe._coupon_service",
+    "CreditNote": "stripe._credit_note",
+    "CreditNoteLineItem": "stripe._credit_note_line_item",
+    "CreditNoteLineItemService": "stripe._credit_note_line_item_service",
+    "CreditNotePreviewLinesService": "stripe._credit_note_preview_lines_service",
+    "CreditNoteService": "stripe._credit_note_service",
+    "Customer": "stripe._customer",
+    "CustomerBalanceTransaction": "stripe._customer_balance_transaction",
+    "CustomerBalanceTransactionService": "stripe._customer_balance_transaction_service",
+    "CustomerCashBalanceService": "stripe._customer_cash_balance_service",
+    "CustomerCashBalanceTransaction": "stripe._customer_cash_balance_transaction",
+    "CustomerCashBalanceTransactionService": "stripe._customer_cash_balance_transaction_service",
+    "CustomerFundingInstructionsService": "stripe._customer_funding_instructions_service",
+    "CustomerPaymentMethodService": "stripe._customer_payment_method_service",
+    "CustomerPaymentSourceService": "stripe._customer_payment_source_service",
+    "CustomerService": "stripe._customer_service",
+    "CustomerSession": "stripe._customer_session",
+    "CustomerSessionService": "stripe._customer_session_service",
+    "CustomerTaxIdService": "stripe._customer_tax_id_service",
+    "Discount": "stripe._discount",
+    "Dispute": "stripe._dispute",
+    "DisputeService": "stripe._dispute_service",
+    "EntitlementsService": "stripe._entitlements_service",
+    "EphemeralKey": "stripe._ephemeral_key",
+    "EphemeralKeyService": "stripe._ephemeral_key_service",
+    "TemporarySessionExpiredError": "stripe._error",
+    "Event": "stripe._event",
+    "EventService": "stripe._event_service",
+    "ExchangeRate": "stripe._exchange_rate",
+    "ExchangeRateService": "stripe._exchange_rate_service",
+    "File": "stripe._file",
+    "FileLink": "stripe._file_link",
+    "FileLinkService": "stripe._file_link_service",
+    "FileService": "stripe._file_service",
+    "FinancialConnectionsService": "stripe._financial_connections_service",
+    "ForwardingService": "stripe._forwarding_service",
+    "FundingInstructions": "stripe._funding_instructions",
+    "IdentityService": "stripe._identity_service",
+    "Invoice": "stripe._invoice",
+    "InvoiceItem": "stripe._invoice_item",
+    "InvoiceItemService": "stripe._invoice_item_service",
+    "InvoiceLineItem": "stripe._invoice_line_item",
+    "InvoiceLineItemService": "stripe._invoice_line_item_service",
+    "InvoicePayment": "stripe._invoice_payment",
+    "InvoicePaymentService": "stripe._invoice_payment_service",
+    "InvoiceRenderingTemplate": "stripe._invoice_rendering_template",
+    "InvoiceRenderingTemplateService": "stripe._invoice_rendering_template_service",
+    "InvoiceService": "stripe._invoice_service",
+    "IssuingService": "stripe._issuing_service",
+    "LineItem": "stripe._line_item",
+    "LoginLink": "stripe._login_link",
+    "Mandate": "stripe._mandate",
+    "MandateService": "stripe._mandate_service",
+    "PaymentIntent": "stripe._payment_intent",
+    "PaymentIntentService": "stripe._payment_intent_service",
+    "PaymentLink": "stripe._payment_link",
+    "PaymentLinkLineItemService": "stripe._payment_link_line_item_service",
+    "PaymentLinkService": "stripe._payment_link_service",
+    "PaymentMethod": "stripe._payment_method",
+    "PaymentMethodConfiguration": "stripe._payment_method_configuration",
+    "PaymentMethodConfigurationService": "stripe._payment_method_configuration_service",
+    "PaymentMethodDomain": "stripe._payment_method_domain",
+    "PaymentMethodDomainService": "stripe._payment_method_domain_service",
+    "PaymentMethodService": "stripe._payment_method_service",
+    "Payout": "stripe._payout",
+    "PayoutService": "stripe._payout_service",
+    "Person": "stripe._person",
+    "Plan": "stripe._plan",
+    "PlanService": "stripe._plan_service",
+    "Price": "stripe._price",
+    "PriceService": "stripe._price_service",
+    "Product": "stripe._product",
+    "ProductFeature": "stripe._product_feature",
+    "ProductFeatureService": "stripe._product_feature_service",
+    "ProductService": "stripe._product_service",
+    "PromotionCode": "stripe._promotion_code",
+    "PromotionCodeService": "stripe._promotion_code_service",
+    "Quote": "stripe._quote",
+    "QuoteComputedUpfrontLineItemsService": "stripe._quote_computed_upfront_line_items_service",
+    "QuoteLineItemService": "stripe._quote_line_item_service",
+    "QuoteService": "stripe._quote_service",
+    "RadarService": "stripe._radar_service",
+    "Refund": "stripe._refund",
+    "RefundService": "stripe._refund_service",
+    "ReportingService": "stripe._reporting_service",
+    "ReserveTransaction": "stripe._reserve_transaction",
+    "Reversal": "stripe._reversal",
+    "Review": "stripe._review",
+    "ReviewService": "stripe._review_service",
+    "SetupAttempt": "stripe._setup_attempt",
+    "SetupAttemptService": "stripe._setup_attempt_service",
+    "SetupIntent": "stripe._setup_intent",
+    "SetupIntentService": "stripe._setup_intent_service",
+    "ShippingRate": "stripe._shipping_rate",
+    "ShippingRateService": "stripe._shipping_rate_service",
+    "SigmaService": "stripe._sigma_service",
+    "Source": "stripe._source",
+    "SourceMandateNotification": "stripe._source_mandate_notification",
+    "SourceService": "stripe._source_service",
+    "SourceTransaction": "stripe._source_transaction",
+    "SourceTransactionService": "stripe._source_transaction_service",
+    "Subscription": "stripe._subscription",
+    "SubscriptionItem": "stripe._subscription_item",
+    "SubscriptionItemService": "stripe._subscription_item_service",
+    "SubscriptionSchedule": "stripe._subscription_schedule",
+    "SubscriptionScheduleService": "stripe._subscription_schedule_service",
+    "SubscriptionService": "stripe._subscription_service",
+    "TaxCode": "stripe._tax_code",
+    "TaxCodeService": "stripe._tax_code_service",
+    "TaxDeductedAtSource": "stripe._tax_deducted_at_source",
+    "TaxId": "stripe._tax_id",
+    "TaxIdService": "stripe._tax_id_service",
+    "TaxRate": "stripe._tax_rate",
+    "TaxRateService": "stripe._tax_rate_service",
+    "TaxService": "stripe._tax_service",
+    "TerminalService": "stripe._terminal_service",
+    "TestHelpersService": "stripe._test_helpers_service",
+    "Token": "stripe._token",
+    "TokenService": "stripe._token_service",
+    "Topup": "stripe._topup",
+    "TopupService": "stripe._topup_service",
+    "Transfer": "stripe._transfer",
+    "TransferReversalService": "stripe._transfer_reversal_service",
+    "TransferService": "stripe._transfer_service",
+    "TreasuryService": "stripe._treasury_service",
+    "V1Services": "stripe._v1_services",
+    "V2Services": "stripe._v2_services",
+    "WebhookEndpoint": "stripe._webhook_endpoint",
+    "WebhookEndpointService": "stripe._webhook_endpoint_service",
+}
+if not TYPE_CHECKING:
+
+    def __getattr__(name):
+        try:
+            return getattr(
+                import_module(_submodules[name]),
+                name,
+            )
+        except KeyError:
+            raise AttributeError(f"cannot import '{name}' from '{__name__}'")
+
 # The end of the section generated from our OpenAPI spec

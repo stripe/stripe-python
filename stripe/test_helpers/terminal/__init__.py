@@ -1,5 +1,21 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe.test_helpers.terminal._reader_service import (
-    ReaderService as ReaderService,
-)
+from importlib import import_module
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.test_helpers.terminal._reader_service import (
+        ReaderService as ReaderService,
+    )
+
+_submodules = {"ReaderService": "stripe.test_helpers.terminal._reader_service"}
+if not TYPE_CHECKING:
+
+    def __getattr__(name):
+        try:
+            return getattr(
+                import_module(_submodules[name]),
+                name,
+            )
+        except KeyError:
+            raise AttributeError(f"cannot import '{name}' from '{__name__}'")

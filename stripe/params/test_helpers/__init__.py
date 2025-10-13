@@ -1,91 +1,179 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe.params.test_helpers import (
-    issuing as issuing,
-    terminal as terminal,
-    treasury as treasury,
-)
-from stripe.params.test_helpers._confirmation_token_create_params import (
-    ConfirmationTokenCreateParams as ConfirmationTokenCreateParams,
-    ConfirmationTokenCreateParamsPaymentMethodData as ConfirmationTokenCreateParamsPaymentMethodData,
-    ConfirmationTokenCreateParamsPaymentMethodDataAcssDebit as ConfirmationTokenCreateParamsPaymentMethodDataAcssDebit,
-    ConfirmationTokenCreateParamsPaymentMethodDataAffirm as ConfirmationTokenCreateParamsPaymentMethodDataAffirm,
-    ConfirmationTokenCreateParamsPaymentMethodDataAfterpayClearpay as ConfirmationTokenCreateParamsPaymentMethodDataAfterpayClearpay,
-    ConfirmationTokenCreateParamsPaymentMethodDataAlipay as ConfirmationTokenCreateParamsPaymentMethodDataAlipay,
-    ConfirmationTokenCreateParamsPaymentMethodDataAlma as ConfirmationTokenCreateParamsPaymentMethodDataAlma,
-    ConfirmationTokenCreateParamsPaymentMethodDataAmazonPay as ConfirmationTokenCreateParamsPaymentMethodDataAmazonPay,
-    ConfirmationTokenCreateParamsPaymentMethodDataAuBecsDebit as ConfirmationTokenCreateParamsPaymentMethodDataAuBecsDebit,
-    ConfirmationTokenCreateParamsPaymentMethodDataBacsDebit as ConfirmationTokenCreateParamsPaymentMethodDataBacsDebit,
-    ConfirmationTokenCreateParamsPaymentMethodDataBancontact as ConfirmationTokenCreateParamsPaymentMethodDataBancontact,
-    ConfirmationTokenCreateParamsPaymentMethodDataBillie as ConfirmationTokenCreateParamsPaymentMethodDataBillie,
-    ConfirmationTokenCreateParamsPaymentMethodDataBillingDetails as ConfirmationTokenCreateParamsPaymentMethodDataBillingDetails,
-    ConfirmationTokenCreateParamsPaymentMethodDataBillingDetailsAddress as ConfirmationTokenCreateParamsPaymentMethodDataBillingDetailsAddress,
-    ConfirmationTokenCreateParamsPaymentMethodDataBlik as ConfirmationTokenCreateParamsPaymentMethodDataBlik,
-    ConfirmationTokenCreateParamsPaymentMethodDataBoleto as ConfirmationTokenCreateParamsPaymentMethodDataBoleto,
-    ConfirmationTokenCreateParamsPaymentMethodDataCashapp as ConfirmationTokenCreateParamsPaymentMethodDataCashapp,
-    ConfirmationTokenCreateParamsPaymentMethodDataCrypto as ConfirmationTokenCreateParamsPaymentMethodDataCrypto,
-    ConfirmationTokenCreateParamsPaymentMethodDataCustomerBalance as ConfirmationTokenCreateParamsPaymentMethodDataCustomerBalance,
-    ConfirmationTokenCreateParamsPaymentMethodDataEps as ConfirmationTokenCreateParamsPaymentMethodDataEps,
-    ConfirmationTokenCreateParamsPaymentMethodDataFpx as ConfirmationTokenCreateParamsPaymentMethodDataFpx,
-    ConfirmationTokenCreateParamsPaymentMethodDataGiropay as ConfirmationTokenCreateParamsPaymentMethodDataGiropay,
-    ConfirmationTokenCreateParamsPaymentMethodDataGrabpay as ConfirmationTokenCreateParamsPaymentMethodDataGrabpay,
-    ConfirmationTokenCreateParamsPaymentMethodDataIdeal as ConfirmationTokenCreateParamsPaymentMethodDataIdeal,
-    ConfirmationTokenCreateParamsPaymentMethodDataInteracPresent as ConfirmationTokenCreateParamsPaymentMethodDataInteracPresent,
-    ConfirmationTokenCreateParamsPaymentMethodDataKakaoPay as ConfirmationTokenCreateParamsPaymentMethodDataKakaoPay,
-    ConfirmationTokenCreateParamsPaymentMethodDataKlarna as ConfirmationTokenCreateParamsPaymentMethodDataKlarna,
-    ConfirmationTokenCreateParamsPaymentMethodDataKlarnaDob as ConfirmationTokenCreateParamsPaymentMethodDataKlarnaDob,
-    ConfirmationTokenCreateParamsPaymentMethodDataKonbini as ConfirmationTokenCreateParamsPaymentMethodDataKonbini,
-    ConfirmationTokenCreateParamsPaymentMethodDataKrCard as ConfirmationTokenCreateParamsPaymentMethodDataKrCard,
-    ConfirmationTokenCreateParamsPaymentMethodDataLink as ConfirmationTokenCreateParamsPaymentMethodDataLink,
-    ConfirmationTokenCreateParamsPaymentMethodDataMbWay as ConfirmationTokenCreateParamsPaymentMethodDataMbWay,
-    ConfirmationTokenCreateParamsPaymentMethodDataMobilepay as ConfirmationTokenCreateParamsPaymentMethodDataMobilepay,
-    ConfirmationTokenCreateParamsPaymentMethodDataMultibanco as ConfirmationTokenCreateParamsPaymentMethodDataMultibanco,
-    ConfirmationTokenCreateParamsPaymentMethodDataNaverPay as ConfirmationTokenCreateParamsPaymentMethodDataNaverPay,
-    ConfirmationTokenCreateParamsPaymentMethodDataNzBankAccount as ConfirmationTokenCreateParamsPaymentMethodDataNzBankAccount,
-    ConfirmationTokenCreateParamsPaymentMethodDataOxxo as ConfirmationTokenCreateParamsPaymentMethodDataOxxo,
-    ConfirmationTokenCreateParamsPaymentMethodDataP24 as ConfirmationTokenCreateParamsPaymentMethodDataP24,
-    ConfirmationTokenCreateParamsPaymentMethodDataPayByBank as ConfirmationTokenCreateParamsPaymentMethodDataPayByBank,
-    ConfirmationTokenCreateParamsPaymentMethodDataPayco as ConfirmationTokenCreateParamsPaymentMethodDataPayco,
-    ConfirmationTokenCreateParamsPaymentMethodDataPaynow as ConfirmationTokenCreateParamsPaymentMethodDataPaynow,
-    ConfirmationTokenCreateParamsPaymentMethodDataPaypal as ConfirmationTokenCreateParamsPaymentMethodDataPaypal,
-    ConfirmationTokenCreateParamsPaymentMethodDataPix as ConfirmationTokenCreateParamsPaymentMethodDataPix,
-    ConfirmationTokenCreateParamsPaymentMethodDataPromptpay as ConfirmationTokenCreateParamsPaymentMethodDataPromptpay,
-    ConfirmationTokenCreateParamsPaymentMethodDataRadarOptions as ConfirmationTokenCreateParamsPaymentMethodDataRadarOptions,
-    ConfirmationTokenCreateParamsPaymentMethodDataRevolutPay as ConfirmationTokenCreateParamsPaymentMethodDataRevolutPay,
-    ConfirmationTokenCreateParamsPaymentMethodDataSamsungPay as ConfirmationTokenCreateParamsPaymentMethodDataSamsungPay,
-    ConfirmationTokenCreateParamsPaymentMethodDataSatispay as ConfirmationTokenCreateParamsPaymentMethodDataSatispay,
-    ConfirmationTokenCreateParamsPaymentMethodDataSepaDebit as ConfirmationTokenCreateParamsPaymentMethodDataSepaDebit,
-    ConfirmationTokenCreateParamsPaymentMethodDataSofort as ConfirmationTokenCreateParamsPaymentMethodDataSofort,
-    ConfirmationTokenCreateParamsPaymentMethodDataSwish as ConfirmationTokenCreateParamsPaymentMethodDataSwish,
-    ConfirmationTokenCreateParamsPaymentMethodDataTwint as ConfirmationTokenCreateParamsPaymentMethodDataTwint,
-    ConfirmationTokenCreateParamsPaymentMethodDataUsBankAccount as ConfirmationTokenCreateParamsPaymentMethodDataUsBankAccount,
-    ConfirmationTokenCreateParamsPaymentMethodDataWechatPay as ConfirmationTokenCreateParamsPaymentMethodDataWechatPay,
-    ConfirmationTokenCreateParamsPaymentMethodDataZip as ConfirmationTokenCreateParamsPaymentMethodDataZip,
-    ConfirmationTokenCreateParamsPaymentMethodOptions as ConfirmationTokenCreateParamsPaymentMethodOptions,
-    ConfirmationTokenCreateParamsPaymentMethodOptionsCard as ConfirmationTokenCreateParamsPaymentMethodOptionsCard,
-    ConfirmationTokenCreateParamsPaymentMethodOptionsCardInstallments as ConfirmationTokenCreateParamsPaymentMethodOptionsCardInstallments,
-    ConfirmationTokenCreateParamsPaymentMethodOptionsCardInstallmentsPlan as ConfirmationTokenCreateParamsPaymentMethodOptionsCardInstallmentsPlan,
-    ConfirmationTokenCreateParamsShipping as ConfirmationTokenCreateParamsShipping,
-    ConfirmationTokenCreateParamsShippingAddress as ConfirmationTokenCreateParamsShippingAddress,
-)
-from stripe.params.test_helpers._customer_fund_cash_balance_params import (
-    CustomerFundCashBalanceParams as CustomerFundCashBalanceParams,
-)
-from stripe.params.test_helpers._refund_expire_params import (
-    RefundExpireParams as RefundExpireParams,
-)
-from stripe.params.test_helpers._test_clock_advance_params import (
-    TestClockAdvanceParams as TestClockAdvanceParams,
-)
-from stripe.params.test_helpers._test_clock_create_params import (
-    TestClockCreateParams as TestClockCreateParams,
-)
-from stripe.params.test_helpers._test_clock_delete_params import (
-    TestClockDeleteParams as TestClockDeleteParams,
-)
-from stripe.params.test_helpers._test_clock_list_params import (
-    TestClockListParams as TestClockListParams,
-)
-from stripe.params.test_helpers._test_clock_retrieve_params import (
-    TestClockRetrieveParams as TestClockRetrieveParams,
-)
+from importlib import import_module
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.test_helpers import (
+        issuing as issuing,
+        terminal as terminal,
+        treasury as treasury,
+    )
+    from stripe.params.test_helpers._confirmation_token_create_params import (
+        ConfirmationTokenCreateParams as ConfirmationTokenCreateParams,
+        ConfirmationTokenCreateParamsPaymentMethodData as ConfirmationTokenCreateParamsPaymentMethodData,
+        ConfirmationTokenCreateParamsPaymentMethodDataAcssDebit as ConfirmationTokenCreateParamsPaymentMethodDataAcssDebit,
+        ConfirmationTokenCreateParamsPaymentMethodDataAffirm as ConfirmationTokenCreateParamsPaymentMethodDataAffirm,
+        ConfirmationTokenCreateParamsPaymentMethodDataAfterpayClearpay as ConfirmationTokenCreateParamsPaymentMethodDataAfterpayClearpay,
+        ConfirmationTokenCreateParamsPaymentMethodDataAlipay as ConfirmationTokenCreateParamsPaymentMethodDataAlipay,
+        ConfirmationTokenCreateParamsPaymentMethodDataAlma as ConfirmationTokenCreateParamsPaymentMethodDataAlma,
+        ConfirmationTokenCreateParamsPaymentMethodDataAmazonPay as ConfirmationTokenCreateParamsPaymentMethodDataAmazonPay,
+        ConfirmationTokenCreateParamsPaymentMethodDataAuBecsDebit as ConfirmationTokenCreateParamsPaymentMethodDataAuBecsDebit,
+        ConfirmationTokenCreateParamsPaymentMethodDataBacsDebit as ConfirmationTokenCreateParamsPaymentMethodDataBacsDebit,
+        ConfirmationTokenCreateParamsPaymentMethodDataBancontact as ConfirmationTokenCreateParamsPaymentMethodDataBancontact,
+        ConfirmationTokenCreateParamsPaymentMethodDataBillie as ConfirmationTokenCreateParamsPaymentMethodDataBillie,
+        ConfirmationTokenCreateParamsPaymentMethodDataBillingDetails as ConfirmationTokenCreateParamsPaymentMethodDataBillingDetails,
+        ConfirmationTokenCreateParamsPaymentMethodDataBillingDetailsAddress as ConfirmationTokenCreateParamsPaymentMethodDataBillingDetailsAddress,
+        ConfirmationTokenCreateParamsPaymentMethodDataBlik as ConfirmationTokenCreateParamsPaymentMethodDataBlik,
+        ConfirmationTokenCreateParamsPaymentMethodDataBoleto as ConfirmationTokenCreateParamsPaymentMethodDataBoleto,
+        ConfirmationTokenCreateParamsPaymentMethodDataCashapp as ConfirmationTokenCreateParamsPaymentMethodDataCashapp,
+        ConfirmationTokenCreateParamsPaymentMethodDataCrypto as ConfirmationTokenCreateParamsPaymentMethodDataCrypto,
+        ConfirmationTokenCreateParamsPaymentMethodDataCustomerBalance as ConfirmationTokenCreateParamsPaymentMethodDataCustomerBalance,
+        ConfirmationTokenCreateParamsPaymentMethodDataEps as ConfirmationTokenCreateParamsPaymentMethodDataEps,
+        ConfirmationTokenCreateParamsPaymentMethodDataFpx as ConfirmationTokenCreateParamsPaymentMethodDataFpx,
+        ConfirmationTokenCreateParamsPaymentMethodDataGiropay as ConfirmationTokenCreateParamsPaymentMethodDataGiropay,
+        ConfirmationTokenCreateParamsPaymentMethodDataGrabpay as ConfirmationTokenCreateParamsPaymentMethodDataGrabpay,
+        ConfirmationTokenCreateParamsPaymentMethodDataIdeal as ConfirmationTokenCreateParamsPaymentMethodDataIdeal,
+        ConfirmationTokenCreateParamsPaymentMethodDataInteracPresent as ConfirmationTokenCreateParamsPaymentMethodDataInteracPresent,
+        ConfirmationTokenCreateParamsPaymentMethodDataKakaoPay as ConfirmationTokenCreateParamsPaymentMethodDataKakaoPay,
+        ConfirmationTokenCreateParamsPaymentMethodDataKlarna as ConfirmationTokenCreateParamsPaymentMethodDataKlarna,
+        ConfirmationTokenCreateParamsPaymentMethodDataKlarnaDob as ConfirmationTokenCreateParamsPaymentMethodDataKlarnaDob,
+        ConfirmationTokenCreateParamsPaymentMethodDataKonbini as ConfirmationTokenCreateParamsPaymentMethodDataKonbini,
+        ConfirmationTokenCreateParamsPaymentMethodDataKrCard as ConfirmationTokenCreateParamsPaymentMethodDataKrCard,
+        ConfirmationTokenCreateParamsPaymentMethodDataLink as ConfirmationTokenCreateParamsPaymentMethodDataLink,
+        ConfirmationTokenCreateParamsPaymentMethodDataMbWay as ConfirmationTokenCreateParamsPaymentMethodDataMbWay,
+        ConfirmationTokenCreateParamsPaymentMethodDataMobilepay as ConfirmationTokenCreateParamsPaymentMethodDataMobilepay,
+        ConfirmationTokenCreateParamsPaymentMethodDataMultibanco as ConfirmationTokenCreateParamsPaymentMethodDataMultibanco,
+        ConfirmationTokenCreateParamsPaymentMethodDataNaverPay as ConfirmationTokenCreateParamsPaymentMethodDataNaverPay,
+        ConfirmationTokenCreateParamsPaymentMethodDataNzBankAccount as ConfirmationTokenCreateParamsPaymentMethodDataNzBankAccount,
+        ConfirmationTokenCreateParamsPaymentMethodDataOxxo as ConfirmationTokenCreateParamsPaymentMethodDataOxxo,
+        ConfirmationTokenCreateParamsPaymentMethodDataP24 as ConfirmationTokenCreateParamsPaymentMethodDataP24,
+        ConfirmationTokenCreateParamsPaymentMethodDataPayByBank as ConfirmationTokenCreateParamsPaymentMethodDataPayByBank,
+        ConfirmationTokenCreateParamsPaymentMethodDataPayco as ConfirmationTokenCreateParamsPaymentMethodDataPayco,
+        ConfirmationTokenCreateParamsPaymentMethodDataPaynow as ConfirmationTokenCreateParamsPaymentMethodDataPaynow,
+        ConfirmationTokenCreateParamsPaymentMethodDataPaypal as ConfirmationTokenCreateParamsPaymentMethodDataPaypal,
+        ConfirmationTokenCreateParamsPaymentMethodDataPix as ConfirmationTokenCreateParamsPaymentMethodDataPix,
+        ConfirmationTokenCreateParamsPaymentMethodDataPromptpay as ConfirmationTokenCreateParamsPaymentMethodDataPromptpay,
+        ConfirmationTokenCreateParamsPaymentMethodDataRadarOptions as ConfirmationTokenCreateParamsPaymentMethodDataRadarOptions,
+        ConfirmationTokenCreateParamsPaymentMethodDataRevolutPay as ConfirmationTokenCreateParamsPaymentMethodDataRevolutPay,
+        ConfirmationTokenCreateParamsPaymentMethodDataSamsungPay as ConfirmationTokenCreateParamsPaymentMethodDataSamsungPay,
+        ConfirmationTokenCreateParamsPaymentMethodDataSatispay as ConfirmationTokenCreateParamsPaymentMethodDataSatispay,
+        ConfirmationTokenCreateParamsPaymentMethodDataSepaDebit as ConfirmationTokenCreateParamsPaymentMethodDataSepaDebit,
+        ConfirmationTokenCreateParamsPaymentMethodDataSofort as ConfirmationTokenCreateParamsPaymentMethodDataSofort,
+        ConfirmationTokenCreateParamsPaymentMethodDataSwish as ConfirmationTokenCreateParamsPaymentMethodDataSwish,
+        ConfirmationTokenCreateParamsPaymentMethodDataTwint as ConfirmationTokenCreateParamsPaymentMethodDataTwint,
+        ConfirmationTokenCreateParamsPaymentMethodDataUsBankAccount as ConfirmationTokenCreateParamsPaymentMethodDataUsBankAccount,
+        ConfirmationTokenCreateParamsPaymentMethodDataWechatPay as ConfirmationTokenCreateParamsPaymentMethodDataWechatPay,
+        ConfirmationTokenCreateParamsPaymentMethodDataZip as ConfirmationTokenCreateParamsPaymentMethodDataZip,
+        ConfirmationTokenCreateParamsPaymentMethodOptions as ConfirmationTokenCreateParamsPaymentMethodOptions,
+        ConfirmationTokenCreateParamsPaymentMethodOptionsCard as ConfirmationTokenCreateParamsPaymentMethodOptionsCard,
+        ConfirmationTokenCreateParamsPaymentMethodOptionsCardInstallments as ConfirmationTokenCreateParamsPaymentMethodOptionsCardInstallments,
+        ConfirmationTokenCreateParamsPaymentMethodOptionsCardInstallmentsPlan as ConfirmationTokenCreateParamsPaymentMethodOptionsCardInstallmentsPlan,
+        ConfirmationTokenCreateParamsShipping as ConfirmationTokenCreateParamsShipping,
+        ConfirmationTokenCreateParamsShippingAddress as ConfirmationTokenCreateParamsShippingAddress,
+    )
+    from stripe.params.test_helpers._customer_fund_cash_balance_params import (
+        CustomerFundCashBalanceParams as CustomerFundCashBalanceParams,
+    )
+    from stripe.params.test_helpers._refund_expire_params import (
+        RefundExpireParams as RefundExpireParams,
+    )
+    from stripe.params.test_helpers._test_clock_advance_params import (
+        TestClockAdvanceParams as TestClockAdvanceParams,
+    )
+    from stripe.params.test_helpers._test_clock_create_params import (
+        TestClockCreateParams as TestClockCreateParams,
+    )
+    from stripe.params.test_helpers._test_clock_delete_params import (
+        TestClockDeleteParams as TestClockDeleteParams,
+    )
+    from stripe.params.test_helpers._test_clock_list_params import (
+        TestClockListParams as TestClockListParams,
+    )
+    from stripe.params.test_helpers._test_clock_retrieve_params import (
+        TestClockRetrieveParams as TestClockRetrieveParams,
+    )
+
+_submodules = {
+    "issuing": "stripe.params.test_helpers",
+    "terminal": "stripe.params.test_helpers",
+    "treasury": "stripe.params.test_helpers",
+    "ConfirmationTokenCreateParams": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodData": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataAcssDebit": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataAffirm": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataAfterpayClearpay": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataAlipay": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataAlma": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataAmazonPay": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataAuBecsDebit": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataBacsDebit": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataBancontact": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataBillie": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataBillingDetails": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataBillingDetailsAddress": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataBlik": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataBoleto": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataCashapp": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataCrypto": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataCustomerBalance": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataEps": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataFpx": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataGiropay": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataGrabpay": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataIdeal": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataInteracPresent": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataKakaoPay": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataKlarna": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataKlarnaDob": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataKonbini": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataKrCard": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataLink": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataMbWay": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataMobilepay": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataMultibanco": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataNaverPay": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataNzBankAccount": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataOxxo": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataP24": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataPayByBank": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataPayco": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataPaynow": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataPaypal": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataPix": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataPromptpay": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataRadarOptions": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataRevolutPay": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataSamsungPay": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataSatispay": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataSepaDebit": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataSofort": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataSwish": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataTwint": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataUsBankAccount": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataWechatPay": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodDataZip": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodOptions": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodOptionsCard": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodOptionsCardInstallments": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsPaymentMethodOptionsCardInstallmentsPlan": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsShipping": "stripe.params.test_helpers._confirmation_token_create_params",
+    "ConfirmationTokenCreateParamsShippingAddress": "stripe.params.test_helpers._confirmation_token_create_params",
+    "CustomerFundCashBalanceParams": "stripe.params.test_helpers._customer_fund_cash_balance_params",
+    "RefundExpireParams": "stripe.params.test_helpers._refund_expire_params",
+    "TestClockAdvanceParams": "stripe.params.test_helpers._test_clock_advance_params",
+    "TestClockCreateParams": "stripe.params.test_helpers._test_clock_create_params",
+    "TestClockDeleteParams": "stripe.params.test_helpers._test_clock_delete_params",
+    "TestClockListParams": "stripe.params.test_helpers._test_clock_list_params",
+    "TestClockRetrieveParams": "stripe.params.test_helpers._test_clock_retrieve_params",
+}
+if not TYPE_CHECKING:
+
+    def __getattr__(name):
+        try:
+            return getattr(
+                import_module(_submodules[name]),
+                name,
+            )
+        except KeyError:
+            raise AttributeError(f"cannot import '{name}' from '{__name__}'")
