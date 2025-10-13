@@ -4,25 +4,6 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params import (
-        apps as apps,
-        billing as billing,
-        billing_portal as billing_portal,
-        checkout as checkout,
-        climate as climate,
-        entitlements as entitlements,
-        financial_connections as financial_connections,
-        forwarding as forwarding,
-        identity as identity,
-        issuing as issuing,
-        radar as radar,
-        reporting as reporting,
-        sigma as sigma,
-        tax as tax,
-        terminal as terminal,
-        test_helpers as test_helpers,
-        treasury as treasury,
-    )
     from stripe.params._account_capability_list_params import (
         AccountCapabilityListParams as AccountCapabilityListParams,
     )
@@ -3603,23 +3584,6 @@ if TYPE_CHECKING:
     )
 
 _submodules = {
-    "apps": "stripe.params",
-    "billing": "stripe.params",
-    "billing_portal": "stripe.params",
-    "checkout": "stripe.params",
-    "climate": "stripe.params",
-    "entitlements": "stripe.params",
-    "financial_connections": "stripe.params",
-    "forwarding": "stripe.params",
-    "identity": "stripe.params",
-    "issuing": "stripe.params",
-    "radar": "stripe.params",
-    "reporting": "stripe.params",
-    "sigma": "stripe.params",
-    "tax": "stripe.params",
-    "terminal": "stripe.params",
-    "test_helpers": "stripe.params",
-    "treasury": "stripe.params",
     "AccountCapabilityListParams": "stripe.params._account_capability_list_params",
     "AccountCapabilityRetrieveParams": "stripe.params._account_capability_retrieve_params",
     "AccountCapabilityUpdateParams": "stripe.params._account_capability_update_params",

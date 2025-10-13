@@ -4,11 +4,6 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.test_helpers import (
-        issuing as issuing,
-        terminal as terminal,
-        treasury as treasury,
-    )
     from stripe.test_helpers._confirmation_token_service import (
         ConfirmationTokenService as ConfirmationTokenService,
     )
@@ -33,9 +28,6 @@ if TYPE_CHECKING:
     )
 
 _submodules = {
-    "issuing": "stripe.test_helpers",
-    "terminal": "stripe.test_helpers",
-    "treasury": "stripe.test_helpers",
     "ConfirmationTokenService": "stripe.test_helpers._confirmation_token_service",
     "CustomerService": "stripe.test_helpers._customer_service",
     "IssuingService": "stripe.test_helpers._issuing_service",

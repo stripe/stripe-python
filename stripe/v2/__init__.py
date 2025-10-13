@@ -7,14 +7,11 @@ from stripe.v2._amount import Amount as Amount, AmountParam as AmountParam
 from importlib import import_module
 
 if TYPE_CHECKING:
-    from stripe.v2 import billing as billing, core as core
     from stripe.v2._billing_service import BillingService as BillingService
     from stripe.v2._core_service import CoreService as CoreService
     from stripe.v2._deleted_object import DeletedObject as DeletedObject
 
 _submodules = {
-    "billing": "stripe.v2",
-    "core": "stripe.v2",
     "BillingService": "stripe.v2._billing_service",
     "CoreService": "stripe.v2._core_service",
     "DeletedObject": "stripe.v2._deleted_object",

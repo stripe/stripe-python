@@ -213,28 +213,6 @@ from stripe._util import convert_to_stripe_object as convert_to_stripe_object
 from importlib import import_module
 
 if TYPE_CHECKING:
-    from stripe import (
-        apps as apps,
-        billing as billing,
-        billing_portal as billing_portal,
-        checkout as checkout,
-        climate as climate,
-        entitlements as entitlements,
-        events as events,
-        financial_connections as financial_connections,
-        forwarding as forwarding,
-        identity as identity,
-        issuing as issuing,
-        params as params,
-        radar as radar,
-        reporting as reporting,
-        sigma as sigma,
-        tax as tax,
-        terminal as terminal,
-        test_helpers as test_helpers,
-        treasury as treasury,
-        v2 as v2,
-    )
     from stripe._account import Account as Account
     from stripe._account_capability_service import (
         AccountCapabilityService as AccountCapabilityService,
@@ -548,26 +526,6 @@ if TYPE_CHECKING:
     )
 
 _submodules = {
-    "apps": "stripe",
-    "billing": "stripe",
-    "billing_portal": "stripe",
-    "checkout": "stripe",
-    "climate": "stripe",
-    "entitlements": "stripe",
-    "events": "stripe",
-    "financial_connections": "stripe",
-    "forwarding": "stripe",
-    "identity": "stripe",
-    "issuing": "stripe",
-    "params": "stripe",
-    "radar": "stripe",
-    "reporting": "stripe",
-    "sigma": "stripe",
-    "tax": "stripe",
-    "terminal": "stripe",
-    "test_helpers": "stripe",
-    "treasury": "stripe",
-    "v2": "stripe",
     "Account": "stripe._account",
     "AccountCapabilityService": "stripe._account_capability_service",
     "AccountExternalAccountService": "stripe._account_external_account_service",

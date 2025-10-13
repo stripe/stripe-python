@@ -4,11 +4,6 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.test_helpers import (
-        issuing as issuing,
-        terminal as terminal,
-        treasury as treasury,
-    )
     from stripe.params.test_helpers._confirmation_token_create_params import (
         ConfirmationTokenCreateParams as ConfirmationTokenCreateParams,
         ConfirmationTokenCreateParamsPaymentMethodData as ConfirmationTokenCreateParamsPaymentMethodData,
@@ -95,9 +90,6 @@ if TYPE_CHECKING:
     )
 
 _submodules = {
-    "issuing": "stripe.params.test_helpers",
-    "terminal": "stripe.params.test_helpers",
-    "treasury": "stripe.params.test_helpers",
     "ConfirmationTokenCreateParams": "stripe.params.test_helpers._confirmation_token_create_params",
     "ConfirmationTokenCreateParamsPaymentMethodData": "stripe.params.test_helpers._confirmation_token_create_params",
     "ConfirmationTokenCreateParamsPaymentMethodDataAcssDebit": "stripe.params.test_helpers._confirmation_token_create_params",
