@@ -75,88 +75,104 @@ from stripe._topup_service import TopupService
 from stripe._transfer_service import TransferService
 from stripe._treasury_service import TreasuryService
 from stripe._webhook_endpoint_service import WebhookEndpointService
+from importlib import import_module
+
+_subservices = {
+    "accounts": ["stripe._account_service", "AccountService"],
+    "account_links": ["stripe._account_service", "AccountService"],
+    "account_sessions": ["stripe._account_service", "AccountService"],
+    "apple_pay_domains": ["stripe._account_service", "AccountService"],
+    "application_fees": ["stripe._account_service", "AccountService"],
+    "apps": ["stripe._account_service", "AccountService"],
+    "balance": ["stripe._account_service", "AccountService"],
+    "balance_settings": ["stripe._account_service", "AccountService"],
+    "balance_transactions": ["stripe._account_service", "AccountService"],
+    "billing": ["stripe._account_service", "AccountService"],
+    "billing_portal": ["stripe._account_service", "AccountService"],
+    "charges": ["stripe._account_service", "AccountService"],
+    "checkout": ["stripe._account_service", "AccountService"],
+    "climate": ["stripe._account_service", "AccountService"],
+    "confirmation_tokens": ["stripe._account_service", "AccountService"],
+    "country_specs": ["stripe._account_service", "AccountService"],
+    "coupons": ["stripe._account_service", "AccountService"],
+    "credit_notes": ["stripe._account_service", "AccountService"],
+    "customers": ["stripe._account_service", "AccountService"],
+    "customer_sessions": ["stripe._account_service", "AccountService"],
+    "disputes": ["stripe._account_service", "AccountService"],
+    "entitlements": ["stripe._account_service", "AccountService"],
+    "ephemeral_keys": ["stripe._account_service", "AccountService"],
+    "events": ["stripe._account_service", "AccountService"],
+    "exchange_rates": ["stripe._account_service", "AccountService"],
+    "files": ["stripe._account_service", "AccountService"],
+    "file_links": ["stripe._account_service", "AccountService"],
+    "financial_connections": ["stripe._account_service", "AccountService"],
+    "forwarding": ["stripe._account_service", "AccountService"],
+    "identity": ["stripe._account_service", "AccountService"],
+    "invoices": ["stripe._account_service", "AccountService"],
+    "invoice_items": ["stripe._account_service", "AccountService"],
+    "invoice_payments": ["stripe._account_service", "AccountService"],
+    "invoice_rendering_templates": [
+        "stripe._account_service",
+        "AccountService",
+    ],
+    "issuing": ["stripe._account_service", "AccountService"],
+    "mandates": ["stripe._account_service", "AccountService"],
+    "payment_intents": ["stripe._account_service", "AccountService"],
+    "payment_links": ["stripe._account_service", "AccountService"],
+    "payment_methods": ["stripe._account_service", "AccountService"],
+    "payment_method_configurations": [
+        "stripe._account_service",
+        "AccountService",
+    ],
+    "payment_method_domains": ["stripe._account_service", "AccountService"],
+    "payouts": ["stripe._account_service", "AccountService"],
+    "plans": ["stripe._account_service", "AccountService"],
+    "prices": ["stripe._account_service", "AccountService"],
+    "products": ["stripe._account_service", "AccountService"],
+    "promotion_codes": ["stripe._account_service", "AccountService"],
+    "quotes": ["stripe._account_service", "AccountService"],
+    "radar": ["stripe._account_service", "AccountService"],
+    "refunds": ["stripe._account_service", "AccountService"],
+    "reporting": ["stripe._account_service", "AccountService"],
+    "reviews": ["stripe._account_service", "AccountService"],
+    "setup_attempts": ["stripe._account_service", "AccountService"],
+    "setup_intents": ["stripe._account_service", "AccountService"],
+    "shipping_rates": ["stripe._account_service", "AccountService"],
+    "sigma": ["stripe._account_service", "AccountService"],
+    "sources": ["stripe._account_service", "AccountService"],
+    "subscriptions": ["stripe._account_service", "AccountService"],
+    "subscription_items": ["stripe._account_service", "AccountService"],
+    "subscription_schedules": ["stripe._account_service", "AccountService"],
+    "tax": ["stripe._account_service", "AccountService"],
+    "tax_codes": ["stripe._account_service", "AccountService"],
+    "tax_ids": ["stripe._account_service", "AccountService"],
+    "tax_rates": ["stripe._account_service", "AccountService"],
+    "terminal": ["stripe._account_service", "AccountService"],
+    "test_helpers": ["stripe._account_service", "AccountService"],
+    "tokens": ["stripe._account_service", "AccountService"],
+    "topups": ["stripe._account_service", "AccountService"],
+    "transfers": ["stripe._account_service", "AccountService"],
+    "treasury": ["stripe._account_service", "AccountService"],
+    "webhook_endpoints": ["stripe._account_service", "AccountService"],
+}
 
 
 class V1Services(StripeService):
     def __init__(self, requestor):
         super().__init__(requestor)
-        self.accounts = AccountService(self._requestor)
-        self.account_links = AccountLinkService(self._requestor)
-        self.account_sessions = AccountSessionService(self._requestor)
-        self.apple_pay_domains = ApplePayDomainService(self._requestor)
-        self.application_fees = ApplicationFeeService(self._requestor)
-        self.apps = AppsService(self._requestor)
-        self.balance = BalanceService(self._requestor)
-        self.balance_settings = BalanceSettingsService(self._requestor)
-        self.balance_transactions = BalanceTransactionService(self._requestor)
-        self.billing = BillingService(self._requestor)
-        self.billing_portal = BillingPortalService(self._requestor)
-        self.charges = ChargeService(self._requestor)
-        self.checkout = CheckoutService(self._requestor)
-        self.climate = ClimateService(self._requestor)
-        self.confirmation_tokens = ConfirmationTokenService(self._requestor)
-        self.country_specs = CountrySpecService(self._requestor)
-        self.coupons = CouponService(self._requestor)
-        self.credit_notes = CreditNoteService(self._requestor)
-        self.customers = CustomerService(self._requestor)
-        self.customer_sessions = CustomerSessionService(self._requestor)
-        self.disputes = DisputeService(self._requestor)
-        self.entitlements = EntitlementsService(self._requestor)
-        self.ephemeral_keys = EphemeralKeyService(self._requestor)
-        self.events = EventService(self._requestor)
-        self.exchange_rates = ExchangeRateService(self._requestor)
-        self.files = FileService(self._requestor)
-        self.file_links = FileLinkService(self._requestor)
-        self.financial_connections = FinancialConnectionsService(
-            self._requestor,
-        )
-        self.forwarding = ForwardingService(self._requestor)
-        self.identity = IdentityService(self._requestor)
-        self.invoices = InvoiceService(self._requestor)
-        self.invoice_items = InvoiceItemService(self._requestor)
-        self.invoice_payments = InvoicePaymentService(self._requestor)
-        self.invoice_rendering_templates = InvoiceRenderingTemplateService(
-            self._requestor,
-        )
-        self.issuing = IssuingService(self._requestor)
-        self.mandates = MandateService(self._requestor)
-        self.payment_intents = PaymentIntentService(self._requestor)
-        self.payment_links = PaymentLinkService(self._requestor)
-        self.payment_methods = PaymentMethodService(self._requestor)
-        self.payment_method_configurations = PaymentMethodConfigurationService(
-            self._requestor,
-        )
-        self.payment_method_domains = PaymentMethodDomainService(
-            self._requestor,
-        )
-        self.payouts = PayoutService(self._requestor)
-        self.plans = PlanService(self._requestor)
-        self.prices = PriceService(self._requestor)
-        self.products = ProductService(self._requestor)
-        self.promotion_codes = PromotionCodeService(self._requestor)
-        self.quotes = QuoteService(self._requestor)
-        self.radar = RadarService(self._requestor)
-        self.refunds = RefundService(self._requestor)
-        self.reporting = ReportingService(self._requestor)
-        self.reviews = ReviewService(self._requestor)
-        self.setup_attempts = SetupAttemptService(self._requestor)
-        self.setup_intents = SetupIntentService(self._requestor)
-        self.shipping_rates = ShippingRateService(self._requestor)
-        self.sigma = SigmaService(self._requestor)
-        self.sources = SourceService(self._requestor)
-        self.subscriptions = SubscriptionService(self._requestor)
-        self.subscription_items = SubscriptionItemService(self._requestor)
-        self.subscription_schedules = SubscriptionScheduleService(
-            self._requestor,
-        )
-        self.tax = TaxService(self._requestor)
-        self.tax_codes = TaxCodeService(self._requestor)
-        self.tax_ids = TaxIdService(self._requestor)
-        self.tax_rates = TaxRateService(self._requestor)
-        self.terminal = TerminalService(self._requestor)
-        self.test_helpers = TestHelpersService(self._requestor)
-        self.tokens = TokenService(self._requestor)
-        self.topups = TopupService(self._requestor)
-        self.transfers = TransferService(self._requestor)
-        self.treasury = TreasuryService(self._requestor)
-        self.webhook_endpoints = WebhookEndpointService(self._requestor)
+
+    def __getattr__(self, name):
+        try:
+            import_from, service = _subservices[name]
+            service_class = getattr(
+                import_module(import_from),
+                service,
+            )
+            setattr(
+                self,
+                name,
+                service_class(self._requestor),
+            )
+            return getattr(self, name)
+        except KeyError:
+            pass

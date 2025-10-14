@@ -9,6 +9,7 @@ from stripe.billing._meter_event_summary_service import (
     MeterEventSummaryService,
 )
 from typing import Optional, cast
+from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -25,11 +26,30 @@ if TYPE_CHECKING:
     )
     from stripe.params.billing._meter_update_params import MeterUpdateParams
 
+_subservices = {
+    "event_summaries": ["stripe._account_service", "AccountService"],
+}
+
 
 class MeterService(StripeService):
     def __init__(self, requestor):
         super().__init__(requestor)
-        self.event_summaries = MeterEventSummaryService(self._requestor)
+
+    def __getattr__(self, name):
+        try:
+            import_from, service = _subservices[name]
+            service_class = getattr(
+                import_module(import_from),
+                service,
+            )
+            setattr(
+                self,
+                name,
+                service_class(self._requestor),
+            )
+            return getattr(self, name)
+        except KeyError:
+            raise AttributeError()
 
     def list(
         self,

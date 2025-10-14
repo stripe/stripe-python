@@ -10,6 +10,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Any, Optional, cast
+from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -24,16 +25,34 @@ if TYPE_CHECKING:
     from stripe.params._quote_retrieve_params import QuoteRetrieveParams
     from stripe.params._quote_update_params import QuoteUpdateParams
 
+_subservices = {
+    "computed_upfront_line_items": [
+        "stripe._account_service",
+        "AccountService",
+    ],
+    "line_items": ["stripe._account_service", "AccountService"],
+}
+
 
 class QuoteService(StripeService):
     def __init__(self, requestor):
         super().__init__(requestor)
-        self.computed_upfront_line_items = (
-            QuoteComputedUpfrontLineItemsService(
-                self._requestor,
+
+    def __getattr__(self, name):
+        try:
+            import_from, service = _subservices[name]
+            service_class = getattr(
+                import_module(import_from),
+                service,
             )
-        )
-        self.line_items = QuoteLineItemService(self._requestor)
+            setattr(
+                self,
+                name,
+                service_class(self._requestor),
+            )
+            return getattr(self, name)
+        except KeyError:
+            raise AttributeError()
 
     def list(
         self,

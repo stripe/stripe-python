@@ -16,13 +16,33 @@ from stripe.test_helpers.treasury._received_credit_service import (
 from stripe.test_helpers.treasury._received_debit_service import (
     ReceivedDebitService,
 )
+from importlib import import_module
+
+_subservices = {
+    "inbound_transfers": ["stripe._account_service", "AccountService"],
+    "outbound_payments": ["stripe._account_service", "AccountService"],
+    "outbound_transfers": ["stripe._account_service", "AccountService"],
+    "received_credits": ["stripe._account_service", "AccountService"],
+    "received_debits": ["stripe._account_service", "AccountService"],
+}
 
 
 class TreasuryService(StripeService):
     def __init__(self, requestor):
         super().__init__(requestor)
-        self.inbound_transfers = InboundTransferService(self._requestor)
-        self.outbound_payments = OutboundPaymentService(self._requestor)
-        self.outbound_transfers = OutboundTransferService(self._requestor)
-        self.received_credits = ReceivedCreditService(self._requestor)
-        self.received_debits = ReceivedDebitService(self._requestor)
+
+    def __getattr__(self, name):
+        try:
+            import_from, service = _subservices[name]
+            service_class = getattr(
+                import_module(import_from),
+                service,
+            )
+            setattr(
+                self,
+                name,
+                service_class(self._requestor),
+            )
+            return getattr(self, name)
+        except KeyError:
+            raise AttributeError()

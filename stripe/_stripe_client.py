@@ -37,7 +37,10 @@ if TYPE_CHECKING:
 # Non-generated services
 from stripe._oauth_service import OAuthService
 
-# services: The beginning of the section generated from our OpenAPI spec
+from stripe._v1_services import V1Services
+from stripe._v2_services import V2Services
+
+# service-types: The beginning of the section generated from our OpenAPI spec
 if TYPE_CHECKING:
     from stripe._v1_services import V1Services
     from stripe._v2_services import V2Services
@@ -122,7 +125,7 @@ if TYPE_CHECKING:
     from stripe._treasury_service import TreasuryService
     from stripe._webhook_endpoint_service import WebhookEndpointService
 
-# services: The end of the section generated from our OpenAPI spec
+# service-types: The end of the section generated from our OpenAPI spec
 
 if TYPE_CHECKING:
     from stripe.events._event_classes import ALL_EVENT_NOTIFICATIONS

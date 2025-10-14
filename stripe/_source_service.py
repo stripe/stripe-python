@@ -9,6 +9,7 @@ from stripe._source_transaction_service import SourceTransactionService
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, Union, cast
+from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -18,11 +19,28 @@ if TYPE_CHECKING:
     from stripe.params._source_update_params import SourceUpdateParams
     from stripe.params._source_verify_params import SourceVerifyParams
 
+_subservices = {"transactions": ["stripe._account_service", "AccountService"]}
+
 
 class SourceService(StripeService):
     def __init__(self, requestor):
         super().__init__(requestor)
-        self.transactions = SourceTransactionService(self._requestor)
+
+    def __getattr__(self, name):
+        try:
+            import_from, service = _subservices[name]
+            service_class = getattr(
+                import_module(import_from),
+                service,
+            )
+            setattr(
+                self,
+                name,
+                service_class(self._requestor),
+            )
+            return getattr(self, name)
+        except KeyError:
+            raise AttributeError()
 
     def detach(
         self,

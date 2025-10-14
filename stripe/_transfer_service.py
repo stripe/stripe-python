@@ -7,6 +7,7 @@ from stripe._transfer import Transfer
 from stripe._transfer_reversal_service import TransferReversalService
 from stripe._util import sanitize_id
 from typing import Optional, cast
+from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -15,11 +16,28 @@ if TYPE_CHECKING:
     from stripe.params._transfer_retrieve_params import TransferRetrieveParams
     from stripe.params._transfer_update_params import TransferUpdateParams
 
+_subservices = {"reversals": ["stripe._account_service", "AccountService"]}
+
 
 class TransferService(StripeService):
     def __init__(self, requestor):
         super().__init__(requestor)
-        self.reversals = TransferReversalService(self._requestor)
+
+    def __getattr__(self, name):
+        try:
+            import_from, service = _subservices[name]
+            service_class = getattr(
+                import_module(import_from),
+                service,
+            )
+            setattr(
+                self,
+                name,
+                service_class(self._requestor),
+            )
+            return getattr(self, name)
+        except KeyError:
+            raise AttributeError()
 
     def list(
         self,

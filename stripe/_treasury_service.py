@@ -11,18 +11,38 @@ from stripe.treasury._received_credit_service import ReceivedCreditService
 from stripe.treasury._received_debit_service import ReceivedDebitService
 from stripe.treasury._transaction_entry_service import TransactionEntryService
 from stripe.treasury._transaction_service import TransactionService
+from importlib import import_module
+
+_subservices = {
+    "credit_reversals": ["stripe._account_service", "AccountService"],
+    "debit_reversals": ["stripe._account_service", "AccountService"],
+    "financial_accounts": ["stripe._account_service", "AccountService"],
+    "inbound_transfers": ["stripe._account_service", "AccountService"],
+    "outbound_payments": ["stripe._account_service", "AccountService"],
+    "outbound_transfers": ["stripe._account_service", "AccountService"],
+    "received_credits": ["stripe._account_service", "AccountService"],
+    "received_debits": ["stripe._account_service", "AccountService"],
+    "transactions": ["stripe._account_service", "AccountService"],
+    "transaction_entries": ["stripe._account_service", "AccountService"],
+}
 
 
 class TreasuryService(StripeService):
     def __init__(self, requestor):
         super().__init__(requestor)
-        self.credit_reversals = CreditReversalService(self._requestor)
-        self.debit_reversals = DebitReversalService(self._requestor)
-        self.financial_accounts = FinancialAccountService(self._requestor)
-        self.inbound_transfers = InboundTransferService(self._requestor)
-        self.outbound_payments = OutboundPaymentService(self._requestor)
-        self.outbound_transfers = OutboundTransferService(self._requestor)
-        self.received_credits = ReceivedCreditService(self._requestor)
-        self.received_debits = ReceivedDebitService(self._requestor)
-        self.transactions = TransactionService(self._requestor)
-        self.transaction_entries = TransactionEntryService(self._requestor)
+
+    def __getattr__(self, name):
+        try:
+            import_from, service = _subservices[name]
+            service_class = getattr(
+                import_module(import_from),
+                service,
+            )
+            setattr(
+                self,
+                name,
+                service_class(self._requestor),
+            )
+            return getattr(self, name)
+        except KeyError:
+            raise AttributeError()

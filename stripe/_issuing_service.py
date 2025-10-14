@@ -11,18 +11,36 @@ from stripe.issuing._personalization_design_service import (
 from stripe.issuing._physical_bundle_service import PhysicalBundleService
 from stripe.issuing._token_service import TokenService
 from stripe.issuing._transaction_service import TransactionService
+from importlib import import_module
+
+_subservices = {
+    "authorizations": ["stripe._account_service", "AccountService"],
+    "cards": ["stripe._account_service", "AccountService"],
+    "cardholders": ["stripe._account_service", "AccountService"],
+    "disputes": ["stripe._account_service", "AccountService"],
+    "personalization_designs": ["stripe._account_service", "AccountService"],
+    "physical_bundles": ["stripe._account_service", "AccountService"],
+    "tokens": ["stripe._account_service", "AccountService"],
+    "transactions": ["stripe._account_service", "AccountService"],
+}
 
 
 class IssuingService(StripeService):
     def __init__(self, requestor):
         super().__init__(requestor)
-        self.authorizations = AuthorizationService(self._requestor)
-        self.cards = CardService(self._requestor)
-        self.cardholders = CardholderService(self._requestor)
-        self.disputes = DisputeService(self._requestor)
-        self.personalization_designs = PersonalizationDesignService(
-            self._requestor,
-        )
-        self.physical_bundles = PhysicalBundleService(self._requestor)
-        self.tokens = TokenService(self._requestor)
-        self.transactions = TransactionService(self._requestor)
+
+    def __getattr__(self, name):
+        try:
+            import_from, service = _subservices[name]
+            service_class = getattr(
+                import_module(import_from),
+                service,
+            )
+            setattr(
+                self,
+                name,
+                service_class(self._requestor),
+            )
+            return getattr(self, name)
+        except KeyError:
+            raise AttributeError()
