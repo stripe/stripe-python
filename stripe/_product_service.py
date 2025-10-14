@@ -2,7 +2,6 @@
 # File generated from our OpenAPI spec
 from stripe._list_object import ListObject
 from stripe._product import Product
-from stripe._product_feature_service import ProductFeatureService
 from stripe._request_options import RequestOptions
 from stripe._search_result_object import SearchResultObject
 from stripe._stripe_service import StripeService
@@ -12,6 +11,7 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._product_feature_service import ProductFeatureService
     from stripe.params._product_create_params import ProductCreateParams
     from stripe.params._product_delete_params import ProductDeleteParams
     from stripe.params._product_list_params import ProductListParams
@@ -19,10 +19,14 @@ if TYPE_CHECKING:
     from stripe.params._product_search_params import ProductSearchParams
     from stripe.params._product_update_params import ProductUpdateParams
 
-_subservices = {"features": ["stripe._account_service", "AccountService"]}
+_subservices = {
+    "features": ["stripe._product_feature_service", "ProductFeatureService"],
+}
 
 
 class ProductService(StripeService):
+    features: "ProductFeatureService"
+
     def __init__(self, requestor):
         super().__init__(requestor)
 

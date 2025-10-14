@@ -1,17 +1,29 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_service import StripeService
-from stripe.reporting._report_run_service import ReportRunService
-from stripe.reporting._report_type_service import ReportTypeService
 from importlib import import_module
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.reporting._report_run_service import ReportRunService
+    from stripe.reporting._report_type_service import ReportTypeService
 
 _subservices = {
-    "report_runs": ["stripe._account_service", "AccountService"],
-    "report_types": ["stripe._account_service", "AccountService"],
+    "report_runs": [
+        "stripe.reporting._report_run_service",
+        "ReportRunService",
+    ],
+    "report_types": [
+        "stripe.reporting._report_type_service",
+        "ReportTypeService",
+    ],
 }
 
 
 class ReportingService(StripeService):
+    report_runs: "ReportRunService"
+    report_types: "ReportTypeService"
+
     def __init__(self, requestor):
         super().__init__(requestor)
 

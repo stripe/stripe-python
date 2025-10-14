@@ -4,9 +4,6 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.tax._transaction import Transaction
-from stripe.tax._transaction_line_item_service import (
-    TransactionLineItemService,
-)
 from typing import Optional, cast
 from importlib import import_module
 from typing_extensions import TYPE_CHECKING
@@ -21,11 +18,21 @@ if TYPE_CHECKING:
     from stripe.params.tax._transaction_retrieve_params import (
         TransactionRetrieveParams,
     )
+    from stripe.tax._transaction_line_item_service import (
+        TransactionLineItemService,
+    )
 
-_subservices = {"line_items": ["stripe._account_service", "AccountService"]}
+_subservices = {
+    "line_items": [
+        "stripe.tax._transaction_line_item_service",
+        "TransactionLineItemService",
+    ],
+}
 
 
 class TransactionService(StripeService):
+    line_items: "TransactionLineItemService"
+
     def __init__(self, requestor):
         super().__init__(requestor)
 

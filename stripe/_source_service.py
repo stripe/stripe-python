@@ -5,7 +5,6 @@ from stripe._bank_account import BankAccount
 from stripe._card import Card
 from stripe._request_options import RequestOptions
 from stripe._source import Source
-from stripe._source_transaction_service import SourceTransactionService
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, Union, cast
@@ -13,16 +12,24 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._source_transaction_service import SourceTransactionService
     from stripe.params._source_create_params import SourceCreateParams
     from stripe.params._source_detach_params import SourceDetachParams
     from stripe.params._source_retrieve_params import SourceRetrieveParams
     from stripe.params._source_update_params import SourceUpdateParams
     from stripe.params._source_verify_params import SourceVerifyParams
 
-_subservices = {"transactions": ["stripe._account_service", "AccountService"]}
+_subservices = {
+    "transactions": [
+        "stripe._source_transaction_service",
+        "SourceTransactionService",
+    ],
+}
 
 
 class SourceService(StripeService):
+    transactions: "SourceTransactionService"
+
     def __init__(self, requestor):
         super().__init__(requestor)
 

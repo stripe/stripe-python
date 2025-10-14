@@ -1,13 +1,20 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_service import StripeService
-from stripe.forwarding._request_service import RequestService
 from importlib import import_module
+from typing_extensions import TYPE_CHECKING
 
-_subservices = {"requests": ["stripe._account_service", "AccountService"]}
+if TYPE_CHECKING:
+    from stripe.forwarding._request_service import RequestService
+
+_subservices = {
+    "requests": ["stripe.forwarding._request_service", "RequestService"],
+}
 
 
 class ForwardingService(StripeService):
+    requests: "RequestService"
+
     def __init__(self, requestor):
         super().__init__(requestor)
 

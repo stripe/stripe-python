@@ -4,22 +4,29 @@ from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._transfer import Transfer
-from stripe._transfer_reversal_service import TransferReversalService
 from stripe._util import sanitize_id
 from typing import Optional, cast
 from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._transfer_reversal_service import TransferReversalService
     from stripe.params._transfer_create_params import TransferCreateParams
     from stripe.params._transfer_list_params import TransferListParams
     from stripe.params._transfer_retrieve_params import TransferRetrieveParams
     from stripe.params._transfer_update_params import TransferUpdateParams
 
-_subservices = {"reversals": ["stripe._account_service", "AccountService"]}
+_subservices = {
+    "reversals": [
+        "stripe._transfer_reversal_service",
+        "TransferReversalService",
+    ],
+}
 
 
 class TransferService(StripeService):
+    reversals: "TransferReversalService"
+
     def __init__(self, requestor):
         super().__init__(requestor)
 

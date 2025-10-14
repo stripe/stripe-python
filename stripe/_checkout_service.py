@@ -1,13 +1,20 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_service import StripeService
-from stripe.checkout._session_service import SessionService
 from importlib import import_module
+from typing_extensions import TYPE_CHECKING
 
-_subservices = {"sessions": ["stripe._account_service", "AccountService"]}
+if TYPE_CHECKING:
+    from stripe.checkout._session_service import SessionService
+
+_subservices = {
+    "sessions": ["stripe.checkout._session_service", "SessionService"],
+}
 
 
 class CheckoutService(StripeService):
+    sessions: "SessionService"
+
     def __init__(self, requestor):
         super().__init__(requestor)
 

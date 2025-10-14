@@ -1,23 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._customer import Customer
-from stripe._customer_balance_transaction_service import (
-    CustomerBalanceTransactionService,
-)
-from stripe._customer_cash_balance_service import CustomerCashBalanceService
-from stripe._customer_cash_balance_transaction_service import (
-    CustomerCashBalanceTransactionService,
-)
-from stripe._customer_funding_instructions_service import (
-    CustomerFundingInstructionsService,
-)
-from stripe._customer_payment_method_service import (
-    CustomerPaymentMethodService,
-)
-from stripe._customer_payment_source_service import (
-    CustomerPaymentSourceService,
-)
-from stripe._customer_tax_id_service import CustomerTaxIdService
 from stripe._discount import Discount
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
@@ -29,6 +12,25 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._customer_balance_transaction_service import (
+        CustomerBalanceTransactionService,
+    )
+    from stripe._customer_cash_balance_service import (
+        CustomerCashBalanceService,
+    )
+    from stripe._customer_cash_balance_transaction_service import (
+        CustomerCashBalanceTransactionService,
+    )
+    from stripe._customer_funding_instructions_service import (
+        CustomerFundingInstructionsService,
+    )
+    from stripe._customer_payment_method_service import (
+        CustomerPaymentMethodService,
+    )
+    from stripe._customer_payment_source_service import (
+        CustomerPaymentSourceService,
+    )
+    from stripe._customer_tax_id_service import CustomerTaxIdService
     from stripe.params._customer_create_params import CustomerCreateParams
     from stripe.params._customer_delete_discount_params import (
         CustomerDeleteDiscountParams,
@@ -40,17 +42,43 @@ if TYPE_CHECKING:
     from stripe.params._customer_update_params import CustomerUpdateParams
 
 _subservices = {
-    "balance_transactions": ["stripe._account_service", "AccountService"],
-    "cash_balance": ["stripe._account_service", "AccountService"],
-    "cash_balance_transactions": ["stripe._account_service", "AccountService"],
-    "funding_instructions": ["stripe._account_service", "AccountService"],
-    "payment_methods": ["stripe._account_service", "AccountService"],
-    "payment_sources": ["stripe._account_service", "AccountService"],
-    "tax_ids": ["stripe._account_service", "AccountService"],
+    "balance_transactions": [
+        "stripe._customer_balance_transaction_service",
+        "CustomerBalanceTransactionService",
+    ],
+    "cash_balance": [
+        "stripe._customer_cash_balance_service",
+        "CustomerCashBalanceService",
+    ],
+    "cash_balance_transactions": [
+        "stripe._customer_cash_balance_transaction_service",
+        "CustomerCashBalanceTransactionService",
+    ],
+    "funding_instructions": [
+        "stripe._customer_funding_instructions_service",
+        "CustomerFundingInstructionsService",
+    ],
+    "payment_methods": [
+        "stripe._customer_payment_method_service",
+        "CustomerPaymentMethodService",
+    ],
+    "payment_sources": [
+        "stripe._customer_payment_source_service",
+        "CustomerPaymentSourceService",
+    ],
+    "tax_ids": ["stripe._customer_tax_id_service", "CustomerTaxIdService"],
 }
 
 
 class CustomerService(StripeService):
+    balance_transactions: "CustomerBalanceTransactionService"
+    cash_balance: "CustomerCashBalanceService"
+    cash_balance_transactions: "CustomerCashBalanceTransactionService"
+    funding_instructions: "CustomerFundingInstructionsService"
+    payment_methods: "CustomerPaymentMethodService"
+    payment_sources: "CustomerPaymentSourceService"
+    tax_ids: "CustomerTaxIdService"
+
     def __init__(self, requestor):
         super().__init__(requestor)
 

@@ -1,17 +1,23 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_service import StripeService
-from stripe.v2._billing_service import BillingService
-from stripe.v2._core_service import CoreService
 from importlib import import_module
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.v2._billing_service import BillingService
+    from stripe.v2._core_service import CoreService
 
 _subservices = {
-    "billing": ["stripe._account_service", "AccountService"],
-    "core": ["stripe._account_service", "AccountService"],
+    "billing": ["stripe.v2._billing_service", "BillingService"],
+    "core": ["stripe.v2._core_service", "CoreService"],
 }
 
 
 class V2Services(StripeService):
+    billing: "BillingService"
+    core: "CoreService"
+
     def __init__(self, requestor):
         super().__init__(requestor)
 
@@ -29,4 +35,4 @@ class V2Services(StripeService):
             )
             return getattr(self, name)
         except KeyError:
-            raise AttributeError(f"unable to find service '{name}'")
+            raise AttributeError()

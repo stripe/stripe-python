@@ -1,17 +1,28 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_service import StripeService
-from stripe.billing_portal._configuration_service import ConfigurationService
-from stripe.billing_portal._session_service import SessionService
 from importlib import import_module
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.billing_portal._configuration_service import (
+        ConfigurationService,
+    )
+    from stripe.billing_portal._session_service import SessionService
 
 _subservices = {
-    "configurations": ["stripe._account_service", "AccountService"],
-    "sessions": ["stripe._account_service", "AccountService"],
+    "configurations": [
+        "stripe.billing_portal._configuration_service",
+        "ConfigurationService",
+    ],
+    "sessions": ["stripe.billing_portal._session_service", "SessionService"],
 }
 
 
 class BillingPortalService(StripeService):
+    configurations: "ConfigurationService"
+    sessions: "SessionService"
+
     def __init__(self, requestor):
         super().__init__(requestor)
 

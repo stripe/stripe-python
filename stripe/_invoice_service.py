@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._invoice import Invoice
-from stripe._invoice_line_item_service import InvoiceLineItemService
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._search_result_object import SearchResultObject
@@ -12,6 +11,7 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._invoice_line_item_service import InvoiceLineItemService
     from stripe.params._invoice_add_lines_params import InvoiceAddLinesParams
     from stripe.params._invoice_attach_payment_params import (
         InvoiceAttachPaymentParams,
@@ -45,10 +45,17 @@ if TYPE_CHECKING:
         InvoiceVoidInvoiceParams,
     )
 
-_subservices = {"line_items": ["stripe._account_service", "AccountService"]}
+_subservices = {
+    "line_items": [
+        "stripe._invoice_line_item_service",
+        "InvoiceLineItemService",
+    ],
+}
 
 
 class InvoiceService(StripeService):
+    line_items: "InvoiceLineItemService"
+
     def __init__(self, requestor):
         super().__init__(requestor)
 

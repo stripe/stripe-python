@@ -1,21 +1,37 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_service import StripeService
-from stripe.financial_connections._account_service import AccountService
-from stripe.financial_connections._session_service import SessionService
-from stripe.financial_connections._transaction_service import (
-    TransactionService,
-)
 from importlib import import_module
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.financial_connections._account_service import AccountService
+    from stripe.financial_connections._session_service import SessionService
+    from stripe.financial_connections._transaction_service import (
+        TransactionService,
+    )
 
 _subservices = {
-    "accounts": ["stripe._account_service", "AccountService"],
-    "sessions": ["stripe._account_service", "AccountService"],
-    "transactions": ["stripe._account_service", "AccountService"],
+    "accounts": [
+        "stripe.financial_connections._account_service",
+        "AccountService",
+    ],
+    "sessions": [
+        "stripe.financial_connections._session_service",
+        "SessionService",
+    ],
+    "transactions": [
+        "stripe.financial_connections._transaction_service",
+        "TransactionService",
+    ],
 }
 
 
 class FinancialConnectionsService(StripeService):
+    accounts: "AccountService"
+    sessions: "SessionService"
+    transactions: "TransactionService"
+
     def __init__(self, requestor):
         super().__init__(requestor)
 

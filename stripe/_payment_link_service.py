@@ -2,7 +2,6 @@
 # File generated from our OpenAPI spec
 from stripe._list_object import ListObject
 from stripe._payment_link import PaymentLink
-from stripe._payment_link_line_item_service import PaymentLinkLineItemService
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
@@ -11,6 +10,9 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._payment_link_line_item_service import (
+        PaymentLinkLineItemService,
+    )
     from stripe.params._payment_link_create_params import (
         PaymentLinkCreateParams,
     )
@@ -22,10 +24,17 @@ if TYPE_CHECKING:
         PaymentLinkUpdateParams,
     )
 
-_subservices = {"line_items": ["stripe._account_service", "AccountService"]}
+_subservices = {
+    "line_items": [
+        "stripe._payment_link_line_item_service",
+        "PaymentLinkLineItemService",
+    ],
+}
 
 
 class PaymentLinkService(StripeService):
+    line_items: "PaymentLinkLineItemService"
+
     def __init__(self, requestor):
         super().__init__(requestor)
 

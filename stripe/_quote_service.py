@@ -2,10 +2,6 @@
 # File generated from our OpenAPI spec
 from stripe._list_object import ListObject
 from stripe._quote import Quote
-from stripe._quote_computed_upfront_line_items_service import (
-    QuoteComputedUpfrontLineItemsService,
-)
-from stripe._quote_line_item_service import QuoteLineItemService
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
@@ -14,6 +10,10 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._quote_computed_upfront_line_items_service import (
+        QuoteComputedUpfrontLineItemsService,
+    )
+    from stripe._quote_line_item_service import QuoteLineItemService
     from stripe.params._quote_accept_params import QuoteAcceptParams
     from stripe.params._quote_cancel_params import QuoteCancelParams
     from stripe.params._quote_create_params import QuoteCreateParams
@@ -27,14 +27,17 @@ if TYPE_CHECKING:
 
 _subservices = {
     "computed_upfront_line_items": [
-        "stripe._account_service",
-        "AccountService",
+        "stripe._quote_computed_upfront_line_items_service",
+        "QuoteComputedUpfrontLineItemsService",
     ],
-    "line_items": ["stripe._account_service", "AccountService"],
+    "line_items": ["stripe._quote_line_item_service", "QuoteLineItemService"],
 }
 
 
 class QuoteService(StripeService):
+    computed_upfront_line_items: "QuoteComputedUpfrontLineItemsService"
+    line_items: "QuoteLineItemService"
+
     def __init__(self, requestor):
         super().__init__(requestor)
 

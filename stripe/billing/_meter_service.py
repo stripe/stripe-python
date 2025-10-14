@@ -5,14 +5,14 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.billing._meter import Meter
-from stripe.billing._meter_event_summary_service import (
-    MeterEventSummaryService,
-)
 from typing import Optional, cast
 from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.billing._meter_event_summary_service import (
+        MeterEventSummaryService,
+    )
     from stripe.params.billing._meter_create_params import MeterCreateParams
     from stripe.params.billing._meter_deactivate_params import (
         MeterDeactivateParams,
@@ -27,11 +27,16 @@ if TYPE_CHECKING:
     from stripe.params.billing._meter_update_params import MeterUpdateParams
 
 _subservices = {
-    "event_summaries": ["stripe._account_service", "AccountService"],
+    "event_summaries": [
+        "stripe.billing._meter_event_summary_service",
+        "MeterEventSummaryService",
+    ],
 }
 
 
 class MeterService(StripeService):
+    event_summaries: "MeterEventSummaryService"
+
     def __init__(self, requestor):
         super().__init__(requestor)
 

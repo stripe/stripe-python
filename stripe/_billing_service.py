@@ -1,36 +1,59 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_service import StripeService
-from stripe.billing._alert_service import AlertService
-from stripe.billing._credit_balance_summary_service import (
-    CreditBalanceSummaryService,
-)
-from stripe.billing._credit_balance_transaction_service import (
-    CreditBalanceTransactionService,
-)
-from stripe.billing._credit_grant_service import CreditGrantService
-from stripe.billing._meter_event_adjustment_service import (
-    MeterEventAdjustmentService,
-)
-from stripe.billing._meter_event_service import MeterEventService
-from stripe.billing._meter_service import MeterService
 from importlib import import_module
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.billing._alert_service import AlertService
+    from stripe.billing._credit_balance_summary_service import (
+        CreditBalanceSummaryService,
+    )
+    from stripe.billing._credit_balance_transaction_service import (
+        CreditBalanceTransactionService,
+    )
+    from stripe.billing._credit_grant_service import CreditGrantService
+    from stripe.billing._meter_event_adjustment_service import (
+        MeterEventAdjustmentService,
+    )
+    from stripe.billing._meter_event_service import MeterEventService
+    from stripe.billing._meter_service import MeterService
 
 _subservices = {
-    "alerts": ["stripe._account_service", "AccountService"],
-    "credit_balance_summary": ["stripe._account_service", "AccountService"],
-    "credit_balance_transactions": [
-        "stripe._account_service",
-        "AccountService",
+    "alerts": ["stripe.billing._alert_service", "AlertService"],
+    "credit_balance_summary": [
+        "stripe.billing._credit_balance_summary_service",
+        "CreditBalanceSummaryService",
     ],
-    "credit_grants": ["stripe._account_service", "AccountService"],
-    "meters": ["stripe._account_service", "AccountService"],
-    "meter_events": ["stripe._account_service", "AccountService"],
-    "meter_event_adjustments": ["stripe._account_service", "AccountService"],
+    "credit_balance_transactions": [
+        "stripe.billing._credit_balance_transaction_service",
+        "CreditBalanceTransactionService",
+    ],
+    "credit_grants": [
+        "stripe.billing._credit_grant_service",
+        "CreditGrantService",
+    ],
+    "meters": ["stripe.billing._meter_service", "MeterService"],
+    "meter_events": [
+        "stripe.billing._meter_event_service",
+        "MeterEventService",
+    ],
+    "meter_event_adjustments": [
+        "stripe.billing._meter_event_adjustment_service",
+        "MeterEventAdjustmentService",
+    ],
 }
 
 
 class BillingService(StripeService):
+    alerts: "AlertService"
+    credit_balance_summary: "CreditBalanceSummaryService"
+    credit_balance_transactions: "CreditBalanceTransactionService"
+    credit_grants: "CreditGrantService"
+    meters: "MeterService"
+    meter_events: "MeterEventService"
+    meter_event_adjustments: "MeterEventAdjustmentService"
+
     def __init__(self, requestor):
         super().__init__(requestor)
 

@@ -5,12 +5,14 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.checkout._session import Session
-from stripe.checkout._session_line_item_service import SessionLineItemService
 from typing import Optional, cast
 from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.checkout._session_line_item_service import (
+        SessionLineItemService,
+    )
     from stripe.params.checkout._session_create_params import (
         SessionCreateParams,
     )
@@ -25,10 +27,17 @@ if TYPE_CHECKING:
         SessionUpdateParams,
     )
 
-_subservices = {"line_items": ["stripe._account_service", "AccountService"]}
+_subservices = {
+    "line_items": [
+        "stripe.checkout._session_line_item_service",
+        "SessionLineItemService",
+    ],
+}
 
 
 class SessionService(StripeService):
+    line_items: "SessionLineItemService"
+
     def __init__(self, requestor):
         super().__init__(requestor)
 

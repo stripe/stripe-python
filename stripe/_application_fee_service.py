@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._application_fee import ApplicationFee
-from stripe._application_fee_refund_service import ApplicationFeeRefundService
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
@@ -11,6 +10,9 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._application_fee_refund_service import (
+        ApplicationFeeRefundService,
+    )
     from stripe.params._application_fee_list_params import (
         ApplicationFeeListParams,
     )
@@ -18,10 +20,17 @@ if TYPE_CHECKING:
         ApplicationFeeRetrieveParams,
     )
 
-_subservices = {"refunds": ["stripe._account_service", "AccountService"]}
+_subservices = {
+    "refunds": [
+        "stripe._application_fee_refund_service",
+        "ApplicationFeeRefundService",
+    ],
+}
 
 
 class ApplicationFeeService(StripeService):
+    refunds: "ApplicationFeeRefundService"
+
     def __init__(self, requestor):
         super().__init__(requestor)
 

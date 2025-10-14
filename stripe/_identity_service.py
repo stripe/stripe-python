@@ -1,21 +1,33 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_service import StripeService
-from stripe.identity._verification_report_service import (
-    VerificationReportService,
-)
-from stripe.identity._verification_session_service import (
-    VerificationSessionService,
-)
 from importlib import import_module
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.identity._verification_report_service import (
+        VerificationReportService,
+    )
+    from stripe.identity._verification_session_service import (
+        VerificationSessionService,
+    )
 
 _subservices = {
-    "verification_reports": ["stripe._account_service", "AccountService"],
-    "verification_sessions": ["stripe._account_service", "AccountService"],
+    "verification_reports": [
+        "stripe.identity._verification_report_service",
+        "VerificationReportService",
+    ],
+    "verification_sessions": [
+        "stripe.identity._verification_session_service",
+        "VerificationSessionService",
+    ],
 }
 
 
 class IdentityService(StripeService):
+    verification_reports: "VerificationReportService"
+    verification_sessions: "VerificationSessionService"
+
     def __init__(self, requestor):
         super().__init__(requestor)
 

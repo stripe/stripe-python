@@ -1,25 +1,44 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_service import StripeService
-from stripe.test_helpers.issuing._authorization_service import (
-    AuthorizationService,
-)
-from stripe.test_helpers.issuing._card_service import CardService
-from stripe.test_helpers.issuing._personalization_design_service import (
-    PersonalizationDesignService,
-)
-from stripe.test_helpers.issuing._transaction_service import TransactionService
 from importlib import import_module
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.test_helpers.issuing._authorization_service import (
+        AuthorizationService,
+    )
+    from stripe.test_helpers.issuing._card_service import CardService
+    from stripe.test_helpers.issuing._personalization_design_service import (
+        PersonalizationDesignService,
+    )
+    from stripe.test_helpers.issuing._transaction_service import (
+        TransactionService,
+    )
 
 _subservices = {
-    "authorizations": ["stripe._account_service", "AccountService"],
-    "cards": ["stripe._account_service", "AccountService"],
-    "personalization_designs": ["stripe._account_service", "AccountService"],
-    "transactions": ["stripe._account_service", "AccountService"],
+    "authorizations": [
+        "stripe.test_helpers.issuing._authorization_service",
+        "AuthorizationService",
+    ],
+    "cards": ["stripe.test_helpers.issuing._card_service", "CardService"],
+    "personalization_designs": [
+        "stripe.test_helpers.issuing._personalization_design_service",
+        "PersonalizationDesignService",
+    ],
+    "transactions": [
+        "stripe.test_helpers.issuing._transaction_service",
+        "TransactionService",
+    ],
 }
 
 
 class IssuingService(StripeService):
+    authorizations: "AuthorizationService"
+    cards: "CardService"
+    personalization_designs: "PersonalizationDesignService"
+    transactions: "TransactionService"
+
     def __init__(self, requestor):
         super().__init__(requestor)
 

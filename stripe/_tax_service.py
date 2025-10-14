@@ -1,21 +1,32 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_service import StripeService
-from stripe.tax._calculation_service import CalculationService
-from stripe.tax._registration_service import RegistrationService
-from stripe.tax._settings_service import SettingsService
-from stripe.tax._transaction_service import TransactionService
 from importlib import import_module
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.tax._calculation_service import CalculationService
+    from stripe.tax._registration_service import RegistrationService
+    from stripe.tax._settings_service import SettingsService
+    from stripe.tax._transaction_service import TransactionService
 
 _subservices = {
-    "calculations": ["stripe._account_service", "AccountService"],
-    "registrations": ["stripe._account_service", "AccountService"],
-    "settings": ["stripe._account_service", "AccountService"],
-    "transactions": ["stripe._account_service", "AccountService"],
+    "calculations": ["stripe.tax._calculation_service", "CalculationService"],
+    "registrations": [
+        "stripe.tax._registration_service",
+        "RegistrationService",
+    ],
+    "settings": ["stripe.tax._settings_service", "SettingsService"],
+    "transactions": ["stripe.tax._transaction_service", "TransactionService"],
 }
 
 
 class TaxService(StripeService):
+    calculations: "CalculationService"
+    registrations: "RegistrationService"
+    settings: "SettingsService"
+    transactions: "TransactionService"
+
     def __init__(self, requestor):
         super().__init__(requestor)
 

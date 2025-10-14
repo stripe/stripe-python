@@ -1,12 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._account import Account
-from stripe._account_capability_service import AccountCapabilityService
-from stripe._account_external_account_service import (
-    AccountExternalAccountService,
-)
-from stripe._account_login_link_service import AccountLoginLinkService
-from stripe._account_person_service import AccountPersonService
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
@@ -16,6 +10,12 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._account_capability_service import AccountCapabilityService
+    from stripe._account_external_account_service import (
+        AccountExternalAccountService,
+    )
+    from stripe._account_login_link_service import AccountLoginLinkService
+    from stripe._account_person_service import AccountPersonService
     from stripe.params._account_create_params import AccountCreateParams
     from stripe.params._account_delete_params import AccountDeleteParams
     from stripe.params._account_list_params import AccountListParams
@@ -27,14 +27,28 @@ if TYPE_CHECKING:
     from stripe.params._account_update_params import AccountUpdateParams
 
 _subservices = {
-    "capabilities": ["stripe._account_service", "AccountService"],
-    "external_accounts": ["stripe._account_service", "AccountService"],
-    "login_links": ["stripe._account_service", "AccountService"],
-    "persons": ["stripe._account_service", "AccountService"],
+    "capabilities": [
+        "stripe._account_capability_service",
+        "AccountCapabilityService",
+    ],
+    "external_accounts": [
+        "stripe._account_external_account_service",
+        "AccountExternalAccountService",
+    ],
+    "login_links": [
+        "stripe._account_login_link_service",
+        "AccountLoginLinkService",
+    ],
+    "persons": ["stripe._account_person_service", "AccountPersonService"],
 }
 
 
 class AccountService(StripeService):
+    capabilities: "AccountCapabilityService"
+    external_accounts: "AccountExternalAccountService"
+    login_links: "AccountLoginLinkService"
+    persons: "AccountPersonService"
+
     def __init__(self, requestor):
         super().__init__(requestor)
 

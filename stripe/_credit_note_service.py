@@ -1,10 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._credit_note import CreditNote
-from stripe._credit_note_line_item_service import CreditNoteLineItemService
-from stripe._credit_note_preview_lines_service import (
-    CreditNotePreviewLinesService,
-)
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
@@ -14,6 +10,10 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._credit_note_line_item_service import CreditNoteLineItemService
+    from stripe._credit_note_preview_lines_service import (
+        CreditNotePreviewLinesService,
+    )
     from stripe.params._credit_note_create_params import CreditNoteCreateParams
     from stripe.params._credit_note_list_params import CreditNoteListParams
     from stripe.params._credit_note_preview_params import (
@@ -28,12 +28,21 @@ if TYPE_CHECKING:
     )
 
 _subservices = {
-    "line_items": ["stripe._account_service", "AccountService"],
-    "preview_lines": ["stripe._account_service", "AccountService"],
+    "line_items": [
+        "stripe._credit_note_line_item_service",
+        "CreditNoteLineItemService",
+    ],
+    "preview_lines": [
+        "stripe._credit_note_preview_lines_service",
+        "CreditNotePreviewLinesService",
+    ],
 }
 
 
 class CreditNoteService(StripeService):
+    line_items: "CreditNoteLineItemService"
+    preview_lines: "CreditNotePreviewLinesService"
+
     def __init__(self, requestor):
         super().__init__(requestor)
 

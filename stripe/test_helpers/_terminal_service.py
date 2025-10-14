@@ -1,13 +1,23 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_service import StripeService
-from stripe.test_helpers.terminal._reader_service import ReaderService
 from importlib import import_module
+from typing_extensions import TYPE_CHECKING
 
-_subservices = {"readers": ["stripe._account_service", "AccountService"]}
+if TYPE_CHECKING:
+    from stripe.test_helpers.terminal._reader_service import ReaderService
+
+_subservices = {
+    "readers": [
+        "stripe.test_helpers.terminal._reader_service",
+        "ReaderService",
+    ],
+}
 
 
 class TerminalService(StripeService):
+    readers: "ReaderService"
+
     def __init__(self, requestor):
         super().__init__(requestor)
 

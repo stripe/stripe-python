@@ -4,9 +4,6 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.tax._calculation import Calculation
-from stripe.tax._calculation_line_item_service import (
-    CalculationLineItemService,
-)
 from typing import Optional, cast
 from importlib import import_module
 from typing_extensions import TYPE_CHECKING
@@ -18,11 +15,21 @@ if TYPE_CHECKING:
     from stripe.params.tax._calculation_retrieve_params import (
         CalculationRetrieveParams,
     )
+    from stripe.tax._calculation_line_item_service import (
+        CalculationLineItemService,
+    )
 
-_subservices = {"line_items": ["stripe._account_service", "AccountService"]}
+_subservices = {
+    "line_items": [
+        "stripe.tax._calculation_line_item_service",
+        "CalculationLineItemService",
+    ],
+}
 
 
 class CalculationService(StripeService):
+    line_items: "CalculationLineItemService"
+
     def __init__(self, requestor):
         super().__init__(requestor)
 
