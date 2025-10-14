@@ -113,15 +113,26 @@ def _console_log_level():
         return None
 
 
+def _redact_sensitive(data: dict) -> dict:
+    # Redact sensitive keys at top-level and in nested dicts
+    SENSITIVE_KEYS = {'api_key', 'authorization', 'password', 'access_token', 'secret', 'token'}
+    def redact(v):
+        if isinstance(v, dict):
+            return {k: ('***REDACTED***' if k.lower() in SENSITIVE_KEYS else redact(val)) for k, val in v.items()}
+        return v
+    return {k: ('***REDACTED***' if k.lower() in SENSITIVE_KEYS else redact(v)) for k, v in data.items()}
+
 def log_debug(message, **params):
-    msg = logfmt(dict(message=message, **params))
+    safe_params = _redact_sensitive(dict(message=message, **params))
+    msg = logfmt(safe_params)
     if _console_log_level() == "debug":
         print(msg, file=sys.stderr)
     logger.debug(msg)
 
 
 def log_info(message, **params):
-    msg = logfmt(dict(message=message, **params))
+    safe_params = _redact_sensitive(dict(message=message, **params))
+    msg = logfmt(safe_params)
     if _console_log_level() in ["debug", "info"]:
         print(msg, file=sys.stderr)
     logger.info(msg)
