@@ -11,16 +11,25 @@ if TYPE_CHECKING:
         ScheduledQueryRunService as ScheduledQueryRunService,
     )
 
-_submodules = {
-    "ScheduledQueryRun": "stripe.sigma._scheduled_query_run",
-    "ScheduledQueryRunService": "stripe.sigma._scheduled_query_run_service",
+# name -> (import_target, is_submodule)
+_import_map = {
+    "ScheduledQueryRun": ("stripe.sigma._scheduled_query_run", False),
+    "ScheduledQueryRunService": (
+        "stripe.sigma._scheduled_query_run_service",
+        False,
+    ),
 }
 if not TYPE_CHECKING:
 
     def __getattr__(name):
         try:
+            target, is_submodule = _import_map[name]
+            module = import_module(target)
+            if is_submodule:
+                return module
+
             return getattr(
-                import_module(_submodules[name]),
+                module,
                 name,
             )
         except KeyError:

@@ -44,35 +44,104 @@ if TYPE_CHECKING:
         VerificationSessionUpdateParamsProvidedDetails as VerificationSessionUpdateParamsProvidedDetails,
     )
 
-_submodules = {
-    "VerificationReportListParams": "stripe.params.identity._verification_report_list_params",
-    "VerificationReportListParamsCreated": "stripe.params.identity._verification_report_list_params",
-    "VerificationReportRetrieveParams": "stripe.params.identity._verification_report_retrieve_params",
-    "VerificationSessionCancelParams": "stripe.params.identity._verification_session_cancel_params",
-    "VerificationSessionCreateParams": "stripe.params.identity._verification_session_create_params",
-    "VerificationSessionCreateParamsOptions": "stripe.params.identity._verification_session_create_params",
-    "VerificationSessionCreateParamsOptionsDocument": "stripe.params.identity._verification_session_create_params",
-    "VerificationSessionCreateParamsProvidedDetails": "stripe.params.identity._verification_session_create_params",
-    "VerificationSessionCreateParamsRelatedPerson": "stripe.params.identity._verification_session_create_params",
-    "VerificationSessionListParams": "stripe.params.identity._verification_session_list_params",
-    "VerificationSessionListParamsCreated": "stripe.params.identity._verification_session_list_params",
-    "VerificationSessionModifyParams": "stripe.params.identity._verification_session_modify_params",
-    "VerificationSessionModifyParamsOptions": "stripe.params.identity._verification_session_modify_params",
-    "VerificationSessionModifyParamsOptionsDocument": "stripe.params.identity._verification_session_modify_params",
-    "VerificationSessionModifyParamsProvidedDetails": "stripe.params.identity._verification_session_modify_params",
-    "VerificationSessionRedactParams": "stripe.params.identity._verification_session_redact_params",
-    "VerificationSessionRetrieveParams": "stripe.params.identity._verification_session_retrieve_params",
-    "VerificationSessionUpdateParams": "stripe.params.identity._verification_session_update_params",
-    "VerificationSessionUpdateParamsOptions": "stripe.params.identity._verification_session_update_params",
-    "VerificationSessionUpdateParamsOptionsDocument": "stripe.params.identity._verification_session_update_params",
-    "VerificationSessionUpdateParamsProvidedDetails": "stripe.params.identity._verification_session_update_params",
+# name -> (import_target, is_submodule)
+_import_map = {
+    "VerificationReportListParams": (
+        "stripe.params.identity._verification_report_list_params",
+        False,
+    ),
+    "VerificationReportListParamsCreated": (
+        "stripe.params.identity._verification_report_list_params",
+        False,
+    ),
+    "VerificationReportRetrieveParams": (
+        "stripe.params.identity._verification_report_retrieve_params",
+        False,
+    ),
+    "VerificationSessionCancelParams": (
+        "stripe.params.identity._verification_session_cancel_params",
+        False,
+    ),
+    "VerificationSessionCreateParams": (
+        "stripe.params.identity._verification_session_create_params",
+        False,
+    ),
+    "VerificationSessionCreateParamsOptions": (
+        "stripe.params.identity._verification_session_create_params",
+        False,
+    ),
+    "VerificationSessionCreateParamsOptionsDocument": (
+        "stripe.params.identity._verification_session_create_params",
+        False,
+    ),
+    "VerificationSessionCreateParamsProvidedDetails": (
+        "stripe.params.identity._verification_session_create_params",
+        False,
+    ),
+    "VerificationSessionCreateParamsRelatedPerson": (
+        "stripe.params.identity._verification_session_create_params",
+        False,
+    ),
+    "VerificationSessionListParams": (
+        "stripe.params.identity._verification_session_list_params",
+        False,
+    ),
+    "VerificationSessionListParamsCreated": (
+        "stripe.params.identity._verification_session_list_params",
+        False,
+    ),
+    "VerificationSessionModifyParams": (
+        "stripe.params.identity._verification_session_modify_params",
+        False,
+    ),
+    "VerificationSessionModifyParamsOptions": (
+        "stripe.params.identity._verification_session_modify_params",
+        False,
+    ),
+    "VerificationSessionModifyParamsOptionsDocument": (
+        "stripe.params.identity._verification_session_modify_params",
+        False,
+    ),
+    "VerificationSessionModifyParamsProvidedDetails": (
+        "stripe.params.identity._verification_session_modify_params",
+        False,
+    ),
+    "VerificationSessionRedactParams": (
+        "stripe.params.identity._verification_session_redact_params",
+        False,
+    ),
+    "VerificationSessionRetrieveParams": (
+        "stripe.params.identity._verification_session_retrieve_params",
+        False,
+    ),
+    "VerificationSessionUpdateParams": (
+        "stripe.params.identity._verification_session_update_params",
+        False,
+    ),
+    "VerificationSessionUpdateParamsOptions": (
+        "stripe.params.identity._verification_session_update_params",
+        False,
+    ),
+    "VerificationSessionUpdateParamsOptionsDocument": (
+        "stripe.params.identity._verification_session_update_params",
+        False,
+    ),
+    "VerificationSessionUpdateParamsProvidedDetails": (
+        "stripe.params.identity._verification_session_update_params",
+        False,
+    ),
 }
 if not TYPE_CHECKING:
 
     def __getattr__(name):
         try:
+            target, is_submodule = _import_map[name]
+            module = import_module(target)
+            if is_submodule:
+                return module
+
             return getattr(
-                import_module(_submodules[name]),
+                module,
                 name,
             )
         except KeyError:

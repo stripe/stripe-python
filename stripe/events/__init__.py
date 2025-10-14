@@ -26,21 +26,45 @@ if TYPE_CHECKING:
         V2CoreEventDestinationPingEventNotification as V2CoreEventDestinationPingEventNotification,
     )
 
-_submodules = {
-    "ALL_EVENT_NOTIFICATIONS": "stripe.events._event_classes",
-    "V1BillingMeterErrorReportTriggeredEvent": "stripe.events._v1_billing_meter_error_report_triggered_event",
-    "V1BillingMeterErrorReportTriggeredEventNotification": "stripe.events._v1_billing_meter_error_report_triggered_event",
-    "V1BillingMeterNoMeterFoundEvent": "stripe.events._v1_billing_meter_no_meter_found_event",
-    "V1BillingMeterNoMeterFoundEventNotification": "stripe.events._v1_billing_meter_no_meter_found_event",
-    "V2CoreEventDestinationPingEvent": "stripe.events._v2_core_event_destination_ping_event",
-    "V2CoreEventDestinationPingEventNotification": "stripe.events._v2_core_event_destination_ping_event",
+# name -> (import_target, is_submodule)
+_import_map = {
+    "ALL_EVENT_NOTIFICATIONS": ("stripe.events._event_classes", False),
+    "V1BillingMeterErrorReportTriggeredEvent": (
+        "stripe.events._v1_billing_meter_error_report_triggered_event",
+        False,
+    ),
+    "V1BillingMeterErrorReportTriggeredEventNotification": (
+        "stripe.events._v1_billing_meter_error_report_triggered_event",
+        False,
+    ),
+    "V1BillingMeterNoMeterFoundEvent": (
+        "stripe.events._v1_billing_meter_no_meter_found_event",
+        False,
+    ),
+    "V1BillingMeterNoMeterFoundEventNotification": (
+        "stripe.events._v1_billing_meter_no_meter_found_event",
+        False,
+    ),
+    "V2CoreEventDestinationPingEvent": (
+        "stripe.events._v2_core_event_destination_ping_event",
+        False,
+    ),
+    "V2CoreEventDestinationPingEventNotification": (
+        "stripe.events._v2_core_event_destination_ping_event",
+        False,
+    ),
 }
 if not TYPE_CHECKING:
 
     def __getattr__(name):
         try:
+            target, is_submodule = _import_map[name]
+            module = import_module(target)
+            if is_submodule:
+                return module
+
             return getattr(
-                import_module(_submodules[name]),
+                module,
                 name,
             )
         except KeyError:

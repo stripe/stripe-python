@@ -17,18 +17,33 @@ if TYPE_CHECKING:
         TransactionService as TransactionService,
     )
 
-_submodules = {
-    "AuthorizationService": "stripe.test_helpers.issuing._authorization_service",
-    "CardService": "stripe.test_helpers.issuing._card_service",
-    "PersonalizationDesignService": "stripe.test_helpers.issuing._personalization_design_service",
-    "TransactionService": "stripe.test_helpers.issuing._transaction_service",
+# name -> (import_target, is_submodule)
+_import_map = {
+    "AuthorizationService": (
+        "stripe.test_helpers.issuing._authorization_service",
+        False,
+    ),
+    "CardService": ("stripe.test_helpers.issuing._card_service", False),
+    "PersonalizationDesignService": (
+        "stripe.test_helpers.issuing._personalization_design_service",
+        False,
+    ),
+    "TransactionService": (
+        "stripe.test_helpers.issuing._transaction_service",
+        False,
+    ),
 }
 if not TYPE_CHECKING:
 
     def __getattr__(name):
         try:
+            target, is_submodule = _import_map[name]
+            module = import_module(target)
+            if is_submodule:
+                return module
+
             return getattr(
-                import_module(_submodules[name]),
+                module,
                 name,
             )
         except KeyError:

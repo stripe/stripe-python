@@ -21,22 +21,37 @@ if TYPE_CHECKING:
         SecretListParamsScope as SecretListParamsScope,
     )
 
-_submodules = {
-    "SecretCreateParams": "stripe.params.apps._secret_create_params",
-    "SecretCreateParamsScope": "stripe.params.apps._secret_create_params",
-    "SecretDeleteWhereParams": "stripe.params.apps._secret_delete_where_params",
-    "SecretDeleteWhereParamsScope": "stripe.params.apps._secret_delete_where_params",
-    "SecretFindParams": "stripe.params.apps._secret_find_params",
-    "SecretFindParamsScope": "stripe.params.apps._secret_find_params",
-    "SecretListParams": "stripe.params.apps._secret_list_params",
-    "SecretListParamsScope": "stripe.params.apps._secret_list_params",
+# name -> (import_target, is_submodule)
+_import_map = {
+    "SecretCreateParams": ("stripe.params.apps._secret_create_params", False),
+    "SecretCreateParamsScope": (
+        "stripe.params.apps._secret_create_params",
+        False,
+    ),
+    "SecretDeleteWhereParams": (
+        "stripe.params.apps._secret_delete_where_params",
+        False,
+    ),
+    "SecretDeleteWhereParamsScope": (
+        "stripe.params.apps._secret_delete_where_params",
+        False,
+    ),
+    "SecretFindParams": ("stripe.params.apps._secret_find_params", False),
+    "SecretFindParamsScope": ("stripe.params.apps._secret_find_params", False),
+    "SecretListParams": ("stripe.params.apps._secret_list_params", False),
+    "SecretListParamsScope": ("stripe.params.apps._secret_list_params", False),
 }
 if not TYPE_CHECKING:
 
     def __getattr__(name):
         try:
+            target, is_submodule = _import_map[name]
+            module = import_module(target)
+            if is_submodule:
+                return module
+
             return getattr(
-                import_module(_submodules[name]),
+                module,
                 name,
             )
         except KeyError:

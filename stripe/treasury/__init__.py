@@ -65,36 +65,69 @@ if TYPE_CHECKING:
         TransactionService as TransactionService,
     )
 
-_submodules = {
-    "CreditReversal": "stripe.treasury._credit_reversal",
-    "CreditReversalService": "stripe.treasury._credit_reversal_service",
-    "DebitReversal": "stripe.treasury._debit_reversal",
-    "DebitReversalService": "stripe.treasury._debit_reversal_service",
-    "FinancialAccount": "stripe.treasury._financial_account",
-    "FinancialAccountFeatures": "stripe.treasury._financial_account_features",
-    "FinancialAccountFeaturesService": "stripe.treasury._financial_account_features_service",
-    "FinancialAccountService": "stripe.treasury._financial_account_service",
-    "InboundTransfer": "stripe.treasury._inbound_transfer",
-    "InboundTransferService": "stripe.treasury._inbound_transfer_service",
-    "OutboundPayment": "stripe.treasury._outbound_payment",
-    "OutboundPaymentService": "stripe.treasury._outbound_payment_service",
-    "OutboundTransfer": "stripe.treasury._outbound_transfer",
-    "OutboundTransferService": "stripe.treasury._outbound_transfer_service",
-    "ReceivedCredit": "stripe.treasury._received_credit",
-    "ReceivedCreditService": "stripe.treasury._received_credit_service",
-    "ReceivedDebit": "stripe.treasury._received_debit",
-    "ReceivedDebitService": "stripe.treasury._received_debit_service",
-    "Transaction": "stripe.treasury._transaction",
-    "TransactionEntry": "stripe.treasury._transaction_entry",
-    "TransactionEntryService": "stripe.treasury._transaction_entry_service",
-    "TransactionService": "stripe.treasury._transaction_service",
+# name -> (import_target, is_submodule)
+_import_map = {
+    "CreditReversal": ("stripe.treasury._credit_reversal", False),
+    "CreditReversalService": (
+        "stripe.treasury._credit_reversal_service",
+        False,
+    ),
+    "DebitReversal": ("stripe.treasury._debit_reversal", False),
+    "DebitReversalService": ("stripe.treasury._debit_reversal_service", False),
+    "FinancialAccount": ("stripe.treasury._financial_account", False),
+    "FinancialAccountFeatures": (
+        "stripe.treasury._financial_account_features",
+        False,
+    ),
+    "FinancialAccountFeaturesService": (
+        "stripe.treasury._financial_account_features_service",
+        False,
+    ),
+    "FinancialAccountService": (
+        "stripe.treasury._financial_account_service",
+        False,
+    ),
+    "InboundTransfer": ("stripe.treasury._inbound_transfer", False),
+    "InboundTransferService": (
+        "stripe.treasury._inbound_transfer_service",
+        False,
+    ),
+    "OutboundPayment": ("stripe.treasury._outbound_payment", False),
+    "OutboundPaymentService": (
+        "stripe.treasury._outbound_payment_service",
+        False,
+    ),
+    "OutboundTransfer": ("stripe.treasury._outbound_transfer", False),
+    "OutboundTransferService": (
+        "stripe.treasury._outbound_transfer_service",
+        False,
+    ),
+    "ReceivedCredit": ("stripe.treasury._received_credit", False),
+    "ReceivedCreditService": (
+        "stripe.treasury._received_credit_service",
+        False,
+    ),
+    "ReceivedDebit": ("stripe.treasury._received_debit", False),
+    "ReceivedDebitService": ("stripe.treasury._received_debit_service", False),
+    "Transaction": ("stripe.treasury._transaction", False),
+    "TransactionEntry": ("stripe.treasury._transaction_entry", False),
+    "TransactionEntryService": (
+        "stripe.treasury._transaction_entry_service",
+        False,
+    ),
+    "TransactionService": ("stripe.treasury._transaction_service", False),
 }
 if not TYPE_CHECKING:
 
     def __getattr__(name):
         try:
+            target, is_submodule = _import_map[name]
+            module = import_module(target)
+            if is_submodule:
+                return module
+
             return getattr(
-                import_module(_submodules[name]),
+                module,
                 name,
             )
         except KeyError:

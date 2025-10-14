@@ -57,40 +57,124 @@ if TYPE_CHECKING:
         ReceivedDebitCreateParamsInitiatingPaymentMethodDetailsUsBankAccount as ReceivedDebitCreateParamsInitiatingPaymentMethodDetailsUsBankAccount,
     )
 
-_submodules = {
-    "InboundTransferFailParams": "stripe.params.test_helpers.treasury._inbound_transfer_fail_params",
-    "InboundTransferFailParamsFailureDetails": "stripe.params.test_helpers.treasury._inbound_transfer_fail_params",
-    "InboundTransferReturnInboundTransferParams": "stripe.params.test_helpers.treasury._inbound_transfer_return_inbound_transfer_params",
-    "InboundTransferSucceedParams": "stripe.params.test_helpers.treasury._inbound_transfer_succeed_params",
-    "OutboundPaymentFailParams": "stripe.params.test_helpers.treasury._outbound_payment_fail_params",
-    "OutboundPaymentPostParams": "stripe.params.test_helpers.treasury._outbound_payment_post_params",
-    "OutboundPaymentReturnOutboundPaymentParams": "stripe.params.test_helpers.treasury._outbound_payment_return_outbound_payment_params",
-    "OutboundPaymentReturnOutboundPaymentParamsReturnedDetails": "stripe.params.test_helpers.treasury._outbound_payment_return_outbound_payment_params",
-    "OutboundPaymentUpdateParams": "stripe.params.test_helpers.treasury._outbound_payment_update_params",
-    "OutboundPaymentUpdateParamsTrackingDetails": "stripe.params.test_helpers.treasury._outbound_payment_update_params",
-    "OutboundPaymentUpdateParamsTrackingDetailsAch": "stripe.params.test_helpers.treasury._outbound_payment_update_params",
-    "OutboundPaymentUpdateParamsTrackingDetailsUsDomesticWire": "stripe.params.test_helpers.treasury._outbound_payment_update_params",
-    "OutboundTransferFailParams": "stripe.params.test_helpers.treasury._outbound_transfer_fail_params",
-    "OutboundTransferPostParams": "stripe.params.test_helpers.treasury._outbound_transfer_post_params",
-    "OutboundTransferReturnOutboundTransferParams": "stripe.params.test_helpers.treasury._outbound_transfer_return_outbound_transfer_params",
-    "OutboundTransferReturnOutboundTransferParamsReturnedDetails": "stripe.params.test_helpers.treasury._outbound_transfer_return_outbound_transfer_params",
-    "OutboundTransferUpdateParams": "stripe.params.test_helpers.treasury._outbound_transfer_update_params",
-    "OutboundTransferUpdateParamsTrackingDetails": "stripe.params.test_helpers.treasury._outbound_transfer_update_params",
-    "OutboundTransferUpdateParamsTrackingDetailsAch": "stripe.params.test_helpers.treasury._outbound_transfer_update_params",
-    "OutboundTransferUpdateParamsTrackingDetailsUsDomesticWire": "stripe.params.test_helpers.treasury._outbound_transfer_update_params",
-    "ReceivedCreditCreateParams": "stripe.params.test_helpers.treasury._received_credit_create_params",
-    "ReceivedCreditCreateParamsInitiatingPaymentMethodDetails": "stripe.params.test_helpers.treasury._received_credit_create_params",
-    "ReceivedCreditCreateParamsInitiatingPaymentMethodDetailsUsBankAccount": "stripe.params.test_helpers.treasury._received_credit_create_params",
-    "ReceivedDebitCreateParams": "stripe.params.test_helpers.treasury._received_debit_create_params",
-    "ReceivedDebitCreateParamsInitiatingPaymentMethodDetails": "stripe.params.test_helpers.treasury._received_debit_create_params",
-    "ReceivedDebitCreateParamsInitiatingPaymentMethodDetailsUsBankAccount": "stripe.params.test_helpers.treasury._received_debit_create_params",
+# name -> (import_target, is_submodule)
+_import_map = {
+    "InboundTransferFailParams": (
+        "stripe.params.test_helpers.treasury._inbound_transfer_fail_params",
+        False,
+    ),
+    "InboundTransferFailParamsFailureDetails": (
+        "stripe.params.test_helpers.treasury._inbound_transfer_fail_params",
+        False,
+    ),
+    "InboundTransferReturnInboundTransferParams": (
+        "stripe.params.test_helpers.treasury._inbound_transfer_return_inbound_transfer_params",
+        False,
+    ),
+    "InboundTransferSucceedParams": (
+        "stripe.params.test_helpers.treasury._inbound_transfer_succeed_params",
+        False,
+    ),
+    "OutboundPaymentFailParams": (
+        "stripe.params.test_helpers.treasury._outbound_payment_fail_params",
+        False,
+    ),
+    "OutboundPaymentPostParams": (
+        "stripe.params.test_helpers.treasury._outbound_payment_post_params",
+        False,
+    ),
+    "OutboundPaymentReturnOutboundPaymentParams": (
+        "stripe.params.test_helpers.treasury._outbound_payment_return_outbound_payment_params",
+        False,
+    ),
+    "OutboundPaymentReturnOutboundPaymentParamsReturnedDetails": (
+        "stripe.params.test_helpers.treasury._outbound_payment_return_outbound_payment_params",
+        False,
+    ),
+    "OutboundPaymentUpdateParams": (
+        "stripe.params.test_helpers.treasury._outbound_payment_update_params",
+        False,
+    ),
+    "OutboundPaymentUpdateParamsTrackingDetails": (
+        "stripe.params.test_helpers.treasury._outbound_payment_update_params",
+        False,
+    ),
+    "OutboundPaymentUpdateParamsTrackingDetailsAch": (
+        "stripe.params.test_helpers.treasury._outbound_payment_update_params",
+        False,
+    ),
+    "OutboundPaymentUpdateParamsTrackingDetailsUsDomesticWire": (
+        "stripe.params.test_helpers.treasury._outbound_payment_update_params",
+        False,
+    ),
+    "OutboundTransferFailParams": (
+        "stripe.params.test_helpers.treasury._outbound_transfer_fail_params",
+        False,
+    ),
+    "OutboundTransferPostParams": (
+        "stripe.params.test_helpers.treasury._outbound_transfer_post_params",
+        False,
+    ),
+    "OutboundTransferReturnOutboundTransferParams": (
+        "stripe.params.test_helpers.treasury._outbound_transfer_return_outbound_transfer_params",
+        False,
+    ),
+    "OutboundTransferReturnOutboundTransferParamsReturnedDetails": (
+        "stripe.params.test_helpers.treasury._outbound_transfer_return_outbound_transfer_params",
+        False,
+    ),
+    "OutboundTransferUpdateParams": (
+        "stripe.params.test_helpers.treasury._outbound_transfer_update_params",
+        False,
+    ),
+    "OutboundTransferUpdateParamsTrackingDetails": (
+        "stripe.params.test_helpers.treasury._outbound_transfer_update_params",
+        False,
+    ),
+    "OutboundTransferUpdateParamsTrackingDetailsAch": (
+        "stripe.params.test_helpers.treasury._outbound_transfer_update_params",
+        False,
+    ),
+    "OutboundTransferUpdateParamsTrackingDetailsUsDomesticWire": (
+        "stripe.params.test_helpers.treasury._outbound_transfer_update_params",
+        False,
+    ),
+    "ReceivedCreditCreateParams": (
+        "stripe.params.test_helpers.treasury._received_credit_create_params",
+        False,
+    ),
+    "ReceivedCreditCreateParamsInitiatingPaymentMethodDetails": (
+        "stripe.params.test_helpers.treasury._received_credit_create_params",
+        False,
+    ),
+    "ReceivedCreditCreateParamsInitiatingPaymentMethodDetailsUsBankAccount": (
+        "stripe.params.test_helpers.treasury._received_credit_create_params",
+        False,
+    ),
+    "ReceivedDebitCreateParams": (
+        "stripe.params.test_helpers.treasury._received_debit_create_params",
+        False,
+    ),
+    "ReceivedDebitCreateParamsInitiatingPaymentMethodDetails": (
+        "stripe.params.test_helpers.treasury._received_debit_create_params",
+        False,
+    ),
+    "ReceivedDebitCreateParamsInitiatingPaymentMethodDetailsUsBankAccount": (
+        "stripe.params.test_helpers.treasury._received_debit_create_params",
+        False,
+    ),
 }
 if not TYPE_CHECKING:
 
     def __getattr__(name):
         try:
+            target, is_submodule = _import_map[name]
+            module = import_module(target)
+            if is_submodule:
+                return module
+
             return getattr(
-                import_module(_submodules[name]),
+                module,
                 name,
             )
         except KeyError:

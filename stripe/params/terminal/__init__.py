@@ -217,166 +217,625 @@ if TYPE_CHECKING:
         ReaderUpdateParams as ReaderUpdateParams,
     )
 
-_submodules = {
-    "ConfigurationCreateParams": "stripe.params.terminal._configuration_create_params",
-    "ConfigurationCreateParamsBbposWisepad3": "stripe.params.terminal._configuration_create_params",
-    "ConfigurationCreateParamsBbposWiseposE": "stripe.params.terminal._configuration_create_params",
-    "ConfigurationCreateParamsOffline": "stripe.params.terminal._configuration_create_params",
-    "ConfigurationCreateParamsRebootWindow": "stripe.params.terminal._configuration_create_params",
-    "ConfigurationCreateParamsStripeS700": "stripe.params.terminal._configuration_create_params",
-    "ConfigurationCreateParamsTipping": "stripe.params.terminal._configuration_create_params",
-    "ConfigurationCreateParamsTippingAed": "stripe.params.terminal._configuration_create_params",
-    "ConfigurationCreateParamsTippingAud": "stripe.params.terminal._configuration_create_params",
-    "ConfigurationCreateParamsTippingBgn": "stripe.params.terminal._configuration_create_params",
-    "ConfigurationCreateParamsTippingCad": "stripe.params.terminal._configuration_create_params",
-    "ConfigurationCreateParamsTippingChf": "stripe.params.terminal._configuration_create_params",
-    "ConfigurationCreateParamsTippingCzk": "stripe.params.terminal._configuration_create_params",
-    "ConfigurationCreateParamsTippingDkk": "stripe.params.terminal._configuration_create_params",
-    "ConfigurationCreateParamsTippingEur": "stripe.params.terminal._configuration_create_params",
-    "ConfigurationCreateParamsTippingGbp": "stripe.params.terminal._configuration_create_params",
-    "ConfigurationCreateParamsTippingHkd": "stripe.params.terminal._configuration_create_params",
-    "ConfigurationCreateParamsTippingHuf": "stripe.params.terminal._configuration_create_params",
-    "ConfigurationCreateParamsTippingJpy": "stripe.params.terminal._configuration_create_params",
-    "ConfigurationCreateParamsTippingMxn": "stripe.params.terminal._configuration_create_params",
-    "ConfigurationCreateParamsTippingMyr": "stripe.params.terminal._configuration_create_params",
-    "ConfigurationCreateParamsTippingNok": "stripe.params.terminal._configuration_create_params",
-    "ConfigurationCreateParamsTippingNzd": "stripe.params.terminal._configuration_create_params",
-    "ConfigurationCreateParamsTippingPln": "stripe.params.terminal._configuration_create_params",
-    "ConfigurationCreateParamsTippingRon": "stripe.params.terminal._configuration_create_params",
-    "ConfigurationCreateParamsTippingSek": "stripe.params.terminal._configuration_create_params",
-    "ConfigurationCreateParamsTippingSgd": "stripe.params.terminal._configuration_create_params",
-    "ConfigurationCreateParamsTippingUsd": "stripe.params.terminal._configuration_create_params",
-    "ConfigurationCreateParamsVerifoneP400": "stripe.params.terminal._configuration_create_params",
-    "ConfigurationCreateParamsWifi": "stripe.params.terminal._configuration_create_params",
-    "ConfigurationCreateParamsWifiEnterpriseEapPeap": "stripe.params.terminal._configuration_create_params",
-    "ConfigurationCreateParamsWifiEnterpriseEapTls": "stripe.params.terminal._configuration_create_params",
-    "ConfigurationCreateParamsWifiPersonalPsk": "stripe.params.terminal._configuration_create_params",
-    "ConfigurationDeleteParams": "stripe.params.terminal._configuration_delete_params",
-    "ConfigurationListParams": "stripe.params.terminal._configuration_list_params",
-    "ConfigurationModifyParams": "stripe.params.terminal._configuration_modify_params",
-    "ConfigurationModifyParamsBbposWisepad3": "stripe.params.terminal._configuration_modify_params",
-    "ConfigurationModifyParamsBbposWiseposE": "stripe.params.terminal._configuration_modify_params",
-    "ConfigurationModifyParamsOffline": "stripe.params.terminal._configuration_modify_params",
-    "ConfigurationModifyParamsRebootWindow": "stripe.params.terminal._configuration_modify_params",
-    "ConfigurationModifyParamsStripeS700": "stripe.params.terminal._configuration_modify_params",
-    "ConfigurationModifyParamsTipping": "stripe.params.terminal._configuration_modify_params",
-    "ConfigurationModifyParamsTippingAed": "stripe.params.terminal._configuration_modify_params",
-    "ConfigurationModifyParamsTippingAud": "stripe.params.terminal._configuration_modify_params",
-    "ConfigurationModifyParamsTippingBgn": "stripe.params.terminal._configuration_modify_params",
-    "ConfigurationModifyParamsTippingCad": "stripe.params.terminal._configuration_modify_params",
-    "ConfigurationModifyParamsTippingChf": "stripe.params.terminal._configuration_modify_params",
-    "ConfigurationModifyParamsTippingCzk": "stripe.params.terminal._configuration_modify_params",
-    "ConfigurationModifyParamsTippingDkk": "stripe.params.terminal._configuration_modify_params",
-    "ConfigurationModifyParamsTippingEur": "stripe.params.terminal._configuration_modify_params",
-    "ConfigurationModifyParamsTippingGbp": "stripe.params.terminal._configuration_modify_params",
-    "ConfigurationModifyParamsTippingHkd": "stripe.params.terminal._configuration_modify_params",
-    "ConfigurationModifyParamsTippingHuf": "stripe.params.terminal._configuration_modify_params",
-    "ConfigurationModifyParamsTippingJpy": "stripe.params.terminal._configuration_modify_params",
-    "ConfigurationModifyParamsTippingMxn": "stripe.params.terminal._configuration_modify_params",
-    "ConfigurationModifyParamsTippingMyr": "stripe.params.terminal._configuration_modify_params",
-    "ConfigurationModifyParamsTippingNok": "stripe.params.terminal._configuration_modify_params",
-    "ConfigurationModifyParamsTippingNzd": "stripe.params.terminal._configuration_modify_params",
-    "ConfigurationModifyParamsTippingPln": "stripe.params.terminal._configuration_modify_params",
-    "ConfigurationModifyParamsTippingRon": "stripe.params.terminal._configuration_modify_params",
-    "ConfigurationModifyParamsTippingSek": "stripe.params.terminal._configuration_modify_params",
-    "ConfigurationModifyParamsTippingSgd": "stripe.params.terminal._configuration_modify_params",
-    "ConfigurationModifyParamsTippingUsd": "stripe.params.terminal._configuration_modify_params",
-    "ConfigurationModifyParamsVerifoneP400": "stripe.params.terminal._configuration_modify_params",
-    "ConfigurationModifyParamsWifi": "stripe.params.terminal._configuration_modify_params",
-    "ConfigurationModifyParamsWifiEnterpriseEapPeap": "stripe.params.terminal._configuration_modify_params",
-    "ConfigurationModifyParamsWifiEnterpriseEapTls": "stripe.params.terminal._configuration_modify_params",
-    "ConfigurationModifyParamsWifiPersonalPsk": "stripe.params.terminal._configuration_modify_params",
-    "ConfigurationRetrieveParams": "stripe.params.terminal._configuration_retrieve_params",
-    "ConfigurationUpdateParams": "stripe.params.terminal._configuration_update_params",
-    "ConfigurationUpdateParamsBbposWisepad3": "stripe.params.terminal._configuration_update_params",
-    "ConfigurationUpdateParamsBbposWiseposE": "stripe.params.terminal._configuration_update_params",
-    "ConfigurationUpdateParamsOffline": "stripe.params.terminal._configuration_update_params",
-    "ConfigurationUpdateParamsRebootWindow": "stripe.params.terminal._configuration_update_params",
-    "ConfigurationUpdateParamsStripeS700": "stripe.params.terminal._configuration_update_params",
-    "ConfigurationUpdateParamsTipping": "stripe.params.terminal._configuration_update_params",
-    "ConfigurationUpdateParamsTippingAed": "stripe.params.terminal._configuration_update_params",
-    "ConfigurationUpdateParamsTippingAud": "stripe.params.terminal._configuration_update_params",
-    "ConfigurationUpdateParamsTippingBgn": "stripe.params.terminal._configuration_update_params",
-    "ConfigurationUpdateParamsTippingCad": "stripe.params.terminal._configuration_update_params",
-    "ConfigurationUpdateParamsTippingChf": "stripe.params.terminal._configuration_update_params",
-    "ConfigurationUpdateParamsTippingCzk": "stripe.params.terminal._configuration_update_params",
-    "ConfigurationUpdateParamsTippingDkk": "stripe.params.terminal._configuration_update_params",
-    "ConfigurationUpdateParamsTippingEur": "stripe.params.terminal._configuration_update_params",
-    "ConfigurationUpdateParamsTippingGbp": "stripe.params.terminal._configuration_update_params",
-    "ConfigurationUpdateParamsTippingHkd": "stripe.params.terminal._configuration_update_params",
-    "ConfigurationUpdateParamsTippingHuf": "stripe.params.terminal._configuration_update_params",
-    "ConfigurationUpdateParamsTippingJpy": "stripe.params.terminal._configuration_update_params",
-    "ConfigurationUpdateParamsTippingMxn": "stripe.params.terminal._configuration_update_params",
-    "ConfigurationUpdateParamsTippingMyr": "stripe.params.terminal._configuration_update_params",
-    "ConfigurationUpdateParamsTippingNok": "stripe.params.terminal._configuration_update_params",
-    "ConfigurationUpdateParamsTippingNzd": "stripe.params.terminal._configuration_update_params",
-    "ConfigurationUpdateParamsTippingPln": "stripe.params.terminal._configuration_update_params",
-    "ConfigurationUpdateParamsTippingRon": "stripe.params.terminal._configuration_update_params",
-    "ConfigurationUpdateParamsTippingSek": "stripe.params.terminal._configuration_update_params",
-    "ConfigurationUpdateParamsTippingSgd": "stripe.params.terminal._configuration_update_params",
-    "ConfigurationUpdateParamsTippingUsd": "stripe.params.terminal._configuration_update_params",
-    "ConfigurationUpdateParamsVerifoneP400": "stripe.params.terminal._configuration_update_params",
-    "ConfigurationUpdateParamsWifi": "stripe.params.terminal._configuration_update_params",
-    "ConfigurationUpdateParamsWifiEnterpriseEapPeap": "stripe.params.terminal._configuration_update_params",
-    "ConfigurationUpdateParamsWifiEnterpriseEapTls": "stripe.params.terminal._configuration_update_params",
-    "ConfigurationUpdateParamsWifiPersonalPsk": "stripe.params.terminal._configuration_update_params",
-    "ConnectionTokenCreateParams": "stripe.params.terminal._connection_token_create_params",
-    "LocationCreateParams": "stripe.params.terminal._location_create_params",
-    "LocationCreateParamsAddress": "stripe.params.terminal._location_create_params",
-    "LocationCreateParamsAddressKana": "stripe.params.terminal._location_create_params",
-    "LocationCreateParamsAddressKanji": "stripe.params.terminal._location_create_params",
-    "LocationDeleteParams": "stripe.params.terminal._location_delete_params",
-    "LocationListParams": "stripe.params.terminal._location_list_params",
-    "LocationModifyParams": "stripe.params.terminal._location_modify_params",
-    "LocationModifyParamsAddress": "stripe.params.terminal._location_modify_params",
-    "LocationModifyParamsAddressKana": "stripe.params.terminal._location_modify_params",
-    "LocationModifyParamsAddressKanji": "stripe.params.terminal._location_modify_params",
-    "LocationRetrieveParams": "stripe.params.terminal._location_retrieve_params",
-    "LocationUpdateParams": "stripe.params.terminal._location_update_params",
-    "LocationUpdateParamsAddress": "stripe.params.terminal._location_update_params",
-    "LocationUpdateParamsAddressKana": "stripe.params.terminal._location_update_params",
-    "LocationUpdateParamsAddressKanji": "stripe.params.terminal._location_update_params",
-    "ReaderCancelActionParams": "stripe.params.terminal._reader_cancel_action_params",
-    "ReaderCollectInputsParams": "stripe.params.terminal._reader_collect_inputs_params",
-    "ReaderCollectInputsParamsInput": "stripe.params.terminal._reader_collect_inputs_params",
-    "ReaderCollectInputsParamsInputCustomText": "stripe.params.terminal._reader_collect_inputs_params",
-    "ReaderCollectInputsParamsInputSelection": "stripe.params.terminal._reader_collect_inputs_params",
-    "ReaderCollectInputsParamsInputSelectionChoice": "stripe.params.terminal._reader_collect_inputs_params",
-    "ReaderCollectInputsParamsInputToggle": "stripe.params.terminal._reader_collect_inputs_params",
-    "ReaderCollectPaymentMethodParams": "stripe.params.terminal._reader_collect_payment_method_params",
-    "ReaderCollectPaymentMethodParamsCollectConfig": "stripe.params.terminal._reader_collect_payment_method_params",
-    "ReaderCollectPaymentMethodParamsCollectConfigTipping": "stripe.params.terminal._reader_collect_payment_method_params",
-    "ReaderConfirmPaymentIntentParams": "stripe.params.terminal._reader_confirm_payment_intent_params",
-    "ReaderConfirmPaymentIntentParamsConfirmConfig": "stripe.params.terminal._reader_confirm_payment_intent_params",
-    "ReaderCreateParams": "stripe.params.terminal._reader_create_params",
-    "ReaderDeleteParams": "stripe.params.terminal._reader_delete_params",
-    "ReaderListParams": "stripe.params.terminal._reader_list_params",
-    "ReaderModifyParams": "stripe.params.terminal._reader_modify_params",
-    "ReaderPresentPaymentMethodParams": "stripe.params.terminal._reader_present_payment_method_params",
-    "ReaderPresentPaymentMethodParamsCard": "stripe.params.terminal._reader_present_payment_method_params",
-    "ReaderPresentPaymentMethodParamsCardPresent": "stripe.params.terminal._reader_present_payment_method_params",
-    "ReaderPresentPaymentMethodParamsInteracPresent": "stripe.params.terminal._reader_present_payment_method_params",
-    "ReaderProcessPaymentIntentParams": "stripe.params.terminal._reader_process_payment_intent_params",
-    "ReaderProcessPaymentIntentParamsProcessConfig": "stripe.params.terminal._reader_process_payment_intent_params",
-    "ReaderProcessPaymentIntentParamsProcessConfigTipping": "stripe.params.terminal._reader_process_payment_intent_params",
-    "ReaderProcessSetupIntentParams": "stripe.params.terminal._reader_process_setup_intent_params",
-    "ReaderProcessSetupIntentParamsProcessConfig": "stripe.params.terminal._reader_process_setup_intent_params",
-    "ReaderRefundPaymentParams": "stripe.params.terminal._reader_refund_payment_params",
-    "ReaderRefundPaymentParamsRefundPaymentConfig": "stripe.params.terminal._reader_refund_payment_params",
-    "ReaderRetrieveParams": "stripe.params.terminal._reader_retrieve_params",
-    "ReaderSetReaderDisplayParams": "stripe.params.terminal._reader_set_reader_display_params",
-    "ReaderSetReaderDisplayParamsCart": "stripe.params.terminal._reader_set_reader_display_params",
-    "ReaderSetReaderDisplayParamsCartLineItem": "stripe.params.terminal._reader_set_reader_display_params",
-    "ReaderSucceedInputCollectionParams": "stripe.params.terminal._reader_succeed_input_collection_params",
-    "ReaderTimeoutInputCollectionParams": "stripe.params.terminal._reader_timeout_input_collection_params",
-    "ReaderUpdateParams": "stripe.params.terminal._reader_update_params",
+# name -> (import_target, is_submodule)
+_import_map = {
+    "ConfigurationCreateParams": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsBbposWisepad3": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsBbposWiseposE": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsOffline": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsRebootWindow": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsStripeS700": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsTipping": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsTippingAed": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsTippingAud": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsTippingBgn": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsTippingCad": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsTippingChf": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsTippingCzk": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsTippingDkk": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsTippingEur": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsTippingGbp": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsTippingHkd": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsTippingHuf": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsTippingJpy": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsTippingMxn": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsTippingMyr": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsTippingNok": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsTippingNzd": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsTippingPln": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsTippingRon": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsTippingSek": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsTippingSgd": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsTippingUsd": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsVerifoneP400": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsWifi": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsWifiEnterpriseEapPeap": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsWifiEnterpriseEapTls": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsWifiPersonalPsk": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationDeleteParams": (
+        "stripe.params.terminal._configuration_delete_params",
+        False,
+    ),
+    "ConfigurationListParams": (
+        "stripe.params.terminal._configuration_list_params",
+        False,
+    ),
+    "ConfigurationModifyParams": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsBbposWisepad3": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsBbposWiseposE": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsOffline": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsRebootWindow": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsStripeS700": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsTipping": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsTippingAed": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsTippingAud": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsTippingBgn": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsTippingCad": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsTippingChf": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsTippingCzk": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsTippingDkk": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsTippingEur": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsTippingGbp": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsTippingHkd": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsTippingHuf": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsTippingJpy": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsTippingMxn": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsTippingMyr": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsTippingNok": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsTippingNzd": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsTippingPln": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsTippingRon": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsTippingSek": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsTippingSgd": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsTippingUsd": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsVerifoneP400": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsWifi": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsWifiEnterpriseEapPeap": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsWifiEnterpriseEapTls": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsWifiPersonalPsk": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationRetrieveParams": (
+        "stripe.params.terminal._configuration_retrieve_params",
+        False,
+    ),
+    "ConfigurationUpdateParams": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsBbposWisepad3": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsBbposWiseposE": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsOffline": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsRebootWindow": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsStripeS700": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsTipping": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsTippingAed": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsTippingAud": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsTippingBgn": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsTippingCad": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsTippingChf": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsTippingCzk": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsTippingDkk": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsTippingEur": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsTippingGbp": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsTippingHkd": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsTippingHuf": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsTippingJpy": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsTippingMxn": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsTippingMyr": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsTippingNok": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsTippingNzd": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsTippingPln": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsTippingRon": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsTippingSek": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsTippingSgd": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsTippingUsd": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsVerifoneP400": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsWifi": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsWifiEnterpriseEapPeap": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsWifiEnterpriseEapTls": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsWifiPersonalPsk": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConnectionTokenCreateParams": (
+        "stripe.params.terminal._connection_token_create_params",
+        False,
+    ),
+    "LocationCreateParams": (
+        "stripe.params.terminal._location_create_params",
+        False,
+    ),
+    "LocationCreateParamsAddress": (
+        "stripe.params.terminal._location_create_params",
+        False,
+    ),
+    "LocationCreateParamsAddressKana": (
+        "stripe.params.terminal._location_create_params",
+        False,
+    ),
+    "LocationCreateParamsAddressKanji": (
+        "stripe.params.terminal._location_create_params",
+        False,
+    ),
+    "LocationDeleteParams": (
+        "stripe.params.terminal._location_delete_params",
+        False,
+    ),
+    "LocationListParams": (
+        "stripe.params.terminal._location_list_params",
+        False,
+    ),
+    "LocationModifyParams": (
+        "stripe.params.terminal._location_modify_params",
+        False,
+    ),
+    "LocationModifyParamsAddress": (
+        "stripe.params.terminal._location_modify_params",
+        False,
+    ),
+    "LocationModifyParamsAddressKana": (
+        "stripe.params.terminal._location_modify_params",
+        False,
+    ),
+    "LocationModifyParamsAddressKanji": (
+        "stripe.params.terminal._location_modify_params",
+        False,
+    ),
+    "LocationRetrieveParams": (
+        "stripe.params.terminal._location_retrieve_params",
+        False,
+    ),
+    "LocationUpdateParams": (
+        "stripe.params.terminal._location_update_params",
+        False,
+    ),
+    "LocationUpdateParamsAddress": (
+        "stripe.params.terminal._location_update_params",
+        False,
+    ),
+    "LocationUpdateParamsAddressKana": (
+        "stripe.params.terminal._location_update_params",
+        False,
+    ),
+    "LocationUpdateParamsAddressKanji": (
+        "stripe.params.terminal._location_update_params",
+        False,
+    ),
+    "ReaderCancelActionParams": (
+        "stripe.params.terminal._reader_cancel_action_params",
+        False,
+    ),
+    "ReaderCollectInputsParams": (
+        "stripe.params.terminal._reader_collect_inputs_params",
+        False,
+    ),
+    "ReaderCollectInputsParamsInput": (
+        "stripe.params.terminal._reader_collect_inputs_params",
+        False,
+    ),
+    "ReaderCollectInputsParamsInputCustomText": (
+        "stripe.params.terminal._reader_collect_inputs_params",
+        False,
+    ),
+    "ReaderCollectInputsParamsInputSelection": (
+        "stripe.params.terminal._reader_collect_inputs_params",
+        False,
+    ),
+    "ReaderCollectInputsParamsInputSelectionChoice": (
+        "stripe.params.terminal._reader_collect_inputs_params",
+        False,
+    ),
+    "ReaderCollectInputsParamsInputToggle": (
+        "stripe.params.terminal._reader_collect_inputs_params",
+        False,
+    ),
+    "ReaderCollectPaymentMethodParams": (
+        "stripe.params.terminal._reader_collect_payment_method_params",
+        False,
+    ),
+    "ReaderCollectPaymentMethodParamsCollectConfig": (
+        "stripe.params.terminal._reader_collect_payment_method_params",
+        False,
+    ),
+    "ReaderCollectPaymentMethodParamsCollectConfigTipping": (
+        "stripe.params.terminal._reader_collect_payment_method_params",
+        False,
+    ),
+    "ReaderConfirmPaymentIntentParams": (
+        "stripe.params.terminal._reader_confirm_payment_intent_params",
+        False,
+    ),
+    "ReaderConfirmPaymentIntentParamsConfirmConfig": (
+        "stripe.params.terminal._reader_confirm_payment_intent_params",
+        False,
+    ),
+    "ReaderCreateParams": (
+        "stripe.params.terminal._reader_create_params",
+        False,
+    ),
+    "ReaderDeleteParams": (
+        "stripe.params.terminal._reader_delete_params",
+        False,
+    ),
+    "ReaderListParams": ("stripe.params.terminal._reader_list_params", False),
+    "ReaderModifyParams": (
+        "stripe.params.terminal._reader_modify_params",
+        False,
+    ),
+    "ReaderPresentPaymentMethodParams": (
+        "stripe.params.terminal._reader_present_payment_method_params",
+        False,
+    ),
+    "ReaderPresentPaymentMethodParamsCard": (
+        "stripe.params.terminal._reader_present_payment_method_params",
+        False,
+    ),
+    "ReaderPresentPaymentMethodParamsCardPresent": (
+        "stripe.params.terminal._reader_present_payment_method_params",
+        False,
+    ),
+    "ReaderPresentPaymentMethodParamsInteracPresent": (
+        "stripe.params.terminal._reader_present_payment_method_params",
+        False,
+    ),
+    "ReaderProcessPaymentIntentParams": (
+        "stripe.params.terminal._reader_process_payment_intent_params",
+        False,
+    ),
+    "ReaderProcessPaymentIntentParamsProcessConfig": (
+        "stripe.params.terminal._reader_process_payment_intent_params",
+        False,
+    ),
+    "ReaderProcessPaymentIntentParamsProcessConfigTipping": (
+        "stripe.params.terminal._reader_process_payment_intent_params",
+        False,
+    ),
+    "ReaderProcessSetupIntentParams": (
+        "stripe.params.terminal._reader_process_setup_intent_params",
+        False,
+    ),
+    "ReaderProcessSetupIntentParamsProcessConfig": (
+        "stripe.params.terminal._reader_process_setup_intent_params",
+        False,
+    ),
+    "ReaderRefundPaymentParams": (
+        "stripe.params.terminal._reader_refund_payment_params",
+        False,
+    ),
+    "ReaderRefundPaymentParamsRefundPaymentConfig": (
+        "stripe.params.terminal._reader_refund_payment_params",
+        False,
+    ),
+    "ReaderRetrieveParams": (
+        "stripe.params.terminal._reader_retrieve_params",
+        False,
+    ),
+    "ReaderSetReaderDisplayParams": (
+        "stripe.params.terminal._reader_set_reader_display_params",
+        False,
+    ),
+    "ReaderSetReaderDisplayParamsCart": (
+        "stripe.params.terminal._reader_set_reader_display_params",
+        False,
+    ),
+    "ReaderSetReaderDisplayParamsCartLineItem": (
+        "stripe.params.terminal._reader_set_reader_display_params",
+        False,
+    ),
+    "ReaderSucceedInputCollectionParams": (
+        "stripe.params.terminal._reader_succeed_input_collection_params",
+        False,
+    ),
+    "ReaderTimeoutInputCollectionParams": (
+        "stripe.params.terminal._reader_timeout_input_collection_params",
+        False,
+    ),
+    "ReaderUpdateParams": (
+        "stripe.params.terminal._reader_update_params",
+        False,
+    ),
 }
 if not TYPE_CHECKING:
 
     def __getattr__(name):
         try:
+            target, is_submodule = _import_map[name]
+            module = import_module(target)
+            if is_submodule:
+                return module
+
             return getattr(
-                import_module(_submodules[name]),
+                module,
                 name,
             )
         except KeyError:

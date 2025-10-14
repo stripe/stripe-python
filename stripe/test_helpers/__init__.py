@@ -4,6 +4,11 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.test_helpers import (
+        issuing as issuing,
+        terminal as terminal,
+        treasury as treasury,
+    )
     from stripe.test_helpers._confirmation_token_service import (
         ConfirmationTokenService as ConfirmationTokenService,
     )
@@ -27,22 +32,34 @@ if TYPE_CHECKING:
         TreasuryService as TreasuryService,
     )
 
-_submodules = {
-    "ConfirmationTokenService": "stripe.test_helpers._confirmation_token_service",
-    "CustomerService": "stripe.test_helpers._customer_service",
-    "IssuingService": "stripe.test_helpers._issuing_service",
-    "RefundService": "stripe.test_helpers._refund_service",
-    "TerminalService": "stripe.test_helpers._terminal_service",
-    "TestClock": "stripe.test_helpers._test_clock",
-    "TestClockService": "stripe.test_helpers._test_clock_service",
-    "TreasuryService": "stripe.test_helpers._treasury_service",
+# name -> (import_target, is_submodule)
+_import_map = {
+    "issuing": ("stripe.test_helpers.issuing", True),
+    "terminal": ("stripe.test_helpers.terminal", True),
+    "treasury": ("stripe.test_helpers.treasury", True),
+    "ConfirmationTokenService": (
+        "stripe.test_helpers._confirmation_token_service",
+        False,
+    ),
+    "CustomerService": ("stripe.test_helpers._customer_service", False),
+    "IssuingService": ("stripe.test_helpers._issuing_service", False),
+    "RefundService": ("stripe.test_helpers._refund_service", False),
+    "TerminalService": ("stripe.test_helpers._terminal_service", False),
+    "TestClock": ("stripe.test_helpers._test_clock", False),
+    "TestClockService": ("stripe.test_helpers._test_clock_service", False),
+    "TreasuryService": ("stripe.test_helpers._treasury_service", False),
 }
 if not TYPE_CHECKING:
 
     def __getattr__(name):
         try:
+            target, is_submodule = _import_map[name]
+            module = import_module(target)
+            if is_submodule:
+                return module
+
             return getattr(
-                import_module(_submodules[name]),
+                module,
                 name,
             )
         except KeyError:

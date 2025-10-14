@@ -100,55 +100,166 @@ if TYPE_CHECKING:
         MeterUpdateParams as MeterUpdateParams,
     )
 
-_submodules = {
-    "AlertActivateParams": "stripe.params.billing._alert_activate_params",
-    "AlertArchiveParams": "stripe.params.billing._alert_archive_params",
-    "AlertCreateParams": "stripe.params.billing._alert_create_params",
-    "AlertCreateParamsUsageThreshold": "stripe.params.billing._alert_create_params",
-    "AlertCreateParamsUsageThresholdFilter": "stripe.params.billing._alert_create_params",
-    "AlertDeactivateParams": "stripe.params.billing._alert_deactivate_params",
-    "AlertListParams": "stripe.params.billing._alert_list_params",
-    "AlertRetrieveParams": "stripe.params.billing._alert_retrieve_params",
-    "CreditBalanceSummaryRetrieveParams": "stripe.params.billing._credit_balance_summary_retrieve_params",
-    "CreditBalanceSummaryRetrieveParamsFilter": "stripe.params.billing._credit_balance_summary_retrieve_params",
-    "CreditBalanceSummaryRetrieveParamsFilterApplicabilityScope": "stripe.params.billing._credit_balance_summary_retrieve_params",
-    "CreditBalanceSummaryRetrieveParamsFilterApplicabilityScopePrice": "stripe.params.billing._credit_balance_summary_retrieve_params",
-    "CreditBalanceTransactionListParams": "stripe.params.billing._credit_balance_transaction_list_params",
-    "CreditBalanceTransactionRetrieveParams": "stripe.params.billing._credit_balance_transaction_retrieve_params",
-    "CreditGrantCreateParams": "stripe.params.billing._credit_grant_create_params",
-    "CreditGrantCreateParamsAmount": "stripe.params.billing._credit_grant_create_params",
-    "CreditGrantCreateParamsAmountMonetary": "stripe.params.billing._credit_grant_create_params",
-    "CreditGrantCreateParamsApplicabilityConfig": "stripe.params.billing._credit_grant_create_params",
-    "CreditGrantCreateParamsApplicabilityConfigScope": "stripe.params.billing._credit_grant_create_params",
-    "CreditGrantCreateParamsApplicabilityConfigScopePrice": "stripe.params.billing._credit_grant_create_params",
-    "CreditGrantExpireParams": "stripe.params.billing._credit_grant_expire_params",
-    "CreditGrantListParams": "stripe.params.billing._credit_grant_list_params",
-    "CreditGrantModifyParams": "stripe.params.billing._credit_grant_modify_params",
-    "CreditGrantRetrieveParams": "stripe.params.billing._credit_grant_retrieve_params",
-    "CreditGrantUpdateParams": "stripe.params.billing._credit_grant_update_params",
-    "CreditGrantVoidGrantParams": "stripe.params.billing._credit_grant_void_grant_params",
-    "MeterCreateParams": "stripe.params.billing._meter_create_params",
-    "MeterCreateParamsCustomerMapping": "stripe.params.billing._meter_create_params",
-    "MeterCreateParamsDefaultAggregation": "stripe.params.billing._meter_create_params",
-    "MeterCreateParamsValueSettings": "stripe.params.billing._meter_create_params",
-    "MeterDeactivateParams": "stripe.params.billing._meter_deactivate_params",
-    "MeterEventAdjustmentCreateParams": "stripe.params.billing._meter_event_adjustment_create_params",
-    "MeterEventAdjustmentCreateParamsCancel": "stripe.params.billing._meter_event_adjustment_create_params",
-    "MeterEventCreateParams": "stripe.params.billing._meter_event_create_params",
-    "MeterEventSummaryListParams": "stripe.params.billing._meter_event_summary_list_params",
-    "MeterListEventSummariesParams": "stripe.params.billing._meter_list_event_summaries_params",
-    "MeterListParams": "stripe.params.billing._meter_list_params",
-    "MeterModifyParams": "stripe.params.billing._meter_modify_params",
-    "MeterReactivateParams": "stripe.params.billing._meter_reactivate_params",
-    "MeterRetrieveParams": "stripe.params.billing._meter_retrieve_params",
-    "MeterUpdateParams": "stripe.params.billing._meter_update_params",
+# name -> (import_target, is_submodule)
+_import_map = {
+    "AlertActivateParams": (
+        "stripe.params.billing._alert_activate_params",
+        False,
+    ),
+    "AlertArchiveParams": (
+        "stripe.params.billing._alert_archive_params",
+        False,
+    ),
+    "AlertCreateParams": ("stripe.params.billing._alert_create_params", False),
+    "AlertCreateParamsUsageThreshold": (
+        "stripe.params.billing._alert_create_params",
+        False,
+    ),
+    "AlertCreateParamsUsageThresholdFilter": (
+        "stripe.params.billing._alert_create_params",
+        False,
+    ),
+    "AlertDeactivateParams": (
+        "stripe.params.billing._alert_deactivate_params",
+        False,
+    ),
+    "AlertListParams": ("stripe.params.billing._alert_list_params", False),
+    "AlertRetrieveParams": (
+        "stripe.params.billing._alert_retrieve_params",
+        False,
+    ),
+    "CreditBalanceSummaryRetrieveParams": (
+        "stripe.params.billing._credit_balance_summary_retrieve_params",
+        False,
+    ),
+    "CreditBalanceSummaryRetrieveParamsFilter": (
+        "stripe.params.billing._credit_balance_summary_retrieve_params",
+        False,
+    ),
+    "CreditBalanceSummaryRetrieveParamsFilterApplicabilityScope": (
+        "stripe.params.billing._credit_balance_summary_retrieve_params",
+        False,
+    ),
+    "CreditBalanceSummaryRetrieveParamsFilterApplicabilityScopePrice": (
+        "stripe.params.billing._credit_balance_summary_retrieve_params",
+        False,
+    ),
+    "CreditBalanceTransactionListParams": (
+        "stripe.params.billing._credit_balance_transaction_list_params",
+        False,
+    ),
+    "CreditBalanceTransactionRetrieveParams": (
+        "stripe.params.billing._credit_balance_transaction_retrieve_params",
+        False,
+    ),
+    "CreditGrantCreateParams": (
+        "stripe.params.billing._credit_grant_create_params",
+        False,
+    ),
+    "CreditGrantCreateParamsAmount": (
+        "stripe.params.billing._credit_grant_create_params",
+        False,
+    ),
+    "CreditGrantCreateParamsAmountMonetary": (
+        "stripe.params.billing._credit_grant_create_params",
+        False,
+    ),
+    "CreditGrantCreateParamsApplicabilityConfig": (
+        "stripe.params.billing._credit_grant_create_params",
+        False,
+    ),
+    "CreditGrantCreateParamsApplicabilityConfigScope": (
+        "stripe.params.billing._credit_grant_create_params",
+        False,
+    ),
+    "CreditGrantCreateParamsApplicabilityConfigScopePrice": (
+        "stripe.params.billing._credit_grant_create_params",
+        False,
+    ),
+    "CreditGrantExpireParams": (
+        "stripe.params.billing._credit_grant_expire_params",
+        False,
+    ),
+    "CreditGrantListParams": (
+        "stripe.params.billing._credit_grant_list_params",
+        False,
+    ),
+    "CreditGrantModifyParams": (
+        "stripe.params.billing._credit_grant_modify_params",
+        False,
+    ),
+    "CreditGrantRetrieveParams": (
+        "stripe.params.billing._credit_grant_retrieve_params",
+        False,
+    ),
+    "CreditGrantUpdateParams": (
+        "stripe.params.billing._credit_grant_update_params",
+        False,
+    ),
+    "CreditGrantVoidGrantParams": (
+        "stripe.params.billing._credit_grant_void_grant_params",
+        False,
+    ),
+    "MeterCreateParams": ("stripe.params.billing._meter_create_params", False),
+    "MeterCreateParamsCustomerMapping": (
+        "stripe.params.billing._meter_create_params",
+        False,
+    ),
+    "MeterCreateParamsDefaultAggregation": (
+        "stripe.params.billing._meter_create_params",
+        False,
+    ),
+    "MeterCreateParamsValueSettings": (
+        "stripe.params.billing._meter_create_params",
+        False,
+    ),
+    "MeterDeactivateParams": (
+        "stripe.params.billing._meter_deactivate_params",
+        False,
+    ),
+    "MeterEventAdjustmentCreateParams": (
+        "stripe.params.billing._meter_event_adjustment_create_params",
+        False,
+    ),
+    "MeterEventAdjustmentCreateParamsCancel": (
+        "stripe.params.billing._meter_event_adjustment_create_params",
+        False,
+    ),
+    "MeterEventCreateParams": (
+        "stripe.params.billing._meter_event_create_params",
+        False,
+    ),
+    "MeterEventSummaryListParams": (
+        "stripe.params.billing._meter_event_summary_list_params",
+        False,
+    ),
+    "MeterListEventSummariesParams": (
+        "stripe.params.billing._meter_list_event_summaries_params",
+        False,
+    ),
+    "MeterListParams": ("stripe.params.billing._meter_list_params", False),
+    "MeterModifyParams": ("stripe.params.billing._meter_modify_params", False),
+    "MeterReactivateParams": (
+        "stripe.params.billing._meter_reactivate_params",
+        False,
+    ),
+    "MeterRetrieveParams": (
+        "stripe.params.billing._meter_retrieve_params",
+        False,
+    ),
+    "MeterUpdateParams": ("stripe.params.billing._meter_update_params", False),
 }
 if not TYPE_CHECKING:
 
     def __getattr__(name):
         try:
+            target, is_submodule = _import_map[name]
+            module = import_module(target)
+            if is_submodule:
+                return module
+
             return getattr(
-                import_module(_submodules[name]),
+                module,
                 name,
             )
         except KeyError:

@@ -233,208 +233,796 @@ if TYPE_CHECKING:
         TransactionRetrieveParams as TransactionRetrieveParams,
     )
 
-_submodules = {
-    "CalculationCreateParams": "stripe.params.tax._calculation_create_params",
-    "CalculationCreateParamsCustomerDetails": "stripe.params.tax._calculation_create_params",
-    "CalculationCreateParamsCustomerDetailsAddress": "stripe.params.tax._calculation_create_params",
-    "CalculationCreateParamsCustomerDetailsTaxId": "stripe.params.tax._calculation_create_params",
-    "CalculationCreateParamsLineItem": "stripe.params.tax._calculation_create_params",
-    "CalculationCreateParamsShipFromDetails": "stripe.params.tax._calculation_create_params",
-    "CalculationCreateParamsShipFromDetailsAddress": "stripe.params.tax._calculation_create_params",
-    "CalculationCreateParamsShippingCost": "stripe.params.tax._calculation_create_params",
-    "CalculationLineItemListParams": "stripe.params.tax._calculation_line_item_list_params",
-    "CalculationListLineItemsParams": "stripe.params.tax._calculation_list_line_items_params",
-    "CalculationRetrieveParams": "stripe.params.tax._calculation_retrieve_params",
-    "RegistrationCreateParams": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptions": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsAe": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsAeStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsAl": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsAlStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsAm": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsAo": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsAoStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsAt": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsAtStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsAu": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsAuStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsAw": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsAwStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsAz": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsBa": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsBaStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsBb": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsBbStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsBd": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsBdStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsBe": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsBeStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsBf": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsBfStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsBg": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsBgStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsBh": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsBhStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsBj": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsBs": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsBsStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsBy": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsCa": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsCaProvinceStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsCd": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsCdStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsCh": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsChStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsCl": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsCm": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsCo": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsCr": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsCv": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsCy": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsCyStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsCz": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsCzStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsDe": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsDeStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsDk": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsDkStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsEc": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsEe": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsEeStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsEg": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsEs": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsEsStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsEt": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsEtStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsFi": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsFiStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsFr": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsFrStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsGb": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsGbStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsGe": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsGn": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsGnStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsGr": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsGrStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsHr": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsHrStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsHu": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsHuStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsId": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsIe": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsIeStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsIn": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsIs": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsIsStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsIt": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsItStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsJp": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsJpStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsKe": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsKg": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsKh": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsKr": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsKz": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsLa": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsLt": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsLtStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsLu": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsLuStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsLv": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsLvStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsMa": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsMd": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsMe": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsMeStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsMk": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsMkStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsMr": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsMrStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsMt": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsMtStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsMx": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsMy": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsNg": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsNl": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsNlStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsNo": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsNoStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsNp": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsNz": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsNzStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsOm": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsOmStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsPe": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsPh": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsPl": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsPlStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsPt": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsPtStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsRo": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsRoStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsRs": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsRsStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsRu": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsSa": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsSe": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsSeStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsSg": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsSgStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsSi": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsSiStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsSk": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsSkStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsSn": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsSr": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsSrStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsTh": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsTj": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsTr": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsTz": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsUa": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsUg": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsUs": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsUsLocalAmusementTax": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsUsLocalLeaseTax": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsUsStateSalesTax": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsUsStateSalesTaxElection": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsUy": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsUyStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsUz": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsVn": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsZa": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsZaStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsZm": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsZw": "stripe.params.tax._registration_create_params",
-    "RegistrationCreateParamsCountryOptionsZwStandard": "stripe.params.tax._registration_create_params",
-    "RegistrationListParams": "stripe.params.tax._registration_list_params",
-    "RegistrationModifyParams": "stripe.params.tax._registration_modify_params",
-    "RegistrationRetrieveParams": "stripe.params.tax._registration_retrieve_params",
-    "RegistrationUpdateParams": "stripe.params.tax._registration_update_params",
-    "SettingsModifyParams": "stripe.params.tax._settings_modify_params",
-    "SettingsModifyParamsDefaults": "stripe.params.tax._settings_modify_params",
-    "SettingsModifyParamsHeadOffice": "stripe.params.tax._settings_modify_params",
-    "SettingsModifyParamsHeadOfficeAddress": "stripe.params.tax._settings_modify_params",
-    "SettingsRetrieveParams": "stripe.params.tax._settings_retrieve_params",
-    "SettingsUpdateParams": "stripe.params.tax._settings_update_params",
-    "SettingsUpdateParamsDefaults": "stripe.params.tax._settings_update_params",
-    "SettingsUpdateParamsHeadOffice": "stripe.params.tax._settings_update_params",
-    "SettingsUpdateParamsHeadOfficeAddress": "stripe.params.tax._settings_update_params",
-    "TransactionCreateFromCalculationParams": "stripe.params.tax._transaction_create_from_calculation_params",
-    "TransactionCreateReversalParams": "stripe.params.tax._transaction_create_reversal_params",
-    "TransactionCreateReversalParamsLineItem": "stripe.params.tax._transaction_create_reversal_params",
-    "TransactionCreateReversalParamsShippingCost": "stripe.params.tax._transaction_create_reversal_params",
-    "TransactionLineItemListParams": "stripe.params.tax._transaction_line_item_list_params",
-    "TransactionListLineItemsParams": "stripe.params.tax._transaction_list_line_items_params",
-    "TransactionRetrieveParams": "stripe.params.tax._transaction_retrieve_params",
+# name -> (import_target, is_submodule)
+_import_map = {
+    "CalculationCreateParams": (
+        "stripe.params.tax._calculation_create_params",
+        False,
+    ),
+    "CalculationCreateParamsCustomerDetails": (
+        "stripe.params.tax._calculation_create_params",
+        False,
+    ),
+    "CalculationCreateParamsCustomerDetailsAddress": (
+        "stripe.params.tax._calculation_create_params",
+        False,
+    ),
+    "CalculationCreateParamsCustomerDetailsTaxId": (
+        "stripe.params.tax._calculation_create_params",
+        False,
+    ),
+    "CalculationCreateParamsLineItem": (
+        "stripe.params.tax._calculation_create_params",
+        False,
+    ),
+    "CalculationCreateParamsShipFromDetails": (
+        "stripe.params.tax._calculation_create_params",
+        False,
+    ),
+    "CalculationCreateParamsShipFromDetailsAddress": (
+        "stripe.params.tax._calculation_create_params",
+        False,
+    ),
+    "CalculationCreateParamsShippingCost": (
+        "stripe.params.tax._calculation_create_params",
+        False,
+    ),
+    "CalculationLineItemListParams": (
+        "stripe.params.tax._calculation_line_item_list_params",
+        False,
+    ),
+    "CalculationListLineItemsParams": (
+        "stripe.params.tax._calculation_list_line_items_params",
+        False,
+    ),
+    "CalculationRetrieveParams": (
+        "stripe.params.tax._calculation_retrieve_params",
+        False,
+    ),
+    "RegistrationCreateParams": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptions": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsAe": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsAeStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsAl": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsAlStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsAm": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsAo": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsAoStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsAt": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsAtStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsAu": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsAuStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsAw": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsAwStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsAz": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsBa": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsBaStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsBb": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsBbStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsBd": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsBdStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsBe": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsBeStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsBf": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsBfStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsBg": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsBgStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsBh": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsBhStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsBj": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsBs": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsBsStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsBy": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsCa": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsCaProvinceStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsCd": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsCdStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsCh": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsChStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsCl": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsCm": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsCo": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsCr": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsCv": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsCy": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsCyStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsCz": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsCzStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsDe": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsDeStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsDk": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsDkStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsEc": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsEe": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsEeStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsEg": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsEs": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsEsStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsEt": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsEtStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsFi": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsFiStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsFr": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsFrStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsGb": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsGbStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsGe": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsGn": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsGnStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsGr": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsGrStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsHr": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsHrStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsHu": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsHuStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsId": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsIe": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsIeStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsIn": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsIs": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsIsStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsIt": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsItStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsJp": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsJpStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsKe": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsKg": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsKh": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsKr": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsKz": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsLa": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsLt": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsLtStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsLu": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsLuStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsLv": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsLvStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsMa": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsMd": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsMe": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsMeStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsMk": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsMkStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsMr": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsMrStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsMt": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsMtStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsMx": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsMy": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsNg": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsNl": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsNlStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsNo": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsNoStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsNp": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsNz": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsNzStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsOm": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsOmStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsPe": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsPh": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsPl": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsPlStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsPt": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsPtStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsRo": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsRoStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsRs": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsRsStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsRu": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsSa": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsSe": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsSeStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsSg": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsSgStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsSi": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsSiStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsSk": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsSkStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsSn": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsSr": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsSrStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsTh": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsTj": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsTr": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsTz": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsUa": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsUg": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsUs": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsUsLocalAmusementTax": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsUsLocalLeaseTax": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsUsStateSalesTax": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsUsStateSalesTaxElection": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsUy": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsUyStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsUz": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsVn": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsZa": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsZaStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsZm": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsZw": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsZwStandard": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationListParams": (
+        "stripe.params.tax._registration_list_params",
+        False,
+    ),
+    "RegistrationModifyParams": (
+        "stripe.params.tax._registration_modify_params",
+        False,
+    ),
+    "RegistrationRetrieveParams": (
+        "stripe.params.tax._registration_retrieve_params",
+        False,
+    ),
+    "RegistrationUpdateParams": (
+        "stripe.params.tax._registration_update_params",
+        False,
+    ),
+    "SettingsModifyParams": (
+        "stripe.params.tax._settings_modify_params",
+        False,
+    ),
+    "SettingsModifyParamsDefaults": (
+        "stripe.params.tax._settings_modify_params",
+        False,
+    ),
+    "SettingsModifyParamsHeadOffice": (
+        "stripe.params.tax._settings_modify_params",
+        False,
+    ),
+    "SettingsModifyParamsHeadOfficeAddress": (
+        "stripe.params.tax._settings_modify_params",
+        False,
+    ),
+    "SettingsRetrieveParams": (
+        "stripe.params.tax._settings_retrieve_params",
+        False,
+    ),
+    "SettingsUpdateParams": (
+        "stripe.params.tax._settings_update_params",
+        False,
+    ),
+    "SettingsUpdateParamsDefaults": (
+        "stripe.params.tax._settings_update_params",
+        False,
+    ),
+    "SettingsUpdateParamsHeadOffice": (
+        "stripe.params.tax._settings_update_params",
+        False,
+    ),
+    "SettingsUpdateParamsHeadOfficeAddress": (
+        "stripe.params.tax._settings_update_params",
+        False,
+    ),
+    "TransactionCreateFromCalculationParams": (
+        "stripe.params.tax._transaction_create_from_calculation_params",
+        False,
+    ),
+    "TransactionCreateReversalParams": (
+        "stripe.params.tax._transaction_create_reversal_params",
+        False,
+    ),
+    "TransactionCreateReversalParamsLineItem": (
+        "stripe.params.tax._transaction_create_reversal_params",
+        False,
+    ),
+    "TransactionCreateReversalParamsShippingCost": (
+        "stripe.params.tax._transaction_create_reversal_params",
+        False,
+    ),
+    "TransactionLineItemListParams": (
+        "stripe.params.tax._transaction_line_item_list_params",
+        False,
+    ),
+    "TransactionListLineItemsParams": (
+        "stripe.params.tax._transaction_list_line_items_params",
+        False,
+    ),
+    "TransactionRetrieveParams": (
+        "stripe.params.tax._transaction_retrieve_params",
+        False,
+    ),
 }
 if not TYPE_CHECKING:
 
     def __getattr__(name):
         try:
+            target, is_submodule = _import_map[name]
+            module = import_module(target)
+            if is_submodule:
+                return module
+
             return getattr(
-                import_module(_submodules[name]),
+                module,
                 name,
             )
         except KeyError:

@@ -28,23 +28,38 @@ if TYPE_CHECKING:
         TransactionService as TransactionService,
     )
 
-_submodules = {
-    "Account": "stripe.financial_connections._account",
-    "AccountOwner": "stripe.financial_connections._account_owner",
-    "AccountOwnerService": "stripe.financial_connections._account_owner_service",
-    "AccountOwnership": "stripe.financial_connections._account_ownership",
-    "AccountService": "stripe.financial_connections._account_service",
-    "Session": "stripe.financial_connections._session",
-    "SessionService": "stripe.financial_connections._session_service",
-    "Transaction": "stripe.financial_connections._transaction",
-    "TransactionService": "stripe.financial_connections._transaction_service",
+# name -> (import_target, is_submodule)
+_import_map = {
+    "Account": ("stripe.financial_connections._account", False),
+    "AccountOwner": ("stripe.financial_connections._account_owner", False),
+    "AccountOwnerService": (
+        "stripe.financial_connections._account_owner_service",
+        False,
+    ),
+    "AccountOwnership": (
+        "stripe.financial_connections._account_ownership",
+        False,
+    ),
+    "AccountService": ("stripe.financial_connections._account_service", False),
+    "Session": ("stripe.financial_connections._session", False),
+    "SessionService": ("stripe.financial_connections._session_service", False),
+    "Transaction": ("stripe.financial_connections._transaction", False),
+    "TransactionService": (
+        "stripe.financial_connections._transaction_service",
+        False,
+    ),
 }
 if not TYPE_CHECKING:
 
     def __getattr__(name):
         try:
+            target, is_submodule = _import_map[name]
+            module = import_module(target)
+            if is_submodule:
+                return module
+
             return getattr(
-                import_module(_submodules[name]),
+                module,
                 name,
             )
         except KeyError:

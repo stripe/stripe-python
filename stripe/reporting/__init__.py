@@ -13,18 +13,24 @@ if TYPE_CHECKING:
         ReportTypeService as ReportTypeService,
     )
 
-_submodules = {
-    "ReportRun": "stripe.reporting._report_run",
-    "ReportRunService": "stripe.reporting._report_run_service",
-    "ReportType": "stripe.reporting._report_type",
-    "ReportTypeService": "stripe.reporting._report_type_service",
+# name -> (import_target, is_submodule)
+_import_map = {
+    "ReportRun": ("stripe.reporting._report_run", False),
+    "ReportRunService": ("stripe.reporting._report_run_service", False),
+    "ReportType": ("stripe.reporting._report_type", False),
+    "ReportTypeService": ("stripe.reporting._report_type_service", False),
 }
 if not TYPE_CHECKING:
 
     def __getattr__(name):
         try:
+            target, is_submodule = _import_map[name]
+            module = import_module(target)
+            if is_submodule:
+                return module
+
             return getattr(
-                import_module(_submodules[name]),
+                module,
                 name,
             )
         except KeyError:

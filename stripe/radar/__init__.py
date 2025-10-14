@@ -19,20 +19,29 @@ if TYPE_CHECKING:
         ValueListService as ValueListService,
     )
 
-_submodules = {
-    "EarlyFraudWarning": "stripe.radar._early_fraud_warning",
-    "EarlyFraudWarningService": "stripe.radar._early_fraud_warning_service",
-    "ValueList": "stripe.radar._value_list",
-    "ValueListItem": "stripe.radar._value_list_item",
-    "ValueListItemService": "stripe.radar._value_list_item_service",
-    "ValueListService": "stripe.radar._value_list_service",
+# name -> (import_target, is_submodule)
+_import_map = {
+    "EarlyFraudWarning": ("stripe.radar._early_fraud_warning", False),
+    "EarlyFraudWarningService": (
+        "stripe.radar._early_fraud_warning_service",
+        False,
+    ),
+    "ValueList": ("stripe.radar._value_list", False),
+    "ValueListItem": ("stripe.radar._value_list_item", False),
+    "ValueListItemService": ("stripe.radar._value_list_item_service", False),
+    "ValueListService": ("stripe.radar._value_list_service", False),
 }
 if not TYPE_CHECKING:
 
     def __getattr__(name):
         try:
+            target, is_submodule = _import_map[name]
+            module = import_module(target)
+            if is_submodule:
+                return module
+
             return getattr(
-                import_module(_submodules[name]),
+                module,
                 name,
             )
         except KeyError:

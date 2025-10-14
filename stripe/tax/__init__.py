@@ -31,26 +31,38 @@ if TYPE_CHECKING:
         TransactionService as TransactionService,
     )
 
-_submodules = {
-    "Calculation": "stripe.tax._calculation",
-    "CalculationLineItem": "stripe.tax._calculation_line_item",
-    "CalculationLineItemService": "stripe.tax._calculation_line_item_service",
-    "CalculationService": "stripe.tax._calculation_service",
-    "Registration": "stripe.tax._registration",
-    "RegistrationService": "stripe.tax._registration_service",
-    "Settings": "stripe.tax._settings",
-    "SettingsService": "stripe.tax._settings_service",
-    "Transaction": "stripe.tax._transaction",
-    "TransactionLineItem": "stripe.tax._transaction_line_item",
-    "TransactionLineItemService": "stripe.tax._transaction_line_item_service",
-    "TransactionService": "stripe.tax._transaction_service",
+# name -> (import_target, is_submodule)
+_import_map = {
+    "Calculation": ("stripe.tax._calculation", False),
+    "CalculationLineItem": ("stripe.tax._calculation_line_item", False),
+    "CalculationLineItemService": (
+        "stripe.tax._calculation_line_item_service",
+        False,
+    ),
+    "CalculationService": ("stripe.tax._calculation_service", False),
+    "Registration": ("stripe.tax._registration", False),
+    "RegistrationService": ("stripe.tax._registration_service", False),
+    "Settings": ("stripe.tax._settings", False),
+    "SettingsService": ("stripe.tax._settings_service", False),
+    "Transaction": ("stripe.tax._transaction", False),
+    "TransactionLineItem": ("stripe.tax._transaction_line_item", False),
+    "TransactionLineItemService": (
+        "stripe.tax._transaction_line_item_service",
+        False,
+    ),
+    "TransactionService": ("stripe.tax._transaction_service", False),
 }
 if not TYPE_CHECKING:
 
     def __getattr__(name):
         try:
+            target, is_submodule = _import_map[name]
+            module = import_module(target)
+            if is_submodule:
+                return module
+
             return getattr(
-                import_module(_submodules[name]),
+                module,
                 name,
             )
         except KeyError:

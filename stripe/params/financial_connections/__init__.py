@@ -49,32 +49,92 @@ if TYPE_CHECKING:
         TransactionRetrieveParams as TransactionRetrieveParams,
     )
 
-_submodules = {
-    "AccountDisconnectParams": "stripe.params.financial_connections._account_disconnect_params",
-    "AccountListOwnersParams": "stripe.params.financial_connections._account_list_owners_params",
-    "AccountListParams": "stripe.params.financial_connections._account_list_params",
-    "AccountListParamsAccountHolder": "stripe.params.financial_connections._account_list_params",
-    "AccountOwnerListParams": "stripe.params.financial_connections._account_owner_list_params",
-    "AccountRefreshAccountParams": "stripe.params.financial_connections._account_refresh_account_params",
-    "AccountRefreshParams": "stripe.params.financial_connections._account_refresh_params",
-    "AccountRetrieveParams": "stripe.params.financial_connections._account_retrieve_params",
-    "AccountSubscribeParams": "stripe.params.financial_connections._account_subscribe_params",
-    "AccountUnsubscribeParams": "stripe.params.financial_connections._account_unsubscribe_params",
-    "SessionCreateParams": "stripe.params.financial_connections._session_create_params",
-    "SessionCreateParamsAccountHolder": "stripe.params.financial_connections._session_create_params",
-    "SessionCreateParamsFilters": "stripe.params.financial_connections._session_create_params",
-    "SessionRetrieveParams": "stripe.params.financial_connections._session_retrieve_params",
-    "TransactionListParams": "stripe.params.financial_connections._transaction_list_params",
-    "TransactionListParamsTransactedAt": "stripe.params.financial_connections._transaction_list_params",
-    "TransactionListParamsTransactionRefresh": "stripe.params.financial_connections._transaction_list_params",
-    "TransactionRetrieveParams": "stripe.params.financial_connections._transaction_retrieve_params",
+# name -> (import_target, is_submodule)
+_import_map = {
+    "AccountDisconnectParams": (
+        "stripe.params.financial_connections._account_disconnect_params",
+        False,
+    ),
+    "AccountListOwnersParams": (
+        "stripe.params.financial_connections._account_list_owners_params",
+        False,
+    ),
+    "AccountListParams": (
+        "stripe.params.financial_connections._account_list_params",
+        False,
+    ),
+    "AccountListParamsAccountHolder": (
+        "stripe.params.financial_connections._account_list_params",
+        False,
+    ),
+    "AccountOwnerListParams": (
+        "stripe.params.financial_connections._account_owner_list_params",
+        False,
+    ),
+    "AccountRefreshAccountParams": (
+        "stripe.params.financial_connections._account_refresh_account_params",
+        False,
+    ),
+    "AccountRefreshParams": (
+        "stripe.params.financial_connections._account_refresh_params",
+        False,
+    ),
+    "AccountRetrieveParams": (
+        "stripe.params.financial_connections._account_retrieve_params",
+        False,
+    ),
+    "AccountSubscribeParams": (
+        "stripe.params.financial_connections._account_subscribe_params",
+        False,
+    ),
+    "AccountUnsubscribeParams": (
+        "stripe.params.financial_connections._account_unsubscribe_params",
+        False,
+    ),
+    "SessionCreateParams": (
+        "stripe.params.financial_connections._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsAccountHolder": (
+        "stripe.params.financial_connections._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsFilters": (
+        "stripe.params.financial_connections._session_create_params",
+        False,
+    ),
+    "SessionRetrieveParams": (
+        "stripe.params.financial_connections._session_retrieve_params",
+        False,
+    ),
+    "TransactionListParams": (
+        "stripe.params.financial_connections._transaction_list_params",
+        False,
+    ),
+    "TransactionListParamsTransactedAt": (
+        "stripe.params.financial_connections._transaction_list_params",
+        False,
+    ),
+    "TransactionListParamsTransactionRefresh": (
+        "stripe.params.financial_connections._transaction_list_params",
+        False,
+    ),
+    "TransactionRetrieveParams": (
+        "stripe.params.financial_connections._transaction_retrieve_params",
+        False,
+    ),
 }
 if not TYPE_CHECKING:
 
     def __getattr__(name):
         try:
+            target, is_submodule = _import_map[name]
+            module = import_module(target)
+            if is_submodule:
+                return module
+
             return getattr(
-                import_module(_submodules[name]),
+                module,
                 name,
             )
         except KeyError:

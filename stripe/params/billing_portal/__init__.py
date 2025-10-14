@@ -73,70 +73,244 @@ if TYPE_CHECKING:
         SessionCreateParamsFlowDataSubscriptionUpdateConfirmItem as SessionCreateParamsFlowDataSubscriptionUpdateConfirmItem,
     )
 
-_submodules = {
-    "ConfigurationCreateParams": "stripe.params.billing_portal._configuration_create_params",
-    "ConfigurationCreateParamsBusinessProfile": "stripe.params.billing_portal._configuration_create_params",
-    "ConfigurationCreateParamsFeatures": "stripe.params.billing_portal._configuration_create_params",
-    "ConfigurationCreateParamsFeaturesCustomerUpdate": "stripe.params.billing_portal._configuration_create_params",
-    "ConfigurationCreateParamsFeaturesInvoiceHistory": "stripe.params.billing_portal._configuration_create_params",
-    "ConfigurationCreateParamsFeaturesPaymentMethodUpdate": "stripe.params.billing_portal._configuration_create_params",
-    "ConfigurationCreateParamsFeaturesSubscriptionCancel": "stripe.params.billing_portal._configuration_create_params",
-    "ConfigurationCreateParamsFeaturesSubscriptionCancelCancellationReason": "stripe.params.billing_portal._configuration_create_params",
-    "ConfigurationCreateParamsFeaturesSubscriptionUpdate": "stripe.params.billing_portal._configuration_create_params",
-    "ConfigurationCreateParamsFeaturesSubscriptionUpdateProduct": "stripe.params.billing_portal._configuration_create_params",
-    "ConfigurationCreateParamsFeaturesSubscriptionUpdateProductAdjustableQuantity": "stripe.params.billing_portal._configuration_create_params",
-    "ConfigurationCreateParamsFeaturesSubscriptionUpdateScheduleAtPeriodEnd": "stripe.params.billing_portal._configuration_create_params",
-    "ConfigurationCreateParamsFeaturesSubscriptionUpdateScheduleAtPeriodEndCondition": "stripe.params.billing_portal._configuration_create_params",
-    "ConfigurationCreateParamsLoginPage": "stripe.params.billing_portal._configuration_create_params",
-    "ConfigurationListParams": "stripe.params.billing_portal._configuration_list_params",
-    "ConfigurationModifyParams": "stripe.params.billing_portal._configuration_modify_params",
-    "ConfigurationModifyParamsBusinessProfile": "stripe.params.billing_portal._configuration_modify_params",
-    "ConfigurationModifyParamsFeatures": "stripe.params.billing_portal._configuration_modify_params",
-    "ConfigurationModifyParamsFeaturesCustomerUpdate": "stripe.params.billing_portal._configuration_modify_params",
-    "ConfigurationModifyParamsFeaturesInvoiceHistory": "stripe.params.billing_portal._configuration_modify_params",
-    "ConfigurationModifyParamsFeaturesPaymentMethodUpdate": "stripe.params.billing_portal._configuration_modify_params",
-    "ConfigurationModifyParamsFeaturesSubscriptionCancel": "stripe.params.billing_portal._configuration_modify_params",
-    "ConfigurationModifyParamsFeaturesSubscriptionCancelCancellationReason": "stripe.params.billing_portal._configuration_modify_params",
-    "ConfigurationModifyParamsFeaturesSubscriptionUpdate": "stripe.params.billing_portal._configuration_modify_params",
-    "ConfigurationModifyParamsFeaturesSubscriptionUpdateProduct": "stripe.params.billing_portal._configuration_modify_params",
-    "ConfigurationModifyParamsFeaturesSubscriptionUpdateProductAdjustableQuantity": "stripe.params.billing_portal._configuration_modify_params",
-    "ConfigurationModifyParamsFeaturesSubscriptionUpdateScheduleAtPeriodEnd": "stripe.params.billing_portal._configuration_modify_params",
-    "ConfigurationModifyParamsFeaturesSubscriptionUpdateScheduleAtPeriodEndCondition": "stripe.params.billing_portal._configuration_modify_params",
-    "ConfigurationModifyParamsLoginPage": "stripe.params.billing_portal._configuration_modify_params",
-    "ConfigurationRetrieveParams": "stripe.params.billing_portal._configuration_retrieve_params",
-    "ConfigurationUpdateParams": "stripe.params.billing_portal._configuration_update_params",
-    "ConfigurationUpdateParamsBusinessProfile": "stripe.params.billing_portal._configuration_update_params",
-    "ConfigurationUpdateParamsFeatures": "stripe.params.billing_portal._configuration_update_params",
-    "ConfigurationUpdateParamsFeaturesCustomerUpdate": "stripe.params.billing_portal._configuration_update_params",
-    "ConfigurationUpdateParamsFeaturesInvoiceHistory": "stripe.params.billing_portal._configuration_update_params",
-    "ConfigurationUpdateParamsFeaturesPaymentMethodUpdate": "stripe.params.billing_portal._configuration_update_params",
-    "ConfigurationUpdateParamsFeaturesSubscriptionCancel": "stripe.params.billing_portal._configuration_update_params",
-    "ConfigurationUpdateParamsFeaturesSubscriptionCancelCancellationReason": "stripe.params.billing_portal._configuration_update_params",
-    "ConfigurationUpdateParamsFeaturesSubscriptionUpdate": "stripe.params.billing_portal._configuration_update_params",
-    "ConfigurationUpdateParamsFeaturesSubscriptionUpdateProduct": "stripe.params.billing_portal._configuration_update_params",
-    "ConfigurationUpdateParamsFeaturesSubscriptionUpdateProductAdjustableQuantity": "stripe.params.billing_portal._configuration_update_params",
-    "ConfigurationUpdateParamsFeaturesSubscriptionUpdateScheduleAtPeriodEnd": "stripe.params.billing_portal._configuration_update_params",
-    "ConfigurationUpdateParamsFeaturesSubscriptionUpdateScheduleAtPeriodEndCondition": "stripe.params.billing_portal._configuration_update_params",
-    "ConfigurationUpdateParamsLoginPage": "stripe.params.billing_portal._configuration_update_params",
-    "SessionCreateParams": "stripe.params.billing_portal._session_create_params",
-    "SessionCreateParamsFlowData": "stripe.params.billing_portal._session_create_params",
-    "SessionCreateParamsFlowDataAfterCompletion": "stripe.params.billing_portal._session_create_params",
-    "SessionCreateParamsFlowDataAfterCompletionHostedConfirmation": "stripe.params.billing_portal._session_create_params",
-    "SessionCreateParamsFlowDataAfterCompletionRedirect": "stripe.params.billing_portal._session_create_params",
-    "SessionCreateParamsFlowDataSubscriptionCancel": "stripe.params.billing_portal._session_create_params",
-    "SessionCreateParamsFlowDataSubscriptionCancelRetention": "stripe.params.billing_portal._session_create_params",
-    "SessionCreateParamsFlowDataSubscriptionCancelRetentionCouponOffer": "stripe.params.billing_portal._session_create_params",
-    "SessionCreateParamsFlowDataSubscriptionUpdate": "stripe.params.billing_portal._session_create_params",
-    "SessionCreateParamsFlowDataSubscriptionUpdateConfirm": "stripe.params.billing_portal._session_create_params",
-    "SessionCreateParamsFlowDataSubscriptionUpdateConfirmDiscount": "stripe.params.billing_portal._session_create_params",
-    "SessionCreateParamsFlowDataSubscriptionUpdateConfirmItem": "stripe.params.billing_portal._session_create_params",
+# name -> (import_target, is_submodule)
+_import_map = {
+    "ConfigurationCreateParams": (
+        "stripe.params.billing_portal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsBusinessProfile": (
+        "stripe.params.billing_portal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsFeatures": (
+        "stripe.params.billing_portal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsFeaturesCustomerUpdate": (
+        "stripe.params.billing_portal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsFeaturesInvoiceHistory": (
+        "stripe.params.billing_portal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsFeaturesPaymentMethodUpdate": (
+        "stripe.params.billing_portal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsFeaturesSubscriptionCancel": (
+        "stripe.params.billing_portal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsFeaturesSubscriptionCancelCancellationReason": (
+        "stripe.params.billing_portal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsFeaturesSubscriptionUpdate": (
+        "stripe.params.billing_portal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsFeaturesSubscriptionUpdateProduct": (
+        "stripe.params.billing_portal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsFeaturesSubscriptionUpdateProductAdjustableQuantity": (
+        "stripe.params.billing_portal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsFeaturesSubscriptionUpdateScheduleAtPeriodEnd": (
+        "stripe.params.billing_portal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsFeaturesSubscriptionUpdateScheduleAtPeriodEndCondition": (
+        "stripe.params.billing_portal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsLoginPage": (
+        "stripe.params.billing_portal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationListParams": (
+        "stripe.params.billing_portal._configuration_list_params",
+        False,
+    ),
+    "ConfigurationModifyParams": (
+        "stripe.params.billing_portal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsBusinessProfile": (
+        "stripe.params.billing_portal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsFeatures": (
+        "stripe.params.billing_portal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsFeaturesCustomerUpdate": (
+        "stripe.params.billing_portal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsFeaturesInvoiceHistory": (
+        "stripe.params.billing_portal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsFeaturesPaymentMethodUpdate": (
+        "stripe.params.billing_portal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsFeaturesSubscriptionCancel": (
+        "stripe.params.billing_portal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsFeaturesSubscriptionCancelCancellationReason": (
+        "stripe.params.billing_portal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsFeaturesSubscriptionUpdate": (
+        "stripe.params.billing_portal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsFeaturesSubscriptionUpdateProduct": (
+        "stripe.params.billing_portal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsFeaturesSubscriptionUpdateProductAdjustableQuantity": (
+        "stripe.params.billing_portal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsFeaturesSubscriptionUpdateScheduleAtPeriodEnd": (
+        "stripe.params.billing_portal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsFeaturesSubscriptionUpdateScheduleAtPeriodEndCondition": (
+        "stripe.params.billing_portal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsLoginPage": (
+        "stripe.params.billing_portal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationRetrieveParams": (
+        "stripe.params.billing_portal._configuration_retrieve_params",
+        False,
+    ),
+    "ConfigurationUpdateParams": (
+        "stripe.params.billing_portal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsBusinessProfile": (
+        "stripe.params.billing_portal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsFeatures": (
+        "stripe.params.billing_portal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsFeaturesCustomerUpdate": (
+        "stripe.params.billing_portal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsFeaturesInvoiceHistory": (
+        "stripe.params.billing_portal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsFeaturesPaymentMethodUpdate": (
+        "stripe.params.billing_portal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsFeaturesSubscriptionCancel": (
+        "stripe.params.billing_portal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsFeaturesSubscriptionCancelCancellationReason": (
+        "stripe.params.billing_portal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsFeaturesSubscriptionUpdate": (
+        "stripe.params.billing_portal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsFeaturesSubscriptionUpdateProduct": (
+        "stripe.params.billing_portal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsFeaturesSubscriptionUpdateProductAdjustableQuantity": (
+        "stripe.params.billing_portal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsFeaturesSubscriptionUpdateScheduleAtPeriodEnd": (
+        "stripe.params.billing_portal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsFeaturesSubscriptionUpdateScheduleAtPeriodEndCondition": (
+        "stripe.params.billing_portal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsLoginPage": (
+        "stripe.params.billing_portal._configuration_update_params",
+        False,
+    ),
+    "SessionCreateParams": (
+        "stripe.params.billing_portal._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsFlowData": (
+        "stripe.params.billing_portal._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsFlowDataAfterCompletion": (
+        "stripe.params.billing_portal._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsFlowDataAfterCompletionHostedConfirmation": (
+        "stripe.params.billing_portal._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsFlowDataAfterCompletionRedirect": (
+        "stripe.params.billing_portal._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsFlowDataSubscriptionCancel": (
+        "stripe.params.billing_portal._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsFlowDataSubscriptionCancelRetention": (
+        "stripe.params.billing_portal._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsFlowDataSubscriptionCancelRetentionCouponOffer": (
+        "stripe.params.billing_portal._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsFlowDataSubscriptionUpdate": (
+        "stripe.params.billing_portal._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsFlowDataSubscriptionUpdateConfirm": (
+        "stripe.params.billing_portal._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsFlowDataSubscriptionUpdateConfirmDiscount": (
+        "stripe.params.billing_portal._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsFlowDataSubscriptionUpdateConfirmItem": (
+        "stripe.params.billing_portal._session_create_params",
+        False,
+    ),
 }
 if not TYPE_CHECKING:
 
     def __getattr__(name):
         try:
+            target, is_submodule = _import_map[name]
+            module = import_module(target)
+            if is_submodule:
+                return module
+
             return getattr(
-                import_module(_submodules[name]),
+                module,
                 name,
             )
         except KeyError:

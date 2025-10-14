@@ -9,16 +9,22 @@ if TYPE_CHECKING:
         RequestService as RequestService,
     )
 
-_submodules = {
-    "Request": "stripe.forwarding._request",
-    "RequestService": "stripe.forwarding._request_service",
+# name -> (import_target, is_submodule)
+_import_map = {
+    "Request": ("stripe.forwarding._request", False),
+    "RequestService": ("stripe.forwarding._request_service", False),
 }
 if not TYPE_CHECKING:
 
     def __getattr__(name):
         try:
+            target, is_submodule = _import_map[name]
+            module = import_module(target)
+            if is_submodule:
+                return module
+
             return getattr(
-                import_module(_submodules[name]),
+                module,
                 name,
             )
         except KeyError:

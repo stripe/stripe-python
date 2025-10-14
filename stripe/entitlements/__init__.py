@@ -18,19 +18,31 @@ if TYPE_CHECKING:
         FeatureService as FeatureService,
     )
 
-_submodules = {
-    "ActiveEntitlement": "stripe.entitlements._active_entitlement",
-    "ActiveEntitlementService": "stripe.entitlements._active_entitlement_service",
-    "ActiveEntitlementSummary": "stripe.entitlements._active_entitlement_summary",
-    "Feature": "stripe.entitlements._feature",
-    "FeatureService": "stripe.entitlements._feature_service",
+# name -> (import_target, is_submodule)
+_import_map = {
+    "ActiveEntitlement": ("stripe.entitlements._active_entitlement", False),
+    "ActiveEntitlementService": (
+        "stripe.entitlements._active_entitlement_service",
+        False,
+    ),
+    "ActiveEntitlementSummary": (
+        "stripe.entitlements._active_entitlement_summary",
+        False,
+    ),
+    "Feature": ("stripe.entitlements._feature", False),
+    "FeatureService": ("stripe.entitlements._feature_service", False),
 }
 if not TYPE_CHECKING:
 
     def __getattr__(name):
         try:
+            target, is_submodule = _import_map[name]
+            module = import_module(target)
+            if is_submodule:
+                return module
+
             return getattr(
-                import_module(_submodules[name]),
+                module,
                 name,
             )
         except KeyError:

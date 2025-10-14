@@ -26,21 +26,48 @@ if TYPE_CHECKING:
         FeatureUpdateParams as FeatureUpdateParams,
     )
 
-_submodules = {
-    "ActiveEntitlementListParams": "stripe.params.entitlements._active_entitlement_list_params",
-    "ActiveEntitlementRetrieveParams": "stripe.params.entitlements._active_entitlement_retrieve_params",
-    "FeatureCreateParams": "stripe.params.entitlements._feature_create_params",
-    "FeatureListParams": "stripe.params.entitlements._feature_list_params",
-    "FeatureModifyParams": "stripe.params.entitlements._feature_modify_params",
-    "FeatureRetrieveParams": "stripe.params.entitlements._feature_retrieve_params",
-    "FeatureUpdateParams": "stripe.params.entitlements._feature_update_params",
+# name -> (import_target, is_submodule)
+_import_map = {
+    "ActiveEntitlementListParams": (
+        "stripe.params.entitlements._active_entitlement_list_params",
+        False,
+    ),
+    "ActiveEntitlementRetrieveParams": (
+        "stripe.params.entitlements._active_entitlement_retrieve_params",
+        False,
+    ),
+    "FeatureCreateParams": (
+        "stripe.params.entitlements._feature_create_params",
+        False,
+    ),
+    "FeatureListParams": (
+        "stripe.params.entitlements._feature_list_params",
+        False,
+    ),
+    "FeatureModifyParams": (
+        "stripe.params.entitlements._feature_modify_params",
+        False,
+    ),
+    "FeatureRetrieveParams": (
+        "stripe.params.entitlements._feature_retrieve_params",
+        False,
+    ),
+    "FeatureUpdateParams": (
+        "stripe.params.entitlements._feature_update_params",
+        False,
+    ),
 }
 if not TYPE_CHECKING:
 
     def __getattr__(name):
         try:
+            target, is_submodule = _import_map[name]
+            module = import_module(target)
+            if is_submodule:
+                return module
+
             return getattr(
-                import_module(_submodules[name]),
+                module,
                 name,
             )
         except KeyError:

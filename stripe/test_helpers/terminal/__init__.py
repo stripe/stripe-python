@@ -8,13 +8,21 @@ if TYPE_CHECKING:
         ReaderService as ReaderService,
     )
 
-_submodules = {"ReaderService": "stripe.test_helpers.terminal._reader_service"}
+# name -> (import_target, is_submodule)
+_import_map = {
+    "ReaderService": ("stripe.test_helpers.terminal._reader_service", False),
+}
 if not TYPE_CHECKING:
 
     def __getattr__(name):
         try:
+            target, is_submodule = _import_map[name]
+            module = import_module(target)
+            if is_submodule:
+                return module
+
             return getattr(
-                import_module(_submodules[name]),
+                module,
                 name,
             )
         except KeyError:

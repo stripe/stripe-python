@@ -44,29 +44,80 @@ if TYPE_CHECKING:
         ValueListUpdateParams as ValueListUpdateParams,
     )
 
-_submodules = {
-    "EarlyFraudWarningListParams": "stripe.params.radar._early_fraud_warning_list_params",
-    "EarlyFraudWarningListParamsCreated": "stripe.params.radar._early_fraud_warning_list_params",
-    "EarlyFraudWarningRetrieveParams": "stripe.params.radar._early_fraud_warning_retrieve_params",
-    "ValueListCreateParams": "stripe.params.radar._value_list_create_params",
-    "ValueListDeleteParams": "stripe.params.radar._value_list_delete_params",
-    "ValueListItemCreateParams": "stripe.params.radar._value_list_item_create_params",
-    "ValueListItemDeleteParams": "stripe.params.radar._value_list_item_delete_params",
-    "ValueListItemListParams": "stripe.params.radar._value_list_item_list_params",
-    "ValueListItemListParamsCreated": "stripe.params.radar._value_list_item_list_params",
-    "ValueListItemRetrieveParams": "stripe.params.radar._value_list_item_retrieve_params",
-    "ValueListListParams": "stripe.params.radar._value_list_list_params",
-    "ValueListListParamsCreated": "stripe.params.radar._value_list_list_params",
-    "ValueListModifyParams": "stripe.params.radar._value_list_modify_params",
-    "ValueListRetrieveParams": "stripe.params.radar._value_list_retrieve_params",
-    "ValueListUpdateParams": "stripe.params.radar._value_list_update_params",
+# name -> (import_target, is_submodule)
+_import_map = {
+    "EarlyFraudWarningListParams": (
+        "stripe.params.radar._early_fraud_warning_list_params",
+        False,
+    ),
+    "EarlyFraudWarningListParamsCreated": (
+        "stripe.params.radar._early_fraud_warning_list_params",
+        False,
+    ),
+    "EarlyFraudWarningRetrieveParams": (
+        "stripe.params.radar._early_fraud_warning_retrieve_params",
+        False,
+    ),
+    "ValueListCreateParams": (
+        "stripe.params.radar._value_list_create_params",
+        False,
+    ),
+    "ValueListDeleteParams": (
+        "stripe.params.radar._value_list_delete_params",
+        False,
+    ),
+    "ValueListItemCreateParams": (
+        "stripe.params.radar._value_list_item_create_params",
+        False,
+    ),
+    "ValueListItemDeleteParams": (
+        "stripe.params.radar._value_list_item_delete_params",
+        False,
+    ),
+    "ValueListItemListParams": (
+        "stripe.params.radar._value_list_item_list_params",
+        False,
+    ),
+    "ValueListItemListParamsCreated": (
+        "stripe.params.radar._value_list_item_list_params",
+        False,
+    ),
+    "ValueListItemRetrieveParams": (
+        "stripe.params.radar._value_list_item_retrieve_params",
+        False,
+    ),
+    "ValueListListParams": (
+        "stripe.params.radar._value_list_list_params",
+        False,
+    ),
+    "ValueListListParamsCreated": (
+        "stripe.params.radar._value_list_list_params",
+        False,
+    ),
+    "ValueListModifyParams": (
+        "stripe.params.radar._value_list_modify_params",
+        False,
+    ),
+    "ValueListRetrieveParams": (
+        "stripe.params.radar._value_list_retrieve_params",
+        False,
+    ),
+    "ValueListUpdateParams": (
+        "stripe.params.radar._value_list_update_params",
+        False,
+    ),
 }
 if not TYPE_CHECKING:
 
     def __getattr__(name):
         try:
+            target, is_submodule = _import_map[name]
+            module = import_module(target)
+            if is_submodule:
+                return module
+
             return getattr(
-                import_module(_submodules[name]),
+                module,
                 name,
             )
         except KeyError:

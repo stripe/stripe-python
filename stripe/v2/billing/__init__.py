@@ -24,21 +24,39 @@ if TYPE_CHECKING:
         MeterEventStreamService as MeterEventStreamService,
     )
 
-_submodules = {
-    "MeterEvent": "stripe.v2.billing._meter_event",
-    "MeterEventAdjustment": "stripe.v2.billing._meter_event_adjustment",
-    "MeterEventAdjustmentService": "stripe.v2.billing._meter_event_adjustment_service",
-    "MeterEventService": "stripe.v2.billing._meter_event_service",
-    "MeterEventSession": "stripe.v2.billing._meter_event_session",
-    "MeterEventSessionService": "stripe.v2.billing._meter_event_session_service",
-    "MeterEventStreamService": "stripe.v2.billing._meter_event_stream_service",
+# name -> (import_target, is_submodule)
+_import_map = {
+    "MeterEvent": ("stripe.v2.billing._meter_event", False),
+    "MeterEventAdjustment": (
+        "stripe.v2.billing._meter_event_adjustment",
+        False,
+    ),
+    "MeterEventAdjustmentService": (
+        "stripe.v2.billing._meter_event_adjustment_service",
+        False,
+    ),
+    "MeterEventService": ("stripe.v2.billing._meter_event_service", False),
+    "MeterEventSession": ("stripe.v2.billing._meter_event_session", False),
+    "MeterEventSessionService": (
+        "stripe.v2.billing._meter_event_session_service",
+        False,
+    ),
+    "MeterEventStreamService": (
+        "stripe.v2.billing._meter_event_stream_service",
+        False,
+    ),
 }
 if not TYPE_CHECKING:
 
     def __getattr__(name):
         try:
+            target, is_submodule = _import_map[name]
+            module = import_module(target)
+            if is_submodule:
+                return module
+
             return getattr(
-                import_module(_submodules[name]),
+                module,
                 name,
             )
         except KeyError:

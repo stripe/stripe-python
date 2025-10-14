@@ -171,164 +171,620 @@ if TYPE_CHECKING:
         SessionUpdateParamsShippingOptionShippingRateDataFixedAmountCurrencyOptions as SessionUpdateParamsShippingOptionShippingRateDataFixedAmountCurrencyOptions,
     )
 
-_submodules = {
-    "SessionCreateParams": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsAdaptivePricing": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsAfterExpiration": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsAfterExpirationRecovery": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsAutomaticTax": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsAutomaticTaxLiability": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsBrandingSettings": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsBrandingSettingsIcon": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsBrandingSettingsLogo": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsConsentCollection": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsConsentCollectionPaymentMethodReuseAgreement": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsCustomField": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsCustomFieldDropdown": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsCustomFieldDropdownOption": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsCustomFieldLabel": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsCustomFieldNumeric": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsCustomFieldText": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsCustomText": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsCustomTextAfterSubmit": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsCustomTextShippingAddress": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsCustomTextSubmit": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsCustomTextTermsOfServiceAcceptance": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsCustomerUpdate": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsDiscount": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsInvoiceCreation": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsInvoiceCreationInvoiceData": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsInvoiceCreationInvoiceDataCustomField": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsInvoiceCreationInvoiceDataIssuer": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsInvoiceCreationInvoiceDataRenderingOptions": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsLineItem": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsLineItemAdjustableQuantity": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsLineItemPriceData": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsLineItemPriceDataProductData": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsLineItemPriceDataRecurring": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsNameCollection": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsNameCollectionBusiness": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsNameCollectionIndividual": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsOptionalItem": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsOptionalItemAdjustableQuantity": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentIntentData": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentIntentDataShipping": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentIntentDataShippingAddress": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentIntentDataTransferData": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodData": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptions": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsAcssDebit": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsAcssDebitMandateOptions": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsAffirm": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsAfterpayClearpay": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsAlipay": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsAlma": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsAmazonPay": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsAuBecsDebit": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsBacsDebit": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsBacsDebitMandateOptions": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsBancontact": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsBillie": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsBoleto": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsCard": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsCardInstallments": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsCardRestrictions": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsCashapp": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsCustomerBalance": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsCustomerBalanceBankTransfer": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsDemoPay": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsEps": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsFpx": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsGiropay": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsGrabpay": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsIdeal": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsKakaoPay": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsKlarna": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsKlarnaSubscription": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsKlarnaSubscriptionNextBilling": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsKonbini": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsKrCard": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsLink": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsMobilepay": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsMultibanco": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsNaverPay": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsOxxo": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsP24": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsPayByBank": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsPayco": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsPaynow": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsPaypal": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsPix": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsRevolutPay": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsSamsungPay": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsSatispay": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsSepaDebit": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsSepaDebitMandateOptions": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsSofort": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsSwish": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsUsBankAccount": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPaymentMethodOptionsWechatPay": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPermissions": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsPhoneNumberCollection": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsSavedPaymentMethodOptions": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsSetupIntentData": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsShippingAddressCollection": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsShippingOption": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsShippingOptionShippingRateData": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsShippingOptionShippingRateDataDeliveryEstimate": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsShippingOptionShippingRateDataDeliveryEstimateMaximum": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsShippingOptionShippingRateDataDeliveryEstimateMinimum": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsShippingOptionShippingRateDataFixedAmount": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsShippingOptionShippingRateDataFixedAmountCurrencyOptions": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsSubscriptionData": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsSubscriptionDataBillingMode": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsSubscriptionDataBillingModeFlexible": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsSubscriptionDataInvoiceSettings": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsSubscriptionDataInvoiceSettingsIssuer": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsSubscriptionDataTransferData": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsSubscriptionDataTrialSettings": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsSubscriptionDataTrialSettingsEndBehavior": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsTaxIdCollection": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsWalletOptions": "stripe.params.checkout._session_create_params",
-    "SessionCreateParamsWalletOptionsLink": "stripe.params.checkout._session_create_params",
-    "SessionExpireParams": "stripe.params.checkout._session_expire_params",
-    "SessionLineItemListParams": "stripe.params.checkout._session_line_item_list_params",
-    "SessionListLineItemsParams": "stripe.params.checkout._session_list_line_items_params",
-    "SessionListParams": "stripe.params.checkout._session_list_params",
-    "SessionListParamsCreated": "stripe.params.checkout._session_list_params",
-    "SessionListParamsCustomerDetails": "stripe.params.checkout._session_list_params",
-    "SessionModifyParams": "stripe.params.checkout._session_modify_params",
-    "SessionModifyParamsCollectedInformation": "stripe.params.checkout._session_modify_params",
-    "SessionModifyParamsCollectedInformationShippingDetails": "stripe.params.checkout._session_modify_params",
-    "SessionModifyParamsCollectedInformationShippingDetailsAddress": "stripe.params.checkout._session_modify_params",
-    "SessionModifyParamsShippingOption": "stripe.params.checkout._session_modify_params",
-    "SessionModifyParamsShippingOptionShippingRateData": "stripe.params.checkout._session_modify_params",
-    "SessionModifyParamsShippingOptionShippingRateDataDeliveryEstimate": "stripe.params.checkout._session_modify_params",
-    "SessionModifyParamsShippingOptionShippingRateDataDeliveryEstimateMaximum": "stripe.params.checkout._session_modify_params",
-    "SessionModifyParamsShippingOptionShippingRateDataDeliveryEstimateMinimum": "stripe.params.checkout._session_modify_params",
-    "SessionModifyParamsShippingOptionShippingRateDataFixedAmount": "stripe.params.checkout._session_modify_params",
-    "SessionModifyParamsShippingOptionShippingRateDataFixedAmountCurrencyOptions": "stripe.params.checkout._session_modify_params",
-    "SessionRetrieveParams": "stripe.params.checkout._session_retrieve_params",
-    "SessionUpdateParams": "stripe.params.checkout._session_update_params",
-    "SessionUpdateParamsCollectedInformation": "stripe.params.checkout._session_update_params",
-    "SessionUpdateParamsCollectedInformationShippingDetails": "stripe.params.checkout._session_update_params",
-    "SessionUpdateParamsCollectedInformationShippingDetailsAddress": "stripe.params.checkout._session_update_params",
-    "SessionUpdateParamsShippingOption": "stripe.params.checkout._session_update_params",
-    "SessionUpdateParamsShippingOptionShippingRateData": "stripe.params.checkout._session_update_params",
-    "SessionUpdateParamsShippingOptionShippingRateDataDeliveryEstimate": "stripe.params.checkout._session_update_params",
-    "SessionUpdateParamsShippingOptionShippingRateDataDeliveryEstimateMaximum": "stripe.params.checkout._session_update_params",
-    "SessionUpdateParamsShippingOptionShippingRateDataDeliveryEstimateMinimum": "stripe.params.checkout._session_update_params",
-    "SessionUpdateParamsShippingOptionShippingRateDataFixedAmount": "stripe.params.checkout._session_update_params",
-    "SessionUpdateParamsShippingOptionShippingRateDataFixedAmountCurrencyOptions": "stripe.params.checkout._session_update_params",
+# name -> (import_target, is_submodule)
+_import_map = {
+    "SessionCreateParams": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsAdaptivePricing": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsAfterExpiration": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsAfterExpirationRecovery": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsAutomaticTax": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsAutomaticTaxLiability": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsBrandingSettings": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsBrandingSettingsIcon": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsBrandingSettingsLogo": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsConsentCollection": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsConsentCollectionPaymentMethodReuseAgreement": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsCustomField": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsCustomFieldDropdown": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsCustomFieldDropdownOption": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsCustomFieldLabel": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsCustomFieldNumeric": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsCustomFieldText": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsCustomText": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsCustomTextAfterSubmit": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsCustomTextShippingAddress": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsCustomTextSubmit": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsCustomTextTermsOfServiceAcceptance": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsCustomerUpdate": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsDiscount": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsInvoiceCreation": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsInvoiceCreationInvoiceData": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsInvoiceCreationInvoiceDataCustomField": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsInvoiceCreationInvoiceDataIssuer": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsInvoiceCreationInvoiceDataRenderingOptions": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsLineItem": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsLineItemAdjustableQuantity": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsLineItemPriceData": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsLineItemPriceDataProductData": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsLineItemPriceDataRecurring": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsNameCollection": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsNameCollectionBusiness": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsNameCollectionIndividual": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsOptionalItem": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsOptionalItemAdjustableQuantity": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentIntentData": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentIntentDataShipping": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentIntentDataShippingAddress": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentIntentDataTransferData": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodData": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptions": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsAcssDebit": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsAcssDebitMandateOptions": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsAffirm": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsAfterpayClearpay": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsAlipay": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsAlma": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsAmazonPay": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsAuBecsDebit": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsBacsDebit": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsBacsDebitMandateOptions": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsBancontact": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsBillie": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsBoleto": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsCard": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsCardInstallments": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsCardRestrictions": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsCashapp": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsCustomerBalance": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsCustomerBalanceBankTransfer": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsDemoPay": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsEps": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsFpx": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsGiropay": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsGrabpay": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsIdeal": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsKakaoPay": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsKlarna": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsKlarnaSubscription": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsKlarnaSubscriptionNextBilling": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsKonbini": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsKrCard": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsLink": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsMobilepay": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsMultibanco": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsNaverPay": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsOxxo": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsP24": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsPayByBank": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsPayco": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsPaynow": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsPaypal": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsPix": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsRevolutPay": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsSamsungPay": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsSatispay": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsSepaDebit": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsSepaDebitMandateOptions": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsSofort": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsSwish": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsUsBankAccount": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsWechatPay": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPermissions": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPhoneNumberCollection": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsSavedPaymentMethodOptions": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsSetupIntentData": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsShippingAddressCollection": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsShippingOption": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsShippingOptionShippingRateData": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsShippingOptionShippingRateDataDeliveryEstimate": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsShippingOptionShippingRateDataDeliveryEstimateMaximum": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsShippingOptionShippingRateDataDeliveryEstimateMinimum": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsShippingOptionShippingRateDataFixedAmount": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsShippingOptionShippingRateDataFixedAmountCurrencyOptions": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsSubscriptionData": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsSubscriptionDataBillingMode": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsSubscriptionDataBillingModeFlexible": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsSubscriptionDataInvoiceSettings": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsSubscriptionDataInvoiceSettingsIssuer": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsSubscriptionDataTransferData": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsSubscriptionDataTrialSettings": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsSubscriptionDataTrialSettingsEndBehavior": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsTaxIdCollection": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsWalletOptions": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsWalletOptionsLink": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionExpireParams": (
+        "stripe.params.checkout._session_expire_params",
+        False,
+    ),
+    "SessionLineItemListParams": (
+        "stripe.params.checkout._session_line_item_list_params",
+        False,
+    ),
+    "SessionListLineItemsParams": (
+        "stripe.params.checkout._session_list_line_items_params",
+        False,
+    ),
+    "SessionListParams": (
+        "stripe.params.checkout._session_list_params",
+        False,
+    ),
+    "SessionListParamsCreated": (
+        "stripe.params.checkout._session_list_params",
+        False,
+    ),
+    "SessionListParamsCustomerDetails": (
+        "stripe.params.checkout._session_list_params",
+        False,
+    ),
+    "SessionModifyParams": (
+        "stripe.params.checkout._session_modify_params",
+        False,
+    ),
+    "SessionModifyParamsCollectedInformation": (
+        "stripe.params.checkout._session_modify_params",
+        False,
+    ),
+    "SessionModifyParamsCollectedInformationShippingDetails": (
+        "stripe.params.checkout._session_modify_params",
+        False,
+    ),
+    "SessionModifyParamsCollectedInformationShippingDetailsAddress": (
+        "stripe.params.checkout._session_modify_params",
+        False,
+    ),
+    "SessionModifyParamsShippingOption": (
+        "stripe.params.checkout._session_modify_params",
+        False,
+    ),
+    "SessionModifyParamsShippingOptionShippingRateData": (
+        "stripe.params.checkout._session_modify_params",
+        False,
+    ),
+    "SessionModifyParamsShippingOptionShippingRateDataDeliveryEstimate": (
+        "stripe.params.checkout._session_modify_params",
+        False,
+    ),
+    "SessionModifyParamsShippingOptionShippingRateDataDeliveryEstimateMaximum": (
+        "stripe.params.checkout._session_modify_params",
+        False,
+    ),
+    "SessionModifyParamsShippingOptionShippingRateDataDeliveryEstimateMinimum": (
+        "stripe.params.checkout._session_modify_params",
+        False,
+    ),
+    "SessionModifyParamsShippingOptionShippingRateDataFixedAmount": (
+        "stripe.params.checkout._session_modify_params",
+        False,
+    ),
+    "SessionModifyParamsShippingOptionShippingRateDataFixedAmountCurrencyOptions": (
+        "stripe.params.checkout._session_modify_params",
+        False,
+    ),
+    "SessionRetrieveParams": (
+        "stripe.params.checkout._session_retrieve_params",
+        False,
+    ),
+    "SessionUpdateParams": (
+        "stripe.params.checkout._session_update_params",
+        False,
+    ),
+    "SessionUpdateParamsCollectedInformation": (
+        "stripe.params.checkout._session_update_params",
+        False,
+    ),
+    "SessionUpdateParamsCollectedInformationShippingDetails": (
+        "stripe.params.checkout._session_update_params",
+        False,
+    ),
+    "SessionUpdateParamsCollectedInformationShippingDetailsAddress": (
+        "stripe.params.checkout._session_update_params",
+        False,
+    ),
+    "SessionUpdateParamsShippingOption": (
+        "stripe.params.checkout._session_update_params",
+        False,
+    ),
+    "SessionUpdateParamsShippingOptionShippingRateData": (
+        "stripe.params.checkout._session_update_params",
+        False,
+    ),
+    "SessionUpdateParamsShippingOptionShippingRateDataDeliveryEstimate": (
+        "stripe.params.checkout._session_update_params",
+        False,
+    ),
+    "SessionUpdateParamsShippingOptionShippingRateDataDeliveryEstimateMaximum": (
+        "stripe.params.checkout._session_update_params",
+        False,
+    ),
+    "SessionUpdateParamsShippingOptionShippingRateDataDeliveryEstimateMinimum": (
+        "stripe.params.checkout._session_update_params",
+        False,
+    ),
+    "SessionUpdateParamsShippingOptionShippingRateDataFixedAmount": (
+        "stripe.params.checkout._session_update_params",
+        False,
+    ),
+    "SessionUpdateParamsShippingOptionShippingRateDataFixedAmountCurrencyOptions": (
+        "stripe.params.checkout._session_update_params",
+        False,
+    ),
 }
 if not TYPE_CHECKING:
 
     def __getattr__(name):
         try:
+            target, is_submodule = _import_map[name]
+            module = import_module(target)
+            if is_submodule:
+                return module
+
             return getattr(
-                import_module(_submodules[name]),
+                module,
                 name,
             )
         except KeyError:

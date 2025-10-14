@@ -17,20 +17,44 @@ if TYPE_CHECKING:
         ReaderTimeoutInputCollectionParams as ReaderTimeoutInputCollectionParams,
     )
 
-_submodules = {
-    "ReaderPresentPaymentMethodParams": "stripe.params.test_helpers.terminal._reader_present_payment_method_params",
-    "ReaderPresentPaymentMethodParamsCard": "stripe.params.test_helpers.terminal._reader_present_payment_method_params",
-    "ReaderPresentPaymentMethodParamsCardPresent": "stripe.params.test_helpers.terminal._reader_present_payment_method_params",
-    "ReaderPresentPaymentMethodParamsInteracPresent": "stripe.params.test_helpers.terminal._reader_present_payment_method_params",
-    "ReaderSucceedInputCollectionParams": "stripe.params.test_helpers.terminal._reader_succeed_input_collection_params",
-    "ReaderTimeoutInputCollectionParams": "stripe.params.test_helpers.terminal._reader_timeout_input_collection_params",
+# name -> (import_target, is_submodule)
+_import_map = {
+    "ReaderPresentPaymentMethodParams": (
+        "stripe.params.test_helpers.terminal._reader_present_payment_method_params",
+        False,
+    ),
+    "ReaderPresentPaymentMethodParamsCard": (
+        "stripe.params.test_helpers.terminal._reader_present_payment_method_params",
+        False,
+    ),
+    "ReaderPresentPaymentMethodParamsCardPresent": (
+        "stripe.params.test_helpers.terminal._reader_present_payment_method_params",
+        False,
+    ),
+    "ReaderPresentPaymentMethodParamsInteracPresent": (
+        "stripe.params.test_helpers.terminal._reader_present_payment_method_params",
+        False,
+    ),
+    "ReaderSucceedInputCollectionParams": (
+        "stripe.params.test_helpers.terminal._reader_succeed_input_collection_params",
+        False,
+    ),
+    "ReaderTimeoutInputCollectionParams": (
+        "stripe.params.test_helpers.terminal._reader_timeout_input_collection_params",
+        False,
+    ),
 }
 if not TYPE_CHECKING:
 
     def __getattr__(name):
         try:
+            target, is_submodule = _import_map[name]
+            module = import_module(target)
+            if is_submodule:
+                return module
+
             return getattr(
-                import_module(_submodules[name]),
+                module,
                 name,
             )
         except KeyError:

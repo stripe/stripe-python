@@ -37,30 +37,42 @@ if TYPE_CHECKING:
         TransactionService as TransactionService,
     )
 
-_submodules = {
-    "Authorization": "stripe.issuing._authorization",
-    "AuthorizationService": "stripe.issuing._authorization_service",
-    "Card": "stripe.issuing._card",
-    "CardService": "stripe.issuing._card_service",
-    "Cardholder": "stripe.issuing._cardholder",
-    "CardholderService": "stripe.issuing._cardholder_service",
-    "Dispute": "stripe.issuing._dispute",
-    "DisputeService": "stripe.issuing._dispute_service",
-    "PersonalizationDesign": "stripe.issuing._personalization_design",
-    "PersonalizationDesignService": "stripe.issuing._personalization_design_service",
-    "PhysicalBundle": "stripe.issuing._physical_bundle",
-    "PhysicalBundleService": "stripe.issuing._physical_bundle_service",
-    "Token": "stripe.issuing._token",
-    "TokenService": "stripe.issuing._token_service",
-    "Transaction": "stripe.issuing._transaction",
-    "TransactionService": "stripe.issuing._transaction_service",
+# name -> (import_target, is_submodule)
+_import_map = {
+    "Authorization": ("stripe.issuing._authorization", False),
+    "AuthorizationService": ("stripe.issuing._authorization_service", False),
+    "Card": ("stripe.issuing._card", False),
+    "CardService": ("stripe.issuing._card_service", False),
+    "Cardholder": ("stripe.issuing._cardholder", False),
+    "CardholderService": ("stripe.issuing._cardholder_service", False),
+    "Dispute": ("stripe.issuing._dispute", False),
+    "DisputeService": ("stripe.issuing._dispute_service", False),
+    "PersonalizationDesign": ("stripe.issuing._personalization_design", False),
+    "PersonalizationDesignService": (
+        "stripe.issuing._personalization_design_service",
+        False,
+    ),
+    "PhysicalBundle": ("stripe.issuing._physical_bundle", False),
+    "PhysicalBundleService": (
+        "stripe.issuing._physical_bundle_service",
+        False,
+    ),
+    "Token": ("stripe.issuing._token", False),
+    "TokenService": ("stripe.issuing._token_service", False),
+    "Transaction": ("stripe.issuing._transaction", False),
+    "TransactionService": ("stripe.issuing._transaction_service", False),
 }
 if not TYPE_CHECKING:
 
     def __getattr__(name):
         try:
+            target, is_submodule = _import_map[name]
+            module = import_module(target)
+            if is_submodule:
+                return module
+
             return getattr(
-                import_module(_submodules[name]),
+                module,
                 name,
             )
         except KeyError:

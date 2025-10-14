@@ -17,20 +17,44 @@ if TYPE_CHECKING:
         RequestRetrieveParams as RequestRetrieveParams,
     )
 
-_submodules = {
-    "RequestCreateParams": "stripe.params.forwarding._request_create_params",
-    "RequestCreateParamsRequest": "stripe.params.forwarding._request_create_params",
-    "RequestCreateParamsRequestHeader": "stripe.params.forwarding._request_create_params",
-    "RequestListParams": "stripe.params.forwarding._request_list_params",
-    "RequestListParamsCreated": "stripe.params.forwarding._request_list_params",
-    "RequestRetrieveParams": "stripe.params.forwarding._request_retrieve_params",
+# name -> (import_target, is_submodule)
+_import_map = {
+    "RequestCreateParams": (
+        "stripe.params.forwarding._request_create_params",
+        False,
+    ),
+    "RequestCreateParamsRequest": (
+        "stripe.params.forwarding._request_create_params",
+        False,
+    ),
+    "RequestCreateParamsRequestHeader": (
+        "stripe.params.forwarding._request_create_params",
+        False,
+    ),
+    "RequestListParams": (
+        "stripe.params.forwarding._request_list_params",
+        False,
+    ),
+    "RequestListParamsCreated": (
+        "stripe.params.forwarding._request_list_params",
+        False,
+    ),
+    "RequestRetrieveParams": (
+        "stripe.params.forwarding._request_retrieve_params",
+        False,
+    ),
 }
 if not TYPE_CHECKING:
 
     def __getattr__(name):
         try:
+            target, is_submodule = _import_map[name]
+            module = import_module(target)
+            if is_submodule:
+                return module
+
             return getattr(
-                import_module(_submodules[name]),
+                module,
                 name,
             )
         except KeyError:

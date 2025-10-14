@@ -12,17 +12,26 @@ if TYPE_CHECKING:
         SessionService as SessionService,
     )
 
-_submodules = {
-    "Session": "stripe.checkout._session",
-    "SessionLineItemService": "stripe.checkout._session_line_item_service",
-    "SessionService": "stripe.checkout._session_service",
+# name -> (import_target, is_submodule)
+_import_map = {
+    "Session": ("stripe.checkout._session", False),
+    "SessionLineItemService": (
+        "stripe.checkout._session_line_item_service",
+        False,
+    ),
+    "SessionService": ("stripe.checkout._session_service", False),
 }
 if not TYPE_CHECKING:
 
     def __getattr__(name):
         try:
+            target, is_submodule = _import_map[name]
+            module = import_module(target)
+            if is_submodule:
+                return module
+
             return getattr(
-                import_module(_submodules[name]),
+                module,
                 name,
             )
         except KeyError:

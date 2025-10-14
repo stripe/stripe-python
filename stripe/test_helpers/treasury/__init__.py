@@ -20,19 +20,40 @@ if TYPE_CHECKING:
         ReceivedDebitService as ReceivedDebitService,
     )
 
-_submodules = {
-    "InboundTransferService": "stripe.test_helpers.treasury._inbound_transfer_service",
-    "OutboundPaymentService": "stripe.test_helpers.treasury._outbound_payment_service",
-    "OutboundTransferService": "stripe.test_helpers.treasury._outbound_transfer_service",
-    "ReceivedCreditService": "stripe.test_helpers.treasury._received_credit_service",
-    "ReceivedDebitService": "stripe.test_helpers.treasury._received_debit_service",
+# name -> (import_target, is_submodule)
+_import_map = {
+    "InboundTransferService": (
+        "stripe.test_helpers.treasury._inbound_transfer_service",
+        False,
+    ),
+    "OutboundPaymentService": (
+        "stripe.test_helpers.treasury._outbound_payment_service",
+        False,
+    ),
+    "OutboundTransferService": (
+        "stripe.test_helpers.treasury._outbound_transfer_service",
+        False,
+    ),
+    "ReceivedCreditService": (
+        "stripe.test_helpers.treasury._received_credit_service",
+        False,
+    ),
+    "ReceivedDebitService": (
+        "stripe.test_helpers.treasury._received_debit_service",
+        False,
+    ),
 }
 if not TYPE_CHECKING:
 
     def __getattr__(name):
         try:
+            target, is_submodule = _import_map[name]
+            module = import_module(target)
+            if is_submodule:
+                return module
+
             return getattr(
-                import_module(_submodules[name]),
+                module,
                 name,
             )
         except KeyError:

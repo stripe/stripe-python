@@ -19,20 +19,44 @@ if TYPE_CHECKING:
         MeterEventStreamCreateParamsEvent as MeterEventStreamCreateParamsEvent,
     )
 
-_submodules = {
-    "MeterEventAdjustmentCreateParams": "stripe.params.v2.billing._meter_event_adjustment_create_params",
-    "MeterEventAdjustmentCreateParamsCancel": "stripe.params.v2.billing._meter_event_adjustment_create_params",
-    "MeterEventCreateParams": "stripe.params.v2.billing._meter_event_create_params",
-    "MeterEventSessionCreateParams": "stripe.params.v2.billing._meter_event_session_create_params",
-    "MeterEventStreamCreateParams": "stripe.params.v2.billing._meter_event_stream_create_params",
-    "MeterEventStreamCreateParamsEvent": "stripe.params.v2.billing._meter_event_stream_create_params",
+# name -> (import_target, is_submodule)
+_import_map = {
+    "MeterEventAdjustmentCreateParams": (
+        "stripe.params.v2.billing._meter_event_adjustment_create_params",
+        False,
+    ),
+    "MeterEventAdjustmentCreateParamsCancel": (
+        "stripe.params.v2.billing._meter_event_adjustment_create_params",
+        False,
+    ),
+    "MeterEventCreateParams": (
+        "stripe.params.v2.billing._meter_event_create_params",
+        False,
+    ),
+    "MeterEventSessionCreateParams": (
+        "stripe.params.v2.billing._meter_event_session_create_params",
+        False,
+    ),
+    "MeterEventStreamCreateParams": (
+        "stripe.params.v2.billing._meter_event_stream_create_params",
+        False,
+    ),
+    "MeterEventStreamCreateParamsEvent": (
+        "stripe.params.v2.billing._meter_event_stream_create_params",
+        False,
+    ),
 }
 if not TYPE_CHECKING:
 
     def __getattr__(name):
         try:
+            target, is_submodule = _import_map[name]
+            module = import_module(target)
+            if is_submodule:
+                return module
+
             return getattr(
-                import_module(_submodules[name]),
+                module,
                 name,
             )
         except KeyError:

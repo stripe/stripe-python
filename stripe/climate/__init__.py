@@ -15,20 +15,26 @@ if TYPE_CHECKING:
         SupplierService as SupplierService,
     )
 
-_submodules = {
-    "Order": "stripe.climate._order",
-    "OrderService": "stripe.climate._order_service",
-    "Product": "stripe.climate._product",
-    "ProductService": "stripe.climate._product_service",
-    "Supplier": "stripe.climate._supplier",
-    "SupplierService": "stripe.climate._supplier_service",
+# name -> (import_target, is_submodule)
+_import_map = {
+    "Order": ("stripe.climate._order", False),
+    "OrderService": ("stripe.climate._order_service", False),
+    "Product": ("stripe.climate._product", False),
+    "ProductService": ("stripe.climate._product_service", False),
+    "Supplier": ("stripe.climate._supplier", False),
+    "SupplierService": ("stripe.climate._supplier_service", False),
 }
 if not TYPE_CHECKING:
 
     def __getattr__(name):
         try:
+            target, is_submodule = _import_map[name]
+            module = import_module(target)
+            if is_submodule:
+                return module
+
             return getattr(
-                import_module(_submodules[name]),
+                module,
                 name,
             )
         except KeyError:

@@ -21,22 +21,31 @@ if TYPE_CHECKING:
     from stripe.terminal._reader import Reader as Reader
     from stripe.terminal._reader_service import ReaderService as ReaderService
 
-_submodules = {
-    "Configuration": "stripe.terminal._configuration",
-    "ConfigurationService": "stripe.terminal._configuration_service",
-    "ConnectionToken": "stripe.terminal._connection_token",
-    "ConnectionTokenService": "stripe.terminal._connection_token_service",
-    "Location": "stripe.terminal._location",
-    "LocationService": "stripe.terminal._location_service",
-    "Reader": "stripe.terminal._reader",
-    "ReaderService": "stripe.terminal._reader_service",
+# name -> (import_target, is_submodule)
+_import_map = {
+    "Configuration": ("stripe.terminal._configuration", False),
+    "ConfigurationService": ("stripe.terminal._configuration_service", False),
+    "ConnectionToken": ("stripe.terminal._connection_token", False),
+    "ConnectionTokenService": (
+        "stripe.terminal._connection_token_service",
+        False,
+    ),
+    "Location": ("stripe.terminal._location", False),
+    "LocationService": ("stripe.terminal._location_service", False),
+    "Reader": ("stripe.terminal._reader", False),
+    "ReaderService": ("stripe.terminal._reader_service", False),
 }
 if not TYPE_CHECKING:
 
     def __getattr__(name):
         try:
+            target, is_submodule = _import_map[name]
+            module = import_module(target)
+            if is_submodule:
+                return module
+
             return getattr(
-                import_module(_submodules[name]),
+                module,
                 name,
             )
         except KeyError:

@@ -7,21 +7,30 @@ from stripe.v2._amount import Amount as Amount, AmountParam as AmountParam
 from importlib import import_module
 
 if TYPE_CHECKING:
+    from stripe.v2 import billing as billing, core as core
     from stripe.v2._billing_service import BillingService as BillingService
     from stripe.v2._core_service import CoreService as CoreService
     from stripe.v2._deleted_object import DeletedObject as DeletedObject
 
-_submodules = {
-    "BillingService": "stripe.v2._billing_service",
-    "CoreService": "stripe.v2._core_service",
-    "DeletedObject": "stripe.v2._deleted_object",
+# name -> (import_target, is_submodule)
+_import_map = {
+    "billing": ("stripe.v2.billing", True),
+    "core": ("stripe.v2.core", True),
+    "BillingService": ("stripe.v2._billing_service", False),
+    "CoreService": ("stripe.v2._core_service", False),
+    "DeletedObject": ("stripe.v2._deleted_object", False),
 }
 if not TYPE_CHECKING:
 
     def __getattr__(name):
         try:
+            target, is_submodule = _import_map[name]
+            module = import_module(target)
+            if is_submodule:
+                return module
+
             return getattr(
-                import_module(_submodules[name]),
+                module,
                 name,
             )
         except KeyError:

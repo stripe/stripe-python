@@ -22,21 +22,48 @@ if TYPE_CHECKING:
         ReportTypeRetrieveParams as ReportTypeRetrieveParams,
     )
 
-_submodules = {
-    "ReportRunCreateParams": "stripe.params.reporting._report_run_create_params",
-    "ReportRunCreateParamsParameters": "stripe.params.reporting._report_run_create_params",
-    "ReportRunListParams": "stripe.params.reporting._report_run_list_params",
-    "ReportRunListParamsCreated": "stripe.params.reporting._report_run_list_params",
-    "ReportRunRetrieveParams": "stripe.params.reporting._report_run_retrieve_params",
-    "ReportTypeListParams": "stripe.params.reporting._report_type_list_params",
-    "ReportTypeRetrieveParams": "stripe.params.reporting._report_type_retrieve_params",
+# name -> (import_target, is_submodule)
+_import_map = {
+    "ReportRunCreateParams": (
+        "stripe.params.reporting._report_run_create_params",
+        False,
+    ),
+    "ReportRunCreateParamsParameters": (
+        "stripe.params.reporting._report_run_create_params",
+        False,
+    ),
+    "ReportRunListParams": (
+        "stripe.params.reporting._report_run_list_params",
+        False,
+    ),
+    "ReportRunListParamsCreated": (
+        "stripe.params.reporting._report_run_list_params",
+        False,
+    ),
+    "ReportRunRetrieveParams": (
+        "stripe.params.reporting._report_run_retrieve_params",
+        False,
+    ),
+    "ReportTypeListParams": (
+        "stripe.params.reporting._report_type_list_params",
+        False,
+    ),
+    "ReportTypeRetrieveParams": (
+        "stripe.params.reporting._report_type_retrieve_params",
+        False,
+    ),
 }
 if not TYPE_CHECKING:
 
     def __getattr__(name):
         try:
+            target, is_submodule = _import_map[name]
+            module = import_module(target)
+            if is_submodule:
+                return module
+
             return getattr(
-                import_module(_submodules[name]),
+                module,
                 name,
             )
         except KeyError:

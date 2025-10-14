@@ -15,18 +15,27 @@ if TYPE_CHECKING:
         SessionService as SessionService,
     )
 
-_submodules = {
-    "Configuration": "stripe.billing_portal._configuration",
-    "ConfigurationService": "stripe.billing_portal._configuration_service",
-    "Session": "stripe.billing_portal._session",
-    "SessionService": "stripe.billing_portal._session_service",
+# name -> (import_target, is_submodule)
+_import_map = {
+    "Configuration": ("stripe.billing_portal._configuration", False),
+    "ConfigurationService": (
+        "stripe.billing_portal._configuration_service",
+        False,
+    ),
+    "Session": ("stripe.billing_portal._session", False),
+    "SessionService": ("stripe.billing_portal._session_service", False),
 }
 if not TYPE_CHECKING:
 
     def __getattr__(name):
         try:
+            target, is_submodule = _import_map[name]
+            module = import_module(target)
+            if is_submodule:
+                return module
+
             return getattr(
-                import_module(_submodules[name]),
+                module,
                 name,
             )
         except KeyError:

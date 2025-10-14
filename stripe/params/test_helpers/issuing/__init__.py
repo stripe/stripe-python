@@ -121,94 +121,340 @@ if TYPE_CHECKING:
         TransactionRefundParams as TransactionRefundParams,
     )
 
-_submodules = {
-    "AuthorizationCaptureParams": "stripe.params.test_helpers.issuing._authorization_capture_params",
-    "AuthorizationCaptureParamsPurchaseDetails": "stripe.params.test_helpers.issuing._authorization_capture_params",
-    "AuthorizationCaptureParamsPurchaseDetailsFleet": "stripe.params.test_helpers.issuing._authorization_capture_params",
-    "AuthorizationCaptureParamsPurchaseDetailsFleetCardholderPromptData": "stripe.params.test_helpers.issuing._authorization_capture_params",
-    "AuthorizationCaptureParamsPurchaseDetailsFleetReportedBreakdown": "stripe.params.test_helpers.issuing._authorization_capture_params",
-    "AuthorizationCaptureParamsPurchaseDetailsFleetReportedBreakdownFuel": "stripe.params.test_helpers.issuing._authorization_capture_params",
-    "AuthorizationCaptureParamsPurchaseDetailsFleetReportedBreakdownNonFuel": "stripe.params.test_helpers.issuing._authorization_capture_params",
-    "AuthorizationCaptureParamsPurchaseDetailsFleetReportedBreakdownTax": "stripe.params.test_helpers.issuing._authorization_capture_params",
-    "AuthorizationCaptureParamsPurchaseDetailsFlight": "stripe.params.test_helpers.issuing._authorization_capture_params",
-    "AuthorizationCaptureParamsPurchaseDetailsFlightSegment": "stripe.params.test_helpers.issuing._authorization_capture_params",
-    "AuthorizationCaptureParamsPurchaseDetailsFuel": "stripe.params.test_helpers.issuing._authorization_capture_params",
-    "AuthorizationCaptureParamsPurchaseDetailsLodging": "stripe.params.test_helpers.issuing._authorization_capture_params",
-    "AuthorizationCaptureParamsPurchaseDetailsReceipt": "stripe.params.test_helpers.issuing._authorization_capture_params",
-    "AuthorizationCreateParams": "stripe.params.test_helpers.issuing._authorization_create_params",
-    "AuthorizationCreateParamsAmountDetails": "stripe.params.test_helpers.issuing._authorization_create_params",
-    "AuthorizationCreateParamsFleet": "stripe.params.test_helpers.issuing._authorization_create_params",
-    "AuthorizationCreateParamsFleetCardholderPromptData": "stripe.params.test_helpers.issuing._authorization_create_params",
-    "AuthorizationCreateParamsFleetReportedBreakdown": "stripe.params.test_helpers.issuing._authorization_create_params",
-    "AuthorizationCreateParamsFleetReportedBreakdownFuel": "stripe.params.test_helpers.issuing._authorization_create_params",
-    "AuthorizationCreateParamsFleetReportedBreakdownNonFuel": "stripe.params.test_helpers.issuing._authorization_create_params",
-    "AuthorizationCreateParamsFleetReportedBreakdownTax": "stripe.params.test_helpers.issuing._authorization_create_params",
-    "AuthorizationCreateParamsFuel": "stripe.params.test_helpers.issuing._authorization_create_params",
-    "AuthorizationCreateParamsMerchantData": "stripe.params.test_helpers.issuing._authorization_create_params",
-    "AuthorizationCreateParamsNetworkData": "stripe.params.test_helpers.issuing._authorization_create_params",
-    "AuthorizationCreateParamsRiskAssessment": "stripe.params.test_helpers.issuing._authorization_create_params",
-    "AuthorizationCreateParamsRiskAssessmentCardTestingRisk": "stripe.params.test_helpers.issuing._authorization_create_params",
-    "AuthorizationCreateParamsRiskAssessmentMerchantDisputeRisk": "stripe.params.test_helpers.issuing._authorization_create_params",
-    "AuthorizationCreateParamsVerificationData": "stripe.params.test_helpers.issuing._authorization_create_params",
-    "AuthorizationCreateParamsVerificationDataAuthenticationExemption": "stripe.params.test_helpers.issuing._authorization_create_params",
-    "AuthorizationCreateParamsVerificationDataThreeDSecure": "stripe.params.test_helpers.issuing._authorization_create_params",
-    "AuthorizationExpireParams": "stripe.params.test_helpers.issuing._authorization_expire_params",
-    "AuthorizationFinalizeAmountParams": "stripe.params.test_helpers.issuing._authorization_finalize_amount_params",
-    "AuthorizationFinalizeAmountParamsFleet": "stripe.params.test_helpers.issuing._authorization_finalize_amount_params",
-    "AuthorizationFinalizeAmountParamsFleetCardholderPromptData": "stripe.params.test_helpers.issuing._authorization_finalize_amount_params",
-    "AuthorizationFinalizeAmountParamsFleetReportedBreakdown": "stripe.params.test_helpers.issuing._authorization_finalize_amount_params",
-    "AuthorizationFinalizeAmountParamsFleetReportedBreakdownFuel": "stripe.params.test_helpers.issuing._authorization_finalize_amount_params",
-    "AuthorizationFinalizeAmountParamsFleetReportedBreakdownNonFuel": "stripe.params.test_helpers.issuing._authorization_finalize_amount_params",
-    "AuthorizationFinalizeAmountParamsFleetReportedBreakdownTax": "stripe.params.test_helpers.issuing._authorization_finalize_amount_params",
-    "AuthorizationFinalizeAmountParamsFuel": "stripe.params.test_helpers.issuing._authorization_finalize_amount_params",
-    "AuthorizationIncrementParams": "stripe.params.test_helpers.issuing._authorization_increment_params",
-    "AuthorizationRespondParams": "stripe.params.test_helpers.issuing._authorization_respond_params",
-    "AuthorizationReverseParams": "stripe.params.test_helpers.issuing._authorization_reverse_params",
-    "CardDeliverCardParams": "stripe.params.test_helpers.issuing._card_deliver_card_params",
-    "CardFailCardParams": "stripe.params.test_helpers.issuing._card_fail_card_params",
-    "CardReturnCardParams": "stripe.params.test_helpers.issuing._card_return_card_params",
-    "CardShipCardParams": "stripe.params.test_helpers.issuing._card_ship_card_params",
-    "CardSubmitCardParams": "stripe.params.test_helpers.issuing._card_submit_card_params",
-    "PersonalizationDesignActivateParams": "stripe.params.test_helpers.issuing._personalization_design_activate_params",
-    "PersonalizationDesignDeactivateParams": "stripe.params.test_helpers.issuing._personalization_design_deactivate_params",
-    "PersonalizationDesignRejectParams": "stripe.params.test_helpers.issuing._personalization_design_reject_params",
-    "PersonalizationDesignRejectParamsRejectionReasons": "stripe.params.test_helpers.issuing._personalization_design_reject_params",
-    "TransactionCreateForceCaptureParams": "stripe.params.test_helpers.issuing._transaction_create_force_capture_params",
-    "TransactionCreateForceCaptureParamsMerchantData": "stripe.params.test_helpers.issuing._transaction_create_force_capture_params",
-    "TransactionCreateForceCaptureParamsPurchaseDetails": "stripe.params.test_helpers.issuing._transaction_create_force_capture_params",
-    "TransactionCreateForceCaptureParamsPurchaseDetailsFleet": "stripe.params.test_helpers.issuing._transaction_create_force_capture_params",
-    "TransactionCreateForceCaptureParamsPurchaseDetailsFleetCardholderPromptData": "stripe.params.test_helpers.issuing._transaction_create_force_capture_params",
-    "TransactionCreateForceCaptureParamsPurchaseDetailsFleetReportedBreakdown": "stripe.params.test_helpers.issuing._transaction_create_force_capture_params",
-    "TransactionCreateForceCaptureParamsPurchaseDetailsFleetReportedBreakdownFuel": "stripe.params.test_helpers.issuing._transaction_create_force_capture_params",
-    "TransactionCreateForceCaptureParamsPurchaseDetailsFleetReportedBreakdownNonFuel": "stripe.params.test_helpers.issuing._transaction_create_force_capture_params",
-    "TransactionCreateForceCaptureParamsPurchaseDetailsFleetReportedBreakdownTax": "stripe.params.test_helpers.issuing._transaction_create_force_capture_params",
-    "TransactionCreateForceCaptureParamsPurchaseDetailsFlight": "stripe.params.test_helpers.issuing._transaction_create_force_capture_params",
-    "TransactionCreateForceCaptureParamsPurchaseDetailsFlightSegment": "stripe.params.test_helpers.issuing._transaction_create_force_capture_params",
-    "TransactionCreateForceCaptureParamsPurchaseDetailsFuel": "stripe.params.test_helpers.issuing._transaction_create_force_capture_params",
-    "TransactionCreateForceCaptureParamsPurchaseDetailsLodging": "stripe.params.test_helpers.issuing._transaction_create_force_capture_params",
-    "TransactionCreateForceCaptureParamsPurchaseDetailsReceipt": "stripe.params.test_helpers.issuing._transaction_create_force_capture_params",
-    "TransactionCreateUnlinkedRefundParams": "stripe.params.test_helpers.issuing._transaction_create_unlinked_refund_params",
-    "TransactionCreateUnlinkedRefundParamsMerchantData": "stripe.params.test_helpers.issuing._transaction_create_unlinked_refund_params",
-    "TransactionCreateUnlinkedRefundParamsPurchaseDetails": "stripe.params.test_helpers.issuing._transaction_create_unlinked_refund_params",
-    "TransactionCreateUnlinkedRefundParamsPurchaseDetailsFleet": "stripe.params.test_helpers.issuing._transaction_create_unlinked_refund_params",
-    "TransactionCreateUnlinkedRefundParamsPurchaseDetailsFleetCardholderPromptData": "stripe.params.test_helpers.issuing._transaction_create_unlinked_refund_params",
-    "TransactionCreateUnlinkedRefundParamsPurchaseDetailsFleetReportedBreakdown": "stripe.params.test_helpers.issuing._transaction_create_unlinked_refund_params",
-    "TransactionCreateUnlinkedRefundParamsPurchaseDetailsFleetReportedBreakdownFuel": "stripe.params.test_helpers.issuing._transaction_create_unlinked_refund_params",
-    "TransactionCreateUnlinkedRefundParamsPurchaseDetailsFleetReportedBreakdownNonFuel": "stripe.params.test_helpers.issuing._transaction_create_unlinked_refund_params",
-    "TransactionCreateUnlinkedRefundParamsPurchaseDetailsFleetReportedBreakdownTax": "stripe.params.test_helpers.issuing._transaction_create_unlinked_refund_params",
-    "TransactionCreateUnlinkedRefundParamsPurchaseDetailsFlight": "stripe.params.test_helpers.issuing._transaction_create_unlinked_refund_params",
-    "TransactionCreateUnlinkedRefundParamsPurchaseDetailsFlightSegment": "stripe.params.test_helpers.issuing._transaction_create_unlinked_refund_params",
-    "TransactionCreateUnlinkedRefundParamsPurchaseDetailsFuel": "stripe.params.test_helpers.issuing._transaction_create_unlinked_refund_params",
-    "TransactionCreateUnlinkedRefundParamsPurchaseDetailsLodging": "stripe.params.test_helpers.issuing._transaction_create_unlinked_refund_params",
-    "TransactionCreateUnlinkedRefundParamsPurchaseDetailsReceipt": "stripe.params.test_helpers.issuing._transaction_create_unlinked_refund_params",
-    "TransactionRefundParams": "stripe.params.test_helpers.issuing._transaction_refund_params",
+# name -> (import_target, is_submodule)
+_import_map = {
+    "AuthorizationCaptureParams": (
+        "stripe.params.test_helpers.issuing._authorization_capture_params",
+        False,
+    ),
+    "AuthorizationCaptureParamsPurchaseDetails": (
+        "stripe.params.test_helpers.issuing._authorization_capture_params",
+        False,
+    ),
+    "AuthorizationCaptureParamsPurchaseDetailsFleet": (
+        "stripe.params.test_helpers.issuing._authorization_capture_params",
+        False,
+    ),
+    "AuthorizationCaptureParamsPurchaseDetailsFleetCardholderPromptData": (
+        "stripe.params.test_helpers.issuing._authorization_capture_params",
+        False,
+    ),
+    "AuthorizationCaptureParamsPurchaseDetailsFleetReportedBreakdown": (
+        "stripe.params.test_helpers.issuing._authorization_capture_params",
+        False,
+    ),
+    "AuthorizationCaptureParamsPurchaseDetailsFleetReportedBreakdownFuel": (
+        "stripe.params.test_helpers.issuing._authorization_capture_params",
+        False,
+    ),
+    "AuthorizationCaptureParamsPurchaseDetailsFleetReportedBreakdownNonFuel": (
+        "stripe.params.test_helpers.issuing._authorization_capture_params",
+        False,
+    ),
+    "AuthorizationCaptureParamsPurchaseDetailsFleetReportedBreakdownTax": (
+        "stripe.params.test_helpers.issuing._authorization_capture_params",
+        False,
+    ),
+    "AuthorizationCaptureParamsPurchaseDetailsFlight": (
+        "stripe.params.test_helpers.issuing._authorization_capture_params",
+        False,
+    ),
+    "AuthorizationCaptureParamsPurchaseDetailsFlightSegment": (
+        "stripe.params.test_helpers.issuing._authorization_capture_params",
+        False,
+    ),
+    "AuthorizationCaptureParamsPurchaseDetailsFuel": (
+        "stripe.params.test_helpers.issuing._authorization_capture_params",
+        False,
+    ),
+    "AuthorizationCaptureParamsPurchaseDetailsLodging": (
+        "stripe.params.test_helpers.issuing._authorization_capture_params",
+        False,
+    ),
+    "AuthorizationCaptureParamsPurchaseDetailsReceipt": (
+        "stripe.params.test_helpers.issuing._authorization_capture_params",
+        False,
+    ),
+    "AuthorizationCreateParams": (
+        "stripe.params.test_helpers.issuing._authorization_create_params",
+        False,
+    ),
+    "AuthorizationCreateParamsAmountDetails": (
+        "stripe.params.test_helpers.issuing._authorization_create_params",
+        False,
+    ),
+    "AuthorizationCreateParamsFleet": (
+        "stripe.params.test_helpers.issuing._authorization_create_params",
+        False,
+    ),
+    "AuthorizationCreateParamsFleetCardholderPromptData": (
+        "stripe.params.test_helpers.issuing._authorization_create_params",
+        False,
+    ),
+    "AuthorizationCreateParamsFleetReportedBreakdown": (
+        "stripe.params.test_helpers.issuing._authorization_create_params",
+        False,
+    ),
+    "AuthorizationCreateParamsFleetReportedBreakdownFuel": (
+        "stripe.params.test_helpers.issuing._authorization_create_params",
+        False,
+    ),
+    "AuthorizationCreateParamsFleetReportedBreakdownNonFuel": (
+        "stripe.params.test_helpers.issuing._authorization_create_params",
+        False,
+    ),
+    "AuthorizationCreateParamsFleetReportedBreakdownTax": (
+        "stripe.params.test_helpers.issuing._authorization_create_params",
+        False,
+    ),
+    "AuthorizationCreateParamsFuel": (
+        "stripe.params.test_helpers.issuing._authorization_create_params",
+        False,
+    ),
+    "AuthorizationCreateParamsMerchantData": (
+        "stripe.params.test_helpers.issuing._authorization_create_params",
+        False,
+    ),
+    "AuthorizationCreateParamsNetworkData": (
+        "stripe.params.test_helpers.issuing._authorization_create_params",
+        False,
+    ),
+    "AuthorizationCreateParamsRiskAssessment": (
+        "stripe.params.test_helpers.issuing._authorization_create_params",
+        False,
+    ),
+    "AuthorizationCreateParamsRiskAssessmentCardTestingRisk": (
+        "stripe.params.test_helpers.issuing._authorization_create_params",
+        False,
+    ),
+    "AuthorizationCreateParamsRiskAssessmentMerchantDisputeRisk": (
+        "stripe.params.test_helpers.issuing._authorization_create_params",
+        False,
+    ),
+    "AuthorizationCreateParamsVerificationData": (
+        "stripe.params.test_helpers.issuing._authorization_create_params",
+        False,
+    ),
+    "AuthorizationCreateParamsVerificationDataAuthenticationExemption": (
+        "stripe.params.test_helpers.issuing._authorization_create_params",
+        False,
+    ),
+    "AuthorizationCreateParamsVerificationDataThreeDSecure": (
+        "stripe.params.test_helpers.issuing._authorization_create_params",
+        False,
+    ),
+    "AuthorizationExpireParams": (
+        "stripe.params.test_helpers.issuing._authorization_expire_params",
+        False,
+    ),
+    "AuthorizationFinalizeAmountParams": (
+        "stripe.params.test_helpers.issuing._authorization_finalize_amount_params",
+        False,
+    ),
+    "AuthorizationFinalizeAmountParamsFleet": (
+        "stripe.params.test_helpers.issuing._authorization_finalize_amount_params",
+        False,
+    ),
+    "AuthorizationFinalizeAmountParamsFleetCardholderPromptData": (
+        "stripe.params.test_helpers.issuing._authorization_finalize_amount_params",
+        False,
+    ),
+    "AuthorizationFinalizeAmountParamsFleetReportedBreakdown": (
+        "stripe.params.test_helpers.issuing._authorization_finalize_amount_params",
+        False,
+    ),
+    "AuthorizationFinalizeAmountParamsFleetReportedBreakdownFuel": (
+        "stripe.params.test_helpers.issuing._authorization_finalize_amount_params",
+        False,
+    ),
+    "AuthorizationFinalizeAmountParamsFleetReportedBreakdownNonFuel": (
+        "stripe.params.test_helpers.issuing._authorization_finalize_amount_params",
+        False,
+    ),
+    "AuthorizationFinalizeAmountParamsFleetReportedBreakdownTax": (
+        "stripe.params.test_helpers.issuing._authorization_finalize_amount_params",
+        False,
+    ),
+    "AuthorizationFinalizeAmountParamsFuel": (
+        "stripe.params.test_helpers.issuing._authorization_finalize_amount_params",
+        False,
+    ),
+    "AuthorizationIncrementParams": (
+        "stripe.params.test_helpers.issuing._authorization_increment_params",
+        False,
+    ),
+    "AuthorizationRespondParams": (
+        "stripe.params.test_helpers.issuing._authorization_respond_params",
+        False,
+    ),
+    "AuthorizationReverseParams": (
+        "stripe.params.test_helpers.issuing._authorization_reverse_params",
+        False,
+    ),
+    "CardDeliverCardParams": (
+        "stripe.params.test_helpers.issuing._card_deliver_card_params",
+        False,
+    ),
+    "CardFailCardParams": (
+        "stripe.params.test_helpers.issuing._card_fail_card_params",
+        False,
+    ),
+    "CardReturnCardParams": (
+        "stripe.params.test_helpers.issuing._card_return_card_params",
+        False,
+    ),
+    "CardShipCardParams": (
+        "stripe.params.test_helpers.issuing._card_ship_card_params",
+        False,
+    ),
+    "CardSubmitCardParams": (
+        "stripe.params.test_helpers.issuing._card_submit_card_params",
+        False,
+    ),
+    "PersonalizationDesignActivateParams": (
+        "stripe.params.test_helpers.issuing._personalization_design_activate_params",
+        False,
+    ),
+    "PersonalizationDesignDeactivateParams": (
+        "stripe.params.test_helpers.issuing._personalization_design_deactivate_params",
+        False,
+    ),
+    "PersonalizationDesignRejectParams": (
+        "stripe.params.test_helpers.issuing._personalization_design_reject_params",
+        False,
+    ),
+    "PersonalizationDesignRejectParamsRejectionReasons": (
+        "stripe.params.test_helpers.issuing._personalization_design_reject_params",
+        False,
+    ),
+    "TransactionCreateForceCaptureParams": (
+        "stripe.params.test_helpers.issuing._transaction_create_force_capture_params",
+        False,
+    ),
+    "TransactionCreateForceCaptureParamsMerchantData": (
+        "stripe.params.test_helpers.issuing._transaction_create_force_capture_params",
+        False,
+    ),
+    "TransactionCreateForceCaptureParamsPurchaseDetails": (
+        "stripe.params.test_helpers.issuing._transaction_create_force_capture_params",
+        False,
+    ),
+    "TransactionCreateForceCaptureParamsPurchaseDetailsFleet": (
+        "stripe.params.test_helpers.issuing._transaction_create_force_capture_params",
+        False,
+    ),
+    "TransactionCreateForceCaptureParamsPurchaseDetailsFleetCardholderPromptData": (
+        "stripe.params.test_helpers.issuing._transaction_create_force_capture_params",
+        False,
+    ),
+    "TransactionCreateForceCaptureParamsPurchaseDetailsFleetReportedBreakdown": (
+        "stripe.params.test_helpers.issuing._transaction_create_force_capture_params",
+        False,
+    ),
+    "TransactionCreateForceCaptureParamsPurchaseDetailsFleetReportedBreakdownFuel": (
+        "stripe.params.test_helpers.issuing._transaction_create_force_capture_params",
+        False,
+    ),
+    "TransactionCreateForceCaptureParamsPurchaseDetailsFleetReportedBreakdownNonFuel": (
+        "stripe.params.test_helpers.issuing._transaction_create_force_capture_params",
+        False,
+    ),
+    "TransactionCreateForceCaptureParamsPurchaseDetailsFleetReportedBreakdownTax": (
+        "stripe.params.test_helpers.issuing._transaction_create_force_capture_params",
+        False,
+    ),
+    "TransactionCreateForceCaptureParamsPurchaseDetailsFlight": (
+        "stripe.params.test_helpers.issuing._transaction_create_force_capture_params",
+        False,
+    ),
+    "TransactionCreateForceCaptureParamsPurchaseDetailsFlightSegment": (
+        "stripe.params.test_helpers.issuing._transaction_create_force_capture_params",
+        False,
+    ),
+    "TransactionCreateForceCaptureParamsPurchaseDetailsFuel": (
+        "stripe.params.test_helpers.issuing._transaction_create_force_capture_params",
+        False,
+    ),
+    "TransactionCreateForceCaptureParamsPurchaseDetailsLodging": (
+        "stripe.params.test_helpers.issuing._transaction_create_force_capture_params",
+        False,
+    ),
+    "TransactionCreateForceCaptureParamsPurchaseDetailsReceipt": (
+        "stripe.params.test_helpers.issuing._transaction_create_force_capture_params",
+        False,
+    ),
+    "TransactionCreateUnlinkedRefundParams": (
+        "stripe.params.test_helpers.issuing._transaction_create_unlinked_refund_params",
+        False,
+    ),
+    "TransactionCreateUnlinkedRefundParamsMerchantData": (
+        "stripe.params.test_helpers.issuing._transaction_create_unlinked_refund_params",
+        False,
+    ),
+    "TransactionCreateUnlinkedRefundParamsPurchaseDetails": (
+        "stripe.params.test_helpers.issuing._transaction_create_unlinked_refund_params",
+        False,
+    ),
+    "TransactionCreateUnlinkedRefundParamsPurchaseDetailsFleet": (
+        "stripe.params.test_helpers.issuing._transaction_create_unlinked_refund_params",
+        False,
+    ),
+    "TransactionCreateUnlinkedRefundParamsPurchaseDetailsFleetCardholderPromptData": (
+        "stripe.params.test_helpers.issuing._transaction_create_unlinked_refund_params",
+        False,
+    ),
+    "TransactionCreateUnlinkedRefundParamsPurchaseDetailsFleetReportedBreakdown": (
+        "stripe.params.test_helpers.issuing._transaction_create_unlinked_refund_params",
+        False,
+    ),
+    "TransactionCreateUnlinkedRefundParamsPurchaseDetailsFleetReportedBreakdownFuel": (
+        "stripe.params.test_helpers.issuing._transaction_create_unlinked_refund_params",
+        False,
+    ),
+    "TransactionCreateUnlinkedRefundParamsPurchaseDetailsFleetReportedBreakdownNonFuel": (
+        "stripe.params.test_helpers.issuing._transaction_create_unlinked_refund_params",
+        False,
+    ),
+    "TransactionCreateUnlinkedRefundParamsPurchaseDetailsFleetReportedBreakdownTax": (
+        "stripe.params.test_helpers.issuing._transaction_create_unlinked_refund_params",
+        False,
+    ),
+    "TransactionCreateUnlinkedRefundParamsPurchaseDetailsFlight": (
+        "stripe.params.test_helpers.issuing._transaction_create_unlinked_refund_params",
+        False,
+    ),
+    "TransactionCreateUnlinkedRefundParamsPurchaseDetailsFlightSegment": (
+        "stripe.params.test_helpers.issuing._transaction_create_unlinked_refund_params",
+        False,
+    ),
+    "TransactionCreateUnlinkedRefundParamsPurchaseDetailsFuel": (
+        "stripe.params.test_helpers.issuing._transaction_create_unlinked_refund_params",
+        False,
+    ),
+    "TransactionCreateUnlinkedRefundParamsPurchaseDetailsLodging": (
+        "stripe.params.test_helpers.issuing._transaction_create_unlinked_refund_params",
+        False,
+    ),
+    "TransactionCreateUnlinkedRefundParamsPurchaseDetailsReceipt": (
+        "stripe.params.test_helpers.issuing._transaction_create_unlinked_refund_params",
+        False,
+    ),
+    "TransactionRefundParams": (
+        "stripe.params.test_helpers.issuing._transaction_refund_params",
+        False,
+    ),
 }
 if not TYPE_CHECKING:
 
     def __getattr__(name):
         try:
+            target, is_submodule = _import_map[name]
+            module = import_module(target)
+            if is_submodule:
+                return module
+
             return getattr(
-                import_module(_submodules[name]),
+                module,
                 name,
             )
         except KeyError:

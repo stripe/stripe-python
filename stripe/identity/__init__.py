@@ -17,18 +17,30 @@ if TYPE_CHECKING:
         VerificationSessionService as VerificationSessionService,
     )
 
-_submodules = {
-    "VerificationReport": "stripe.identity._verification_report",
-    "VerificationReportService": "stripe.identity._verification_report_service",
-    "VerificationSession": "stripe.identity._verification_session",
-    "VerificationSessionService": "stripe.identity._verification_session_service",
+# name -> (import_target, is_submodule)
+_import_map = {
+    "VerificationReport": ("stripe.identity._verification_report", False),
+    "VerificationReportService": (
+        "stripe.identity._verification_report_service",
+        False,
+    ),
+    "VerificationSession": ("stripe.identity._verification_session", False),
+    "VerificationSessionService": (
+        "stripe.identity._verification_session_service",
+        False,
+    ),
 }
 if not TYPE_CHECKING:
 
     def __getattr__(name):
         try:
+            target, is_submodule = _import_map[name]
+            module = import_module(target)
+            if is_submodule:
+                return module
+
             return getattr(
-                import_module(_submodules[name]),
+                module,
                 name,
             )
         except KeyError:

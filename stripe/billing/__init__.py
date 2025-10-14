@@ -44,31 +44,52 @@ if TYPE_CHECKING:
     )
     from stripe.billing._meter_service import MeterService as MeterService
 
-_submodules = {
-    "Alert": "stripe.billing._alert",
-    "AlertService": "stripe.billing._alert_service",
-    "AlertTriggered": "stripe.billing._alert_triggered",
-    "CreditBalanceSummary": "stripe.billing._credit_balance_summary",
-    "CreditBalanceSummaryService": "stripe.billing._credit_balance_summary_service",
-    "CreditBalanceTransaction": "stripe.billing._credit_balance_transaction",
-    "CreditBalanceTransactionService": "stripe.billing._credit_balance_transaction_service",
-    "CreditGrant": "stripe.billing._credit_grant",
-    "CreditGrantService": "stripe.billing._credit_grant_service",
-    "Meter": "stripe.billing._meter",
-    "MeterEvent": "stripe.billing._meter_event",
-    "MeterEventAdjustment": "stripe.billing._meter_event_adjustment",
-    "MeterEventAdjustmentService": "stripe.billing._meter_event_adjustment_service",
-    "MeterEventService": "stripe.billing._meter_event_service",
-    "MeterEventSummary": "stripe.billing._meter_event_summary",
-    "MeterEventSummaryService": "stripe.billing._meter_event_summary_service",
-    "MeterService": "stripe.billing._meter_service",
+# name -> (import_target, is_submodule)
+_import_map = {
+    "Alert": ("stripe.billing._alert", False),
+    "AlertService": ("stripe.billing._alert_service", False),
+    "AlertTriggered": ("stripe.billing._alert_triggered", False),
+    "CreditBalanceSummary": ("stripe.billing._credit_balance_summary", False),
+    "CreditBalanceSummaryService": (
+        "stripe.billing._credit_balance_summary_service",
+        False,
+    ),
+    "CreditBalanceTransaction": (
+        "stripe.billing._credit_balance_transaction",
+        False,
+    ),
+    "CreditBalanceTransactionService": (
+        "stripe.billing._credit_balance_transaction_service",
+        False,
+    ),
+    "CreditGrant": ("stripe.billing._credit_grant", False),
+    "CreditGrantService": ("stripe.billing._credit_grant_service", False),
+    "Meter": ("stripe.billing._meter", False),
+    "MeterEvent": ("stripe.billing._meter_event", False),
+    "MeterEventAdjustment": ("stripe.billing._meter_event_adjustment", False),
+    "MeterEventAdjustmentService": (
+        "stripe.billing._meter_event_adjustment_service",
+        False,
+    ),
+    "MeterEventService": ("stripe.billing._meter_event_service", False),
+    "MeterEventSummary": ("stripe.billing._meter_event_summary", False),
+    "MeterEventSummaryService": (
+        "stripe.billing._meter_event_summary_service",
+        False,
+    ),
+    "MeterService": ("stripe.billing._meter_service", False),
 }
 if not TYPE_CHECKING:
 
     def __getattr__(name):
         try:
+            target, is_submodule = _import_map[name]
+            module = import_module(target)
+            if is_submodule:
+                return module
+
             return getattr(
-                import_module(_submodules[name]),
+                module,
                 name,
             )
         except KeyError:
