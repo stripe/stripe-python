@@ -42,8 +42,6 @@ from stripe._v2_services import V2Services
 
 # service-types: The beginning of the section generated from our OpenAPI spec
 if TYPE_CHECKING:
-    from stripe._v1_services import V1Services
-    from stripe._v2_services import V2Services
     from stripe._account_service import AccountService
     from stripe._account_link_service import AccountLinkService
     from stripe._account_session_service import AccountSessionService
