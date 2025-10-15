@@ -1,6 +1,5 @@
 from typing import Dict, Optional, Union, cast
 
-import stripe  # noqa
 from stripe._error_object import ErrorObject
 
 

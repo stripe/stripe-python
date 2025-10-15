@@ -324,12 +324,10 @@ def _convert_to_stripe_object(
 
                 klass = DeletedObject
             elif api_mode == "V2" and klass_name == "v2.core.event":
-                from stripe.events._event_classes import V2_EVENT_CLASS_LOOKUP
+                from stripe.events._event_classes import get_v2_event_class
 
-                event_name = resp.get("type", "")
-                klass = V2_EVENT_CLASS_LOOKUP.get(
-                    event_name, stripe.StripeObject
-                )
+                event_type = resp.get("type", "")
+                klass = get_v2_event_class(event_type)
             else:
                 klass = get_object_classes(api_mode).get(
                     klass_name, stripe.StripeObject
