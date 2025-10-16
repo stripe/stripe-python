@@ -2,7 +2,6 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.tax._calculation_line_item import CalculationLineItem
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
@@ -12,6 +11,7 @@ if TYPE_CHECKING:
     from stripe.params.tax._calculation_line_item_list_params import (
         CalculationLineItemListParams,
     )
+    from stripe.tax._calculation_line_item import CalculationLineItem
 
 
 class CalculationLineItemService(StripeService):

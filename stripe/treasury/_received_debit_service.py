@@ -2,7 +2,6 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.treasury._received_debit import ReceivedDebit
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
@@ -15,6 +14,7 @@ if TYPE_CHECKING:
     from stripe.params.treasury._received_debit_retrieve_params import (
         ReceivedDebitRetrieveParams,
     )
+    from stripe.treasury._received_debit import ReceivedDebit
 
 
 class ReceivedDebitService(StripeService):

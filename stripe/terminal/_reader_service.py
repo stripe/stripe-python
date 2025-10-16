@@ -2,7 +2,6 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.terminal._reader import Reader
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
@@ -40,6 +39,7 @@ if TYPE_CHECKING:
         ReaderSetReaderDisplayParams,
     )
     from stripe.params.terminal._reader_update_params import ReaderUpdateParams
+    from stripe.terminal._reader import Reader
 
 
 class ReaderService(StripeService):

@@ -2,13 +2,13 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.climate._order import Order
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
     from stripe._request_options import RequestOptions
+    from stripe.climate._order import Order
     from stripe.params.climate._order_cancel_params import OrderCancelParams
     from stripe.params.climate._order_create_params import OrderCreateParams
     from stripe.params.climate._order_list_params import OrderListParams

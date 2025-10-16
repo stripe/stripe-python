@@ -2,7 +2,6 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.reporting._report_type import ReportType
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
@@ -15,6 +14,7 @@ if TYPE_CHECKING:
     from stripe.params.reporting._report_type_retrieve_params import (
         ReportTypeRetrieveParams,
     )
+    from stripe.reporting._report_type import ReportType
 
 
 class ReportTypeService(StripeService):

@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._credit_note_line_item import CreditNoteLineItem
 from stripe._stripe_service import StripeService
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._credit_note_line_item import CreditNoteLineItem
     from stripe._list_object import ListObject
     from stripe._request_options import RequestOptions
     from stripe.params._credit_note_preview_lines_list_params import (

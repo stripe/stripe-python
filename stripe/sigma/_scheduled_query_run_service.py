@@ -2,7 +2,6 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.sigma._scheduled_query_run import ScheduledQueryRun
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
@@ -15,6 +14,7 @@ if TYPE_CHECKING:
     from stripe.params.sigma._scheduled_query_run_retrieve_params import (
         ScheduledQueryRunRetrieveParams,
     )
+    from stripe.sigma._scheduled_query_run import ScheduledQueryRun
 
 
 class ScheduledQueryRunService(StripeService):

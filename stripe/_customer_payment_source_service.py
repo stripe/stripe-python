@@ -1,17 +1,17 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._account import Account
-from stripe._bank_account import BankAccount
-from stripe._card import Card
-from stripe._source import Source
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Optional, Union, cast
+from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._account import Account
+    from stripe._bank_account import BankAccount
+    from stripe._card import Card
     from stripe._list_object import ListObject
     from stripe._request_options import RequestOptions
+    from stripe._source import Source
     from stripe.params._customer_payment_source_create_params import (
         CustomerPaymentSourceCreateParams,
     )
@@ -30,6 +30,7 @@ if TYPE_CHECKING:
     from stripe.params._customer_payment_source_verify_params import (
         CustomerPaymentSourceVerifyParams,
     )
+    from typing import Union
 
 
 class CustomerPaymentSourceService(StripeService):

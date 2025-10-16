@@ -2,7 +2,6 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.v2.core._event_destination import EventDestination
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
@@ -35,6 +34,7 @@ if TYPE_CHECKING:
     from stripe.v2._deleted_object import DeletedObject
     from stripe.v2._list_object import ListObject
     from stripe.v2.core._event import Event
+    from stripe.v2.core._event_destination import EventDestination
 
 
 class EventDestinationService(StripeService):

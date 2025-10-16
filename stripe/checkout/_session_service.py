@@ -2,7 +2,6 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.checkout._session import Session
 from typing import Optional, cast
 from importlib import import_module
 from typing_extensions import TYPE_CHECKING
@@ -10,6 +9,7 @@ from typing_extensions import TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
     from stripe._request_options import RequestOptions
+    from stripe.checkout._session import Session
     from stripe.checkout._session_line_item_service import (
         SessionLineItemService,
     )

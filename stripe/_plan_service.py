@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._plan import Plan
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
@@ -8,6 +7,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
+    from stripe._plan import Plan
     from stripe._request_options import RequestOptions
     from stripe.params._plan_create_params import PlanCreateParams
     from stripe.params._plan_delete_params import PlanDeleteParams

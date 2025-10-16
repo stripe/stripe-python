@@ -2,7 +2,6 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.radar._value_list_item import ValueListItem
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
@@ -21,6 +20,7 @@ if TYPE_CHECKING:
     from stripe.params.radar._value_list_item_retrieve_params import (
         ValueListItemRetrieveParams,
     )
+    from stripe.radar._value_list_item import ValueListItem
 
 
 class ValueListItemService(StripeService):

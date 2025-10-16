@@ -2,13 +2,13 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.issuing._card import Card
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
     from stripe._request_options import RequestOptions
+    from stripe.issuing._card import Card
     from stripe.params.issuing._card_create_params import CardCreateParams
     from stripe.params.issuing._card_list_params import CardListParams
     from stripe.params.issuing._card_retrieve_params import CardRetrieveParams

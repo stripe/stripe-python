@@ -2,7 +2,6 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.treasury._credit_reversal import CreditReversal
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
@@ -18,6 +17,7 @@ if TYPE_CHECKING:
     from stripe.params.treasury._credit_reversal_retrieve_params import (
         CreditReversalRetrieveParams,
     )
+    from stripe.treasury._credit_reversal import CreditReversal
 
 
 class CreditReversalService(StripeService):

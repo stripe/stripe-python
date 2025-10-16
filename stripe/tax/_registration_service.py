@@ -2,7 +2,6 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.tax._registration import Registration
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
@@ -21,6 +20,7 @@ if TYPE_CHECKING:
     from stripe.params.tax._registration_update_params import (
         RegistrationUpdateParams,
     )
+    from stripe.tax._registration import Registration
 
 
 class RegistrationService(StripeService):

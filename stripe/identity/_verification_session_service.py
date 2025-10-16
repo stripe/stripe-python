@@ -2,13 +2,13 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.identity._verification_session import VerificationSession
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
     from stripe._request_options import RequestOptions
+    from stripe.identity._verification_session import VerificationSession
     from stripe.params.identity._verification_session_cancel_params import (
         VerificationSessionCancelParams,
     )

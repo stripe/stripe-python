@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._setup_intent import SetupIntent
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
@@ -9,6 +8,7 @@ from typing_extensions import TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
     from stripe._request_options import RequestOptions
+    from stripe._setup_intent import SetupIntent
     from stripe.params._setup_intent_cancel_params import (
         SetupIntentCancelParams,
     )

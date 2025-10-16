@@ -2,7 +2,6 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.terminal._configuration import Configuration
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
@@ -24,6 +23,7 @@ if TYPE_CHECKING:
     from stripe.params.terminal._configuration_update_params import (
         ConfigurationUpdateParams,
     )
+    from stripe.terminal._configuration import Configuration
 
 
 class ConfigurationService(StripeService):

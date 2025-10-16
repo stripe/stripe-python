@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_service import StripeService
-from stripe._tax_code import TaxCode
 from stripe._util import sanitize_id
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
@@ -9,6 +8,7 @@ from typing_extensions import TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
     from stripe._request_options import RequestOptions
+    from stripe._tax_code import TaxCode
     from stripe.params._tax_code_list_params import TaxCodeListParams
     from stripe.params._tax_code_retrieve_params import TaxCodeRetrieveParams
 

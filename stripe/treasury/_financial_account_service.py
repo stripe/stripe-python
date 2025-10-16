@@ -2,7 +2,6 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.treasury._financial_account import FinancialAccount
 from typing import Optional, cast
 from importlib import import_module
 from typing_extensions import TYPE_CHECKING
@@ -25,6 +24,7 @@ if TYPE_CHECKING:
     from stripe.params.treasury._financial_account_update_params import (
         FinancialAccountUpdateParams,
     )
+    from stripe.treasury._financial_account import FinancialAccount
     from stripe.treasury._financial_account_features_service import (
         FinancialAccountFeaturesService,
     )

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._credit_note import CreditNote
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
@@ -8,6 +7,7 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._credit_note import CreditNote
     from stripe._credit_note_line_item_service import CreditNoteLineItemService
     from stripe._credit_note_preview_lines_service import (
         CreditNotePreviewLinesService,

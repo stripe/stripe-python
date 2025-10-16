@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_service import StripeService
-from stripe.apps._secret import Secret
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
     from stripe._request_options import RequestOptions
+    from stripe.apps._secret import Secret
     from stripe.params.apps._secret_create_params import SecretCreateParams
     from stripe.params.apps._secret_delete_where_params import (
         SecretDeleteWhereParams,

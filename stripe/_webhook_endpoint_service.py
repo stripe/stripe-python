@@ -2,13 +2,13 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe._webhook_endpoint import WebhookEndpoint
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
     from stripe._request_options import RequestOptions
+    from stripe._webhook_endpoint import WebhookEndpoint
     from stripe.params._webhook_endpoint_create_params import (
         WebhookEndpointCreateParams,
     )

@@ -2,13 +2,13 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.entitlements._active_entitlement import ActiveEntitlement
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
     from stripe._request_options import RequestOptions
+    from stripe.entitlements._active_entitlement import ActiveEntitlement
     from stripe.params.entitlements._active_entitlement_list_params import (
         ActiveEntitlementListParams,
     )
