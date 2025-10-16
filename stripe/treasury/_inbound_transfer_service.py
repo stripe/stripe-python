@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.treasury._inbound_transfer import InboundTransfer
@@ -9,6 +8,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe.params.treasury._inbound_transfer_cancel_params import (
         InboundTransferCancelParams,
     )
@@ -27,7 +27,7 @@ class InboundTransferService(StripeService):
     def list(
         self,
         params: "InboundTransferListParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[InboundTransfer]":
         """
         Returns a list of InboundTransfers sent from the specified FinancialAccount.
@@ -46,7 +46,7 @@ class InboundTransferService(StripeService):
     async def list_async(
         self,
         params: "InboundTransferListParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[InboundTransfer]":
         """
         Returns a list of InboundTransfers sent from the specified FinancialAccount.
@@ -65,7 +65,7 @@ class InboundTransferService(StripeService):
     def create(
         self,
         params: "InboundTransferCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "InboundTransfer":
         """
         Creates an InboundTransfer.
@@ -84,7 +84,7 @@ class InboundTransferService(StripeService):
     async def create_async(
         self,
         params: "InboundTransferCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "InboundTransfer":
         """
         Creates an InboundTransfer.
@@ -104,7 +104,7 @@ class InboundTransferService(StripeService):
         self,
         id: str,
         params: Optional["InboundTransferRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "InboundTransfer":
         """
         Retrieves the details of an existing InboundTransfer.
@@ -126,7 +126,7 @@ class InboundTransferService(StripeService):
         self,
         id: str,
         params: Optional["InboundTransferRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "InboundTransfer":
         """
         Retrieves the details of an existing InboundTransfer.
@@ -148,7 +148,7 @@ class InboundTransferService(StripeService):
         self,
         inbound_transfer: str,
         params: Optional["InboundTransferCancelParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "InboundTransfer":
         """
         Cancels an InboundTransfer.
@@ -170,7 +170,7 @@ class InboundTransferService(StripeService):
         self,
         inbound_transfer: str,
         params: Optional["InboundTransferCancelParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "InboundTransfer":
         """
         Cancels an InboundTransfer.

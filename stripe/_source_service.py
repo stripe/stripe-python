@@ -3,7 +3,6 @@
 from stripe._account import Account
 from stripe._bank_account import BankAccount
 from stripe._card import Card
-from stripe._request_options import RequestOptions
 from stripe._source import Source
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
@@ -12,6 +11,7 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._request_options import RequestOptions
     from stripe._source_transaction_service import SourceTransactionService
     from stripe.params._source_create_params import SourceCreateParams
     from stripe.params._source_detach_params import SourceDetachParams
@@ -55,7 +55,7 @@ class SourceService(StripeService):
         customer: str,
         id: str,
         params: Optional["SourceDetachParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Union[Account, BankAccount, Card, Source]":
         """
         Delete a specified source for a given customer.
@@ -79,7 +79,7 @@ class SourceService(StripeService):
         customer: str,
         id: str,
         params: Optional["SourceDetachParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Union[Account, BankAccount, Card, Source]":
         """
         Delete a specified source for a given customer.
@@ -102,7 +102,7 @@ class SourceService(StripeService):
         self,
         source: str,
         params: Optional["SourceRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Source":
         """
         Retrieves an existing source object. Supply the unique source ID from a source creation request and Stripe will return the corresponding up-to-date source object information.
@@ -122,7 +122,7 @@ class SourceService(StripeService):
         self,
         source: str,
         params: Optional["SourceRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Source":
         """
         Retrieves an existing source object. Supply the unique source ID from a source creation request and Stripe will return the corresponding up-to-date source object information.
@@ -142,7 +142,7 @@ class SourceService(StripeService):
         self,
         source: str,
         params: Optional["SourceUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Source":
         """
         Updates the specified source by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -164,7 +164,7 @@ class SourceService(StripeService):
         self,
         source: str,
         params: Optional["SourceUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Source":
         """
         Updates the specified source by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -185,7 +185,7 @@ class SourceService(StripeService):
     def create(
         self,
         params: Optional["SourceCreateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Source":
         """
         Creates a new source object.
@@ -204,7 +204,7 @@ class SourceService(StripeService):
     async def create_async(
         self,
         params: Optional["SourceCreateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Source":
         """
         Creates a new source object.
@@ -224,7 +224,7 @@ class SourceService(StripeService):
         self,
         source: str,
         params: "SourceVerifyParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Source":
         """
         Verify a given source.
@@ -246,7 +246,7 @@ class SourceService(StripeService):
         self,
         source: str,
         params: "SourceVerifyParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Source":
         """
         Verify a given source.

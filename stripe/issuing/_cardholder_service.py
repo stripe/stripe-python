@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.issuing._cardholder import Cardholder
@@ -9,6 +8,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe.params.issuing._cardholder_create_params import (
         CardholderCreateParams,
     )
@@ -27,7 +27,7 @@ class CardholderService(StripeService):
     def list(
         self,
         params: Optional["CardholderListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Cardholder]":
         """
         Returns a list of Issuing Cardholder objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
@@ -46,7 +46,7 @@ class CardholderService(StripeService):
     async def list_async(
         self,
         params: Optional["CardholderListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Cardholder]":
         """
         Returns a list of Issuing Cardholder objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
@@ -65,7 +65,7 @@ class CardholderService(StripeService):
     def create(
         self,
         params: "CardholderCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Cardholder":
         """
         Creates a new Issuing Cardholder object that can be issued cards.
@@ -84,7 +84,7 @@ class CardholderService(StripeService):
     async def create_async(
         self,
         params: "CardholderCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Cardholder":
         """
         Creates a new Issuing Cardholder object that can be issued cards.
@@ -104,7 +104,7 @@ class CardholderService(StripeService):
         self,
         cardholder: str,
         params: Optional["CardholderRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Cardholder":
         """
         Retrieves an Issuing Cardholder object.
@@ -126,7 +126,7 @@ class CardholderService(StripeService):
         self,
         cardholder: str,
         params: Optional["CardholderRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Cardholder":
         """
         Retrieves an Issuing Cardholder object.
@@ -148,7 +148,7 @@ class CardholderService(StripeService):
         self,
         cardholder: str,
         params: Optional["CardholderUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Cardholder":
         """
         Updates the specified Issuing Cardholder object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -170,7 +170,7 @@ class CardholderService(StripeService):
         self,
         cardholder: str,
         params: Optional["CardholderUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Cardholder":
         """
         Updates the specified Issuing Cardholder object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.

@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._file_link import FileLink
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
@@ -9,6 +8,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe.params._file_link_create_params import FileLinkCreateParams
     from stripe.params._file_link_list_params import FileLinkListParams
     from stripe.params._file_link_retrieve_params import FileLinkRetrieveParams
@@ -19,7 +19,7 @@ class FileLinkService(StripeService):
     def list(
         self,
         params: Optional["FileLinkListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[FileLink]":
         """
         Returns a list of file links.
@@ -38,7 +38,7 @@ class FileLinkService(StripeService):
     async def list_async(
         self,
         params: Optional["FileLinkListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[FileLink]":
         """
         Returns a list of file links.
@@ -57,7 +57,7 @@ class FileLinkService(StripeService):
     def create(
         self,
         params: "FileLinkCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "FileLink":
         """
         Creates a new file link object.
@@ -76,7 +76,7 @@ class FileLinkService(StripeService):
     async def create_async(
         self,
         params: "FileLinkCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "FileLink":
         """
         Creates a new file link object.
@@ -96,7 +96,7 @@ class FileLinkService(StripeService):
         self,
         link: str,
         params: Optional["FileLinkRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "FileLink":
         """
         Retrieves the file link with the given ID.
@@ -116,7 +116,7 @@ class FileLinkService(StripeService):
         self,
         link: str,
         params: Optional["FileLinkRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "FileLink":
         """
         Retrieves the file link with the given ID.
@@ -136,7 +136,7 @@ class FileLinkService(StripeService):
         self,
         link: str,
         params: Optional["FileLinkUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "FileLink":
         """
         Updates an existing file link object. Expired links can no longer be updated.
@@ -156,7 +156,7 @@ class FileLinkService(StripeService):
         self,
         link: str,
         params: Optional["FileLinkUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "FileLink":
         """
         Updates an existing file link object. Expired links can no longer be updated.

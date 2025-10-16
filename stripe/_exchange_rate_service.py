@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._exchange_rate import ExchangeRate
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
@@ -9,6 +8,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe.params._exchange_rate_list_params import ExchangeRateListParams
     from stripe.params._exchange_rate_retrieve_params import (
         ExchangeRateRetrieveParams,
@@ -19,7 +19,7 @@ class ExchangeRateService(StripeService):
     def list(
         self,
         params: Optional["ExchangeRateListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[ExchangeRate]":
         """
         [Deprecated] The ExchangeRate APIs are deprecated. Please use the [FX Quotes API](https://docs.stripe.com/payments/currencies/localize-prices/fx-quotes-api) instead.
@@ -40,7 +40,7 @@ class ExchangeRateService(StripeService):
     async def list_async(
         self,
         params: Optional["ExchangeRateListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[ExchangeRate]":
         """
         [Deprecated] The ExchangeRate APIs are deprecated. Please use the [FX Quotes API](https://docs.stripe.com/payments/currencies/localize-prices/fx-quotes-api) instead.
@@ -62,7 +62,7 @@ class ExchangeRateService(StripeService):
         self,
         rate_id: str,
         params: Optional["ExchangeRateRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ExchangeRate":
         """
         [Deprecated] The ExchangeRate APIs are deprecated. Please use the [FX Quotes API](https://docs.stripe.com/payments/currencies/localize-prices/fx-quotes-api) instead.
@@ -86,7 +86,7 @@ class ExchangeRateService(StripeService):
         self,
         rate_id: str,
         params: Optional["ExchangeRateRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ExchangeRate":
         """
         [Deprecated] The ExchangeRate APIs are deprecated. Please use the [FX Quotes API](https://docs.stripe.com/payments/currencies/localize-prices/fx-quotes-api) instead.

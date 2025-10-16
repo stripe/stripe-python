@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.radar._value_list_item import ValueListItem
@@ -9,6 +8,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe.params.radar._value_list_item_create_params import (
         ValueListItemCreateParams,
     )
@@ -28,7 +28,7 @@ class ValueListItemService(StripeService):
         self,
         item: str,
         params: Optional["ValueListItemDeleteParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ValueListItem":
         """
         Deletes a ValueListItem object, removing it from its parent value list.
@@ -50,7 +50,7 @@ class ValueListItemService(StripeService):
         self,
         item: str,
         params: Optional["ValueListItemDeleteParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ValueListItem":
         """
         Deletes a ValueListItem object, removing it from its parent value list.
@@ -72,7 +72,7 @@ class ValueListItemService(StripeService):
         self,
         item: str,
         params: Optional["ValueListItemRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ValueListItem":
         """
         Retrieves a ValueListItem object.
@@ -94,7 +94,7 @@ class ValueListItemService(StripeService):
         self,
         item: str,
         params: Optional["ValueListItemRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ValueListItem":
         """
         Retrieves a ValueListItem object.
@@ -115,7 +115,7 @@ class ValueListItemService(StripeService):
     def list(
         self,
         params: "ValueListItemListParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[ValueListItem]":
         """
         Returns a list of ValueListItem objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
@@ -134,7 +134,7 @@ class ValueListItemService(StripeService):
     async def list_async(
         self,
         params: "ValueListItemListParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[ValueListItem]":
         """
         Returns a list of ValueListItem objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
@@ -153,7 +153,7 @@ class ValueListItemService(StripeService):
     def create(
         self,
         params: "ValueListItemCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ValueListItem":
         """
         Creates a new ValueListItem object, which is added to the specified parent value list.
@@ -172,7 +172,7 @@ class ValueListItemService(StripeService):
     async def create_async(
         self,
         params: "ValueListItemCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ValueListItem":
         """
         Creates a new ValueListItem object, which is added to the specified parent value list.

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
@@ -8,6 +7,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._funding_instructions import FundingInstructions
+    from stripe._request_options import RequestOptions
     from stripe.params._customer_funding_instructions_create_params import (
         CustomerFundingInstructionsCreateParams,
     )
@@ -18,7 +18,7 @@ class CustomerFundingInstructionsService(StripeService):
         self,
         customer: str,
         params: "CustomerFundingInstructionsCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "FundingInstructions":
         """
         Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
@@ -42,7 +42,7 @@ class CustomerFundingInstructionsService(StripeService):
         self,
         customer: str,
         params: "CustomerFundingInstructionsCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "FundingInstructions":
         """
         Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new

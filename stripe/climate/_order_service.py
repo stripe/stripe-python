@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.climate._order import Order
@@ -9,6 +8,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe.params.climate._order_cancel_params import OrderCancelParams
     from stripe.params.climate._order_create_params import OrderCreateParams
     from stripe.params.climate._order_list_params import OrderListParams
@@ -22,7 +22,7 @@ class OrderService(StripeService):
     def list(
         self,
         params: Optional["OrderListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Order]":
         """
         Lists all Climate order objects. The orders are returned sorted by creation date, with the
@@ -42,7 +42,7 @@ class OrderService(StripeService):
     async def list_async(
         self,
         params: Optional["OrderListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Order]":
         """
         Lists all Climate order objects. The orders are returned sorted by creation date, with the
@@ -62,7 +62,7 @@ class OrderService(StripeService):
     def create(
         self,
         params: "OrderCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Order":
         """
         Creates a Climate order object for a given Climate product. The order will be processed immediately
@@ -82,7 +82,7 @@ class OrderService(StripeService):
     async def create_async(
         self,
         params: "OrderCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Order":
         """
         Creates a Climate order object for a given Climate product. The order will be processed immediately
@@ -103,7 +103,7 @@ class OrderService(StripeService):
         self,
         order: str,
         params: Optional["OrderRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Order":
         """
         Retrieves the details of a Climate order object with the given ID.
@@ -123,7 +123,7 @@ class OrderService(StripeService):
         self,
         order: str,
         params: Optional["OrderRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Order":
         """
         Retrieves the details of a Climate order object with the given ID.
@@ -143,7 +143,7 @@ class OrderService(StripeService):
         self,
         order: str,
         params: Optional["OrderUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Order":
         """
         Updates the specified order by setting the values of the parameters passed.
@@ -163,7 +163,7 @@ class OrderService(StripeService):
         self,
         order: str,
         params: Optional["OrderUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Order":
         """
         Updates the specified order by setting the values of the parameters passed.
@@ -183,7 +183,7 @@ class OrderService(StripeService):
         self,
         order: str,
         params: Optional["OrderCancelParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Order":
         """
         Cancels a Climate order. You can cancel an order within 24 hours of creation. Stripe refunds the
@@ -208,7 +208,7 @@ class OrderService(StripeService):
         self,
         order: str,
         params: Optional["OrderCancelParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Order":
         """
         Cancels a Climate order. You can cancel an order within 24 hours of creation. Stripe refunds the

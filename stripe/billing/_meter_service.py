@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.billing._meter import Meter
@@ -10,6 +9,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe.billing._meter_event_summary_service import (
         MeterEventSummaryService,
     )
@@ -59,7 +59,7 @@ class MeterService(StripeService):
     def list(
         self,
         params: Optional["MeterListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Meter]":
         """
         Retrieve a list of billing meters.
@@ -78,7 +78,7 @@ class MeterService(StripeService):
     async def list_async(
         self,
         params: Optional["MeterListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Meter]":
         """
         Retrieve a list of billing meters.
@@ -97,7 +97,7 @@ class MeterService(StripeService):
     def create(
         self,
         params: "MeterCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Meter":
         """
         Creates a billing meter.
@@ -116,7 +116,7 @@ class MeterService(StripeService):
     async def create_async(
         self,
         params: "MeterCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Meter":
         """
         Creates a billing meter.
@@ -136,7 +136,7 @@ class MeterService(StripeService):
         self,
         id: str,
         params: Optional["MeterRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Meter":
         """
         Retrieves a billing meter given an ID.
@@ -156,7 +156,7 @@ class MeterService(StripeService):
         self,
         id: str,
         params: Optional["MeterRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Meter":
         """
         Retrieves a billing meter given an ID.
@@ -176,7 +176,7 @@ class MeterService(StripeService):
         self,
         id: str,
         params: Optional["MeterUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Meter":
         """
         Updates a billing meter.
@@ -196,7 +196,7 @@ class MeterService(StripeService):
         self,
         id: str,
         params: Optional["MeterUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Meter":
         """
         Updates a billing meter.
@@ -216,7 +216,7 @@ class MeterService(StripeService):
         self,
         id: str,
         params: Optional["MeterDeactivateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Meter":
         """
         When a meter is deactivated, no more meter events will be accepted for this meter. You can't attach a deactivated meter to a price.
@@ -238,7 +238,7 @@ class MeterService(StripeService):
         self,
         id: str,
         params: Optional["MeterDeactivateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Meter":
         """
         When a meter is deactivated, no more meter events will be accepted for this meter. You can't attach a deactivated meter to a price.
@@ -260,7 +260,7 @@ class MeterService(StripeService):
         self,
         id: str,
         params: Optional["MeterReactivateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Meter":
         """
         When a meter is reactivated, events for this meter can be accepted and you can attach the meter to a price.
@@ -282,7 +282,7 @@ class MeterService(StripeService):
         self,
         id: str,
         params: Optional["MeterReactivateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Meter":
         """
         When a meter is reactivated, events for this meter can be accepted and you can attach the meter to a price.

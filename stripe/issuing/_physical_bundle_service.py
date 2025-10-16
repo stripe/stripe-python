@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.issuing._physical_bundle import PhysicalBundle
@@ -9,6 +8,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe.params.issuing._physical_bundle_list_params import (
         PhysicalBundleListParams,
     )
@@ -21,7 +21,7 @@ class PhysicalBundleService(StripeService):
     def list(
         self,
         params: Optional["PhysicalBundleListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[PhysicalBundle]":
         """
         Returns a list of physical bundle objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
@@ -40,7 +40,7 @@ class PhysicalBundleService(StripeService):
     async def list_async(
         self,
         params: Optional["PhysicalBundleListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[PhysicalBundle]":
         """
         Returns a list of physical bundle objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
@@ -60,7 +60,7 @@ class PhysicalBundleService(StripeService):
         self,
         physical_bundle: str,
         params: Optional["PhysicalBundleRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "PhysicalBundle":
         """
         Retrieves a physical bundle object.
@@ -82,7 +82,7 @@ class PhysicalBundleService(StripeService):
         self,
         physical_bundle: str,
         params: Optional["PhysicalBundleRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "PhysicalBundle":
         """
         Retrieves a physical bundle object.

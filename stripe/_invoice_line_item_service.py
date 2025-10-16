@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._invoice_line_item import InvoiceLineItem
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
@@ -9,6 +8,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe.params._invoice_line_item_list_params import (
         InvoiceLineItemListParams,
     )
@@ -22,7 +22,7 @@ class InvoiceLineItemService(StripeService):
         self,
         invoice: str,
         params: Optional["InvoiceLineItemListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[InvoiceLineItem]":
         """
         When retrieving an invoice, you'll get a lines property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -44,7 +44,7 @@ class InvoiceLineItemService(StripeService):
         self,
         invoice: str,
         params: Optional["InvoiceLineItemListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[InvoiceLineItem]":
         """
         When retrieving an invoice, you'll get a lines property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -67,7 +67,7 @@ class InvoiceLineItemService(StripeService):
         invoice: str,
         line_item_id: str,
         params: Optional["InvoiceLineItemUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "InvoiceLineItem":
         """
         Updates an invoice's line item. Some fields, such as tax_amounts, only live on the invoice line item,
@@ -94,7 +94,7 @@ class InvoiceLineItemService(StripeService):
         invoice: str,
         line_item_id: str,
         params: Optional["InvoiceLineItemUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "InvoiceLineItem":
         """
         Updates an invoice's line item. Some fields, such as tax_amounts, only live on the invoice line item,

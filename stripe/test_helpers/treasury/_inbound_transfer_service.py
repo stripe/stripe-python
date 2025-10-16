@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._request_options import RequestOptions
     from stripe.params.test_helpers.treasury._inbound_transfer_fail_params import (
         InboundTransferFailParams,
     )
@@ -24,7 +24,7 @@ class InboundTransferService(StripeService):
         self,
         id: str,
         params: Optional["InboundTransferFailParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "InboundTransfer":
         """
         Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
@@ -46,7 +46,7 @@ class InboundTransferService(StripeService):
         self,
         id: str,
         params: Optional["InboundTransferFailParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "InboundTransfer":
         """
         Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
@@ -68,7 +68,7 @@ class InboundTransferService(StripeService):
         self,
         id: str,
         params: Optional["InboundTransferReturnInboundTransferParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "InboundTransfer":
         """
         Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
@@ -90,7 +90,7 @@ class InboundTransferService(StripeService):
         self,
         id: str,
         params: Optional["InboundTransferReturnInboundTransferParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "InboundTransfer":
         """
         Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
@@ -112,7 +112,7 @@ class InboundTransferService(StripeService):
         self,
         id: str,
         params: Optional["InboundTransferSucceedParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "InboundTransfer":
         """
         Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
@@ -134,7 +134,7 @@ class InboundTransferService(StripeService):
         self,
         id: str,
         params: Optional["InboundTransferSucceedParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "InboundTransfer":
         """
         Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.

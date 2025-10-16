@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.financial_connections._account import Account
@@ -10,6 +9,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe.financial_connections._account_owner_service import (
         AccountOwnerService,
     )
@@ -65,7 +65,7 @@ class AccountService(StripeService):
     def list(
         self,
         params: Optional["AccountListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Account]":
         """
         Returns a list of Financial Connections Account objects.
@@ -84,7 +84,7 @@ class AccountService(StripeService):
     async def list_async(
         self,
         params: Optional["AccountListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Account]":
         """
         Returns a list of Financial Connections Account objects.
@@ -104,7 +104,7 @@ class AccountService(StripeService):
         self,
         account: str,
         params: Optional["AccountRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Account":
         """
         Retrieves the details of an Financial Connections Account.
@@ -126,7 +126,7 @@ class AccountService(StripeService):
         self,
         account: str,
         params: Optional["AccountRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Account":
         """
         Retrieves the details of an Financial Connections Account.
@@ -148,7 +148,7 @@ class AccountService(StripeService):
         self,
         account: str,
         params: Optional["AccountDisconnectParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Account":
         """
         Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
@@ -170,7 +170,7 @@ class AccountService(StripeService):
         self,
         account: str,
         params: Optional["AccountDisconnectParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Account":
         """
         Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
@@ -192,7 +192,7 @@ class AccountService(StripeService):
         self,
         account: str,
         params: "AccountRefreshParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Account":
         """
         Refreshes the data associated with a Financial Connections Account.
@@ -214,7 +214,7 @@ class AccountService(StripeService):
         self,
         account: str,
         params: "AccountRefreshParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Account":
         """
         Refreshes the data associated with a Financial Connections Account.
@@ -236,7 +236,7 @@ class AccountService(StripeService):
         self,
         account: str,
         params: "AccountSubscribeParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Account":
         """
         Subscribes to periodic refreshes of data associated with a Financial Connections Account.
@@ -258,7 +258,7 @@ class AccountService(StripeService):
         self,
         account: str,
         params: "AccountSubscribeParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Account":
         """
         Subscribes to periodic refreshes of data associated with a Financial Connections Account.
@@ -280,7 +280,7 @@ class AccountService(StripeService):
         self,
         account: str,
         params: "AccountUnsubscribeParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Account":
         """
         Unsubscribes from periodic refreshes of data associated with a Financial Connections Account.
@@ -302,7 +302,7 @@ class AccountService(StripeService):
         self,
         account: str,
         params: "AccountUnsubscribeParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Account":
         """
         Unsubscribes from periodic refreshes of data associated with a Financial Connections Account.

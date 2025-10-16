@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._subscription import Subscription
 from stripe._util import sanitize_id
@@ -10,6 +9,7 @@ from typing_extensions import TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe._discount import Discount
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe._search_result_object import SearchResultObject
     from stripe.params._subscription_cancel_params import (
         SubscriptionCancelParams,
@@ -43,7 +43,7 @@ class SubscriptionService(StripeService):
         self,
         subscription_exposed_id: str,
         params: Optional["SubscriptionCancelParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Subscription":
         """
         Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, you can no longer update the subscription or its [metadata](https://docs.stripe.com/metadata).
@@ -71,7 +71,7 @@ class SubscriptionService(StripeService):
         self,
         subscription_exposed_id: str,
         params: Optional["SubscriptionCancelParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Subscription":
         """
         Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, you can no longer update the subscription or its [metadata](https://docs.stripe.com/metadata).
@@ -99,7 +99,7 @@ class SubscriptionService(StripeService):
         self,
         subscription_exposed_id: str,
         params: Optional["SubscriptionRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Subscription":
         """
         Retrieves the subscription with the given ID.
@@ -123,7 +123,7 @@ class SubscriptionService(StripeService):
         self,
         subscription_exposed_id: str,
         params: Optional["SubscriptionRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Subscription":
         """
         Retrieves the subscription with the given ID.
@@ -147,7 +147,7 @@ class SubscriptionService(StripeService):
         self,
         subscription_exposed_id: str,
         params: Optional["SubscriptionUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Subscription":
         """
         Updates an existing subscription to match the specified parameters.
@@ -191,7 +191,7 @@ class SubscriptionService(StripeService):
         self,
         subscription_exposed_id: str,
         params: Optional["SubscriptionUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Subscription":
         """
         Updates an existing subscription to match the specified parameters.
@@ -235,7 +235,7 @@ class SubscriptionService(StripeService):
         self,
         subscription_exposed_id: str,
         params: Optional["SubscriptionDeleteDiscountParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Discount":
         """
         Removes the currently applied discount on a subscription.
@@ -259,7 +259,7 @@ class SubscriptionService(StripeService):
         self,
         subscription_exposed_id: str,
         params: Optional["SubscriptionDeleteDiscountParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Discount":
         """
         Removes the currently applied discount on a subscription.
@@ -282,7 +282,7 @@ class SubscriptionService(StripeService):
     def list(
         self,
         params: Optional["SubscriptionListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Subscription]":
         """
         By default, returns a list of subscriptions that have not been canceled. In order to list canceled subscriptions, specify status=canceled.
@@ -301,7 +301,7 @@ class SubscriptionService(StripeService):
     async def list_async(
         self,
         params: Optional["SubscriptionListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Subscription]":
         """
         By default, returns a list of subscriptions that have not been canceled. In order to list canceled subscriptions, specify status=canceled.
@@ -320,7 +320,7 @@ class SubscriptionService(StripeService):
     def create(
         self,
         params: "SubscriptionCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Subscription":
         """
         Creates a new subscription on an existing customer. Each customer can have up to 500 active or scheduled subscriptions.
@@ -345,7 +345,7 @@ class SubscriptionService(StripeService):
     async def create_async(
         self,
         params: "SubscriptionCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Subscription":
         """
         Creates a new subscription on an existing customer. Each customer can have up to 500 active or scheduled subscriptions.
@@ -370,7 +370,7 @@ class SubscriptionService(StripeService):
     def search(
         self,
         params: "SubscriptionSearchParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "SearchResultObject[Subscription]":
         """
         Search for subscriptions you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
@@ -392,7 +392,7 @@ class SubscriptionService(StripeService):
     async def search_async(
         self,
         params: "SubscriptionSearchParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "SearchResultObject[Subscription]":
         """
         Search for subscriptions you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
@@ -415,7 +415,7 @@ class SubscriptionService(StripeService):
         self,
         subscription: str,
         params: "SubscriptionMigrateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Subscription":
         """
         Upgrade the billing_mode of an existing subscription.
@@ -437,7 +437,7 @@ class SubscriptionService(StripeService):
         self,
         subscription: str,
         params: "SubscriptionMigrateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Subscription":
         """
         Upgrade the billing_mode of an existing subscription.
@@ -459,7 +459,7 @@ class SubscriptionService(StripeService):
         self,
         subscription: str,
         params: Optional["SubscriptionResumeParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Subscription":
         """
         Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
@@ -481,7 +481,7 @@ class SubscriptionService(StripeService):
         self,
         subscription: str,
         params: Optional["SubscriptionResumeParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Subscription":
         """
         Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.

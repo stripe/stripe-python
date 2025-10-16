@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.terminal._location import Location
@@ -9,6 +8,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe.params.terminal._location_create_params import (
         LocationCreateParams,
     )
@@ -29,7 +29,7 @@ class LocationService(StripeService):
         self,
         location: str,
         params: Optional["LocationDeleteParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Location":
         """
         Deletes a Location object.
@@ -51,7 +51,7 @@ class LocationService(StripeService):
         self,
         location: str,
         params: Optional["LocationDeleteParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Location":
         """
         Deletes a Location object.
@@ -73,7 +73,7 @@ class LocationService(StripeService):
         self,
         location: str,
         params: Optional["LocationRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Location":
         """
         Retrieves a Location object.
@@ -95,7 +95,7 @@ class LocationService(StripeService):
         self,
         location: str,
         params: Optional["LocationRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Location":
         """
         Retrieves a Location object.
@@ -117,7 +117,7 @@ class LocationService(StripeService):
         self,
         location: str,
         params: Optional["LocationUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Location":
         """
         Updates a Location object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -139,7 +139,7 @@ class LocationService(StripeService):
         self,
         location: str,
         params: Optional["LocationUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Location":
         """
         Updates a Location object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -160,7 +160,7 @@ class LocationService(StripeService):
     def list(
         self,
         params: Optional["LocationListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Location]":
         """
         Returns a list of Location objects.
@@ -179,7 +179,7 @@ class LocationService(StripeService):
     async def list_async(
         self,
         params: Optional["LocationListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Location]":
         """
         Returns a list of Location objects.
@@ -198,7 +198,7 @@ class LocationService(StripeService):
     def create(
         self,
         params: Optional["LocationCreateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Location":
         """
         Creates a new Location object.
@@ -218,7 +218,7 @@ class LocationService(StripeService):
     async def create_async(
         self,
         params: Optional["LocationCreateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Location":
         """
         Creates a new Location object.

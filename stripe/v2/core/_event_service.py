@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.v2.core._event import Event
@@ -8,6 +7,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._request_options import RequestOptions
     from stripe.params.v2.core._event_list_params import EventListParams
     from stripe.params.v2.core._event_retrieve_params import (
         EventRetrieveParams,
@@ -19,7 +19,7 @@ class EventService(StripeService):
     def list(
         self,
         params: "EventListParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Event]":
         """
         List events, going back up to 30 days.
@@ -38,7 +38,7 @@ class EventService(StripeService):
     async def list_async(
         self,
         params: "EventListParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Event]":
         """
         List events, going back up to 30 days.
@@ -58,7 +58,7 @@ class EventService(StripeService):
         self,
         id: str,
         params: Optional["EventRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Event":
         """
         Retrieves the details of an event.
@@ -78,7 +78,7 @@ class EventService(StripeService):
         self,
         id: str,
         params: Optional["EventRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Event":
         """
         Retrieves the details of an event.

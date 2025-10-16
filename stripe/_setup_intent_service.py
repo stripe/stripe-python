@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._setup_intent import SetupIntent
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
@@ -9,6 +8,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe.params._setup_intent_cancel_params import (
         SetupIntentCancelParams,
     )
@@ -34,7 +34,7 @@ class SetupIntentService(StripeService):
     def list(
         self,
         params: Optional["SetupIntentListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[SetupIntent]":
         """
         Returns a list of SetupIntents.
@@ -53,7 +53,7 @@ class SetupIntentService(StripeService):
     async def list_async(
         self,
         params: Optional["SetupIntentListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[SetupIntent]":
         """
         Returns a list of SetupIntents.
@@ -72,7 +72,7 @@ class SetupIntentService(StripeService):
     def create(
         self,
         params: Optional["SetupIntentCreateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "SetupIntent":
         """
         Creates a SetupIntent object.
@@ -94,7 +94,7 @@ class SetupIntentService(StripeService):
     async def create_async(
         self,
         params: Optional["SetupIntentCreateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "SetupIntent":
         """
         Creates a SetupIntent object.
@@ -117,7 +117,7 @@ class SetupIntentService(StripeService):
         self,
         intent: str,
         params: Optional["SetupIntentRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "SetupIntent":
         """
         Retrieves the details of a SetupIntent that has previously been created.
@@ -143,7 +143,7 @@ class SetupIntentService(StripeService):
         self,
         intent: str,
         params: Optional["SetupIntentRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "SetupIntent":
         """
         Retrieves the details of a SetupIntent that has previously been created.
@@ -169,7 +169,7 @@ class SetupIntentService(StripeService):
         self,
         intent: str,
         params: Optional["SetupIntentUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "SetupIntent":
         """
         Updates a SetupIntent object.
@@ -191,7 +191,7 @@ class SetupIntentService(StripeService):
         self,
         intent: str,
         params: Optional["SetupIntentUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "SetupIntent":
         """
         Updates a SetupIntent object.
@@ -213,7 +213,7 @@ class SetupIntentService(StripeService):
         self,
         intent: str,
         params: Optional["SetupIntentCancelParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "SetupIntent":
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
@@ -237,7 +237,7 @@ class SetupIntentService(StripeService):
         self,
         intent: str,
         params: Optional["SetupIntentCancelParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "SetupIntent":
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
@@ -261,7 +261,7 @@ class SetupIntentService(StripeService):
         self,
         intent: str,
         params: Optional["SetupIntentConfirmParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "SetupIntent":
         """
         Confirm that your customer intends to set up the current or
@@ -296,7 +296,7 @@ class SetupIntentService(StripeService):
         self,
         intent: str,
         params: Optional["SetupIntentConfirmParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "SetupIntent":
         """
         Confirm that your customer intends to set up the current or
@@ -331,7 +331,7 @@ class SetupIntentService(StripeService):
         self,
         intent: str,
         params: Optional["SetupIntentVerifyMicrodepositsParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "SetupIntent":
         """
         Verifies microdeposits on a SetupIntent object.
@@ -353,7 +353,7 @@ class SetupIntentService(StripeService):
         self,
         intent: str,
         params: Optional["SetupIntentVerifyMicrodepositsParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "SetupIntent":
         """
         Verifies microdeposits on a SetupIntent object.

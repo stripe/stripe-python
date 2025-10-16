@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.terminal._reader import Reader
@@ -9,6 +8,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe.params.terminal._reader_cancel_action_params import (
         ReaderCancelActionParams,
     )
@@ -47,7 +47,7 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: Optional["ReaderDeleteParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Reader":
         """
         Deletes a Reader object.
@@ -69,7 +69,7 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: Optional["ReaderDeleteParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Reader":
         """
         Deletes a Reader object.
@@ -91,7 +91,7 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: Optional["ReaderRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Reader":
         """
         Retrieves a Reader object.
@@ -113,7 +113,7 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: Optional["ReaderRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Reader":
         """
         Retrieves a Reader object.
@@ -135,7 +135,7 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: Optional["ReaderUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Reader":
         """
         Updates a Reader object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -157,7 +157,7 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: Optional["ReaderUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Reader":
         """
         Updates a Reader object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -178,7 +178,7 @@ class ReaderService(StripeService):
     def list(
         self,
         params: Optional["ReaderListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Reader]":
         """
         Returns a list of Reader objects.
@@ -197,7 +197,7 @@ class ReaderService(StripeService):
     async def list_async(
         self,
         params: Optional["ReaderListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Reader]":
         """
         Returns a list of Reader objects.
@@ -216,7 +216,7 @@ class ReaderService(StripeService):
     def create(
         self,
         params: "ReaderCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Reader":
         """
         Creates a new Reader object.
@@ -235,7 +235,7 @@ class ReaderService(StripeService):
     async def create_async(
         self,
         params: "ReaderCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Reader":
         """
         Creates a new Reader object.
@@ -255,7 +255,7 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: Optional["ReaderCancelActionParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Reader":
         """
         Cancels the current reader action.
@@ -277,7 +277,7 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: Optional["ReaderCancelActionParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Reader":
         """
         Cancels the current reader action.
@@ -299,7 +299,7 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: "ReaderCollectInputsParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Reader":
         """
         Initiates an input collection flow on a Reader.
@@ -321,7 +321,7 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: "ReaderCollectInputsParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Reader":
         """
         Initiates an input collection flow on a Reader.
@@ -343,7 +343,7 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: "ReaderCollectPaymentMethodParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Reader":
         """
         Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
@@ -365,7 +365,7 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: "ReaderCollectPaymentMethodParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Reader":
         """
         Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
@@ -387,7 +387,7 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: "ReaderConfirmPaymentIntentParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Reader":
         """
         Finalizes a payment on a Reader.
@@ -409,7 +409,7 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: "ReaderConfirmPaymentIntentParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Reader":
         """
         Finalizes a payment on a Reader.
@@ -431,7 +431,7 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: "ReaderProcessPaymentIntentParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Reader":
         """
         Initiates a payment flow on a Reader.
@@ -453,7 +453,7 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: "ReaderProcessPaymentIntentParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Reader":
         """
         Initiates a payment flow on a Reader.
@@ -475,7 +475,7 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: "ReaderProcessSetupIntentParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Reader":
         """
         Initiates a setup intent flow on a Reader.
@@ -497,7 +497,7 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: "ReaderProcessSetupIntentParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Reader":
         """
         Initiates a setup intent flow on a Reader.
@@ -519,7 +519,7 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: Optional["ReaderRefundPaymentParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Reader":
         """
         Initiates a refund on a Reader
@@ -541,7 +541,7 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: Optional["ReaderRefundPaymentParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Reader":
         """
         Initiates a refund on a Reader
@@ -563,7 +563,7 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: "ReaderSetReaderDisplayParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Reader":
         """
         Sets reader display to show cart details.
@@ -585,7 +585,7 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: "ReaderSetReaderDisplayParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Reader":
         """
         Sets reader display to show cart details.

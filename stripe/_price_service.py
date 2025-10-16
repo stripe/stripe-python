@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._price import Price
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
@@ -9,6 +8,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe._search_result_object import SearchResultObject
     from stripe.params._price_create_params import PriceCreateParams
     from stripe.params._price_list_params import PriceListParams
@@ -21,7 +21,7 @@ class PriceService(StripeService):
     def list(
         self,
         params: Optional["PriceListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Price]":
         """
         Returns a list of your active prices, excluding [inline prices](https://docs.stripe.com/docs/products-prices/pricing-models#inline-pricing). For the list of inactive prices, set active to false.
@@ -40,7 +40,7 @@ class PriceService(StripeService):
     async def list_async(
         self,
         params: Optional["PriceListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Price]":
         """
         Returns a list of your active prices, excluding [inline prices](https://docs.stripe.com/docs/products-prices/pricing-models#inline-pricing). For the list of inactive prices, set active to false.
@@ -59,7 +59,7 @@ class PriceService(StripeService):
     def create(
         self,
         params: "PriceCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Price":
         """
         Creates a new [Price for an existing <a href="https://docs.stripe.com/api/products">Product](https://docs.stripe.com/api/prices). The Price can be recurring or one-time.
@@ -78,7 +78,7 @@ class PriceService(StripeService):
     async def create_async(
         self,
         params: "PriceCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Price":
         """
         Creates a new [Price for an existing <a href="https://docs.stripe.com/api/products">Product](https://docs.stripe.com/api/prices). The Price can be recurring or one-time.
@@ -98,7 +98,7 @@ class PriceService(StripeService):
         self,
         price: str,
         params: Optional["PriceRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Price":
         """
         Retrieves the price with the given ID.
@@ -118,7 +118,7 @@ class PriceService(StripeService):
         self,
         price: str,
         params: Optional["PriceRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Price":
         """
         Retrieves the price with the given ID.
@@ -138,7 +138,7 @@ class PriceService(StripeService):
         self,
         price: str,
         params: Optional["PriceUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Price":
         """
         Updates the specified price by setting the values of the parameters passed. Any parameters not provided are left unchanged.
@@ -158,7 +158,7 @@ class PriceService(StripeService):
         self,
         price: str,
         params: Optional["PriceUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Price":
         """
         Updates the specified price by setting the values of the parameters passed. Any parameters not provided are left unchanged.
@@ -177,7 +177,7 @@ class PriceService(StripeService):
     def search(
         self,
         params: "PriceSearchParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "SearchResultObject[Price]":
         """
         Search for prices you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
@@ -199,7 +199,7 @@ class PriceService(StripeService):
     async def search_async(
         self,
         params: "PriceSearchParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "SearchResultObject[Price]":
         """
         Search for prices you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).

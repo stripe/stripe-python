@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.tax._registration import Registration
@@ -9,6 +8,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe.params.tax._registration_create_params import (
         RegistrationCreateParams,
     )
@@ -27,7 +27,7 @@ class RegistrationService(StripeService):
     def list(
         self,
         params: Optional["RegistrationListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Registration]":
         """
         Returns a list of Tax Registration objects.
@@ -46,7 +46,7 @@ class RegistrationService(StripeService):
     async def list_async(
         self,
         params: Optional["RegistrationListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Registration]":
         """
         Returns a list of Tax Registration objects.
@@ -65,7 +65,7 @@ class RegistrationService(StripeService):
     def create(
         self,
         params: "RegistrationCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Registration":
         """
         Creates a new Tax Registration object.
@@ -84,7 +84,7 @@ class RegistrationService(StripeService):
     async def create_async(
         self,
         params: "RegistrationCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Registration":
         """
         Creates a new Tax Registration object.
@@ -104,7 +104,7 @@ class RegistrationService(StripeService):
         self,
         id: str,
         params: Optional["RegistrationRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Registration":
         """
         Returns a Tax Registration object.
@@ -124,7 +124,7 @@ class RegistrationService(StripeService):
         self,
         id: str,
         params: Optional["RegistrationRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Registration":
         """
         Returns a Tax Registration object.
@@ -144,7 +144,7 @@ class RegistrationService(StripeService):
         self,
         id: str,
         params: Optional["RegistrationUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Registration":
         """
         Updates an existing Tax Registration object.
@@ -166,7 +166,7 @@ class RegistrationService(StripeService):
         self,
         id: str,
         params: Optional["RegistrationUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Registration":
         """
         Updates an existing Tax Registration object.

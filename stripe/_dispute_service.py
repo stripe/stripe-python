@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._dispute import Dispute
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
@@ -9,6 +8,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe.params._dispute_close_params import DisputeCloseParams
     from stripe.params._dispute_list_params import DisputeListParams
     from stripe.params._dispute_retrieve_params import DisputeRetrieveParams
@@ -19,7 +19,7 @@ class DisputeService(StripeService):
     def list(
         self,
         params: Optional["DisputeListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Dispute]":
         """
         Returns a list of your disputes.
@@ -38,7 +38,7 @@ class DisputeService(StripeService):
     async def list_async(
         self,
         params: Optional["DisputeListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Dispute]":
         """
         Returns a list of your disputes.
@@ -58,7 +58,7 @@ class DisputeService(StripeService):
         self,
         dispute: str,
         params: Optional["DisputeRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Dispute":
         """
         Retrieves the dispute with the given ID.
@@ -78,7 +78,7 @@ class DisputeService(StripeService):
         self,
         dispute: str,
         params: Optional["DisputeRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Dispute":
         """
         Retrieves the dispute with the given ID.
@@ -98,7 +98,7 @@ class DisputeService(StripeService):
         self,
         dispute: str,
         params: Optional["DisputeUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Dispute":
         """
         When you get a dispute, contacting your customer is always the best first step. If that doesn't work, you can submit evidence to help us resolve the dispute in your favor. You can do this in your [dashboard](https://dashboard.stripe.com/disputes), but if you prefer, you can use the API to submit evidence programmatically.
@@ -120,7 +120,7 @@ class DisputeService(StripeService):
         self,
         dispute: str,
         params: Optional["DisputeUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Dispute":
         """
         When you get a dispute, contacting your customer is always the best first step. If that doesn't work, you can submit evidence to help us resolve the dispute in your favor. You can do this in your [dashboard](https://dashboard.stripe.com/disputes), but if you prefer, you can use the API to submit evidence programmatically.
@@ -142,7 +142,7 @@ class DisputeService(StripeService):
         self,
         dispute: str,
         params: Optional["DisputeCloseParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Dispute":
         """
         Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
@@ -166,7 +166,7 @@ class DisputeService(StripeService):
         self,
         dispute: str,
         params: Optional["DisputeCloseParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Dispute":
         """
         Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.

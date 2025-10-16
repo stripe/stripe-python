@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.test_helpers._test_clock import TestClock
@@ -9,6 +8,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe.params.test_helpers._test_clock_advance_params import (
         TestClockAdvanceParams,
     )
@@ -31,7 +31,7 @@ class TestClockService(StripeService):
         self,
         test_clock: str,
         params: Optional["TestClockDeleteParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "TestClock":
         """
         Deletes a test clock.
@@ -53,7 +53,7 @@ class TestClockService(StripeService):
         self,
         test_clock: str,
         params: Optional["TestClockDeleteParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "TestClock":
         """
         Deletes a test clock.
@@ -75,7 +75,7 @@ class TestClockService(StripeService):
         self,
         test_clock: str,
         params: Optional["TestClockRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "TestClock":
         """
         Retrieves a test clock.
@@ -97,7 +97,7 @@ class TestClockService(StripeService):
         self,
         test_clock: str,
         params: Optional["TestClockRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "TestClock":
         """
         Retrieves a test clock.
@@ -118,7 +118,7 @@ class TestClockService(StripeService):
     def list(
         self,
         params: Optional["TestClockListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[TestClock]":
         """
         Returns a list of your test clocks.
@@ -137,7 +137,7 @@ class TestClockService(StripeService):
     async def list_async(
         self,
         params: Optional["TestClockListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[TestClock]":
         """
         Returns a list of your test clocks.
@@ -156,7 +156,7 @@ class TestClockService(StripeService):
     def create(
         self,
         params: "TestClockCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "TestClock":
         """
         Creates a new test clock that can be attached to new customers and quotes.
@@ -175,7 +175,7 @@ class TestClockService(StripeService):
     async def create_async(
         self,
         params: "TestClockCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "TestClock":
         """
         Creates a new test clock that can be attached to new customers and quotes.
@@ -195,7 +195,7 @@ class TestClockService(StripeService):
         self,
         test_clock: str,
         params: "TestClockAdvanceParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "TestClock":
         """
         Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
@@ -217,7 +217,7 @@ class TestClockService(StripeService):
         self,
         test_clock: str,
         params: "TestClockAdvanceParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "TestClock":
         """
         Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.

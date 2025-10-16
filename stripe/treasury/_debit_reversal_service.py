@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.treasury._debit_reversal import DebitReversal
@@ -9,6 +8,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe.params.treasury._debit_reversal_create_params import (
         DebitReversalCreateParams,
     )
@@ -24,7 +24,7 @@ class DebitReversalService(StripeService):
     def list(
         self,
         params: "DebitReversalListParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[DebitReversal]":
         """
         Returns a list of DebitReversals.
@@ -43,7 +43,7 @@ class DebitReversalService(StripeService):
     async def list_async(
         self,
         params: "DebitReversalListParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[DebitReversal]":
         """
         Returns a list of DebitReversals.
@@ -62,7 +62,7 @@ class DebitReversalService(StripeService):
     def create(
         self,
         params: "DebitReversalCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "DebitReversal":
         """
         Reverses a ReceivedDebit and creates a DebitReversal object.
@@ -81,7 +81,7 @@ class DebitReversalService(StripeService):
     async def create_async(
         self,
         params: "DebitReversalCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "DebitReversal":
         """
         Reverses a ReceivedDebit and creates a DebitReversal object.
@@ -101,7 +101,7 @@ class DebitReversalService(StripeService):
         self,
         debit_reversal: str,
         params: Optional["DebitReversalRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "DebitReversal":
         """
         Retrieves a DebitReversal object.
@@ -123,7 +123,7 @@ class DebitReversalService(StripeService):
         self,
         debit_reversal: str,
         params: Optional["DebitReversalRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "DebitReversal":
         """
         Retrieves a DebitReversal object.

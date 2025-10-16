@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.issuing._authorization import Authorization
@@ -9,6 +8,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe.params.issuing._authorization_approve_params import (
         AuthorizationApproveParams,
     )
@@ -30,7 +30,7 @@ class AuthorizationService(StripeService):
     def list(
         self,
         params: Optional["AuthorizationListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Authorization]":
         """
         Returns a list of Issuing Authorization objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
@@ -49,7 +49,7 @@ class AuthorizationService(StripeService):
     async def list_async(
         self,
         params: Optional["AuthorizationListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Authorization]":
         """
         Returns a list of Issuing Authorization objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
@@ -69,7 +69,7 @@ class AuthorizationService(StripeService):
         self,
         authorization: str,
         params: Optional["AuthorizationRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Authorization":
         """
         Retrieves an Issuing Authorization object.
@@ -91,7 +91,7 @@ class AuthorizationService(StripeService):
         self,
         authorization: str,
         params: Optional["AuthorizationRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Authorization":
         """
         Retrieves an Issuing Authorization object.
@@ -113,7 +113,7 @@ class AuthorizationService(StripeService):
         self,
         authorization: str,
         params: Optional["AuthorizationUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Authorization":
         """
         Updates the specified Issuing Authorization object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -135,7 +135,7 @@ class AuthorizationService(StripeService):
         self,
         authorization: str,
         params: Optional["AuthorizationUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Authorization":
         """
         Updates the specified Issuing Authorization object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -157,7 +157,7 @@ class AuthorizationService(StripeService):
         self,
         authorization: str,
         params: Optional["AuthorizationApproveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Authorization":
         """
         [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
@@ -180,7 +180,7 @@ class AuthorizationService(StripeService):
         self,
         authorization: str,
         params: Optional["AuthorizationApproveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Authorization":
         """
         [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
@@ -203,7 +203,7 @@ class AuthorizationService(StripeService):
         self,
         authorization: str,
         params: Optional["AuthorizationDeclineParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Authorization":
         """
         [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
@@ -226,7 +226,7 @@ class AuthorizationService(StripeService):
         self,
         authorization: str,
         params: Optional["AuthorizationDeclineParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Authorization":
         """
         [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.

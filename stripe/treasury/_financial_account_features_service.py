@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._request_options import RequestOptions
     from stripe.params.treasury._financial_account_features_retrieve_params import (
         FinancialAccountFeaturesRetrieveParams,
     )
@@ -23,7 +23,7 @@ class FinancialAccountFeaturesService(StripeService):
         self,
         financial_account: str,
         params: Optional["FinancialAccountFeaturesUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "FinancialAccountFeatures":
         """
         Updates the Features associated with a FinancialAccount.
@@ -45,7 +45,7 @@ class FinancialAccountFeaturesService(StripeService):
         self,
         financial_account: str,
         params: Optional["FinancialAccountFeaturesUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "FinancialAccountFeatures":
         """
         Updates the Features associated with a FinancialAccount.
@@ -67,7 +67,7 @@ class FinancialAccountFeaturesService(StripeService):
         self,
         financial_account: str,
         params: Optional["FinancialAccountFeaturesRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "FinancialAccountFeatures":
         """
         Retrieves Features information associated with the FinancialAccount.
@@ -89,7 +89,7 @@ class FinancialAccountFeaturesService(StripeService):
         self,
         financial_account: str,
         params: Optional["FinancialAccountFeaturesRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "FinancialAccountFeatures":
         """
         Retrieves Features information associated with the FinancialAccount.

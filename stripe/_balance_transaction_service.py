@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._balance_transaction import BalanceTransaction
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
@@ -9,6 +8,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe.params._balance_transaction_list_params import (
         BalanceTransactionListParams,
     )
@@ -21,7 +21,7 @@ class BalanceTransactionService(StripeService):
     def list(
         self,
         params: Optional["BalanceTransactionListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[BalanceTransaction]":
         """
         Returns a list of transactions that have contributed to the Stripe account balance (e.g., charges, transfers, and so forth). The transactions are returned in sorted order, with the most recent transactions appearing first.
@@ -42,7 +42,7 @@ class BalanceTransactionService(StripeService):
     async def list_async(
         self,
         params: Optional["BalanceTransactionListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[BalanceTransaction]":
         """
         Returns a list of transactions that have contributed to the Stripe account balance (e.g., charges, transfers, and so forth). The transactions are returned in sorted order, with the most recent transactions appearing first.
@@ -64,7 +64,7 @@ class BalanceTransactionService(StripeService):
         self,
         id: str,
         params: Optional["BalanceTransactionRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "BalanceTransaction":
         """
         Retrieves the balance transaction with the given ID.
@@ -86,7 +86,7 @@ class BalanceTransactionService(StripeService):
         self,
         id: str,
         params: Optional["BalanceTransactionRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "BalanceTransaction":
         """
         Retrieves the balance transaction with the given ID.

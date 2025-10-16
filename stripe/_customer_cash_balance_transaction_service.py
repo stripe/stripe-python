@@ -3,7 +3,6 @@
 from stripe._customer_cash_balance_transaction import (
     CustomerCashBalanceTransaction,
 )
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
@@ -11,6 +10,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe.params._customer_cash_balance_transaction_list_params import (
         CustomerCashBalanceTransactionListParams,
     )
@@ -24,7 +24,7 @@ class CustomerCashBalanceTransactionService(StripeService):
         self,
         customer: str,
         params: Optional["CustomerCashBalanceTransactionListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[CustomerCashBalanceTransaction]":
         """
         Returns a list of transactions that modified the customer's [cash balance](https://docs.stripe.com/docs/payments/customer-balance).
@@ -46,7 +46,7 @@ class CustomerCashBalanceTransactionService(StripeService):
         self,
         customer: str,
         params: Optional["CustomerCashBalanceTransactionListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[CustomerCashBalanceTransaction]":
         """
         Returns a list of transactions that modified the customer's [cash balance](https://docs.stripe.com/docs/payments/customer-balance).
@@ -71,7 +71,7 @@ class CustomerCashBalanceTransactionService(StripeService):
         params: Optional[
             "CustomerCashBalanceTransactionRetrieveParams"
         ] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "CustomerCashBalanceTransaction":
         """
         Retrieves a specific cash balance transaction, which updated the customer's [cash balance](https://docs.stripe.com/docs/payments/customer-balance).
@@ -97,7 +97,7 @@ class CustomerCashBalanceTransactionService(StripeService):
         params: Optional[
             "CustomerCashBalanceTransactionRetrieveParams"
         ] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "CustomerCashBalanceTransaction":
         """
         Retrieves a specific cash balance transaction, which updated the customer's [cash balance](https://docs.stripe.com/docs/payments/customer-balance).

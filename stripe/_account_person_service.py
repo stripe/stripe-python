@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._person import Person
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
@@ -9,6 +8,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe.params._account_person_create_params import (
         AccountPersonCreateParams,
     )
@@ -32,7 +32,7 @@ class AccountPersonService(StripeService):
         account: str,
         person: str,
         params: Optional["AccountPersonDeleteParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Person":
         """
         Deletes an existing person's relationship to the account's legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the account_opener. If your integration is using the executive parameter, you cannot delete the only verified executive on file.
@@ -56,7 +56,7 @@ class AccountPersonService(StripeService):
         account: str,
         person: str,
         params: Optional["AccountPersonDeleteParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Person":
         """
         Deletes an existing person's relationship to the account's legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the account_opener. If your integration is using the executive parameter, you cannot delete the only verified executive on file.
@@ -80,7 +80,7 @@ class AccountPersonService(StripeService):
         account: str,
         person: str,
         params: Optional["AccountPersonRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Person":
         """
         Retrieves an existing person.
@@ -104,7 +104,7 @@ class AccountPersonService(StripeService):
         account: str,
         person: str,
         params: Optional["AccountPersonRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Person":
         """
         Retrieves an existing person.
@@ -128,7 +128,7 @@ class AccountPersonService(StripeService):
         account: str,
         person: str,
         params: Optional["AccountPersonUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Person":
         """
         Updates an existing person.
@@ -152,7 +152,7 @@ class AccountPersonService(StripeService):
         account: str,
         person: str,
         params: Optional["AccountPersonUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Person":
         """
         Updates an existing person.
@@ -175,7 +175,7 @@ class AccountPersonService(StripeService):
         self,
         account: str,
         params: Optional["AccountPersonListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Person]":
         """
         Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
@@ -197,7 +197,7 @@ class AccountPersonService(StripeService):
         self,
         account: str,
         params: Optional["AccountPersonListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Person]":
         """
         Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
@@ -219,7 +219,7 @@ class AccountPersonService(StripeService):
         self,
         account: str,
         params: Optional["AccountPersonCreateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Person":
         """
         Creates a new person.
@@ -241,7 +241,7 @@ class AccountPersonService(StripeService):
         self,
         account: str,
         params: Optional["AccountPersonCreateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Person":
         """
         Creates a new person.

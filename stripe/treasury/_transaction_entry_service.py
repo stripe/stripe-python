@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.treasury._transaction_entry import TransactionEntry
@@ -9,6 +8,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe.params.treasury._transaction_entry_list_params import (
         TransactionEntryListParams,
     )
@@ -21,7 +21,7 @@ class TransactionEntryService(StripeService):
     def list(
         self,
         params: "TransactionEntryListParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[TransactionEntry]":
         """
         Retrieves a list of TransactionEntry objects.
@@ -40,7 +40,7 @@ class TransactionEntryService(StripeService):
     async def list_async(
         self,
         params: "TransactionEntryListParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[TransactionEntry]":
         """
         Retrieves a list of TransactionEntry objects.
@@ -60,7 +60,7 @@ class TransactionEntryService(StripeService):
         self,
         id: str,
         params: Optional["TransactionEntryRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "TransactionEntry":
         """
         Retrieves a TransactionEntry object.
@@ -82,7 +82,7 @@ class TransactionEntryService(StripeService):
         self,
         id: str,
         params: Optional["TransactionEntryRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "TransactionEntry":
         """
         Retrieves a TransactionEntry object.

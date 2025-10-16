@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
@@ -10,6 +9,7 @@ if TYPE_CHECKING:
     from stripe._customer_cash_balance_transaction import (
         CustomerCashBalanceTransaction,
     )
+    from stripe._request_options import RequestOptions
     from stripe.params.test_helpers._customer_fund_cash_balance_params import (
         CustomerFundCashBalanceParams,
     )
@@ -20,7 +20,7 @@ class CustomerService(StripeService):
         self,
         customer: str,
         params: "CustomerFundCashBalanceParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "CustomerCashBalanceTransaction":
         """
         Create an incoming testmode bank transfer
@@ -42,7 +42,7 @@ class CustomerService(StripeService):
         self,
         customer: str,
         params: "CustomerFundCashBalanceParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "CustomerCashBalanceTransaction":
         """
         Create an incoming testmode bank transfer

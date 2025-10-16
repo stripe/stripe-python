@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._request_options import RequestOptions
     from stripe.issuing._personalization_design import PersonalizationDesign
     from stripe.params.test_helpers.issuing._personalization_design_activate_params import (
         PersonalizationDesignActivateParams,
@@ -24,7 +24,7 @@ class PersonalizationDesignService(StripeService):
         self,
         personalization_design: str,
         params: Optional["PersonalizationDesignActivateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "PersonalizationDesign":
         """
         Updates the status of the specified testmode personalization design object to active.
@@ -46,7 +46,7 @@ class PersonalizationDesignService(StripeService):
         self,
         personalization_design: str,
         params: Optional["PersonalizationDesignActivateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "PersonalizationDesign":
         """
         Updates the status of the specified testmode personalization design object to active.
@@ -68,7 +68,7 @@ class PersonalizationDesignService(StripeService):
         self,
         personalization_design: str,
         params: Optional["PersonalizationDesignDeactivateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "PersonalizationDesign":
         """
         Updates the status of the specified testmode personalization design object to inactive.
@@ -90,7 +90,7 @@ class PersonalizationDesignService(StripeService):
         self,
         personalization_design: str,
         params: Optional["PersonalizationDesignDeactivateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "PersonalizationDesign":
         """
         Updates the status of the specified testmode personalization design object to inactive.
@@ -112,7 +112,7 @@ class PersonalizationDesignService(StripeService):
         self,
         personalization_design: str,
         params: "PersonalizationDesignRejectParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "PersonalizationDesign":
         """
         Updates the status of the specified testmode personalization design object to rejected.
@@ -134,7 +134,7 @@ class PersonalizationDesignService(StripeService):
         self,
         personalization_design: str,
         params: "PersonalizationDesignRejectParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "PersonalizationDesign":
         """
         Updates the status of the specified testmode personalization design object to rejected.

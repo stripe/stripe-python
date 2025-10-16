@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._request_options import RequestOptions
     from stripe.billing._meter_event import MeterEvent
     from stripe.params.billing._meter_event_create_params import (
         MeterEventCreateParams,
@@ -16,7 +16,7 @@ class MeterEventService(StripeService):
     def create(
         self,
         params: "MeterEventCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "MeterEvent":
         """
         Creates a billing meter event.
@@ -35,7 +35,7 @@ class MeterEventService(StripeService):
     async def create_async(
         self,
         params: "MeterEventCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "MeterEvent":
         """
         Creates a billing meter event.

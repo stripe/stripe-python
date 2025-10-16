@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._payment_method import PaymentMethod
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
@@ -9,6 +8,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe.params._customer_payment_method_list_params import (
         CustomerPaymentMethodListParams,
     )
@@ -22,7 +22,7 @@ class CustomerPaymentMethodService(StripeService):
         self,
         customer: str,
         params: Optional["CustomerPaymentMethodListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[PaymentMethod]":
         """
         Returns a list of PaymentMethods for a given Customer
@@ -44,7 +44,7 @@ class CustomerPaymentMethodService(StripeService):
         self,
         customer: str,
         params: Optional["CustomerPaymentMethodListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[PaymentMethod]":
         """
         Returns a list of PaymentMethods for a given Customer
@@ -67,7 +67,7 @@ class CustomerPaymentMethodService(StripeService):
         customer: str,
         payment_method: str,
         params: Optional["CustomerPaymentMethodRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "PaymentMethod":
         """
         Retrieves a PaymentMethod object for a given Customer.
@@ -91,7 +91,7 @@ class CustomerPaymentMethodService(StripeService):
         customer: str,
         payment_method: str,
         params: Optional["CustomerPaymentMethodRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "PaymentMethod":
         """
         Retrieves a PaymentMethod object for a given Customer.

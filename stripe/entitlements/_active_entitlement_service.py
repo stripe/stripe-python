@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.entitlements._active_entitlement import ActiveEntitlement
@@ -9,6 +8,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe.params.entitlements._active_entitlement_list_params import (
         ActiveEntitlementListParams,
     )
@@ -21,7 +21,7 @@ class ActiveEntitlementService(StripeService):
     def list(
         self,
         params: "ActiveEntitlementListParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[ActiveEntitlement]":
         """
         Retrieve a list of active entitlements for a customer
@@ -40,7 +40,7 @@ class ActiveEntitlementService(StripeService):
     async def list_async(
         self,
         params: "ActiveEntitlementListParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[ActiveEntitlement]":
         """
         Retrieve a list of active entitlements for a customer
@@ -60,7 +60,7 @@ class ActiveEntitlementService(StripeService):
         self,
         id: str,
         params: Optional["ActiveEntitlementRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ActiveEntitlement":
         """
         Retrieve an active entitlement
@@ -82,7 +82,7 @@ class ActiveEntitlementService(StripeService):
         self,
         id: str,
         params: Optional["ActiveEntitlementRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ActiveEntitlement":
         """
         Retrieve an active entitlement

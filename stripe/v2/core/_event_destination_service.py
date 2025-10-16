@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.v2.core._event_destination import EventDestination
@@ -8,6 +7,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._request_options import RequestOptions
     from stripe.params.v2.core._event_destination_create_params import (
         EventDestinationCreateParams,
     )
@@ -41,7 +41,7 @@ class EventDestinationService(StripeService):
     def list(
         self,
         params: Optional["EventDestinationListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[EventDestination]":
         """
         Lists all event destinations.
@@ -60,7 +60,7 @@ class EventDestinationService(StripeService):
     async def list_async(
         self,
         params: Optional["EventDestinationListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[EventDestination]":
         """
         Lists all event destinations.
@@ -79,7 +79,7 @@ class EventDestinationService(StripeService):
     def create(
         self,
         params: "EventDestinationCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "EventDestination":
         """
         Create a new event destination.
@@ -98,7 +98,7 @@ class EventDestinationService(StripeService):
     async def create_async(
         self,
         params: "EventDestinationCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "EventDestination":
         """
         Create a new event destination.
@@ -118,7 +118,7 @@ class EventDestinationService(StripeService):
         self,
         id: str,
         params: Optional["EventDestinationDeleteParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "DeletedObject":
         """
         Delete an event destination.
@@ -138,7 +138,7 @@ class EventDestinationService(StripeService):
         self,
         id: str,
         params: Optional["EventDestinationDeleteParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "DeletedObject":
         """
         Delete an event destination.
@@ -158,7 +158,7 @@ class EventDestinationService(StripeService):
         self,
         id: str,
         params: Optional["EventDestinationRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "EventDestination":
         """
         Retrieves the details of an event destination.
@@ -178,7 +178,7 @@ class EventDestinationService(StripeService):
         self,
         id: str,
         params: Optional["EventDestinationRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "EventDestination":
         """
         Retrieves the details of an event destination.
@@ -198,7 +198,7 @@ class EventDestinationService(StripeService):
         self,
         id: str,
         params: Optional["EventDestinationUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "EventDestination":
         """
         Update the details of an event destination.
@@ -218,7 +218,7 @@ class EventDestinationService(StripeService):
         self,
         id: str,
         params: Optional["EventDestinationUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "EventDestination":
         """
         Update the details of an event destination.
@@ -238,7 +238,7 @@ class EventDestinationService(StripeService):
         self,
         id: str,
         params: Optional["EventDestinationDisableParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "EventDestination":
         """
         Disable an event destination.
@@ -260,7 +260,7 @@ class EventDestinationService(StripeService):
         self,
         id: str,
         params: Optional["EventDestinationDisableParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "EventDestination":
         """
         Disable an event destination.
@@ -282,7 +282,7 @@ class EventDestinationService(StripeService):
         self,
         id: str,
         params: Optional["EventDestinationEnableParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "EventDestination":
         """
         Enable an event destination.
@@ -304,7 +304,7 @@ class EventDestinationService(StripeService):
         self,
         id: str,
         params: Optional["EventDestinationEnableParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "EventDestination":
         """
         Enable an event destination.
@@ -326,7 +326,7 @@ class EventDestinationService(StripeService):
         self,
         id: str,
         params: Optional["EventDestinationPingParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Event":
         """
         Send a `ping` event to an event destination.
@@ -348,7 +348,7 @@ class EventDestinationService(StripeService):
         self,
         id: str,
         params: Optional["EventDestinationPingParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Event":
         """
         Send a `ping` event to an event destination.

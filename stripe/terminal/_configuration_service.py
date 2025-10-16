@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.terminal._configuration import Configuration
@@ -9,6 +8,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe.params.terminal._configuration_create_params import (
         ConfigurationCreateParams,
     )
@@ -31,7 +31,7 @@ class ConfigurationService(StripeService):
         self,
         configuration: str,
         params: Optional["ConfigurationDeleteParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Configuration":
         """
         Deletes a Configuration object.
@@ -53,7 +53,7 @@ class ConfigurationService(StripeService):
         self,
         configuration: str,
         params: Optional["ConfigurationDeleteParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Configuration":
         """
         Deletes a Configuration object.
@@ -75,7 +75,7 @@ class ConfigurationService(StripeService):
         self,
         configuration: str,
         params: Optional["ConfigurationRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Configuration":
         """
         Retrieves a Configuration object.
@@ -97,7 +97,7 @@ class ConfigurationService(StripeService):
         self,
         configuration: str,
         params: Optional["ConfigurationRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Configuration":
         """
         Retrieves a Configuration object.
@@ -119,7 +119,7 @@ class ConfigurationService(StripeService):
         self,
         configuration: str,
         params: Optional["ConfigurationUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Configuration":
         """
         Updates a new Configuration object.
@@ -141,7 +141,7 @@ class ConfigurationService(StripeService):
         self,
         configuration: str,
         params: Optional["ConfigurationUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Configuration":
         """
         Updates a new Configuration object.
@@ -162,7 +162,7 @@ class ConfigurationService(StripeService):
     def list(
         self,
         params: Optional["ConfigurationListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Configuration]":
         """
         Returns a list of Configuration objects.
@@ -181,7 +181,7 @@ class ConfigurationService(StripeService):
     async def list_async(
         self,
         params: Optional["ConfigurationListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Configuration]":
         """
         Returns a list of Configuration objects.
@@ -200,7 +200,7 @@ class ConfigurationService(StripeService):
     def create(
         self,
         params: Optional["ConfigurationCreateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Configuration":
         """
         Creates a new Configuration object.
@@ -219,7 +219,7 @@ class ConfigurationService(StripeService):
     async def create_async(
         self,
         params: Optional["ConfigurationCreateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Configuration":
         """
         Creates a new Configuration object.

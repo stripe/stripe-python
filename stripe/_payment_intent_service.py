@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._payment_intent import PaymentIntent
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
@@ -9,6 +8,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe._search_result_object import SearchResultObject
     from stripe.params._payment_intent_apply_customer_balance_params import (
         PaymentIntentApplyCustomerBalanceParams,
@@ -49,7 +49,7 @@ class PaymentIntentService(StripeService):
     def list(
         self,
         params: Optional["PaymentIntentListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[PaymentIntent]":
         """
         Returns a list of PaymentIntents.
@@ -68,7 +68,7 @@ class PaymentIntentService(StripeService):
     async def list_async(
         self,
         params: Optional["PaymentIntentListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[PaymentIntent]":
         """
         Returns a list of PaymentIntents.
@@ -87,7 +87,7 @@ class PaymentIntentService(StripeService):
     def create(
         self,
         params: "PaymentIntentCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
         """
         Creates a PaymentIntent object.
@@ -115,7 +115,7 @@ class PaymentIntentService(StripeService):
     async def create_async(
         self,
         params: "PaymentIntentCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
         """
         Creates a PaymentIntent object.
@@ -144,7 +144,7 @@ class PaymentIntentService(StripeService):
         self,
         intent: str,
         params: Optional["PaymentIntentRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
         """
         Retrieves the details of a PaymentIntent that has previously been created.
@@ -170,7 +170,7 @@ class PaymentIntentService(StripeService):
         self,
         intent: str,
         params: Optional["PaymentIntentRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
         """
         Retrieves the details of a PaymentIntent that has previously been created.
@@ -196,7 +196,7 @@ class PaymentIntentService(StripeService):
         self,
         intent: str,
         params: Optional["PaymentIntentUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
         """
         Updates properties on a PaymentIntent object without confirming.
@@ -224,7 +224,7 @@ class PaymentIntentService(StripeService):
         self,
         intent: str,
         params: Optional["PaymentIntentUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
         """
         Updates properties on a PaymentIntent object without confirming.
@@ -251,7 +251,7 @@ class PaymentIntentService(StripeService):
     def search(
         self,
         params: "PaymentIntentSearchParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "SearchResultObject[PaymentIntent]":
         """
         Search for PaymentIntents you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
@@ -273,7 +273,7 @@ class PaymentIntentService(StripeService):
     async def search_async(
         self,
         params: "PaymentIntentSearchParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "SearchResultObject[PaymentIntent]":
         """
         Search for PaymentIntents you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
@@ -296,7 +296,7 @@ class PaymentIntentService(StripeService):
         self,
         intent: str,
         params: Optional["PaymentIntentApplyCustomerBalanceParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
         """
         Manually reconcile the remaining amount for a customer_balance PaymentIntent.
@@ -318,7 +318,7 @@ class PaymentIntentService(StripeService):
         self,
         intent: str,
         params: Optional["PaymentIntentApplyCustomerBalanceParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
         """
         Manually reconcile the remaining amount for a customer_balance PaymentIntent.
@@ -340,7 +340,7 @@ class PaymentIntentService(StripeService):
         self,
         intent: str,
         params: Optional["PaymentIntentCancelParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
         """
         You can cancel a PaymentIntent object when it's in one of these statuses: requires_payment_method, requires_capture, requires_confirmation, requires_action or, [in rare cases](https://docs.stripe.com/docs/payments/intents), processing.
@@ -366,7 +366,7 @@ class PaymentIntentService(StripeService):
         self,
         intent: str,
         params: Optional["PaymentIntentCancelParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
         """
         You can cancel a PaymentIntent object when it's in one of these statuses: requires_payment_method, requires_capture, requires_confirmation, requires_action or, [in rare cases](https://docs.stripe.com/docs/payments/intents), processing.
@@ -392,7 +392,7 @@ class PaymentIntentService(StripeService):
         self,
         intent: str,
         params: Optional["PaymentIntentCaptureParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
         """
         Capture the funds of an existing uncaptured PaymentIntent when its status is requires_capture.
@@ -418,7 +418,7 @@ class PaymentIntentService(StripeService):
         self,
         intent: str,
         params: Optional["PaymentIntentCaptureParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
         """
         Capture the funds of an existing uncaptured PaymentIntent when its status is requires_capture.
@@ -444,7 +444,7 @@ class PaymentIntentService(StripeService):
         self,
         intent: str,
         params: Optional["PaymentIntentConfirmParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
         """
         Confirm that your customer intends to pay with current or provided
@@ -495,7 +495,7 @@ class PaymentIntentService(StripeService):
         self,
         intent: str,
         params: Optional["PaymentIntentConfirmParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
         """
         Confirm that your customer intends to pay with current or provided
@@ -546,7 +546,7 @@ class PaymentIntentService(StripeService):
         self,
         intent: str,
         params: "PaymentIntentIncrementAuthorizationParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
         """
         Perform an incremental authorization on an eligible
@@ -591,7 +591,7 @@ class PaymentIntentService(StripeService):
         self,
         intent: str,
         params: "PaymentIntentIncrementAuthorizationParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
         """
         Perform an incremental authorization on an eligible
@@ -636,7 +636,7 @@ class PaymentIntentService(StripeService):
         self,
         intent: str,
         params: Optional["PaymentIntentVerifyMicrodepositsParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
         """
         Verifies microdeposits on a PaymentIntent object.
@@ -658,7 +658,7 @@ class PaymentIntentService(StripeService):
         self,
         intent: str,
         params: Optional["PaymentIntentVerifyMicrodepositsParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "PaymentIntent":
         """
         Verifies microdeposits on a PaymentIntent object.

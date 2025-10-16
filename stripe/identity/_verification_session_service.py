@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.identity._verification_session import VerificationSession
@@ -9,6 +8,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe.params.identity._verification_session_cancel_params import (
         VerificationSessionCancelParams,
     )
@@ -33,7 +33,7 @@ class VerificationSessionService(StripeService):
     def list(
         self,
         params: Optional["VerificationSessionListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[VerificationSession]":
         """
         Returns a list of VerificationSessions
@@ -52,7 +52,7 @@ class VerificationSessionService(StripeService):
     async def list_async(
         self,
         params: Optional["VerificationSessionListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[VerificationSession]":
         """
         Returns a list of VerificationSessions
@@ -71,7 +71,7 @@ class VerificationSessionService(StripeService):
     def create(
         self,
         params: Optional["VerificationSessionCreateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "VerificationSession":
         """
         Creates a VerificationSession object.
@@ -96,7 +96,7 @@ class VerificationSessionService(StripeService):
     async def create_async(
         self,
         params: Optional["VerificationSessionCreateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "VerificationSession":
         """
         Creates a VerificationSession object.
@@ -122,7 +122,7 @@ class VerificationSessionService(StripeService):
         self,
         session: str,
         params: Optional["VerificationSessionRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "VerificationSession":
         """
         Retrieves the details of a VerificationSession that was previously created.
@@ -147,7 +147,7 @@ class VerificationSessionService(StripeService):
         self,
         session: str,
         params: Optional["VerificationSessionRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "VerificationSession":
         """
         Retrieves the details of a VerificationSession that was previously created.
@@ -172,7 +172,7 @@ class VerificationSessionService(StripeService):
         self,
         session: str,
         params: Optional["VerificationSessionUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "VerificationSession":
         """
         Updates a VerificationSession object.
@@ -197,7 +197,7 @@ class VerificationSessionService(StripeService):
         self,
         session: str,
         params: Optional["VerificationSessionUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "VerificationSession":
         """
         Updates a VerificationSession object.
@@ -222,7 +222,7 @@ class VerificationSessionService(StripeService):
         self,
         session: str,
         params: Optional["VerificationSessionCancelParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "VerificationSession":
         """
         A VerificationSession object can be canceled when it is in requires_input [status](https://docs.stripe.com/docs/identity/how-sessions-work).
@@ -246,7 +246,7 @@ class VerificationSessionService(StripeService):
         self,
         session: str,
         params: Optional["VerificationSessionCancelParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "VerificationSession":
         """
         A VerificationSession object can be canceled when it is in requires_input [status](https://docs.stripe.com/docs/identity/how-sessions-work).
@@ -270,7 +270,7 @@ class VerificationSessionService(StripeService):
         self,
         session: str,
         params: Optional["VerificationSessionRedactParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "VerificationSession":
         """
         Redact a VerificationSession to remove all collected information from Stripe. This will redact
@@ -310,7 +310,7 @@ class VerificationSessionService(StripeService):
         self,
         session: str,
         params: Optional["VerificationSessionRedactParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "VerificationSession":
         """
         Redact a VerificationSession to remove all collected information from Stripe. This will redact

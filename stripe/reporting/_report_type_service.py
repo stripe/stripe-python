@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.reporting._report_type import ReportType
@@ -9,6 +8,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe.params.reporting._report_type_list_params import (
         ReportTypeListParams,
     )
@@ -21,7 +21,7 @@ class ReportTypeService(StripeService):
     def list(
         self,
         params: Optional["ReportTypeListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[ReportType]":
         """
         Returns a full list of Report Types.
@@ -40,7 +40,7 @@ class ReportTypeService(StripeService):
     async def list_async(
         self,
         params: Optional["ReportTypeListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[ReportType]":
         """
         Returns a full list of Report Types.
@@ -60,7 +60,7 @@ class ReportTypeService(StripeService):
         self,
         report_type: str,
         params: Optional["ReportTypeRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ReportType":
         """
         Retrieves the details of a Report Type. (Certain report types require a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).)
@@ -82,7 +82,7 @@ class ReportTypeService(StripeService):
         self,
         report_type: str,
         params: Optional["ReportTypeRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ReportType":
         """
         Retrieves the details of a Report Type. (Certain report types require a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).)

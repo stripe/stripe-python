@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._payment_link import PaymentLink
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
@@ -13,6 +12,7 @@ if TYPE_CHECKING:
     from stripe._payment_link_line_item_service import (
         PaymentLinkLineItemService,
     )
+    from stripe._request_options import RequestOptions
     from stripe.params._payment_link_create_params import (
         PaymentLinkCreateParams,
     )
@@ -57,7 +57,7 @@ class PaymentLinkService(StripeService):
     def list(
         self,
         params: Optional["PaymentLinkListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[PaymentLink]":
         """
         Returns a list of your payment links.
@@ -76,7 +76,7 @@ class PaymentLinkService(StripeService):
     async def list_async(
         self,
         params: Optional["PaymentLinkListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[PaymentLink]":
         """
         Returns a list of your payment links.
@@ -95,7 +95,7 @@ class PaymentLinkService(StripeService):
     def create(
         self,
         params: "PaymentLinkCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "PaymentLink":
         """
         Creates a payment link.
@@ -114,7 +114,7 @@ class PaymentLinkService(StripeService):
     async def create_async(
         self,
         params: "PaymentLinkCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "PaymentLink":
         """
         Creates a payment link.
@@ -134,7 +134,7 @@ class PaymentLinkService(StripeService):
         self,
         payment_link: str,
         params: Optional["PaymentLinkRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "PaymentLink":
         """
         Retrieve a payment link.
@@ -156,7 +156,7 @@ class PaymentLinkService(StripeService):
         self,
         payment_link: str,
         params: Optional["PaymentLinkRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "PaymentLink":
         """
         Retrieve a payment link.
@@ -178,7 +178,7 @@ class PaymentLinkService(StripeService):
         self,
         payment_link: str,
         params: Optional["PaymentLinkUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "PaymentLink":
         """
         Updates a payment link.
@@ -200,7 +200,7 @@ class PaymentLinkService(StripeService):
         self,
         payment_link: str,
         params: Optional["PaymentLinkUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "PaymentLink":
         """
         Updates a payment link.

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.issuing._personalization_design import PersonalizationDesign
@@ -9,6 +8,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe.params.issuing._personalization_design_create_params import (
         PersonalizationDesignCreateParams,
     )
@@ -27,7 +27,7 @@ class PersonalizationDesignService(StripeService):
     def list(
         self,
         params: Optional["PersonalizationDesignListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[PersonalizationDesign]":
         """
         Returns a list of personalization design objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
@@ -46,7 +46,7 @@ class PersonalizationDesignService(StripeService):
     async def list_async(
         self,
         params: Optional["PersonalizationDesignListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[PersonalizationDesign]":
         """
         Returns a list of personalization design objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
@@ -65,7 +65,7 @@ class PersonalizationDesignService(StripeService):
     def create(
         self,
         params: "PersonalizationDesignCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "PersonalizationDesign":
         """
         Creates a personalization design object.
@@ -84,7 +84,7 @@ class PersonalizationDesignService(StripeService):
     async def create_async(
         self,
         params: "PersonalizationDesignCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "PersonalizationDesign":
         """
         Creates a personalization design object.
@@ -104,7 +104,7 @@ class PersonalizationDesignService(StripeService):
         self,
         personalization_design: str,
         params: Optional["PersonalizationDesignRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "PersonalizationDesign":
         """
         Retrieves a personalization design object.
@@ -126,7 +126,7 @@ class PersonalizationDesignService(StripeService):
         self,
         personalization_design: str,
         params: Optional["PersonalizationDesignRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "PersonalizationDesign":
         """
         Retrieves a personalization design object.
@@ -148,7 +148,7 @@ class PersonalizationDesignService(StripeService):
         self,
         personalization_design: str,
         params: Optional["PersonalizationDesignUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "PersonalizationDesign":
         """
         Updates a card personalization object.
@@ -170,7 +170,7 @@ class PersonalizationDesignService(StripeService):
         self,
         personalization_design: str,
         params: Optional["PersonalizationDesignUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "PersonalizationDesign":
         """
         Updates a card personalization object.

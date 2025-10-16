@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._request_options import RequestOptions
     from stripe.params.test_helpers.treasury._outbound_payment_fail_params import (
         OutboundPaymentFailParams,
     )
@@ -27,7 +27,7 @@ class OutboundPaymentService(StripeService):
         self,
         id: str,
         params: "OutboundPaymentUpdateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "OutboundPayment":
         """
         Updates a test mode created OutboundPayment with tracking details. The OutboundPayment must not be cancelable, and cannot be in the canceled or failed states.
@@ -49,7 +49,7 @@ class OutboundPaymentService(StripeService):
         self,
         id: str,
         params: "OutboundPaymentUpdateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "OutboundPayment":
         """
         Updates a test mode created OutboundPayment with tracking details. The OutboundPayment must not be cancelable, and cannot be in the canceled or failed states.
@@ -71,7 +71,7 @@ class OutboundPaymentService(StripeService):
         self,
         id: str,
         params: Optional["OutboundPaymentFailParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "OutboundPayment":
         """
         Transitions a test mode created OutboundPayment to the failed status. The OutboundPayment must already be in the processing state.
@@ -93,7 +93,7 @@ class OutboundPaymentService(StripeService):
         self,
         id: str,
         params: Optional["OutboundPaymentFailParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "OutboundPayment":
         """
         Transitions a test mode created OutboundPayment to the failed status. The OutboundPayment must already be in the processing state.
@@ -115,7 +115,7 @@ class OutboundPaymentService(StripeService):
         self,
         id: str,
         params: Optional["OutboundPaymentPostParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "OutboundPayment":
         """
         Transitions a test mode created OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
@@ -137,7 +137,7 @@ class OutboundPaymentService(StripeService):
         self,
         id: str,
         params: Optional["OutboundPaymentPostParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "OutboundPayment":
         """
         Transitions a test mode created OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
@@ -159,7 +159,7 @@ class OutboundPaymentService(StripeService):
         self,
         id: str,
         params: Optional["OutboundPaymentReturnOutboundPaymentParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "OutboundPayment":
         """
         Transitions a test mode created OutboundPayment to the returned status. The OutboundPayment must already be in the processing state.
@@ -181,7 +181,7 @@ class OutboundPaymentService(StripeService):
         self,
         id: str,
         params: Optional["OutboundPaymentReturnOutboundPaymentParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "OutboundPayment":
         """
         Transitions a test mode created OutboundPayment to the returned status. The OutboundPayment must already be in the processing state.

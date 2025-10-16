@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._account import Account
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
@@ -16,6 +15,7 @@ if TYPE_CHECKING:
     from stripe._account_login_link_service import AccountLoginLinkService
     from stripe._account_person_service import AccountPersonService
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe.params._account_create_params import AccountCreateParams
     from stripe.params._account_delete_params import AccountDeleteParams
     from stripe.params._account_list_params import AccountListParams
@@ -72,7 +72,7 @@ class AccountService(StripeService):
         self,
         account: str,
         params: Optional["AccountDeleteParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can delete accounts you manage.
@@ -98,7 +98,7 @@ class AccountService(StripeService):
         self,
         account: str,
         params: Optional["AccountDeleteParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can delete accounts you manage.
@@ -124,7 +124,7 @@ class AccountService(StripeService):
         self,
         account: str,
         params: Optional["AccountRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Account":
         """
         Retrieves the details of an account.
@@ -144,7 +144,7 @@ class AccountService(StripeService):
         self,
         account: str,
         params: Optional["AccountRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Account":
         """
         Retrieves the details of an account.
@@ -164,7 +164,7 @@ class AccountService(StripeService):
         self,
         account: str,
         params: Optional["AccountUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Account":
         """
         Updates a [connected account](https://docs.stripe.com/connect/accounts) by setting the values of the parameters passed. Any parameters not provided are
@@ -196,7 +196,7 @@ class AccountService(StripeService):
         self,
         account: str,
         params: Optional["AccountUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Account":
         """
         Updates a [connected account](https://docs.stripe.com/connect/accounts) by setting the values of the parameters passed. Any parameters not provided are
@@ -227,7 +227,7 @@ class AccountService(StripeService):
     def retrieve_current(
         self,
         params: Optional["AccountRetrieveCurrentParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Account":
         """
         Retrieves the details of an account.
@@ -246,7 +246,7 @@ class AccountService(StripeService):
     async def retrieve_current_async(
         self,
         params: Optional["AccountRetrieveCurrentParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Account":
         """
         Retrieves the details of an account.
@@ -265,7 +265,7 @@ class AccountService(StripeService):
     def list(
         self,
         params: Optional["AccountListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Account]":
         """
         Returns a list of accounts connected to your platform via [Connect](https://docs.stripe.com/docs/connect). If you're not a platform, the list is empty.
@@ -284,7 +284,7 @@ class AccountService(StripeService):
     async def list_async(
         self,
         params: Optional["AccountListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Account]":
         """
         Returns a list of accounts connected to your platform via [Connect](https://docs.stripe.com/docs/connect). If you're not a platform, the list is empty.
@@ -303,7 +303,7 @@ class AccountService(StripeService):
     def create(
         self,
         params: Optional["AccountCreateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/docs/connect), you can create Stripe accounts for your users.
@@ -327,7 +327,7 @@ class AccountService(StripeService):
     async def create_async(
         self,
         params: Optional["AccountCreateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/docs/connect), you can create Stripe accounts for your users.
@@ -352,7 +352,7 @@ class AccountService(StripeService):
         self,
         account: str,
         params: "AccountRejectParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
@@ -376,7 +376,7 @@ class AccountService(StripeService):
         self,
         account: str,
         params: "AccountRejectParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.

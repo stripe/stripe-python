@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.tax._transaction_line_item import TransactionLineItem
@@ -9,6 +8,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe.params.tax._transaction_line_item_list_params import (
         TransactionLineItemListParams,
     )
@@ -19,7 +19,7 @@ class TransactionLineItemService(StripeService):
         self,
         transaction: str,
         params: Optional["TransactionLineItemListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[TransactionLineItem]":
         """
         Retrieves the line items of a committed standalone transaction as a collection.
@@ -41,7 +41,7 @@ class TransactionLineItemService(StripeService):
         self,
         transaction: str,
         params: Optional["TransactionLineItemListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[TransactionLineItem]":
         """
         Retrieves the line items of a committed standalone transaction as a collection.

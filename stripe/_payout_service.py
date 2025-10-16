@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._payout import Payout
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
@@ -9,6 +8,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe.params._payout_cancel_params import PayoutCancelParams
     from stripe.params._payout_create_params import PayoutCreateParams
     from stripe.params._payout_list_params import PayoutListParams
@@ -21,7 +21,7 @@ class PayoutService(StripeService):
     def list(
         self,
         params: Optional["PayoutListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Payout]":
         """
         Returns a list of existing payouts sent to third-party bank accounts or payouts that Stripe sent to you. The payouts return in sorted order, with the most recently created payouts appearing first.
@@ -40,7 +40,7 @@ class PayoutService(StripeService):
     async def list_async(
         self,
         params: Optional["PayoutListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Payout]":
         """
         Returns a list of existing payouts sent to third-party bank accounts or payouts that Stripe sent to you. The payouts return in sorted order, with the most recently created payouts appearing first.
@@ -59,7 +59,7 @@ class PayoutService(StripeService):
     def create(
         self,
         params: "PayoutCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Payout":
         """
         To send funds to your own bank account, create a new payout object. Your [Stripe balance](https://docs.stripe.com/api#balance) must cover the payout amount. If it doesn't, you receive an “Insufficient Funds” error.
@@ -82,7 +82,7 @@ class PayoutService(StripeService):
     async def create_async(
         self,
         params: "PayoutCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Payout":
         """
         To send funds to your own bank account, create a new payout object. Your [Stripe balance](https://docs.stripe.com/api#balance) must cover the payout amount. If it doesn't, you receive an “Insufficient Funds” error.
@@ -106,7 +106,7 @@ class PayoutService(StripeService):
         self,
         payout: str,
         params: Optional["PayoutRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Payout":
         """
         Retrieves the details of an existing payout. Supply the unique payout ID from either a payout creation request or the payout list. Stripe returns the corresponding payout information.
@@ -126,7 +126,7 @@ class PayoutService(StripeService):
         self,
         payout: str,
         params: Optional["PayoutRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Payout":
         """
         Retrieves the details of an existing payout. Supply the unique payout ID from either a payout creation request or the payout list. Stripe returns the corresponding payout information.
@@ -146,7 +146,7 @@ class PayoutService(StripeService):
         self,
         payout: str,
         params: Optional["PayoutUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Payout":
         """
         Updates the specified payout by setting the values of the parameters you pass. We don't change parameters that you don't provide. This request only accepts the metadata as arguments.
@@ -166,7 +166,7 @@ class PayoutService(StripeService):
         self,
         payout: str,
         params: Optional["PayoutUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Payout":
         """
         Updates the specified payout by setting the values of the parameters you pass. We don't change parameters that you don't provide. This request only accepts the metadata as arguments.
@@ -186,7 +186,7 @@ class PayoutService(StripeService):
         self,
         payout: str,
         params: Optional["PayoutCancelParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Payout":
         """
         You can cancel a previously created payout if its status is pending. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
@@ -208,7 +208,7 @@ class PayoutService(StripeService):
         self,
         payout: str,
         params: Optional["PayoutCancelParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Payout":
         """
         You can cancel a previously created payout if its status is pending. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
@@ -230,7 +230,7 @@ class PayoutService(StripeService):
         self,
         payout: str,
         params: Optional["PayoutReverseParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Payout":
         """
         Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is manual and in the pending status, use /v1/payouts/:id/cancel instead.
@@ -254,7 +254,7 @@ class PayoutService(StripeService):
         self,
         payout: str,
         params: Optional["PayoutReverseParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Payout":
         """
         Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is manual and in the pending status, use /v1/payouts/:id/cancel instead.

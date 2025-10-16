@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._charge import Charge
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
@@ -9,6 +8,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe._search_result_object import SearchResultObject
     from stripe.params._charge_capture_params import ChargeCaptureParams
     from stripe.params._charge_create_params import ChargeCreateParams
@@ -22,7 +22,7 @@ class ChargeService(StripeService):
     def list(
         self,
         params: Optional["ChargeListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Charge]":
         """
         Returns a list of charges you've previously created. The charges are returned in sorted order, with the most recent charges appearing first.
@@ -41,7 +41,7 @@ class ChargeService(StripeService):
     async def list_async(
         self,
         params: Optional["ChargeListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Charge]":
         """
         Returns a list of charges you've previously created. The charges are returned in sorted order, with the most recent charges appearing first.
@@ -60,7 +60,7 @@ class ChargeService(StripeService):
     def create(
         self,
         params: Optional["ChargeCreateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Charge":
         """
         This method is no longer recommended—use the [Payment Intents API](https://docs.stripe.com/docs/api/payment_intents)
@@ -81,7 +81,7 @@ class ChargeService(StripeService):
     async def create_async(
         self,
         params: Optional["ChargeCreateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Charge":
         """
         This method is no longer recommended—use the [Payment Intents API](https://docs.stripe.com/docs/api/payment_intents)
@@ -103,7 +103,7 @@ class ChargeService(StripeService):
         self,
         charge: str,
         params: Optional["ChargeRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Charge":
         """
         Retrieves the details of a charge that has previously been created. Supply the unique charge ID that was returned from your previous request, and Stripe will return the corresponding charge information. The same information is returned when creating or refunding the charge.
@@ -123,7 +123,7 @@ class ChargeService(StripeService):
         self,
         charge: str,
         params: Optional["ChargeRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Charge":
         """
         Retrieves the details of a charge that has previously been created. Supply the unique charge ID that was returned from your previous request, and Stripe will return the corresponding charge information. The same information is returned when creating or refunding the charge.
@@ -143,7 +143,7 @@ class ChargeService(StripeService):
         self,
         charge: str,
         params: Optional["ChargeUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Charge":
         """
         Updates the specified charge by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -163,7 +163,7 @@ class ChargeService(StripeService):
         self,
         charge: str,
         params: Optional["ChargeUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Charge":
         """
         Updates the specified charge by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -182,7 +182,7 @@ class ChargeService(StripeService):
     def search(
         self,
         params: "ChargeSearchParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "SearchResultObject[Charge]":
         """
         Search for charges you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
@@ -204,7 +204,7 @@ class ChargeService(StripeService):
     async def search_async(
         self,
         params: "ChargeSearchParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "SearchResultObject[Charge]":
         """
         Search for charges you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
@@ -227,7 +227,7 @@ class ChargeService(StripeService):
         self,
         charge: str,
         params: Optional["ChargeCaptureParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Charge":
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
@@ -253,7 +253,7 @@ class ChargeService(StripeService):
         self,
         charge: str,
         params: Optional["ChargeCaptureParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Charge":
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.

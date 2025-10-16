@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.billing._alert import Alert
@@ -9,6 +8,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe.params.billing._alert_activate_params import (
         AlertActivateParams,
     )
@@ -27,7 +27,7 @@ class AlertService(StripeService):
     def list(
         self,
         params: Optional["AlertListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Alert]":
         """
         Lists billing active and inactive alerts
@@ -46,7 +46,7 @@ class AlertService(StripeService):
     async def list_async(
         self,
         params: Optional["AlertListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Alert]":
         """
         Lists billing active and inactive alerts
@@ -65,7 +65,7 @@ class AlertService(StripeService):
     def create(
         self,
         params: "AlertCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Alert":
         """
         Creates a billing alert
@@ -84,7 +84,7 @@ class AlertService(StripeService):
     async def create_async(
         self,
         params: "AlertCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Alert":
         """
         Creates a billing alert
@@ -104,7 +104,7 @@ class AlertService(StripeService):
         self,
         id: str,
         params: Optional["AlertRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Alert":
         """
         Retrieves a billing alert given an ID
@@ -124,7 +124,7 @@ class AlertService(StripeService):
         self,
         id: str,
         params: Optional["AlertRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Alert":
         """
         Retrieves a billing alert given an ID
@@ -144,7 +144,7 @@ class AlertService(StripeService):
         self,
         id: str,
         params: Optional["AlertActivateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Alert":
         """
         Reactivates this alert, allowing it to trigger again.
@@ -164,7 +164,7 @@ class AlertService(StripeService):
         self,
         id: str,
         params: Optional["AlertActivateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Alert":
         """
         Reactivates this alert, allowing it to trigger again.
@@ -184,7 +184,7 @@ class AlertService(StripeService):
         self,
         id: str,
         params: Optional["AlertArchiveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Alert":
         """
         Archives this alert, removing it from the list view and APIs. This is non-reversible.
@@ -204,7 +204,7 @@ class AlertService(StripeService):
         self,
         id: str,
         params: Optional["AlertArchiveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Alert":
         """
         Archives this alert, removing it from the list view and APIs. This is non-reversible.
@@ -224,7 +224,7 @@ class AlertService(StripeService):
         self,
         id: str,
         params: Optional["AlertDeactivateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Alert":
         """
         Deactivates this alert, preventing it from triggering.
@@ -246,7 +246,7 @@ class AlertService(StripeService):
         self,
         id: str,
         params: Optional["AlertDeactivateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Alert":
         """
         Deactivates this alert, preventing it from triggering.

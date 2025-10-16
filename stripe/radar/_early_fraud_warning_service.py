@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.radar._early_fraud_warning import EarlyFraudWarning
@@ -9,6 +8,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe.params.radar._early_fraud_warning_list_params import (
         EarlyFraudWarningListParams,
     )
@@ -21,7 +21,7 @@ class EarlyFraudWarningService(StripeService):
     def list(
         self,
         params: Optional["EarlyFraudWarningListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[EarlyFraudWarning]":
         """
         Returns a list of early fraud warnings.
@@ -40,7 +40,7 @@ class EarlyFraudWarningService(StripeService):
     async def list_async(
         self,
         params: Optional["EarlyFraudWarningListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[EarlyFraudWarning]":
         """
         Returns a list of early fraud warnings.
@@ -60,7 +60,7 @@ class EarlyFraudWarningService(StripeService):
         self,
         early_fraud_warning: str,
         params: Optional["EarlyFraudWarningRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "EarlyFraudWarning":
         """
         Retrieves the details of an early fraud warning that has previously been created.
@@ -84,7 +84,7 @@ class EarlyFraudWarningService(StripeService):
         self,
         early_fraud_warning: str,
         params: Optional["EarlyFraudWarningRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "EarlyFraudWarning":
         """
         Retrieves the details of an early fraud warning that has previously been created.

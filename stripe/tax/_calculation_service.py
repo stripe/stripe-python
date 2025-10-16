@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
@@ -8,6 +7,7 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._request_options import RequestOptions
     from stripe.params.tax._calculation_create_params import (
         CalculationCreateParams,
     )
@@ -53,7 +53,7 @@ class CalculationService(StripeService):
         self,
         calculation: str,
         params: Optional["CalculationRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Calculation":
         """
         Retrieves a Tax Calculation object, if the calculation hasn't expired.
@@ -75,7 +75,7 @@ class CalculationService(StripeService):
         self,
         calculation: str,
         params: Optional["CalculationRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Calculation":
         """
         Retrieves a Tax Calculation object, if the calculation hasn't expired.
@@ -96,7 +96,7 @@ class CalculationService(StripeService):
     def create(
         self,
         params: "CalculationCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Calculation":
         """
         Calculates tax based on the input and returns a Tax Calculation object.
@@ -115,7 +115,7 @@ class CalculationService(StripeService):
     async def create_async(
         self,
         params: "CalculationCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Calculation":
         """
         Calculates tax based on the input and returns a Tax Calculation object.

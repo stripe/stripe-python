@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.checkout._session import Session
@@ -10,6 +9,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe.checkout._session_line_item_service import (
         SessionLineItemService,
     )
@@ -60,7 +60,7 @@ class SessionService(StripeService):
     def list(
         self,
         params: Optional["SessionListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Session]":
         """
         Returns a list of Checkout Sessions.
@@ -79,7 +79,7 @@ class SessionService(StripeService):
     async def list_async(
         self,
         params: Optional["SessionListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Session]":
         """
         Returns a list of Checkout Sessions.
@@ -98,7 +98,7 @@ class SessionService(StripeService):
     def create(
         self,
         params: Optional["SessionCreateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Session":
         """
         Creates a Checkout Session object.
@@ -117,7 +117,7 @@ class SessionService(StripeService):
     async def create_async(
         self,
         params: Optional["SessionCreateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Session":
         """
         Creates a Checkout Session object.
@@ -137,7 +137,7 @@ class SessionService(StripeService):
         self,
         session: str,
         params: Optional["SessionRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Session":
         """
         Retrieves a Checkout Session object.
@@ -159,7 +159,7 @@ class SessionService(StripeService):
         self,
         session: str,
         params: Optional["SessionRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Session":
         """
         Retrieves a Checkout Session object.
@@ -181,7 +181,7 @@ class SessionService(StripeService):
         self,
         session: str,
         params: Optional["SessionUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Session":
         """
         Updates a Checkout Session object.
@@ -205,7 +205,7 @@ class SessionService(StripeService):
         self,
         session: str,
         params: Optional["SessionUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Session":
         """
         Updates a Checkout Session object.
@@ -229,7 +229,7 @@ class SessionService(StripeService):
         self,
         session: str,
         params: Optional["SessionExpireParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Session":
         """
         A Checkout Session can be expired when it is in one of these statuses: open
@@ -253,7 +253,7 @@ class SessionService(StripeService):
         self,
         session: str,
         params: Optional["SessionExpireParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Session":
         """
         A Checkout Session can be expired when it is in one of these statuses: open

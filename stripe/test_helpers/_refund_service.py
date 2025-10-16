@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
@@ -8,6 +7,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._refund import Refund
+    from stripe._request_options import RequestOptions
     from stripe.params.test_helpers._refund_expire_params import (
         RefundExpireParams,
     )
@@ -18,7 +18,7 @@ class RefundService(StripeService):
         self,
         refund: str,
         params: Optional["RefundExpireParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Refund":
         """
         Expire a refund with a status of requires_action.
@@ -40,7 +40,7 @@ class RefundService(StripeService):
         self,
         refund: str,
         params: Optional["RefundExpireParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Refund":
         """
         Expire a refund with a status of requires_action.

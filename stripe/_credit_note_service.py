@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._credit_note import CreditNote
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
@@ -14,6 +13,7 @@ if TYPE_CHECKING:
         CreditNotePreviewLinesService,
     )
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe.params._credit_note_create_params import CreditNoteCreateParams
     from stripe.params._credit_note_list_params import CreditNoteListParams
     from stripe.params._credit_note_preview_params import (
@@ -65,7 +65,7 @@ class CreditNoteService(StripeService):
     def list(
         self,
         params: Optional["CreditNoteListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[CreditNote]":
         """
         Returns a list of credit notes.
@@ -84,7 +84,7 @@ class CreditNoteService(StripeService):
     async def list_async(
         self,
         params: Optional["CreditNoteListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[CreditNote]":
         """
         Returns a list of credit notes.
@@ -103,7 +103,7 @@ class CreditNoteService(StripeService):
     def create(
         self,
         params: "CreditNoteCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "CreditNote":
         """
         Issue a credit note to adjust the amount of a finalized invoice. A credit note will first reduce the invoice's amount_remaining (and amount_due), but not below zero.
@@ -134,7 +134,7 @@ class CreditNoteService(StripeService):
     async def create_async(
         self,
         params: "CreditNoteCreateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "CreditNote":
         """
         Issue a credit note to adjust the amount of a finalized invoice. A credit note will first reduce the invoice's amount_remaining (and amount_due), but not below zero.
@@ -166,7 +166,7 @@ class CreditNoteService(StripeService):
         self,
         id: str,
         params: Optional["CreditNoteRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "CreditNote":
         """
         Retrieves the credit note object with the given identifier.
@@ -186,7 +186,7 @@ class CreditNoteService(StripeService):
         self,
         id: str,
         params: Optional["CreditNoteRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "CreditNote":
         """
         Retrieves the credit note object with the given identifier.
@@ -206,7 +206,7 @@ class CreditNoteService(StripeService):
         self,
         id: str,
         params: Optional["CreditNoteUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "CreditNote":
         """
         Updates an existing credit note.
@@ -226,7 +226,7 @@ class CreditNoteService(StripeService):
         self,
         id: str,
         params: Optional["CreditNoteUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "CreditNote":
         """
         Updates an existing credit note.
@@ -245,7 +245,7 @@ class CreditNoteService(StripeService):
     def preview(
         self,
         params: "CreditNotePreviewParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "CreditNote":
         """
         Get a preview of a credit note without creating it.
@@ -264,7 +264,7 @@ class CreditNoteService(StripeService):
     async def preview_async(
         self,
         params: "CreditNotePreviewParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "CreditNote":
         """
         Get a preview of a credit note without creating it.
@@ -284,7 +284,7 @@ class CreditNoteService(StripeService):
         self,
         id: str,
         params: Optional["CreditNoteVoidCreditNoteParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "CreditNote":
         """
         Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
@@ -304,7 +304,7 @@ class CreditNoteService(StripeService):
         self,
         id: str,
         params: Optional["CreditNoteVoidCreditNoteParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "CreditNote":
         """
         Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.billing._credit_balance_transaction import CreditBalanceTransaction
@@ -9,6 +8,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe.params.billing._credit_balance_transaction_list_params import (
         CreditBalanceTransactionListParams,
     )
@@ -21,7 +21,7 @@ class CreditBalanceTransactionService(StripeService):
     def list(
         self,
         params: "CreditBalanceTransactionListParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[CreditBalanceTransaction]":
         """
         Retrieve a list of credit balance transactions.
@@ -40,7 +40,7 @@ class CreditBalanceTransactionService(StripeService):
     async def list_async(
         self,
         params: "CreditBalanceTransactionListParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[CreditBalanceTransaction]":
         """
         Retrieve a list of credit balance transactions.
@@ -60,7 +60,7 @@ class CreditBalanceTransactionService(StripeService):
         self,
         id: str,
         params: Optional["CreditBalanceTransactionRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "CreditBalanceTransaction":
         """
         Retrieves a credit balance transaction.
@@ -82,7 +82,7 @@ class CreditBalanceTransactionService(StripeService):
         self,
         id: str,
         params: Optional["CreditBalanceTransactionRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "CreditBalanceTransaction":
         """
         Retrieves a credit balance transaction.

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.issuing._token import Token
@@ -9,6 +8,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe.params.issuing._token_list_params import TokenListParams
     from stripe.params.issuing._token_retrieve_params import (
         TokenRetrieveParams,
@@ -20,7 +20,7 @@ class TokenService(StripeService):
     def list(
         self,
         params: "TokenListParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Token]":
         """
         Lists all Issuing Token objects for a given card.
@@ -39,7 +39,7 @@ class TokenService(StripeService):
     async def list_async(
         self,
         params: "TokenListParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Token]":
         """
         Lists all Issuing Token objects for a given card.
@@ -59,7 +59,7 @@ class TokenService(StripeService):
         self,
         token: str,
         params: Optional["TokenRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Token":
         """
         Retrieves an Issuing Token object.
@@ -79,7 +79,7 @@ class TokenService(StripeService):
         self,
         token: str,
         params: Optional["TokenRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Token":
         """
         Retrieves an Issuing Token object.
@@ -99,7 +99,7 @@ class TokenService(StripeService):
         self,
         token: str,
         params: "TokenUpdateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Token":
         """
         Attempts to update the specified Issuing Token object to the status specified.
@@ -119,7 +119,7 @@ class TokenService(StripeService):
         self,
         token: str,
         params: "TokenUpdateParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Token":
         """
         Attempts to update the specified Issuing Token object to the status specified.

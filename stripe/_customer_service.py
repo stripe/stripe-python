@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._customer import Customer
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
@@ -30,6 +29,7 @@ if TYPE_CHECKING:
     from stripe._customer_tax_id_service import CustomerTaxIdService
     from stripe._discount import Discount
     from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe._search_result_object import SearchResultObject
     from stripe.params._customer_create_params import CustomerCreateParams
     from stripe.params._customer_delete_discount_params import (
@@ -102,7 +102,7 @@ class CustomerService(StripeService):
         self,
         customer: str,
         params: Optional["CustomerDeleteParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Customer":
         """
         Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
@@ -124,7 +124,7 @@ class CustomerService(StripeService):
         self,
         customer: str,
         params: Optional["CustomerDeleteParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Customer":
         """
         Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
@@ -146,7 +146,7 @@ class CustomerService(StripeService):
         self,
         customer: str,
         params: Optional["CustomerRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Customer":
         """
         Retrieves a Customer object.
@@ -168,7 +168,7 @@ class CustomerService(StripeService):
         self,
         customer: str,
         params: Optional["CustomerRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Customer":
         """
         Retrieves a Customer object.
@@ -190,7 +190,7 @@ class CustomerService(StripeService):
         self,
         customer: str,
         params: Optional["CustomerUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Customer":
         """
         Updates the specified customer by setting the values of the parameters passed. Any parameters not provided will be left unchanged. For example, if you pass the source parameter, that becomes the customer's active source (e.g., a card) to be used for all charges in the future. When you update a customer to a new valid card source by passing the source parameter: for each of the customer's current subscriptions, if the subscription bills automatically and is in the past_due state, then the latest open invoice for the subscription with automatic collection enabled will be retried. This retry will not count as an automatic retry, and will not affect the next regularly scheduled payment for the invoice. Changing the default_source for a customer will not trigger this behavior.
@@ -214,7 +214,7 @@ class CustomerService(StripeService):
         self,
         customer: str,
         params: Optional["CustomerUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Customer":
         """
         Updates the specified customer by setting the values of the parameters passed. Any parameters not provided will be left unchanged. For example, if you pass the source parameter, that becomes the customer's active source (e.g., a card) to be used for all charges in the future. When you update a customer to a new valid card source by passing the source parameter: for each of the customer's current subscriptions, if the subscription bills automatically and is in the past_due state, then the latest open invoice for the subscription with automatic collection enabled will be retried. This retry will not count as an automatic retry, and will not affect the next regularly scheduled payment for the invoice. Changing the default_source for a customer will not trigger this behavior.
@@ -238,7 +238,7 @@ class CustomerService(StripeService):
         self,
         customer: str,
         params: Optional["CustomerDeleteDiscountParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Discount":
         """
         Removes the currently applied discount on a customer.
@@ -260,7 +260,7 @@ class CustomerService(StripeService):
         self,
         customer: str,
         params: Optional["CustomerDeleteDiscountParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Discount":
         """
         Removes the currently applied discount on a customer.
@@ -281,7 +281,7 @@ class CustomerService(StripeService):
     def list(
         self,
         params: Optional["CustomerListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Customer]":
         """
         Returns a list of your customers. The customers are returned sorted by creation date, with the most recent customers appearing first.
@@ -300,7 +300,7 @@ class CustomerService(StripeService):
     async def list_async(
         self,
         params: Optional["CustomerListParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Customer]":
         """
         Returns a list of your customers. The customers are returned sorted by creation date, with the most recent customers appearing first.
@@ -319,7 +319,7 @@ class CustomerService(StripeService):
     def create(
         self,
         params: Optional["CustomerCreateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Customer":
         """
         Creates a new customer object.
@@ -338,7 +338,7 @@ class CustomerService(StripeService):
     async def create_async(
         self,
         params: Optional["CustomerCreateParams"] = None,
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "Customer":
         """
         Creates a new customer object.
@@ -357,7 +357,7 @@ class CustomerService(StripeService):
     def search(
         self,
         params: "CustomerSearchParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "SearchResultObject[Customer]":
         """
         Search for customers you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
@@ -379,7 +379,7 @@ class CustomerService(StripeService):
     async def search_async(
         self,
         params: "CustomerSearchParams",
-        options: Optional[RequestOptions] = None,
+        options: Optional["RequestOptions"] = None,
     ) -> "SearchResultObject[Customer]":
         """
         Search for customers you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
