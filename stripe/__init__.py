@@ -56,6 +56,8 @@ def _init_default_http_client():
     global _default_proxy
     global default_http_client
 
+    from stripe._http_client import new_default_http_client
+
     # If the stripe.default_http_client has not been set by the user
     # yet, we'll set it here. This way, we aren't creating a new
     # HttpClient for every request.
@@ -316,7 +318,6 @@ if TYPE_CHECKING:
         RequestsClient as RequestsClient,
         UrlFetchClient as UrlFetchClient,
         UrllibClient as UrllibClient,
-        new_default_http_client as new_default_http_client,
     )
     from stripe._identity_service import IdentityService as IdentityService
     from stripe._invoice import Invoice as Invoice
@@ -688,7 +689,6 @@ _import_map = {
     "RequestsClient": ("stripe._http_client", False),
     "UrlFetchClient": ("stripe._http_client", False),
     "UrllibClient": ("stripe._http_client", False),
-    "new_default_http_client": ("stripe._http_client", False),
     "IdentityService": ("stripe._identity_service", False),
     "Invoice": ("stripe._invoice", False),
     "InvoiceItem": ("stripe._invoice_item", False),
