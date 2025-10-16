@@ -34,6 +34,6 @@ if not TYPE_CHECKING:
                 name,
             )
         except KeyError:
-            raise AttributeError(f"cannot import '{name}' from '{__name__}'")
+            raise AttributeError()
 
 # The end of the section generated from our OpenAPI spec

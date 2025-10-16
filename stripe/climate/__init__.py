@@ -38,4 +38,4 @@ if not TYPE_CHECKING:
                 name,
             )
         except KeyError:
-            raise AttributeError(f"cannot import '{name}' from '{__name__}'")
+            raise AttributeError()
