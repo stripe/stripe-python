@@ -5,7 +5,7 @@ import subprocess
 import sys
 
 
-def assert_output(code: str, expected: str):
+def assert_output(code: str, expected: str) -> None:
     process = subprocess.Popen(
         [sys.executable, "-c", f"import stripe; print({code})"],
         stdout=subprocess.PIPE,
@@ -21,11 +21,11 @@ def assert_output(code: str, expected: str):
     assert output == expected
 
 
-def test_can_import_request_options():
+def test_can_import_request_options() -> None:
     from stripe import RequestOptions  # pyright: ignore[reportUnusedImport]
 
 
-def test_can_import_http_client():
+def test_can_import_http_client() -> None:
     from stripe import (
         HTTPClient,  # pyright: ignore[reportUnusedImport]
         PycurlClient,  # pyright: ignore[reportUnusedImport]
@@ -35,14 +35,14 @@ def test_can_import_http_client():
     )
 
 
-def test_can_import_webhook_members():
+def test_can_import_webhook_members() -> None:
     from stripe import (
         Webhook,  # pyright: ignore[reportUnusedImport]
         WebhookSignature,  # pyright: ignore[reportUnusedImport]
     )
 
 
-def test_can_import_abstract():
+def test_can_import_abstract() -> None:
     from stripe import (
         APIResource,  # pyright: ignore[reportUnusedImport]
         SingletonAPIResource,  # pyright: ignore[reportUnusedImport]
@@ -58,7 +58,7 @@ def test_can_import_abstract():
     )
 
 
-def test_can_import_infrastructure():
+def test_can_import_infrastructure() -> None:
     from stripe import (
         StripeContext,  # pyright: ignore[reportUnusedImport]
         StripeObject,  # pyright: ignore[reportUnusedImport]
@@ -68,11 +68,11 @@ def test_can_import_infrastructure():
     from stripe.v2 import DeletedObject  # pyright: ignore[reportUnusedImport]
 
 
-def test_can_import_app_info():
+def test_can_import_app_info() -> None:
     from stripe import AppInfo  # pyright: ignore[reportUnusedImport]
 
 
-def test_can_import_stripe_response():
+def test_can_import_stripe_response() -> None:
     from stripe import (
         StripeResponse,  # pyright: ignore[reportUnusedImport]
         StripeResponseBase,  # pyright: ignore[reportUnusedImport]
@@ -81,17 +81,17 @@ def test_can_import_stripe_response():
     )
 
 
-def test_can_import_oauth_members():
+def test_can_import_oauth_members() -> None:
     from stripe import OAuth
 
     assert OAuth is not None
 
 
-def test_can_import_util():
+def test_can_import_util() -> None:
     from stripe import convert_to_stripe_object  # pyright: ignore[reportUnusedImport]
 
 
-def test_can_import_errors():
+def test_can_import_errors() -> None:
     # fmt: off
     from stripe import StripeError  # pyright: ignore[reportUnusedImport]
     from stripe import APIError  # pyright: ignore[reportUnusedImport]
@@ -108,7 +108,7 @@ def test_can_import_errors():
     # fmt: on
 
 
-def test_can_import_namespaced_resource():
+def test_can_import_namespaced_resource() -> None:
     from stripe import tax as TaxPackage
     from stripe.tax import (
         Calculation as CalculationFromStripe,
@@ -122,7 +122,7 @@ def test_can_import_namespaced_resource():
     assert_output("stripe.tax.Calculation is not None", "True")
 
 
-def test_can_import_top_level_service():
+def test_can_import_top_level_service() -> None:
     from stripe import AccountService as AccountServiceFromStripe
 
     assert stripe.AccountService == AccountServiceFromStripe
@@ -130,7 +130,7 @@ def test_can_import_top_level_service():
     assert_output("stripe.AccountService is not None", "True")
 
 
-def test_can_import_namespaced_service():
+def test_can_import_namespaced_service() -> None:
     from stripe import tax as TaxPackage
     from stripe.tax import (
         CalculationService as CalculationServiceFromStripe,
@@ -144,7 +144,7 @@ def test_can_import_namespaced_service():
     assert_output("stripe.tax.CalculationService is not None", "True")
 
 
-def test_can_import_deeply_namespaced_service():
+def test_can_import_deeply_namespaced_service() -> None:
     from stripe import v2 as V2Package
     from stripe.v2 import billing as BillingPackage
     from stripe.v2.billing import (
@@ -163,7 +163,7 @@ def test_can_import_deeply_namespaced_service():
     assert_output("stripe.v2.billing.MeterEventService is not None", "True")
 
 
-def test_can_import_nested_params_types():
+def test_can_import_nested_params_types() -> None:
     from stripe.params.checkout import (
         SessionCreateParamsLineItem,
     )
