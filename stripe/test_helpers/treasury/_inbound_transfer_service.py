@@ -3,7 +3,6 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.treasury._inbound_transfer import InboundTransfer
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
@@ -17,6 +16,7 @@ if TYPE_CHECKING:
     from stripe.params.test_helpers.treasury._inbound_transfer_succeed_params import (
         InboundTransferSucceedParams,
     )
+    from stripe.treasury._inbound_transfer import InboundTransfer
 
 
 class InboundTransferService(StripeService):
@@ -25,12 +25,12 @@ class InboundTransferService(StripeService):
         id: str,
         params: Optional["InboundTransferFailParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> InboundTransfer:
+    ) -> "InboundTransfer":
         """
         Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
         """
         return cast(
-            InboundTransfer,
+            "InboundTransfer",
             self._request(
                 "post",
                 "/v1/test_helpers/treasury/inbound_transfers/{id}/fail".format(
@@ -47,12 +47,12 @@ class InboundTransferService(StripeService):
         id: str,
         params: Optional["InboundTransferFailParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> InboundTransfer:
+    ) -> "InboundTransfer":
         """
         Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
         """
         return cast(
-            InboundTransfer,
+            "InboundTransfer",
             await self._request_async(
                 "post",
                 "/v1/test_helpers/treasury/inbound_transfers/{id}/fail".format(
@@ -69,12 +69,12 @@ class InboundTransferService(StripeService):
         id: str,
         params: Optional["InboundTransferReturnInboundTransferParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> InboundTransfer:
+    ) -> "InboundTransfer":
         """
         Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
         """
         return cast(
-            InboundTransfer,
+            "InboundTransfer",
             self._request(
                 "post",
                 "/v1/test_helpers/treasury/inbound_transfers/{id}/return".format(
@@ -91,12 +91,12 @@ class InboundTransferService(StripeService):
         id: str,
         params: Optional["InboundTransferReturnInboundTransferParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> InboundTransfer:
+    ) -> "InboundTransfer":
         """
         Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
         """
         return cast(
-            InboundTransfer,
+            "InboundTransfer",
             await self._request_async(
                 "post",
                 "/v1/test_helpers/treasury/inbound_transfers/{id}/return".format(
@@ -113,12 +113,12 @@ class InboundTransferService(StripeService):
         id: str,
         params: Optional["InboundTransferSucceedParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> InboundTransfer:
+    ) -> "InboundTransfer":
         """
         Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
         """
         return cast(
-            InboundTransfer,
+            "InboundTransfer",
             self._request(
                 "post",
                 "/v1/test_helpers/treasury/inbound_transfers/{id}/succeed".format(
@@ -135,12 +135,12 @@ class InboundTransferService(StripeService):
         id: str,
         params: Optional["InboundTransferSucceedParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> InboundTransfer:
+    ) -> "InboundTransfer":
         """
         Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
         """
         return cast(
-            InboundTransfer,
+            "InboundTransfer",
             await self._request_async(
                 "post",
                 "/v1/test_helpers/treasury/inbound_transfers/{id}/succeed".format(

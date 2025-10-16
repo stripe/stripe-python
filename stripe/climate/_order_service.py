@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
@@ -9,6 +8,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
     from stripe.params.climate._order_cancel_params import OrderCancelParams
     from stripe.params.climate._order_create_params import OrderCreateParams
     from stripe.params.climate._order_list_params import OrderListParams
@@ -23,13 +23,13 @@ class OrderService(StripeService):
         self,
         params: Optional["OrderListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[Order]:
+    ) -> "ListObject[Order]":
         """
         Lists all Climate order objects. The orders are returned sorted by creation date, with the
         most recently created orders appearing first.
         """
         return cast(
-            ListObject[Order],
+            "ListObject[Order]",
             self._request(
                 "get",
                 "/v1/climate/orders",
@@ -43,13 +43,13 @@ class OrderService(StripeService):
         self,
         params: Optional["OrderListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[Order]:
+    ) -> "ListObject[Order]":
         """
         Lists all Climate order objects. The orders are returned sorted by creation date, with the
         most recently created orders appearing first.
         """
         return cast(
-            ListObject[Order],
+            "ListObject[Order]",
             await self._request_async(
                 "get",
                 "/v1/climate/orders",
@@ -63,13 +63,13 @@ class OrderService(StripeService):
         self,
         params: "OrderCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> Order:
+    ) -> "Order":
         """
         Creates a Climate order object for a given Climate product. The order will be processed immediately
         after creation and payment will be deducted your Stripe balance.
         """
         return cast(
-            Order,
+            "Order",
             self._request(
                 "post",
                 "/v1/climate/orders",
@@ -83,13 +83,13 @@ class OrderService(StripeService):
         self,
         params: "OrderCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> Order:
+    ) -> "Order":
         """
         Creates a Climate order object for a given Climate product. The order will be processed immediately
         after creation and payment will be deducted your Stripe balance.
         """
         return cast(
-            Order,
+            "Order",
             await self._request_async(
                 "post",
                 "/v1/climate/orders",
@@ -104,12 +104,12 @@ class OrderService(StripeService):
         order: str,
         params: Optional["OrderRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Order:
+    ) -> "Order":
         """
         Retrieves the details of a Climate order object with the given ID.
         """
         return cast(
-            Order,
+            "Order",
             self._request(
                 "get",
                 "/v1/climate/orders/{order}".format(order=sanitize_id(order)),
@@ -124,12 +124,12 @@ class OrderService(StripeService):
         order: str,
         params: Optional["OrderRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Order:
+    ) -> "Order":
         """
         Retrieves the details of a Climate order object with the given ID.
         """
         return cast(
-            Order,
+            "Order",
             await self._request_async(
                 "get",
                 "/v1/climate/orders/{order}".format(order=sanitize_id(order)),
@@ -144,12 +144,12 @@ class OrderService(StripeService):
         order: str,
         params: Optional["OrderUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Order:
+    ) -> "Order":
         """
         Updates the specified order by setting the values of the parameters passed.
         """
         return cast(
-            Order,
+            "Order",
             self._request(
                 "post",
                 "/v1/climate/orders/{order}".format(order=sanitize_id(order)),
@@ -164,12 +164,12 @@ class OrderService(StripeService):
         order: str,
         params: Optional["OrderUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Order:
+    ) -> "Order":
         """
         Updates the specified order by setting the values of the parameters passed.
         """
         return cast(
-            Order,
+            "Order",
             await self._request_async(
                 "post",
                 "/v1/climate/orders/{order}".format(order=sanitize_id(order)),
@@ -184,7 +184,7 @@ class OrderService(StripeService):
         order: str,
         params: Optional["OrderCancelParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Order:
+    ) -> "Order":
         """
         Cancels a Climate order. You can cancel an order within 24 hours of creation. Stripe refunds the
         reservation amount_subtotal, but not the amount_fees for user-triggered cancellations. Frontier
@@ -192,7 +192,7 @@ class OrderService(StripeService):
         provides 90 days advance notice and refunds the amount_total.
         """
         return cast(
-            Order,
+            "Order",
             self._request(
                 "post",
                 "/v1/climate/orders/{order}/cancel".format(
@@ -209,7 +209,7 @@ class OrderService(StripeService):
         order: str,
         params: Optional["OrderCancelParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Order:
+    ) -> "Order":
         """
         Cancels a Climate order. You can cancel an order within 24 hours of creation. Stripe refunds the
         reservation amount_subtotal, but not the amount_fees for user-triggered cancellations. Frontier
@@ -217,7 +217,7 @@ class OrderService(StripeService):
         provides 90 days advance notice and refunds the amount_total.
         """
         return cast(
-            Order,
+            "Order",
             await self._request_async(
                 "post",
                 "/v1/climate/orders/{order}/cancel".format(

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
@@ -9,6 +8,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
     from stripe.params.billing_portal._configuration_create_params import (
         ConfigurationCreateParams,
     )
@@ -28,12 +28,12 @@ class ConfigurationService(StripeService):
         self,
         params: Optional["ConfigurationListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[Configuration]:
+    ) -> "ListObject[Configuration]":
         """
         Returns a list of configurations that describe the functionality of the customer portal.
         """
         return cast(
-            ListObject[Configuration],
+            "ListObject[Configuration]",
             self._request(
                 "get",
                 "/v1/billing_portal/configurations",
@@ -47,12 +47,12 @@ class ConfigurationService(StripeService):
         self,
         params: Optional["ConfigurationListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[Configuration]:
+    ) -> "ListObject[Configuration]":
         """
         Returns a list of configurations that describe the functionality of the customer portal.
         """
         return cast(
-            ListObject[Configuration],
+            "ListObject[Configuration]",
             await self._request_async(
                 "get",
                 "/v1/billing_portal/configurations",
@@ -66,12 +66,12 @@ class ConfigurationService(StripeService):
         self,
         params: "ConfigurationCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> Configuration:
+    ) -> "Configuration":
         """
         Creates a configuration that describes the functionality and behavior of a PortalSession
         """
         return cast(
-            Configuration,
+            "Configuration",
             self._request(
                 "post",
                 "/v1/billing_portal/configurations",
@@ -85,12 +85,12 @@ class ConfigurationService(StripeService):
         self,
         params: "ConfigurationCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> Configuration:
+    ) -> "Configuration":
         """
         Creates a configuration that describes the functionality and behavior of a PortalSession
         """
         return cast(
-            Configuration,
+            "Configuration",
             await self._request_async(
                 "post",
                 "/v1/billing_portal/configurations",
@@ -105,12 +105,12 @@ class ConfigurationService(StripeService):
         configuration: str,
         params: Optional["ConfigurationRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Configuration:
+    ) -> "Configuration":
         """
         Retrieves a configuration that describes the functionality of the customer portal.
         """
         return cast(
-            Configuration,
+            "Configuration",
             self._request(
                 "get",
                 "/v1/billing_portal/configurations/{configuration}".format(
@@ -127,12 +127,12 @@ class ConfigurationService(StripeService):
         configuration: str,
         params: Optional["ConfigurationRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Configuration:
+    ) -> "Configuration":
         """
         Retrieves a configuration that describes the functionality of the customer portal.
         """
         return cast(
-            Configuration,
+            "Configuration",
             await self._request_async(
                 "get",
                 "/v1/billing_portal/configurations/{configuration}".format(
@@ -149,12 +149,12 @@ class ConfigurationService(StripeService):
         configuration: str,
         params: Optional["ConfigurationUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Configuration:
+    ) -> "Configuration":
         """
         Updates a configuration that describes the functionality of the customer portal.
         """
         return cast(
-            Configuration,
+            "Configuration",
             self._request(
                 "post",
                 "/v1/billing_portal/configurations/{configuration}".format(
@@ -171,12 +171,12 @@ class ConfigurationService(StripeService):
         configuration: str,
         params: Optional["ConfigurationUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Configuration:
+    ) -> "Configuration":
         """
         Updates a configuration that describes the functionality of the customer portal.
         """
         return cast(
-            Configuration,
+            "Configuration",
             await self._request_async(
                 "post",
                 "/v1/billing_portal/configurations/{configuration}".format(

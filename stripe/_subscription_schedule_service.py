@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._subscription_schedule import SubscriptionSchedule
@@ -9,6 +8,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
     from stripe.params._subscription_schedule_cancel_params import (
         SubscriptionScheduleCancelParams,
     )
@@ -34,12 +34,12 @@ class SubscriptionScheduleService(StripeService):
         self,
         params: Optional["SubscriptionScheduleListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[SubscriptionSchedule]:
+    ) -> "ListObject[SubscriptionSchedule]":
         """
         Retrieves the list of your subscription schedules.
         """
         return cast(
-            ListObject[SubscriptionSchedule],
+            "ListObject[SubscriptionSchedule]",
             self._request(
                 "get",
                 "/v1/subscription_schedules",
@@ -53,12 +53,12 @@ class SubscriptionScheduleService(StripeService):
         self,
         params: Optional["SubscriptionScheduleListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[SubscriptionSchedule]:
+    ) -> "ListObject[SubscriptionSchedule]":
         """
         Retrieves the list of your subscription schedules.
         """
         return cast(
-            ListObject[SubscriptionSchedule],
+            "ListObject[SubscriptionSchedule]",
             await self._request_async(
                 "get",
                 "/v1/subscription_schedules",
@@ -72,12 +72,12 @@ class SubscriptionScheduleService(StripeService):
         self,
         params: Optional["SubscriptionScheduleCreateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> SubscriptionSchedule:
+    ) -> "SubscriptionSchedule":
         """
         Creates a new subscription schedule object. Each customer can have up to 500 active or scheduled subscriptions.
         """
         return cast(
-            SubscriptionSchedule,
+            "SubscriptionSchedule",
             self._request(
                 "post",
                 "/v1/subscription_schedules",
@@ -91,12 +91,12 @@ class SubscriptionScheduleService(StripeService):
         self,
         params: Optional["SubscriptionScheduleCreateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> SubscriptionSchedule:
+    ) -> "SubscriptionSchedule":
         """
         Creates a new subscription schedule object. Each customer can have up to 500 active or scheduled subscriptions.
         """
         return cast(
-            SubscriptionSchedule,
+            "SubscriptionSchedule",
             await self._request_async(
                 "post",
                 "/v1/subscription_schedules",
@@ -111,12 +111,12 @@ class SubscriptionScheduleService(StripeService):
         schedule: str,
         params: Optional["SubscriptionScheduleRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> SubscriptionSchedule:
+    ) -> "SubscriptionSchedule":
         """
         Retrieves the details of an existing subscription schedule. You only need to supply the unique subscription schedule identifier that was returned upon subscription schedule creation.
         """
         return cast(
-            SubscriptionSchedule,
+            "SubscriptionSchedule",
             self._request(
                 "get",
                 "/v1/subscription_schedules/{schedule}".format(
@@ -133,12 +133,12 @@ class SubscriptionScheduleService(StripeService):
         schedule: str,
         params: Optional["SubscriptionScheduleRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> SubscriptionSchedule:
+    ) -> "SubscriptionSchedule":
         """
         Retrieves the details of an existing subscription schedule. You only need to supply the unique subscription schedule identifier that was returned upon subscription schedule creation.
         """
         return cast(
-            SubscriptionSchedule,
+            "SubscriptionSchedule",
             await self._request_async(
                 "get",
                 "/v1/subscription_schedules/{schedule}".format(
@@ -155,12 +155,12 @@ class SubscriptionScheduleService(StripeService):
         schedule: str,
         params: Optional["SubscriptionScheduleUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> SubscriptionSchedule:
+    ) -> "SubscriptionSchedule":
         """
         Updates an existing subscription schedule.
         """
         return cast(
-            SubscriptionSchedule,
+            "SubscriptionSchedule",
             self._request(
                 "post",
                 "/v1/subscription_schedules/{schedule}".format(
@@ -177,12 +177,12 @@ class SubscriptionScheduleService(StripeService):
         schedule: str,
         params: Optional["SubscriptionScheduleUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> SubscriptionSchedule:
+    ) -> "SubscriptionSchedule":
         """
         Updates an existing subscription schedule.
         """
         return cast(
-            SubscriptionSchedule,
+            "SubscriptionSchedule",
             await self._request_async(
                 "post",
                 "/v1/subscription_schedules/{schedule}".format(
@@ -199,12 +199,12 @@ class SubscriptionScheduleService(StripeService):
         schedule: str,
         params: Optional["SubscriptionScheduleCancelParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> SubscriptionSchedule:
+    ) -> "SubscriptionSchedule":
         """
         Cancels a subscription schedule and its associated subscription immediately (if the subscription schedule has an active subscription). A subscription schedule can only be canceled if its status is not_started or active.
         """
         return cast(
-            SubscriptionSchedule,
+            "SubscriptionSchedule",
             self._request(
                 "post",
                 "/v1/subscription_schedules/{schedule}/cancel".format(
@@ -221,12 +221,12 @@ class SubscriptionScheduleService(StripeService):
         schedule: str,
         params: Optional["SubscriptionScheduleCancelParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> SubscriptionSchedule:
+    ) -> "SubscriptionSchedule":
         """
         Cancels a subscription schedule and its associated subscription immediately (if the subscription schedule has an active subscription). A subscription schedule can only be canceled if its status is not_started or active.
         """
         return cast(
-            SubscriptionSchedule,
+            "SubscriptionSchedule",
             await self._request_async(
                 "post",
                 "/v1/subscription_schedules/{schedule}/cancel".format(
@@ -243,12 +243,12 @@ class SubscriptionScheduleService(StripeService):
         schedule: str,
         params: Optional["SubscriptionScheduleReleaseParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> SubscriptionSchedule:
+    ) -> "SubscriptionSchedule":
         """
         Releases the subscription schedule immediately, which will stop scheduling of its phases, but leave any existing subscription in place. A schedule can only be released if its status is not_started or active. If the subscription schedule is currently associated with a subscription, releasing it will remove its subscription property and set the subscription's ID to the released_subscription property.
         """
         return cast(
-            SubscriptionSchedule,
+            "SubscriptionSchedule",
             self._request(
                 "post",
                 "/v1/subscription_schedules/{schedule}/release".format(
@@ -265,12 +265,12 @@ class SubscriptionScheduleService(StripeService):
         schedule: str,
         params: Optional["SubscriptionScheduleReleaseParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> SubscriptionSchedule:
+    ) -> "SubscriptionSchedule":
         """
         Releases the subscription schedule immediately, which will stop scheduling of its phases, but leave any existing subscription in place. A schedule can only be released if its status is not_started or active. If the subscription schedule is currently associated with a subscription, releasing it will remove its subscription property and set the subscription's ID to the released_subscription property.
         """
         return cast(
-            SubscriptionSchedule,
+            "SubscriptionSchedule",
             await self._request_async(
                 "post",
                 "/v1/subscription_schedules/{schedule}/release".format(

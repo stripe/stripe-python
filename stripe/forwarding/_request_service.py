@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
@@ -9,6 +8,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
     from stripe.params.forwarding._request_create_params import (
         RequestCreateParams,
     )
@@ -23,12 +23,12 @@ class RequestService(StripeService):
         self,
         params: Optional["RequestListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[Request]:
+    ) -> "ListObject[Request]":
         """
         Lists all ForwardingRequest objects.
         """
         return cast(
-            ListObject[Request],
+            "ListObject[Request]",
             self._request(
                 "get",
                 "/v1/forwarding/requests",
@@ -42,12 +42,12 @@ class RequestService(StripeService):
         self,
         params: Optional["RequestListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[Request]:
+    ) -> "ListObject[Request]":
         """
         Lists all ForwardingRequest objects.
         """
         return cast(
-            ListObject[Request],
+            "ListObject[Request]",
             await self._request_async(
                 "get",
                 "/v1/forwarding/requests",
@@ -61,12 +61,12 @@ class RequestService(StripeService):
         self,
         params: "RequestCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> Request:
+    ) -> "Request":
         """
         Creates a ForwardingRequest object.
         """
         return cast(
-            Request,
+            "Request",
             self._request(
                 "post",
                 "/v1/forwarding/requests",
@@ -80,12 +80,12 @@ class RequestService(StripeService):
         self,
         params: "RequestCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> Request:
+    ) -> "Request":
         """
         Creates a ForwardingRequest object.
         """
         return cast(
-            Request,
+            "Request",
             await self._request_async(
                 "post",
                 "/v1/forwarding/requests",
@@ -100,12 +100,12 @@ class RequestService(StripeService):
         id: str,
         params: Optional["RequestRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Request:
+    ) -> "Request":
         """
         Retrieves a ForwardingRequest object.
         """
         return cast(
-            Request,
+            "Request",
             self._request(
                 "get",
                 "/v1/forwarding/requests/{id}".format(id=sanitize_id(id)),
@@ -120,12 +120,12 @@ class RequestService(StripeService):
         id: str,
         params: Optional["RequestRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Request:
+    ) -> "Request":
         """
         Retrieves a ForwardingRequest object.
         """
         return cast(
-            Request,
+            "Request",
             await self._request_async(
                 "get",
                 "/v1/forwarding/requests/{id}".format(id=sanitize_id(id)),

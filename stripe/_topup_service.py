@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._topup import Topup
@@ -9,6 +8,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
     from stripe.params._topup_cancel_params import TopupCancelParams
     from stripe.params._topup_create_params import TopupCreateParams
     from stripe.params._topup_list_params import TopupListParams
@@ -21,12 +21,12 @@ class TopupService(StripeService):
         self,
         params: Optional["TopupListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[Topup]:
+    ) -> "ListObject[Topup]":
         """
         Returns a list of top-ups.
         """
         return cast(
-            ListObject[Topup],
+            "ListObject[Topup]",
             self._request(
                 "get",
                 "/v1/topups",
@@ -40,12 +40,12 @@ class TopupService(StripeService):
         self,
         params: Optional["TopupListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[Topup]:
+    ) -> "ListObject[Topup]":
         """
         Returns a list of top-ups.
         """
         return cast(
-            ListObject[Topup],
+            "ListObject[Topup]",
             await self._request_async(
                 "get",
                 "/v1/topups",
@@ -59,12 +59,12 @@ class TopupService(StripeService):
         self,
         params: "TopupCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> Topup:
+    ) -> "Topup":
         """
         Top up the balance of an account
         """
         return cast(
-            Topup,
+            "Topup",
             self._request(
                 "post",
                 "/v1/topups",
@@ -78,12 +78,12 @@ class TopupService(StripeService):
         self,
         params: "TopupCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> Topup:
+    ) -> "Topup":
         """
         Top up the balance of an account
         """
         return cast(
-            Topup,
+            "Topup",
             await self._request_async(
                 "post",
                 "/v1/topups",
@@ -98,12 +98,12 @@ class TopupService(StripeService):
         topup: str,
         params: Optional["TopupRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Topup:
+    ) -> "Topup":
         """
         Retrieves the details of a top-up that has previously been created. Supply the unique top-up ID that was returned from your previous request, and Stripe will return the corresponding top-up information.
         """
         return cast(
-            Topup,
+            "Topup",
             self._request(
                 "get",
                 "/v1/topups/{topup}".format(topup=sanitize_id(topup)),
@@ -118,12 +118,12 @@ class TopupService(StripeService):
         topup: str,
         params: Optional["TopupRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Topup:
+    ) -> "Topup":
         """
         Retrieves the details of a top-up that has previously been created. Supply the unique top-up ID that was returned from your previous request, and Stripe will return the corresponding top-up information.
         """
         return cast(
-            Topup,
+            "Topup",
             await self._request_async(
                 "get",
                 "/v1/topups/{topup}".format(topup=sanitize_id(topup)),
@@ -138,12 +138,12 @@ class TopupService(StripeService):
         topup: str,
         params: Optional["TopupUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Topup:
+    ) -> "Topup":
         """
         Updates the metadata of a top-up. Other top-up details are not editable by design.
         """
         return cast(
-            Topup,
+            "Topup",
             self._request(
                 "post",
                 "/v1/topups/{topup}".format(topup=sanitize_id(topup)),
@@ -158,12 +158,12 @@ class TopupService(StripeService):
         topup: str,
         params: Optional["TopupUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Topup:
+    ) -> "Topup":
         """
         Updates the metadata of a top-up. Other top-up details are not editable by design.
         """
         return cast(
-            Topup,
+            "Topup",
             await self._request_async(
                 "post",
                 "/v1/topups/{topup}".format(topup=sanitize_id(topup)),
@@ -178,12 +178,12 @@ class TopupService(StripeService):
         topup: str,
         params: Optional["TopupCancelParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Topup:
+    ) -> "Topup":
         """
         Cancels a top-up. Only pending top-ups can be canceled.
         """
         return cast(
-            Topup,
+            "Topup",
             self._request(
                 "post",
                 "/v1/topups/{topup}/cancel".format(topup=sanitize_id(topup)),
@@ -198,12 +198,12 @@ class TopupService(StripeService):
         topup: str,
         params: Optional["TopupCancelParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Topup:
+    ) -> "Topup":
         """
         Cancels a top-up. Only pending top-ups can be canceled.
         """
         return cast(
-            Topup,
+            "Topup",
             await self._request_async(
                 "post",
                 "/v1/topups/{topup}/cancel".format(topup=sanitize_id(topup)),

@@ -3,11 +3,11 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.issuing._personalization_design import PersonalizationDesign
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.issuing._personalization_design import PersonalizationDesign
     from stripe.params.test_helpers.issuing._personalization_design_activate_params import (
         PersonalizationDesignActivateParams,
     )
@@ -25,12 +25,12 @@ class PersonalizationDesignService(StripeService):
         personalization_design: str,
         params: Optional["PersonalizationDesignActivateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> PersonalizationDesign:
+    ) -> "PersonalizationDesign":
         """
         Updates the status of the specified testmode personalization design object to active.
         """
         return cast(
-            PersonalizationDesign,
+            "PersonalizationDesign",
             self._request(
                 "post",
                 "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/activate".format(
@@ -47,12 +47,12 @@ class PersonalizationDesignService(StripeService):
         personalization_design: str,
         params: Optional["PersonalizationDesignActivateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> PersonalizationDesign:
+    ) -> "PersonalizationDesign":
         """
         Updates the status of the specified testmode personalization design object to active.
         """
         return cast(
-            PersonalizationDesign,
+            "PersonalizationDesign",
             await self._request_async(
                 "post",
                 "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/activate".format(
@@ -69,12 +69,12 @@ class PersonalizationDesignService(StripeService):
         personalization_design: str,
         params: Optional["PersonalizationDesignDeactivateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> PersonalizationDesign:
+    ) -> "PersonalizationDesign":
         """
         Updates the status of the specified testmode personalization design object to inactive.
         """
         return cast(
-            PersonalizationDesign,
+            "PersonalizationDesign",
             self._request(
                 "post",
                 "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/deactivate".format(
@@ -91,12 +91,12 @@ class PersonalizationDesignService(StripeService):
         personalization_design: str,
         params: Optional["PersonalizationDesignDeactivateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> PersonalizationDesign:
+    ) -> "PersonalizationDesign":
         """
         Updates the status of the specified testmode personalization design object to inactive.
         """
         return cast(
-            PersonalizationDesign,
+            "PersonalizationDesign",
             await self._request_async(
                 "post",
                 "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/deactivate".format(
@@ -113,12 +113,12 @@ class PersonalizationDesignService(StripeService):
         personalization_design: str,
         params: "PersonalizationDesignRejectParams",
         options: Optional[RequestOptions] = None,
-    ) -> PersonalizationDesign:
+    ) -> "PersonalizationDesign":
         """
         Updates the status of the specified testmode personalization design object to rejected.
         """
         return cast(
-            PersonalizationDesign,
+            "PersonalizationDesign",
             self._request(
                 "post",
                 "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/reject".format(
@@ -135,12 +135,12 @@ class PersonalizationDesignService(StripeService):
         personalization_design: str,
         params: "PersonalizationDesignRejectParams",
         options: Optional[RequestOptions] = None,
-    ) -> PersonalizationDesign:
+    ) -> "PersonalizationDesign":
         """
         Updates the status of the specified testmode personalization design object to rejected.
         """
         return cast(
-            PersonalizationDesign,
+            "PersonalizationDesign",
             await self._request_async(
                 "post",
                 "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/reject".format(

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
@@ -10,6 +9,7 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
     from stripe.params.treasury._financial_account_close_params import (
         FinancialAccountCloseParams,
     )
@@ -63,12 +63,12 @@ class FinancialAccountService(StripeService):
         self,
         params: Optional["FinancialAccountListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[FinancialAccount]:
+    ) -> "ListObject[FinancialAccount]":
         """
         Returns a list of FinancialAccounts.
         """
         return cast(
-            ListObject[FinancialAccount],
+            "ListObject[FinancialAccount]",
             self._request(
                 "get",
                 "/v1/treasury/financial_accounts",
@@ -82,12 +82,12 @@ class FinancialAccountService(StripeService):
         self,
         params: Optional["FinancialAccountListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[FinancialAccount]:
+    ) -> "ListObject[FinancialAccount]":
         """
         Returns a list of FinancialAccounts.
         """
         return cast(
-            ListObject[FinancialAccount],
+            "ListObject[FinancialAccount]",
             await self._request_async(
                 "get",
                 "/v1/treasury/financial_accounts",
@@ -101,12 +101,12 @@ class FinancialAccountService(StripeService):
         self,
         params: "FinancialAccountCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> FinancialAccount:
+    ) -> "FinancialAccount":
         """
         Creates a new FinancialAccount. Each connected account can have up to three FinancialAccounts by default.
         """
         return cast(
-            FinancialAccount,
+            "FinancialAccount",
             self._request(
                 "post",
                 "/v1/treasury/financial_accounts",
@@ -120,12 +120,12 @@ class FinancialAccountService(StripeService):
         self,
         params: "FinancialAccountCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> FinancialAccount:
+    ) -> "FinancialAccount":
         """
         Creates a new FinancialAccount. Each connected account can have up to three FinancialAccounts by default.
         """
         return cast(
-            FinancialAccount,
+            "FinancialAccount",
             await self._request_async(
                 "post",
                 "/v1/treasury/financial_accounts",
@@ -140,12 +140,12 @@ class FinancialAccountService(StripeService):
         financial_account: str,
         params: Optional["FinancialAccountRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> FinancialAccount:
+    ) -> "FinancialAccount":
         """
         Retrieves the details of a FinancialAccount.
         """
         return cast(
-            FinancialAccount,
+            "FinancialAccount",
             self._request(
                 "get",
                 "/v1/treasury/financial_accounts/{financial_account}".format(
@@ -162,12 +162,12 @@ class FinancialAccountService(StripeService):
         financial_account: str,
         params: Optional["FinancialAccountRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> FinancialAccount:
+    ) -> "FinancialAccount":
         """
         Retrieves the details of a FinancialAccount.
         """
         return cast(
-            FinancialAccount,
+            "FinancialAccount",
             await self._request_async(
                 "get",
                 "/v1/treasury/financial_accounts/{financial_account}".format(
@@ -184,12 +184,12 @@ class FinancialAccountService(StripeService):
         financial_account: str,
         params: Optional["FinancialAccountUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> FinancialAccount:
+    ) -> "FinancialAccount":
         """
         Updates the details of a FinancialAccount.
         """
         return cast(
-            FinancialAccount,
+            "FinancialAccount",
             self._request(
                 "post",
                 "/v1/treasury/financial_accounts/{financial_account}".format(
@@ -206,12 +206,12 @@ class FinancialAccountService(StripeService):
         financial_account: str,
         params: Optional["FinancialAccountUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> FinancialAccount:
+    ) -> "FinancialAccount":
         """
         Updates the details of a FinancialAccount.
         """
         return cast(
-            FinancialAccount,
+            "FinancialAccount",
             await self._request_async(
                 "post",
                 "/v1/treasury/financial_accounts/{financial_account}".format(
@@ -228,12 +228,12 @@ class FinancialAccountService(StripeService):
         financial_account: str,
         params: Optional["FinancialAccountCloseParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> FinancialAccount:
+    ) -> "FinancialAccount":
         """
         Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
         """
         return cast(
-            FinancialAccount,
+            "FinancialAccount",
             self._request(
                 "post",
                 "/v1/treasury/financial_accounts/{financial_account}/close".format(
@@ -250,12 +250,12 @@ class FinancialAccountService(StripeService):
         financial_account: str,
         params: Optional["FinancialAccountCloseParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> FinancialAccount:
+    ) -> "FinancialAccount":
         """
         Closes a FinancialAccount. A FinancialAccount can only be closed if it has a zero balance, has no pending InboundTransfers, and has canceled all attached Issuing cards.
         """
         return cast(
-            FinancialAccount,
+            "FinancialAccount",
             await self._request_async(
                 "post",
                 "/v1/treasury/financial_accounts/{financial_account}/close".format(

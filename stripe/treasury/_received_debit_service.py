@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
@@ -9,6 +8,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
     from stripe.params.treasury._received_debit_list_params import (
         ReceivedDebitListParams,
     )
@@ -22,12 +22,12 @@ class ReceivedDebitService(StripeService):
         self,
         params: "ReceivedDebitListParams",
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[ReceivedDebit]:
+    ) -> "ListObject[ReceivedDebit]":
         """
         Returns a list of ReceivedDebits.
         """
         return cast(
-            ListObject[ReceivedDebit],
+            "ListObject[ReceivedDebit]",
             self._request(
                 "get",
                 "/v1/treasury/received_debits",
@@ -41,12 +41,12 @@ class ReceivedDebitService(StripeService):
         self,
         params: "ReceivedDebitListParams",
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[ReceivedDebit]:
+    ) -> "ListObject[ReceivedDebit]":
         """
         Returns a list of ReceivedDebits.
         """
         return cast(
-            ListObject[ReceivedDebit],
+            "ListObject[ReceivedDebit]",
             await self._request_async(
                 "get",
                 "/v1/treasury/received_debits",
@@ -61,12 +61,12 @@ class ReceivedDebitService(StripeService):
         id: str,
         params: Optional["ReceivedDebitRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ReceivedDebit:
+    ) -> "ReceivedDebit":
         """
         Retrieves the details of an existing ReceivedDebit by passing the unique ReceivedDebit ID from the ReceivedDebit list
         """
         return cast(
-            ReceivedDebit,
+            "ReceivedDebit",
             self._request(
                 "get",
                 "/v1/treasury/received_debits/{id}".format(id=sanitize_id(id)),
@@ -81,12 +81,12 @@ class ReceivedDebitService(StripeService):
         id: str,
         params: Optional["ReceivedDebitRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ReceivedDebit:
+    ) -> "ReceivedDebit":
         """
         Retrieves the details of an existing ReceivedDebit by passing the unique ReceivedDebit ID from the ReceivedDebit list
         """
         return cast(
-            ReceivedDebit,
+            "ReceivedDebit",
             await self._request_async(
                 "get",
                 "/v1/treasury/received_debits/{id}".format(id=sanitize_id(id)),

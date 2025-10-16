@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
@@ -9,6 +8,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
     from stripe.params.treasury._outbound_transfer_cancel_params import (
         OutboundTransferCancelParams,
     )
@@ -28,12 +28,12 @@ class OutboundTransferService(StripeService):
         self,
         params: "OutboundTransferListParams",
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[OutboundTransfer]:
+    ) -> "ListObject[OutboundTransfer]":
         """
         Returns a list of OutboundTransfers sent from the specified FinancialAccount.
         """
         return cast(
-            ListObject[OutboundTransfer],
+            "ListObject[OutboundTransfer]",
             self._request(
                 "get",
                 "/v1/treasury/outbound_transfers",
@@ -47,12 +47,12 @@ class OutboundTransferService(StripeService):
         self,
         params: "OutboundTransferListParams",
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[OutboundTransfer]:
+    ) -> "ListObject[OutboundTransfer]":
         """
         Returns a list of OutboundTransfers sent from the specified FinancialAccount.
         """
         return cast(
-            ListObject[OutboundTransfer],
+            "ListObject[OutboundTransfer]",
             await self._request_async(
                 "get",
                 "/v1/treasury/outbound_transfers",
@@ -66,12 +66,12 @@ class OutboundTransferService(StripeService):
         self,
         params: "OutboundTransferCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> OutboundTransfer:
+    ) -> "OutboundTransfer":
         """
         Creates an OutboundTransfer.
         """
         return cast(
-            OutboundTransfer,
+            "OutboundTransfer",
             self._request(
                 "post",
                 "/v1/treasury/outbound_transfers",
@@ -85,12 +85,12 @@ class OutboundTransferService(StripeService):
         self,
         params: "OutboundTransferCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> OutboundTransfer:
+    ) -> "OutboundTransfer":
         """
         Creates an OutboundTransfer.
         """
         return cast(
-            OutboundTransfer,
+            "OutboundTransfer",
             await self._request_async(
                 "post",
                 "/v1/treasury/outbound_transfers",
@@ -105,12 +105,12 @@ class OutboundTransferService(StripeService):
         outbound_transfer: str,
         params: Optional["OutboundTransferRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> OutboundTransfer:
+    ) -> "OutboundTransfer":
         """
         Retrieves the details of an existing OutboundTransfer by passing the unique OutboundTransfer ID from either the OutboundTransfer creation request or OutboundTransfer list.
         """
         return cast(
-            OutboundTransfer,
+            "OutboundTransfer",
             self._request(
                 "get",
                 "/v1/treasury/outbound_transfers/{outbound_transfer}".format(
@@ -127,12 +127,12 @@ class OutboundTransferService(StripeService):
         outbound_transfer: str,
         params: Optional["OutboundTransferRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> OutboundTransfer:
+    ) -> "OutboundTransfer":
         """
         Retrieves the details of an existing OutboundTransfer by passing the unique OutboundTransfer ID from either the OutboundTransfer creation request or OutboundTransfer list.
         """
         return cast(
-            OutboundTransfer,
+            "OutboundTransfer",
             await self._request_async(
                 "get",
                 "/v1/treasury/outbound_transfers/{outbound_transfer}".format(
@@ -149,12 +149,12 @@ class OutboundTransferService(StripeService):
         outbound_transfer: str,
         params: Optional["OutboundTransferCancelParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> OutboundTransfer:
+    ) -> "OutboundTransfer":
         """
         An OutboundTransfer can be canceled if the funds have not yet been paid out.
         """
         return cast(
-            OutboundTransfer,
+            "OutboundTransfer",
             self._request(
                 "post",
                 "/v1/treasury/outbound_transfers/{outbound_transfer}/cancel".format(
@@ -171,12 +171,12 @@ class OutboundTransferService(StripeService):
         outbound_transfer: str,
         params: Optional["OutboundTransferCancelParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> OutboundTransfer:
+    ) -> "OutboundTransfer":
         """
         An OutboundTransfer can be canceled if the funds have not yet been paid out.
         """
         return cast(
-            OutboundTransfer,
+            "OutboundTransfer",
             await self._request_async(
                 "post",
                 "/v1/treasury/outbound_transfers/{outbound_transfer}/cancel".format(

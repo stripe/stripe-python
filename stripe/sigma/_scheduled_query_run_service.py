@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
@@ -9,6 +8,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
     from stripe.params.sigma._scheduled_query_run_list_params import (
         ScheduledQueryRunListParams,
     )
@@ -22,12 +22,12 @@ class ScheduledQueryRunService(StripeService):
         self,
         params: Optional["ScheduledQueryRunListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[ScheduledQueryRun]:
+    ) -> "ListObject[ScheduledQueryRun]":
         """
         Returns a list of scheduled query runs.
         """
         return cast(
-            ListObject[ScheduledQueryRun],
+            "ListObject[ScheduledQueryRun]",
             self._request(
                 "get",
                 "/v1/sigma/scheduled_query_runs",
@@ -41,12 +41,12 @@ class ScheduledQueryRunService(StripeService):
         self,
         params: Optional["ScheduledQueryRunListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[ScheduledQueryRun]:
+    ) -> "ListObject[ScheduledQueryRun]":
         """
         Returns a list of scheduled query runs.
         """
         return cast(
-            ListObject[ScheduledQueryRun],
+            "ListObject[ScheduledQueryRun]",
             await self._request_async(
                 "get",
                 "/v1/sigma/scheduled_query_runs",
@@ -61,12 +61,12 @@ class ScheduledQueryRunService(StripeService):
         scheduled_query_run: str,
         params: Optional["ScheduledQueryRunRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ScheduledQueryRun:
+    ) -> "ScheduledQueryRun":
         """
         Retrieves the details of an scheduled query run.
         """
         return cast(
-            ScheduledQueryRun,
+            "ScheduledQueryRun",
             self._request(
                 "get",
                 "/v1/sigma/scheduled_query_runs/{scheduled_query_run}".format(
@@ -83,12 +83,12 @@ class ScheduledQueryRunService(StripeService):
         scheduled_query_run: str,
         params: Optional["ScheduledQueryRunRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ScheduledQueryRun:
+    ) -> "ScheduledQueryRun":
         """
         Retrieves the details of an scheduled query run.
         """
         return cast(
-            ScheduledQueryRun,
+            "ScheduledQueryRun",
             await self._request_async(
                 "get",
                 "/v1/sigma/scheduled_query_runs/{scheduled_query_run}".format(

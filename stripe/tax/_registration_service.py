@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
@@ -9,6 +8,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
     from stripe.params.tax._registration_create_params import (
         RegistrationCreateParams,
     )
@@ -28,12 +28,12 @@ class RegistrationService(StripeService):
         self,
         params: Optional["RegistrationListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[Registration]:
+    ) -> "ListObject[Registration]":
         """
         Returns a list of Tax Registration objects.
         """
         return cast(
-            ListObject[Registration],
+            "ListObject[Registration]",
             self._request(
                 "get",
                 "/v1/tax/registrations",
@@ -47,12 +47,12 @@ class RegistrationService(StripeService):
         self,
         params: Optional["RegistrationListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[Registration]:
+    ) -> "ListObject[Registration]":
         """
         Returns a list of Tax Registration objects.
         """
         return cast(
-            ListObject[Registration],
+            "ListObject[Registration]",
             await self._request_async(
                 "get",
                 "/v1/tax/registrations",
@@ -66,12 +66,12 @@ class RegistrationService(StripeService):
         self,
         params: "RegistrationCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> Registration:
+    ) -> "Registration":
         """
         Creates a new Tax Registration object.
         """
         return cast(
-            Registration,
+            "Registration",
             self._request(
                 "post",
                 "/v1/tax/registrations",
@@ -85,12 +85,12 @@ class RegistrationService(StripeService):
         self,
         params: "RegistrationCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> Registration:
+    ) -> "Registration":
         """
         Creates a new Tax Registration object.
         """
         return cast(
-            Registration,
+            "Registration",
             await self._request_async(
                 "post",
                 "/v1/tax/registrations",
@@ -105,12 +105,12 @@ class RegistrationService(StripeService):
         id: str,
         params: Optional["RegistrationRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Registration:
+    ) -> "Registration":
         """
         Returns a Tax Registration object.
         """
         return cast(
-            Registration,
+            "Registration",
             self._request(
                 "get",
                 "/v1/tax/registrations/{id}".format(id=sanitize_id(id)),
@@ -125,12 +125,12 @@ class RegistrationService(StripeService):
         id: str,
         params: Optional["RegistrationRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Registration:
+    ) -> "Registration":
         """
         Returns a Tax Registration object.
         """
         return cast(
-            Registration,
+            "Registration",
             await self._request_async(
                 "get",
                 "/v1/tax/registrations/{id}".format(id=sanitize_id(id)),
@@ -145,14 +145,14 @@ class RegistrationService(StripeService):
         id: str,
         params: Optional["RegistrationUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Registration:
+    ) -> "Registration":
         """
         Updates an existing Tax Registration object.
 
         A registration cannot be deleted after it has been created. If you wish to end a registration you may do so by setting expires_at.
         """
         return cast(
-            Registration,
+            "Registration",
             self._request(
                 "post",
                 "/v1/tax/registrations/{id}".format(id=sanitize_id(id)),
@@ -167,14 +167,14 @@ class RegistrationService(StripeService):
         id: str,
         params: Optional["RegistrationUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Registration:
+    ) -> "Registration":
         """
         Updates an existing Tax Registration object.
 
         A registration cannot be deleted after it has been created. If you wish to end a registration you may do so by setting expires_at.
         """
         return cast(
-            Registration,
+            "Registration",
             await self._request_async(
                 "post",
                 "/v1/tax/registrations/{id}".format(id=sanitize_id(id)),

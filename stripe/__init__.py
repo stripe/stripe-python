@@ -44,6 +44,10 @@ ca_bundle_path: str = os.path.join(
 default_http_client = None
 _default_proxy = None
 
+from stripe._http_client import (
+    new_default_http_client as new_default_http_client,
+)
+
 
 def ensure_default_http_client():
     if default_http_client:
@@ -55,8 +59,6 @@ def ensure_default_http_client():
 def _init_default_http_client():
     global _default_proxy
     global default_http_client
-
-    from stripe._http_client import new_default_http_client
 
     # If the stripe.default_http_client has not been set by the user
     # yet, we'll set it here. This way, we aren't creating a new

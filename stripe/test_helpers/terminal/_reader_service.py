@@ -3,7 +3,6 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.terminal._reader import Reader
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
@@ -17,6 +16,7 @@ if TYPE_CHECKING:
     from stripe.params.test_helpers.terminal._reader_timeout_input_collection_params import (
         ReaderTimeoutInputCollectionParams,
     )
+    from stripe.terminal._reader import Reader
 
 
 class ReaderService(StripeService):
@@ -25,12 +25,12 @@ class ReaderService(StripeService):
         reader: str,
         params: Optional["ReaderPresentPaymentMethodParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Reader:
+    ) -> "Reader":
         """
         Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.
         """
         return cast(
-            Reader,
+            "Reader",
             self._request(
                 "post",
                 "/v1/test_helpers/terminal/readers/{reader}/present_payment_method".format(
@@ -47,12 +47,12 @@ class ReaderService(StripeService):
         reader: str,
         params: Optional["ReaderPresentPaymentMethodParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Reader:
+    ) -> "Reader":
         """
         Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.
         """
         return cast(
-            Reader,
+            "Reader",
             await self._request_async(
                 "post",
                 "/v1/test_helpers/terminal/readers/{reader}/present_payment_method".format(
@@ -69,12 +69,12 @@ class ReaderService(StripeService):
         reader: str,
         params: Optional["ReaderSucceedInputCollectionParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Reader:
+    ) -> "Reader":
         """
         Use this endpoint to trigger a successful input collection on a simulated reader.
         """
         return cast(
-            Reader,
+            "Reader",
             self._request(
                 "post",
                 "/v1/test_helpers/terminal/readers/{reader}/succeed_input_collection".format(
@@ -91,12 +91,12 @@ class ReaderService(StripeService):
         reader: str,
         params: Optional["ReaderSucceedInputCollectionParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Reader:
+    ) -> "Reader":
         """
         Use this endpoint to trigger a successful input collection on a simulated reader.
         """
         return cast(
-            Reader,
+            "Reader",
             await self._request_async(
                 "post",
                 "/v1/test_helpers/terminal/readers/{reader}/succeed_input_collection".format(
@@ -113,12 +113,12 @@ class ReaderService(StripeService):
         reader: str,
         params: Optional["ReaderTimeoutInputCollectionParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Reader:
+    ) -> "Reader":
         """
         Use this endpoint to complete an input collection with a timeout error on a simulated reader.
         """
         return cast(
-            Reader,
+            "Reader",
             self._request(
                 "post",
                 "/v1/test_helpers/terminal/readers/{reader}/timeout_input_collection".format(
@@ -135,12 +135,12 @@ class ReaderService(StripeService):
         reader: str,
         params: Optional["ReaderTimeoutInputCollectionParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Reader:
+    ) -> "Reader":
         """
         Use this endpoint to complete an input collection with a timeout error on a simulated reader.
         """
         return cast(
-            Reader,
+            "Reader",
             await self._request_async(
                 "post",
                 "/v1/test_helpers/terminal/readers/{reader}/timeout_input_collection".format(

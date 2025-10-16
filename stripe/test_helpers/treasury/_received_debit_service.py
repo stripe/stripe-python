@@ -2,7 +2,6 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
-from stripe.treasury._received_debit import ReceivedDebit
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
@@ -10,6 +9,7 @@ if TYPE_CHECKING:
     from stripe.params.test_helpers.treasury._received_debit_create_params import (
         ReceivedDebitCreateParams,
     )
+    from stripe.treasury._received_debit import ReceivedDebit
 
 
 class ReceivedDebitService(StripeService):
@@ -17,12 +17,12 @@ class ReceivedDebitService(StripeService):
         self,
         params: "ReceivedDebitCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> ReceivedDebit:
+    ) -> "ReceivedDebit":
         """
         Use this endpoint to simulate a test mode ReceivedDebit initiated by a third party. In live mode, you can't directly create ReceivedDebits initiated by third parties.
         """
         return cast(
-            ReceivedDebit,
+            "ReceivedDebit",
             self._request(
                 "post",
                 "/v1/test_helpers/treasury/received_debits",
@@ -36,12 +36,12 @@ class ReceivedDebitService(StripeService):
         self,
         params: "ReceivedDebitCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> ReceivedDebit:
+    ) -> "ReceivedDebit":
         """
         Use this endpoint to simulate a test mode ReceivedDebit initiated by a third party. In live mode, you can't directly create ReceivedDebits initiated by third parties.
         """
         return cast(
-            ReceivedDebit,
+            "ReceivedDebit",
             await self._request_async(
                 "post",
                 "/v1/test_helpers/treasury/received_debits",

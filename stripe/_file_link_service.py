@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._file_link import FileLink
-from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
@@ -9,6 +8,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
     from stripe.params._file_link_create_params import FileLinkCreateParams
     from stripe.params._file_link_list_params import FileLinkListParams
     from stripe.params._file_link_retrieve_params import FileLinkRetrieveParams
@@ -20,12 +20,12 @@ class FileLinkService(StripeService):
         self,
         params: Optional["FileLinkListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[FileLink]:
+    ) -> "ListObject[FileLink]":
         """
         Returns a list of file links.
         """
         return cast(
-            ListObject[FileLink],
+            "ListObject[FileLink]",
             self._request(
                 "get",
                 "/v1/file_links",
@@ -39,12 +39,12 @@ class FileLinkService(StripeService):
         self,
         params: Optional["FileLinkListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[FileLink]:
+    ) -> "ListObject[FileLink]":
         """
         Returns a list of file links.
         """
         return cast(
-            ListObject[FileLink],
+            "ListObject[FileLink]",
             await self._request_async(
                 "get",
                 "/v1/file_links",
@@ -58,12 +58,12 @@ class FileLinkService(StripeService):
         self,
         params: "FileLinkCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> FileLink:
+    ) -> "FileLink":
         """
         Creates a new file link object.
         """
         return cast(
-            FileLink,
+            "FileLink",
             self._request(
                 "post",
                 "/v1/file_links",
@@ -77,12 +77,12 @@ class FileLinkService(StripeService):
         self,
         params: "FileLinkCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> FileLink:
+    ) -> "FileLink":
         """
         Creates a new file link object.
         """
         return cast(
-            FileLink,
+            "FileLink",
             await self._request_async(
                 "post",
                 "/v1/file_links",
@@ -97,12 +97,12 @@ class FileLinkService(StripeService):
         link: str,
         params: Optional["FileLinkRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> FileLink:
+    ) -> "FileLink":
         """
         Retrieves the file link with the given ID.
         """
         return cast(
-            FileLink,
+            "FileLink",
             self._request(
                 "get",
                 "/v1/file_links/{link}".format(link=sanitize_id(link)),
@@ -117,12 +117,12 @@ class FileLinkService(StripeService):
         link: str,
         params: Optional["FileLinkRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> FileLink:
+    ) -> "FileLink":
         """
         Retrieves the file link with the given ID.
         """
         return cast(
-            FileLink,
+            "FileLink",
             await self._request_async(
                 "get",
                 "/v1/file_links/{link}".format(link=sanitize_id(link)),
@@ -137,12 +137,12 @@ class FileLinkService(StripeService):
         link: str,
         params: Optional["FileLinkUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> FileLink:
+    ) -> "FileLink":
         """
         Updates an existing file link object. Expired links can no longer be updated.
         """
         return cast(
-            FileLink,
+            "FileLink",
             self._request(
                 "post",
                 "/v1/file_links/{link}".format(link=sanitize_id(link)),
@@ -157,12 +157,12 @@ class FileLinkService(StripeService):
         link: str,
         params: Optional["FileLinkUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> FileLink:
+    ) -> "FileLink":
         """
         Updates an existing file link object. Expired links can no longer be updated.
         """
         return cast(
-            FileLink,
+            "FileLink",
             await self._request_async(
                 "post",
                 "/v1/file_links/{link}".format(link=sanitize_id(link)),

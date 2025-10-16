@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
 from stripe._plan import Plan
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
@@ -9,6 +8,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
     from stripe.params._plan_create_params import PlanCreateParams
     from stripe.params._plan_delete_params import PlanDeleteParams
     from stripe.params._plan_list_params import PlanListParams
@@ -22,12 +22,12 @@ class PlanService(StripeService):
         plan: str,
         params: Optional["PlanDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Plan:
+    ) -> "Plan":
         """
         Deleting plans means new subscribers can't be added. Existing subscribers aren't affected.
         """
         return cast(
-            Plan,
+            "Plan",
             self._request(
                 "delete",
                 "/v1/plans/{plan}".format(plan=sanitize_id(plan)),
@@ -42,12 +42,12 @@ class PlanService(StripeService):
         plan: str,
         params: Optional["PlanDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Plan:
+    ) -> "Plan":
         """
         Deleting plans means new subscribers can't be added. Existing subscribers aren't affected.
         """
         return cast(
-            Plan,
+            "Plan",
             await self._request_async(
                 "delete",
                 "/v1/plans/{plan}".format(plan=sanitize_id(plan)),
@@ -62,12 +62,12 @@ class PlanService(StripeService):
         plan: str,
         params: Optional["PlanRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Plan:
+    ) -> "Plan":
         """
         Retrieves the plan with the given ID.
         """
         return cast(
-            Plan,
+            "Plan",
             self._request(
                 "get",
                 "/v1/plans/{plan}".format(plan=sanitize_id(plan)),
@@ -82,12 +82,12 @@ class PlanService(StripeService):
         plan: str,
         params: Optional["PlanRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Plan:
+    ) -> "Plan":
         """
         Retrieves the plan with the given ID.
         """
         return cast(
-            Plan,
+            "Plan",
             await self._request_async(
                 "get",
                 "/v1/plans/{plan}".format(plan=sanitize_id(plan)),
@@ -102,12 +102,12 @@ class PlanService(StripeService):
         plan: str,
         params: Optional["PlanUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Plan:
+    ) -> "Plan":
         """
         Updates the specified plan by setting the values of the parameters passed. Any parameters not provided are left unchanged. By design, you cannot change a plan's ID, amount, currency, or billing cycle.
         """
         return cast(
-            Plan,
+            "Plan",
             self._request(
                 "post",
                 "/v1/plans/{plan}".format(plan=sanitize_id(plan)),
@@ -122,12 +122,12 @@ class PlanService(StripeService):
         plan: str,
         params: Optional["PlanUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Plan:
+    ) -> "Plan":
         """
         Updates the specified plan by setting the values of the parameters passed. Any parameters not provided are left unchanged. By design, you cannot change a plan's ID, amount, currency, or billing cycle.
         """
         return cast(
-            Plan,
+            "Plan",
             await self._request_async(
                 "post",
                 "/v1/plans/{plan}".format(plan=sanitize_id(plan)),
@@ -141,12 +141,12 @@ class PlanService(StripeService):
         self,
         params: Optional["PlanListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[Plan]:
+    ) -> "ListObject[Plan]":
         """
         Returns a list of your plans.
         """
         return cast(
-            ListObject[Plan],
+            "ListObject[Plan]",
             self._request(
                 "get",
                 "/v1/plans",
@@ -160,12 +160,12 @@ class PlanService(StripeService):
         self,
         params: Optional["PlanListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[Plan]:
+    ) -> "ListObject[Plan]":
         """
         Returns a list of your plans.
         """
         return cast(
-            ListObject[Plan],
+            "ListObject[Plan]",
             await self._request_async(
                 "get",
                 "/v1/plans",
@@ -179,12 +179,12 @@ class PlanService(StripeService):
         self,
         params: "PlanCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> Plan:
+    ) -> "Plan":
         """
         You can now model subscriptions more flexibly using the [Prices API](https://docs.stripe.com/api#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
         """
         return cast(
-            Plan,
+            "Plan",
             self._request(
                 "post",
                 "/v1/plans",
@@ -198,12 +198,12 @@ class PlanService(StripeService):
         self,
         params: "PlanCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> Plan:
+    ) -> "Plan":
         """
         You can now model subscriptions more flexibly using the [Prices API](https://docs.stripe.com/api#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
         """
         return cast(
-            Plan,
+            "Plan",
             await self._request_async(
                 "post",
                 "/v1/plans",

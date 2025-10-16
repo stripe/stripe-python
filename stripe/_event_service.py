@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._event import Event
-from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
@@ -9,6 +8,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
     from stripe.params._event_list_params import EventListParams
     from stripe.params._event_retrieve_params import EventRetrieveParams
 
@@ -18,12 +18,12 @@ class EventService(StripeService):
         self,
         params: Optional["EventListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[Event]:
+    ) -> "ListObject[Event]":
         """
         List events, going back up to 30 days. Each event data is rendered according to Stripe API version at its creation time, specified in [event object](https://docs.stripe.com/api/events/object) api_version attribute (not according to your current Stripe API version or Stripe-Version header).
         """
         return cast(
-            ListObject[Event],
+            "ListObject[Event]",
             self._request(
                 "get",
                 "/v1/events",
@@ -37,12 +37,12 @@ class EventService(StripeService):
         self,
         params: Optional["EventListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[Event]:
+    ) -> "ListObject[Event]":
         """
         List events, going back up to 30 days. Each event data is rendered according to Stripe API version at its creation time, specified in [event object](https://docs.stripe.com/api/events/object) api_version attribute (not according to your current Stripe API version or Stripe-Version header).
         """
         return cast(
-            ListObject[Event],
+            "ListObject[Event]",
             await self._request_async(
                 "get",
                 "/v1/events",
@@ -57,12 +57,12 @@ class EventService(StripeService):
         id: str,
         params: Optional["EventRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Event:
+    ) -> "Event":
         """
         Retrieves the details of an event if it was created in the last 30 days. Supply the unique identifier of the event, which you might have received in a webhook.
         """
         return cast(
-            Event,
+            "Event",
             self._request(
                 "get",
                 "/v1/events/{id}".format(id=sanitize_id(id)),
@@ -77,12 +77,12 @@ class EventService(StripeService):
         id: str,
         params: Optional["EventRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Event:
+    ) -> "Event":
         """
         Retrieves the details of an event if it was created in the last 30 days. Supply the unique identifier of the event, which you might have received in a webhook.
         """
         return cast(
-            Event,
+            "Event",
             await self._request_async(
                 "get",
                 "/v1/events/{id}".format(id=sanitize_id(id)),

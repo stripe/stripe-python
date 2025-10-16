@@ -98,7 +98,7 @@ class V2CoreEventDestinationPingEvent(Event):
         Retrieves the related object from the API. Makes an API request on every call.
         """
         return cast(
-            EventDestination,
+            "EventDestination",
             self._requestor.request(
                 "get",
                 self.related_object.url,

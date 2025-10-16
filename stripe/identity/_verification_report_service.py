@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
@@ -9,6 +8,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
     from stripe.params.identity._verification_report_list_params import (
         VerificationReportListParams,
     )
@@ -22,12 +22,12 @@ class VerificationReportService(StripeService):
         self,
         params: Optional["VerificationReportListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[VerificationReport]:
+    ) -> "ListObject[VerificationReport]":
         """
         List all verification reports.
         """
         return cast(
-            ListObject[VerificationReport],
+            "ListObject[VerificationReport]",
             self._request(
                 "get",
                 "/v1/identity/verification_reports",
@@ -41,12 +41,12 @@ class VerificationReportService(StripeService):
         self,
         params: Optional["VerificationReportListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[VerificationReport]:
+    ) -> "ListObject[VerificationReport]":
         """
         List all verification reports.
         """
         return cast(
-            ListObject[VerificationReport],
+            "ListObject[VerificationReport]",
             await self._request_async(
                 "get",
                 "/v1/identity/verification_reports",
@@ -61,12 +61,12 @@ class VerificationReportService(StripeService):
         report: str,
         params: Optional["VerificationReportRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> VerificationReport:
+    ) -> "VerificationReport":
         """
         Retrieves an existing VerificationReport
         """
         return cast(
-            VerificationReport,
+            "VerificationReport",
             self._request(
                 "get",
                 "/v1/identity/verification_reports/{report}".format(
@@ -83,12 +83,12 @@ class VerificationReportService(StripeService):
         report: str,
         params: Optional["VerificationReportRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> VerificationReport:
+    ) -> "VerificationReport":
         """
         Retrieves an existing VerificationReport
         """
         return cast(
-            VerificationReport,
+            "VerificationReport",
             await self._request_async(
                 "get",
                 "/v1/identity/verification_reports/{report}".format(

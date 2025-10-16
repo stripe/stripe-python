@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
@@ -9,6 +8,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
     from stripe.params._webhook_endpoint_create_params import (
         WebhookEndpointCreateParams,
     )
@@ -32,12 +32,12 @@ class WebhookEndpointService(StripeService):
         webhook_endpoint: str,
         params: Optional["WebhookEndpointDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> WebhookEndpoint:
+    ) -> "WebhookEndpoint":
         """
         You can also delete webhook endpoints via the [webhook endpoint management](https://dashboard.stripe.com/account/webhooks) page of the Stripe dashboard.
         """
         return cast(
-            WebhookEndpoint,
+            "WebhookEndpoint",
             self._request(
                 "delete",
                 "/v1/webhook_endpoints/{webhook_endpoint}".format(
@@ -54,12 +54,12 @@ class WebhookEndpointService(StripeService):
         webhook_endpoint: str,
         params: Optional["WebhookEndpointDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> WebhookEndpoint:
+    ) -> "WebhookEndpoint":
         """
         You can also delete webhook endpoints via the [webhook endpoint management](https://dashboard.stripe.com/account/webhooks) page of the Stripe dashboard.
         """
         return cast(
-            WebhookEndpoint,
+            "WebhookEndpoint",
             await self._request_async(
                 "delete",
                 "/v1/webhook_endpoints/{webhook_endpoint}".format(
@@ -76,12 +76,12 @@ class WebhookEndpointService(StripeService):
         webhook_endpoint: str,
         params: Optional["WebhookEndpointRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> WebhookEndpoint:
+    ) -> "WebhookEndpoint":
         """
         Retrieves the webhook endpoint with the given ID.
         """
         return cast(
-            WebhookEndpoint,
+            "WebhookEndpoint",
             self._request(
                 "get",
                 "/v1/webhook_endpoints/{webhook_endpoint}".format(
@@ -98,12 +98,12 @@ class WebhookEndpointService(StripeService):
         webhook_endpoint: str,
         params: Optional["WebhookEndpointRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> WebhookEndpoint:
+    ) -> "WebhookEndpoint":
         """
         Retrieves the webhook endpoint with the given ID.
         """
         return cast(
-            WebhookEndpoint,
+            "WebhookEndpoint",
             await self._request_async(
                 "get",
                 "/v1/webhook_endpoints/{webhook_endpoint}".format(
@@ -120,12 +120,12 @@ class WebhookEndpointService(StripeService):
         webhook_endpoint: str,
         params: Optional["WebhookEndpointUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> WebhookEndpoint:
+    ) -> "WebhookEndpoint":
         """
         Updates the webhook endpoint. You may edit the url, the list of enabled_events, and the status of your endpoint.
         """
         return cast(
-            WebhookEndpoint,
+            "WebhookEndpoint",
             self._request(
                 "post",
                 "/v1/webhook_endpoints/{webhook_endpoint}".format(
@@ -142,12 +142,12 @@ class WebhookEndpointService(StripeService):
         webhook_endpoint: str,
         params: Optional["WebhookEndpointUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> WebhookEndpoint:
+    ) -> "WebhookEndpoint":
         """
         Updates the webhook endpoint. You may edit the url, the list of enabled_events, and the status of your endpoint.
         """
         return cast(
-            WebhookEndpoint,
+            "WebhookEndpoint",
             await self._request_async(
                 "post",
                 "/v1/webhook_endpoints/{webhook_endpoint}".format(
@@ -163,12 +163,12 @@ class WebhookEndpointService(StripeService):
         self,
         params: Optional["WebhookEndpointListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[WebhookEndpoint]:
+    ) -> "ListObject[WebhookEndpoint]":
         """
         Returns a list of your webhook endpoints.
         """
         return cast(
-            ListObject[WebhookEndpoint],
+            "ListObject[WebhookEndpoint]",
             self._request(
                 "get",
                 "/v1/webhook_endpoints",
@@ -182,12 +182,12 @@ class WebhookEndpointService(StripeService):
         self,
         params: Optional["WebhookEndpointListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[WebhookEndpoint]:
+    ) -> "ListObject[WebhookEndpoint]":
         """
         Returns a list of your webhook endpoints.
         """
         return cast(
-            ListObject[WebhookEndpoint],
+            "ListObject[WebhookEndpoint]",
             await self._request_async(
                 "get",
                 "/v1/webhook_endpoints",
@@ -201,12 +201,12 @@ class WebhookEndpointService(StripeService):
         self,
         params: "WebhookEndpointCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> WebhookEndpoint:
+    ) -> "WebhookEndpoint":
         """
         A webhook endpoint must have a url and a list of enabled_events. You may optionally specify the Boolean connect parameter. If set to true, then a Connect webhook endpoint that notifies the specified url about events from all connected accounts is created; otherwise an account webhook endpoint that notifies the specified url only about events from your account is created. You can also create webhook endpoints in the [webhooks settings](https://dashboard.stripe.com/account/webhooks) section of the Dashboard.
         """
         return cast(
-            WebhookEndpoint,
+            "WebhookEndpoint",
             self._request(
                 "post",
                 "/v1/webhook_endpoints",
@@ -220,12 +220,12 @@ class WebhookEndpointService(StripeService):
         self,
         params: "WebhookEndpointCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> WebhookEndpoint:
+    ) -> "WebhookEndpoint":
         """
         A webhook endpoint must have a url and a list of enabled_events. You may optionally specify the Boolean connect parameter. If set to true, then a Connect webhook endpoint that notifies the specified url about events from all connected accounts is created; otherwise an account webhook endpoint that notifies the specified url only about events from your account is created. You can also create webhook endpoints in the [webhooks settings](https://dashboard.stripe.com/account/webhooks) section of the Dashboard.
         """
         return cast(
-            WebhookEndpoint,
+            "WebhookEndpoint",
             await self._request_async(
                 "post",
                 "/v1/webhook_endpoints",

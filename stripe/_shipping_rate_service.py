@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._shipping_rate import ShippingRate
 from stripe._stripe_service import StripeService
@@ -9,6 +8,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
     from stripe.params._shipping_rate_create_params import (
         ShippingRateCreateParams,
     )
@@ -26,12 +26,12 @@ class ShippingRateService(StripeService):
         self,
         params: Optional["ShippingRateListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[ShippingRate]:
+    ) -> "ListObject[ShippingRate]":
         """
         Returns a list of your shipping rates.
         """
         return cast(
-            ListObject[ShippingRate],
+            "ListObject[ShippingRate]",
             self._request(
                 "get",
                 "/v1/shipping_rates",
@@ -45,12 +45,12 @@ class ShippingRateService(StripeService):
         self,
         params: Optional["ShippingRateListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[ShippingRate]:
+    ) -> "ListObject[ShippingRate]":
         """
         Returns a list of your shipping rates.
         """
         return cast(
-            ListObject[ShippingRate],
+            "ListObject[ShippingRate]",
             await self._request_async(
                 "get",
                 "/v1/shipping_rates",
@@ -64,12 +64,12 @@ class ShippingRateService(StripeService):
         self,
         params: "ShippingRateCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> ShippingRate:
+    ) -> "ShippingRate":
         """
         Creates a new shipping rate object.
         """
         return cast(
-            ShippingRate,
+            "ShippingRate",
             self._request(
                 "post",
                 "/v1/shipping_rates",
@@ -83,12 +83,12 @@ class ShippingRateService(StripeService):
         self,
         params: "ShippingRateCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> ShippingRate:
+    ) -> "ShippingRate":
         """
         Creates a new shipping rate object.
         """
         return cast(
-            ShippingRate,
+            "ShippingRate",
             await self._request_async(
                 "post",
                 "/v1/shipping_rates",
@@ -103,12 +103,12 @@ class ShippingRateService(StripeService):
         shipping_rate_token: str,
         params: Optional["ShippingRateRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ShippingRate:
+    ) -> "ShippingRate":
         """
         Returns the shipping rate object with the given ID.
         """
         return cast(
-            ShippingRate,
+            "ShippingRate",
             self._request(
                 "get",
                 "/v1/shipping_rates/{shipping_rate_token}".format(
@@ -125,12 +125,12 @@ class ShippingRateService(StripeService):
         shipping_rate_token: str,
         params: Optional["ShippingRateRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ShippingRate:
+    ) -> "ShippingRate":
         """
         Returns the shipping rate object with the given ID.
         """
         return cast(
-            ShippingRate,
+            "ShippingRate",
             await self._request_async(
                 "get",
                 "/v1/shipping_rates/{shipping_rate_token}".format(
@@ -147,12 +147,12 @@ class ShippingRateService(StripeService):
         shipping_rate_token: str,
         params: Optional["ShippingRateUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ShippingRate:
+    ) -> "ShippingRate":
         """
         Updates an existing shipping rate object.
         """
         return cast(
-            ShippingRate,
+            "ShippingRate",
             self._request(
                 "post",
                 "/v1/shipping_rates/{shipping_rate_token}".format(
@@ -169,12 +169,12 @@ class ShippingRateService(StripeService):
         shipping_rate_token: str,
         params: Optional["ShippingRateUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ShippingRate:
+    ) -> "ShippingRate":
         """
         Updates an existing shipping rate object.
         """
         return cast(
-            ShippingRate,
+            "ShippingRate",
             await self._request_async(
                 "post",
                 "/v1/shipping_rates/{shipping_rate_token}".format(

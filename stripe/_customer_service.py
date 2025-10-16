@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._customer import Customer
-from stripe._discount import Discount
-from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
-from stripe._search_result_object import SearchResultObject
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
@@ -31,6 +28,9 @@ if TYPE_CHECKING:
         CustomerPaymentSourceService,
     )
     from stripe._customer_tax_id_service import CustomerTaxIdService
+    from stripe._discount import Discount
+    from stripe._list_object import ListObject
+    from stripe._search_result_object import SearchResultObject
     from stripe.params._customer_create_params import CustomerCreateParams
     from stripe.params._customer_delete_discount_params import (
         CustomerDeleteDiscountParams,
@@ -103,12 +103,12 @@ class CustomerService(StripeService):
         customer: str,
         params: Optional["CustomerDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Customer:
+    ) -> "Customer":
         """
         Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
         """
         return cast(
-            Customer,
+            "Customer",
             self._request(
                 "delete",
                 "/v1/customers/{customer}".format(
@@ -125,12 +125,12 @@ class CustomerService(StripeService):
         customer: str,
         params: Optional["CustomerDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Customer:
+    ) -> "Customer":
         """
         Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
         """
         return cast(
-            Customer,
+            "Customer",
             await self._request_async(
                 "delete",
                 "/v1/customers/{customer}".format(
@@ -147,12 +147,12 @@ class CustomerService(StripeService):
         customer: str,
         params: Optional["CustomerRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Customer:
+    ) -> "Customer":
         """
         Retrieves a Customer object.
         """
         return cast(
-            Customer,
+            "Customer",
             self._request(
                 "get",
                 "/v1/customers/{customer}".format(
@@ -169,12 +169,12 @@ class CustomerService(StripeService):
         customer: str,
         params: Optional["CustomerRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Customer:
+    ) -> "Customer":
         """
         Retrieves a Customer object.
         """
         return cast(
-            Customer,
+            "Customer",
             await self._request_async(
                 "get",
                 "/v1/customers/{customer}".format(
@@ -191,14 +191,14 @@ class CustomerService(StripeService):
         customer: str,
         params: Optional["CustomerUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Customer:
+    ) -> "Customer":
         """
         Updates the specified customer by setting the values of the parameters passed. Any parameters not provided will be left unchanged. For example, if you pass the source parameter, that becomes the customer's active source (e.g., a card) to be used for all charges in the future. When you update a customer to a new valid card source by passing the source parameter: for each of the customer's current subscriptions, if the subscription bills automatically and is in the past_due state, then the latest open invoice for the subscription with automatic collection enabled will be retried. This retry will not count as an automatic retry, and will not affect the next regularly scheduled payment for the invoice. Changing the default_source for a customer will not trigger this behavior.
 
         This request accepts mostly the same arguments as the customer creation call.
         """
         return cast(
-            Customer,
+            "Customer",
             self._request(
                 "post",
                 "/v1/customers/{customer}".format(
@@ -215,14 +215,14 @@ class CustomerService(StripeService):
         customer: str,
         params: Optional["CustomerUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Customer:
+    ) -> "Customer":
         """
         Updates the specified customer by setting the values of the parameters passed. Any parameters not provided will be left unchanged. For example, if you pass the source parameter, that becomes the customer's active source (e.g., a card) to be used for all charges in the future. When you update a customer to a new valid card source by passing the source parameter: for each of the customer's current subscriptions, if the subscription bills automatically and is in the past_due state, then the latest open invoice for the subscription with automatic collection enabled will be retried. This retry will not count as an automatic retry, and will not affect the next regularly scheduled payment for the invoice. Changing the default_source for a customer will not trigger this behavior.
 
         This request accepts mostly the same arguments as the customer creation call.
         """
         return cast(
-            Customer,
+            "Customer",
             await self._request_async(
                 "post",
                 "/v1/customers/{customer}".format(
@@ -239,12 +239,12 @@ class CustomerService(StripeService):
         customer: str,
         params: Optional["CustomerDeleteDiscountParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Discount:
+    ) -> "Discount":
         """
         Removes the currently applied discount on a customer.
         """
         return cast(
-            Discount,
+            "Discount",
             self._request(
                 "delete",
                 "/v1/customers/{customer}/discount".format(
@@ -261,12 +261,12 @@ class CustomerService(StripeService):
         customer: str,
         params: Optional["CustomerDeleteDiscountParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Discount:
+    ) -> "Discount":
         """
         Removes the currently applied discount on a customer.
         """
         return cast(
-            Discount,
+            "Discount",
             await self._request_async(
                 "delete",
                 "/v1/customers/{customer}/discount".format(
@@ -282,12 +282,12 @@ class CustomerService(StripeService):
         self,
         params: Optional["CustomerListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[Customer]:
+    ) -> "ListObject[Customer]":
         """
         Returns a list of your customers. The customers are returned sorted by creation date, with the most recent customers appearing first.
         """
         return cast(
-            ListObject[Customer],
+            "ListObject[Customer]",
             self._request(
                 "get",
                 "/v1/customers",
@@ -301,12 +301,12 @@ class CustomerService(StripeService):
         self,
         params: Optional["CustomerListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[Customer]:
+    ) -> "ListObject[Customer]":
         """
         Returns a list of your customers. The customers are returned sorted by creation date, with the most recent customers appearing first.
         """
         return cast(
-            ListObject[Customer],
+            "ListObject[Customer]",
             await self._request_async(
                 "get",
                 "/v1/customers",
@@ -320,12 +320,12 @@ class CustomerService(StripeService):
         self,
         params: Optional["CustomerCreateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Customer:
+    ) -> "Customer":
         """
         Creates a new customer object.
         """
         return cast(
-            Customer,
+            "Customer",
             self._request(
                 "post",
                 "/v1/customers",
@@ -339,12 +339,12 @@ class CustomerService(StripeService):
         self,
         params: Optional["CustomerCreateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Customer:
+    ) -> "Customer":
         """
         Creates a new customer object.
         """
         return cast(
-            Customer,
+            "Customer",
             await self._request_async(
                 "post",
                 "/v1/customers",
@@ -358,7 +358,7 @@ class CustomerService(StripeService):
         self,
         params: "CustomerSearchParams",
         options: Optional[RequestOptions] = None,
-    ) -> SearchResultObject[Customer]:
+    ) -> "SearchResultObject[Customer]":
         """
         Search for customers you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
         Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
@@ -366,7 +366,7 @@ class CustomerService(StripeService):
         to an hour behind during outages. Search functionality is not available to merchants in India.
         """
         return cast(
-            SearchResultObject[Customer],
+            "SearchResultObject[Customer]",
             self._request(
                 "get",
                 "/v1/customers/search",
@@ -380,7 +380,7 @@ class CustomerService(StripeService):
         self,
         params: "CustomerSearchParams",
         options: Optional[RequestOptions] = None,
-    ) -> SearchResultObject[Customer]:
+    ) -> "SearchResultObject[Customer]":
         """
         Search for customers you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
         Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
@@ -388,7 +388,7 @@ class CustomerService(StripeService):
         to an hour behind during outages. Search functionality is not available to merchants in India.
         """
         return cast(
-            SearchResultObject[Customer],
+            "SearchResultObject[Customer]",
             await self._request_async(
                 "get",
                 "/v1/customers/search",

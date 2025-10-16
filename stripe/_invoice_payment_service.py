@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._invoice_payment import InvoicePayment
-from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
@@ -9,6 +8,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
     from stripe.params._invoice_payment_list_params import (
         InvoicePaymentListParams,
     )
@@ -22,12 +22,12 @@ class InvoicePaymentService(StripeService):
         self,
         params: Optional["InvoicePaymentListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[InvoicePayment]:
+    ) -> "ListObject[InvoicePayment]":
         """
         When retrieving an invoice, there is an includable payments property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of payments.
         """
         return cast(
-            ListObject[InvoicePayment],
+            "ListObject[InvoicePayment]",
             self._request(
                 "get",
                 "/v1/invoice_payments",
@@ -41,12 +41,12 @@ class InvoicePaymentService(StripeService):
         self,
         params: Optional["InvoicePaymentListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[InvoicePayment]:
+    ) -> "ListObject[InvoicePayment]":
         """
         When retrieving an invoice, there is an includable payments property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of payments.
         """
         return cast(
-            ListObject[InvoicePayment],
+            "ListObject[InvoicePayment]",
             await self._request_async(
                 "get",
                 "/v1/invoice_payments",
@@ -61,12 +61,12 @@ class InvoicePaymentService(StripeService):
         invoice_payment: str,
         params: Optional["InvoicePaymentRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> InvoicePayment:
+    ) -> "InvoicePayment":
         """
         Retrieves the invoice payment with the given ID.
         """
         return cast(
-            InvoicePayment,
+            "InvoicePayment",
             self._request(
                 "get",
                 "/v1/invoice_payments/{invoice_payment}".format(
@@ -83,12 +83,12 @@ class InvoicePaymentService(StripeService):
         invoice_payment: str,
         params: Optional["InvoicePaymentRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> InvoicePayment:
+    ) -> "InvoicePayment":
         """
         Retrieves the invoice payment with the given ID.
         """
         return cast(
-            InvoicePayment,
+            "InvoicePayment",
             await self._request_async(
                 "get",
                 "/v1/invoice_payments/{invoice_payment}".format(

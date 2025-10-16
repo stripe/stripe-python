@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
@@ -9,6 +8,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
     from stripe.params.issuing._authorization_approve_params import (
         AuthorizationApproveParams,
     )
@@ -31,12 +31,12 @@ class AuthorizationService(StripeService):
         self,
         params: Optional["AuthorizationListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[Authorization]:
+    ) -> "ListObject[Authorization]":
         """
         Returns a list of Issuing Authorization objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
         return cast(
-            ListObject[Authorization],
+            "ListObject[Authorization]",
             self._request(
                 "get",
                 "/v1/issuing/authorizations",
@@ -50,12 +50,12 @@ class AuthorizationService(StripeService):
         self,
         params: Optional["AuthorizationListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[Authorization]:
+    ) -> "ListObject[Authorization]":
         """
         Returns a list of Issuing Authorization objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
         return cast(
-            ListObject[Authorization],
+            "ListObject[Authorization]",
             await self._request_async(
                 "get",
                 "/v1/issuing/authorizations",
@@ -70,12 +70,12 @@ class AuthorizationService(StripeService):
         authorization: str,
         params: Optional["AuthorizationRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Authorization:
+    ) -> "Authorization":
         """
         Retrieves an Issuing Authorization object.
         """
         return cast(
-            Authorization,
+            "Authorization",
             self._request(
                 "get",
                 "/v1/issuing/authorizations/{authorization}".format(
@@ -92,12 +92,12 @@ class AuthorizationService(StripeService):
         authorization: str,
         params: Optional["AuthorizationRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Authorization:
+    ) -> "Authorization":
         """
         Retrieves an Issuing Authorization object.
         """
         return cast(
-            Authorization,
+            "Authorization",
             await self._request_async(
                 "get",
                 "/v1/issuing/authorizations/{authorization}".format(
@@ -114,12 +114,12 @@ class AuthorizationService(StripeService):
         authorization: str,
         params: Optional["AuthorizationUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Authorization:
+    ) -> "Authorization":
         """
         Updates the specified Issuing Authorization object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
         return cast(
-            Authorization,
+            "Authorization",
             self._request(
                 "post",
                 "/v1/issuing/authorizations/{authorization}".format(
@@ -136,12 +136,12 @@ class AuthorizationService(StripeService):
         authorization: str,
         params: Optional["AuthorizationUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Authorization:
+    ) -> "Authorization":
         """
         Updates the specified Issuing Authorization object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
         return cast(
-            Authorization,
+            "Authorization",
             await self._request_async(
                 "post",
                 "/v1/issuing/authorizations/{authorization}".format(
@@ -158,13 +158,13 @@ class AuthorizationService(StripeService):
         authorization: str,
         params: Optional["AuthorizationApproveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Authorization:
+    ) -> "Authorization":
         """
         [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
         This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
         """
         return cast(
-            Authorization,
+            "Authorization",
             self._request(
                 "post",
                 "/v1/issuing/authorizations/{authorization}/approve".format(
@@ -181,13 +181,13 @@ class AuthorizationService(StripeService):
         authorization: str,
         params: Optional["AuthorizationApproveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Authorization:
+    ) -> "Authorization":
         """
         [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
         This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
         """
         return cast(
-            Authorization,
+            "Authorization",
             await self._request_async(
                 "post",
                 "/v1/issuing/authorizations/{authorization}/approve".format(
@@ -204,13 +204,13 @@ class AuthorizationService(StripeService):
         authorization: str,
         params: Optional["AuthorizationDeclineParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Authorization:
+    ) -> "Authorization":
         """
         [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
         This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
         """
         return cast(
-            Authorization,
+            "Authorization",
             self._request(
                 "post",
                 "/v1/issuing/authorizations/{authorization}/decline".format(
@@ -227,13 +227,13 @@ class AuthorizationService(StripeService):
         authorization: str,
         params: Optional["AuthorizationDeclineParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Authorization:
+    ) -> "Authorization":
         """
         [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations) flow.
         This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://docs.stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
         """
         return cast(
-            Authorization,
+            "Authorization",
             await self._request_async(
                 "post",
                 "/v1/issuing/authorizations/{authorization}/decline".format(

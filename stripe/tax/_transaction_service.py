@@ -3,7 +3,6 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.tax._transaction import Transaction
 from typing import Optional, cast
 from importlib import import_module
 from typing_extensions import TYPE_CHECKING
@@ -18,6 +17,7 @@ if TYPE_CHECKING:
     from stripe.params.tax._transaction_retrieve_params import (
         TransactionRetrieveParams,
     )
+    from stripe.tax._transaction import Transaction
     from stripe.tax._transaction_line_item_service import (
         TransactionLineItemService,
     )
@@ -57,12 +57,12 @@ class TransactionService(StripeService):
         transaction: str,
         params: Optional["TransactionRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Transaction:
+    ) -> "Transaction":
         """
         Retrieves a Tax Transaction object.
         """
         return cast(
-            Transaction,
+            "Transaction",
             self._request(
                 "get",
                 "/v1/tax/transactions/{transaction}".format(
@@ -79,12 +79,12 @@ class TransactionService(StripeService):
         transaction: str,
         params: Optional["TransactionRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Transaction:
+    ) -> "Transaction":
         """
         Retrieves a Tax Transaction object.
         """
         return cast(
-            Transaction,
+            "Transaction",
             await self._request_async(
                 "get",
                 "/v1/tax/transactions/{transaction}".format(
@@ -100,12 +100,12 @@ class TransactionService(StripeService):
         self,
         params: "TransactionCreateFromCalculationParams",
         options: Optional[RequestOptions] = None,
-    ) -> Transaction:
+    ) -> "Transaction":
         """
         Creates a Tax Transaction from a calculation, if that calculation hasn't expired. Calculations expire after 90 days.
         """
         return cast(
-            Transaction,
+            "Transaction",
             self._request(
                 "post",
                 "/v1/tax/transactions/create_from_calculation",
@@ -119,12 +119,12 @@ class TransactionService(StripeService):
         self,
         params: "TransactionCreateFromCalculationParams",
         options: Optional[RequestOptions] = None,
-    ) -> Transaction:
+    ) -> "Transaction":
         """
         Creates a Tax Transaction from a calculation, if that calculation hasn't expired. Calculations expire after 90 days.
         """
         return cast(
-            Transaction,
+            "Transaction",
             await self._request_async(
                 "post",
                 "/v1/tax/transactions/create_from_calculation",
@@ -138,12 +138,12 @@ class TransactionService(StripeService):
         self,
         params: "TransactionCreateReversalParams",
         options: Optional[RequestOptions] = None,
-    ) -> Transaction:
+    ) -> "Transaction":
         """
         Partially or fully reverses a previously created Transaction.
         """
         return cast(
-            Transaction,
+            "Transaction",
             self._request(
                 "post",
                 "/v1/tax/transactions/create_reversal",
@@ -157,12 +157,12 @@ class TransactionService(StripeService):
         self,
         params: "TransactionCreateReversalParams",
         options: Optional[RequestOptions] = None,
-    ) -> Transaction:
+    ) -> "Transaction":
         """
         Partially or fully reverses a previously created Transaction.
         """
         return cast(
-            Transaction,
+            "Transaction",
             await self._request_async(
                 "post",
                 "/v1/tax/transactions/create_reversal",

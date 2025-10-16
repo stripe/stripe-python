@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._apple_pay_domain import ApplePayDomain
-from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
@@ -9,6 +8,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
     from stripe.params._apple_pay_domain_create_params import (
         ApplePayDomainCreateParams,
     )
@@ -29,12 +29,12 @@ class ApplePayDomainService(StripeService):
         domain: str,
         params: Optional["ApplePayDomainDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ApplePayDomain:
+    ) -> "ApplePayDomain":
         """
         Delete an apple pay domain.
         """
         return cast(
-            ApplePayDomain,
+            "ApplePayDomain",
             self._request(
                 "delete",
                 "/v1/apple_pay/domains/{domain}".format(
@@ -51,12 +51,12 @@ class ApplePayDomainService(StripeService):
         domain: str,
         params: Optional["ApplePayDomainDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ApplePayDomain:
+    ) -> "ApplePayDomain":
         """
         Delete an apple pay domain.
         """
         return cast(
-            ApplePayDomain,
+            "ApplePayDomain",
             await self._request_async(
                 "delete",
                 "/v1/apple_pay/domains/{domain}".format(
@@ -73,12 +73,12 @@ class ApplePayDomainService(StripeService):
         domain: str,
         params: Optional["ApplePayDomainRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ApplePayDomain:
+    ) -> "ApplePayDomain":
         """
         Retrieve an apple pay domain.
         """
         return cast(
-            ApplePayDomain,
+            "ApplePayDomain",
             self._request(
                 "get",
                 "/v1/apple_pay/domains/{domain}".format(
@@ -95,12 +95,12 @@ class ApplePayDomainService(StripeService):
         domain: str,
         params: Optional["ApplePayDomainRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ApplePayDomain:
+    ) -> "ApplePayDomain":
         """
         Retrieve an apple pay domain.
         """
         return cast(
-            ApplePayDomain,
+            "ApplePayDomain",
             await self._request_async(
                 "get",
                 "/v1/apple_pay/domains/{domain}".format(
@@ -116,12 +116,12 @@ class ApplePayDomainService(StripeService):
         self,
         params: Optional["ApplePayDomainListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[ApplePayDomain]:
+    ) -> "ListObject[ApplePayDomain]":
         """
         List apple pay domains.
         """
         return cast(
-            ListObject[ApplePayDomain],
+            "ListObject[ApplePayDomain]",
             self._request(
                 "get",
                 "/v1/apple_pay/domains",
@@ -135,12 +135,12 @@ class ApplePayDomainService(StripeService):
         self,
         params: Optional["ApplePayDomainListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[ApplePayDomain]:
+    ) -> "ListObject[ApplePayDomain]":
         """
         List apple pay domains.
         """
         return cast(
-            ListObject[ApplePayDomain],
+            "ListObject[ApplePayDomain]",
             await self._request_async(
                 "get",
                 "/v1/apple_pay/domains",
@@ -154,12 +154,12 @@ class ApplePayDomainService(StripeService):
         self,
         params: "ApplePayDomainCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> ApplePayDomain:
+    ) -> "ApplePayDomain":
         """
         Create an apple pay domain.
         """
         return cast(
-            ApplePayDomain,
+            "ApplePayDomain",
             self._request(
                 "post",
                 "/v1/apple_pay/domains",
@@ -173,12 +173,12 @@ class ApplePayDomainService(StripeService):
         self,
         params: "ApplePayDomainCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> ApplePayDomain:
+    ) -> "ApplePayDomain":
         """
         Create an apple pay domain.
         """
         return cast(
-            ApplePayDomain,
+            "ApplePayDomain",
             await self._request_async(
                 "post",
                 "/v1/apple_pay/domains",

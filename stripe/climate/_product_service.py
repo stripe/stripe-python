@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
@@ -9,6 +8,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
     from stripe.params.climate._product_list_params import ProductListParams
     from stripe.params.climate._product_retrieve_params import (
         ProductRetrieveParams,
@@ -20,12 +20,12 @@ class ProductService(StripeService):
         self,
         params: Optional["ProductListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[Product]:
+    ) -> "ListObject[Product]":
         """
         Lists all available Climate product objects.
         """
         return cast(
-            ListObject[Product],
+            "ListObject[Product]",
             self._request(
                 "get",
                 "/v1/climate/products",
@@ -39,12 +39,12 @@ class ProductService(StripeService):
         self,
         params: Optional["ProductListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[Product]:
+    ) -> "ListObject[Product]":
         """
         Lists all available Climate product objects.
         """
         return cast(
-            ListObject[Product],
+            "ListObject[Product]",
             await self._request_async(
                 "get",
                 "/v1/climate/products",
@@ -59,12 +59,12 @@ class ProductService(StripeService):
         product: str,
         params: Optional["ProductRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Product:
+    ) -> "Product":
         """
         Retrieves the details of a Climate product with the given ID.
         """
         return cast(
-            Product,
+            "Product",
             self._request(
                 "get",
                 "/v1/climate/products/{product}".format(
@@ -81,12 +81,12 @@ class ProductService(StripeService):
         product: str,
         params: Optional["ProductRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Product:
+    ) -> "Product":
         """
         Retrieves the details of a Climate product with the given ID.
         """
         return cast(
-            Product,
+            "Product",
             await self._request_async(
                 "get",
                 "/v1/climate/products/{product}".format(

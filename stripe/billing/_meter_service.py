@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
@@ -10,6 +9,7 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
     from stripe.billing._meter_event_summary_service import (
         MeterEventSummaryService,
     )
@@ -60,12 +60,12 @@ class MeterService(StripeService):
         self,
         params: Optional["MeterListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[Meter]:
+    ) -> "ListObject[Meter]":
         """
         Retrieve a list of billing meters.
         """
         return cast(
-            ListObject[Meter],
+            "ListObject[Meter]",
             self._request(
                 "get",
                 "/v1/billing/meters",
@@ -79,12 +79,12 @@ class MeterService(StripeService):
         self,
         params: Optional["MeterListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[Meter]:
+    ) -> "ListObject[Meter]":
         """
         Retrieve a list of billing meters.
         """
         return cast(
-            ListObject[Meter],
+            "ListObject[Meter]",
             await self._request_async(
                 "get",
                 "/v1/billing/meters",
@@ -98,12 +98,12 @@ class MeterService(StripeService):
         self,
         params: "MeterCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> Meter:
+    ) -> "Meter":
         """
         Creates a billing meter.
         """
         return cast(
-            Meter,
+            "Meter",
             self._request(
                 "post",
                 "/v1/billing/meters",
@@ -117,12 +117,12 @@ class MeterService(StripeService):
         self,
         params: "MeterCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> Meter:
+    ) -> "Meter":
         """
         Creates a billing meter.
         """
         return cast(
-            Meter,
+            "Meter",
             await self._request_async(
                 "post",
                 "/v1/billing/meters",
@@ -137,12 +137,12 @@ class MeterService(StripeService):
         id: str,
         params: Optional["MeterRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Meter:
+    ) -> "Meter":
         """
         Retrieves a billing meter given an ID.
         """
         return cast(
-            Meter,
+            "Meter",
             self._request(
                 "get",
                 "/v1/billing/meters/{id}".format(id=sanitize_id(id)),
@@ -157,12 +157,12 @@ class MeterService(StripeService):
         id: str,
         params: Optional["MeterRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Meter:
+    ) -> "Meter":
         """
         Retrieves a billing meter given an ID.
         """
         return cast(
-            Meter,
+            "Meter",
             await self._request_async(
                 "get",
                 "/v1/billing/meters/{id}".format(id=sanitize_id(id)),
@@ -177,12 +177,12 @@ class MeterService(StripeService):
         id: str,
         params: Optional["MeterUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Meter:
+    ) -> "Meter":
         """
         Updates a billing meter.
         """
         return cast(
-            Meter,
+            "Meter",
             self._request(
                 "post",
                 "/v1/billing/meters/{id}".format(id=sanitize_id(id)),
@@ -197,12 +197,12 @@ class MeterService(StripeService):
         id: str,
         params: Optional["MeterUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Meter:
+    ) -> "Meter":
         """
         Updates a billing meter.
         """
         return cast(
-            Meter,
+            "Meter",
             await self._request_async(
                 "post",
                 "/v1/billing/meters/{id}".format(id=sanitize_id(id)),
@@ -217,12 +217,12 @@ class MeterService(StripeService):
         id: str,
         params: Optional["MeterDeactivateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Meter:
+    ) -> "Meter":
         """
         When a meter is deactivated, no more meter events will be accepted for this meter. You can't attach a deactivated meter to a price.
         """
         return cast(
-            Meter,
+            "Meter",
             self._request(
                 "post",
                 "/v1/billing/meters/{id}/deactivate".format(
@@ -239,12 +239,12 @@ class MeterService(StripeService):
         id: str,
         params: Optional["MeterDeactivateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Meter:
+    ) -> "Meter":
         """
         When a meter is deactivated, no more meter events will be accepted for this meter. You can't attach a deactivated meter to a price.
         """
         return cast(
-            Meter,
+            "Meter",
             await self._request_async(
                 "post",
                 "/v1/billing/meters/{id}/deactivate".format(
@@ -261,12 +261,12 @@ class MeterService(StripeService):
         id: str,
         params: Optional["MeterReactivateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Meter:
+    ) -> "Meter":
         """
         When a meter is reactivated, events for this meter can be accepted and you can attach the meter to a price.
         """
         return cast(
-            Meter,
+            "Meter",
             self._request(
                 "post",
                 "/v1/billing/meters/{id}/reactivate".format(
@@ -283,12 +283,12 @@ class MeterService(StripeService):
         id: str,
         params: Optional["MeterReactivateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Meter:
+    ) -> "Meter":
         """
         When a meter is reactivated, events for this meter can be accepted and you can attach the meter to a price.
         """
         return cast(
-            Meter,
+            "Meter",
             await self._request_async(
                 "post",
                 "/v1/billing/meters/{id}/reactivate".format(

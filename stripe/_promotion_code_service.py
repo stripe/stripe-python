@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
 from stripe._promotion_code import PromotionCode
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
@@ -9,6 +8,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
     from stripe.params._promotion_code_create_params import (
         PromotionCodeCreateParams,
     )
@@ -28,12 +28,12 @@ class PromotionCodeService(StripeService):
         self,
         params: Optional["PromotionCodeListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[PromotionCode]:
+    ) -> "ListObject[PromotionCode]":
         """
         Returns a list of your promotion codes.
         """
         return cast(
-            ListObject[PromotionCode],
+            "ListObject[PromotionCode]",
             self._request(
                 "get",
                 "/v1/promotion_codes",
@@ -47,12 +47,12 @@ class PromotionCodeService(StripeService):
         self,
         params: Optional["PromotionCodeListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[PromotionCode]:
+    ) -> "ListObject[PromotionCode]":
         """
         Returns a list of your promotion codes.
         """
         return cast(
-            ListObject[PromotionCode],
+            "ListObject[PromotionCode]",
             await self._request_async(
                 "get",
                 "/v1/promotion_codes",
@@ -66,12 +66,12 @@ class PromotionCodeService(StripeService):
         self,
         params: "PromotionCodeCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> PromotionCode:
+    ) -> "PromotionCode":
         """
         A promotion code points to an underlying promotion. You can optionally restrict the code to a specific customer, redemption limit, and expiration date.
         """
         return cast(
-            PromotionCode,
+            "PromotionCode",
             self._request(
                 "post",
                 "/v1/promotion_codes",
@@ -85,12 +85,12 @@ class PromotionCodeService(StripeService):
         self,
         params: "PromotionCodeCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> PromotionCode:
+    ) -> "PromotionCode":
         """
         A promotion code points to an underlying promotion. You can optionally restrict the code to a specific customer, redemption limit, and expiration date.
         """
         return cast(
-            PromotionCode,
+            "PromotionCode",
             await self._request_async(
                 "post",
                 "/v1/promotion_codes",
@@ -105,12 +105,12 @@ class PromotionCodeService(StripeService):
         promotion_code: str,
         params: Optional["PromotionCodeRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> PromotionCode:
+    ) -> "PromotionCode":
         """
         Retrieves the promotion code with the given ID. In order to retrieve a promotion code by the customer-facing code use [list](https://docs.stripe.com/docs/api/promotion_codes/list) with the desired code.
         """
         return cast(
-            PromotionCode,
+            "PromotionCode",
             self._request(
                 "get",
                 "/v1/promotion_codes/{promotion_code}".format(
@@ -127,12 +127,12 @@ class PromotionCodeService(StripeService):
         promotion_code: str,
         params: Optional["PromotionCodeRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> PromotionCode:
+    ) -> "PromotionCode":
         """
         Retrieves the promotion code with the given ID. In order to retrieve a promotion code by the customer-facing code use [list](https://docs.stripe.com/docs/api/promotion_codes/list) with the desired code.
         """
         return cast(
-            PromotionCode,
+            "PromotionCode",
             await self._request_async(
                 "get",
                 "/v1/promotion_codes/{promotion_code}".format(
@@ -149,12 +149,12 @@ class PromotionCodeService(StripeService):
         promotion_code: str,
         params: Optional["PromotionCodeUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> PromotionCode:
+    ) -> "PromotionCode":
         """
         Updates the specified promotion code by setting the values of the parameters passed. Most fields are, by design, not editable.
         """
         return cast(
-            PromotionCode,
+            "PromotionCode",
             self._request(
                 "post",
                 "/v1/promotion_codes/{promotion_code}".format(
@@ -171,12 +171,12 @@ class PromotionCodeService(StripeService):
         promotion_code: str,
         params: Optional["PromotionCodeUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> PromotionCode:
+    ) -> "PromotionCode":
         """
         Updates the specified promotion code by setting the values of the parameters passed. Most fields are, by design, not editable.
         """
         return cast(
-            PromotionCode,
+            "PromotionCode",
             await self._request_async(
                 "post",
                 "/v1/promotion_codes/{promotion_code}".format(

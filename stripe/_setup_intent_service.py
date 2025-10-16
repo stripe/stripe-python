@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._setup_intent import SetupIntent
 from stripe._stripe_service import StripeService
@@ -9,6 +8,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
     from stripe.params._setup_intent_cancel_params import (
         SetupIntentCancelParams,
     )
@@ -35,12 +35,12 @@ class SetupIntentService(StripeService):
         self,
         params: Optional["SetupIntentListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[SetupIntent]:
+    ) -> "ListObject[SetupIntent]":
         """
         Returns a list of SetupIntents.
         """
         return cast(
-            ListObject[SetupIntent],
+            "ListObject[SetupIntent]",
             self._request(
                 "get",
                 "/v1/setup_intents",
@@ -54,12 +54,12 @@ class SetupIntentService(StripeService):
         self,
         params: Optional["SetupIntentListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[SetupIntent]:
+    ) -> "ListObject[SetupIntent]":
         """
         Returns a list of SetupIntents.
         """
         return cast(
-            ListObject[SetupIntent],
+            "ListObject[SetupIntent]",
             await self._request_async(
                 "get",
                 "/v1/setup_intents",
@@ -73,7 +73,7 @@ class SetupIntentService(StripeService):
         self,
         params: Optional["SetupIntentCreateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> SetupIntent:
+    ) -> "SetupIntent":
         """
         Creates a SetupIntent object.
 
@@ -81,7 +81,7 @@ class SetupIntentService(StripeService):
         it to collect any required permissions to charge the payment method later.
         """
         return cast(
-            SetupIntent,
+            "SetupIntent",
             self._request(
                 "post",
                 "/v1/setup_intents",
@@ -95,7 +95,7 @@ class SetupIntentService(StripeService):
         self,
         params: Optional["SetupIntentCreateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> SetupIntent:
+    ) -> "SetupIntent":
         """
         Creates a SetupIntent object.
 
@@ -103,7 +103,7 @@ class SetupIntentService(StripeService):
         it to collect any required permissions to charge the payment method later.
         """
         return cast(
-            SetupIntent,
+            "SetupIntent",
             await self._request_async(
                 "post",
                 "/v1/setup_intents",
@@ -118,7 +118,7 @@ class SetupIntentService(StripeService):
         intent: str,
         params: Optional["SetupIntentRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> SetupIntent:
+    ) -> "SetupIntent":
         """
         Retrieves the details of a SetupIntent that has previously been created.
 
@@ -127,7 +127,7 @@ class SetupIntentService(StripeService):
         When retrieved with a publishable key, only a subset of properties will be returned. Please refer to the [SetupIntent](https://docs.stripe.com/api#setup_intent_object) object reference for more details.
         """
         return cast(
-            SetupIntent,
+            "SetupIntent",
             self._request(
                 "get",
                 "/v1/setup_intents/{intent}".format(
@@ -144,7 +144,7 @@ class SetupIntentService(StripeService):
         intent: str,
         params: Optional["SetupIntentRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> SetupIntent:
+    ) -> "SetupIntent":
         """
         Retrieves the details of a SetupIntent that has previously been created.
 
@@ -153,7 +153,7 @@ class SetupIntentService(StripeService):
         When retrieved with a publishable key, only a subset of properties will be returned. Please refer to the [SetupIntent](https://docs.stripe.com/api#setup_intent_object) object reference for more details.
         """
         return cast(
-            SetupIntent,
+            "SetupIntent",
             await self._request_async(
                 "get",
                 "/v1/setup_intents/{intent}".format(
@@ -170,12 +170,12 @@ class SetupIntentService(StripeService):
         intent: str,
         params: Optional["SetupIntentUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> SetupIntent:
+    ) -> "SetupIntent":
         """
         Updates a SetupIntent object.
         """
         return cast(
-            SetupIntent,
+            "SetupIntent",
             self._request(
                 "post",
                 "/v1/setup_intents/{intent}".format(
@@ -192,12 +192,12 @@ class SetupIntentService(StripeService):
         intent: str,
         params: Optional["SetupIntentUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> SetupIntent:
+    ) -> "SetupIntent":
         """
         Updates a SetupIntent object.
         """
         return cast(
-            SetupIntent,
+            "SetupIntent",
             await self._request_async(
                 "post",
                 "/v1/setup_intents/{intent}".format(
@@ -214,14 +214,14 @@ class SetupIntentService(StripeService):
         intent: str,
         params: Optional["SetupIntentCancelParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> SetupIntent:
+    ) -> "SetupIntent":
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
 
         After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error. You can't cancel the SetupIntent for a Checkout Session. [Expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire) instead.
         """
         return cast(
-            SetupIntent,
+            "SetupIntent",
             self._request(
                 "post",
                 "/v1/setup_intents/{intent}/cancel".format(
@@ -238,14 +238,14 @@ class SetupIntentService(StripeService):
         intent: str,
         params: Optional["SetupIntentCancelParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> SetupIntent:
+    ) -> "SetupIntent":
         """
         You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
 
         After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error. You can't cancel the SetupIntent for a Checkout Session. [Expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire) instead.
         """
         return cast(
-            SetupIntent,
+            "SetupIntent",
             await self._request_async(
                 "post",
                 "/v1/setup_intents/{intent}/cancel".format(
@@ -262,7 +262,7 @@ class SetupIntentService(StripeService):
         intent: str,
         params: Optional["SetupIntentConfirmParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> SetupIntent:
+    ) -> "SetupIntent":
         """
         Confirm that your customer intends to set up the current or
         provided payment method. For example, you would confirm a SetupIntent
@@ -280,7 +280,7 @@ class SetupIntentService(StripeService):
         confirmation limit is reached.
         """
         return cast(
-            SetupIntent,
+            "SetupIntent",
             self._request(
                 "post",
                 "/v1/setup_intents/{intent}/confirm".format(
@@ -297,7 +297,7 @@ class SetupIntentService(StripeService):
         intent: str,
         params: Optional["SetupIntentConfirmParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> SetupIntent:
+    ) -> "SetupIntent":
         """
         Confirm that your customer intends to set up the current or
         provided payment method. For example, you would confirm a SetupIntent
@@ -315,7 +315,7 @@ class SetupIntentService(StripeService):
         confirmation limit is reached.
         """
         return cast(
-            SetupIntent,
+            "SetupIntent",
             await self._request_async(
                 "post",
                 "/v1/setup_intents/{intent}/confirm".format(
@@ -332,12 +332,12 @@ class SetupIntentService(StripeService):
         intent: str,
         params: Optional["SetupIntentVerifyMicrodepositsParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> SetupIntent:
+    ) -> "SetupIntent":
         """
         Verifies microdeposits on a SetupIntent object.
         """
         return cast(
-            SetupIntent,
+            "SetupIntent",
             self._request(
                 "post",
                 "/v1/setup_intents/{intent}/verify_microdeposits".format(
@@ -354,12 +354,12 @@ class SetupIntentService(StripeService):
         intent: str,
         params: Optional["SetupIntentVerifyMicrodepositsParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> SetupIntent:
+    ) -> "SetupIntent":
         """
         Verifies microdeposits on a SetupIntent object.
         """
         return cast(
-            SetupIntent,
+            "SetupIntent",
             await self._request_async(
                 "post",
                 "/v1/setup_intents/{intent}/verify_microdeposits".format(

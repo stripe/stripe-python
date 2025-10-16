@@ -3,7 +3,6 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.tax._calculation import Calculation
 from typing import Optional, cast
 from importlib import import_module
 from typing_extensions import TYPE_CHECKING
@@ -15,6 +14,7 @@ if TYPE_CHECKING:
     from stripe.params.tax._calculation_retrieve_params import (
         CalculationRetrieveParams,
     )
+    from stripe.tax._calculation import Calculation
     from stripe.tax._calculation_line_item_service import (
         CalculationLineItemService,
     )
@@ -54,12 +54,12 @@ class CalculationService(StripeService):
         calculation: str,
         params: Optional["CalculationRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Calculation:
+    ) -> "Calculation":
         """
         Retrieves a Tax Calculation object, if the calculation hasn't expired.
         """
         return cast(
-            Calculation,
+            "Calculation",
             self._request(
                 "get",
                 "/v1/tax/calculations/{calculation}".format(
@@ -76,12 +76,12 @@ class CalculationService(StripeService):
         calculation: str,
         params: Optional["CalculationRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Calculation:
+    ) -> "Calculation":
         """
         Retrieves a Tax Calculation object, if the calculation hasn't expired.
         """
         return cast(
-            Calculation,
+            "Calculation",
             await self._request_async(
                 "get",
                 "/v1/tax/calculations/{calculation}".format(
@@ -97,12 +97,12 @@ class CalculationService(StripeService):
         self,
         params: "CalculationCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> Calculation:
+    ) -> "Calculation":
         """
         Calculates tax based on the input and returns a Tax Calculation object.
         """
         return cast(
-            Calculation,
+            "Calculation",
             self._request(
                 "post",
                 "/v1/tax/calculations",
@@ -116,12 +116,12 @@ class CalculationService(StripeService):
         self,
         params: "CalculationCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> Calculation:
+    ) -> "Calculation":
         """
         Calculates tax based on the input and returns a Tax Calculation object.
         """
         return cast(
-            Calculation,
+            "Calculation",
             await self._request_async(
                 "post",
                 "/v1/tax/calculations",

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
@@ -9,6 +8,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
     from stripe.params.radar._value_list_create_params import (
         ValueListCreateParams,
     )
@@ -30,12 +30,12 @@ class ValueListService(StripeService):
         value_list: str,
         params: Optional["ValueListDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ValueList:
+    ) -> "ValueList":
         """
         Deletes a ValueList object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.
         """
         return cast(
-            ValueList,
+            "ValueList",
             self._request(
                 "delete",
                 "/v1/radar/value_lists/{value_list}".format(
@@ -52,12 +52,12 @@ class ValueListService(StripeService):
         value_list: str,
         params: Optional["ValueListDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ValueList:
+    ) -> "ValueList":
         """
         Deletes a ValueList object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.
         """
         return cast(
-            ValueList,
+            "ValueList",
             await self._request_async(
                 "delete",
                 "/v1/radar/value_lists/{value_list}".format(
@@ -74,12 +74,12 @@ class ValueListService(StripeService):
         value_list: str,
         params: Optional["ValueListRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ValueList:
+    ) -> "ValueList":
         """
         Retrieves a ValueList object.
         """
         return cast(
-            ValueList,
+            "ValueList",
             self._request(
                 "get",
                 "/v1/radar/value_lists/{value_list}".format(
@@ -96,12 +96,12 @@ class ValueListService(StripeService):
         value_list: str,
         params: Optional["ValueListRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ValueList:
+    ) -> "ValueList":
         """
         Retrieves a ValueList object.
         """
         return cast(
-            ValueList,
+            "ValueList",
             await self._request_async(
                 "get",
                 "/v1/radar/value_lists/{value_list}".format(
@@ -118,12 +118,12 @@ class ValueListService(StripeService):
         value_list: str,
         params: Optional["ValueListUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ValueList:
+    ) -> "ValueList":
         """
         Updates a ValueList object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Note that item_type is immutable.
         """
         return cast(
-            ValueList,
+            "ValueList",
             self._request(
                 "post",
                 "/v1/radar/value_lists/{value_list}".format(
@@ -140,12 +140,12 @@ class ValueListService(StripeService):
         value_list: str,
         params: Optional["ValueListUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ValueList:
+    ) -> "ValueList":
         """
         Updates a ValueList object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Note that item_type is immutable.
         """
         return cast(
-            ValueList,
+            "ValueList",
             await self._request_async(
                 "post",
                 "/v1/radar/value_lists/{value_list}".format(
@@ -161,12 +161,12 @@ class ValueListService(StripeService):
         self,
         params: Optional["ValueListListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[ValueList]:
+    ) -> "ListObject[ValueList]":
         """
         Returns a list of ValueList objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
         return cast(
-            ListObject[ValueList],
+            "ListObject[ValueList]",
             self._request(
                 "get",
                 "/v1/radar/value_lists",
@@ -180,12 +180,12 @@ class ValueListService(StripeService):
         self,
         params: Optional["ValueListListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[ValueList]:
+    ) -> "ListObject[ValueList]":
         """
         Returns a list of ValueList objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
         return cast(
-            ListObject[ValueList],
+            "ListObject[ValueList]",
             await self._request_async(
                 "get",
                 "/v1/radar/value_lists",
@@ -199,12 +199,12 @@ class ValueListService(StripeService):
         self,
         params: "ValueListCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> ValueList:
+    ) -> "ValueList":
         """
         Creates a new ValueList object, which can then be referenced in rules.
         """
         return cast(
-            ValueList,
+            "ValueList",
             self._request(
                 "post",
                 "/v1/radar/value_lists",
@@ -218,12 +218,12 @@ class ValueListService(StripeService):
         self,
         params: "ValueListCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> ValueList:
+    ) -> "ValueList":
         """
         Creates a new ValueList object, which can then be referenced in rules.
         """
         return cast(
-            ValueList,
+            "ValueList",
             await self._request_async(
                 "post",
                 "/v1/radar/value_lists",

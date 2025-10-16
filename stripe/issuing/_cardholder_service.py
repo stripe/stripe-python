@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
@@ -9,6 +8,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
     from stripe.params.issuing._cardholder_create_params import (
         CardholderCreateParams,
     )
@@ -28,12 +28,12 @@ class CardholderService(StripeService):
         self,
         params: Optional["CardholderListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[Cardholder]:
+    ) -> "ListObject[Cardholder]":
         """
         Returns a list of Issuing Cardholder objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
         return cast(
-            ListObject[Cardholder],
+            "ListObject[Cardholder]",
             self._request(
                 "get",
                 "/v1/issuing/cardholders",
@@ -47,12 +47,12 @@ class CardholderService(StripeService):
         self,
         params: Optional["CardholderListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[Cardholder]:
+    ) -> "ListObject[Cardholder]":
         """
         Returns a list of Issuing Cardholder objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
         return cast(
-            ListObject[Cardholder],
+            "ListObject[Cardholder]",
             await self._request_async(
                 "get",
                 "/v1/issuing/cardholders",
@@ -66,12 +66,12 @@ class CardholderService(StripeService):
         self,
         params: "CardholderCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> Cardholder:
+    ) -> "Cardholder":
         """
         Creates a new Issuing Cardholder object that can be issued cards.
         """
         return cast(
-            Cardholder,
+            "Cardholder",
             self._request(
                 "post",
                 "/v1/issuing/cardholders",
@@ -85,12 +85,12 @@ class CardholderService(StripeService):
         self,
         params: "CardholderCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> Cardholder:
+    ) -> "Cardholder":
         """
         Creates a new Issuing Cardholder object that can be issued cards.
         """
         return cast(
-            Cardholder,
+            "Cardholder",
             await self._request_async(
                 "post",
                 "/v1/issuing/cardholders",
@@ -105,12 +105,12 @@ class CardholderService(StripeService):
         cardholder: str,
         params: Optional["CardholderRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Cardholder:
+    ) -> "Cardholder":
         """
         Retrieves an Issuing Cardholder object.
         """
         return cast(
-            Cardholder,
+            "Cardholder",
             self._request(
                 "get",
                 "/v1/issuing/cardholders/{cardholder}".format(
@@ -127,12 +127,12 @@ class CardholderService(StripeService):
         cardholder: str,
         params: Optional["CardholderRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Cardholder:
+    ) -> "Cardholder":
         """
         Retrieves an Issuing Cardholder object.
         """
         return cast(
-            Cardholder,
+            "Cardholder",
             await self._request_async(
                 "get",
                 "/v1/issuing/cardholders/{cardholder}".format(
@@ -149,12 +149,12 @@ class CardholderService(StripeService):
         cardholder: str,
         params: Optional["CardholderUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Cardholder:
+    ) -> "Cardholder":
         """
         Updates the specified Issuing Cardholder object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
         return cast(
-            Cardholder,
+            "Cardholder",
             self._request(
                 "post",
                 "/v1/issuing/cardholders/{cardholder}".format(
@@ -171,12 +171,12 @@ class CardholderService(StripeService):
         cardholder: str,
         params: Optional["CardholderUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Cardholder:
+    ) -> "Cardholder":
         """
         Updates the specified Issuing Cardholder object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
         return cast(
-            Cardholder,
+            "Cardholder",
             await self._request_async(
                 "post",
                 "/v1/issuing/cardholders/{cardholder}".format(

@@ -3,9 +3,6 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.v2._deleted_object import DeletedObject
-from stripe.v2._list_object import ListObject
-from stripe.v2.core._event import Event
 from stripe.v2.core._event_destination import EventDestination
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
@@ -35,6 +32,9 @@ if TYPE_CHECKING:
     from stripe.params.v2.core._event_destination_update_params import (
         EventDestinationUpdateParams,
     )
+    from stripe.v2._deleted_object import DeletedObject
+    from stripe.v2._list_object import ListObject
+    from stripe.v2.core._event import Event
 
 
 class EventDestinationService(StripeService):
@@ -42,12 +42,12 @@ class EventDestinationService(StripeService):
         self,
         params: Optional["EventDestinationListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[EventDestination]:
+    ) -> "ListObject[EventDestination]":
         """
         Lists all event destinations.
         """
         return cast(
-            ListObject[EventDestination],
+            "ListObject[EventDestination]",
             self._request(
                 "get",
                 "/v2/core/event_destinations",
@@ -61,12 +61,12 @@ class EventDestinationService(StripeService):
         self,
         params: Optional["EventDestinationListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[EventDestination]:
+    ) -> "ListObject[EventDestination]":
         """
         Lists all event destinations.
         """
         return cast(
-            ListObject[EventDestination],
+            "ListObject[EventDestination]",
             await self._request_async(
                 "get",
                 "/v2/core/event_destinations",
@@ -80,12 +80,12 @@ class EventDestinationService(StripeService):
         self,
         params: "EventDestinationCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> EventDestination:
+    ) -> "EventDestination":
         """
         Create a new event destination.
         """
         return cast(
-            EventDestination,
+            "EventDestination",
             self._request(
                 "post",
                 "/v2/core/event_destinations",
@@ -99,12 +99,12 @@ class EventDestinationService(StripeService):
         self,
         params: "EventDestinationCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> EventDestination:
+    ) -> "EventDestination":
         """
         Create a new event destination.
         """
         return cast(
-            EventDestination,
+            "EventDestination",
             await self._request_async(
                 "post",
                 "/v2/core/event_destinations",
@@ -119,12 +119,12 @@ class EventDestinationService(StripeService):
         id: str,
         params: Optional["EventDestinationDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> DeletedObject:
+    ) -> "DeletedObject":
         """
         Delete an event destination.
         """
         return cast(
-            DeletedObject,
+            "DeletedObject",
             self._request(
                 "delete",
                 "/v2/core/event_destinations/{id}".format(id=sanitize_id(id)),
@@ -139,12 +139,12 @@ class EventDestinationService(StripeService):
         id: str,
         params: Optional["EventDestinationDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> DeletedObject:
+    ) -> "DeletedObject":
         """
         Delete an event destination.
         """
         return cast(
-            DeletedObject,
+            "DeletedObject",
             await self._request_async(
                 "delete",
                 "/v2/core/event_destinations/{id}".format(id=sanitize_id(id)),
@@ -159,12 +159,12 @@ class EventDestinationService(StripeService):
         id: str,
         params: Optional["EventDestinationRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> EventDestination:
+    ) -> "EventDestination":
         """
         Retrieves the details of an event destination.
         """
         return cast(
-            EventDestination,
+            "EventDestination",
             self._request(
                 "get",
                 "/v2/core/event_destinations/{id}".format(id=sanitize_id(id)),
@@ -179,12 +179,12 @@ class EventDestinationService(StripeService):
         id: str,
         params: Optional["EventDestinationRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> EventDestination:
+    ) -> "EventDestination":
         """
         Retrieves the details of an event destination.
         """
         return cast(
-            EventDestination,
+            "EventDestination",
             await self._request_async(
                 "get",
                 "/v2/core/event_destinations/{id}".format(id=sanitize_id(id)),
@@ -199,12 +199,12 @@ class EventDestinationService(StripeService):
         id: str,
         params: Optional["EventDestinationUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> EventDestination:
+    ) -> "EventDestination":
         """
         Update the details of an event destination.
         """
         return cast(
-            EventDestination,
+            "EventDestination",
             self._request(
                 "post",
                 "/v2/core/event_destinations/{id}".format(id=sanitize_id(id)),
@@ -219,12 +219,12 @@ class EventDestinationService(StripeService):
         id: str,
         params: Optional["EventDestinationUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> EventDestination:
+    ) -> "EventDestination":
         """
         Update the details of an event destination.
         """
         return cast(
-            EventDestination,
+            "EventDestination",
             await self._request_async(
                 "post",
                 "/v2/core/event_destinations/{id}".format(id=sanitize_id(id)),
@@ -239,12 +239,12 @@ class EventDestinationService(StripeService):
         id: str,
         params: Optional["EventDestinationDisableParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> EventDestination:
+    ) -> "EventDestination":
         """
         Disable an event destination.
         """
         return cast(
-            EventDestination,
+            "EventDestination",
             self._request(
                 "post",
                 "/v2/core/event_destinations/{id}/disable".format(
@@ -261,12 +261,12 @@ class EventDestinationService(StripeService):
         id: str,
         params: Optional["EventDestinationDisableParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> EventDestination:
+    ) -> "EventDestination":
         """
         Disable an event destination.
         """
         return cast(
-            EventDestination,
+            "EventDestination",
             await self._request_async(
                 "post",
                 "/v2/core/event_destinations/{id}/disable".format(
@@ -283,12 +283,12 @@ class EventDestinationService(StripeService):
         id: str,
         params: Optional["EventDestinationEnableParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> EventDestination:
+    ) -> "EventDestination":
         """
         Enable an event destination.
         """
         return cast(
-            EventDestination,
+            "EventDestination",
             self._request(
                 "post",
                 "/v2/core/event_destinations/{id}/enable".format(
@@ -305,12 +305,12 @@ class EventDestinationService(StripeService):
         id: str,
         params: Optional["EventDestinationEnableParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> EventDestination:
+    ) -> "EventDestination":
         """
         Enable an event destination.
         """
         return cast(
-            EventDestination,
+            "EventDestination",
             await self._request_async(
                 "post",
                 "/v2/core/event_destinations/{id}/enable".format(
@@ -327,12 +327,12 @@ class EventDestinationService(StripeService):
         id: str,
         params: Optional["EventDestinationPingParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Event:
+    ) -> "Event":
         """
         Send a `ping` event to an event destination.
         """
         return cast(
-            Event,
+            "Event",
             self._request(
                 "post",
                 "/v2/core/event_destinations/{id}/ping".format(
@@ -349,12 +349,12 @@ class EventDestinationService(StripeService):
         id: str,
         params: Optional["EventDestinationPingParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Event:
+    ) -> "Event":
         """
         Send a `ping` event to an event destination.
         """
         return cast(
-            Event,
+            "Event",
             await self._request_async(
                 "post",
                 "/v2/core/event_destinations/{id}/ping".format(

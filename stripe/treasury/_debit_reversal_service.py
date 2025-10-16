@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
@@ -9,6 +8,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
     from stripe.params.treasury._debit_reversal_create_params import (
         DebitReversalCreateParams,
     )
@@ -25,12 +25,12 @@ class DebitReversalService(StripeService):
         self,
         params: "DebitReversalListParams",
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[DebitReversal]:
+    ) -> "ListObject[DebitReversal]":
         """
         Returns a list of DebitReversals.
         """
         return cast(
-            ListObject[DebitReversal],
+            "ListObject[DebitReversal]",
             self._request(
                 "get",
                 "/v1/treasury/debit_reversals",
@@ -44,12 +44,12 @@ class DebitReversalService(StripeService):
         self,
         params: "DebitReversalListParams",
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[DebitReversal]:
+    ) -> "ListObject[DebitReversal]":
         """
         Returns a list of DebitReversals.
         """
         return cast(
-            ListObject[DebitReversal],
+            "ListObject[DebitReversal]",
             await self._request_async(
                 "get",
                 "/v1/treasury/debit_reversals",
@@ -63,12 +63,12 @@ class DebitReversalService(StripeService):
         self,
         params: "DebitReversalCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> DebitReversal:
+    ) -> "DebitReversal":
         """
         Reverses a ReceivedDebit and creates a DebitReversal object.
         """
         return cast(
-            DebitReversal,
+            "DebitReversal",
             self._request(
                 "post",
                 "/v1/treasury/debit_reversals",
@@ -82,12 +82,12 @@ class DebitReversalService(StripeService):
         self,
         params: "DebitReversalCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> DebitReversal:
+    ) -> "DebitReversal":
         """
         Reverses a ReceivedDebit and creates a DebitReversal object.
         """
         return cast(
-            DebitReversal,
+            "DebitReversal",
             await self._request_async(
                 "post",
                 "/v1/treasury/debit_reversals",
@@ -102,12 +102,12 @@ class DebitReversalService(StripeService):
         debit_reversal: str,
         params: Optional["DebitReversalRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> DebitReversal:
+    ) -> "DebitReversal":
         """
         Retrieves a DebitReversal object.
         """
         return cast(
-            DebitReversal,
+            "DebitReversal",
             self._request(
                 "get",
                 "/v1/treasury/debit_reversals/{debit_reversal}".format(
@@ -124,12 +124,12 @@ class DebitReversalService(StripeService):
         debit_reversal: str,
         params: Optional["DebitReversalRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> DebitReversal:
+    ) -> "DebitReversal":
         """
         Retrieves a DebitReversal object.
         """
         return cast(
-            DebitReversal,
+            "DebitReversal",
             await self._request_async(
                 "get",
                 "/v1/treasury/debit_reversals/{debit_reversal}".format(

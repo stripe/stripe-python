@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
@@ -9,6 +8,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
     from stripe.params.treasury._inbound_transfer_cancel_params import (
         InboundTransferCancelParams,
     )
@@ -28,12 +28,12 @@ class InboundTransferService(StripeService):
         self,
         params: "InboundTransferListParams",
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[InboundTransfer]:
+    ) -> "ListObject[InboundTransfer]":
         """
         Returns a list of InboundTransfers sent from the specified FinancialAccount.
         """
         return cast(
-            ListObject[InboundTransfer],
+            "ListObject[InboundTransfer]",
             self._request(
                 "get",
                 "/v1/treasury/inbound_transfers",
@@ -47,12 +47,12 @@ class InboundTransferService(StripeService):
         self,
         params: "InboundTransferListParams",
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[InboundTransfer]:
+    ) -> "ListObject[InboundTransfer]":
         """
         Returns a list of InboundTransfers sent from the specified FinancialAccount.
         """
         return cast(
-            ListObject[InboundTransfer],
+            "ListObject[InboundTransfer]",
             await self._request_async(
                 "get",
                 "/v1/treasury/inbound_transfers",
@@ -66,12 +66,12 @@ class InboundTransferService(StripeService):
         self,
         params: "InboundTransferCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> InboundTransfer:
+    ) -> "InboundTransfer":
         """
         Creates an InboundTransfer.
         """
         return cast(
-            InboundTransfer,
+            "InboundTransfer",
             self._request(
                 "post",
                 "/v1/treasury/inbound_transfers",
@@ -85,12 +85,12 @@ class InboundTransferService(StripeService):
         self,
         params: "InboundTransferCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> InboundTransfer:
+    ) -> "InboundTransfer":
         """
         Creates an InboundTransfer.
         """
         return cast(
-            InboundTransfer,
+            "InboundTransfer",
             await self._request_async(
                 "post",
                 "/v1/treasury/inbound_transfers",
@@ -105,12 +105,12 @@ class InboundTransferService(StripeService):
         id: str,
         params: Optional["InboundTransferRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> InboundTransfer:
+    ) -> "InboundTransfer":
         """
         Retrieves the details of an existing InboundTransfer.
         """
         return cast(
-            InboundTransfer,
+            "InboundTransfer",
             self._request(
                 "get",
                 "/v1/treasury/inbound_transfers/{id}".format(
@@ -127,12 +127,12 @@ class InboundTransferService(StripeService):
         id: str,
         params: Optional["InboundTransferRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> InboundTransfer:
+    ) -> "InboundTransfer":
         """
         Retrieves the details of an existing InboundTransfer.
         """
         return cast(
-            InboundTransfer,
+            "InboundTransfer",
             await self._request_async(
                 "get",
                 "/v1/treasury/inbound_transfers/{id}".format(
@@ -149,12 +149,12 @@ class InboundTransferService(StripeService):
         inbound_transfer: str,
         params: Optional["InboundTransferCancelParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> InboundTransfer:
+    ) -> "InboundTransfer":
         """
         Cancels an InboundTransfer.
         """
         return cast(
-            InboundTransfer,
+            "InboundTransfer",
             self._request(
                 "post",
                 "/v1/treasury/inbound_transfers/{inbound_transfer}/cancel".format(
@@ -171,12 +171,12 @@ class InboundTransferService(StripeService):
         inbound_transfer: str,
         params: Optional["InboundTransferCancelParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> InboundTransfer:
+    ) -> "InboundTransfer":
         """
         Cancels an InboundTransfer.
         """
         return cast(
-            InboundTransfer,
+            "InboundTransfer",
             await self._request_async(
                 "post",
                 "/v1/treasury/inbound_transfers/{inbound_transfer}/cancel".format(

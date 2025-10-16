@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
@@ -9,6 +8,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
     from stripe.params.issuing._card_create_params import CardCreateParams
     from stripe.params.issuing._card_list_params import CardListParams
     from stripe.params.issuing._card_retrieve_params import CardRetrieveParams
@@ -20,12 +20,12 @@ class CardService(StripeService):
         self,
         params: Optional["CardListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[Card]:
+    ) -> "ListObject[Card]":
         """
         Returns a list of Issuing Card objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
         return cast(
-            ListObject[Card],
+            "ListObject[Card]",
             self._request(
                 "get",
                 "/v1/issuing/cards",
@@ -39,12 +39,12 @@ class CardService(StripeService):
         self,
         params: Optional["CardListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[Card]:
+    ) -> "ListObject[Card]":
         """
         Returns a list of Issuing Card objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
         return cast(
-            ListObject[Card],
+            "ListObject[Card]",
             await self._request_async(
                 "get",
                 "/v1/issuing/cards",
@@ -58,12 +58,12 @@ class CardService(StripeService):
         self,
         params: "CardCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> Card:
+    ) -> "Card":
         """
         Creates an Issuing Card object.
         """
         return cast(
-            Card,
+            "Card",
             self._request(
                 "post",
                 "/v1/issuing/cards",
@@ -77,12 +77,12 @@ class CardService(StripeService):
         self,
         params: "CardCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> Card:
+    ) -> "Card":
         """
         Creates an Issuing Card object.
         """
         return cast(
-            Card,
+            "Card",
             await self._request_async(
                 "post",
                 "/v1/issuing/cards",
@@ -97,12 +97,12 @@ class CardService(StripeService):
         card: str,
         params: Optional["CardRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Card:
+    ) -> "Card":
         """
         Retrieves an Issuing Card object.
         """
         return cast(
-            Card,
+            "Card",
             self._request(
                 "get",
                 "/v1/issuing/cards/{card}".format(card=sanitize_id(card)),
@@ -117,12 +117,12 @@ class CardService(StripeService):
         card: str,
         params: Optional["CardRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Card:
+    ) -> "Card":
         """
         Retrieves an Issuing Card object.
         """
         return cast(
-            Card,
+            "Card",
             await self._request_async(
                 "get",
                 "/v1/issuing/cards/{card}".format(card=sanitize_id(card)),
@@ -137,12 +137,12 @@ class CardService(StripeService):
         card: str,
         params: Optional["CardUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Card:
+    ) -> "Card":
         """
         Updates the specified Issuing Card object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
         return cast(
-            Card,
+            "Card",
             self._request(
                 "post",
                 "/v1/issuing/cards/{card}".format(card=sanitize_id(card)),
@@ -157,12 +157,12 @@ class CardService(StripeService):
         card: str,
         params: Optional["CardUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Card:
+    ) -> "Card":
         """
         Updates the specified Issuing Card object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
         return cast(
-            Card,
+            "Card",
             await self._request_async(
                 "post",
                 "/v1/issuing/cards/{card}".format(card=sanitize_id(card)),

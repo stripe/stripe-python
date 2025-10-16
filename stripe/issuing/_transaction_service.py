@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
@@ -9,6 +8,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
     from stripe.params.issuing._transaction_list_params import (
         TransactionListParams,
     )
@@ -25,12 +25,12 @@ class TransactionService(StripeService):
         self,
         params: Optional["TransactionListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[Transaction]:
+    ) -> "ListObject[Transaction]":
         """
         Returns a list of Issuing Transaction objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
         return cast(
-            ListObject[Transaction],
+            "ListObject[Transaction]",
             self._request(
                 "get",
                 "/v1/issuing/transactions",
@@ -44,12 +44,12 @@ class TransactionService(StripeService):
         self,
         params: Optional["TransactionListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[Transaction]:
+    ) -> "ListObject[Transaction]":
         """
         Returns a list of Issuing Transaction objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
         return cast(
-            ListObject[Transaction],
+            "ListObject[Transaction]",
             await self._request_async(
                 "get",
                 "/v1/issuing/transactions",
@@ -64,12 +64,12 @@ class TransactionService(StripeService):
         transaction: str,
         params: Optional["TransactionRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Transaction:
+    ) -> "Transaction":
         """
         Retrieves an Issuing Transaction object.
         """
         return cast(
-            Transaction,
+            "Transaction",
             self._request(
                 "get",
                 "/v1/issuing/transactions/{transaction}".format(
@@ -86,12 +86,12 @@ class TransactionService(StripeService):
         transaction: str,
         params: Optional["TransactionRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Transaction:
+    ) -> "Transaction":
         """
         Retrieves an Issuing Transaction object.
         """
         return cast(
-            Transaction,
+            "Transaction",
             await self._request_async(
                 "get",
                 "/v1/issuing/transactions/{transaction}".format(
@@ -108,12 +108,12 @@ class TransactionService(StripeService):
         transaction: str,
         params: Optional["TransactionUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Transaction:
+    ) -> "Transaction":
         """
         Updates the specified Issuing Transaction object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
         return cast(
-            Transaction,
+            "Transaction",
             self._request(
                 "post",
                 "/v1/issuing/transactions/{transaction}".format(
@@ -130,12 +130,12 @@ class TransactionService(StripeService):
         transaction: str,
         params: Optional["TransactionUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Transaction:
+    ) -> "Transaction":
         """
         Updates the specified Issuing Transaction object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
         return cast(
-            Transaction,
+            "Transaction",
             await self._request_async(
                 "post",
                 "/v1/issuing/transactions/{transaction}".format(

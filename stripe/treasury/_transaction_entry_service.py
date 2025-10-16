@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
@@ -9,6 +8,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
     from stripe.params.treasury._transaction_entry_list_params import (
         TransactionEntryListParams,
     )
@@ -22,12 +22,12 @@ class TransactionEntryService(StripeService):
         self,
         params: "TransactionEntryListParams",
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[TransactionEntry]:
+    ) -> "ListObject[TransactionEntry]":
         """
         Retrieves a list of TransactionEntry objects.
         """
         return cast(
-            ListObject[TransactionEntry],
+            "ListObject[TransactionEntry]",
             self._request(
                 "get",
                 "/v1/treasury/transaction_entries",
@@ -41,12 +41,12 @@ class TransactionEntryService(StripeService):
         self,
         params: "TransactionEntryListParams",
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[TransactionEntry]:
+    ) -> "ListObject[TransactionEntry]":
         """
         Retrieves a list of TransactionEntry objects.
         """
         return cast(
-            ListObject[TransactionEntry],
+            "ListObject[TransactionEntry]",
             await self._request_async(
                 "get",
                 "/v1/treasury/transaction_entries",
@@ -61,12 +61,12 @@ class TransactionEntryService(StripeService):
         id: str,
         params: Optional["TransactionEntryRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> TransactionEntry:
+    ) -> "TransactionEntry":
         """
         Retrieves a TransactionEntry object.
         """
         return cast(
-            TransactionEntry,
+            "TransactionEntry",
             self._request(
                 "get",
                 "/v1/treasury/transaction_entries/{id}".format(
@@ -83,12 +83,12 @@ class TransactionEntryService(StripeService):
         id: str,
         params: Optional["TransactionEntryRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> TransactionEntry:
+    ) -> "TransactionEntry":
         """
         Retrieves a TransactionEntry object.
         """
         return cast(
-            TransactionEntry,
+            "TransactionEntry",
             await self._request_async(
                 "get",
                 "/v1/treasury/transaction_entries/{id}".format(

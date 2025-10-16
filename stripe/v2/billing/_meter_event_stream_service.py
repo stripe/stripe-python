@@ -16,7 +16,7 @@ class MeterEventStreamService(StripeService):
         self,
         params: "MeterEventStreamCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> None:
+    ) -> "None":
         """
         Creates meter events. Events are processed asynchronously, including validation. Requires a meter event session for authentication. Supports up to 10,000 requests per second in livemode. For even higher rate-limits, contact sales.
         """
@@ -32,7 +32,7 @@ class MeterEventStreamService(StripeService):
         self,
         params: "MeterEventStreamCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> None:
+    ) -> "None":
         """
         Creates meter events. Events are processed asynchronously, including validation. Requires a meter event session for authentication. Supports up to 10,000 requests per second in livemode. For even higher rate-limits, contact sales.
         """

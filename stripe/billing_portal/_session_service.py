@@ -2,11 +2,11 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
-from stripe.billing_portal._session import Session
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.billing_portal._session import Session
     from stripe.params.billing_portal._session_create_params import (
         SessionCreateParams,
     )
@@ -17,12 +17,12 @@ class SessionService(StripeService):
         self,
         params: "SessionCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> Session:
+    ) -> "Session":
         """
         Creates a session of the customer portal.
         """
         return cast(
-            Session,
+            "Session",
             self._request(
                 "post",
                 "/v1/billing_portal/sessions",
@@ -36,12 +36,12 @@ class SessionService(StripeService):
         self,
         params: "SessionCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> Session:
+    ) -> "Session":
         """
         Creates a session of the customer portal.
         """
         return cast(
-            Session,
+            "Session",
             await self._request_async(
                 "post",
                 "/v1/billing_portal/sessions",

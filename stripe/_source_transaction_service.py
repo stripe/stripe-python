@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._source_transaction import SourceTransaction
 from stripe._stripe_service import StripeService
@@ -9,6 +8,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
     from stripe.params._source_transaction_list_params import (
         SourceTransactionListParams,
     )
@@ -20,12 +20,12 @@ class SourceTransactionService(StripeService):
         source: str,
         params: Optional["SourceTransactionListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[SourceTransaction]:
+    ) -> "ListObject[SourceTransaction]":
         """
         List source transactions for a given source.
         """
         return cast(
-            ListObject[SourceTransaction],
+            "ListObject[SourceTransaction]",
             self._request(
                 "get",
                 "/v1/sources/{source}/source_transactions".format(
@@ -42,12 +42,12 @@ class SourceTransactionService(StripeService):
         source: str,
         params: Optional["SourceTransactionListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[SourceTransaction]:
+    ) -> "ListObject[SourceTransaction]":
         """
         List source transactions for a given source.
         """
         return cast(
-            ListObject[SourceTransaction],
+            "ListObject[SourceTransaction]",
             await self._request_async(
                 "get",
                 "/v1/sources/{source}/source_transactions".format(

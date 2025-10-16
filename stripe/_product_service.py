@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
 from stripe._product import Product
 from stripe._request_options import RequestOptions
-from stripe._search_result_object import SearchResultObject
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
@@ -11,7 +9,9 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
     from stripe._product_feature_service import ProductFeatureService
+    from stripe._search_result_object import SearchResultObject
     from stripe.params._product_create_params import ProductCreateParams
     from stripe.params._product_delete_params import ProductDeleteParams
     from stripe.params._product_list_params import ProductListParams
@@ -51,12 +51,12 @@ class ProductService(StripeService):
         id: str,
         params: Optional["ProductDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Product:
+    ) -> "Product":
         """
         Delete a product. Deleting a product is only possible if it has no prices associated with it. Additionally, deleting a product with type=good is only possible if it has no SKUs associated with it.
         """
         return cast(
-            Product,
+            "Product",
             self._request(
                 "delete",
                 "/v1/products/{id}".format(id=sanitize_id(id)),
@@ -71,12 +71,12 @@ class ProductService(StripeService):
         id: str,
         params: Optional["ProductDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Product:
+    ) -> "Product":
         """
         Delete a product. Deleting a product is only possible if it has no prices associated with it. Additionally, deleting a product with type=good is only possible if it has no SKUs associated with it.
         """
         return cast(
-            Product,
+            "Product",
             await self._request_async(
                 "delete",
                 "/v1/products/{id}".format(id=sanitize_id(id)),
@@ -91,12 +91,12 @@ class ProductService(StripeService):
         id: str,
         params: Optional["ProductRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Product:
+    ) -> "Product":
         """
         Retrieves the details of an existing product. Supply the unique product ID from either a product creation request or the product list, and Stripe will return the corresponding product information.
         """
         return cast(
-            Product,
+            "Product",
             self._request(
                 "get",
                 "/v1/products/{id}".format(id=sanitize_id(id)),
@@ -111,12 +111,12 @@ class ProductService(StripeService):
         id: str,
         params: Optional["ProductRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Product:
+    ) -> "Product":
         """
         Retrieves the details of an existing product. Supply the unique product ID from either a product creation request or the product list, and Stripe will return the corresponding product information.
         """
         return cast(
-            Product,
+            "Product",
             await self._request_async(
                 "get",
                 "/v1/products/{id}".format(id=sanitize_id(id)),
@@ -131,12 +131,12 @@ class ProductService(StripeService):
         id: str,
         params: Optional["ProductUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Product:
+    ) -> "Product":
         """
         Updates the specific product by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
         return cast(
-            Product,
+            "Product",
             self._request(
                 "post",
                 "/v1/products/{id}".format(id=sanitize_id(id)),
@@ -151,12 +151,12 @@ class ProductService(StripeService):
         id: str,
         params: Optional["ProductUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Product:
+    ) -> "Product":
         """
         Updates the specific product by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
         return cast(
-            Product,
+            "Product",
             await self._request_async(
                 "post",
                 "/v1/products/{id}".format(id=sanitize_id(id)),
@@ -170,12 +170,12 @@ class ProductService(StripeService):
         self,
         params: Optional["ProductListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[Product]:
+    ) -> "ListObject[Product]":
         """
         Returns a list of your products. The products are returned sorted by creation date, with the most recently created products appearing first.
         """
         return cast(
-            ListObject[Product],
+            "ListObject[Product]",
             self._request(
                 "get",
                 "/v1/products",
@@ -189,12 +189,12 @@ class ProductService(StripeService):
         self,
         params: Optional["ProductListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[Product]:
+    ) -> "ListObject[Product]":
         """
         Returns a list of your products. The products are returned sorted by creation date, with the most recently created products appearing first.
         """
         return cast(
-            ListObject[Product],
+            "ListObject[Product]",
             await self._request_async(
                 "get",
                 "/v1/products",
@@ -208,12 +208,12 @@ class ProductService(StripeService):
         self,
         params: "ProductCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> Product:
+    ) -> "Product":
         """
         Creates a new product object.
         """
         return cast(
-            Product,
+            "Product",
             self._request(
                 "post",
                 "/v1/products",
@@ -227,12 +227,12 @@ class ProductService(StripeService):
         self,
         params: "ProductCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> Product:
+    ) -> "Product":
         """
         Creates a new product object.
         """
         return cast(
-            Product,
+            "Product",
             await self._request_async(
                 "post",
                 "/v1/products",
@@ -246,7 +246,7 @@ class ProductService(StripeService):
         self,
         params: "ProductSearchParams",
         options: Optional[RequestOptions] = None,
-    ) -> SearchResultObject[Product]:
+    ) -> "SearchResultObject[Product]":
         """
         Search for products you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
         Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
@@ -254,7 +254,7 @@ class ProductService(StripeService):
         to an hour behind during outages. Search functionality is not available to merchants in India.
         """
         return cast(
-            SearchResultObject[Product],
+            "SearchResultObject[Product]",
             self._request(
                 "get",
                 "/v1/products/search",
@@ -268,7 +268,7 @@ class ProductService(StripeService):
         self,
         params: "ProductSearchParams",
         options: Optional[RequestOptions] = None,
-    ) -> SearchResultObject[Product]:
+    ) -> "SearchResultObject[Product]":
         """
         Search for products you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
         Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
@@ -276,7 +276,7 @@ class ProductService(StripeService):
         to an hour behind during outages. Search functionality is not available to merchants in India.
         """
         return cast(
-            SearchResultObject[Product],
+            "SearchResultObject[Product]",
             await self._request_async(
                 "get",
                 "/v1/products/search",

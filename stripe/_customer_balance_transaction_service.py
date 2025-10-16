@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._customer_balance_transaction import CustomerBalanceTransaction
-from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
@@ -9,6 +8,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
     from stripe.params._customer_balance_transaction_create_params import (
         CustomerBalanceTransactionCreateParams,
     )
@@ -29,12 +29,12 @@ class CustomerBalanceTransactionService(StripeService):
         customer: str,
         params: Optional["CustomerBalanceTransactionListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[CustomerBalanceTransaction]:
+    ) -> "ListObject[CustomerBalanceTransaction]":
         """
         Returns a list of transactions that updated the customer's [balances](https://docs.stripe.com/docs/billing/customer/balance).
         """
         return cast(
-            ListObject[CustomerBalanceTransaction],
+            "ListObject[CustomerBalanceTransaction]",
             self._request(
                 "get",
                 "/v1/customers/{customer}/balance_transactions".format(
@@ -51,12 +51,12 @@ class CustomerBalanceTransactionService(StripeService):
         customer: str,
         params: Optional["CustomerBalanceTransactionListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[CustomerBalanceTransaction]:
+    ) -> "ListObject[CustomerBalanceTransaction]":
         """
         Returns a list of transactions that updated the customer's [balances](https://docs.stripe.com/docs/billing/customer/balance).
         """
         return cast(
-            ListObject[CustomerBalanceTransaction],
+            "ListObject[CustomerBalanceTransaction]",
             await self._request_async(
                 "get",
                 "/v1/customers/{customer}/balance_transactions".format(
@@ -73,12 +73,12 @@ class CustomerBalanceTransactionService(StripeService):
         customer: str,
         params: "CustomerBalanceTransactionCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> CustomerBalanceTransaction:
+    ) -> "CustomerBalanceTransaction":
         """
         Creates an immutable transaction that updates the customer's credit [balance](https://docs.stripe.com/docs/billing/customer/balance).
         """
         return cast(
-            CustomerBalanceTransaction,
+            "CustomerBalanceTransaction",
             self._request(
                 "post",
                 "/v1/customers/{customer}/balance_transactions".format(
@@ -95,12 +95,12 @@ class CustomerBalanceTransactionService(StripeService):
         customer: str,
         params: "CustomerBalanceTransactionCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> CustomerBalanceTransaction:
+    ) -> "CustomerBalanceTransaction":
         """
         Creates an immutable transaction that updates the customer's credit [balance](https://docs.stripe.com/docs/billing/customer/balance).
         """
         return cast(
-            CustomerBalanceTransaction,
+            "CustomerBalanceTransaction",
             await self._request_async(
                 "post",
                 "/v1/customers/{customer}/balance_transactions".format(
@@ -118,12 +118,12 @@ class CustomerBalanceTransactionService(StripeService):
         transaction: str,
         params: Optional["CustomerBalanceTransactionRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> CustomerBalanceTransaction:
+    ) -> "CustomerBalanceTransaction":
         """
         Retrieves a specific customer balance transaction that updated the customer's [balances](https://docs.stripe.com/docs/billing/customer/balance).
         """
         return cast(
-            CustomerBalanceTransaction,
+            "CustomerBalanceTransaction",
             self._request(
                 "get",
                 "/v1/customers/{customer}/balance_transactions/{transaction}".format(
@@ -142,12 +142,12 @@ class CustomerBalanceTransactionService(StripeService):
         transaction: str,
         params: Optional["CustomerBalanceTransactionRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> CustomerBalanceTransaction:
+    ) -> "CustomerBalanceTransaction":
         """
         Retrieves a specific customer balance transaction that updated the customer's [balances](https://docs.stripe.com/docs/billing/customer/balance).
         """
         return cast(
-            CustomerBalanceTransaction,
+            "CustomerBalanceTransaction",
             await self._request_async(
                 "get",
                 "/v1/customers/{customer}/balance_transactions/{transaction}".format(
@@ -166,12 +166,12 @@ class CustomerBalanceTransactionService(StripeService):
         transaction: str,
         params: Optional["CustomerBalanceTransactionUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> CustomerBalanceTransaction:
+    ) -> "CustomerBalanceTransaction":
         """
         Most credit balance transaction fields are immutable, but you may update its description and metadata.
         """
         return cast(
-            CustomerBalanceTransaction,
+            "CustomerBalanceTransaction",
             self._request(
                 "post",
                 "/v1/customers/{customer}/balance_transactions/{transaction}".format(
@@ -190,12 +190,12 @@ class CustomerBalanceTransactionService(StripeService):
         transaction: str,
         params: Optional["CustomerBalanceTransactionUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> CustomerBalanceTransaction:
+    ) -> "CustomerBalanceTransaction":
         """
         Most credit balance transaction fields are immutable, but you may update its description and metadata.
         """
         return cast(
-            CustomerBalanceTransaction,
+            "CustomerBalanceTransaction",
             await self._request_async(
                 "post",
                 "/v1/customers/{customer}/balance_transactions/{transaction}".format(

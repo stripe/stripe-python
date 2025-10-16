@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
@@ -9,6 +8,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
     from stripe.params.radar._value_list_item_create_params import (
         ValueListItemCreateParams,
     )
@@ -29,12 +29,12 @@ class ValueListItemService(StripeService):
         item: str,
         params: Optional["ValueListItemDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ValueListItem:
+    ) -> "ValueListItem":
         """
         Deletes a ValueListItem object, removing it from its parent value list.
         """
         return cast(
-            ValueListItem,
+            "ValueListItem",
             self._request(
                 "delete",
                 "/v1/radar/value_list_items/{item}".format(
@@ -51,12 +51,12 @@ class ValueListItemService(StripeService):
         item: str,
         params: Optional["ValueListItemDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ValueListItem:
+    ) -> "ValueListItem":
         """
         Deletes a ValueListItem object, removing it from its parent value list.
         """
         return cast(
-            ValueListItem,
+            "ValueListItem",
             await self._request_async(
                 "delete",
                 "/v1/radar/value_list_items/{item}".format(
@@ -73,12 +73,12 @@ class ValueListItemService(StripeService):
         item: str,
         params: Optional["ValueListItemRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ValueListItem:
+    ) -> "ValueListItem":
         """
         Retrieves a ValueListItem object.
         """
         return cast(
-            ValueListItem,
+            "ValueListItem",
             self._request(
                 "get",
                 "/v1/radar/value_list_items/{item}".format(
@@ -95,12 +95,12 @@ class ValueListItemService(StripeService):
         item: str,
         params: Optional["ValueListItemRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ValueListItem:
+    ) -> "ValueListItem":
         """
         Retrieves a ValueListItem object.
         """
         return cast(
-            ValueListItem,
+            "ValueListItem",
             await self._request_async(
                 "get",
                 "/v1/radar/value_list_items/{item}".format(
@@ -116,12 +116,12 @@ class ValueListItemService(StripeService):
         self,
         params: "ValueListItemListParams",
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[ValueListItem]:
+    ) -> "ListObject[ValueListItem]":
         """
         Returns a list of ValueListItem objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
         return cast(
-            ListObject[ValueListItem],
+            "ListObject[ValueListItem]",
             self._request(
                 "get",
                 "/v1/radar/value_list_items",
@@ -135,12 +135,12 @@ class ValueListItemService(StripeService):
         self,
         params: "ValueListItemListParams",
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[ValueListItem]:
+    ) -> "ListObject[ValueListItem]":
         """
         Returns a list of ValueListItem objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
         return cast(
-            ListObject[ValueListItem],
+            "ListObject[ValueListItem]",
             await self._request_async(
                 "get",
                 "/v1/radar/value_list_items",
@@ -154,12 +154,12 @@ class ValueListItemService(StripeService):
         self,
         params: "ValueListItemCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> ValueListItem:
+    ) -> "ValueListItem":
         """
         Creates a new ValueListItem object, which is added to the specified parent value list.
         """
         return cast(
-            ValueListItem,
+            "ValueListItem",
             self._request(
                 "post",
                 "/v1/radar/value_list_items",
@@ -173,12 +173,12 @@ class ValueListItemService(StripeService):
         self,
         params: "ValueListItemCreateParams",
         options: Optional[RequestOptions] = None,
-    ) -> ValueListItem:
+    ) -> "ValueListItem":
         """
         Creates a new ValueListItem object, which is added to the specified parent value list.
         """
         return cast(
-            ValueListItem,
+            "ValueListItem",
             await self._request_async(
                 "post",
                 "/v1/radar/value_list_items",

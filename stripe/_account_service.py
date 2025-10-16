@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._account import Account
-from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
@@ -16,6 +15,7 @@ if TYPE_CHECKING:
     )
     from stripe._account_login_link_service import AccountLoginLinkService
     from stripe._account_person_service import AccountPersonService
+    from stripe._list_object import ListObject
     from stripe.params._account_create_params import AccountCreateParams
     from stripe.params._account_delete_params import AccountDeleteParams
     from stripe.params._account_list_params import AccountListParams
@@ -73,7 +73,7 @@ class AccountService(StripeService):
         account: str,
         params: Optional["AccountDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Account:
+    ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can delete accounts you manage.
 
@@ -84,7 +84,7 @@ class AccountService(StripeService):
         If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
         """
         return cast(
-            Account,
+            "Account",
             self._request(
                 "delete",
                 "/v1/accounts/{account}".format(account=sanitize_id(account)),
@@ -99,7 +99,7 @@ class AccountService(StripeService):
         account: str,
         params: Optional["AccountDeleteParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Account:
+    ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can delete accounts you manage.
 
@@ -110,7 +110,7 @@ class AccountService(StripeService):
         If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
         """
         return cast(
-            Account,
+            "Account",
             await self._request_async(
                 "delete",
                 "/v1/accounts/{account}".format(account=sanitize_id(account)),
@@ -125,12 +125,12 @@ class AccountService(StripeService):
         account: str,
         params: Optional["AccountRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Account:
+    ) -> "Account":
         """
         Retrieves the details of an account.
         """
         return cast(
-            Account,
+            "Account",
             self._request(
                 "get",
                 "/v1/accounts/{account}".format(account=sanitize_id(account)),
@@ -145,12 +145,12 @@ class AccountService(StripeService):
         account: str,
         params: Optional["AccountRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Account:
+    ) -> "Account":
         """
         Retrieves the details of an account.
         """
         return cast(
-            Account,
+            "Account",
             await self._request_async(
                 "get",
                 "/v1/accounts/{account}".format(account=sanitize_id(account)),
@@ -165,7 +165,7 @@ class AccountService(StripeService):
         account: str,
         params: Optional["AccountUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Account:
+    ) -> "Account":
         """
         Updates a [connected account](https://docs.stripe.com/connect/accounts) by setting the values of the parameters passed. Any parameters not provided are
         left unchanged.
@@ -182,7 +182,7 @@ class AccountService(StripeService):
         [Connect](https://docs.stripe.com/docs/connect/updating-accounts) documentation to learn more about updating accounts.
         """
         return cast(
-            Account,
+            "Account",
             self._request(
                 "post",
                 "/v1/accounts/{account}".format(account=sanitize_id(account)),
@@ -197,7 +197,7 @@ class AccountService(StripeService):
         account: str,
         params: Optional["AccountUpdateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Account:
+    ) -> "Account":
         """
         Updates a [connected account](https://docs.stripe.com/connect/accounts) by setting the values of the parameters passed. Any parameters not provided are
         left unchanged.
@@ -214,7 +214,7 @@ class AccountService(StripeService):
         [Connect](https://docs.stripe.com/docs/connect/updating-accounts) documentation to learn more about updating accounts.
         """
         return cast(
-            Account,
+            "Account",
             await self._request_async(
                 "post",
                 "/v1/accounts/{account}".format(account=sanitize_id(account)),
@@ -228,12 +228,12 @@ class AccountService(StripeService):
         self,
         params: Optional["AccountRetrieveCurrentParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Account:
+    ) -> "Account":
         """
         Retrieves the details of an account.
         """
         return cast(
-            Account,
+            "Account",
             self._request(
                 "get",
                 "/v1/account",
@@ -247,12 +247,12 @@ class AccountService(StripeService):
         self,
         params: Optional["AccountRetrieveCurrentParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Account:
+    ) -> "Account":
         """
         Retrieves the details of an account.
         """
         return cast(
-            Account,
+            "Account",
             await self._request_async(
                 "get",
                 "/v1/account",
@@ -266,12 +266,12 @@ class AccountService(StripeService):
         self,
         params: Optional["AccountListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[Account]:
+    ) -> "ListObject[Account]":
         """
         Returns a list of accounts connected to your platform via [Connect](https://docs.stripe.com/docs/connect). If you're not a platform, the list is empty.
         """
         return cast(
-            ListObject[Account],
+            "ListObject[Account]",
             self._request(
                 "get",
                 "/v1/accounts",
@@ -285,12 +285,12 @@ class AccountService(StripeService):
         self,
         params: Optional["AccountListParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[Account]:
+    ) -> "ListObject[Account]":
         """
         Returns a list of accounts connected to your platform via [Connect](https://docs.stripe.com/docs/connect). If you're not a platform, the list is empty.
         """
         return cast(
-            ListObject[Account],
+            "ListObject[Account]",
             await self._request_async(
                 "get",
                 "/v1/accounts",
@@ -304,7 +304,7 @@ class AccountService(StripeService):
         self,
         params: Optional["AccountCreateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Account:
+    ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/docs/connect), you can create Stripe accounts for your users.
         To do this, you'll first need to [register your platform](https://dashboard.stripe.com/account/applications/settings).
@@ -314,7 +314,7 @@ class AccountService(StripeService):
         You can prefill any information on the account.
         """
         return cast(
-            Account,
+            "Account",
             self._request(
                 "post",
                 "/v1/accounts",
@@ -328,7 +328,7 @@ class AccountService(StripeService):
         self,
         params: Optional["AccountCreateParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Account:
+    ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/docs/connect), you can create Stripe accounts for your users.
         To do this, you'll first need to [register your platform](https://dashboard.stripe.com/account/applications/settings).
@@ -338,7 +338,7 @@ class AccountService(StripeService):
         You can prefill any information on the account.
         """
         return cast(
-            Account,
+            "Account",
             await self._request_async(
                 "post",
                 "/v1/accounts",
@@ -353,14 +353,14 @@ class AccountService(StripeService):
         account: str,
         params: "AccountRejectParams",
         options: Optional[RequestOptions] = None,
-    ) -> Account:
+    ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
         Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
         """
         return cast(
-            Account,
+            "Account",
             self._request(
                 "post",
                 "/v1/accounts/{account}/reject".format(
@@ -377,14 +377,14 @@ class AccountService(StripeService):
         account: str,
         params: "AccountRejectParams",
         options: Optional[RequestOptions] = None,
-    ) -> Account:
+    ) -> "Account":
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
         Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
         """
         return cast(
-            Account,
+            "Account",
             await self._request_async(
                 "post",
                 "/v1/accounts/{account}/reject".format(

@@ -3,7 +3,6 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.v2._list_object import ListObject
 from stripe.v2.core._event import Event
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
@@ -13,6 +12,7 @@ if TYPE_CHECKING:
     from stripe.params.v2.core._event_retrieve_params import (
         EventRetrieveParams,
     )
+    from stripe.v2._list_object import ListObject
 
 
 class EventService(StripeService):
@@ -20,12 +20,12 @@ class EventService(StripeService):
         self,
         params: "EventListParams",
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[Event]:
+    ) -> "ListObject[Event]":
         """
         List events, going back up to 30 days.
         """
         return cast(
-            ListObject[Event],
+            "ListObject[Event]",
             self._request(
                 "get",
                 "/v2/core/events",
@@ -39,12 +39,12 @@ class EventService(StripeService):
         self,
         params: "EventListParams",
         options: Optional[RequestOptions] = None,
-    ) -> ListObject[Event]:
+    ) -> "ListObject[Event]":
         """
         List events, going back up to 30 days.
         """
         return cast(
-            ListObject[Event],
+            "ListObject[Event]",
             await self._request_async(
                 "get",
                 "/v2/core/events",
@@ -59,12 +59,12 @@ class EventService(StripeService):
         id: str,
         params: Optional["EventRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Event:
+    ) -> "Event":
         """
         Retrieves the details of an event.
         """
         return cast(
-            Event,
+            "Event",
             self._request(
                 "get",
                 "/v2/core/events/{id}".format(id=sanitize_id(id)),
@@ -79,12 +79,12 @@ class EventService(StripeService):
         id: str,
         params: Optional["EventRetrieveParams"] = None,
         options: Optional[RequestOptions] = None,
-    ) -> Event:
+    ) -> "Event":
         """
         Retrieves the details of an event.
         """
         return cast(
-            Event,
+            "Event",
             await self._request_async(
                 "get",
                 "/v2/core/events/{id}".format(id=sanitize_id(id)),
