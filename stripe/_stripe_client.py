@@ -63,6 +63,7 @@ from stripe._coupon_service import CouponService
 from stripe._credit_note_service import CreditNoteService
 from stripe._customer_service import CustomerService
 from stripe._customer_session_service import CustomerSessionService
+from stripe._delegated_checkout_service import DelegatedCheckoutService
 from stripe._dispute_service import DisputeService
 from stripe._entitlements_service import EntitlementsService
 from stripe._ephemeral_key_service import EphemeralKeyService
@@ -556,6 +557,17 @@ class StripeClient(object):
     )
     def customer_sessions(self) -> CustomerSessionService:
         return self.v1.customer_sessions
+
+    @property
+    @deprecated(
+        """
+        StripeClient.delegated_checkout is deprecated, use StripeClient.v1.delegated_checkout instead.
+          All functionality under it has been copied over to StripeClient.v1.delegated_checkout.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """,
+    )
+    def delegated_checkout(self) -> DelegatedCheckoutService:
+        return self.v1.delegated_checkout
 
     @property
     @deprecated(

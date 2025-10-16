@@ -54,6 +54,7 @@ OBJECT_CLASSES = {
     stripe.CustomerBalanceTransaction.OBJECT_NAME: stripe.CustomerBalanceTransaction,
     stripe.CustomerCashBalanceTransaction.OBJECT_NAME: stripe.CustomerCashBalanceTransaction,
     stripe.CustomerSession.OBJECT_NAME: stripe.CustomerSession,
+    stripe.delegated_checkout.RequestedSession.OBJECT_NAME: stripe.delegated_checkout.RequestedSession,
     stripe.Discount.OBJECT_NAME: stripe.Discount,
     stripe.Dispute.OBJECT_NAME: stripe.Dispute,
     stripe.entitlements.ActiveEntitlement.OBJECT_NAME: stripe.entitlements.ActiveEntitlement,

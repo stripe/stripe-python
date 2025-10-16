@@ -4,7 +4,6 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._stripe_object import StripeObject
 from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Optional, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
@@ -33,7 +32,7 @@ class BlocklistEntry(
     """
     A BlocklistEntry represents an entry in our identity verification blocklist.
     It helps prevent fraudulent users from repeatedly attempting verification with similar information.
-    When you create a BlocklistEntry, we store data from a previous verification attempt,
+    When you create a BlocklistEntry, we store data from a specified VerificationReport,
     such as document details or facial biometrics.
     This allows us to compare future verification attempts against these entries.
     If a match is found, we categorize the new verification as unverified.
@@ -44,13 +43,6 @@ class BlocklistEntry(
     OBJECT_NAME: ClassVar[Literal["identity.blocklist_entry"]] = (
         "identity.blocklist_entry"
     )
-
-    class Redaction(StripeObject):
-        status: Literal["processing", "redacted"]
-        """
-        Indicates whether this object and its related objects have been redacted or not.
-        """
-
     created: int
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -74,10 +66,6 @@ class BlocklistEntry(
     object: Literal["identity.blocklist_entry"]
     """
     String representing the object's type. Objects of the same type share the same value.
-    """
-    redaction: Optional[Redaction]
-    """
-    Redaction status of the BlocklistEntry. If the BlocklistEntry isn't redacted, this field is null.
     """
     status: Literal["active", "disabled", "redacted"]
     """
@@ -377,5 +365,3 @@ class BlocklistEntry(
     @classmethod
     def class_url(cls):
         return "/v1/identity/blocklist_entries"
-
-    _inner_class_types = {"redaction": Redaction}

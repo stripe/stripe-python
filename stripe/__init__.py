@@ -248,6 +248,7 @@ from stripe import (
     capital as capital,
     checkout as checkout,
     climate as climate,
+    delegated_checkout as delegated_checkout,
     entitlements as entitlements,
     events as events,
     financial_connections as financial_connections,
@@ -388,6 +389,9 @@ from stripe._customer_session_service import (
 )
 from stripe._customer_tax_id_service import (
     CustomerTaxIdService as CustomerTaxIdService,
+)
+from stripe._delegated_checkout_service import (
+    DelegatedCheckoutService as DelegatedCheckoutService,
 )
 from stripe._discount import Discount as Discount
 from stripe._dispute import Dispute as Dispute
