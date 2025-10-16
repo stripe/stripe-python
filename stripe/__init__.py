@@ -1,4 +1,3 @@
-import importlib
 from typing_extensions import TYPE_CHECKING, Literal
 from typing import Optional
 import os
@@ -13,8 +12,6 @@ import warnings
 
 # Configuration variables
 from stripe._api_version import _ApiVersion
-# from stripe._api_requestor import _APIRequestor
-
 
 from stripe._app_info import AppInfo as AppInfo
 from stripe._version import VERSION as VERSION
@@ -84,19 +81,6 @@ def _warn_if_mismatched_proxy():
 # Set to either 'debug' or 'info', controls console logging
 log: Optional[Literal["debug", "info"]] = None
 
-# OAuth
-from stripe._oauth import OAuth as OAuth
-from stripe._oauth_service import OAuthService as OAuthService
-
-# Webhooks
-from stripe._webhook import (
-    Webhook as Webhook,
-    WebhookSignature as WebhookSignature,
-)
-
-# StripeClient
-from stripe._stripe_client import StripeClient as StripeClient  # noqa
-
 
 # Sets some basic information about the running application that's sent along
 # with API requests. Useful for plugin authors to identify their plugin when
@@ -117,97 +101,6 @@ def set_app_info(
         "version": version,
     }
 
-
-# Infrastructure types
-from stripe._api_resource import APIResource as APIResource
-from stripe._error_object import ErrorObject as ErrorObject
-from stripe._error_object import OAuthErrorObject as OAuthErrorObject
-from stripe._list_object import ListObject as ListObject
-from stripe._search_result_object import (
-    SearchResultObject as SearchResultObject,
-)
-from stripe._stripe_object import StripeObject as StripeObject
-from stripe._request_options import RequestOptions as RequestOptions
-from stripe._stripe_context import StripeContext as StripeContext
-from stripe._createable_api_resource import (
-    CreateableAPIResource as CreateableAPIResource,
-)
-from stripe._custom_method import (
-    custom_method as custom_method,
-)
-from stripe._deletable_api_resource import (
-    DeletableAPIResource as DeletableAPIResource,
-)
-from stripe._listable_api_resource import (
-    ListableAPIResource as ListableAPIResource,
-)
-from stripe._nested_resource_class_methods import (
-    nested_resource_class_methods as nested_resource_class_methods,
-)
-from stripe._searchable_api_resource import (
-    SearchableAPIResource as SearchableAPIResource,
-)
-from stripe._singleton_api_resource import (
-    SingletonAPIResource as SingletonAPIResource,
-)
-from stripe._test_helpers import (
-    APIResourceTestHelpers as APIResourceTestHelpers,
-)
-from stripe._updateable_api_resource import (
-    UpdateableAPIResource as UpdateableAPIResource,
-)
-from stripe._verify_mixin import (
-    VerifyMixin as VerifyMixin,
-)
-from stripe._requestor_options import (
-    RequestorOptions as RequestorOptions,
-)
-from stripe._api_mode import (
-    ApiMode as ApiMode,
-)
-from stripe._base_address import (
-    BaseAddress as BaseAddress,
-)
-
-# Response types
-from stripe._stripe_response import StripeResponse as StripeResponse
-from stripe._stripe_response import StripeResponseBase as StripeResponseBase
-from stripe._stripe_response import (
-    StripeStreamResponse as StripeStreamResponse,
-    StripeStreamResponseAsync as StripeStreamResponseAsync,
-)
-
-# Error types
-from stripe._error import StripeError as StripeError
-from stripe._error import APIError as APIError
-from stripe._error import APIConnectionError as APIConnectionError
-from stripe._error import StripeErrorWithParamCode as StripeErrorWithParamCode
-from stripe._error import CardError as CardError
-from stripe._error import IdempotencyError as IdempotencyError
-from stripe._error import InvalidRequestError as InvalidRequestError
-from stripe._error import AuthenticationError as AuthenticationError
-from stripe._error import PermissionError as PermissionError
-from stripe._error import RateLimitError as RateLimitError
-from stripe._error import (
-    SignatureVerificationError as SignatureVerificationError,
-)
-
-# HttpClient
-from stripe._http_client import (
-    HTTPClient as HTTPClient,
-    PycurlClient as PycurlClient,
-    RequestsClient as RequestsClient,
-    UrlFetchClient as UrlFetchClient,
-    HTTPXClient as HTTPXClient,
-    AIOHTTPClient as AIOHTTPClient,
-    UrllibClient as UrllibClient,
-    new_default_http_client as new_default_http_client,
-)
-
-# Util
-from stripe._util import convert_to_stripe_object as convert_to_stripe_object
-
-# API resources
 
 # The beginning of the section generated from our OpenAPI spec
 from importlib import import_module
@@ -257,6 +150,8 @@ if TYPE_CHECKING:
     from stripe._account_session_service import (
         AccountSessionService as AccountSessionService,
     )
+    from stripe._api_mode import ApiMode as ApiMode
+    from stripe._api_resource import APIResource as APIResource
     from stripe._apple_pay_domain import ApplePayDomain as ApplePayDomain
     from stripe._apple_pay_domain_service import (
         ApplePayDomainService as ApplePayDomainService,
@@ -286,6 +181,7 @@ if TYPE_CHECKING:
         BalanceTransactionService as BalanceTransactionService,
     )
     from stripe._bank_account import BankAccount as BankAccount
+    from stripe._base_address import BaseAddress as BaseAddress
     from stripe._billing_portal_service import (
         BillingPortalService as BillingPortalService,
     )
@@ -312,6 +208,9 @@ if TYPE_CHECKING:
     )
     from stripe._coupon import Coupon as Coupon
     from stripe._coupon_service import CouponService as CouponService
+    from stripe._createable_api_resource import (
+        CreateableAPIResource as CreateableAPIResource,
+    )
     from stripe._credit_note import CreditNote as CreditNote
     from stripe._credit_note_line_item import (
         CreditNoteLineItem as CreditNoteLineItem,
@@ -325,6 +224,7 @@ if TYPE_CHECKING:
     from stripe._credit_note_service import (
         CreditNoteService as CreditNoteService,
     )
+    from stripe._custom_method import custom_method as custom_method
     from stripe._customer import Customer as Customer
     from stripe._customer_balance_transaction import (
         CustomerBalanceTransaction as CustomerBalanceTransaction,
@@ -358,6 +258,9 @@ if TYPE_CHECKING:
     from stripe._customer_tax_id_service import (
         CustomerTaxIdService as CustomerTaxIdService,
     )
+    from stripe._deletable_api_resource import (
+        DeletableAPIResource as DeletableAPIResource,
+    )
     from stripe._discount import Discount as Discount
     from stripe._dispute import Dispute as Dispute
     from stripe._dispute_service import DisputeService as DisputeService
@@ -369,7 +272,22 @@ if TYPE_CHECKING:
         EphemeralKeyService as EphemeralKeyService,
     )
     from stripe._error import (
+        APIConnectionError as APIConnectionError,
+        APIError as APIError,
+        AuthenticationError as AuthenticationError,
+        CardError as CardError,
+        IdempotencyError as IdempotencyError,
+        InvalidRequestError as InvalidRequestError,
+        PermissionError as PermissionError,
+        RateLimitError as RateLimitError,
+        SignatureVerificationError as SignatureVerificationError,
+        StripeError as StripeError,
+        StripeErrorWithParamCode as StripeErrorWithParamCode,
         TemporarySessionExpiredError as TemporarySessionExpiredError,
+    )
+    from stripe._error_object import (
+        ErrorObject as ErrorObject,
+        OAuthErrorObject as OAuthErrorObject,
     )
     from stripe._event import Event as Event
     from stripe._event_service import EventService as EventService
@@ -389,6 +307,16 @@ if TYPE_CHECKING:
     )
     from stripe._funding_instructions import (
         FundingInstructions as FundingInstructions,
+    )
+    from stripe._http_client import (
+        AIOHTTPClient as AIOHTTPClient,
+        HTTPClient as HTTPClient,
+        HTTPXClient as HTTPXClient,
+        PycurlClient as PycurlClient,
+        RequestsClient as RequestsClient,
+        UrlFetchClient as UrlFetchClient,
+        UrllibClient as UrllibClient,
+        new_default_http_client as new_default_http_client,
     )
     from stripe._identity_service import IdentityService as IdentityService
     from stripe._invoice import Invoice as Invoice
@@ -413,9 +341,18 @@ if TYPE_CHECKING:
     from stripe._invoice_service import InvoiceService as InvoiceService
     from stripe._issuing_service import IssuingService as IssuingService
     from stripe._line_item import LineItem as LineItem
+    from stripe._list_object import ListObject as ListObject
+    from stripe._listable_api_resource import (
+        ListableAPIResource as ListableAPIResource,
+    )
     from stripe._login_link import LoginLink as LoginLink
     from stripe._mandate import Mandate as Mandate
     from stripe._mandate_service import MandateService as MandateService
+    from stripe._nested_resource_class_methods import (
+        nested_resource_class_methods as nested_resource_class_methods,
+    )
+    from stripe._oauth import OAuth as OAuth
+    from stripe._oauth_service import OAuthService as OAuthService
     from stripe._payment_intent import PaymentIntent as PaymentIntent
     from stripe._payment_intent_service import (
         PaymentIntentService as PaymentIntentService,
@@ -472,12 +409,20 @@ if TYPE_CHECKING:
     from stripe._refund import Refund as Refund
     from stripe._refund_service import RefundService as RefundService
     from stripe._reporting_service import ReportingService as ReportingService
+    from stripe._request_options import RequestOptions as RequestOptions
+    from stripe._requestor_options import RequestorOptions as RequestorOptions
     from stripe._reserve_transaction import (
         ReserveTransaction as ReserveTransaction,
     )
     from stripe._reversal import Reversal as Reversal
     from stripe._review import Review as Review
     from stripe._review_service import ReviewService as ReviewService
+    from stripe._search_result_object import (
+        SearchResultObject as SearchResultObject,
+    )
+    from stripe._searchable_api_resource import (
+        SearchableAPIResource as SearchableAPIResource,
+    )
     from stripe._setup_attempt import SetupAttempt as SetupAttempt
     from stripe._setup_attempt_service import (
         SetupAttemptService as SetupAttemptService,
@@ -491,6 +436,9 @@ if TYPE_CHECKING:
         ShippingRateService as ShippingRateService,
     )
     from stripe._sigma_service import SigmaService as SigmaService
+    from stripe._singleton_api_resource import (
+        SingletonAPIResource as SingletonAPIResource,
+    )
     from stripe._source import Source as Source
     from stripe._source_mandate_notification import (
         SourceMandateNotification as SourceMandateNotification,
@@ -501,6 +449,15 @@ if TYPE_CHECKING:
     )
     from stripe._source_transaction_service import (
         SourceTransactionService as SourceTransactionService,
+    )
+    from stripe._stripe_client import StripeClient as StripeClient
+    from stripe._stripe_context import StripeContext as StripeContext
+    from stripe._stripe_object import StripeObject as StripeObject
+    from stripe._stripe_response import (
+        StripeResponse as StripeResponse,
+        StripeResponseBase as StripeResponseBase,
+        StripeStreamResponse as StripeStreamResponse,
+        StripeStreamResponseAsync as StripeStreamResponseAsync,
     )
     from stripe._subscription import Subscription as Subscription
     from stripe._subscription_item import SubscriptionItem as SubscriptionItem
@@ -527,6 +484,9 @@ if TYPE_CHECKING:
     from stripe._tax_rate_service import TaxRateService as TaxRateService
     from stripe._tax_service import TaxService as TaxService
     from stripe._terminal_service import TerminalService as TerminalService
+    from stripe._test_helpers import (
+        APIResourceTestHelpers as APIResourceTestHelpers,
+    )
     from stripe._test_helpers_service import (
         TestHelpersService as TestHelpersService,
     )
@@ -540,8 +500,19 @@ if TYPE_CHECKING:
     )
     from stripe._transfer_service import TransferService as TransferService
     from stripe._treasury_service import TreasuryService as TreasuryService
+    from stripe._updateable_api_resource import (
+        UpdateableAPIResource as UpdateableAPIResource,
+    )
+    from stripe._util import (
+        convert_to_stripe_object as convert_to_stripe_object,
+    )
     from stripe._v1_services import V1Services as V1Services
     from stripe._v2_services import V2Services as V2Services
+    from stripe._verify_mixin import VerifyMixin as VerifyMixin
+    from stripe._webhook import (
+        Webhook as Webhook,
+        WebhookSignature as WebhookSignature,
+    )
     from stripe._webhook_endpoint import WebhookEndpoint as WebhookEndpoint
     from stripe._webhook_endpoint_service import (
         WebhookEndpointService as WebhookEndpointService,
@@ -582,6 +553,8 @@ _import_map = {
     "AccountService": ("stripe._account_service", False),
     "AccountSession": ("stripe._account_session", False),
     "AccountSessionService": ("stripe._account_session_service", False),
+    "ApiMode": ("stripe._api_mode", False),
+    "APIResource": ("stripe._api_resource", False),
     "ApplePayDomain": ("stripe._apple_pay_domain", False),
     "ApplePayDomainService": ("stripe._apple_pay_domain_service", False),
     "Application": ("stripe._application", False),
@@ -603,6 +576,7 @@ _import_map = {
         False,
     ),
     "BankAccount": ("stripe._bank_account", False),
+    "BaseAddress": ("stripe._base_address", False),
     "BillingPortalService": ("stripe._billing_portal_service", False),
     "BillingService": ("stripe._billing_service", False),
     "Capability": ("stripe._capability", False),
@@ -622,6 +596,7 @@ _import_map = {
     "CountrySpecService": ("stripe._country_spec_service", False),
     "Coupon": ("stripe._coupon", False),
     "CouponService": ("stripe._coupon_service", False),
+    "CreateableAPIResource": ("stripe._createable_api_resource", False),
     "CreditNote": ("stripe._credit_note", False),
     "CreditNoteLineItem": ("stripe._credit_note_line_item", False),
     "CreditNoteLineItemService": (
@@ -633,6 +608,7 @@ _import_map = {
         False,
     ),
     "CreditNoteService": ("stripe._credit_note_service", False),
+    "custom_method": ("stripe._custom_method", False),
     "Customer": ("stripe._customer", False),
     "CustomerBalanceTransaction": (
         "stripe._customer_balance_transaction",
@@ -670,13 +646,27 @@ _import_map = {
     "CustomerSession": ("stripe._customer_session", False),
     "CustomerSessionService": ("stripe._customer_session_service", False),
     "CustomerTaxIdService": ("stripe._customer_tax_id_service", False),
+    "DeletableAPIResource": ("stripe._deletable_api_resource", False),
     "Discount": ("stripe._discount", False),
     "Dispute": ("stripe._dispute", False),
     "DisputeService": ("stripe._dispute_service", False),
     "EntitlementsService": ("stripe._entitlements_service", False),
     "EphemeralKey": ("stripe._ephemeral_key", False),
     "EphemeralKeyService": ("stripe._ephemeral_key_service", False),
+    "APIConnectionError": ("stripe._error", False),
+    "APIError": ("stripe._error", False),
+    "AuthenticationError": ("stripe._error", False),
+    "CardError": ("stripe._error", False),
+    "IdempotencyError": ("stripe._error", False),
+    "InvalidRequestError": ("stripe._error", False),
+    "PermissionError": ("stripe._error", False),
+    "RateLimitError": ("stripe._error", False),
+    "SignatureVerificationError": ("stripe._error", False),
+    "StripeError": ("stripe._error", False),
+    "StripeErrorWithParamCode": ("stripe._error", False),
     "TemporarySessionExpiredError": ("stripe._error", False),
+    "ErrorObject": ("stripe._error_object", False),
+    "OAuthErrorObject": ("stripe._error_object", False),
     "Event": ("stripe._event", False),
     "EventService": ("stripe._event_service", False),
     "ExchangeRate": ("stripe._exchange_rate", False),
@@ -691,6 +681,14 @@ _import_map = {
     ),
     "ForwardingService": ("stripe._forwarding_service", False),
     "FundingInstructions": ("stripe._funding_instructions", False),
+    "AIOHTTPClient": ("stripe._http_client", False),
+    "HTTPClient": ("stripe._http_client", False),
+    "HTTPXClient": ("stripe._http_client", False),
+    "PycurlClient": ("stripe._http_client", False),
+    "RequestsClient": ("stripe._http_client", False),
+    "UrlFetchClient": ("stripe._http_client", False),
+    "UrllibClient": ("stripe._http_client", False),
+    "new_default_http_client": ("stripe._http_client", False),
     "IdentityService": ("stripe._identity_service", False),
     "Invoice": ("stripe._invoice", False),
     "InvoiceItem": ("stripe._invoice_item", False),
@@ -707,9 +705,17 @@ _import_map = {
     "InvoiceService": ("stripe._invoice_service", False),
     "IssuingService": ("stripe._issuing_service", False),
     "LineItem": ("stripe._line_item", False),
+    "ListObject": ("stripe._list_object", False),
+    "ListableAPIResource": ("stripe._listable_api_resource", False),
     "LoginLink": ("stripe._login_link", False),
     "Mandate": ("stripe._mandate", False),
     "MandateService": ("stripe._mandate_service", False),
+    "nested_resource_class_methods": (
+        "stripe._nested_resource_class_methods",
+        False,
+    ),
+    "OAuth": ("stripe._oauth", False),
+    "OAuthService": ("stripe._oauth_service", False),
     "PaymentIntent": ("stripe._payment_intent", False),
     "PaymentIntentService": ("stripe._payment_intent_service", False),
     "PaymentLink": ("stripe._payment_link", False),
@@ -757,10 +763,14 @@ _import_map = {
     "Refund": ("stripe._refund", False),
     "RefundService": ("stripe._refund_service", False),
     "ReportingService": ("stripe._reporting_service", False),
+    "RequestOptions": ("stripe._request_options", False),
+    "RequestorOptions": ("stripe._requestor_options", False),
     "ReserveTransaction": ("stripe._reserve_transaction", False),
     "Reversal": ("stripe._reversal", False),
     "Review": ("stripe._review", False),
     "ReviewService": ("stripe._review_service", False),
+    "SearchResultObject": ("stripe._search_result_object", False),
+    "SearchableAPIResource": ("stripe._searchable_api_resource", False),
     "SetupAttempt": ("stripe._setup_attempt", False),
     "SetupAttemptService": ("stripe._setup_attempt_service", False),
     "SetupIntent": ("stripe._setup_intent", False),
@@ -768,6 +778,7 @@ _import_map = {
     "ShippingRate": ("stripe._shipping_rate", False),
     "ShippingRateService": ("stripe._shipping_rate_service", False),
     "SigmaService": ("stripe._sigma_service", False),
+    "SingletonAPIResource": ("stripe._singleton_api_resource", False),
     "Source": ("stripe._source", False),
     "SourceMandateNotification": (
         "stripe._source_mandate_notification",
@@ -776,6 +787,13 @@ _import_map = {
     "SourceService": ("stripe._source_service", False),
     "SourceTransaction": ("stripe._source_transaction", False),
     "SourceTransactionService": ("stripe._source_transaction_service", False),
+    "StripeClient": ("stripe._stripe_client", False),
+    "StripeContext": ("stripe._stripe_context", False),
+    "StripeObject": ("stripe._stripe_object", False),
+    "StripeResponse": ("stripe._stripe_response", False),
+    "StripeResponseBase": ("stripe._stripe_response", False),
+    "StripeStreamResponse": ("stripe._stripe_response", False),
+    "StripeStreamResponseAsync": ("stripe._stripe_response", False),
     "Subscription": ("stripe._subscription", False),
     "SubscriptionItem": ("stripe._subscription_item", False),
     "SubscriptionItemService": ("stripe._subscription_item_service", False),
@@ -794,6 +812,7 @@ _import_map = {
     "TaxRateService": ("stripe._tax_rate_service", False),
     "TaxService": ("stripe._tax_service", False),
     "TerminalService": ("stripe._terminal_service", False),
+    "APIResourceTestHelpers": ("stripe._test_helpers", False),
     "TestHelpersService": ("stripe._test_helpers_service", False),
     "Token": ("stripe._token", False),
     "TokenService": ("stripe._token_service", False),
@@ -803,8 +822,13 @@ _import_map = {
     "TransferReversalService": ("stripe._transfer_reversal_service", False),
     "TransferService": ("stripe._transfer_service", False),
     "TreasuryService": ("stripe._treasury_service", False),
+    "UpdateableAPIResource": ("stripe._updateable_api_resource", False),
+    "convert_to_stripe_object": ("stripe._util", False),
     "V1Services": ("stripe._v1_services", False),
     "V2Services": ("stripe._v2_services", False),
+    "VerifyMixin": ("stripe._verify_mixin", False),
+    "Webhook": ("stripe._webhook", False),
+    "WebhookSignature": ("stripe._webhook", False),
     "WebhookEndpoint": ("stripe._webhook_endpoint", False),
     "WebhookEndpointService": ("stripe._webhook_endpoint_service", False),
 }

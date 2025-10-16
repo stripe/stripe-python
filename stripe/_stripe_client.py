@@ -16,7 +16,6 @@ from stripe._request_options import extract_options_from_dict
 from stripe._requestor_options import RequestorOptions, BaseAddresses
 from stripe._client_options import _ClientOptions
 from stripe._http_client import (
-    HTTPClient,
     new_default_http_client,
     new_http_client_async_fallback,
 )
@@ -33,6 +32,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._stripe_context import StripeContext
+    from stripe._http_client import HTTPClient
 
 # Non-generated services
 from stripe._oauth_service import OAuthService
@@ -142,7 +142,7 @@ class StripeClient(object):
         verify_ssl_certs: bool = True,
         proxy: Optional[str] = None,
         max_network_retries: Optional[int] = None,
-        http_client: Optional[HTTPClient] = None,
+        http_client: Optional["HTTPClient"] = None,
     ):
         # The types forbid this, but let's give users without types a friendly error.
         if api_key is None:  # pyright: ignore[reportUnnecessaryComparison]

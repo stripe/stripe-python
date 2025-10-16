@@ -27,7 +27,7 @@ import typing_extensions
 
 
 # Used for global variables
-import stripe  # noqa: IMP101
+import stripe
 
 if TYPE_CHECKING:
     from stripe._stripe_response import StripeResponse
@@ -191,18 +191,6 @@ else:
         return result == 0
 
 
-def get_object_classes(api_mode):
-    # This is here to avoid a circular dependency
-    if api_mode == "V2":
-        from stripe._object_classes import V2_OBJECT_CLASSES
-
-        return V2_OBJECT_CLASSES
-
-    from stripe._object_classes import OBJECT_CLASSES
-
-    return OBJECT_CLASSES
-
-
 Resp = Union["StripeResponse", Dict[str, Any], List["Resp"]]
 
 
@@ -329,9 +317,9 @@ def _convert_to_stripe_object(
                 event_type = resp.get("type", "")
                 klass = get_v2_event_class(event_type)
             else:
-                klass = get_object_classes(api_mode).get(
-                    klass_name, stripe.StripeObject
-                )
+                from stripe._object_classes import get_object_class
+
+                klass = get_object_class(api_mode, klass_name)
         # TODO: this is a horrible hack. The API needs
         # to return something for `object` here.
 

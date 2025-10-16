@@ -91,3 +91,8 @@ update-version version:
 profile-imports name:
     python -X importtime stripe/main.py 2> {{ name }}.txt
     tuna {{ name }}.txt
+
+[private]
+profile name:
+    python -m cProfile -o {{ name }}.prof stripe/main.py
+    tuna {{ name }}.prof
