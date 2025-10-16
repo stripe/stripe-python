@@ -8,7 +8,7 @@ import warnings
 
 from stripe._api_mode import ApiMode
 
-from urllib.parse import parse_qsl, quote_plus, urlparse  # noqa: F401
+from urllib.parse import quote_plus
 
 from typing_extensions import Type, TYPE_CHECKING
 from typing import (
@@ -27,7 +27,7 @@ import typing_extensions
 
 
 # Used for global variables
-import stripe
+import stripe  # noqa: IMP101
 
 if TYPE_CHECKING:
     from stripe._stripe_response import StripeResponse
