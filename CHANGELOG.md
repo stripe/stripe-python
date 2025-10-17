@@ -1,5 +1,12 @@
 # Changelog
 
+## 13.1.0a3 - 2025-10-17
+* [#1643](https://github.com/stripe/stripe-python/pull/1643) Update generated code for private-preview
+  * Add support for new resources `delegated_checkout.RequestedSession` and `identity.BlocklistEntry`
+  * Add support for `confirm`, `create`, `expire`, `modify`, and `retrieve` methods on resource `delegated_checkout.RequestedSession`
+  * Add support for `create`, `disable`, `list`, and `retrieve` methods on resource `identity.BlocklistEntry`
+  * Add support for `blocked_by_entry` on `Identity.VerificationReport.Document`, `Identity.VerificationReport.Selfie`, and `identity.VerificationReportListParams`
+
 ## 13.1.0a2 - 2025-10-09
 * [#1629](https://github.com/stripe/stripe-python/pull/1629) Update generated code for private-preview
   * Add support for new resource `PaymentMethodBalance`
