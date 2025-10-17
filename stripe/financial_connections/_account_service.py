@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from stripe.financial_connections._account import Account
@@ -12,9 +10,16 @@ from stripe.financial_connections._account_owner_service import (
     AccountOwnerService,
 )
 from typing import Optional, cast
+from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
+    from stripe.financial_connections._account import Account
+    from stripe.financial_connections._account_owner_service import (
+        AccountOwnerService,
+    )
     from stripe.params.financial_connections._account_disconnect_params import (
         AccountDisconnectParams,
     )
@@ -34,8 +39,17 @@ if TYPE_CHECKING:
         AccountUnsubscribeParams,
     )
 
+_subservices = {
+    "owners": [
+        "stripe.financial_connections._account_owner_service",
+        "AccountOwnerService",
+    ],
+}
+
 
 class AccountService(StripeService):
+    owners: "AccountOwnerService"
+
     def __init__(self, requestor):
         super().__init__(requestor)
         self.inferred_balances = AccountInferredBalanceService(self._requestor)
@@ -44,13 +58,13 @@ class AccountService(StripeService):
     def list(
         self,
         params: Optional["AccountListParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[Account]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[Account]":
         """
         Returns a list of Financial Connections Account objects.
         """
         return cast(
-            ListObject[Account],
+            "ListObject[Account]",
             self._request(
                 "get",
                 "/v1/financial_connections/accounts",
@@ -63,13 +77,13 @@ class AccountService(StripeService):
     async def list_async(
         self,
         params: Optional["AccountListParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[Account]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[Account]":
         """
         Returns a list of Financial Connections Account objects.
         """
         return cast(
-            ListObject[Account],
+            "ListObject[Account]",
             await self._request_async(
                 "get",
                 "/v1/financial_connections/accounts",
@@ -83,13 +97,13 @@ class AccountService(StripeService):
         self,
         account: str,
         params: Optional["AccountRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> Account:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Account":
         """
         Retrieves the details of an Financial Connections Account.
         """
         return cast(
-            Account,
+            "Account",
             self._request(
                 "get",
                 "/v1/financial_connections/accounts/{account}".format(
@@ -105,13 +119,13 @@ class AccountService(StripeService):
         self,
         account: str,
         params: Optional["AccountRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> Account:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Account":
         """
         Retrieves the details of an Financial Connections Account.
         """
         return cast(
-            Account,
+            "Account",
             await self._request_async(
                 "get",
                 "/v1/financial_connections/accounts/{account}".format(
@@ -127,13 +141,13 @@ class AccountService(StripeService):
         self,
         account: str,
         params: Optional["AccountDisconnectParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> Account:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Account":
         """
         Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
         """
         return cast(
-            Account,
+            "Account",
             self._request(
                 "post",
                 "/v1/financial_connections/accounts/{account}/disconnect".format(
@@ -149,13 +163,13 @@ class AccountService(StripeService):
         self,
         account: str,
         params: Optional["AccountDisconnectParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> Account:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Account":
         """
         Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
         """
         return cast(
-            Account,
+            "Account",
             await self._request_async(
                 "post",
                 "/v1/financial_connections/accounts/{account}/disconnect".format(
@@ -171,13 +185,13 @@ class AccountService(StripeService):
         self,
         account: str,
         params: "AccountRefreshParams",
-        options: Optional[RequestOptions] = None,
-    ) -> Account:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Account":
         """
         Refreshes the data associated with a Financial Connections Account.
         """
         return cast(
-            Account,
+            "Account",
             self._request(
                 "post",
                 "/v1/financial_connections/accounts/{account}/refresh".format(
@@ -193,13 +207,13 @@ class AccountService(StripeService):
         self,
         account: str,
         params: "AccountRefreshParams",
-        options: Optional[RequestOptions] = None,
-    ) -> Account:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Account":
         """
         Refreshes the data associated with a Financial Connections Account.
         """
         return cast(
-            Account,
+            "Account",
             await self._request_async(
                 "post",
                 "/v1/financial_connections/accounts/{account}/refresh".format(
@@ -215,13 +229,13 @@ class AccountService(StripeService):
         self,
         account: str,
         params: "AccountSubscribeParams",
-        options: Optional[RequestOptions] = None,
-    ) -> Account:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Account":
         """
         Subscribes to periodic refreshes of data associated with a Financial Connections Account.
         """
         return cast(
-            Account,
+            "Account",
             self._request(
                 "post",
                 "/v1/financial_connections/accounts/{account}/subscribe".format(
@@ -237,13 +251,13 @@ class AccountService(StripeService):
         self,
         account: str,
         params: "AccountSubscribeParams",
-        options: Optional[RequestOptions] = None,
-    ) -> Account:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Account":
         """
         Subscribes to periodic refreshes of data associated with a Financial Connections Account.
         """
         return cast(
-            Account,
+            "Account",
             await self._request_async(
                 "post",
                 "/v1/financial_connections/accounts/{account}/subscribe".format(
@@ -259,13 +273,13 @@ class AccountService(StripeService):
         self,
         account: str,
         params: "AccountUnsubscribeParams",
-        options: Optional[RequestOptions] = None,
-    ) -> Account:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Account":
         """
         Unsubscribes from periodic refreshes of data associated with a Financial Connections Account.
         """
         return cast(
-            Account,
+            "Account",
             self._request(
                 "post",
                 "/v1/financial_connections/accounts/{account}/unsubscribe".format(
@@ -281,13 +295,13 @@ class AccountService(StripeService):
         self,
         account: str,
         params: "AccountUnsubscribeParams",
-        options: Optional[RequestOptions] = None,
-    ) -> Account:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Account":
         """
         Unsubscribes from periodic refreshes of data associated with a Financial Connections Account.
         """
         return cast(
-            Account,
+            "Account",
             await self._request_async(
                 "post",
                 "/v1/financial_connections/accounts/{account}/unsubscribe".format(

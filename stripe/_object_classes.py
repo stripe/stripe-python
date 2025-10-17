@@ -1,11 +1,20 @@
 # -*- coding: utf-8 -*-
-import stripe  # noqa: IMP101
+from importlib import import_module
+from typing import Dict, Tuple
+from typing_extensions import TYPE_CHECKING, Type
 
-OBJECT_CLASSES = {
+from stripe._stripe_object import StripeObject
+
+if TYPE_CHECKING:
+    from stripe._api_mode import ApiMode
+
+OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     # data structures
-    stripe.ListObject.OBJECT_NAME: stripe.ListObject,
-    stripe.SearchResultObject.OBJECT_NAME: stripe.SearchResultObject,
-    stripe.File.OBJECT_NAME_ALT: stripe.File,
+    "list": ("stripe._list_object", "ListObject"),
+    "search_result": ("stripe._search_result_object", "SearchResultObject"),
+    "file": ("stripe._file", "File"),
+    # there's also an alt name for compatibility
+    "file_upload": ("stripe._file", "File"),
     # Object classes: The beginning of the section generated from our OpenAPI spec
     stripe.Account.OBJECT_NAME: stripe.Account,
     stripe.AccountLink.OBJECT_NAME: stripe.AccountLink,
@@ -175,7 +184,7 @@ OBJECT_CLASSES = {
     # Object classes: The end of the section generated from our OpenAPI spec
 }
 
-V2_OBJECT_CLASSES = {
+V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     # V2 Object classes: The beginning of the section generated from our OpenAPI spec
     stripe.v2.billing.BillSetting.OBJECT_NAME: stripe.v2.billing.BillSetting,
     stripe.v2.billing.BillSettingVersion.OBJECT_NAME: stripe.v2.billing.BillSettingVersion,
@@ -212,3 +221,18 @@ V2_OBJECT_CLASSES = {
     stripe.v2.payments.OffSessionPayment.OBJECT_NAME: stripe.v2.payments.OffSessionPayment,
     # V2 Object classes: The end of the section generated from our OpenAPI spec
 }
+
+
+def get_object_class(
+    api_mode: "ApiMode", object_name: str
+) -> Type[StripeObject]:
+    mapping = OBJECT_CLASSES if api_mode == "V1" else V2_OBJECT_CLASSES
+
+    if object_name not in mapping:
+        return StripeObject
+
+    import_path, class_name = mapping[object_name]
+    return getattr(
+        import_module(import_path),
+        class_name,
+    )

@@ -56,13 +56,13 @@ class MandateService(StripeService):
         self,
         mandate: str,
         params: Optional["MandateRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> Mandate:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Mandate":
         """
         Retrieves a Mandate object.
         """
         return cast(
-            Mandate,
+            "Mandate",
             self._request(
                 "get",
                 "/v1/mandates/{mandate}".format(mandate=sanitize_id(mandate)),
@@ -76,13 +76,13 @@ class MandateService(StripeService):
         self,
         mandate: str,
         params: Optional["MandateRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> Mandate:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Mandate":
         """
         Retrieves a Mandate object.
         """
         return cast(
-            Mandate,
+            "Mandate",
             await self._request_async(
                 "get",
                 "/v1/mandates/{mandate}".format(mandate=sanitize_id(mandate)),

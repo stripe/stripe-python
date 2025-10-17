@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from importlib import import_module
 from typing import Union
 from stripe.events._v1_billing_meter_error_report_triggered_event import (
     V1BillingMeterErrorReportTriggeredEvent,
@@ -392,6 +393,18 @@ V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
     V2PaymentsOffSessionPaymentRequiresCaptureEventNotification.LOOKUP_TYPE: V2PaymentsOffSessionPaymentRequiresCaptureEventNotification,
     V2PaymentsOffSessionPaymentSucceededEventNotification.LOOKUP_TYPE: V2PaymentsOffSessionPaymentSucceededEventNotification,
 }
+
+
+def get_v2_event_notification_class(type_: str):
+    if type_ not in _V2_EVENT_NOTIFICATION_CLASS_LOOKUP:
+        return UnknownEventNotification
+
+    import_path, class_name = _V2_EVENT_NOTIFICATION_CLASS_LOOKUP[type_]
+    return getattr(
+        import_module(import_path),
+        class_name,
+    )
+
 
 ALL_EVENT_NOTIFICATIONS = Union[
     V1BillingMeterErrorReportTriggeredEventNotification,

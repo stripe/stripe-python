@@ -12,6 +12,10 @@ from stripe.financial_connections._transaction_service import (
 
 
 class FinancialConnectionsService(StripeService):
+    accounts: "AccountService"
+    sessions: "SessionService"
+    transactions: "TransactionService"
+
     def __init__(self, requestor):
         super().__init__(requestor)
         self.accounts = AccountService(self._requestor)

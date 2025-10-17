@@ -9,6 +9,9 @@ from stripe.v2._test_helper_service import TestHelperService
 
 
 class V2Services(StripeService):
+    billing: "BillingService"
+    core: "CoreService"
+
     def __init__(self, requestor):
         super().__init__(requestor)
         self.billing = BillingService(self._requestor)

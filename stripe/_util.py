@@ -7,8 +7,7 @@ import re
 import warnings
 
 from stripe._api_mode import ApiMode
-
-from urllib.parse import quote_plus  # noqa: F401
+from urllib.parse import quote_plus
 
 from typing_extensions import Type, TYPE_CHECKING
 from typing import (
@@ -191,18 +190,6 @@ else:
         return result == 0
 
 
-def get_object_classes(api_mode):
-    # This is here to avoid a circular dependency
-    if api_mode == "V2":
-        from stripe._object_classes import V2_OBJECT_CLASSES
-
-        return V2_OBJECT_CLASSES
-
-    from stripe._object_classes import OBJECT_CLASSES
-
-    return OBJECT_CLASSES
-
-
 Resp = Union["StripeResponse", Dict[str, Any], List["Resp"]]
 
 
@@ -324,16 +311,14 @@ def _convert_to_stripe_object(
 
                 klass = DeletedObject
             elif api_mode == "V2" and klass_name == "v2.core.event":
-                from stripe.events._event_classes import V2_EVENT_CLASS_LOOKUP
+                from stripe.events._event_classes import get_v2_event_class
 
-                event_name = resp.get("type", "")
-                klass = V2_EVENT_CLASS_LOOKUP.get(
-                    event_name, stripe.StripeObject
-                )
+                event_type = resp.get("type", "")
+                klass = get_v2_event_class(event_type)
             else:
-                klass = get_object_classes(api_mode).get(
-                    klass_name, stripe.StripeObject
-                )
+                from stripe._object_classes import get_object_class
+
+                klass = get_object_class(api_mode, klass_name)
         # TODO: this is a horrible hack. The API needs
         # to return something for `object` here.
 

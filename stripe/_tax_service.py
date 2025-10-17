@@ -10,6 +10,11 @@ from stripe.tax._transaction_service import TransactionService
 
 
 class TaxService(StripeService):
+    calculations: "CalculationService"
+    registrations: "RegistrationService"
+    settings: "SettingsService"
+    transactions: "TransactionService"
+
     def __init__(self, requestor):
         super().__init__(requestor)
         self.associations = AssociationService(self._requestor)

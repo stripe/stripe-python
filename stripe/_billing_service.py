@@ -18,6 +18,14 @@ from stripe.billing._meter_service import MeterService
 
 
 class BillingService(StripeService):
+    alerts: "AlertService"
+    credit_balance_summary: "CreditBalanceSummaryService"
+    credit_balance_transactions: "CreditBalanceTransactionService"
+    credit_grants: "CreditGrantService"
+    meters: "MeterService"
+    meter_events: "MeterEventService"
+    meter_event_adjustments: "MeterEventAdjustmentService"
+
     def __init__(self, requestor):
         super().__init__(requestor)
         self.alerts = AlertService(self._requestor)

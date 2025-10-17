@@ -12,6 +12,11 @@ from stripe.terminal._reader_service import ReaderService
 
 
 class TerminalService(StripeService):
+    configurations: "ConfigurationService"
+    connection_tokens: "ConnectionTokenService"
+    locations: "LocationService"
+    readers: "ReaderService"
+
     def __init__(self, requestor):
         super().__init__(requestor)
         self.configurations = ConfigurationService(self._requestor)

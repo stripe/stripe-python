@@ -23,6 +23,15 @@ from stripe.issuing._transaction_service import TransactionService
 
 
 class IssuingService(StripeService):
+    authorizations: "AuthorizationService"
+    cards: "CardService"
+    cardholders: "CardholderService"
+    disputes: "DisputeService"
+    personalization_designs: "PersonalizationDesignService"
+    physical_bundles: "PhysicalBundleService"
+    tokens: "TokenService"
+    transactions: "TransactionService"
+
     def __init__(self, requestor):
         super().__init__(requestor)
         self.authorizations = AuthorizationService(self._requestor)

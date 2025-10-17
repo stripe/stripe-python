@@ -20,6 +20,11 @@ from stripe.v2.billing._profile_service import ProfileService
 
 
 class BillingService(StripeService):
+    meter_events: "MeterEventService"
+    meter_event_adjustments: "MeterEventAdjustmentService"
+    meter_event_session: "MeterEventSessionService"
+    meter_event_stream: "MeterEventStreamService"
+
     def __init__(self, requestor):
         super().__init__(requestor)
         self.bill_settings = BillSettingService(self._requestor)

@@ -1,6 +1,5 @@
 from typing import Dict, Optional, Union, cast
 
-import stripe  # noqa
 from stripe._error_object import ErrorObject
 
 
@@ -82,10 +81,11 @@ class StripeError(Exception):
         ):
             return None
         from stripe._error_object import ErrorObject
+        from stripe._api_requestor import _APIRequestor
 
         return ErrorObject._construct_from(
             values=self.json_body["error"],
-            requestor=stripe._APIRequestor._global_instance(),
+            requestor=_APIRequestor._global_instance(),
             # We pass in API mode as "V1" here because it's required,
             # but ErrorObject is reused for both V1 and V2 errors.
             api_mode="V1",
