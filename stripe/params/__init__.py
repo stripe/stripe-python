@@ -1109,6 +1109,10 @@ if TYPE_CHECKING:
         CustomerSessionCreateParams as CustomerSessionCreateParams,
         CustomerSessionCreateParamsComponents as CustomerSessionCreateParamsComponents,
         CustomerSessionCreateParamsComponentsBuyButton as CustomerSessionCreateParamsComponentsBuyButton,
+        CustomerSessionCreateParamsComponentsCustomerSheet as CustomerSessionCreateParamsComponentsCustomerSheet,
+        CustomerSessionCreateParamsComponentsCustomerSheetFeatures as CustomerSessionCreateParamsComponentsCustomerSheetFeatures,
+        CustomerSessionCreateParamsComponentsMobilePaymentElement as CustomerSessionCreateParamsComponentsMobilePaymentElement,
+        CustomerSessionCreateParamsComponentsMobilePaymentElementFeatures as CustomerSessionCreateParamsComponentsMobilePaymentElementFeatures,
         CustomerSessionCreateParamsComponentsPaymentElement as CustomerSessionCreateParamsComponentsPaymentElement,
         CustomerSessionCreateParamsComponentsPaymentElementFeatures as CustomerSessionCreateParamsComponentsPaymentElementFeatures,
         CustomerSessionCreateParamsComponentsPricingTable as CustomerSessionCreateParamsComponentsPricingTable,
@@ -8061,6 +8065,22 @@ _import_map = {
         False,
     ),
     "CustomerSessionCreateParamsComponentsBuyButton": (
+        "stripe.params._customer_session_create_params",
+        False,
+    ),
+    "CustomerSessionCreateParamsComponentsCustomerSheet": (
+        "stripe.params._customer_session_create_params",
+        False,
+    ),
+    "CustomerSessionCreateParamsComponentsCustomerSheetFeatures": (
+        "stripe.params._customer_session_create_params",
+        False,
+    ),
+    "CustomerSessionCreateParamsComponentsMobilePaymentElement": (
+        "stripe.params._customer_session_create_params",
+        False,
+    ),
+    "CustomerSessionCreateParamsComponentsMobilePaymentElementFeatures": (
         "stripe.params._customer_session_create_params",
         False,
     ),
