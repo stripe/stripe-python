@@ -514,7 +514,7 @@ class SessionCreateParamsBrandingSettings(TypedDict):
     """
     display_name: NotRequired[str]
     """
-    A string to override the business name shown on the Checkout Session.
+    A string to override the business name shown on the Checkout Session. This only shows at the top of the Checkout page, and your business name still appears in terms, receipts, and other places.
     """
     font_family: NotRequired[
         "Literal['']|Literal['be_vietnam_pro', 'bitter', 'chakra_petch', 'default', 'hahmlet', 'inconsolata', 'inter', 'lato', 'lora', 'm_plus_1_code', 'montserrat', 'noto_sans', 'noto_sans_jp', 'noto_serif', 'nunito', 'open_sans', 'pridi', 'pt_sans', 'pt_serif', 'raleway', 'roboto', 'roboto_slab', 'source_sans_pro', 'titillium_web', 'ubuntu_mono', 'zen_maru_gothic']"
@@ -524,11 +524,11 @@ class SessionCreateParamsBrandingSettings(TypedDict):
     """
     icon: NotRequired["SessionCreateParamsBrandingSettingsIcon"]
     """
-    The icon for the Checkout Session. You cannot set both `logo` and `icon`.
+    The icon for the Checkout Session. For best results, use a square image.
     """
     logo: NotRequired["SessionCreateParamsBrandingSettingsLogo"]
     """
-    The logo for the Checkout Session. You cannot set both `logo` and `icon`.
+    The logo for the Checkout Session.
     """
 
 
@@ -1397,6 +1397,10 @@ class SessionCreateParamsPaymentMethodOptions(TypedDict):
     swish: NotRequired["SessionCreateParamsPaymentMethodOptionsSwish"]
     """
     contains details about the Swish payment method options.
+    """
+    twint: NotRequired["SessionCreateParamsPaymentMethodOptionsTwint"]
+    """
+    contains details about the TWINT payment method options.
     """
     us_bank_account: NotRequired[
         "SessionCreateParamsPaymentMethodOptionsUsBankAccount"
@@ -2408,6 +2412,19 @@ class SessionCreateParamsPaymentMethodOptionsSwish(TypedDict):
     reference: NotRequired[str]
     """
     The order reference that will be displayed to customers in the Swish application. Defaults to the `id` of the Payment Intent.
+    """
+
+
+class SessionCreateParamsPaymentMethodOptionsTwint(TypedDict):
+    setup_future_usage: NotRequired[Literal["none"]]
+    """
+    Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+    If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+    If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+    When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
     """
 
 
