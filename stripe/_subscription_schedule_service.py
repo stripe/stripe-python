@@ -6,6 +6,9 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
+    from stripe._subscription_schedule import SubscriptionSchedule
     from stripe.params._subscription_schedule_amend_params import (
         SubscriptionScheduleAmendParams,
     )
@@ -198,13 +201,13 @@ class SubscriptionScheduleService(StripeService):
         self,
         schedule: str,
         params: Optional["SubscriptionScheduleAmendParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> SubscriptionSchedule:
+        options: Optional["RequestOptions"] = None,
+    ) -> "SubscriptionSchedule":
         """
         Amends an existing subscription schedule.
         """
         return cast(
-            SubscriptionSchedule,
+            "SubscriptionSchedule",
             self._request(
                 "post",
                 "/v1/subscription_schedules/{schedule}/amend".format(
@@ -220,13 +223,13 @@ class SubscriptionScheduleService(StripeService):
         self,
         schedule: str,
         params: Optional["SubscriptionScheduleAmendParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> SubscriptionSchedule:
+        options: Optional["RequestOptions"] = None,
+    ) -> "SubscriptionSchedule":
         """
         Amends an existing subscription schedule.
         """
         return cast(
-            SubscriptionSchedule,
+            "SubscriptionSchedule",
             await self._request_async(
                 "post",
                 "/v1/subscription_schedules/{schedule}/amend".format(

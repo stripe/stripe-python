@@ -1,18 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._invoice_line_item import InvoiceLineItem
-from stripe._list_object import ListObject
-from stripe._quote import Quote
-from stripe._quote_computed_upfront_line_items_service import (
-    QuoteComputedUpfrontLineItemsService,
-)
-from stripe._quote_line_item_service import QuoteLineItemService
-from stripe._quote_line_service import QuoteLineService
-from stripe._quote_preview_invoice_service import QuotePreviewInvoiceService
-from stripe._quote_preview_subscription_schedule_service import (
-    QuotePreviewSubscriptionScheduleService,
-)
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
@@ -20,12 +7,20 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._invoice_line_item import InvoiceLineItem
     from stripe._list_object import ListObject
     from stripe._quote import Quote
     from stripe._quote_computed_upfront_line_items_service import (
         QuoteComputedUpfrontLineItemsService,
     )
     from stripe._quote_line_item_service import QuoteLineItemService
+    from stripe._quote_line_service import QuoteLineService
+    from stripe._quote_preview_invoice_service import (
+        QuotePreviewInvoiceService,
+    )
+    from stripe._quote_preview_subscription_schedule_service import (
+        QuotePreviewSubscriptionScheduleService,
+    )
     from stripe._request_options import RequestOptions
     from stripe.params._quote_accept_params import QuoteAcceptParams
     from stripe.params._quote_cancel_params import QuoteCancelParams
@@ -50,13 +45,25 @@ _subservices = {
         "stripe._quote_computed_upfront_line_items_service",
         "QuoteComputedUpfrontLineItemsService",
     ],
+    "lines": ["stripe._quote_line_service", "QuoteLineService"],
     "line_items": ["stripe._quote_line_item_service", "QuoteLineItemService"],
+    "preview_invoices": [
+        "stripe._quote_preview_invoice_service",
+        "QuotePreviewInvoiceService",
+    ],
+    "preview_subscription_schedules": [
+        "stripe._quote_preview_subscription_schedule_service",
+        "QuotePreviewSubscriptionScheduleService",
+    ],
 }
 
 
 class QuoteService(StripeService):
     computed_upfront_line_items: "QuoteComputedUpfrontLineItemsService"
+    lines: "QuoteLineService"
     line_items: "QuoteLineItemService"
+    preview_invoices: "QuotePreviewInvoiceService"
+    preview_subscription_schedules: "QuotePreviewSubscriptionScheduleService"
 
     def __init__(self, requestor):
         super().__init__(requestor)
@@ -68,15 +75,14 @@ class QuoteService(StripeService):
                 import_module(import_from),
                 service,
             )
-        )
-        self.lines = QuoteLineService(self._requestor)
-        self.line_items = QuoteLineItemService(self._requestor)
-        self.preview_invoices = QuotePreviewInvoiceService(self._requestor)
-        self.preview_subscription_schedules = (
-            QuotePreviewSubscriptionScheduleService(
-                self._requestor,
+            setattr(
+                self,
+                name,
+                service_class(self._requestor),
             )
-        )
+            return getattr(self, name)
+        except KeyError:
+            raise AttributeError()
 
     def list(
         self,
@@ -358,13 +364,13 @@ class QuoteService(StripeService):
         self,
         quote: str,
         params: Optional["QuoteMarkDraftParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> Quote:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Quote":
         """
         Converts a stale quote to draft.
         """
         return cast(
-            Quote,
+            "Quote",
             self._request(
                 "post",
                 "/v1/quotes/{quote}/mark_draft".format(
@@ -380,13 +386,13 @@ class QuoteService(StripeService):
         self,
         quote: str,
         params: Optional["QuoteMarkDraftParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> Quote:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Quote":
         """
         Converts a stale quote to draft.
         """
         return cast(
-            Quote,
+            "Quote",
             await self._request_async(
                 "post",
                 "/v1/quotes/{quote}/mark_draft".format(
@@ -402,13 +408,13 @@ class QuoteService(StripeService):
         self,
         quote: str,
         params: Optional["QuoteMarkStaleParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> Quote:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Quote":
         """
         Converts a draft or open quote to stale.
         """
         return cast(
-            Quote,
+            "Quote",
             self._request(
                 "post",
                 "/v1/quotes/{quote}/mark_stale".format(
@@ -424,13 +430,13 @@ class QuoteService(StripeService):
         self,
         quote: str,
         params: Optional["QuoteMarkStaleParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> Quote:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Quote":
         """
         Converts a draft or open quote to stale.
         """
         return cast(
-            Quote,
+            "Quote",
             await self._request_async(
                 "post",
                 "/v1/quotes/{quote}/mark_stale".format(
@@ -446,13 +452,13 @@ class QuoteService(StripeService):
         self,
         quote: str,
         params: Optional["QuoteReestimateParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> Quote:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Quote":
         """
         Recompute the upcoming invoice estimate for the quote.
         """
         return cast(
-            Quote,
+            "Quote",
             self._request(
                 "post",
                 "/v1/quotes/{quote}/reestimate".format(
@@ -468,13 +474,13 @@ class QuoteService(StripeService):
         self,
         quote: str,
         params: Optional["QuoteReestimateParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> Quote:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Quote":
         """
         Recompute the upcoming invoice estimate for the quote.
         """
         return cast(
-            Quote,
+            "Quote",
             await self._request_async(
                 "post",
                 "/v1/quotes/{quote}/reestimate".format(
@@ -531,13 +537,13 @@ class QuoteService(StripeService):
         quote: str,
         preview_invoice: str,
         params: Optional["QuoteListPreviewInvoiceLinesParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[InvoiceLineItem]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[InvoiceLineItem]":
         """
         Preview the invoice line items that would be generated by accepting the quote.
         """
         return cast(
-            ListObject[InvoiceLineItem],
+            "ListObject[InvoiceLineItem]",
             self._request(
                 "get",
                 "/v1/quotes/{quote}/preview_invoices/{preview_invoice}/lines".format(
@@ -555,13 +561,13 @@ class QuoteService(StripeService):
         quote: str,
         preview_invoice: str,
         params: Optional["QuoteListPreviewInvoiceLinesParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[InvoiceLineItem]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[InvoiceLineItem]":
         """
         Preview the invoice line items that would be generated by accepting the quote.
         """
         return cast(
-            ListObject[InvoiceLineItem],
+            "ListObject[InvoiceLineItem]",
             await self._request_async(
                 "get",
                 "/v1/quotes/{quote}/preview_invoices/{preview_invoice}/lines".format(

@@ -202,8 +202,8 @@ class PaymentMethodService(StripeService):
         self,
         payment_method: str,
         params: Optional["PaymentMethodAttachParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> PaymentMethod:
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentMethod":
         """
         Attaches a PaymentMethod object to a Customer.
 
@@ -236,8 +236,8 @@ class PaymentMethodService(StripeService):
         self,
         payment_method: str,
         params: Optional["PaymentMethodAttachParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> PaymentMethod:
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentMethod":
         """
         Attaches a PaymentMethod object to a Customer.
 

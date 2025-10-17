@@ -1,15 +1,17 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._api_mode import ApiMode
-from stripe._api_requestor import _APIRequestor
-from stripe._stripe_client import StripeClient
 from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
 from stripe._util import get_api_mode
-from stripe.v2.core._account import Account
 from stripe.v2.core._event import Event, EventNotification, RelatedObject
 from typing import Any, Dict, Optional, cast
-from typing_extensions import Literal, override
+from typing_extensions import Literal, TYPE_CHECKING, override
+
+if TYPE_CHECKING:
+    from stripe._api_requestor import _APIRequestor
+    from stripe._stripe_client import StripeClient
+    from stripe.v2.core._account import Account
 
 
 class V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEventNotification(
@@ -24,7 +26,7 @@ class V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEventNot
     related_object: RelatedObject
 
     def __init__(
-        self, parsed_body: Dict[str, Any], client: StripeClient
+        self, parsed_body: Dict[str, Any], client: "StripeClient"
     ) -> None:
         super().__init__(
             parsed_body,
@@ -193,12 +195,12 @@ class V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEvent(
     Object containing the reference to API resource relevant to the event
     """
 
-    def fetch_related_object(self) -> Account:
+    def fetch_related_object(self) -> "Account":
         """
         Retrieves the related object from the API. Makes an API request on every call.
         """
         return cast(
-            Account,
+            "Account",
             self._requestor.request(
                 "get",
                 self.related_object.url,

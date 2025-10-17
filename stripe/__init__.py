@@ -146,6 +146,7 @@ if TYPE_CHECKING:
         apps as apps,
         billing as billing,
         billing_portal as billing_portal,
+        capital as capital,
         checkout as checkout,
         climate as climate,
         entitlements as entitlements,
@@ -155,6 +156,7 @@ if TYPE_CHECKING:
         identity as identity,
         issuing as issuing,
         params as params,
+        privacy as privacy,
         radar as radar,
         reporting as reporting,
         sigma as sigma,
@@ -177,6 +179,10 @@ if TYPE_CHECKING:
     )
     from stripe._account_login_link_service import (
         AccountLoginLinkService as AccountLoginLinkService,
+    )
+    from stripe._account_notice import AccountNotice as AccountNotice
+    from stripe._account_notice_service import (
+        AccountNoticeService as AccountNoticeService,
     )
     from stripe._account_person_service import (
         AccountPersonService as AccountPersonService,
@@ -223,6 +229,7 @@ if TYPE_CHECKING:
     )
     from stripe._billing_service import BillingService as BillingService
     from stripe._capability import Capability as Capability
+    from stripe._capital_service import CapitalService as CapitalService
     from stripe._card import Card as Card
     from stripe._cash_balance import CashBalance as CashBalance
     from stripe._charge import Charge as Charge
@@ -310,12 +317,25 @@ if TYPE_CHECKING:
     from stripe._error import (
         APIConnectionError as APIConnectionError,
         APIError as APIError,
+        AlreadyCanceledError as AlreadyCanceledError,
+        AlreadyExistsError as AlreadyExistsError,
         AuthenticationError as AuthenticationError,
+        BlockedByStripeError as BlockedByStripeError,
         CardError as CardError,
+        ControlledByDashboardError as ControlledByDashboardError,
+        FeatureNotEnabledError as FeatureNotEnabledError,
+        FinancialAccountNotOpenError as FinancialAccountNotOpenError,
         IdempotencyError as IdempotencyError,
+        InsufficientFundsError as InsufficientFundsError,
+        InvalidPaymentMethodError as InvalidPaymentMethodError,
+        InvalidPayoutMethodError as InvalidPayoutMethodError,
         InvalidRequestError as InvalidRequestError,
+        NonZeroBalanceError as NonZeroBalanceError,
+        NotCancelableError as NotCancelableError,
         PermissionError as PermissionError,
+        QuotaExceededError as QuotaExceededError,
         RateLimitError as RateLimitError,
+        RecipientNotNotifiableError as RecipientNotNotifiableError,
         SignatureVerificationError as SignatureVerificationError,
         StripeError as StripeError,
         StripeErrorWithParamCode as StripeErrorWithParamCode,
@@ -331,6 +351,9 @@ if TYPE_CHECKING:
     from stripe._exchange_rate_service import (
         ExchangeRateService as ExchangeRateService,
     )
+    from stripe._external_account_service import (
+        ExternalAccountService as ExternalAccountService,
+    )
     from stripe._file import File as File
     from stripe._file_link import FileLink as FileLink
     from stripe._file_link_service import FileLinkService as FileLinkService
@@ -344,6 +367,8 @@ if TYPE_CHECKING:
     from stripe._funding_instructions import (
         FundingInstructions as FundingInstructions,
     )
+    from stripe._fx_quote import FxQuote as FxQuote
+    from stripe._fx_quote_service import FxQuoteService as FxQuoteService
     from stripe._http_client import (
         AIOHTTPClient as AIOHTTPClient,
         HTTPClient as HTTPClient,
@@ -383,12 +408,31 @@ if TYPE_CHECKING:
     from stripe._login_link import LoginLink as LoginLink
     from stripe._mandate import Mandate as Mandate
     from stripe._mandate_service import MandateService as MandateService
+    from stripe._margin import Margin as Margin
+    from stripe._margin_service import MarginService as MarginService
     from stripe._nested_resource_class_methods import (
         nested_resource_class_methods as nested_resource_class_methods,
     )
     from stripe._oauth import OAuth as OAuth
     from stripe._oauth_service import OAuthService as OAuthService
+    from stripe._order import Order as Order
+    from stripe._order_line_item_service import (
+        OrderLineItemService as OrderLineItemService,
+    )
+    from stripe._order_service import OrderService as OrderService
+    from stripe._payment_attempt_record import (
+        PaymentAttemptRecord as PaymentAttemptRecord,
+    )
+    from stripe._payment_attempt_record_service import (
+        PaymentAttemptRecordService as PaymentAttemptRecordService,
+    )
     from stripe._payment_intent import PaymentIntent as PaymentIntent
+    from stripe._payment_intent_amount_details_line_item import (
+        PaymentIntentAmountDetailsLineItem as PaymentIntentAmountDetailsLineItem,
+    )
+    from stripe._payment_intent_amount_details_line_item_service import (
+        PaymentIntentAmountDetailsLineItemService as PaymentIntentAmountDetailsLineItemService,
+    )
     from stripe._payment_intent_service import (
         PaymentIntentService as PaymentIntentService,
     )
@@ -415,6 +459,10 @@ if TYPE_CHECKING:
     from stripe._payment_method_service import (
         PaymentMethodService as PaymentMethodService,
     )
+    from stripe._payment_record import PaymentRecord as PaymentRecord
+    from stripe._payment_record_service import (
+        PaymentRecordService as PaymentRecordService,
+    )
     from stripe._payout import Payout as Payout
     from stripe._payout_service import PayoutService as PayoutService
     from stripe._person import Person as Person
@@ -422,6 +470,7 @@ if TYPE_CHECKING:
     from stripe._plan_service import PlanService as PlanService
     from stripe._price import Price as Price
     from stripe._price_service import PriceService as PriceService
+    from stripe._privacy_service import PrivacyService as PrivacyService
     from stripe._product import Product as Product
     from stripe._product_feature import ProductFeature as ProductFeature
     from stripe._product_feature_service import (
@@ -436,8 +485,22 @@ if TYPE_CHECKING:
     from stripe._quote_computed_upfront_line_items_service import (
         QuoteComputedUpfrontLineItemsService as QuoteComputedUpfrontLineItemsService,
     )
+    from stripe._quote_line import QuoteLine as QuoteLine
     from stripe._quote_line_item_service import (
         QuoteLineItemService as QuoteLineItemService,
+    )
+    from stripe._quote_line_service import QuoteLineService as QuoteLineService
+    from stripe._quote_preview_invoice import (
+        QuotePreviewInvoice as QuotePreviewInvoice,
+    )
+    from stripe._quote_preview_invoice_service import (
+        QuotePreviewInvoiceService as QuotePreviewInvoiceService,
+    )
+    from stripe._quote_preview_subscription_schedule import (
+        QuotePreviewSubscriptionSchedule as QuotePreviewSubscriptionSchedule,
+    )
+    from stripe._quote_preview_subscription_schedule_service import (
+        QuotePreviewSubscriptionScheduleService as QuotePreviewSubscriptionScheduleService,
     )
     from stripe._quote_service import QuoteService as QuoteService
     from stripe._radar_service import RadarService as RadarService
@@ -558,6 +621,7 @@ _import_map = {
     "apps": ("stripe.apps", True),
     "billing": ("stripe.billing", True),
     "billing_portal": ("stripe.billing_portal", True),
+    "capital": ("stripe.capital", True),
     "checkout": ("stripe.checkout", True),
     "climate": ("stripe.climate", True),
     "entitlements": ("stripe.entitlements", True),
@@ -567,6 +631,7 @@ _import_map = {
     "identity": ("stripe.identity", True),
     "issuing": ("stripe.issuing", True),
     "params": ("stripe.params", True),
+    "privacy": ("stripe.privacy", True),
     "radar": ("stripe.radar", True),
     "reporting": ("stripe.reporting", True),
     "sigma": ("stripe.sigma", True),
@@ -584,6 +649,8 @@ _import_map = {
     "AccountLink": ("stripe._account_link", False),
     "AccountLinkService": ("stripe._account_link_service", False),
     "AccountLoginLinkService": ("stripe._account_login_link_service", False),
+    "AccountNotice": ("stripe._account_notice", False),
+    "AccountNoticeService": ("stripe._account_notice_service", False),
     "AccountPersonService": ("stripe._account_person_service", False),
     "AccountService": ("stripe._account_service", False),
     "AccountSession": ("stripe._account_session", False),
@@ -615,6 +682,7 @@ _import_map = {
     "BillingPortalService": ("stripe._billing_portal_service", False),
     "BillingService": ("stripe._billing_service", False),
     "Capability": ("stripe._capability", False),
+    "CapitalService": ("stripe._capital_service", False),
     "Card": ("stripe._card", False),
     "CashBalance": ("stripe._cash_balance", False),
     "Charge": ("stripe._charge", False),
@@ -690,12 +758,25 @@ _import_map = {
     "EphemeralKeyService": ("stripe._ephemeral_key_service", False),
     "APIConnectionError": ("stripe._error", False),
     "APIError": ("stripe._error", False),
+    "AlreadyCanceledError": ("stripe._error", False),
+    "AlreadyExistsError": ("stripe._error", False),
     "AuthenticationError": ("stripe._error", False),
+    "BlockedByStripeError": ("stripe._error", False),
     "CardError": ("stripe._error", False),
+    "ControlledByDashboardError": ("stripe._error", False),
+    "FeatureNotEnabledError": ("stripe._error", False),
+    "FinancialAccountNotOpenError": ("stripe._error", False),
     "IdempotencyError": ("stripe._error", False),
+    "InsufficientFundsError": ("stripe._error", False),
+    "InvalidPaymentMethodError": ("stripe._error", False),
+    "InvalidPayoutMethodError": ("stripe._error", False),
     "InvalidRequestError": ("stripe._error", False),
+    "NonZeroBalanceError": ("stripe._error", False),
+    "NotCancelableError": ("stripe._error", False),
     "PermissionError": ("stripe._error", False),
+    "QuotaExceededError": ("stripe._error", False),
     "RateLimitError": ("stripe._error", False),
+    "RecipientNotNotifiableError": ("stripe._error", False),
     "SignatureVerificationError": ("stripe._error", False),
     "StripeError": ("stripe._error", False),
     "StripeErrorWithParamCode": ("stripe._error", False),
@@ -706,6 +787,7 @@ _import_map = {
     "EventService": ("stripe._event_service", False),
     "ExchangeRate": ("stripe._exchange_rate", False),
     "ExchangeRateService": ("stripe._exchange_rate_service", False),
+    "ExternalAccountService": ("stripe._external_account_service", False),
     "File": ("stripe._file", False),
     "FileLink": ("stripe._file_link", False),
     "FileLinkService": ("stripe._file_link_service", False),
@@ -716,6 +798,8 @@ _import_map = {
     ),
     "ForwardingService": ("stripe._forwarding_service", False),
     "FundingInstructions": ("stripe._funding_instructions", False),
+    "FxQuote": ("stripe._fx_quote", False),
+    "FxQuoteService": ("stripe._fx_quote_service", False),
     "AIOHTTPClient": ("stripe._http_client", False),
     "HTTPClient": ("stripe._http_client", False),
     "HTTPXClient": ("stripe._http_client", False),
@@ -744,13 +828,31 @@ _import_map = {
     "LoginLink": ("stripe._login_link", False),
     "Mandate": ("stripe._mandate", False),
     "MandateService": ("stripe._mandate_service", False),
+    "Margin": ("stripe._margin", False),
+    "MarginService": ("stripe._margin_service", False),
     "nested_resource_class_methods": (
         "stripe._nested_resource_class_methods",
         False,
     ),
     "OAuth": ("stripe._oauth", False),
     "OAuthService": ("stripe._oauth_service", False),
+    "Order": ("stripe._order", False),
+    "OrderLineItemService": ("stripe._order_line_item_service", False),
+    "OrderService": ("stripe._order_service", False),
+    "PaymentAttemptRecord": ("stripe._payment_attempt_record", False),
+    "PaymentAttemptRecordService": (
+        "stripe._payment_attempt_record_service",
+        False,
+    ),
     "PaymentIntent": ("stripe._payment_intent", False),
+    "PaymentIntentAmountDetailsLineItem": (
+        "stripe._payment_intent_amount_details_line_item",
+        False,
+    ),
+    "PaymentIntentAmountDetailsLineItemService": (
+        "stripe._payment_intent_amount_details_line_item_service",
+        False,
+    ),
     "PaymentIntentService": ("stripe._payment_intent_service", False),
     "PaymentLink": ("stripe._payment_link", False),
     "PaymentLinkLineItemService": (
@@ -773,6 +875,8 @@ _import_map = {
         False,
     ),
     "PaymentMethodService": ("stripe._payment_method_service", False),
+    "PaymentRecord": ("stripe._payment_record", False),
+    "PaymentRecordService": ("stripe._payment_record_service", False),
     "Payout": ("stripe._payout", False),
     "PayoutService": ("stripe._payout_service", False),
     "Person": ("stripe._person", False),
@@ -780,6 +884,7 @@ _import_map = {
     "PlanService": ("stripe._plan_service", False),
     "Price": ("stripe._price", False),
     "PriceService": ("stripe._price_service", False),
+    "PrivacyService": ("stripe._privacy_service", False),
     "Product": ("stripe._product", False),
     "ProductFeature": ("stripe._product_feature", False),
     "ProductFeatureService": ("stripe._product_feature_service", False),
@@ -791,7 +896,22 @@ _import_map = {
         "stripe._quote_computed_upfront_line_items_service",
         False,
     ),
+    "QuoteLine": ("stripe._quote_line", False),
     "QuoteLineItemService": ("stripe._quote_line_item_service", False),
+    "QuoteLineService": ("stripe._quote_line_service", False),
+    "QuotePreviewInvoice": ("stripe._quote_preview_invoice", False),
+    "QuotePreviewInvoiceService": (
+        "stripe._quote_preview_invoice_service",
+        False,
+    ),
+    "QuotePreviewSubscriptionSchedule": (
+        "stripe._quote_preview_subscription_schedule",
+        False,
+    ),
+    "QuotePreviewSubscriptionScheduleService": (
+        "stripe._quote_preview_subscription_schedule_service",
+        False,
+    ),
     "QuoteService": ("stripe._quote_service", False),
     "RadarService": ("stripe._radar_service", False),
     "Refund": ("stripe._refund", False),

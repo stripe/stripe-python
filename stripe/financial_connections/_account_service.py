@@ -2,13 +2,6 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.financial_connections._account import Account
-from stripe.financial_connections._account_inferred_balance_service import (
-    AccountInferredBalanceService,
-)
-from stripe.financial_connections._account_owner_service import (
-    AccountOwnerService,
-)
 from typing import Optional, cast
 from importlib import import_module
 from typing_extensions import TYPE_CHECKING
@@ -17,6 +10,9 @@ if TYPE_CHECKING:
     from stripe._list_object import ListObject
     from stripe._request_options import RequestOptions
     from stripe.financial_connections._account import Account
+    from stripe.financial_connections._account_inferred_balance_service import (
+        AccountInferredBalanceService,
+    )
     from stripe.financial_connections._account_owner_service import (
         AccountOwnerService,
     )
@@ -40,6 +36,10 @@ if TYPE_CHECKING:
     )
 
 _subservices = {
+    "inferred_balances": [
+        "stripe.financial_connections._account_inferred_balance_service",
+        "AccountInferredBalanceService",
+    ],
     "owners": [
         "stripe.financial_connections._account_owner_service",
         "AccountOwnerService",
@@ -48,12 +48,27 @@ _subservices = {
 
 
 class AccountService(StripeService):
+    inferred_balances: "AccountInferredBalanceService"
     owners: "AccountOwnerService"
 
     def __init__(self, requestor):
         super().__init__(requestor)
-        self.inferred_balances = AccountInferredBalanceService(self._requestor)
-        self.owners = AccountOwnerService(self._requestor)
+
+    def __getattr__(self, name):
+        try:
+            import_from, service = _subservices[name]
+            service_class = getattr(
+                import_module(import_from),
+                service,
+            )
+            setattr(
+                self,
+                name,
+                service_class(self._requestor),
+            )
+            return getattr(self, name)
+        except KeyError:
+            raise AttributeError()
 
     def list(
         self,

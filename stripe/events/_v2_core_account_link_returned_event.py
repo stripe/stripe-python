@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._api_mode import ApiMode
-from stripe._api_requestor import _APIRequestor
 from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
 from stripe.v2.core._event import Event, EventNotification
 from typing import Any, Dict, List, Optional, cast
-from typing_extensions import Literal, override
+from typing_extensions import Literal, TYPE_CHECKING, override
+
+if TYPE_CHECKING:
+    from stripe._api_requestor import _APIRequestor
 
 
 class V2CoreAccountLinkReturnedEventNotification(EventNotification):

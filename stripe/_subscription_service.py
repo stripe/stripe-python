@@ -6,6 +6,11 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._discount import Discount
+    from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
+    from stripe._search_result_object import SearchResultObject
+    from stripe._subscription import Subscription
     from stripe.params._subscription_attach_cadence_params import (
         SubscriptionAttachCadenceParams,
     )
@@ -318,8 +323,8 @@ class SubscriptionService(StripeService):
     def create(
         self,
         params: Optional["SubscriptionCreateParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> Subscription:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Subscription":
         """
         Creates a new subscription on an existing customer. Each customer can have up to 500 active or scheduled subscriptions.
 
@@ -343,8 +348,8 @@ class SubscriptionService(StripeService):
     async def create_async(
         self,
         params: Optional["SubscriptionCreateParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> Subscription:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Subscription":
         """
         Creates a new subscription on an existing customer. Each customer can have up to 500 active or scheduled subscriptions.
 
@@ -413,13 +418,13 @@ class SubscriptionService(StripeService):
         self,
         subscription: str,
         params: "SubscriptionAttachCadenceParams",
-        options: Optional[RequestOptions] = None,
-    ) -> Subscription:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Subscription":
         """
         Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
         """
         return cast(
-            Subscription,
+            "Subscription",
             self._request(
                 "post",
                 "/v1/subscriptions/{subscription}/attach_cadence".format(
@@ -435,13 +440,13 @@ class SubscriptionService(StripeService):
         self,
         subscription: str,
         params: "SubscriptionAttachCadenceParams",
-        options: Optional[RequestOptions] = None,
-    ) -> Subscription:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Subscription":
         """
         Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
         """
         return cast(
-            Subscription,
+            "Subscription",
             await self._request_async(
                 "post",
                 "/v1/subscriptions/{subscription}/attach_cadence".format(

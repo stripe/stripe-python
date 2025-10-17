@@ -23,8 +23,8 @@ class CreditBalanceTransactionService(StripeService):
     def list(
         self,
         params: Optional["CreditBalanceTransactionListParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[CreditBalanceTransaction]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[CreditBalanceTransaction]":
         """
         Retrieve a list of credit balance transactions.
         """
@@ -42,8 +42,8 @@ class CreditBalanceTransactionService(StripeService):
     async def list_async(
         self,
         params: Optional["CreditBalanceTransactionListParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[CreditBalanceTransaction]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[CreditBalanceTransaction]":
         """
         Retrieve a list of credit balance transactions.
         """

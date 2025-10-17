@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
-from stripe._mandate import Mandate
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
+    from stripe._mandate import Mandate
+    from stripe._request_options import RequestOptions
     from stripe.params._mandate_list_params import MandateListParams
     from stripe.params._mandate_retrieve_params import MandateRetrieveParams
 
@@ -17,13 +17,13 @@ class MandateService(StripeService):
     def list(
         self,
         params: "MandateListParams",
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[Mandate]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[Mandate]":
         """
         Retrieves a list of Mandates for a given PaymentMethod.
         """
         return cast(
-            ListObject[Mandate],
+            "ListObject[Mandate]",
             self._request(
                 "get",
                 "/v1/mandates",
@@ -36,13 +36,13 @@ class MandateService(StripeService):
     async def list_async(
         self,
         params: "MandateListParams",
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[Mandate]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[Mandate]":
         """
         Retrieves a list of Mandates for a given PaymentMethod.
         """
         return cast(
-            ListObject[Mandate],
+            "ListObject[Mandate]",
             await self._request_async(
                 "get",
                 "/v1/mandates",

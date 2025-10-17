@@ -44,6 +44,7 @@ from stripe._v2_services import V2Services
 if TYPE_CHECKING:
     from stripe._account_service import AccountService
     from stripe._account_link_service import AccountLinkService
+    from stripe._account_notice_service import AccountNoticeService
     from stripe._account_session_service import AccountSessionService
     from stripe._apple_pay_domain_service import ApplePayDomainService
     from stripe._application_fee_service import ApplicationFeeService
@@ -53,6 +54,7 @@ if TYPE_CHECKING:
     from stripe._balance_transaction_service import BalanceTransactionService
     from stripe._billing_service import BillingService
     from stripe._billing_portal_service import BillingPortalService
+    from stripe._capital_service import CapitalService
     from stripe._charge_service import ChargeService
     from stripe._checkout_service import CheckoutService
     from stripe._climate_service import ClimateService
@@ -67,12 +69,14 @@ if TYPE_CHECKING:
     from stripe._ephemeral_key_service import EphemeralKeyService
     from stripe._event_service import EventService
     from stripe._exchange_rate_service import ExchangeRateService
+    from stripe._external_account_service import ExternalAccountService
     from stripe._file_service import FileService
     from stripe._file_link_service import FileLinkService
     from stripe._financial_connections_service import (
         FinancialConnectionsService,
     )
     from stripe._forwarding_service import ForwardingService
+    from stripe._fx_quote_service import FxQuoteService
     from stripe._identity_service import IdentityService
     from stripe._invoice_service import InvoiceService
     from stripe._invoice_item_service import InvoiceItemService
@@ -82,6 +86,11 @@ if TYPE_CHECKING:
     )
     from stripe._issuing_service import IssuingService
     from stripe._mandate_service import MandateService
+    from stripe._margin_service import MarginService
+    from stripe._order_service import OrderService
+    from stripe._payment_attempt_record_service import (
+        PaymentAttemptRecordService,
+    )
     from stripe._payment_intent_service import PaymentIntentService
     from stripe._payment_link_service import PaymentLinkService
     from stripe._payment_method_service import PaymentMethodService
@@ -91,9 +100,11 @@ if TYPE_CHECKING:
     from stripe._payment_method_domain_service import (
         PaymentMethodDomainService,
     )
+    from stripe._payment_record_service import PaymentRecordService
     from stripe._payout_service import PayoutService
     from stripe._plan_service import PlanService
     from stripe._price_service import PriceService
+    from stripe._privacy_service import PrivacyService
     from stripe._product_service import ProductService
     from stripe._promotion_code_service import PromotionCodeService
     from stripe._quote_service import QuoteService
@@ -346,7 +357,7 @@ class StripeClient(object):
           See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """,
     )
-    def account_notices(self) -> AccountNoticeService:
+    def account_notices(self) -> "AccountNoticeService":
         return self.v1.account_notices
 
     @property
@@ -456,7 +467,7 @@ class StripeClient(object):
           See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """,
     )
-    def capital(self) -> CapitalService:
+    def capital(self) -> "CapitalService":
         return self.v1.capital
 
     @property
@@ -621,7 +632,7 @@ class StripeClient(object):
           See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """,
     )
-    def external_accounts(self) -> ExternalAccountService:
+    def external_accounts(self) -> "ExternalAccountService":
         return self.v1.external_accounts
 
     @property
@@ -676,7 +687,7 @@ class StripeClient(object):
           See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """,
     )
-    def fx_quotes(self) -> FxQuoteService:
+    def fx_quotes(self) -> "FxQuoteService":
         return self.v1.fx_quotes
 
     @property
@@ -764,7 +775,7 @@ class StripeClient(object):
           See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """,
     )
-    def margins(self) -> MarginService:
+    def margins(self) -> "MarginService":
         return self.v1.margins
 
     @property
@@ -775,7 +786,7 @@ class StripeClient(object):
           See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """,
     )
-    def orders(self) -> OrderService:
+    def orders(self) -> "OrderService":
         return self.v1.orders
 
     @property
@@ -786,7 +797,7 @@ class StripeClient(object):
           See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """,
     )
-    def payment_attempt_records(self) -> PaymentAttemptRecordService:
+    def payment_attempt_records(self) -> "PaymentAttemptRecordService":
         return self.v1.payment_attempt_records
 
     @property
@@ -854,7 +865,7 @@ class StripeClient(object):
           See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """,
     )
-    def payment_records(self) -> PaymentRecordService:
+    def payment_records(self) -> "PaymentRecordService":
         return self.v1.payment_records
 
     @property
@@ -898,7 +909,7 @@ class StripeClient(object):
           See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
         """,
     )
-    def privacy(self) -> PrivacyService:
+    def privacy(self) -> "PrivacyService":
         return self.v1.privacy
 
     @property
