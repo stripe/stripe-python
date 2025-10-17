@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.v2.core.vault._gb_bank_account import GbBankAccount
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._request_options import RequestOptions
     from stripe.params.v2.core.vault._gb_bank_account_acknowledge_confirmation_of_payee_params import (
         GbBankAccountAcknowledgeConfirmationOfPayeeParams,
     )
@@ -23,19 +22,20 @@ if TYPE_CHECKING:
     from stripe.params.v2.core.vault._gb_bank_account_retrieve_params import (
         GbBankAccountRetrieveParams,
     )
+    from stripe.v2.core.vault._gb_bank_account import GbBankAccount
 
 
 class GbBankAccountService(StripeService):
     def create(
         self,
         params: "GbBankAccountCreateParams",
-        options: Optional[RequestOptions] = None,
-    ) -> GbBankAccount:
+        options: Optional["RequestOptions"] = None,
+    ) -> "GbBankAccount":
         """
         Create a GB bank account.
         """
         return cast(
-            GbBankAccount,
+            "GbBankAccount",
             self._request(
                 "post",
                 "/v2/core/vault/gb_bank_accounts",
@@ -48,13 +48,13 @@ class GbBankAccountService(StripeService):
     async def create_async(
         self,
         params: "GbBankAccountCreateParams",
-        options: Optional[RequestOptions] = None,
-    ) -> GbBankAccount:
+        options: Optional["RequestOptions"] = None,
+    ) -> "GbBankAccount":
         """
         Create a GB bank account.
         """
         return cast(
-            GbBankAccount,
+            "GbBankAccount",
             await self._request_async(
                 "post",
                 "/v2/core/vault/gb_bank_accounts",
@@ -68,13 +68,13 @@ class GbBankAccountService(StripeService):
         self,
         id: str,
         params: Optional["GbBankAccountRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> GbBankAccount:
+        options: Optional["RequestOptions"] = None,
+    ) -> "GbBankAccount":
         """
         Retrieve a GB bank account.
         """
         return cast(
-            GbBankAccount,
+            "GbBankAccount",
             self._request(
                 "get",
                 "/v2/core/vault/gb_bank_accounts/{id}".format(
@@ -90,13 +90,13 @@ class GbBankAccountService(StripeService):
         self,
         id: str,
         params: Optional["GbBankAccountRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> GbBankAccount:
+        options: Optional["RequestOptions"] = None,
+    ) -> "GbBankAccount":
         """
         Retrieve a GB bank account.
         """
         return cast(
-            GbBankAccount,
+            "GbBankAccount",
             await self._request_async(
                 "get",
                 "/v2/core/vault/gb_bank_accounts/{id}".format(
@@ -114,8 +114,8 @@ class GbBankAccountService(StripeService):
         params: Optional[
             "GbBankAccountAcknowledgeConfirmationOfPayeeParams"
         ] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> GbBankAccount:
+        options: Optional["RequestOptions"] = None,
+    ) -> "GbBankAccount":
         """
         Confirm that you have received the result of the Confirmation of Payee request, and that you are okay with
         proceeding to pay out to this bank account despite the account not matching, partially matching, or the service
@@ -123,7 +123,7 @@ class GbBankAccountService(StripeService):
         funds being sent to the wrong account, which we might not be able to recover.
         """
         return cast(
-            GbBankAccount,
+            "GbBankAccount",
             self._request(
                 "post",
                 "/v2/core/vault/gb_bank_accounts/{id}/acknowledge_confirmation_of_payee".format(
@@ -141,8 +141,8 @@ class GbBankAccountService(StripeService):
         params: Optional[
             "GbBankAccountAcknowledgeConfirmationOfPayeeParams"
         ] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> GbBankAccount:
+        options: Optional["RequestOptions"] = None,
+    ) -> "GbBankAccount":
         """
         Confirm that you have received the result of the Confirmation of Payee request, and that you are okay with
         proceeding to pay out to this bank account despite the account not matching, partially matching, or the service
@@ -150,7 +150,7 @@ class GbBankAccountService(StripeService):
         funds being sent to the wrong account, which we might not be able to recover.
         """
         return cast(
-            GbBankAccount,
+            "GbBankAccount",
             await self._request_async(
                 "post",
                 "/v2/core/vault/gb_bank_accounts/{id}/acknowledge_confirmation_of_payee".format(
@@ -166,14 +166,14 @@ class GbBankAccountService(StripeService):
         self,
         id: str,
         params: Optional["GbBankAccountArchiveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> GbBankAccount:
+        options: Optional["RequestOptions"] = None,
+    ) -> "GbBankAccount":
         """
         Archive a GBBankAccount object. Archived GBBankAccount objects cannot be used as outbound destinations
         and will not appear in the outbound destination list.
         """
         return cast(
-            GbBankAccount,
+            "GbBankAccount",
             self._request(
                 "post",
                 "/v2/core/vault/gb_bank_accounts/{id}/archive".format(
@@ -189,14 +189,14 @@ class GbBankAccountService(StripeService):
         self,
         id: str,
         params: Optional["GbBankAccountArchiveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> GbBankAccount:
+        options: Optional["RequestOptions"] = None,
+    ) -> "GbBankAccount":
         """
         Archive a GBBankAccount object. Archived GBBankAccount objects cannot be used as outbound destinations
         and will not appear in the outbound destination list.
         """
         return cast(
-            GbBankAccount,
+            "GbBankAccount",
             await self._request_async(
                 "post",
                 "/v2/core/vault/gb_bank_accounts/{id}/archive".format(
@@ -214,8 +214,8 @@ class GbBankAccountService(StripeService):
         params: Optional[
             "GbBankAccountInitiateConfirmationOfPayeeParams"
         ] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> GbBankAccount:
+        options: Optional["RequestOptions"] = None,
+    ) -> "GbBankAccount":
         """
         Initiate Confirmation of Payee (CoP) in order to verify that the owner of a UK bank account matches
         who you expect. This must be done on all UK bank accounts before sending domestic OutboundPayments. If
@@ -223,7 +223,7 @@ class GbBankAccountService(StripeService):
         is required before sending funds.
         """
         return cast(
-            GbBankAccount,
+            "GbBankAccount",
             self._request(
                 "post",
                 "/v2/core/vault/gb_bank_accounts/{id}/initiate_confirmation_of_payee".format(
@@ -241,8 +241,8 @@ class GbBankAccountService(StripeService):
         params: Optional[
             "GbBankAccountInitiateConfirmationOfPayeeParams"
         ] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> GbBankAccount:
+        options: Optional["RequestOptions"] = None,
+    ) -> "GbBankAccount":
         """
         Initiate Confirmation of Payee (CoP) in order to verify that the owner of a UK bank account matches
         who you expect. This must be done on all UK bank accounts before sending domestic OutboundPayments. If
@@ -250,7 +250,7 @@ class GbBankAccountService(StripeService):
         is required before sending funds.
         """
         return cast(
-            GbBankAccount,
+            "GbBankAccount",
             await self._request_async(
                 "post",
                 "/v2/core/vault/gb_bank_accounts/{id}/initiate_confirmation_of_payee".format(

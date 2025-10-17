@@ -1,461 +1,799 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from importlib import import_module
 from typing import Union
-from stripe.events._v1_billing_meter_error_report_triggered_event import (
-    V1BillingMeterErrorReportTriggeredEvent,
-    V1BillingMeterErrorReportTriggeredEventNotification,
-)
-from stripe.events._v1_billing_meter_no_meter_found_event import (
-    V1BillingMeterNoMeterFoundEvent,
-    V1BillingMeterNoMeterFoundEventNotification,
-)
-from stripe.events._v2_billing_bill_setting_updated_event import (
-    V2BillingBillSettingUpdatedEvent,
-    V2BillingBillSettingUpdatedEventNotification,
-)
-from stripe.events._v2_core_account_closed_event import (
-    V2CoreAccountClosedEvent,
-    V2CoreAccountClosedEventNotification,
-)
-from stripe.events._v2_core_account_created_event import (
-    V2CoreAccountCreatedEvent,
-    V2CoreAccountCreatedEventNotification,
-)
-from stripe.events._v2_core_account_updated_event import (
-    V2CoreAccountUpdatedEvent,
-    V2CoreAccountUpdatedEventNotification,
-)
-from stripe.events._v2_core_account_including_configuration_customer_capability_status_updated_event import (
-    V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent,
-    V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEventNotification,
-)
-from stripe.events._v2_core_account_including_configuration_customer_updated_event import (
-    V2CoreAccountIncludingConfigurationCustomerUpdatedEvent,
-    V2CoreAccountIncludingConfigurationCustomerUpdatedEventNotification,
-)
-from stripe.events._v2_core_account_including_configuration_merchant_capability_status_updated_event import (
-    V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEvent,
-    V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEventNotification,
-)
-from stripe.events._v2_core_account_including_configuration_merchant_updated_event import (
-    V2CoreAccountIncludingConfigurationMerchantUpdatedEvent,
-    V2CoreAccountIncludingConfigurationMerchantUpdatedEventNotification,
-)
-from stripe.events._v2_core_account_including_configuration_recipient_capability_status_updated_event import (
-    V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent,
-    V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEventNotification,
-)
-from stripe.events._v2_core_account_including_configuration_recipient_updated_event import (
-    V2CoreAccountIncludingConfigurationRecipientUpdatedEvent,
-    V2CoreAccountIncludingConfigurationRecipientUpdatedEventNotification,
-)
-from stripe.events._v2_core_account_including_configuration_storer_capability_status_updated_event import (
-    V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEvent,
-    V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEventNotification,
-)
-from stripe.events._v2_core_account_including_configuration_storer_updated_event import (
-    V2CoreAccountIncludingConfigurationStorerUpdatedEvent,
-    V2CoreAccountIncludingConfigurationStorerUpdatedEventNotification,
-)
-from stripe.events._v2_core_account_including_defaults_updated_event import (
-    V2CoreAccountIncludingDefaultsUpdatedEvent,
-    V2CoreAccountIncludingDefaultsUpdatedEventNotification,
-)
-from stripe.events._v2_core_account_including_identity_updated_event import (
-    V2CoreAccountIncludingIdentityUpdatedEvent,
-    V2CoreAccountIncludingIdentityUpdatedEventNotification,
-)
-from stripe.events._v2_core_account_including_requirements_updated_event import (
-    V2CoreAccountIncludingRequirementsUpdatedEvent,
-    V2CoreAccountIncludingRequirementsUpdatedEventNotification,
-)
-from stripe.events._v2_core_account_link_returned_event import (
-    V2CoreAccountLinkReturnedEvent,
-    V2CoreAccountLinkReturnedEventNotification,
-)
-from stripe.events._v2_core_account_person_created_event import (
-    V2CoreAccountPersonCreatedEvent,
-    V2CoreAccountPersonCreatedEventNotification,
-)
-from stripe.events._v2_core_account_person_deleted_event import (
-    V2CoreAccountPersonDeletedEvent,
-    V2CoreAccountPersonDeletedEventNotification,
-)
-from stripe.events._v2_core_account_person_updated_event import (
-    V2CoreAccountPersonUpdatedEvent,
-    V2CoreAccountPersonUpdatedEventNotification,
-)
-from stripe.events._v2_core_event_destination_ping_event import (
-    V2CoreEventDestinationPingEvent,
-    V2CoreEventDestinationPingEventNotification,
-)
-from stripe.events._v2_money_management_adjustment_created_event import (
-    V2MoneyManagementAdjustmentCreatedEvent,
-    V2MoneyManagementAdjustmentCreatedEventNotification,
-)
-from stripe.events._v2_money_management_financial_account_created_event import (
-    V2MoneyManagementFinancialAccountCreatedEvent,
-    V2MoneyManagementFinancialAccountCreatedEventNotification,
-)
-from stripe.events._v2_money_management_financial_account_updated_event import (
-    V2MoneyManagementFinancialAccountUpdatedEvent,
-    V2MoneyManagementFinancialAccountUpdatedEventNotification,
-)
-from stripe.events._v2_money_management_financial_address_activated_event import (
-    V2MoneyManagementFinancialAddressActivatedEvent,
-    V2MoneyManagementFinancialAddressActivatedEventNotification,
-)
-from stripe.events._v2_money_management_financial_address_failed_event import (
-    V2MoneyManagementFinancialAddressFailedEvent,
-    V2MoneyManagementFinancialAddressFailedEventNotification,
-)
-from stripe.events._v2_money_management_inbound_transfer_available_event import (
-    V2MoneyManagementInboundTransferAvailableEvent,
-    V2MoneyManagementInboundTransferAvailableEventNotification,
-)
-from stripe.events._v2_money_management_inbound_transfer_bank_debit_failed_event import (
-    V2MoneyManagementInboundTransferBankDebitFailedEvent,
-    V2MoneyManagementInboundTransferBankDebitFailedEventNotification,
-)
-from stripe.events._v2_money_management_inbound_transfer_bank_debit_processing_event import (
-    V2MoneyManagementInboundTransferBankDebitProcessingEvent,
-    V2MoneyManagementInboundTransferBankDebitProcessingEventNotification,
-)
-from stripe.events._v2_money_management_inbound_transfer_bank_debit_queued_event import (
-    V2MoneyManagementInboundTransferBankDebitQueuedEvent,
-    V2MoneyManagementInboundTransferBankDebitQueuedEventNotification,
-)
-from stripe.events._v2_money_management_inbound_transfer_bank_debit_returned_event import (
-    V2MoneyManagementInboundTransferBankDebitReturnedEvent,
-    V2MoneyManagementInboundTransferBankDebitReturnedEventNotification,
-)
-from stripe.events._v2_money_management_inbound_transfer_bank_debit_succeeded_event import (
-    V2MoneyManagementInboundTransferBankDebitSucceededEvent,
-    V2MoneyManagementInboundTransferBankDebitSucceededEventNotification,
-)
-from stripe.events._v2_money_management_outbound_payment_canceled_event import (
-    V2MoneyManagementOutboundPaymentCanceledEvent,
-    V2MoneyManagementOutboundPaymentCanceledEventNotification,
-)
-from stripe.events._v2_money_management_outbound_payment_created_event import (
-    V2MoneyManagementOutboundPaymentCreatedEvent,
-    V2MoneyManagementOutboundPaymentCreatedEventNotification,
-)
-from stripe.events._v2_money_management_outbound_payment_failed_event import (
-    V2MoneyManagementOutboundPaymentFailedEvent,
-    V2MoneyManagementOutboundPaymentFailedEventNotification,
-)
-from stripe.events._v2_money_management_outbound_payment_posted_event import (
-    V2MoneyManagementOutboundPaymentPostedEvent,
-    V2MoneyManagementOutboundPaymentPostedEventNotification,
-)
-from stripe.events._v2_money_management_outbound_payment_returned_event import (
-    V2MoneyManagementOutboundPaymentReturnedEvent,
-    V2MoneyManagementOutboundPaymentReturnedEventNotification,
-)
-from stripe.events._v2_money_management_outbound_payment_updated_event import (
-    V2MoneyManagementOutboundPaymentUpdatedEvent,
-    V2MoneyManagementOutboundPaymentUpdatedEventNotification,
-)
-from stripe.events._v2_money_management_outbound_transfer_canceled_event import (
-    V2MoneyManagementOutboundTransferCanceledEvent,
-    V2MoneyManagementOutboundTransferCanceledEventNotification,
-)
-from stripe.events._v2_money_management_outbound_transfer_created_event import (
-    V2MoneyManagementOutboundTransferCreatedEvent,
-    V2MoneyManagementOutboundTransferCreatedEventNotification,
-)
-from stripe.events._v2_money_management_outbound_transfer_failed_event import (
-    V2MoneyManagementOutboundTransferFailedEvent,
-    V2MoneyManagementOutboundTransferFailedEventNotification,
-)
-from stripe.events._v2_money_management_outbound_transfer_posted_event import (
-    V2MoneyManagementOutboundTransferPostedEvent,
-    V2MoneyManagementOutboundTransferPostedEventNotification,
-)
-from stripe.events._v2_money_management_outbound_transfer_returned_event import (
-    V2MoneyManagementOutboundTransferReturnedEvent,
-    V2MoneyManagementOutboundTransferReturnedEventNotification,
-)
-from stripe.events._v2_money_management_outbound_transfer_updated_event import (
-    V2MoneyManagementOutboundTransferUpdatedEvent,
-    V2MoneyManagementOutboundTransferUpdatedEventNotification,
-)
-from stripe.events._v2_money_management_payout_method_updated_event import (
-    V2MoneyManagementPayoutMethodUpdatedEvent,
-    V2MoneyManagementPayoutMethodUpdatedEventNotification,
-)
-from stripe.events._v2_money_management_received_credit_available_event import (
-    V2MoneyManagementReceivedCreditAvailableEvent,
-    V2MoneyManagementReceivedCreditAvailableEventNotification,
-)
-from stripe.events._v2_money_management_received_credit_failed_event import (
-    V2MoneyManagementReceivedCreditFailedEvent,
-    V2MoneyManagementReceivedCreditFailedEventNotification,
-)
-from stripe.events._v2_money_management_received_credit_returned_event import (
-    V2MoneyManagementReceivedCreditReturnedEvent,
-    V2MoneyManagementReceivedCreditReturnedEventNotification,
-)
-from stripe.events._v2_money_management_received_credit_succeeded_event import (
-    V2MoneyManagementReceivedCreditSucceededEvent,
-    V2MoneyManagementReceivedCreditSucceededEventNotification,
-)
-from stripe.events._v2_money_management_received_debit_canceled_event import (
-    V2MoneyManagementReceivedDebitCanceledEvent,
-    V2MoneyManagementReceivedDebitCanceledEventNotification,
-)
-from stripe.events._v2_money_management_received_debit_failed_event import (
-    V2MoneyManagementReceivedDebitFailedEvent,
-    V2MoneyManagementReceivedDebitFailedEventNotification,
-)
-from stripe.events._v2_money_management_received_debit_pending_event import (
-    V2MoneyManagementReceivedDebitPendingEvent,
-    V2MoneyManagementReceivedDebitPendingEventNotification,
-)
-from stripe.events._v2_money_management_received_debit_succeeded_event import (
-    V2MoneyManagementReceivedDebitSucceededEvent,
-    V2MoneyManagementReceivedDebitSucceededEventNotification,
-)
-from stripe.events._v2_money_management_received_debit_updated_event import (
-    V2MoneyManagementReceivedDebitUpdatedEvent,
-    V2MoneyManagementReceivedDebitUpdatedEventNotification,
-)
-from stripe.events._v2_money_management_transaction_created_event import (
-    V2MoneyManagementTransactionCreatedEvent,
-    V2MoneyManagementTransactionCreatedEventNotification,
-)
-from stripe.events._v2_money_management_transaction_updated_event import (
-    V2MoneyManagementTransactionUpdatedEvent,
-    V2MoneyManagementTransactionUpdatedEventNotification,
-)
-from stripe.events._v2_payments_off_session_payment_authorization_attempt_failed_event import (
-    V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEvent,
-    V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEventNotification,
-)
-from stripe.events._v2_payments_off_session_payment_authorization_attempt_started_event import (
-    V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEvent,
-    V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEventNotification,
-)
-from stripe.events._v2_payments_off_session_payment_canceled_event import (
-    V2PaymentsOffSessionPaymentCanceledEvent,
-    V2PaymentsOffSessionPaymentCanceledEventNotification,
-)
-from stripe.events._v2_payments_off_session_payment_created_event import (
-    V2PaymentsOffSessionPaymentCreatedEvent,
-    V2PaymentsOffSessionPaymentCreatedEventNotification,
-)
-from stripe.events._v2_payments_off_session_payment_failed_event import (
-    V2PaymentsOffSessionPaymentFailedEvent,
-    V2PaymentsOffSessionPaymentFailedEventNotification,
-)
-from stripe.events._v2_payments_off_session_payment_requires_capture_event import (
-    V2PaymentsOffSessionPaymentRequiresCaptureEvent,
-    V2PaymentsOffSessionPaymentRequiresCaptureEventNotification,
-)
-from stripe.events._v2_payments_off_session_payment_succeeded_event import (
-    V2PaymentsOffSessionPaymentSucceededEvent,
-    V2PaymentsOffSessionPaymentSucceededEventNotification,
-)
+from typing_extensions import TYPE_CHECKING
+from stripe.v2.core._event import UnknownEventNotification
+from stripe._stripe_object import StripeObject
+
+if TYPE_CHECKING:
+    from stripe.events._v1_billing_meter_error_report_triggered_event import (
+        V1BillingMeterErrorReportTriggeredEventNotification,
+    )
+    from stripe.events._v1_billing_meter_no_meter_found_event import (
+        V1BillingMeterNoMeterFoundEventNotification,
+    )
+    from stripe.events._v2_core_account_closed_event import (
+        V2CoreAccountClosedEventNotification,
+    )
+    from stripe.events._v2_core_account_created_event import (
+        V2CoreAccountCreatedEventNotification,
+    )
+    from stripe.events._v2_core_account_updated_event import (
+        V2CoreAccountUpdatedEventNotification,
+    )
+    from stripe.events._v2_core_account_including_configuration_customer_capability_status_updated_event import (
+        V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEventNotification,
+    )
+    from stripe.events._v2_core_account_including_configuration_customer_updated_event import (
+        V2CoreAccountIncludingConfigurationCustomerUpdatedEventNotification,
+    )
+    from stripe.events._v2_core_account_including_configuration_merchant_capability_status_updated_event import (
+        V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEventNotification,
+    )
+    from stripe.events._v2_core_account_including_configuration_merchant_updated_event import (
+        V2CoreAccountIncludingConfigurationMerchantUpdatedEventNotification,
+    )
+    from stripe.events._v2_core_account_including_configuration_recipient_capability_status_updated_event import (
+        V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEventNotification,
+    )
+    from stripe.events._v2_core_account_including_configuration_recipient_updated_event import (
+        V2CoreAccountIncludingConfigurationRecipientUpdatedEventNotification,
+    )
+    from stripe.events._v2_core_account_including_configuration_storer_capability_status_updated_event import (
+        V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEventNotification,
+    )
+    from stripe.events._v2_core_account_including_configuration_storer_updated_event import (
+        V2CoreAccountIncludingConfigurationStorerUpdatedEventNotification,
+    )
+    from stripe.events._v2_core_account_including_defaults_updated_event import (
+        V2CoreAccountIncludingDefaultsUpdatedEventNotification,
+    )
+    from stripe.events._v2_core_account_including_identity_updated_event import (
+        V2CoreAccountIncludingIdentityUpdatedEventNotification,
+    )
+    from stripe.events._v2_core_account_including_requirements_updated_event import (
+        V2CoreAccountIncludingRequirementsUpdatedEventNotification,
+    )
+    from stripe.events._v2_core_account_link_returned_event import (
+        V2CoreAccountLinkReturnedEventNotification,
+    )
+    from stripe.events._v2_core_account_person_created_event import (
+        V2CoreAccountPersonCreatedEventNotification,
+    )
+    from stripe.events._v2_core_account_person_deleted_event import (
+        V2CoreAccountPersonDeletedEventNotification,
+    )
+    from stripe.events._v2_core_account_person_updated_event import (
+        V2CoreAccountPersonUpdatedEventNotification,
+    )
+    from stripe.events._v2_core_event_destination_ping_event import (
+        V2CoreEventDestinationPingEventNotification,
+    )
+    from stripe.events._v2_money_management_adjustment_created_event import (
+        V2MoneyManagementAdjustmentCreatedEventNotification,
+    )
+    from stripe.events._v2_money_management_financial_account_created_event import (
+        V2MoneyManagementFinancialAccountCreatedEventNotification,
+    )
+    from stripe.events._v2_money_management_financial_account_updated_event import (
+        V2MoneyManagementFinancialAccountUpdatedEventNotification,
+    )
+    from stripe.events._v2_money_management_financial_address_activated_event import (
+        V2MoneyManagementFinancialAddressActivatedEventNotification,
+    )
+    from stripe.events._v2_money_management_financial_address_failed_event import (
+        V2MoneyManagementFinancialAddressFailedEventNotification,
+    )
+    from stripe.events._v2_money_management_inbound_transfer_available_event import (
+        V2MoneyManagementInboundTransferAvailableEventNotification,
+    )
+    from stripe.events._v2_money_management_inbound_transfer_bank_debit_failed_event import (
+        V2MoneyManagementInboundTransferBankDebitFailedEventNotification,
+    )
+    from stripe.events._v2_money_management_inbound_transfer_bank_debit_processing_event import (
+        V2MoneyManagementInboundTransferBankDebitProcessingEventNotification,
+    )
+    from stripe.events._v2_money_management_inbound_transfer_bank_debit_queued_event import (
+        V2MoneyManagementInboundTransferBankDebitQueuedEventNotification,
+    )
+    from stripe.events._v2_money_management_inbound_transfer_bank_debit_returned_event import (
+        V2MoneyManagementInboundTransferBankDebitReturnedEventNotification,
+    )
+    from stripe.events._v2_money_management_inbound_transfer_bank_debit_succeeded_event import (
+        V2MoneyManagementInboundTransferBankDebitSucceededEventNotification,
+    )
+    from stripe.events._v2_money_management_outbound_payment_canceled_event import (
+        V2MoneyManagementOutboundPaymentCanceledEventNotification,
+    )
+    from stripe.events._v2_money_management_outbound_payment_created_event import (
+        V2MoneyManagementOutboundPaymentCreatedEventNotification,
+    )
+    from stripe.events._v2_money_management_outbound_payment_failed_event import (
+        V2MoneyManagementOutboundPaymentFailedEventNotification,
+    )
+    from stripe.events._v2_money_management_outbound_payment_posted_event import (
+        V2MoneyManagementOutboundPaymentPostedEventNotification,
+    )
+    from stripe.events._v2_money_management_outbound_payment_returned_event import (
+        V2MoneyManagementOutboundPaymentReturnedEventNotification,
+    )
+    from stripe.events._v2_money_management_outbound_payment_updated_event import (
+        V2MoneyManagementOutboundPaymentUpdatedEventNotification,
+    )
+    from stripe.events._v2_money_management_outbound_transfer_canceled_event import (
+        V2MoneyManagementOutboundTransferCanceledEventNotification,
+    )
+    from stripe.events._v2_money_management_outbound_transfer_created_event import (
+        V2MoneyManagementOutboundTransferCreatedEventNotification,
+    )
+    from stripe.events._v2_money_management_outbound_transfer_failed_event import (
+        V2MoneyManagementOutboundTransferFailedEventNotification,
+    )
+    from stripe.events._v2_money_management_outbound_transfer_posted_event import (
+        V2MoneyManagementOutboundTransferPostedEventNotification,
+    )
+    from stripe.events._v2_money_management_outbound_transfer_returned_event import (
+        V2MoneyManagementOutboundTransferReturnedEventNotification,
+    )
+    from stripe.events._v2_money_management_outbound_transfer_updated_event import (
+        V2MoneyManagementOutboundTransferUpdatedEventNotification,
+    )
+    from stripe.events._v2_money_management_payout_method_updated_event import (
+        V2MoneyManagementPayoutMethodUpdatedEventNotification,
+    )
+    from stripe.events._v2_money_management_received_credit_available_event import (
+        V2MoneyManagementReceivedCreditAvailableEventNotification,
+    )
+    from stripe.events._v2_money_management_received_credit_failed_event import (
+        V2MoneyManagementReceivedCreditFailedEventNotification,
+    )
+    from stripe.events._v2_money_management_received_credit_returned_event import (
+        V2MoneyManagementReceivedCreditReturnedEventNotification,
+    )
+    from stripe.events._v2_money_management_received_credit_succeeded_event import (
+        V2MoneyManagementReceivedCreditSucceededEventNotification,
+    )
+    from stripe.events._v2_money_management_received_debit_canceled_event import (
+        V2MoneyManagementReceivedDebitCanceledEventNotification,
+    )
+    from stripe.events._v2_money_management_received_debit_failed_event import (
+        V2MoneyManagementReceivedDebitFailedEventNotification,
+    )
+    from stripe.events._v2_money_management_received_debit_pending_event import (
+        V2MoneyManagementReceivedDebitPendingEventNotification,
+    )
+    from stripe.events._v2_money_management_received_debit_succeeded_event import (
+        V2MoneyManagementReceivedDebitSucceededEventNotification,
+    )
+    from stripe.events._v2_money_management_received_debit_updated_event import (
+        V2MoneyManagementReceivedDebitUpdatedEventNotification,
+    )
+    from stripe.events._v2_money_management_transaction_created_event import (
+        V2MoneyManagementTransactionCreatedEventNotification,
+    )
+    from stripe.events._v2_money_management_transaction_updated_event import (
+        V2MoneyManagementTransactionUpdatedEventNotification,
+    )
+    from stripe.events._v2_payments_off_session_payment_authorization_attempt_failed_event import (
+        V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEventNotification,
+    )
+    from stripe.events._v2_payments_off_session_payment_authorization_attempt_started_event import (
+        V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEventNotification,
+    )
+    from stripe.events._v2_payments_off_session_payment_canceled_event import (
+        V2PaymentsOffSessionPaymentCanceledEventNotification,
+    )
+    from stripe.events._v2_payments_off_session_payment_created_event import (
+        V2PaymentsOffSessionPaymentCreatedEventNotification,
+    )
+    from stripe.events._v2_payments_off_session_payment_failed_event import (
+        V2PaymentsOffSessionPaymentFailedEventNotification,
+    )
+    from stripe.events._v2_payments_off_session_payment_requires_capture_event import (
+        V2PaymentsOffSessionPaymentRequiresCaptureEventNotification,
+    )
+    from stripe.events._v2_payments_off_session_payment_succeeded_event import (
+        V2PaymentsOffSessionPaymentSucceededEventNotification,
+    )
 
 
-V2_EVENT_CLASS_LOOKUP = {
-    V1BillingMeterErrorReportTriggeredEvent.LOOKUP_TYPE: V1BillingMeterErrorReportTriggeredEvent,
-    V1BillingMeterNoMeterFoundEvent.LOOKUP_TYPE: V1BillingMeterNoMeterFoundEvent,
-    V2BillingBillSettingUpdatedEvent.LOOKUP_TYPE: V2BillingBillSettingUpdatedEvent,
-    V2CoreAccountClosedEvent.LOOKUP_TYPE: V2CoreAccountClosedEvent,
-    V2CoreAccountCreatedEvent.LOOKUP_TYPE: V2CoreAccountCreatedEvent,
-    V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent,
-    V2CoreAccountIncludingConfigurationCustomerUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationCustomerUpdatedEvent,
-    V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEvent,
-    V2CoreAccountIncludingConfigurationMerchantUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationMerchantUpdatedEvent,
-    V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent,
-    V2CoreAccountIncludingConfigurationRecipientUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationRecipientUpdatedEvent,
-    V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEvent,
-    V2CoreAccountIncludingConfigurationStorerUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationStorerUpdatedEvent,
-    V2CoreAccountIncludingDefaultsUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingDefaultsUpdatedEvent,
-    V2CoreAccountIncludingIdentityUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingIdentityUpdatedEvent,
-    V2CoreAccountIncludingRequirementsUpdatedEvent.LOOKUP_TYPE: V2CoreAccountIncludingRequirementsUpdatedEvent,
-    V2CoreAccountLinkReturnedEvent.LOOKUP_TYPE: V2CoreAccountLinkReturnedEvent,
-    V2CoreAccountPersonCreatedEvent.LOOKUP_TYPE: V2CoreAccountPersonCreatedEvent,
-    V2CoreAccountPersonDeletedEvent.LOOKUP_TYPE: V2CoreAccountPersonDeletedEvent,
-    V2CoreAccountPersonUpdatedEvent.LOOKUP_TYPE: V2CoreAccountPersonUpdatedEvent,
-    V2CoreAccountUpdatedEvent.LOOKUP_TYPE: V2CoreAccountUpdatedEvent,
-    V2CoreEventDestinationPingEvent.LOOKUP_TYPE: V2CoreEventDestinationPingEvent,
-    V2MoneyManagementAdjustmentCreatedEvent.LOOKUP_TYPE: V2MoneyManagementAdjustmentCreatedEvent,
-    V2MoneyManagementFinancialAccountCreatedEvent.LOOKUP_TYPE: V2MoneyManagementFinancialAccountCreatedEvent,
-    V2MoneyManagementFinancialAccountUpdatedEvent.LOOKUP_TYPE: V2MoneyManagementFinancialAccountUpdatedEvent,
-    V2MoneyManagementFinancialAddressActivatedEvent.LOOKUP_TYPE: V2MoneyManagementFinancialAddressActivatedEvent,
-    V2MoneyManagementFinancialAddressFailedEvent.LOOKUP_TYPE: V2MoneyManagementFinancialAddressFailedEvent,
-    V2MoneyManagementInboundTransferAvailableEvent.LOOKUP_TYPE: V2MoneyManagementInboundTransferAvailableEvent,
-    V2MoneyManagementInboundTransferBankDebitFailedEvent.LOOKUP_TYPE: V2MoneyManagementInboundTransferBankDebitFailedEvent,
-    V2MoneyManagementInboundTransferBankDebitProcessingEvent.LOOKUP_TYPE: V2MoneyManagementInboundTransferBankDebitProcessingEvent,
-    V2MoneyManagementInboundTransferBankDebitQueuedEvent.LOOKUP_TYPE: V2MoneyManagementInboundTransferBankDebitQueuedEvent,
-    V2MoneyManagementInboundTransferBankDebitReturnedEvent.LOOKUP_TYPE: V2MoneyManagementInboundTransferBankDebitReturnedEvent,
-    V2MoneyManagementInboundTransferBankDebitSucceededEvent.LOOKUP_TYPE: V2MoneyManagementInboundTransferBankDebitSucceededEvent,
-    V2MoneyManagementOutboundPaymentCanceledEvent.LOOKUP_TYPE: V2MoneyManagementOutboundPaymentCanceledEvent,
-    V2MoneyManagementOutboundPaymentCreatedEvent.LOOKUP_TYPE: V2MoneyManagementOutboundPaymentCreatedEvent,
-    V2MoneyManagementOutboundPaymentFailedEvent.LOOKUP_TYPE: V2MoneyManagementOutboundPaymentFailedEvent,
-    V2MoneyManagementOutboundPaymentPostedEvent.LOOKUP_TYPE: V2MoneyManagementOutboundPaymentPostedEvent,
-    V2MoneyManagementOutboundPaymentReturnedEvent.LOOKUP_TYPE: V2MoneyManagementOutboundPaymentReturnedEvent,
-    V2MoneyManagementOutboundPaymentUpdatedEvent.LOOKUP_TYPE: V2MoneyManagementOutboundPaymentUpdatedEvent,
-    V2MoneyManagementOutboundTransferCanceledEvent.LOOKUP_TYPE: V2MoneyManagementOutboundTransferCanceledEvent,
-    V2MoneyManagementOutboundTransferCreatedEvent.LOOKUP_TYPE: V2MoneyManagementOutboundTransferCreatedEvent,
-    V2MoneyManagementOutboundTransferFailedEvent.LOOKUP_TYPE: V2MoneyManagementOutboundTransferFailedEvent,
-    V2MoneyManagementOutboundTransferPostedEvent.LOOKUP_TYPE: V2MoneyManagementOutboundTransferPostedEvent,
-    V2MoneyManagementOutboundTransferReturnedEvent.LOOKUP_TYPE: V2MoneyManagementOutboundTransferReturnedEvent,
-    V2MoneyManagementOutboundTransferUpdatedEvent.LOOKUP_TYPE: V2MoneyManagementOutboundTransferUpdatedEvent,
-    V2MoneyManagementPayoutMethodUpdatedEvent.LOOKUP_TYPE: V2MoneyManagementPayoutMethodUpdatedEvent,
-    V2MoneyManagementReceivedCreditAvailableEvent.LOOKUP_TYPE: V2MoneyManagementReceivedCreditAvailableEvent,
-    V2MoneyManagementReceivedCreditFailedEvent.LOOKUP_TYPE: V2MoneyManagementReceivedCreditFailedEvent,
-    V2MoneyManagementReceivedCreditReturnedEvent.LOOKUP_TYPE: V2MoneyManagementReceivedCreditReturnedEvent,
-    V2MoneyManagementReceivedCreditSucceededEvent.LOOKUP_TYPE: V2MoneyManagementReceivedCreditSucceededEvent,
-    V2MoneyManagementReceivedDebitCanceledEvent.LOOKUP_TYPE: V2MoneyManagementReceivedDebitCanceledEvent,
-    V2MoneyManagementReceivedDebitFailedEvent.LOOKUP_TYPE: V2MoneyManagementReceivedDebitFailedEvent,
-    V2MoneyManagementReceivedDebitPendingEvent.LOOKUP_TYPE: V2MoneyManagementReceivedDebitPendingEvent,
-    V2MoneyManagementReceivedDebitSucceededEvent.LOOKUP_TYPE: V2MoneyManagementReceivedDebitSucceededEvent,
-    V2MoneyManagementReceivedDebitUpdatedEvent.LOOKUP_TYPE: V2MoneyManagementReceivedDebitUpdatedEvent,
-    V2MoneyManagementTransactionCreatedEvent.LOOKUP_TYPE: V2MoneyManagementTransactionCreatedEvent,
-    V2MoneyManagementTransactionUpdatedEvent.LOOKUP_TYPE: V2MoneyManagementTransactionUpdatedEvent,
-    V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEvent.LOOKUP_TYPE: V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEvent,
-    V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEvent.LOOKUP_TYPE: V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEvent,
-    V2PaymentsOffSessionPaymentCanceledEvent.LOOKUP_TYPE: V2PaymentsOffSessionPaymentCanceledEvent,
-    V2PaymentsOffSessionPaymentCreatedEvent.LOOKUP_TYPE: V2PaymentsOffSessionPaymentCreatedEvent,
-    V2PaymentsOffSessionPaymentFailedEvent.LOOKUP_TYPE: V2PaymentsOffSessionPaymentFailedEvent,
-    V2PaymentsOffSessionPaymentRequiresCaptureEvent.LOOKUP_TYPE: V2PaymentsOffSessionPaymentRequiresCaptureEvent,
-    V2PaymentsOffSessionPaymentSucceededEvent.LOOKUP_TYPE: V2PaymentsOffSessionPaymentSucceededEvent,
+_V2_EVENT_CLASS_LOOKUP = {
+    "v1.billing.meter.error_report_triggered": (
+        "stripe.events._v1_billing_meter_error_report_triggered_event",
+        "V1BillingMeterErrorReportTriggeredEvent",
+    ),
+    "v1.billing.meter.no_meter_found": (
+        "stripe.events._v1_billing_meter_no_meter_found_event",
+        "V1BillingMeterNoMeterFoundEvent",
+    ),
+    "v2.core.account.closed": (
+        "stripe.events._v2_core_account_closed_event",
+        "V2CoreAccountClosedEvent",
+    ),
+    "v2.core.account.created": (
+        "stripe.events._v2_core_account_created_event",
+        "V2CoreAccountCreatedEvent",
+    ),
+    "v2.core.account[configuration.customer].capability_status_updated": (
+        "stripe.events._v2_core_account_including_configuration_customer_capability_status_updated_event",
+        "V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent",
+    ),
+    "v2.core.account[configuration.customer].updated": (
+        "stripe.events._v2_core_account_including_configuration_customer_updated_event",
+        "V2CoreAccountIncludingConfigurationCustomerUpdatedEvent",
+    ),
+    "v2.core.account[configuration.merchant].capability_status_updated": (
+        "stripe.events._v2_core_account_including_configuration_merchant_capability_status_updated_event",
+        "V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEvent",
+    ),
+    "v2.core.account[configuration.merchant].updated": (
+        "stripe.events._v2_core_account_including_configuration_merchant_updated_event",
+        "V2CoreAccountIncludingConfigurationMerchantUpdatedEvent",
+    ),
+    "v2.core.account[configuration.recipient].capability_status_updated": (
+        "stripe.events._v2_core_account_including_configuration_recipient_capability_status_updated_event",
+        "V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent",
+    ),
+    "v2.core.account[configuration.recipient].updated": (
+        "stripe.events._v2_core_account_including_configuration_recipient_updated_event",
+        "V2CoreAccountIncludingConfigurationRecipientUpdatedEvent",
+    ),
+    "v2.core.account[configuration.storer].capability_status_updated": (
+        "stripe.events._v2_core_account_including_configuration_storer_capability_status_updated_event",
+        "V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEvent",
+    ),
+    "v2.core.account[configuration.storer].updated": (
+        "stripe.events._v2_core_account_including_configuration_storer_updated_event",
+        "V2CoreAccountIncludingConfigurationStorerUpdatedEvent",
+    ),
+    "v2.core.account[defaults].updated": (
+        "stripe.events._v2_core_account_including_defaults_updated_event",
+        "V2CoreAccountIncludingDefaultsUpdatedEvent",
+    ),
+    "v2.core.account[identity].updated": (
+        "stripe.events._v2_core_account_including_identity_updated_event",
+        "V2CoreAccountIncludingIdentityUpdatedEvent",
+    ),
+    "v2.core.account[requirements].updated": (
+        "stripe.events._v2_core_account_including_requirements_updated_event",
+        "V2CoreAccountIncludingRequirementsUpdatedEvent",
+    ),
+    "v2.core.account_link.returned": (
+        "stripe.events._v2_core_account_link_returned_event",
+        "V2CoreAccountLinkReturnedEvent",
+    ),
+    "v2.core.account_person.created": (
+        "stripe.events._v2_core_account_person_created_event",
+        "V2CoreAccountPersonCreatedEvent",
+    ),
+    "v2.core.account_person.deleted": (
+        "stripe.events._v2_core_account_person_deleted_event",
+        "V2CoreAccountPersonDeletedEvent",
+    ),
+    "v2.core.account_person.updated": (
+        "stripe.events._v2_core_account_person_updated_event",
+        "V2CoreAccountPersonUpdatedEvent",
+    ),
+    "v2.core.account.updated": (
+        "stripe.events._v2_core_account_updated_event",
+        "V2CoreAccountUpdatedEvent",
+    ),
+    "v2.core.event_destination.ping": (
+        "stripe.events._v2_core_event_destination_ping_event",
+        "V2CoreEventDestinationPingEvent",
+    ),
+    "v2.money_management.adjustment.created": (
+        "stripe.events._v2_money_management_adjustment_created_event",
+        "V2MoneyManagementAdjustmentCreatedEvent",
+    ),
+    "v2.money_management.financial_account.created": (
+        "stripe.events._v2_money_management_financial_account_created_event",
+        "V2MoneyManagementFinancialAccountCreatedEvent",
+    ),
+    "v2.money_management.financial_account.updated": (
+        "stripe.events._v2_money_management_financial_account_updated_event",
+        "V2MoneyManagementFinancialAccountUpdatedEvent",
+    ),
+    "v2.money_management.financial_address.activated": (
+        "stripe.events._v2_money_management_financial_address_activated_event",
+        "V2MoneyManagementFinancialAddressActivatedEvent",
+    ),
+    "v2.money_management.financial_address.failed": (
+        "stripe.events._v2_money_management_financial_address_failed_event",
+        "V2MoneyManagementFinancialAddressFailedEvent",
+    ),
+    "v2.money_management.inbound_transfer.available": (
+        "stripe.events._v2_money_management_inbound_transfer_available_event",
+        "V2MoneyManagementInboundTransferAvailableEvent",
+    ),
+    "v2.money_management.inbound_transfer.bank_debit_failed": (
+        "stripe.events._v2_money_management_inbound_transfer_bank_debit_failed_event",
+        "V2MoneyManagementInboundTransferBankDebitFailedEvent",
+    ),
+    "v2.money_management.inbound_transfer.bank_debit_processing": (
+        "stripe.events._v2_money_management_inbound_transfer_bank_debit_processing_event",
+        "V2MoneyManagementInboundTransferBankDebitProcessingEvent",
+    ),
+    "v2.money_management.inbound_transfer.bank_debit_queued": (
+        "stripe.events._v2_money_management_inbound_transfer_bank_debit_queued_event",
+        "V2MoneyManagementInboundTransferBankDebitQueuedEvent",
+    ),
+    "v2.money_management.inbound_transfer.bank_debit_returned": (
+        "stripe.events._v2_money_management_inbound_transfer_bank_debit_returned_event",
+        "V2MoneyManagementInboundTransferBankDebitReturnedEvent",
+    ),
+    "v2.money_management.inbound_transfer.bank_debit_succeeded": (
+        "stripe.events._v2_money_management_inbound_transfer_bank_debit_succeeded_event",
+        "V2MoneyManagementInboundTransferBankDebitSucceededEvent",
+    ),
+    "v2.money_management.outbound_payment.canceled": (
+        "stripe.events._v2_money_management_outbound_payment_canceled_event",
+        "V2MoneyManagementOutboundPaymentCanceledEvent",
+    ),
+    "v2.money_management.outbound_payment.created": (
+        "stripe.events._v2_money_management_outbound_payment_created_event",
+        "V2MoneyManagementOutboundPaymentCreatedEvent",
+    ),
+    "v2.money_management.outbound_payment.failed": (
+        "stripe.events._v2_money_management_outbound_payment_failed_event",
+        "V2MoneyManagementOutboundPaymentFailedEvent",
+    ),
+    "v2.money_management.outbound_payment.posted": (
+        "stripe.events._v2_money_management_outbound_payment_posted_event",
+        "V2MoneyManagementOutboundPaymentPostedEvent",
+    ),
+    "v2.money_management.outbound_payment.returned": (
+        "stripe.events._v2_money_management_outbound_payment_returned_event",
+        "V2MoneyManagementOutboundPaymentReturnedEvent",
+    ),
+    "v2.money_management.outbound_payment.updated": (
+        "stripe.events._v2_money_management_outbound_payment_updated_event",
+        "V2MoneyManagementOutboundPaymentUpdatedEvent",
+    ),
+    "v2.money_management.outbound_transfer.canceled": (
+        "stripe.events._v2_money_management_outbound_transfer_canceled_event",
+        "V2MoneyManagementOutboundTransferCanceledEvent",
+    ),
+    "v2.money_management.outbound_transfer.created": (
+        "stripe.events._v2_money_management_outbound_transfer_created_event",
+        "V2MoneyManagementOutboundTransferCreatedEvent",
+    ),
+    "v2.money_management.outbound_transfer.failed": (
+        "stripe.events._v2_money_management_outbound_transfer_failed_event",
+        "V2MoneyManagementOutboundTransferFailedEvent",
+    ),
+    "v2.money_management.outbound_transfer.posted": (
+        "stripe.events._v2_money_management_outbound_transfer_posted_event",
+        "V2MoneyManagementOutboundTransferPostedEvent",
+    ),
+    "v2.money_management.outbound_transfer.returned": (
+        "stripe.events._v2_money_management_outbound_transfer_returned_event",
+        "V2MoneyManagementOutboundTransferReturnedEvent",
+    ),
+    "v2.money_management.outbound_transfer.updated": (
+        "stripe.events._v2_money_management_outbound_transfer_updated_event",
+        "V2MoneyManagementOutboundTransferUpdatedEvent",
+    ),
+    "v2.money_management.payout_method.updated": (
+        "stripe.events._v2_money_management_payout_method_updated_event",
+        "V2MoneyManagementPayoutMethodUpdatedEvent",
+    ),
+    "v2.money_management.received_credit.available": (
+        "stripe.events._v2_money_management_received_credit_available_event",
+        "V2MoneyManagementReceivedCreditAvailableEvent",
+    ),
+    "v2.money_management.received_credit.failed": (
+        "stripe.events._v2_money_management_received_credit_failed_event",
+        "V2MoneyManagementReceivedCreditFailedEvent",
+    ),
+    "v2.money_management.received_credit.returned": (
+        "stripe.events._v2_money_management_received_credit_returned_event",
+        "V2MoneyManagementReceivedCreditReturnedEvent",
+    ),
+    "v2.money_management.received_credit.succeeded": (
+        "stripe.events._v2_money_management_received_credit_succeeded_event",
+        "V2MoneyManagementReceivedCreditSucceededEvent",
+    ),
+    "v2.money_management.received_debit.canceled": (
+        "stripe.events._v2_money_management_received_debit_canceled_event",
+        "V2MoneyManagementReceivedDebitCanceledEvent",
+    ),
+    "v2.money_management.received_debit.failed": (
+        "stripe.events._v2_money_management_received_debit_failed_event",
+        "V2MoneyManagementReceivedDebitFailedEvent",
+    ),
+    "v2.money_management.received_debit.pending": (
+        "stripe.events._v2_money_management_received_debit_pending_event",
+        "V2MoneyManagementReceivedDebitPendingEvent",
+    ),
+    "v2.money_management.received_debit.succeeded": (
+        "stripe.events._v2_money_management_received_debit_succeeded_event",
+        "V2MoneyManagementReceivedDebitSucceededEvent",
+    ),
+    "v2.money_management.received_debit.updated": (
+        "stripe.events._v2_money_management_received_debit_updated_event",
+        "V2MoneyManagementReceivedDebitUpdatedEvent",
+    ),
+    "v2.money_management.transaction.created": (
+        "stripe.events._v2_money_management_transaction_created_event",
+        "V2MoneyManagementTransactionCreatedEvent",
+    ),
+    "v2.money_management.transaction.updated": (
+        "stripe.events._v2_money_management_transaction_updated_event",
+        "V2MoneyManagementTransactionUpdatedEvent",
+    ),
+    "v2.payments.off_session_payment.authorization_attempt_failed": (
+        "stripe.events._v2_payments_off_session_payment_authorization_attempt_failed_event",
+        "V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEvent",
+    ),
+    "v2.payments.off_session_payment.authorization_attempt_started": (
+        "stripe.events._v2_payments_off_session_payment_authorization_attempt_started_event",
+        "V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEvent",
+    ),
+    "v2.payments.off_session_payment.canceled": (
+        "stripe.events._v2_payments_off_session_payment_canceled_event",
+        "V2PaymentsOffSessionPaymentCanceledEvent",
+    ),
+    "v2.payments.off_session_payment.created": (
+        "stripe.events._v2_payments_off_session_payment_created_event",
+        "V2PaymentsOffSessionPaymentCreatedEvent",
+    ),
+    "v2.payments.off_session_payment.failed": (
+        "stripe.events._v2_payments_off_session_payment_failed_event",
+        "V2PaymentsOffSessionPaymentFailedEvent",
+    ),
+    "v2.payments.off_session_payment.requires_capture": (
+        "stripe.events._v2_payments_off_session_payment_requires_capture_event",
+        "V2PaymentsOffSessionPaymentRequiresCaptureEvent",
+    ),
+    "v2.payments.off_session_payment.succeeded": (
+        "stripe.events._v2_payments_off_session_payment_succeeded_event",
+        "V2PaymentsOffSessionPaymentSucceededEvent",
+    ),
 }
 
-V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
-    V1BillingMeterErrorReportTriggeredEventNotification.LOOKUP_TYPE: V1BillingMeterErrorReportTriggeredEventNotification,
-    V1BillingMeterNoMeterFoundEventNotification.LOOKUP_TYPE: V1BillingMeterNoMeterFoundEventNotification,
-    V2BillingBillSettingUpdatedEventNotification.LOOKUP_TYPE: V2BillingBillSettingUpdatedEventNotification,
-    V2CoreAccountClosedEventNotification.LOOKUP_TYPE: V2CoreAccountClosedEventNotification,
-    V2CoreAccountCreatedEventNotification.LOOKUP_TYPE: V2CoreAccountCreatedEventNotification,
-    V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEventNotification.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEventNotification,
-    V2CoreAccountIncludingConfigurationCustomerUpdatedEventNotification.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationCustomerUpdatedEventNotification,
-    V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEventNotification.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEventNotification,
-    V2CoreAccountIncludingConfigurationMerchantUpdatedEventNotification.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationMerchantUpdatedEventNotification,
-    V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEventNotification.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEventNotification,
-    V2CoreAccountIncludingConfigurationRecipientUpdatedEventNotification.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationRecipientUpdatedEventNotification,
-    V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEventNotification.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEventNotification,
-    V2CoreAccountIncludingConfigurationStorerUpdatedEventNotification.LOOKUP_TYPE: V2CoreAccountIncludingConfigurationStorerUpdatedEventNotification,
-    V2CoreAccountIncludingDefaultsUpdatedEventNotification.LOOKUP_TYPE: V2CoreAccountIncludingDefaultsUpdatedEventNotification,
-    V2CoreAccountIncludingIdentityUpdatedEventNotification.LOOKUP_TYPE: V2CoreAccountIncludingIdentityUpdatedEventNotification,
-    V2CoreAccountIncludingRequirementsUpdatedEventNotification.LOOKUP_TYPE: V2CoreAccountIncludingRequirementsUpdatedEventNotification,
-    V2CoreAccountLinkReturnedEventNotification.LOOKUP_TYPE: V2CoreAccountLinkReturnedEventNotification,
-    V2CoreAccountPersonCreatedEventNotification.LOOKUP_TYPE: V2CoreAccountPersonCreatedEventNotification,
-    V2CoreAccountPersonDeletedEventNotification.LOOKUP_TYPE: V2CoreAccountPersonDeletedEventNotification,
-    V2CoreAccountPersonUpdatedEventNotification.LOOKUP_TYPE: V2CoreAccountPersonUpdatedEventNotification,
-    V2CoreAccountUpdatedEventNotification.LOOKUP_TYPE: V2CoreAccountUpdatedEventNotification,
-    V2CoreEventDestinationPingEventNotification.LOOKUP_TYPE: V2CoreEventDestinationPingEventNotification,
-    V2MoneyManagementAdjustmentCreatedEventNotification.LOOKUP_TYPE: V2MoneyManagementAdjustmentCreatedEventNotification,
-    V2MoneyManagementFinancialAccountCreatedEventNotification.LOOKUP_TYPE: V2MoneyManagementFinancialAccountCreatedEventNotification,
-    V2MoneyManagementFinancialAccountUpdatedEventNotification.LOOKUP_TYPE: V2MoneyManagementFinancialAccountUpdatedEventNotification,
-    V2MoneyManagementFinancialAddressActivatedEventNotification.LOOKUP_TYPE: V2MoneyManagementFinancialAddressActivatedEventNotification,
-    V2MoneyManagementFinancialAddressFailedEventNotification.LOOKUP_TYPE: V2MoneyManagementFinancialAddressFailedEventNotification,
-    V2MoneyManagementInboundTransferAvailableEventNotification.LOOKUP_TYPE: V2MoneyManagementInboundTransferAvailableEventNotification,
-    V2MoneyManagementInboundTransferBankDebitFailedEventNotification.LOOKUP_TYPE: V2MoneyManagementInboundTransferBankDebitFailedEventNotification,
-    V2MoneyManagementInboundTransferBankDebitProcessingEventNotification.LOOKUP_TYPE: V2MoneyManagementInboundTransferBankDebitProcessingEventNotification,
-    V2MoneyManagementInboundTransferBankDebitQueuedEventNotification.LOOKUP_TYPE: V2MoneyManagementInboundTransferBankDebitQueuedEventNotification,
-    V2MoneyManagementInboundTransferBankDebitReturnedEventNotification.LOOKUP_TYPE: V2MoneyManagementInboundTransferBankDebitReturnedEventNotification,
-    V2MoneyManagementInboundTransferBankDebitSucceededEventNotification.LOOKUP_TYPE: V2MoneyManagementInboundTransferBankDebitSucceededEventNotification,
-    V2MoneyManagementOutboundPaymentCanceledEventNotification.LOOKUP_TYPE: V2MoneyManagementOutboundPaymentCanceledEventNotification,
-    V2MoneyManagementOutboundPaymentCreatedEventNotification.LOOKUP_TYPE: V2MoneyManagementOutboundPaymentCreatedEventNotification,
-    V2MoneyManagementOutboundPaymentFailedEventNotification.LOOKUP_TYPE: V2MoneyManagementOutboundPaymentFailedEventNotification,
-    V2MoneyManagementOutboundPaymentPostedEventNotification.LOOKUP_TYPE: V2MoneyManagementOutboundPaymentPostedEventNotification,
-    V2MoneyManagementOutboundPaymentReturnedEventNotification.LOOKUP_TYPE: V2MoneyManagementOutboundPaymentReturnedEventNotification,
-    V2MoneyManagementOutboundPaymentUpdatedEventNotification.LOOKUP_TYPE: V2MoneyManagementOutboundPaymentUpdatedEventNotification,
-    V2MoneyManagementOutboundTransferCanceledEventNotification.LOOKUP_TYPE: V2MoneyManagementOutboundTransferCanceledEventNotification,
-    V2MoneyManagementOutboundTransferCreatedEventNotification.LOOKUP_TYPE: V2MoneyManagementOutboundTransferCreatedEventNotification,
-    V2MoneyManagementOutboundTransferFailedEventNotification.LOOKUP_TYPE: V2MoneyManagementOutboundTransferFailedEventNotification,
-    V2MoneyManagementOutboundTransferPostedEventNotification.LOOKUP_TYPE: V2MoneyManagementOutboundTransferPostedEventNotification,
-    V2MoneyManagementOutboundTransferReturnedEventNotification.LOOKUP_TYPE: V2MoneyManagementOutboundTransferReturnedEventNotification,
-    V2MoneyManagementOutboundTransferUpdatedEventNotification.LOOKUP_TYPE: V2MoneyManagementOutboundTransferUpdatedEventNotification,
-    V2MoneyManagementPayoutMethodUpdatedEventNotification.LOOKUP_TYPE: V2MoneyManagementPayoutMethodUpdatedEventNotification,
-    V2MoneyManagementReceivedCreditAvailableEventNotification.LOOKUP_TYPE: V2MoneyManagementReceivedCreditAvailableEventNotification,
-    V2MoneyManagementReceivedCreditFailedEventNotification.LOOKUP_TYPE: V2MoneyManagementReceivedCreditFailedEventNotification,
-    V2MoneyManagementReceivedCreditReturnedEventNotification.LOOKUP_TYPE: V2MoneyManagementReceivedCreditReturnedEventNotification,
-    V2MoneyManagementReceivedCreditSucceededEventNotification.LOOKUP_TYPE: V2MoneyManagementReceivedCreditSucceededEventNotification,
-    V2MoneyManagementReceivedDebitCanceledEventNotification.LOOKUP_TYPE: V2MoneyManagementReceivedDebitCanceledEventNotification,
-    V2MoneyManagementReceivedDebitFailedEventNotification.LOOKUP_TYPE: V2MoneyManagementReceivedDebitFailedEventNotification,
-    V2MoneyManagementReceivedDebitPendingEventNotification.LOOKUP_TYPE: V2MoneyManagementReceivedDebitPendingEventNotification,
-    V2MoneyManagementReceivedDebitSucceededEventNotification.LOOKUP_TYPE: V2MoneyManagementReceivedDebitSucceededEventNotification,
-    V2MoneyManagementReceivedDebitUpdatedEventNotification.LOOKUP_TYPE: V2MoneyManagementReceivedDebitUpdatedEventNotification,
-    V2MoneyManagementTransactionCreatedEventNotification.LOOKUP_TYPE: V2MoneyManagementTransactionCreatedEventNotification,
-    V2MoneyManagementTransactionUpdatedEventNotification.LOOKUP_TYPE: V2MoneyManagementTransactionUpdatedEventNotification,
-    V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEventNotification.LOOKUP_TYPE: V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEventNotification,
-    V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEventNotification.LOOKUP_TYPE: V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEventNotification,
-    V2PaymentsOffSessionPaymentCanceledEventNotification.LOOKUP_TYPE: V2PaymentsOffSessionPaymentCanceledEventNotification,
-    V2PaymentsOffSessionPaymentCreatedEventNotification.LOOKUP_TYPE: V2PaymentsOffSessionPaymentCreatedEventNotification,
-    V2PaymentsOffSessionPaymentFailedEventNotification.LOOKUP_TYPE: V2PaymentsOffSessionPaymentFailedEventNotification,
-    V2PaymentsOffSessionPaymentRequiresCaptureEventNotification.LOOKUP_TYPE: V2PaymentsOffSessionPaymentRequiresCaptureEventNotification,
-    V2PaymentsOffSessionPaymentSucceededEventNotification.LOOKUP_TYPE: V2PaymentsOffSessionPaymentSucceededEventNotification,
+
+def get_v2_event_class(type_: str):
+    if type_ not in _V2_EVENT_CLASS_LOOKUP:
+        return StripeObject
+
+    import_path, class_name = _V2_EVENT_CLASS_LOOKUP[type_]
+    return getattr(
+        import_module(import_path),
+        class_name,
+    )
+
+
+_V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
+    "v1.billing.meter.error_report_triggered": (
+        "stripe.events._v1_billing_meter_error_report_triggered_event",
+        "V1BillingMeterErrorReportTriggeredEventNotification",
+    ),
+    "v1.billing.meter.no_meter_found": (
+        "stripe.events._v1_billing_meter_no_meter_found_event",
+        "V1BillingMeterNoMeterFoundEventNotification",
+    ),
+    "v2.core.account.closed": (
+        "stripe.events._v2_core_account_closed_event",
+        "V2CoreAccountClosedEventNotification",
+    ),
+    "v2.core.account.created": (
+        "stripe.events._v2_core_account_created_event",
+        "V2CoreAccountCreatedEventNotification",
+    ),
+    "v2.core.account[configuration.customer].capability_status_updated": (
+        "stripe.events._v2_core_account_including_configuration_customer_capability_status_updated_event",
+        "V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEventNotification",
+    ),
+    "v2.core.account[configuration.customer].updated": (
+        "stripe.events._v2_core_account_including_configuration_customer_updated_event",
+        "V2CoreAccountIncludingConfigurationCustomerUpdatedEventNotification",
+    ),
+    "v2.core.account[configuration.merchant].capability_status_updated": (
+        "stripe.events._v2_core_account_including_configuration_merchant_capability_status_updated_event",
+        "V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEventNotification",
+    ),
+    "v2.core.account[configuration.merchant].updated": (
+        "stripe.events._v2_core_account_including_configuration_merchant_updated_event",
+        "V2CoreAccountIncludingConfigurationMerchantUpdatedEventNotification",
+    ),
+    "v2.core.account[configuration.recipient].capability_status_updated": (
+        "stripe.events._v2_core_account_including_configuration_recipient_capability_status_updated_event",
+        "V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEventNotification",
+    ),
+    "v2.core.account[configuration.recipient].updated": (
+        "stripe.events._v2_core_account_including_configuration_recipient_updated_event",
+        "V2CoreAccountIncludingConfigurationRecipientUpdatedEventNotification",
+    ),
+    "v2.core.account[configuration.storer].capability_status_updated": (
+        "stripe.events._v2_core_account_including_configuration_storer_capability_status_updated_event",
+        "V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEventNotification",
+    ),
+    "v2.core.account[configuration.storer].updated": (
+        "stripe.events._v2_core_account_including_configuration_storer_updated_event",
+        "V2CoreAccountIncludingConfigurationStorerUpdatedEventNotification",
+    ),
+    "v2.core.account[defaults].updated": (
+        "stripe.events._v2_core_account_including_defaults_updated_event",
+        "V2CoreAccountIncludingDefaultsUpdatedEventNotification",
+    ),
+    "v2.core.account[identity].updated": (
+        "stripe.events._v2_core_account_including_identity_updated_event",
+        "V2CoreAccountIncludingIdentityUpdatedEventNotification",
+    ),
+    "v2.core.account[requirements].updated": (
+        "stripe.events._v2_core_account_including_requirements_updated_event",
+        "V2CoreAccountIncludingRequirementsUpdatedEventNotification",
+    ),
+    "v2.core.account_link.returned": (
+        "stripe.events._v2_core_account_link_returned_event",
+        "V2CoreAccountLinkReturnedEventNotification",
+    ),
+    "v2.core.account_person.created": (
+        "stripe.events._v2_core_account_person_created_event",
+        "V2CoreAccountPersonCreatedEventNotification",
+    ),
+    "v2.core.account_person.deleted": (
+        "stripe.events._v2_core_account_person_deleted_event",
+        "V2CoreAccountPersonDeletedEventNotification",
+    ),
+    "v2.core.account_person.updated": (
+        "stripe.events._v2_core_account_person_updated_event",
+        "V2CoreAccountPersonUpdatedEventNotification",
+    ),
+    "v2.core.account.updated": (
+        "stripe.events._v2_core_account_updated_event",
+        "V2CoreAccountUpdatedEventNotification",
+    ),
+    "v2.core.event_destination.ping": (
+        "stripe.events._v2_core_event_destination_ping_event",
+        "V2CoreEventDestinationPingEventNotification",
+    ),
+    "v2.money_management.adjustment.created": (
+        "stripe.events._v2_money_management_adjustment_created_event",
+        "V2MoneyManagementAdjustmentCreatedEventNotification",
+    ),
+    "v2.money_management.financial_account.created": (
+        "stripe.events._v2_money_management_financial_account_created_event",
+        "V2MoneyManagementFinancialAccountCreatedEventNotification",
+    ),
+    "v2.money_management.financial_account.updated": (
+        "stripe.events._v2_money_management_financial_account_updated_event",
+        "V2MoneyManagementFinancialAccountUpdatedEventNotification",
+    ),
+    "v2.money_management.financial_address.activated": (
+        "stripe.events._v2_money_management_financial_address_activated_event",
+        "V2MoneyManagementFinancialAddressActivatedEventNotification",
+    ),
+    "v2.money_management.financial_address.failed": (
+        "stripe.events._v2_money_management_financial_address_failed_event",
+        "V2MoneyManagementFinancialAddressFailedEventNotification",
+    ),
+    "v2.money_management.inbound_transfer.available": (
+        "stripe.events._v2_money_management_inbound_transfer_available_event",
+        "V2MoneyManagementInboundTransferAvailableEventNotification",
+    ),
+    "v2.money_management.inbound_transfer.bank_debit_failed": (
+        "stripe.events._v2_money_management_inbound_transfer_bank_debit_failed_event",
+        "V2MoneyManagementInboundTransferBankDebitFailedEventNotification",
+    ),
+    "v2.money_management.inbound_transfer.bank_debit_processing": (
+        "stripe.events._v2_money_management_inbound_transfer_bank_debit_processing_event",
+        "V2MoneyManagementInboundTransferBankDebitProcessingEventNotification",
+    ),
+    "v2.money_management.inbound_transfer.bank_debit_queued": (
+        "stripe.events._v2_money_management_inbound_transfer_bank_debit_queued_event",
+        "V2MoneyManagementInboundTransferBankDebitQueuedEventNotification",
+    ),
+    "v2.money_management.inbound_transfer.bank_debit_returned": (
+        "stripe.events._v2_money_management_inbound_transfer_bank_debit_returned_event",
+        "V2MoneyManagementInboundTransferBankDebitReturnedEventNotification",
+    ),
+    "v2.money_management.inbound_transfer.bank_debit_succeeded": (
+        "stripe.events._v2_money_management_inbound_transfer_bank_debit_succeeded_event",
+        "V2MoneyManagementInboundTransferBankDebitSucceededEventNotification",
+    ),
+    "v2.money_management.outbound_payment.canceled": (
+        "stripe.events._v2_money_management_outbound_payment_canceled_event",
+        "V2MoneyManagementOutboundPaymentCanceledEventNotification",
+    ),
+    "v2.money_management.outbound_payment.created": (
+        "stripe.events._v2_money_management_outbound_payment_created_event",
+        "V2MoneyManagementOutboundPaymentCreatedEventNotification",
+    ),
+    "v2.money_management.outbound_payment.failed": (
+        "stripe.events._v2_money_management_outbound_payment_failed_event",
+        "V2MoneyManagementOutboundPaymentFailedEventNotification",
+    ),
+    "v2.money_management.outbound_payment.posted": (
+        "stripe.events._v2_money_management_outbound_payment_posted_event",
+        "V2MoneyManagementOutboundPaymentPostedEventNotification",
+    ),
+    "v2.money_management.outbound_payment.returned": (
+        "stripe.events._v2_money_management_outbound_payment_returned_event",
+        "V2MoneyManagementOutboundPaymentReturnedEventNotification",
+    ),
+    "v2.money_management.outbound_payment.updated": (
+        "stripe.events._v2_money_management_outbound_payment_updated_event",
+        "V2MoneyManagementOutboundPaymentUpdatedEventNotification",
+    ),
+    "v2.money_management.outbound_transfer.canceled": (
+        "stripe.events._v2_money_management_outbound_transfer_canceled_event",
+        "V2MoneyManagementOutboundTransferCanceledEventNotification",
+    ),
+    "v2.money_management.outbound_transfer.created": (
+        "stripe.events._v2_money_management_outbound_transfer_created_event",
+        "V2MoneyManagementOutboundTransferCreatedEventNotification",
+    ),
+    "v2.money_management.outbound_transfer.failed": (
+        "stripe.events._v2_money_management_outbound_transfer_failed_event",
+        "V2MoneyManagementOutboundTransferFailedEventNotification",
+    ),
+    "v2.money_management.outbound_transfer.posted": (
+        "stripe.events._v2_money_management_outbound_transfer_posted_event",
+        "V2MoneyManagementOutboundTransferPostedEventNotification",
+    ),
+    "v2.money_management.outbound_transfer.returned": (
+        "stripe.events._v2_money_management_outbound_transfer_returned_event",
+        "V2MoneyManagementOutboundTransferReturnedEventNotification",
+    ),
+    "v2.money_management.outbound_transfer.updated": (
+        "stripe.events._v2_money_management_outbound_transfer_updated_event",
+        "V2MoneyManagementOutboundTransferUpdatedEventNotification",
+    ),
+    "v2.money_management.payout_method.updated": (
+        "stripe.events._v2_money_management_payout_method_updated_event",
+        "V2MoneyManagementPayoutMethodUpdatedEventNotification",
+    ),
+    "v2.money_management.received_credit.available": (
+        "stripe.events._v2_money_management_received_credit_available_event",
+        "V2MoneyManagementReceivedCreditAvailableEventNotification",
+    ),
+    "v2.money_management.received_credit.failed": (
+        "stripe.events._v2_money_management_received_credit_failed_event",
+        "V2MoneyManagementReceivedCreditFailedEventNotification",
+    ),
+    "v2.money_management.received_credit.returned": (
+        "stripe.events._v2_money_management_received_credit_returned_event",
+        "V2MoneyManagementReceivedCreditReturnedEventNotification",
+    ),
+    "v2.money_management.received_credit.succeeded": (
+        "stripe.events._v2_money_management_received_credit_succeeded_event",
+        "V2MoneyManagementReceivedCreditSucceededEventNotification",
+    ),
+    "v2.money_management.received_debit.canceled": (
+        "stripe.events._v2_money_management_received_debit_canceled_event",
+        "V2MoneyManagementReceivedDebitCanceledEventNotification",
+    ),
+    "v2.money_management.received_debit.failed": (
+        "stripe.events._v2_money_management_received_debit_failed_event",
+        "V2MoneyManagementReceivedDebitFailedEventNotification",
+    ),
+    "v2.money_management.received_debit.pending": (
+        "stripe.events._v2_money_management_received_debit_pending_event",
+        "V2MoneyManagementReceivedDebitPendingEventNotification",
+    ),
+    "v2.money_management.received_debit.succeeded": (
+        "stripe.events._v2_money_management_received_debit_succeeded_event",
+        "V2MoneyManagementReceivedDebitSucceededEventNotification",
+    ),
+    "v2.money_management.received_debit.updated": (
+        "stripe.events._v2_money_management_received_debit_updated_event",
+        "V2MoneyManagementReceivedDebitUpdatedEventNotification",
+    ),
+    "v2.money_management.transaction.created": (
+        "stripe.events._v2_money_management_transaction_created_event",
+        "V2MoneyManagementTransactionCreatedEventNotification",
+    ),
+    "v2.money_management.transaction.updated": (
+        "stripe.events._v2_money_management_transaction_updated_event",
+        "V2MoneyManagementTransactionUpdatedEventNotification",
+    ),
+    "v2.payments.off_session_payment.authorization_attempt_failed": (
+        "stripe.events._v2_payments_off_session_payment_authorization_attempt_failed_event",
+        "V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEventNotification",
+    ),
+    "v2.payments.off_session_payment.authorization_attempt_started": (
+        "stripe.events._v2_payments_off_session_payment_authorization_attempt_started_event",
+        "V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEventNotification",
+    ),
+    "v2.payments.off_session_payment.canceled": (
+        "stripe.events._v2_payments_off_session_payment_canceled_event",
+        "V2PaymentsOffSessionPaymentCanceledEventNotification",
+    ),
+    "v2.payments.off_session_payment.created": (
+        "stripe.events._v2_payments_off_session_payment_created_event",
+        "V2PaymentsOffSessionPaymentCreatedEventNotification",
+    ),
+    "v2.payments.off_session_payment.failed": (
+        "stripe.events._v2_payments_off_session_payment_failed_event",
+        "V2PaymentsOffSessionPaymentFailedEventNotification",
+    ),
+    "v2.payments.off_session_payment.requires_capture": (
+        "stripe.events._v2_payments_off_session_payment_requires_capture_event",
+        "V2PaymentsOffSessionPaymentRequiresCaptureEventNotification",
+    ),
+    "v2.payments.off_session_payment.succeeded": (
+        "stripe.events._v2_payments_off_session_payment_succeeded_event",
+        "V2PaymentsOffSessionPaymentSucceededEventNotification",
+    ),
 }
+
+
+def get_v2_event_notification_class(type_: str):
+    if type_ not in _V2_EVENT_NOTIFICATION_CLASS_LOOKUP:
+        return UnknownEventNotification
+
+    import_path, class_name = _V2_EVENT_NOTIFICATION_CLASS_LOOKUP[type_]
+    return getattr(
+        import_module(import_path),
+        class_name,
+    )
+
 
 ALL_EVENT_NOTIFICATIONS = Union[
-    V1BillingMeterErrorReportTriggeredEventNotification,
-    V1BillingMeterNoMeterFoundEventNotification,
-    V2BillingBillSettingUpdatedEventNotification,
-    V2CoreAccountClosedEventNotification,
-    V2CoreAccountCreatedEventNotification,
-    V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEventNotification,
-    V2CoreAccountIncludingConfigurationCustomerUpdatedEventNotification,
-    V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEventNotification,
-    V2CoreAccountIncludingConfigurationMerchantUpdatedEventNotification,
-    V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEventNotification,
-    V2CoreAccountIncludingConfigurationRecipientUpdatedEventNotification,
-    V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEventNotification,
-    V2CoreAccountIncludingConfigurationStorerUpdatedEventNotification,
-    V2CoreAccountIncludingDefaultsUpdatedEventNotification,
-    V2CoreAccountIncludingIdentityUpdatedEventNotification,
-    V2CoreAccountIncludingRequirementsUpdatedEventNotification,
-    V2CoreAccountLinkReturnedEventNotification,
-    V2CoreAccountPersonCreatedEventNotification,
-    V2CoreAccountPersonDeletedEventNotification,
-    V2CoreAccountPersonUpdatedEventNotification,
-    V2CoreAccountUpdatedEventNotification,
-    V2CoreEventDestinationPingEventNotification,
-    V2MoneyManagementAdjustmentCreatedEventNotification,
-    V2MoneyManagementFinancialAccountCreatedEventNotification,
-    V2MoneyManagementFinancialAccountUpdatedEventNotification,
-    V2MoneyManagementFinancialAddressActivatedEventNotification,
-    V2MoneyManagementFinancialAddressFailedEventNotification,
-    V2MoneyManagementInboundTransferAvailableEventNotification,
-    V2MoneyManagementInboundTransferBankDebitFailedEventNotification,
-    V2MoneyManagementInboundTransferBankDebitProcessingEventNotification,
-    V2MoneyManagementInboundTransferBankDebitQueuedEventNotification,
-    V2MoneyManagementInboundTransferBankDebitReturnedEventNotification,
-    V2MoneyManagementInboundTransferBankDebitSucceededEventNotification,
-    V2MoneyManagementOutboundPaymentCanceledEventNotification,
-    V2MoneyManagementOutboundPaymentCreatedEventNotification,
-    V2MoneyManagementOutboundPaymentFailedEventNotification,
-    V2MoneyManagementOutboundPaymentPostedEventNotification,
-    V2MoneyManagementOutboundPaymentReturnedEventNotification,
-    V2MoneyManagementOutboundPaymentUpdatedEventNotification,
-    V2MoneyManagementOutboundTransferCanceledEventNotification,
-    V2MoneyManagementOutboundTransferCreatedEventNotification,
-    V2MoneyManagementOutboundTransferFailedEventNotification,
-    V2MoneyManagementOutboundTransferPostedEventNotification,
-    V2MoneyManagementOutboundTransferReturnedEventNotification,
-    V2MoneyManagementOutboundTransferUpdatedEventNotification,
-    V2MoneyManagementPayoutMethodUpdatedEventNotification,
-    V2MoneyManagementReceivedCreditAvailableEventNotification,
-    V2MoneyManagementReceivedCreditFailedEventNotification,
-    V2MoneyManagementReceivedCreditReturnedEventNotification,
-    V2MoneyManagementReceivedCreditSucceededEventNotification,
-    V2MoneyManagementReceivedDebitCanceledEventNotification,
-    V2MoneyManagementReceivedDebitFailedEventNotification,
-    V2MoneyManagementReceivedDebitPendingEventNotification,
-    V2MoneyManagementReceivedDebitSucceededEventNotification,
-    V2MoneyManagementReceivedDebitUpdatedEventNotification,
-    V2MoneyManagementTransactionCreatedEventNotification,
-    V2MoneyManagementTransactionUpdatedEventNotification,
-    V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEventNotification,
-    V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEventNotification,
-    V2PaymentsOffSessionPaymentCanceledEventNotification,
-    V2PaymentsOffSessionPaymentCreatedEventNotification,
-    V2PaymentsOffSessionPaymentFailedEventNotification,
-    V2PaymentsOffSessionPaymentRequiresCaptureEventNotification,
-    V2PaymentsOffSessionPaymentSucceededEventNotification,
+    "V1BillingMeterErrorReportTriggeredEventNotification",
+    "V1BillingMeterNoMeterFoundEventNotification",
+    "V2CoreAccountClosedEventNotification",
+    "V2CoreAccountCreatedEventNotification",
+    "V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEventNotification",
+    "V2CoreAccountIncludingConfigurationCustomerUpdatedEventNotification",
+    "V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEventNotification",
+    "V2CoreAccountIncludingConfigurationMerchantUpdatedEventNotification",
+    "V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEventNotification",
+    "V2CoreAccountIncludingConfigurationRecipientUpdatedEventNotification",
+    "V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEventNotification",
+    "V2CoreAccountIncludingConfigurationStorerUpdatedEventNotification",
+    "V2CoreAccountIncludingDefaultsUpdatedEventNotification",
+    "V2CoreAccountIncludingIdentityUpdatedEventNotification",
+    "V2CoreAccountIncludingRequirementsUpdatedEventNotification",
+    "V2CoreAccountLinkReturnedEventNotification",
+    "V2CoreAccountPersonCreatedEventNotification",
+    "V2CoreAccountPersonDeletedEventNotification",
+    "V2CoreAccountPersonUpdatedEventNotification",
+    "V2CoreAccountUpdatedEventNotification",
+    "V2CoreEventDestinationPingEventNotification",
+    "V2MoneyManagementAdjustmentCreatedEventNotification",
+    "V2MoneyManagementFinancialAccountCreatedEventNotification",
+    "V2MoneyManagementFinancialAccountUpdatedEventNotification",
+    "V2MoneyManagementFinancialAddressActivatedEventNotification",
+    "V2MoneyManagementFinancialAddressFailedEventNotification",
+    "V2MoneyManagementInboundTransferAvailableEventNotification",
+    "V2MoneyManagementInboundTransferBankDebitFailedEventNotification",
+    "V2MoneyManagementInboundTransferBankDebitProcessingEventNotification",
+    "V2MoneyManagementInboundTransferBankDebitQueuedEventNotification",
+    "V2MoneyManagementInboundTransferBankDebitReturnedEventNotification",
+    "V2MoneyManagementInboundTransferBankDebitSucceededEventNotification",
+    "V2MoneyManagementOutboundPaymentCanceledEventNotification",
+    "V2MoneyManagementOutboundPaymentCreatedEventNotification",
+    "V2MoneyManagementOutboundPaymentFailedEventNotification",
+    "V2MoneyManagementOutboundPaymentPostedEventNotification",
+    "V2MoneyManagementOutboundPaymentReturnedEventNotification",
+    "V2MoneyManagementOutboundPaymentUpdatedEventNotification",
+    "V2MoneyManagementOutboundTransferCanceledEventNotification",
+    "V2MoneyManagementOutboundTransferCreatedEventNotification",
+    "V2MoneyManagementOutboundTransferFailedEventNotification",
+    "V2MoneyManagementOutboundTransferPostedEventNotification",
+    "V2MoneyManagementOutboundTransferReturnedEventNotification",
+    "V2MoneyManagementOutboundTransferUpdatedEventNotification",
+    "V2MoneyManagementPayoutMethodUpdatedEventNotification",
+    "V2MoneyManagementReceivedCreditAvailableEventNotification",
+    "V2MoneyManagementReceivedCreditFailedEventNotification",
+    "V2MoneyManagementReceivedCreditReturnedEventNotification",
+    "V2MoneyManagementReceivedCreditSucceededEventNotification",
+    "V2MoneyManagementReceivedDebitCanceledEventNotification",
+    "V2MoneyManagementReceivedDebitFailedEventNotification",
+    "V2MoneyManagementReceivedDebitPendingEventNotification",
+    "V2MoneyManagementReceivedDebitSucceededEventNotification",
+    "V2MoneyManagementReceivedDebitUpdatedEventNotification",
+    "V2MoneyManagementTransactionCreatedEventNotification",
+    "V2MoneyManagementTransactionUpdatedEventNotification",
+    "V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEventNotification",
+    "V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEventNotification",
+    "V2PaymentsOffSessionPaymentCanceledEventNotification",
+    "V2PaymentsOffSessionPaymentCreatedEventNotification",
+    "V2PaymentsOffSessionPaymentFailedEventNotification",
+    "V2PaymentsOffSessionPaymentRequiresCaptureEventNotification",
+    "V2PaymentsOffSessionPaymentSucceededEventNotification",
 ]

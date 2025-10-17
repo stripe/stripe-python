@@ -4,11 +4,19 @@ from stripe._error import AuthenticationError
 from stripe._api_requestor import _APIRequestor
 from stripe._encode import _api_encode
 from urllib.parse import urlencode
-from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 
 from typing import List, cast, Optional
-from typing_extensions import Literal, NotRequired, TypedDict, Unpack
+from typing_extensions import (
+    Literal,
+    NotRequired,
+    TypedDict,
+    Unpack,
+    TYPE_CHECKING,
+)
+
+if TYPE_CHECKING:
+    from stripe._request_options import RequestOptions
 
 
 class OAuth(object):
@@ -323,7 +331,7 @@ class OAuth(object):
     def token(
         api_key: Optional[str] = None, **params: Unpack[OAuthTokenParams]
     ) -> OAuthToken:
-        options: RequestOptions = {"api_key": api_key}
+        options: "RequestOptions" = {"api_key": api_key}
         requestor = _APIRequestor._global_instance()
         return cast(
             "OAuth.OAuthToken",
@@ -340,7 +348,7 @@ class OAuth(object):
     def deauthorize(
         api_key: Optional[str] = None, **params: Unpack[OAuthDeauthorizeParams]
     ) -> OAuthDeauthorization:
-        options: RequestOptions = {"api_key": api_key}
+        options: "RequestOptions" = {"api_key": api_key}
         requestor = _APIRequestor._global_instance()
         OAuth._set_client_id(params)
         return cast(

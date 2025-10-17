@@ -1,17 +1,19 @@
 from stripe._stripe_service import StripeService
 from stripe._error import AuthenticationError
 from stripe._encode import _api_encode
-from stripe._oauth import OAuth
 from urllib.parse import urlencode
-from stripe._request_options import RequestOptions
-from stripe._client_options import _ClientOptions
 
 from typing import cast, Optional
-from typing_extensions import NotRequired, TypedDict
+from typing_extensions import NotRequired, TypedDict, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe._client_options import _ClientOptions
+    from stripe._request_options import RequestOptions
+    from stripe._oauth import OAuth
 
 
 class OAuthService(StripeService):
-    _options: Optional[_ClientOptions]
+    _options: Optional["_ClientOptions"]
 
     def __init__(self, client, options=None):
         super(OAuthService, self).__init__(client)
@@ -46,7 +48,7 @@ class OAuthService(StripeService):
 
     def authorize_url(
         self,
-        params: Optional[OAuth.OAuthAuthorizeUrlParams] = None,
+        params: Optional["OAuth.OAuthAuthorizeUrlParams"] = None,
         options: Optional[OAuthAuthorizeUrlOptions] = None,
     ) -> str:
         if params is None:
@@ -74,13 +76,13 @@ class OAuthService(StripeService):
 
     def token(
         self,
-        params: OAuth.OAuthTokenParams,
-        options: Optional[RequestOptions] = None,
-    ) -> OAuth.OAuthToken:
+        params: "OAuth.OAuthTokenParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "OAuth.OAuthToken":
         if options is None:
             options = {}
         return cast(
-            OAuth.OAuthToken,
+            "OAuth.OAuthToken",
             self._requestor.request(
                 "post",
                 "/oauth/token",
@@ -92,14 +94,14 @@ class OAuthService(StripeService):
 
     def deauthorize(
         self,
-        params: OAuth.OAuthDeauthorizeParams,
-        options: Optional[RequestOptions] = None,
-    ) -> OAuth.OAuthDeauthorization:
+        params: "OAuth.OAuthDeauthorizeParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "OAuth.OAuthDeauthorization":
         if options is None:
             options = {}
         self._set_client_id(params)
         return cast(
-            OAuth.OAuthDeauthorization,
+            "OAuth.OAuthDeauthorization",
             self._requestor.request(
                 "post",
                 "/oauth/deauthorize",
