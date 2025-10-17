@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.v2._list_object import ListObject
-from stripe.v2.billing._intent_action import IntentAction
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._request_options import RequestOptions
     from stripe.params.v2.billing.intents._action_list_params import (
         ActionListParams,
     )
     from stripe.params.v2.billing.intents._action_retrieve_params import (
         ActionRetrieveParams,
     )
+    from stripe.v2._list_object import ListObject
+    from stripe.v2.billing._intent_action import IntentAction
 
 
 class ActionService(StripeService):
@@ -22,13 +22,13 @@ class ActionService(StripeService):
         self,
         intent_id: str,
         params: Optional["ActionListParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[IntentAction]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[IntentAction]":
         """
         List Billing Intent Actions.
         """
         return cast(
-            ListObject[IntentAction],
+            "ListObject[IntentAction]",
             self._request(
                 "get",
                 "/v2/billing/intents/{intent_id}/actions".format(
@@ -44,13 +44,13 @@ class ActionService(StripeService):
         self,
         intent_id: str,
         params: Optional["ActionListParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[IntentAction]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[IntentAction]":
         """
         List Billing Intent Actions.
         """
         return cast(
-            ListObject[IntentAction],
+            "ListObject[IntentAction]",
             await self._request_async(
                 "get",
                 "/v2/billing/intents/{intent_id}/actions".format(
@@ -67,13 +67,13 @@ class ActionService(StripeService):
         intent_id: str,
         id: str,
         params: Optional["ActionRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> IntentAction:
+        options: Optional["RequestOptions"] = None,
+    ) -> "IntentAction":
         """
         Retrieve a Billing Intent Action.
         """
         return cast(
-            IntentAction,
+            "IntentAction",
             self._request(
                 "get",
                 "/v2/billing/intents/{intent_id}/actions/{id}".format(
@@ -91,13 +91,13 @@ class ActionService(StripeService):
         intent_id: str,
         id: str,
         params: Optional["ActionRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> IntentAction:
+        options: Optional["RequestOptions"] = None,
+    ) -> "IntentAction":
         """
         Retrieve a Billing Intent Action.
         """
         return cast(
-            IntentAction,
+            "IntentAction",
             await self._request_async(
                 "get",
                 "/v2/billing/intents/{intent_id}/actions/{id}".format(

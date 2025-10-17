@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.identity._verification_session import VerificationSession
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
+    from stripe.identity._verification_session import VerificationSession
     from stripe.params.identity._verification_session_cancel_params import (
         VerificationSessionCancelParams,
     )
@@ -33,13 +33,13 @@ class VerificationSessionService(StripeService):
     def list(
         self,
         params: Optional["VerificationSessionListParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[VerificationSession]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[VerificationSession]":
         """
         Returns a list of VerificationSessions
         """
         return cast(
-            ListObject[VerificationSession],
+            "ListObject[VerificationSession]",
             self._request(
                 "get",
                 "/v1/identity/verification_sessions",
@@ -52,13 +52,13 @@ class VerificationSessionService(StripeService):
     async def list_async(
         self,
         params: Optional["VerificationSessionListParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[VerificationSession]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[VerificationSession]":
         """
         Returns a list of VerificationSessions
         """
         return cast(
-            ListObject[VerificationSession],
+            "ListObject[VerificationSession]",
             await self._request_async(
                 "get",
                 "/v1/identity/verification_sessions",
@@ -71,8 +71,8 @@ class VerificationSessionService(StripeService):
     def create(
         self,
         params: Optional["VerificationSessionCreateParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> VerificationSession:
+        options: Optional["RequestOptions"] = None,
+    ) -> "VerificationSession":
         """
         Creates a VerificationSession object.
 
@@ -83,7 +83,7 @@ class VerificationSessionService(StripeService):
         Related guide: [Verify your users' identity documents](https://docs.stripe.com/docs/identity/verify-identity-documents)
         """
         return cast(
-            VerificationSession,
+            "VerificationSession",
             self._request(
                 "post",
                 "/v1/identity/verification_sessions",
@@ -96,8 +96,8 @@ class VerificationSessionService(StripeService):
     async def create_async(
         self,
         params: Optional["VerificationSessionCreateParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> VerificationSession:
+        options: Optional["RequestOptions"] = None,
+    ) -> "VerificationSession":
         """
         Creates a VerificationSession object.
 
@@ -108,7 +108,7 @@ class VerificationSessionService(StripeService):
         Related guide: [Verify your users' identity documents](https://docs.stripe.com/docs/identity/verify-identity-documents)
         """
         return cast(
-            VerificationSession,
+            "VerificationSession",
             await self._request_async(
                 "post",
                 "/v1/identity/verification_sessions",
@@ -122,8 +122,8 @@ class VerificationSessionService(StripeService):
         self,
         session: str,
         params: Optional["VerificationSessionRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> VerificationSession:
+        options: Optional["RequestOptions"] = None,
+    ) -> "VerificationSession":
         """
         Retrieves the details of a VerificationSession that was previously created.
 
@@ -131,7 +131,7 @@ class VerificationSessionService(StripeService):
         client_secret or url to allow re-submission.
         """
         return cast(
-            VerificationSession,
+            "VerificationSession",
             self._request(
                 "get",
                 "/v1/identity/verification_sessions/{session}".format(
@@ -147,8 +147,8 @@ class VerificationSessionService(StripeService):
         self,
         session: str,
         params: Optional["VerificationSessionRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> VerificationSession:
+        options: Optional["RequestOptions"] = None,
+    ) -> "VerificationSession":
         """
         Retrieves the details of a VerificationSession that was previously created.
 
@@ -156,7 +156,7 @@ class VerificationSessionService(StripeService):
         client_secret or url to allow re-submission.
         """
         return cast(
-            VerificationSession,
+            "VerificationSession",
             await self._request_async(
                 "get",
                 "/v1/identity/verification_sessions/{session}".format(
@@ -172,8 +172,8 @@ class VerificationSessionService(StripeService):
         self,
         session: str,
         params: Optional["VerificationSessionUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> VerificationSession:
+        options: Optional["RequestOptions"] = None,
+    ) -> "VerificationSession":
         """
         Updates a VerificationSession object.
 
@@ -181,7 +181,7 @@ class VerificationSessionService(StripeService):
         verification check and options.
         """
         return cast(
-            VerificationSession,
+            "VerificationSession",
             self._request(
                 "post",
                 "/v1/identity/verification_sessions/{session}".format(
@@ -197,8 +197,8 @@ class VerificationSessionService(StripeService):
         self,
         session: str,
         params: Optional["VerificationSessionUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> VerificationSession:
+        options: Optional["RequestOptions"] = None,
+    ) -> "VerificationSession":
         """
         Updates a VerificationSession object.
 
@@ -206,7 +206,7 @@ class VerificationSessionService(StripeService):
         verification check and options.
         """
         return cast(
-            VerificationSession,
+            "VerificationSession",
             await self._request_async(
                 "post",
                 "/v1/identity/verification_sessions/{session}".format(
@@ -222,15 +222,15 @@ class VerificationSessionService(StripeService):
         self,
         session: str,
         params: Optional["VerificationSessionCancelParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> VerificationSession:
+        options: Optional["RequestOptions"] = None,
+    ) -> "VerificationSession":
         """
         A VerificationSession object can be canceled when it is in requires_input [status](https://docs.stripe.com/docs/identity/how-sessions-work).
 
         Once canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#cancel).
         """
         return cast(
-            VerificationSession,
+            "VerificationSession",
             self._request(
                 "post",
                 "/v1/identity/verification_sessions/{session}/cancel".format(
@@ -246,15 +246,15 @@ class VerificationSessionService(StripeService):
         self,
         session: str,
         params: Optional["VerificationSessionCancelParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> VerificationSession:
+        options: Optional["RequestOptions"] = None,
+    ) -> "VerificationSession":
         """
         A VerificationSession object can be canceled when it is in requires_input [status](https://docs.stripe.com/docs/identity/how-sessions-work).
 
         Once canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#cancel).
         """
         return cast(
-            VerificationSession,
+            "VerificationSession",
             await self._request_async(
                 "post",
                 "/v1/identity/verification_sessions/{session}/cancel".format(
@@ -270,8 +270,8 @@ class VerificationSessionService(StripeService):
         self,
         session: str,
         params: Optional["VerificationSessionRedactParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> VerificationSession:
+        options: Optional["RequestOptions"] = None,
+    ) -> "VerificationSession":
         """
         Redact a VerificationSession to remove all collected information from Stripe. This will redact
         the VerificationSession and all objects related to it, including VerificationReports, Events,
@@ -294,7 +294,7 @@ class VerificationSessionService(StripeService):
         [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#redact).
         """
         return cast(
-            VerificationSession,
+            "VerificationSession",
             self._request(
                 "post",
                 "/v1/identity/verification_sessions/{session}/redact".format(
@@ -310,8 +310,8 @@ class VerificationSessionService(StripeService):
         self,
         session: str,
         params: Optional["VerificationSessionRedactParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> VerificationSession:
+        options: Optional["RequestOptions"] = None,
+    ) -> "VerificationSession":
         """
         Redact a VerificationSession to remove all collected information from Stripe. This will redact
         the VerificationSession and all objects related to it, including VerificationReports, Events,
@@ -334,7 +334,7 @@ class VerificationSessionService(StripeService):
         [Learn more](https://docs.stripe.com/docs/identity/verification-sessions#redact).
         """
         return cast(
-            VerificationSession,
+            "VerificationSession",
             await self._request_async(
                 "post",
                 "/v1/identity/verification_sessions/{session}/redact".format(

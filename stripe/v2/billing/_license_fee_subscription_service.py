@@ -1,15 +1,17 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.v2.billing._license_fee_subscription import LicenseFeeSubscription
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._request_options import RequestOptions
     from stripe.params.v2.billing._license_fee_subscription_retrieve_params import (
         LicenseFeeSubscriptionRetrieveParams,
+    )
+    from stripe.v2.billing._license_fee_subscription import (
+        LicenseFeeSubscription,
     )
 
 
@@ -18,13 +20,13 @@ class LicenseFeeSubscriptionService(StripeService):
         self,
         id: str,
         params: Optional["LicenseFeeSubscriptionRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> LicenseFeeSubscription:
+        options: Optional["RequestOptions"] = None,
+    ) -> "LicenseFeeSubscription":
         """
         Retrieve a License Fee Subscription object.
         """
         return cast(
-            LicenseFeeSubscription,
+            "LicenseFeeSubscription",
             self._request(
                 "get",
                 "/v2/billing/license_fee_subscriptions/{id}".format(
@@ -40,13 +42,13 @@ class LicenseFeeSubscriptionService(StripeService):
         self,
         id: str,
         params: Optional["LicenseFeeSubscriptionRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> LicenseFeeSubscription:
+        options: Optional["RequestOptions"] = None,
+    ) -> "LicenseFeeSubscription":
         """
         Retrieve a License Fee Subscription object.
         """
         return cast(
-            LicenseFeeSubscription,
+            "LicenseFeeSubscription",
             await self._request_async(
                 "get",
                 "/v2/billing/license_fee_subscriptions/{id}".format(
