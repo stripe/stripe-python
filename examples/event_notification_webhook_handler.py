@@ -19,6 +19,7 @@ In this example, we:
 import os
 from stripe import StripeClient
 from stripe.events import UnknownEventNotification
+from stripe.events import ALL_EVENT_NOTIFICATIONS
 
 from flask import Flask, request, jsonify
 

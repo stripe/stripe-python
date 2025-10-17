@@ -1,3 +1,4 @@
+from unittest import mock
 import pytest
 
 import stripe
@@ -231,10 +232,11 @@ class TestAPIResource(object):
             stripe_account="foo",
         )
 
-    def test_class_method_forwards_options(self, http_client_mock):
-        from stripe._object_classes import OBJECT_CLASSES
-
-        OBJECT_CLASSES["myresource"] = self.MyDeletableResource
+    @mock.patch("stripe._object_classes.get_object_class")
+    def test_class_method_forwards_options(
+        self, mock_get_object_class, http_client_mock
+    ):
+        mock_get_object_class.return_value = self.MyDeletableResource
 
         http_client_mock.stub_request(
             "post",
@@ -268,8 +270,6 @@ class TestAPIResource(object):
             stripe_version="2023-01-01",
             stripe_account="foo",
         )
-
-        del OBJECT_CLASSES["myresource"]
 
     def test_instance_method_forwards_options(self, http_client_mock):
         http_client_mock.stub_request(

@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._cash_balance import CashBalance
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._cash_balance import CashBalance
+    from stripe._request_options import RequestOptions
     from stripe.params._customer_cash_balance_retrieve_params import (
         CustomerCashBalanceRetrieveParams,
     )
@@ -21,13 +21,13 @@ class CustomerCashBalanceService(StripeService):
         self,
         customer: str,
         params: Optional["CustomerCashBalanceRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> CashBalance:
+        options: Optional["RequestOptions"] = None,
+    ) -> "CashBalance":
         """
         Retrieves a customer's cash balance.
         """
         return cast(
-            CashBalance,
+            "CashBalance",
             self._request(
                 "get",
                 "/v1/customers/{customer}/cash_balance".format(
@@ -43,13 +43,13 @@ class CustomerCashBalanceService(StripeService):
         self,
         customer: str,
         params: Optional["CustomerCashBalanceRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> CashBalance:
+        options: Optional["RequestOptions"] = None,
+    ) -> "CashBalance":
         """
         Retrieves a customer's cash balance.
         """
         return cast(
-            CashBalance,
+            "CashBalance",
             await self._request_async(
                 "get",
                 "/v1/customers/{customer}/cash_balance".format(
@@ -65,13 +65,13 @@ class CustomerCashBalanceService(StripeService):
         self,
         customer: str,
         params: Optional["CustomerCashBalanceUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> CashBalance:
+        options: Optional["RequestOptions"] = None,
+    ) -> "CashBalance":
         """
         Changes the settings on a customer's cash balance.
         """
         return cast(
-            CashBalance,
+            "CashBalance",
             self._request(
                 "post",
                 "/v1/customers/{customer}/cash_balance".format(
@@ -87,13 +87,13 @@ class CustomerCashBalanceService(StripeService):
         self,
         customer: str,
         params: Optional["CustomerCashBalanceUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> CashBalance:
+        options: Optional["RequestOptions"] = None,
+    ) -> "CashBalance":
         """
         Changes the settings on a customer's cash balance.
         """
         return cast(
-            CashBalance,
+            "CashBalance",
             await self._request_async(
                 "post",
                 "/v1/customers/{customer}/cash_balance".format(

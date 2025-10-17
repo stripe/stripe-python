@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.v2._list_object import ListObject
-from stripe.v2.money_management._payout_method import PayoutMethod
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._request_options import RequestOptions
     from stripe.params.v2.money_management._payout_method_archive_params import (
         PayoutMethodArchiveParams,
     )
@@ -21,19 +19,21 @@ if TYPE_CHECKING:
     from stripe.params.v2.money_management._payout_method_unarchive_params import (
         PayoutMethodUnarchiveParams,
     )
+    from stripe.v2._list_object import ListObject
+    from stripe.v2.money_management._payout_method import PayoutMethod
 
 
 class PayoutMethodService(StripeService):
     def list(
         self,
         params: Optional["PayoutMethodListParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[PayoutMethod]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[PayoutMethod]":
         """
         List objects that adhere to the PayoutMethod interface.
         """
         return cast(
-            ListObject[PayoutMethod],
+            "ListObject[PayoutMethod]",
             self._request(
                 "get",
                 "/v2/money_management/payout_methods",
@@ -46,13 +46,13 @@ class PayoutMethodService(StripeService):
     async def list_async(
         self,
         params: Optional["PayoutMethodListParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[PayoutMethod]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[PayoutMethod]":
         """
         List objects that adhere to the PayoutMethod interface.
         """
         return cast(
-            ListObject[PayoutMethod],
+            "ListObject[PayoutMethod]",
             await self._request_async(
                 "get",
                 "/v2/money_management/payout_methods",
@@ -66,13 +66,13 @@ class PayoutMethodService(StripeService):
         self,
         id: str,
         params: Optional["PayoutMethodRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> PayoutMethod:
+        options: Optional["RequestOptions"] = None,
+    ) -> "PayoutMethod":
         """
         Retrieve a PayoutMethod object.
         """
         return cast(
-            PayoutMethod,
+            "PayoutMethod",
             self._request(
                 "get",
                 "/v2/money_management/payout_methods/{id}".format(
@@ -88,13 +88,13 @@ class PayoutMethodService(StripeService):
         self,
         id: str,
         params: Optional["PayoutMethodRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> PayoutMethod:
+        options: Optional["RequestOptions"] = None,
+    ) -> "PayoutMethod":
         """
         Retrieve a PayoutMethod object.
         """
         return cast(
-            PayoutMethod,
+            "PayoutMethod",
             await self._request_async(
                 "get",
                 "/v2/money_management/payout_methods/{id}".format(
@@ -110,14 +110,14 @@ class PayoutMethodService(StripeService):
         self,
         id: str,
         params: Optional["PayoutMethodArchiveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> PayoutMethod:
+        options: Optional["RequestOptions"] = None,
+    ) -> "PayoutMethod":
         """
         Archive a PayoutMethod object. Archived objects cannot be used as payout methods
         and will not appear in the payout method list.
         """
         return cast(
-            PayoutMethod,
+            "PayoutMethod",
             self._request(
                 "post",
                 "/v2/money_management/payout_methods/{id}/archive".format(
@@ -133,14 +133,14 @@ class PayoutMethodService(StripeService):
         self,
         id: str,
         params: Optional["PayoutMethodArchiveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> PayoutMethod:
+        options: Optional["RequestOptions"] = None,
+    ) -> "PayoutMethod":
         """
         Archive a PayoutMethod object. Archived objects cannot be used as payout methods
         and will not appear in the payout method list.
         """
         return cast(
-            PayoutMethod,
+            "PayoutMethod",
             await self._request_async(
                 "post",
                 "/v2/money_management/payout_methods/{id}/archive".format(
@@ -156,13 +156,13 @@ class PayoutMethodService(StripeService):
         self,
         id: str,
         params: Optional["PayoutMethodUnarchiveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> PayoutMethod:
+        options: Optional["RequestOptions"] = None,
+    ) -> "PayoutMethod":
         """
         Unarchive an PayoutMethod object.
         """
         return cast(
-            PayoutMethod,
+            "PayoutMethod",
             self._request(
                 "post",
                 "/v2/money_management/payout_methods/{id}/unarchive".format(
@@ -178,13 +178,13 @@ class PayoutMethodService(StripeService):
         self,
         id: str,
         params: Optional["PayoutMethodUnarchiveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> PayoutMethod:
+        options: Optional["RequestOptions"] = None,
+    ) -> "PayoutMethod":
         """
         Unarchive an PayoutMethod object.
         """
         return cast(
-            PayoutMethod,
+            "PayoutMethod",
             await self._request_async(
                 "post",
                 "/v2/money_management/payout_methods/{id}/unarchive".format(

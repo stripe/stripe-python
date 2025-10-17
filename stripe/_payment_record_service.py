@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._payment_record import PaymentRecord
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._payment_record import PaymentRecord
+    from stripe._request_options import RequestOptions
     from stripe.params._payment_record_report_payment_attempt_canceled_params import (
         PaymentRecordReportPaymentAttemptCanceledParams,
     )
@@ -36,13 +36,13 @@ class PaymentRecordService(StripeService):
         self,
         id: str,
         params: Optional["PaymentRecordRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> PaymentRecord:
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentRecord":
         """
         Retrieves a Payment Record with the given ID
         """
         return cast(
-            PaymentRecord,
+            "PaymentRecord",
             self._request(
                 "get",
                 "/v1/payment_records/{id}".format(id=sanitize_id(id)),
@@ -56,13 +56,13 @@ class PaymentRecordService(StripeService):
         self,
         id: str,
         params: Optional["PaymentRecordRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> PaymentRecord:
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentRecord":
         """
         Retrieves a Payment Record with the given ID
         """
         return cast(
-            PaymentRecord,
+            "PaymentRecord",
             await self._request_async(
                 "get",
                 "/v1/payment_records/{id}".format(id=sanitize_id(id)),
@@ -76,14 +76,14 @@ class PaymentRecordService(StripeService):
         self,
         id: str,
         params: "PaymentRecordReportPaymentAttemptParams",
-        options: Optional[RequestOptions] = None,
-    ) -> PaymentRecord:
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentRecord":
         """
         Report a new payment attempt on the specified Payment Record. A new payment
          attempt can only be specified if all other payment attempts are canceled or failed.
         """
         return cast(
-            PaymentRecord,
+            "PaymentRecord",
             self._request(
                 "post",
                 "/v1/payment_records/{id}/report_payment_attempt".format(
@@ -99,14 +99,14 @@ class PaymentRecordService(StripeService):
         self,
         id: str,
         params: "PaymentRecordReportPaymentAttemptParams",
-        options: Optional[RequestOptions] = None,
-    ) -> PaymentRecord:
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentRecord":
         """
         Report a new payment attempt on the specified Payment Record. A new payment
          attempt can only be specified if all other payment attempts are canceled or failed.
         """
         return cast(
-            PaymentRecord,
+            "PaymentRecord",
             await self._request_async(
                 "post",
                 "/v1/payment_records/{id}/report_payment_attempt".format(
@@ -122,14 +122,14 @@ class PaymentRecordService(StripeService):
         self,
         id: str,
         params: "PaymentRecordReportPaymentAttemptCanceledParams",
-        options: Optional[RequestOptions] = None,
-    ) -> PaymentRecord:
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentRecord":
         """
         Report that the most recent payment attempt on the specified Payment Record
          was canceled.
         """
         return cast(
-            PaymentRecord,
+            "PaymentRecord",
             self._request(
                 "post",
                 "/v1/payment_records/{id}/report_payment_attempt_canceled".format(
@@ -145,14 +145,14 @@ class PaymentRecordService(StripeService):
         self,
         id: str,
         params: "PaymentRecordReportPaymentAttemptCanceledParams",
-        options: Optional[RequestOptions] = None,
-    ) -> PaymentRecord:
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentRecord":
         """
         Report that the most recent payment attempt on the specified Payment Record
          was canceled.
         """
         return cast(
-            PaymentRecord,
+            "PaymentRecord",
             await self._request_async(
                 "post",
                 "/v1/payment_records/{id}/report_payment_attempt_canceled".format(
@@ -168,14 +168,14 @@ class PaymentRecordService(StripeService):
         self,
         id: str,
         params: "PaymentRecordReportPaymentAttemptFailedParams",
-        options: Optional[RequestOptions] = None,
-    ) -> PaymentRecord:
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentRecord":
         """
         Report that the most recent payment attempt on the specified Payment Record
          failed or errored.
         """
         return cast(
-            PaymentRecord,
+            "PaymentRecord",
             self._request(
                 "post",
                 "/v1/payment_records/{id}/report_payment_attempt_failed".format(
@@ -191,14 +191,14 @@ class PaymentRecordService(StripeService):
         self,
         id: str,
         params: "PaymentRecordReportPaymentAttemptFailedParams",
-        options: Optional[RequestOptions] = None,
-    ) -> PaymentRecord:
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentRecord":
         """
         Report that the most recent payment attempt on the specified Payment Record
          failed or errored.
         """
         return cast(
-            PaymentRecord,
+            "PaymentRecord",
             await self._request_async(
                 "post",
                 "/v1/payment_records/{id}/report_payment_attempt_failed".format(
@@ -214,14 +214,14 @@ class PaymentRecordService(StripeService):
         self,
         id: str,
         params: "PaymentRecordReportPaymentAttemptGuaranteedParams",
-        options: Optional[RequestOptions] = None,
-    ) -> PaymentRecord:
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentRecord":
         """
         Report that the most recent payment attempt on the specified Payment Record
          was guaranteed.
         """
         return cast(
-            PaymentRecord,
+            "PaymentRecord",
             self._request(
                 "post",
                 "/v1/payment_records/{id}/report_payment_attempt_guaranteed".format(
@@ -237,14 +237,14 @@ class PaymentRecordService(StripeService):
         self,
         id: str,
         params: "PaymentRecordReportPaymentAttemptGuaranteedParams",
-        options: Optional[RequestOptions] = None,
-    ) -> PaymentRecord:
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentRecord":
         """
         Report that the most recent payment attempt on the specified Payment Record
          was guaranteed.
         """
         return cast(
-            PaymentRecord,
+            "PaymentRecord",
             await self._request_async(
                 "post",
                 "/v1/payment_records/{id}/report_payment_attempt_guaranteed".format(
@@ -262,13 +262,13 @@ class PaymentRecordService(StripeService):
         params: Optional[
             "PaymentRecordReportPaymentAttemptInformationalParams"
         ] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> PaymentRecord:
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentRecord":
         """
         Report informational updates on the specified Payment Record.
         """
         return cast(
-            PaymentRecord,
+            "PaymentRecord",
             self._request(
                 "post",
                 "/v1/payment_records/{id}/report_payment_attempt_informational".format(
@@ -286,13 +286,13 @@ class PaymentRecordService(StripeService):
         params: Optional[
             "PaymentRecordReportPaymentAttemptInformationalParams"
         ] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> PaymentRecord:
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentRecord":
         """
         Report informational updates on the specified Payment Record.
         """
         return cast(
-            PaymentRecord,
+            "PaymentRecord",
             await self._request_async(
                 "post",
                 "/v1/payment_records/{id}/report_payment_attempt_informational".format(
@@ -307,15 +307,15 @@ class PaymentRecordService(StripeService):
     def report_payment(
         self,
         params: "PaymentRecordReportPaymentParams",
-        options: Optional[RequestOptions] = None,
-    ) -> PaymentRecord:
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentRecord":
         """
         Report a new Payment Record. You may report a Payment Record as it is
          initialized and later report updates through the other report_* methods, or report Payment
          Records in a terminal state directly, through this method.
         """
         return cast(
-            PaymentRecord,
+            "PaymentRecord",
             self._request(
                 "post",
                 "/v1/payment_records/report_payment",
@@ -328,15 +328,15 @@ class PaymentRecordService(StripeService):
     async def report_payment_async(
         self,
         params: "PaymentRecordReportPaymentParams",
-        options: Optional[RequestOptions] = None,
-    ) -> PaymentRecord:
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentRecord":
         """
         Report a new Payment Record. You may report a Payment Record as it is
          initialized and later report updates through the other report_* methods, or report Payment
          Records in a terminal state directly, through this method.
         """
         return cast(
-            PaymentRecord,
+            "PaymentRecord",
             await self._request_async(
                 "post",
                 "/v1/payment_records/report_payment",

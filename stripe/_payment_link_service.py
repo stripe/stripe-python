@@ -1,15 +1,18 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
-from stripe._payment_link import PaymentLink
-from stripe._payment_link_line_item_service import PaymentLinkLineItemService
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
+from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
+    from stripe._payment_link import PaymentLink
+    from stripe._payment_link_line_item_service import (
+        PaymentLinkLineItemService,
+    )
+    from stripe._request_options import RequestOptions
     from stripe.params._payment_link_create_params import (
         PaymentLinkCreateParams,
     )
@@ -21,22 +24,46 @@ if TYPE_CHECKING:
         PaymentLinkUpdateParams,
     )
 
+_subservices = {
+    "line_items": [
+        "stripe._payment_link_line_item_service",
+        "PaymentLinkLineItemService",
+    ],
+}
+
 
 class PaymentLinkService(StripeService):
+    line_items: "PaymentLinkLineItemService"
+
     def __init__(self, requestor):
         super().__init__(requestor)
-        self.line_items = PaymentLinkLineItemService(self._requestor)
+
+    def __getattr__(self, name):
+        try:
+            import_from, service = _subservices[name]
+            service_class = getattr(
+                import_module(import_from),
+                service,
+            )
+            setattr(
+                self,
+                name,
+                service_class(self._requestor),
+            )
+            return getattr(self, name)
+        except KeyError:
+            raise AttributeError()
 
     def list(
         self,
         params: Optional["PaymentLinkListParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[PaymentLink]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[PaymentLink]":
         """
         Returns a list of your payment links.
         """
         return cast(
-            ListObject[PaymentLink],
+            "ListObject[PaymentLink]",
             self._request(
                 "get",
                 "/v1/payment_links",
@@ -49,13 +76,13 @@ class PaymentLinkService(StripeService):
     async def list_async(
         self,
         params: Optional["PaymentLinkListParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[PaymentLink]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[PaymentLink]":
         """
         Returns a list of your payment links.
         """
         return cast(
-            ListObject[PaymentLink],
+            "ListObject[PaymentLink]",
             await self._request_async(
                 "get",
                 "/v1/payment_links",
@@ -68,13 +95,13 @@ class PaymentLinkService(StripeService):
     def create(
         self,
         params: "PaymentLinkCreateParams",
-        options: Optional[RequestOptions] = None,
-    ) -> PaymentLink:
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentLink":
         """
         Creates a payment link.
         """
         return cast(
-            PaymentLink,
+            "PaymentLink",
             self._request(
                 "post",
                 "/v1/payment_links",
@@ -87,13 +114,13 @@ class PaymentLinkService(StripeService):
     async def create_async(
         self,
         params: "PaymentLinkCreateParams",
-        options: Optional[RequestOptions] = None,
-    ) -> PaymentLink:
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentLink":
         """
         Creates a payment link.
         """
         return cast(
-            PaymentLink,
+            "PaymentLink",
             await self._request_async(
                 "post",
                 "/v1/payment_links",
@@ -107,13 +134,13 @@ class PaymentLinkService(StripeService):
         self,
         payment_link: str,
         params: Optional["PaymentLinkRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> PaymentLink:
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentLink":
         """
         Retrieve a payment link.
         """
         return cast(
-            PaymentLink,
+            "PaymentLink",
             self._request(
                 "get",
                 "/v1/payment_links/{payment_link}".format(
@@ -129,13 +156,13 @@ class PaymentLinkService(StripeService):
         self,
         payment_link: str,
         params: Optional["PaymentLinkRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> PaymentLink:
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentLink":
         """
         Retrieve a payment link.
         """
         return cast(
-            PaymentLink,
+            "PaymentLink",
             await self._request_async(
                 "get",
                 "/v1/payment_links/{payment_link}".format(
@@ -151,13 +178,13 @@ class PaymentLinkService(StripeService):
         self,
         payment_link: str,
         params: Optional["PaymentLinkUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> PaymentLink:
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentLink":
         """
         Updates a payment link.
         """
         return cast(
-            PaymentLink,
+            "PaymentLink",
             self._request(
                 "post",
                 "/v1/payment_links/{payment_link}".format(
@@ -173,13 +200,13 @@ class PaymentLinkService(StripeService):
         self,
         payment_link: str,
         params: Optional["PaymentLinkUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> PaymentLink:
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentLink":
         """
         Updates a payment link.
         """
         return cast(
-            PaymentLink,
+            "PaymentLink",
             await self._request_async(
                 "post",
                 "/v1/payment_links/{payment_link}".format(

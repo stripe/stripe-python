@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.v2._list_object import ListObject
-from stripe.v2.payments._off_session_payment import OffSessionPayment
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._request_options import RequestOptions
     from stripe.params.v2.payments._off_session_payment_cancel_params import (
         OffSessionPaymentCancelParams,
     )
@@ -24,19 +22,21 @@ if TYPE_CHECKING:
     from stripe.params.v2.payments._off_session_payment_retrieve_params import (
         OffSessionPaymentRetrieveParams,
     )
+    from stripe.v2._list_object import ListObject
+    from stripe.v2.payments._off_session_payment import OffSessionPayment
 
 
 class OffSessionPaymentService(StripeService):
     def list(
         self,
         params: Optional["OffSessionPaymentListParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[OffSessionPayment]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[OffSessionPayment]":
         """
         Returns a list of OffSessionPayments matching a filter.
         """
         return cast(
-            ListObject[OffSessionPayment],
+            "ListObject[OffSessionPayment]",
             self._request(
                 "get",
                 "/v2/payments/off_session_payments",
@@ -49,13 +49,13 @@ class OffSessionPaymentService(StripeService):
     async def list_async(
         self,
         params: Optional["OffSessionPaymentListParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[OffSessionPayment]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[OffSessionPayment]":
         """
         Returns a list of OffSessionPayments matching a filter.
         """
         return cast(
-            ListObject[OffSessionPayment],
+            "ListObject[OffSessionPayment]",
             await self._request_async(
                 "get",
                 "/v2/payments/off_session_payments",
@@ -68,13 +68,13 @@ class OffSessionPaymentService(StripeService):
     def create(
         self,
         params: "OffSessionPaymentCreateParams",
-        options: Optional[RequestOptions] = None,
-    ) -> OffSessionPayment:
+        options: Optional["RequestOptions"] = None,
+    ) -> "OffSessionPayment":
         """
         Creates an OffSessionPayment object.
         """
         return cast(
-            OffSessionPayment,
+            "OffSessionPayment",
             self._request(
                 "post",
                 "/v2/payments/off_session_payments",
@@ -87,13 +87,13 @@ class OffSessionPaymentService(StripeService):
     async def create_async(
         self,
         params: "OffSessionPaymentCreateParams",
-        options: Optional[RequestOptions] = None,
-    ) -> OffSessionPayment:
+        options: Optional["RequestOptions"] = None,
+    ) -> "OffSessionPayment":
         """
         Creates an OffSessionPayment object.
         """
         return cast(
-            OffSessionPayment,
+            "OffSessionPayment",
             await self._request_async(
                 "post",
                 "/v2/payments/off_session_payments",
@@ -107,13 +107,13 @@ class OffSessionPaymentService(StripeService):
         self,
         id: str,
         params: Optional["OffSessionPaymentRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> OffSessionPayment:
+        options: Optional["RequestOptions"] = None,
+    ) -> "OffSessionPayment":
         """
         Retrieves the details of an OffSessionPayment that has previously been created.
         """
         return cast(
-            OffSessionPayment,
+            "OffSessionPayment",
             self._request(
                 "get",
                 "/v2/payments/off_session_payments/{id}".format(
@@ -129,13 +129,13 @@ class OffSessionPaymentService(StripeService):
         self,
         id: str,
         params: Optional["OffSessionPaymentRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> OffSessionPayment:
+        options: Optional["RequestOptions"] = None,
+    ) -> "OffSessionPayment":
         """
         Retrieves the details of an OffSessionPayment that has previously been created.
         """
         return cast(
-            OffSessionPayment,
+            "OffSessionPayment",
             await self._request_async(
                 "get",
                 "/v2/payments/off_session_payments/{id}".format(
@@ -151,13 +151,13 @@ class OffSessionPaymentService(StripeService):
         self,
         id: str,
         params: Optional["OffSessionPaymentCancelParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> OffSessionPayment:
+        options: Optional["RequestOptions"] = None,
+    ) -> "OffSessionPayment":
         """
         Cancel an OffSessionPayment that has previously been created.
         """
         return cast(
-            OffSessionPayment,
+            "OffSessionPayment",
             self._request(
                 "post",
                 "/v2/payments/off_session_payments/{id}/cancel".format(
@@ -173,13 +173,13 @@ class OffSessionPaymentService(StripeService):
         self,
         id: str,
         params: Optional["OffSessionPaymentCancelParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> OffSessionPayment:
+        options: Optional["RequestOptions"] = None,
+    ) -> "OffSessionPayment":
         """
         Cancel an OffSessionPayment that has previously been created.
         """
         return cast(
-            OffSessionPayment,
+            "OffSessionPayment",
             await self._request_async(
                 "post",
                 "/v2/payments/off_session_payments/{id}/cancel".format(
@@ -195,13 +195,13 @@ class OffSessionPaymentService(StripeService):
         self,
         id: str,
         params: "OffSessionPaymentCaptureParams",
-        options: Optional[RequestOptions] = None,
-    ) -> OffSessionPayment:
+        options: Optional["RequestOptions"] = None,
+    ) -> "OffSessionPayment":
         """
         Captures an OffSessionPayment that has previously been created.
         """
         return cast(
-            OffSessionPayment,
+            "OffSessionPayment",
             self._request(
                 "post",
                 "/v2/payments/off_session_payments/{id}/capture".format(
@@ -217,13 +217,13 @@ class OffSessionPaymentService(StripeService):
         self,
         id: str,
         params: "OffSessionPaymentCaptureParams",
-        options: Optional[RequestOptions] = None,
-    ) -> OffSessionPayment:
+        options: Optional["RequestOptions"] = None,
+    ) -> "OffSessionPayment":
         """
         Captures an OffSessionPayment that has previously been created.
         """
         return cast(
-            OffSessionPayment,
+            "OffSessionPayment",
             await self._request_async(
                 "post",
                 "/v2/payments/off_session_payments/{id}/capture".format(

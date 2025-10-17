@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.terminal._reader import Reader
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe.params.terminal._reader_cancel_action_params import (
         ReaderCancelActionParams,
     )
@@ -40,6 +39,7 @@ if TYPE_CHECKING:
         ReaderSetReaderDisplayParams,
     )
     from stripe.params.terminal._reader_update_params import ReaderUpdateParams
+    from stripe.terminal._reader import Reader
 
 
 class ReaderService(StripeService):
@@ -47,13 +47,13 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: Optional["ReaderDeleteParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> Reader:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Reader":
         """
         Deletes a Reader object.
         """
         return cast(
-            Reader,
+            "Reader",
             self._request(
                 "delete",
                 "/v1/terminal/readers/{reader}".format(
@@ -69,13 +69,13 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: Optional["ReaderDeleteParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> Reader:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Reader":
         """
         Deletes a Reader object.
         """
         return cast(
-            Reader,
+            "Reader",
             await self._request_async(
                 "delete",
                 "/v1/terminal/readers/{reader}".format(
@@ -91,13 +91,13 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: Optional["ReaderRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> Reader:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Reader":
         """
         Retrieves a Reader object.
         """
         return cast(
-            Reader,
+            "Reader",
             self._request(
                 "get",
                 "/v1/terminal/readers/{reader}".format(
@@ -113,13 +113,13 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: Optional["ReaderRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> Reader:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Reader":
         """
         Retrieves a Reader object.
         """
         return cast(
-            Reader,
+            "Reader",
             await self._request_async(
                 "get",
                 "/v1/terminal/readers/{reader}".format(
@@ -135,13 +135,13 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: Optional["ReaderUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> Reader:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Reader":
         """
         Updates a Reader object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
         return cast(
-            Reader,
+            "Reader",
             self._request(
                 "post",
                 "/v1/terminal/readers/{reader}".format(
@@ -157,13 +157,13 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: Optional["ReaderUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> Reader:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Reader":
         """
         Updates a Reader object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
         """
         return cast(
-            Reader,
+            "Reader",
             await self._request_async(
                 "post",
                 "/v1/terminal/readers/{reader}".format(
@@ -178,13 +178,13 @@ class ReaderService(StripeService):
     def list(
         self,
         params: Optional["ReaderListParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[Reader]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[Reader]":
         """
         Returns a list of Reader objects.
         """
         return cast(
-            ListObject[Reader],
+            "ListObject[Reader]",
             self._request(
                 "get",
                 "/v1/terminal/readers",
@@ -197,13 +197,13 @@ class ReaderService(StripeService):
     async def list_async(
         self,
         params: Optional["ReaderListParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[Reader]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[Reader]":
         """
         Returns a list of Reader objects.
         """
         return cast(
-            ListObject[Reader],
+            "ListObject[Reader]",
             await self._request_async(
                 "get",
                 "/v1/terminal/readers",
@@ -216,13 +216,13 @@ class ReaderService(StripeService):
     def create(
         self,
         params: "ReaderCreateParams",
-        options: Optional[RequestOptions] = None,
-    ) -> Reader:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Reader":
         """
         Creates a new Reader object.
         """
         return cast(
-            Reader,
+            "Reader",
             self._request(
                 "post",
                 "/v1/terminal/readers",
@@ -235,13 +235,13 @@ class ReaderService(StripeService):
     async def create_async(
         self,
         params: "ReaderCreateParams",
-        options: Optional[RequestOptions] = None,
-    ) -> Reader:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Reader":
         """
         Creates a new Reader object.
         """
         return cast(
-            Reader,
+            "Reader",
             await self._request_async(
                 "post",
                 "/v1/terminal/readers",
@@ -255,13 +255,13 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: Optional["ReaderCancelActionParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> Reader:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Reader":
         """
         Cancels the current reader action.
         """
         return cast(
-            Reader,
+            "Reader",
             self._request(
                 "post",
                 "/v1/terminal/readers/{reader}/cancel_action".format(
@@ -277,13 +277,13 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: Optional["ReaderCancelActionParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> Reader:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Reader":
         """
         Cancels the current reader action.
         """
         return cast(
-            Reader,
+            "Reader",
             await self._request_async(
                 "post",
                 "/v1/terminal/readers/{reader}/cancel_action".format(
@@ -299,13 +299,13 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: "ReaderCollectInputsParams",
-        options: Optional[RequestOptions] = None,
-    ) -> Reader:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Reader":
         """
         Initiates an input collection flow on a Reader.
         """
         return cast(
-            Reader,
+            "Reader",
             self._request(
                 "post",
                 "/v1/terminal/readers/{reader}/collect_inputs".format(
@@ -321,13 +321,13 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: "ReaderCollectInputsParams",
-        options: Optional[RequestOptions] = None,
-    ) -> Reader:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Reader":
         """
         Initiates an input collection flow on a Reader.
         """
         return cast(
-            Reader,
+            "Reader",
             await self._request_async(
                 "post",
                 "/v1/terminal/readers/{reader}/collect_inputs".format(
@@ -343,13 +343,13 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: "ReaderCollectPaymentMethodParams",
-        options: Optional[RequestOptions] = None,
-    ) -> Reader:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Reader":
         """
         Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
         """
         return cast(
-            Reader,
+            "Reader",
             self._request(
                 "post",
                 "/v1/terminal/readers/{reader}/collect_payment_method".format(
@@ -365,13 +365,13 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: "ReaderCollectPaymentMethodParams",
-        options: Optional[RequestOptions] = None,
-    ) -> Reader:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Reader":
         """
         Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
         """
         return cast(
-            Reader,
+            "Reader",
             await self._request_async(
                 "post",
                 "/v1/terminal/readers/{reader}/collect_payment_method".format(
@@ -387,13 +387,13 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: "ReaderConfirmPaymentIntentParams",
-        options: Optional[RequestOptions] = None,
-    ) -> Reader:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Reader":
         """
         Finalizes a payment on a Reader.
         """
         return cast(
-            Reader,
+            "Reader",
             self._request(
                 "post",
                 "/v1/terminal/readers/{reader}/confirm_payment_intent".format(
@@ -409,13 +409,13 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: "ReaderConfirmPaymentIntentParams",
-        options: Optional[RequestOptions] = None,
-    ) -> Reader:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Reader":
         """
         Finalizes a payment on a Reader.
         """
         return cast(
-            Reader,
+            "Reader",
             await self._request_async(
                 "post",
                 "/v1/terminal/readers/{reader}/confirm_payment_intent".format(
@@ -431,13 +431,13 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: "ReaderProcessPaymentIntentParams",
-        options: Optional[RequestOptions] = None,
-    ) -> Reader:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Reader":
         """
         Initiates a payment flow on a Reader.
         """
         return cast(
-            Reader,
+            "Reader",
             self._request(
                 "post",
                 "/v1/terminal/readers/{reader}/process_payment_intent".format(
@@ -453,13 +453,13 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: "ReaderProcessPaymentIntentParams",
-        options: Optional[RequestOptions] = None,
-    ) -> Reader:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Reader":
         """
         Initiates a payment flow on a Reader.
         """
         return cast(
-            Reader,
+            "Reader",
             await self._request_async(
                 "post",
                 "/v1/terminal/readers/{reader}/process_payment_intent".format(
@@ -475,13 +475,13 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: "ReaderProcessSetupIntentParams",
-        options: Optional[RequestOptions] = None,
-    ) -> Reader:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Reader":
         """
         Initiates a setup intent flow on a Reader.
         """
         return cast(
-            Reader,
+            "Reader",
             self._request(
                 "post",
                 "/v1/terminal/readers/{reader}/process_setup_intent".format(
@@ -497,13 +497,13 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: "ReaderProcessSetupIntentParams",
-        options: Optional[RequestOptions] = None,
-    ) -> Reader:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Reader":
         """
         Initiates a setup intent flow on a Reader.
         """
         return cast(
-            Reader,
+            "Reader",
             await self._request_async(
                 "post",
                 "/v1/terminal/readers/{reader}/process_setup_intent".format(
@@ -519,13 +519,13 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: Optional["ReaderRefundPaymentParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> Reader:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Reader":
         """
         Initiates a refund on a Reader
         """
         return cast(
-            Reader,
+            "Reader",
             self._request(
                 "post",
                 "/v1/terminal/readers/{reader}/refund_payment".format(
@@ -541,13 +541,13 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: Optional["ReaderRefundPaymentParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> Reader:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Reader":
         """
         Initiates a refund on a Reader
         """
         return cast(
-            Reader,
+            "Reader",
             await self._request_async(
                 "post",
                 "/v1/terminal/readers/{reader}/refund_payment".format(
@@ -563,13 +563,13 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: "ReaderSetReaderDisplayParams",
-        options: Optional[RequestOptions] = None,
-    ) -> Reader:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Reader":
         """
         Sets reader display to show cart details.
         """
         return cast(
-            Reader,
+            "Reader",
             self._request(
                 "post",
                 "/v1/terminal/readers/{reader}/set_reader_display".format(
@@ -585,13 +585,13 @@ class ReaderService(StripeService):
         self,
         reader: str,
         params: "ReaderSetReaderDisplayParams",
-        options: Optional[RequestOptions] = None,
-    ) -> Reader:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Reader":
         """
         Sets reader display to show cart details.
         """
         return cast(
-            Reader,
+            "Reader",
             await self._request_async(
                 "post",
                 "/v1/terminal/readers/{reader}/set_reader_display".format(

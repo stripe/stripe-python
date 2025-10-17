@@ -55,12 +55,12 @@ from stripe._http_client import (
     new_default_http_client,
     new_http_client_async_fallback,
 )
-from stripe._app_info import AppInfo
 
 from stripe._base_address import BaseAddress
 from stripe._api_mode import ApiMode
 
 if TYPE_CHECKING:
+    from stripe._app_info import AppInfo
     from stripe._stripe_object import StripeObject
 
 HttpVerb = Literal["get", "post", "delete"]
@@ -504,7 +504,7 @@ class _APIRequestor(object):
         if stripe.app_info:
             user_agent += " " + self._format_app_info(stripe.app_info)
 
-        ua: Dict[str, Union[str, AppInfo]] = {
+        ua: Dict[str, Union[str, "AppInfo"]] = {
             "bindings_version": VERSION,
             "lang": "python",
             "publisher": "stripe",

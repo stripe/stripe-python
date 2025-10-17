@@ -10,7 +10,7 @@ class FileCreateParams(RequestOptions):
     """
     Specifies which fields in the response should be expanded.
     """
-    file: Any
+    file: "Any"
     """
     A file to upload. Make sure that the specifications follow RFC 2388, which defines file transfers for the `multipart/form-data` protocol.
     """

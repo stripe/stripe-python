@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.issuing._physical_bundle import PhysicalBundle
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
+    from stripe.issuing._physical_bundle import PhysicalBundle
     from stripe.params.issuing._physical_bundle_list_params import (
         PhysicalBundleListParams,
     )
@@ -21,13 +21,13 @@ class PhysicalBundleService(StripeService):
     def list(
         self,
         params: Optional["PhysicalBundleListParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[PhysicalBundle]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[PhysicalBundle]":
         """
         Returns a list of physical bundle objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
         return cast(
-            ListObject[PhysicalBundle],
+            "ListObject[PhysicalBundle]",
             self._request(
                 "get",
                 "/v1/issuing/physical_bundles",
@@ -40,13 +40,13 @@ class PhysicalBundleService(StripeService):
     async def list_async(
         self,
         params: Optional["PhysicalBundleListParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[PhysicalBundle]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[PhysicalBundle]":
         """
         Returns a list of physical bundle objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
         return cast(
-            ListObject[PhysicalBundle],
+            "ListObject[PhysicalBundle]",
             await self._request_async(
                 "get",
                 "/v1/issuing/physical_bundles",
@@ -60,13 +60,13 @@ class PhysicalBundleService(StripeService):
         self,
         physical_bundle: str,
         params: Optional["PhysicalBundleRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> PhysicalBundle:
+        options: Optional["RequestOptions"] = None,
+    ) -> "PhysicalBundle":
         """
         Retrieves a physical bundle object.
         """
         return cast(
-            PhysicalBundle,
+            "PhysicalBundle",
             self._request(
                 "get",
                 "/v1/issuing/physical_bundles/{physical_bundle}".format(
@@ -82,13 +82,13 @@ class PhysicalBundleService(StripeService):
         self,
         physical_bundle: str,
         params: Optional["PhysicalBundleRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> PhysicalBundle:
+        options: Optional["RequestOptions"] = None,
+    ) -> "PhysicalBundle":
         """
         Retrieves a physical bundle object.
         """
         return cast(
-            PhysicalBundle,
+            "PhysicalBundle",
             await self._request_async(
                 "get",
                 "/v1/issuing/physical_bundles/{physical_bundle}".format(

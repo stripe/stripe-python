@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._bank_account import BankAccount
-from stripe._card import Card
-from stripe._list_object import ListObject
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from typing import Optional, Union, cast
+from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._bank_account import BankAccount
+    from stripe._card import Card
+    from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe.params._external_account_create_params import (
         ExternalAccountCreateParams,
     )
@@ -25,6 +25,7 @@ if TYPE_CHECKING:
     from stripe.params._external_account_update_params import (
         ExternalAccountUpdateParams,
     )
+    from typing import Union
 
 
 class ExternalAccountService(StripeService):
@@ -32,13 +33,13 @@ class ExternalAccountService(StripeService):
         self,
         id: str,
         params: Optional["ExternalAccountDeleteParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> Union[BankAccount, Card]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Union[BankAccount, Card]":
         """
         Delete a specified external account for a given account.
         """
         return cast(
-            Union[BankAccount, Card],
+            "Union[BankAccount, Card]",
             self._request(
                 "delete",
                 "/v1/external_accounts/{id}".format(id=sanitize_id(id)),
@@ -52,13 +53,13 @@ class ExternalAccountService(StripeService):
         self,
         id: str,
         params: Optional["ExternalAccountDeleteParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> Union[BankAccount, Card]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Union[BankAccount, Card]":
         """
         Delete a specified external account for a given account.
         """
         return cast(
-            Union[BankAccount, Card],
+            "Union[BankAccount, Card]",
             await self._request_async(
                 "delete",
                 "/v1/external_accounts/{id}".format(id=sanitize_id(id)),
@@ -72,13 +73,13 @@ class ExternalAccountService(StripeService):
         self,
         id: str,
         params: Optional["ExternalAccountRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> Union[BankAccount, Card]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Union[BankAccount, Card]":
         """
         Retrieve a specified external account for a given account.
         """
         return cast(
-            Union[BankAccount, Card],
+            "Union[BankAccount, Card]",
             self._request(
                 "get",
                 "/v1/external_accounts/{id}".format(id=sanitize_id(id)),
@@ -92,13 +93,13 @@ class ExternalAccountService(StripeService):
         self,
         id: str,
         params: Optional["ExternalAccountRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> Union[BankAccount, Card]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Union[BankAccount, Card]":
         """
         Retrieve a specified external account for a given account.
         """
         return cast(
-            Union[BankAccount, Card],
+            "Union[BankAccount, Card]",
             await self._request_async(
                 "get",
                 "/v1/external_accounts/{id}".format(id=sanitize_id(id)),
@@ -112,8 +113,8 @@ class ExternalAccountService(StripeService):
         self,
         id: str,
         params: Optional["ExternalAccountUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> Union[BankAccount, Card]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Union[BankAccount, Card]":
         """
         Updates the metadata, account holder name, account holder type of a bank account belonging to
         a connected account and optionally sets it as the default for its currency. Other bank account
@@ -125,7 +126,7 @@ class ExternalAccountService(StripeService):
         arguments or changes.
         """
         return cast(
-            Union[BankAccount, Card],
+            "Union[BankAccount, Card]",
             self._request(
                 "post",
                 "/v1/external_accounts/{id}".format(id=sanitize_id(id)),
@@ -139,8 +140,8 @@ class ExternalAccountService(StripeService):
         self,
         id: str,
         params: Optional["ExternalAccountUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> Union[BankAccount, Card]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Union[BankAccount, Card]":
         """
         Updates the metadata, account holder name, account holder type of a bank account belonging to
         a connected account and optionally sets it as the default for its currency. Other bank account
@@ -152,7 +153,7 @@ class ExternalAccountService(StripeService):
         arguments or changes.
         """
         return cast(
-            Union[BankAccount, Card],
+            "Union[BankAccount, Card]",
             await self._request_async(
                 "post",
                 "/v1/external_accounts/{id}".format(id=sanitize_id(id)),
@@ -165,13 +166,13 @@ class ExternalAccountService(StripeService):
     def list(
         self,
         params: Optional["ExternalAccountListParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[Union[BankAccount, Card]]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[Union[BankAccount, Card]]":
         """
         List external accounts for an account.
         """
         return cast(
-            ListObject[Union[BankAccount, Card]],
+            "ListObject[Union[BankAccount, Card]]",
             self._request(
                 "get",
                 "/v1/external_accounts",
@@ -184,13 +185,13 @@ class ExternalAccountService(StripeService):
     async def list_async(
         self,
         params: Optional["ExternalAccountListParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[Union[BankAccount, Card]]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[Union[BankAccount, Card]]":
         """
         List external accounts for an account.
         """
         return cast(
-            ListObject[Union[BankAccount, Card]],
+            "ListObject[Union[BankAccount, Card]]",
             await self._request_async(
                 "get",
                 "/v1/external_accounts",
@@ -203,13 +204,13 @@ class ExternalAccountService(StripeService):
     def create(
         self,
         params: "ExternalAccountCreateParams",
-        options: Optional[RequestOptions] = None,
-    ) -> Union[BankAccount, Card]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Union[BankAccount, Card]":
         """
         Create an external account for a given connected account.
         """
         return cast(
-            Union[BankAccount, Card],
+            "Union[BankAccount, Card]",
             self._request(
                 "post",
                 "/v1/external_accounts",
@@ -222,13 +223,13 @@ class ExternalAccountService(StripeService):
     async def create_async(
         self,
         params: "ExternalAccountCreateParams",
-        options: Optional[RequestOptions] = None,
-    ) -> Union[BankAccount, Card]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Union[BankAccount, Card]":
         """
         Create an external account for a given connected account.
         """
         return cast(
-            Union[BankAccount, Card],
+            "Union[BankAccount, Card]",
             await self._request_async(
                 "post",
                 "/v1/external_accounts",

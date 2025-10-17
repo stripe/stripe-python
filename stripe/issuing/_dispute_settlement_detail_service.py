@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.issuing._dispute_settlement_detail import DisputeSettlementDetail
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
+    from stripe.issuing._dispute_settlement_detail import (
+        DisputeSettlementDetail,
+    )
     from stripe.params.issuing._dispute_settlement_detail_list_params import (
         DisputeSettlementDetailListParams,
     )
@@ -21,13 +23,13 @@ class DisputeSettlementDetailService(StripeService):
     def list(
         self,
         params: Optional["DisputeSettlementDetailListParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[DisputeSettlementDetail]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[DisputeSettlementDetail]":
         """
         Returns a list of Issuing DisputeSettlementDetail objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
         return cast(
-            ListObject[DisputeSettlementDetail],
+            "ListObject[DisputeSettlementDetail]",
             self._request(
                 "get",
                 "/v1/issuing/dispute_settlement_details",
@@ -40,13 +42,13 @@ class DisputeSettlementDetailService(StripeService):
     async def list_async(
         self,
         params: Optional["DisputeSettlementDetailListParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[DisputeSettlementDetail]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[DisputeSettlementDetail]":
         """
         Returns a list of Issuing DisputeSettlementDetail objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
         """
         return cast(
-            ListObject[DisputeSettlementDetail],
+            "ListObject[DisputeSettlementDetail]",
             await self._request_async(
                 "get",
                 "/v1/issuing/dispute_settlement_details",
@@ -60,13 +62,13 @@ class DisputeSettlementDetailService(StripeService):
         self,
         dispute_settlement_detail: str,
         params: Optional["DisputeSettlementDetailRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> DisputeSettlementDetail:
+        options: Optional["RequestOptions"] = None,
+    ) -> "DisputeSettlementDetail":
         """
         Retrieves an Issuing DisputeSettlementDetail object.
         """
         return cast(
-            DisputeSettlementDetail,
+            "DisputeSettlementDetail",
             self._request(
                 "get",
                 "/v1/issuing/dispute_settlement_details/{dispute_settlement_detail}".format(
@@ -84,13 +86,13 @@ class DisputeSettlementDetailService(StripeService):
         self,
         dispute_settlement_detail: str,
         params: Optional["DisputeSettlementDetailRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> DisputeSettlementDetail:
+        options: Optional["RequestOptions"] = None,
+    ) -> "DisputeSettlementDetail":
         """
         Retrieves an Issuing DisputeSettlementDetail object.
         """
         return cast(
-            DisputeSettlementDetail,
+            "DisputeSettlementDetail",
             await self._request_async(
                 "get",
                 "/v1/issuing/dispute_settlement_details/{dispute_settlement_detail}".format(

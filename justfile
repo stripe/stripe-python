@@ -86,3 +86,13 @@ update-version version:
     perl -pi -e 's|VERSION = "[.\d\w]+"|VERSION = "{{ version }}"|' stripe/_version.py
     perl -pi -e 's|^version = "[.\d\w]+"|version = "{{ version }}"|' pyproject.toml
 
+
+[private]
+profile-imports name:
+    python -X importtime stripe/main.py 2> {{ name }}.txt
+    tuna {{ name }}.txt
+
+[private]
+profile name:
+    python -m cProfile -o {{ name }}.prof stripe/main.py
+    tuna {{ name }}.prof

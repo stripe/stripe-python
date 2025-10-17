@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.v2.tax._automatic_rule import AutomaticRule
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._request_options import RequestOptions
     from stripe.params.v2.tax._automatic_rule_create_params import (
         AutomaticRuleCreateParams,
     )
@@ -23,19 +22,20 @@ if TYPE_CHECKING:
     from stripe.params.v2.tax._automatic_rule_update_params import (
         AutomaticRuleUpdateParams,
     )
+    from stripe.v2.tax._automatic_rule import AutomaticRule
 
 
 class AutomaticRuleService(StripeService):
     def create(
         self,
         params: "AutomaticRuleCreateParams",
-        options: Optional[RequestOptions] = None,
-    ) -> AutomaticRule:
+        options: Optional["RequestOptions"] = None,
+    ) -> "AutomaticRule":
         """
         Creates an AutomaticRule object.
         """
         return cast(
-            AutomaticRule,
+            "AutomaticRule",
             self._request(
                 "post",
                 "/v2/tax/automatic_rules",
@@ -48,13 +48,13 @@ class AutomaticRuleService(StripeService):
     async def create_async(
         self,
         params: "AutomaticRuleCreateParams",
-        options: Optional[RequestOptions] = None,
-    ) -> AutomaticRule:
+        options: Optional["RequestOptions"] = None,
+    ) -> "AutomaticRule":
         """
         Creates an AutomaticRule object.
         """
         return cast(
-            AutomaticRule,
+            "AutomaticRule",
             await self._request_async(
                 "post",
                 "/v2/tax/automatic_rules",
@@ -67,13 +67,13 @@ class AutomaticRuleService(StripeService):
     def find(
         self,
         params: "AutomaticRuleFindParams",
-        options: Optional[RequestOptions] = None,
-    ) -> AutomaticRule:
+        options: Optional["RequestOptions"] = None,
+    ) -> "AutomaticRule":
         """
         Finds an AutomaticRule object by BillableItem ID.
         """
         return cast(
-            AutomaticRule,
+            "AutomaticRule",
             self._request(
                 "get",
                 "/v2/tax/automatic_rules/find",
@@ -86,13 +86,13 @@ class AutomaticRuleService(StripeService):
     async def find_async(
         self,
         params: "AutomaticRuleFindParams",
-        options: Optional[RequestOptions] = None,
-    ) -> AutomaticRule:
+        options: Optional["RequestOptions"] = None,
+    ) -> "AutomaticRule":
         """
         Finds an AutomaticRule object by BillableItem ID.
         """
         return cast(
-            AutomaticRule,
+            "AutomaticRule",
             await self._request_async(
                 "get",
                 "/v2/tax/automatic_rules/find",
@@ -106,13 +106,13 @@ class AutomaticRuleService(StripeService):
         self,
         id: str,
         params: Optional["AutomaticRuleRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> AutomaticRule:
+        options: Optional["RequestOptions"] = None,
+    ) -> "AutomaticRule":
         """
         Retrieves an AutomaticRule object by ID.
         """
         return cast(
-            AutomaticRule,
+            "AutomaticRule",
             self._request(
                 "get",
                 "/v2/tax/automatic_rules/{id}".format(id=sanitize_id(id)),
@@ -126,13 +126,13 @@ class AutomaticRuleService(StripeService):
         self,
         id: str,
         params: Optional["AutomaticRuleRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> AutomaticRule:
+        options: Optional["RequestOptions"] = None,
+    ) -> "AutomaticRule":
         """
         Retrieves an AutomaticRule object by ID.
         """
         return cast(
-            AutomaticRule,
+            "AutomaticRule",
             await self._request_async(
                 "get",
                 "/v2/tax/automatic_rules/{id}".format(id=sanitize_id(id)),
@@ -146,13 +146,13 @@ class AutomaticRuleService(StripeService):
         self,
         id: str,
         params: "AutomaticRuleUpdateParams",
-        options: Optional[RequestOptions] = None,
-    ) -> AutomaticRule:
+        options: Optional["RequestOptions"] = None,
+    ) -> "AutomaticRule":
         """
         Updates the automatic Tax configuration for an AutomaticRule object.
         """
         return cast(
-            AutomaticRule,
+            "AutomaticRule",
             self._request(
                 "post",
                 "/v2/tax/automatic_rules/{id}".format(id=sanitize_id(id)),
@@ -166,13 +166,13 @@ class AutomaticRuleService(StripeService):
         self,
         id: str,
         params: "AutomaticRuleUpdateParams",
-        options: Optional[RequestOptions] = None,
-    ) -> AutomaticRule:
+        options: Optional["RequestOptions"] = None,
+    ) -> "AutomaticRule":
         """
         Updates the automatic Tax configuration for an AutomaticRule object.
         """
         return cast(
-            AutomaticRule,
+            "AutomaticRule",
             await self._request_async(
                 "post",
                 "/v2/tax/automatic_rules/{id}".format(id=sanitize_id(id)),
@@ -186,13 +186,13 @@ class AutomaticRuleService(StripeService):
         self,
         id: str,
         params: Optional["AutomaticRuleDeactivateParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> AutomaticRule:
+        options: Optional["RequestOptions"] = None,
+    ) -> "AutomaticRule":
         """
         Deactivates an AutomaticRule object. Deactivated AutomaticRule objects are ignored in future tax calculations.
         """
         return cast(
-            AutomaticRule,
+            "AutomaticRule",
             self._request(
                 "post",
                 "/v2/tax/automatic_rules/{id}/deactivate".format(
@@ -208,13 +208,13 @@ class AutomaticRuleService(StripeService):
         self,
         id: str,
         params: Optional["AutomaticRuleDeactivateParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> AutomaticRule:
+        options: Optional["RequestOptions"] = None,
+    ) -> "AutomaticRule":
         """
         Deactivates an AutomaticRule object. Deactivated AutomaticRule objects are ignored in future tax calculations.
         """
         return cast(
-            AutomaticRule,
+            "AutomaticRule",
             await self._request_async(
                 "post",
                 "/v2/tax/automatic_rules/{id}/deactivate".format(

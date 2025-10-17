@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.v2._list_object import ListObject
-from stripe.v2.billing._rate_card_version import RateCardVersion
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._request_options import RequestOptions
     from stripe.params.v2.billing.rate_cards._version_list_params import (
         VersionListParams,
     )
     from stripe.params.v2.billing.rate_cards._version_retrieve_params import (
         VersionRetrieveParams,
     )
+    from stripe.v2._list_object import ListObject
+    from stripe.v2.billing._rate_card_version import RateCardVersion
 
 
 class VersionService(StripeService):
@@ -22,13 +22,13 @@ class VersionService(StripeService):
         self,
         rate_card_id: str,
         params: Optional["VersionListParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[RateCardVersion]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[RateCardVersion]":
         """
         List the versions of a Rate Card object. Results are sorted in reverse chronological order (most recent first).
         """
         return cast(
-            ListObject[RateCardVersion],
+            "ListObject[RateCardVersion]",
             self._request(
                 "get",
                 "/v2/billing/rate_cards/{rate_card_id}/versions".format(
@@ -44,13 +44,13 @@ class VersionService(StripeService):
         self,
         rate_card_id: str,
         params: Optional["VersionListParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[RateCardVersion]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[RateCardVersion]":
         """
         List the versions of a Rate Card object. Results are sorted in reverse chronological order (most recent first).
         """
         return cast(
-            ListObject[RateCardVersion],
+            "ListObject[RateCardVersion]",
             await self._request_async(
                 "get",
                 "/v2/billing/rate_cards/{rate_card_id}/versions".format(
@@ -67,13 +67,13 @@ class VersionService(StripeService):
         rate_card_id: str,
         id: str,
         params: Optional["VersionRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> RateCardVersion:
+        options: Optional["RequestOptions"] = None,
+    ) -> "RateCardVersion":
         """
         Retrieve a specific version of a Rate Card object.
         """
         return cast(
-            RateCardVersion,
+            "RateCardVersion",
             self._request(
                 "get",
                 "/v2/billing/rate_cards/{rate_card_id}/versions/{id}".format(
@@ -91,13 +91,13 @@ class VersionService(StripeService):
         rate_card_id: str,
         id: str,
         params: Optional["VersionRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> RateCardVersion:
+        options: Optional["RequestOptions"] = None,
+    ) -> "RateCardVersion":
         """
         Retrieve a specific version of a Rate Card object.
         """
         return cast(
-            RateCardVersion,
+            "RateCardVersion",
             await self._request_async(
                 "get",
                 "/v2/billing/rate_cards/{rate_card_id}/versions/{id}".format(

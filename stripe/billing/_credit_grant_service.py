@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.billing._credit_grant import CreditGrant
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
+    from stripe.billing._credit_grant import CreditGrant
     from stripe.params.billing._credit_grant_create_params import (
         CreditGrantCreateParams,
     )
@@ -33,13 +33,13 @@ class CreditGrantService(StripeService):
     def list(
         self,
         params: Optional["CreditGrantListParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[CreditGrant]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[CreditGrant]":
         """
         Retrieve a list of credit grants.
         """
         return cast(
-            ListObject[CreditGrant],
+            "ListObject[CreditGrant]",
             self._request(
                 "get",
                 "/v1/billing/credit_grants",
@@ -52,13 +52,13 @@ class CreditGrantService(StripeService):
     async def list_async(
         self,
         params: Optional["CreditGrantListParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[CreditGrant]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[CreditGrant]":
         """
         Retrieve a list of credit grants.
         """
         return cast(
-            ListObject[CreditGrant],
+            "ListObject[CreditGrant]",
             await self._request_async(
                 "get",
                 "/v1/billing/credit_grants",
@@ -71,13 +71,13 @@ class CreditGrantService(StripeService):
     def create(
         self,
         params: "CreditGrantCreateParams",
-        options: Optional[RequestOptions] = None,
-    ) -> CreditGrant:
+        options: Optional["RequestOptions"] = None,
+    ) -> "CreditGrant":
         """
         Creates a credit grant.
         """
         return cast(
-            CreditGrant,
+            "CreditGrant",
             self._request(
                 "post",
                 "/v1/billing/credit_grants",
@@ -90,13 +90,13 @@ class CreditGrantService(StripeService):
     async def create_async(
         self,
         params: "CreditGrantCreateParams",
-        options: Optional[RequestOptions] = None,
-    ) -> CreditGrant:
+        options: Optional["RequestOptions"] = None,
+    ) -> "CreditGrant":
         """
         Creates a credit grant.
         """
         return cast(
-            CreditGrant,
+            "CreditGrant",
             await self._request_async(
                 "post",
                 "/v1/billing/credit_grants",
@@ -110,13 +110,13 @@ class CreditGrantService(StripeService):
         self,
         id: str,
         params: Optional["CreditGrantRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> CreditGrant:
+        options: Optional["RequestOptions"] = None,
+    ) -> "CreditGrant":
         """
         Retrieves a credit grant.
         """
         return cast(
-            CreditGrant,
+            "CreditGrant",
             self._request(
                 "get",
                 "/v1/billing/credit_grants/{id}".format(id=sanitize_id(id)),
@@ -130,13 +130,13 @@ class CreditGrantService(StripeService):
         self,
         id: str,
         params: Optional["CreditGrantRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> CreditGrant:
+        options: Optional["RequestOptions"] = None,
+    ) -> "CreditGrant":
         """
         Retrieves a credit grant.
         """
         return cast(
-            CreditGrant,
+            "CreditGrant",
             await self._request_async(
                 "get",
                 "/v1/billing/credit_grants/{id}".format(id=sanitize_id(id)),
@@ -150,13 +150,13 @@ class CreditGrantService(StripeService):
         self,
         id: str,
         params: Optional["CreditGrantUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> CreditGrant:
+        options: Optional["RequestOptions"] = None,
+    ) -> "CreditGrant":
         """
         Updates a credit grant.
         """
         return cast(
-            CreditGrant,
+            "CreditGrant",
             self._request(
                 "post",
                 "/v1/billing/credit_grants/{id}".format(id=sanitize_id(id)),
@@ -170,13 +170,13 @@ class CreditGrantService(StripeService):
         self,
         id: str,
         params: Optional["CreditGrantUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> CreditGrant:
+        options: Optional["RequestOptions"] = None,
+    ) -> "CreditGrant":
         """
         Updates a credit grant.
         """
         return cast(
-            CreditGrant,
+            "CreditGrant",
             await self._request_async(
                 "post",
                 "/v1/billing/credit_grants/{id}".format(id=sanitize_id(id)),
@@ -190,13 +190,13 @@ class CreditGrantService(StripeService):
         self,
         id: str,
         params: Optional["CreditGrantExpireParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> CreditGrant:
+        options: Optional["RequestOptions"] = None,
+    ) -> "CreditGrant":
         """
         Expires a credit grant.
         """
         return cast(
-            CreditGrant,
+            "CreditGrant",
             self._request(
                 "post",
                 "/v1/billing/credit_grants/{id}/expire".format(
@@ -212,13 +212,13 @@ class CreditGrantService(StripeService):
         self,
         id: str,
         params: Optional["CreditGrantExpireParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> CreditGrant:
+        options: Optional["RequestOptions"] = None,
+    ) -> "CreditGrant":
         """
         Expires a credit grant.
         """
         return cast(
-            CreditGrant,
+            "CreditGrant",
             await self._request_async(
                 "post",
                 "/v1/billing/credit_grants/{id}/expire".format(
@@ -234,13 +234,13 @@ class CreditGrantService(StripeService):
         self,
         id: str,
         params: Optional["CreditGrantVoidGrantParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> CreditGrant:
+        options: Optional["RequestOptions"] = None,
+    ) -> "CreditGrant":
         """
         Voids a credit grant.
         """
         return cast(
-            CreditGrant,
+            "CreditGrant",
             self._request(
                 "post",
                 "/v1/billing/credit_grants/{id}/void".format(
@@ -256,13 +256,13 @@ class CreditGrantService(StripeService):
         self,
         id: str,
         params: Optional["CreditGrantVoidGrantParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> CreditGrant:
+        options: Optional["RequestOptions"] = None,
+    ) -> "CreditGrant":
         """
         Voids a credit grant.
         """
         return cast(
-            CreditGrant,
+            "CreditGrant",
             await self._request_async(
                 "post",
                 "/v1/billing/credit_grants/{id}/void".format(

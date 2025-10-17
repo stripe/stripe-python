@@ -3,12 +3,13 @@
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject
-from typing import Any, ClassVar, Dict, Optional
+from typing import ClassVar, Dict, Optional
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.params._event_list_params import EventListParams
     from stripe.params._event_retrieve_params import EventRetrieveParams
+    from typing import Any
 
 
 class Event(ListableAPIResource["Event"]):
@@ -36,11 +37,11 @@ class Event(ListableAPIResource["Event"]):
     OBJECT_NAME: ClassVar[Literal["event"]] = "event"
 
     class Data(StripeObject):
-        object: Dict[str, Any]
+        object: Dict[str, "Any"]
         """
         Object containing the API resource relevant to the event. For example, an `invoice.created` event will have a full [invoice object](https://stripe.com/docs/api#invoice_object) as the value of the object key.
         """
-        previous_attributes: Optional[Dict[str, Any]]
+        previous_attributes: Optional[Dict[str, "Any"]]
         """
         Object containing the names of the updated attributes and their values prior to the event (only included in events of type `*.updated`). If an array attribute has any updated elements, this object contains the entire array. In Stripe API versions 2017-04-06 or earlier, an updated array attribute in this object includes only the updated array elements.
         """

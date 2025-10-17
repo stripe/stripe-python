@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._stripe_client import StripeClient
 from stripe._stripe_object import StripeObject
 from stripe._util import get_api_mode
 from stripe.v2.core._event import Event, EventNotification, RelatedObject
-from stripe.v2.money_management._outbound_transfer import OutboundTransfer
 from typing import Any, Dict, cast
-from typing_extensions import Literal, override
+from typing_extensions import Literal, TYPE_CHECKING, override
+
+if TYPE_CHECKING:
+    from stripe._stripe_client import StripeClient
+    from stripe.v2.money_management._outbound_transfer import OutboundTransfer
 
 
 class V2MoneyManagementOutboundTransferPostedEventNotification(
@@ -17,7 +19,7 @@ class V2MoneyManagementOutboundTransferPostedEventNotification(
     related_object: RelatedObject
 
     def __init__(
-        self, parsed_body: Dict[str, Any], client: StripeClient
+        self, parsed_body: Dict[str, Any], client: "StripeClient"
     ) -> None:
         super().__init__(
             parsed_body,
@@ -95,12 +97,12 @@ class V2MoneyManagementOutboundTransferPostedEvent(Event):
     Object containing the reference to API resource relevant to the event
     """
 
-    def fetch_related_object(self) -> OutboundTransfer:
+    def fetch_related_object(self) -> "OutboundTransfer":
         """
         Retrieves the related object from the API. Makes an API request on every call.
         """
         return cast(
-            OutboundTransfer,
+            "OutboundTransfer",
             self._requestor.request(
                 "get",
                 self.related_object.url,

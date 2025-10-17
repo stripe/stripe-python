@@ -1,15 +1,18 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.checkout._session import Session
-from stripe.checkout._session_line_item_service import SessionLineItemService
 from typing import Optional, cast
+from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
+    from stripe.checkout._session import Session
+    from stripe.checkout._session_line_item_service import (
+        SessionLineItemService,
+    )
     from stripe.params.checkout._session_create_params import (
         SessionCreateParams,
     )
@@ -24,22 +27,46 @@ if TYPE_CHECKING:
         SessionUpdateParams,
     )
 
+_subservices = {
+    "line_items": [
+        "stripe.checkout._session_line_item_service",
+        "SessionLineItemService",
+    ],
+}
+
 
 class SessionService(StripeService):
+    line_items: "SessionLineItemService"
+
     def __init__(self, requestor):
         super().__init__(requestor)
-        self.line_items = SessionLineItemService(self._requestor)
+
+    def __getattr__(self, name):
+        try:
+            import_from, service = _subservices[name]
+            service_class = getattr(
+                import_module(import_from),
+                service,
+            )
+            setattr(
+                self,
+                name,
+                service_class(self._requestor),
+            )
+            return getattr(self, name)
+        except KeyError:
+            raise AttributeError()
 
     def list(
         self,
         params: Optional["SessionListParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[Session]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[Session]":
         """
         Returns a list of Checkout Sessions.
         """
         return cast(
-            ListObject[Session],
+            "ListObject[Session]",
             self._request(
                 "get",
                 "/v1/checkout/sessions",
@@ -52,13 +79,13 @@ class SessionService(StripeService):
     async def list_async(
         self,
         params: Optional["SessionListParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[Session]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[Session]":
         """
         Returns a list of Checkout Sessions.
         """
         return cast(
-            ListObject[Session],
+            "ListObject[Session]",
             await self._request_async(
                 "get",
                 "/v1/checkout/sessions",
@@ -71,13 +98,13 @@ class SessionService(StripeService):
     def create(
         self,
         params: Optional["SessionCreateParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> Session:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Session":
         """
         Creates a Checkout Session object.
         """
         return cast(
-            Session,
+            "Session",
             self._request(
                 "post",
                 "/v1/checkout/sessions",
@@ -90,13 +117,13 @@ class SessionService(StripeService):
     async def create_async(
         self,
         params: Optional["SessionCreateParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> Session:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Session":
         """
         Creates a Checkout Session object.
         """
         return cast(
-            Session,
+            "Session",
             await self._request_async(
                 "post",
                 "/v1/checkout/sessions",
@@ -110,13 +137,13 @@ class SessionService(StripeService):
         self,
         session: str,
         params: Optional["SessionRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> Session:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Session":
         """
         Retrieves a Checkout Session object.
         """
         return cast(
-            Session,
+            "Session",
             self._request(
                 "get",
                 "/v1/checkout/sessions/{session}".format(
@@ -132,13 +159,13 @@ class SessionService(StripeService):
         self,
         session: str,
         params: Optional["SessionRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> Session:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Session":
         """
         Retrieves a Checkout Session object.
         """
         return cast(
-            Session,
+            "Session",
             await self._request_async(
                 "get",
                 "/v1/checkout/sessions/{session}".format(
@@ -154,15 +181,15 @@ class SessionService(StripeService):
         self,
         session: str,
         params: Optional["SessionUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> Session:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Session":
         """
         Updates a Checkout Session object.
 
         Related guide: [Dynamically update Checkout](https://docs.stripe.com/payments/checkout/dynamic-updates)
         """
         return cast(
-            Session,
+            "Session",
             self._request(
                 "post",
                 "/v1/checkout/sessions/{session}".format(
@@ -178,15 +205,15 @@ class SessionService(StripeService):
         self,
         session: str,
         params: Optional["SessionUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> Session:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Session":
         """
         Updates a Checkout Session object.
 
         Related guide: [Dynamically update Checkout](https://docs.stripe.com/payments/checkout/dynamic-updates)
         """
         return cast(
-            Session,
+            "Session",
             await self._request_async(
                 "post",
                 "/v1/checkout/sessions/{session}".format(
@@ -202,15 +229,15 @@ class SessionService(StripeService):
         self,
         session: str,
         params: Optional["SessionExpireParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> Session:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Session":
         """
         A Checkout Session can be expired when it is in one of these statuses: open
 
         After it expires, a customer can't complete a Checkout Session and customers loading the Checkout Session see a message saying the Checkout Session is expired.
         """
         return cast(
-            Session,
+            "Session",
             self._request(
                 "post",
                 "/v1/checkout/sessions/{session}/expire".format(
@@ -226,15 +253,15 @@ class SessionService(StripeService):
         self,
         session: str,
         params: Optional["SessionExpireParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> Session:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Session":
         """
         A Checkout Session can be expired when it is in one of these statuses: open
 
         After it expires, a customer can't complete a Checkout Session and customers loading the Checkout Session see a message saying the Checkout Session is expired.
         """
         return cast(
-            Session,
+            "Session",
             await self._request_async(
                 "post",
                 "/v1/checkout/sessions/{session}/expire".format(

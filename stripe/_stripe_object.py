@@ -32,7 +32,7 @@ from stripe._api_mode import ApiMode
 from stripe._base_address import BaseAddress
 
 if TYPE_CHECKING:
-    from stripe import _APIRequestor  # pyright: ignore[reportPrivateUsage]
+    from stripe._api_requestor import _APIRequestor  # pyright: ignore[reportPrivateUsage]
 
 
 @overload
@@ -108,8 +108,10 @@ class StripeObject(Dict[str, Any]):
         self._retrieve_params = params
         self._previous = None
 
+        from stripe._api_requestor import _APIRequestor  # pyright: ignore[reportPrivateUsage]
+
         self._requestor = (
-            stripe._APIRequestor._global_with_options(  # pyright: ignore[reportPrivateUsage]
+            _APIRequestor._global_with_options(  # pyright: ignore[reportPrivateUsage]
                 api_key=api_key,
                 stripe_version=stripe_version,
                 stripe_account=stripe_account,
@@ -251,9 +253,11 @@ class StripeObject(Dict[str, Any]):
         *,
         api_mode: ApiMode = "V1",
     ) -> Self:
+        from stripe._api_requestor import _APIRequestor  # pyright: ignore[reportPrivateUsage]
+
         return cls._construct_from(
             values=values,
-            requestor=stripe._APIRequestor._global_with_options(  # pyright: ignore[reportPrivateUsage]
+            requestor=_APIRequestor._global_with_options(  # pyright: ignore[reportPrivateUsage]
                 api_key=key,
                 stripe_version=stripe_version,
                 stripe_account=stripe_account,

@@ -1,16 +1,12 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.v2._list_object import ListObject
-from stripe.v2.money_management._outbound_setup_intent import (
-    OutboundSetupIntent,
-)
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._request_options import RequestOptions
     from stripe.params.v2.money_management._outbound_setup_intent_cancel_params import (
         OutboundSetupIntentCancelParams,
     )
@@ -26,19 +22,23 @@ if TYPE_CHECKING:
     from stripe.params.v2.money_management._outbound_setup_intent_update_params import (
         OutboundSetupIntentUpdateParams,
     )
+    from stripe.v2._list_object import ListObject
+    from stripe.v2.money_management._outbound_setup_intent import (
+        OutboundSetupIntent,
+    )
 
 
 class OutboundSetupIntentService(StripeService):
     def list(
         self,
         params: Optional["OutboundSetupIntentListParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[OutboundSetupIntent]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[OutboundSetupIntent]":
         """
         List the OutboundSetupIntent objects.
         """
         return cast(
-            ListObject[OutboundSetupIntent],
+            "ListObject[OutboundSetupIntent]",
             self._request(
                 "get",
                 "/v2/money_management/outbound_setup_intents",
@@ -51,13 +51,13 @@ class OutboundSetupIntentService(StripeService):
     async def list_async(
         self,
         params: Optional["OutboundSetupIntentListParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[OutboundSetupIntent]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[OutboundSetupIntent]":
         """
         List the OutboundSetupIntent objects.
         """
         return cast(
-            ListObject[OutboundSetupIntent],
+            "ListObject[OutboundSetupIntent]",
             await self._request_async(
                 "get",
                 "/v2/money_management/outbound_setup_intents",
@@ -70,13 +70,13 @@ class OutboundSetupIntentService(StripeService):
     def create(
         self,
         params: Optional["OutboundSetupIntentCreateParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> OutboundSetupIntent:
+        options: Optional["RequestOptions"] = None,
+    ) -> "OutboundSetupIntent":
         """
         Create an OutboundSetupIntent object.
         """
         return cast(
-            OutboundSetupIntent,
+            "OutboundSetupIntent",
             self._request(
                 "post",
                 "/v2/money_management/outbound_setup_intents",
@@ -89,13 +89,13 @@ class OutboundSetupIntentService(StripeService):
     async def create_async(
         self,
         params: Optional["OutboundSetupIntentCreateParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> OutboundSetupIntent:
+        options: Optional["RequestOptions"] = None,
+    ) -> "OutboundSetupIntent":
         """
         Create an OutboundSetupIntent object.
         """
         return cast(
-            OutboundSetupIntent,
+            "OutboundSetupIntent",
             await self._request_async(
                 "post",
                 "/v2/money_management/outbound_setup_intents",
@@ -109,13 +109,13 @@ class OutboundSetupIntentService(StripeService):
         self,
         id: str,
         params: Optional["OutboundSetupIntentRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> OutboundSetupIntent:
+        options: Optional["RequestOptions"] = None,
+    ) -> "OutboundSetupIntent":
         """
         Retrieve an OutboundSetupIntent object.
         """
         return cast(
-            OutboundSetupIntent,
+            "OutboundSetupIntent",
             self._request(
                 "get",
                 "/v2/money_management/outbound_setup_intents/{id}".format(
@@ -131,13 +131,13 @@ class OutboundSetupIntentService(StripeService):
         self,
         id: str,
         params: Optional["OutboundSetupIntentRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> OutboundSetupIntent:
+        options: Optional["RequestOptions"] = None,
+    ) -> "OutboundSetupIntent":
         """
         Retrieve an OutboundSetupIntent object.
         """
         return cast(
-            OutboundSetupIntent,
+            "OutboundSetupIntent",
             await self._request_async(
                 "get",
                 "/v2/money_management/outbound_setup_intents/{id}".format(
@@ -153,13 +153,13 @@ class OutboundSetupIntentService(StripeService):
         self,
         id: str,
         params: Optional["OutboundSetupIntentUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> OutboundSetupIntent:
+        options: Optional["RequestOptions"] = None,
+    ) -> "OutboundSetupIntent":
         """
         Update an OutboundSetupIntent object.
         """
         return cast(
-            OutboundSetupIntent,
+            "OutboundSetupIntent",
             self._request(
                 "post",
                 "/v2/money_management/outbound_setup_intents/{id}".format(
@@ -175,13 +175,13 @@ class OutboundSetupIntentService(StripeService):
         self,
         id: str,
         params: Optional["OutboundSetupIntentUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> OutboundSetupIntent:
+        options: Optional["RequestOptions"] = None,
+    ) -> "OutboundSetupIntent":
         """
         Update an OutboundSetupIntent object.
         """
         return cast(
-            OutboundSetupIntent,
+            "OutboundSetupIntent",
             await self._request_async(
                 "post",
                 "/v2/money_management/outbound_setup_intents/{id}".format(
@@ -197,13 +197,13 @@ class OutboundSetupIntentService(StripeService):
         self,
         id: str,
         params: Optional["OutboundSetupIntentCancelParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> OutboundSetupIntent:
+        options: Optional["RequestOptions"] = None,
+    ) -> "OutboundSetupIntent":
         """
         Cancel an OutboundSetupIntent object.
         """
         return cast(
-            OutboundSetupIntent,
+            "OutboundSetupIntent",
             self._request(
                 "post",
                 "/v2/money_management/outbound_setup_intents/{id}/cancel".format(
@@ -219,13 +219,13 @@ class OutboundSetupIntentService(StripeService):
         self,
         id: str,
         params: Optional["OutboundSetupIntentCancelParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> OutboundSetupIntent:
+        options: Optional["RequestOptions"] = None,
+    ) -> "OutboundSetupIntent":
         """
         Cancel an OutboundSetupIntent object.
         """
         return cast(
-            OutboundSetupIntent,
+            "OutboundSetupIntent",
             await self._request_async(
                 "post",
                 "/v2/money_management/outbound_setup_intents/{id}/cancel".format(

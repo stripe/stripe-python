@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.capital._financing_offer import FinancingOffer
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
+    from stripe.capital._financing_offer import FinancingOffer
     from stripe.params.capital._financing_offer_list_params import (
         FinancingOfferListParams,
     )
@@ -24,13 +24,13 @@ class FinancingOfferService(StripeService):
     def list(
         self,
         params: Optional["FinancingOfferListParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[FinancingOffer]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[FinancingOffer]":
         """
         Retrieves the financing offers available for Connected accounts that belong to your platform.
         """
         return cast(
-            ListObject[FinancingOffer],
+            "ListObject[FinancingOffer]",
             self._request(
                 "get",
                 "/v1/capital/financing_offers",
@@ -43,13 +43,13 @@ class FinancingOfferService(StripeService):
     async def list_async(
         self,
         params: Optional["FinancingOfferListParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[FinancingOffer]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[FinancingOffer]":
         """
         Retrieves the financing offers available for Connected accounts that belong to your platform.
         """
         return cast(
-            ListObject[FinancingOffer],
+            "ListObject[FinancingOffer]",
             await self._request_async(
                 "get",
                 "/v1/capital/financing_offers",
@@ -63,13 +63,13 @@ class FinancingOfferService(StripeService):
         self,
         financing_offer: str,
         params: Optional["FinancingOfferRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> FinancingOffer:
+        options: Optional["RequestOptions"] = None,
+    ) -> "FinancingOffer":
         """
         Get the details of the financing offer
         """
         return cast(
-            FinancingOffer,
+            "FinancingOffer",
             self._request(
                 "get",
                 "/v1/capital/financing_offers/{financing_offer}".format(
@@ -85,13 +85,13 @@ class FinancingOfferService(StripeService):
         self,
         financing_offer: str,
         params: Optional["FinancingOfferRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> FinancingOffer:
+        options: Optional["RequestOptions"] = None,
+    ) -> "FinancingOffer":
         """
         Get the details of the financing offer
         """
         return cast(
-            FinancingOffer,
+            "FinancingOffer",
             await self._request_async(
                 "get",
                 "/v1/capital/financing_offers/{financing_offer}".format(
@@ -107,14 +107,14 @@ class FinancingOfferService(StripeService):
         self,
         financing_offer: str,
         params: Optional["FinancingOfferMarkDeliveredParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> FinancingOffer:
+        options: Optional["RequestOptions"] = None,
+    ) -> "FinancingOffer":
         """
         Acknowledges that platform has received and delivered the financing_offer to
         the intended merchant recipient.
         """
         return cast(
-            FinancingOffer,
+            "FinancingOffer",
             self._request(
                 "post",
                 "/v1/capital/financing_offers/{financing_offer}/mark_delivered".format(
@@ -130,14 +130,14 @@ class FinancingOfferService(StripeService):
         self,
         financing_offer: str,
         params: Optional["FinancingOfferMarkDeliveredParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> FinancingOffer:
+        options: Optional["RequestOptions"] = None,
+    ) -> "FinancingOffer":
         """
         Acknowledges that platform has received and delivered the financing_offer to
         the intended merchant recipient.
         """
         return cast(
-            FinancingOffer,
+            "FinancingOffer",
             await self._request_async(
                 "post",
                 "/v1/capital/financing_offers/{financing_offer}/mark_delivered".format(

@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
-from stripe.apps._secret import Secret
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
+    from stripe.apps._secret import Secret
     from stripe.params.apps._secret_create_params import SecretCreateParams
     from stripe.params.apps._secret_delete_where_params import (
         SecretDeleteWhereParams,
@@ -20,13 +20,13 @@ class SecretService(StripeService):
     def list(
         self,
         params: "SecretListParams",
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[Secret]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[Secret]":
         """
         List all secrets stored on the given scope.
         """
         return cast(
-            ListObject[Secret],
+            "ListObject[Secret]",
             self._request(
                 "get",
                 "/v1/apps/secrets",
@@ -39,13 +39,13 @@ class SecretService(StripeService):
     async def list_async(
         self,
         params: "SecretListParams",
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[Secret]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[Secret]":
         """
         List all secrets stored on the given scope.
         """
         return cast(
-            ListObject[Secret],
+            "ListObject[Secret]",
             await self._request_async(
                 "get",
                 "/v1/apps/secrets",
@@ -58,13 +58,13 @@ class SecretService(StripeService):
     def create(
         self,
         params: "SecretCreateParams",
-        options: Optional[RequestOptions] = None,
-    ) -> Secret:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Secret":
         """
         Create or replace a secret in the secret store.
         """
         return cast(
-            Secret,
+            "Secret",
             self._request(
                 "post",
                 "/v1/apps/secrets",
@@ -77,13 +77,13 @@ class SecretService(StripeService):
     async def create_async(
         self,
         params: "SecretCreateParams",
-        options: Optional[RequestOptions] = None,
-    ) -> Secret:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Secret":
         """
         Create or replace a secret in the secret store.
         """
         return cast(
-            Secret,
+            "Secret",
             await self._request_async(
                 "post",
                 "/v1/apps/secrets",
@@ -96,13 +96,13 @@ class SecretService(StripeService):
     def find(
         self,
         params: "SecretFindParams",
-        options: Optional[RequestOptions] = None,
-    ) -> Secret:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Secret":
         """
         Finds a secret in the secret store by name and scope.
         """
         return cast(
-            Secret,
+            "Secret",
             self._request(
                 "get",
                 "/v1/apps/secrets/find",
@@ -115,13 +115,13 @@ class SecretService(StripeService):
     async def find_async(
         self,
         params: "SecretFindParams",
-        options: Optional[RequestOptions] = None,
-    ) -> Secret:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Secret":
         """
         Finds a secret in the secret store by name and scope.
         """
         return cast(
-            Secret,
+            "Secret",
             await self._request_async(
                 "get",
                 "/v1/apps/secrets/find",
@@ -134,13 +134,13 @@ class SecretService(StripeService):
     def delete_where(
         self,
         params: "SecretDeleteWhereParams",
-        options: Optional[RequestOptions] = None,
-    ) -> Secret:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Secret":
         """
         Deletes a secret from the secret store by name and scope.
         """
         return cast(
-            Secret,
+            "Secret",
             self._request(
                 "post",
                 "/v1/apps/secrets/delete",
@@ -153,13 +153,13 @@ class SecretService(StripeService):
     async def delete_where_async(
         self,
         params: "SecretDeleteWhereParams",
-        options: Optional[RequestOptions] = None,
-    ) -> Secret:
+        options: Optional["RequestOptions"] = None,
+    ) -> "Secret":
         """
         Deletes a secret from the secret store by name and scope.
         """
         return cast(
-            Secret,
+            "Secret",
             await self._request_async(
                 "post",
                 "/v1/apps/secrets/delete",
