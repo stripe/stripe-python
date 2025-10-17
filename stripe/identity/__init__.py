@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe.identity._blocklist_entry import BlocklistEntry as BlocklistEntry
+from stripe.identity._blocklist_entry_service import (
+    BlocklistEntryService as BlocklistEntryService,
+)
 from stripe.identity._verification_report import (
     VerificationReport as VerificationReport,
 )

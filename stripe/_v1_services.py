@@ -22,6 +22,7 @@ from stripe._coupon_service import CouponService
 from stripe._credit_note_service import CreditNoteService
 from stripe._customer_service import CustomerService
 from stripe._customer_session_service import CustomerSessionService
+from stripe._delegated_checkout_service import DelegatedCheckoutService
 from stripe._dispute_service import DisputeService
 from stripe._entitlements_service import EntitlementsService
 from stripe._ephemeral_key_service import EphemeralKeyService
@@ -111,6 +112,7 @@ class V1Services(StripeService):
         self.credit_notes = CreditNoteService(self._requestor)
         self.customers = CustomerService(self._requestor)
         self.customer_sessions = CustomerSessionService(self._requestor)
+        self.delegated_checkout = DelegatedCheckoutService(self._requestor)
         self.disputes = DisputeService(self._requestor)
         self.entitlements = EntitlementsService(self._requestor)
         self.ephemeral_keys = EphemeralKeyService(self._requestor)

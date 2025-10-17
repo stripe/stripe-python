@@ -7,6 +7,7 @@ from stripe.params import (
     capital as capital,
     checkout as checkout,
     climate as climate,
+    delegated_checkout as delegated_checkout,
     entitlements as entitlements,
     financial_connections as financial_connections,
     forwarding as forwarding,

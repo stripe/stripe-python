@@ -5,18 +5,10 @@ from typing import List
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
-class VerificationReportListParams(RequestOptions):
-    blocked_by_entry: NotRequired[str]
+class BlocklistEntryListParams(RequestOptions):
+    created: NotRequired["BlocklistEntryListParamsCreated|int"]
     """
-    Only return VerificationReports that were blocked by this BlocklistEntry id.
-    """
-    client_reference_id: NotRequired[str]
-    """
-    A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.
-    """
-    created: NotRequired["VerificationReportListParamsCreated|int"]
-    """
-    Only return VerificationReports that were created during the given date interval.
+    Only return BlocklistEntries that were created during the given date interval.
     """
     ending_before: NotRequired[str]
     """
@@ -34,17 +26,21 @@ class VerificationReportListParams(RequestOptions):
     """
     A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
     """
-    type: NotRequired[Literal["document", "id_number"]]
+    status: NotRequired[Literal["active", "disabled", "redacted"]]
     """
-    Only return VerificationReports of this type
+    Only return blocklist entries with the specified status.
     """
-    verification_session: NotRequired[str]
+    type: NotRequired[Literal["document", "selfie"]]
     """
-    Only return VerificationReports created by this VerificationSession ID. It is allowed to provide a VerificationIntent ID.
+    Only return blocklist entries of the specified type.
+    """
+    verification_report: NotRequired[str]
+    """
+    Only return blocklist entries created from this verification report.
     """
 
 
-class VerificationReportListParamsCreated(TypedDict):
+class BlocklistEntryListParamsCreated(TypedDict):
     gt: NotRequired[int]
     """
     Minimum value to filter by (exclusive)
