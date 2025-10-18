@@ -20,6 +20,7 @@ class PaymentIntentAmountDetailsLineItem(StripeObject):
         class Klarna(StripeObject):
             image_url: Optional[str]
             product_url: Optional[str]
+            reference: Optional[str]
 
         class Paypal(StripeObject):
             category: Optional[

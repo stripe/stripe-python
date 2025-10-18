@@ -104,6 +104,7 @@ if TYPE_CHECKING:
         SessionCreateParamsPaymentMethodOptionsSepaDebitMandateOptions as SessionCreateParamsPaymentMethodOptionsSepaDebitMandateOptions,
         SessionCreateParamsPaymentMethodOptionsSofort as SessionCreateParamsPaymentMethodOptionsSofort,
         SessionCreateParamsPaymentMethodOptionsSwish as SessionCreateParamsPaymentMethodOptionsSwish,
+        SessionCreateParamsPaymentMethodOptionsTwint as SessionCreateParamsPaymentMethodOptionsTwint,
         SessionCreateParamsPaymentMethodOptionsUsBankAccount as SessionCreateParamsPaymentMethodOptionsUsBankAccount,
         SessionCreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections as SessionCreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections,
         SessionCreateParamsPaymentMethodOptionsWechatPay as SessionCreateParamsPaymentMethodOptionsWechatPay,
@@ -601,6 +602,10 @@ _import_map = {
         False,
     ),
     "SessionCreateParamsPaymentMethodOptionsSwish": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsTwint": (
         "stripe.params.checkout._session_create_params",
         False,
     ),

@@ -32,7 +32,7 @@ class Configuration(
     UpdateableAPIResource["Configuration"],
 ):
     """
-    A portal configuration describes the functionality and behavior of a portal session.
+    A portal configuration describes the functionality and behavior you embed in a portal session. Related guide: [Configure the customer portal](https://docs.stripe.com/customer-management/configure-portal).
     """
 
     OBJECT_NAME: ClassVar[Literal["billing_portal.configuration"]] = (

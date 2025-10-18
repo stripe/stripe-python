@@ -916,6 +916,12 @@ class Registration(
             Type of registration in `country`.
             """
 
+        class Tw(StripeObject):
+            type: Literal["simplified"]
+            """
+            Type of registration in `country`.
+            """
+
         class Tz(StripeObject):
             type: Literal["simplified"]
             """
@@ -1116,6 +1122,7 @@ class Registration(
         th: Optional[Th]
         tj: Optional[Tj]
         tr: Optional[Tr]
+        tw: Optional[Tw]
         tz: Optional[Tz]
         ua: Optional[Ua]
         ug: Optional[Ug]
@@ -1216,6 +1223,7 @@ class Registration(
             "th": Th,
             "tj": Tj,
             "tr": Tr,
+            "tw": Tw,
             "tz": Tz,
             "ua": Ua,
             "ug": Ug,

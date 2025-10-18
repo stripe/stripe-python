@@ -22,6 +22,7 @@ if TYPE_CHECKING:
         ConfigurationCreateParamsTippingDkk as ConfigurationCreateParamsTippingDkk,
         ConfigurationCreateParamsTippingEur as ConfigurationCreateParamsTippingEur,
         ConfigurationCreateParamsTippingGbp as ConfigurationCreateParamsTippingGbp,
+        ConfigurationCreateParamsTippingGip as ConfigurationCreateParamsTippingGip,
         ConfigurationCreateParamsTippingHkd as ConfigurationCreateParamsTippingHkd,
         ConfigurationCreateParamsTippingHuf as ConfigurationCreateParamsTippingHuf,
         ConfigurationCreateParamsTippingJpy as ConfigurationCreateParamsTippingJpy,
@@ -64,6 +65,7 @@ if TYPE_CHECKING:
         ConfigurationModifyParamsTippingDkk as ConfigurationModifyParamsTippingDkk,
         ConfigurationModifyParamsTippingEur as ConfigurationModifyParamsTippingEur,
         ConfigurationModifyParamsTippingGbp as ConfigurationModifyParamsTippingGbp,
+        ConfigurationModifyParamsTippingGip as ConfigurationModifyParamsTippingGip,
         ConfigurationModifyParamsTippingHkd as ConfigurationModifyParamsTippingHkd,
         ConfigurationModifyParamsTippingHuf as ConfigurationModifyParamsTippingHuf,
         ConfigurationModifyParamsTippingJpy as ConfigurationModifyParamsTippingJpy,
@@ -103,6 +105,7 @@ if TYPE_CHECKING:
         ConfigurationUpdateParamsTippingDkk as ConfigurationUpdateParamsTippingDkk,
         ConfigurationUpdateParamsTippingEur as ConfigurationUpdateParamsTippingEur,
         ConfigurationUpdateParamsTippingGbp as ConfigurationUpdateParamsTippingGbp,
+        ConfigurationUpdateParamsTippingGip as ConfigurationUpdateParamsTippingGip,
         ConfigurationUpdateParamsTippingHkd as ConfigurationUpdateParamsTippingHkd,
         ConfigurationUpdateParamsTippingHuf as ConfigurationUpdateParamsTippingHuf,
         ConfigurationUpdateParamsTippingJpy as ConfigurationUpdateParamsTippingJpy,
@@ -298,6 +301,10 @@ _import_map = {
         "stripe.params.terminal._configuration_create_params",
         False,
     ),
+    "ConfigurationCreateParamsTippingGip": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
     "ConfigurationCreateParamsTippingHkd": (
         "stripe.params.terminal._configuration_create_params",
         False,
@@ -442,6 +449,10 @@ _import_map = {
         "stripe.params.terminal._configuration_modify_params",
         False,
     ),
+    "ConfigurationModifyParamsTippingGip": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
     "ConfigurationModifyParamsTippingHkd": (
         "stripe.params.terminal._configuration_modify_params",
         False,
@@ -579,6 +590,10 @@ _import_map = {
         False,
     ),
     "ConfigurationUpdateParamsTippingGbp": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsTippingGip": (
         "stripe.params.terminal._configuration_update_params",
         False,
     ),

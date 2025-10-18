@@ -246,6 +246,10 @@ class PaymentIntentConfirmParamsAmountDetailsLineItemPaymentMethodOptionsKlarna(
     """
     URL to the product page. Max length, 4096 characters.
     """
+    reference: NotRequired[str]
+    """
+    Unique reference for this line item to correlate it with your system's internal records. The field is displayed in the Klarna Consumer App if passed.
+    """
     subscription_reference: NotRequired[str]
     """
     Reference for the subscription this line item is for.

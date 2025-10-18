@@ -10,7 +10,7 @@ class ReaderCollectPaymentMethodParams(RequestOptions):
         "ReaderCollectPaymentMethodParamsCollectConfig"
     ]
     """
-    Configuration overrides.
+    Configuration overrides for this collection, such as tipping, surcharging, and customer cancellation settings.
     """
     expand: NotRequired[List[str]]
     """
@@ -18,7 +18,7 @@ class ReaderCollectPaymentMethodParams(RequestOptions):
     """
     payment_intent: str
     """
-    PaymentIntent ID.
+    The ID of the PaymentIntent to collect a payment method for.
     """
 
 

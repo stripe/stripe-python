@@ -1566,6 +1566,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "card_present",
             "cashapp",
             "crypto",
+            "custom",
             "customer_balance",
             "eps",
             "fpx",

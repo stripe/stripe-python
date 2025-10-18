@@ -388,6 +388,10 @@ class RegistrationCreateParamsCountryOptions(
     """
     Options for the registration in TR.
     """
+    tw: NotRequired["RegistrationCreateParamsCountryOptionsTw"]
+    """
+    Options for the registration in TW.
+    """
     tz: NotRequired["RegistrationCreateParamsCountryOptionsTz"]
     """
     Options for the registration in TZ.
@@ -1708,6 +1712,13 @@ class RegistrationCreateParamsCountryOptionsTj(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsTr(TypedDict):
+    type: Literal["simplified"]
+    """
+    Type of registration to be created in `country`.
+    """
+
+
+class RegistrationCreateParamsCountryOptionsTw(TypedDict):
     type: Literal["simplified"]
     """
     Type of registration to be created in `country`.
