@@ -3272,6 +3272,7 @@ if TYPE_CHECKING:
         PaymentMethodCreateParamsCardNetworks as PaymentMethodCreateParamsCardNetworks,
         PaymentMethodCreateParamsCashapp as PaymentMethodCreateParamsCashapp,
         PaymentMethodCreateParamsCrypto as PaymentMethodCreateParamsCrypto,
+        PaymentMethodCreateParamsCustom as PaymentMethodCreateParamsCustom,
         PaymentMethodCreateParamsCustomerBalance as PaymentMethodCreateParamsCustomerBalance,
         PaymentMethodCreateParamsEps as PaymentMethodCreateParamsEps,
         PaymentMethodCreateParamsFpx as PaymentMethodCreateParamsFpx,
@@ -15651,6 +15652,10 @@ _import_map = {
         False,
     ),
     "PaymentMethodCreateParamsCrypto": (
+        "stripe.params._payment_method_create_params",
+        False,
+    ),
+    "PaymentMethodCreateParamsCustom": (
         "stripe.params._payment_method_create_params",
         False,
     ),
