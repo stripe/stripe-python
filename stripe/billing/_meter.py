@@ -7,7 +7,7 @@ from stripe._nested_resource_class_methods import nested_resource_class_methods
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, Optional, cast, overload
+from typing import ClassVar, List, Optional, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -77,6 +77,10 @@ class Meter(
     """
     customer_mapping: CustomerMapping
     default_aggregation: DefaultAggregation
+    dimension_payload_keys: Optional[List[str]]
+    """
+    Set of keys that will be used to group meter events by.
+    """
     display_name: str
     """
     The meter's name.
