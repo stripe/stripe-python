@@ -42,7 +42,7 @@ class Event(StripeObject):
         """
         _inner_class_types = {"request": Request}
 
-    changes: Optional[Dict[str, Any]]
+    changes: Optional[Dict[str, "Any"]]
     """
     Before and after changes for the primary related object.
     """
@@ -180,12 +180,10 @@ class EventNotification:
 
         # circular import busting
         from stripe.events._event_classes import (
-            V2_EVENT_NOTIFICATION_CLASS_LOOKUP,
+            get_v2_event_notification_class,
         )
 
-        event_class = V2_EVENT_NOTIFICATION_CLASS_LOOKUP.get(
-            parsed_body["type"], UnknownEventNotification
-        )
+        event_class = get_v2_event_notification_class(parsed_body["type"])
 
         return event_class(parsed_body, client)
 

@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.v2._list_object import ListObject
-from stripe.v2.billing._license_fee_version import LicenseFeeVersion
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._request_options import RequestOptions
     from stripe.params.v2.billing.license_fees._version_list_params import (
         VersionListParams,
     )
     from stripe.params.v2.billing.license_fees._version_retrieve_params import (
         VersionRetrieveParams,
     )
+    from stripe.v2._list_object import ListObject
+    from stripe.v2.billing._license_fee_version import LicenseFeeVersion
 
 
 class VersionService(StripeService):
@@ -22,13 +22,13 @@ class VersionService(StripeService):
         self,
         license_fee_id: str,
         params: Optional["VersionListParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[LicenseFeeVersion]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[LicenseFeeVersion]":
         """
         List all versions of a License Fee object.
         """
         return cast(
-            ListObject[LicenseFeeVersion],
+            "ListObject[LicenseFeeVersion]",
             self._request(
                 "get",
                 "/v2/billing/license_fees/{license_fee_id}/versions".format(
@@ -44,13 +44,13 @@ class VersionService(StripeService):
         self,
         license_fee_id: str,
         params: Optional["VersionListParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[LicenseFeeVersion]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[LicenseFeeVersion]":
         """
         List all versions of a License Fee object.
         """
         return cast(
-            ListObject[LicenseFeeVersion],
+            "ListObject[LicenseFeeVersion]",
             await self._request_async(
                 "get",
                 "/v2/billing/license_fees/{license_fee_id}/versions".format(
@@ -67,13 +67,13 @@ class VersionService(StripeService):
         license_fee_id: str,
         id: str,
         params: Optional["VersionRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> LicenseFeeVersion:
+        options: Optional["RequestOptions"] = None,
+    ) -> "LicenseFeeVersion":
         """
         Retrieve a License Fee Version object.
         """
         return cast(
-            LicenseFeeVersion,
+            "LicenseFeeVersion",
             self._request(
                 "get",
                 "/v2/billing/license_fees/{license_fee_id}/versions/{id}".format(
@@ -91,13 +91,13 @@ class VersionService(StripeService):
         license_fee_id: str,
         id: str,
         params: Optional["VersionRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> LicenseFeeVersion:
+        options: Optional["RequestOptions"] = None,
+    ) -> "LicenseFeeVersion":
         """
         Retrieve a License Fee Version object.
         """
         return cast(
-            LicenseFeeVersion,
+            "LicenseFeeVersion",
             await self._request_async(
                 "get",
                 "/v2/billing/license_fees/{license_fee_id}/versions/{id}".format(

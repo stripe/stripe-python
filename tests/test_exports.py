@@ -58,6 +58,16 @@ def test_can_import_abstract() -> None:
     )
 
 
+def test_can_import_infrastructure() -> None:
+    from stripe import (
+        StripeContext,  # pyright: ignore[reportUnusedImport]
+        StripeObject,  # pyright: ignore[reportUnusedImport]
+        ListObject,  # pyright: ignore[reportUnusedImport]
+        BaseAddress,  # pyright: ignore[reportUnusedImport]
+    )
+    from stripe.v2 import DeletedObject  # pyright: ignore[reportUnusedImport]
+
+
 def test_can_import_app_info() -> None:
     from stripe import AppInfo  # pyright: ignore[reportUnusedImport]
 
@@ -67,6 +77,7 @@ def test_can_import_stripe_response() -> None:
         StripeResponse,  # pyright: ignore[reportUnusedImport]
         StripeResponseBase,  # pyright: ignore[reportUnusedImport]
         StripeStreamResponse,  # pyright: ignore[reportUnusedImport]
+        StripeStreamResponseAsync,  # pyright: ignore[reportUnusedImport]
     )
 
 
@@ -84,6 +95,7 @@ def test_can_import_errors() -> None:
     # fmt: off
     from stripe import StripeError  # pyright: ignore[reportUnusedImport]
     from stripe import APIError  # pyright: ignore[reportUnusedImport]
+    from stripe import OAuthErrorObject  # pyright: ignore[reportUnusedImport]
     from stripe import APIConnectionError  # pyright: ignore[reportUnusedImport]
     from stripe import StripeErrorWithParamCode  # pyright: ignore[reportUnusedImport]
     from stripe import CardError  # pyright: ignore[reportUnusedImport]
@@ -132,9 +144,30 @@ def test_can_import_namespaced_service() -> None:
     assert_output("stripe.tax.CalculationService is not None", "True")
 
 
+def test_can_import_deeply_namespaced_service() -> None:
+    from stripe import v2 as V2Package
+    from stripe.v2 import billing as BillingPackage
+    from stripe.v2.billing import (
+        MeterEventService as MeterEventServiceFromStripe,
+    )
+    from stripe.v2.billing._meter_event_service import (
+        MeterEventService as MeterEventServiceFromModule,
+    )
+
+    assert stripe.v2 is V2Package
+    assert stripe.v2.billing is BillingPackage
+    assert stripe.v2.billing.MeterEventService is MeterEventServiceFromStripe
+    assert stripe.v2.billing.MeterEventService is MeterEventServiceFromModule
+
+    assert_output("stripe.v2.billing.MeterEventService is not None", "True")
+    assert_output("stripe.v2.billing.MeterEventService is not None", "True")
+
+
 def test_can_import_nested_params_types() -> None:
     from stripe.params.checkout import (
         SessionCreateParamsLineItem,
     )
+    from stripe.params import AccountSessionCreateParamsComponents
 
     assert SessionCreateParamsLineItem is not None
+    assert AccountSessionCreateParamsComponents is not None
