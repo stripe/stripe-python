@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.delegated_checkout._requested_session import RequestedSession
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._request_options import RequestOptions
+    from stripe.delegated_checkout._requested_session import RequestedSession
     from stripe.params.delegated_checkout._requested_session_confirm_params import (
         RequestedSessionConfirmParams,
     )
@@ -30,13 +30,13 @@ class RequestedSessionService(StripeService):
         self,
         requested_session: str,
         params: Optional["RequestedSessionRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> RequestedSession:
+        options: Optional["RequestOptions"] = None,
+    ) -> "RequestedSession":
         """
         Retrieves a requested session
         """
         return cast(
-            RequestedSession,
+            "RequestedSession",
             self._request(
                 "get",
                 "/v1/delegated_checkout/requested_sessions/{requested_session}".format(
@@ -52,13 +52,13 @@ class RequestedSessionService(StripeService):
         self,
         requested_session: str,
         params: Optional["RequestedSessionRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> RequestedSession:
+        options: Optional["RequestOptions"] = None,
+    ) -> "RequestedSession":
         """
         Retrieves a requested session
         """
         return cast(
-            RequestedSession,
+            "RequestedSession",
             await self._request_async(
                 "get",
                 "/v1/delegated_checkout/requested_sessions/{requested_session}".format(
@@ -74,13 +74,13 @@ class RequestedSessionService(StripeService):
         self,
         requested_session: str,
         params: Optional["RequestedSessionUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> RequestedSession:
+        options: Optional["RequestOptions"] = None,
+    ) -> "RequestedSession":
         """
         Updates a requested session
         """
         return cast(
-            RequestedSession,
+            "RequestedSession",
             self._request(
                 "post",
                 "/v1/delegated_checkout/requested_sessions/{requested_session}".format(
@@ -96,13 +96,13 @@ class RequestedSessionService(StripeService):
         self,
         requested_session: str,
         params: Optional["RequestedSessionUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> RequestedSession:
+        options: Optional["RequestOptions"] = None,
+    ) -> "RequestedSession":
         """
         Updates a requested session
         """
         return cast(
-            RequestedSession,
+            "RequestedSession",
             await self._request_async(
                 "post",
                 "/v1/delegated_checkout/requested_sessions/{requested_session}".format(
@@ -117,13 +117,13 @@ class RequestedSessionService(StripeService):
     def create(
         self,
         params: Optional["RequestedSessionCreateParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> RequestedSession:
+        options: Optional["RequestOptions"] = None,
+    ) -> "RequestedSession":
         """
         Creates a requested session
         """
         return cast(
-            RequestedSession,
+            "RequestedSession",
             self._request(
                 "post",
                 "/v1/delegated_checkout/requested_sessions",
@@ -136,13 +136,13 @@ class RequestedSessionService(StripeService):
     async def create_async(
         self,
         params: Optional["RequestedSessionCreateParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> RequestedSession:
+        options: Optional["RequestOptions"] = None,
+    ) -> "RequestedSession":
         """
         Creates a requested session
         """
         return cast(
-            RequestedSession,
+            "RequestedSession",
             await self._request_async(
                 "post",
                 "/v1/delegated_checkout/requested_sessions",
@@ -156,13 +156,13 @@ class RequestedSessionService(StripeService):
         self,
         requested_session: str,
         params: Optional["RequestedSessionConfirmParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> RequestedSession:
+        options: Optional["RequestOptions"] = None,
+    ) -> "RequestedSession":
         """
         Confirms a requested session
         """
         return cast(
-            RequestedSession,
+            "RequestedSession",
             self._request(
                 "post",
                 "/v1/delegated_checkout/requested_sessions/{requested_session}/confirm".format(
@@ -178,13 +178,13 @@ class RequestedSessionService(StripeService):
         self,
         requested_session: str,
         params: Optional["RequestedSessionConfirmParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> RequestedSession:
+        options: Optional["RequestOptions"] = None,
+    ) -> "RequestedSession":
         """
         Confirms a requested session
         """
         return cast(
-            RequestedSession,
+            "RequestedSession",
             await self._request_async(
                 "post",
                 "/v1/delegated_checkout/requested_sessions/{requested_session}/confirm".format(
@@ -200,13 +200,13 @@ class RequestedSessionService(StripeService):
         self,
         requested_session: str,
         params: Optional["RequestedSessionExpireParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> RequestedSession:
+        options: Optional["RequestOptions"] = None,
+    ) -> "RequestedSession":
         """
         Expires a requested session
         """
         return cast(
-            RequestedSession,
+            "RequestedSession",
             self._request(
                 "post",
                 "/v1/delegated_checkout/requested_sessions/{requested_session}/expire".format(
@@ -222,13 +222,13 @@ class RequestedSessionService(StripeService):
         self,
         requested_session: str,
         params: Optional["RequestedSessionExpireParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> RequestedSession:
+        options: Optional["RequestOptions"] = None,
+    ) -> "RequestedSession":
         """
         Expires a requested session
         """
         return cast(
-            RequestedSession,
+            "RequestedSession",
             await self._request_async(
                 "post",
                 "/v1/delegated_checkout/requested_sessions/{requested_session}/expire".format(

@@ -1,18 +1,19 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._credit_note import CreditNote
-from stripe._credit_note_line_item_service import CreditNoteLineItemService
-from stripe._credit_note_preview_lines_service import (
-    CreditNotePreviewLinesService,
-)
-from stripe._list_object import ListObject
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
+from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._credit_note import CreditNote
+    from stripe._credit_note_line_item_service import CreditNoteLineItemService
+    from stripe._credit_note_preview_lines_service import (
+        CreditNotePreviewLinesService,
+    )
+    from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
     from stripe.params._credit_note_create_params import CreditNoteCreateParams
     from stripe.params._credit_note_list_params import CreditNoteListParams
     from stripe.params._credit_note_preview_params import (
@@ -26,23 +27,51 @@ if TYPE_CHECKING:
         CreditNoteVoidCreditNoteParams,
     )
 
+_subservices = {
+    "line_items": [
+        "stripe._credit_note_line_item_service",
+        "CreditNoteLineItemService",
+    ],
+    "preview_lines": [
+        "stripe._credit_note_preview_lines_service",
+        "CreditNotePreviewLinesService",
+    ],
+}
+
 
 class CreditNoteService(StripeService):
+    line_items: "CreditNoteLineItemService"
+    preview_lines: "CreditNotePreviewLinesService"
+
     def __init__(self, requestor):
         super().__init__(requestor)
-        self.line_items = CreditNoteLineItemService(self._requestor)
-        self.preview_lines = CreditNotePreviewLinesService(self._requestor)
+
+    def __getattr__(self, name):
+        try:
+            import_from, service = _subservices[name]
+            service_class = getattr(
+                import_module(import_from),
+                service,
+            )
+            setattr(
+                self,
+                name,
+                service_class(self._requestor),
+            )
+            return getattr(self, name)
+        except KeyError:
+            raise AttributeError()
 
     def list(
         self,
         params: Optional["CreditNoteListParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[CreditNote]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[CreditNote]":
         """
         Returns a list of credit notes.
         """
         return cast(
-            ListObject[CreditNote],
+            "ListObject[CreditNote]",
             self._request(
                 "get",
                 "/v1/credit_notes",
@@ -55,13 +84,13 @@ class CreditNoteService(StripeService):
     async def list_async(
         self,
         params: Optional["CreditNoteListParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[CreditNote]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[CreditNote]":
         """
         Returns a list of credit notes.
         """
         return cast(
-            ListObject[CreditNote],
+            "ListObject[CreditNote]",
             await self._request_async(
                 "get",
                 "/v1/credit_notes",
@@ -74,8 +103,8 @@ class CreditNoteService(StripeService):
     def create(
         self,
         params: "CreditNoteCreateParams",
-        options: Optional[RequestOptions] = None,
-    ) -> CreditNote:
+        options: Optional["RequestOptions"] = None,
+    ) -> "CreditNote":
         """
         Issue a credit note to adjust the amount of a finalized invoice. A credit note will first reduce the invoice's amount_remaining (and amount_due), but not below zero.
         This amount is indicated by the credit note's pre_payment_amount. The excess amount is indicated by post_payment_amount, and it can result in any combination of the following:
@@ -92,7 +121,7 @@ class CreditNoteService(StripeService):
         post_payment_credit_notes_amount, or both, depending on the invoice's amount_remaining at the time of credit note creation.
         """
         return cast(
-            CreditNote,
+            "CreditNote",
             self._request(
                 "post",
                 "/v1/credit_notes",
@@ -105,8 +134,8 @@ class CreditNoteService(StripeService):
     async def create_async(
         self,
         params: "CreditNoteCreateParams",
-        options: Optional[RequestOptions] = None,
-    ) -> CreditNote:
+        options: Optional["RequestOptions"] = None,
+    ) -> "CreditNote":
         """
         Issue a credit note to adjust the amount of a finalized invoice. A credit note will first reduce the invoice's amount_remaining (and amount_due), but not below zero.
         This amount is indicated by the credit note's pre_payment_amount. The excess amount is indicated by post_payment_amount, and it can result in any combination of the following:
@@ -123,7 +152,7 @@ class CreditNoteService(StripeService):
         post_payment_credit_notes_amount, or both, depending on the invoice's amount_remaining at the time of credit note creation.
         """
         return cast(
-            CreditNote,
+            "CreditNote",
             await self._request_async(
                 "post",
                 "/v1/credit_notes",
@@ -137,13 +166,13 @@ class CreditNoteService(StripeService):
         self,
         id: str,
         params: Optional["CreditNoteRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> CreditNote:
+        options: Optional["RequestOptions"] = None,
+    ) -> "CreditNote":
         """
         Retrieves the credit note object with the given identifier.
         """
         return cast(
-            CreditNote,
+            "CreditNote",
             self._request(
                 "get",
                 "/v1/credit_notes/{id}".format(id=sanitize_id(id)),
@@ -157,13 +186,13 @@ class CreditNoteService(StripeService):
         self,
         id: str,
         params: Optional["CreditNoteRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> CreditNote:
+        options: Optional["RequestOptions"] = None,
+    ) -> "CreditNote":
         """
         Retrieves the credit note object with the given identifier.
         """
         return cast(
-            CreditNote,
+            "CreditNote",
             await self._request_async(
                 "get",
                 "/v1/credit_notes/{id}".format(id=sanitize_id(id)),
@@ -177,13 +206,13 @@ class CreditNoteService(StripeService):
         self,
         id: str,
         params: Optional["CreditNoteUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> CreditNote:
+        options: Optional["RequestOptions"] = None,
+    ) -> "CreditNote":
         """
         Updates an existing credit note.
         """
         return cast(
-            CreditNote,
+            "CreditNote",
             self._request(
                 "post",
                 "/v1/credit_notes/{id}".format(id=sanitize_id(id)),
@@ -197,13 +226,13 @@ class CreditNoteService(StripeService):
         self,
         id: str,
         params: Optional["CreditNoteUpdateParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> CreditNote:
+        options: Optional["RequestOptions"] = None,
+    ) -> "CreditNote":
         """
         Updates an existing credit note.
         """
         return cast(
-            CreditNote,
+            "CreditNote",
             await self._request_async(
                 "post",
                 "/v1/credit_notes/{id}".format(id=sanitize_id(id)),
@@ -216,13 +245,13 @@ class CreditNoteService(StripeService):
     def preview(
         self,
         params: "CreditNotePreviewParams",
-        options: Optional[RequestOptions] = None,
-    ) -> CreditNote:
+        options: Optional["RequestOptions"] = None,
+    ) -> "CreditNote":
         """
         Get a preview of a credit note without creating it.
         """
         return cast(
-            CreditNote,
+            "CreditNote",
             self._request(
                 "get",
                 "/v1/credit_notes/preview",
@@ -235,13 +264,13 @@ class CreditNoteService(StripeService):
     async def preview_async(
         self,
         params: "CreditNotePreviewParams",
-        options: Optional[RequestOptions] = None,
-    ) -> CreditNote:
+        options: Optional["RequestOptions"] = None,
+    ) -> "CreditNote":
         """
         Get a preview of a credit note without creating it.
         """
         return cast(
-            CreditNote,
+            "CreditNote",
             await self._request_async(
                 "get",
                 "/v1/credit_notes/preview",
@@ -255,13 +284,13 @@ class CreditNoteService(StripeService):
         self,
         id: str,
         params: Optional["CreditNoteVoidCreditNoteParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> CreditNote:
+        options: Optional["RequestOptions"] = None,
+    ) -> "CreditNote":
         """
         Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
         """
         return cast(
-            CreditNote,
+            "CreditNote",
             self._request(
                 "post",
                 "/v1/credit_notes/{id}/void".format(id=sanitize_id(id)),
@@ -275,13 +304,13 @@ class CreditNoteService(StripeService):
         self,
         id: str,
         params: Optional["CreditNoteVoidCreditNoteParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> CreditNote:
+        options: Optional["RequestOptions"] = None,
+    ) -> "CreditNote":
         """
         Marks a credit note as void. Learn more about [voiding credit notes](https://docs.stripe.com/docs/billing/invoices/credit-notes#voiding).
         """
         return cast(
-            CreditNote,
+            "CreditNote",
             await self._request_async(
                 "post",
                 "/v1/credit_notes/{id}/void".format(id=sanitize_id(id)),

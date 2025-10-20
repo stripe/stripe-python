@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import Any, ClassVar, Dict, List, Optional
-from typing_extensions import Literal
+from typing import ClassVar, Dict, List, Optional
+from typing_extensions import Literal, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from typing import Any
 
 
 class CollectionSettingVersion(StripeObject):
@@ -184,11 +187,11 @@ class CollectionSettingVersion(StripeObject):
         """
         This sub-hash contains details about the Bank transfer payment method options.
         """
-        konbini: Optional[Dict[str, Any]]
+        konbini: Optional[Dict[str, "Any"]]
         """
         This sub-hash contains details about the Konbini payment method options.
         """
-        sepa_debit: Optional[Dict[str, Any]]
+        sepa_debit: Optional[Dict[str, "Any"]]
         """
         This sub-hash contains details about the SEPA Direct Debit payment method options.
         """

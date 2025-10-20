@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._list_object import ListObject
-from stripe._request_options import RequestOptions
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
-from stripe.identity._blocklist_entry import BlocklistEntry
 from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
+    from stripe._request_options import RequestOptions
+    from stripe.identity._blocklist_entry import BlocklistEntry
     from stripe.params.identity._blocklist_entry_create_params import (
         BlocklistEntryCreateParams,
     )
@@ -27,8 +27,8 @@ class BlocklistEntryService(StripeService):
     def list(
         self,
         params: Optional["BlocklistEntryListParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[BlocklistEntry]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[BlocklistEntry]":
         """
         Returns a list of BlocklistEntry objects associated with your account.
 
@@ -38,7 +38,7 @@ class BlocklistEntryService(StripeService):
         Related guide: [Identity Verification Blocklist](https://docs.stripe.com/docs/identity/review-tools#block-list)
         """
         return cast(
-            ListObject[BlocklistEntry],
+            "ListObject[BlocklistEntry]",
             self._request(
                 "get",
                 "/v1/identity/blocklist_entries",
@@ -51,8 +51,8 @@ class BlocklistEntryService(StripeService):
     async def list_async(
         self,
         params: Optional["BlocklistEntryListParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> ListObject[BlocklistEntry]:
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[BlocklistEntry]":
         """
         Returns a list of BlocklistEntry objects associated with your account.
 
@@ -62,7 +62,7 @@ class BlocklistEntryService(StripeService):
         Related guide: [Identity Verification Blocklist](https://docs.stripe.com/docs/identity/review-tools#block-list)
         """
         return cast(
-            ListObject[BlocklistEntry],
+            "ListObject[BlocklistEntry]",
             await self._request_async(
                 "get",
                 "/v1/identity/blocklist_entries",
@@ -75,8 +75,8 @@ class BlocklistEntryService(StripeService):
     def create(
         self,
         params: "BlocklistEntryCreateParams",
-        options: Optional[RequestOptions] = None,
-    ) -> BlocklistEntry:
+        options: Optional["RequestOptions"] = None,
+    ) -> "BlocklistEntry":
         """
         Creates a BlocklistEntry object from a verification report.
 
@@ -87,7 +87,7 @@ class BlocklistEntryService(StripeService):
         Related guide: [Identity Verification Blocklist](https://docs.stripe.com/docs/identity/review-tools#add-a-blocklist-entry)
         """
         return cast(
-            BlocklistEntry,
+            "BlocklistEntry",
             self._request(
                 "post",
                 "/v1/identity/blocklist_entries",
@@ -100,8 +100,8 @@ class BlocklistEntryService(StripeService):
     async def create_async(
         self,
         params: "BlocklistEntryCreateParams",
-        options: Optional[RequestOptions] = None,
-    ) -> BlocklistEntry:
+        options: Optional["RequestOptions"] = None,
+    ) -> "BlocklistEntry":
         """
         Creates a BlocklistEntry object from a verification report.
 
@@ -112,7 +112,7 @@ class BlocklistEntryService(StripeService):
         Related guide: [Identity Verification Blocklist](https://docs.stripe.com/docs/identity/review-tools#add-a-blocklist-entry)
         """
         return cast(
-            BlocklistEntry,
+            "BlocklistEntry",
             await self._request_async(
                 "post",
                 "/v1/identity/blocklist_entries",
@@ -126,15 +126,15 @@ class BlocklistEntryService(StripeService):
         self,
         id: str,
         params: Optional["BlocklistEntryRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> BlocklistEntry:
+        options: Optional["RequestOptions"] = None,
+    ) -> "BlocklistEntry":
         """
         Retrieves a BlocklistEntry object by its identifier.
 
         Related guide: [Identity Verification Blocklist](https://docs.stripe.com/docs/identity/review-tools#block-list)
         """
         return cast(
-            BlocklistEntry,
+            "BlocklistEntry",
             self._request(
                 "get",
                 "/v1/identity/blocklist_entries/{id}".format(
@@ -150,15 +150,15 @@ class BlocklistEntryService(StripeService):
         self,
         id: str,
         params: Optional["BlocklistEntryRetrieveParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> BlocklistEntry:
+        options: Optional["RequestOptions"] = None,
+    ) -> "BlocklistEntry":
         """
         Retrieves a BlocklistEntry object by its identifier.
 
         Related guide: [Identity Verification Blocklist](https://docs.stripe.com/docs/identity/review-tools#block-list)
         """
         return cast(
-            BlocklistEntry,
+            "BlocklistEntry",
             await self._request_async(
                 "get",
                 "/v1/identity/blocklist_entries/{id}".format(
@@ -174,8 +174,8 @@ class BlocklistEntryService(StripeService):
         self,
         id: str,
         params: Optional["BlocklistEntryDisableParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> BlocklistEntry:
+        options: Optional["RequestOptions"] = None,
+    ) -> "BlocklistEntry":
         """
         Disables a BlocklistEntry object.
 
@@ -186,7 +186,7 @@ class BlocklistEntryService(StripeService):
         Related guide: [Identity Verification Blocklist](https://docs.stripe.com/docs/identity/review-tools#disable-a-blocklist-entry)
         """
         return cast(
-            BlocklistEntry,
+            "BlocklistEntry",
             self._request(
                 "post",
                 "/v1/identity/blocklist_entries/{id}/disable".format(
@@ -202,8 +202,8 @@ class BlocklistEntryService(StripeService):
         self,
         id: str,
         params: Optional["BlocklistEntryDisableParams"] = None,
-        options: Optional[RequestOptions] = None,
-    ) -> BlocklistEntry:
+        options: Optional["RequestOptions"] = None,
+    ) -> "BlocklistEntry":
         """
         Disables a BlocklistEntry object.
 
@@ -214,7 +214,7 @@ class BlocklistEntryService(StripeService):
         Related guide: [Identity Verification Blocklist](https://docs.stripe.com/docs/identity/review-tools#disable-a-blocklist-entry)
         """
         return cast(
-            BlocklistEntry,
+            "BlocklistEntry",
             await self._request_async(
                 "post",
                 "/v1/identity/blocklist_entries/{id}/disable".format(
