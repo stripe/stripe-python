@@ -116,7 +116,7 @@ class RequestedSessionService(StripeService):
 
     def create(
         self,
-        params: Optional["RequestedSessionCreateParams"] = None,
+        params: "RequestedSessionCreateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "RequestedSession":
         """
@@ -135,7 +135,7 @@ class RequestedSessionService(StripeService):
 
     async def create_async(
         self,
-        params: Optional["RequestedSessionCreateParams"] = None,
+        params: "RequestedSessionCreateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "RequestedSession":
         """
