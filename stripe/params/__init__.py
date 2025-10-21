@@ -1116,6 +1116,8 @@ if TYPE_CHECKING:
         CustomerSessionCreateParamsComponentsPaymentElement as CustomerSessionCreateParamsComponentsPaymentElement,
         CustomerSessionCreateParamsComponentsPaymentElementFeatures as CustomerSessionCreateParamsComponentsPaymentElementFeatures,
         CustomerSessionCreateParamsComponentsPricingTable as CustomerSessionCreateParamsComponentsPricingTable,
+        CustomerSessionCreateParamsComponentsTaxIdElement as CustomerSessionCreateParamsComponentsTaxIdElement,
+        CustomerSessionCreateParamsComponentsTaxIdElementFeatures as CustomerSessionCreateParamsComponentsTaxIdElementFeatures,
     )
     from stripe.params._customer_tax_id_create_params import (
         CustomerTaxIdCreateParams as CustomerTaxIdCreateParams,
@@ -8094,6 +8096,14 @@ _import_map = {
         False,
     ),
     "CustomerSessionCreateParamsComponentsPricingTable": (
+        "stripe.params._customer_session_create_params",
+        False,
+    ),
+    "CustomerSessionCreateParamsComponentsTaxIdElement": (
+        "stripe.params._customer_session_create_params",
+        False,
+    ),
+    "CustomerSessionCreateParamsComponentsTaxIdElementFeatures": (
         "stripe.params._customer_session_create_params",
         False,
     ),

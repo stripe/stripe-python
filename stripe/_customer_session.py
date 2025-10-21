@@ -161,6 +161,31 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
             Whether the pricing table is enabled.
             """
 
+        class TaxIdElement(StripeObject):
+            class Features(StripeObject):
+                tax_id_redisplay: Literal["disabled", "enabled"]
+                """
+                Controls whether the Tax ID Element displays saved tax IDs for the customer. This parameter defaults to `disabled`.
+
+                When enabled, the Tax ID Element will show existing tax IDs associated with the customer, allowing them to select from previously saved tax identification numbers.
+                """
+                tax_id_save: Literal["disabled", "enabled"]
+                """
+                Controls whether the Tax ID Element allows merchants to save new tax IDs for their customer. This parameter defaults to `disabled`.
+
+                When enabled, customers can enter and save new tax identification numbers during the payment flow, which will be stored securely and associated with their customer object for future use.
+                """
+
+            enabled: bool
+            """
+            Whether the Tax ID Element is enabled.
+            """
+            features: Optional[Features]
+            """
+            This hash defines whether the Tax ID Element supports certain features.
+            """
+            _inner_class_types = {"features": Features}
+
         buy_button: BuyButton
         """
         This hash contains whether the buy button is enabled.
@@ -181,12 +206,17 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
         """
         This hash contains whether the pricing table is enabled.
         """
+        tax_id_element: Optional[TaxIdElement]
+        """
+        This hash contains whether the Tax ID Element is enabled and the features it supports.
+        """
         _inner_class_types = {
             "buy_button": BuyButton,
             "customer_sheet": CustomerSheet,
             "mobile_payment_element": MobilePaymentElement,
             "payment_element": PaymentElement,
             "pricing_table": PricingTable,
+            "tax_id_element": TaxIdElement,
         }
 
     client_secret: str
