@@ -614,6 +614,20 @@ class Account(
             The four-digit year of registration.
             """
 
+        class RepresentativeDeclaration(StripeObject):
+            date: Optional[int]
+            """
+            The Unix timestamp marking when the representative declaration attestation was made.
+            """
+            ip: Optional[str]
+            """
+            The IP address from which the representative declaration attestation was made.
+            """
+            user_agent: Optional[str]
+            """
+            The user-agent string from the browser where the representative declaration attestation was made.
+            """
+
         class Verification(StripeObject):
             class Document(StripeObject):
                 back: Optional[ExpandableField["File"]]
@@ -699,6 +713,10 @@ class Account(
         The company's phone number (used for verification).
         """
         registration_date: Optional[RegistrationDate]
+        representative_declaration: Optional[RepresentativeDeclaration]
+        """
+        This hash is used to attest that the representative is authorized to act as the representative of their legal entity.
+        """
         structure: Optional[
             Literal[
                 "free_zone_establishment",
@@ -752,6 +770,7 @@ class Account(
             "directorship_declaration": DirectorshipDeclaration,
             "ownership_declaration": OwnershipDeclaration,
             "registration_date": RegistrationDate,
+            "representative_declaration": RepresentativeDeclaration,
             "verification": Verification,
         }
 

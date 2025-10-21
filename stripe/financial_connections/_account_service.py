@@ -239,7 +239,7 @@ class AccountService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Account":
         """
-        Subscribes to periodic refreshes of data associated with a Financial Connections Account.
+        Subscribes to periodic refreshes of data associated with a Financial Connections Account. When the account status is active, data is typically refreshed once a day.
         """
         return cast(
             "Account",
@@ -261,7 +261,7 @@ class AccountService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Account":
         """
-        Subscribes to periodic refreshes of data associated with a Financial Connections Account.
+        Subscribes to periodic refreshes of data associated with a Financial Connections Account. When the account status is active, data is typically refreshed once a day.
         """
         return cast(
             "Account",

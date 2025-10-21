@@ -124,6 +124,7 @@ class WebhookEndpointCreateParams(RequestOptions):
             "2025-07-30.basil",
             "2025-08-27.basil",
             "2025-09-30.clover",
+            "2025-10-29.clover",
         ]
     ]
     """
@@ -150,6 +151,7 @@ class WebhookEndpointCreateParams(RequestOptions):
             "application_fee.refund.updated",
             "application_fee.refunded",
             "balance.available",
+            "balance_settings.updated",
             "billing.alert.triggered",
             "billing_portal.configuration.created",
             "billing_portal.configuration.updated",
@@ -232,6 +234,7 @@ class WebhookEndpointCreateParams(RequestOptions):
             "invoice.overpaid",
             "invoice.paid",
             "invoice.payment_action_required",
+            "invoice.payment_attempt_required",
             "invoice.payment_failed",
             "invoice.payment_succeeded",
             "invoice.sent",

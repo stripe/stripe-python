@@ -4,6 +4,7 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
+from stripe._nested_resource_class_methods import nested_resource_class_methods
 from stripe._search_result_object import SearchResultObject
 from stripe._searchable_api_resource import SearchableAPIResource
 from stripe._stripe_object import StripeObject
@@ -29,6 +30,9 @@ if TYPE_CHECKING:
     from stripe._card import Card as CardResource
     from stripe._charge import Charge
     from stripe._customer import Customer
+    from stripe._payment_intent_amount_details_line_item import (
+        PaymentIntentAmountDetailsLineItem,
+    )
     from stripe._payment_method import PaymentMethod
     from stripe._review import Review
     from stripe._setup_intent import SetupIntent
@@ -51,6 +55,9 @@ if TYPE_CHECKING:
     from stripe.params._payment_intent_increment_authorization_params import (
         PaymentIntentIncrementAuthorizationParams,
     )
+    from stripe.params._payment_intent_list_amount_details_line_items_params import (
+        PaymentIntentListAmountDetailsLineItemsParams,
+    )
     from stripe.params._payment_intent_list_params import (
         PaymentIntentListParams,
     )
@@ -69,6 +76,7 @@ if TYPE_CHECKING:
     from typing import Any
 
 
+@nested_resource_class_methods("amount_details_line_item")
 class PaymentIntent(
     CreateableAPIResource["PaymentIntent"],
     ListableAPIResource["PaymentIntent"],
@@ -92,14 +100,44 @@ class PaymentIntent(
     OBJECT_NAME: ClassVar[Literal["payment_intent"]] = "payment_intent"
 
     class AmountDetails(StripeObject):
+        class Shipping(StripeObject):
+            amount: Optional[int]
+            """
+            Portion of the amount that is for shipping.
+            """
+            from_postal_code: Optional[str]
+            """
+            The postal code that represents the shipping source.
+            """
+            to_postal_code: Optional[str]
+            """
+            The postal code that represents the shipping destination.
+            """
+
+        class Tax(StripeObject):
+            total_tax_amount: Optional[int]
+            """
+            Total portion of the amount that is for tax.
+            """
+
         class Tip(StripeObject):
             amount: Optional[int]
             """
             Portion of the amount that corresponds to a tip.
             """
 
+        discount_amount: Optional[int]
+        """
+        The total discount applied on the transaction.
+        """
+        line_items: Optional[ListObject["PaymentIntentAmountDetailsLineItem"]]
+        """
+        A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
+        """
+        shipping: Optional[Shipping]
+        tax: Optional[Tax]
         tip: Optional[Tip]
-        _inner_class_types = {"tip": Tip}
+        _inner_class_types = {"shipping": Shipping, "tax": Tax, "tip": Tip}
 
     class AutomaticPaymentMethods(StripeObject):
         allow_redirects: Optional[Literal["always", "never"]]
@@ -234,6 +272,7 @@ class PaymentIntent(
                 "payment_intent_mandate_invalid",
                 "payment_intent_payment_attempt_expired",
                 "payment_intent_payment_attempt_failed",
+                "payment_intent_rate_limit_exceeded",
                 "payment_intent_unexpected_state",
                 "payment_method_bank_account_already_verified",
                 "payment_method_bank_account_blocked",
@@ -1361,6 +1400,16 @@ class PaymentIntent(
             "wechat_pay_redirect_to_android_app": WechatPayRedirectToAndroidApp,
             "wechat_pay_redirect_to_ios_app": WechatPayRedirectToIosApp,
         }
+
+    class PaymentDetails(StripeObject):
+        customer_reference: Optional[str]
+        """
+        Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
+        """
+        order_reference: Optional[str]
+        """
+        A unique value assigned by the business to identify the transaction.
+        """
 
     class PaymentMethodConfigurationDetails(StripeObject):
         id: str
@@ -2797,6 +2846,7 @@ class PaymentIntent(
     """
     The account (if any) for which the funds of the PaymentIntent are intended. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details.
     """
+    payment_details: Optional[PaymentDetails]
     payment_method: Optional[ExpandableField["PaymentMethod"]]
     """
     ID of the payment method used in this PaymentIntent.
@@ -4243,11 +4293,52 @@ class PaymentIntent(
     ) -> AsyncIterator["PaymentIntent"]:
         return (await cls.search_async(*args, **kwargs)).auto_paging_iter()
 
+    @classmethod
+    def list_amount_details_line_items(
+        cls,
+        intent: str,
+        **params: Unpack["PaymentIntentListAmountDetailsLineItemsParams"],
+    ) -> ListObject["PaymentIntentAmountDetailsLineItem"]:
+        """
+        Lists all LineItems of a given PaymentIntent.
+        """
+        return cast(
+            ListObject["PaymentIntentAmountDetailsLineItem"],
+            cls._static_request(
+                "get",
+                "/v1/payment_intents/{intent}/amount_details_line_items".format(
+                    intent=sanitize_id(intent)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def list_amount_details_line_items_async(
+        cls,
+        intent: str,
+        **params: Unpack["PaymentIntentListAmountDetailsLineItemsParams"],
+    ) -> ListObject["PaymentIntentAmountDetailsLineItem"]:
+        """
+        Lists all LineItems of a given PaymentIntent.
+        """
+        return cast(
+            ListObject["PaymentIntentAmountDetailsLineItem"],
+            await cls._static_request_async(
+                "get",
+                "/v1/payment_intents/{intent}/amount_details_line_items".format(
+                    intent=sanitize_id(intent)
+                ),
+                params=params,
+            ),
+        )
+
     _inner_class_types = {
         "amount_details": AmountDetails,
         "automatic_payment_methods": AutomaticPaymentMethods,
         "last_payment_error": LastPaymentError,
         "next_action": NextAction,
+        "payment_details": PaymentDetails,
         "payment_method_configuration_details": PaymentMethodConfigurationDetails,
         "payment_method_options": PaymentMethodOptions,
         "presentment_details": PresentmentDetails,

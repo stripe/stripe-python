@@ -88,14 +88,33 @@ class CreditNote(
         """
 
     class Refund(StripeObject):
+        class PaymentRecordRefund(StripeObject):
+            payment_record: str
+            """
+            ID of the payment record.
+            """
+            refund_group: str
+            """
+            ID of the refund group.
+            """
+
         amount_refunded: int
         """
         Amount of the refund that applies to this credit note, in cents (or local equivalent).
+        """
+        payment_record_refund: Optional[PaymentRecordRefund]
+        """
+        The PaymentRecord refund details associated with this credit note refund.
         """
         refund: ExpandableField["RefundResource"]
         """
         ID of the refund.
         """
+        type: Optional[Literal["payment_record_refund", "refund"]]
+        """
+        Type of the refund, one of `refund` or `payment_record_refund`.
+        """
+        _inner_class_types = {"payment_record_refund": PaymentRecordRefund}
 
     class ShippingCost(StripeObject):
         class Tax(StripeObject):

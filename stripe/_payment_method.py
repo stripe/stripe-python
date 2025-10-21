@@ -802,6 +802,31 @@ class PaymentMethod(
     class Crypto(StripeObject):
         pass
 
+    class Custom(StripeObject):
+        class Logo(StripeObject):
+            content_type: Optional[str]
+            """
+            Content type of the Dashboard-only CustomPaymentMethodType logo.
+            """
+            url: str
+            """
+            URL of the Dashboard-only CustomPaymentMethodType logo.
+            """
+
+        display_name: Optional[str]
+        """
+        Display name of the Dashboard-only CustomPaymentMethodType.
+        """
+        logo: Optional[Logo]
+        """
+        Contains information about the Dashboard-only CustomPaymentMethodType logo.
+        """
+        type: str
+        """
+        ID of the Dashboard-only CustomPaymentMethodType. Not expandable.
+        """
+        _inner_class_types = {"logo": Logo}
+
     class CustomerBalance(StripeObject):
         pass
 
@@ -1381,6 +1406,7 @@ class PaymentMethod(
     Time at which the object was created. Measured in seconds since the Unix epoch.
     """
     crypto: Optional[Crypto]
+    custom: Optional[Custom]
     customer: Optional[ExpandableField["Customer"]]
     """
     The ID of the Customer to which this PaymentMethod is saved. This will not be set when the PaymentMethod has not been saved to a Customer.
@@ -1454,6 +1480,7 @@ class PaymentMethod(
         "card_present",
         "cashapp",
         "crypto",
+        "custom",
         "customer_balance",
         "eps",
         "fpx",
@@ -1963,6 +1990,7 @@ class PaymentMethod(
         "card_present": CardPresent,
         "cashapp": Cashapp,
         "crypto": Crypto,
+        "custom": Custom,
         "customer_balance": CustomerBalance,
         "eps": Eps,
         "fpx": Fpx,

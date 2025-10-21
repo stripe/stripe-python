@@ -82,6 +82,9 @@ if TYPE_CHECKING:
     )
     from stripe._issuing_service import IssuingService
     from stripe._mandate_service import MandateService
+    from stripe._payment_attempt_record_service import (
+        PaymentAttemptRecordService,
+    )
     from stripe._payment_intent_service import PaymentIntentService
     from stripe._payment_link_service import PaymentLinkService
     from stripe._payment_method_service import PaymentMethodService
@@ -91,6 +94,7 @@ if TYPE_CHECKING:
     from stripe._payment_method_domain_service import (
         PaymentMethodDomainService,
     )
+    from stripe._payment_record_service import PaymentRecordService
     from stripe._payout_service import PayoutService
     from stripe._plan_service import PlanService
     from stripe._price_service import PriceService
@@ -715,6 +719,17 @@ class StripeClient(object):
     @property
     @deprecated(
         """
+        StripeClient.payment_attempt_records is deprecated, use StripeClient.v1.payment_attempt_records instead.
+          All functionality under it has been copied over to StripeClient.v1.payment_attempt_records.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """,
+    )
+    def payment_attempt_records(self) -> "PaymentAttemptRecordService":
+        return self.v1.payment_attempt_records
+
+    @property
+    @deprecated(
+        """
         StripeClient.payment_intents is deprecated, use StripeClient.v1.payment_intents instead.
           All functionality under it has been copied over to StripeClient.v1.payment_intents.
           See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
@@ -768,6 +783,17 @@ class StripeClient(object):
     )
     def payment_method_domains(self) -> "PaymentMethodDomainService":
         return self.v1.payment_method_domains
+
+    @property
+    @deprecated(
+        """
+        StripeClient.payment_records is deprecated, use StripeClient.v1.payment_records instead.
+          All functionality under it has been copied over to StripeClient.v1.payment_records.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """,
+    )
+    def payment_records(self) -> "PaymentRecordService":
+        return self.v1.payment_records
 
     @property
     @deprecated(
