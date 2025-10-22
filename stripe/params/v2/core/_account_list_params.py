@@ -9,6 +9,10 @@ class AccountListParams(TypedDict):
     """
     Filter only accounts that have all of the configurations specified. If omitted, returns all accounts regardless of which configurations they have.
     """
+    closed: NotRequired[bool]
+    """
+    Filter by whether the account is closed. If omitted, returns only Accounts that are not closed.
+    """
     limit: NotRequired[int]
     """
     The upper limit on the number of accounts returned by the List Account request.

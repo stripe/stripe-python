@@ -112,7 +112,12 @@ class AccountUpdateParamsConfigurationCustomerAutomaticIndirectTax(TypedDict):
     A recent IP address of the customer used for tax reporting and tax location inference.
     """
     location_source: NotRequired[
-        Literal["identity_address", "ip_address", "shipping_address"]
+        Literal[
+            "identity_address",
+            "ip_address",
+            "payment_method",
+            "shipping_address",
+        ]
     ]
     """
     The data source used to identify the customer's tax location - defaults to 'identity_address'. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
@@ -1502,7 +1507,9 @@ class AccountUpdateParamsDefaultsProfile(TypedDict):
 
 
 class AccountUpdateParamsDefaultsResponsibilities(TypedDict):
-    fees_collector: Literal["application", "stripe"]
+    fees_collector: Literal[
+        "application", "application_custom", "application_express", "stripe"
+    ]
     """
     A value indicating the party responsible for collecting fees from this account.
     """
