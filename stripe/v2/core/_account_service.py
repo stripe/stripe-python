@@ -213,7 +213,7 @@ class AccountService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Account":
         """
-        Removes access to the Account and its associated resources.
+        Removes access to the Account and its associated resources. Closed Accounts can no longer be operated on, but limited information can still be retrieved through the API in order to be able to track their history.
         """
         return cast(
             "Account",
@@ -233,7 +233,7 @@ class AccountService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Account":
         """
-        Removes access to the Account and its associated resources.
+        Removes access to the Account and its associated resources. Closed Accounts can no longer be operated on, but limited information can still be retrieved through the API in order to be able to track their history.
         """
         return cast(
             "Account",

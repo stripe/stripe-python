@@ -383,7 +383,10 @@ class Account(StripeObject):
                 """
                 location_source: Optional[
                     Literal[
-                        "identity_address", "ip_address", "shipping_address"
+                        "identity_address",
+                        "ip_address",
+                        "payment_method",
+                        "shipping_address",
                     ]
                 ]
                 """
@@ -3490,7 +3493,12 @@ class Account(StripeObject):
             """
 
         class Responsibilities(StripeObject):
-            fees_collector: Literal["application", "stripe"]
+            fees_collector: Literal[
+                "application",
+                "application_custom",
+                "application_express",
+                "stripe",
+            ]
             """
             A value indicating the responsible payer of a bundle of Stripe fees for pricing-control eligible products on this Account.
             """
@@ -5444,6 +5452,10 @@ class Account(StripeObject):
     ]
     """
     Filter only accounts that have all of the configurations specified. If omitted, returns all accounts regardless of which configurations they have.
+    """
+    closed: Optional[bool]
+    """
+    A value indicating if the Account has been closed.
     """
     configuration: Optional[Configuration]
     """

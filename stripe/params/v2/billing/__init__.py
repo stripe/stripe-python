@@ -9,6 +9,7 @@ if TYPE_CHECKING:
         collection_settings as collection_settings,
         intents as intents,
         license_fees as license_fees,
+        pricing_plan_subscriptions as pricing_plan_subscriptions,
         pricing_plans as pricing_plans,
         rate_cards as rate_cards,
     )
@@ -321,6 +322,10 @@ _import_map = {
     ),
     "intents": ("stripe.params.v2.billing.intents", True),
     "license_fees": ("stripe.params.v2.billing.license_fees", True),
+    "pricing_plan_subscriptions": (
+        "stripe.params.v2.billing.pricing_plan_subscriptions",
+        True,
+    ),
     "pricing_plans": ("stripe.params.v2.billing.pricing_plans", True),
     "rate_cards": ("stripe.params.v2.billing.rate_cards", True),
     "BillSettingCreateParams": (
