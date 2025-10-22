@@ -21,6 +21,7 @@ class PaymentIntentAmountDetailsLineItem(StripeObject):
             image_url: Optional[str]
             product_url: Optional[str]
             reference: Optional[str]
+            subscription_reference: Optional[str]
 
         class Paypal(StripeObject):
             category: Optional[
