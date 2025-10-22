@@ -27,8 +27,8 @@ if TYPE_CHECKING:
         RequestedSessionModifyParams as RequestedSessionModifyParams,
         RequestedSessionModifyParamsFulfillmentDetails as RequestedSessionModifyParamsFulfillmentDetails,
         RequestedSessionModifyParamsFulfillmentDetailsAddress as RequestedSessionModifyParamsFulfillmentDetailsAddress,
-        RequestedSessionModifyParamsFulfillmentDetailsFulfillmentOption as RequestedSessionModifyParamsFulfillmentDetailsFulfillmentOption,
-        RequestedSessionModifyParamsFulfillmentDetailsFulfillmentOptionShipping as RequestedSessionModifyParamsFulfillmentDetailsFulfillmentOptionShipping,
+        RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOption as RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOption,
+        RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOptionShipping as RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOptionShipping,
         RequestedSessionModifyParamsLineItemDetail as RequestedSessionModifyParamsLineItemDetail,
         RequestedSessionModifyParamsPaymentMethodData as RequestedSessionModifyParamsPaymentMethodData,
         RequestedSessionModifyParamsPaymentMethodDataBillingDetails as RequestedSessionModifyParamsPaymentMethodDataBillingDetails,
@@ -42,8 +42,8 @@ if TYPE_CHECKING:
         RequestedSessionUpdateParams as RequestedSessionUpdateParams,
         RequestedSessionUpdateParamsFulfillmentDetails as RequestedSessionUpdateParamsFulfillmentDetails,
         RequestedSessionUpdateParamsFulfillmentDetailsAddress as RequestedSessionUpdateParamsFulfillmentDetailsAddress,
-        RequestedSessionUpdateParamsFulfillmentDetailsFulfillmentOption as RequestedSessionUpdateParamsFulfillmentDetailsFulfillmentOption,
-        RequestedSessionUpdateParamsFulfillmentDetailsFulfillmentOptionShipping as RequestedSessionUpdateParamsFulfillmentDetailsFulfillmentOptionShipping,
+        RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOption as RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOption,
+        RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOptionShipping as RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOptionShipping,
         RequestedSessionUpdateParamsLineItemDetail as RequestedSessionUpdateParamsLineItemDetail,
         RequestedSessionUpdateParamsPaymentMethodData as RequestedSessionUpdateParamsPaymentMethodData,
         RequestedSessionUpdateParamsPaymentMethodDataBillingDetails as RequestedSessionUpdateParamsPaymentMethodDataBillingDetails,
@@ -117,11 +117,11 @@ _import_map = {
         "stripe.params.delegated_checkout._requested_session_modify_params",
         False,
     ),
-    "RequestedSessionModifyParamsFulfillmentDetailsFulfillmentOption": (
+    "RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOption": (
         "stripe.params.delegated_checkout._requested_session_modify_params",
         False,
     ),
-    "RequestedSessionModifyParamsFulfillmentDetailsFulfillmentOptionShipping": (
+    "RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOptionShipping": (
         "stripe.params.delegated_checkout._requested_session_modify_params",
         False,
     ),
@@ -161,11 +161,11 @@ _import_map = {
         "stripe.params.delegated_checkout._requested_session_update_params",
         False,
     ),
-    "RequestedSessionUpdateParamsFulfillmentDetailsFulfillmentOption": (
+    "RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOption": (
         "stripe.params.delegated_checkout._requested_session_update_params",
         False,
     ),
-    "RequestedSessionUpdateParamsFulfillmentDetailsFulfillmentOptionShipping": (
+    "RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOptionShipping": (
         "stripe.params.delegated_checkout._requested_session_update_params",
         False,
     ),

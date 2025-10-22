@@ -50,12 +50,6 @@ class RequestedSessionModifyParamsFulfillmentDetails(TypedDict):
     """
     The customer's email address.
     """
-    fulfillment_option: NotRequired[
-        "RequestedSessionModifyParamsFulfillmentDetailsFulfillmentOption"
-    ]
-    """
-    The fulfillment option to select.
-    """
     name: NotRequired[str]
     """
     The customer's name.
@@ -63,6 +57,12 @@ class RequestedSessionModifyParamsFulfillmentDetails(TypedDict):
     phone: NotRequired[str]
     """
     The customer's phone number.
+    """
+    selected_fulfillment_option: NotRequired[
+        "RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOption"
+    ]
+    """
+    The fulfillment option to select.
     """
 
 
@@ -93,10 +93,10 @@ class RequestedSessionModifyParamsFulfillmentDetailsAddress(TypedDict):
     """
 
 
-class RequestedSessionModifyParamsFulfillmentDetailsFulfillmentOption(
+class RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOption(
     TypedDict,
 ):
-    shipping: "RequestedSessionModifyParamsFulfillmentDetailsFulfillmentOptionShipping"
+    shipping: "RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOptionShipping"
     """
     The shipping fulfillment option.
     """
@@ -106,7 +106,7 @@ class RequestedSessionModifyParamsFulfillmentDetailsFulfillmentOption(
     """
 
 
-class RequestedSessionModifyParamsFulfillmentDetailsFulfillmentOptionShipping(
+class RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOptionShipping(
     TypedDict,
 ):
     shipping_option: str

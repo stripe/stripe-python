@@ -66,23 +66,6 @@ class RequestedSession(
 
         class FulfillmentOption(StripeObject):
             class Shipping(StripeObject):
-                shipping_option: Optional[str]
-                """
-                The shipping option.
-                """
-
-            shipping: Optional[Shipping]
-            """
-            The shipping option.
-            """
-            type: str
-            """
-            The type of the selected fulfillment option.
-            """
-            _inner_class_types = {"shipping": Shipping}
-
-        class FulfillmentOption(StripeObject):
-            class Shipping(StripeObject):
                 class ShippingOption(StripeObject):
                     description: Optional[str]
                     """
@@ -125,6 +108,23 @@ class RequestedSession(
             """
             _inner_class_types = {"shipping": Shipping}
 
+        class SelectedFulfillmentOption(StripeObject):
+            class Shipping(StripeObject):
+                shipping_option: Optional[str]
+                """
+                The shipping option.
+                """
+
+            shipping: Optional[Shipping]
+            """
+            The shipping option.
+            """
+            type: str
+            """
+            The type of the selected fulfillment option.
+            """
+            _inner_class_types = {"shipping": Shipping}
+
         address: Optional[Address]
         """
         The fulfillment address.
@@ -132,10 +132,6 @@ class RequestedSession(
         email: Optional[str]
         """
         The email address for the fulfillment details.
-        """
-        fulfillment_option: Optional[FulfillmentOption]
-        """
-        The fulfillment option.
         """
         fulfillment_options: Optional[List[FulfillmentOption]]
         """
@@ -149,10 +145,14 @@ class RequestedSession(
         """
         The phone number for the fulfillment details.
         """
+        selected_fulfillment_option: Optional[SelectedFulfillmentOption]
+        """
+        The fulfillment option.
+        """
         _inner_class_types = {
             "address": Address,
-            "fulfillment_option": FulfillmentOption,
             "fulfillment_options": FulfillmentOption,
+            "selected_fulfillment_option": SelectedFulfillmentOption,
         }
 
     class LineItemDetail(StripeObject):
