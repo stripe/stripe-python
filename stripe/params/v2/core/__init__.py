@@ -88,6 +88,7 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccounts as AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccounts,
         AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrencies as AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrencies,
         AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbp as AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbp,
+        AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsd as AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsd,
         AccountCreateParamsConfigurationStorerCapabilitiesInboundTransfers as AccountCreateParamsConfigurationStorerCapabilitiesInboundTransfers,
         AccountCreateParamsConfigurationStorerCapabilitiesInboundTransfersBankAccounts as AccountCreateParamsConfigurationStorerCapabilitiesInboundTransfersBankAccounts,
         AccountCreateParamsConfigurationStorerCapabilitiesOutboundPayments as AccountCreateParamsConfigurationStorerCapabilitiesOutboundPayments,
@@ -105,6 +106,7 @@ if TYPE_CHECKING:
         AccountCreateParamsIdentityAttestationsDirectorshipDeclaration as AccountCreateParamsIdentityAttestationsDirectorshipDeclaration,
         AccountCreateParamsIdentityAttestationsOwnershipDeclaration as AccountCreateParamsIdentityAttestationsOwnershipDeclaration,
         AccountCreateParamsIdentityAttestationsPersonsProvided as AccountCreateParamsIdentityAttestationsPersonsProvided,
+        AccountCreateParamsIdentityAttestationsRepresentativeDeclaration as AccountCreateParamsIdentityAttestationsRepresentativeDeclaration,
         AccountCreateParamsIdentityAttestationsTermsOfService as AccountCreateParamsIdentityAttestationsTermsOfService,
         AccountCreateParamsIdentityAttestationsTermsOfServiceAccount as AccountCreateParamsIdentityAttestationsTermsOfServiceAccount,
         AccountCreateParamsIdentityAttestationsTermsOfServiceStorer as AccountCreateParamsIdentityAttestationsTermsOfServiceStorer,
@@ -247,6 +249,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccounts as AccountUpdateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccounts,
         AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrencies as AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrencies,
         AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbp as AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbp,
+        AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsd as AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsd,
         AccountUpdateParamsConfigurationStorerCapabilitiesInboundTransfers as AccountUpdateParamsConfigurationStorerCapabilitiesInboundTransfers,
         AccountUpdateParamsConfigurationStorerCapabilitiesInboundTransfersBankAccounts as AccountUpdateParamsConfigurationStorerCapabilitiesInboundTransfersBankAccounts,
         AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPayments as AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPayments,
@@ -264,6 +267,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsIdentityAttestationsDirectorshipDeclaration as AccountUpdateParamsIdentityAttestationsDirectorshipDeclaration,
         AccountUpdateParamsIdentityAttestationsOwnershipDeclaration as AccountUpdateParamsIdentityAttestationsOwnershipDeclaration,
         AccountUpdateParamsIdentityAttestationsPersonsProvided as AccountUpdateParamsIdentityAttestationsPersonsProvided,
+        AccountUpdateParamsIdentityAttestationsRepresentativeDeclaration as AccountUpdateParamsIdentityAttestationsRepresentativeDeclaration,
         AccountUpdateParamsIdentityAttestationsTermsOfService as AccountUpdateParamsIdentityAttestationsTermsOfService,
         AccountUpdateParamsIdentityAttestationsTermsOfServiceAccount as AccountUpdateParamsIdentityAttestationsTermsOfServiceAccount,
         AccountUpdateParamsIdentityAttestationsTermsOfServiceStorer as AccountUpdateParamsIdentityAttestationsTermsOfServiceStorer,
@@ -670,6 +674,10 @@ _import_map = {
         "stripe.params.v2.core._account_create_params",
         False,
     ),
+    "AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsd": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
     "AccountCreateParamsConfigurationStorerCapabilitiesInboundTransfers": (
         "stripe.params.v2.core._account_create_params",
         False,
@@ -735,6 +743,10 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsIdentityAttestationsPersonsProvided": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsIdentityAttestationsRepresentativeDeclaration": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
@@ -1271,6 +1283,10 @@ _import_map = {
         "stripe.params.v2.core._account_update_params",
         False,
     ),
+    "AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsd": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
     "AccountUpdateParamsConfigurationStorerCapabilitiesInboundTransfers": (
         "stripe.params.v2.core._account_update_params",
         False,
@@ -1336,6 +1352,10 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsIdentityAttestationsPersonsProvided": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsIdentityAttestationsRepresentativeDeclaration": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),

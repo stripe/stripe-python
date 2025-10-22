@@ -1217,9 +1217,24 @@ class AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrencies(
     """
     Can hold storage-type funds on Stripe in GBP.
     """
+    usd: NotRequired[
+        "AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsd"
+    ]
+    """
+    Can hold storage-type funds on Stripe in USD.
+    """
 
 
 class AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbp(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsd(
     TypedDict,
 ):
     requested: bool
@@ -1472,7 +1487,7 @@ class AccountCreateParamsDefaultsResponsibilities(TypedDict):
 class AccountCreateParamsIdentity(TypedDict):
     attestations: NotRequired["AccountCreateParamsIdentityAttestations"]
     """
-    Attestations from the identity's key people, e.g. owners, executives, directors.
+    Attestations from the identity's key people, e.g. owners, executives, directors, representatives.
     """
     business_details: NotRequired["AccountCreateParamsIdentityBusinessDetails"]
     """
@@ -1512,6 +1527,12 @@ class AccountCreateParamsIdentityAttestations(TypedDict):
     ]
     """
     Attestation that all Persons with a specific Relationship value have been provided.
+    """
+    representative_declaration: NotRequired[
+        "AccountCreateParamsIdentityAttestationsRepresentativeDeclaration"
+    ]
+    """
+    This hash is used to attest that the representative is authorized to act as the representative of their legal entity.
     """
     terms_of_service: NotRequired[
         "AccountCreateParamsIdentityAttestationsTermsOfService"
@@ -1574,6 +1595,23 @@ class AccountCreateParamsIdentityAttestationsPersonsProvided(TypedDict):
     ]
     """
     Reason for why the company is exempt from providing ownership information.
+    """
+
+
+class AccountCreateParamsIdentityAttestationsRepresentativeDeclaration(
+    TypedDict,
+):
+    date: NotRequired[str]
+    """
+    The time marking when the representative attestation was made. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+    """
+    ip: NotRequired[str]
+    """
+    The IP address from which the representative attestation was made.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser from which the representative attestation was made.
     """
 
 

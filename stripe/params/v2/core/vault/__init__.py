@@ -17,17 +17,29 @@ if TYPE_CHECKING:
     from stripe.params.v2.core.vault._gb_bank_account_initiate_confirmation_of_payee_params import (
         GbBankAccountInitiateConfirmationOfPayeeParams as GbBankAccountInitiateConfirmationOfPayeeParams,
     )
+    from stripe.params.v2.core.vault._gb_bank_account_list_params import (
+        GbBankAccountListParams as GbBankAccountListParams,
+    )
     from stripe.params.v2.core.vault._gb_bank_account_retrieve_params import (
         GbBankAccountRetrieveParams as GbBankAccountRetrieveParams,
     )
     from stripe.params.v2.core.vault._us_bank_account_archive_params import (
         UsBankAccountArchiveParams as UsBankAccountArchiveParams,
     )
+    from stripe.params.v2.core.vault._us_bank_account_confirm_microdeposits_params import (
+        UsBankAccountConfirmMicrodepositsParams as UsBankAccountConfirmMicrodepositsParams,
+    )
     from stripe.params.v2.core.vault._us_bank_account_create_params import (
         UsBankAccountCreateParams as UsBankAccountCreateParams,
     )
+    from stripe.params.v2.core.vault._us_bank_account_list_params import (
+        UsBankAccountListParams as UsBankAccountListParams,
+    )
     from stripe.params.v2.core.vault._us_bank_account_retrieve_params import (
         UsBankAccountRetrieveParams as UsBankAccountRetrieveParams,
+    )
+    from stripe.params.v2.core.vault._us_bank_account_send_microdeposits_params import (
+        UsBankAccountSendMicrodepositsParams as UsBankAccountSendMicrodepositsParams,
     )
     from stripe.params.v2.core.vault._us_bank_account_update_params import (
         UsBankAccountUpdateParams as UsBankAccountUpdateParams,
@@ -55,6 +67,10 @@ _import_map = {
         "stripe.params.v2.core.vault._gb_bank_account_initiate_confirmation_of_payee_params",
         False,
     ),
+    "GbBankAccountListParams": (
+        "stripe.params.v2.core.vault._gb_bank_account_list_params",
+        False,
+    ),
     "GbBankAccountRetrieveParams": (
         "stripe.params.v2.core.vault._gb_bank_account_retrieve_params",
         False,
@@ -63,12 +79,24 @@ _import_map = {
         "stripe.params.v2.core.vault._us_bank_account_archive_params",
         False,
     ),
+    "UsBankAccountConfirmMicrodepositsParams": (
+        "stripe.params.v2.core.vault._us_bank_account_confirm_microdeposits_params",
+        False,
+    ),
     "UsBankAccountCreateParams": (
         "stripe.params.v2.core.vault._us_bank_account_create_params",
         False,
     ),
+    "UsBankAccountListParams": (
+        "stripe.params.v2.core.vault._us_bank_account_list_params",
+        False,
+    ),
     "UsBankAccountRetrieveParams": (
         "stripe.params.v2.core.vault._us_bank_account_retrieve_params",
+        False,
+    ),
+    "UsBankAccountSendMicrodepositsParams": (
+        "stripe.params.v2.core.vault._us_bank_account_send_microdeposits_params",
         False,
     ),
     "UsBankAccountUpdateParams": (
