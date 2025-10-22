@@ -24,6 +24,9 @@ if TYPE_CHECKING:
     from stripe.params.v2.money_management._financial_account_retrieve_params import (
         FinancialAccountRetrieveParams as FinancialAccountRetrieveParams,
     )
+    from stripe.params.v2.money_management._financial_account_update_params import (
+        FinancialAccountUpdateParams as FinancialAccountUpdateParams,
+    )
     from stripe.params.v2.money_management._financial_address_create_params import (
         FinancialAddressCreateParams as FinancialAddressCreateParams,
         FinancialAddressCreateParamsSepaBankAccount as FinancialAddressCreateParamsSepaBankAccount,
@@ -189,6 +192,10 @@ _import_map = {
     ),
     "FinancialAccountRetrieveParams": (
         "stripe.params.v2.money_management._financial_account_retrieve_params",
+        False,
+    ),
+    "FinancialAccountUpdateParams": (
+        "stripe.params.v2.money_management._financial_account_update_params",
         False,
     ),
     "FinancialAddressCreateParams": (

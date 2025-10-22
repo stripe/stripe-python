@@ -19,6 +19,9 @@ if TYPE_CHECKING:
     from stripe.params.v2.money_management._financial_account_retrieve_params import (
         FinancialAccountRetrieveParams,
     )
+    from stripe.params.v2.money_management._financial_account_update_params import (
+        FinancialAccountUpdateParams,
+    )
     from stripe.v2._list_object import ListObject
     from stripe.v2.money_management._financial_account import FinancialAccount
 
@@ -135,6 +138,50 @@ class FinancialAccountService(StripeService):
             "FinancialAccount",
             await self._request_async(
                 "get",
+                "/v2/money_management/financial_accounts/{id}".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def update(
+        self,
+        id: str,
+        params: Optional["FinancialAccountUpdateParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "FinancialAccount":
+        """
+        Updates an existing FinancialAccount.
+        """
+        return cast(
+            "FinancialAccount",
+            self._request(
+                "post",
+                "/v2/money_management/financial_accounts/{id}".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_async(
+        self,
+        id: str,
+        params: Optional["FinancialAccountUpdateParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "FinancialAccount":
+        """
+        Updates an existing FinancialAccount.
+        """
+        return cast(
+            "FinancialAccount",
+            await self._request_async(
+                "post",
                 "/v2/money_management/financial_accounts/{id}".format(
                     id=sanitize_id(id),
                 ),

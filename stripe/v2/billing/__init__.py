@@ -9,6 +9,7 @@ if TYPE_CHECKING:
         collection_settings as collection_settings,
         intents as intents,
         license_fees as license_fees,
+        pricing_plan_subscriptions as pricing_plan_subscriptions,
         pricing_plans as pricing_plans,
         rate_cards as rate_cards,
     )
@@ -93,6 +94,9 @@ if TYPE_CHECKING:
     from stripe.v2.billing._pricing_plan_subscription import (
         PricingPlanSubscription as PricingPlanSubscription,
     )
+    from stripe.v2.billing._pricing_plan_subscription_components import (
+        PricingPlanSubscriptionComponents as PricingPlanSubscriptionComponents,
+    )
     from stripe.v2.billing._pricing_plan_subscription_service import (
         PricingPlanSubscriptionService as PricingPlanSubscriptionService,
     )
@@ -130,6 +134,10 @@ _import_map = {
     "collection_settings": ("stripe.v2.billing.collection_settings", True),
     "intents": ("stripe.v2.billing.intents", True),
     "license_fees": ("stripe.v2.billing.license_fees", True),
+    "pricing_plan_subscriptions": (
+        "stripe.v2.billing.pricing_plan_subscriptions",
+        True,
+    ),
     "pricing_plans": ("stripe.v2.billing.pricing_plans", True),
     "rate_cards": ("stripe.v2.billing.rate_cards", True),
     "BillSetting": ("stripe.v2.billing._bill_setting", False),
@@ -196,6 +204,10 @@ _import_map = {
     "PricingPlanService": ("stripe.v2.billing._pricing_plan_service", False),
     "PricingPlanSubscription": (
         "stripe.v2.billing._pricing_plan_subscription",
+        False,
+    ),
+    "PricingPlanSubscriptionComponents": (
+        "stripe.v2.billing._pricing_plan_subscription_components",
         False,
     ),
     "PricingPlanSubscriptionService": (

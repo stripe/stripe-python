@@ -460,6 +460,10 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.v2.billing._pricing_plan_subscription",
         "PricingPlanSubscription",
     ),
+    "v2.billing.pricing_plan_subscription_components": (
+        "stripe.v2.billing._pricing_plan_subscription_components",
+        "PricingPlanSubscriptionComponents",
+    ),
     "v2.billing.pricing_plan_version": (
         "stripe.v2.billing._pricing_plan_version",
         "PricingPlanVersion",

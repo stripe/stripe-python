@@ -13,6 +13,41 @@ class UsBankAccount(StripeObject):
     OBJECT_NAME: ClassVar[Literal["v2.core.vault.us_bank_account"]] = (
         "v2.core.vault.us_bank_account"
     )
+
+    class Verification(StripeObject):
+        class MicrodepositVerificationDetails(StripeObject):
+            expires: str
+            """
+            Time when microdeposits will expire and have to be re-sent.
+            """
+            microdeposit_type: Literal["amounts", "descriptor_code"]
+            """
+            Microdeposit type can be amounts or descriptor_type.
+            """
+            sent: str
+            """
+            Time when microdeposits were sent.
+            """
+
+        microdeposit_verification_details: Optional[
+            MicrodepositVerificationDetails
+        ]
+        """
+        The microdeposit verification details if the status is awaiting verification.
+        """
+        status: Literal[
+            "awaiting_verification",
+            "unverified",
+            "verification_failed",
+            "verified",
+        ]
+        """
+        The bank account verification status.
+        """
+        _inner_class_types = {
+            "microdeposit_verification_details": MicrodepositVerificationDetails,
+        }
+
     archived: bool
     """
     Whether this USBankAccount object was archived.
@@ -53,3 +88,8 @@ class UsBankAccount(StripeObject):
     """
     The ACH routing number of the bank account.
     """
+    verification: Verification
+    """
+    The bank account verification details.
+    """
+    _inner_class_types = {"verification": Verification}

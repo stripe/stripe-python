@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from typing import List
+from typing import Dict, List
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -8,6 +8,14 @@ class MeterEventSummaryListParams(TypedDict):
     customer: str
     """
     The customer for which to fetch event summaries.
+    """
+    dimension_filters: NotRequired[Dict[str, str]]
+    """
+    Key-value pairs used to filter meter events by dimension values. If specified, event summaries will be generated with only matching meter events.
+    """
+    dimension_group_by_keys: NotRequired[List[str]]
+    """
+    List of dimension payload keys to group by. If specified, event summaries will be grouped by the given dimension payload key values.
     """
     end_time: int
     """
