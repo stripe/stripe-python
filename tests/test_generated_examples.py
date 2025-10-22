@@ -46022,6 +46022,26 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
+    def test_v2_core_vault_gb_bank_account_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/core/vault/gb_bank_accounts",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.vault.gb_bank_accounts.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/core/vault/gb_bank_accounts",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
     def test_v2_core_vault_gb_bank_account_post_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -46049,7 +46069,7 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
-    def test_v2_core_vault_gb_bank_account_get_service(
+    def test_v2_core_vault_gb_bank_account_get_2_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
         http_client_mock.stub_request(
@@ -46139,6 +46159,26 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
+    def test_v2_core_vault_us_bank_account_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/core/vault/us_bank_accounts",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.vault.us_bank_accounts.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/core/vault/us_bank_accounts",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
     def test_v2_core_vault_us_bank_account_post_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -46165,7 +46205,7 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
-    def test_v2_core_vault_us_bank_account_get_service(
+    def test_v2_core_vault_us_bank_account_get_2_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
         http_client_mock.stub_request(
@@ -46223,6 +46263,50 @@ class TestGeneratedExamples(object):
         http_client_mock.assert_requested(
             "post",
             path="/v2/core/vault/us_bank_accounts/id_123/archive",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_core_vault_us_bank_account_post_4_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/vault/us_bank_accounts/id_123/confirm_microdeposits",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.vault.us_bank_accounts.confirm_microdeposits("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/vault/us_bank_accounts/id_123/confirm_microdeposits",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_core_vault_us_bank_account_post_5_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/vault/us_bank_accounts/id_123/send_microdeposits",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.vault.us_bank_accounts.send_microdeposits("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/vault/us_bank_accounts/id_123/send_microdeposits",
             query_string="",
             api_base="https://api.stripe.com",
             post_data="{}",
