@@ -9,6 +9,33 @@ classes for API resources that initialize themselves dynamically from API
 responses which makes it compatible with a wide range of versions of the Stripe
 API.
 
+## Table of Contents
+
+- [API Documentation](#api-documentation)
+- [Installation](#installation)
+  - [Requirements](#requirements)
+  - [Extended Support](#extended-support)
+- [Usage](#usage)
+  - [StripeClient vs legacy pattern](#stripeclient-vs-legacy-pattern)
+  - [Handling exceptions](#handling-exceptions)
+  - [Per-request Configuration](#per-request-configuration)
+  - [Configuring an HTTP Client](#configuring-an-http-client)
+  - [Configuring a Proxy](#configuring-a-proxy)
+  - [Configuring Automatic Retries](#configuring-automatic-retries)
+  - [Logging](#logging)
+  - [Accessing response code and headers](#accessing-response-code-and-headers)
+  - [Writing a Plugin](#writing-a-plugin)
+  - [Telemetry](#telemetry)
+- [Types](#types)
+  - [Types and the Versioning Policy](#types-and-the-versioning-policy)
+  - [Types and API Versions](#types-and-api-versions)
+  - [Public Preview SDKs](#public-preview-sdks)
+  - [Private Preview SDKs](#private-preview-sdks)
+  - [Custom requests](#custom-requests)
+  - [Async](#async)
+- [Support](#support)
+- [Development](#development)
+
 ## API Documentation
 
 See the [Python API docs](https://stripe.com/docs/api?lang=python).
