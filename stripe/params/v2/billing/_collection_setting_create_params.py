@@ -43,7 +43,7 @@ class CollectionSettingCreateParamsEmailDelivery(TypedDict):
         "CollectionSettingCreateParamsEmailDeliveryPaymentDue"
     ]
     """
-    Controls emails for when the payment is due. For example after the invoice is finilized and transition to Open state.
+    Controls emails for when the payment is due. For example after the invoice is finalized and transitions to Open state.
     """
 
 
@@ -54,7 +54,7 @@ class CollectionSettingCreateParamsEmailDeliveryPaymentDue(TypedDict):
     """
     include_payment_link: bool
     """
-    If true the payment link to hosted invocie page would be included in email and PDF of the invoice.
+    If true the payment link to hosted invoice page would be included in email and PDF of the invoice.
     """
 
 

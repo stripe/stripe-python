@@ -140,9 +140,30 @@ class CreditNotePreviewLinesListParamsRefund(TypedDict):
     """
     Amount of the refund that applies to this credit note, in cents (or local equivalent). Defaults to the entire refund amount.
     """
+    payment_record_refund: NotRequired[
+        "CreditNotePreviewLinesListParamsRefundPaymentRecordRefund"
+    ]
+    """
+    The PaymentRecord refund details to link to this credit note. Required when `type` is `payment_record_refund`.
+    """
     refund: NotRequired[str]
     """
     ID of an existing refund to link this credit note to. Required when `type` is `refund`.
+    """
+    type: NotRequired[Literal["payment_record_refund", "refund"]]
+    """
+    Type of the refund, one of `refund` or `payment_record_refund`. Defaults to `refund`.
+    """
+
+
+class CreditNotePreviewLinesListParamsRefundPaymentRecordRefund(TypedDict):
+    payment_record: str
+    """
+    The ID of the PaymentRecord with the refund to link to this credit note.
+    """
+    refund_group: str
+    """
+    The PaymentRecord refund group to link to this credit note. For refunds processed off-Stripe, this will correspond to the `processor_details.custom.refund_reference` field provided when reporting the refund on the PaymentRecord.
     """
 
 

@@ -19,13 +19,55 @@ if TYPE_CHECKING:
     from stripe.params.v2.core.vault._gb_bank_account_initiate_confirmation_of_payee_params import (
         GbBankAccountInitiateConfirmationOfPayeeParams,
     )
+    from stripe.params.v2.core.vault._gb_bank_account_list_params import (
+        GbBankAccountListParams,
+    )
     from stripe.params.v2.core.vault._gb_bank_account_retrieve_params import (
         GbBankAccountRetrieveParams,
     )
+    from stripe.v2._list_object import ListObject
     from stripe.v2.core.vault._gb_bank_account import GbBankAccount
 
 
 class GbBankAccountService(StripeService):
+    def list(
+        self,
+        params: Optional["GbBankAccountListParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[GbBankAccount]":
+        """
+        List objects that can be used as destinations for outbound money movement via OutboundPayment.
+        """
+        return cast(
+            "ListObject[GbBankAccount]",
+            self._request(
+                "get",
+                "/v2/core/vault/gb_bank_accounts",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def list_async(
+        self,
+        params: Optional["GbBankAccountListParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[GbBankAccount]":
+        """
+        List objects that can be used as destinations for outbound money movement via OutboundPayment.
+        """
+        return cast(
+            "ListObject[GbBankAccount]",
+            await self._request_async(
+                "get",
+                "/v2/core/vault/gb_bank_accounts",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "GbBankAccountCreateParams",

@@ -112,7 +112,12 @@ class AccountUpdateParamsConfigurationCustomerAutomaticIndirectTax(TypedDict):
     A recent IP address of the customer used for tax reporting and tax location inference.
     """
     location_source: NotRequired[
-        Literal["identity_address", "ip_address", "shipping_address"]
+        Literal[
+            "identity_address",
+            "ip_address",
+            "payment_method",
+            "shipping_address",
+        ]
     ]
     """
     The data source used to identify the customer's tax location - defaults to 'identity_address'. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
@@ -1245,9 +1250,24 @@ class AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrencies(
     """
     Can hold storage-type funds on Stripe in GBP.
     """
+    usd: NotRequired[
+        "AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsd"
+    ]
+    """
+    Can hold storage-type funds on Stripe in USD.
+    """
 
 
 class AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbp(
+    TypedDict,
+):
+    requested: NotRequired[bool]
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsd(
     TypedDict,
 ):
     requested: NotRequired[bool]
@@ -1487,7 +1507,9 @@ class AccountUpdateParamsDefaultsProfile(TypedDict):
 
 
 class AccountUpdateParamsDefaultsResponsibilities(TypedDict):
-    fees_collector: Literal["application", "stripe"]
+    fees_collector: Literal[
+        "application", "application_custom", "application_express", "stripe"
+    ]
     """
     A value indicating the party responsible for collecting fees from this account.
     """
@@ -1500,7 +1522,7 @@ class AccountUpdateParamsDefaultsResponsibilities(TypedDict):
 class AccountUpdateParamsIdentity(TypedDict):
     attestations: NotRequired["AccountUpdateParamsIdentityAttestations"]
     """
-    Attestations from the identity's key people, e.g. owners, executives, directors.
+    Attestations from the identity's key people, e.g. owners, executives, directors, representatives.
     """
     business_details: NotRequired["AccountUpdateParamsIdentityBusinessDetails"]
     """
@@ -1540,6 +1562,12 @@ class AccountUpdateParamsIdentityAttestations(TypedDict):
     ]
     """
     Attestation that all Persons with a specific Relationship value have been provided.
+    """
+    representative_declaration: NotRequired[
+        "AccountUpdateParamsIdentityAttestationsRepresentativeDeclaration"
+    ]
+    """
+    This hash is used to attest that the representative is authorized to act as the representative of their legal entity.
     """
     terms_of_service: NotRequired[
         "AccountUpdateParamsIdentityAttestationsTermsOfService"
@@ -1602,6 +1630,23 @@ class AccountUpdateParamsIdentityAttestationsPersonsProvided(TypedDict):
     ]
     """
     Reason for why the company is exempt from providing ownership information.
+    """
+
+
+class AccountUpdateParamsIdentityAttestationsRepresentativeDeclaration(
+    TypedDict,
+):
+    date: NotRequired[str]
+    """
+    The time marking when the representative attestation was made. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+    """
+    ip: NotRequired[str]
+    """
+    The IP address from which the representative attestation was made.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser from which the representative attestation was made.
     """
 
 

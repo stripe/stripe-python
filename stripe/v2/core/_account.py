@@ -40,7 +40,10 @@ class Account(StripeObject):
                 """
                 location_source: Optional[
                     Literal[
-                        "identity_address", "ip_address", "shipping_address"
+                        "identity_address",
+                        "ip_address",
+                        "payment_method",
+                        "shipping_address",
                     ]
                 ]
                 """
@@ -2700,11 +2703,54 @@ class Account(StripeObject):
                         """
                         _inner_class_types = {"status_details": StatusDetail}
 
+                    class Usd(StripeObject):
+                        class StatusDetail(StripeObject):
+                            code: Literal[
+                                "determining_status",
+                                "requirements_past_due",
+                                "requirements_pending_verification",
+                                "restricted_other",
+                                "unsupported_business",
+                                "unsupported_country",
+                                "unsupported_entity_type",
+                            ]
+                            """
+                            Machine-readable code explaining the reason for the Capability to be in its current status.
+                            """
+                            resolution: Literal[
+                                "contact_stripe",
+                                "no_resolution",
+                                "provide_info",
+                            ]
+                            """
+                            Machine-readable code explaining how to make the Capability active.
+                            """
+
+                        requested: bool
+                        """
+                        Whether the Capability has been requested.
+                        """
+                        status: Literal[
+                            "active", "pending", "restricted", "unsupported"
+                        ]
+                        """
+                        The status of the Capability.
+                        """
+                        status_details: List[StatusDetail]
+                        """
+                        Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                        """
+                        _inner_class_types = {"status_details": StatusDetail}
+
                     gbp: Optional[Gbp]
                     """
                     Can hold storage-type funds on Stripe in GBP.
                     """
-                    _inner_class_types = {"gbp": Gbp}
+                    usd: Optional[Usd]
+                    """
+                    Can hold storage-type funds on Stripe in USD.
+                    """
+                    _inner_class_types = {"gbp": Gbp, "usd": Usd}
 
                 class InboundTransfers(StripeObject):
                     class BankAccounts(StripeObject):
@@ -3057,7 +3103,12 @@ class Account(StripeObject):
             """
 
         class Responsibilities(StripeObject):
-            fees_collector: Literal["application", "stripe"]
+            fees_collector: Literal[
+                "application",
+                "application_custom",
+                "application_express",
+                "stripe",
+            ]
             """
             A value indicating the responsible payer of a bundle of Stripe fees for pricing-control eligible products on this Account.
             """
@@ -3229,6 +3280,20 @@ class Account(StripeObject):
                 Reason for why the company is exempt from providing ownership information.
                 """
 
+            class RepresentativeDeclaration(StripeObject):
+                date: Optional[str]
+                """
+                The time marking when the representative attestation was made. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                """
+                ip: Optional[str]
+                """
+                The IP address from which the representative attestation was made.
+                """
+                user_agent: Optional[str]
+                """
+                The user agent of the browser from which the representative attestation was made.
+                """
+
             class TermsOfService(StripeObject):
                 class Account(StripeObject):
                     date: Optional[str]
@@ -3280,6 +3345,10 @@ class Account(StripeObject):
             """
             Attestation that all Persons with a specific Relationship value have been provided.
             """
+            representative_declaration: Optional[RepresentativeDeclaration]
+            """
+            This hash is used to attest that the representative is authorized to act as the representative of their legal entity.
+            """
             terms_of_service: Optional[TermsOfService]
             """
             Attestations of accepted terms of service agreements.
@@ -3288,6 +3357,7 @@ class Account(StripeObject):
                 "directorship_declaration": DirectorshipDeclaration,
                 "ownership_declaration": OwnershipDeclaration,
                 "persons_provided": PersonsProvided,
+                "representative_declaration": RepresentativeDeclaration,
                 "terms_of_service": TermsOfService,
             }
 
@@ -4272,7 +4342,7 @@ class Account(StripeObject):
 
         attestations: Optional[Attestations]
         """
-        Attestations from the identity's key people, e.g. owners, executives, directors.
+        Attestations from the identity's key people, e.g. owners, executives, directors, representatives.
         """
         business_details: Optional[BusinessDetails]
         """
@@ -4442,6 +4512,7 @@ class Account(StripeObject):
                         "gb_bank_transfer_payments",
                         "grabpay_payments",
                         "holds_currencies.gbp",
+                        "holds_currencies.usd",
                         "ideal_payments",
                         "inbound_transfers.financial_accounts",
                         "jcb_payments",
@@ -4602,6 +4673,10 @@ class Account(StripeObject):
     ]
     """
     Filter only accounts that have all of the configurations specified. If omitted, returns all accounts regardless of which configurations they have.
+    """
+    closed: Optional[bool]
+    """
+    A value indicating if the Account has been closed.
     """
     configuration: Optional[Configuration]
     """

@@ -8,7 +8,7 @@ from typing_extensions import Literal, NotRequired, TypedDict
 class ReaderSetReaderDisplayParams(RequestOptions):
     cart: NotRequired["ReaderSetReaderDisplayParamsCart"]
     """
-    Cart
+    Cart details to display on the reader screen, including line items, amounts, and currency.
     """
     expand: NotRequired[List[str]]
     """
@@ -16,7 +16,7 @@ class ReaderSetReaderDisplayParams(RequestOptions):
     """
     type: Literal["cart"]
     """
-    Type
+    Type of information to display. Only `cart` is currently supported.
     """
 
 
@@ -27,22 +27,22 @@ class ReaderSetReaderDisplayParamsCart(TypedDict):
     """
     line_items: List["ReaderSetReaderDisplayParamsCartLineItem"]
     """
-    Array of line items that were purchased.
+    Array of line items to display.
     """
     tax: NotRequired[int]
     """
-    The amount of tax in cents.
+    The amount of tax in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
     """
     total: int
     """
-    Total balance of cart due in cents.
+    Total balance of cart due in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
     """
 
 
 class ReaderSetReaderDisplayParamsCartLineItem(TypedDict):
     amount: int
     """
-    The price of the item in cents.
+    The price of the item in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
     """
     description: str
     """

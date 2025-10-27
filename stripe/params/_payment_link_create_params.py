@@ -70,6 +70,10 @@ class PaymentLinkCreateParams(RequestOptions):
     """
     Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. Metadata associated with this Payment Link will automatically be copied to [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link.
     """
+    name_collection: NotRequired["PaymentLinkCreateParamsNameCollection"]
+    """
+    Controls settings applied for collecting the customer's name.
+    """
     on_behalf_of: NotRequired[str]
     """
     The account on behalf of which to charge.
@@ -614,6 +618,39 @@ class PaymentLinkCreateParamsLineItemPriceDataRecurring(TypedDict):
     interval_count: NotRequired[int]
     """
     The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
+    """
+
+
+class PaymentLinkCreateParamsNameCollection(TypedDict):
+    business: NotRequired["PaymentLinkCreateParamsNameCollectionBusiness"]
+    """
+    Controls settings applied for collecting the customer's business name.
+    """
+    individual: NotRequired["PaymentLinkCreateParamsNameCollectionIndividual"]
+    """
+    Controls settings applied for collecting the customer's individual name.
+    """
+
+
+class PaymentLinkCreateParamsNameCollectionBusiness(TypedDict):
+    enabled: bool
+    """
+    Enable business name collection on the payment link. Defaults to `false`.
+    """
+    optional: NotRequired[bool]
+    """
+    Whether the customer is required to provide their business name before checking out. Defaults to `false`.
+    """
+
+
+class PaymentLinkCreateParamsNameCollectionIndividual(TypedDict):
+    enabled: bool
+    """
+    Enable individual name collection on the payment link. Defaults to `false`.
+    """
+    optional: NotRequired[bool]
+    """
+    Whether the customer is required to provide their full name before checking out. Defaults to `false`.
     """
 
 

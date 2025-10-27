@@ -60,6 +60,12 @@ class PaymentLinkModifyParams(RequestOptions):
     """
     Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. Metadata associated with this Payment Link will automatically be copied to [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link.
     """
+    name_collection: NotRequired[
+        "Literal['']|PaymentLinkModifyParamsNameCollection"
+    ]
+    """
+    Controls settings applied for collecting the customer's name.
+    """
     payment_intent_data: NotRequired[
         "PaymentLinkModifyParamsPaymentIntentData"
     ]
@@ -434,6 +440,39 @@ class PaymentLinkModifyParamsLineItemAdjustableQuantity(TypedDict):
     minimum: NotRequired[int]
     """
     The minimum quantity the customer can purchase. By default this value is 0. If there is only one item in the cart then that item's quantity cannot go down to 0.
+    """
+
+
+class PaymentLinkModifyParamsNameCollection(TypedDict):
+    business: NotRequired["PaymentLinkModifyParamsNameCollectionBusiness"]
+    """
+    Controls settings applied for collecting the customer's business name.
+    """
+    individual: NotRequired["PaymentLinkModifyParamsNameCollectionIndividual"]
+    """
+    Controls settings applied for collecting the customer's individual name.
+    """
+
+
+class PaymentLinkModifyParamsNameCollectionBusiness(TypedDict):
+    enabled: bool
+    """
+    Enable business name collection on the payment link. Defaults to `false`.
+    """
+    optional: NotRequired[bool]
+    """
+    Whether the customer is required to provide their business name before checking out. Defaults to `false`.
+    """
+
+
+class PaymentLinkModifyParamsNameCollectionIndividual(TypedDict):
+    enabled: bool
+    """
+    Enable individual name collection on the payment link. Defaults to `false`.
+    """
+    optional: NotRequired[bool]
+    """
+    Whether the customer is required to provide their full name before checking out. Defaults to `false`.
     """
 
 
