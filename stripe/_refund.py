@@ -103,6 +103,12 @@ class Refund(
         class Cashapp(StripeObject):
             pass
 
+        class Crypto(StripeObject):
+            reference: Optional[str]
+            """
+            The transaction hash of the refund.
+            """
+
         class CustomerCashBalance(StripeObject):
             pass
 
@@ -249,6 +255,7 @@ class Refund(
         br_bank_transfer: Optional[BrBankTransfer]
         card: Optional[Card]
         cashapp: Optional[Cashapp]
+        crypto: Optional[Crypto]
         customer_cash_balance: Optional[CustomerCashBalance]
         eps: Optional[Eps]
         eu_bank_transfer: Optional[EuBankTransfer]
@@ -286,6 +293,7 @@ class Refund(
             "br_bank_transfer": BrBankTransfer,
             "card": Card,
             "cashapp": Cashapp,
+            "crypto": Crypto,
             "customer_cash_balance": CustomerCashBalance,
             "eps": Eps,
             "eu_bank_transfer": EuBankTransfer,

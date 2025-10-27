@@ -14,3 +14,7 @@ class InvoiceAttachPaymentParams(RequestOptions):
     """
     The ID of the PaymentIntent to attach to the invoice.
     """
+    payment_record: NotRequired[str]
+    """
+    The ID of the PaymentRecord to attach to the invoice.
+    """

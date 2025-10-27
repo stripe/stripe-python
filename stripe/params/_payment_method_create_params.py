@@ -74,6 +74,10 @@ class PaymentMethodCreateParams(RequestOptions):
     """
     If this is a Crypto PaymentMethod, this hash contains details about the Crypto payment method.
     """
+    custom: NotRequired["PaymentMethodCreateParamsCustom"]
+    """
+    If this is a `custom` PaymentMethod, this hash contains details about the Custom payment method.
+    """
     customer: NotRequired[str]
     """
     The `Customer` to whom the original PaymentMethod is attached.
@@ -239,6 +243,7 @@ class PaymentMethodCreateParams(RequestOptions):
             "card",
             "cashapp",
             "crypto",
+            "custom",
             "customer_balance",
             "eps",
             "fpx",
@@ -460,6 +465,13 @@ class PaymentMethodCreateParamsCashapp(TypedDict):
 
 class PaymentMethodCreateParamsCrypto(TypedDict):
     pass
+
+
+class PaymentMethodCreateParamsCustom(TypedDict):
+    type: str
+    """
+    ID of the Dashboard-only CustomPaymentMethodType. This field is used by Stripe products' internal code to support CPMs.
+    """
 
 
 class PaymentMethodCreateParamsCustomerBalance(TypedDict):

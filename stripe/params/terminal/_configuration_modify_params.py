@@ -132,6 +132,10 @@ class ConfigurationModifyParamsTipping(TypedDict):
     """
     Tipping configuration for GBP
     """
+    gip: NotRequired["ConfigurationModifyParamsTippingGip"]
+    """
+    Tipping configuration for GIP
+    """
     hkd: NotRequired["ConfigurationModifyParamsTippingHkd"]
     """
     Tipping configuration for HKD
@@ -303,6 +307,21 @@ class ConfigurationModifyParamsTippingEur(TypedDict):
 
 
 class ConfigurationModifyParamsTippingGbp(TypedDict):
+    fixed_amounts: NotRequired[List[int]]
+    """
+    Fixed amounts displayed when collecting a tip
+    """
+    percentages: NotRequired[List[int]]
+    """
+    Percentages displayed when collecting a tip
+    """
+    smart_tip_threshold: NotRequired[int]
+    """
+    Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+    """
+
+
+class ConfigurationModifyParamsTippingGip(TypedDict):
     fixed_amounts: NotRequired[List[int]]
     """
     Fixed amounts displayed when collecting a tip

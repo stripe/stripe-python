@@ -167,7 +167,15 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     "item": ("stripe._line_item", "LineItem"),
     "login_link": ("stripe._login_link", "LoginLink"),
     "mandate": ("stripe._mandate", "Mandate"),
+    "payment_attempt_record": (
+        "stripe._payment_attempt_record",
+        "PaymentAttemptRecord",
+    ),
     "payment_intent": ("stripe._payment_intent", "PaymentIntent"),
+    "payment_intent_amount_details_line_item": (
+        "stripe._payment_intent_amount_details_line_item",
+        "PaymentIntentAmountDetailsLineItem",
+    ),
     "payment_link": ("stripe._payment_link", "PaymentLink"),
     "payment_method": ("stripe._payment_method", "PaymentMethod"),
     "payment_method_configuration": (
@@ -178,6 +186,7 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe._payment_method_domain",
         "PaymentMethodDomain",
     ),
+    "payment_record": ("stripe._payment_record", "PaymentRecord"),
     "payout": ("stripe._payout", "Payout"),
     "person": ("stripe._person", "Person"),
     "plan": ("stripe._plan", "Plan"),

@@ -60,6 +60,12 @@ class PaymentLinkModifyParams(RequestOptions):
     """
     Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. Metadata associated with this Payment Link will automatically be copied to [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link.
     """
+    name_collection: NotRequired[
+        "Literal['']|PaymentLinkModifyParamsNameCollection"
+    ]
+    """
+    Controls settings applied for collecting the customer's name.
+    """
     payment_intent_data: NotRequired[
         "PaymentLinkModifyParamsPaymentIntentData"
     ]
@@ -75,7 +81,7 @@ class PaymentLinkModifyParams(RequestOptions):
     If you'd like information on how to collect a payment method outside of Checkout, read the guide on [configuring subscriptions with a free trial](https://stripe.com/docs/payments/checkout/free-trials).
     """
     payment_method_types: NotRequired[
-        "Literal['']|List[Literal['affirm', 'afterpay_clearpay', 'alipay', 'alma', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'blik', 'boleto', 'card', 'cashapp', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'mobilepay', 'multibanco', 'oxxo', 'p24', 'pay_by_bank', 'paynow', 'paypal', 'pix', 'promptpay', 'satispay', 'sepa_debit', 'sofort', 'swish', 'twint', 'us_bank_account', 'wechat_pay', 'zip']]"
+        "Literal['']|List[Literal['affirm', 'afterpay_clearpay', 'alipay', 'alma', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'blik', 'boleto', 'card', 'cashapp', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'mb_way', 'mobilepay', 'multibanco', 'oxxo', 'p24', 'pay_by_bank', 'paynow', 'paypal', 'pix', 'promptpay', 'satispay', 'sepa_debit', 'sofort', 'swish', 'twint', 'us_bank_account', 'wechat_pay', 'zip']]"
     ]
     """
     The list of payment method types that customers can use. Pass an empty string to enable dynamic payment methods that use your [payment method settings](https://dashboard.stripe.com/settings/payment_methods).
@@ -434,6 +440,39 @@ class PaymentLinkModifyParamsLineItemAdjustableQuantity(TypedDict):
     minimum: NotRequired[int]
     """
     The minimum quantity the customer can purchase. By default this value is 0. If there is only one item in the cart then that item's quantity cannot go down to 0.
+    """
+
+
+class PaymentLinkModifyParamsNameCollection(TypedDict):
+    business: NotRequired["PaymentLinkModifyParamsNameCollectionBusiness"]
+    """
+    Controls settings applied for collecting the customer's business name.
+    """
+    individual: NotRequired["PaymentLinkModifyParamsNameCollectionIndividual"]
+    """
+    Controls settings applied for collecting the customer's individual name.
+    """
+
+
+class PaymentLinkModifyParamsNameCollectionBusiness(TypedDict):
+    enabled: bool
+    """
+    Enable business name collection on the payment link. Defaults to `false`.
+    """
+    optional: NotRequired[bool]
+    """
+    Whether the customer is required to provide their business name before checking out. Defaults to `false`.
+    """
+
+
+class PaymentLinkModifyParamsNameCollectionIndividual(TypedDict):
+    enabled: bool
+    """
+    Enable individual name collection on the payment link. Defaults to `false`.
+    """
+    optional: NotRequired[bool]
+    """
+    Whether the customer is required to provide their full name before checking out. Defaults to `false`.
     """
 
 

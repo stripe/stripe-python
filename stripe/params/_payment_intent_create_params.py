@@ -10,6 +10,10 @@ class PaymentIntentCreateParams(RequestOptions):
     """
     Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
     """
+    amount_details: NotRequired["PaymentIntentCreateParamsAmountDetails"]
+    """
+    Provides industry-specific information about the amount.
+    """
     application_fee_amount: NotRequired[int]
     """
     The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
@@ -143,6 +147,10 @@ class PaymentIntentCreateParams(RequestOptions):
     """
     The Stripe account ID that these funds are intended for. Learn more about the [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
     """
+    payment_details: NotRequired["PaymentIntentCreateParamsPaymentDetails"]
+    """
+    Provides industry-specific information about the charge.
+    """
     payment_method: NotRequired[str]
     """
     ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods#compatibility) object) to attach to this PaymentIntent.
@@ -224,6 +232,182 @@ class PaymentIntentCreateParams(RequestOptions):
     """
 
 
+class PaymentIntentCreateParamsAmountDetails(TypedDict):
+    discount_amount: NotRequired["Literal['']|int"]
+    """
+    The total discount applied on the transaction.
+    """
+    line_items: NotRequired[
+        "Literal['']|List[PaymentIntentCreateParamsAmountDetailsLineItem]"
+    ]
+    """
+    A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
+    """
+    shipping: NotRequired[
+        "Literal['']|PaymentIntentCreateParamsAmountDetailsShipping"
+    ]
+    """
+    Contains information about the shipping portion of the amount.
+    """
+    tax: NotRequired["Literal['']|PaymentIntentCreateParamsAmountDetailsTax"]
+    """
+    Contains information about the tax portion of the amount.
+    """
+
+
+class PaymentIntentCreateParamsAmountDetailsLineItem(TypedDict):
+    discount_amount: NotRequired[int]
+    """
+    The amount an item was discounted for. Positive integer.
+    """
+    payment_method_options: NotRequired[
+        "PaymentIntentCreateParamsAmountDetailsLineItemPaymentMethodOptions"
+    ]
+    """
+    Payment method-specific information for line items.
+    """
+    product_code: NotRequired[str]
+    """
+    Unique identifier of the product. At most 12 characters long.
+    """
+    product_name: str
+    """
+    Name of the product. At most 100 characters long.
+    """
+    quantity: int
+    """
+    Number of items of the product. Positive integer.
+    """
+    tax: NotRequired["PaymentIntentCreateParamsAmountDetailsLineItemTax"]
+    """
+    Contains information about the tax on the item.
+    """
+    unit_cost: int
+    """
+    Cost of the product. Non-negative integer.
+    """
+    unit_of_measure: NotRequired[str]
+    """
+    A unit of measure for the line item, such as gallons, feet, meters, etc.
+    """
+
+
+class PaymentIntentCreateParamsAmountDetailsLineItemPaymentMethodOptions(
+    TypedDict,
+):
+    card: NotRequired[
+        "PaymentIntentCreateParamsAmountDetailsLineItemPaymentMethodOptionsCard"
+    ]
+    """
+    This sub-hash contains line item details that are specific to `card` payment method."
+    """
+    card_present: NotRequired[
+        "PaymentIntentCreateParamsAmountDetailsLineItemPaymentMethodOptionsCardPresent"
+    ]
+    """
+    This sub-hash contains line item details that are specific to `card_present` payment method."
+    """
+    klarna: NotRequired[
+        "PaymentIntentCreateParamsAmountDetailsLineItemPaymentMethodOptionsKlarna"
+    ]
+    """
+    This sub-hash contains line item details that are specific to `klarna` payment method."
+    """
+    paypal: NotRequired[
+        "PaymentIntentCreateParamsAmountDetailsLineItemPaymentMethodOptionsPaypal"
+    ]
+    """
+    This sub-hash contains line item details that are specific to `paypal` payment method."
+    """
+
+
+class PaymentIntentCreateParamsAmountDetailsLineItemPaymentMethodOptionsCard(
+    TypedDict,
+):
+    commodity_code: NotRequired[str]
+    """
+    Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
+    """
+
+
+class PaymentIntentCreateParamsAmountDetailsLineItemPaymentMethodOptionsCardPresent(
+    TypedDict,
+):
+    commodity_code: NotRequired[str]
+    """
+    Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
+    """
+
+
+class PaymentIntentCreateParamsAmountDetailsLineItemPaymentMethodOptionsKlarna(
+    TypedDict,
+):
+    image_url: NotRequired[str]
+    """
+    URL to an image for the product. Max length, 4096 characters.
+    """
+    product_url: NotRequired[str]
+    """
+    URL to the product page. Max length, 4096 characters.
+    """
+    reference: NotRequired[str]
+    """
+    Unique reference for this line item to correlate it with your system's internal records. The field is displayed in the Klarna Consumer App if passed.
+    """
+    subscription_reference: NotRequired[str]
+    """
+    Reference for the subscription this line item is for.
+    """
+
+
+class PaymentIntentCreateParamsAmountDetailsLineItemPaymentMethodOptionsPaypal(
+    TypedDict,
+):
+    category: NotRequired[
+        Literal["digital_goods", "donation", "physical_goods"]
+    ]
+    """
+    Type of the line item.
+    """
+    description: NotRequired[str]
+    """
+    Description of the line item.
+    """
+    sold_by: NotRequired[str]
+    """
+    The Stripe account ID of the connected account that sells the item.
+    """
+
+
+class PaymentIntentCreateParamsAmountDetailsLineItemTax(TypedDict):
+    total_tax_amount: int
+    """
+    The total tax on an item. Non-negative integer.
+    """
+
+
+class PaymentIntentCreateParamsAmountDetailsShipping(TypedDict):
+    amount: NotRequired["Literal['']|int"]
+    """
+    Portion of the amount that is for shipping.
+    """
+    from_postal_code: NotRequired["Literal['']|str"]
+    """
+    The postal code that represents the shipping source.
+    """
+    to_postal_code: NotRequired["Literal['']|str"]
+    """
+    The postal code that represents the shipping destination.
+    """
+
+
+class PaymentIntentCreateParamsAmountDetailsTax(TypedDict):
+    total_tax_amount: int
+    """
+    Total portion of the amount that is for tax.
+    """
+
+
 class PaymentIntentCreateParamsAutomaticPaymentMethods(TypedDict):
     allow_redirects: NotRequired[Literal["always", "never"]]
     """
@@ -281,6 +465,17 @@ class PaymentIntentCreateParamsMandateDataCustomerAcceptanceOnline(TypedDict):
     user_agent: str
     """
     The user agent of the browser from which the Mandate was accepted by the customer.
+    """
+
+
+class PaymentIntentCreateParamsPaymentDetails(TypedDict):
+    customer_reference: NotRequired["Literal['']|str"]
+    """
+    Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
+    """
+    order_reference: NotRequired["Literal['']|str"]
+    """
+    A unique value assigned by the business to identify the transaction.
     """
 
 

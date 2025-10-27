@@ -356,7 +356,19 @@ if TYPE_CHECKING:
     )
     from stripe._oauth import OAuth as OAuth
     from stripe._oauth_service import OAuthService as OAuthService
+    from stripe._payment_attempt_record import (
+        PaymentAttemptRecord as PaymentAttemptRecord,
+    )
+    from stripe._payment_attempt_record_service import (
+        PaymentAttemptRecordService as PaymentAttemptRecordService,
+    )
     from stripe._payment_intent import PaymentIntent as PaymentIntent
+    from stripe._payment_intent_amount_details_line_item import (
+        PaymentIntentAmountDetailsLineItem as PaymentIntentAmountDetailsLineItem,
+    )
+    from stripe._payment_intent_amount_details_line_item_service import (
+        PaymentIntentAmountDetailsLineItemService as PaymentIntentAmountDetailsLineItemService,
+    )
     from stripe._payment_intent_service import (
         PaymentIntentService as PaymentIntentService,
     )
@@ -382,6 +394,10 @@ if TYPE_CHECKING:
     )
     from stripe._payment_method_service import (
         PaymentMethodService as PaymentMethodService,
+    )
+    from stripe._payment_record import PaymentRecord as PaymentRecord
+    from stripe._payment_record_service import (
+        PaymentRecordService as PaymentRecordService,
     )
     from stripe._payout import Payout as Payout
     from stripe._payout_service import PayoutService as PayoutService
@@ -718,7 +734,20 @@ _import_map = {
     ),
     "OAuth": ("stripe._oauth", False),
     "OAuthService": ("stripe._oauth_service", False),
+    "PaymentAttemptRecord": ("stripe._payment_attempt_record", False),
+    "PaymentAttemptRecordService": (
+        "stripe._payment_attempt_record_service",
+        False,
+    ),
     "PaymentIntent": ("stripe._payment_intent", False),
+    "PaymentIntentAmountDetailsLineItem": (
+        "stripe._payment_intent_amount_details_line_item",
+        False,
+    ),
+    "PaymentIntentAmountDetailsLineItemService": (
+        "stripe._payment_intent_amount_details_line_item_service",
+        False,
+    ),
     "PaymentIntentService": ("stripe._payment_intent_service", False),
     "PaymentLink": ("stripe._payment_link", False),
     "PaymentLinkLineItemService": (
@@ -741,6 +770,8 @@ _import_map = {
         False,
     ),
     "PaymentMethodService": ("stripe._payment_method_service", False),
+    "PaymentRecord": ("stripe._payment_record", False),
+    "PaymentRecordService": ("stripe._payment_record_service", False),
     "Payout": ("stripe._payout", False),
     "PayoutService": ("stripe._payout_service", False),
     "Person": ("stripe._person", False),

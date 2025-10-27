@@ -45,6 +45,9 @@ if TYPE_CHECKING:
     from stripe._invoice_service import InvoiceService
     from stripe._issuing_service import IssuingService
     from stripe._mandate_service import MandateService
+    from stripe._payment_attempt_record_service import (
+        PaymentAttemptRecordService,
+    )
     from stripe._payment_intent_service import PaymentIntentService
     from stripe._payment_link_service import PaymentLinkService
     from stripe._payment_method_configuration_service import (
@@ -54,6 +57,7 @@ if TYPE_CHECKING:
         PaymentMethodDomainService,
     )
     from stripe._payment_method_service import PaymentMethodService
+    from stripe._payment_record_service import PaymentRecordService
     from stripe._payout_service import PayoutService
     from stripe._plan_service import PlanService
     from stripe._price_service import PriceService
@@ -156,6 +160,10 @@ _subservices = {
     ],
     "issuing": ["stripe._issuing_service", "IssuingService"],
     "mandates": ["stripe._mandate_service", "MandateService"],
+    "payment_attempt_records": [
+        "stripe._payment_attempt_record_service",
+        "PaymentAttemptRecordService",
+    ],
     "payment_intents": [
         "stripe._payment_intent_service",
         "PaymentIntentService",
@@ -172,6 +180,10 @@ _subservices = {
     "payment_method_domains": [
         "stripe._payment_method_domain_service",
         "PaymentMethodDomainService",
+    ],
+    "payment_records": [
+        "stripe._payment_record_service",
+        "PaymentRecordService",
     ],
     "payouts": ["stripe._payout_service", "PayoutService"],
     "plans": ["stripe._plan_service", "PlanService"],
@@ -254,11 +266,13 @@ class V1Services(StripeService):
     invoice_rendering_templates: "InvoiceRenderingTemplateService"
     issuing: "IssuingService"
     mandates: "MandateService"
+    payment_attempt_records: "PaymentAttemptRecordService"
     payment_intents: "PaymentIntentService"
     payment_links: "PaymentLinkService"
     payment_methods: "PaymentMethodService"
     payment_method_configurations: "PaymentMethodConfigurationService"
     payment_method_domains: "PaymentMethodDomainService"
+    payment_records: "PaymentRecordService"
     payouts: "PayoutService"
     plans: "PlanService"
     prices: "PriceService"

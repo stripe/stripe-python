@@ -412,6 +412,7 @@ class Subscription(
                     "card",
                     "cashapp",
                     "crypto",
+                    "custom",
                     "customer_balance",
                     "eps",
                     "fpx",
