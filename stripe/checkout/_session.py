@@ -1758,6 +1758,18 @@ class Session(
             The order reference that will be displayed to customers in the Swish application. Defaults to the `id` of the Payment Intent.
             """
 
+        class Twint(StripeObject):
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+            """
+
         class UsBankAccount(StripeObject):
             class FinancialConnections(StripeObject):
                 class Filters(StripeObject):
@@ -1880,6 +1892,7 @@ class Session(
         sepa_debit: Optional[SepaDebit]
         sofort: Optional[Sofort]
         swish: Optional[Swish]
+        twint: Optional[Twint]
         us_bank_account: Optional[UsBankAccount]
         _inner_class_types = {
             "acss_debit": AcssDebit,
@@ -1922,6 +1935,7 @@ class Session(
             "sepa_debit": SepaDebit,
             "sofort": Sofort,
             "swish": Swish,
+            "twint": Twint,
             "us_bank_account": UsBankAccount,
         }
 

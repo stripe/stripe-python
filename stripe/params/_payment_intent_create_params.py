@@ -378,6 +378,10 @@ class PaymentIntentCreateParamsAmountDetailsLineItemPaymentMethodOptionsKlarna(
     """
     URL to the product page. Max length, 4096 characters.
     """
+    reference: NotRequired[str]
+    """
+    Unique reference for this line item to correlate it with your system's internal records. The field is displayed in the Klarna Consumer App if passed.
+    """
     subscription_reference: NotRequired[str]
     """
     Reference for the subscription this line item is for.
@@ -514,6 +518,10 @@ class PaymentIntentCreateParamsMandateDataCustomerAcceptanceOnline(TypedDict):
 
 
 class PaymentIntentCreateParamsPaymentDetails(TypedDict):
+    benefit: NotRequired["PaymentIntentCreateParamsPaymentDetailsBenefit"]
+    """
+    Benefit details for this PaymentIntent
+    """
     car_rental: NotRequired["PaymentIntentCreateParamsPaymentDetailsCarRental"]
     """
     Car rental details for this PaymentIntent.
@@ -546,9 +554,21 @@ class PaymentIntentCreateParamsPaymentDetails(TypedDict):
     """
     Subscription details for this PaymentIntent
     """
-    benefit: NotRequired["PaymentIntentCreateParamsPaymentDetailsBenefit"]
+
+
+class PaymentIntentCreateParamsPaymentDetailsBenefit(TypedDict):
+    fr_meal_voucher: NotRequired[
+        "PaymentIntentCreateParamsPaymentDetailsBenefitFrMealVoucher"
+    ]
     """
-    Benefit details for this PaymentIntent
+    French meal voucher benefit details for this PaymentIntent.
+    """
+
+
+class PaymentIntentCreateParamsPaymentDetailsBenefitFrMealVoucher(TypedDict):
+    siret: str
+    """
+    The 14-digit SIRET of the meal voucher acceptor.
     """
 
 
@@ -1246,22 +1266,6 @@ class PaymentIntentCreateParamsPaymentDetailsSubscriptionBillingInterval(
     interval: Literal["day", "month", "week", "year"]
     """
     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
-    """
-
-
-class PaymentIntentCreateParamsPaymentDetailsBenefit(TypedDict):
-    fr_meal_voucher: NotRequired[
-        "PaymentIntentCreateParamsPaymentDetailsBenefitFrMealVoucher"
-    ]
-    """
-    French meal voucher benefit details for this PaymentIntent.
-    """
-
-
-class PaymentIntentCreateParamsPaymentDetailsBenefitFrMealVoucher(TypedDict):
-    siret: str
-    """
-    The 14-digit SIRET of the meal voucher acceptor.
     """
 
 

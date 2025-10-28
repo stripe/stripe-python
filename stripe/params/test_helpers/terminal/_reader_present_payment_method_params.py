@@ -62,5 +62,5 @@ class ReaderPresentPaymentMethodParamsCardPresent(TypedDict):
 class ReaderPresentPaymentMethodParamsInteracPresent(TypedDict):
     number: NotRequired[str]
     """
-    Card Number
+    The Interac card number.
     """

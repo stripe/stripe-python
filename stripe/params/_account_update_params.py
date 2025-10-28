@@ -1201,6 +1201,12 @@ class AccountUpdateParamsCompany(TypedDict):
     """
     The identification number given to a company when it is registered or incorporated, if distinct from the identification number used for filing taxes. (Examples are the CIN for companies and LLP IN for partnerships in India, and the Company Registration Number in Hong Kong).
     """
+    representative_declaration: NotRequired[
+        "AccountUpdateParamsCompanyRepresentativeDeclaration"
+    ]
+    """
+    This hash is used to attest that the representative is authorized to act as the representative of their legal entity.
+    """
     structure: NotRequired[
         "Literal['']|Literal['free_zone_establishment', 'free_zone_llc', 'government_instrumentality', 'governmental_unit', 'incorporated_non_profit', 'incorporated_partnership', 'limited_liability_partnership', 'llc', 'multi_member_llc', 'private_company', 'private_corporation', 'private_partnership', 'public_company', 'public_corporation', 'public_partnership', 'registered_charity', 'single_member_llc', 'sole_establishment', 'sole_proprietorship', 'tax_exempt_government_instrumentality', 'unincorporated_association', 'unincorporated_non_profit', 'unincorporated_partnership']"
     ]
@@ -1356,6 +1362,21 @@ class AccountUpdateParamsCompanyRegistrationDate(TypedDict):
     year: int
     """
     The four-digit year of registration.
+    """
+
+
+class AccountUpdateParamsCompanyRepresentativeDeclaration(TypedDict):
+    date: NotRequired[int]
+    """
+    The Unix timestamp marking when the representative declaration attestation was made.
+    """
+    ip: NotRequired[str]
+    """
+    The IP address from which the representative declaration attestation was made.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser from which the representative declaration attestation was made.
     """
 
 
