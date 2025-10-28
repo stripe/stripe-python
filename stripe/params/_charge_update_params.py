@@ -57,7 +57,9 @@ class ChargeUpdateParamsPaymentDetails(TypedDict):
     """
     customer_reference: NotRequired["Literal['']|str"]
     """
-    Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
+    A unique value to identify the customer. This field is available only for card payments.
+
+    This field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks.
     """
     event_details: NotRequired["ChargeUpdateParamsPaymentDetailsEventDetails"]
     """
@@ -73,7 +75,11 @@ class ChargeUpdateParamsPaymentDetails(TypedDict):
     """
     order_reference: NotRequired["Literal['']|str"]
     """
-    A unique value assigned by the business to identify the transaction.
+    A unique value assigned by the business to identify the transaction. Required for L2 and L3 rates.
+
+    Required when the Payment Method Types array contains `card`, including when [automatic_payment_methods.enabled](https://docs.stripe.com/api/payment_intents/create#create_payment_intent-automatic_payment_methods-enabled) is set to `true`.
+
+    For Cards, this field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks. For Klarna, this field is truncated to 255 characters and is visible to customers when they view the order in the Klarna app.
     """
     subscription: NotRequired["ChargeUpdateParamsPaymentDetailsSubscription"]
     """

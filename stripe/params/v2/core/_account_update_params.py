@@ -1657,6 +1657,12 @@ class AccountUpdateParamsIdentityAttestationsTermsOfService(TypedDict):
     """
     Details on the Account's acceptance of the [Stripe Services Agreement](https://docs.stripe.com/connect/updating-accounts#tos-acceptance).
     """
+    crypto_storer: NotRequired[
+        "AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoStorer"
+    ]
+    """
+    Details on the Account's acceptance of Crypto-storer-specific terms of service.
+    """
     storer: NotRequired[
         "AccountUpdateParamsIdentityAttestationsTermsOfServiceStorer"
     ]
@@ -1666,6 +1672,23 @@ class AccountUpdateParamsIdentityAttestationsTermsOfService(TypedDict):
 
 
 class AccountUpdateParamsIdentityAttestationsTermsOfServiceAccount(TypedDict):
+    date: NotRequired[str]
+    """
+    The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+    """
+    ip: NotRequired[str]
+    """
+    The IP address from which the Account's representative accepted the terms of service.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser from which the Account's representative accepted the terms of service.
+    """
+
+
+class AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoStorer(
+    TypedDict,
+):
     date: NotRequired[str]
     """
     The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
