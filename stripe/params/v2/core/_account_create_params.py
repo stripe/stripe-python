@@ -1324,6 +1324,99 @@ class AccountCreateParamsConfigurationStorer(TypedDict):
     """
     Capabilities to request on the Storer Configuration.
     """
+    high_risk_activities: NotRequired[
+        List[
+            Literal[
+                "adult_entertainment",
+                "gambling",
+                "hold_client_funds",
+                "investment_services",
+                "lending_banking",
+                "marijuana_or_related_services",
+                "money_services",
+                "nicotine_tobacco_or_related_services",
+                "none",
+                "operate_foreign_exchange_virtual_currencies_brokerage_otc",
+                "pharmaceuticals",
+                "precious_metals_precious_stones_jewelry",
+                "safe_deposit_box_rentals",
+                "third_party_payment_processing",
+                "weapons_firearms_and_explosives",
+            ]
+        ]
+    ]
+    """
+    List of high-risk activities the business is involved in.
+    """
+    high_risk_activities_description: NotRequired[str]
+    """
+    An explanation of the high risk activities that the business performs.
+    """
+    money_services_description: NotRequired[str]
+    """
+    Description of the money services offered by the business.
+    """
+    operates_in_prohibited_countries: NotRequired[bool]
+    """
+    Does the business operate in any prohibited countries.
+    """
+    participates_in_regulated_activity: NotRequired[bool]
+    """
+    Does the business participate in any regulated activity.
+    """
+    purpose_of_funds: NotRequired[
+        Literal[
+            "charitable_donations",
+            "ecommerce_retail_payments",
+            "investment_purposes",
+            "other",
+            "payments_to_friends_or_family_abroad",
+            "payroll",
+            "personal_or_living_expenses",
+            "protect_wealth",
+            "purchase_goods_and_services",
+            "receive_payments_for_goods_and_services",
+            "tax_optimization",
+            "third_party_money_transmission",
+            "treasury_management",
+        ]
+    ]
+    """
+    Primary purpose of the stored funds.
+    """
+    purpose_of_funds_description: NotRequired[str]
+    """
+    Description of the purpose of the stored funds.
+    """
+    regulated_activity: NotRequired[
+        "AccountCreateParamsConfigurationStorerRegulatedActivity"
+    ]
+    """
+    Details of the regulated activity if the business participates in one.
+    """
+    source_of_funds: NotRequired[
+        Literal[
+            "business_loans",
+            "grants",
+            "inter_company_funds",
+            "investment_proceeds",
+            "legal_settlement",
+            "owners_capital",
+            "pension_retirement",
+            "sales_of_assets",
+            "sales_of_goods_and_services",
+            "tax_refund",
+            "third_party_funds",
+            "treasury_reserves",
+        ]
+    ]
+    """
+    The source of funds for the business, e.g. profits, income, venture capital, etc.
+    """
+    source_of_funds_description: NotRequired[str]
+    """
+    Description of the source of funds for the business' account.
+    """
 
 
 class AccountCreateParamsConfigurationStorerCapabilities(TypedDict):
@@ -1368,9 +1461,24 @@ class AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddresses(
     """
     Can provision a bank-account-like financial address (VBAN) to credit/debit a FinancialAccount.
     """
+    crypto_wallets: NotRequired[
+        "AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesCryptoWallets"
+    ]
+    """
+    Can provision a crypto wallet like financial address to credit a FinancialAccount.
+    """
 
 
 class AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccounts(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesCryptoWallets(
     TypedDict,
 ):
     requested: bool
@@ -1394,6 +1502,12 @@ class AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrencies(
     """
     Can hold storage-type funds on Stripe in USD.
     """
+    usdc: NotRequired[
+        "AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsdc"
+    ]
+    """
+    Can hold storage-type funds on Stripe in USDC.
+    """
 
 
 class AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbp(
@@ -1406,6 +1520,15 @@ class AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbp(
 
 
 class AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsd(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsdc(
     TypedDict,
 ):
     requested: bool
@@ -1449,6 +1572,12 @@ class AccountCreateParamsConfigurationStorerCapabilitiesOutboundPayments(
     """
     Can send funds from a FinancialAccount to a debit card owned by someone else.
     """
+    crypto_wallets: NotRequired[
+        "AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsCryptoWallets"
+    ]
+    """
+    Can send funds from a FinancialAccount to a crypto wallet owned by someone else.
+    """
     financial_accounts: NotRequired[
         "AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsFinancialAccounts"
     ]
@@ -1475,6 +1604,15 @@ class AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsCards(
     """
 
 
+class AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsCryptoWallets(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
 class AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsFinancialAccounts(
     TypedDict,
 ):
@@ -1493,6 +1631,12 @@ class AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfers(
     """
     Can send funds from a FinancialAccount to a bank account owned by yourself.
     """
+    crypto_wallets: NotRequired[
+        "AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersCryptoWallets"
+    ]
+    """
+    Can send funds from a FinancialAccount to a crypto wallet owned by yourself.
+    """
     financial_accounts: NotRequired[
         "AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersFinancialAccounts"
     ]
@@ -1510,12 +1654,40 @@ class AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersBankAcc
     """
 
 
+class AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersCryptoWallets(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
 class AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersFinancialAccounts(
     TypedDict,
 ):
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationStorerRegulatedActivity(TypedDict):
+    description: NotRequired[str]
+    """
+    A detailed description of the regulated activities the business is licensed to conduct.
+    """
+    license_number: NotRequired[str]
+    """
+    The license number or registration number assigned by the business's primary regulator.
+    """
+    primary_regulatory_authority_country: NotRequired[str]
+    """
+    The country of the primary regulatory authority that oversees the business's regulated activities.
+    """
+    primary_regulatory_authority_name: NotRequired[str]
+    """
+    The name of the primary regulatory authority that oversees the business's regulated activities.
     """
 
 
@@ -1800,6 +1972,12 @@ class AccountCreateParamsIdentityAttestationsTermsOfService(TypedDict):
     ]
     """
     Details on the Account's acceptance of Issuing-specific terms of service.
+    """
+    crypto_storer: NotRequired[
+        "AccountCreateParamsIdentityAttestationsTermsOfServiceCryptoStorer"
+    ]
+    """
+    Details on the Account's acceptance of Crypto-storer-specific terms of service.
     """
     storer: NotRequired[
         "AccountCreateParamsIdentityAttestationsTermsOfServiceStorer"
@@ -2205,6 +2383,23 @@ class AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercial
     """
 
 
+class AccountCreateParamsIdentityAttestationsTermsOfServiceCryptoStorer(
+    TypedDict,
+):
+    date: str
+    """
+    The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+    """
+    ip: str
+    """
+    The IP address from which the Account's representative accepted the terms of service.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser from which the Account's representative accepted the terms of service.
+    """
+
+
 class AccountCreateParamsIdentityAttestationsTermsOfServiceStorer(TypedDict):
     date: str
     """
@@ -2230,6 +2425,10 @@ class AccountCreateParamsIdentityBusinessDetails(TypedDict):
     ]
     """
     The business gross annual revenue for its preceding fiscal year.
+    """
+    compliance_screening_description: NotRequired[str]
+    """
+    A detailed description of the business's compliance and anti-money laundering controls and practices.
     """
     documents: NotRequired[
         "AccountCreateParamsIdentityBusinessDetailsDocuments"

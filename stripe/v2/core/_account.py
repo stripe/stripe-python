@@ -3042,11 +3042,57 @@ class Account(StripeObject):
                         """
                         _inner_class_types = {"status_details": StatusDetail}
 
+                    class CryptoWallets(StripeObject):
+                        class StatusDetail(StripeObject):
+                            code: Literal[
+                                "determining_status",
+                                "requirements_past_due",
+                                "requirements_pending_verification",
+                                "restricted_other",
+                                "unsupported_business",
+                                "unsupported_country",
+                                "unsupported_entity_type",
+                            ]
+                            """
+                            Machine-readable code explaining the reason for the Capability to be in its current status.
+                            """
+                            resolution: Literal[
+                                "contact_stripe",
+                                "no_resolution",
+                                "provide_info",
+                            ]
+                            """
+                            Machine-readable code explaining how to make the Capability active.
+                            """
+
+                        requested: bool
+                        """
+                        Whether the Capability has been requested.
+                        """
+                        status: Literal[
+                            "active", "pending", "restricted", "unsupported"
+                        ]
+                        """
+                        The status of the Capability.
+                        """
+                        status_details: List[StatusDetail]
+                        """
+                        Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                        """
+                        _inner_class_types = {"status_details": StatusDetail}
+
                     bank_accounts: Optional[BankAccounts]
                     """
                     Can provision a bank-account like financial address (VBAN) to credit/debit a FinancialAccount.
                     """
-                    _inner_class_types = {"bank_accounts": BankAccounts}
+                    crypto_wallets: Optional[CryptoWallets]
+                    """
+                    Can provision a crypto wallet like financial address to credit a FinancialAccount.
+                    """
+                    _inner_class_types = {
+                        "bank_accounts": BankAccounts,
+                        "crypto_wallets": CryptoWallets,
+                    }
 
                 class HoldsCurrencies(StripeObject):
                     class Gbp(StripeObject):
@@ -3127,6 +3173,45 @@ class Account(StripeObject):
                         """
                         _inner_class_types = {"status_details": StatusDetail}
 
+                    class Usdc(StripeObject):
+                        class StatusDetail(StripeObject):
+                            code: Literal[
+                                "determining_status",
+                                "requirements_past_due",
+                                "requirements_pending_verification",
+                                "restricted_other",
+                                "unsupported_business",
+                                "unsupported_country",
+                                "unsupported_entity_type",
+                            ]
+                            """
+                            Machine-readable code explaining the reason for the Capability to be in its current status.
+                            """
+                            resolution: Literal[
+                                "contact_stripe",
+                                "no_resolution",
+                                "provide_info",
+                            ]
+                            """
+                            Machine-readable code explaining how to make the Capability active.
+                            """
+
+                        requested: bool
+                        """
+                        Whether the Capability has been requested.
+                        """
+                        status: Literal[
+                            "active", "pending", "restricted", "unsupported"
+                        ]
+                        """
+                        The status of the Capability.
+                        """
+                        status_details: List[StatusDetail]
+                        """
+                        Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                        """
+                        _inner_class_types = {"status_details": StatusDetail}
+
                     gbp: Optional[Gbp]
                     """
                     Can hold storage-type funds on Stripe in GBP.
@@ -3135,7 +3220,11 @@ class Account(StripeObject):
                     """
                     Can hold storage-type funds on Stripe in USD.
                     """
-                    _inner_class_types = {"gbp": Gbp, "usd": Usd}
+                    usdc: Optional[Usdc]
+                    """
+                    Can hold storage-type funds on Stripe in USDC.
+                    """
+                    _inner_class_types = {"gbp": Gbp, "usd": Usd, "usdc": Usdc}
 
                 class InboundTransfers(StripeObject):
                     class BankAccounts(StripeObject):
@@ -3262,6 +3351,45 @@ class Account(StripeObject):
                         """
                         _inner_class_types = {"status_details": StatusDetail}
 
+                    class CryptoWallets(StripeObject):
+                        class StatusDetail(StripeObject):
+                            code: Literal[
+                                "determining_status",
+                                "requirements_past_due",
+                                "requirements_pending_verification",
+                                "restricted_other",
+                                "unsupported_business",
+                                "unsupported_country",
+                                "unsupported_entity_type",
+                            ]
+                            """
+                            Machine-readable code explaining the reason for the Capability to be in its current status.
+                            """
+                            resolution: Literal[
+                                "contact_stripe",
+                                "no_resolution",
+                                "provide_info",
+                            ]
+                            """
+                            Machine-readable code explaining how to make the Capability active.
+                            """
+
+                        requested: bool
+                        """
+                        Whether the Capability has been requested.
+                        """
+                        status: Literal[
+                            "active", "pending", "restricted", "unsupported"
+                        ]
+                        """
+                        The status of the Capability.
+                        """
+                        status_details: List[StatusDetail]
+                        """
+                        Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                        """
+                        _inner_class_types = {"status_details": StatusDetail}
+
                     class FinancialAccounts(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
@@ -3309,6 +3437,10 @@ class Account(StripeObject):
                     """
                     Can send funds from a FinancialAccount to a debit card, owned by someone else.
                     """
+                    crypto_wallets: Optional[CryptoWallets]
+                    """
+                    Can send funds from a FinancialAccount to a crypto wallet, owned by someone else.
+                    """
                     financial_accounts: Optional[FinancialAccounts]
                     """
                     Can send funds from a FinancialAccount to another FinancialAccount, owned by someone else.
@@ -3316,11 +3448,51 @@ class Account(StripeObject):
                     _inner_class_types = {
                         "bank_accounts": BankAccounts,
                         "cards": Cards,
+                        "crypto_wallets": CryptoWallets,
                         "financial_accounts": FinancialAccounts,
                     }
 
                 class OutboundTransfers(StripeObject):
                     class BankAccounts(StripeObject):
+                        class StatusDetail(StripeObject):
+                            code: Literal[
+                                "determining_status",
+                                "requirements_past_due",
+                                "requirements_pending_verification",
+                                "restricted_other",
+                                "unsupported_business",
+                                "unsupported_country",
+                                "unsupported_entity_type",
+                            ]
+                            """
+                            Machine-readable code explaining the reason for the Capability to be in its current status.
+                            """
+                            resolution: Literal[
+                                "contact_stripe",
+                                "no_resolution",
+                                "provide_info",
+                            ]
+                            """
+                            Machine-readable code explaining how to make the Capability active.
+                            """
+
+                        requested: bool
+                        """
+                        Whether the Capability has been requested.
+                        """
+                        status: Literal[
+                            "active", "pending", "restricted", "unsupported"
+                        ]
+                        """
+                        The status of the Capability.
+                        """
+                        status_details: List[StatusDetail]
+                        """
+                        Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                        """
+                        _inner_class_types = {"status_details": StatusDetail}
+
+                    class CryptoWallets(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
@@ -3402,12 +3574,17 @@ class Account(StripeObject):
                     """
                     Can send funds from a FinancialAccount, to a bank account, owned by yourself.
                     """
+                    crypto_wallets: Optional[CryptoWallets]
+                    """
+                    Can send funds from a FinancialAccount to a crypto wallet, owned by yourself.
+                    """
                     financial_accounts: Optional[FinancialAccounts]
                     """
                     Can send funds from a FinancialAccount to another FinancialAccount, owned by yourself.
                     """
                     _inner_class_types = {
                         "bank_accounts": BankAccounts,
+                        "crypto_wallets": CryptoWallets,
                         "financial_accounts": FinancialAccounts,
                     }
 
@@ -3439,6 +3616,24 @@ class Account(StripeObject):
                     "outbound_transfers": OutboundTransfers,
                 }
 
+            class RegulatedActivity(StripeObject):
+                description: Optional[str]
+                """
+                A detailed description of the regulated activities the business is licensed to conduct.
+                """
+                license_number: Optional[str]
+                """
+                The license number or registration number assigned by the business's primary regulator.
+                """
+                primary_regulatory_authority_country: Optional[str]
+                """
+                The country of the primary regulatory authority that oversees the business's regulated activities.
+                """
+                primary_regulatory_authority_name: Optional[str]
+                """
+                The name of the primary regulatory authority that oversees the business's regulated activities.
+                """
+
             applied: bool
             """
             Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
@@ -3447,7 +3642,101 @@ class Account(StripeObject):
             """
             Capabilities that have been requested on the Storer Configuration.
             """
-            _inner_class_types = {"capabilities": Capabilities}
+            high_risk_activities: Optional[
+                List[
+                    Literal[
+                        "adult_entertainment",
+                        "gambling",
+                        "hold_client_funds",
+                        "investment_services",
+                        "lending_banking",
+                        "marijuana_or_related_services",
+                        "money_services",
+                        "nicotine_tobacco_or_related_services",
+                        "none",
+                        "operate_foreign_exchange_virtual_currencies_brokerage_otc",
+                        "pharmaceuticals",
+                        "precious_metals_precious_stones_jewelry",
+                        "safe_deposit_box_rentals",
+                        "third_party_payment_processing",
+                        "weapons_firearms_and_explosives",
+                    ]
+                ]
+            ]
+            """
+            List of high-risk activities the business is involved in.
+            """
+            high_risk_activities_description: Optional[str]
+            """
+            An explanation of the high risk activities that the business performs.
+            """
+            money_services_description: Optional[str]
+            """
+            Description of the money services offered by the business.
+            """
+            operates_in_prohibited_countries: Optional[bool]
+            """
+            Does the business operate in any prohibited countries.
+            """
+            participates_in_regulated_activity: Optional[bool]
+            """
+            Does the business participate in any regulated activity.
+            """
+            purpose_of_funds: Optional[
+                Literal[
+                    "charitable_donations",
+                    "ecommerce_retail_payments",
+                    "investment_purposes",
+                    "other",
+                    "payments_to_friends_or_family_abroad",
+                    "payroll",
+                    "personal_or_living_expenses",
+                    "protect_wealth",
+                    "purchase_goods_and_services",
+                    "receive_payments_for_goods_and_services",
+                    "tax_optimization",
+                    "third_party_money_transmission",
+                    "treasury_management",
+                ]
+            ]
+            """
+            Primary purpose of the stored funds.
+            """
+            purpose_of_funds_description: Optional[str]
+            """
+            Description of the purpose of the stored funds.
+            """
+            regulated_activity: Optional[RegulatedActivity]
+            """
+            Details of the regulated activity if the business participates in one.
+            """
+            source_of_funds: Optional[
+                Literal[
+                    "business_loans",
+                    "grants",
+                    "inter_company_funds",
+                    "investment_proceeds",
+                    "legal_settlement",
+                    "owners_capital",
+                    "pension_retirement",
+                    "sales_of_assets",
+                    "sales_of_goods_and_services",
+                    "tax_refund",
+                    "third_party_funds",
+                    "treasury_reserves",
+                ]
+            ]
+            """
+            The source of funds for the business, e.g. profits, income, venture capital, etc.
+            """
+            source_of_funds_description: Optional[str]
+            """
+            Description of the source of funds for the business' account.
+            """
+            _inner_class_types = {
+                "capabilities": Capabilities,
+                "regulated_activity": RegulatedActivity,
+            }
 
         card_creator: Optional[CardCreator]
         """
@@ -4069,6 +4358,20 @@ class Account(StripeObject):
                     """
                     _inner_class_types = {"commercial": Commercial}
 
+                class CryptoStorer(StripeObject):
+                    date: Optional[str]
+                    """
+                    The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                    """
+                    ip: Optional[str]
+                    """
+                    The IP address from which the Account's representative accepted the terms of service.
+                    """
+                    user_agent: Optional[str]
+                    """
+                    The user agent of the browser from which the Account's representative accepted the terms of service.
+                    """
+
                 class Storer(StripeObject):
                     date: Optional[str]
                     """
@@ -4091,6 +4394,10 @@ class Account(StripeObject):
                 """
                 Details on the Account's acceptance of Issuing-specific terms of service.
                 """
+                crypto_storer: Optional[CryptoStorer]
+                """
+                Details on the Account's acceptance of Crypto-storer-specific terms of service.
+                """
                 storer: Optional[Storer]
                 """
                 Details on the Account's acceptance of Treasury-specific terms of service.
@@ -4098,6 +4405,7 @@ class Account(StripeObject):
                 _inner_class_types = {
                     "account": Account,
                     "card_creator": CardCreator,
+                    "crypto_storer": CryptoStorer,
                     "storer": Storer,
                 }
 
@@ -4533,6 +4841,10 @@ class Account(StripeObject):
             annual_revenue: Optional[AnnualRevenue]
             """
             The business gross annual revenue for its preceding fiscal year.
+            """
+            compliance_screening_description: Optional[str]
+            """
+            A detailed description of the business's compliance and anti-money laundering controls and practices.
             """
             documents: Optional[Documents]
             """

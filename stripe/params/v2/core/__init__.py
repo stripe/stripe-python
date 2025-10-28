@@ -99,18 +99,23 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationStorerCapabilities as AccountCreateParamsConfigurationStorerCapabilities,
         AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddresses as AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddresses,
         AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccounts as AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccounts,
+        AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesCryptoWallets as AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesCryptoWallets,
         AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrencies as AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrencies,
         AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbp as AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbp,
         AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsd as AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsd,
+        AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsdc as AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsdc,
         AccountCreateParamsConfigurationStorerCapabilitiesInboundTransfers as AccountCreateParamsConfigurationStorerCapabilitiesInboundTransfers,
         AccountCreateParamsConfigurationStorerCapabilitiesInboundTransfersBankAccounts as AccountCreateParamsConfigurationStorerCapabilitiesInboundTransfersBankAccounts,
         AccountCreateParamsConfigurationStorerCapabilitiesOutboundPayments as AccountCreateParamsConfigurationStorerCapabilitiesOutboundPayments,
         AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsBankAccounts as AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsBankAccounts,
         AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsCards as AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsCards,
+        AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsCryptoWallets as AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsCryptoWallets,
         AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsFinancialAccounts as AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsFinancialAccounts,
         AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfers as AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfers,
         AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersBankAccounts as AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersBankAccounts,
+        AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersCryptoWallets as AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersCryptoWallets,
         AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersFinancialAccounts as AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersFinancialAccounts,
+        AccountCreateParamsConfigurationStorerRegulatedActivity as AccountCreateParamsConfigurationStorerRegulatedActivity,
         AccountCreateParamsDefaults as AccountCreateParamsDefaults,
         AccountCreateParamsDefaultsProfile as AccountCreateParamsDefaultsProfile,
         AccountCreateParamsDefaultsResponsibilities as AccountCreateParamsDefaultsResponsibilities,
@@ -143,6 +148,7 @@ if TYPE_CHECKING:
         AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCard as AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCard,
         AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCardBankTerms as AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCardBankTerms,
         AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCardFinancingDisclosures as AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCardFinancingDisclosures,
+        AccountCreateParamsIdentityAttestationsTermsOfServiceCryptoStorer as AccountCreateParamsIdentityAttestationsTermsOfServiceCryptoStorer,
         AccountCreateParamsIdentityAttestationsTermsOfServiceStorer as AccountCreateParamsIdentityAttestationsTermsOfServiceStorer,
         AccountCreateParamsIdentityBusinessDetails as AccountCreateParamsIdentityBusinessDetails,
         AccountCreateParamsIdentityBusinessDetailsAddress as AccountCreateParamsIdentityBusinessDetailsAddress,
@@ -294,18 +300,23 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationStorerCapabilities as AccountUpdateParamsConfigurationStorerCapabilities,
         AccountUpdateParamsConfigurationStorerCapabilitiesFinancialAddresses as AccountUpdateParamsConfigurationStorerCapabilitiesFinancialAddresses,
         AccountUpdateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccounts as AccountUpdateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccounts,
+        AccountUpdateParamsConfigurationStorerCapabilitiesFinancialAddressesCryptoWallets as AccountUpdateParamsConfigurationStorerCapabilitiesFinancialAddressesCryptoWallets,
         AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrencies as AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrencies,
         AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbp as AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbp,
         AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsd as AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsd,
+        AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsdc as AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsdc,
         AccountUpdateParamsConfigurationStorerCapabilitiesInboundTransfers as AccountUpdateParamsConfigurationStorerCapabilitiesInboundTransfers,
         AccountUpdateParamsConfigurationStorerCapabilitiesInboundTransfersBankAccounts as AccountUpdateParamsConfigurationStorerCapabilitiesInboundTransfersBankAccounts,
         AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPayments as AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPayments,
         AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsBankAccounts as AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsBankAccounts,
         AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsCards as AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsCards,
+        AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsCryptoWallets as AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsCryptoWallets,
         AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsFinancialAccounts as AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsFinancialAccounts,
         AccountUpdateParamsConfigurationStorerCapabilitiesOutboundTransfers as AccountUpdateParamsConfigurationStorerCapabilitiesOutboundTransfers,
         AccountUpdateParamsConfigurationStorerCapabilitiesOutboundTransfersBankAccounts as AccountUpdateParamsConfigurationStorerCapabilitiesOutboundTransfersBankAccounts,
+        AccountUpdateParamsConfigurationStorerCapabilitiesOutboundTransfersCryptoWallets as AccountUpdateParamsConfigurationStorerCapabilitiesOutboundTransfersCryptoWallets,
         AccountUpdateParamsConfigurationStorerCapabilitiesOutboundTransfersFinancialAccounts as AccountUpdateParamsConfigurationStorerCapabilitiesOutboundTransfersFinancialAccounts,
+        AccountUpdateParamsConfigurationStorerRegulatedActivity as AccountUpdateParamsConfigurationStorerRegulatedActivity,
         AccountUpdateParamsDefaults as AccountUpdateParamsDefaults,
         AccountUpdateParamsDefaultsProfile as AccountUpdateParamsDefaultsProfile,
         AccountUpdateParamsDefaultsResponsibilities as AccountUpdateParamsDefaultsResponsibilities,
@@ -338,6 +349,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCard as AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCard,
         AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCardBankTerms as AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCardBankTerms,
         AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCardFinancingDisclosures as AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCardFinancingDisclosures,
+        AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoStorer as AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoStorer,
         AccountUpdateParamsIdentityAttestationsTermsOfServiceStorer as AccountUpdateParamsIdentityAttestationsTermsOfServiceStorer,
         AccountUpdateParamsIdentityBusinessDetails as AccountUpdateParamsIdentityBusinessDetails,
         AccountUpdateParamsIdentityBusinessDetailsAddress as AccountUpdateParamsIdentityBusinessDetailsAddress,
@@ -793,6 +805,10 @@ _import_map = {
         "stripe.params.v2.core._account_create_params",
         False,
     ),
+    "AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesCryptoWallets": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
     "AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrencies": (
         "stripe.params.v2.core._account_create_params",
         False,
@@ -802,6 +818,10 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsd": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsdc": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
@@ -825,6 +845,10 @@ _import_map = {
         "stripe.params.v2.core._account_create_params",
         False,
     ),
+    "AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsCryptoWallets": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
     "AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsFinancialAccounts": (
         "stripe.params.v2.core._account_create_params",
         False,
@@ -837,7 +861,15 @@ _import_map = {
         "stripe.params.v2.core._account_create_params",
         False,
     ),
+    "AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersCryptoWallets": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
     "AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersFinancialAccounts": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationStorerRegulatedActivity": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
@@ -966,6 +998,10 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCardFinancingDisclosures": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsIdentityAttestationsTermsOfServiceCryptoStorer": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
@@ -1538,6 +1574,10 @@ _import_map = {
         "stripe.params.v2.core._account_update_params",
         False,
     ),
+    "AccountUpdateParamsConfigurationStorerCapabilitiesFinancialAddressesCryptoWallets": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
     "AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrencies": (
         "stripe.params.v2.core._account_update_params",
         False,
@@ -1547,6 +1587,10 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsd": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsdc": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),
@@ -1570,6 +1614,10 @@ _import_map = {
         "stripe.params.v2.core._account_update_params",
         False,
     ),
+    "AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsCryptoWallets": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
     "AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsFinancialAccounts": (
         "stripe.params.v2.core._account_update_params",
         False,
@@ -1582,7 +1630,15 @@ _import_map = {
         "stripe.params.v2.core._account_update_params",
         False,
     ),
+    "AccountUpdateParamsConfigurationStorerCapabilitiesOutboundTransfersCryptoWallets": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
     "AccountUpdateParamsConfigurationStorerCapabilitiesOutboundTransfersFinancialAccounts": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationStorerRegulatedActivity": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),
@@ -1711,6 +1767,10 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCardFinancingDisclosures": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoStorer": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),

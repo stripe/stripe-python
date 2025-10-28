@@ -202,6 +202,10 @@ class ReceivedCredit(StripeObject):
     """
     Freeform string set by originator of the ReceivedCredit.
     """
+    external_amount: Optional[Amount]
+    """
+    The amount and currency of the original/external credit request.
+    """
     financial_account: str
     """
     Financial Account ID on which funds for ReceivedCredit were received.
