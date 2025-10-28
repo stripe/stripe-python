@@ -149,7 +149,9 @@ class PaymentIntentUpdateParams(TypedDict):
 class PaymentIntentUpdateParamsAmountDetails(TypedDict):
     discount_amount: NotRequired["Literal['']|int"]
     """
-    The total discount applied on the transaction.
+    The total discount applied on the transaction represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than 0.
+
+    This field is mutually exclusive with the `amount_details[line_items][#][discount_amount]` field.
     """
     line_items: NotRequired[
         "Literal['']|List[PaymentIntentUpdateParamsAmountDetailsLineItem]"
@@ -172,7 +174,9 @@ class PaymentIntentUpdateParamsAmountDetails(TypedDict):
 class PaymentIntentUpdateParamsAmountDetailsLineItem(TypedDict):
     discount_amount: NotRequired[int]
     """
-    The amount an item was discounted for. Positive integer.
+    The discount applied on this line item represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than 0.
+
+    This field is mutually exclusive with the `amount_details[discount_amount]` field.
     """
     payment_method_options: NotRequired[
         "PaymentIntentUpdateParamsAmountDetailsLineItemPaymentMethodOptions"
@@ -182,15 +186,17 @@ class PaymentIntentUpdateParamsAmountDetailsLineItem(TypedDict):
     """
     product_code: NotRequired[str]
     """
-    Unique identifier of the product. At most 12 characters long.
+    The product code of the line item, such as an SKU. Required for L3 rates. At most 12 characters long.
     """
     product_name: str
     """
-    Name of the product. At most 100 characters long.
+    The product name of the line item. Required for L3 rates. At most 1024 characters long.
+
+    For Cards, this field is truncated to 26 alphanumeric characters before being sent to the card networks. For Paypal, this field is truncated to 127 characters.
     """
     quantity: int
     """
-    Number of items of the product. Positive integer.
+    The quantity of items. Required for L3 rates. An integer greater than 0.
     """
     tax: NotRequired["PaymentIntentUpdateParamsAmountDetailsLineItemTax"]
     """
@@ -198,7 +204,7 @@ class PaymentIntentUpdateParamsAmountDetailsLineItem(TypedDict):
     """
     unit_cost: int
     """
-    Cost of the product. Non-negative integer.
+    The unit cost of the line item represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L3 rates. An integer greater than or equal to 0.
     """
     unit_of_measure: NotRequired[str]
     """
@@ -296,29 +302,33 @@ class PaymentIntentUpdateParamsAmountDetailsLineItemPaymentMethodOptionsPaypal(
 class PaymentIntentUpdateParamsAmountDetailsLineItemTax(TypedDict):
     total_tax_amount: int
     """
-    The total tax on an item. Non-negative integer.
+    The total amount of tax on a single line item represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L3 rates. An integer greater than or equal to 0.
+
+    This field is mutually exclusive with the `amount_details[tax][total_tax_amount]` field.
     """
 
 
 class PaymentIntentUpdateParamsAmountDetailsShipping(TypedDict):
     amount: NotRequired["Literal['']|int"]
     """
-    Portion of the amount that is for shipping.
+    If a physical good is being shipped, the cost of shipping represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than or equal to 0.
     """
     from_postal_code: NotRequired["Literal['']|str"]
     """
-    The postal code that represents the shipping source.
+    If a physical good is being shipped, the postal code of where it is being shipped from. At most 10 alphanumeric characters long, hyphens are allowed.
     """
     to_postal_code: NotRequired["Literal['']|str"]
     """
-    The postal code that represents the shipping destination.
+    If a physical good is being shipped, the postal code of where it is being shipped to. At most 10 alphanumeric characters long, hyphens are allowed.
     """
 
 
 class PaymentIntentUpdateParamsAmountDetailsTax(TypedDict):
     total_tax_amount: int
     """
-    Total portion of the amount that is for tax.
+    The total amount of tax on the transaction represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L2 rates. An integer greater than or equal to 0.
+
+    This field is mutually exclusive with the `amount_details[line_items][#][tax][total_tax_amount]` field.
     """
 
 
@@ -381,7 +391,9 @@ class PaymentIntentUpdateParamsPaymentDetails(TypedDict):
     """
     customer_reference: NotRequired["Literal['']|str"]
     """
-    Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
+    A unique value to identify the customer. This field is available only for card payments.
+
+    This field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks.
     """
     event_details: NotRequired[
         "PaymentIntentUpdateParamsPaymentDetailsEventDetails"
@@ -399,7 +411,11 @@ class PaymentIntentUpdateParamsPaymentDetails(TypedDict):
     """
     order_reference: NotRequired["Literal['']|str"]
     """
-    A unique value assigned by the business to identify the transaction.
+    A unique value assigned by the business to identify the transaction. Required for L2 and L3 rates.
+
+    Required when the Payment Method Types array contains `card`, including when [automatic_payment_methods.enabled](https://docs.stripe.com/api/payment_intents/create#create_payment_intent-automatic_payment_methods-enabled) is set to `true`.
+
+    For Cards, this field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks. For Klarna, this field is truncated to 255 characters and is visible to customers when they view the order in the Klarna app.
     """
     subscription: NotRequired[
         "PaymentIntentUpdateParamsPaymentDetailsSubscription"
@@ -3827,7 +3843,7 @@ class PaymentIntentUpdateParamsPaymentMethodOptionsPaytoMandateOptions(
     """
     amount_type: NotRequired[Literal["fixed", "maximum"]]
     """
-    The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively.
+    The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively. Defaults to `maximum`.
     """
     end_date: NotRequired[str]
     """
@@ -3846,7 +3862,7 @@ class PaymentIntentUpdateParamsPaymentMethodOptionsPaytoMandateOptions(
         ]
     ]
     """
-    The periodicity at which payments will be collected.
+    The periodicity at which payments will be collected. Defaults to `adhoc`.
     """
     payments_per_period: NotRequired[int]
     """
@@ -3868,7 +3884,7 @@ class PaymentIntentUpdateParamsPaymentMethodOptionsPaytoMandateOptions(
         ]
     ]
     """
-    The purpose for which payments are made. Defaults to retail.
+    The purpose for which payments are made. Has a default value based on your merchant category code.
     """
 
 
