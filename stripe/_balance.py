@@ -254,69 +254,6 @@ class Balance(SingletonAPIResource["Balance"]):
         """
         _inner_class_types = {"available": Available, "pending": Pending}
 
-    class TransitBalancesTotal(StripeObject):
-        class Available(StripeObject):
-            class SourceTypes(StripeObject):
-                bank_account: Optional[int]
-                """
-                Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
-                """
-                card: Optional[int]
-                """
-                Amount coming from most payment methods, including cards as well as [non-legacy bank debits](https://docs.stripe.com/payments/bank-debits).
-                """
-                fpx: Optional[int]
-                """
-                Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
-                """
-
-            amount: int
-            """
-            Balance amount.
-            """
-            currency: str
-            """
-            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            """
-            source_types: Optional[SourceTypes]
-            _inner_class_types = {"source_types": SourceTypes}
-
-        class Pending(StripeObject):
-            class SourceTypes(StripeObject):
-                bank_account: Optional[int]
-                """
-                Amount coming from [legacy US ACH payments](https://docs.stripe.com/ach-deprecated).
-                """
-                card: Optional[int]
-                """
-                Amount coming from most payment methods, including cards as well as [non-legacy bank debits](https://docs.stripe.com/payments/bank-debits).
-                """
-                fpx: Optional[int]
-                """
-                Amount coming from [FPX](https://docs.stripe.com/payments/fpx), a Malaysian payment method.
-                """
-
-            amount: int
-            """
-            Balance amount.
-            """
-            currency: str
-            """
-            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            """
-            source_types: Optional[SourceTypes]
-            _inner_class_types = {"source_types": SourceTypes}
-
-        available: List[Available]
-        """
-        Funds that are available for use.
-        """
-        pending: List[Pending]
-        """
-        Funds that are pending
-        """
-        _inner_class_types = {"available": Available, "pending": Pending}
-
     available: List[Available]
     """
     Available funds that you can transfer or pay out automatically by Stripe or explicitly through the [Transfers API](https://stripe.com/docs/api#transfers) or [Payouts API](https://stripe.com/docs/api#payouts). You can find the available balance for each currency and payment type in the `source_types` property.
@@ -343,7 +280,6 @@ class Balance(SingletonAPIResource["Balance"]):
     Funds that aren't available in the balance yet. You can find the pending balance for each currency and each payment type in the `source_types` property.
     """
     refund_and_dispute_prefunding: Optional[RefundAndDisputePrefunding]
-    transit_balances_total: Optional[TransitBalancesTotal]
 
     @classmethod
     def retrieve(cls, **params: Unpack["BalanceRetrieveParams"]) -> "Balance":
@@ -378,5 +314,4 @@ class Balance(SingletonAPIResource["Balance"]):
         "issuing": Issuing,
         "pending": Pending,
         "refund_and_dispute_prefunding": RefundAndDisputePrefunding,
-        "transit_balances_total": TransitBalancesTotal,
     }

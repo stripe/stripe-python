@@ -12,7 +12,6 @@ from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._account import Account
-    from stripe._application_fee import ApplicationFee
     from stripe._balance_transaction import BalanceTransaction
     from stripe._charge import Charge
     from stripe._reversal import Reversal
@@ -62,8 +61,6 @@ class Transfer(
     """
     Amount in cents (or local equivalent) reversed (can be less than the amount attribute on the transfer if a partial reversal was issued).
     """
-    application_fee: Optional[ExpandableField["ApplicationFee"]]
-    application_fee_amount: Optional[int]
     balance_transaction: Optional[ExpandableField["BalanceTransaction"]]
     """
     Balance transaction that describes the impact of this transfer on your account balance.
