@@ -3843,7 +3843,7 @@ class PaymentIntentUpdateParamsPaymentMethodOptionsPaytoMandateOptions(
     """
     amount_type: NotRequired[Literal["fixed", "maximum"]]
     """
-    The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively. Defaults to `maximum`.
+    The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively.
     """
     end_date: NotRequired[str]
     """
@@ -3862,7 +3862,7 @@ class PaymentIntentUpdateParamsPaymentMethodOptionsPaytoMandateOptions(
         ]
     ]
     """
-    The periodicity at which payments will be collected. Defaults to `adhoc`.
+    The periodicity at which payments will be collected.
     """
     payments_per_period: NotRequired[int]
     """
@@ -3884,7 +3884,7 @@ class PaymentIntentUpdateParamsPaymentMethodOptionsPaytoMandateOptions(
         ]
     ]
     """
-    The purpose for which payments are made. Has a default value based on your merchant category code.
+    The purpose for which payments are made. Defaults to retail.
     """
 
 

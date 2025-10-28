@@ -2053,7 +2053,7 @@ class AccountUpdateParamsSettingsInvoices(TypedDict):
         Literal["always", "never", "offer"]
     ]
     """
-    Whether to save the payment method after a payment is completed for a one-time invoice or a subscription invoice when the customer already has a default payment method on the hosted invoice page.
+    Whether payment methods should be saved when a payment is completed for a one-time invoices on a hosted invoice page.
     """
 
 

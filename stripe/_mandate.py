@@ -162,7 +162,7 @@ class Mandate(ListableAPIResource["Mandate"]):
             """
             amount_type: Literal["fixed", "maximum"]
             """
-            The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively. Defaults to `maximum`.
+            The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively.
             """
             end_date: Optional[str]
             """
@@ -179,7 +179,7 @@ class Mandate(ListableAPIResource["Mandate"]):
                 "weekly",
             ]
             """
-            The periodicity at which payments will be collected. Defaults to `adhoc`.
+            The periodicity at which payments will be collected.
             """
             payments_per_period: Optional[int]
             """
@@ -201,7 +201,7 @@ class Mandate(ListableAPIResource["Mandate"]):
                 ]
             ]
             """
-            The purpose for which payments are made. Has a default value based on your merchant category code.
+            The purpose for which payments are made. Defaults to retail.
             """
             start_date: Optional[str]
             """
