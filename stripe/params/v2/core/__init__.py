@@ -270,6 +270,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsIdentityAttestationsRepresentativeDeclaration as AccountUpdateParamsIdentityAttestationsRepresentativeDeclaration,
         AccountUpdateParamsIdentityAttestationsTermsOfService as AccountUpdateParamsIdentityAttestationsTermsOfService,
         AccountUpdateParamsIdentityAttestationsTermsOfServiceAccount as AccountUpdateParamsIdentityAttestationsTermsOfServiceAccount,
+        AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoStorer as AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoStorer,
         AccountUpdateParamsIdentityAttestationsTermsOfServiceStorer as AccountUpdateParamsIdentityAttestationsTermsOfServiceStorer,
         AccountUpdateParamsIdentityBusinessDetails as AccountUpdateParamsIdentityBusinessDetails,
         AccountUpdateParamsIdentityBusinessDetailsAddress as AccountUpdateParamsIdentityBusinessDetailsAddress,
@@ -1364,6 +1365,10 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsIdentityAttestationsTermsOfServiceAccount": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoStorer": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),
