@@ -28,6 +28,9 @@ if TYPE_CHECKING:
     from stripe.params._payment_record_report_payment_params import (
         PaymentRecordReportPaymentParams,
     )
+    from stripe.params._payment_record_report_refund_params import (
+        PaymentRecordReportRefundParams,
+    )
     from stripe.params._payment_record_retrieve_params import (
         PaymentRecordRetrieveParams,
     )
@@ -793,7 +796,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             """
             The wallet address of the customer.
             """
-            network: Optional[Literal["base", "ethereum", "polygon"]]
+            network: Optional[Literal["base", "ethereum", "polygon", "solana"]]
             """
             The blockchain network that the transaction was sent on.
             """
@@ -1566,7 +1569,10 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             pass
 
         class Rechnung(StripeObject):
-            pass
+            payment_portal_url: Optional[str]
+            """
+            Payment portal URL.
+            """
 
         class RevolutPay(StripeObject):
             class Funding(StripeObject):
@@ -2765,6 +2771,124 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             await self._request_async(
                 "post",
                 "/v1/payment_records/{id}/report_payment_attempt_informational".format(
+                    id=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def _cls_report_refund(
+        cls, id: str, **params: Unpack["PaymentRecordReportRefundParams"]
+    ) -> "PaymentRecord":
+        """
+        Report that the most recent payment attempt on the specified Payment Record
+         was refunded.
+        """
+        return cast(
+            "PaymentRecord",
+            cls._static_request(
+                "post",
+                "/v1/payment_records/{id}/report_refund".format(
+                    id=sanitize_id(id)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def report_refund(
+        id: str, **params: Unpack["PaymentRecordReportRefundParams"]
+    ) -> "PaymentRecord":
+        """
+        Report that the most recent payment attempt on the specified Payment Record
+         was refunded.
+        """
+        ...
+
+    @overload
+    def report_refund(
+        self, **params: Unpack["PaymentRecordReportRefundParams"]
+    ) -> "PaymentRecord":
+        """
+        Report that the most recent payment attempt on the specified Payment Record
+         was refunded.
+        """
+        ...
+
+    @class_method_variant("_cls_report_refund")
+    def report_refund(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentRecordReportRefundParams"]
+    ) -> "PaymentRecord":
+        """
+        Report that the most recent payment attempt on the specified Payment Record
+         was refunded.
+        """
+        return cast(
+            "PaymentRecord",
+            self._request(
+                "post",
+                "/v1/payment_records/{id}/report_refund".format(
+                    id=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_report_refund_async(
+        cls, id: str, **params: Unpack["PaymentRecordReportRefundParams"]
+    ) -> "PaymentRecord":
+        """
+        Report that the most recent payment attempt on the specified Payment Record
+         was refunded.
+        """
+        return cast(
+            "PaymentRecord",
+            await cls._static_request_async(
+                "post",
+                "/v1/payment_records/{id}/report_refund".format(
+                    id=sanitize_id(id)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def report_refund_async(
+        id: str, **params: Unpack["PaymentRecordReportRefundParams"]
+    ) -> "PaymentRecord":
+        """
+        Report that the most recent payment attempt on the specified Payment Record
+         was refunded.
+        """
+        ...
+
+    @overload
+    async def report_refund_async(
+        self, **params: Unpack["PaymentRecordReportRefundParams"]
+    ) -> "PaymentRecord":
+        """
+        Report that the most recent payment attempt on the specified Payment Record
+         was refunded.
+        """
+        ...
+
+    @class_method_variant("_cls_report_refund_async")
+    async def report_refund_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentRecordReportRefundParams"]
+    ) -> "PaymentRecord":
+        """
+        Report that the most recent payment attempt on the specified Payment Record
+         was refunded.
+        """
+        return cast(
+            "PaymentRecord",
+            await self._request_async(
+                "post",
+                "/v1/payment_records/{id}/report_refund".format(
                     id=sanitize_id(self.get("id"))
                 ),
                 params=params,

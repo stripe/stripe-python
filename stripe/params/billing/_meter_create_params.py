@@ -14,6 +14,10 @@ class MeterCreateParams(RequestOptions):
     """
     The default settings to aggregate a meter's events with.
     """
+    dimension_payload_keys: NotRequired[List[str]]
+    """
+    Set of keys that will be used to group meter events by. Each key must be present in the event payload.
+    """
     display_name: str
     """
     The meter's name. Not visible to the customer.
@@ -33,10 +37,6 @@ class MeterCreateParams(RequestOptions):
     value_settings: NotRequired["MeterCreateParamsValueSettings"]
     """
     Fields that specify how to calculate a meter event's value.
-    """
-    dimension_payload_keys: NotRequired[List[str]]
-    """
-    Set of keys that will be used to group meter events by. Each key must be present in the event payload.
     """
 
 

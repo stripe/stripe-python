@@ -208,6 +208,7 @@ class SetupIntent(
                 "payment_intent_mandate_invalid",
                 "payment_intent_payment_attempt_expired",
                 "payment_intent_payment_attempt_failed",
+                "payment_intent_rate_limit_exceeded",
                 "payment_intent_unexpected_state",
                 "payment_method_bank_account_already_verified",
                 "payment_method_bank_account_blocked",
@@ -919,6 +920,71 @@ class SetupIntent(
     description: Optional[str]
     """
     An arbitrary string attached to the object. Often useful for displaying to users.
+    """
+    excluded_payment_method_types: Optional[
+        List[
+            Literal[
+                "acss_debit",
+                "affirm",
+                "afterpay_clearpay",
+                "alipay",
+                "alma",
+                "amazon_pay",
+                "au_becs_debit",
+                "bacs_debit",
+                "bancontact",
+                "billie",
+                "blik",
+                "boleto",
+                "card",
+                "cashapp",
+                "crypto",
+                "customer_balance",
+                "eps",
+                "fpx",
+                "giropay",
+                "gopay",
+                "grabpay",
+                "id_bank_transfer",
+                "ideal",
+                "kakao_pay",
+                "klarna",
+                "konbini",
+                "kr_card",
+                "mb_way",
+                "mobilepay",
+                "multibanco",
+                "naver_pay",
+                "nz_bank_account",
+                "oxxo",
+                "p24",
+                "pay_by_bank",
+                "payco",
+                "paynow",
+                "paypal",
+                "paypay",
+                "payto",
+                "pix",
+                "promptpay",
+                "qris",
+                "rechnung",
+                "revolut_pay",
+                "samsung_pay",
+                "satispay",
+                "sepa_debit",
+                "shopeepay",
+                "sofort",
+                "stripe_balance",
+                "swish",
+                "twint",
+                "us_bank_account",
+                "wechat_pay",
+                "zip",
+            ]
+        ]
+    ]
+    """
+    Payment method types that are excluded from this SetupIntent.
     """
     flow_directions: Optional[List[Literal["inbound", "outbound"]]]
     """

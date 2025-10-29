@@ -6,6 +6,8 @@ from typing_extensions import TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe.params.delegated_checkout._requested_session_confirm_params import (
         RequestedSessionConfirmParams as RequestedSessionConfirmParams,
+        RequestedSessionConfirmParamsRiskDetails as RequestedSessionConfirmParamsRiskDetails,
+        RequestedSessionConfirmParamsRiskDetailsClientDeviceMetadataDetails as RequestedSessionConfirmParamsRiskDetailsClientDeviceMetadataDetails,
     )
     from stripe.params.delegated_checkout._requested_session_create_params import (
         RequestedSessionCreateParams as RequestedSessionCreateParams,
@@ -16,8 +18,6 @@ if TYPE_CHECKING:
         RequestedSessionCreateParamsPaymentMethodDataBillingDetails as RequestedSessionCreateParamsPaymentMethodDataBillingDetails,
         RequestedSessionCreateParamsPaymentMethodDataBillingDetailsAddress as RequestedSessionCreateParamsPaymentMethodDataBillingDetailsAddress,
         RequestedSessionCreateParamsPaymentMethodDataCard as RequestedSessionCreateParamsPaymentMethodDataCard,
-        RequestedSessionCreateParamsRiskDetails as RequestedSessionCreateParamsRiskDetails,
-        RequestedSessionCreateParamsRiskDetailsClientDeviceMetadataDetails as RequestedSessionCreateParamsRiskDetailsClientDeviceMetadataDetails,
         RequestedSessionCreateParamsSellerDetails as RequestedSessionCreateParamsSellerDetails,
     )
     from stripe.params.delegated_checkout._requested_session_expire_params import (
@@ -57,6 +57,14 @@ _import_map = {
         "stripe.params.delegated_checkout._requested_session_confirm_params",
         False,
     ),
+    "RequestedSessionConfirmParamsRiskDetails": (
+        "stripe.params.delegated_checkout._requested_session_confirm_params",
+        False,
+    ),
+    "RequestedSessionConfirmParamsRiskDetailsClientDeviceMetadataDetails": (
+        "stripe.params.delegated_checkout._requested_session_confirm_params",
+        False,
+    ),
     "RequestedSessionCreateParams": (
         "stripe.params.delegated_checkout._requested_session_create_params",
         False,
@@ -86,14 +94,6 @@ _import_map = {
         False,
     ),
     "RequestedSessionCreateParamsPaymentMethodDataCard": (
-        "stripe.params.delegated_checkout._requested_session_create_params",
-        False,
-    ),
-    "RequestedSessionCreateParamsRiskDetails": (
-        "stripe.params.delegated_checkout._requested_session_create_params",
-        False,
-    ),
-    "RequestedSessionCreateParamsRiskDetailsClientDeviceMetadataDetails": (
         "stripe.params.delegated_checkout._requested_session_create_params",
         False,
     ),

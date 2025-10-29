@@ -680,7 +680,7 @@ class Account(ListableAPIResource["Account"]):
         cls, account: str, **params: Unpack["AccountSubscribeParams"]
     ) -> "Account":
         """
-        Subscribes to periodic refreshes of data associated with a Financial Connections Account.
+        Subscribes to periodic refreshes of data associated with a Financial Connections Account. When the account status is active, data is typically refreshed once a day.
         """
         return cast(
             "Account",
@@ -699,7 +699,7 @@ class Account(ListableAPIResource["Account"]):
         account: str, **params: Unpack["AccountSubscribeParams"]
     ) -> "Account":
         """
-        Subscribes to periodic refreshes of data associated with a Financial Connections Account.
+        Subscribes to periodic refreshes of data associated with a Financial Connections Account. When the account status is active, data is typically refreshed once a day.
         """
         ...
 
@@ -708,7 +708,7 @@ class Account(ListableAPIResource["Account"]):
         self, **params: Unpack["AccountSubscribeParams"]
     ) -> "Account":
         """
-        Subscribes to periodic refreshes of data associated with a Financial Connections Account.
+        Subscribes to periodic refreshes of data associated with a Financial Connections Account. When the account status is active, data is typically refreshed once a day.
         """
         ...
 
@@ -717,7 +717,7 @@ class Account(ListableAPIResource["Account"]):
         self, **params: Unpack["AccountSubscribeParams"]
     ) -> "Account":
         """
-        Subscribes to periodic refreshes of data associated with a Financial Connections Account.
+        Subscribes to periodic refreshes of data associated with a Financial Connections Account. When the account status is active, data is typically refreshed once a day.
         """
         return cast(
             "Account",
@@ -735,7 +735,7 @@ class Account(ListableAPIResource["Account"]):
         cls, account: str, **params: Unpack["AccountSubscribeParams"]
     ) -> "Account":
         """
-        Subscribes to periodic refreshes of data associated with a Financial Connections Account.
+        Subscribes to periodic refreshes of data associated with a Financial Connections Account. When the account status is active, data is typically refreshed once a day.
         """
         return cast(
             "Account",
@@ -754,7 +754,7 @@ class Account(ListableAPIResource["Account"]):
         account: str, **params: Unpack["AccountSubscribeParams"]
     ) -> "Account":
         """
-        Subscribes to periodic refreshes of data associated with a Financial Connections Account.
+        Subscribes to periodic refreshes of data associated with a Financial Connections Account. When the account status is active, data is typically refreshed once a day.
         """
         ...
 
@@ -763,7 +763,7 @@ class Account(ListableAPIResource["Account"]):
         self, **params: Unpack["AccountSubscribeParams"]
     ) -> "Account":
         """
-        Subscribes to periodic refreshes of data associated with a Financial Connections Account.
+        Subscribes to periodic refreshes of data associated with a Financial Connections Account. When the account status is active, data is typically refreshed once a day.
         """
         ...
 
@@ -772,7 +772,7 @@ class Account(ListableAPIResource["Account"]):
         self, **params: Unpack["AccountSubscribeParams"]
     ) -> "Account":
         """
-        Subscribes to periodic refreshes of data associated with a Financial Connections Account.
+        Subscribes to periodic refreshes of data associated with a Financial Connections Account. When the account status is active, data is typically refreshed once a day.
         """
         return cast(
             "Account",

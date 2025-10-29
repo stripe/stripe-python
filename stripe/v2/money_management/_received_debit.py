@@ -104,6 +104,10 @@ class ReceivedDebit(StripeObject):
     """
     Freeform string sent by the originator of the ReceivedDebit.
     """
+    external_amount: Optional[Amount]
+    """
+    The amount and currency of the original/external debit request.
+    """
     financial_account: str
     """
     Financial Account on which funds for ReceivedDebit were debited.

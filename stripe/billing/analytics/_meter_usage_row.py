@@ -33,6 +33,10 @@ class MeterUsageRow(StripeObject):
     """
     Timestamp indicating the start of the bucket. Measured in seconds since the Unix epoch.
     """
+    tenants: Optional[Dict[str, str]]
+    """
+    A set of key-value pairs representing the tenants of the meter usage.
+    """
     value: float
     """
     The aggregated meter usage value for the specified bucket.

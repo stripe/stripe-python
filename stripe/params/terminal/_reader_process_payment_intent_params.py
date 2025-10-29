@@ -12,13 +12,13 @@ class ReaderProcessPaymentIntentParams(RequestOptions):
     """
     payment_intent: str
     """
-    PaymentIntent ID
+    The ID of the PaymentIntent to process on the reader.
     """
     process_config: NotRequired[
         "ReaderProcessPaymentIntentParamsProcessConfig"
     ]
     """
-    Configuration overrides
+    Configuration overrides for this transaction, such as tipping and customer cancellation settings.
     """
 
 

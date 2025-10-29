@@ -42,10 +42,6 @@ class RequestedSessionCreateParams(RequestOptions):
     """
     The payment method data for this requested session.
     """
-    risk_details: NotRequired["RequestedSessionCreateParamsRiskDetails"]
-    """
-    The risk details for this requested session.
-    """
     seller_details: "RequestedSessionCreateParamsSellerDetails"
     """
     The details of the seller.
@@ -199,40 +195,6 @@ class RequestedSessionCreateParamsPaymentMethodDataCard(TypedDict):
     number: str
     """
     The number of the card.
-    """
-
-
-class RequestedSessionCreateParamsRiskDetails(TypedDict):
-    client_device_metadata_details: NotRequired[
-        "RequestedSessionCreateParamsRiskDetailsClientDeviceMetadataDetails"
-    ]
-    """
-    The client device metadata details for this requested session.
-    """
-
-
-class RequestedSessionCreateParamsRiskDetailsClientDeviceMetadataDetails(
-    TypedDict,
-):
-    radar_session: NotRequired[str]
-    """
-    The radar session.
-    """
-    referrer: NotRequired[str]
-    """
-    The referrer of the client device.
-    """
-    remote_ip: NotRequired[str]
-    """
-    The remote IP address of the client device.
-    """
-    time_on_page: NotRequired[int]
-    """
-    The time on page in seconds.
-    """
-    user_agent: NotRequired[str]
-    """
-    The user agent of the client device.
     """
 
 

@@ -118,15 +118,15 @@ class Reader(
                     class Choice(StripeObject):
                         id: Optional[str]
                         """
-                        The id to be selected
+                        The identifier for the selected choice. Maximum 50 characters.
                         """
                         style: Optional[Literal["primary", "secondary"]]
                         """
-                        The button style for the choice
+                        The button style for the choice. Can be `primary` or `secondary`.
                         """
                         text: str
                         """
-                        The text to be selected
+                        The text to be selected. Maximum 30 characters.
                         """
 
                     choices: List[Choice]
@@ -158,19 +158,19 @@ class Reader(
                 class Toggle(StripeObject):
                     default_value: Optional[Literal["disabled", "enabled"]]
                     """
-                    The toggle's default value
+                    The toggle's default value. Can be `enabled` or `disabled`.
                     """
                     description: Optional[str]
                     """
-                    The toggle's description text
+                    The toggle's description text. Maximum 50 characters.
                     """
                     title: Optional[str]
                     """
-                    The toggle's title text
+                    The toggle's title text. Maximum 50 characters.
                     """
                     value: Optional[Literal["disabled", "enabled"]]
                     """
-                    The toggle's collected value
+                    The toggle's collected value. Can be `enabled` or `disabled`.
                     """
 
                 custom_text: Optional[CustomText]
@@ -458,11 +458,11 @@ class Reader(
 
             cart: Optional[Cart]
             """
-            Cart object to be displayed by the reader.
+            Cart object to be displayed by the reader, including line items, amounts, and currency.
             """
             type: Literal["cart"]
             """
-            Type of information to be displayed by the reader.
+            Type of information to be displayed by the reader. Only `cart` is currently supported.
             """
             _inner_class_types = {"cart": Cart}
 
@@ -566,6 +566,10 @@ class Reader(
     """
     Custom label given to the reader for easier identification.
     """
+    last_seen_at: Optional[int]
+    """
+    The last time this reader reported to Stripe backend.
+    """
     livemode: bool
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
@@ -596,7 +600,7 @@ class Reader(
         cls, reader: str, **params: Unpack["ReaderCancelActionParams"]
     ) -> "Reader":
         """
-        Cancels the current reader action.
+        Cancels the current reader action. See [Programmatic Cancellation](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven#programmatic-cancellation) for more details.
         """
         return cast(
             "Reader",
@@ -615,7 +619,7 @@ class Reader(
         reader: str, **params: Unpack["ReaderCancelActionParams"]
     ) -> "Reader":
         """
-        Cancels the current reader action.
+        Cancels the current reader action. See [Programmatic Cancellation](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven#programmatic-cancellation) for more details.
         """
         ...
 
@@ -624,7 +628,7 @@ class Reader(
         self, **params: Unpack["ReaderCancelActionParams"]
     ) -> "Reader":
         """
-        Cancels the current reader action.
+        Cancels the current reader action. See [Programmatic Cancellation](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven#programmatic-cancellation) for more details.
         """
         ...
 
@@ -633,7 +637,7 @@ class Reader(
         self, **params: Unpack["ReaderCancelActionParams"]
     ) -> "Reader":
         """
-        Cancels the current reader action.
+        Cancels the current reader action. See [Programmatic Cancellation](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven#programmatic-cancellation) for more details.
         """
         return cast(
             "Reader",
@@ -651,7 +655,7 @@ class Reader(
         cls, reader: str, **params: Unpack["ReaderCancelActionParams"]
     ) -> "Reader":
         """
-        Cancels the current reader action.
+        Cancels the current reader action. See [Programmatic Cancellation](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven#programmatic-cancellation) for more details.
         """
         return cast(
             "Reader",
@@ -670,7 +674,7 @@ class Reader(
         reader: str, **params: Unpack["ReaderCancelActionParams"]
     ) -> "Reader":
         """
-        Cancels the current reader action.
+        Cancels the current reader action. See [Programmatic Cancellation](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven#programmatic-cancellation) for more details.
         """
         ...
 
@@ -679,7 +683,7 @@ class Reader(
         self, **params: Unpack["ReaderCancelActionParams"]
     ) -> "Reader":
         """
-        Cancels the current reader action.
+        Cancels the current reader action. See [Programmatic Cancellation](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven#programmatic-cancellation) for more details.
         """
         ...
 
@@ -688,7 +692,7 @@ class Reader(
         self, **params: Unpack["ReaderCancelActionParams"]
     ) -> "Reader":
         """
-        Cancels the current reader action.
+        Cancels the current reader action. See [Programmatic Cancellation](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven#programmatic-cancellation) for more details.
         """
         return cast(
             "Reader",
@@ -706,7 +710,7 @@ class Reader(
         cls, reader: str, **params: Unpack["ReaderCollectInputsParams"]
     ) -> "Reader":
         """
-        Initiates an input collection flow on a Reader.
+        Initiates an [input collection flow](https://docs.stripe.com/docs/terminal/features/collect-inputs) on a Reader to display input forms and collect information from your customers.
         """
         return cast(
             "Reader",
@@ -725,7 +729,7 @@ class Reader(
         reader: str, **params: Unpack["ReaderCollectInputsParams"]
     ) -> "Reader":
         """
-        Initiates an input collection flow on a Reader.
+        Initiates an [input collection flow](https://docs.stripe.com/docs/terminal/features/collect-inputs) on a Reader to display input forms and collect information from your customers.
         """
         ...
 
@@ -734,7 +738,7 @@ class Reader(
         self, **params: Unpack["ReaderCollectInputsParams"]
     ) -> "Reader":
         """
-        Initiates an input collection flow on a Reader.
+        Initiates an [input collection flow](https://docs.stripe.com/docs/terminal/features/collect-inputs) on a Reader to display input forms and collect information from your customers.
         """
         ...
 
@@ -743,7 +747,7 @@ class Reader(
         self, **params: Unpack["ReaderCollectInputsParams"]
     ) -> "Reader":
         """
-        Initiates an input collection flow on a Reader.
+        Initiates an [input collection flow](https://docs.stripe.com/docs/terminal/features/collect-inputs) on a Reader to display input forms and collect information from your customers.
         """
         return cast(
             "Reader",
@@ -761,7 +765,7 @@ class Reader(
         cls, reader: str, **params: Unpack["ReaderCollectInputsParams"]
     ) -> "Reader":
         """
-        Initiates an input collection flow on a Reader.
+        Initiates an [input collection flow](https://docs.stripe.com/docs/terminal/features/collect-inputs) on a Reader to display input forms and collect information from your customers.
         """
         return cast(
             "Reader",
@@ -780,7 +784,7 @@ class Reader(
         reader: str, **params: Unpack["ReaderCollectInputsParams"]
     ) -> "Reader":
         """
-        Initiates an input collection flow on a Reader.
+        Initiates an [input collection flow](https://docs.stripe.com/docs/terminal/features/collect-inputs) on a Reader to display input forms and collect information from your customers.
         """
         ...
 
@@ -789,7 +793,7 @@ class Reader(
         self, **params: Unpack["ReaderCollectInputsParams"]
     ) -> "Reader":
         """
-        Initiates an input collection flow on a Reader.
+        Initiates an [input collection flow](https://docs.stripe.com/docs/terminal/features/collect-inputs) on a Reader to display input forms and collect information from your customers.
         """
         ...
 
@@ -798,7 +802,7 @@ class Reader(
         self, **params: Unpack["ReaderCollectInputsParams"]
     ) -> "Reader":
         """
-        Initiates an input collection flow on a Reader.
+        Initiates an [input collection flow](https://docs.stripe.com/docs/terminal/features/collect-inputs) on a Reader to display input forms and collect information from your customers.
         """
         return cast(
             "Reader",
@@ -816,7 +820,7 @@ class Reader(
         cls, reader: str, **params: Unpack["ReaderCollectPaymentMethodParams"]
     ) -> "Reader":
         """
-        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation. See [Collecting a Payment method](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#collect-a-paymentmethod) for more details.
         """
         return cast(
             "Reader",
@@ -835,7 +839,7 @@ class Reader(
         reader: str, **params: Unpack["ReaderCollectPaymentMethodParams"]
     ) -> "Reader":
         """
-        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation. See [Collecting a Payment method](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#collect-a-paymentmethod) for more details.
         """
         ...
 
@@ -844,7 +848,7 @@ class Reader(
         self, **params: Unpack["ReaderCollectPaymentMethodParams"]
     ) -> "Reader":
         """
-        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation. See [Collecting a Payment method](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#collect-a-paymentmethod) for more details.
         """
         ...
 
@@ -853,7 +857,7 @@ class Reader(
         self, **params: Unpack["ReaderCollectPaymentMethodParams"]
     ) -> "Reader":
         """
-        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation. See [Collecting a Payment method](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#collect-a-paymentmethod) for more details.
         """
         return cast(
             "Reader",
@@ -871,7 +875,7 @@ class Reader(
         cls, reader: str, **params: Unpack["ReaderCollectPaymentMethodParams"]
     ) -> "Reader":
         """
-        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation. See [Collecting a Payment method](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#collect-a-paymentmethod) for more details.
         """
         return cast(
             "Reader",
@@ -890,7 +894,7 @@ class Reader(
         reader: str, **params: Unpack["ReaderCollectPaymentMethodParams"]
     ) -> "Reader":
         """
-        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation. See [Collecting a Payment method](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#collect-a-paymentmethod) for more details.
         """
         ...
 
@@ -899,7 +903,7 @@ class Reader(
         self, **params: Unpack["ReaderCollectPaymentMethodParams"]
     ) -> "Reader":
         """
-        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation. See [Collecting a Payment method](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#collect-a-paymentmethod) for more details.
         """
         ...
 
@@ -908,7 +912,7 @@ class Reader(
         self, **params: Unpack["ReaderCollectPaymentMethodParams"]
     ) -> "Reader":
         """
-        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation. See [Collecting a Payment method](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#collect-a-paymentmethod) for more details.
         """
         return cast(
             "Reader",
@@ -926,7 +930,7 @@ class Reader(
         cls, reader: str, **params: Unpack["ReaderConfirmPaymentIntentParams"]
     ) -> "Reader":
         """
-        Finalizes a payment on a Reader.
+        Finalizes a payment on a Reader. See [Confirming a Payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#confirm-the-paymentintent) for more details.
         """
         return cast(
             "Reader",
@@ -945,7 +949,7 @@ class Reader(
         reader: str, **params: Unpack["ReaderConfirmPaymentIntentParams"]
     ) -> "Reader":
         """
-        Finalizes a payment on a Reader.
+        Finalizes a payment on a Reader. See [Confirming a Payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#confirm-the-paymentintent) for more details.
         """
         ...
 
@@ -954,7 +958,7 @@ class Reader(
         self, **params: Unpack["ReaderConfirmPaymentIntentParams"]
     ) -> "Reader":
         """
-        Finalizes a payment on a Reader.
+        Finalizes a payment on a Reader. See [Confirming a Payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#confirm-the-paymentintent) for more details.
         """
         ...
 
@@ -963,7 +967,7 @@ class Reader(
         self, **params: Unpack["ReaderConfirmPaymentIntentParams"]
     ) -> "Reader":
         """
-        Finalizes a payment on a Reader.
+        Finalizes a payment on a Reader. See [Confirming a Payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#confirm-the-paymentintent) for more details.
         """
         return cast(
             "Reader",
@@ -981,7 +985,7 @@ class Reader(
         cls, reader: str, **params: Unpack["ReaderConfirmPaymentIntentParams"]
     ) -> "Reader":
         """
-        Finalizes a payment on a Reader.
+        Finalizes a payment on a Reader. See [Confirming a Payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#confirm-the-paymentintent) for more details.
         """
         return cast(
             "Reader",
@@ -1000,7 +1004,7 @@ class Reader(
         reader: str, **params: Unpack["ReaderConfirmPaymentIntentParams"]
     ) -> "Reader":
         """
-        Finalizes a payment on a Reader.
+        Finalizes a payment on a Reader. See [Confirming a Payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#confirm-the-paymentintent) for more details.
         """
         ...
 
@@ -1009,7 +1013,7 @@ class Reader(
         self, **params: Unpack["ReaderConfirmPaymentIntentParams"]
     ) -> "Reader":
         """
-        Finalizes a payment on a Reader.
+        Finalizes a payment on a Reader. See [Confirming a Payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#confirm-the-paymentintent) for more details.
         """
         ...
 
@@ -1018,7 +1022,7 @@ class Reader(
         self, **params: Unpack["ReaderConfirmPaymentIntentParams"]
     ) -> "Reader":
         """
-        Finalizes a payment on a Reader.
+        Finalizes a payment on a Reader. See [Confirming a Payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=inspect#confirm-the-paymentintent) for more details.
         """
         return cast(
             "Reader",
@@ -1234,7 +1238,7 @@ class Reader(
         cls, reader: str, **params: Unpack["ReaderProcessPaymentIntentParams"]
     ) -> "Reader":
         """
-        Initiates a payment flow on a Reader.
+        Initiates a payment flow on a Reader. See [process the payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=immediately#process-payment) for more details.
         """
         return cast(
             "Reader",
@@ -1253,7 +1257,7 @@ class Reader(
         reader: str, **params: Unpack["ReaderProcessPaymentIntentParams"]
     ) -> "Reader":
         """
-        Initiates a payment flow on a Reader.
+        Initiates a payment flow on a Reader. See [process the payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=immediately#process-payment) for more details.
         """
         ...
 
@@ -1262,7 +1266,7 @@ class Reader(
         self, **params: Unpack["ReaderProcessPaymentIntentParams"]
     ) -> "Reader":
         """
-        Initiates a payment flow on a Reader.
+        Initiates a payment flow on a Reader. See [process the payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=immediately#process-payment) for more details.
         """
         ...
 
@@ -1271,7 +1275,7 @@ class Reader(
         self, **params: Unpack["ReaderProcessPaymentIntentParams"]
     ) -> "Reader":
         """
-        Initiates a payment flow on a Reader.
+        Initiates a payment flow on a Reader. See [process the payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=immediately#process-payment) for more details.
         """
         return cast(
             "Reader",
@@ -1289,7 +1293,7 @@ class Reader(
         cls, reader: str, **params: Unpack["ReaderProcessPaymentIntentParams"]
     ) -> "Reader":
         """
-        Initiates a payment flow on a Reader.
+        Initiates a payment flow on a Reader. See [process the payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=immediately#process-payment) for more details.
         """
         return cast(
             "Reader",
@@ -1308,7 +1312,7 @@ class Reader(
         reader: str, **params: Unpack["ReaderProcessPaymentIntentParams"]
     ) -> "Reader":
         """
-        Initiates a payment flow on a Reader.
+        Initiates a payment flow on a Reader. See [process the payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=immediately#process-payment) for more details.
         """
         ...
 
@@ -1317,7 +1321,7 @@ class Reader(
         self, **params: Unpack["ReaderProcessPaymentIntentParams"]
     ) -> "Reader":
         """
-        Initiates a payment flow on a Reader.
+        Initiates a payment flow on a Reader. See [process the payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=immediately#process-payment) for more details.
         """
         ...
 
@@ -1326,7 +1330,7 @@ class Reader(
         self, **params: Unpack["ReaderProcessPaymentIntentParams"]
     ) -> "Reader":
         """
-        Initiates a payment flow on a Reader.
+        Initiates a payment flow on a Reader. See [process the payment](https://docs.stripe.com/docs/terminal/payments/collect-card-payment?terminal-sdk-platform=server-driven&process=immediately#process-payment) for more details.
         """
         return cast(
             "Reader",
@@ -1344,7 +1348,7 @@ class Reader(
         cls, reader: str, **params: Unpack["ReaderProcessSetupIntentParams"]
     ) -> "Reader":
         """
-        Initiates a setup intent flow on a Reader.
+        Initiates a SetupIntent flow on a Reader. See [Save directly without charging](https://docs.stripe.com/docs/terminal/features/saving-payment-details/save-directly) for more details.
         """
         return cast(
             "Reader",
@@ -1363,7 +1367,7 @@ class Reader(
         reader: str, **params: Unpack["ReaderProcessSetupIntentParams"]
     ) -> "Reader":
         """
-        Initiates a setup intent flow on a Reader.
+        Initiates a SetupIntent flow on a Reader. See [Save directly without charging](https://docs.stripe.com/docs/terminal/features/saving-payment-details/save-directly) for more details.
         """
         ...
 
@@ -1372,7 +1376,7 @@ class Reader(
         self, **params: Unpack["ReaderProcessSetupIntentParams"]
     ) -> "Reader":
         """
-        Initiates a setup intent flow on a Reader.
+        Initiates a SetupIntent flow on a Reader. See [Save directly without charging](https://docs.stripe.com/docs/terminal/features/saving-payment-details/save-directly) for more details.
         """
         ...
 
@@ -1381,7 +1385,7 @@ class Reader(
         self, **params: Unpack["ReaderProcessSetupIntentParams"]
     ) -> "Reader":
         """
-        Initiates a setup intent flow on a Reader.
+        Initiates a SetupIntent flow on a Reader. See [Save directly without charging](https://docs.stripe.com/docs/terminal/features/saving-payment-details/save-directly) for more details.
         """
         return cast(
             "Reader",
@@ -1399,7 +1403,7 @@ class Reader(
         cls, reader: str, **params: Unpack["ReaderProcessSetupIntentParams"]
     ) -> "Reader":
         """
-        Initiates a setup intent flow on a Reader.
+        Initiates a SetupIntent flow on a Reader. See [Save directly without charging](https://docs.stripe.com/docs/terminal/features/saving-payment-details/save-directly) for more details.
         """
         return cast(
             "Reader",
@@ -1418,7 +1422,7 @@ class Reader(
         reader: str, **params: Unpack["ReaderProcessSetupIntentParams"]
     ) -> "Reader":
         """
-        Initiates a setup intent flow on a Reader.
+        Initiates a SetupIntent flow on a Reader. See [Save directly without charging](https://docs.stripe.com/docs/terminal/features/saving-payment-details/save-directly) for more details.
         """
         ...
 
@@ -1427,7 +1431,7 @@ class Reader(
         self, **params: Unpack["ReaderProcessSetupIntentParams"]
     ) -> "Reader":
         """
-        Initiates a setup intent flow on a Reader.
+        Initiates a SetupIntent flow on a Reader. See [Save directly without charging](https://docs.stripe.com/docs/terminal/features/saving-payment-details/save-directly) for more details.
         """
         ...
 
@@ -1436,7 +1440,7 @@ class Reader(
         self, **params: Unpack["ReaderProcessSetupIntentParams"]
     ) -> "Reader":
         """
-        Initiates a setup intent flow on a Reader.
+        Initiates a SetupIntent flow on a Reader. See [Save directly without charging](https://docs.stripe.com/docs/terminal/features/saving-payment-details/save-directly) for more details.
         """
         return cast(
             "Reader",
@@ -1454,7 +1458,7 @@ class Reader(
         cls, reader: str, **params: Unpack["ReaderRefundPaymentParams"]
     ) -> "Reader":
         """
-        Initiates a refund on a Reader
+        Initiates an in-person refund on a Reader. See [Refund an Interac Payment](https://docs.stripe.com/docs/terminal/payments/regional?integration-country=CA#refund-an-interac-payment) for more details.
         """
         return cast(
             "Reader",
@@ -1473,7 +1477,7 @@ class Reader(
         reader: str, **params: Unpack["ReaderRefundPaymentParams"]
     ) -> "Reader":
         """
-        Initiates a refund on a Reader
+        Initiates an in-person refund on a Reader. See [Refund an Interac Payment](https://docs.stripe.com/docs/terminal/payments/regional?integration-country=CA#refund-an-interac-payment) for more details.
         """
         ...
 
@@ -1482,7 +1486,7 @@ class Reader(
         self, **params: Unpack["ReaderRefundPaymentParams"]
     ) -> "Reader":
         """
-        Initiates a refund on a Reader
+        Initiates an in-person refund on a Reader. See [Refund an Interac Payment](https://docs.stripe.com/docs/terminal/payments/regional?integration-country=CA#refund-an-interac-payment) for more details.
         """
         ...
 
@@ -1491,7 +1495,7 @@ class Reader(
         self, **params: Unpack["ReaderRefundPaymentParams"]
     ) -> "Reader":
         """
-        Initiates a refund on a Reader
+        Initiates an in-person refund on a Reader. See [Refund an Interac Payment](https://docs.stripe.com/docs/terminal/payments/regional?integration-country=CA#refund-an-interac-payment) for more details.
         """
         return cast(
             "Reader",
@@ -1509,7 +1513,7 @@ class Reader(
         cls, reader: str, **params: Unpack["ReaderRefundPaymentParams"]
     ) -> "Reader":
         """
-        Initiates a refund on a Reader
+        Initiates an in-person refund on a Reader. See [Refund an Interac Payment](https://docs.stripe.com/docs/terminal/payments/regional?integration-country=CA#refund-an-interac-payment) for more details.
         """
         return cast(
             "Reader",
@@ -1528,7 +1532,7 @@ class Reader(
         reader: str, **params: Unpack["ReaderRefundPaymentParams"]
     ) -> "Reader":
         """
-        Initiates a refund on a Reader
+        Initiates an in-person refund on a Reader. See [Refund an Interac Payment](https://docs.stripe.com/docs/terminal/payments/regional?integration-country=CA#refund-an-interac-payment) for more details.
         """
         ...
 
@@ -1537,7 +1541,7 @@ class Reader(
         self, **params: Unpack["ReaderRefundPaymentParams"]
     ) -> "Reader":
         """
-        Initiates a refund on a Reader
+        Initiates an in-person refund on a Reader. See [Refund an Interac Payment](https://docs.stripe.com/docs/terminal/payments/regional?integration-country=CA#refund-an-interac-payment) for more details.
         """
         ...
 
@@ -1546,7 +1550,7 @@ class Reader(
         self, **params: Unpack["ReaderRefundPaymentParams"]
     ) -> "Reader":
         """
-        Initiates a refund on a Reader
+        Initiates an in-person refund on a Reader. See [Refund an Interac Payment](https://docs.stripe.com/docs/terminal/payments/regional?integration-country=CA#refund-an-interac-payment) for more details.
         """
         return cast(
             "Reader",
@@ -1586,7 +1590,7 @@ class Reader(
         cls, reader: str, **params: Unpack["ReaderSetReaderDisplayParams"]
     ) -> "Reader":
         """
-        Sets reader display to show cart details.
+        Sets the reader display to show [cart details](https://docs.stripe.com/docs/terminal/features/display).
         """
         return cast(
             "Reader",
@@ -1605,7 +1609,7 @@ class Reader(
         reader: str, **params: Unpack["ReaderSetReaderDisplayParams"]
     ) -> "Reader":
         """
-        Sets reader display to show cart details.
+        Sets the reader display to show [cart details](https://docs.stripe.com/docs/terminal/features/display).
         """
         ...
 
@@ -1614,7 +1618,7 @@ class Reader(
         self, **params: Unpack["ReaderSetReaderDisplayParams"]
     ) -> "Reader":
         """
-        Sets reader display to show cart details.
+        Sets the reader display to show [cart details](https://docs.stripe.com/docs/terminal/features/display).
         """
         ...
 
@@ -1623,7 +1627,7 @@ class Reader(
         self, **params: Unpack["ReaderSetReaderDisplayParams"]
     ) -> "Reader":
         """
-        Sets reader display to show cart details.
+        Sets the reader display to show [cart details](https://docs.stripe.com/docs/terminal/features/display).
         """
         return cast(
             "Reader",
@@ -1641,7 +1645,7 @@ class Reader(
         cls, reader: str, **params: Unpack["ReaderSetReaderDisplayParams"]
     ) -> "Reader":
         """
-        Sets reader display to show cart details.
+        Sets the reader display to show [cart details](https://docs.stripe.com/docs/terminal/features/display).
         """
         return cast(
             "Reader",
@@ -1660,7 +1664,7 @@ class Reader(
         reader: str, **params: Unpack["ReaderSetReaderDisplayParams"]
     ) -> "Reader":
         """
-        Sets reader display to show cart details.
+        Sets the reader display to show [cart details](https://docs.stripe.com/docs/terminal/features/display).
         """
         ...
 
@@ -1669,7 +1673,7 @@ class Reader(
         self, **params: Unpack["ReaderSetReaderDisplayParams"]
     ) -> "Reader":
         """
-        Sets reader display to show cart details.
+        Sets the reader display to show [cart details](https://docs.stripe.com/docs/terminal/features/display).
         """
         ...
 
@@ -1678,7 +1682,7 @@ class Reader(
         self, **params: Unpack["ReaderSetReaderDisplayParams"]
     ) -> "Reader":
         """
-        Sets reader display to show cart details.
+        Sets the reader display to show [cart details](https://docs.stripe.com/docs/terminal/features/display).
         """
         return cast(
             "Reader",

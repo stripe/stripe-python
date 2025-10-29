@@ -51,7 +51,11 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         """
         Payout ID that created this application fee.
         """
-        type: Literal["charge", "payout"]
+        transfer: Optional[str]
+        """
+        Transfer ID that created this application fee.
+        """
+        type: Literal["charge", "payout", "transfer"]
         """
         Type of object that created the application fee.
         """
