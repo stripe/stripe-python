@@ -1,42 +1,58 @@
 # Changelog
 
-## 13.1.0a4 - 2025-10-23
-* [#1649](https://github.com/stripe/stripe-python/pull/1649) Update generated code for private-preview
-  * Add support for new resource `v2.billing.PricingPlanSubscriptionComponents`
-  * Add support for `retrieve` method on resource `v2.billing.PricingPlanSubscriptionComponents`
-  * Add support for `dimension_payload_keys` on `Billing.Meter` and `billing.MeterCreateParams`
-  * Add support for `dimension_filters` and `dimension_group_by_keys` on `billing.BillingMeterListMeterEventSummaryParams`
-  * Add support for `dimensions` on `Billing.MeterEventSummary`
-  * Add support for `fulfillment_details` and `payment_method_data` on `delegated_checkout.RequestedSessionCreateParams` and `delegated_checkout.RequestedSessionModifyParams`
-  * Add support for `line_item_details`, `metadata`, `payment_method`, and `shared_metadata` on `DelegatedCheckout.RequestedSession`, `delegated_checkout.RequestedSessionCreateParams`, and `delegated_checkout.RequestedSessionModifyParams`
-  * Add support for `currency`, `customer`, and `risk_details` on `delegated_checkout.RequestedSessionCreateParams`
-  * Add support for `seller_details` and `setup_future_usage` on `DelegatedCheckout.RequestedSession` and `delegated_checkout.RequestedSessionCreateParams`
-  * Add support for `amount_subtotal`, `amount_total`, `created_at`, `expires_at`, `order_details`, `shared_payment_issued_token`, `status`, `total_details`, and `updated_at` on `DelegatedCheckout.RequestedSession`
-  * Add support for `address`, `email`, `fulfillment_options`, `name`, `phone`, and `selected_fulfillment_option` on `DelegatedCheckout.RequestedSession.FulfillmentDetail`
-  * Add support for new values `billie`, `crypto`, `kr_card`, `kriya`, `mb_way`, `mondu`, `ng_bank_transfer`, `ng_bank`, `ng_card`, `ng_market`, `ng_ussd`, `ng_wallet`, `payco`, `paypay`, `rechnung`, `samsung_pay`, `satispay`, `scalapay`, `sequra`, `sunbit`, `us_bank_account`, and `vipps` on enums `EventsV2CoreHealthAuthorizationRateDropFiringEvent.Impact.payment_method_type`, `EventsV2CoreHealthAuthorizationRateDropResolvedEvent.Impact.payment_method_type`, `EventsV2CoreHealthPaymentMethodErrorFiringEvent.Impact.payment_method_type`, and `EventsV2CoreHealthPaymentMethodErrorResolvedEvent.Impact.payment_method_type`
-* [#1648](https://github.com/stripe/stripe-python/pull/1648) Prathmesh/merge python private preview
+## 13.1.0 - 2025-10-29
 
-## 13.1.0a3 - 2025-10-17
-* [#1643](https://github.com/stripe/stripe-python/pull/1643) Update generated code for private-preview
-  * Add support for new resources `delegated_checkout.RequestedSession` and `identity.BlocklistEntry`
-  * Add support for `confirm`, `create`, `expire`, `modify`, and `retrieve` methods on resource `delegated_checkout.RequestedSession`
-  * Add support for `create`, `disable`, `list`, and `retrieve` methods on resource `identity.BlocklistEntry`
-  * Add support for `blocked_by_entry` on `Identity.VerificationReport.Document`, `Identity.VerificationReport.Selfie`, and `identity.VerificationReportListParams`
+This release changes the pinned API version to `2025-10-29.clover`.
 
-## 13.1.0a2 - 2025-10-09
-* [#1629](https://github.com/stripe/stripe-python/pull/1629) Update generated code for private-preview
-  * Add support for new resource `PaymentMethodBalance`
-  * Add support for `check_balance` method on resource `PaymentMethod`
-  * Add support for `benefits` on `Card`, `Charge.PaymentMethodDetail.Card`, `ConfirmationToken.PaymentMethodPreview.Card`, and `PaymentMethod.Card`
-  * Add support for `benefit` on `PaymentIntent.PaymentDetail`, `PaymentIntentConfirmParamsPaymentDetail`, `PaymentIntentCreateParamsPaymentDetail`, and `PaymentIntentModifyParamsPaymentDetail`
-  * Add support for `setup_details` on `SetupIntentConfirmParams`, `SetupIntentCreateParams`, `SetupIntentModifyParams`, and `SetupIntent`
-  * Add support for new value `card_creator` on enums `V2.Core.Account.applied_configurations` and `v2.core.AccountCloseParams.applied_configurations`
-  * Add support for `card_creator` on `V2.Core.Account.Configuration`, `V2.Core.Account.Identity.Attestation.TermsOfService`, `v2.core.AccountCreateParamsConfiguration`, `v2.core.AccountCreateParamsIdentityAttestationTermsOfService`, `v2.core.AccountModifyParamsConfiguration`, and `v2.core.AccountModifyParamsIdentityAttestationTermsOfService`
-  * Add support for new values `commercial.celtic.charge_card`, `commercial.celtic.spend_card`, `commercial.cross_river_bank.charge_card`, `commercial.cross_river_bank.spend_card`, `commercial.stripe.charge_card`, and `commercial.stripe.prepaid_card` on enum `V2.Core.Account.Requirement.Entry.Impact.RestrictsCapability.capability`
-  * Add support for new value `card_creator` on enum `V2.Core.Account.Requirement.Entry.Impact.RestrictsCapability.configuration`
-  * Add support for new value `configuration.card_creator` on enums `v2.core.AccountCreateParams.include`, `v2.core.AccountModifyParams.include`, and `v2.core.AccountRetrieveParams.include`
-  * Add support for thin events `V2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEvent` and `V2CoreAccountIncludingConfigurationCardCreatorUpdatedEvent` with related object `v2.core.Account`
-  * Remove support for thin events `V1CustomerDiscountCreatedEvent`, `V1CustomerDiscountDeletedEvent`, and `V1CustomerDiscountUpdatedEvent` with related object `Discount`
+* [#1656](https://github.com/stripe/stripe-python/pull/1656) Update generated code
+  * Improve docs for PaymentIntent related endpoints
+* [#1650](https://github.com/stripe/stripe-python/pull/1650) Update generated code
+  * Add support for new resources `PaymentAttemptRecord`, `PaymentIntentAmountDetailsLineItem`, and `PaymentRecord`
+  * Add support for `list` and `retrieve` methods on resource `PaymentAttemptRecord`
+  * Add support for `report_payment_attempt_canceled`, `report_payment_attempt_failed`, `report_payment_attempt_guaranteed`, `report_payment_attempt_informational`, `report_payment_attempt`, `report_payment`, `report_refund`, and `retrieve` methods on resource `PaymentRecord`
+  * Add support for `list` method on resource `PaymentIntentAmountDetailsLineItem`
+  * Add support for `representative_declaration` on `Account.Company`, `AccountCreateParamsCompany`, `AccountModifyParamsCompany`, and `TokenCreateParamsAccountCompany`
+  * Change `billing.CreditGrantCreateParams.category` to be optional
+  * Add support for `payment_method_configuration` on `billing_portal.ConfigurationCreateParamsFeaturePaymentMethodUpdate` and `billing_portal.ConfigurationModifyParamsFeaturePaymentMethodUpdate`
+  * Add support for new value `solana` on enum `Charge.PaymentMethodDetail.Crypto.network`
+  * Add support for new value `mb_way` on enum `checkout.SessionCreateParams.excluded_payment_method_types`
+  * Add support for `twint` on `Checkout.Session.PaymentMethodOption` and `checkout.SessionCreateParamsPaymentMethodOption`
+  * Add support for new value `mb_way` on enum `checkout.SessionCreateParams.payment_method_types`
+  * Add support for new value `custom` on enums `ConfirmationToken.PaymentMethodPreview.type` and `PaymentMethod.type`
+  * Add support for `payment_record_refund` and `type` on `CreditNote.Refund`, `CreditNoteCreateParamsRefund`, `CreditNotePreviewLinesParamsRefund`, and `CreditNotePreviewParamsRefund`
+  * Add support for `customer_sheet` and `mobile_payment_element` on `CustomerSession.Component` and `CustomerSessionCreateParamsComponent`
+  * Add support for new value `custom` on enums `CustomerListPaymentMethodsParams.type`, `PaymentMethodCreateParams.type`, and `PaymentMethodListParams.type`
+  * Add support for `provider` on `Customer.Tax`
+  * Add support for new values `balance_settings.updated` and `invoice.payment_attempt_required` on enum `Event.type`
+  * Add support for new value `platform_terms_of_service` on enums `File.purpose` and `FileListParams.purpose`
+  * Add support for new value `platform_terms_of_service` on enum `FileCreateParams.purpose`
+  * Add support for `payment_record` on `InvoiceAttachPaymentParams`, `InvoicePayment.Payment`, and `InvoicePaymentListParamsPayment`
+  * Change type of `InvoicePaymentListParamsPayment.type` from `literal('payment_intent')` to `enum('payment_intent'|'payment_record')`
+  * Add support for new value `custom` on enums `Invoice.PaymentSetting.payment_method_types`, `InvoiceCreateParamsPaymentSetting.payment_method_types`, `InvoiceModifyParamsPaymentSetting.payment_method_types`, `Subscription.PaymentSetting.payment_method_types`, `SubscriptionCreateParamsPaymentSetting.payment_method_types`, and `SubscriptionModifyParamsPaymentSetting.payment_method_types`
+  * Add support for `amount_details` on `PaymentIntentCaptureParams`, `PaymentIntentConfirmParams`, `PaymentIntentCreateParams`, `PaymentIntentIncrementAuthorizationParams`, and `PaymentIntentModifyParams`
+  * Add support for `payment_details` on `PaymentIntentCaptureParams`, `PaymentIntentConfirmParams`, `PaymentIntentCreateParams`, `PaymentIntentIncrementAuthorizationParams`, `PaymentIntentModifyParams`, and `PaymentIntent`
+  * Add support for `discount_amount`, `line_items`, `shipping`, and `tax` on `PaymentIntent.AmountDetail`
+  * Add support for `name_collection` on `PaymentLinkCreateParams`, `PaymentLinkModifyParams`, and `PaymentLink`
+  * Add support for new value `mb_way` on enums `PaymentLink.payment_method_types`, `PaymentLinkCreateParams.payment_method_types`, and `PaymentLinkModifyParams.payment_method_types`
+  * Add support for `crypto` on `PaymentMethodConfigurationCreateParams`, `PaymentMethodConfigurationModifyParams`, `PaymentMethodConfiguration`, and `Refund.DestinationDetail`
+  * Add support for `mb_way` on `PaymentMethodConfigurationCreateParams`, `PaymentMethodConfigurationModifyParams`, and `PaymentMethodConfiguration`
+  * Add support for `custom` on `PaymentMethodCreateParams` and `PaymentMethod`
+  * Add support for `excluded_payment_method_types` on `SetupIntentCreateParams`, `SetupIntentModifyParams`, and `SetupIntent`
+  * Change `SetupIntent.flow_directions` to be optional
+  * Add support for `tw` on `Tax.Registration.CountryOption` and `tax.RegistrationCreateParamsCountryOption`
+  * Add support for `gip` on `Terminal.Configuration.Tipping`, `terminal.ConfigurationCreateParamsTipping`, and `terminal.ConfigurationModifyParamsTipping`
+  * Add support for `last_seen_at` on `Terminal.Reader`
+  * Add support for new values `balance_settings.updated` and `invoice.payment_attempt_required` on enums `WebhookEndpointCreateParams.enabled_events` and `WebhookEndpointModifyParams.enabled_events`
+  * Add support for new value `2025-10-29.clover` on enum `WebhookEndpointCreateParams.api_version`
+  * Add support for `gt`, `gte`, `lt`, `lte`, and `types` on `v2.core.EventListParams`
+  * Change `v2.core.EventListParams.object_id` to be optional
+  * Add support for snapshot event `balance_settings.updated` with resource `BalanceSettings`
+  * Add support for snapshot event `invoice.payment_attempt_required` with resource `Invoice`
+  * Add support for error code `payment_intent_rate_limit_exceeded` on `Invoice.LastFinalizationError`, `PaymentIntent.LastPaymentError`, `SetupAttempt.SetupError`, `SetupIntent.LastSetupError`, and `StripeError`
+* [#1645](https://github.com/stripe/stripe-python/pull/1645) Dramatically improve performance by lazily loading most imports
+  - move many type imports behind an `if TYPE_CHECKING` block
+  - lazily initialize subservices
+  - add module-level `__getattr__` functions to most `__init__.py` files
 
 ## 13.1.0b1 - 2025-09-30
 This release changes the pinned API version to `2025-09-30.preview`. It is built on top of SDK version 13.0.0 which contains breaking changes. Please review the [changelog for 13.0.0](https://github.com/stripe/stripe-go/blob/master/CHANGELOG.md#1300---2025-09-30) if upgrading from older SDK versions.
@@ -102,6 +118,44 @@ This release changes the pinned API version to `2025-09-30.preview`. It is built
   * Add support for `flexible` on `QuotePreviewSubscriptionSchedule.BillingMode`
   * Add support for `billed_until` on `SubscriptionItem`
   * Add support for error codes `financial_connections_account_pending_account_numbers` and `financial_connections_account_unavailable_account_numbers` on `QuotePreviewInvoice.LastFinalizationError`
+
+## 13.1.0a4 - 2025-10-23
+* [#1649](https://github.com/stripe/stripe-python/pull/1649) Update generated code for private-preview
+  * Add support for new resource `v2.billing.PricingPlanSubscriptionComponents`
+  * Add support for `retrieve` method on resource `v2.billing.PricingPlanSubscriptionComponents`
+  * Add support for `dimension_payload_keys` on `Billing.Meter` and `billing.MeterCreateParams`
+  * Add support for `dimension_filters` and `dimension_group_by_keys` on `billing.BillingMeterListMeterEventSummaryParams`
+  * Add support for `dimensions` on `Billing.MeterEventSummary`
+  * Add support for `fulfillment_details` and `payment_method_data` on `delegated_checkout.RequestedSessionCreateParams` and `delegated_checkout.RequestedSessionModifyParams`
+  * Add support for `line_item_details`, `metadata`, `payment_method`, and `shared_metadata` on `DelegatedCheckout.RequestedSession`, `delegated_checkout.RequestedSessionCreateParams`, and `delegated_checkout.RequestedSessionModifyParams`
+  * Add support for `currency`, `customer`, and `risk_details` on `delegated_checkout.RequestedSessionCreateParams`
+  * Add support for `seller_details` and `setup_future_usage` on `DelegatedCheckout.RequestedSession` and `delegated_checkout.RequestedSessionCreateParams`
+  * Add support for `amount_subtotal`, `amount_total`, `created_at`, `expires_at`, `order_details`, `shared_payment_issued_token`, `status`, `total_details`, and `updated_at` on `DelegatedCheckout.RequestedSession`
+  * Add support for `address`, `email`, `fulfillment_options`, `name`, `phone`, and `selected_fulfillment_option` on `DelegatedCheckout.RequestedSession.FulfillmentDetail`
+  * Add support for new values `billie`, `crypto`, `kr_card`, `kriya`, `mb_way`, `mondu`, `ng_bank_transfer`, `ng_bank`, `ng_card`, `ng_market`, `ng_ussd`, `ng_wallet`, `payco`, `paypay`, `rechnung`, `samsung_pay`, `satispay`, `scalapay`, `sequra`, `sunbit`, `us_bank_account`, and `vipps` on enums `EventsV2CoreHealthAuthorizationRateDropFiringEvent.Impact.payment_method_type`, `EventsV2CoreHealthAuthorizationRateDropResolvedEvent.Impact.payment_method_type`, `EventsV2CoreHealthPaymentMethodErrorFiringEvent.Impact.payment_method_type`, and `EventsV2CoreHealthPaymentMethodErrorResolvedEvent.Impact.payment_method_type`
+* [#1648](https://github.com/stripe/stripe-python/pull/1648) Prathmesh/merge python private preview
+
+## 13.1.0a3 - 2025-10-17
+* [#1643](https://github.com/stripe/stripe-python/pull/1643) Update generated code for private-preview
+  * Add support for new resources `delegated_checkout.RequestedSession` and `identity.BlocklistEntry`
+  * Add support for `confirm`, `create`, `expire`, `modify`, and `retrieve` methods on resource `delegated_checkout.RequestedSession`
+  * Add support for `create`, `disable`, `list`, and `retrieve` methods on resource `identity.BlocklistEntry`
+  * Add support for `blocked_by_entry` on `Identity.VerificationReport.Document`, `Identity.VerificationReport.Selfie`, and `identity.VerificationReportListParams`
+
+## 13.1.0a2 - 2025-10-09
+* [#1629](https://github.com/stripe/stripe-python/pull/1629) Update generated code for private-preview
+  * Add support for new resource `PaymentMethodBalance`
+  * Add support for `check_balance` method on resource `PaymentMethod`
+  * Add support for `benefits` on `Card`, `Charge.PaymentMethodDetail.Card`, `ConfirmationToken.PaymentMethodPreview.Card`, and `PaymentMethod.Card`
+  * Add support for `benefit` on `PaymentIntent.PaymentDetail`, `PaymentIntentConfirmParamsPaymentDetail`, `PaymentIntentCreateParamsPaymentDetail`, and `PaymentIntentModifyParamsPaymentDetail`
+  * Add support for `setup_details` on `SetupIntentConfirmParams`, `SetupIntentCreateParams`, `SetupIntentModifyParams`, and `SetupIntent`
+  * Add support for new value `card_creator` on enums `V2.Core.Account.applied_configurations` and `v2.core.AccountCloseParams.applied_configurations`
+  * Add support for `card_creator` on `V2.Core.Account.Configuration`, `V2.Core.Account.Identity.Attestation.TermsOfService`, `v2.core.AccountCreateParamsConfiguration`, `v2.core.AccountCreateParamsIdentityAttestationTermsOfService`, `v2.core.AccountModifyParamsConfiguration`, and `v2.core.AccountModifyParamsIdentityAttestationTermsOfService`
+  * Add support for new values `commercial.celtic.charge_card`, `commercial.celtic.spend_card`, `commercial.cross_river_bank.charge_card`, `commercial.cross_river_bank.spend_card`, `commercial.stripe.charge_card`, and `commercial.stripe.prepaid_card` on enum `V2.Core.Account.Requirement.Entry.Impact.RestrictsCapability.capability`
+  * Add support for new value `card_creator` on enum `V2.Core.Account.Requirement.Entry.Impact.RestrictsCapability.configuration`
+  * Add support for new value `configuration.card_creator` on enums `v2.core.AccountCreateParams.include`, `v2.core.AccountModifyParams.include`, and `v2.core.AccountRetrieveParams.include`
+  * Add support for thin events `V2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEvent` and `V2CoreAccountIncludingConfigurationCardCreatorUpdatedEvent` with related object `v2.core.Account`
+  * Remove support for thin events `V1CustomerDiscountCreatedEvent`, `V1CustomerDiscountDeletedEvent`, and `V1CustomerDiscountUpdatedEvent` with related object `Discount`
 
 ## 13.1.0a1 - 2025-10-01
 This release changes the pinned API version to `2025-09-30.preview`. It is built on top of SDK version 13.0.0 and 13.1.0-beta.1 which contain breaking changes. Please review the changelog for these versions if upgrading from older SDK versions.
