@@ -655,3 +655,7 @@ class MeterUsageRetrieveParamsMeter(TypedDict):
     """
     Key-value pairs used to filter usage events by high cardinality tenant dimension values. If specified, usage will be filtered for matching usage events.
     """
+    tenant_group_by_keys: NotRequired[List[str]]
+    """
+    List of high cardinality tenant dimension keys to group by. If specified, usage events will be grouped by the given tenant dimension key's values.
+    """

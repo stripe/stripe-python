@@ -46,3 +46,4 @@ class TransferCreateParams(RequestOptions):
     """
     A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options) for details.
     """
+    application_fee_amount: NotRequired[int]
