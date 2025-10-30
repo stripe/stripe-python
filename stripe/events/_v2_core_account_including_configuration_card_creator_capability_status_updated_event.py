@@ -101,6 +101,7 @@ class V2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEvent
             "commercial.celtic.spend_card",
             "commercial.cross_river_bank.charge_card",
             "commercial.cross_river_bank.spend_card",
+            "commercial.lead.prepaid_card",
             "commercial.stripe.charge_card",
             "commercial.stripe.prepaid_card",
         ]

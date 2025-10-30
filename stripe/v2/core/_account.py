@@ -221,6 +221,57 @@ class Account(StripeObject):
                             "spend_card": SpendCard,
                         }
 
+                    class Lead(StripeObject):
+                        class PrepaidCard(StripeObject):
+                            class StatusDetail(StripeObject):
+                                code: Literal[
+                                    "determining_status",
+                                    "requirements_past_due",
+                                    "requirements_pending_verification",
+                                    "restricted_other",
+                                    "unsupported_business",
+                                    "unsupported_country",
+                                    "unsupported_entity_type",
+                                ]
+                                """
+                                Machine-readable code explaining the reason for the Capability to be in its current status.
+                                """
+                                resolution: Literal[
+                                    "contact_stripe",
+                                    "no_resolution",
+                                    "provide_info",
+                                ]
+                                """
+                                Machine-readable code explaining how to make the Capability active.
+                                """
+
+                            requested: bool
+                            """
+                            Whether the Capability has been requested.
+                            """
+                            status: Literal[
+                                "active",
+                                "pending",
+                                "restricted",
+                                "unsupported",
+                            ]
+                            """
+                            The status of the Capability.
+                            """
+                            status_details: List[StatusDetail]
+                            """
+                            Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                            """
+                            _inner_class_types = {
+                                "status_details": StatusDetail,
+                            }
+
+                        prepaid_card: Optional[PrepaidCard]
+                        """
+                        Can create commercial Global(cross border) issuing prepaid cards with Lead as BIN sponsor.
+                        """
+                        _inner_class_types = {"prepaid_card": PrepaidCard}
+
                     class Stripe(StripeObject):
                         class ChargeCard(StripeObject):
                             class StatusDetail(StripeObject):
@@ -331,6 +382,10 @@ class Account(StripeObject):
                     """
                     Can create commercial issuing cards with Cross River Bank as BIN sponsor.
                     """
+                    lead: Optional[Lead]
+                    """
+                    Can create commercial issuing cards with Lead as a BIN sponsor.
+                    """
                     stripe: Optional[Stripe]
                     """
                     Can create commercial issuing cards with Stripe as a BIN sponsor.
@@ -338,6 +393,7 @@ class Account(StripeObject):
                     _inner_class_types = {
                         "celtic": Celtic,
                         "cross_river_bank": CrossRiverBank,
+                        "lead": Lead,
                         "stripe": Stripe,
                     }
 
@@ -4334,6 +4390,106 @@ class Account(StripeObject):
                                 "spend_card": SpendCard,
                             }
 
+                        class GlobalAccountHolder(StripeObject):
+                            date: Optional[str]
+                            """
+                            The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                            """
+                            ip: Optional[str]
+                            """
+                            The IP address from which the Account's representative accepted the terms of service.
+                            """
+                            url: Optional[str]
+                            """
+                            The URL to the service agreement the Account's representative accepted.
+                            """
+                            user_agent: Optional[str]
+                            """
+                            The user agent of the browser from which the Account's representative accepted the terms of service.
+                            """
+
+                        class Lead(StripeObject):
+                            class ApplePay(StripeObject):
+                                date: Optional[str]
+                                """
+                                The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                                """
+                                ip: Optional[str]
+                                """
+                                The IP address from which the Account's representative accepted the terms of service.
+                                """
+                                url: Optional[str]
+                                """
+                                The URL to the service agreement the Account's representative accepted.
+                                """
+                                user_agent: Optional[str]
+                                """
+                                The user agent of the browser from which the Account's representative accepted the terms of service.
+                                """
+
+                            class PrepaidCard(StripeObject):
+                                class BankTerms(StripeObject):
+                                    date: Optional[str]
+                                    """
+                                    The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                                    """
+                                    ip: Optional[str]
+                                    """
+                                    The IP address from which the Account's representative accepted the terms of service.
+                                    """
+                                    url: Optional[str]
+                                    """
+                                    The URL to the service agreement the Account's representative accepted.
+                                    """
+                                    user_agent: Optional[str]
+                                    """
+                                    The user agent of the browser from which the Account's representative accepted the terms of service.
+                                    """
+
+                                class Platform(StripeObject):
+                                    date: Optional[str]
+                                    """
+                                    The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                                    """
+                                    ip: Optional[str]
+                                    """
+                                    The IP address from which the Account's representative accepted the terms of service.
+                                    """
+                                    url: Optional[str]
+                                    """
+                                    The URL to the service agreement the Account's representative accepted.
+                                    """
+                                    user_agent: Optional[str]
+                                    """
+                                    The user agent of the browser from which the Account's representative accepted the terms of service.
+                                    """
+
+                                bank_terms: Optional[BankTerms]
+                                """
+                                Bank terms of service acceptance for commercial Global issuing prepaid cards with Lead as BIN sponsor.
+                                """
+                                platform: Optional[Platform]
+                                """
+                                Platform terms of service acceptance for commercial Global issuing prepaid cards with Lead as BIN sponsor.
+                                """
+                                _inner_class_types = {
+                                    "bank_terms": BankTerms,
+                                    "platform": Platform,
+                                }
+
+                            apple_pay: Optional[ApplePay]
+                            """
+                            Terms of service acceptances for commercial issuing Apple Pay cards with Celtic as BIN sponsor.
+                            """
+                            prepaid_card: Optional[PrepaidCard]
+                            """
+                            Terms of service acceptances for commercial issuing Global prepaid cards with Lead as BIN sponsor.
+                            """
+                            _inner_class_types = {
+                                "apple_pay": ApplePay,
+                                "prepaid_card": PrepaidCard,
+                            }
+
                         account_holder: Optional[AccountHolder]
                         """
                         Terms of service acceptances for Stripe commercial card issuing.
@@ -4346,10 +4502,20 @@ class Account(StripeObject):
                         """
                         Terms of service acceptances for commercial issuing cards with Cross River Bank as BIN sponsor.
                         """
+                        global_account_holder: Optional[GlobalAccountHolder]
+                        """
+                        Terms of service acceptances for Stripe commercial card Global issuing.
+                        """
+                        lead: Optional[Lead]
+                        """
+                        Terms of service acceptances for commercial issuing cards with Lead as BIN sponsor.
+                        """
                         _inner_class_types = {
                             "account_holder": AccountHolder,
                             "celtic": Celtic,
                             "cross_river_bank": CrossRiverBank,
+                            "global_account_holder": GlobalAccountHolder,
+                            "lead": Lead,
                         }
 
                     commercial: Optional[Commercial]
@@ -5590,6 +5756,7 @@ class Account(StripeObject):
                         "commercial.celtic.spend_card",
                         "commercial.cross_river_bank.charge_card",
                         "commercial.cross_river_bank.spend_card",
+                        "commercial.lead.prepaid_card",
                         "commercial.stripe.charge_card",
                         "commercial.stripe.prepaid_card",
                         "crypto",

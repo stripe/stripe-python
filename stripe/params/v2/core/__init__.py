@@ -20,6 +20,8 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCrossRiverBank as AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCrossRiverBank,
         AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCrossRiverBankChargeCard as AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCrossRiverBankChargeCard,
         AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCrossRiverBankSpendCard as AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCrossRiverBankSpendCard,
+        AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialLead as AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialLead,
+        AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialLeadPrepaidCard as AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialLeadPrepaidCard,
         AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialStripe as AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialStripe,
         AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialStripeChargeCard as AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialStripeChargeCard,
         AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialStripePrepaidCard as AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialStripePrepaidCard,
@@ -148,6 +150,12 @@ if TYPE_CHECKING:
         AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCard as AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCard,
         AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCardBankTerms as AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCardBankTerms,
         AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCardFinancingDisclosures as AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCardFinancingDisclosures,
+        AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialGlobalAccountHolder as AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialGlobalAccountHolder,
+        AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLead as AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLead,
+        AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLeadApplePay as AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLeadApplePay,
+        AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLeadPrepaidCard as AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLeadPrepaidCard,
+        AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLeadPrepaidCardBankTerms as AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLeadPrepaidCardBankTerms,
+        AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLeadPrepaidCardPlatform as AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLeadPrepaidCardPlatform,
         AccountCreateParamsIdentityAttestationsTermsOfServiceCryptoStorer as AccountCreateParamsIdentityAttestationsTermsOfServiceCryptoStorer,
         AccountCreateParamsIdentityAttestationsTermsOfServiceStorer as AccountCreateParamsIdentityAttestationsTermsOfServiceStorer,
         AccountCreateParamsIdentityBusinessDetails as AccountCreateParamsIdentityBusinessDetails,
@@ -221,6 +229,8 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialCrossRiverBank as AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialCrossRiverBank,
         AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialCrossRiverBankChargeCard as AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialCrossRiverBankChargeCard,
         AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialCrossRiverBankSpendCard as AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialCrossRiverBankSpendCard,
+        AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialLead as AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialLead,
+        AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialLeadPrepaidCard as AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialLeadPrepaidCard,
         AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialStripe as AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialStripe,
         AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialStripeChargeCard as AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialStripeChargeCard,
         AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialStripePrepaidCard as AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialStripePrepaidCard,
@@ -349,6 +359,12 @@ if TYPE_CHECKING:
         AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCard as AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCard,
         AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCardBankTerms as AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCardBankTerms,
         AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCardFinancingDisclosures as AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCardFinancingDisclosures,
+        AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialGlobalAccountHolder as AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialGlobalAccountHolder,
+        AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLead as AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLead,
+        AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLeadApplePay as AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLeadApplePay,
+        AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLeadPrepaidCard as AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLeadPrepaidCard,
+        AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLeadPrepaidCardBankTerms as AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLeadPrepaidCardBankTerms,
+        AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLeadPrepaidCardPlatform as AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLeadPrepaidCardPlatform,
         AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoStorer as AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoStorer,
         AccountUpdateParamsIdentityAttestationsTermsOfServiceStorer as AccountUpdateParamsIdentityAttestationsTermsOfServiceStorer,
         AccountUpdateParamsIdentityBusinessDetails as AccountUpdateParamsIdentityBusinessDetails,
@@ -486,6 +502,14 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCrossRiverBankSpendCard": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialLead": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialLeadPrepaidCard": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
@@ -1001,6 +1025,30 @@ _import_map = {
         "stripe.params.v2.core._account_create_params",
         False,
     ),
+    "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialGlobalAccountHolder": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLead": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLeadApplePay": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLeadPrepaidCard": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLeadPrepaidCardBankTerms": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLeadPrepaidCardPlatform": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
     "AccountCreateParamsIdentityAttestationsTermsOfServiceCryptoStorer": (
         "stripe.params.v2.core._account_create_params",
         False,
@@ -1255,6 +1303,14 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialCrossRiverBankSpendCard": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialLead": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialLeadPrepaidCard": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),
@@ -1767,6 +1823,30 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCardFinancingDisclosures": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialGlobalAccountHolder": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLead": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLeadApplePay": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLeadPrepaidCard": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLeadPrepaidCardBankTerms": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLeadPrepaidCardPlatform": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),
