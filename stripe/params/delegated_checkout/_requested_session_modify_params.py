@@ -120,7 +120,7 @@ class RequestedSessionModifyParamsLineItemDetail(TypedDict):
     """
     The key of the line item.
     """
-    quantity: NotRequired[int]
+    quantity: int
     """
     The quantity of the line item.
     """
