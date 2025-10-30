@@ -186,10 +186,88 @@ class RequestedSession(
         """
 
     class OrderDetails(StripeObject):
+        order_id: Optional[str]
+        """
+        The seller's order identifier.
+        """
         order_status_url: Optional[str]
         """
         The URL to the order status.
         """
+
+    class PaymentMethodPreview(StripeObject):
+        class BillingDetails(StripeObject):
+            class Address(StripeObject):
+                city: str
+                """
+                City, district, suburb, town, or village.
+                """
+                country: str
+                """
+                Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                """
+                line1: str
+                """
+                Address line 1, such as the street, PO Box, or company name.
+                """
+                line2: Optional[str]
+                """
+                Address line 2, such as the apartment, suite, unit, or building.
+                """
+                postal_code: str
+                """
+                ZIP or postal code.
+                """
+                state: str
+                """
+                State, county, province, or region.
+                """
+
+            address: Optional[Address]
+            """
+            The billing address.
+            """
+            email: Optional[str]
+            """
+            The email address for the billing details.
+            """
+            name: Optional[str]
+            """
+            The name for the billing details.
+            """
+            phone: Optional[str]
+            """
+            The phone number for the billing details.
+            """
+            _inner_class_types = {"address": Address}
+
+        class Card(StripeObject):
+            exp_month: int
+            """
+            The expiry month of the card.
+            """
+            exp_year: int
+            """
+            The expiry year of the card.
+            """
+            last4: str
+            """
+            The last 4 digits of the card number.
+            """
+
+        billing_details: Optional[BillingDetails]
+        """
+        The billing details of the payment method.
+        """
+        card: Optional[Card]
+        """
+        The card details of the payment method.
+        """
+        type: str
+        """
+        The type of the payment method.
+        """
+        _inner_class_types = {"billing_details": BillingDetails, "card": Card}
 
     class SellerDetails(StripeObject):
         pass
@@ -263,6 +341,10 @@ class RequestedSession(
     payment_method: Optional[str]
     """
     The payment method used for the requested session.
+    """
+    payment_method_preview: Optional[PaymentMethodPreview]
+    """
+    The preview of the payment method to be created when the requested session is confirmed.
     """
     seller_details: SellerDetails
     setup_future_usage: Optional[Literal["on_session"]]
@@ -611,6 +693,7 @@ class RequestedSession(
         "fulfillment_details": FulfillmentDetails,
         "line_item_details": LineItemDetail,
         "order_details": OrderDetails,
+        "payment_method_preview": PaymentMethodPreview,
         "seller_details": SellerDetails,
         "total_details": TotalDetails,
     }
