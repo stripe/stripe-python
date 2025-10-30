@@ -113,6 +113,12 @@ class AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercial(
     """
     Can create commercial issuing cards with Cross River Bank as BIN sponsor.
     """
+    lead: NotRequired[
+        "AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialLead"
+    ]
+    """
+    Can create commercial issuing cards with Lead as BIN sponsor.
+    """
     stripe: NotRequired[
         "AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialStripe"
     ]
@@ -183,6 +189,26 @@ class AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialCrossRive
 
 
 class AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialCrossRiverBankSpendCard(
+    TypedDict,
+):
+    requested: NotRequired[bool]
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialLead(
+    TypedDict,
+):
+    prepaid_card: NotRequired[
+        "AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialLeadPrepaidCard"
+    ]
+    """
+    Can create commercial issuing prepaid cards with Lead as BIN sponsor.
+    """
+
+
+class AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialLeadPrepaidCard(
     TypedDict,
 ):
     requested: NotRequired[bool]
@@ -2066,6 +2092,18 @@ class AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercial
     """
     Terms of service acceptances for commercial issuing cards with Cross River Bank as BIN sponsor.
     """
+    global_account_holder: NotRequired[
+        "AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialGlobalAccountHolder"
+    ]
+    """
+    Terms of service acceptances for Stripe commercial card Global issuing.
+    """
+    lead: NotRequired[
+        "AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLead"
+    ]
+    """
+    Terms of service acceptances for commercial issuing cards with Lead as BIN sponsor.
+    """
 
 
 class AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialAccountHolder(
@@ -2399,6 +2437,108 @@ class AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercial
 
 
 class AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCardFinancingDisclosures(
+    TypedDict,
+):
+    date: NotRequired[str]
+    """
+    The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+    """
+    ip: NotRequired[str]
+    """
+    The IP address from which the Account's representative accepted the terms of service.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser from which the Account's representative accepted the terms of service.
+    """
+
+
+class AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialGlobalAccountHolder(
+    TypedDict,
+):
+    date: NotRequired[str]
+    """
+    The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+    """
+    ip: NotRequired[str]
+    """
+    The IP address from which the Account's representative accepted the terms of service.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser from which the Account's representative accepted the terms of service.
+    """
+
+
+class AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLead(
+    TypedDict,
+):
+    apple_pay: NotRequired[
+        "AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLeadApplePay"
+    ]
+    """
+    Terms of service acceptances for commercial issuing Apple Pay cards with Lead as BIN sponsor.
+    """
+    prepaid_card: NotRequired[
+        "AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLeadPrepaidCard"
+    ]
+    """
+    Terms of service acceptances for commercial issuing prepaid cards with Lead as BIN sponsor.
+    """
+
+
+class AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLeadApplePay(
+    TypedDict,
+):
+    date: NotRequired[str]
+    """
+    The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+    """
+    ip: NotRequired[str]
+    """
+    The IP address from which the Account's representative accepted the terms of service.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser from which the Account's representative accepted the terms of service.
+    """
+
+
+class AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLeadPrepaidCard(
+    TypedDict,
+):
+    bank_terms: NotRequired[
+        "AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLeadPrepaidCardBankTerms"
+    ]
+    """
+    Bank terms of service acceptance for commercial issuing prepaid cards with Lead as BIN sponsor.
+    """
+    platform: NotRequired[
+        "AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLeadPrepaidCardPlatform"
+    ]
+    """
+    Platform terms of service acceptance for commercial issuing prepaid cards with Lead as BIN sponsor.
+    """
+
+
+class AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLeadPrepaidCardBankTerms(
+    TypedDict,
+):
+    date: NotRequired[str]
+    """
+    The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+    """
+    ip: NotRequired[str]
+    """
+    The IP address from which the Account's representative accepted the terms of service.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser from which the Account's representative accepted the terms of service.
+    """
+
+
+class AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLeadPrepaidCardPlatform(
     TypedDict,
 ):
     date: NotRequired[str]

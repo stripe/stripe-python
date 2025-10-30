@@ -109,6 +109,12 @@ class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercial(
     """
     Can create commercial issuing cards with Cross River Bank as BIN sponsor.
     """
+    lead: NotRequired[
+        "AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialLead"
+    ]
+    """
+    Can create commercial issuing cards with Stripe as BIN sponsor.
+    """
     stripe: NotRequired[
         "AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialStripe"
     ]
@@ -179,6 +185,26 @@ class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCrossRive
 
 
 class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCrossRiverBankSpendCard(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialLead(
+    TypedDict,
+):
+    prepaid_card: NotRequired[
+        "AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialLeadPrepaidCard"
+    ]
+    """
+    Can create commercial issuing prepaid cards with Lead as BIN sponsor.
+    """
+
+
+class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialLeadPrepaidCard(
     TypedDict,
 ):
     requested: bool
@@ -2034,6 +2060,18 @@ class AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercial
     """
     Terms of service acceptances for commercial issuing cards with Cross River Bank as BIN sponsor.
     """
+    global_account_holder: NotRequired[
+        "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialGlobalAccountHolder"
+    ]
+    """
+    Terms of service acceptances for Stripe commercial card Global issuing.
+    """
+    lead: NotRequired[
+        "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLead"
+    ]
+    """
+    Terms of service acceptances for commercial issuing cards with Lead as BIN sponsor.
+    """
 
 
 class AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialAccountHolder(
@@ -2367,6 +2405,108 @@ class AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercial
 
 
 class AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCardFinancingDisclosures(
+    TypedDict,
+):
+    date: str
+    """
+    The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+    """
+    ip: str
+    """
+    The IP address from which the Account's representative accepted the terms of service.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser from which the Account's representative accepted the terms of service.
+    """
+
+
+class AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialGlobalAccountHolder(
+    TypedDict,
+):
+    date: str
+    """
+    The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+    """
+    ip: str
+    """
+    The IP address from which the Account's representative accepted the terms of service.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser from which the Account's representative accepted the terms of service.
+    """
+
+
+class AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLead(
+    TypedDict,
+):
+    apple_pay: NotRequired[
+        "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLeadApplePay"
+    ]
+    """
+    Terms of service acceptances for commercial issuing Apple Pay cards with Lead as BIN sponsor.
+    """
+    prepaid_card: NotRequired[
+        "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLeadPrepaidCard"
+    ]
+    """
+    Terms of service acceptances for commercial issuing prepaid cards with Lead as BIN sponsor.
+    """
+
+
+class AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLeadApplePay(
+    TypedDict,
+):
+    date: str
+    """
+    The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+    """
+    ip: str
+    """
+    The IP address from which the Account's representative accepted the terms of service.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser from which the Account's representative accepted the terms of service.
+    """
+
+
+class AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLeadPrepaidCard(
+    TypedDict,
+):
+    bank_terms: NotRequired[
+        "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLeadPrepaidCardBankTerms"
+    ]
+    """
+    Bank terms of service acceptance for commercial issuing prepaid cards with Lead as BIN sponsor.
+    """
+    platform: NotRequired[
+        "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLeadPrepaidCardPlatform"
+    ]
+    """
+    Platform terms of service acceptance for commercial issuing prepaid cards with Lead as BIN sponsor.
+    """
+
+
+class AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLeadPrepaidCardBankTerms(
+    TypedDict,
+):
+    date: str
+    """
+    The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+    """
+    ip: str
+    """
+    The IP address from which the Account's representative accepted the terms of service.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser from which the Account's representative accepted the terms of service.
+    """
+
+
+class AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialLeadPrepaidCardPlatform(
     TypedDict,
 ):
     date: str
