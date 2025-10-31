@@ -572,7 +572,9 @@ class TestAPIRequestor(object):
 
     def test_uses_instance_key(self, requestor, http_client_mock):
         key = "fookey"
-        requestor = requestor._replace_options(RequestOptions(api_key=key))
+        requestor = requestor._new_requestor_with_options(
+            RequestOptions(api_key=key)
+        )
 
         http_client_mock.stub_request(
             "get", path=self.v1_path, rbody="{}", rcode=200
@@ -585,7 +587,7 @@ class TestAPIRequestor(object):
 
     def test_uses_instance_account(self, requestor, http_client_mock):
         account = "acct_foo"
-        requestor = requestor._replace_options(
+        requestor = requestor._new_requestor_with_options(
             RequestOptions(stripe_account=account)
         )
 
@@ -610,7 +612,7 @@ class TestAPIRequestor(object):
         in the generated fetch_related_object doesn't actually send the null header
         """
         account = None
-        requestor = requestor._replace_options(
+        requestor = requestor._new_requestor_with_options(
             RequestOptions(stripe_account=account)
         )
 
