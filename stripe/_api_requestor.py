@@ -42,7 +42,11 @@ from stripe._stripe_response import (
     StripeStreamResponse,
     StripeStreamResponseAsync,
 )
-from stripe._request_options import RequestOptions, merge_options
+from stripe._request_options import (
+    PERSISTENT_OPTIONS_KEYS,
+    RequestOptions,
+    merge_options,
+)
 from stripe._requestor_options import (
     RequestorOptions,
     _GlobalRequestorOptions,
@@ -121,12 +125,15 @@ class _APIRequestor(object):
             return stripe.default_http_client
         return client
 
-    def _replace_options(
+    def _new_requestor_with_options(
         self, options: Optional[RequestOptions]
     ) -> "_APIRequestor":
+        """
+        Returns a new _APIRequestor instance with the same HTTP client but a (potentially) updated set of options. Useful for ensuring the original isn't modified, but any options the original had are still used.
+        """
         options = options or {}
         new_options = self._options.to_dict()
-        for key in ["api_key", "stripe_account", "stripe_version"]:
+        for key in PERSISTENT_OPTIONS_KEYS:
             if key in options and options[key] is not None:
                 new_options[key] = options[key]
         return _APIRequestor(
@@ -165,7 +172,9 @@ class _APIRequestor(object):
     def _global_with_options(
         **params: Unpack[RequestOptions],
     ) -> "_APIRequestor":
-        return _APIRequestor._global_instance()._replace_options(params)
+        return _APIRequestor._global_instance()._new_requestor_with_options(
+            params
+        )
 
     @classmethod
     def _format_app_info(cls, info):
@@ -187,7 +196,7 @@ class _APIRequestor(object):
         usage: Optional[List[str]] = None,
     ) -> "StripeObject":
         api_mode = get_api_mode(url)
-        requestor = self._replace_options(options)
+        requestor = self._new_requestor_with_options(options)
         rbody, rcode, rheaders = requestor.request_raw(
             method.lower(),
             url,
@@ -221,7 +230,7 @@ class _APIRequestor(object):
         usage: Optional[List[str]] = None,
     ) -> "StripeObject":
         api_mode = get_api_mode(url)
-        requestor = self._replace_options(options)
+        requestor = self._new_requestor_with_options(options)
         rbody, rcode, rheaders = await requestor.request_raw_async(
             method.lower(),
             url,
