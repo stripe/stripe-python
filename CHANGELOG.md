@@ -1,3 +1,6 @@
+## 13.1.1 - 2025-10-31
+* [#1660](https://github.com/stripe/stripe-python/pull/1660) Fix `stripe-context` header not being included in paged list requests
+
 ## 13.1.0 - 2025-10-29
 
 This release changes the pinned API version to `2025-10-29.clover`.
