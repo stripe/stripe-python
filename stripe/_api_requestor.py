@@ -124,9 +124,17 @@ class _APIRequestor(object):
     def _replace_options(
         self, options: Optional[RequestOptions]
     ) -> "_APIRequestor":
+        """
+        Returns a new _APIRequestor instance with the same HTTP client but a (potentially) updated set of options. Useful for ensuring the original isn't modified, but any options the original had are still used.
+        """
         options = options or {}
         new_options = self._options.to_dict()
-        for key in ["api_key", "stripe_account", "stripe_version"]:
+        for key in [
+            "api_key",
+            "stripe_account",
+            "stripe_context",
+            "stripe_version",
+        ]:
             if key in options and options[key] is not None:
                 new_options[key] = options[key]
         return _APIRequestor(
