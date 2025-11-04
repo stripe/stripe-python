@@ -1,3 +1,6 @@
+## 13.1.2 - 2025-11-04
+* [#1661](https://github.com/stripe/stripe-python/pull/1661) Add support for value `payment_record` to enum `InvoicePayment.payment.type`
+
 ## 13.1.1 - 2025-10-31
 * [#1660](https://github.com/stripe/stripe-python/pull/1660) Fix `stripe-context` header not being included in paged list requests
 
