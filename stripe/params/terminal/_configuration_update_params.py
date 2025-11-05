@@ -9,13 +9,13 @@ class ConfigurationUpdateParams(TypedDict):
         "Literal['']|ConfigurationUpdateParamsBbposWisepad3"
     ]
     """
-    An object containing device type specific settings for BBPOS WisePad 3 readers
+    An object containing device type specific settings for BBPOS WisePad 3 readers.
     """
     bbpos_wisepos_e: NotRequired[
         "Literal['']|ConfigurationUpdateParamsBbposWiseposE"
     ]
     """
-    An object containing device type specific settings for BBPOS WisePOS E readers
+    An object containing device type specific settings for BBPOS WisePOS E readers.
     """
     expand: NotRequired[List[str]]
     """
@@ -33,21 +33,21 @@ class ConfigurationUpdateParams(TypedDict):
         "Literal['']|ConfigurationUpdateParamsRebootWindow"
     ]
     """
-    Reboot time settings for readers that support customized reboot time configuration.
+    Reboot time settings for readers. that support customized reboot time configuration.
     """
     stripe_s700: NotRequired["Literal['']|ConfigurationUpdateParamsStripeS700"]
     """
-    An object containing device type specific settings for Stripe S700 readers
+    An object containing device type specific settings for Stripe S700 readers.
     """
     tipping: NotRequired["Literal['']|ConfigurationUpdateParamsTipping"]
     """
-    Tipping configurations for readers supporting on-reader tips
+    Tipping configurations for readers. supporting on-reader tips
     """
     verifone_p400: NotRequired[
         "Literal['']|ConfigurationUpdateParamsVerifoneP400"
     ]
     """
-    An object containing device type specific settings for Verifone P400 readers
+    An object containing device type specific settings for Verifone P400 readers.
     """
     wifi: NotRequired["Literal['']|ConfigurationUpdateParamsWifi"]
     """
@@ -58,7 +58,7 @@ class ConfigurationUpdateParams(TypedDict):
 class ConfigurationUpdateParamsBbposWisepad3(TypedDict):
     splashscreen: NotRequired["Literal['']|str"]
     """
-    A File ID representing an image you would like displayed on the reader.
+    A File ID representing an image you want to display on the reader.
     """
 
 
@@ -90,7 +90,7 @@ class ConfigurationUpdateParamsRebootWindow(TypedDict):
 class ConfigurationUpdateParamsStripeS700(TypedDict):
     splashscreen: NotRequired["Literal['']|str"]
     """
-    A File ID representing an image you would like displayed on the reader.
+    A File ID representing an image you want to display on the reader.
     """
 
 
@@ -518,7 +518,7 @@ class ConfigurationUpdateParamsTippingUsd(TypedDict):
 class ConfigurationUpdateParamsVerifoneP400(TypedDict):
     splashscreen: NotRequired["Literal['']|str"]
     """
-    A File ID representing an image you would like displayed on the reader.
+    A File ID representing an image you want to display on the reader.
     """
 
 

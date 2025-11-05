@@ -8,7 +8,7 @@ from typing_extensions import Literal, NotRequired, TypedDict
 class CustomerSessionCreateParams(RequestOptions):
     components: "CustomerSessionCreateParamsComponents"
     """
-    Configuration for each component. Exactly 1 component must be enabled.
+    Configuration for each component. At least 1 component must be enabled.
     """
     customer: str
     """
