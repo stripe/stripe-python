@@ -946,6 +946,18 @@ if TYPE_CHECKING:
     from stripe.events._v2_payments_off_session_payment_succeeded_event import (
         V2PaymentsOffSessionPaymentSucceededEventNotification,
     )
+    from stripe.events._v2_reporting_report_run_created_event import (
+        V2ReportingReportRunCreatedEventNotification,
+    )
+    from stripe.events._v2_reporting_report_run_failed_event import (
+        V2ReportingReportRunFailedEventNotification,
+    )
+    from stripe.events._v2_reporting_report_run_succeeded_event import (
+        V2ReportingReportRunSucceededEventNotification,
+    )
+    from stripe.events._v2_reporting_report_run_updated_event import (
+        V2ReportingReportRunUpdatedEventNotification,
+    )
 
 
 _V2_EVENT_CLASS_LOOKUP = {
@@ -2200,6 +2212,22 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v2.payments.off_session_payment.succeeded": (
         "stripe.events._v2_payments_off_session_payment_succeeded_event",
         "V2PaymentsOffSessionPaymentSucceededEvent",
+    ),
+    "v2.reporting.report_run.created": (
+        "stripe.events._v2_reporting_report_run_created_event",
+        "V2ReportingReportRunCreatedEvent",
+    ),
+    "v2.reporting.report_run.failed": (
+        "stripe.events._v2_reporting_report_run_failed_event",
+        "V2ReportingReportRunFailedEvent",
+    ),
+    "v2.reporting.report_run.succeeded": (
+        "stripe.events._v2_reporting_report_run_succeeded_event",
+        "V2ReportingReportRunSucceededEvent",
+    ),
+    "v2.reporting.report_run.updated": (
+        "stripe.events._v2_reporting_report_run_updated_event",
+        "V2ReportingReportRunUpdatedEvent",
     ),
 }
 
@@ -3468,6 +3496,22 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_payments_off_session_payment_succeeded_event",
         "V2PaymentsOffSessionPaymentSucceededEventNotification",
     ),
+    "v2.reporting.report_run.created": (
+        "stripe.events._v2_reporting_report_run_created_event",
+        "V2ReportingReportRunCreatedEventNotification",
+    ),
+    "v2.reporting.report_run.failed": (
+        "stripe.events._v2_reporting_report_run_failed_event",
+        "V2ReportingReportRunFailedEventNotification",
+    ),
+    "v2.reporting.report_run.succeeded": (
+        "stripe.events._v2_reporting_report_run_succeeded_event",
+        "V2ReportingReportRunSucceededEventNotification",
+    ),
+    "v2.reporting.report_run.updated": (
+        "stripe.events._v2_reporting_report_run_updated_event",
+        "V2ReportingReportRunUpdatedEventNotification",
+    ),
 }
 
 
@@ -3796,4 +3840,8 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2PaymentsOffSessionPaymentFailedEventNotification",
     "V2PaymentsOffSessionPaymentRequiresCaptureEventNotification",
     "V2PaymentsOffSessionPaymentSucceededEventNotification",
+    "V2ReportingReportRunCreatedEventNotification",
+    "V2ReportingReportRunFailedEventNotification",
+    "V2ReportingReportRunSucceededEventNotification",
+    "V2ReportingReportRunUpdatedEventNotification",
 ]

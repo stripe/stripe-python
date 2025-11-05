@@ -258,6 +258,10 @@ class PaymentIntentCreateParams(RequestOptions):
     """
     Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions.
     """
+    allocated_funds: NotRequired["PaymentIntentCreateParamsAllocatedFunds"]
+    """
+    Allocated Funds configuration for this PaymentIntent.
+    """
 
 
 class PaymentIntentCreateParamsAmountDetails(TypedDict):
@@ -4553,4 +4557,11 @@ class PaymentIntentCreateParamsTransferData(TypedDict):
     account for tax reporting, and the funds from charges will be transferred
     to the destination account. The ID of the resulting transfer will be
     returned on the successful charge's `transfer` field.
+    """
+
+
+class PaymentIntentCreateParamsAllocatedFunds(TypedDict):
+    enabled: NotRequired[bool]
+    """
+    Whether Allocated Funds creation is enabled for this PaymentIntent.
     """

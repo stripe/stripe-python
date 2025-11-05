@@ -5,9 +5,13 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.test_helpers import (
+        capital as capital,
         issuing as issuing,
         terminal as terminal,
         treasury as treasury,
+    )
+    from stripe.test_helpers._capital_service import (
+        CapitalService as CapitalService,
     )
     from stripe.test_helpers._confirmation_token_service import (
         ConfirmationTokenService as ConfirmationTokenService,
@@ -34,9 +38,11 @@ if TYPE_CHECKING:
 
 # name -> (import_target, is_submodule)
 _import_map = {
+    "capital": ("stripe.test_helpers.capital", True),
     "issuing": ("stripe.test_helpers.issuing", True),
     "terminal": ("stripe.test_helpers.terminal", True),
     "treasury": ("stripe.test_helpers.treasury", True),
+    "CapitalService": ("stripe.test_helpers._capital_service", False),
     "ConfirmationTokenService": (
         "stripe.test_helpers._confirmation_token_service",
         False,

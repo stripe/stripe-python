@@ -604,6 +604,7 @@ if TYPE_CHECKING:
         TransferReversalService as TransferReversalService,
     )
     from stripe._transfer_service import TransferService as TransferService
+    from stripe._transit_balance import TransitBalance as TransitBalance
     from stripe._treasury_service import TreasuryService as TreasuryService
     from stripe._updateable_api_resource import (
         UpdateableAPIResource as UpdateableAPIResource,
@@ -985,6 +986,7 @@ _import_map = {
     "Transfer": ("stripe._transfer", False),
     "TransferReversalService": ("stripe._transfer_reversal_service", False),
     "TransferService": ("stripe._transfer_service", False),
+    "TransitBalance": ("stripe._transit_balance", False),
     "TreasuryService": ("stripe._treasury_service", False),
     "UpdateableAPIResource": ("stripe._updateable_api_resource", False),
     "convert_to_stripe_object": ("stripe._util", False),

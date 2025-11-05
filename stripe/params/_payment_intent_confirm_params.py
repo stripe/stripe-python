@@ -126,6 +126,10 @@ class PaymentIntentConfirmParams(RequestOptions):
     """
     Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions.
     """
+    allocated_funds: NotRequired["PaymentIntentConfirmParamsAllocatedFunds"]
+    """
+    Allocated Funds configuration for this PaymentIntent.
+    """
 
 
 class PaymentIntentConfirmParamsAmountDetails(TypedDict):
@@ -4406,4 +4410,11 @@ class PaymentIntentConfirmParamsShippingAddress(TypedDict):
     state: NotRequired[str]
     """
     State, county, province, or region.
+    """
+
+
+class PaymentIntentConfirmParamsAllocatedFunds(TypedDict):
+    enabled: NotRequired[bool]
+    """
+    Whether Allocated Funds creation is enabled for this PaymentIntent.
     """

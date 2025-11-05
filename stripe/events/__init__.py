@@ -1265,6 +1265,22 @@ if TYPE_CHECKING:
         V2PaymentsOffSessionPaymentSucceededEvent as V2PaymentsOffSessionPaymentSucceededEvent,
         V2PaymentsOffSessionPaymentSucceededEventNotification as V2PaymentsOffSessionPaymentSucceededEventNotification,
     )
+    from stripe.events._v2_reporting_report_run_created_event import (
+        V2ReportingReportRunCreatedEvent as V2ReportingReportRunCreatedEvent,
+        V2ReportingReportRunCreatedEventNotification as V2ReportingReportRunCreatedEventNotification,
+    )
+    from stripe.events._v2_reporting_report_run_failed_event import (
+        V2ReportingReportRunFailedEvent as V2ReportingReportRunFailedEvent,
+        V2ReportingReportRunFailedEventNotification as V2ReportingReportRunFailedEventNotification,
+    )
+    from stripe.events._v2_reporting_report_run_succeeded_event import (
+        V2ReportingReportRunSucceededEvent as V2ReportingReportRunSucceededEvent,
+        V2ReportingReportRunSucceededEventNotification as V2ReportingReportRunSucceededEventNotification,
+    )
+    from stripe.events._v2_reporting_report_run_updated_event import (
+        V2ReportingReportRunUpdatedEvent as V2ReportingReportRunUpdatedEvent,
+        V2ReportingReportRunUpdatedEventNotification as V2ReportingReportRunUpdatedEventNotification,
+    )
 
 # name -> (import_target, is_submodule)
 _import_map = {
@@ -3660,6 +3676,38 @@ _import_map = {
     ),
     "V2PaymentsOffSessionPaymentSucceededEventNotification": (
         "stripe.events._v2_payments_off_session_payment_succeeded_event",
+        False,
+    ),
+    "V2ReportingReportRunCreatedEvent": (
+        "stripe.events._v2_reporting_report_run_created_event",
+        False,
+    ),
+    "V2ReportingReportRunCreatedEventNotification": (
+        "stripe.events._v2_reporting_report_run_created_event",
+        False,
+    ),
+    "V2ReportingReportRunFailedEvent": (
+        "stripe.events._v2_reporting_report_run_failed_event",
+        False,
+    ),
+    "V2ReportingReportRunFailedEventNotification": (
+        "stripe.events._v2_reporting_report_run_failed_event",
+        False,
+    ),
+    "V2ReportingReportRunSucceededEvent": (
+        "stripe.events._v2_reporting_report_run_succeeded_event",
+        False,
+    ),
+    "V2ReportingReportRunSucceededEventNotification": (
+        "stripe.events._v2_reporting_report_run_succeeded_event",
+        False,
+    ),
+    "V2ReportingReportRunUpdatedEvent": (
+        "stripe.events._v2_reporting_report_run_updated_event",
+        False,
+    ),
+    "V2ReportingReportRunUpdatedEventNotification": (
+        "stripe.events._v2_reporting_report_run_updated_event",
         False,
     ),
 }

@@ -38,6 +38,7 @@ if TYPE_CHECKING:
     from stripe._review import Review
     from stripe._source import Source
     from stripe._transfer import Transfer
+    from stripe._transit_balance import TransitBalance
     from stripe.params._charge_capture_params import ChargeCaptureParams
     from stripe.params._charge_create_params import ChargeCreateParams
     from stripe.params._charge_list_params import ChargeListParams
@@ -2339,6 +2340,10 @@ class Charge(
         ID of an existing, connected Stripe account to transfer funds to if `transfer_data` was specified in the charge request.
         """
 
+    allocated_funds: Optional["TransitBalance"]
+    """
+    Funds that are in transit and destined for another balance or another connected account.
+    """
     amount: int
     """
     Amount intended to be collected by this payment. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).

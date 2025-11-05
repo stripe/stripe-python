@@ -145,6 +145,10 @@ class PaymentIntentModifyParams(RequestOptions):
     """
     A string that identifies the resulting payment as part of a group. You can only provide `transfer_group` if it hasn't been set. Learn more about the [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
     """
+    allocated_funds: NotRequired["PaymentIntentModifyParamsAllocatedFunds"]
+    """
+    Allocated Funds configuration for this PaymentIntent.
+    """
 
 
 class PaymentIntentModifyParamsAmountDetails(TypedDict):
@@ -4391,4 +4395,11 @@ class PaymentIntentModifyParamsTransferData(TypedDict):
     amount: NotRequired[int]
     """
     The amount that will be transferred automatically when a charge succeeds.
+    """
+
+
+class PaymentIntentModifyParamsAllocatedFunds(TypedDict):
+    enabled: NotRequired[bool]
+    """
+    Whether Allocated Funds creation is enabled for this PaymentIntent.
     """

@@ -3,16 +3,23 @@
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject
+from stripe._test_helpers import APIResourceTestHelpers
 from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, Optional, cast, overload
-from typing_extensions import Literal, Unpack, TYPE_CHECKING
+from typing_extensions import Literal, Type, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.params.capital._financing_offer_create_params import (
+        FinancingOfferCreateParams,
+    )
     from stripe.params.capital._financing_offer_list_params import (
         FinancingOfferListParams,
     )
     from stripe.params.capital._financing_offer_mark_delivered_params import (
         FinancingOfferMarkDeliveredParams,
+    )
+    from stripe.params.capital._financing_offer_refill_params import (
+        FinancingOfferRefillParams,
     )
     from stripe.params.capital._financing_offer_retrieve_params import (
         FinancingOfferRetrieveParams,
@@ -350,7 +357,165 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
         await instance.refresh_async()
         return instance
 
+    class TestHelpers(APIResourceTestHelpers["FinancingOffer"]):
+        _resource_cls: Type["FinancingOffer"]
+
+        @classmethod
+        def create(
+            cls, **params: Unpack["FinancingOfferCreateParams"]
+        ) -> "FinancingOffer":
+            """
+            Creates a test financing offer for a connected account.
+            """
+            return cast(
+                "FinancingOffer",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/capital/financing_offers",
+                    params=params,
+                ),
+            )
+
+        @classmethod
+        async def create_async(
+            cls, **params: Unpack["FinancingOfferCreateParams"]
+        ) -> "FinancingOffer":
+            """
+            Creates a test financing offer for a connected account.
+            """
+            return cast(
+                "FinancingOffer",
+                await cls._static_request_async(
+                    "post",
+                    "/v1/test_helpers/capital/financing_offers",
+                    params=params,
+                ),
+            )
+
+        @classmethod
+        def _cls_refill(
+            cls,
+            financing_offer: str,
+            **params: Unpack["FinancingOfferRefillParams"],
+        ) -> "FinancingOffer":
+            """
+            Refills a test financing offer for a connected account.
+            """
+            return cast(
+                "FinancingOffer",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/capital/financing_offers/{financing_offer}/refill".format(
+                        financing_offer=sanitize_id(financing_offer)
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        def refill(
+            financing_offer: str,
+            **params: Unpack["FinancingOfferRefillParams"],
+        ) -> "FinancingOffer":
+            """
+            Refills a test financing offer for a connected account.
+            """
+            ...
+
+        @overload
+        def refill(
+            self, **params: Unpack["FinancingOfferRefillParams"]
+        ) -> "FinancingOffer":
+            """
+            Refills a test financing offer for a connected account.
+            """
+            ...
+
+        @class_method_variant("_cls_refill")
+        def refill(  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["FinancingOfferRefillParams"]
+        ) -> "FinancingOffer":
+            """
+            Refills a test financing offer for a connected account.
+            """
+            return cast(
+                "FinancingOffer",
+                self.resource._request(
+                    "post",
+                    "/v1/test_helpers/capital/financing_offers/{financing_offer}/refill".format(
+                        financing_offer=sanitize_id(self.resource.get("id"))
+                    ),
+                    params=params,
+                ),
+            )
+
+        @classmethod
+        async def _cls_refill_async(
+            cls,
+            financing_offer: str,
+            **params: Unpack["FinancingOfferRefillParams"],
+        ) -> "FinancingOffer":
+            """
+            Refills a test financing offer for a connected account.
+            """
+            return cast(
+                "FinancingOffer",
+                await cls._static_request_async(
+                    "post",
+                    "/v1/test_helpers/capital/financing_offers/{financing_offer}/refill".format(
+                        financing_offer=sanitize_id(financing_offer)
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        async def refill_async(
+            financing_offer: str,
+            **params: Unpack["FinancingOfferRefillParams"],
+        ) -> "FinancingOffer":
+            """
+            Refills a test financing offer for a connected account.
+            """
+            ...
+
+        @overload
+        async def refill_async(
+            self, **params: Unpack["FinancingOfferRefillParams"]
+        ) -> "FinancingOffer":
+            """
+            Refills a test financing offer for a connected account.
+            """
+            ...
+
+        @class_method_variant("_cls_refill_async")
+        async def refill_async(  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["FinancingOfferRefillParams"]
+        ) -> "FinancingOffer":
+            """
+            Refills a test financing offer for a connected account.
+            """
+            return cast(
+                "FinancingOffer",
+                await self.resource._request_async(
+                    "post",
+                    "/v1/test_helpers/capital/financing_offers/{financing_offer}/refill".format(
+                        financing_offer=sanitize_id(self.resource.get("id"))
+                    ),
+                    params=params,
+                ),
+            )
+
+    @property
+    def test_helpers(self):
+        return self.TestHelpers(self)
+
     _inner_class_types = {
         "accepted_terms": AcceptedTerms,
         "offered_terms": OfferedTerms,
     }
+
+
+FinancingOffer.TestHelpers._resource_cls = FinancingOffer

@@ -47427,6 +47427,83 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
+    def test_v2_reporting_report_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/reporting/reports/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.reporting.reports.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/reporting/reports/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_reporting_report_run_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/reporting/report_runs",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.reporting.report_runs.create(
+            {
+                "report": "report",
+                "report_parameters": {
+                    "int_key": 123,
+                    "string_key": "value",
+                    "boolean_key": True,
+                    "object_key": {
+                        "object_int_key": 123,
+                        "object_string_key": "value",
+                        "object_boolean_key": True,
+                    },
+                    "array_key": [1, 2, 3],
+                },
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/reporting/report_runs",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"report":"report","report_parameters":{"int_key":123,"string_key":"value","boolean_key":true,"object_key":{"object_int_key":123,"object_string_key":"value","object_boolean_key":true},"array_key":[1,2,3]}}',
+            is_json=True,
+        )
+
+    def test_v2_reporting_report_run_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/reporting/report_runs/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.reporting.report_runs.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/reporting/report_runs/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
     def test_v2_tax_automatic_rule_post_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:

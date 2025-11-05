@@ -9,6 +9,7 @@ if TYPE_CHECKING:
         core as core,
         money_management as money_management,
         payments as payments,
+        reporting as reporting,
         tax as tax,
         test_helpers as test_helpers,
     )
@@ -19,6 +20,7 @@ _import_map = {
     "core": ("stripe.params.v2.core", True),
     "money_management": ("stripe.params.v2.money_management", True),
     "payments": ("stripe.params.v2.payments", True),
+    "reporting": ("stripe.params.v2.reporting", True),
     "tax": ("stripe.params.v2.tax", True),
     "test_helpers": ("stripe.params.v2.test_helpers", True),
 }

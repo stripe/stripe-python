@@ -1881,6 +1881,7 @@ if TYPE_CHECKING:
     )
     from stripe.params._payment_intent_confirm_params import (
         PaymentIntentConfirmParams as PaymentIntentConfirmParams,
+        PaymentIntentConfirmParamsAllocatedFunds as PaymentIntentConfirmParamsAllocatedFunds,
         PaymentIntentConfirmParamsAmountDetails as PaymentIntentConfirmParamsAmountDetails,
         PaymentIntentConfirmParamsAmountDetailsLineItem as PaymentIntentConfirmParamsAmountDetailsLineItem,
         PaymentIntentConfirmParamsAmountDetailsLineItemPaymentMethodOptions as PaymentIntentConfirmParamsAmountDetailsLineItemPaymentMethodOptions,
@@ -2084,6 +2085,7 @@ if TYPE_CHECKING:
     )
     from stripe.params._payment_intent_create_params import (
         PaymentIntentCreateParams as PaymentIntentCreateParams,
+        PaymentIntentCreateParamsAllocatedFunds as PaymentIntentCreateParamsAllocatedFunds,
         PaymentIntentCreateParamsAmountDetails as PaymentIntentCreateParamsAmountDetails,
         PaymentIntentCreateParamsAmountDetailsLineItem as PaymentIntentCreateParamsAmountDetailsLineItem,
         PaymentIntentCreateParamsAmountDetailsLineItemPaymentMethodOptions as PaymentIntentCreateParamsAmountDetailsLineItemPaymentMethodOptions,
@@ -2323,6 +2325,7 @@ if TYPE_CHECKING:
     )
     from stripe.params._payment_intent_modify_params import (
         PaymentIntentModifyParams as PaymentIntentModifyParams,
+        PaymentIntentModifyParamsAllocatedFunds as PaymentIntentModifyParamsAllocatedFunds,
         PaymentIntentModifyParamsAmountDetails as PaymentIntentModifyParamsAmountDetails,
         PaymentIntentModifyParamsAmountDetailsLineItem as PaymentIntentModifyParamsAmountDetailsLineItem,
         PaymentIntentModifyParamsAmountDetailsLineItemPaymentMethodOptions as PaymentIntentModifyParamsAmountDetailsLineItemPaymentMethodOptions,
@@ -2535,6 +2538,7 @@ if TYPE_CHECKING:
     )
     from stripe.params._payment_intent_update_params import (
         PaymentIntentUpdateParams as PaymentIntentUpdateParams,
+        PaymentIntentUpdateParamsAllocatedFunds as PaymentIntentUpdateParamsAllocatedFunds,
         PaymentIntentUpdateParamsAmountDetails as PaymentIntentUpdateParamsAmountDetails,
         PaymentIntentUpdateParamsAmountDetailsLineItem as PaymentIntentUpdateParamsAmountDetailsLineItem,
         PaymentIntentUpdateParamsAmountDetailsLineItemPaymentMethodOptions as PaymentIntentUpdateParamsAmountDetailsLineItemPaymentMethodOptions,
@@ -10314,6 +10318,10 @@ _import_map = {
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
+    "PaymentIntentConfirmParamsAllocatedFunds": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
     "PaymentIntentConfirmParamsAmountDetails": (
         "stripe.params._payment_intent_confirm_params",
         False,
@@ -11115,6 +11123,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentCreateParams": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsAllocatedFunds": (
         "stripe.params._payment_intent_create_params",
         False,
     ),
@@ -12034,6 +12046,10 @@ _import_map = {
         "stripe.params._payment_intent_modify_params",
         False,
     ),
+    "PaymentIntentModifyParamsAllocatedFunds": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
     "PaymentIntentModifyParamsAmountDetails": (
         "stripe.params._payment_intent_modify_params",
         False,
@@ -12847,6 +12863,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentUpdateParams": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsAllocatedFunds": (
         "stripe.params._payment_intent_update_params",
         False,
     ),

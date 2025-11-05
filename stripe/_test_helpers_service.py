@@ -5,6 +5,7 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.test_helpers._capital_service import CapitalService
     from stripe.test_helpers._confirmation_token_service import (
         ConfirmationTokenService,
     )
@@ -16,6 +17,7 @@ if TYPE_CHECKING:
     from stripe.test_helpers._treasury_service import TreasuryService
 
 _subservices = {
+    "capital": ["stripe.test_helpers._capital_service", "CapitalService"],
     "confirmation_tokens": [
         "stripe.test_helpers._confirmation_token_service",
         "ConfirmationTokenService",
@@ -33,6 +35,7 @@ _subservices = {
 
 
 class TestHelpersService(StripeService):
+    capital: "CapitalService"
     confirmation_tokens: "ConfirmationTokenService"
     customers: "CustomerService"
     issuing: "IssuingService"
