@@ -1,3 +1,7 @@
+## 13.2.0 - 2025-11-05
+* [#1662](https://github.com/stripe/stripe-python/pull/1662) Update generated code
+  * Add support for `capture_method` on `PaymentIntent.PaymentMethodOption.CardPresent`, `PaymentIntentConfirmParamsPaymentMethodOptionCardPresent`, `PaymentIntentCreateParamsPaymentMethodOptionCardPresent`, and `PaymentIntentModifyParamsPaymentMethodOptionCardPresent`
+
 ## 13.1.2 - 2025-11-04
 * [#1661](https://github.com/stripe/stripe-python/pull/1661) Add support for value `payment_record` to enum `InvoicePayment.payment.type`
 
