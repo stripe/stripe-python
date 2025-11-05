@@ -1,9 +1,13 @@
 from typing_extensions import TYPE_CHECKING
 
+from typing import TypeVar, Callable
 
 if TYPE_CHECKING:
-    from typing import Callable
     from stripe._stripe_client import StripeClient
+    from stripe.v2.core._event import (
+        EventNotification,
+        UnknownEventNotification,
+    )
 
     # event-notification-types: The beginning of the section generated from our OpenAPI spec
     from stripe.events._v1_billing_meter_error_report_triggered_event import (
@@ -16,6 +20,13 @@ if TYPE_CHECKING:
         V2CoreEventDestinationPingEventNotification,
     )
     # event-notification-types: The end of the section generated from our OpenAPI spec
+
+
+EventNotificationChild = TypeVar(
+    "EventNotificationChild", bound="EventNotification"
+)
+
+UNKNOWN_EVENT_TYPE_KEY = "__unknown_event_type"
 
 
 class EventHandler:
@@ -40,8 +51,10 @@ class EventHandler:
                 self._registered_handlers[event_notif.type](
                     event_notif, self._client
                 )
-            elif "__other" in self._registered_handlers:
-                self._registered_handlers["__other"](event_notif, self._client)
+            elif UNKNOWN_EVENT_TYPE_KEY in self._registered_handlers:
+                self._registered_handlers[UNKNOWN_EVENT_TYPE_KEY](
+                    event_notif, self._client
+                )
             else:
                 # TODO: raise here? open question `I`
                 raise ValueError(
@@ -50,52 +63,59 @@ class EventHandler:
         finally:
             self._client._requestor._options.stripe_context = original_context
 
+    def _register(
+        self,
+        event_type: str,
+        func: "Callable[[EventNotificationChild, StripeClient], None]",
+    ) -> None:
+        if event_type in self._registered_handlers:
+            raise ValueError(f'Handler for "{event_type}" already registered.')
+
+        self._registered_handlers[event_type] = func
+
+    def on_UknownEventNotification(
+        self, func: "Callable[[UnknownEventNotification, StripeClient], None]"
+    ) -> None:
+        """
+        Registers a handler for unknown event notifications.
+        """
+        self._register(UNKNOWN_EVENT_TYPE_KEY, func)
+
     # event-handler-methods: The beginning of the section generated from our OpenAPI spec
     def on_V1BillingMeterErrorReportTriggeredEventNotification(
         self,
         func: "Callable[[V1BillingMeterErrorReportTriggeredEventNotification, StripeClient], None]",
     ) -> None:
         """
-        Registers a handler for the V1BillingMeterErrorReportTriggeredEvent event notification.
+        Registers a handler for the `V1BillingMeterErrorReportTriggeredEvent` (`v1.billing.meter.error_report_triggered`) event notification.
         """
-        if (
-            "v1.billing.meter.error_report_triggered"
-            in self._registered_handlers
-        ):
-            raise ValueError(
-                'Handler for "v1.billing.meter.error_report_triggered" already registered.'
-            )
-
-        self._registered_handlers[
-            "v1.billing.meter.error_report_triggered"
-        ] = func
+        self._register(
+            "v1.billing.meter.error_report_triggered",
+            func,
+        )
 
     def on_V1BillingMeterNoMeterFoundEventNotification(
         self,
         func: "Callable[[V1BillingMeterNoMeterFoundEventNotification, StripeClient], None]",
     ) -> None:
         """
-        Registers a handler for the V1BillingMeterNoMeterFoundEvent event notification.
+        Registers a handler for the `V1BillingMeterNoMeterFoundEvent` (`v1.billing.meter.no_meter_found`) event notification.
         """
-        if "v1.billing.meter.no_meter_found" in self._registered_handlers:
-            raise ValueError(
-                'Handler for "v1.billing.meter.no_meter_found" already registered.'
-            )
-
-        self._registered_handlers["v1.billing.meter.no_meter_found"] = func
+        self._register(
+            "v1.billing.meter.no_meter_found",
+            func,
+        )
 
     def on_V2CoreEventDestinationPingEventNotification(
         self,
         func: "Callable[[V2CoreEventDestinationPingEventNotification, StripeClient], None]",
     ) -> None:
         """
-        Registers a handler for the V2CoreEventDestinationPingEvent event notification.
+        Registers a handler for the `V2CoreEventDestinationPingEvent` (`v2.core.event_destination.ping`) event notification.
         """
-        if "v2.core.event_destination.ping" in self._registered_handlers:
-            raise ValueError(
-                'Handler for "v2.core.event_destination.ping" already registered.'
-            )
-
-        self._registered_handlers["v2.core.event_destination.ping"] = func
+        self._register(
+            "v2.core.event_destination.ping",
+            func,
+        )
 
     # event-handler-methods: The end of the section generated from our OpenAPI spec
