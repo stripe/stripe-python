@@ -39,7 +39,7 @@ class ErrorObject(StripeObject):
             values=values,
             partial=partial,
             last_response=last_response,
-            requestor=self._requestor._replace_options(
+            requestor=self._requestor._new_requestor_with_options(
                 {
                     "api_key": api_key,
                     "stripe_version": stripe_version,
@@ -102,7 +102,7 @@ class OAuthErrorObject(StripeObject):
             values=values,
             partial=partial,
             last_response=last_response,
-            requestor=self._requestor._replace_options(
+            requestor=self._requestor._new_requestor_with_options(
                 {
                     "api_key": api_key,
                     "stripe_version": stripe_version,

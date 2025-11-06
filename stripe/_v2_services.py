@@ -9,6 +9,7 @@ if TYPE_CHECKING:
     from stripe.v2._core_service import CoreService
     from stripe.v2._money_management_service import MoneyManagementService
     from stripe.v2._payment_service import PaymentService
+    from stripe.v2._reporting_service import ReportingService
     from stripe.v2._tax_service import TaxService
     from stripe.v2._test_helper_service import TestHelperService
 
@@ -20,6 +21,7 @@ _subservices = {
         "MoneyManagementService",
     ],
     "payments": ["stripe.v2._payment_service", "PaymentService"],
+    "reporting": ["stripe.v2._reporting_service", "ReportingService"],
     "tax": ["stripe.v2._tax_service", "TaxService"],
     "test_helpers": ["stripe.v2._test_helper_service", "TestHelperService"],
 }
@@ -30,6 +32,7 @@ class V2Services(StripeService):
     core: "CoreService"
     money_management: "MoneyManagementService"
     payments: "PaymentService"
+    reporting: "ReportingService"
     tax: "TaxService"
     test_helpers: "TestHelperService"
 

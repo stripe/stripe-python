@@ -27,7 +27,10 @@ from stripe._stripe_response import (
     StripeStreamResponseAsync,
 )
 from stripe._encode import _encode_datetime  # pyright: ignore
-from stripe._request_options import extract_options_from_dict
+from stripe._request_options import (
+    PERSISTENT_OPTIONS_KEYS,
+    extract_options_from_dict,
+)
 from stripe._api_mode import ApiMode
 from stripe._base_address import BaseAddress
 
@@ -152,8 +155,10 @@ class StripeObject(Dict[str, Any]):
     if not TYPE_CHECKING:
 
         def __setattr__(self, k, v):
-            if k in {"api_key", "stripe_account", "stripe_version"}:
-                self._requestor = self._requestor._replace_options({k: v})
+            if k in PERSISTENT_OPTIONS_KEYS:
+                self._requestor = self._requestor._new_requestor_with_options(
+                    {k: v}
+                )
                 return None
 
             if k[0] == "_" or k in self.__dict__:
@@ -303,7 +308,7 @@ class StripeObject(Dict[str, Any]):
             values=values,
             partial=partial,
             last_response=last_response,
-            requestor=self._requestor._replace_options(  # pyright: ignore[reportPrivateUsage]
+            requestor=self._requestor._new_requestor_with_options(  # pyright: ignore[reportPrivateUsage]
                 {
                     "api_key": api_key,
                     "stripe_version": stripe_version,

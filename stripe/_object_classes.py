@@ -349,6 +349,7 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     "token": ("stripe._token", "Token"),
     "topup": ("stripe._topup", "Topup"),
     "transfer": ("stripe._transfer", "Transfer"),
+    "transit_balance": ("stripe._transit_balance", "TransitBalance"),
     "treasury.credit_reversal": (
         "stripe.treasury._credit_reversal",
         "CreditReversal",
@@ -580,6 +581,11 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     "v2.payments.off_session_payment": (
         "stripe.v2.payments._off_session_payment",
         "OffSessionPayment",
+    ),
+    "v2.reporting.report": ("stripe.v2.reporting._report", "Report"),
+    "v2.reporting.report_run": (
+        "stripe.v2.reporting._report_run",
+        "ReportRun",
     ),
     "v2.tax.automatic_rule": (
         "stripe.v2.tax._automatic_rule",
