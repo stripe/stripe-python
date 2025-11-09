@@ -766,6 +766,7 @@ if TYPE_CHECKING:
     )
     from stripe.params._customer_balance_transaction_list_params import (
         CustomerBalanceTransactionListParams as CustomerBalanceTransactionListParams,
+        CustomerBalanceTransactionListParamsCreated as CustomerBalanceTransactionListParamsCreated,
     )
     from stripe.params._customer_balance_transaction_retrieve_params import (
         CustomerBalanceTransactionRetrieveParams as CustomerBalanceTransactionRetrieveParams,
@@ -835,6 +836,7 @@ if TYPE_CHECKING:
     )
     from stripe.params._customer_list_balance_transactions_params import (
         CustomerListBalanceTransactionsParams as CustomerListBalanceTransactionsParams,
+        CustomerListBalanceTransactionsParamsCreated as CustomerListBalanceTransactionsParamsCreated,
     )
     from stripe.params._customer_list_cash_balance_transactions_params import (
         CustomerListCashBalanceTransactionsParams as CustomerListCashBalanceTransactionsParams,
@@ -1241,6 +1243,7 @@ if TYPE_CHECKING:
     )
     from stripe.params._invoice_payment_list_params import (
         InvoicePaymentListParams as InvoicePaymentListParams,
+        InvoicePaymentListParamsCreated as InvoicePaymentListParamsCreated,
         InvoicePaymentListParamsPayment as InvoicePaymentListParamsPayment,
     )
     from stripe.params._invoice_payment_retrieve_params import (
@@ -5931,6 +5934,10 @@ _import_map = {
         "stripe.params._customer_balance_transaction_list_params",
         False,
     ),
+    "CustomerBalanceTransactionListParamsCreated": (
+        "stripe.params._customer_balance_transaction_list_params",
+        False,
+    ),
     "CustomerBalanceTransactionRetrieveParams": (
         "stripe.params._customer_balance_transaction_retrieve_params",
         False,
@@ -6054,6 +6061,10 @@ _import_map = {
         False,
     ),
     "CustomerListBalanceTransactionsParams": (
+        "stripe.params._customer_list_balance_transactions_params",
+        False,
+    ),
+    "CustomerListBalanceTransactionsParamsCreated": (
         "stripe.params._customer_list_balance_transactions_params",
         False,
     ),
@@ -7034,6 +7045,10 @@ _import_map = {
     ),
     "InvoicePayParams": ("stripe.params._invoice_pay_params", False),
     "InvoicePaymentListParams": (
+        "stripe.params._invoice_payment_list_params",
+        False,
+    ),
+    "InvoicePaymentListParamsCreated": (
         "stripe.params._invoice_payment_list_params",
         False,
     ),

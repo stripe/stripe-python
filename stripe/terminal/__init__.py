@@ -18,6 +18,12 @@ if TYPE_CHECKING:
     from stripe.terminal._location_service import (
         LocationService as LocationService,
     )
+    from stripe.terminal._onboarding_link import (
+        OnboardingLink as OnboardingLink,
+    )
+    from stripe.terminal._onboarding_link_service import (
+        OnboardingLinkService as OnboardingLinkService,
+    )
     from stripe.terminal._reader import Reader as Reader
     from stripe.terminal._reader_service import ReaderService as ReaderService
 
@@ -32,6 +38,11 @@ _import_map = {
     ),
     "Location": ("stripe.terminal._location", False),
     "LocationService": ("stripe.terminal._location_service", False),
+    "OnboardingLink": ("stripe.terminal._onboarding_link", False),
+    "OnboardingLinkService": (
+        "stripe.terminal._onboarding_link_service",
+        False,
+    ),
     "Reader": ("stripe.terminal._reader", False),
     "ReaderService": ("stripe.terminal._reader_service", False),
 }

@@ -260,6 +260,10 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "ConnectionToken",
     ),
     "terminal.location": ("stripe.terminal._location", "Location"),
+    "terminal.onboarding_link": (
+        "stripe.terminal._onboarding_link",
+        "OnboardingLink",
+    ),
     "terminal.reader": ("stripe.terminal._reader", "Reader"),
     "test_helpers.test_clock": (
         "stripe.test_helpers._test_clock",

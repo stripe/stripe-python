@@ -576,6 +576,10 @@ class AuthorizationCreateParamsRiskAssessment(TypedDict):
     """
     Stripe's assessment of this authorization's likelihood of being card testing activity.
     """
+    fraud_risk: NotRequired["AuthorizationCreateParamsRiskAssessmentFraudRisk"]
+    """
+    Stripe's assessment of this authorization's likelihood to be fraudulent.
+    """
     merchant_dispute_risk: NotRequired[
         "AuthorizationCreateParamsRiskAssessmentMerchantDisputeRisk"
     ]
@@ -598,6 +602,19 @@ class AuthorizationCreateParamsRiskAssessmentCardTestingRisk(TypedDict):
     ]
     """
     The likelihood that this authorization is associated with card testing activity. This is assessed by evaluating decline activity over the last hour.
+    """
+
+
+class AuthorizationCreateParamsRiskAssessmentFraudRisk(TypedDict):
+    level: Literal[
+        "elevated", "highest", "low", "normal", "not_assessed", "unknown"
+    ]
+    """
+    Stripe's assessment of the likelihood of fraud on an authorization.
+    """
+    score: NotRequired[float]
+    """
+    Stripe's numerical model score assessing the likelihood of fraudulent activity. A higher score means a higher likelihood of fraudulent activity, and anything above 25 is considered high risk.
     """
 
 

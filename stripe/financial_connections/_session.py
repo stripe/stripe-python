@@ -72,7 +72,7 @@ class Session(CreateableAPIResource["Session"]):
     """
     The accounts that were collected as part of this Session.
     """
-    client_secret: str
+    client_secret: Optional[str]
     """
     A value that will be passed to the client to launch the authentication flow.
     """
