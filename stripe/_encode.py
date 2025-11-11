@@ -2,7 +2,7 @@ import calendar
 import datetime
 import time
 from collections import OrderedDict
-from typing import Generator, Optional, Tuple, Any
+from typing import Generator, Tuple, Any
 
 
 def _encode_datetime(dttime: datetime.datetime):
