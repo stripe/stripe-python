@@ -37,7 +37,8 @@ def _api_encode(
             yield (key, value.stripe_id)
         elif isinstance(value, list) or isinstance(value, tuple):
             for i, sv in enumerate(value):
-                encoded_key = key if api_mode == "V2" else "%s[%d]" % (key, i)
+                # Always use indexed format for arrays
+                encoded_key = "%s[%d]" % (key, i)
                 if isinstance(sv, dict):
                     subdict = _encode_nested_dict(encoded_key, sv)
                     for k, v in _api_encode(subdict, api_mode):
