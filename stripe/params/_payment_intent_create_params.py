@@ -3153,6 +3153,14 @@ class PaymentIntentCreateParamsPaymentMethodOptionsCardThreeDSecureNetworkOption
 
 
 class PaymentIntentCreateParamsPaymentMethodOptionsCardPresent(TypedDict):
+    capture_method: NotRequired[Literal["manual", "manual_preferred"]]
+    """
+    Controls when the funds are captured from the customer's account.
+
+    If provided, this parameter overrides the behavior of the top-level [capture_method](https://docs.stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+    If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+    """
     request_extended_authorization: NotRequired[bool]
     """
     Request ability to capture this payment beyond the standard [authorization validity window](https://stripe.com/docs/terminal/features/extended-authorizations#authorization-validity)
