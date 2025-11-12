@@ -212,6 +212,7 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.issuing._physical_bundle",
         "PhysicalBundle",
     ),
+    "issuing.program": ("stripe.issuing._program", "Program"),
     "issuing.settlement": ("stripe.issuing._settlement", "Settlement"),
     "issuing.token": ("stripe.issuing._token", "Token"),
     "issuing.transaction": ("stripe.issuing._transaction", "Transaction"),
