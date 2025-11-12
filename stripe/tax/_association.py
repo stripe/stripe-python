@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe._api_resource import APIResource
 from stripe._stripe_object import StripeObject
 from typing import ClassVar, List, Optional, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
@@ -10,7 +11,7 @@ if TYPE_CHECKING:
     )
 
 
-class Association(StripeObject):
+class Association(APIResource["Association"]):
     """
     A Tax Association exposes the Tax Transactions that Stripe attempted to create on your behalf based on the PaymentIntent input
     """
