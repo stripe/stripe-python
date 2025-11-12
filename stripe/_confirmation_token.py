@@ -957,6 +957,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                     "asn_bank",
                     "bunq",
                     "buut",
+                    "finom",
                     "handelsbanken",
                     "ing",
                     "knab",
@@ -973,7 +974,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                 ]
             ]
             """
-            The customer's bank, if provided. Can be one of `abn_amro`, `asn_bank`, `bunq`, `buut`, `handelsbanken`, `ing`, `knab`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
+            The customer's bank, if provided. Can be one of `abn_amro`, `asn_bank`, `bunq`, `buut`, `finom`, `handelsbanken`, `ing`, `knab`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
             """
             bic: Optional[
                 Literal[
@@ -982,6 +983,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                     "BITSNL2A",
                     "BUNQNL2A",
                     "BUUTNL2A",
+                    "FNOMNL22",
                     "FVLBNL22",
                     "HANDNL2A",
                     "INGBNL2A",
