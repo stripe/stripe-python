@@ -1,5 +1,9 @@
 # Changelog
 
+## 13.2.0 - 2025-11-05
+* [#1662](https://github.com/stripe/stripe-python/pull/1662) Update generated code
+  * Add support for `capture_method` on `PaymentIntent.PaymentMethodOption.CardPresent`, `PaymentIntentConfirmParamsPaymentMethodOptionCardPresent`, `PaymentIntentCreateParamsPaymentMethodOptionCardPresent`, and `PaymentIntentModifyParamsPaymentMethodOptionCardPresent`
+
 ## 13.2.0b1 - 2025-10-29
 
 This release changes the pinned API version to `2025-10-29.preview`.
@@ -35,6 +39,12 @@ This release changes the pinned API version to `2025-10-29.preview`.
 * [#1617](https://github.com/stripe/stripe-python/pull/1617) Update generated code for beta
   * Add support for `last_seen_at` on `Terminal.Reader`
   * Add support for new value `2025-10-29.clover` on enum `WebhookEndpointCreateParams.api_version`
+
+## 13.1.2 - 2025-11-04
+* [#1661](https://github.com/stripe/stripe-python/pull/1661) Add support for value `payment_record` to enum `InvoicePayment.payment.type`
+
+## 13.1.1 - 2025-10-31
+* [#1660](https://github.com/stripe/stripe-python/pull/1660) Fix `stripe-context` header not being included in paged list requests
 
 ## 13.1.1b1 - 2025-10-03
 * [#1617](https://github.com/stripe/stripe-python/pull/1617) Update generated code for beta

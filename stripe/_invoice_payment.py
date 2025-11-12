@@ -47,7 +47,7 @@ class InvoicePayment(ListableAPIResource["InvoicePayment"]):
         """
         ID of the PaymentRecord associated with this payment when `type` is `payment_record`.
         """
-        type: Literal["charge", "payment_intent"]
+        type: Literal["charge", "payment_intent", "payment_record"]
         """
         Type of payment object associated with this invoice payment.
         """
