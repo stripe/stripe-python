@@ -504,6 +504,26 @@ class Person(UpdateableAPIResource["Person"]):
         """
         _inner_class_types = {"alternatives": Alternative, "errors": Error}
 
+    class SelfReportedIncome(StripeObject):
+        amount: int
+        """
+        Amount in the minor currency unit (e.g., cents for USD)
+        """
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+
+    class SelfReportedMonthlyHousingPayment(StripeObject):
+        amount: int
+        """
+        Amount in the minor currency unit (e.g., cents for USD)
+        """
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+
     class UsCfpbData(StripeObject):
         class EthnicityDetails(StripeObject):
             ethnicity: Optional[
@@ -747,6 +767,10 @@ class Person(UpdateableAPIResource["Person"]):
     """
     Information about the requirements for this person, including what information needs to be collected, and by when.
     """
+    self_reported_income: Optional[SelfReportedIncome]
+    self_reported_monthly_housing_payment: Optional[
+        SelfReportedMonthlyHousingPayment
+    ]
     ssn_last_4_provided: Optional[bool]
     """
     Whether the last four digits of the person's Social Security number have been provided (U.S. only).
@@ -792,6 +816,8 @@ class Person(UpdateableAPIResource["Person"]):
         "registered_address": RegisteredAddress,
         "relationship": Relationship,
         "requirements": Requirements,
+        "self_reported_income": SelfReportedIncome,
+        "self_reported_monthly_housing_payment": SelfReportedMonthlyHousingPayment,
         "us_cfpb_data": UsCfpbData,
         "verification": Verification,
     }

@@ -379,7 +379,14 @@ class SubscriptionUpdateParamsBillingScheduleBillUntil(TypedDict):
     """
     The end date of the billing schedule.
     """
-    type: Literal["duration", "timestamp"]
+    type: Literal[
+        "amendment_end",
+        "duration",
+        "line_ends_at",
+        "schedule_end",
+        "timestamp",
+        "upcoming_invoice",
+    ]
     """
     Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
     """

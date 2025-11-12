@@ -1673,6 +1673,18 @@ class AccountUpdateParamsIndividual(TypedDict):
     """
     The individual's verification document information.
     """
+    self_reported_income: NotRequired[
+        "AccountUpdateParamsIndividualSelfReportedIncome"
+    ]
+    """
+    The credit applicant's self-reported yearly income in minor units.
+    """
+    self_reported_monthly_housing_payment: NotRequired[
+        "AccountUpdateParamsIndividualSelfReportedMonthlyHousingPayment"
+    ]
+    """
+    The credit applicant's self-reported monthly housing payment in minor units.
+    """
 
 
 class AccountUpdateParamsIndividualAddress(TypedDict):
@@ -1864,6 +1876,18 @@ class AccountUpdateParamsIndividualVerificationDocument(TypedDict):
     """
 
 
+class AccountUpdateParamsIndividualSelfReportedIncome(TypedDict):
+    amount: int
+    currency: str
+
+
+class AccountUpdateParamsIndividualSelfReportedMonthlyHousingPayment(
+    TypedDict
+):
+    amount: int
+    currency: str
+
+
 class AccountUpdateParamsRiskControls(TypedDict):
     charges: NotRequired["AccountUpdateParamsRiskControlsCharges"]
     """
@@ -2053,7 +2077,7 @@ class AccountUpdateParamsSettingsInvoices(TypedDict):
         Literal["always", "never", "offer"]
     ]
     """
-    Whether to save the payment method after a payment is completed for a one-time invoice or a subscription invoice when the customer already has a default payment method on the hosted invoice page.
+    Whether payment methods should be saved when a payment is completed for a one-time invoices on a hosted invoice page.
     """
 
 

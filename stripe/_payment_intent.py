@@ -2256,10 +2256,6 @@ class PaymentIntent(
                 Requested routing priority
                 """
 
-            capture_method: Optional[Literal["manual", "manual_preferred"]]
-            """
-            Controls when the funds will be captured from the customer's account.
-            """
             request_extended_authorization: Optional[bool]
             """
             Request ability to capture this payment beyond the standard [authorization validity window](https://stripe.com/docs/terminal/features/extended-authorizations#authorization-validity)

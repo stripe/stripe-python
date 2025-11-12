@@ -60,6 +60,9 @@ class RequestedSessionCreateParamsFulfillmentDetails(TypedDict):
     address: NotRequired[
         "RequestedSessionCreateParamsFulfillmentDetailsAddress"
     ]
+    """
+    The customer's address.
+    """
     email: NotRequired[str]
     """
     The customer's email address.

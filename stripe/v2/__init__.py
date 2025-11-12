@@ -13,7 +13,6 @@ if TYPE_CHECKING:
         money_management as money_management,
         payments as payments,
         reporting as reporting,
-        tax as tax,
         test_helpers as test_helpers,
     )
     from stripe.v2._billing_service import BillingService as BillingService
@@ -32,7 +31,6 @@ if TYPE_CHECKING:
     from stripe.v2._reporting_service import (
         ReportingService as ReportingService,
     )
-    from stripe.v2._tax_service import TaxService as TaxService
     from stripe.v2._test_helper_service import (
         TestHelperService as TestHelperService,
     )
@@ -44,7 +42,6 @@ _import_map = {
     "money_management": ("stripe.v2.money_management", True),
     "payments": ("stripe.v2.payments", True),
     "reporting": ("stripe.v2.reporting", True),
-    "tax": ("stripe.v2.tax", True),
     "test_helpers": ("stripe.v2.test_helpers", True),
     "BillingService": ("stripe.v2._billing_service", False),
     "CoreService": ("stripe.v2._core_service", False),
@@ -60,7 +57,6 @@ _import_map = {
     "MoneyManagementService": ("stripe.v2._money_management_service", False),
     "PaymentService": ("stripe.v2._payment_service", False),
     "ReportingService": ("stripe.v2._reporting_service", False),
-    "TaxService": ("stripe.v2._tax_service", False),
     "TestHelperService": ("stripe.v2._test_helper_service", False),
 }
 if not TYPE_CHECKING:
