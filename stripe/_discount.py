@@ -71,6 +71,10 @@ class Discount(StripeObject):
     """
     The promotion code applied to create this discount.
     """
+    schedule: Optional[str]
+    """
+    The subscription schedule that this coupon is applied to, if it is applied to a particular subscription schedule.
+    """
     source: Source
     start: int
     """

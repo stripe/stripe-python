@@ -698,6 +698,12 @@ class QuotePreviewInvoice(StripeObject):
             The quote that generated this invoice
             """
 
+        class ScheduleDetails(StripeObject):
+            schedule: str
+            """
+            The schedule that generated this invoice
+            """
+
         class SubscriptionDetails(StripeObject):
             class PauseCollection(StripeObject):
                 behavior: Optional[
@@ -738,12 +744,19 @@ class QuotePreviewInvoice(StripeObject):
         """
         Details about the quote that generated this invoice
         """
+        schedule_details: Optional[ScheduleDetails]
+        """
+        Details about the schedule that generated this invoice
+        """
         subscription_details: Optional[SubscriptionDetails]
         """
         Details about the subscription that generated this invoice
         """
         type: Literal[
-            "billing_cadence_details", "quote_details", "subscription_details"
+            "billing_cadence_details",
+            "quote_details",
+            "schedule_details",
+            "subscription_details",
         ]
         """
         The type of parent that generated this invoice
@@ -751,6 +764,7 @@ class QuotePreviewInvoice(StripeObject):
         _inner_class_types = {
             "billing_cadence_details": BillingCadenceDetails,
             "quote_details": QuoteDetails,
+            "schedule_details": ScheduleDetails,
             "subscription_details": SubscriptionDetails,
         }
 

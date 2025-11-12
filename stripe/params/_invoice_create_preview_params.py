@@ -576,6 +576,12 @@ class InvoiceCreatePreviewParamsScheduleDetails(TypedDict):
     """
     In cases where the `schedule_details` params update the currently active phase, specifies if and how to prorate at the time of the request.
     """
+    billing_schedules: NotRequired[
+        List["InvoiceCreatePreviewParamsScheduleDetailsBillingSchedule"]
+    ]
+    """
+    Sets the billing schedules for the subscription schedule.
+    """
 
 
 class InvoiceCreatePreviewParamsScheduleDetailsAmendment(TypedDict):
@@ -1841,6 +1847,79 @@ class InvoiceCreatePreviewParamsScheduleDetailsPrebillingBillUntilDuration(
     interval_count: int
     """
     The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+    """
+
+
+class InvoiceCreatePreviewParamsScheduleDetailsBillingSchedule(TypedDict):
+    applies_to: NotRequired[
+        List[
+            "InvoiceCreatePreviewParamsScheduleDetailsBillingScheduleAppliesTo"
+        ]
+    ]
+    """
+    Configure billing schedule differently for individual subscription items.
+    """
+    bill_until: NotRequired[
+        "InvoiceCreatePreviewParamsScheduleDetailsBillingScheduleBillUntil"
+    ]
+    """
+    The end date for the billing schedule.
+    """
+    key: NotRequired[str]
+    """
+    Specify a key for the billing schedule. Must be unique to this field, alphanumeric, and up to 200 characters. If not provided, a unique key will be generated.
+    """
+
+
+class InvoiceCreatePreviewParamsScheduleDetailsBillingScheduleAppliesTo(
+    TypedDict,
+):
+    price: NotRequired[str]
+    """
+    The ID of the price object.
+    """
+    type: Literal["price"]
+    """
+    Controls which subscription items the billing schedule applies to.
+    """
+
+
+class InvoiceCreatePreviewParamsScheduleDetailsBillingScheduleBillUntil(
+    TypedDict,
+):
+    duration: NotRequired[
+        "InvoiceCreatePreviewParamsScheduleDetailsBillingScheduleBillUntilDuration"
+    ]
+    """
+    Specifies the billing period.
+    """
+    timestamp: NotRequired[int]
+    """
+    The end date of the billing schedule.
+    """
+    type: Literal[
+        "amendment_end",
+        "duration",
+        "line_ends_at",
+        "schedule_end",
+        "timestamp",
+        "upcoming_invoice",
+    ]
+    """
+    Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
+    """
+
+
+class InvoiceCreatePreviewParamsScheduleDetailsBillingScheduleBillUntilDuration(
+    TypedDict,
+):
+    interval: Literal["day", "month", "week", "year"]
+    """
+    Specifies billing duration. Either `day`, `week`, `month` or `year`.
+    """
+    interval_count: NotRequired[int]
+    """
+    The multiplier applied to the interval.
     """
 
 

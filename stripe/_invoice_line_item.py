@@ -126,6 +126,12 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
             The rate card version at the time this line item was generated
             """
 
+        class ScheduleDetails(StripeObject):
+            schedule: str
+            """
+            The subscription schedule that generated this line item
+            """
+
         class SubscriptionItemDetails(StripeObject):
             class ProrationDetails(StripeObject):
                 class CreditedItems(StripeObject):
@@ -180,6 +186,10 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         """
         Details about the rate card subscription that generated this line item
         """
+        schedule_details: Optional[ScheduleDetails]
+        """
+        Details about the subscription schedule that generated this line item
+        """
         subscription_item_details: Optional[SubscriptionItemDetails]
         """
         Details about the subscription item that generated this line item
@@ -188,6 +198,7 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
             "invoice_item_details",
             "license_fee_subscription_details",
             "rate_card_subscription_details",
+            "schedule_details",
             "subscription_item_details",
         ]
         """
@@ -197,6 +208,7 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
             "invoice_item_details": InvoiceItemDetails,
             "license_fee_subscription_details": LicenseFeeSubscriptionDetails,
             "rate_card_subscription_details": RateCardSubscriptionDetails,
+            "schedule_details": ScheduleDetails,
             "subscription_item_details": SubscriptionItemDetails,
         }
 

@@ -58,6 +58,12 @@ class SubscriptionScheduleCreateParams(RequestOptions):
     """
     When the subscription schedule starts. We recommend using `now` so that it starts the subscription immediately. You can also use a Unix timestamp to backdate the subscription so that it starts on a past date, or set a future date for the subscription to start on.
     """
+    billing_schedules: NotRequired[
+        List["SubscriptionScheduleCreateParamsBillingSchedule"]
+    ]
+    """
+    Sets the billing schedules for the subscription schedule.
+    """
 
 
 class SubscriptionScheduleCreateParamsBillingMode(TypedDict):
@@ -130,6 +136,12 @@ class SubscriptionScheduleCreateParamsDefaultSettings(TypedDict):
     ]
     """
     The data with which to automatically create a Transfer for each of the associated subscription's invoices.
+    """
+    phase_effective_at: NotRequired[
+        Literal["billing_period_start", "phase_start"]
+    ]
+    """
+    Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
     """
 
 
@@ -801,4 +813,69 @@ class SubscriptionScheduleCreateParamsPrebilling(TypedDict):
     update_behavior: NotRequired[Literal["prebill", "reset"]]
     """
     Whether to cancel or preserve `prebilling` if the subscription is updated during the prebilled period. The default value is `reset`.
+    """
+
+
+class SubscriptionScheduleCreateParamsBillingSchedule(TypedDict):
+    applies_to: NotRequired[
+        List["SubscriptionScheduleCreateParamsBillingScheduleAppliesTo"]
+    ]
+    """
+    Configure billing schedule differently for individual subscription items.
+    """
+    bill_until: "SubscriptionScheduleCreateParamsBillingScheduleBillUntil"
+    """
+    The end date for the billing schedule.
+    """
+    key: NotRequired[str]
+    """
+    Specify a key for the billing schedule. Must be unique to this field, alphanumeric, and up to 200 characters. If not provided, a unique key will be generated.
+    """
+
+
+class SubscriptionScheduleCreateParamsBillingScheduleAppliesTo(TypedDict):
+    price: NotRequired[str]
+    """
+    The ID of the price object.
+    """
+    type: Literal["price"]
+    """
+    Controls which subscription items the billing schedule applies to.
+    """
+
+
+class SubscriptionScheduleCreateParamsBillingScheduleBillUntil(TypedDict):
+    duration: NotRequired[
+        "SubscriptionScheduleCreateParamsBillingScheduleBillUntilDuration"
+    ]
+    """
+    Specifies the billing period.
+    """
+    timestamp: NotRequired[int]
+    """
+    The end date of the billing schedule.
+    """
+    type: Literal[
+        "amendment_end",
+        "duration",
+        "line_ends_at",
+        "schedule_end",
+        "timestamp",
+        "upcoming_invoice",
+    ]
+    """
+    Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
+    """
+
+
+class SubscriptionScheduleCreateParamsBillingScheduleBillUntilDuration(
+    TypedDict,
+):
+    interval: Literal["day", "month", "week", "year"]
+    """
+    Specifies billing duration. Either `day`, `week`, `month` or `year`.
+    """
+    interval_count: NotRequired[int]
+    """
+    The multiplier applied to the interval.
     """
