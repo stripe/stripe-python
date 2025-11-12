@@ -9,6 +9,10 @@
   * Add support for `allocated_funds` on `Charge`, `PaymentIntentConfirmParams`, `PaymentIntentCreateParams`, and `PaymentIntentModifyParams`
   * Add support for thin events `V2ReportingReportRunCreatedEvent`, `V2ReportingReportRunFailedEvent`, `V2ReportingReportRunSucceededEvent`, and `V2ReportingReportRunUpdatedEvent` with related object `v2.reporting.ReportRun`
 
+## 13.2.0 - 2025-11-05
+* [#1662](https://github.com/stripe/stripe-python/pull/1662) Update generated code
+  * Add support for `capture_method` on `PaymentIntent.PaymentMethodOption.CardPresent`, `PaymentIntentConfirmParamsPaymentMethodOptionCardPresent`, `PaymentIntentCreateParamsPaymentMethodOptionCardPresent`, and `PaymentIntentModifyParamsPaymentMethodOptionCardPresent`
+
 ## 13.2.0b1 - 2025-10-29
 
 This release changes the pinned API version to `2025-10-29.preview`.
