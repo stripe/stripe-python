@@ -5,12 +5,14 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.tax._association_service import AssociationService
     from stripe.tax._calculation_service import CalculationService
     from stripe.tax._registration_service import RegistrationService
     from stripe.tax._settings_service import SettingsService
     from stripe.tax._transaction_service import TransactionService
 
 _subservices = {
+    "associations": ["stripe.tax._association_service", "AssociationService"],
     "calculations": ["stripe.tax._calculation_service", "CalculationService"],
     "registrations": [
         "stripe.tax._registration_service",
@@ -22,6 +24,7 @@ _subservices = {
 
 
 class TaxService(StripeService):
+    associations: "AssociationService"
     calculations: "CalculationService"
     registrations: "RegistrationService"
     settings: "SettingsService"

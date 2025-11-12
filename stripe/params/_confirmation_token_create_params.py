@@ -597,6 +597,7 @@ class ConfirmationTokenCreateParamsPaymentMethodDataIdeal(TypedDict):
             "asn_bank",
             "bunq",
             "buut",
+            "finom",
             "handelsbanken",
             "ing",
             "knab",
