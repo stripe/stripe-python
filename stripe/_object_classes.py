@@ -587,10 +587,6 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.v2.reporting._report_run",
         "ReportRun",
     ),
-    "v2.tax.automatic_rule": (
-        "stripe.v2.tax._automatic_rule",
-        "AutomaticRule",
-    ),
     # V2 Object classes: The end of the section generated from our OpenAPI spec
 }
 

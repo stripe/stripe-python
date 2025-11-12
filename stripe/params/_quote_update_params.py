@@ -862,6 +862,18 @@ class QuoteUpdateParamsSubscriptionData(TypedDict):
     """
     Integer representing the number of trial period days before the customer is charged for the first time.
     """
+    billing_schedules: NotRequired[
+        "Literal['']|List[QuoteUpdateParamsSubscriptionDataBillingSchedule]"
+    ]
+    """
+    Billing schedules that will be applied to the subscription or subscription schedule created when the quote is accepted.
+    """
+    phase_effective_at: NotRequired[
+        Literal["billing_period_start", "phase_start"]
+    ]
+    """
+    Configures how the subscription schedule handles billing for phase transitions when the quote is accepted. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+    """
 
 
 class QuoteUpdateParamsSubscriptionDataBillOnAcceptance(TypedDict):
@@ -977,6 +989,133 @@ class QuoteUpdateParamsSubscriptionDataPrebilling(TypedDict):
     """
 
 
+class QuoteUpdateParamsSubscriptionDataBillingSchedule(TypedDict):
+    applies_to: NotRequired[
+        List["QuoteUpdateParamsSubscriptionDataBillingScheduleAppliesTo"]
+    ]
+    """
+    Configure billing schedule differently for individual subscription items.
+    """
+    bill_from: NotRequired[
+        "QuoteUpdateParamsSubscriptionDataBillingScheduleBillFrom"
+    ]
+    """
+    The start of the period to bill from when the Quote is accepted.
+    """
+    bill_until: NotRequired[
+        "QuoteUpdateParamsSubscriptionDataBillingScheduleBillUntil"
+    ]
+    """
+    The end of the period to bill until when the Quote is accepted.
+    """
+    key: NotRequired[str]
+    """
+    Specify a key for the billing schedule. Must be unique to this field, alphanumeric, and up to 200 characters. If not provided, a unique key will be generated.
+    """
+
+
+class QuoteUpdateParamsSubscriptionDataBillingScheduleAppliesTo(TypedDict):
+    price: NotRequired[str]
+    """
+    The ID of the price object.
+    """
+    type: Literal["price"]
+    """
+    Controls which subscription items the billing schedule applies to.
+    """
+
+
+class QuoteUpdateParamsSubscriptionDataBillingScheduleBillFrom(TypedDict):
+    line_starts_at: NotRequired[
+        "QuoteUpdateParamsSubscriptionDataBillingScheduleBillFromLineStartsAt"
+    ]
+    """
+    Details of a Quote line to start the bill period from.
+    """
+    timestamp: NotRequired[int]
+    """
+    A precise Unix timestamp.
+    """
+    type: Literal[
+        "line_starts_at",
+        "now",
+        "pause_collection_start",
+        "quote_acceptance_date",
+        "timestamp",
+    ]
+    """
+    The type of method to specify the `bill_from` time.
+    """
+
+
+class QuoteUpdateParamsSubscriptionDataBillingScheduleBillFromLineStartsAt(
+    TypedDict,
+):
+    id: NotRequired[str]
+    """
+    The ID of a quote line.
+    """
+    index: NotRequired[int]
+    """
+    The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
+    """
+
+
+class QuoteUpdateParamsSubscriptionDataBillingScheduleBillUntil(TypedDict):
+    duration: NotRequired[
+        "QuoteUpdateParamsSubscriptionDataBillingScheduleBillUntilDuration"
+    ]
+    """
+    Details of the duration over which to bill.
+    """
+    line_ends_at: NotRequired[
+        "QuoteUpdateParamsSubscriptionDataBillingScheduleBillUntilLineEndsAt"
+    ]
+    """
+    Details of a Quote line item from which to bill until.
+    """
+    timestamp: NotRequired[int]
+    """
+    A precise Unix timestamp.
+    """
+    type: Literal[
+        "duration",
+        "line_ends_at",
+        "schedule_end",
+        "timestamp",
+        "upcoming_invoice",
+    ]
+    """
+    The type of method to specify the `bill_until` time.
+    """
+
+
+class QuoteUpdateParamsSubscriptionDataBillingScheduleBillUntilDuration(
+    TypedDict,
+):
+    interval: Literal["day", "month", "week", "year"]
+    """
+    Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+    """
+    interval_count: int
+    """
+    The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+    """
+
+
+class QuoteUpdateParamsSubscriptionDataBillingScheduleBillUntilLineEndsAt(
+    TypedDict,
+):
+    id: NotRequired[str]
+    """
+    The ID of a quote line.
+    """
+    index: NotRequired[int]
+    """
+    The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
+    """
+
+
 class QuoteUpdateParamsSubscriptionDataOverride(TypedDict):
     applies_to: "QuoteUpdateParamsSubscriptionDataOverrideAppliesTo"
     """
@@ -1017,6 +1156,18 @@ class QuoteUpdateParamsSubscriptionDataOverride(TypedDict):
     Passing `create_prorations` will cause proration invoice items to be created when applicable. These proration items will only be invoiced immediately under [certain conditions](https://stripe.com/docs/subscriptions/upgrading-downgrading#immediate-payment). In order to always invoice immediately for prorations, pass `always_invoice`.
 
     Prorations can be disabled by passing `none`.
+    """
+    billing_schedules: NotRequired[
+        "Literal['']|List[QuoteUpdateParamsSubscriptionDataOverrideBillingSchedule]"
+    ]
+    """
+    Billing schedules that will be applied to the subscription or subscription schedule created when the quote is accepted.
+    """
+    phase_effective_at: NotRequired[
+        Literal["billing_period_start", "phase_start"]
+    ]
+    """
+    Configures how the subscription schedule handles billing for phase transitions when the quote is accepted. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
     """
 
 
@@ -1133,6 +1284,141 @@ class QuoteUpdateParamsSubscriptionDataOverrideBillOnAcceptanceBillUntilDuration
 
 
 class QuoteUpdateParamsSubscriptionDataOverrideBillOnAcceptanceBillUntilLineEndsAt(
+    TypedDict,
+):
+    id: NotRequired[str]
+    """
+    The ID of a quote line.
+    """
+    index: NotRequired[int]
+    """
+    The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
+    """
+
+
+class QuoteUpdateParamsSubscriptionDataOverrideBillingSchedule(TypedDict):
+    applies_to: NotRequired[
+        List[
+            "QuoteUpdateParamsSubscriptionDataOverrideBillingScheduleAppliesTo"
+        ]
+    ]
+    """
+    Configure billing schedule differently for individual subscription items.
+    """
+    bill_from: NotRequired[
+        "QuoteUpdateParamsSubscriptionDataOverrideBillingScheduleBillFrom"
+    ]
+    """
+    The start of the period to bill from when the Quote is accepted.
+    """
+    bill_until: NotRequired[
+        "QuoteUpdateParamsSubscriptionDataOverrideBillingScheduleBillUntil"
+    ]
+    """
+    The end of the period to bill until when the Quote is accepted.
+    """
+    key: NotRequired[str]
+    """
+    Specify a key for the billing schedule. Must be unique to this field, alphanumeric, and up to 200 characters. If not provided, a unique key will be generated.
+    """
+
+
+class QuoteUpdateParamsSubscriptionDataOverrideBillingScheduleAppliesTo(
+    TypedDict,
+):
+    price: NotRequired[str]
+    """
+    The ID of the price object.
+    """
+    type: Literal["price"]
+    """
+    Controls which subscription items the billing schedule applies to.
+    """
+
+
+class QuoteUpdateParamsSubscriptionDataOverrideBillingScheduleBillFrom(
+    TypedDict,
+):
+    line_starts_at: NotRequired[
+        "QuoteUpdateParamsSubscriptionDataOverrideBillingScheduleBillFromLineStartsAt"
+    ]
+    """
+    Details of a Quote line to start the bill period from.
+    """
+    timestamp: NotRequired[int]
+    """
+    A precise Unix timestamp.
+    """
+    type: Literal[
+        "line_starts_at",
+        "now",
+        "pause_collection_start",
+        "quote_acceptance_date",
+        "timestamp",
+    ]
+    """
+    The type of method to specify the `bill_from` time.
+    """
+
+
+class QuoteUpdateParamsSubscriptionDataOverrideBillingScheduleBillFromLineStartsAt(
+    TypedDict,
+):
+    id: NotRequired[str]
+    """
+    The ID of a quote line.
+    """
+    index: NotRequired[int]
+    """
+    The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
+    """
+
+
+class QuoteUpdateParamsSubscriptionDataOverrideBillingScheduleBillUntil(
+    TypedDict,
+):
+    duration: NotRequired[
+        "QuoteUpdateParamsSubscriptionDataOverrideBillingScheduleBillUntilDuration"
+    ]
+    """
+    Details of the duration over which to bill.
+    """
+    line_ends_at: NotRequired[
+        "QuoteUpdateParamsSubscriptionDataOverrideBillingScheduleBillUntilLineEndsAt"
+    ]
+    """
+    Details of a Quote line item from which to bill until.
+    """
+    timestamp: NotRequired[int]
+    """
+    A precise Unix timestamp.
+    """
+    type: Literal[
+        "duration",
+        "line_ends_at",
+        "schedule_end",
+        "timestamp",
+        "upcoming_invoice",
+    ]
+    """
+    The type of method to specify the `bill_until` time.
+    """
+
+
+class QuoteUpdateParamsSubscriptionDataOverrideBillingScheduleBillUntilDuration(
+    TypedDict,
+):
+    interval: Literal["day", "month", "week", "year"]
+    """
+    Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+    """
+    interval_count: int
+    """
+    The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+    """
+
+
+class QuoteUpdateParamsSubscriptionDataOverrideBillingScheduleBillUntilLineEndsAt(
     TypedDict,
 ):
     id: NotRequired[str]

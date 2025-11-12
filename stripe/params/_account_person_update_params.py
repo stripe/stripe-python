@@ -125,6 +125,18 @@ class AccountPersonUpdateParams(TypedDict):
     """
     The person's verification status.
     """
+    self_reported_income: NotRequired[
+        "AccountPersonUpdateParamsSelfReportedIncome"
+    ]
+    """
+    The credit applicant's self-reported yearly income in minor units.
+    """
+    self_reported_monthly_housing_payment: NotRequired[
+        "AccountPersonUpdateParamsSelfReportedMonthlyHousingPayment"
+    ]
+    """
+    The credit applicant's self-reported monthly housing payment in minor units.
+    """
 
 
 class AccountPersonUpdateParamsAdditionalTosAcceptances(TypedDict):
@@ -468,3 +480,13 @@ class AccountPersonUpdateParamsVerificationDocument(TypedDict):
     """
     The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
+
+
+class AccountPersonUpdateParamsSelfReportedIncome(TypedDict):
+    amount: int
+    currency: str
+
+
+class AccountPersonUpdateParamsSelfReportedMonthlyHousingPayment(TypedDict):
+    amount: int
+    currency: str

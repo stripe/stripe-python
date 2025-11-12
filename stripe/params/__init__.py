@@ -162,6 +162,8 @@ if TYPE_CHECKING:
         AccountCreateParamsIndividualDob as AccountCreateParamsIndividualDob,
         AccountCreateParamsIndividualRegisteredAddress as AccountCreateParamsIndividualRegisteredAddress,
         AccountCreateParamsIndividualRelationship as AccountCreateParamsIndividualRelationship,
+        AccountCreateParamsIndividualSelfReportedIncome as AccountCreateParamsIndividualSelfReportedIncome,
+        AccountCreateParamsIndividualSelfReportedMonthlyHousingPayment as AccountCreateParamsIndividualSelfReportedMonthlyHousingPayment,
         AccountCreateParamsIndividualVerification as AccountCreateParamsIndividualVerification,
         AccountCreateParamsIndividualVerificationAdditionalDocument as AccountCreateParamsIndividualVerificationAdditionalDocument,
         AccountCreateParamsIndividualVerificationDocument as AccountCreateParamsIndividualVerificationDocument,
@@ -200,6 +202,8 @@ if TYPE_CHECKING:
         AccountCreatePersonParamsDocumentsVisa as AccountCreatePersonParamsDocumentsVisa,
         AccountCreatePersonParamsRegisteredAddress as AccountCreatePersonParamsRegisteredAddress,
         AccountCreatePersonParamsRelationship as AccountCreatePersonParamsRelationship,
+        AccountCreatePersonParamsSelfReportedIncome as AccountCreatePersonParamsSelfReportedIncome,
+        AccountCreatePersonParamsSelfReportedMonthlyHousingPayment as AccountCreatePersonParamsSelfReportedMonthlyHousingPayment,
         AccountCreatePersonParamsUsCfpbData as AccountCreatePersonParamsUsCfpbData,
         AccountCreatePersonParamsUsCfpbDataEthnicityDetails as AccountCreatePersonParamsUsCfpbDataEthnicityDetails,
         AccountCreatePersonParamsUsCfpbDataRaceDetails as AccountCreatePersonParamsUsCfpbDataRaceDetails,
@@ -279,6 +283,8 @@ if TYPE_CHECKING:
         AccountModifyPersonParamsDocumentsVisa as AccountModifyPersonParamsDocumentsVisa,
         AccountModifyPersonParamsRegisteredAddress as AccountModifyPersonParamsRegisteredAddress,
         AccountModifyPersonParamsRelationship as AccountModifyPersonParamsRelationship,
+        AccountModifyPersonParamsSelfReportedIncome as AccountModifyPersonParamsSelfReportedIncome,
+        AccountModifyPersonParamsSelfReportedMonthlyHousingPayment as AccountModifyPersonParamsSelfReportedMonthlyHousingPayment,
         AccountModifyPersonParamsUsCfpbData as AccountModifyPersonParamsUsCfpbData,
         AccountModifyPersonParamsUsCfpbDataEthnicityDetails as AccountModifyPersonParamsUsCfpbDataEthnicityDetails,
         AccountModifyPersonParamsUsCfpbDataRaceDetails as AccountModifyPersonParamsUsCfpbDataRaceDetails,
@@ -314,6 +320,8 @@ if TYPE_CHECKING:
         AccountPersonCreateParamsDocumentsVisa as AccountPersonCreateParamsDocumentsVisa,
         AccountPersonCreateParamsRegisteredAddress as AccountPersonCreateParamsRegisteredAddress,
         AccountPersonCreateParamsRelationship as AccountPersonCreateParamsRelationship,
+        AccountPersonCreateParamsSelfReportedIncome as AccountPersonCreateParamsSelfReportedIncome,
+        AccountPersonCreateParamsSelfReportedMonthlyHousingPayment as AccountPersonCreateParamsSelfReportedMonthlyHousingPayment,
         AccountPersonCreateParamsUsCfpbData as AccountPersonCreateParamsUsCfpbData,
         AccountPersonCreateParamsUsCfpbDataEthnicityDetails as AccountPersonCreateParamsUsCfpbDataEthnicityDetails,
         AccountPersonCreateParamsUsCfpbDataRaceDetails as AccountPersonCreateParamsUsCfpbDataRaceDetails,
@@ -345,6 +353,8 @@ if TYPE_CHECKING:
         AccountPersonUpdateParamsDocumentsVisa as AccountPersonUpdateParamsDocumentsVisa,
         AccountPersonUpdateParamsRegisteredAddress as AccountPersonUpdateParamsRegisteredAddress,
         AccountPersonUpdateParamsRelationship as AccountPersonUpdateParamsRelationship,
+        AccountPersonUpdateParamsSelfReportedIncome as AccountPersonUpdateParamsSelfReportedIncome,
+        AccountPersonUpdateParamsSelfReportedMonthlyHousingPayment as AccountPersonUpdateParamsSelfReportedMonthlyHousingPayment,
         AccountPersonUpdateParamsUsCfpbData as AccountPersonUpdateParamsUsCfpbData,
         AccountPersonUpdateParamsUsCfpbDataEthnicityDetails as AccountPersonUpdateParamsUsCfpbDataEthnicityDetails,
         AccountPersonUpdateParamsUsCfpbDataRaceDetails as AccountPersonUpdateParamsUsCfpbDataRaceDetails,
@@ -552,6 +562,8 @@ if TYPE_CHECKING:
         AccountUpdateParamsIndividualDob as AccountUpdateParamsIndividualDob,
         AccountUpdateParamsIndividualRegisteredAddress as AccountUpdateParamsIndividualRegisteredAddress,
         AccountUpdateParamsIndividualRelationship as AccountUpdateParamsIndividualRelationship,
+        AccountUpdateParamsIndividualSelfReportedIncome as AccountUpdateParamsIndividualSelfReportedIncome,
+        AccountUpdateParamsIndividualSelfReportedMonthlyHousingPayment as AccountUpdateParamsIndividualSelfReportedMonthlyHousingPayment,
         AccountUpdateParamsIndividualVerification as AccountUpdateParamsIndividualVerification,
         AccountUpdateParamsIndividualVerificationAdditionalDocument as AccountUpdateParamsIndividualVerificationAdditionalDocument,
         AccountUpdateParamsIndividualVerificationDocument as AccountUpdateParamsIndividualVerificationDocument,
@@ -3659,6 +3671,13 @@ if TYPE_CHECKING:
         QuoteCreateParamsSubscriptionDataBillOnAcceptanceBillUntilLineEndsAt as QuoteCreateParamsSubscriptionDataBillOnAcceptanceBillUntilLineEndsAt,
         QuoteCreateParamsSubscriptionDataBillingMode as QuoteCreateParamsSubscriptionDataBillingMode,
         QuoteCreateParamsSubscriptionDataBillingModeFlexible as QuoteCreateParamsSubscriptionDataBillingModeFlexible,
+        QuoteCreateParamsSubscriptionDataBillingSchedule as QuoteCreateParamsSubscriptionDataBillingSchedule,
+        QuoteCreateParamsSubscriptionDataBillingScheduleAppliesTo as QuoteCreateParamsSubscriptionDataBillingScheduleAppliesTo,
+        QuoteCreateParamsSubscriptionDataBillingScheduleBillFrom as QuoteCreateParamsSubscriptionDataBillingScheduleBillFrom,
+        QuoteCreateParamsSubscriptionDataBillingScheduleBillFromLineStartsAt as QuoteCreateParamsSubscriptionDataBillingScheduleBillFromLineStartsAt,
+        QuoteCreateParamsSubscriptionDataBillingScheduleBillUntil as QuoteCreateParamsSubscriptionDataBillingScheduleBillUntil,
+        QuoteCreateParamsSubscriptionDataBillingScheduleBillUntilDuration as QuoteCreateParamsSubscriptionDataBillingScheduleBillUntilDuration,
+        QuoteCreateParamsSubscriptionDataBillingScheduleBillUntilLineEndsAt as QuoteCreateParamsSubscriptionDataBillingScheduleBillUntilLineEndsAt,
         QuoteCreateParamsSubscriptionDataOverride as QuoteCreateParamsSubscriptionDataOverride,
         QuoteCreateParamsSubscriptionDataOverrideAppliesTo as QuoteCreateParamsSubscriptionDataOverrideAppliesTo,
         QuoteCreateParamsSubscriptionDataOverrideBillOnAcceptance as QuoteCreateParamsSubscriptionDataOverrideBillOnAcceptance,
@@ -3667,6 +3686,13 @@ if TYPE_CHECKING:
         QuoteCreateParamsSubscriptionDataOverrideBillOnAcceptanceBillUntil as QuoteCreateParamsSubscriptionDataOverrideBillOnAcceptanceBillUntil,
         QuoteCreateParamsSubscriptionDataOverrideBillOnAcceptanceBillUntilDuration as QuoteCreateParamsSubscriptionDataOverrideBillOnAcceptanceBillUntilDuration,
         QuoteCreateParamsSubscriptionDataOverrideBillOnAcceptanceBillUntilLineEndsAt as QuoteCreateParamsSubscriptionDataOverrideBillOnAcceptanceBillUntilLineEndsAt,
+        QuoteCreateParamsSubscriptionDataOverrideBillingSchedule as QuoteCreateParamsSubscriptionDataOverrideBillingSchedule,
+        QuoteCreateParamsSubscriptionDataOverrideBillingScheduleAppliesTo as QuoteCreateParamsSubscriptionDataOverrideBillingScheduleAppliesTo,
+        QuoteCreateParamsSubscriptionDataOverrideBillingScheduleBillFrom as QuoteCreateParamsSubscriptionDataOverrideBillingScheduleBillFrom,
+        QuoteCreateParamsSubscriptionDataOverrideBillingScheduleBillFromLineStartsAt as QuoteCreateParamsSubscriptionDataOverrideBillingScheduleBillFromLineStartsAt,
+        QuoteCreateParamsSubscriptionDataOverrideBillingScheduleBillUntil as QuoteCreateParamsSubscriptionDataOverrideBillingScheduleBillUntil,
+        QuoteCreateParamsSubscriptionDataOverrideBillingScheduleBillUntilDuration as QuoteCreateParamsSubscriptionDataOverrideBillingScheduleBillUntilDuration,
+        QuoteCreateParamsSubscriptionDataOverrideBillingScheduleBillUntilLineEndsAt as QuoteCreateParamsSubscriptionDataOverrideBillingScheduleBillUntilLineEndsAt,
         QuoteCreateParamsSubscriptionDataPrebilling as QuoteCreateParamsSubscriptionDataPrebilling,
         QuoteCreateParamsTransferData as QuoteCreateParamsTransferData,
     )
@@ -3757,6 +3783,13 @@ if TYPE_CHECKING:
         QuoteModifyParamsSubscriptionDataBillOnAcceptanceBillUntil as QuoteModifyParamsSubscriptionDataBillOnAcceptanceBillUntil,
         QuoteModifyParamsSubscriptionDataBillOnAcceptanceBillUntilDuration as QuoteModifyParamsSubscriptionDataBillOnAcceptanceBillUntilDuration,
         QuoteModifyParamsSubscriptionDataBillOnAcceptanceBillUntilLineEndsAt as QuoteModifyParamsSubscriptionDataBillOnAcceptanceBillUntilLineEndsAt,
+        QuoteModifyParamsSubscriptionDataBillingSchedule as QuoteModifyParamsSubscriptionDataBillingSchedule,
+        QuoteModifyParamsSubscriptionDataBillingScheduleAppliesTo as QuoteModifyParamsSubscriptionDataBillingScheduleAppliesTo,
+        QuoteModifyParamsSubscriptionDataBillingScheduleBillFrom as QuoteModifyParamsSubscriptionDataBillingScheduleBillFrom,
+        QuoteModifyParamsSubscriptionDataBillingScheduleBillFromLineStartsAt as QuoteModifyParamsSubscriptionDataBillingScheduleBillFromLineStartsAt,
+        QuoteModifyParamsSubscriptionDataBillingScheduleBillUntil as QuoteModifyParamsSubscriptionDataBillingScheduleBillUntil,
+        QuoteModifyParamsSubscriptionDataBillingScheduleBillUntilDuration as QuoteModifyParamsSubscriptionDataBillingScheduleBillUntilDuration,
+        QuoteModifyParamsSubscriptionDataBillingScheduleBillUntilLineEndsAt as QuoteModifyParamsSubscriptionDataBillingScheduleBillUntilLineEndsAt,
         QuoteModifyParamsSubscriptionDataOverride as QuoteModifyParamsSubscriptionDataOverride,
         QuoteModifyParamsSubscriptionDataOverrideAppliesTo as QuoteModifyParamsSubscriptionDataOverrideAppliesTo,
         QuoteModifyParamsSubscriptionDataOverrideBillOnAcceptance as QuoteModifyParamsSubscriptionDataOverrideBillOnAcceptance,
@@ -3765,6 +3798,13 @@ if TYPE_CHECKING:
         QuoteModifyParamsSubscriptionDataOverrideBillOnAcceptanceBillUntil as QuoteModifyParamsSubscriptionDataOverrideBillOnAcceptanceBillUntil,
         QuoteModifyParamsSubscriptionDataOverrideBillOnAcceptanceBillUntilDuration as QuoteModifyParamsSubscriptionDataOverrideBillOnAcceptanceBillUntilDuration,
         QuoteModifyParamsSubscriptionDataOverrideBillOnAcceptanceBillUntilLineEndsAt as QuoteModifyParamsSubscriptionDataOverrideBillOnAcceptanceBillUntilLineEndsAt,
+        QuoteModifyParamsSubscriptionDataOverrideBillingSchedule as QuoteModifyParamsSubscriptionDataOverrideBillingSchedule,
+        QuoteModifyParamsSubscriptionDataOverrideBillingScheduleAppliesTo as QuoteModifyParamsSubscriptionDataOverrideBillingScheduleAppliesTo,
+        QuoteModifyParamsSubscriptionDataOverrideBillingScheduleBillFrom as QuoteModifyParamsSubscriptionDataOverrideBillingScheduleBillFrom,
+        QuoteModifyParamsSubscriptionDataOverrideBillingScheduleBillFromLineStartsAt as QuoteModifyParamsSubscriptionDataOverrideBillingScheduleBillFromLineStartsAt,
+        QuoteModifyParamsSubscriptionDataOverrideBillingScheduleBillUntil as QuoteModifyParamsSubscriptionDataOverrideBillingScheduleBillUntil,
+        QuoteModifyParamsSubscriptionDataOverrideBillingScheduleBillUntilDuration as QuoteModifyParamsSubscriptionDataOverrideBillingScheduleBillUntilDuration,
+        QuoteModifyParamsSubscriptionDataOverrideBillingScheduleBillUntilLineEndsAt as QuoteModifyParamsSubscriptionDataOverrideBillingScheduleBillUntilLineEndsAt,
         QuoteModifyParamsSubscriptionDataPrebilling as QuoteModifyParamsSubscriptionDataPrebilling,
         QuoteModifyParamsTransferData as QuoteModifyParamsTransferData,
     )
@@ -3834,6 +3874,13 @@ if TYPE_CHECKING:
         QuoteUpdateParamsSubscriptionDataBillOnAcceptanceBillUntil as QuoteUpdateParamsSubscriptionDataBillOnAcceptanceBillUntil,
         QuoteUpdateParamsSubscriptionDataBillOnAcceptanceBillUntilDuration as QuoteUpdateParamsSubscriptionDataBillOnAcceptanceBillUntilDuration,
         QuoteUpdateParamsSubscriptionDataBillOnAcceptanceBillUntilLineEndsAt as QuoteUpdateParamsSubscriptionDataBillOnAcceptanceBillUntilLineEndsAt,
+        QuoteUpdateParamsSubscriptionDataBillingSchedule as QuoteUpdateParamsSubscriptionDataBillingSchedule,
+        QuoteUpdateParamsSubscriptionDataBillingScheduleAppliesTo as QuoteUpdateParamsSubscriptionDataBillingScheduleAppliesTo,
+        QuoteUpdateParamsSubscriptionDataBillingScheduleBillFrom as QuoteUpdateParamsSubscriptionDataBillingScheduleBillFrom,
+        QuoteUpdateParamsSubscriptionDataBillingScheduleBillFromLineStartsAt as QuoteUpdateParamsSubscriptionDataBillingScheduleBillFromLineStartsAt,
+        QuoteUpdateParamsSubscriptionDataBillingScheduleBillUntil as QuoteUpdateParamsSubscriptionDataBillingScheduleBillUntil,
+        QuoteUpdateParamsSubscriptionDataBillingScheduleBillUntilDuration as QuoteUpdateParamsSubscriptionDataBillingScheduleBillUntilDuration,
+        QuoteUpdateParamsSubscriptionDataBillingScheduleBillUntilLineEndsAt as QuoteUpdateParamsSubscriptionDataBillingScheduleBillUntilLineEndsAt,
         QuoteUpdateParamsSubscriptionDataOverride as QuoteUpdateParamsSubscriptionDataOverride,
         QuoteUpdateParamsSubscriptionDataOverrideAppliesTo as QuoteUpdateParamsSubscriptionDataOverrideAppliesTo,
         QuoteUpdateParamsSubscriptionDataOverrideBillOnAcceptance as QuoteUpdateParamsSubscriptionDataOverrideBillOnAcceptance,
@@ -3842,6 +3889,13 @@ if TYPE_CHECKING:
         QuoteUpdateParamsSubscriptionDataOverrideBillOnAcceptanceBillUntil as QuoteUpdateParamsSubscriptionDataOverrideBillOnAcceptanceBillUntil,
         QuoteUpdateParamsSubscriptionDataOverrideBillOnAcceptanceBillUntilDuration as QuoteUpdateParamsSubscriptionDataOverrideBillOnAcceptanceBillUntilDuration,
         QuoteUpdateParamsSubscriptionDataOverrideBillOnAcceptanceBillUntilLineEndsAt as QuoteUpdateParamsSubscriptionDataOverrideBillOnAcceptanceBillUntilLineEndsAt,
+        QuoteUpdateParamsSubscriptionDataOverrideBillingSchedule as QuoteUpdateParamsSubscriptionDataOverrideBillingSchedule,
+        QuoteUpdateParamsSubscriptionDataOverrideBillingScheduleAppliesTo as QuoteUpdateParamsSubscriptionDataOverrideBillingScheduleAppliesTo,
+        QuoteUpdateParamsSubscriptionDataOverrideBillingScheduleBillFrom as QuoteUpdateParamsSubscriptionDataOverrideBillingScheduleBillFrom,
+        QuoteUpdateParamsSubscriptionDataOverrideBillingScheduleBillFromLineStartsAt as QuoteUpdateParamsSubscriptionDataOverrideBillingScheduleBillFromLineStartsAt,
+        QuoteUpdateParamsSubscriptionDataOverrideBillingScheduleBillUntil as QuoteUpdateParamsSubscriptionDataOverrideBillingScheduleBillUntil,
+        QuoteUpdateParamsSubscriptionDataOverrideBillingScheduleBillUntilDuration as QuoteUpdateParamsSubscriptionDataOverrideBillingScheduleBillUntilDuration,
+        QuoteUpdateParamsSubscriptionDataOverrideBillingScheduleBillUntilLineEndsAt as QuoteUpdateParamsSubscriptionDataOverrideBillingScheduleBillUntilLineEndsAt,
         QuoteUpdateParamsSubscriptionDataPrebilling as QuoteUpdateParamsSubscriptionDataPrebilling,
         QuoteUpdateParamsTransferData as QuoteUpdateParamsTransferData,
     )
@@ -4858,6 +4912,8 @@ if TYPE_CHECKING:
         TokenCreateParamsAccountIndividualDob as TokenCreateParamsAccountIndividualDob,
         TokenCreateParamsAccountIndividualRegisteredAddress as TokenCreateParamsAccountIndividualRegisteredAddress,
         TokenCreateParamsAccountIndividualRelationship as TokenCreateParamsAccountIndividualRelationship,
+        TokenCreateParamsAccountIndividualSelfReportedIncome as TokenCreateParamsAccountIndividualSelfReportedIncome,
+        TokenCreateParamsAccountIndividualSelfReportedMonthlyHousingPayment as TokenCreateParamsAccountIndividualSelfReportedMonthlyHousingPayment,
         TokenCreateParamsAccountIndividualVerification as TokenCreateParamsAccountIndividualVerification,
         TokenCreateParamsAccountIndividualVerificationAdditionalDocument as TokenCreateParamsAccountIndividualVerificationAdditionalDocument,
         TokenCreateParamsAccountIndividualVerificationDocument as TokenCreateParamsAccountIndividualVerificationDocument,
@@ -4878,6 +4934,8 @@ if TYPE_CHECKING:
         TokenCreateParamsPersonDocumentsVisa as TokenCreateParamsPersonDocumentsVisa,
         TokenCreateParamsPersonRegisteredAddress as TokenCreateParamsPersonRegisteredAddress,
         TokenCreateParamsPersonRelationship as TokenCreateParamsPersonRelationship,
+        TokenCreateParamsPersonSelfReportedIncome as TokenCreateParamsPersonSelfReportedIncome,
+        TokenCreateParamsPersonSelfReportedMonthlyHousingPayment as TokenCreateParamsPersonSelfReportedMonthlyHousingPayment,
         TokenCreateParamsPersonUsCfpbData as TokenCreateParamsPersonUsCfpbData,
         TokenCreateParamsPersonUsCfpbDataEthnicityDetails as TokenCreateParamsPersonUsCfpbDataEthnicityDetails,
         TokenCreateParamsPersonUsCfpbDataRaceDetails as TokenCreateParamsPersonUsCfpbDataRaceDetails,
@@ -5484,6 +5542,14 @@ _import_map = {
         "stripe.params._account_create_params",
         False,
     ),
+    "AccountCreateParamsIndividualSelfReportedIncome": (
+        "stripe.params._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsIndividualSelfReportedMonthlyHousingPayment": (
+        "stripe.params._account_create_params",
+        False,
+    ),
     "AccountCreateParamsIndividualVerification": (
         "stripe.params._account_create_params",
         False,
@@ -5625,6 +5691,14 @@ _import_map = {
         False,
     ),
     "AccountCreatePersonParamsRelationship": (
+        "stripe.params._account_create_person_params",
+        False,
+    ),
+    "AccountCreatePersonParamsSelfReportedIncome": (
+        "stripe.params._account_create_person_params",
+        False,
+    ),
+    "AccountCreatePersonParamsSelfReportedMonthlyHousingPayment": (
         "stripe.params._account_create_person_params",
         False,
     ),
@@ -5799,6 +5873,14 @@ _import_map = {
         "stripe.params._account_modify_person_params",
         False,
     ),
+    "AccountModifyPersonParamsSelfReportedIncome": (
+        "stripe.params._account_modify_person_params",
+        False,
+    ),
+    "AccountModifyPersonParamsSelfReportedMonthlyHousingPayment": (
+        "stripe.params._account_modify_person_params",
+        False,
+    ),
     "AccountModifyPersonParamsUsCfpbData": (
         "stripe.params._account_modify_person_params",
         False,
@@ -5899,6 +5981,14 @@ _import_map = {
         "stripe.params._account_person_create_params",
         False,
     ),
+    "AccountPersonCreateParamsSelfReportedIncome": (
+        "stripe.params._account_person_create_params",
+        False,
+    ),
+    "AccountPersonCreateParamsSelfReportedMonthlyHousingPayment": (
+        "stripe.params._account_person_create_params",
+        False,
+    ),
     "AccountPersonCreateParamsUsCfpbData": (
         "stripe.params._account_person_create_params",
         False,
@@ -5988,6 +6078,14 @@ _import_map = {
         False,
     ),
     "AccountPersonUpdateParamsRelationship": (
+        "stripe.params._account_person_update_params",
+        False,
+    ),
+    "AccountPersonUpdateParamsSelfReportedIncome": (
+        "stripe.params._account_person_update_params",
+        False,
+    ),
+    "AccountPersonUpdateParamsSelfReportedMonthlyHousingPayment": (
         "stripe.params._account_person_update_params",
         False,
     ),
@@ -6729,6 +6827,14 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsIndividualRelationship": (
+        "stripe.params._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsIndividualSelfReportedIncome": (
+        "stripe.params._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsIndividualSelfReportedMonthlyHousingPayment": (
         "stripe.params._account_update_params",
         False,
     ),
@@ -16606,6 +16712,34 @@ _import_map = {
         "stripe.params._quote_create_params",
         False,
     ),
+    "QuoteCreateParamsSubscriptionDataBillingSchedule": (
+        "stripe.params._quote_create_params",
+        False,
+    ),
+    "QuoteCreateParamsSubscriptionDataBillingScheduleAppliesTo": (
+        "stripe.params._quote_create_params",
+        False,
+    ),
+    "QuoteCreateParamsSubscriptionDataBillingScheduleBillFrom": (
+        "stripe.params._quote_create_params",
+        False,
+    ),
+    "QuoteCreateParamsSubscriptionDataBillingScheduleBillFromLineStartsAt": (
+        "stripe.params._quote_create_params",
+        False,
+    ),
+    "QuoteCreateParamsSubscriptionDataBillingScheduleBillUntil": (
+        "stripe.params._quote_create_params",
+        False,
+    ),
+    "QuoteCreateParamsSubscriptionDataBillingScheduleBillUntilDuration": (
+        "stripe.params._quote_create_params",
+        False,
+    ),
+    "QuoteCreateParamsSubscriptionDataBillingScheduleBillUntilLineEndsAt": (
+        "stripe.params._quote_create_params",
+        False,
+    ),
     "QuoteCreateParamsSubscriptionDataOverride": (
         "stripe.params._quote_create_params",
         False,
@@ -16635,6 +16769,34 @@ _import_map = {
         False,
     ),
     "QuoteCreateParamsSubscriptionDataOverrideBillOnAcceptanceBillUntilLineEndsAt": (
+        "stripe.params._quote_create_params",
+        False,
+    ),
+    "QuoteCreateParamsSubscriptionDataOverrideBillingSchedule": (
+        "stripe.params._quote_create_params",
+        False,
+    ),
+    "QuoteCreateParamsSubscriptionDataOverrideBillingScheduleAppliesTo": (
+        "stripe.params._quote_create_params",
+        False,
+    ),
+    "QuoteCreateParamsSubscriptionDataOverrideBillingScheduleBillFrom": (
+        "stripe.params._quote_create_params",
+        False,
+    ),
+    "QuoteCreateParamsSubscriptionDataOverrideBillingScheduleBillFromLineStartsAt": (
+        "stripe.params._quote_create_params",
+        False,
+    ),
+    "QuoteCreateParamsSubscriptionDataOverrideBillingScheduleBillUntil": (
+        "stripe.params._quote_create_params",
+        False,
+    ),
+    "QuoteCreateParamsSubscriptionDataOverrideBillingScheduleBillUntilDuration": (
+        "stripe.params._quote_create_params",
+        False,
+    ),
+    "QuoteCreateParamsSubscriptionDataOverrideBillingScheduleBillUntilLineEndsAt": (
         "stripe.params._quote_create_params",
         False,
     ),
@@ -16867,6 +17029,34 @@ _import_map = {
         "stripe.params._quote_modify_params",
         False,
     ),
+    "QuoteModifyParamsSubscriptionDataBillingSchedule": (
+        "stripe.params._quote_modify_params",
+        False,
+    ),
+    "QuoteModifyParamsSubscriptionDataBillingScheduleAppliesTo": (
+        "stripe.params._quote_modify_params",
+        False,
+    ),
+    "QuoteModifyParamsSubscriptionDataBillingScheduleBillFrom": (
+        "stripe.params._quote_modify_params",
+        False,
+    ),
+    "QuoteModifyParamsSubscriptionDataBillingScheduleBillFromLineStartsAt": (
+        "stripe.params._quote_modify_params",
+        False,
+    ),
+    "QuoteModifyParamsSubscriptionDataBillingScheduleBillUntil": (
+        "stripe.params._quote_modify_params",
+        False,
+    ),
+    "QuoteModifyParamsSubscriptionDataBillingScheduleBillUntilDuration": (
+        "stripe.params._quote_modify_params",
+        False,
+    ),
+    "QuoteModifyParamsSubscriptionDataBillingScheduleBillUntilLineEndsAt": (
+        "stripe.params._quote_modify_params",
+        False,
+    ),
     "QuoteModifyParamsSubscriptionDataOverride": (
         "stripe.params._quote_modify_params",
         False,
@@ -16896,6 +17086,34 @@ _import_map = {
         False,
     ),
     "QuoteModifyParamsSubscriptionDataOverrideBillOnAcceptanceBillUntilLineEndsAt": (
+        "stripe.params._quote_modify_params",
+        False,
+    ),
+    "QuoteModifyParamsSubscriptionDataOverrideBillingSchedule": (
+        "stripe.params._quote_modify_params",
+        False,
+    ),
+    "QuoteModifyParamsSubscriptionDataOverrideBillingScheduleAppliesTo": (
+        "stripe.params._quote_modify_params",
+        False,
+    ),
+    "QuoteModifyParamsSubscriptionDataOverrideBillingScheduleBillFrom": (
+        "stripe.params._quote_modify_params",
+        False,
+    ),
+    "QuoteModifyParamsSubscriptionDataOverrideBillingScheduleBillFromLineStartsAt": (
+        "stripe.params._quote_modify_params",
+        False,
+    ),
+    "QuoteModifyParamsSubscriptionDataOverrideBillingScheduleBillUntil": (
+        "stripe.params._quote_modify_params",
+        False,
+    ),
+    "QuoteModifyParamsSubscriptionDataOverrideBillingScheduleBillUntilDuration": (
+        "stripe.params._quote_modify_params",
+        False,
+    ),
+    "QuoteModifyParamsSubscriptionDataOverrideBillingScheduleBillUntilLineEndsAt": (
         "stripe.params._quote_modify_params",
         False,
     ),
@@ -17106,6 +17324,34 @@ _import_map = {
         "stripe.params._quote_update_params",
         False,
     ),
+    "QuoteUpdateParamsSubscriptionDataBillingSchedule": (
+        "stripe.params._quote_update_params",
+        False,
+    ),
+    "QuoteUpdateParamsSubscriptionDataBillingScheduleAppliesTo": (
+        "stripe.params._quote_update_params",
+        False,
+    ),
+    "QuoteUpdateParamsSubscriptionDataBillingScheduleBillFrom": (
+        "stripe.params._quote_update_params",
+        False,
+    ),
+    "QuoteUpdateParamsSubscriptionDataBillingScheduleBillFromLineStartsAt": (
+        "stripe.params._quote_update_params",
+        False,
+    ),
+    "QuoteUpdateParamsSubscriptionDataBillingScheduleBillUntil": (
+        "stripe.params._quote_update_params",
+        False,
+    ),
+    "QuoteUpdateParamsSubscriptionDataBillingScheduleBillUntilDuration": (
+        "stripe.params._quote_update_params",
+        False,
+    ),
+    "QuoteUpdateParamsSubscriptionDataBillingScheduleBillUntilLineEndsAt": (
+        "stripe.params._quote_update_params",
+        False,
+    ),
     "QuoteUpdateParamsSubscriptionDataOverride": (
         "stripe.params._quote_update_params",
         False,
@@ -17135,6 +17381,34 @@ _import_map = {
         False,
     ),
     "QuoteUpdateParamsSubscriptionDataOverrideBillOnAcceptanceBillUntilLineEndsAt": (
+        "stripe.params._quote_update_params",
+        False,
+    ),
+    "QuoteUpdateParamsSubscriptionDataOverrideBillingSchedule": (
+        "stripe.params._quote_update_params",
+        False,
+    ),
+    "QuoteUpdateParamsSubscriptionDataOverrideBillingScheduleAppliesTo": (
+        "stripe.params._quote_update_params",
+        False,
+    ),
+    "QuoteUpdateParamsSubscriptionDataOverrideBillingScheduleBillFrom": (
+        "stripe.params._quote_update_params",
+        False,
+    ),
+    "QuoteUpdateParamsSubscriptionDataOverrideBillingScheduleBillFromLineStartsAt": (
+        "stripe.params._quote_update_params",
+        False,
+    ),
+    "QuoteUpdateParamsSubscriptionDataOverrideBillingScheduleBillUntil": (
+        "stripe.params._quote_update_params",
+        False,
+    ),
+    "QuoteUpdateParamsSubscriptionDataOverrideBillingScheduleBillUntilDuration": (
+        "stripe.params._quote_update_params",
+        False,
+    ),
+    "QuoteUpdateParamsSubscriptionDataOverrideBillingScheduleBillUntilLineEndsAt": (
         "stripe.params._quote_update_params",
         False,
     ),
@@ -20545,6 +20819,14 @@ _import_map = {
         "stripe.params._token_create_params",
         False,
     ),
+    "TokenCreateParamsAccountIndividualSelfReportedIncome": (
+        "stripe.params._token_create_params",
+        False,
+    ),
+    "TokenCreateParamsAccountIndividualSelfReportedMonthlyHousingPayment": (
+        "stripe.params._token_create_params",
+        False,
+    ),
     "TokenCreateParamsAccountIndividualVerification": (
         "stripe.params._token_create_params",
         False,
@@ -20616,6 +20898,14 @@ _import_map = {
         False,
     ),
     "TokenCreateParamsPersonRelationship": (
+        "stripe.params._token_create_params",
+        False,
+    ),
+    "TokenCreateParamsPersonSelfReportedIncome": (
+        "stripe.params._token_create_params",
+        False,
+    ),
+    "TokenCreateParamsPersonSelfReportedMonthlyHousingPayment": (
         "stripe.params._token_create_params",
         False,
     ),
