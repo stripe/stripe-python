@@ -1399,6 +1399,7 @@ class PaymentMethod(
                         "bank_account_restricted",
                         "bank_account_unusable",
                         "debit_not_authorized",
+                        "tokenized_account_number_deactivated",
                     ]
                 ]
                 """

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe.v2._amount import AmountParam
-from typing import Dict, List
+from typing import Dict
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -10,10 +10,6 @@ class OffSessionPaymentCreateParams(TypedDict):
     """
     The “presentment amount” to be collected from the customer.
     """
-    amount_details: NotRequired["OffSessionPaymentCreateParamsAmountDetails"]
-    """
-    Provides industry-specific information about the amount.
-    """
     cadence: Literal["recurring", "unscheduled"]
     """
     The frequency of the underlying payment.
@@ -21,10 +17,6 @@ class OffSessionPaymentCreateParams(TypedDict):
     capture: NotRequired["OffSessionPaymentCreateParamsCapture"]
     """
     Details about the capture configuration for the OffSessionPayment.
-    """
-    capture_method: NotRequired[Literal["automatic", "manual"]]
-    """
-    Whether the OffSessionPayment should be captured automatically or manually.
     """
     customer: str
     """
@@ -84,81 +76,6 @@ class OffSessionPaymentCreateParams(TypedDict):
     """
 
 
-class OffSessionPaymentCreateParamsAmountDetails(TypedDict):
-    discount_amount: NotRequired[int]
-    """
-    The amount the total transaction was discounted for.
-    """
-    line_items: List["OffSessionPaymentCreateParamsAmountDetailsLineItem"]
-    """
-    A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
-    """
-    shipping: NotRequired["OffSessionPaymentCreateParamsAmountDetailsShipping"]
-    """
-    Contains information about the shipping portion of the amount.
-    """
-    tax: NotRequired["OffSessionPaymentCreateParamsAmountDetailsTax"]
-    """
-    Contains information about the tax portion of the amount.
-    """
-
-
-class OffSessionPaymentCreateParamsAmountDetailsLineItem(TypedDict):
-    discount_amount: NotRequired[int]
-    """
-    The amount an item was discounted for. Positive integer.
-    """
-    product_code: NotRequired[str]
-    """
-    Unique identifier of the product. At most 12 characters long.
-    """
-    product_name: str
-    """
-    Name of the product. At most 100 characters long.
-    """
-    quantity: int
-    """
-    Number of items of the product. Positive integer.
-    """
-    tax: NotRequired["OffSessionPaymentCreateParamsAmountDetailsLineItemTax"]
-    """
-    Contains information about the tax on the item.
-    """
-    unit_cost: int
-    """
-    Cost of the product. Non-negative integer.
-    """
-
-
-class OffSessionPaymentCreateParamsAmountDetailsLineItemTax(TypedDict):
-    total_tax_amount: NotRequired[int]
-    """
-    Total portion of the amount that is for tax.
-    """
-
-
-class OffSessionPaymentCreateParamsAmountDetailsShipping(TypedDict):
-    amount: NotRequired[int]
-    """
-    Portion of the amount that is for shipping.
-    """
-    from_postal_code: NotRequired[str]
-    """
-    The postal code that represents the shipping source.
-    """
-    to_postal_code: NotRequired[str]
-    """
-    The postal code that represents the shipping destination.
-    """
-
-
-class OffSessionPaymentCreateParamsAmountDetailsTax(TypedDict):
-    total_tax_amount: NotRequired[int]
-    """
-    Total portion of the amount that is for tax.
-    """
-
-
 class OffSessionPaymentCreateParamsCapture(TypedDict):
     capture_method: Literal["automatic", "manual"]
     """
@@ -197,7 +114,7 @@ class OffSessionPaymentCreateParamsRetryDetails(TypedDict):
     """
     The pre-configured retry policy to use for the payment.
     """
-    retry_strategy: Literal["heuristic", "none", "scheduled", "smart"]
+    retry_strategy: NotRequired[Literal["best_available", "none"]]
     """
     Indicates the strategy for how you want Stripe to retry the payment.
     """

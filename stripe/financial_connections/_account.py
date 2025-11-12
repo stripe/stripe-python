@@ -71,6 +71,24 @@ class Account(ListableAPIResource["Account"]):
         Type of account holder that this account belongs to.
         """
 
+    class AccountNumber(StripeObject):
+        expected_expiry_date: Optional[int]
+        """
+        When the account number is expected to expire, if applicable.
+        """
+        identifier_type: Literal["account_number", "tokenized_account_number"]
+        """
+        The type of account number associated with the account.
+        """
+        status: Literal["deactivated", "transactable"]
+        """
+        Whether the account number is currently active and usable for transactions.
+        """
+        supported_networks: List[Literal["ach"]]
+        """
+        The payment networks that the account number can be used for.
+        """
+
     class Balance(StripeObject):
         class Cash(StripeObject):
             available: Optional[Dict[str, int]]
@@ -175,6 +193,10 @@ class Account(ListableAPIResource["Account"]):
     account_holder: Optional[AccountHolder]
     """
     The account holder that this account belongs to.
+    """
+    account_numbers: Optional[List[AccountNumber]]
+    """
+    Details about the account numbers.
     """
     balance: Optional[Balance]
     """
@@ -937,6 +959,7 @@ class Account(ListableAPIResource["Account"]):
 
     _inner_class_types = {
         "account_holder": AccountHolder,
+        "account_numbers": AccountNumber,
         "balance": Balance,
         "balance_refresh": BalanceRefresh,
         "inferred_balances_refresh": InferredBalancesRefresh,

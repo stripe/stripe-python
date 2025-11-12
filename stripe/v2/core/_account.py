@@ -47,7 +47,7 @@ class Account(StripeObject):
                     ]
                 ]
                 """
-                The data source used to identify the customer's tax location - defaults to 'identity_address'. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
+                The data source used to identify the customer's tax location - defaults to `identity_address`. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
                 """
                 _inner_class_types = {"location": Location}
 
@@ -2177,6 +2177,69 @@ class Account(StripeObject):
                 """
                 _inner_class_types = {"decline_on": DeclineOn}
 
+            class KonbiniPayments(StripeObject):
+                class Support(StripeObject):
+                    class Hours(StripeObject):
+                        end_time: Optional[str]
+                        """
+                        Support hours end time (JST time of day) for in `HH:MM` format.
+                        """
+                        start_time: Optional[str]
+                        """
+                        Support hours start time (JST time of day) for in `HH:MM` format.
+                        """
+
+                    email: Optional[str]
+                    """
+                    Support email address for Konbini payments.
+                    """
+                    hours: Optional[Hours]
+                    """
+                    Support hours for Konbini payments.
+                    """
+                    phone: Optional[str]
+                    """
+                    Support phone number for Konbini payments.
+                    """
+                    _inner_class_types = {"hours": Hours}
+
+                support: Optional[Support]
+                """
+                Support for Konbini payments.
+                """
+                _inner_class_types = {"support": Support}
+
+            class ScriptStatementDescriptor(StripeObject):
+                class Kana(StripeObject):
+                    descriptor: Optional[str]
+                    """
+                    The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don't set a statement_descriptor_prefix, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the statement_descriptor text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
+                    """
+                    prefix: Optional[str]
+                    """
+                    Default text that appears on statements for card charges outside of Japan, prefixing any dynamic statement_descriptor_suffix specified on the charge. To maximize space for the dynamic part of the descriptor, keep this text short. If you don't specify this value, statement_descriptor is used as the prefix. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
+                    """
+
+                class Kanji(StripeObject):
+                    descriptor: Optional[str]
+                    """
+                    The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don't set a statement_descriptor_prefix, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the statement_descriptor text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
+                    """
+                    prefix: Optional[str]
+                    """
+                    Default text that appears on statements for card charges outside of Japan, prefixing any dynamic statement_descriptor_suffix specified on the charge. To maximize space for the dynamic part of the descriptor, keep this text short. If you don't specify this value, statement_descriptor is used as the prefix. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
+                    """
+
+                kana: Optional[Kana]
+                """
+                The Kana variation of statement_descriptor used for charges in Japan. Japanese statement descriptors have [special requirements](https://docs.stripe.com/get-started/account/statement-descriptors#set-japanese-statement-descriptors).
+                """
+                kanji: Optional[Kanji]
+                """
+                The Kanji variation of statement_descriptor used for charges in Japan. Japanese statement descriptors have [special requirements](https://docs.stripe.com/get-started/account/statement-descriptors#set-japanese-statement-descriptors).
+                """
+                _inner_class_types = {"kana": Kana, "kanji": Kanji}
+
             class SepaDebitPayments(StripeObject):
                 creditor_id: Optional[str]
                 """
@@ -2262,9 +2325,17 @@ class Account(StripeObject):
             """
             Card payments settings.
             """
+            konbini_payments: Optional[KonbiniPayments]
+            """
+            Settings specific to Konbini payments on the account.
+            """
             mcc: Optional[str]
             """
             The merchant category code for the merchant. MCCs are used to classify businesses based on the goods or services they provide.
+            """
+            script_statement_descriptor: Optional[ScriptStatementDescriptor]
+            """
+            Settings for the default text that appears on statements for language variations.
             """
             sepa_debit_payments: Optional[SepaDebitPayments]
             """
@@ -2283,6 +2354,8 @@ class Account(StripeObject):
                 "branding": Branding,
                 "capabilities": Capabilities,
                 "card_payments": CardPayments,
+                "konbini_payments": KonbiniPayments,
+                "script_statement_descriptor": ScriptStatementDescriptor,
                 "sepa_debit_payments": SepaDebitPayments,
                 "statement_descriptor": StatementDescriptor,
                 "support": Support,
@@ -2664,6 +2737,45 @@ class Account(StripeObject):
                     _inner_class_types = {"bank_accounts": BankAccounts}
 
                 class HoldsCurrencies(StripeObject):
+                    class Eur(StripeObject):
+                        class StatusDetail(StripeObject):
+                            code: Literal[
+                                "determining_status",
+                                "requirements_past_due",
+                                "requirements_pending_verification",
+                                "restricted_other",
+                                "unsupported_business",
+                                "unsupported_country",
+                                "unsupported_entity_type",
+                            ]
+                            """
+                            Machine-readable code explaining the reason for the Capability to be in its current status.
+                            """
+                            resolution: Literal[
+                                "contact_stripe",
+                                "no_resolution",
+                                "provide_info",
+                            ]
+                            """
+                            Machine-readable code explaining how to make the Capability active.
+                            """
+
+                        requested: bool
+                        """
+                        Whether the Capability has been requested.
+                        """
+                        status: Literal[
+                            "active", "pending", "restricted", "unsupported"
+                        ]
+                        """
+                        The status of the Capability.
+                        """
+                        status_details: List[StatusDetail]
+                        """
+                        Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                        """
+                        _inner_class_types = {"status_details": StatusDetail}
+
                     class Gbp(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
@@ -2742,6 +2854,10 @@ class Account(StripeObject):
                         """
                         _inner_class_types = {"status_details": StatusDetail}
 
+                    eur: Optional[Eur]
+                    """
+                    Can hold storage-type funds on Stripe in EUR.
+                    """
                     gbp: Optional[Gbp]
                     """
                     Can hold storage-type funds on Stripe in GBP.
@@ -2750,7 +2866,7 @@ class Account(StripeObject):
                     """
                     Can hold storage-type funds on Stripe in USD.
                     """
-                    _inner_class_types = {"gbp": Gbp, "usd": Usd}
+                    _inner_class_types = {"eur": Eur, "gbp": Gbp, "usd": Usd}
 
                 class InboundTransfers(StripeObject):
                     class BankAccounts(StripeObject):
@@ -3115,6 +3231,10 @@ class Account(StripeObject):
             losses_collector: Literal["application", "stripe"]
             """
             A value indicating who is responsible for losses when this Account can't pay back negative balances from payments.
+            """
+            requirements_collector: Literal["application", "stripe"]
+            """
+            A value indicating responsibility for collecting requirements on this account.
             """
 
         currency: Optional[str]
@@ -4586,9 +4706,10 @@ class Account(StripeObject):
                 """
                 If `resource` is the type, the resource token.
                 """
-                type: Literal["inquiry", "resource"]
+                type: Literal["inquiry", "payment_method", "person"]
                 """
-                The type of the reference. An additional hash is included with a name matching the type. It contains additional information specific to the type.
+                The type of the reference. If the type is "inquiry", the inquiry token can be found in the "inquiry" field.
+                Otherwise the type is an API resource, the token for which can be found in the "resource" field.
                 """
 
             class RequestedReason(StripeObject):
@@ -4654,10 +4775,6 @@ class Account(StripeObject):
             """
             _inner_class_types = {"minimum_deadline": MinimumDeadline}
 
-        collector: Literal["application", "stripe"]
-        """
-        A value indicating responsibility for collecting requirements on this account.
-        """
         entries: Optional[List[Entry]]
         """
         A list of requirements for the Account.

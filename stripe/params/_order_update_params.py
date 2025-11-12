@@ -765,6 +765,12 @@ class OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarna(TypedDict):
     """
     Subscription details if setting up or charging a subscription.
     """
+    supplementary_purchase_data: NotRequired[
+        "Literal['']|OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseData"
+    ]
+    """
+    Supplementary Purchase Data for the corresponding Klarna payment
+    """
 
 
 class OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaOnDemand(
@@ -829,6 +835,1088 @@ class OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSubscriptionNext
     date: str
     """
     The date of the next charge for the subscription in YYYY-MM-DD format.
+    """
+
+
+class OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseData(
+    TypedDict,
+):
+    bus_reservation_details: NotRequired[
+        "Literal['']|List[OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataBusReservationDetail]"
+    ]
+    """
+    Supplementary bus reservation details.
+    """
+    event_reservation_details: NotRequired[
+        "Literal['']|List[OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataEventReservationDetail]"
+    ]
+    """
+    Supplementary event reservation details.
+    """
+    ferry_reservation_details: NotRequired[
+        "Literal['']|List[OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataFerryReservationDetail]"
+    ]
+    """
+    Supplementary ferry reservation details.
+    """
+    insurances: NotRequired[
+        "Literal['']|List[OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataInsurance]"
+    ]
+    """
+    Supplementary insurance details.
+    """
+    marketplace_sellers: NotRequired[
+        "Literal['']|List[OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataMarketplaceSeller]"
+    ]
+    """
+    Supplementary marketplace seller details.
+    """
+    round_trip_reservation_details: NotRequired[
+        "Literal['']|List[OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataRoundTripReservationDetail]"
+    ]
+    """
+    Supplementary round trip reservation details.
+    """
+    train_reservation_details: NotRequired[
+        "Literal['']|List[OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataTrainReservationDetail]"
+    ]
+    """
+    Supplementary train reservation details.
+    """
+    vouchers: NotRequired[
+        "Literal['']|List[OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataVoucher]"
+    ]
+    """
+    Voucher details, such as a gift card or discount code.
+    """
+
+
+class OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataBusReservationDetail(
+    TypedDict,
+):
+    affiliate_name: NotRequired[str]
+    """
+    Name of associated or partner company for the service.
+    """
+    arrival: NotRequired[
+        "OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataBusReservationDetailArrival"
+    ]
+    """
+    Arrival details.
+    """
+    carrier_name: NotRequired[str]
+    """
+    Name of transportation company.
+    """
+    currency: NotRequired[str]
+    """
+    Currency.
+    """
+    departure: NotRequired[
+        "OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataBusReservationDetailDeparture"
+    ]
+    """
+    Departure details.
+    """
+    insurances: NotRequired[
+        List[
+            "OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataBusReservationDetailInsurance"
+        ]
+    ]
+    """
+    List of insurances for this reservation.
+    """
+    passengers: NotRequired[
+        List[
+            "OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataBusReservationDetailPassenger"
+        ]
+    ]
+    """
+    List of passengers that this reservation applies to.
+    """
+    price: NotRequired[int]
+    """
+    Price in cents.
+    """
+    ticket_class: NotRequired[
+        Literal["business", "economy", "first_class", "premium_economy"]
+    ]
+    """
+    Ticket class.
+    """
+
+
+class OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataBusReservationDetailArrival(
+    TypedDict,
+):
+    address: NotRequired[
+        "OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataBusReservationDetailArrivalAddress"
+    ]
+    """
+    Address of the arrival location.
+    """
+    arrival_location: NotRequired[str]
+    """
+    Identifier name or reference for the arrival location.
+    """
+
+
+class OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataBusReservationDetailArrivalAddress(
+    TypedDict,
+):
+    city: NotRequired[str]
+    """
+    The city or town.
+    """
+    country: NotRequired[str]
+    """
+    The country in ISO 3166-1 alpha-2 format.
+    """
+    postal_code: NotRequired[str]
+    """
+    The postal code formatted according to country.
+    """
+    region: NotRequired[str]
+    """
+    The state, county, province, or region formatted according to country.
+    """
+    street_address: NotRequired[str]
+    """
+    Line 1 of the street address.
+    """
+    street_address2: NotRequired[str]
+    """
+    Line 2 of the street address.
+    """
+
+
+class OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataBusReservationDetailDeparture(
+    TypedDict,
+):
+    address: NotRequired[
+        "OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataBusReservationDetailDepartureAddress"
+    ]
+    """
+    Address of the departure location.
+    """
+    departs_at: NotRequired[int]
+    """
+    Timestamp of departure.
+    """
+    departure_location: NotRequired[str]
+    """
+    Identifier name or reference for the origin location.
+    """
+
+
+class OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataBusReservationDetailDepartureAddress(
+    TypedDict,
+):
+    city: NotRequired[str]
+    """
+    The city or town.
+    """
+    country: NotRequired[str]
+    """
+    The country in ISO 3166-1 alpha-2 format.
+    """
+    postal_code: NotRequired[str]
+    """
+    The postal code formatted according to country.
+    """
+    region: NotRequired[str]
+    """
+    The state, county, province, or region formatted according to country.
+    """
+    street_address: NotRequired[str]
+    """
+    Line 1 of the street address.
+    """
+    street_address2: NotRequired[str]
+    """
+    Line 2 of the street address.
+    """
+
+
+class OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataBusReservationDetailInsurance(
+    TypedDict,
+):
+    currency: NotRequired[str]
+    """
+    Insurance currency.
+    """
+    insurance_company_name: NotRequired[str]
+    """
+    Name of the company providing the insurance.
+    """
+    insurance_type: NotRequired[
+        Literal["baggage", "bankruptcy", "cancelation", "emergency", "medical"]
+    ]
+    """
+    Type of insurance.
+    """
+    price: NotRequired[int]
+    """
+    Price of insurance in cents.
+    """
+
+
+class OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataBusReservationDetailPassenger(
+    TypedDict,
+):
+    family_name: NotRequired[str]
+    """
+    The family name of the person.
+    """
+    given_name: NotRequired[str]
+    """
+    The given name of the person.
+    """
+
+
+class OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataEventReservationDetail(
+    TypedDict,
+):
+    access_controlled_venue: NotRequired[bool]
+    """
+    Indicates if the tickets are digitally checked when entering the venue.
+    """
+    address: NotRequired[
+        "OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataEventReservationDetailAddress"
+    ]
+    """
+    Address of the event.
+    """
+    affiliate_name: NotRequired[str]
+    """
+    Name of associated or partner company for the service.
+    """
+    ends_at: NotRequired[int]
+    """
+    End timestamp of the event.
+    """
+    event_company_name: NotRequired[str]
+    """
+    Company selling the ticket.
+    """
+    event_name: NotRequired[str]
+    """
+    Name of the event.
+    """
+    event_type: NotRequired[
+        Literal[
+            "concert",
+            "conference",
+            "digital_education",
+            "expo",
+            "festival",
+            "in_person_education",
+            "sport",
+            "tour",
+        ]
+    ]
+    """
+    Type of the event.
+    """
+    insurances: NotRequired[
+        List[
+            "OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataEventReservationDetailInsurance"
+        ]
+    ]
+    """
+    List of insurances for this event.
+    """
+    starts_at: NotRequired[int]
+    """
+    Start timestamp of the event.
+    """
+    venue_name: NotRequired[str]
+    """
+    Name of the venue where the event takes place.
+    """
+
+
+class OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataEventReservationDetailAddress(
+    TypedDict,
+):
+    city: NotRequired[str]
+    """
+    The city or town.
+    """
+    country: NotRequired[str]
+    """
+    The country in ISO 3166-1 alpha-2 format.
+    """
+    postal_code: NotRequired[str]
+    """
+    The postal code formatted according to country.
+    """
+    region: NotRequired[str]
+    """
+    The state, county, province, or region formatted according to country.
+    """
+    street_address: NotRequired[str]
+    """
+    Line 1 of the street address.
+    """
+    street_address2: NotRequired[str]
+    """
+    Line 2 of the street address.
+    """
+
+
+class OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataEventReservationDetailInsurance(
+    TypedDict,
+):
+    currency: NotRequired[str]
+    """
+    Insurance currency.
+    """
+    insurance_company_name: NotRequired[str]
+    """
+    Name of the company providing the insurance.
+    """
+    insurance_type: NotRequired[
+        Literal["bankruptcy", "cancelation", "emergency", "medical"]
+    ]
+    """
+    Type of insurance.
+    """
+    price: NotRequired[int]
+    """
+    Price of insurance in cents.
+    """
+
+
+class OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataFerryReservationDetail(
+    TypedDict,
+):
+    affiliate_name: NotRequired[str]
+    """
+    Name of associated or partner company for the service.
+    """
+    arrival: NotRequired[
+        "OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataFerryReservationDetailArrival"
+    ]
+    """
+    Arrival details.
+    """
+    carrier_name: NotRequired[str]
+    """
+    Name of transportation company.
+    """
+    currency: NotRequired[str]
+    """
+    Currency.
+    """
+    departure: NotRequired[
+        "OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataFerryReservationDetailDeparture"
+    ]
+    """
+    Departure details.
+    """
+    insurances: NotRequired[
+        List[
+            "OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataFerryReservationDetailInsurance"
+        ]
+    ]
+    """
+    List of insurances for this reservation.
+    """
+    passengers: NotRequired[
+        List[
+            "OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataFerryReservationDetailPassenger"
+        ]
+    ]
+    """
+    List of passengers that this reservation applies to.
+    """
+    price: NotRequired[int]
+    """
+    Price in cents.
+    """
+    ticket_class: NotRequired[
+        Literal["business", "economy", "first_class", "premium_economy"]
+    ]
+    """
+    Ticket class.
+    """
+
+
+class OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataFerryReservationDetailArrival(
+    TypedDict,
+):
+    address: NotRequired[
+        "OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataFerryReservationDetailArrivalAddress"
+    ]
+    """
+    Address of the arrival location.
+    """
+    arrival_location: NotRequired[str]
+    """
+    Identifier name or reference for the arrival location.
+    """
+
+
+class OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataFerryReservationDetailArrivalAddress(
+    TypedDict,
+):
+    city: NotRequired[str]
+    """
+    The city or town.
+    """
+    country: NotRequired[str]
+    """
+    The country in ISO 3166-1 alpha-2 format.
+    """
+    postal_code: NotRequired[str]
+    """
+    The postal code formatted according to country.
+    """
+    region: NotRequired[str]
+    """
+    The state, county, province, or region formatted according to country.
+    """
+    street_address: NotRequired[str]
+    """
+    Line 1 of the street address.
+    """
+    street_address2: NotRequired[str]
+    """
+    Line 2 of the street address.
+    """
+
+
+class OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataFerryReservationDetailDeparture(
+    TypedDict,
+):
+    address: NotRequired[
+        "OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataFerryReservationDetailDepartureAddress"
+    ]
+    """
+    Address of the departure location.
+    """
+    departs_at: NotRequired[int]
+    """
+    Timestamp of departure.
+    """
+    departure_location: NotRequired[str]
+    """
+    Identifier name or reference for the origin location.
+    """
+
+
+class OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataFerryReservationDetailDepartureAddress(
+    TypedDict,
+):
+    city: NotRequired[str]
+    """
+    The city or town.
+    """
+    country: NotRequired[str]
+    """
+    The country in ISO 3166-1 alpha-2 format.
+    """
+    postal_code: NotRequired[str]
+    """
+    The postal code formatted according to country.
+    """
+    region: NotRequired[str]
+    """
+    The state, county, province, or region formatted according to country.
+    """
+    street_address: NotRequired[str]
+    """
+    Line 1 of the street address.
+    """
+    street_address2: NotRequired[str]
+    """
+    Line 2 of the street address.
+    """
+
+
+class OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataFerryReservationDetailInsurance(
+    TypedDict,
+):
+    currency: NotRequired[str]
+    """
+    Insurance currency.
+    """
+    insurance_company_name: NotRequired[str]
+    """
+    Name of the company providing the insurance.
+    """
+    insurance_type: NotRequired[
+        Literal["baggage", "bankruptcy", "cancelation", "emergency", "medical"]
+    ]
+    """
+    Type of insurance.
+    """
+    price: NotRequired[int]
+    """
+    Price of insurance in cents.
+    """
+
+
+class OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataFerryReservationDetailPassenger(
+    TypedDict,
+):
+    family_name: NotRequired[str]
+    """
+    The family name of the person.
+    """
+    given_name: NotRequired[str]
+    """
+    The given name of the person.
+    """
+
+
+class OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataInsurance(
+    TypedDict,
+):
+    currency: NotRequired[str]
+    """
+    Insurance currency.
+    """
+    insurance_company_name: NotRequired[str]
+    """
+    Name of the company providing the insurance.
+    """
+    insurance_type: NotRequired[
+        Literal["bankruptcy", "cancelation", "emergency", "medical"]
+    ]
+    """
+    Type of insurance
+    """
+    price: NotRequired[int]
+    """
+    Price of insurance in cents.
+    """
+
+
+class OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataMarketplaceSeller(
+    TypedDict,
+):
+    line_item_references: NotRequired[List[str]]
+    """
+    The references to line items for purchases with multiple associated sub-sellers.
+    """
+    marketplace_seller_address: NotRequired[
+        "OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataMarketplaceSellerMarketplaceSellerAddress"
+    ]
+    """
+    The address of the selling or delivering merchant.
+    """
+    marketplace_seller_name: NotRequired[str]
+    """
+    The name of the marketplace seller.
+    """
+    marketplace_seller_reference: NotRequired[str]
+    """
+    The unique identifier for the marketplace seller.
+    """
+    number_of_transactions: NotRequired[int]
+    """
+    The number of transactions the sub-seller completed in the last 12 months.
+    """
+    product_category: NotRequired[
+        Literal[
+            "accessories",
+            "appliances",
+            "apps_and_games",
+            "arts_crafts_and_sewing",
+            "automotive",
+            "baby",
+            "baby_clothing",
+            "bags_and_purses",
+            "beauty",
+            "books",
+            "cds_and_vinyl",
+            "cell_phones_and_accessories",
+            "collectibles_and_fine_arts",
+            "digital_music",
+            "electronics",
+            "grocery_and_gourmet_food",
+            "handmade",
+            "health_and_personal_care",
+            "home_and_kitchen",
+            "industrial_and_scientific",
+            "luggage_and_travel_gear",
+            "magazine_subscriptions",
+            "men_clothing",
+            "musical_instruments",
+            "office_products",
+            "patio_lawn_and_garden",
+            "pet_supplies",
+            "shoes",
+            "software",
+            "sports_and_outdoors",
+            "tools_and_home_improvement",
+            "toys_and_games",
+            "video_games",
+            "women_clothing",
+        ]
+    ]
+    """
+    The category of the product.
+    """
+    seller_last_login_at: NotRequired[int]
+    """
+    The date when the seller's account with the marketplace was last logged in.
+    """
+    seller_rating: NotRequired[
+        Literal["high", "low", "medium", "very_high", "very_low"]
+    ]
+    """
+    The current rating of the marketplace seller. If the marketplace uses numeric ranking, map these to the enum values.
+    """
+    seller_registered_at: NotRequired[int]
+    """
+    The date when the seller's account with the marketplace was created.
+    """
+    seller_updated_at: NotRequired[int]
+    """
+    The date when the seller's account with the marketplace was last updated.
+    """
+    shipping_references: NotRequired[List[str]]
+    """
+    The references to shipping addresses for purchases with multiple associated sub-sellers.
+    """
+    volume_of_transactions: NotRequired[int]
+    """
+    The accumulated amount of sales transactions made by the sub-merchant or sub-seller within the past 12 months in the payment currency. These transactions are in minor currency units.
+    """
+
+
+class OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataMarketplaceSellerMarketplaceSellerAddress(
+    TypedDict,
+):
+    city: NotRequired[str]
+    """
+    The city or town.
+    """
+    country: NotRequired[str]
+    """
+    The country in ISO 3166-1 alpha-2 format.
+    """
+    postal_code: NotRequired[str]
+    """
+    The postal code formatted according to country.
+    """
+    region: NotRequired[str]
+    """
+    The state, county, province, or region formatted according to country.
+    """
+    street_address: NotRequired[str]
+    """
+    Line 1 of the street address.
+    """
+    street_address2: NotRequired[str]
+    """
+    Line 2 of the street address.
+    """
+
+
+class OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataRoundTripReservationDetail(
+    TypedDict,
+):
+    affiliate_name: NotRequired[str]
+    """
+    Name of associated or partner company for the service.
+    """
+    arrival: NotRequired[
+        "OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataRoundTripReservationDetailArrival"
+    ]
+    """
+    Arrival details.
+    """
+    carrier_name: NotRequired[str]
+    """
+    Name of transportation company.
+    """
+    currency: NotRequired[str]
+    """
+    Currency.
+    """
+    departure: NotRequired[
+        "OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataRoundTripReservationDetailDeparture"
+    ]
+    """
+    Departure details.
+    """
+    insurances: NotRequired[
+        List[
+            "OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataRoundTripReservationDetailInsurance"
+        ]
+    ]
+    """
+    List of insurances for this reservation.
+    """
+    passengers: NotRequired[
+        List[
+            "OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataRoundTripReservationDetailPassenger"
+        ]
+    ]
+    """
+    List of passengers that this reservation applies to.
+    """
+    price: NotRequired[int]
+    """
+    Price in cents.
+    """
+    ticket_class: NotRequired[
+        Literal["business", "economy", "first_class", "premium_economy"]
+    ]
+    """
+    Ticket class.
+    """
+
+
+class OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataRoundTripReservationDetailArrival(
+    TypedDict,
+):
+    address: NotRequired[
+        "OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataRoundTripReservationDetailArrivalAddress"
+    ]
+    """
+    Address of the arrival location.
+    """
+    arrival_location: NotRequired[str]
+    """
+    Identifier name or reference for the arrival location.
+    """
+
+
+class OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataRoundTripReservationDetailArrivalAddress(
+    TypedDict,
+):
+    city: NotRequired[str]
+    """
+    The city or town.
+    """
+    country: NotRequired[str]
+    """
+    The country in ISO 3166-1 alpha-2 format.
+    """
+    postal_code: NotRequired[str]
+    """
+    The postal code formatted according to country.
+    """
+    region: NotRequired[str]
+    """
+    The state, county, province, or region formatted according to country.
+    """
+    street_address: NotRequired[str]
+    """
+    Line 1 of the street address.
+    """
+    street_address2: NotRequired[str]
+    """
+    Line 2 of the street address.
+    """
+
+
+class OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataRoundTripReservationDetailDeparture(
+    TypedDict,
+):
+    address: NotRequired[
+        "OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataRoundTripReservationDetailDepartureAddress"
+    ]
+    """
+    Address of the departure location.
+    """
+    departs_at: NotRequired[int]
+    """
+    Timestamp of departure.
+    """
+    departure_location: NotRequired[str]
+    """
+    Identifier name or reference for the origin location.
+    """
+
+
+class OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataRoundTripReservationDetailDepartureAddress(
+    TypedDict,
+):
+    city: NotRequired[str]
+    """
+    The city or town.
+    """
+    country: NotRequired[str]
+    """
+    The country in ISO 3166-1 alpha-2 format.
+    """
+    postal_code: NotRequired[str]
+    """
+    The postal code formatted according to country.
+    """
+    region: NotRequired[str]
+    """
+    The state, county, province, or region formatted according to country.
+    """
+    street_address: NotRequired[str]
+    """
+    Line 1 of the street address.
+    """
+    street_address2: NotRequired[str]
+    """
+    Line 2 of the street address.
+    """
+
+
+class OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataRoundTripReservationDetailInsurance(
+    TypedDict,
+):
+    currency: NotRequired[str]
+    """
+    Insurance currency.
+    """
+    insurance_company_name: NotRequired[str]
+    """
+    Name of the company providing the insurance.
+    """
+    insurance_type: NotRequired[
+        Literal["baggage", "bankruptcy", "cancelation", "emergency", "medical"]
+    ]
+    """
+    Type of insurance.
+    """
+    price: NotRequired[int]
+    """
+    Price of insurance in cents.
+    """
+
+
+class OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataRoundTripReservationDetailPassenger(
+    TypedDict,
+):
+    family_name: NotRequired[str]
+    """
+    The family name of the person.
+    """
+    given_name: NotRequired[str]
+    """
+    The given name of the person.
+    """
+
+
+class OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataTrainReservationDetail(
+    TypedDict,
+):
+    affiliate_name: NotRequired[str]
+    """
+    Name of associated or partner company for the service.
+    """
+    arrival: NotRequired[
+        "OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataTrainReservationDetailArrival"
+    ]
+    """
+    Arrival details.
+    """
+    carrier_name: NotRequired[str]
+    """
+    Name of transportation company.
+    """
+    currency: NotRequired[str]
+    """
+    Currency.
+    """
+    departure: NotRequired[
+        "OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataTrainReservationDetailDeparture"
+    ]
+    """
+    Departure details.
+    """
+    insurances: NotRequired[
+        List[
+            "OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataTrainReservationDetailInsurance"
+        ]
+    ]
+    """
+    List of insurances for this reservation.
+    """
+    passengers: NotRequired[
+        List[
+            "OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataTrainReservationDetailPassenger"
+        ]
+    ]
+    """
+    List of passengers that this reservation applies to.
+    """
+    price: NotRequired[int]
+    """
+    Price in cents.
+    """
+    ticket_class: NotRequired[
+        Literal["business", "economy", "first_class", "premium_economy"]
+    ]
+    """
+    Ticket class.
+    """
+
+
+class OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataTrainReservationDetailArrival(
+    TypedDict,
+):
+    address: NotRequired[
+        "OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataTrainReservationDetailArrivalAddress"
+    ]
+    """
+    Address of the arrival location.
+    """
+    arrival_location: NotRequired[str]
+    """
+    Identifier name or reference for the arrival location.
+    """
+
+
+class OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataTrainReservationDetailArrivalAddress(
+    TypedDict,
+):
+    city: NotRequired[str]
+    """
+    The city or town.
+    """
+    country: NotRequired[str]
+    """
+    The country in ISO 3166-1 alpha-2 format.
+    """
+    postal_code: NotRequired[str]
+    """
+    The postal code formatted according to country.
+    """
+    region: NotRequired[str]
+    """
+    The state, county, province, or region formatted according to country.
+    """
+    street_address: NotRequired[str]
+    """
+    Line 1 of the street address.
+    """
+    street_address2: NotRequired[str]
+    """
+    Line 2 of the street address.
+    """
+
+
+class OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataTrainReservationDetailDeparture(
+    TypedDict,
+):
+    address: NotRequired[
+        "OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataTrainReservationDetailDepartureAddress"
+    ]
+    """
+    Address of the departure location.
+    """
+    departs_at: NotRequired[int]
+    """
+    Timestamp of departure.
+    """
+    departure_location: NotRequired[str]
+    """
+    Identifier name or reference for the origin location.
+    """
+
+
+class OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataTrainReservationDetailDepartureAddress(
+    TypedDict,
+):
+    city: NotRequired[str]
+    """
+    The city or town.
+    """
+    country: NotRequired[str]
+    """
+    The country in ISO 3166-1 alpha-2 format.
+    """
+    postal_code: NotRequired[str]
+    """
+    The postal code formatted according to country.
+    """
+    region: NotRequired[str]
+    """
+    The state, county, province, or region formatted according to country.
+    """
+    street_address: NotRequired[str]
+    """
+    Line 1 of the street address.
+    """
+    street_address2: NotRequired[str]
+    """
+    Line 2 of the street address.
+    """
+
+
+class OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataTrainReservationDetailInsurance(
+    TypedDict,
+):
+    currency: NotRequired[str]
+    """
+    Insurance currency.
+    """
+    insurance_company_name: NotRequired[str]
+    """
+    Name of the company providing the insurance.
+    """
+    insurance_type: NotRequired[
+        Literal["baggage", "bankruptcy", "cancelation", "emergency", "medical"]
+    ]
+    """
+    Type of insurance.
+    """
+    price: NotRequired[int]
+    """
+    Price of insurance in cents.
+    """
+
+
+class OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataTrainReservationDetailPassenger(
+    TypedDict,
+):
+    family_name: NotRequired[str]
+    """
+    The family name of the person.
+    """
+    given_name: NotRequired[str]
+    """
+    The given name of the person.
+    """
+
+
+class OrderUpdateParamsPaymentSettingsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataVoucher(
+    TypedDict,
+):
+    affiliate_name: NotRequired[str]
+    """
+    Name of associated or partner company for this voucher.
+    """
+    ends_at: NotRequired[int]
+    """
+    The voucher validity end time.
+    """
+    starts_at: NotRequired[int]
+    """
+    The voucher validity start time.
+    """
+    voucher_company: NotRequired[str]
+    """
+    The issuer or provider of this voucher.
+    """
+    voucher_name: NotRequired[str]
+    """
+    The name or reference to identify the voucher.
+    """
+    voucher_type: NotRequired[
+        Literal[
+            "digital_product",
+            "discount",
+            "gift_card",
+            "physical_product",
+            "services",
+        ]
+    ]
+    """
+    The type of this voucher.
     """
 
 

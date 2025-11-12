@@ -164,6 +164,16 @@ class Refund(
         class Klarna(StripeObject):
             pass
 
+        class MbWay(StripeObject):
+            reference: Optional[str]
+            """
+            The reference assigned to the refund.
+            """
+            reference_status: Optional[str]
+            """
+            Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
+            """
+
         class Multibanco(StripeObject):
             reference: Optional[str]
             """
@@ -239,6 +249,9 @@ class Refund(
             Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
             """
 
+        class Twint(StripeObject):
+            pass
+
         class UsBankTransfer(StripeObject):
             reference: Optional[str]
             """
@@ -275,6 +288,7 @@ class Refund(
         id_bank_transfer: Optional[IdBankTransfer]
         jp_bank_transfer: Optional[JpBankTransfer]
         klarna: Optional[Klarna]
+        mb_way: Optional[MbWay]
         multibanco: Optional[Multibanco]
         mx_bank_transfer: Optional[MxBankTransfer]
         nz_bank_transfer: Optional[NzBankTransfer]
@@ -286,6 +300,7 @@ class Refund(
         sofort: Optional[Sofort]
         swish: Optional[Swish]
         th_bank_transfer: Optional[ThBankTransfer]
+        twint: Optional[Twint]
         type: str
         """
         The type of transaction-specific details of the payment method used in the refund (e.g., `card`). An additional hash is included on `destination_details` with a name matching this value. It contains information specific to the refund transaction.
@@ -314,6 +329,7 @@ class Refund(
             "id_bank_transfer": IdBankTransfer,
             "jp_bank_transfer": JpBankTransfer,
             "klarna": Klarna,
+            "mb_way": MbWay,
             "multibanco": Multibanco,
             "mx_bank_transfer": MxBankTransfer,
             "nz_bank_transfer": NzBankTransfer,
@@ -325,6 +341,7 @@ class Refund(
             "sofort": Sofort,
             "swish": Swish,
             "th_bank_transfer": ThBankTransfer,
+            "twint": Twint,
             "us_bank_transfer": UsBankTransfer,
             "wechat_pay": WechatPay,
             "zip": Zip,

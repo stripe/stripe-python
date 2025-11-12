@@ -46026,14 +46026,14 @@ class TestGeneratedExamples(object):
 
         client.v2.payments.off_session_payments.capture(
             "id_123",
-            {"amount_to_capture": 1374310455, "metadata": {"key": "metadata"}},
+            {"metadata": {"key": "metadata"}},
         )
         http_client_mock.assert_requested(
             "post",
             path="/v2/payments/off_session_payments/id_123/capture",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"amount_to_capture":1374310455,"metadata":{"key":"metadata"}}',
+            post_data='{"metadata":{"key":"metadata"}}',
             is_json=True,
         )
 

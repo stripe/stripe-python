@@ -13,11 +13,6 @@ if TYPE_CHECKING:
     )
     from stripe.params.v2.payments._off_session_payment_create_params import (
         OffSessionPaymentCreateParams as OffSessionPaymentCreateParams,
-        OffSessionPaymentCreateParamsAmountDetails as OffSessionPaymentCreateParamsAmountDetails,
-        OffSessionPaymentCreateParamsAmountDetailsLineItem as OffSessionPaymentCreateParamsAmountDetailsLineItem,
-        OffSessionPaymentCreateParamsAmountDetailsLineItemTax as OffSessionPaymentCreateParamsAmountDetailsLineItemTax,
-        OffSessionPaymentCreateParamsAmountDetailsShipping as OffSessionPaymentCreateParamsAmountDetailsShipping,
-        OffSessionPaymentCreateParamsAmountDetailsTax as OffSessionPaymentCreateParamsAmountDetailsTax,
         OffSessionPaymentCreateParamsCapture as OffSessionPaymentCreateParamsCapture,
         OffSessionPaymentCreateParamsPaymentMethodOptions as OffSessionPaymentCreateParamsPaymentMethodOptions,
         OffSessionPaymentCreateParamsPaymentMethodOptionsCard as OffSessionPaymentCreateParamsPaymentMethodOptionsCard,
@@ -47,26 +42,6 @@ _import_map = {
         False,
     ),
     "OffSessionPaymentCreateParams": (
-        "stripe.params.v2.payments._off_session_payment_create_params",
-        False,
-    ),
-    "OffSessionPaymentCreateParamsAmountDetails": (
-        "stripe.params.v2.payments._off_session_payment_create_params",
-        False,
-    ),
-    "OffSessionPaymentCreateParamsAmountDetailsLineItem": (
-        "stripe.params.v2.payments._off_session_payment_create_params",
-        False,
-    ),
-    "OffSessionPaymentCreateParamsAmountDetailsLineItemTax": (
-        "stripe.params.v2.payments._off_session_payment_create_params",
-        False,
-    ),
-    "OffSessionPaymentCreateParamsAmountDetailsShipping": (
-        "stripe.params.v2.payments._off_session_payment_create_params",
-        False,
-    ),
-    "OffSessionPaymentCreateParamsAmountDetailsTax": (
         "stripe.params.v2.payments._off_session_payment_create_params",
         False,
     ),

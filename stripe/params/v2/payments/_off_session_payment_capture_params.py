@@ -5,7 +5,7 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class OffSessionPaymentCaptureParams(TypedDict):
-    amount_to_capture: int
+    amount_to_capture: NotRequired[int]
     """
     The amount to capture.
     """
@@ -45,9 +45,4 @@ class OffSessionPaymentCaptureParamsTransferData(TypedDict):
     [amount_requested](https://docs.corp.stripe.com/api/v2/off-session-payments/object?api-version=2025-05-28.preview#v2_off_session_payment_object-amount_requested),
     and must be a positive integer representing how much to transfer in the smallest
     currency unit (e.g., 100 cents to charge $1.00).
-    """
-    destination: str
-    """
-    The account (if any) that the payment is attributed to for tax reporting, and
-    where funds from the payment are transferred to after payment success.
     """

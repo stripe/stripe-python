@@ -97,6 +97,10 @@ if TYPE_CHECKING:
         V2CoreEventDestinationPingEvent as V2CoreEventDestinationPingEvent,
         V2CoreEventDestinationPingEventNotification as V2CoreEventDestinationPingEventNotification,
     )
+    from stripe.events._v2_core_health_event_generation_failure_resolved_event import (
+        V2CoreHealthEventGenerationFailureResolvedEvent as V2CoreHealthEventGenerationFailureResolvedEvent,
+        V2CoreHealthEventGenerationFailureResolvedEventNotification as V2CoreHealthEventGenerationFailureResolvedEventNotification,
+    )
     from stripe.events._v2_money_management_adjustment_created_event import (
         V2MoneyManagementAdjustmentCreatedEvent as V2MoneyManagementAdjustmentCreatedEvent,
         V2MoneyManagementAdjustmentCreatedEventNotification as V2MoneyManagementAdjustmentCreatedEventNotification,
@@ -236,6 +240,14 @@ if TYPE_CHECKING:
     from stripe.events._v2_money_management_transaction_updated_event import (
         V2MoneyManagementTransactionUpdatedEvent as V2MoneyManagementTransactionUpdatedEvent,
         V2MoneyManagementTransactionUpdatedEventNotification as V2MoneyManagementTransactionUpdatedEventNotification,
+    )
+    from stripe.events._v2_payments_off_session_payment_attempt_failed_event import (
+        V2PaymentsOffSessionPaymentAttemptFailedEvent as V2PaymentsOffSessionPaymentAttemptFailedEvent,
+        V2PaymentsOffSessionPaymentAttemptFailedEventNotification as V2PaymentsOffSessionPaymentAttemptFailedEventNotification,
+    )
+    from stripe.events._v2_payments_off_session_payment_attempt_started_event import (
+        V2PaymentsOffSessionPaymentAttemptStartedEvent as V2PaymentsOffSessionPaymentAttemptStartedEvent,
+        V2PaymentsOffSessionPaymentAttemptStartedEventNotification as V2PaymentsOffSessionPaymentAttemptStartedEventNotification,
     )
     from stripe.events._v2_payments_off_session_payment_authorization_attempt_failed_event import (
         V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEvent as V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEvent,
@@ -435,6 +447,14 @@ _import_map = {
     ),
     "V2CoreEventDestinationPingEventNotification": (
         "stripe.events._v2_core_event_destination_ping_event",
+        False,
+    ),
+    "V2CoreHealthEventGenerationFailureResolvedEvent": (
+        "stripe.events._v2_core_health_event_generation_failure_resolved_event",
+        False,
+    ),
+    "V2CoreHealthEventGenerationFailureResolvedEventNotification": (
+        "stripe.events._v2_core_health_event_generation_failure_resolved_event",
         False,
     ),
     "V2MoneyManagementAdjustmentCreatedEvent": (
@@ -715,6 +735,22 @@ _import_map = {
     ),
     "V2MoneyManagementTransactionUpdatedEventNotification": (
         "stripe.events._v2_money_management_transaction_updated_event",
+        False,
+    ),
+    "V2PaymentsOffSessionPaymentAttemptFailedEvent": (
+        "stripe.events._v2_payments_off_session_payment_attempt_failed_event",
+        False,
+    ),
+    "V2PaymentsOffSessionPaymentAttemptFailedEventNotification": (
+        "stripe.events._v2_payments_off_session_payment_attempt_failed_event",
+        False,
+    ),
+    "V2PaymentsOffSessionPaymentAttemptStartedEvent": (
+        "stripe.events._v2_payments_off_session_payment_attempt_started_event",
+        False,
+    ),
+    "V2PaymentsOffSessionPaymentAttemptStartedEventNotification": (
+        "stripe.events._v2_payments_off_session_payment_attempt_started_event",
         False,
     ),
     "V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEvent": (

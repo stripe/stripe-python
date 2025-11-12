@@ -70,6 +70,9 @@ if TYPE_CHECKING:
     from stripe.events._v2_core_event_destination_ping_event import (
         V2CoreEventDestinationPingEventNotification,
     )
+    from stripe.events._v2_core_health_event_generation_failure_resolved_event import (
+        V2CoreHealthEventGenerationFailureResolvedEventNotification,
+    )
     from stripe.events._v2_money_management_adjustment_created_event import (
         V2MoneyManagementAdjustmentCreatedEventNotification,
     )
@@ -174,6 +177,12 @@ if TYPE_CHECKING:
     )
     from stripe.events._v2_money_management_transaction_updated_event import (
         V2MoneyManagementTransactionUpdatedEventNotification,
+    )
+    from stripe.events._v2_payments_off_session_payment_attempt_failed_event import (
+        V2PaymentsOffSessionPaymentAttemptFailedEventNotification,
+    )
+    from stripe.events._v2_payments_off_session_payment_attempt_started_event import (
+        V2PaymentsOffSessionPaymentAttemptStartedEventNotification,
     )
     from stripe.events._v2_payments_off_session_payment_authorization_attempt_failed_event import (
         V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEventNotification,
@@ -282,6 +291,10 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v2.core.event_destination.ping": (
         "stripe.events._v2_core_event_destination_ping_event",
         "V2CoreEventDestinationPingEvent",
+    ),
+    "v2.core.health.event_generation_failure.resolved": (
+        "stripe.events._v2_core_health_event_generation_failure_resolved_event",
+        "V2CoreHealthEventGenerationFailureResolvedEvent",
     ),
     "v2.money_management.adjustment.created": (
         "stripe.events._v2_money_management_adjustment_created_event",
@@ -423,6 +436,14 @@ _V2_EVENT_CLASS_LOOKUP = {
         "stripe.events._v2_money_management_transaction_updated_event",
         "V2MoneyManagementTransactionUpdatedEvent",
     ),
+    "v2.payments.off_session_payment.attempt_failed": (
+        "stripe.events._v2_payments_off_session_payment_attempt_failed_event",
+        "V2PaymentsOffSessionPaymentAttemptFailedEvent",
+    ),
+    "v2.payments.off_session_payment.attempt_started": (
+        "stripe.events._v2_payments_off_session_payment_attempt_started_event",
+        "V2PaymentsOffSessionPaymentAttemptStartedEvent",
+    ),
     "v2.payments.off_session_payment.authorization_attempt_failed": (
         "stripe.events._v2_payments_off_session_payment_authorization_attempt_failed_event",
         "V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEvent",
@@ -549,6 +570,10 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
     "v2.core.event_destination.ping": (
         "stripe.events._v2_core_event_destination_ping_event",
         "V2CoreEventDestinationPingEventNotification",
+    ),
+    "v2.core.health.event_generation_failure.resolved": (
+        "stripe.events._v2_core_health_event_generation_failure_resolved_event",
+        "V2CoreHealthEventGenerationFailureResolvedEventNotification",
     ),
     "v2.money_management.adjustment.created": (
         "stripe.events._v2_money_management_adjustment_created_event",
@@ -690,6 +715,14 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_money_management_transaction_updated_event",
         "V2MoneyManagementTransactionUpdatedEventNotification",
     ),
+    "v2.payments.off_session_payment.attempt_failed": (
+        "stripe.events._v2_payments_off_session_payment_attempt_failed_event",
+        "V2PaymentsOffSessionPaymentAttemptFailedEventNotification",
+    ),
+    "v2.payments.off_session_payment.attempt_started": (
+        "stripe.events._v2_payments_off_session_payment_attempt_started_event",
+        "V2PaymentsOffSessionPaymentAttemptStartedEventNotification",
+    ),
     "v2.payments.off_session_payment.authorization_attempt_failed": (
         "stripe.events._v2_payments_off_session_payment_authorization_attempt_failed_event",
         "V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEventNotification",
@@ -754,6 +787,7 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2CoreAccountPersonUpdatedEventNotification",
     "V2CoreAccountUpdatedEventNotification",
     "V2CoreEventDestinationPingEventNotification",
+    "V2CoreHealthEventGenerationFailureResolvedEventNotification",
     "V2MoneyManagementAdjustmentCreatedEventNotification",
     "V2MoneyManagementFinancialAccountCreatedEventNotification",
     "V2MoneyManagementFinancialAccountUpdatedEventNotification",
@@ -789,6 +823,8 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2MoneyManagementReceivedDebitUpdatedEventNotification",
     "V2MoneyManagementTransactionCreatedEventNotification",
     "V2MoneyManagementTransactionUpdatedEventNotification",
+    "V2PaymentsOffSessionPaymentAttemptFailedEventNotification",
+    "V2PaymentsOffSessionPaymentAttemptStartedEventNotification",
     "V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEventNotification",
     "V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEventNotification",
     "V2PaymentsOffSessionPaymentCanceledEventNotification",

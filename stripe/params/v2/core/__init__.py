@@ -71,6 +71,12 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationMerchantCapabilitiesZipPayments as AccountCreateParamsConfigurationMerchantCapabilitiesZipPayments,
         AccountCreateParamsConfigurationMerchantCardPayments as AccountCreateParamsConfigurationMerchantCardPayments,
         AccountCreateParamsConfigurationMerchantCardPaymentsDeclineOn as AccountCreateParamsConfigurationMerchantCardPaymentsDeclineOn,
+        AccountCreateParamsConfigurationMerchantKonbiniPayments as AccountCreateParamsConfigurationMerchantKonbiniPayments,
+        AccountCreateParamsConfigurationMerchantKonbiniPaymentsSupport as AccountCreateParamsConfigurationMerchantKonbiniPaymentsSupport,
+        AccountCreateParamsConfigurationMerchantKonbiniPaymentsSupportHours as AccountCreateParamsConfigurationMerchantKonbiniPaymentsSupportHours,
+        AccountCreateParamsConfigurationMerchantScriptStatementDescriptor as AccountCreateParamsConfigurationMerchantScriptStatementDescriptor,
+        AccountCreateParamsConfigurationMerchantScriptStatementDescriptorKana as AccountCreateParamsConfigurationMerchantScriptStatementDescriptorKana,
+        AccountCreateParamsConfigurationMerchantScriptStatementDescriptorKanji as AccountCreateParamsConfigurationMerchantScriptStatementDescriptorKanji,
         AccountCreateParamsConfigurationMerchantStatementDescriptor as AccountCreateParamsConfigurationMerchantStatementDescriptor,
         AccountCreateParamsConfigurationMerchantSupport as AccountCreateParamsConfigurationMerchantSupport,
         AccountCreateParamsConfigurationMerchantSupportAddress as AccountCreateParamsConfigurationMerchantSupportAddress,
@@ -87,6 +93,7 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddresses as AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddresses,
         AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccounts as AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccounts,
         AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrencies as AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrencies,
+        AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesEur as AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesEur,
         AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbp as AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbp,
         AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsd as AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsd,
         AccountCreateParamsConfigurationStorerCapabilitiesInboundTransfers as AccountCreateParamsConfigurationStorerCapabilitiesInboundTransfers,
@@ -232,6 +239,12 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationMerchantCapabilitiesZipPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesZipPayments,
         AccountUpdateParamsConfigurationMerchantCardPayments as AccountUpdateParamsConfigurationMerchantCardPayments,
         AccountUpdateParamsConfigurationMerchantCardPaymentsDeclineOn as AccountUpdateParamsConfigurationMerchantCardPaymentsDeclineOn,
+        AccountUpdateParamsConfigurationMerchantKonbiniPayments as AccountUpdateParamsConfigurationMerchantKonbiniPayments,
+        AccountUpdateParamsConfigurationMerchantKonbiniPaymentsSupport as AccountUpdateParamsConfigurationMerchantKonbiniPaymentsSupport,
+        AccountUpdateParamsConfigurationMerchantKonbiniPaymentsSupportHours as AccountUpdateParamsConfigurationMerchantKonbiniPaymentsSupportHours,
+        AccountUpdateParamsConfigurationMerchantScriptStatementDescriptor as AccountUpdateParamsConfigurationMerchantScriptStatementDescriptor,
+        AccountUpdateParamsConfigurationMerchantScriptStatementDescriptorKana as AccountUpdateParamsConfigurationMerchantScriptStatementDescriptorKana,
+        AccountUpdateParamsConfigurationMerchantScriptStatementDescriptorKanji as AccountUpdateParamsConfigurationMerchantScriptStatementDescriptorKanji,
         AccountUpdateParamsConfigurationMerchantStatementDescriptor as AccountUpdateParamsConfigurationMerchantStatementDescriptor,
         AccountUpdateParamsConfigurationMerchantSupport as AccountUpdateParamsConfigurationMerchantSupport,
         AccountUpdateParamsConfigurationMerchantSupportAddress as AccountUpdateParamsConfigurationMerchantSupportAddress,
@@ -248,6 +261,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationStorerCapabilitiesFinancialAddresses as AccountUpdateParamsConfigurationStorerCapabilitiesFinancialAddresses,
         AccountUpdateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccounts as AccountUpdateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccounts,
         AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrencies as AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrencies,
+        AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesEur as AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesEur,
         AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbp as AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbp,
         AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsd as AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsd,
         AccountUpdateParamsConfigurationStorerCapabilitiesInboundTransfers as AccountUpdateParamsConfigurationStorerCapabilitiesInboundTransfers,
@@ -607,6 +621,30 @@ _import_map = {
         "stripe.params.v2.core._account_create_params",
         False,
     ),
+    "AccountCreateParamsConfigurationMerchantKonbiniPayments": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMerchantKonbiniPaymentsSupport": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMerchantKonbiniPaymentsSupportHours": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMerchantScriptStatementDescriptor": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMerchantScriptStatementDescriptorKana": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMerchantScriptStatementDescriptorKanji": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
     "AccountCreateParamsConfigurationMerchantStatementDescriptor": (
         "stripe.params.v2.core._account_create_params",
         False,
@@ -668,6 +706,10 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrencies": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesEur": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
@@ -1216,6 +1258,30 @@ _import_map = {
         "stripe.params.v2.core._account_update_params",
         False,
     ),
+    "AccountUpdateParamsConfigurationMerchantKonbiniPayments": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMerchantKonbiniPaymentsSupport": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMerchantKonbiniPaymentsSupportHours": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMerchantScriptStatementDescriptor": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMerchantScriptStatementDescriptorKana": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMerchantScriptStatementDescriptorKanji": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
     "AccountUpdateParamsConfigurationMerchantStatementDescriptor": (
         "stripe.params.v2.core._account_update_params",
         False,
@@ -1277,6 +1343,10 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrencies": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesEur": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),

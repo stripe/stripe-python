@@ -120,7 +120,7 @@ class AccountUpdateParamsConfigurationCustomerAutomaticIndirectTax(TypedDict):
         ]
     ]
     """
-    The data source used to identify the customer's tax location - defaults to 'identity_address'. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
+    The data source used to identify the customer's tax location - defaults to `identity_address`. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
     """
     validate_location: NotRequired[Literal["auto", "deferred", "immediately"]]
     """
@@ -287,9 +287,21 @@ class AccountUpdateParamsConfigurationMerchant(TypedDict):
     """
     Card payments settings.
     """
+    konbini_payments: NotRequired[
+        "AccountUpdateParamsConfigurationMerchantKonbiniPayments"
+    ]
+    """
+    Settings specific to Konbini payments on the account.
+    """
     mcc: NotRequired[str]
     """
     The merchant category code for the merchant. MCCs are used to classify businesses based on the goods or services they provide.
+    """
+    script_statement_descriptor: NotRequired[
+        "AccountUpdateParamsConfigurationMerchantScriptStatementDescriptor"
+    ]
+    """
+    Settings for the default text that appears on statements for language variations.
     """
     statement_descriptor: NotRequired[
         "AccountUpdateParamsConfigurationMerchantStatementDescriptor"
@@ -1012,6 +1024,90 @@ class AccountUpdateParamsConfigurationMerchantCardPaymentsDeclineOn(TypedDict):
     """
 
 
+class AccountUpdateParamsConfigurationMerchantKonbiniPayments(TypedDict):
+    support: NotRequired[
+        "AccountUpdateParamsConfigurationMerchantKonbiniPaymentsSupport"
+    ]
+    """
+    Support for Konbini payments.
+    """
+
+
+class AccountUpdateParamsConfigurationMerchantKonbiniPaymentsSupport(
+    TypedDict
+):
+    email: NotRequired[str]
+    """
+    Support email address for Konbini payments.
+    """
+    hours: NotRequired[
+        "AccountUpdateParamsConfigurationMerchantKonbiniPaymentsSupportHours"
+    ]
+    """
+    Support hours for Konbini payments.
+    """
+    phone: NotRequired[str]
+    """
+    Support phone number for Konbini payments.
+    """
+
+
+class AccountUpdateParamsConfigurationMerchantKonbiniPaymentsSupportHours(
+    TypedDict,
+):
+    end_time: NotRequired[str]
+    """
+    Support hours end time (JST time of day) for in `HH:MM` format.
+    """
+    start_time: NotRequired[str]
+    """
+    Support hours start time (JST time of day) for in `HH:MM` format.
+    """
+
+
+class AccountUpdateParamsConfigurationMerchantScriptStatementDescriptor(
+    TypedDict,
+):
+    kana: NotRequired[
+        "AccountUpdateParamsConfigurationMerchantScriptStatementDescriptorKana"
+    ]
+    """
+    The Kana variation of statement_descriptor used for charges in Japan. Japanese statement descriptors have [special requirements](https://docs.stripe.com/get-started/account/statement-descriptors#set-japanese-statement-descriptors).
+    """
+    kanji: NotRequired[
+        "AccountUpdateParamsConfigurationMerchantScriptStatementDescriptorKanji"
+    ]
+    """
+    The Kanji variation of statement_descriptor used for charges in Japan. Japanese statement descriptors have [special requirements](https://docs.stripe.com/get-started/account/statement-descriptors#set-japanese-statement-descriptors).
+    """
+
+
+class AccountUpdateParamsConfigurationMerchantScriptStatementDescriptorKana(
+    TypedDict,
+):
+    descriptor: NotRequired[str]
+    """
+    The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don't set a statement_descriptor_prefix, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the statement_descriptor text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
+    """
+    prefix: NotRequired[str]
+    """
+    Default text that appears on statements for card charges outside of Japan, prefixing any dynamic statement_descriptor_suffix specified on the charge. To maximize space for the dynamic part of the descriptor, keep this text short. If you don't specify this value, statement_descriptor is used as the prefix. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
+    """
+
+
+class AccountUpdateParamsConfigurationMerchantScriptStatementDescriptorKanji(
+    TypedDict,
+):
+    descriptor: NotRequired[str]
+    """
+    The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don't set a statement_descriptor_prefix, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the statement_descriptor text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
+    """
+    prefix: NotRequired[str]
+    """
+    Default text that appears on statements for card charges outside of Japan, prefixing any dynamic statement_descriptor_suffix specified on the charge. To maximize space for the dynamic part of the descriptor, keep this text short. If you don't specify this value, statement_descriptor is used as the prefix. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
+    """
+
+
 class AccountUpdateParamsConfigurationMerchantStatementDescriptor(TypedDict):
     descriptor: NotRequired[str]
     """
@@ -1244,6 +1340,12 @@ class AccountUpdateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAc
 class AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrencies(
     TypedDict,
 ):
+    eur: NotRequired[
+        "AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesEur"
+    ]
+    """
+    Can hold storage-type funds on Stripe in EUR.
+    """
     gbp: NotRequired[
         "AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbp"
     ]
@@ -1255,6 +1357,15 @@ class AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrencies(
     ]
     """
     Can hold storage-type funds on Stripe in USD.
+    """
+
+
+class AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesEur(
+    TypedDict,
+):
+    requested: NotRequired[bool]
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
     """
 
 
