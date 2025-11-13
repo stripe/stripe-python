@@ -1,5 +1,31 @@
 # Changelog
 
+## 13.3.0a2 - 2025-11-13
+This release changes the pinned API version to `2025-10-29.preview`.
+
+* [#1672](https://github.com/stripe/stripe-python/pull/1672) Update generated code for private-preview
+  * Add support for new resource `issuing.Program`
+  * Add support for `create`, `list`, `modify`, and `retrieve` methods on resource `issuing.Program`
+  * Add support for `schedule` on `Discount`
+  * Add support for `applicable_fees` on `DelegatedCheckout.RequestedSession.TotalDetail`
+  * Add support for `schedule_details` on `Invoice.Parent`, `InvoiceItem.Parent`, `InvoiceLineItem.Parent`, and `QuotePreviewInvoice.Parent`
+  * Add support for new value `schedule_details` on enum `InvoiceItem.Parent.type`
+  * Add support for `billing_schedules` on `InvoiceCreatePreviewParamsScheduleDetail`, `QuotePreviewSubscriptionSchedule`, `SubscriptionScheduleCreateParams`, `SubscriptionScheduleModifyParams`, and `SubscriptionSchedule`
+  * Add support for new value `schedule_details` on enums `Invoice.Parent.type` and `QuotePreviewInvoice.Parent.type`
+  * Add support for new value `schedule_details` on enum `InvoiceLineItem.Parent.type`
+  * Add support for `latest_invoice` on `QuotePreviewSubscriptionSchedule` and `SubscriptionSchedule`
+  * Add support for `phase_effective_at` on `QuotePreviewSubscriptionSchedule.DefaultSetting`, `SubscriptionSchedule.DefaultSetting`, `SubscriptionScheduleCreateParamsDefaultSetting`, and `SubscriptionScheduleModifyParamsDefaultSetting`
+* [#1666](https://github.com/stripe/stripe-python/pull/1666) Update generated code for private-preview
+  * Remove support for resource `v2.tax.AutomaticRule`
+  * Remove support for `create`, `deactivate`, `find`, `modify`, and `retrieve` methods on resource `v2.tax.AutomaticRule`
+  * Add support for `self_reported_income` and `self_reported_monthly_housing_payment` on `AccountCreateParamsIndividual`, `AccountCreatePersonParams`, `AccountModifyParamsIndividual`, `AccountModifyPersonParams`, `Person`, `TokenCreateParamsAccountIndividual`, and `TokenCreateParamsPerson`
+  * Add support for new values `amendment_end`, `line_ends_at`, `schedule_end`, and `upcoming_invoice` on enums `InvoiceCreatePreviewParamsSubscriptionDetailBillingScheduleBillUntil.type`, `Subscription.BillingSchedule.BillUntil.type`, `SubscriptionCreateParamsBillingScheduleBillUntil.type`, and `SubscriptionModifyParamsBillingScheduleBillUntil.type`
+  * Add support for `billing_schedules` and `phase_effective_at` on `Quote.SubscriptionDataOverride`, `Quote.SubscriptionDatum`, `QuoteCreateParamsSubscriptionDataOverride`, `QuoteCreateParamsSubscriptionDatum`, `QuoteModifyParamsSubscriptionDataOverride`, and `QuoteModifyParamsSubscriptionDatum`
+  * Add support for `bill_from` on `Subscription.BillingSchedule`
+  * Add support for `amendment_end` and `line_ends_at` on `Subscription.BillingSchedule.BillUntil`
+  * Remove support for `data` and `related_object` on `V2.Core.Event`
+* [#1671](https://github.com/stripe/stripe-python/pull/1671) Ramya/merge python private preview
+
 ## 13.3.0a1 - 2025-11-06
 * [#1664](https://github.com/stripe/stripe-python/pull/1664) Update generated code for private-preview
   * Add support for new resources `TransitBalance`, `v2.reporting.ReportRun`, `v2.reporting.Report`
