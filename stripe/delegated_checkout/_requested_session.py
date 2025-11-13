@@ -273,6 +273,20 @@ class RequestedSession(
         pass
 
     class TotalDetails(StripeObject):
+        class ApplicableFee(StripeObject):
+            amount: int
+            """
+            The amount of the applicable fee.
+            """
+            description: Optional[str]
+            """
+            The description of the applicable fee.
+            """
+            display_name: str
+            """
+            The display name of the applicable fee.
+            """
+
         amount_discount: Optional[int]
         """
         The amount discount of the total details.
@@ -285,6 +299,11 @@ class RequestedSession(
         """
         The amount tax of the total details.
         """
+        applicable_fees: Optional[List[ApplicableFee]]
+        """
+        The applicable fees of the total details.
+        """
+        _inner_class_types = {"applicable_fees": ApplicableFee}
 
     amount_subtotal: int
     """

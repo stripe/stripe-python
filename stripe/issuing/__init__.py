@@ -48,6 +48,10 @@ if TYPE_CHECKING:
     from stripe.issuing._physical_bundle_service import (
         PhysicalBundleService as PhysicalBundleService,
     )
+    from stripe.issuing._program import Program as Program
+    from stripe.issuing._program_service import (
+        ProgramService as ProgramService,
+    )
     from stripe.issuing._settlement import Settlement as Settlement
     from stripe.issuing._token import Token as Token
     from stripe.issuing._token_service import TokenService as TokenService
@@ -97,6 +101,8 @@ _import_map = {
         "stripe.issuing._physical_bundle_service",
         False,
     ),
+    "Program": ("stripe.issuing._program", False),
+    "ProgramService": ("stripe.issuing._program_service", False),
     "Settlement": ("stripe.issuing._settlement", False),
     "Token": ("stripe.issuing._token", False),
     "TokenService": ("stripe.issuing._token_service", False),

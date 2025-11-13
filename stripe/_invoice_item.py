@@ -89,6 +89,12 @@ class InvoiceItem(
             The rate card version that generated this invoice item
             """
 
+        class ScheduleDetails(StripeObject):
+            schedule: str
+            """
+            The subscription schedule that generated this invoice item
+            """
+
         class SubscriptionDetails(StripeObject):
             subscription: str
             """
@@ -109,6 +115,10 @@ class InvoiceItem(
         """
         Details about the rate card subscription that generated this invoice item
         """
+        schedule_details: Optional[ScheduleDetails]
+        """
+        Details about the subscription schedule that generated this invoice item
+        """
         subscription_details: Optional[SubscriptionDetails]
         """
         Details about the subscription that generated this invoice item
@@ -116,6 +126,7 @@ class InvoiceItem(
         type: Literal[
             "license_fee_subscription_details",
             "rate_card_subscription_details",
+            "schedule_details",
             "subscription_details",
         ]
         """
@@ -124,6 +135,7 @@ class InvoiceItem(
         _inner_class_types = {
             "license_fee_subscription_details": LicenseFeeSubscriptionDetails,
             "rate_card_subscription_details": RateCardSubscriptionDetails,
+            "schedule_details": ScheduleDetails,
             "subscription_details": SubscriptionDetails,
         }
 

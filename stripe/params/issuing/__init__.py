@@ -316,6 +316,21 @@ if TYPE_CHECKING:
     from stripe.params.issuing._physical_bundle_retrieve_params import (
         PhysicalBundleRetrieveParams as PhysicalBundleRetrieveParams,
     )
+    from stripe.params.issuing._program_create_params import (
+        ProgramCreateParams as ProgramCreateParams,
+    )
+    from stripe.params.issuing._program_list_params import (
+        ProgramListParams as ProgramListParams,
+    )
+    from stripe.params.issuing._program_modify_params import (
+        ProgramModifyParams as ProgramModifyParams,
+    )
+    from stripe.params.issuing._program_retrieve_params import (
+        ProgramRetrieveParams as ProgramRetrieveParams,
+    )
+    from stripe.params.issuing._program_update_params import (
+        ProgramUpdateParams as ProgramUpdateParams,
+    )
     from stripe.params.issuing._token_list_params import (
         TokenListParams as TokenListParams,
         TokenListParamsCreated as TokenListParamsCreated,
@@ -1179,6 +1194,23 @@ _import_map = {
     ),
     "PhysicalBundleRetrieveParams": (
         "stripe.params.issuing._physical_bundle_retrieve_params",
+        False,
+    ),
+    "ProgramCreateParams": (
+        "stripe.params.issuing._program_create_params",
+        False,
+    ),
+    "ProgramListParams": ("stripe.params.issuing._program_list_params", False),
+    "ProgramModifyParams": (
+        "stripe.params.issuing._program_modify_params",
+        False,
+    ),
+    "ProgramRetrieveParams": (
+        "stripe.params.issuing._program_retrieve_params",
+        False,
+    ),
+    "ProgramUpdateParams": (
+        "stripe.params.issuing._program_update_params",
         False,
     ),
     "TokenListParams": ("stripe.params.issuing._token_list_params", False),

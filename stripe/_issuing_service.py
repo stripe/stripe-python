@@ -22,6 +22,7 @@ if TYPE_CHECKING:
         PersonalizationDesignService,
     )
     from stripe.issuing._physical_bundle_service import PhysicalBundleService
+    from stripe.issuing._program_service import ProgramService
     from stripe.issuing._token_service import TokenService
     from stripe.issuing._transaction_service import TransactionService
 
@@ -53,6 +54,7 @@ _subservices = {
         "stripe.issuing._physical_bundle_service",
         "PhysicalBundleService",
     ],
+    "programs": ["stripe.issuing._program_service", "ProgramService"],
     "tokens": ["stripe.issuing._token_service", "TokenService"],
     "transactions": [
         "stripe.issuing._transaction_service",
@@ -71,6 +73,7 @@ class IssuingService(StripeService):
     fraud_liability_debits: "FraudLiabilityDebitService"
     personalization_designs: "PersonalizationDesignService"
     physical_bundles: "PhysicalBundleService"
+    programs: "ProgramService"
     tokens: "TokenService"
     transactions: "TransactionService"
 

@@ -84,6 +84,160 @@ class SubscriptionSchedule(
         """
         _inner_class_types = {"flexible": Flexible}
 
+    class BillingSchedule(StripeObject):
+        class AppliesTo(StripeObject):
+            price: Optional[ExpandableField["Price"]]
+            """
+            The billing schedule will apply to the subscription item with the given price ID.
+            """
+            type: Literal["price"]
+            """
+            Controls which subscription items the billing schedule applies to.
+            """
+
+        class BillFrom(StripeObject):
+            class AmendmentStart(StripeObject):
+                index: int
+                """
+                Use an index to specify the position of an amendment to start prebilling with.
+                """
+
+            class LineStartsAt(StripeObject):
+                id: str
+                """
+                Unique identifier for the object.
+                """
+
+            class Relative(StripeObject):
+                interval: Literal["day", "month", "week", "year"]
+                """
+                Specifies billing duration. Possible values are `day`, `week`, `month`, or `year`.
+                """
+                interval_count: Optional[int]
+                """
+                The multiplier applied to the interval.
+                """
+
+            amendment_start: Optional[AmendmentStart]
+            """
+            Use an index to specify the position of an amendment to start prebilling with.
+            """
+            computed_timestamp: Optional[int]
+            """
+            The time the billing schedule applies from.
+            """
+            line_starts_at: Optional[LineStartsAt]
+            """
+            Lets you bill the period starting from a particular Quote line.
+            """
+            relative: Optional[Relative]
+            """
+            Timestamp is calculated from the request time.
+            """
+            timestamp: Optional[int]
+            """
+            Use a precise Unix timestamp for prebilling to start. Must be earlier than `bill_until`.
+            """
+            type: Literal[
+                "amendment_start",
+                "line_starts_at",
+                "now",
+                "pause_collection_start",
+                "quote_acceptance_date",
+                "relative",
+                "timestamp",
+            ]
+            """
+            Describes how the billing schedule determines the start date. Possible values are `timestamp`, `relative`, `amendment_start`, `now`, `quote_acceptance_date`, `line_starts_at`, or `pause_collection_start`.
+            """
+            _inner_class_types = {
+                "amendment_start": AmendmentStart,
+                "line_starts_at": LineStartsAt,
+                "relative": Relative,
+            }
+
+        class BillUntil(StripeObject):
+            class AmendmentEnd(StripeObject):
+                index: int
+                """
+                Use an index to specify the position of an amendment to end prebilling with.
+                """
+
+            class Duration(StripeObject):
+                interval: Literal["day", "month", "week", "year"]
+                """
+                Specifies billing duration. Either `day`, `week`, `month` or `year`.
+                """
+                interval_count: Optional[int]
+                """
+                The multiplier applied to the interval.
+                """
+
+            class LineEndsAt(StripeObject):
+                id: str
+                """
+                Unique identifier for the object.
+                """
+
+            amendment_end: Optional[AmendmentEnd]
+            """
+            Use an index to specify the position of an amendment to end prebilling with.
+            """
+            computed_timestamp: int
+            """
+            The timestamp the billing schedule will apply until.
+            """
+            duration: Optional[Duration]
+            """
+            Specifies the billing period.
+            """
+            line_ends_at: Optional[LineEndsAt]
+            """
+            Lets you bill the period ending at a particular Quote line.
+            """
+            timestamp: Optional[int]
+            """
+            If specified, the billing schedule will apply until the specified timestamp.
+            """
+            type: Literal[
+                "amendment_end",
+                "duration",
+                "line_ends_at",
+                "schedule_end",
+                "timestamp",
+                "upcoming_invoice",
+            ]
+            """
+            Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
+            """
+            _inner_class_types = {
+                "amendment_end": AmendmentEnd,
+                "duration": Duration,
+                "line_ends_at": LineEndsAt,
+            }
+
+        applies_to: Optional[List[AppliesTo]]
+        """
+        Specifies which subscription items the billing schedule applies to.
+        """
+        bill_from: Optional[BillFrom]
+        """
+        Specifies the start of the billing period.
+        """
+        bill_until: BillUntil
+        """
+        Specifies the billing period.
+        """
+        key: str
+        """
+        Unique identifier for the billing schedule.
+        """
+        _inner_class_types = {
+            "applies_to": AppliesTo,
+            "bill_from": BillFrom,
+            "bill_until": BillUntil,
+        }
+
     class CurrentPhase(StripeObject):
         end_date: int
         """
@@ -193,6 +347,12 @@ class SubscriptionSchedule(
         on_behalf_of: Optional[ExpandableField["Account"]]
         """
         The account (if any) the charge was made on behalf of for charges associated with the schedule's subscription. See the Connect documentation for details.
+        """
+        phase_effective_at: Optional[
+            Literal["billing_period_start", "phase_start"]
+        ]
+        """
+        Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
         """
         transfer_data: Optional[TransferData]
         """
@@ -652,6 +812,10 @@ class SubscriptionSchedule(
     """
     The billing mode of the subscription.
     """
+    billing_schedules: Optional[List[BillingSchedule]]
+    """
+    Billing schedules for this subscription schedule.
+    """
     canceled_at: Optional[int]
     """
     Time at which the subscription schedule was canceled. Measured in seconds since the Unix epoch.
@@ -688,6 +852,10 @@ class SubscriptionSchedule(
     last_price_migration_error: Optional[LastPriceMigrationError]
     """
     Details of the most recent price migration that failed for the subscription schedule.
+    """
+    latest_invoice: Optional[ExpandableField["Invoice"]]
+    """
+    The most recent invoice this subscription schedule has generated.
     """
     livemode: bool
     """
@@ -1200,6 +1368,7 @@ class SubscriptionSchedule(
 
     _inner_class_types = {
         "billing_mode": BillingMode,
+        "billing_schedules": BillingSchedule,
         "current_phase": CurrentPhase,
         "default_settings": DefaultSettings,
         "last_price_migration_error": LastPriceMigrationError,

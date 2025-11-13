@@ -1379,6 +1379,10 @@ if TYPE_CHECKING:
         InvoiceCreatePreviewParamsScheduleDetailsAmendmentTrialSettingsEndBehavior as InvoiceCreatePreviewParamsScheduleDetailsAmendmentTrialSettingsEndBehavior,
         InvoiceCreatePreviewParamsScheduleDetailsBillingMode as InvoiceCreatePreviewParamsScheduleDetailsBillingMode,
         InvoiceCreatePreviewParamsScheduleDetailsBillingModeFlexible as InvoiceCreatePreviewParamsScheduleDetailsBillingModeFlexible,
+        InvoiceCreatePreviewParamsScheduleDetailsBillingSchedule as InvoiceCreatePreviewParamsScheduleDetailsBillingSchedule,
+        InvoiceCreatePreviewParamsScheduleDetailsBillingScheduleAppliesTo as InvoiceCreatePreviewParamsScheduleDetailsBillingScheduleAppliesTo,
+        InvoiceCreatePreviewParamsScheduleDetailsBillingScheduleBillUntil as InvoiceCreatePreviewParamsScheduleDetailsBillingScheduleBillUntil,
+        InvoiceCreatePreviewParamsScheduleDetailsBillingScheduleBillUntilDuration as InvoiceCreatePreviewParamsScheduleDetailsBillingScheduleBillUntilDuration,
         InvoiceCreatePreviewParamsScheduleDetailsPhase as InvoiceCreatePreviewParamsScheduleDetailsPhase,
         InvoiceCreatePreviewParamsScheduleDetailsPhaseAddInvoiceItem as InvoiceCreatePreviewParamsScheduleDetailsPhaseAddInvoiceItem,
         InvoiceCreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemDiscount as InvoiceCreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemDiscount,
@@ -4662,6 +4666,10 @@ if TYPE_CHECKING:
         SubscriptionScheduleCreateParams as SubscriptionScheduleCreateParams,
         SubscriptionScheduleCreateParamsBillingMode as SubscriptionScheduleCreateParamsBillingMode,
         SubscriptionScheduleCreateParamsBillingModeFlexible as SubscriptionScheduleCreateParamsBillingModeFlexible,
+        SubscriptionScheduleCreateParamsBillingSchedule as SubscriptionScheduleCreateParamsBillingSchedule,
+        SubscriptionScheduleCreateParamsBillingScheduleAppliesTo as SubscriptionScheduleCreateParamsBillingScheduleAppliesTo,
+        SubscriptionScheduleCreateParamsBillingScheduleBillUntil as SubscriptionScheduleCreateParamsBillingScheduleBillUntil,
+        SubscriptionScheduleCreateParamsBillingScheduleBillUntilDuration as SubscriptionScheduleCreateParamsBillingScheduleBillUntilDuration,
         SubscriptionScheduleCreateParamsDefaultSettings as SubscriptionScheduleCreateParamsDefaultSettings,
         SubscriptionScheduleCreateParamsDefaultSettingsAutomaticTax as SubscriptionScheduleCreateParamsDefaultSettingsAutomaticTax,
         SubscriptionScheduleCreateParamsDefaultSettingsAutomaticTaxLiability as SubscriptionScheduleCreateParamsDefaultSettingsAutomaticTaxLiability,
@@ -4710,6 +4718,10 @@ if TYPE_CHECKING:
     )
     from stripe.params._subscription_schedule_modify_params import (
         SubscriptionScheduleModifyParams as SubscriptionScheduleModifyParams,
+        SubscriptionScheduleModifyParamsBillingSchedule as SubscriptionScheduleModifyParamsBillingSchedule,
+        SubscriptionScheduleModifyParamsBillingScheduleAppliesTo as SubscriptionScheduleModifyParamsBillingScheduleAppliesTo,
+        SubscriptionScheduleModifyParamsBillingScheduleBillUntil as SubscriptionScheduleModifyParamsBillingScheduleBillUntil,
+        SubscriptionScheduleModifyParamsBillingScheduleBillUntilDuration as SubscriptionScheduleModifyParamsBillingScheduleBillUntilDuration,
         SubscriptionScheduleModifyParamsDefaultSettings as SubscriptionScheduleModifyParamsDefaultSettings,
         SubscriptionScheduleModifyParamsDefaultSettingsAutomaticTax as SubscriptionScheduleModifyParamsDefaultSettingsAutomaticTax,
         SubscriptionScheduleModifyParamsDefaultSettingsAutomaticTaxLiability as SubscriptionScheduleModifyParamsDefaultSettingsAutomaticTaxLiability,
@@ -4757,6 +4769,10 @@ if TYPE_CHECKING:
     )
     from stripe.params._subscription_schedule_update_params import (
         SubscriptionScheduleUpdateParams as SubscriptionScheduleUpdateParams,
+        SubscriptionScheduleUpdateParamsBillingSchedule as SubscriptionScheduleUpdateParamsBillingSchedule,
+        SubscriptionScheduleUpdateParamsBillingScheduleAppliesTo as SubscriptionScheduleUpdateParamsBillingScheduleAppliesTo,
+        SubscriptionScheduleUpdateParamsBillingScheduleBillUntil as SubscriptionScheduleUpdateParamsBillingScheduleBillUntil,
+        SubscriptionScheduleUpdateParamsBillingScheduleBillUntilDuration as SubscriptionScheduleUpdateParamsBillingScheduleBillUntilDuration,
         SubscriptionScheduleUpdateParamsDefaultSettings as SubscriptionScheduleUpdateParamsDefaultSettings,
         SubscriptionScheduleUpdateParamsDefaultSettingsAutomaticTax as SubscriptionScheduleUpdateParamsDefaultSettingsAutomaticTax,
         SubscriptionScheduleUpdateParamsDefaultSettingsAutomaticTaxLiability as SubscriptionScheduleUpdateParamsDefaultSettingsAutomaticTaxLiability,
@@ -8880,6 +8896,22 @@ _import_map = {
         False,
     ),
     "InvoiceCreatePreviewParamsScheduleDetailsBillingModeFlexible": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsBillingSchedule": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsBillingScheduleAppliesTo": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsBillingScheduleBillUntil": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsBillingScheduleBillUntilDuration": (
         "stripe.params._invoice_create_preview_params",
         False,
     ),
@@ -20013,6 +20045,22 @@ _import_map = {
         "stripe.params._subscription_schedule_create_params",
         False,
     ),
+    "SubscriptionScheduleCreateParamsBillingSchedule": (
+        "stripe.params._subscription_schedule_create_params",
+        False,
+    ),
+    "SubscriptionScheduleCreateParamsBillingScheduleAppliesTo": (
+        "stripe.params._subscription_schedule_create_params",
+        False,
+    ),
+    "SubscriptionScheduleCreateParamsBillingScheduleBillUntil": (
+        "stripe.params._subscription_schedule_create_params",
+        False,
+    ),
+    "SubscriptionScheduleCreateParamsBillingScheduleBillUntilDuration": (
+        "stripe.params._subscription_schedule_create_params",
+        False,
+    ),
     "SubscriptionScheduleCreateParamsDefaultSettings": (
         "stripe.params._subscription_schedule_create_params",
         False,
@@ -20189,6 +20237,22 @@ _import_map = {
         "stripe.params._subscription_schedule_modify_params",
         False,
     ),
+    "SubscriptionScheduleModifyParamsBillingSchedule": (
+        "stripe.params._subscription_schedule_modify_params",
+        False,
+    ),
+    "SubscriptionScheduleModifyParamsBillingScheduleAppliesTo": (
+        "stripe.params._subscription_schedule_modify_params",
+        False,
+    ),
+    "SubscriptionScheduleModifyParamsBillingScheduleBillUntil": (
+        "stripe.params._subscription_schedule_modify_params",
+        False,
+    ),
+    "SubscriptionScheduleModifyParamsBillingScheduleBillUntilDuration": (
+        "stripe.params._subscription_schedule_modify_params",
+        False,
+    ),
     "SubscriptionScheduleModifyParamsDefaultSettings": (
         "stripe.params._subscription_schedule_modify_params",
         False,
@@ -20350,6 +20414,22 @@ _import_map = {
         False,
     ),
     "SubscriptionScheduleUpdateParams": (
+        "stripe.params._subscription_schedule_update_params",
+        False,
+    ),
+    "SubscriptionScheduleUpdateParamsBillingSchedule": (
+        "stripe.params._subscription_schedule_update_params",
+        False,
+    ),
+    "SubscriptionScheduleUpdateParamsBillingScheduleAppliesTo": (
+        "stripe.params._subscription_schedule_update_params",
+        False,
+    ),
+    "SubscriptionScheduleUpdateParamsBillingScheduleBillUntil": (
+        "stripe.params._subscription_schedule_update_params",
+        False,
+    ),
+    "SubscriptionScheduleUpdateParamsBillingScheduleBillUntilDuration": (
         "stripe.params._subscription_schedule_update_params",
         False,
     ),
