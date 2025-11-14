@@ -311,6 +311,10 @@ class VerificationSession(
     """
     Customer ID
     """
+    related_customer_account: Optional[str]
+    """
+    Token referencing a Customer Account resource.
+    """
     related_person: Optional[RelatedPerson]
     status: Literal["canceled", "processing", "requires_input", "verified"]
     """

@@ -32,7 +32,7 @@ class AlertTriggered(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    value: int
+    value: str
     """
     The value triggering the alert
     """

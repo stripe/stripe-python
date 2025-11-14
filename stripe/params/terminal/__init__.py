@@ -9,6 +9,7 @@ if TYPE_CHECKING:
         ConfigurationCreateParamsBbposWisepad3 as ConfigurationCreateParamsBbposWisepad3,
         ConfigurationCreateParamsBbposWiseposE as ConfigurationCreateParamsBbposWiseposE,
         ConfigurationCreateParamsOffline as ConfigurationCreateParamsOffline,
+        ConfigurationCreateParamsReaderSecurity as ConfigurationCreateParamsReaderSecurity,
         ConfigurationCreateParamsRebootWindow as ConfigurationCreateParamsRebootWindow,
         ConfigurationCreateParamsStripeS700 as ConfigurationCreateParamsStripeS700,
         ConfigurationCreateParamsTipping as ConfigurationCreateParamsTipping,
@@ -21,6 +22,7 @@ if TYPE_CHECKING:
         ConfigurationCreateParamsTippingDkk as ConfigurationCreateParamsTippingDkk,
         ConfigurationCreateParamsTippingEur as ConfigurationCreateParamsTippingEur,
         ConfigurationCreateParamsTippingGbp as ConfigurationCreateParamsTippingGbp,
+        ConfigurationCreateParamsTippingGip as ConfigurationCreateParamsTippingGip,
         ConfigurationCreateParamsTippingHkd as ConfigurationCreateParamsTippingHkd,
         ConfigurationCreateParamsTippingHuf as ConfigurationCreateParamsTippingHuf,
         ConfigurationCreateParamsTippingJpy as ConfigurationCreateParamsTippingJpy,
@@ -50,6 +52,7 @@ if TYPE_CHECKING:
         ConfigurationModifyParamsBbposWisepad3 as ConfigurationModifyParamsBbposWisepad3,
         ConfigurationModifyParamsBbposWiseposE as ConfigurationModifyParamsBbposWiseposE,
         ConfigurationModifyParamsOffline as ConfigurationModifyParamsOffline,
+        ConfigurationModifyParamsReaderSecurity as ConfigurationModifyParamsReaderSecurity,
         ConfigurationModifyParamsRebootWindow as ConfigurationModifyParamsRebootWindow,
         ConfigurationModifyParamsStripeS700 as ConfigurationModifyParamsStripeS700,
         ConfigurationModifyParamsTipping as ConfigurationModifyParamsTipping,
@@ -62,6 +65,7 @@ if TYPE_CHECKING:
         ConfigurationModifyParamsTippingDkk as ConfigurationModifyParamsTippingDkk,
         ConfigurationModifyParamsTippingEur as ConfigurationModifyParamsTippingEur,
         ConfigurationModifyParamsTippingGbp as ConfigurationModifyParamsTippingGbp,
+        ConfigurationModifyParamsTippingGip as ConfigurationModifyParamsTippingGip,
         ConfigurationModifyParamsTippingHkd as ConfigurationModifyParamsTippingHkd,
         ConfigurationModifyParamsTippingHuf as ConfigurationModifyParamsTippingHuf,
         ConfigurationModifyParamsTippingJpy as ConfigurationModifyParamsTippingJpy,
@@ -88,6 +92,7 @@ if TYPE_CHECKING:
         ConfigurationUpdateParamsBbposWisepad3 as ConfigurationUpdateParamsBbposWisepad3,
         ConfigurationUpdateParamsBbposWiseposE as ConfigurationUpdateParamsBbposWiseposE,
         ConfigurationUpdateParamsOffline as ConfigurationUpdateParamsOffline,
+        ConfigurationUpdateParamsReaderSecurity as ConfigurationUpdateParamsReaderSecurity,
         ConfigurationUpdateParamsRebootWindow as ConfigurationUpdateParamsRebootWindow,
         ConfigurationUpdateParamsStripeS700 as ConfigurationUpdateParamsStripeS700,
         ConfigurationUpdateParamsTipping as ConfigurationUpdateParamsTipping,
@@ -100,6 +105,7 @@ if TYPE_CHECKING:
         ConfigurationUpdateParamsTippingDkk as ConfigurationUpdateParamsTippingDkk,
         ConfigurationUpdateParamsTippingEur as ConfigurationUpdateParamsTippingEur,
         ConfigurationUpdateParamsTippingGbp as ConfigurationUpdateParamsTippingGbp,
+        ConfigurationUpdateParamsTippingGip as ConfigurationUpdateParamsTippingGip,
         ConfigurationUpdateParamsTippingHkd as ConfigurationUpdateParamsTippingHkd,
         ConfigurationUpdateParamsTippingHuf as ConfigurationUpdateParamsTippingHuf,
         ConfigurationUpdateParamsTippingJpy as ConfigurationUpdateParamsTippingJpy,
@@ -148,6 +154,11 @@ if TYPE_CHECKING:
         LocationUpdateParamsAddressKana as LocationUpdateParamsAddressKana,
         LocationUpdateParamsAddressKanji as LocationUpdateParamsAddressKanji,
     )
+    from stripe.params.terminal._onboarding_link_create_params import (
+        OnboardingLinkCreateParams as OnboardingLinkCreateParams,
+        OnboardingLinkCreateParamsLinkOptions as OnboardingLinkCreateParamsLinkOptions,
+        OnboardingLinkCreateParamsLinkOptionsAppleTermsAndConditions as OnboardingLinkCreateParamsLinkOptionsAppleTermsAndConditions,
+    )
     from stripe.params.terminal._reader_cancel_action_params import (
         ReaderCancelActionParams as ReaderCancelActionParams,
     )
@@ -163,6 +174,9 @@ if TYPE_CHECKING:
         ReaderCollectPaymentMethodParams as ReaderCollectPaymentMethodParams,
         ReaderCollectPaymentMethodParamsCollectConfig as ReaderCollectPaymentMethodParamsCollectConfig,
         ReaderCollectPaymentMethodParamsCollectConfigTipping as ReaderCollectPaymentMethodParamsCollectConfigTipping,
+    )
+    from stripe.params.terminal._reader_collected_data_retrieve_params import (
+        ReaderCollectedDataRetrieveParams as ReaderCollectedDataRetrieveParams,
     )
     from stripe.params.terminal._reader_confirm_payment_intent_params import (
         ReaderConfirmPaymentIntentParams as ReaderConfirmPaymentIntentParams,
@@ -235,6 +249,10 @@ _import_map = {
         "stripe.params.terminal._configuration_create_params",
         False,
     ),
+    "ConfigurationCreateParamsReaderSecurity": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
     "ConfigurationCreateParamsRebootWindow": (
         "stripe.params.terminal._configuration_create_params",
         False,
@@ -280,6 +298,10 @@ _import_map = {
         False,
     ),
     "ConfigurationCreateParamsTippingGbp": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsTippingGip": (
         "stripe.params.terminal._configuration_create_params",
         False,
     ),
@@ -375,6 +397,10 @@ _import_map = {
         "stripe.params.terminal._configuration_modify_params",
         False,
     ),
+    "ConfigurationModifyParamsReaderSecurity": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
     "ConfigurationModifyParamsRebootWindow": (
         "stripe.params.terminal._configuration_modify_params",
         False,
@@ -420,6 +446,10 @@ _import_map = {
         False,
     ),
     "ConfigurationModifyParamsTippingGbp": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsTippingGip": (
         "stripe.params.terminal._configuration_modify_params",
         False,
     ),
@@ -511,6 +541,10 @@ _import_map = {
         "stripe.params.terminal._configuration_update_params",
         False,
     ),
+    "ConfigurationUpdateParamsReaderSecurity": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
     "ConfigurationUpdateParamsRebootWindow": (
         "stripe.params.terminal._configuration_update_params",
         False,
@@ -556,6 +590,10 @@ _import_map = {
         False,
     ),
     "ConfigurationUpdateParamsTippingGbp": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsTippingGip": (
         "stripe.params.terminal._configuration_update_params",
         False,
     ),
@@ -691,6 +729,18 @@ _import_map = {
         "stripe.params.terminal._location_update_params",
         False,
     ),
+    "OnboardingLinkCreateParams": (
+        "stripe.params.terminal._onboarding_link_create_params",
+        False,
+    ),
+    "OnboardingLinkCreateParamsLinkOptions": (
+        "stripe.params.terminal._onboarding_link_create_params",
+        False,
+    ),
+    "OnboardingLinkCreateParamsLinkOptionsAppleTermsAndConditions": (
+        "stripe.params.terminal._onboarding_link_create_params",
+        False,
+    ),
     "ReaderCancelActionParams": (
         "stripe.params.terminal._reader_cancel_action_params",
         False,
@@ -729,6 +779,10 @@ _import_map = {
     ),
     "ReaderCollectPaymentMethodParamsCollectConfigTipping": (
         "stripe.params.terminal._reader_collect_payment_method_params",
+        False,
+    ),
+    "ReaderCollectedDataRetrieveParams": (
+        "stripe.params.terminal._reader_collected_data_retrieve_params",
         False,
     ),
     "ReaderConfirmPaymentIntentParams": (

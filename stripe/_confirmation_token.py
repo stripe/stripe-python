@@ -99,6 +99,10 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
 
     class PaymentMethodPreview(StripeObject):
         class AcssDebit(StripeObject):
+            account_number: Optional[str]
+            """
+            Account number of the bank account.
+            """
             bank_name: Optional[str]
             """
             Name of the bank associated with the bank account.
@@ -934,8 +938,17 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         class Giropay(StripeObject):
             pass
 
+        class Gopay(StripeObject):
+            pass
+
         class Grabpay(StripeObject):
             pass
+
+        class IdBankTransfer(StripeObject):
+            bank: Optional[Literal["bca", "bni", "bri", "cimb", "permata"]]
+            bank_code: Optional[str]
+            bank_name: Optional[str]
+            display_name: Optional[str]
 
         class Ideal(StripeObject):
             bank: Optional[
@@ -1236,6 +1249,10 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             """
             Two-letter ISO code representing the buyer's country. Values are provided by PayPal directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
             """
+            fingerprint: Optional[str]
+            """
+            Uniquely identifies this particular PayPal account. You can use this attribute to check whether two PayPal accounts are the same.
+            """
             payer_email: Optional[str]
             """
             Owner's email. Values are provided by PayPal directly
@@ -1245,12 +1262,55 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             """
             PayPal account PayerID. This identifier uniquely identifies the PayPal customer.
             """
+            verified_email: Optional[str]
+            """
+            Owner's verified email. Values are verified or provided by PayPal directly
+            (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+            """
+
+        class Paypay(StripeObject):
+            pass
+
+        class Payto(StripeObject):
+            bsb_number: Optional[str]
+            """
+            Bank-State-Branch number of the bank account.
+            """
+            last4: Optional[str]
+            """
+            Last four digits of the bank account number.
+            """
+            pay_id: Optional[str]
+            """
+            The PayID alias for the bank account.
+            """
 
         class Pix(StripeObject):
             pass
 
         class Promptpay(StripeObject):
             pass
+
+        class Qris(StripeObject):
+            pass
+
+        class Rechnung(StripeObject):
+            class Dob(StripeObject):
+                day: int
+                """
+                The day of birth, between 1 and 31.
+                """
+                month: int
+                """
+                The month of birth, between 1 and 12.
+                """
+                year: int
+                """
+                The four-digit year of birth.
+                """
+
+            dob: Optional[Dob]
+            _inner_class_types = {"dob": Dob}
 
         class RevolutPay(StripeObject):
             pass
@@ -1298,10 +1358,23 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             """
             _inner_class_types = {"generated_from": GeneratedFrom}
 
+        class Shopeepay(StripeObject):
+            pass
+
         class Sofort(StripeObject):
             country: Optional[str]
             """
             Two-letter ISO code representing the country the bank account is located in.
+            """
+
+        class StripeBalance(StripeObject):
+            account: Optional[str]
+            """
+            The connected account ID whose Stripe balance to use as the source of payment
+            """
+            source_type: Literal["bank_account", "card", "fpx"]
+            """
+            The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
             """
 
         class Swish(StripeObject):
@@ -1362,6 +1435,10 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             account_holder_type: Optional[Literal["company", "individual"]]
             """
             Account holder type: individual or company.
+            """
+            account_number: Optional[str]
+            """
+            Account number of the bank account.
             """
             account_type: Optional[Literal["checking", "savings"]]
             """
@@ -1431,11 +1508,14 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
         The ID of the Customer to which this PaymentMethod is saved. This will not be set when the PaymentMethod has not been saved to a Customer.
         """
+        customer_account: Optional[str]
         customer_balance: Optional[CustomerBalance]
         eps: Optional[Eps]
         fpx: Optional[Fpx]
         giropay: Optional[Giropay]
+        gopay: Optional[Gopay]
         grabpay: Optional[Grabpay]
+        id_bank_transfer: Optional[IdBankTransfer]
         ideal: Optional[Ideal]
         interac_present: Optional[InteracPresent]
         kakao_pay: Optional[KakaoPay]
@@ -1454,13 +1534,19 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         payco: Optional[Payco]
         paynow: Optional[Paynow]
         paypal: Optional[Paypal]
+        paypay: Optional[Paypay]
+        payto: Optional[Payto]
         pix: Optional[Pix]
         promptpay: Optional[Promptpay]
+        qris: Optional[Qris]
+        rechnung: Optional[Rechnung]
         revolut_pay: Optional[RevolutPay]
         samsung_pay: Optional[SamsungPay]
         satispay: Optional[Satispay]
         sepa_debit: Optional[SepaDebit]
+        shopeepay: Optional[Shopeepay]
         sofort: Optional[Sofort]
+        stripe_balance: Optional[StripeBalance]
         swish: Optional[Swish]
         twint: Optional[Twint]
         type: Literal[
@@ -1480,11 +1566,14 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "card_present",
             "cashapp",
             "crypto",
+            "custom",
             "customer_balance",
             "eps",
             "fpx",
             "giropay",
+            "gopay",
             "grabpay",
+            "id_bank_transfer",
             "ideal",
             "interac_present",
             "kakao_pay",
@@ -1503,13 +1592,19 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "payco",
             "paynow",
             "paypal",
+            "paypay",
+            "payto",
             "pix",
             "promptpay",
+            "qris",
+            "rechnung",
             "revolut_pay",
             "samsung_pay",
             "satispay",
             "sepa_debit",
+            "shopeepay",
             "sofort",
+            "stripe_balance",
             "swish",
             "twint",
             "us_bank_account",
@@ -1544,7 +1639,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "eps": Eps,
             "fpx": Fpx,
             "giropay": Giropay,
+            "gopay": Gopay,
             "grabpay": Grabpay,
+            "id_bank_transfer": IdBankTransfer,
             "ideal": Ideal,
             "interac_present": InteracPresent,
             "kakao_pay": KakaoPay,
@@ -1563,13 +1660,19 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "payco": Payco,
             "paynow": Paynow,
             "paypal": Paypal,
+            "paypay": Paypay,
+            "payto": Payto,
             "pix": Pix,
             "promptpay": Promptpay,
+            "qris": Qris,
+            "rechnung": Rechnung,
             "revolut_pay": RevolutPay,
             "samsung_pay": SamsungPay,
             "satispay": Satispay,
             "sepa_debit": SepaDebit,
+            "shopeepay": Shopeepay,
             "sofort": Sofort,
+            "stripe_balance": StripeBalance,
             "swish": Swish,
             "twint": Twint,
             "us_bank_account": UsBankAccount,

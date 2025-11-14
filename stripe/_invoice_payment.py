@@ -11,6 +11,7 @@ if TYPE_CHECKING:
     from stripe._charge import Charge
     from stripe._invoice import Invoice
     from stripe._payment_intent import PaymentIntent
+    from stripe._payment_record import PaymentRecord
     from stripe.params._invoice_payment_list_params import (
         InvoicePaymentListParams,
     )
@@ -42,7 +43,11 @@ class InvoicePayment(ListableAPIResource["InvoicePayment"]):
         """
         ID of the PaymentIntent associated with this payment when `type` is `payment_intent`. Note: This property is only populated for invoices finalized on or after March 15th, 2019.
         """
-        type: Literal["charge", "payment_intent"]
+        payment_record: Optional[ExpandableField["PaymentRecord"]]
+        """
+        ID of the PaymentRecord associated with this payment when `type` is `payment_record`.
+        """
+        type: Literal["charge", "payment_intent", "payment_record"]
         """
         Type of payment object associated with this invoice payment.
         """

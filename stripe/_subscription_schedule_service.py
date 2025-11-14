@@ -9,6 +9,9 @@ if TYPE_CHECKING:
     from stripe._list_object import ListObject
     from stripe._request_options import RequestOptions
     from stripe._subscription_schedule import SubscriptionSchedule
+    from stripe.params._subscription_schedule_amend_params import (
+        SubscriptionScheduleAmendParams,
+    )
     from stripe.params._subscription_schedule_cancel_params import (
         SubscriptionScheduleCancelParams,
     )
@@ -186,6 +189,50 @@ class SubscriptionScheduleService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/subscription_schedules/{schedule}".format(
+                    schedule=sanitize_id(schedule),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def amend(
+        self,
+        schedule: str,
+        params: Optional["SubscriptionScheduleAmendParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "SubscriptionSchedule":
+        """
+        Amends an existing subscription schedule.
+        """
+        return cast(
+            "SubscriptionSchedule",
+            self._request(
+                "post",
+                "/v1/subscription_schedules/{schedule}/amend".format(
+                    schedule=sanitize_id(schedule),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def amend_async(
+        self,
+        schedule: str,
+        params: Optional["SubscriptionScheduleAmendParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "SubscriptionSchedule":
+        """
+        Amends an existing subscription schedule.
+        """
+        return cast(
+            "SubscriptionSchedule",
+            await self._request_async(
+                "post",
+                "/v1/subscription_schedules/{schedule}/amend".format(
                     schedule=sanitize_id(schedule),
                 ),
                 base_address="api",

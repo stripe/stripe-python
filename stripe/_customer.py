@@ -281,6 +281,10 @@ class Customer(
         """
         The identified tax location of the customer.
         """
+        provider: Literal["anrok", "avalara", "sphere", "stripe"]
+        """
+        The tax calculation provider used for location resolution. Defaults to `stripe` when not using a [third-party provider](https://docs.stripe.com/tax/third-party-apps).
+        """
         _inner_class_types = {"location": Location}
 
     address: Optional[Address]
@@ -307,6 +311,7 @@ class Customer(
     """
     Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) the customer can be charged in for recurring billing purposes.
     """
+    customer_account: Optional[str]
     default_source: Optional[
         ExpandableField[Union["Account", "BankAccount", "Card", "Source"]]
     ]

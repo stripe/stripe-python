@@ -7,16 +7,28 @@ from typing_extensions import TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe.v2._billing_service import BillingService
     from stripe.v2._core_service import CoreService
+    from stripe.v2._money_management_service import MoneyManagementService
+    from stripe.v2._payment_service import PaymentService
+    from stripe.v2._test_helper_service import TestHelperService
 
 _subservices = {
     "billing": ["stripe.v2._billing_service", "BillingService"],
     "core": ["stripe.v2._core_service", "CoreService"],
+    "money_management": [
+        "stripe.v2._money_management_service",
+        "MoneyManagementService",
+    ],
+    "payments": ["stripe.v2._payment_service", "PaymentService"],
+    "test_helpers": ["stripe.v2._test_helper_service", "TestHelperService"],
 }
 
 
 class V2Services(StripeService):
     billing: "BillingService"
     core: "CoreService"
+    money_management: "MoneyManagementService"
+    payments: "PaymentService"
+    test_helpers: "TestHelperService"
 
     def __init__(self, requestor):
         super().__init__(requestor)

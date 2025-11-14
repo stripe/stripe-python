@@ -16,6 +16,7 @@ if TYPE_CHECKING:
     from stripe._coupon import Coupon
     from stripe._customer import Customer
     from stripe._discount import Discount as DiscountResource
+    from stripe._invoice import Invoice
     from stripe._payment_method import PaymentMethod
     from stripe._plan import Plan
     from stripe._price import Price
@@ -23,6 +24,9 @@ if TYPE_CHECKING:
     from stripe._subscription import Subscription
     from stripe._tax_id import TaxId
     from stripe._tax_rate import TaxRate
+    from stripe.params._subscription_schedule_amend_params import (
+        SubscriptionScheduleAmendParams,
+    )
     from stripe.params._subscription_schedule_cancel_params import (
         SubscriptionScheduleCancelParams,
     )
@@ -201,9 +205,44 @@ class SubscriptionSchedule(
             "transfer_data": TransferData,
         }
 
+    class LastPriceMigrationError(StripeObject):
+        class FailedTransition(StripeObject):
+            source_price: str
+            """
+            The original price to be migrated.
+            """
+            target_price: str
+            """
+            The intended resulting price of the migration.
+            """
+
+        errored_at: int
+        """
+        The time at which the price migration encountered an error.
+        """
+        failed_transitions: List[FailedTransition]
+        """
+        The involved price pairs in each failed transition.
+        """
+        type: Literal["price_uniqueness_violation"]
+        """
+        The type of error encountered by the price migration.
+        """
+        _inner_class_types = {"failed_transitions": FailedTransition}
+
     class Phase(StripeObject):
         class AddInvoiceItem(StripeObject):
             class Discount(StripeObject):
+                class DiscountEnd(StripeObject):
+                    timestamp: Optional[int]
+                    """
+                    The discount end timestamp.
+                    """
+                    type: Literal["timestamp"]
+                    """
+                    The discount end type.
+                    """
+
                 coupon: Optional[ExpandableField["Coupon"]]
                 """
                 ID of the coupon to create a new discount for.
@@ -212,10 +251,15 @@ class SubscriptionSchedule(
                 """
                 ID of an existing discount on the object (or one of its ancestors) to reuse.
                 """
+                discount_end: Optional[DiscountEnd]
+                """
+                Details to determine how long the discount should be applied for.
+                """
                 promotion_code: Optional[ExpandableField["PromotionCode"]]
                 """
                 ID of the promotion code to create a new discount for.
                 """
+                _inner_class_types = {"discount_end": DiscountEnd}
 
             class Period(StripeObject):
                 class End(StripeObject):
@@ -305,6 +349,16 @@ class SubscriptionSchedule(
             """
 
         class Discount(StripeObject):
+            class DiscountEnd(StripeObject):
+                timestamp: Optional[int]
+                """
+                The discount end timestamp.
+                """
+                type: Literal["timestamp"]
+                """
+                The discount end type.
+                """
+
             coupon: Optional[ExpandableField["Coupon"]]
             """
             ID of the coupon to create a new discount for.
@@ -313,10 +367,15 @@ class SubscriptionSchedule(
             """
             ID of an existing discount on the object (or one of its ancestors) to reuse.
             """
+            discount_end: Optional[DiscountEnd]
+            """
+            Details to determine how long the discount should be applied for.
+            """
             promotion_code: Optional[ExpandableField["PromotionCode"]]
             """
             ID of the promotion code to create a new discount for.
             """
+            _inner_class_types = {"discount_end": DiscountEnd}
 
         class InvoiceSettings(StripeObject):
             class Issuer(StripeObject):
@@ -351,6 +410,16 @@ class SubscriptionSchedule(
                 """
 
             class Discount(StripeObject):
+                class DiscountEnd(StripeObject):
+                    timestamp: Optional[int]
+                    """
+                    The discount end timestamp.
+                    """
+                    type: Literal["timestamp"]
+                    """
+                    The discount end type.
+                    """
+
                 coupon: Optional[ExpandableField["Coupon"]]
                 """
                 ID of the coupon to create a new discount for.
@@ -359,9 +428,24 @@ class SubscriptionSchedule(
                 """
                 ID of an existing discount on the object (or one of its ancestors) to reuse.
                 """
+                discount_end: Optional[DiscountEnd]
+                """
+                Details to determine how long the discount should be applied for.
+                """
                 promotion_code: Optional[ExpandableField["PromotionCode"]]
                 """
                 ID of the promotion code to create a new discount for.
+                """
+                _inner_class_types = {"discount_end": DiscountEnd}
+
+            class Trial(StripeObject):
+                converts_to: Optional[List[str]]
+                """
+                List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
+                """
+                type: Literal["free", "paid"]
+                """
+                Determines the type of trial for this item.
                 """
 
             billing_thresholds: Optional[BillingThresholds]
@@ -392,10 +476,21 @@ class SubscriptionSchedule(
             """
             The tax rates which apply to this `phase_item`. When set, the `default_tax_rates` on the phase do not apply to this `phase_item`.
             """
+            trial: Optional[Trial]
+            """
+            Options that configure the trial on the subscription item.
+            """
             _inner_class_types = {
                 "billing_thresholds": BillingThresholds,
                 "discounts": Discount,
+                "trial": Trial,
             }
+
+        class PauseCollection(StripeObject):
+            behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
+            """
+            The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+            """
 
         class TransferData(StripeObject):
             amount_percent: Optional[float]
@@ -406,6 +501,19 @@ class SubscriptionSchedule(
             """
             The account where funds from the payment will be transferred to upon payment success.
             """
+
+        class TrialSettings(StripeObject):
+            class EndBehavior(StripeObject):
+                prorate_up_front: Optional[Literal["defer", "include"]]
+                """
+                Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
+                """
+
+            end_behavior: Optional[EndBehavior]
+            """
+            Defines how the subscription should behave when a trial ends.
+            """
+            _inner_class_types = {"end_behavior": EndBehavior}
 
         add_invoice_items: List[AddInvoiceItem]
         """
@@ -470,6 +578,10 @@ class SubscriptionSchedule(
         """
         The account (if any) the charge was made on behalf of for charges associated with the schedule's subscription. See the Connect documentation for details.
         """
+        pause_collection: Optional[PauseCollection]
+        """
+        If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment).
+        """
         proration_behavior: Literal[
             "always_invoice", "create_prorations", "none"
         ]
@@ -484,9 +596,17 @@ class SubscriptionSchedule(
         """
         The account (if any) the associated subscription's payments will be attributed to for tax reporting, and where funds from each payment will be transferred to for each of the subscription's invoices.
         """
+        trial_continuation: Optional[Literal["continue", "none"]]
+        """
+        Specify behavior of the trial when crossing schedule phase boundaries
+        """
         trial_end: Optional[int]
         """
         When the trial ends within the phase.
+        """
+        trial_settings: Optional[TrialSettings]
+        """
+        Settings related to any trials on the subscription during this phase.
         """
         _inner_class_types = {
             "add_invoice_items": AddInvoiceItem,
@@ -495,12 +615,38 @@ class SubscriptionSchedule(
             "discounts": Discount,
             "invoice_settings": InvoiceSettings,
             "items": Item,
+            "pause_collection": PauseCollection,
             "transfer_data": TransferData,
+            "trial_settings": TrialSettings,
         }
+
+    class Prebilling(StripeObject):
+        invoice: ExpandableField["Invoice"]
+        """
+        ID of the prebilling invoice.
+        """
+        period_end: int
+        """
+        The end of the last period for which the invoice pre-bills.
+        """
+        period_start: int
+        """
+        The start of the first period for which the invoice pre-bills.
+        """
+        update_behavior: Optional[Literal["prebill", "reset"]]
+        """
+        Whether to cancel or preserve `prebilling` if the subscription is updated during the prebilled period.
+        """
 
     application: Optional[ExpandableField["Application"]]
     """
     ID of the Connect Application that created the schedule.
+    """
+    billing_behavior: Optional[
+        Literal["prorate_on_next_phase", "prorate_up_front"]
+    ]
+    """
+    Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
     """
     billing_mode: BillingMode
     """
@@ -526,6 +672,10 @@ class SubscriptionSchedule(
     """
     ID of the customer who owns the subscription schedule.
     """
+    customer_account: Optional[str]
+    """
+    ID of the account who owns the subscription schedule.
+    """
     default_settings: DefaultSettings
     end_behavior: Literal["cancel", "none", "release", "renew"]
     """
@@ -534,6 +684,10 @@ class SubscriptionSchedule(
     id: str
     """
     Unique identifier for the object.
+    """
+    last_price_migration_error: Optional[LastPriceMigrationError]
+    """
+    Details of the most recent price migration that failed for the subscription schedule.
     """
     livemode: bool
     """
@@ -550,6 +704,10 @@ class SubscriptionSchedule(
     phases: List[Phase]
     """
     Configuration for the subscription schedule's phases.
+    """
+    prebilling: Optional[Prebilling]
+    """
+    Time period and invoice for a Subscription billed in advance.
     """
     released_at: Optional[int]
     """
@@ -573,6 +731,116 @@ class SubscriptionSchedule(
     """
     ID of the test clock this subscription schedule belongs to.
     """
+
+    @classmethod
+    def _cls_amend(
+        cls, schedule: str, **params: Unpack["SubscriptionScheduleAmendParams"]
+    ) -> "SubscriptionSchedule":
+        """
+        Amends an existing subscription schedule.
+        """
+        return cast(
+            "SubscriptionSchedule",
+            cls._static_request(
+                "post",
+                "/v1/subscription_schedules/{schedule}/amend".format(
+                    schedule=sanitize_id(schedule)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def amend(
+        schedule: str, **params: Unpack["SubscriptionScheduleAmendParams"]
+    ) -> "SubscriptionSchedule":
+        """
+        Amends an existing subscription schedule.
+        """
+        ...
+
+    @overload
+    def amend(
+        self, **params: Unpack["SubscriptionScheduleAmendParams"]
+    ) -> "SubscriptionSchedule":
+        """
+        Amends an existing subscription schedule.
+        """
+        ...
+
+    @class_method_variant("_cls_amend")
+    def amend(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["SubscriptionScheduleAmendParams"]
+    ) -> "SubscriptionSchedule":
+        """
+        Amends an existing subscription schedule.
+        """
+        return cast(
+            "SubscriptionSchedule",
+            self._request(
+                "post",
+                "/v1/subscription_schedules/{schedule}/amend".format(
+                    schedule=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_amend_async(
+        cls, schedule: str, **params: Unpack["SubscriptionScheduleAmendParams"]
+    ) -> "SubscriptionSchedule":
+        """
+        Amends an existing subscription schedule.
+        """
+        return cast(
+            "SubscriptionSchedule",
+            await cls._static_request_async(
+                "post",
+                "/v1/subscription_schedules/{schedule}/amend".format(
+                    schedule=sanitize_id(schedule)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def amend_async(
+        schedule: str, **params: Unpack["SubscriptionScheduleAmendParams"]
+    ) -> "SubscriptionSchedule":
+        """
+        Amends an existing subscription schedule.
+        """
+        ...
+
+    @overload
+    async def amend_async(
+        self, **params: Unpack["SubscriptionScheduleAmendParams"]
+    ) -> "SubscriptionSchedule":
+        """
+        Amends an existing subscription schedule.
+        """
+        ...
+
+    @class_method_variant("_cls_amend_async")
+    async def amend_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["SubscriptionScheduleAmendParams"]
+    ) -> "SubscriptionSchedule":
+        """
+        Amends an existing subscription schedule.
+        """
+        return cast(
+            "SubscriptionSchedule",
+            await self._request_async(
+                "post",
+                "/v1/subscription_schedules/{schedule}/amend".format(
+                    schedule=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
 
     @classmethod
     def _cls_cancel(
@@ -934,5 +1202,7 @@ class SubscriptionSchedule(
         "billing_mode": BillingMode,
         "current_phase": CurrentPhase,
         "default_settings": DefaultSettings,
+        "last_price_migration_error": LastPriceMigrationError,
         "phases": Phase,
+        "prebilling": Prebilling,
     }

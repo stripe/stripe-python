@@ -18,6 +18,7 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     # Object classes: The beginning of the section generated from our OpenAPI spec
     "account": ("stripe._account", "Account"),
     "account_link": ("stripe._account_link", "AccountLink"),
+    "account_notice": ("stripe._account_notice", "AccountNotice"),
     "account_session": ("stripe._account_session", "AccountSession"),
     "apple_pay_domain": ("stripe._apple_pay_domain", "ApplePayDomain"),
     "application": ("stripe._application", "Application"),
@@ -41,6 +42,14 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.billing._alert_triggered",
         "AlertTriggered",
     ),
+    "billing.analytics.meter_usage": (
+        "stripe.billing.analytics._meter_usage",
+        "MeterUsage",
+    ),
+    "billing.analytics.meter_usage_row": (
+        "stripe.billing.analytics._meter_usage_row",
+        "MeterUsageRow",
+    ),
     "billing.credit_balance_summary": (
         "stripe.billing._credit_balance_summary",
         "CreditBalanceSummary",
@@ -61,6 +70,18 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "MeterEventSummary",
     ),
     "capability": ("stripe._capability", "Capability"),
+    "capital.financing_offer": (
+        "stripe.capital._financing_offer",
+        "FinancingOffer",
+    ),
+    "capital.financing_summary": (
+        "stripe.capital._financing_summary",
+        "FinancingSummary",
+    ),
+    "capital.financing_transaction": (
+        "stripe.capital._financing_transaction",
+        "FinancingTransaction",
+    ),
     "card": ("stripe._card", "Card"),
     "cash_balance": ("stripe._cash_balance", "CashBalance"),
     "charge": ("stripe._charge", "Charge"),
@@ -110,6 +131,10 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.financial_connections._account",
         "Account",
     ),
+    "financial_connections.account_inferred_balance": (
+        "stripe.financial_connections._account_inferred_balance",
+        "AccountInferredBalance",
+    ),
     "financial_connections.account_owner": (
         "stripe.financial_connections._account_owner",
         "AccountOwner",
@@ -117,6 +142,10 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     "financial_connections.account_ownership": (
         "stripe.financial_connections._account_ownership",
         "AccountOwnership",
+    ),
+    "financial_connections.institution": (
+        "stripe.financial_connections._institution",
+        "Institution",
     ),
     "financial_connections.session": (
         "stripe.financial_connections._session",
@@ -131,6 +160,7 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe._funding_instructions",
         "FundingInstructions",
     ),
+    "fx_quote": ("stripe._fx_quote", "FxQuote"),
     "identity.verification_report": (
         "stripe.identity._verification_report",
         "VerificationReport",
@@ -153,7 +183,19 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     ),
     "issuing.card": ("stripe.issuing._card", "Card"),
     "issuing.cardholder": ("stripe.issuing._cardholder", "Cardholder"),
+    "issuing.credit_underwriting_record": (
+        "stripe.issuing._credit_underwriting_record",
+        "CreditUnderwritingRecord",
+    ),
     "issuing.dispute": ("stripe.issuing._dispute", "Dispute"),
+    "issuing.dispute_settlement_detail": (
+        "stripe.issuing._dispute_settlement_detail",
+        "DisputeSettlementDetail",
+    ),
+    "issuing.fraud_liability_debit": (
+        "stripe.issuing._fraud_liability_debit",
+        "FraudLiabilityDebit",
+    ),
     "issuing.personalization_design": (
         "stripe.issuing._personalization_design",
         "PersonalizationDesign",
@@ -162,12 +204,23 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.issuing._physical_bundle",
         "PhysicalBundle",
     ),
+    "issuing.settlement": ("stripe.issuing._settlement", "Settlement"),
     "issuing.token": ("stripe.issuing._token", "Token"),
     "issuing.transaction": ("stripe.issuing._transaction", "Transaction"),
     "item": ("stripe._line_item", "LineItem"),
     "login_link": ("stripe._login_link", "LoginLink"),
     "mandate": ("stripe._mandate", "Mandate"),
+    "margin": ("stripe._margin", "Margin"),
+    "order": ("stripe._order", "Order"),
+    "payment_attempt_record": (
+        "stripe._payment_attempt_record",
+        "PaymentAttemptRecord",
+    ),
     "payment_intent": ("stripe._payment_intent", "PaymentIntent"),
+    "payment_intent_amount_details_line_item": (
+        "stripe._payment_intent_amount_details_line_item",
+        "PaymentIntentAmountDetailsLineItem",
+    ),
     "payment_link": ("stripe._payment_link", "PaymentLink"),
     "payment_method": ("stripe._payment_method", "PaymentMethod"),
     "payment_method_configuration": (
@@ -178,14 +231,29 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe._payment_method_domain",
         "PaymentMethodDomain",
     ),
+    "payment_record": ("stripe._payment_record", "PaymentRecord"),
     "payout": ("stripe._payout", "Payout"),
     "person": ("stripe._person", "Person"),
     "plan": ("stripe._plan", "Plan"),
     "price": ("stripe._price", "Price"),
+    "privacy.redaction_job": ("stripe.privacy._redaction_job", "RedactionJob"),
+    "privacy.redaction_job_validation_error": (
+        "stripe.privacy._redaction_job_validation_error",
+        "RedactionJobValidationError",
+    ),
     "product": ("stripe._product", "Product"),
     "product_feature": ("stripe._product_feature", "ProductFeature"),
     "promotion_code": ("stripe._promotion_code", "PromotionCode"),
     "quote": ("stripe._quote", "Quote"),
+    "quote_line": ("stripe._quote_line", "QuoteLine"),
+    "quote_preview_invoice": (
+        "stripe._quote_preview_invoice",
+        "QuotePreviewInvoice",
+    ),
+    "quote_preview_subscription_schedule": (
+        "stripe._quote_preview_subscription_schedule",
+        "QuotePreviewSubscriptionSchedule",
+    ),
     "radar.early_fraud_warning": (
         "stripe.radar._early_fraud_warning",
         "EarlyFraudWarning",
@@ -223,11 +291,13 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe._subscription_schedule",
         "SubscriptionSchedule",
     ),
+    "tax.association": ("stripe.tax._association", "Association"),
     "tax.calculation": ("stripe.tax._calculation", "Calculation"),
     "tax.calculation_line_item": (
         "stripe.tax._calculation_line_item",
         "CalculationLineItem",
     ),
+    "tax.form": ("stripe.tax._form", "Form"),
     "tax.registration": ("stripe.tax._registration", "Registration"),
     "tax.settings": ("stripe.tax._settings", "Settings"),
     "tax.transaction": ("stripe.tax._transaction", "Transaction"),
@@ -251,7 +321,15 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "ConnectionToken",
     ),
     "terminal.location": ("stripe.terminal._location", "Location"),
+    "terminal.onboarding_link": (
+        "stripe.terminal._onboarding_link",
+        "OnboardingLink",
+    ),
     "terminal.reader": ("stripe.terminal._reader", "Reader"),
+    "terminal.reader_collected_data": (
+        "stripe.terminal._reader_collected_data",
+        "ReaderCollectedData",
+    ),
     "test_helpers.test_clock": (
         "stripe.test_helpers._test_clock",
         "TestClock",
@@ -306,6 +384,23 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
 
 V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     # V2 Object classes: The beginning of the section generated from our OpenAPI spec
+    "v2.billing.bill_setting": (
+        "stripe.v2.billing._bill_setting",
+        "BillSetting",
+    ),
+    "v2.billing.bill_setting_version": (
+        "stripe.v2.billing._bill_setting_version",
+        "BillSettingVersion",
+    ),
+    "v2.billing.cadence": ("stripe.v2.billing._cadence", "Cadence"),
+    "v2.billing.collection_setting": (
+        "stripe.v2.billing._collection_setting",
+        "CollectionSetting",
+    ),
+    "v2.billing.collection_setting_version": (
+        "stripe.v2.billing._collection_setting_version",
+        "CollectionSettingVersion",
+    ),
     "v2.billing.meter_event": ("stripe.v2.billing._meter_event", "MeterEvent"),
     "v2.billing.meter_event_adjustment": (
         "stripe.v2.billing._meter_event_adjustment",
@@ -315,10 +410,93 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.v2.billing._meter_event_session",
         "MeterEventSession",
     ),
+    "v2.billing.profile": ("stripe.v2.billing._profile", "Profile"),
+    "v2.core.account": ("stripe.v2.core._account", "Account"),
+    "v2.core.account_link": ("stripe.v2.core._account_link", "AccountLink"),
+    "v2.core.account_person": (
+        "stripe.v2.core._account_person",
+        "AccountPerson",
+    ),
     "v2.core.event": ("stripe.v2.core._event", "Event"),
     "v2.core.event_destination": (
         "stripe.v2.core._event_destination",
         "EventDestination",
+    ),
+    "v2.core.vault.gb_bank_account": (
+        "stripe.v2.core.vault._gb_bank_account",
+        "GbBankAccount",
+    ),
+    "v2.core.vault.us_bank_account": (
+        "stripe.v2.core.vault._us_bank_account",
+        "UsBankAccount",
+    ),
+    "financial_address_credit_simulation": (
+        "stripe.v2._financial_address_credit_simulation",
+        "FinancialAddressCreditSimulation",
+    ),
+    "financial_address_generated_microdeposits": (
+        "stripe.v2._financial_address_generated_microdeposits",
+        "FinancialAddressGeneratedMicrodeposits",
+    ),
+    "v2.money_management.adjustment": (
+        "stripe.v2.money_management._adjustment",
+        "Adjustment",
+    ),
+    "v2.money_management.financial_account": (
+        "stripe.v2.money_management._financial_account",
+        "FinancialAccount",
+    ),
+    "v2.money_management.financial_address": (
+        "stripe.v2.money_management._financial_address",
+        "FinancialAddress",
+    ),
+    "v2.money_management.inbound_transfer": (
+        "stripe.v2.money_management._inbound_transfer",
+        "InboundTransfer",
+    ),
+    "v2.money_management.outbound_payment": (
+        "stripe.v2.money_management._outbound_payment",
+        "OutboundPayment",
+    ),
+    "v2.money_management.outbound_payment_quote": (
+        "stripe.v2.money_management._outbound_payment_quote",
+        "OutboundPaymentQuote",
+    ),
+    "v2.money_management.outbound_setup_intent": (
+        "stripe.v2.money_management._outbound_setup_intent",
+        "OutboundSetupIntent",
+    ),
+    "v2.money_management.outbound_transfer": (
+        "stripe.v2.money_management._outbound_transfer",
+        "OutboundTransfer",
+    ),
+    "v2.money_management.payout_method": (
+        "stripe.v2.money_management._payout_method",
+        "PayoutMethod",
+    ),
+    "v2.money_management.payout_methods_bank_account_spec": (
+        "stripe.v2.money_management._payout_methods_bank_account_spec",
+        "PayoutMethodsBankAccountSpec",
+    ),
+    "v2.money_management.received_credit": (
+        "stripe.v2.money_management._received_credit",
+        "ReceivedCredit",
+    ),
+    "v2.money_management.received_debit": (
+        "stripe.v2.money_management._received_debit",
+        "ReceivedDebit",
+    ),
+    "v2.money_management.transaction": (
+        "stripe.v2.money_management._transaction",
+        "Transaction",
+    ),
+    "v2.money_management.transaction_entry": (
+        "stripe.v2.money_management._transaction_entry",
+        "TransactionEntry",
+    ),
+    "v2.payments.off_session_payment": (
+        "stripe.v2.payments._off_session_payment",
+        "OffSessionPayment",
     ),
     # V2 Object classes: The end of the section generated from our OpenAPI spec
 }

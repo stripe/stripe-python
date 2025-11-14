@@ -5,23 +5,35 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.v2.core._account_link_service import AccountLinkService
+    from stripe.v2.core._account_service import AccountService
     from stripe.v2.core._event_destination_service import (
         EventDestinationService,
     )
     from stripe.v2.core._event_service import EventService
+    from stripe.v2.core._vault_service import VaultService
 
 _subservices = {
+    "accounts": ["stripe.v2.core._account_service", "AccountService"],
+    "account_links": [
+        "stripe.v2.core._account_link_service",
+        "AccountLinkService",
+    ],
     "events": ["stripe.v2.core._event_service", "EventService"],
     "event_destinations": [
         "stripe.v2.core._event_destination_service",
         "EventDestinationService",
     ],
+    "vault": ["stripe.v2.core._vault_service", "VaultService"],
 }
 
 
 class CoreService(StripeService):
+    accounts: "AccountService"
+    account_links: "AccountLinkService"
     events: "EventService"
     event_destinations: "EventDestinationService"
+    vault: "VaultService"
 
     def __init__(self, requestor):
         super().__init__(requestor)

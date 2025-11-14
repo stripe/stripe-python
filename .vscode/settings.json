@@ -25,6 +25,10 @@
     }
   },
 
+  "[markdown]": {
+    "editor.formatOnSave": false,
+  },
+
   // Tests
   "python.testing.unittestEnabled": false,
   "python.testing.pytestEnabled": true,

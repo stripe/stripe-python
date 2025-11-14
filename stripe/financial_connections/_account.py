@@ -3,6 +3,7 @@
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
+from stripe._nested_resource_class_methods import nested_resource_class_methods
 from stripe._stripe_object import StripeObject
 from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Dict, List, Optional, cast, overload
@@ -11,12 +12,19 @@ from typing_extensions import Literal, Unpack, TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe._account import Account as AccountResource
     from stripe._customer import Customer
+    from stripe.financial_connections._account_inferred_balance import (
+        AccountInferredBalance,
+    )
     from stripe.financial_connections._account_owner import AccountOwner
     from stripe.financial_connections._account_ownership import (
         AccountOwnership,
     )
+    from stripe.financial_connections._institution import Institution
     from stripe.params.financial_connections._account_disconnect_params import (
         AccountDisconnectParams,
+    )
+    from stripe.params.financial_connections._account_list_inferred_balances_params import (
+        AccountListInferredBalancesParams,
     )
     from stripe.params.financial_connections._account_list_owners_params import (
         AccountListOwnersParams,
@@ -38,6 +46,7 @@ if TYPE_CHECKING:
     )
 
 
+@nested_resource_class_methods("inferred_balance")
 class Account(ListableAPIResource["Account"]):
     """
     A Financial Connections Account represents an account that exists outside of Stripe, to which you have been granted some degree of access.
@@ -56,6 +65,7 @@ class Account(ListableAPIResource["Account"]):
         """
         ID of the Stripe customer this account belongs to. Present if and only if `account_holder.type` is `customer`.
         """
+        customer_account: Optional[str]
         type: Literal["account", "customer"]
         """
         Type of account holder that this account belongs to.
@@ -110,6 +120,20 @@ class Account(ListableAPIResource["Account"]):
         next_refresh_available_at: Optional[int]
         """
         Time at which the next balance refresh can be initiated. This value will be `null` when `status` is `pending`. Measured in seconds since the Unix epoch.
+        """
+        status: Literal["failed", "pending", "succeeded"]
+        """
+        The status of the last refresh attempt.
+        """
+
+    class InferredBalancesRefresh(StripeObject):
+        last_attempted_at: int
+        """
+        The time at which the last refresh attempt was initiated. Measured in seconds since the Unix epoch.
+        """
+        next_refresh_available_at: Optional[int]
+        """
+        Time at which the next inferred balance refresh can be initiated. This value will be `null` when `status` is `pending`. Measured in seconds since the Unix epoch.
         """
         status: Literal["failed", "pending", "succeeded"]
         """
@@ -176,6 +200,14 @@ class Account(ListableAPIResource["Account"]):
     """
     Unique identifier for the object.
     """
+    inferred_balances_refresh: Optional[InferredBalancesRefresh]
+    """
+    The state of the most recent attempt to refresh the account's inferred balance history.
+    """
+    institution: Optional[ExpandableField["Institution"]]
+    """
+    The ID of the Financial Connections Institution this account belongs to. Note that this relationship may sometimes change in rare circumstances (e.g. institution mergers).
+    """
     institution_name: str
     """
     The name of the institution that holds this account.
@@ -236,7 +268,9 @@ class Account(ListableAPIResource["Account"]):
 
     If `category` is `investment` or `other`, this will be `other`.
     """
-    subscriptions: Optional[List[Literal["transactions"]]]
+    subscriptions: Optional[
+        List[Literal["balance", "inferred_balances", "transactions"]]
+    ]
     """
     The list of data refresh subscriptions requested on this account.
     """
@@ -646,7 +680,7 @@ class Account(ListableAPIResource["Account"]):
         cls, account: str, **params: Unpack["AccountSubscribeParams"]
     ) -> "Account":
         """
-        Subscribes to periodic refreshes of data associated with a Financial Connections Account.
+        Subscribes to periodic refreshes of data associated with a Financial Connections Account. When the account status is active, data is typically refreshed once a day.
         """
         return cast(
             "Account",
@@ -665,7 +699,7 @@ class Account(ListableAPIResource["Account"]):
         account: str, **params: Unpack["AccountSubscribeParams"]
     ) -> "Account":
         """
-        Subscribes to periodic refreshes of data associated with a Financial Connections Account.
+        Subscribes to periodic refreshes of data associated with a Financial Connections Account. When the account status is active, data is typically refreshed once a day.
         """
         ...
 
@@ -674,7 +708,7 @@ class Account(ListableAPIResource["Account"]):
         self, **params: Unpack["AccountSubscribeParams"]
     ) -> "Account":
         """
-        Subscribes to periodic refreshes of data associated with a Financial Connections Account.
+        Subscribes to periodic refreshes of data associated with a Financial Connections Account. When the account status is active, data is typically refreshed once a day.
         """
         ...
 
@@ -683,7 +717,7 @@ class Account(ListableAPIResource["Account"]):
         self, **params: Unpack["AccountSubscribeParams"]
     ) -> "Account":
         """
-        Subscribes to periodic refreshes of data associated with a Financial Connections Account.
+        Subscribes to periodic refreshes of data associated with a Financial Connections Account. When the account status is active, data is typically refreshed once a day.
         """
         return cast(
             "Account",
@@ -701,7 +735,7 @@ class Account(ListableAPIResource["Account"]):
         cls, account: str, **params: Unpack["AccountSubscribeParams"]
     ) -> "Account":
         """
-        Subscribes to periodic refreshes of data associated with a Financial Connections Account.
+        Subscribes to periodic refreshes of data associated with a Financial Connections Account. When the account status is active, data is typically refreshed once a day.
         """
         return cast(
             "Account",
@@ -720,7 +754,7 @@ class Account(ListableAPIResource["Account"]):
         account: str, **params: Unpack["AccountSubscribeParams"]
     ) -> "Account":
         """
-        Subscribes to periodic refreshes of data associated with a Financial Connections Account.
+        Subscribes to periodic refreshes of data associated with a Financial Connections Account. When the account status is active, data is typically refreshed once a day.
         """
         ...
 
@@ -729,7 +763,7 @@ class Account(ListableAPIResource["Account"]):
         self, **params: Unpack["AccountSubscribeParams"]
     ) -> "Account":
         """
-        Subscribes to periodic refreshes of data associated with a Financial Connections Account.
+        Subscribes to periodic refreshes of data associated with a Financial Connections Account. When the account status is active, data is typically refreshed once a day.
         """
         ...
 
@@ -738,7 +772,7 @@ class Account(ListableAPIResource["Account"]):
         self, **params: Unpack["AccountSubscribeParams"]
     ) -> "Account":
         """
-        Subscribes to periodic refreshes of data associated with a Financial Connections Account.
+        Subscribes to periodic refreshes of data associated with a Financial Connections Account. When the account status is active, data is typically refreshed once a day.
         """
         return cast(
             "Account",
@@ -861,10 +895,51 @@ class Account(ListableAPIResource["Account"]):
             ),
         )
 
+    @classmethod
+    def list_inferred_balances(
+        cls,
+        account: str,
+        **params: Unpack["AccountListInferredBalancesParams"],
+    ) -> ListObject["AccountInferredBalance"]:
+        """
+        Lists the recorded inferred balances for a Financial Connections Account.
+        """
+        return cast(
+            ListObject["AccountInferredBalance"],
+            cls._static_request(
+                "get",
+                "/v1/financial_connections/accounts/{account}/inferred_balances".format(
+                    account=sanitize_id(account)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def list_inferred_balances_async(
+        cls,
+        account: str,
+        **params: Unpack["AccountListInferredBalancesParams"],
+    ) -> ListObject["AccountInferredBalance"]:
+        """
+        Lists the recorded inferred balances for a Financial Connections Account.
+        """
+        return cast(
+            ListObject["AccountInferredBalance"],
+            await cls._static_request_async(
+                "get",
+                "/v1/financial_connections/accounts/{account}/inferred_balances".format(
+                    account=sanitize_id(account)
+                ),
+                params=params,
+            ),
+        )
+
     _inner_class_types = {
         "account_holder": AccountHolder,
         "balance": Balance,
         "balance_refresh": BalanceRefresh,
+        "inferred_balances_refresh": InferredBalancesRefresh,
         "ownership_refresh": OwnershipRefresh,
         "transaction_refresh": TransactionRefresh,
     }

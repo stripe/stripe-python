@@ -29,6 +29,7 @@ if TYPE_CHECKING:
         SessionCreateParamsCustomTextTermsOfServiceAcceptance as SessionCreateParamsCustomTextTermsOfServiceAcceptance,
         SessionCreateParamsCustomerUpdate as SessionCreateParamsCustomerUpdate,
         SessionCreateParamsDiscount as SessionCreateParamsDiscount,
+        SessionCreateParamsDiscountCouponData as SessionCreateParamsDiscountCouponData,
         SessionCreateParamsInvoiceCreation as SessionCreateParamsInvoiceCreation,
         SessionCreateParamsInvoiceCreationInvoiceData as SessionCreateParamsInvoiceCreationInvoiceData,
         SessionCreateParamsInvoiceCreationInvoiceDataCustomField as SessionCreateParamsInvoiceCreationInvoiceDataCustomField,
@@ -92,7 +93,10 @@ if TYPE_CHECKING:
         SessionCreateParamsPaymentMethodOptionsPayco as SessionCreateParamsPaymentMethodOptionsPayco,
         SessionCreateParamsPaymentMethodOptionsPaynow as SessionCreateParamsPaymentMethodOptionsPaynow,
         SessionCreateParamsPaymentMethodOptionsPaypal as SessionCreateParamsPaymentMethodOptionsPaypal,
+        SessionCreateParamsPaymentMethodOptionsPayto as SessionCreateParamsPaymentMethodOptionsPayto,
+        SessionCreateParamsPaymentMethodOptionsPaytoMandateOptions as SessionCreateParamsPaymentMethodOptionsPaytoMandateOptions,
         SessionCreateParamsPaymentMethodOptionsPix as SessionCreateParamsPaymentMethodOptionsPix,
+        SessionCreateParamsPaymentMethodOptionsPixMandateOptions as SessionCreateParamsPaymentMethodOptionsPixMandateOptions,
         SessionCreateParamsPaymentMethodOptionsRevolutPay as SessionCreateParamsPaymentMethodOptionsRevolutPay,
         SessionCreateParamsPaymentMethodOptionsSamsungPay as SessionCreateParamsPaymentMethodOptionsSamsungPay,
         SessionCreateParamsPaymentMethodOptionsSatispay as SessionCreateParamsPaymentMethodOptionsSatispay,
@@ -100,10 +104,12 @@ if TYPE_CHECKING:
         SessionCreateParamsPaymentMethodOptionsSepaDebitMandateOptions as SessionCreateParamsPaymentMethodOptionsSepaDebitMandateOptions,
         SessionCreateParamsPaymentMethodOptionsSofort as SessionCreateParamsPaymentMethodOptionsSofort,
         SessionCreateParamsPaymentMethodOptionsSwish as SessionCreateParamsPaymentMethodOptionsSwish,
+        SessionCreateParamsPaymentMethodOptionsTwint as SessionCreateParamsPaymentMethodOptionsTwint,
         SessionCreateParamsPaymentMethodOptionsUsBankAccount as SessionCreateParamsPaymentMethodOptionsUsBankAccount,
         SessionCreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections as SessionCreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections,
         SessionCreateParamsPaymentMethodOptionsWechatPay as SessionCreateParamsPaymentMethodOptionsWechatPay,
         SessionCreateParamsPermissions as SessionCreateParamsPermissions,
+        SessionCreateParamsPermissionsUpdate as SessionCreateParamsPermissionsUpdate,
         SessionCreateParamsPhoneNumberCollection as SessionCreateParamsPhoneNumberCollection,
         SessionCreateParamsSavedPaymentMethodOptions as SessionCreateParamsSavedPaymentMethodOptions,
         SessionCreateParamsSetupIntentData as SessionCreateParamsSetupIntentData,
@@ -143,9 +149,21 @@ if TYPE_CHECKING:
     )
     from stripe.params.checkout._session_modify_params import (
         SessionModifyParams as SessionModifyParams,
+        SessionModifyParamsAutomaticTax as SessionModifyParamsAutomaticTax,
+        SessionModifyParamsAutomaticTaxLiability as SessionModifyParamsAutomaticTaxLiability,
         SessionModifyParamsCollectedInformation as SessionModifyParamsCollectedInformation,
         SessionModifyParamsCollectedInformationShippingDetails as SessionModifyParamsCollectedInformationShippingDetails,
         SessionModifyParamsCollectedInformationShippingDetailsAddress as SessionModifyParamsCollectedInformationShippingDetailsAddress,
+        SessionModifyParamsDiscount as SessionModifyParamsDiscount,
+        SessionModifyParamsDiscountCouponData as SessionModifyParamsDiscountCouponData,
+        SessionModifyParamsInvoiceCreation as SessionModifyParamsInvoiceCreation,
+        SessionModifyParamsInvoiceCreationInvoiceData as SessionModifyParamsInvoiceCreationInvoiceData,
+        SessionModifyParamsInvoiceCreationInvoiceDataIssuer as SessionModifyParamsInvoiceCreationInvoiceDataIssuer,
+        SessionModifyParamsLineItem as SessionModifyParamsLineItem,
+        SessionModifyParamsLineItemAdjustableQuantity as SessionModifyParamsLineItemAdjustableQuantity,
+        SessionModifyParamsLineItemPriceData as SessionModifyParamsLineItemPriceData,
+        SessionModifyParamsLineItemPriceDataProductData as SessionModifyParamsLineItemPriceDataProductData,
+        SessionModifyParamsLineItemPriceDataRecurring as SessionModifyParamsLineItemPriceDataRecurring,
         SessionModifyParamsShippingOption as SessionModifyParamsShippingOption,
         SessionModifyParamsShippingOptionShippingRateData as SessionModifyParamsShippingOptionShippingRateData,
         SessionModifyParamsShippingOptionShippingRateDataDeliveryEstimate as SessionModifyParamsShippingOptionShippingRateDataDeliveryEstimate,
@@ -153,15 +171,30 @@ if TYPE_CHECKING:
         SessionModifyParamsShippingOptionShippingRateDataDeliveryEstimateMinimum as SessionModifyParamsShippingOptionShippingRateDataDeliveryEstimateMinimum,
         SessionModifyParamsShippingOptionShippingRateDataFixedAmount as SessionModifyParamsShippingOptionShippingRateDataFixedAmount,
         SessionModifyParamsShippingOptionShippingRateDataFixedAmountCurrencyOptions as SessionModifyParamsShippingOptionShippingRateDataFixedAmountCurrencyOptions,
+        SessionModifyParamsSubscriptionData as SessionModifyParamsSubscriptionData,
+        SessionModifyParamsSubscriptionDataInvoiceSettings as SessionModifyParamsSubscriptionDataInvoiceSettings,
+        SessionModifyParamsSubscriptionDataInvoiceSettingsIssuer as SessionModifyParamsSubscriptionDataInvoiceSettingsIssuer,
     )
     from stripe.params.checkout._session_retrieve_params import (
         SessionRetrieveParams as SessionRetrieveParams,
     )
     from stripe.params.checkout._session_update_params import (
         SessionUpdateParams as SessionUpdateParams,
+        SessionUpdateParamsAutomaticTax as SessionUpdateParamsAutomaticTax,
+        SessionUpdateParamsAutomaticTaxLiability as SessionUpdateParamsAutomaticTaxLiability,
         SessionUpdateParamsCollectedInformation as SessionUpdateParamsCollectedInformation,
         SessionUpdateParamsCollectedInformationShippingDetails as SessionUpdateParamsCollectedInformationShippingDetails,
         SessionUpdateParamsCollectedInformationShippingDetailsAddress as SessionUpdateParamsCollectedInformationShippingDetailsAddress,
+        SessionUpdateParamsDiscount as SessionUpdateParamsDiscount,
+        SessionUpdateParamsDiscountCouponData as SessionUpdateParamsDiscountCouponData,
+        SessionUpdateParamsInvoiceCreation as SessionUpdateParamsInvoiceCreation,
+        SessionUpdateParamsInvoiceCreationInvoiceData as SessionUpdateParamsInvoiceCreationInvoiceData,
+        SessionUpdateParamsInvoiceCreationInvoiceDataIssuer as SessionUpdateParamsInvoiceCreationInvoiceDataIssuer,
+        SessionUpdateParamsLineItem as SessionUpdateParamsLineItem,
+        SessionUpdateParamsLineItemAdjustableQuantity as SessionUpdateParamsLineItemAdjustableQuantity,
+        SessionUpdateParamsLineItemPriceData as SessionUpdateParamsLineItemPriceData,
+        SessionUpdateParamsLineItemPriceDataProductData as SessionUpdateParamsLineItemPriceDataProductData,
+        SessionUpdateParamsLineItemPriceDataRecurring as SessionUpdateParamsLineItemPriceDataRecurring,
         SessionUpdateParamsShippingOption as SessionUpdateParamsShippingOption,
         SessionUpdateParamsShippingOptionShippingRateData as SessionUpdateParamsShippingOptionShippingRateData,
         SessionUpdateParamsShippingOptionShippingRateDataDeliveryEstimate as SessionUpdateParamsShippingOptionShippingRateDataDeliveryEstimate,
@@ -169,6 +202,9 @@ if TYPE_CHECKING:
         SessionUpdateParamsShippingOptionShippingRateDataDeliveryEstimateMinimum as SessionUpdateParamsShippingOptionShippingRateDataDeliveryEstimateMinimum,
         SessionUpdateParamsShippingOptionShippingRateDataFixedAmount as SessionUpdateParamsShippingOptionShippingRateDataFixedAmount,
         SessionUpdateParamsShippingOptionShippingRateDataFixedAmountCurrencyOptions as SessionUpdateParamsShippingOptionShippingRateDataFixedAmountCurrencyOptions,
+        SessionUpdateParamsSubscriptionData as SessionUpdateParamsSubscriptionData,
+        SessionUpdateParamsSubscriptionDataInvoiceSettings as SessionUpdateParamsSubscriptionDataInvoiceSettings,
+        SessionUpdateParamsSubscriptionDataInvoiceSettingsIssuer as SessionUpdateParamsSubscriptionDataInvoiceSettingsIssuer,
     )
 
 # name -> (import_target, is_submodule)
@@ -266,6 +302,10 @@ _import_map = {
         False,
     ),
     "SessionCreateParamsDiscount": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsDiscountCouponData": (
         "stripe.params.checkout._session_create_params",
         False,
     ),
@@ -521,7 +561,19 @@ _import_map = {
         "stripe.params.checkout._session_create_params",
         False,
     ),
+    "SessionCreateParamsPaymentMethodOptionsPayto": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsPaytoMandateOptions": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
     "SessionCreateParamsPaymentMethodOptionsPix": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsPixMandateOptions": (
         "stripe.params.checkout._session_create_params",
         False,
     ),
@@ -553,6 +605,10 @@ _import_map = {
         "stripe.params.checkout._session_create_params",
         False,
     ),
+    "SessionCreateParamsPaymentMethodOptionsTwint": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
     "SessionCreateParamsPaymentMethodOptionsUsBankAccount": (
         "stripe.params.checkout._session_create_params",
         False,
@@ -566,6 +622,10 @@ _import_map = {
         False,
     ),
     "SessionCreateParamsPermissions": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPermissionsUpdate": (
         "stripe.params.checkout._session_create_params",
         False,
     ),
@@ -685,6 +745,14 @@ _import_map = {
         "stripe.params.checkout._session_modify_params",
         False,
     ),
+    "SessionModifyParamsAutomaticTax": (
+        "stripe.params.checkout._session_modify_params",
+        False,
+    ),
+    "SessionModifyParamsAutomaticTaxLiability": (
+        "stripe.params.checkout._session_modify_params",
+        False,
+    ),
     "SessionModifyParamsCollectedInformation": (
         "stripe.params.checkout._session_modify_params",
         False,
@@ -694,6 +762,46 @@ _import_map = {
         False,
     ),
     "SessionModifyParamsCollectedInformationShippingDetailsAddress": (
+        "stripe.params.checkout._session_modify_params",
+        False,
+    ),
+    "SessionModifyParamsDiscount": (
+        "stripe.params.checkout._session_modify_params",
+        False,
+    ),
+    "SessionModifyParamsDiscountCouponData": (
+        "stripe.params.checkout._session_modify_params",
+        False,
+    ),
+    "SessionModifyParamsInvoiceCreation": (
+        "stripe.params.checkout._session_modify_params",
+        False,
+    ),
+    "SessionModifyParamsInvoiceCreationInvoiceData": (
+        "stripe.params.checkout._session_modify_params",
+        False,
+    ),
+    "SessionModifyParamsInvoiceCreationInvoiceDataIssuer": (
+        "stripe.params.checkout._session_modify_params",
+        False,
+    ),
+    "SessionModifyParamsLineItem": (
+        "stripe.params.checkout._session_modify_params",
+        False,
+    ),
+    "SessionModifyParamsLineItemAdjustableQuantity": (
+        "stripe.params.checkout._session_modify_params",
+        False,
+    ),
+    "SessionModifyParamsLineItemPriceData": (
+        "stripe.params.checkout._session_modify_params",
+        False,
+    ),
+    "SessionModifyParamsLineItemPriceDataProductData": (
+        "stripe.params.checkout._session_modify_params",
+        False,
+    ),
+    "SessionModifyParamsLineItemPriceDataRecurring": (
         "stripe.params.checkout._session_modify_params",
         False,
     ),
@@ -725,11 +833,31 @@ _import_map = {
         "stripe.params.checkout._session_modify_params",
         False,
     ),
+    "SessionModifyParamsSubscriptionData": (
+        "stripe.params.checkout._session_modify_params",
+        False,
+    ),
+    "SessionModifyParamsSubscriptionDataInvoiceSettings": (
+        "stripe.params.checkout._session_modify_params",
+        False,
+    ),
+    "SessionModifyParamsSubscriptionDataInvoiceSettingsIssuer": (
+        "stripe.params.checkout._session_modify_params",
+        False,
+    ),
     "SessionRetrieveParams": (
         "stripe.params.checkout._session_retrieve_params",
         False,
     ),
     "SessionUpdateParams": (
+        "stripe.params.checkout._session_update_params",
+        False,
+    ),
+    "SessionUpdateParamsAutomaticTax": (
+        "stripe.params.checkout._session_update_params",
+        False,
+    ),
+    "SessionUpdateParamsAutomaticTaxLiability": (
         "stripe.params.checkout._session_update_params",
         False,
     ),
@@ -742,6 +870,46 @@ _import_map = {
         False,
     ),
     "SessionUpdateParamsCollectedInformationShippingDetailsAddress": (
+        "stripe.params.checkout._session_update_params",
+        False,
+    ),
+    "SessionUpdateParamsDiscount": (
+        "stripe.params.checkout._session_update_params",
+        False,
+    ),
+    "SessionUpdateParamsDiscountCouponData": (
+        "stripe.params.checkout._session_update_params",
+        False,
+    ),
+    "SessionUpdateParamsInvoiceCreation": (
+        "stripe.params.checkout._session_update_params",
+        False,
+    ),
+    "SessionUpdateParamsInvoiceCreationInvoiceData": (
+        "stripe.params.checkout._session_update_params",
+        False,
+    ),
+    "SessionUpdateParamsInvoiceCreationInvoiceDataIssuer": (
+        "stripe.params.checkout._session_update_params",
+        False,
+    ),
+    "SessionUpdateParamsLineItem": (
+        "stripe.params.checkout._session_update_params",
+        False,
+    ),
+    "SessionUpdateParamsLineItemAdjustableQuantity": (
+        "stripe.params.checkout._session_update_params",
+        False,
+    ),
+    "SessionUpdateParamsLineItemPriceData": (
+        "stripe.params.checkout._session_update_params",
+        False,
+    ),
+    "SessionUpdateParamsLineItemPriceDataProductData": (
+        "stripe.params.checkout._session_update_params",
+        False,
+    ),
+    "SessionUpdateParamsLineItemPriceDataRecurring": (
         "stripe.params.checkout._session_update_params",
         False,
     ),
@@ -770,6 +938,18 @@ _import_map = {
         False,
     ),
     "SessionUpdateParamsShippingOptionShippingRateDataFixedAmountCurrencyOptions": (
+        "stripe.params.checkout._session_update_params",
+        False,
+    ),
+    "SessionUpdateParamsSubscriptionData": (
+        "stripe.params.checkout._session_update_params",
+        False,
+    ),
+    "SessionUpdateParamsSubscriptionDataInvoiceSettings": (
+        "stripe.params.checkout._session_update_params",
+        False,
+    ),
+    "SessionUpdateParamsSubscriptionDataInvoiceSettingsIssuer": (
         "stripe.params.checkout._session_update_params",
         False,
     ),

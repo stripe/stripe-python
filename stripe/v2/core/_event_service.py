@@ -18,7 +18,7 @@ if TYPE_CHECKING:
 class EventService(StripeService):
     def list(
         self,
-        params: "EventListParams",
+        params: Optional["EventListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Event]":
         """
@@ -37,7 +37,7 @@ class EventService(StripeService):
 
     async def list_async(
         self,
-        params: "EventListParams",
+        params: Optional["EventListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Event]":
         """

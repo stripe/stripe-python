@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 class SessionService(StripeService):
     def create(
         self,
-        params: "SessionCreateParams",
+        params: Optional["SessionCreateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Session":
         """
@@ -34,7 +34,7 @@ class SessionService(StripeService):
 
     async def create_async(
         self,
-        params: "SessionCreateParams",
+        params: Optional["SessionCreateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Session":
         """

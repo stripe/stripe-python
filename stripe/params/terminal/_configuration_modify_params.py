@@ -10,13 +10,13 @@ class ConfigurationModifyParams(RequestOptions):
         "Literal['']|ConfigurationModifyParamsBbposWisepad3"
     ]
     """
-    An object containing device type specific settings for BBPOS WisePad 3 readers
+    An object containing device type specific settings for BBPOS WisePad 3 readers.
     """
     bbpos_wisepos_e: NotRequired[
         "Literal['']|ConfigurationModifyParamsBbposWiseposE"
     ]
     """
-    An object containing device type specific settings for BBPOS WisePOS E readers
+    An object containing device type specific settings for BBPOS WisePOS E readers.
     """
     expand: NotRequired[List[str]]
     """
@@ -30,25 +30,31 @@ class ConfigurationModifyParams(RequestOptions):
     """
     Configurations for collecting transactions offline.
     """
+    reader_security: NotRequired[
+        "Literal['']|ConfigurationModifyParamsReaderSecurity"
+    ]
+    """
+    Configurations for reader security settings.
+    """
     reboot_window: NotRequired[
         "Literal['']|ConfigurationModifyParamsRebootWindow"
     ]
     """
-    Reboot time settings for readers that support customized reboot time configuration.
+    Reboot time settings for readers. that support customized reboot time configuration.
     """
     stripe_s700: NotRequired["Literal['']|ConfigurationModifyParamsStripeS700"]
     """
-    An object containing device type specific settings for Stripe S700 readers
+    An object containing device type specific settings for Stripe S700 readers.
     """
     tipping: NotRequired["Literal['']|ConfigurationModifyParamsTipping"]
     """
-    Tipping configurations for readers supporting on-reader tips
+    Tipping configurations for readers. supporting on-reader tips
     """
     verifone_p400: NotRequired[
         "Literal['']|ConfigurationModifyParamsVerifoneP400"
     ]
     """
-    An object containing device type specific settings for Verifone P400 readers
+    An object containing device type specific settings for Verifone P400 readers.
     """
     wifi: NotRequired["Literal['']|ConfigurationModifyParamsWifi"]
     """
@@ -59,7 +65,7 @@ class ConfigurationModifyParams(RequestOptions):
 class ConfigurationModifyParamsBbposWisepad3(TypedDict):
     splashscreen: NotRequired["Literal['']|str"]
     """
-    A File ID representing an image you would like displayed on the reader.
+    A File ID representing an image you want to display on the reader.
     """
 
 
@@ -77,6 +83,13 @@ class ConfigurationModifyParamsOffline(TypedDict):
     """
 
 
+class ConfigurationModifyParamsReaderSecurity(TypedDict):
+    admin_menu_passcode: NotRequired["Literal['']|str"]
+    """
+    Passcode used to access a reader's admin menu.
+    """
+
+
 class ConfigurationModifyParamsRebootWindow(TypedDict):
     end_hour: int
     """
@@ -91,7 +104,7 @@ class ConfigurationModifyParamsRebootWindow(TypedDict):
 class ConfigurationModifyParamsStripeS700(TypedDict):
     splashscreen: NotRequired["Literal['']|str"]
     """
-    A File ID representing an image you would like displayed on the reader.
+    A File ID representing an image you want to display on the reader.
     """
 
 
@@ -131,6 +144,10 @@ class ConfigurationModifyParamsTipping(TypedDict):
     gbp: NotRequired["ConfigurationModifyParamsTippingGbp"]
     """
     Tipping configuration for GBP
+    """
+    gip: NotRequired["ConfigurationModifyParamsTippingGip"]
+    """
+    Tipping configuration for GIP
     """
     hkd: NotRequired["ConfigurationModifyParamsTippingHkd"]
     """
@@ -303,6 +320,21 @@ class ConfigurationModifyParamsTippingEur(TypedDict):
 
 
 class ConfigurationModifyParamsTippingGbp(TypedDict):
+    fixed_amounts: NotRequired[List[int]]
+    """
+    Fixed amounts displayed when collecting a tip
+    """
+    percentages: NotRequired[List[int]]
+    """
+    Percentages displayed when collecting a tip
+    """
+    smart_tip_threshold: NotRequired[int]
+    """
+    Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+    """
+
+
+class ConfigurationModifyParamsTippingGip(TypedDict):
     fixed_amounts: NotRequired[List[int]]
     """
     Fixed amounts displayed when collecting a tip
@@ -500,7 +532,7 @@ class ConfigurationModifyParamsTippingUsd(TypedDict):
 class ConfigurationModifyParamsVerifoneP400(TypedDict):
     splashscreen: NotRequired["Literal['']|str"]
     """
-    A File ID representing an image you would like displayed on the reader.
+    A File ID representing an image you want to display on the reader.
     """
 
 

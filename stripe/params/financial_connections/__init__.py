@@ -7,6 +7,12 @@ if TYPE_CHECKING:
     from stripe.params.financial_connections._account_disconnect_params import (
         AccountDisconnectParams as AccountDisconnectParams,
     )
+    from stripe.params.financial_connections._account_inferred_balance_list_params import (
+        AccountInferredBalanceListParams as AccountInferredBalanceListParams,
+    )
+    from stripe.params.financial_connections._account_list_inferred_balances_params import (
+        AccountListInferredBalancesParams as AccountListInferredBalancesParams,
+    )
     from stripe.params.financial_connections._account_list_owners_params import (
         AccountListOwnersParams as AccountListOwnersParams,
     )
@@ -32,10 +38,18 @@ if TYPE_CHECKING:
     from stripe.params.financial_connections._account_unsubscribe_params import (
         AccountUnsubscribeParams as AccountUnsubscribeParams,
     )
+    from stripe.params.financial_connections._institution_list_params import (
+        InstitutionListParams as InstitutionListParams,
+    )
+    from stripe.params.financial_connections._institution_retrieve_params import (
+        InstitutionRetrieveParams as InstitutionRetrieveParams,
+    )
     from stripe.params.financial_connections._session_create_params import (
         SessionCreateParams as SessionCreateParams,
         SessionCreateParamsAccountHolder as SessionCreateParamsAccountHolder,
         SessionCreateParamsFilters as SessionCreateParamsFilters,
+        SessionCreateParamsLimits as SessionCreateParamsLimits,
+        SessionCreateParamsManualEntry as SessionCreateParamsManualEntry,
     )
     from stripe.params.financial_connections._session_retrieve_params import (
         SessionRetrieveParams as SessionRetrieveParams,
@@ -53,6 +67,14 @@ if TYPE_CHECKING:
 _import_map = {
     "AccountDisconnectParams": (
         "stripe.params.financial_connections._account_disconnect_params",
+        False,
+    ),
+    "AccountInferredBalanceListParams": (
+        "stripe.params.financial_connections._account_inferred_balance_list_params",
+        False,
+    ),
+    "AccountListInferredBalancesParams": (
+        "stripe.params.financial_connections._account_list_inferred_balances_params",
         False,
     ),
     "AccountListOwnersParams": (
@@ -91,6 +113,14 @@ _import_map = {
         "stripe.params.financial_connections._account_unsubscribe_params",
         False,
     ),
+    "InstitutionListParams": (
+        "stripe.params.financial_connections._institution_list_params",
+        False,
+    ),
+    "InstitutionRetrieveParams": (
+        "stripe.params.financial_connections._institution_retrieve_params",
+        False,
+    ),
     "SessionCreateParams": (
         "stripe.params.financial_connections._session_create_params",
         False,
@@ -100,6 +130,14 @@ _import_map = {
         False,
     ),
     "SessionCreateParamsFilters": (
+        "stripe.params.financial_connections._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsLimits": (
+        "stripe.params.financial_connections._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsManualEntry": (
         "stripe.params.financial_connections._session_create_params",
         False,
     ),

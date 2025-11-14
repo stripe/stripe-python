@@ -4,6 +4,9 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.params.tax._association_find_params import (
+        AssociationFindParams as AssociationFindParams,
+    )
     from stripe.params.tax._calculation_create_params import (
         CalculationCreateParams as CalculationCreateParams,
         CalculationCreateParamsCustomerDetails as CalculationCreateParamsCustomerDetails,
@@ -22,6 +25,16 @@ if TYPE_CHECKING:
     )
     from stripe.params.tax._calculation_retrieve_params import (
         CalculationRetrieveParams as CalculationRetrieveParams,
+    )
+    from stripe.params.tax._form_list_params import (
+        FormListParams as FormListParams,
+        FormListParamsPayee as FormListParamsPayee,
+    )
+    from stripe.params.tax._form_pdf_params import (
+        FormPdfParams as FormPdfParams,
+    )
+    from stripe.params.tax._form_retrieve_params import (
+        FormRetrieveParams as FormRetrieveParams,
     )
     from stripe.params.tax._registration_create_params import (
         RegistrationCreateParams as RegistrationCreateParams,
@@ -170,6 +183,7 @@ if TYPE_CHECKING:
         RegistrationCreateParamsCountryOptionsTh as RegistrationCreateParamsCountryOptionsTh,
         RegistrationCreateParamsCountryOptionsTj as RegistrationCreateParamsCountryOptionsTj,
         RegistrationCreateParamsCountryOptionsTr as RegistrationCreateParamsCountryOptionsTr,
+        RegistrationCreateParamsCountryOptionsTw as RegistrationCreateParamsCountryOptionsTw,
         RegistrationCreateParamsCountryOptionsTz as RegistrationCreateParamsCountryOptionsTz,
         RegistrationCreateParamsCountryOptionsUa as RegistrationCreateParamsCountryOptionsUa,
         RegistrationCreateParamsCountryOptionsUg as RegistrationCreateParamsCountryOptionsUg,
@@ -235,6 +249,10 @@ if TYPE_CHECKING:
 
 # name -> (import_target, is_submodule)
 _import_map = {
+    "AssociationFindParams": (
+        "stripe.params.tax._association_find_params",
+        False,
+    ),
     "CalculationCreateParams": (
         "stripe.params.tax._calculation_create_params",
         False,
@@ -279,6 +297,10 @@ _import_map = {
         "stripe.params.tax._calculation_retrieve_params",
         False,
     ),
+    "FormListParams": ("stripe.params.tax._form_list_params", False),
+    "FormListParamsPayee": ("stripe.params.tax._form_list_params", False),
+    "FormPdfParams": ("stripe.params.tax._form_pdf_params", False),
+    "FormRetrieveParams": ("stripe.params.tax._form_retrieve_params", False),
     "RegistrationCreateParams": (
         "stripe.params.tax._registration_create_params",
         False,
@@ -860,6 +882,10 @@ _import_map = {
         False,
     ),
     "RegistrationCreateParamsCountryOptionsTr": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsTw": (
         "stripe.params.tax._registration_create_params",
         False,
     ),

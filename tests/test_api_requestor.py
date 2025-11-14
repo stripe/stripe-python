@@ -572,7 +572,9 @@ class TestAPIRequestor(object):
 
     def test_uses_instance_key(self, requestor, http_client_mock):
         key = "fookey"
-        requestor = requestor._replace_options(RequestOptions(api_key=key))
+        requestor = requestor._new_requestor_with_options(
+            RequestOptions(api_key=key)
+        )
 
         http_client_mock.stub_request(
             "get", path=self.v1_path, rbody="{}", rcode=200
@@ -585,7 +587,7 @@ class TestAPIRequestor(object):
 
     def test_uses_instance_account(self, requestor, http_client_mock):
         account = "acct_foo"
-        requestor = requestor._replace_options(
+        requestor = requestor._new_requestor_with_options(
             RequestOptions(stripe_account=account)
         )
 
@@ -610,7 +612,7 @@ class TestAPIRequestor(object):
         in the generated fetch_related_object doesn't actually send the null header
         """
         account = None
-        requestor = requestor._replace_options(
+        requestor = requestor._new_requestor_with_options(
             RequestOptions(stripe_account=account)
         )
 
@@ -668,6 +670,30 @@ class TestAPIRequestor(object):
 
         # the newly created client is reused
         assert stripe.default_http_client == new_default_client
+
+    def test_add_beta_version(self):
+        stripe.api_version = "2024-02-26"
+        stripe.add_beta_version("feature_beta", "v3")
+        assert stripe.api_version == "2024-02-26; feature_beta=v3"
+
+        # Same version should be ignored
+        stripe.add_beta_version("feature_beta", "v3")
+        assert stripe.api_version == "2024-02-26; feature_beta=v3"
+
+        # Higher version should replace lower
+        stripe.add_beta_version("feature_beta", "v4")
+        assert stripe.api_version == "2024-02-26; feature_beta=v4"
+
+        # Lower version should be ignored
+        stripe.add_beta_version("feature_beta", "v2")
+        assert stripe.api_version == "2024-02-26; feature_beta=v4"
+
+        # Adding a new name should append
+        stripe.add_beta_version("another_feature_beta", "v2")
+        assert (
+            stripe.api_version
+            == "2024-02-26; feature_beta=v4; another_feature_beta=v2"
+        )
 
     def test_uses_app_info(self, requestor, http_client_mock):
         try:
@@ -949,7 +975,6 @@ class TestAPIRequestor(object):
             ),
             rcode=400,
         )
-
         with pytest.raises(stripe.oauth_error.InvalidGrantError):
             requestor.request_stream(
                 "get", self.v1_path, {}, base_address="api"

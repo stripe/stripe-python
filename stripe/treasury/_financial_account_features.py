@@ -139,6 +139,10 @@ class FinancialAccountFeatures(StripeObject):
                 The `platform_restrictions` that are restricting this Feature.
                 """
 
+            bank: Optional[Literal["evolve", "fifth_third", "goldman_sachs"]]
+            """
+            Requested bank partner for this Financial Account
+            """
             requested: bool
             """
             Whether the FinancialAccount should have the Feature.

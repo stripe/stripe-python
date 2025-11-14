@@ -351,6 +351,12 @@ class Dispute(
         """
         The number of times evidence has been submitted. Typically, you may only submit evidence once.
         """
+        submission_method: Optional[
+            Literal["manual", "not_submitted", "smart_disputes"]
+        ]
+        """
+        Whether the dispute was submitted manually, with Smart Disputes, or not submitted.
+        """
         _inner_class_types = {"enhanced_eligibility": EnhancedEligibility}
 
     class PaymentMethodDetails(StripeObject):
@@ -411,6 +417,18 @@ class Dispute(
             "paypal": Paypal,
         }
 
+    class SmartDisputes(StripeObject):
+        recommended_evidence: Optional[List[List[str]]]
+        """
+        Evidence that could be provided to improve the SmartDisputes packet
+        """
+        status: Literal[
+            "available", "processing", "requires_evidence", "unavailable"
+        ]
+        """
+        Smart Disputes auto representment packet availability status.
+        """
+
     amount: int
     """
     Disputed amount. Usually the amount of the charge, but it can differ (usually because of currency fluctuation or because only part of the order is disputed).
@@ -443,6 +461,17 @@ class Dispute(
     """
     Unique identifier for the object.
     """
+    intended_submission_method: Optional[
+        Literal[
+            "manual",
+            "prefer_manual",
+            "prefer_smart_disputes",
+            "smart_disputes",
+        ]
+    ]
+    """
+    Intended submission method for the dispute.
+    """
     is_charge_refundable: bool
     """
     If true, it's still possible to refund the disputed payment. After the payment has been fully refunded, no further funds are withdrawn from your Stripe account as a result of this dispute.
@@ -472,6 +501,7 @@ class Dispute(
     """
     Reason given by cardholder for dispute. Possible values are `bank_cannot_process`, `check_returned`, `credit_not_processed`, `customer_initiated`, `debit_not_authorized`, `duplicate`, `fraudulent`, `general`, `incorrect_account_details`, `insufficient_funds`, `noncompliant`, `product_not_received`, `product_unacceptable`, `subscription_canceled`, or `unrecognized`. Learn more about [dispute reasons](https://stripe.com/docs/disputes/categories).
     """
+    smart_disputes: Optional[SmartDisputes]
     status: Literal[
         "lost",
         "needs_response",
@@ -714,4 +744,5 @@ class Dispute(
         "evidence": Evidence,
         "evidence_details": EvidenceDetails,
         "payment_method_details": PaymentMethodDetails,
+        "smart_disputes": SmartDisputes,
     }

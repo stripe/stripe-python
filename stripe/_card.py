@@ -78,6 +78,10 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     """
     Card brand. Can be `American Express`, `Cartes Bancaires`, `Diners Club`, `Discover`, `Eftpos Australia`, `Girocard`, `JCB`, `MasterCard`, `UnionPay`, `Visa`, or `Unknown`.
     """
+    brand_product: Optional[str]
+    """
+    The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card. (For internal use only and not typically available in standard API requests.)
+    """
     country: Optional[str]
     """
     Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.

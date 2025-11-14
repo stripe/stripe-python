@@ -50,11 +50,15 @@ if TYPE_CHECKING:
         ReceivedCreditCreateParams as ReceivedCreditCreateParams,
         ReceivedCreditCreateParamsInitiatingPaymentMethodDetails as ReceivedCreditCreateParamsInitiatingPaymentMethodDetails,
         ReceivedCreditCreateParamsInitiatingPaymentMethodDetailsUsBankAccount as ReceivedCreditCreateParamsInitiatingPaymentMethodDetailsUsBankAccount,
+        ReceivedCreditCreateParamsNetworkDetails as ReceivedCreditCreateParamsNetworkDetails,
+        ReceivedCreditCreateParamsNetworkDetailsAch as ReceivedCreditCreateParamsNetworkDetailsAch,
     )
     from stripe.params.test_helpers.treasury._received_debit_create_params import (
         ReceivedDebitCreateParams as ReceivedDebitCreateParams,
         ReceivedDebitCreateParamsInitiatingPaymentMethodDetails as ReceivedDebitCreateParamsInitiatingPaymentMethodDetails,
         ReceivedDebitCreateParamsInitiatingPaymentMethodDetailsUsBankAccount as ReceivedDebitCreateParamsInitiatingPaymentMethodDetailsUsBankAccount,
+        ReceivedDebitCreateParamsNetworkDetails as ReceivedDebitCreateParamsNetworkDetails,
+        ReceivedDebitCreateParamsNetworkDetailsAch as ReceivedDebitCreateParamsNetworkDetailsAch,
     )
 
 # name -> (import_target, is_submodule)
@@ -151,6 +155,14 @@ _import_map = {
         "stripe.params.test_helpers.treasury._received_credit_create_params",
         False,
     ),
+    "ReceivedCreditCreateParamsNetworkDetails": (
+        "stripe.params.test_helpers.treasury._received_credit_create_params",
+        False,
+    ),
+    "ReceivedCreditCreateParamsNetworkDetailsAch": (
+        "stripe.params.test_helpers.treasury._received_credit_create_params",
+        False,
+    ),
     "ReceivedDebitCreateParams": (
         "stripe.params.test_helpers.treasury._received_debit_create_params",
         False,
@@ -160,6 +172,14 @@ _import_map = {
         False,
     ),
     "ReceivedDebitCreateParamsInitiatingPaymentMethodDetailsUsBankAccount": (
+        "stripe.params.test_helpers.treasury._received_debit_create_params",
+        False,
+    ),
+    "ReceivedDebitCreateParamsNetworkDetails": (
+        "stripe.params.test_helpers.treasury._received_debit_create_params",
+        False,
+    ),
+    "ReceivedDebitCreateParamsNetworkDetailsAch": (
         "stripe.params.test_helpers.treasury._received_debit_create_params",
         False,
     ),

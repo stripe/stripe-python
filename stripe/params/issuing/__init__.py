@@ -180,6 +180,44 @@ if TYPE_CHECKING:
         CardholderUpdateParamsSpendingControls as CardholderUpdateParamsSpendingControls,
         CardholderUpdateParamsSpendingControlsSpendingLimit as CardholderUpdateParamsSpendingControlsSpendingLimit,
     )
+    from stripe.params.issuing._credit_underwriting_record_correct_params import (
+        CreditUnderwritingRecordCorrectParams as CreditUnderwritingRecordCorrectParams,
+        CreditUnderwritingRecordCorrectParamsApplication as CreditUnderwritingRecordCorrectParamsApplication,
+        CreditUnderwritingRecordCorrectParamsCreditUser as CreditUnderwritingRecordCorrectParamsCreditUser,
+        CreditUnderwritingRecordCorrectParamsDecision as CreditUnderwritingRecordCorrectParamsDecision,
+        CreditUnderwritingRecordCorrectParamsDecisionApplicationRejected as CreditUnderwritingRecordCorrectParamsDecisionApplicationRejected,
+        CreditUnderwritingRecordCorrectParamsDecisionCreditLimitApproved as CreditUnderwritingRecordCorrectParamsDecisionCreditLimitApproved,
+        CreditUnderwritingRecordCorrectParamsDecisionCreditLimitDecreased as CreditUnderwritingRecordCorrectParamsDecisionCreditLimitDecreased,
+        CreditUnderwritingRecordCorrectParamsDecisionCreditLineClosed as CreditUnderwritingRecordCorrectParamsDecisionCreditLineClosed,
+        CreditUnderwritingRecordCorrectParamsUnderwritingException as CreditUnderwritingRecordCorrectParamsUnderwritingException,
+    )
+    from stripe.params.issuing._credit_underwriting_record_create_from_application_params import (
+        CreditUnderwritingRecordCreateFromApplicationParams as CreditUnderwritingRecordCreateFromApplicationParams,
+        CreditUnderwritingRecordCreateFromApplicationParamsApplication as CreditUnderwritingRecordCreateFromApplicationParamsApplication,
+        CreditUnderwritingRecordCreateFromApplicationParamsCreditUser as CreditUnderwritingRecordCreateFromApplicationParamsCreditUser,
+    )
+    from stripe.params.issuing._credit_underwriting_record_create_from_proactive_review_params import (
+        CreditUnderwritingRecordCreateFromProactiveReviewParams as CreditUnderwritingRecordCreateFromProactiveReviewParams,
+        CreditUnderwritingRecordCreateFromProactiveReviewParamsCreditUser as CreditUnderwritingRecordCreateFromProactiveReviewParamsCreditUser,
+        CreditUnderwritingRecordCreateFromProactiveReviewParamsDecision as CreditUnderwritingRecordCreateFromProactiveReviewParamsDecision,
+        CreditUnderwritingRecordCreateFromProactiveReviewParamsDecisionCreditLimitApproved as CreditUnderwritingRecordCreateFromProactiveReviewParamsDecisionCreditLimitApproved,
+        CreditUnderwritingRecordCreateFromProactiveReviewParamsDecisionCreditLimitDecreased as CreditUnderwritingRecordCreateFromProactiveReviewParamsDecisionCreditLimitDecreased,
+        CreditUnderwritingRecordCreateFromProactiveReviewParamsDecisionCreditLineClosed as CreditUnderwritingRecordCreateFromProactiveReviewParamsDecisionCreditLineClosed,
+        CreditUnderwritingRecordCreateFromProactiveReviewParamsUnderwritingException as CreditUnderwritingRecordCreateFromProactiveReviewParamsUnderwritingException,
+    )
+    from stripe.params.issuing._credit_underwriting_record_list_params import (
+        CreditUnderwritingRecordListParams as CreditUnderwritingRecordListParams,
+    )
+    from stripe.params.issuing._credit_underwriting_record_report_decision_params import (
+        CreditUnderwritingRecordReportDecisionParams as CreditUnderwritingRecordReportDecisionParams,
+        CreditUnderwritingRecordReportDecisionParamsDecision as CreditUnderwritingRecordReportDecisionParamsDecision,
+        CreditUnderwritingRecordReportDecisionParamsDecisionApplicationRejected as CreditUnderwritingRecordReportDecisionParamsDecisionApplicationRejected,
+        CreditUnderwritingRecordReportDecisionParamsDecisionCreditLimitApproved as CreditUnderwritingRecordReportDecisionParamsDecisionCreditLimitApproved,
+        CreditUnderwritingRecordReportDecisionParamsUnderwritingException as CreditUnderwritingRecordReportDecisionParamsUnderwritingException,
+    )
+    from stripe.params.issuing._credit_underwriting_record_retrieve_params import (
+        CreditUnderwritingRecordRetrieveParams as CreditUnderwritingRecordRetrieveParams,
+    )
     from stripe.params.issuing._dispute_create_params import (
         DisputeCreateParams as DisputeCreateParams,
         DisputeCreateParamsEvidence as DisputeCreateParamsEvidence,
@@ -212,6 +250,12 @@ if TYPE_CHECKING:
     from stripe.params.issuing._dispute_retrieve_params import (
         DisputeRetrieveParams as DisputeRetrieveParams,
     )
+    from stripe.params.issuing._dispute_settlement_detail_list_params import (
+        DisputeSettlementDetailListParams as DisputeSettlementDetailListParams,
+    )
+    from stripe.params.issuing._dispute_settlement_detail_retrieve_params import (
+        DisputeSettlementDetailRetrieveParams as DisputeSettlementDetailRetrieveParams,
+    )
     from stripe.params.issuing._dispute_submit_params import (
         DisputeSubmitParams as DisputeSubmitParams,
     )
@@ -226,6 +270,13 @@ if TYPE_CHECKING:
         DisputeUpdateParamsEvidenceNotReceived as DisputeUpdateParamsEvidenceNotReceived,
         DisputeUpdateParamsEvidenceOther as DisputeUpdateParamsEvidenceOther,
         DisputeUpdateParamsEvidenceServiceNotAsDescribed as DisputeUpdateParamsEvidenceServiceNotAsDescribed,
+    )
+    from stripe.params.issuing._fraud_liability_debit_list_params import (
+        FraudLiabilityDebitListParams as FraudLiabilityDebitListParams,
+        FraudLiabilityDebitListParamsCreated as FraudLiabilityDebitListParamsCreated,
+    )
+    from stripe.params.issuing._fraud_liability_debit_retrieve_params import (
+        FraudLiabilityDebitRetrieveParams as FraudLiabilityDebitRetrieveParams,
     )
     from stripe.params.issuing._personalization_design_activate_params import (
         PersonalizationDesignActivateParams as PersonalizationDesignActivateParams,
@@ -797,6 +848,110 @@ _import_map = {
         "stripe.params.issuing._cardholder_update_params",
         False,
     ),
+    "CreditUnderwritingRecordCorrectParams": (
+        "stripe.params.issuing._credit_underwriting_record_correct_params",
+        False,
+    ),
+    "CreditUnderwritingRecordCorrectParamsApplication": (
+        "stripe.params.issuing._credit_underwriting_record_correct_params",
+        False,
+    ),
+    "CreditUnderwritingRecordCorrectParamsCreditUser": (
+        "stripe.params.issuing._credit_underwriting_record_correct_params",
+        False,
+    ),
+    "CreditUnderwritingRecordCorrectParamsDecision": (
+        "stripe.params.issuing._credit_underwriting_record_correct_params",
+        False,
+    ),
+    "CreditUnderwritingRecordCorrectParamsDecisionApplicationRejected": (
+        "stripe.params.issuing._credit_underwriting_record_correct_params",
+        False,
+    ),
+    "CreditUnderwritingRecordCorrectParamsDecisionCreditLimitApproved": (
+        "stripe.params.issuing._credit_underwriting_record_correct_params",
+        False,
+    ),
+    "CreditUnderwritingRecordCorrectParamsDecisionCreditLimitDecreased": (
+        "stripe.params.issuing._credit_underwriting_record_correct_params",
+        False,
+    ),
+    "CreditUnderwritingRecordCorrectParamsDecisionCreditLineClosed": (
+        "stripe.params.issuing._credit_underwriting_record_correct_params",
+        False,
+    ),
+    "CreditUnderwritingRecordCorrectParamsUnderwritingException": (
+        "stripe.params.issuing._credit_underwriting_record_correct_params",
+        False,
+    ),
+    "CreditUnderwritingRecordCreateFromApplicationParams": (
+        "stripe.params.issuing._credit_underwriting_record_create_from_application_params",
+        False,
+    ),
+    "CreditUnderwritingRecordCreateFromApplicationParamsApplication": (
+        "stripe.params.issuing._credit_underwriting_record_create_from_application_params",
+        False,
+    ),
+    "CreditUnderwritingRecordCreateFromApplicationParamsCreditUser": (
+        "stripe.params.issuing._credit_underwriting_record_create_from_application_params",
+        False,
+    ),
+    "CreditUnderwritingRecordCreateFromProactiveReviewParams": (
+        "stripe.params.issuing._credit_underwriting_record_create_from_proactive_review_params",
+        False,
+    ),
+    "CreditUnderwritingRecordCreateFromProactiveReviewParamsCreditUser": (
+        "stripe.params.issuing._credit_underwriting_record_create_from_proactive_review_params",
+        False,
+    ),
+    "CreditUnderwritingRecordCreateFromProactiveReviewParamsDecision": (
+        "stripe.params.issuing._credit_underwriting_record_create_from_proactive_review_params",
+        False,
+    ),
+    "CreditUnderwritingRecordCreateFromProactiveReviewParamsDecisionCreditLimitApproved": (
+        "stripe.params.issuing._credit_underwriting_record_create_from_proactive_review_params",
+        False,
+    ),
+    "CreditUnderwritingRecordCreateFromProactiveReviewParamsDecisionCreditLimitDecreased": (
+        "stripe.params.issuing._credit_underwriting_record_create_from_proactive_review_params",
+        False,
+    ),
+    "CreditUnderwritingRecordCreateFromProactiveReviewParamsDecisionCreditLineClosed": (
+        "stripe.params.issuing._credit_underwriting_record_create_from_proactive_review_params",
+        False,
+    ),
+    "CreditUnderwritingRecordCreateFromProactiveReviewParamsUnderwritingException": (
+        "stripe.params.issuing._credit_underwriting_record_create_from_proactive_review_params",
+        False,
+    ),
+    "CreditUnderwritingRecordListParams": (
+        "stripe.params.issuing._credit_underwriting_record_list_params",
+        False,
+    ),
+    "CreditUnderwritingRecordReportDecisionParams": (
+        "stripe.params.issuing._credit_underwriting_record_report_decision_params",
+        False,
+    ),
+    "CreditUnderwritingRecordReportDecisionParamsDecision": (
+        "stripe.params.issuing._credit_underwriting_record_report_decision_params",
+        False,
+    ),
+    "CreditUnderwritingRecordReportDecisionParamsDecisionApplicationRejected": (
+        "stripe.params.issuing._credit_underwriting_record_report_decision_params",
+        False,
+    ),
+    "CreditUnderwritingRecordReportDecisionParamsDecisionCreditLimitApproved": (
+        "stripe.params.issuing._credit_underwriting_record_report_decision_params",
+        False,
+    ),
+    "CreditUnderwritingRecordReportDecisionParamsUnderwritingException": (
+        "stripe.params.issuing._credit_underwriting_record_report_decision_params",
+        False,
+    ),
+    "CreditUnderwritingRecordRetrieveParams": (
+        "stripe.params.issuing._credit_underwriting_record_retrieve_params",
+        False,
+    ),
     "DisputeCreateParams": (
         "stripe.params.issuing._dispute_create_params",
         False,
@@ -890,6 +1045,14 @@ _import_map = {
         "stripe.params.issuing._dispute_retrieve_params",
         False,
     ),
+    "DisputeSettlementDetailListParams": (
+        "stripe.params.issuing._dispute_settlement_detail_list_params",
+        False,
+    ),
+    "DisputeSettlementDetailRetrieveParams": (
+        "stripe.params.issuing._dispute_settlement_detail_retrieve_params",
+        False,
+    ),
     "DisputeSubmitParams": (
         "stripe.params.issuing._dispute_submit_params",
         False,
@@ -932,6 +1095,18 @@ _import_map = {
     ),
     "DisputeUpdateParamsEvidenceServiceNotAsDescribed": (
         "stripe.params.issuing._dispute_update_params",
+        False,
+    ),
+    "FraudLiabilityDebitListParams": (
+        "stripe.params.issuing._fraud_liability_debit_list_params",
+        False,
+    ),
+    "FraudLiabilityDebitListParamsCreated": (
+        "stripe.params.issuing._fraud_liability_debit_list_params",
+        False,
+    ),
+    "FraudLiabilityDebitRetrieveParams": (
+        "stripe.params.issuing._fraud_liability_debit_retrieve_params",
         False,
     ),
     "PersonalizationDesignActivateParams": (

@@ -143,11 +143,21 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
     """
     If this is a `giropay` PaymentMethod, this hash contains details about the Giropay payment method.
     """
+    gopay: NotRequired["ConfirmationTokenCreateParamsPaymentMethodDataGopay"]
+    """
+    If this is a Gopay PaymentMethod, this hash contains details about the Gopay payment method.
+    """
     grabpay: NotRequired[
         "ConfirmationTokenCreateParamsPaymentMethodDataGrabpay"
     ]
     """
     If this is a `grabpay` PaymentMethod, this hash contains details about the GrabPay payment method.
+    """
+    id_bank_transfer: NotRequired[
+        "ConfirmationTokenCreateParamsPaymentMethodDataIdBankTransfer"
+    ]
+    """
+    If this is an `IdBankTransfer` PaymentMethod, this hash contains details about the IdBankTransfer payment method.
     """
     ideal: NotRequired["ConfirmationTokenCreateParamsPaymentMethodDataIdeal"]
     """
@@ -243,6 +253,14 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
     """
     If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
     """
+    paypay: NotRequired["ConfirmationTokenCreateParamsPaymentMethodDataPaypay"]
+    """
+    If this is a `paypay` PaymentMethod, this hash contains details about the PayPay payment method.
+    """
+    payto: NotRequired["ConfirmationTokenCreateParamsPaymentMethodDataPayto"]
+    """
+    If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
+    """
     pix: NotRequired["ConfirmationTokenCreateParamsPaymentMethodDataPix"]
     """
     If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
@@ -253,11 +271,21 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
     """
     If this is a `promptpay` PaymentMethod, this hash contains details about the PromptPay payment method.
     """
+    qris: NotRequired["ConfirmationTokenCreateParamsPaymentMethodDataQris"]
+    """
+    If this is a `qris` PaymentMethod, this hash contains details about the QRIS payment method.
+    """
     radar_options: NotRequired[
         "ConfirmationTokenCreateParamsPaymentMethodDataRadarOptions"
     ]
     """
     Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
+    """
+    rechnung: NotRequired[
+        "ConfirmationTokenCreateParamsPaymentMethodDataRechnung"
+    ]
+    """
+    If this is a `rechnung` PaymentMethod, this hash contains details about the Rechnung payment method.
     """
     revolut_pay: NotRequired[
         "ConfirmationTokenCreateParamsPaymentMethodDataRevolutPay"
@@ -283,9 +311,21 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
     """
     If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
     """
+    shopeepay: NotRequired[
+        "ConfirmationTokenCreateParamsPaymentMethodDataShopeepay"
+    ]
+    """
+    If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
+    """
     sofort: NotRequired["ConfirmationTokenCreateParamsPaymentMethodDataSofort"]
     """
     If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
+    """
+    stripe_balance: NotRequired[
+        "ConfirmationTokenCreateParamsPaymentMethodDataStripeBalance"
+    ]
+    """
+    This hash contains details about the Stripe balance payment method.
     """
     swish: NotRequired["ConfirmationTokenCreateParamsPaymentMethodDataSwish"]
     """
@@ -314,7 +354,9 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
         "eps",
         "fpx",
         "giropay",
+        "gopay",
         "grabpay",
+        "id_bank_transfer",
         "ideal",
         "kakao_pay",
         "klarna",
@@ -332,13 +374,19 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
         "payco",
         "paynow",
         "paypal",
+        "paypay",
+        "payto",
         "pix",
         "promptpay",
+        "qris",
+        "rechnung",
         "revolut_pay",
         "samsung_pay",
         "satispay",
         "sepa_debit",
+        "shopeepay",
         "sofort",
+        "stripe_balance",
         "swish",
         "twint",
         "us_bank_account",
@@ -586,8 +634,19 @@ class ConfirmationTokenCreateParamsPaymentMethodDataGiropay(TypedDict):
     pass
 
 
+class ConfirmationTokenCreateParamsPaymentMethodDataGopay(TypedDict):
+    pass
+
+
 class ConfirmationTokenCreateParamsPaymentMethodDataGrabpay(TypedDict):
     pass
+
+
+class ConfirmationTokenCreateParamsPaymentMethodDataIdBankTransfer(TypedDict):
+    bank: NotRequired[Literal["bca", "bni", "bri", "cimb", "permata"]]
+    """
+    Bank where the account is held.
+    """
 
 
 class ConfirmationTokenCreateParamsPaymentMethodDataIdeal(TypedDict):
@@ -758,6 +817,25 @@ class ConfirmationTokenCreateParamsPaymentMethodDataPaypal(TypedDict):
     pass
 
 
+class ConfirmationTokenCreateParamsPaymentMethodDataPaypay(TypedDict):
+    pass
+
+
+class ConfirmationTokenCreateParamsPaymentMethodDataPayto(TypedDict):
+    account_number: NotRequired[str]
+    """
+    The account number for the bank account.
+    """
+    bsb_number: NotRequired[str]
+    """
+    Bank-State-Branch number of the bank account.
+    """
+    pay_id: NotRequired[str]
+    """
+    The PayID alias for the bank account.
+    """
+
+
 class ConfirmationTokenCreateParamsPaymentMethodDataPix(TypedDict):
     pass
 
@@ -766,10 +844,36 @@ class ConfirmationTokenCreateParamsPaymentMethodDataPromptpay(TypedDict):
     pass
 
 
+class ConfirmationTokenCreateParamsPaymentMethodDataQris(TypedDict):
+    pass
+
+
 class ConfirmationTokenCreateParamsPaymentMethodDataRadarOptions(TypedDict):
     session: NotRequired[str]
     """
     A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+    """
+
+
+class ConfirmationTokenCreateParamsPaymentMethodDataRechnung(TypedDict):
+    dob: "ConfirmationTokenCreateParamsPaymentMethodDataRechnungDob"
+    """
+    Customer's date of birth
+    """
+
+
+class ConfirmationTokenCreateParamsPaymentMethodDataRechnungDob(TypedDict):
+    day: int
+    """
+    The day of birth, between 1 and 31.
+    """
+    month: int
+    """
+    The month of birth, between 1 and 12.
+    """
+    year: int
+    """
+    The four-digit year of birth.
     """
 
 
@@ -792,10 +896,25 @@ class ConfirmationTokenCreateParamsPaymentMethodDataSepaDebit(TypedDict):
     """
 
 
+class ConfirmationTokenCreateParamsPaymentMethodDataShopeepay(TypedDict):
+    pass
+
+
 class ConfirmationTokenCreateParamsPaymentMethodDataSofort(TypedDict):
     country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
     """
     Two-letter ISO code representing the country the bank account is located in.
+    """
+
+
+class ConfirmationTokenCreateParamsPaymentMethodDataStripeBalance(TypedDict):
+    account: NotRequired[str]
+    """
+    The connected account ID whose Stripe balance to use as the source of payment
+    """
+    source_type: NotRequired[Literal["bank_account", "card", "fpx"]]
+    """
+    The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
     """
 
 

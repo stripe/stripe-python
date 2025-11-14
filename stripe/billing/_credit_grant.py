@@ -104,6 +104,10 @@ class CreditGrant(
     """
     ID of the customer receiving the billing credits.
     """
+    customer_account: Optional[str]
+    """
+    ID of the account receiving the billing credits
+    """
     effective_at: Optional[int]
     """
     The time when the billing credits become effective-when they're eligible for use.

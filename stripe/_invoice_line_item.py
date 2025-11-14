@@ -9,6 +9,7 @@ from typing_extensions import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._discount import Discount
+    from stripe._margin import Margin
     from stripe._subscription import Subscription
     from stripe.billing._credit_balance_transaction import (
         CreditBalanceTransaction,
@@ -32,6 +33,16 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         discount: ExpandableField["Discount"]
         """
         The discount that was applied to get this discount amount.
+        """
+
+    class MarginAmount(StripeObject):
+        amount: int
+        """
+        The amount, in cents (or local equivalent), of the reduction in line item amount.
+        """
+        margin: ExpandableField["Margin"]
+        """
+        The margin that was applied to get this margin amount.
         """
 
     class Parent(StripeObject):
@@ -153,7 +164,11 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         """
         The discount that was applied to get this pretax credit amount.
         """
-        type: Literal["credit_balance_transaction", "discount"]
+        margin: Optional[ExpandableField["Margin"]]
+        """
+        The margin that was applied to get this pretax credit amount.
+        """
+        type: Literal["credit_balance_transaction", "discount", "margin"]
         """
         Type of the pretax credit amount referenced.
         """
@@ -179,6 +194,16 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         The unit amount (in the `currency` specified) of the item which contains a decimal value with at most 12 decimal places.
         """
         _inner_class_types = {"price_details": PriceDetails}
+
+    class TaxCalculationReference(StripeObject):
+        calculation_id: Optional[str]
+        """
+        The calculation identifier for tax calculation response.
+        """
+        calculation_item_id: Optional[str]
+        """
+        The calculation identifier for tax calculation response line item.
+        """
 
     class Tax(StripeObject):
         class TaxRateDetails(StripeObject):
@@ -263,6 +288,14 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
+    margin_amounts: Optional[List[MarginAmount]]
+    """
+    The amount of margin calculated per margin for this line item.
+    """
+    margins: Optional[List[ExpandableField["Margin"]]]
+    """
+    The margins applied to the line item. When set, the `default_margins` on the invoice do not apply to the line item. Use `expand[]=margins` to expand each margin.
+    """
     metadata: Dict[str, str]
     """
     Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Note that for line items with `type=subscription`, `metadata` reflects the current metadata from the subscription associated with the line item, unless the invoice line was directly updated with different metadata after creation.
@@ -289,6 +322,10 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
     The quantity of the subscription, if the line item is a subscription or a proration.
     """
     subscription: Optional[ExpandableField["Subscription"]]
+    tax_calculation_reference: Optional[TaxCalculationReference]
+    """
+    The tax calculation identifiers of the line item.
+    """
     taxes: Optional[List[Tax]]
     """
     The tax information of the line item.
@@ -342,9 +379,11 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
 
     _inner_class_types = {
         "discount_amounts": DiscountAmount,
+        "margin_amounts": MarginAmount,
         "parent": Parent,
         "period": Period,
         "pretax_credit_amounts": PretaxCreditAmount,
         "pricing": Pricing,
+        "tax_calculation_reference": TaxCalculationReference,
         "taxes": Tax,
     }

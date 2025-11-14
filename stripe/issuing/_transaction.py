@@ -16,6 +16,7 @@ if TYPE_CHECKING:
     from stripe.issuing._card import Card
     from stripe.issuing._cardholder import Cardholder
     from stripe.issuing._dispute import Dispute
+    from stripe.issuing._settlement import Settlement
     from stripe.issuing._token import Token
     from stripe.params.issuing._transaction_create_force_capture_params import (
         TransactionCreateForceCaptureParams,
@@ -418,6 +419,10 @@ class Transaction(
     purchase_details: Optional[PurchaseDetails]
     """
     Additional purchase information that is optionally provided by the merchant.
+    """
+    settlement: Optional[ExpandableField["Settlement"]]
+    """
+    The ID of the [settlement](https://stripe.com/docs/api/issuing/settlements) to which this transaction belongs.
     """
     token: Optional[ExpandableField["Token"]]
     """

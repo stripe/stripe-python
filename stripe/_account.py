@@ -238,6 +238,12 @@ class Account(
         """
         The status of the BECS Direct Debit (AU) payments capability of the account, or whether the account can directly process BECS Direct Debit (AU) charges.
         """
+        automatic_indirect_tax: Optional[
+            Literal["active", "inactive", "pending"]
+        ]
+        """
+        The status of the automatic_indirect_tax capability of the account.
+        """
         bacs_debit_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the Bacs Direct Debits payments capability of the account, or whether the account can directly process Bacs Direct Debits charges.
@@ -304,9 +310,25 @@ class Account(
         """
         The status of the giropay payments capability of the account, or whether the account can directly process giropay charges.
         """
+        gopay_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the Gopay capability of the account, or whether the account can directly process Gopay payments.
+        """
         grabpay_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the GrabPay payments capability of the account, or whether the account can directly process GrabPay charges.
+        """
+        id_bank_transfer_payments: Optional[
+            Literal["active", "inactive", "pending"]
+        ]
+        """
+        The status of the Indonesia Bank Transfer payments capability of the account, or whether the account can directly process Indonesia Bank Transfer charges.
+        """
+        id_bank_transfer_payments_bca: Optional[
+            Literal["active", "inactive", "pending"]
+        ]
+        """
+        The status of Bank BCA onboarding of the account.
         """
         ideal_payments: Optional[Literal["active", "inactive", "pending"]]
         """
@@ -402,6 +424,18 @@ class Account(
         """
         The status of the paynow payments capability of the account, or whether the account can directly process paynow charges.
         """
+        paypal_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the PayPal payments capability of the account, or whether the account can directly process PayPal charges.
+        """
+        paypay_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the Paypay capability of the account, or whether the account can directly process Paypay payments.
+        """
+        payto_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the PayTo capability of the account, or whether the account can directly process PayTo charges.
+        """
         pix_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the pix payments capability of the account, or whether the account can directly process pix charges.
@@ -409,6 +443,14 @@ class Account(
         promptpay_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the promptpay payments capability of the account, or whether the account can directly process promptpay charges.
+        """
+        qris_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the Qris capability of the account, or whether the account can directly process Qris payments.
+        """
+        rechnung_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the Rechnung capability of the account, or whether the account can directly process Rechnung payments.
         """
         revolut_pay_payments: Optional[
             Literal["active", "inactive", "pending"]
@@ -436,9 +478,19 @@ class Account(
         """
         The status of the SEPA Direct Debits payments capability of the account, or whether the account can directly process SEPA Direct Debits charges.
         """
+        shopeepay_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the ShopeePay capability of the account, or whether the account can directly process ShopeePay payments.
+        """
         sofort_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the Sofort payments capability of the account, or whether the account can directly process Sofort charges.
+        """
+        stripe_balance_payments: Optional[
+            Literal["active", "inactive", "pending"]
+        ]
+        """
+        The status of the stripe_balance payments capability of the account, or whether the account can directly process stripe_balance charges.
         """
         swish_payments: Optional[Literal["active", "inactive", "pending"]]
         """
@@ -463,6 +515,22 @@ class Account(
         treasury: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the banking capability, or whether the account can have bank accounts.
+        """
+        treasury_evolve: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the treasury_evolve capability of the account.
+        """
+        treasury_fifth_third: Optional[
+            Literal["active", "inactive", "pending"]
+        ]
+        """
+        The status of the treasury_fifth_third capability of the account.
+        """
+        treasury_goldman_sachs: Optional[
+            Literal["active", "inactive", "pending"]
+        ]
+        """
+        The status of the treasury_goldman_sachs capability of the account.
         """
         twint_payments: Optional[Literal["active", "inactive", "pending"]]
         """
@@ -614,6 +682,20 @@ class Account(
             The four-digit year of registration.
             """
 
+        class RepresentativeDeclaration(StripeObject):
+            date: Optional[int]
+            """
+            The Unix timestamp marking when the representative declaration attestation was made.
+            """
+            ip: Optional[str]
+            """
+            The IP address from which the representative declaration attestation was made.
+            """
+            user_agent: Optional[str]
+            """
+            The user-agent string from the browser where the representative declaration attestation was made.
+            """
+
         class Verification(StripeObject):
             class Document(StripeObject):
                 back: Optional[ExpandableField["File"]]
@@ -699,6 +781,10 @@ class Account(
         The company's phone number (used for verification).
         """
         registration_date: Optional[RegistrationDate]
+        representative_declaration: Optional[RepresentativeDeclaration]
+        """
+        This hash is used to attest that the representative is authorized to act as the representative of their legal entity.
+        """
         structure: Optional[
             Literal[
                 "free_zone_establishment",
@@ -752,16 +838,38 @@ class Account(
             "directorship_declaration": DirectorshipDeclaration,
             "ownership_declaration": OwnershipDeclaration,
             "registration_date": RegistrationDate,
+            "representative_declaration": RepresentativeDeclaration,
             "verification": Verification,
         }
 
     class Controller(StripeObject):
+        class Application(StripeObject):
+            loss_liable: bool
+            """
+            `true` if the Connect application is responsible for negative balances and should manage credit and fraud risk on the account.
+            """
+            onboarding_owner: bool
+            """
+            `true` if the Connect application is responsible for onboarding the account.
+            """
+            pricing_controls: bool
+            """
+            `true` if the Connect application is responsible for paying Stripe fees on pricing-control eligible products.
+            """
+
+        class Dashboard(StripeObject):
+            type: Literal["express", "full", "none"]
+            """
+            Whether this account has access to the full Stripe dashboard (`full`), to the Express dashboard (`express`), or to no dashboard (`none`).
+            """
+
         class Fees(StripeObject):
             payer: Literal[
                 "account",
                 "application",
                 "application_custom",
                 "application_express",
+                "application_unified_accounts_beta",
             ]
             """
             A value indicating the responsible payer of a bundle of Stripe fees for pricing-control eligible products on this account. Learn more about [fee behavior on connected accounts](https://docs.stripe.com/connect/direct-charges-fee-payer-behavior).
@@ -779,6 +887,8 @@ class Account(
             A value indicating the Stripe dashboard this account has access to independent of the Connect application.
             """
 
+        application: Optional[Application]
+        dashboard: Optional[Dashboard]
         fees: Optional[Fees]
         is_controller: Optional[bool]
         """
@@ -795,6 +905,8 @@ class Account(
         The controller type. Can be `application`, if a Connect application controls the account, or `account`, if the account controls itself.
         """
         _inner_class_types = {
+            "application": Application,
+            "dashboard": Dashboard,
             "fees": Fees,
             "losses": Losses,
             "stripe_dashboard": StripeDashboard,
@@ -857,6 +969,7 @@ class Account(
                 "invalid_url_website_other",
                 "invalid_value_other",
                 "unsupported_business_type",
+                "verification_data_not_found",
                 "verification_directors_mismatch",
                 "verification_document_address_mismatch",
                 "verification_document_address_missing",
@@ -1038,6 +1151,7 @@ class Account(
                 "invalid_url_website_other",
                 "invalid_value_other",
                 "unsupported_business_type",
+                "verification_data_not_found",
                 "verification_directors_mismatch",
                 "verification_document_address_mismatch",
                 "verification_document_address_missing",
@@ -1156,6 +1270,38 @@ class Account(
         """
         _inner_class_types = {"alternatives": Alternative, "errors": Error}
 
+    class RiskControls(StripeObject):
+        class Charges(StripeObject):
+            pause_requested: bool
+            """
+            Whether a pause of the risk control has been requested.
+            """
+
+        class Payouts(StripeObject):
+            pause_requested: bool
+            """
+            Whether a pause of the risk control has been requested.
+            """
+
+        charges: Charges
+        payouts: Payouts
+        rejected_reason: Optional[
+            Literal[
+                "credit",
+                "fraud",
+                "fraud_no_intent_to_fulfill",
+                "fraud_other",
+                "fraud_payment_method_casher",
+                "fraud_payment_method_tester",
+                "other",
+                "terms_of_service",
+            ]
+        ]
+        """
+        Represents the rejected reason of the account. Empty if account is not rejected, or rejected by Stripe. Please see [this page for more details](https://stripe.com/docs/connect/)
+        """
+        _inner_class_types = {"charges": Charges, "payouts": Payouts}
+
     class Settings(StripeObject):
         class BacsDebitPayments(StripeObject):
             display_name: Optional[str]
@@ -1165,6 +1311,16 @@ class Account(
             service_user_number: Optional[str]
             """
             The Bacs Direct Debit Service user number for this account. For payments made with Bacs Direct Debit, this number is a unique identifier of the account with our banking partners.
+            """
+
+        class BankBcaOnboarding(StripeObject):
+            account_holder_name: Optional[str]
+            """
+            Bank BCA business account holder name.
+            """
+            business_account_number: Optional[str]
+            """
+            Bank BCA business account number.
             """
 
         class Branding(StripeObject):
@@ -1183,6 +1339,16 @@ class Account(
             secondary_color: Optional[str]
             """
             A CSS hex color value representing the secondary branding color for this account
+            """
+
+        class Capital(StripeObject):
+            payout_destination: Optional[Dict[str, str]]
+            """
+            Per-currency mapping of user-selected destination accounts used to pay out loans.
+            """
+            payout_destination_selector: Optional[Dict[str, List[str]]]
+            """
+            Per-currency mapping of all destination accounts eligible to receive loan payouts.
             """
 
         class CardIssuing(StripeObject):
@@ -1248,7 +1414,7 @@ class Account(
                 Literal["always", "never", "offer"]
             ]
             """
-            Whether payment methods should be saved when a payment is completed for a one-time invoices on a hosted invoice page.
+            Whether to save the payment method after a payment is completed for a one-time invoice or a subscription invoice when the customer already has a default payment method on the hosted invoice page.
             """
 
         class Payments(StripeObject):
@@ -1327,6 +1493,12 @@ class Account(
             SEPA creditor identifier that identifies the company making the payment.
             """
 
+        class TaxForms(StripeObject):
+            consented_to_paperless_delivery: bool
+            """
+            Whether the account opted out of receiving their tax forms by postal delivery.
+            """
+
         class Treasury(StripeObject):
             class TosAcceptance(StripeObject):
                 date: Optional[int]
@@ -1346,7 +1518,9 @@ class Account(
             _inner_class_types = {"tos_acceptance": TosAcceptance}
 
         bacs_debit_payments: Optional[BacsDebitPayments]
+        bank_bca_onboarding: Optional[BankBcaOnboarding]
         branding: Branding
+        capital: Optional[Capital]
         card_issuing: Optional[CardIssuing]
         card_payments: CardPayments
         dashboard: Dashboard
@@ -1354,10 +1528,13 @@ class Account(
         payments: Payments
         payouts: Optional[Payouts]
         sepa_debit_payments: Optional[SepaDebitPayments]
+        tax_forms: Optional[TaxForms]
         treasury: Optional[Treasury]
         _inner_class_types = {
             "bacs_debit_payments": BacsDebitPayments,
+            "bank_bca_onboarding": BankBcaOnboarding,
             "branding": Branding,
+            "capital": Capital,
             "card_issuing": CardIssuing,
             "card_payments": CardPayments,
             "dashboard": Dashboard,
@@ -1365,6 +1542,7 @@ class Account(
             "payments": Payments,
             "payouts": Payouts,
             "sepa_debit_payments": SepaDebitPayments,
+            "tax_forms": TaxForms,
             "treasury": Treasury,
         }
 
@@ -1461,6 +1639,7 @@ class Account(
     Whether the funds in this account can be paid out.
     """
     requirements: Optional[Requirements]
+    risk_controls: Optional[RiskControls]
     settings: Optional[Settings]
     """
     Options for customizing how the account functions within Stripe.
@@ -2567,6 +2746,7 @@ class Account(
         "future_requirements": FutureRequirements,
         "groups": Groups,
         "requirements": Requirements,
+        "risk_controls": RiskControls,
         "settings": Settings,
         "tos_acceptance": TosAcceptance,
     }

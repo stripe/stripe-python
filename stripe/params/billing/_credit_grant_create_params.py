@@ -14,13 +14,17 @@ class CreditGrantCreateParams(RequestOptions):
     """
     Configuration specifying what this credit grant applies to. We currently only support `metered` prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them.
     """
-    category: Literal["paid", "promotional"]
+    category: NotRequired[Literal["paid", "promotional"]]
     """
-    The category of this credit grant.
+    The category of this credit grant. It defaults to `paid` if not specified.
     """
-    customer: str
+    customer: NotRequired[str]
     """
     ID of the customer to receive the billing credits.
+    """
+    customer_account: NotRequired[str]
+    """
+    ID of the account to receive the billing credits.
     """
     effective_at: NotRequired[int]
     """

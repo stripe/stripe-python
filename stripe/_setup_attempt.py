@@ -257,6 +257,24 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         class Cashapp(StripeObject):
             pass
 
+        class IdBankTransfer(StripeObject):
+            bank: Optional[Literal["bca", "bni", "bri", "cimb", "permata"]]
+            """
+            Bank where the account is located.
+            """
+            bank_code: Optional[str]
+            """
+            Local bank code of the bank.
+            """
+            bank_name: Optional[str]
+            """
+            Name of the bank associated with the bank account.
+            """
+            display_name: Optional[str]
+            """
+            Merchant name and billing details name, for the customer to check for the correct merchant when performing the bank transfer.
+            """
+
         class Ideal(StripeObject):
             bank: Optional[
                 Literal[
@@ -349,6 +367,12 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         class Paypal(StripeObject):
             pass
 
+        class Payto(StripeObject):
+            pass
+
+        class Pix(StripeObject):
+            pass
+
         class RevolutPay(StripeObject):
             pass
 
@@ -391,6 +415,9 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             (if supported) at the time of authorization or settlement. They cannot be set or mutated.
             """
 
+        class StripeBalance(StripeObject):
+            pass
+
         class UsBankAccount(StripeObject):
             pass
 
@@ -403,6 +430,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         card: Optional[Card]
         card_present: Optional[CardPresent]
         cashapp: Optional[Cashapp]
+        id_bank_transfer: Optional[IdBankTransfer]
         ideal: Optional[Ideal]
         kakao_pay: Optional[KakaoPay]
         klarna: Optional[Klarna]
@@ -411,9 +439,12 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         naver_pay: Optional[NaverPay]
         nz_bank_account: Optional[NzBankAccount]
         paypal: Optional[Paypal]
+        payto: Optional[Payto]
+        pix: Optional[Pix]
         revolut_pay: Optional[RevolutPay]
         sepa_debit: Optional[SepaDebit]
         sofort: Optional[Sofort]
+        stripe_balance: Optional[StripeBalance]
         type: str
         """
         The type of the payment method used in the SetupIntent (e.g., `card`). An additional hash is included on `payment_method_details` with a name matching this value. It contains confirmation-specific information for the payment method.
@@ -429,6 +460,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             "card": Card,
             "card_present": CardPresent,
             "cashapp": Cashapp,
+            "id_bank_transfer": IdBankTransfer,
             "ideal": Ideal,
             "kakao_pay": KakaoPay,
             "klarna": Klarna,
@@ -437,9 +469,12 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             "naver_pay": NaverPay,
             "nz_bank_account": NzBankAccount,
             "paypal": Paypal,
+            "payto": Payto,
+            "pix": Pix,
             "revolut_pay": RevolutPay,
             "sepa_debit": SepaDebit,
             "sofort": Sofort,
+            "stripe_balance": StripeBalance,
             "us_bank_account": UsBankAccount,
         }
 
@@ -505,6 +540,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 "financial_connections_account_inactive",
                 "financial_connections_account_pending_account_numbers",
                 "financial_connections_account_unavailable_account_numbers",
+                "financial_connections_institution_unavailable",
                 "financial_connections_no_successful_transaction_refresh",
                 "forwarding_api_inactive",
                 "forwarding_api_invalid_parameter",
@@ -564,6 +600,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 "payment_intent_mandate_invalid",
                 "payment_intent_payment_attempt_expired",
                 "payment_intent_payment_attempt_failed",
+                "payment_intent_rate_limit_exceeded",
                 "payment_intent_unexpected_state",
                 "payment_method_bank_account_already_verified",
                 "payment_method_bank_account_blocked",
@@ -602,6 +639,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 "return_intent_already_processed",
                 "routing_number_invalid",
                 "secret_key_required",
+                "sensitive_data_access_expired",
                 "sepa_unsupported_account",
                 "setup_attempt_failed",
                 "setup_intent_authentication_failure",
@@ -621,6 +659,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 "taxes_calculation_failed",
                 "terminal_location_country_unsupported",
                 "terminal_reader_busy",
+                "terminal_reader_collected_data_invalid",
                 "terminal_reader_hardware_fault",
                 "terminal_reader_invalid_location_for_activation",
                 "terminal_reader_invalid_location_for_payment",
@@ -634,6 +673,8 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 "transfer_source_balance_parameters_mismatch",
                 "transfers_not_allowed",
                 "url_invalid",
+                "v2_account_disconnection_unsupported",
+                "v2_account_missing_configuration",
             ]
         ]
         """
@@ -747,6 +788,10 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
     customer: Optional[ExpandableField["Customer"]]
     """
     The value of [customer](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-customer) on the SetupIntent at the time of this confirmation.
+    """
+    customer_account: Optional[str]
+    """
+    The value of [customer_account](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-customer_account) on the SetupIntent at the time of this confirmation.
     """
     flow_directions: Optional[List[Literal["inbound", "outbound"]]]
     """

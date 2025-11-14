@@ -332,6 +332,10 @@ class Charge(
                     """
                     Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
                     """
+                    brand_product: Optional[str]
+                    """
+                    The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card. (For internal use only and not typically available in standard API requests.)
+                    """
                     country: Optional[str]
                     """
                     Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
@@ -472,6 +476,12 @@ class Charge(
                 If a CVC was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
                 """
 
+            class DecrementalAuthorization(StripeObject):
+                status: Literal["available", "unavailable"]
+                """
+                Indicates whether or not the decremental authorization feature is supported.
+                """
+
             class ExtendedAuthorization(StripeObject):
                 status: Literal["disabled", "enabled"]
                 """
@@ -526,6 +536,17 @@ class Charge(
                 status: Literal["available", "unavailable"]
                 """
                 Indicates whether or not the authorized amount can be over-captured.
+                """
+
+            class PartialAuthorization(StripeObject):
+                status: Literal[
+                    "declined",
+                    "fully_authorized",
+                    "not_requested",
+                    "partially_authorized",
+                ]
+                """
+                Indicates whether the transaction requested for partial authorization feature and the authorization outcome.
                 """
 
             class ThreeDSecure(StripeObject):
@@ -791,6 +812,10 @@ class Charge(
             """
             The authorized amount.
             """
+            amount_requested: Optional[int]
+            """
+            The latest amount intended to be authorized by this charge.
+            """
             authorization_code: Optional[str]
             """
             Authorization code on the charge.
@@ -811,6 +836,7 @@ class Charge(
             """
             Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
             """
+            decremental_authorization: Optional[DecrementalAuthorization]
             description: Optional[str]
             """
             A high-level description of the type of cards issued in this range. (For internal use only and not typically available in standard API requests.)
@@ -875,6 +901,7 @@ class Charge(
             This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. This value will be present if it is returned by the financial network in the authorization response, and null otherwise.
             """
             overcapture: Optional[Overcapture]
+            partial_authorization: Optional[PartialAuthorization]
             regulated_status: Optional[Literal["regulated", "unregulated"]]
             """
             Status of a card based on the card issuer.
@@ -889,12 +916,14 @@ class Charge(
             """
             _inner_class_types = {
                 "checks": Checks,
+                "decremental_authorization": DecrementalAuthorization,
                 "extended_authorization": ExtendedAuthorization,
                 "incremental_authorization": IncrementalAuthorization,
                 "installments": Installments,
                 "multicapture": Multicapture,
                 "network_token": NetworkToken,
                 "overcapture": Overcapture,
+                "partial_authorization": PartialAuthorization,
                 "three_d_secure": ThreeDSecure,
                 "wallet": Wallet,
             }
@@ -1090,7 +1119,7 @@ class Charge(
             """
             The wallet address of the customer.
             """
-            network: Optional[Literal["base", "ethereum", "polygon"]]
+            network: Optional[Literal["base", "ethereum", "polygon", "solana"]]
             """
             The blockchain network that the transaction was sent on.
             """
@@ -1206,10 +1235,35 @@ class Charge(
             Giropay rarely provides this information so the attribute is usually empty.
             """
 
+        class Gopay(StripeObject):
+            pass
+
         class Grabpay(StripeObject):
             transaction_id: Optional[str]
             """
             Unique transaction id generated by GrabPay
+            """
+
+        class IdBankTransfer(StripeObject):
+            account_number: str
+            """
+            Account number of the bank account to transfer funds to.
+            """
+            bank: Literal["bca", "bni", "bri", "cimb", "permata"]
+            """
+            Bank where the account is located.
+            """
+            bank_code: Optional[str]
+            """
+            Local bank code of the bank.
+            """
+            bank_name: Optional[str]
+            """
+            Name of the bank associated with the bank account.
+            """
+            display_name: Optional[str]
+            """
+            Merchant name and billing details name, for the customer to check for the correct merchant when performing the bank transfer.
             """
 
         class Ideal(StripeObject):
@@ -1681,6 +1735,58 @@ class Charge(
                 Indicates whether the transaction is eligible for PayPal's seller protection.
                 """
 
+            class Shipping(StripeObject):
+                city: Optional[str]
+                """
+                City, district, suburb, town, or village.
+                """
+                country: Optional[str]
+                """
+                Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                """
+                line1: Optional[str]
+                """
+                Address line 1, such as the street, PO Box, or company name.
+                """
+                line2: Optional[str]
+                """
+                Address line 2, such as the apartment, suite, unit, or building.
+                """
+                postal_code: Optional[str]
+                """
+                ZIP or postal code.
+                """
+                state: Optional[str]
+                """
+                State, county, province, or region.
+                """
+
+            class VerifiedAddress(StripeObject):
+                city: Optional[str]
+                """
+                City, district, suburb, town, or village.
+                """
+                country: Optional[str]
+                """
+                Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                """
+                line1: Optional[str]
+                """
+                Address line 1, such as the street, PO Box, or company name.
+                """
+                line2: Optional[str]
+                """
+                Address line 2, such as the apartment, suite, unit, or building.
+                """
+                postal_code: Optional[str]
+                """
+                ZIP or postal code.
+                """
+                state: Optional[str]
+                """
+                State, county, province, or region.
+                """
+
             country: Optional[str]
             """
             Two-letter ISO code representing the buyer's country. Values are provided by PayPal directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
@@ -1703,16 +1809,67 @@ class Charge(
             """
             The level of protection offered as defined by PayPal Seller Protection for Merchants, for this transaction.
             """
+            shipping: Optional[Shipping]
+            """
+            The shipping address for the customer, as supplied by the merchant at the point of payment
+            execution. This shipping address will not be updated if the merchant updates the shipping
+            address on the PaymentIntent after the PaymentIntent was successfully confirmed.
+            """
             transaction_id: Optional[str]
             """
             A unique ID generated by PayPal for this transaction.
             """
-            _inner_class_types = {"seller_protection": SellerProtection}
+            verified_address: Optional[VerifiedAddress]
+            """
+            The shipping address for the customer, as supplied by the merchant at the point of payment
+            execution. This shipping address will not be updated if the merchant updates the shipping
+            address on the PaymentIntent after the PaymentIntent was successfully confirmed.
+            """
+            verified_email: Optional[str]
+            """
+            Owner's verified email. Values are verified or provided by PayPal directly
+            (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+            """
+            verified_name: Optional[str]
+            """
+            Owner's verified full name. Values are verified or provided by PayPal directly
+            (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+            """
+            _inner_class_types = {
+                "seller_protection": SellerProtection,
+                "shipping": Shipping,
+                "verified_address": VerifiedAddress,
+            }
+
+        class Paypay(StripeObject):
+            pass
+
+        class Payto(StripeObject):
+            bsb_number: Optional[str]
+            """
+            Bank-State-Branch number of the bank account.
+            """
+            last4: Optional[str]
+            """
+            Last four digits of the bank account number.
+            """
+            mandate: Optional[str]
+            """
+            ID of the mandate used to make this payment.
+            """
+            pay_id: Optional[str]
+            """
+            The PayID alias for the bank account.
+            """
 
         class Pix(StripeObject):
             bank_transaction_id: Optional[str]
             """
             Unique transaction id generated by BCB
+            """
+            mandate: Optional[str]
+            """
+            ID of the multi use Mandate generated by the PaymentIntent
             """
 
         class Promptpay(StripeObject):
@@ -1721,12 +1878,25 @@ class Charge(
             Bill reference generated by PromptPay
             """
 
+        class Qris(StripeObject):
+            pass
+
+        class Rechnung(StripeObject):
+            payment_portal_url: Optional[str]
+            """
+            Payment portal URL.
+            """
+
         class RevolutPay(StripeObject):
             class Funding(StripeObject):
                 class Card(StripeObject):
                     brand: Optional[str]
                     """
                     Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
+                    """
+                    brand_product: Optional[str]
+                    """
+                    The [product code](https://stripe.com/docs/card-product-codes) that identifies the specific program or product associated with a card. (For internal use only and not typically available in standard API requests.)
                     """
                     country: Optional[str]
                     """
@@ -1819,6 +1989,9 @@ class Charge(
             Find the ID of the mandate used for this payment under the [payment_method_details.sepa_debit.mandate](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-sepa_debit-mandate) property on the Charge. Use this mandate ID to [retrieve the Mandate](https://stripe.com/docs/api/mandates/retrieve).
             """
 
+        class Shopeepay(StripeObject):
+            pass
+
         class Sofort(StripeObject):
             bank_code: Optional[str]
             """
@@ -1863,6 +2036,16 @@ class Charge(
 
         class StripeAccount(StripeObject):
             pass
+
+        class StripeBalance(StripeObject):
+            account: Optional[str]
+            """
+            The connected account ID whose Stripe balance to use as the source of payment
+            """
+            source_type: Literal["bank_account", "card", "fpx"]
+            """
+            The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
+            """
 
         class Swish(StripeObject):
             fingerprint: Optional[str]
@@ -1961,7 +2144,9 @@ class Charge(
         eps: Optional[Eps]
         fpx: Optional[Fpx]
         giropay: Optional[Giropay]
+        gopay: Optional[Gopay]
         grabpay: Optional[Grabpay]
+        id_bank_transfer: Optional[IdBankTransfer]
         ideal: Optional[Ideal]
         interac_present: Optional[InteracPresent]
         kakao_pay: Optional[KakaoPay]
@@ -1980,15 +2165,21 @@ class Charge(
         payco: Optional[Payco]
         paynow: Optional[Paynow]
         paypal: Optional[Paypal]
+        paypay: Optional[Paypay]
+        payto: Optional[Payto]
         pix: Optional[Pix]
         promptpay: Optional[Promptpay]
+        qris: Optional[Qris]
+        rechnung: Optional[Rechnung]
         revolut_pay: Optional[RevolutPay]
         samsung_pay: Optional[SamsungPay]
         satispay: Optional[Satispay]
         sepa_credit_transfer: Optional[SepaCreditTransfer]
         sepa_debit: Optional[SepaDebit]
+        shopeepay: Optional[Shopeepay]
         sofort: Optional[Sofort]
         stripe_account: Optional[StripeAccount]
+        stripe_balance: Optional[StripeBalance]
         swish: Optional[Swish]
         twint: Optional[Twint]
         type: str
@@ -2024,7 +2215,9 @@ class Charge(
             "eps": Eps,
             "fpx": Fpx,
             "giropay": Giropay,
+            "gopay": Gopay,
             "grabpay": Grabpay,
+            "id_bank_transfer": IdBankTransfer,
             "ideal": Ideal,
             "interac_present": InteracPresent,
             "kakao_pay": KakaoPay,
@@ -2043,15 +2236,21 @@ class Charge(
             "payco": Payco,
             "paynow": Paynow,
             "paypal": Paypal,
+            "paypay": Paypay,
+            "payto": Payto,
             "pix": Pix,
             "promptpay": Promptpay,
+            "qris": Qris,
+            "rechnung": Rechnung,
             "revolut_pay": RevolutPay,
             "samsung_pay": SamsungPay,
             "satispay": Satispay,
             "sepa_credit_transfer": SepaCreditTransfer,
             "sepa_debit": SepaDebit,
+            "shopeepay": Shopeepay,
             "sofort": Sofort,
             "stripe_account": StripeAccount,
+            "stripe_balance": StripeBalance,
             "swish": Swish,
             "twint": Twint,
             "us_bank_account": UsBankAccount,

@@ -8,7 +8,16 @@ if TYPE_CHECKING:
     from stripe.issuing._authorization_service import AuthorizationService
     from stripe.issuing._card_service import CardService
     from stripe.issuing._cardholder_service import CardholderService
+    from stripe.issuing._credit_underwriting_record_service import (
+        CreditUnderwritingRecordService,
+    )
     from stripe.issuing._dispute_service import DisputeService
+    from stripe.issuing._dispute_settlement_detail_service import (
+        DisputeSettlementDetailService,
+    )
+    from stripe.issuing._fraud_liability_debit_service import (
+        FraudLiabilityDebitService,
+    )
     from stripe.issuing._personalization_design_service import (
         PersonalizationDesignService,
     )
@@ -23,7 +32,19 @@ _subservices = {
     ],
     "cards": ["stripe.issuing._card_service", "CardService"],
     "cardholders": ["stripe.issuing._cardholder_service", "CardholderService"],
+    "credit_underwriting_records": [
+        "stripe.issuing._credit_underwriting_record_service",
+        "CreditUnderwritingRecordService",
+    ],
     "disputes": ["stripe.issuing._dispute_service", "DisputeService"],
+    "dispute_settlement_details": [
+        "stripe.issuing._dispute_settlement_detail_service",
+        "DisputeSettlementDetailService",
+    ],
+    "fraud_liability_debits": [
+        "stripe.issuing._fraud_liability_debit_service",
+        "FraudLiabilityDebitService",
+    ],
     "personalization_designs": [
         "stripe.issuing._personalization_design_service",
         "PersonalizationDesignService",
@@ -44,7 +65,10 @@ class IssuingService(StripeService):
     authorizations: "AuthorizationService"
     cards: "CardService"
     cardholders: "CardholderService"
+    credit_underwriting_records: "CreditUnderwritingRecordService"
     disputes: "DisputeService"
+    dispute_settlement_details: "DisputeSettlementDetailService"
+    fraud_liability_debits: "FraudLiabilityDebitService"
     personalization_designs: "PersonalizationDesignService"
     physical_bundles: "PhysicalBundleService"
     tokens: "TokenService"

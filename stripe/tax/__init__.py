@@ -4,6 +4,10 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.tax._association import Association as Association
+    from stripe.tax._association_service import (
+        AssociationService as AssociationService,
+    )
     from stripe.tax._calculation import Calculation as Calculation
     from stripe.tax._calculation_line_item import (
         CalculationLineItem as CalculationLineItem,
@@ -14,6 +18,8 @@ if TYPE_CHECKING:
     from stripe.tax._calculation_service import (
         CalculationService as CalculationService,
     )
+    from stripe.tax._form import Form as Form
+    from stripe.tax._form_service import FormService as FormService
     from stripe.tax._registration import Registration as Registration
     from stripe.tax._registration_service import (
         RegistrationService as RegistrationService,
@@ -33,6 +39,8 @@ if TYPE_CHECKING:
 
 # name -> (import_target, is_submodule)
 _import_map = {
+    "Association": ("stripe.tax._association", False),
+    "AssociationService": ("stripe.tax._association_service", False),
     "Calculation": ("stripe.tax._calculation", False),
     "CalculationLineItem": ("stripe.tax._calculation_line_item", False),
     "CalculationLineItemService": (
@@ -40,6 +48,8 @@ _import_map = {
         False,
     ),
     "CalculationService": ("stripe.tax._calculation_service", False),
+    "Form": ("stripe.tax._form", False),
+    "FormService": ("stripe.tax._form_service", False),
     "Registration": ("stripe.tax._registration", False),
     "RegistrationService": ("stripe.tax._registration_service", False),
     "Settings": ("stripe.tax._settings", False),

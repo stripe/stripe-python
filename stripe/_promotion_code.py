@@ -94,6 +94,10 @@ class PromotionCode(
     """
     The customer that this promotion code can be used by.
     """
+    customer_account: Optional[str]
+    """
+    The account that this promotion code can be used by.
+    """
     expires_at: Optional[int]
     """
     Date at which the promotion code can no longer be redeemed.

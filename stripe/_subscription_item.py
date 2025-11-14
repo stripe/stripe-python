@@ -52,6 +52,20 @@ class SubscriptionItem(
         Usage threshold that triggers the subscription to create an invoice
         """
 
+    class Trial(StripeObject):
+        converts_to: Optional[List[str]]
+        """
+        List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
+        """
+        type: Literal["free", "paid"]
+        """
+        Determines the type of trial for this item.
+        """
+
+    billed_until: Optional[int]
+    """
+    The time period the subscription item has been billed for.
+    """
     billing_thresholds: Optional[BillingThresholds]
     """
     Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period
@@ -119,6 +133,10 @@ class SubscriptionItem(
     tax_rates: Optional[List["TaxRate"]]
     """
     The tax rates which apply to this `subscription_item`. When set, the `default_tax_rates` on the subscription do not apply to this `subscription_item`.
+    """
+    trial: Optional[Trial]
+    """
+    Options that configure the trial on the subscription item.
     """
 
     @classmethod
@@ -347,4 +365,7 @@ class SubscriptionItem(
         await instance.refresh_async()
         return instance
 
-    _inner_class_types = {"billing_thresholds": BillingThresholds}
+    _inner_class_types = {
+        "billing_thresholds": BillingThresholds,
+        "trial": Trial,
+    }

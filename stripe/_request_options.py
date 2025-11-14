@@ -54,6 +54,18 @@ def merge_options(
     }
 
 
+PERSISTENT_OPTIONS_KEYS = {
+    "api_key",
+    "stripe_version",
+    "stripe_account",
+    "stripe_context",
+}
+"""
+These are the keys in RequestOptions that should persist across requests made
+by the same requestor.
+"""
+
+
 def extract_options_from_dict(
     d: Optional[Mapping[str, Any]],
 ) -> Tuple[RequestOptions, Dict[str, Any]]:

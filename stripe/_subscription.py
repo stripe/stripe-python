@@ -32,12 +32,16 @@ if TYPE_CHECKING:
     from stripe._discount import Discount
     from stripe._invoice import Invoice
     from stripe._payment_method import PaymentMethod
+    from stripe._price import Price
     from stripe._setup_intent import SetupIntent
     from stripe._source import Source
     from stripe._subscription_item import SubscriptionItem
     from stripe._subscription_schedule import SubscriptionSchedule
     from stripe._tax_id import TaxId
     from stripe._tax_rate import TaxRate
+    from stripe.params._subscription_attach_cadence_params import (
+        SubscriptionAttachCadenceParams,
+    )
     from stripe.params._subscription_cancel_params import (
         SubscriptionCancelParams,
     )
@@ -149,6 +153,60 @@ class Subscription(
         """
         _inner_class_types = {"flexible": Flexible}
 
+    class BillingSchedule(StripeObject):
+        class AppliesTo(StripeObject):
+            price: Optional[ExpandableField["Price"]]
+            """
+            The billing schedule will apply to the subscription item with the given price ID.
+            """
+            type: Literal["price"]
+            """
+            Controls which subscription items the billing schedule applies to.
+            """
+
+        class BillUntil(StripeObject):
+            class Duration(StripeObject):
+                interval: Literal["day", "month", "week", "year"]
+                """
+                Specifies billing duration. Either `day`, `week`, `month` or `year`.
+                """
+                interval_count: Optional[int]
+                """
+                The multiplier applied to the interval.
+                """
+
+            computed_timestamp: int
+            """
+            The timestamp the billing schedule will apply until.
+            """
+            duration: Optional[Duration]
+            """
+            Specifies the billing period.
+            """
+            timestamp: Optional[int]
+            """
+            If specified, the billing schedule will apply until the specified timestamp.
+            """
+            type: Literal["duration", "timestamp"]
+            """
+            Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
+            """
+            _inner_class_types = {"duration": Duration}
+
+        applies_to: Optional[List[AppliesTo]]
+        """
+        Specifies which subscription items the billing schedule applies to.
+        """
+        bill_until: BillUntil
+        """
+        Specifies the billing period.
+        """
+        key: str
+        """
+        Unique identifier for the billing schedule.
+        """
+        _inner_class_types = {"applies_to": AppliesTo, "bill_until": BillUntil}
+
     class BillingThresholds(StripeObject):
         amount_gte: Optional[int]
         """
@@ -205,6 +263,31 @@ class Subscription(
         """
         issuer: Issuer
         _inner_class_types = {"issuer": Issuer}
+
+    class LastPriceMigrationError(StripeObject):
+        class FailedTransition(StripeObject):
+            source_price: str
+            """
+            The original price to be migrated.
+            """
+            target_price: str
+            """
+            The intended resulting price of the migration.
+            """
+
+        errored_at: int
+        """
+        The time at which the price migration encountered an error.
+        """
+        failed_transitions: List[FailedTransition]
+        """
+        The involved price pairs in each failed transition.
+        """
+        type: Literal["price_uniqueness_violation"]
+        """
+        The type of error encountered by the price migration.
+        """
+        _inner_class_types = {"failed_transitions": FailedTransition}
 
     class PauseCollection(StripeObject):
         behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
@@ -306,11 +389,66 @@ class Subscription(
                 """
                 _inner_class_types = {"bank_transfer": BankTransfer}
 
+            class IdBankTransfer(StripeObject):
+                pass
+
             class Konbini(StripeObject):
                 pass
 
+            class Pix(StripeObject):
+                class MandateOptions(StripeObject):
+                    amount: Optional[int]
+                    """
+                    Amount to be charged for future payments.
+                    """
+                    amount_includes_iof: Optional[Literal["always", "never"]]
+                    """
+                    Determines if the amount includes the IOF tax.
+                    """
+                    end_date: Optional[str]
+                    """
+                    Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`.
+                    """
+                    payment_schedule: Optional[
+                        Literal[
+                            "halfyearly",
+                            "monthly",
+                            "quarterly",
+                            "weekly",
+                            "yearly",
+                        ]
+                    ]
+                    """
+                    Schedule at which the future payments will be charged.
+                    """
+
+                mandate_options: Optional[MandateOptions]
+                _inner_class_types = {"mandate_options": MandateOptions}
+
             class SepaDebit(StripeObject):
                 pass
+
+            class Upi(StripeObject):
+                class MandateOptions(StripeObject):
+                    amount: Optional[int]
+                    """
+                    Amount to be charged for future payments.
+                    """
+                    amount_type: Optional[Literal["fixed", "maximum"]]
+                    """
+                    One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+                    """
+                    description: Optional[str]
+                    """
+                    A description of the mandate or subscription that is meant to be displayed to the customer.
+                    """
+                    end_date: Optional[int]
+                    """
+                    End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+                    """
+
+                mandate_options: Optional[MandateOptions]
+                _inner_class_types = {"mandate_options": MandateOptions}
 
             class UsBankAccount(StripeObject):
                 class FinancialConnections(StripeObject):
@@ -320,6 +458,10 @@ class Subscription(
                         ]
                         """
                         The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`.
+                        """
+                        institution: Optional[str]
+                        """
+                        The institution to use to filter for possible accounts to link.
                         """
 
                     filters: Optional[Filters]
@@ -337,7 +479,14 @@ class Subscription(
                     The list of permissions to request. The `payment_method` permission must be included.
                     """
                     prefetch: Optional[
-                        List[Literal["balances", "ownership", "transactions"]]
+                        List[
+                            Literal[
+                                "balances",
+                                "inferred_balances",
+                                "ownership",
+                                "transactions",
+                            ]
+                        ]
                     ]
                     """
                     Data features requested to be retrieved upon account creation.
@@ -371,13 +520,25 @@ class Subscription(
             """
             This sub-hash contains details about the Bank transfer payment method options to pass to invoices created by the subscription.
             """
+            id_bank_transfer: Optional[IdBankTransfer]
+            """
+            This sub-hash contains details about the Indonesia bank transfer payment method options to pass to invoices created by the subscription.
+            """
             konbini: Optional[Konbini]
             """
             This sub-hash contains details about the Konbini payment method options to pass to invoices created by the subscription.
             """
+            pix: Optional[Pix]
+            """
+            This sub-hash contains details about the Pix payment method options to pass to invoices created by the subscription.
+            """
             sepa_debit: Optional[SepaDebit]
             """
             This sub-hash contains details about the SEPA Direct Debit payment method options to pass to invoices created by the subscription.
+            """
+            upi: Optional[Upi]
+            """
+            This sub-hash contains details about the UPI payment method options to pass to invoices created by the subscription.
             """
             us_bank_account: Optional[UsBankAccount]
             """
@@ -388,8 +549,11 @@ class Subscription(
                 "bancontact": Bancontact,
                 "card": Card,
                 "customer_balance": CustomerBalance,
+                "id_bank_transfer": IdBankTransfer,
                 "konbini": Konbini,
+                "pix": Pix,
                 "sepa_debit": SepaDebit,
+                "upi": Upi,
                 "us_bank_account": UsBankAccount,
             }
 
@@ -412,11 +576,13 @@ class Subscription(
                     "card",
                     "cashapp",
                     "crypto",
+                    "custom",
                     "customer_balance",
                     "eps",
                     "fpx",
                     "giropay",
                     "grabpay",
+                    "id_bank_transfer",
                     "ideal",
                     "jp_credit_transfer",
                     "kakao_pay",
@@ -431,12 +597,15 @@ class Subscription(
                     "payco",
                     "paynow",
                     "paypal",
+                    "pix",
                     "promptpay",
                     "revolut_pay",
                     "sepa_credit_transfer",
                     "sepa_debit",
                     "sofort",
+                    "stripe_balance",
                     "swish",
+                    "upi",
                     "us_bank_account",
                     "wechat_pay",
                 ]
@@ -472,6 +641,10 @@ class Subscription(
         """
         The point after which the changes reflected by this update will be discarded and no longer applied.
         """
+        prebilling_iterations: Optional[int]
+        """
+        The number of iterations of prebilling to apply.
+        """
         subscription_items: Optional[List["SubscriptionItem"]]
         """
         List of subscription items, each with an attached plan, that will be set if the update is applied.
@@ -483,6 +656,24 @@ class Subscription(
         trial_from_plan: Optional[bool]
         """
         Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. See [Using trial periods on subscriptions](https://stripe.com/docs/billing/subscriptions/trials) to learn more.
+        """
+
+    class Prebilling(StripeObject):
+        invoice: ExpandableField["Invoice"]
+        """
+        ID of the prebilling invoice.
+        """
+        period_end: int
+        """
+        The end of the last period for which the invoice pre-bills.
+        """
+        period_start: int
+        """
+        The start of the first period for which the invoice pre-bills.
+        """
+        update_behavior: Optional[Literal["prebill", "reset"]]
+        """
+        Whether to cancel or preserve `prebilling` if the subscription is updated during the prebilled period.
         """
 
     class TransferData(StripeObject):
@@ -519,6 +710,10 @@ class Subscription(
     A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account.
     """
     automatic_tax: AutomaticTax
+    billing_cadence: Optional[str]
+    """
+    The Billing Cadence which controls the timing of recurring invoice generation for this subscription.If unset, the subscription will bill according to its own configured schedule and create its own invoices.If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
+    """
     billing_cycle_anchor: int
     """
     The reference point that aligns future [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle) dates. It sets the day of week for `week` intervals, the day of month for `month` and `year` intervals, and the month of year for `year` intervals. The timestamp is in UTC format.
@@ -530,6 +725,10 @@ class Subscription(
     billing_mode: BillingMode
     """
     The billing mode of the subscription.
+    """
+    billing_schedules: Optional[List[BillingSchedule]]
+    """
+    Billing schedules for this subscription.
     """
     billing_thresholds: Optional[BillingThresholds]
     """
@@ -566,6 +765,10 @@ class Subscription(
     customer: ExpandableField["Customer"]
     """
     ID of the customer who owns the subscription.
+    """
+    customer_account: Optional[str]
+    """
+    ID of the account who owns the subscription.
     """
     days_until_due: Optional[int]
     """
@@ -607,6 +810,10 @@ class Subscription(
     items: ListObject["SubscriptionItem"]
     """
     List of subscription items, each with an attached price.
+    """
+    last_price_migration_error: Optional[LastPriceMigrationError]
+    """
+    Details of the most recent price migration that failed for the subscription.
     """
     latest_invoice: Optional[ExpandableField["Invoice"]]
     """
@@ -651,6 +858,10 @@ class Subscription(
     pending_update: Optional[PendingUpdate]
     """
     If specified, [pending updates](https://stripe.com/docs/billing/subscriptions/pending-updates) that will be applied to the subscription once the `latest_invoice` has been paid.
+    """
+    prebilling: Optional[Prebilling]
+    """
+    Time period and invoice for a Subscription billed in advance.
     """
     schedule: Optional[ExpandableField["SubscriptionSchedule"]]
     """
@@ -703,6 +914,120 @@ class Subscription(
     """
     If the subscription has a trial, the beginning of that trial.
     """
+
+    @classmethod
+    def _cls_attach_cadence(
+        cls,
+        subscription: str,
+        **params: Unpack["SubscriptionAttachCadenceParams"],
+    ) -> "Subscription":
+        """
+        Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
+        """
+        return cast(
+            "Subscription",
+            cls._static_request(
+                "post",
+                "/v1/subscriptions/{subscription}/attach_cadence".format(
+                    subscription=sanitize_id(subscription)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def attach_cadence(
+        subscription: str, **params: Unpack["SubscriptionAttachCadenceParams"]
+    ) -> "Subscription":
+        """
+        Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
+        """
+        ...
+
+    @overload
+    def attach_cadence(
+        self, **params: Unpack["SubscriptionAttachCadenceParams"]
+    ) -> "Subscription":
+        """
+        Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
+        """
+        ...
+
+    @class_method_variant("_cls_attach_cadence")
+    def attach_cadence(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["SubscriptionAttachCadenceParams"]
+    ) -> "Subscription":
+        """
+        Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
+        """
+        return cast(
+            "Subscription",
+            self._request(
+                "post",
+                "/v1/subscriptions/{subscription}/attach_cadence".format(
+                    subscription=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_attach_cadence_async(
+        cls,
+        subscription: str,
+        **params: Unpack["SubscriptionAttachCadenceParams"],
+    ) -> "Subscription":
+        """
+        Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
+        """
+        return cast(
+            "Subscription",
+            await cls._static_request_async(
+                "post",
+                "/v1/subscriptions/{subscription}/attach_cadence".format(
+                    subscription=sanitize_id(subscription)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def attach_cadence_async(
+        subscription: str, **params: Unpack["SubscriptionAttachCadenceParams"]
+    ) -> "Subscription":
+        """
+        Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
+        """
+        ...
+
+    @overload
+    async def attach_cadence_async(
+        self, **params: Unpack["SubscriptionAttachCadenceParams"]
+    ) -> "Subscription":
+        """
+        Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
+        """
+        ...
+
+    @class_method_variant("_cls_attach_cadence_async")
+    async def attach_cadence_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["SubscriptionAttachCadenceParams"]
+    ) -> "Subscription":
+        """
+        Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
+        """
+        return cast(
+            "Subscription",
+            await self._request_async(
+                "post",
+                "/v1/subscriptions/{subscription}/attach_cadence".format(
+                    subscription=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
 
     @classmethod
     def _cls_cancel(
@@ -1420,13 +1745,16 @@ class Subscription(
         "automatic_tax": AutomaticTax,
         "billing_cycle_anchor_config": BillingCycleAnchorConfig,
         "billing_mode": BillingMode,
+        "billing_schedules": BillingSchedule,
         "billing_thresholds": BillingThresholds,
         "cancellation_details": CancellationDetails,
         "invoice_settings": InvoiceSettings,
+        "last_price_migration_error": LastPriceMigrationError,
         "pause_collection": PauseCollection,
         "payment_settings": PaymentSettings,
         "pending_invoice_item_interval": PendingInvoiceItemInterval,
         "pending_update": PendingUpdate,
+        "prebilling": Prebilling,
         "transfer_data": TransferData,
         "trial_settings": TrialSettings,
     }

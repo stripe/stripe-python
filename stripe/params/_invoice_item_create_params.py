@@ -14,9 +14,13 @@ class InvoiceItemCreateParams(RequestOptions):
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
-    customer: str
+    customer: NotRequired[str]
     """
     The ID of the customer who will be billed when this invoice item is billed.
+    """
+    customer_account: NotRequired[str]
+    """
+    The ID of the account who will be billed when this invoice item is billed.
     """
     description: NotRequired[str]
     """
@@ -37,6 +41,10 @@ class InvoiceItemCreateParams(RequestOptions):
     invoice: NotRequired[str]
     """
     The ID of an existing invoice to add this invoice item to. For subscription invoices, when left blank, the invoice item will be added to the next upcoming scheduled invoice. For standalone invoices, the invoice item won't be automatically added unless you pass `pending_invoice_item_behavior: 'include'` when creating the invoice. This is useful when adding invoice items in response to an invoice.created webhook. You can only add invoice items to draft invoices and there is a maximum of 250 items per invoice.
+    """
+    margins: NotRequired[List[str]]
+    """
+    The ids of the margins to apply to the invoice item. When set, the `default_margins` on the invoice do not apply to this invoice item.
     """
     metadata: NotRequired["Literal['']|Dict[str, str]"]
     """
@@ -89,9 +97,39 @@ class InvoiceItemCreateParamsDiscount(TypedDict):
     """
     ID of an existing discount on the object (or one of its ancestors) to reuse.
     """
+    discount_end: NotRequired["InvoiceItemCreateParamsDiscountDiscountEnd"]
+    """
+    Details to determine how long the discount should be applied for.
+    """
     promotion_code: NotRequired[str]
     """
     ID of the promotion code to create a new discount for.
+    """
+
+
+class InvoiceItemCreateParamsDiscountDiscountEnd(TypedDict):
+    duration: NotRequired["InvoiceItemCreateParamsDiscountDiscountEndDuration"]
+    """
+    Time span for the redeemed discount.
+    """
+    timestamp: NotRequired[int]
+    """
+    A precise Unix timestamp for the discount to end. Must be in the future.
+    """
+    type: Literal["duration", "timestamp"]
+    """
+    The type of calculation made to determine when the discount ends.
+    """
+
+
+class InvoiceItemCreateParamsDiscountDiscountEndDuration(TypedDict):
+    interval: Literal["day", "month", "week", "year"]
+    """
+    Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+    """
+    interval_count: int
+    """
+    The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
     """
 
 

@@ -33,6 +33,7 @@ if TYPE_CHECKING:
     from stripe._discount import Discount
     from stripe._invoice_line_item import InvoiceLineItem
     from stripe._invoice_payment import InvoicePayment
+    from stripe._margin import Margin
     from stripe._payment_intent import PaymentIntent
     from stripe._payment_method import PaymentMethod
     from stripe._setup_intent import SetupIntent
@@ -124,6 +125,40 @@ class Invoice(
     """
 
     OBJECT_NAME: ClassVar[Literal["invoice"]] = "invoice"
+
+    class AmountsDue(StripeObject):
+        amount: int
+        """
+        Incremental amount due for this payment in cents (or local equivalent).
+        """
+        amount_paid: int
+        """
+        The amount in cents (or local equivalent) that was paid for this payment.
+        """
+        amount_remaining: int
+        """
+        The difference between the payment's amount and amount_paid, in cents (or local equivalent).
+        """
+        days_until_due: Optional[int]
+        """
+        Number of days from when invoice is finalized until the payment is due.
+        """
+        description: Optional[str]
+        """
+        An arbitrary string attached to the object. Often useful for displaying to users.
+        """
+        due_date: Optional[int]
+        """
+        Date on which a payment plan's payment is due.
+        """
+        paid_at: Optional[int]
+        """
+        Timestamp when the payment was paid.
+        """
+        status: Literal["open", "paid", "past_due"]
+        """
+        The status of the payment, one of `open`, `paid`, or `past_due`
+        """
 
     class AutomaticTax(StripeObject):
         class Liability(StripeObject):
@@ -461,6 +496,7 @@ class Invoice(
                 "financial_connections_account_inactive",
                 "financial_connections_account_pending_account_numbers",
                 "financial_connections_account_unavailable_account_numbers",
+                "financial_connections_institution_unavailable",
                 "financial_connections_no_successful_transaction_refresh",
                 "forwarding_api_inactive",
                 "forwarding_api_invalid_parameter",
@@ -520,6 +556,7 @@ class Invoice(
                 "payment_intent_mandate_invalid",
                 "payment_intent_payment_attempt_expired",
                 "payment_intent_payment_attempt_failed",
+                "payment_intent_rate_limit_exceeded",
                 "payment_intent_unexpected_state",
                 "payment_method_bank_account_already_verified",
                 "payment_method_bank_account_blocked",
@@ -558,6 +595,7 @@ class Invoice(
                 "return_intent_already_processed",
                 "routing_number_invalid",
                 "secret_key_required",
+                "sensitive_data_access_expired",
                 "sepa_unsupported_account",
                 "setup_attempt_failed",
                 "setup_intent_authentication_failure",
@@ -577,6 +615,7 @@ class Invoice(
                 "taxes_calculation_failed",
                 "terminal_location_country_unsupported",
                 "terminal_reader_busy",
+                "terminal_reader_collected_data_invalid",
                 "terminal_reader_hardware_fault",
                 "terminal_reader_invalid_location_for_activation",
                 "terminal_reader_invalid_location_for_payment",
@@ -590,6 +629,8 @@ class Invoice(
                 "transfer_source_balance_parameters_mismatch",
                 "transfers_not_allowed",
                 "url_invalid",
+                "v2_account_disconnection_unsupported",
+                "v2_account_missing_configuration",
             ]
         ]
         """
@@ -687,6 +728,12 @@ class Invoice(
         """
 
     class Parent(StripeObject):
+        class BillingCadenceDetails(StripeObject):
+            billing_cadence: str
+            """
+            The billing cadence that generated this invoice
+            """
+
         class QuoteDetails(StripeObject):
             quote: str
             """
@@ -694,10 +741,26 @@ class Invoice(
             """
 
         class SubscriptionDetails(StripeObject):
+            class PauseCollection(StripeObject):
+                behavior: Optional[
+                    Literal["keep_as_draft", "mark_uncollectible", "void"]
+                ]
+                """
+                The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+                """
+                resumes_at: Optional[int]
+                """
+                The time after which the subscription will resume collecting payments.
+                """
+
             metadata: Optional[Dict[str, str]]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) defined as subscription metadata when an invoice is created. Becomes an immutable snapshot of the subscription metadata at the time of invoice finalization.
              *Note: This attribute is populated only for invoices created on or after June 29, 2023.*
+            """
+            pause_collection: Optional[PauseCollection]
+            """
+            If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment).
             """
             subscription: ExpandableField["Subscription"]
             """
@@ -707,7 +770,12 @@ class Invoice(
             """
             Only set for upcoming invoices that preview prorations. The time used to calculate prorations.
             """
+            _inner_class_types = {"pause_collection": PauseCollection}
 
+        billing_cadence_details: Optional[BillingCadenceDetails]
+        """
+        Details about the billing cadence that generated this invoice
+        """
         quote_details: Optional[QuoteDetails]
         """
         Details about the quote that generated this invoice
@@ -716,11 +784,14 @@ class Invoice(
         """
         Details about the subscription that generated this invoice
         """
-        type: Literal["quote_details", "subscription_details"]
+        type: Literal[
+            "billing_cadence_details", "quote_details", "subscription_details"
+        ]
         """
         The type of parent that generated this invoice
         """
         _inner_class_types = {
+            "billing_cadence_details": BillingCadenceDetails,
             "quote_details": QuoteDetails,
             "subscription_details": SubscriptionDetails,
         }
@@ -787,11 +858,42 @@ class Invoice(
                 """
                 _inner_class_types = {"bank_transfer": BankTransfer}
 
+            class IdBankTransfer(StripeObject):
+                pass
+
             class Konbini(StripeObject):
                 pass
 
+            class Pix(StripeObject):
+                amount_includes_iof: Optional[Literal["always", "never"]]
+                """
+                Determines if the amount includes the IOF tax.
+                """
+
             class SepaDebit(StripeObject):
                 pass
+
+            class Upi(StripeObject):
+                class MandateOptions(StripeObject):
+                    amount: Optional[int]
+                    """
+                    Amount to be charged for future payments.
+                    """
+                    amount_type: Optional[Literal["fixed", "maximum"]]
+                    """
+                    One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+                    """
+                    description: Optional[str]
+                    """
+                    A description of the mandate or subscription that is meant to be displayed to the customer.
+                    """
+                    end_date: Optional[int]
+                    """
+                    End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+                    """
+
+                mandate_options: Optional[MandateOptions]
+                _inner_class_types = {"mandate_options": MandateOptions}
 
             class UsBankAccount(StripeObject):
                 class FinancialConnections(StripeObject):
@@ -801,6 +903,10 @@ class Invoice(
                         ]
                         """
                         The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`.
+                        """
+                        institution: Optional[str]
+                        """
+                        The institution to use to filter for possible accounts to link.
                         """
 
                     filters: Optional[Filters]
@@ -818,7 +924,14 @@ class Invoice(
                     The list of permissions to request. The `payment_method` permission must be included.
                     """
                     prefetch: Optional[
-                        List[Literal["balances", "ownership", "transactions"]]
+                        List[
+                            Literal[
+                                "balances",
+                                "inferred_balances",
+                                "ownership",
+                                "transactions",
+                            ]
+                        ]
                     ]
                     """
                     Data features requested to be retrieved upon account creation.
@@ -852,13 +965,25 @@ class Invoice(
             """
             If paying by `customer_balance`, this sub-hash contains details about the Bank transfer payment method options to pass to the invoice's PaymentIntent.
             """
+            id_bank_transfer: Optional[IdBankTransfer]
+            """
+            If paying by `id_bank_transfer`, this sub-hash contains details about the Indonesia bank transfer payment method options to pass to the invoice's PaymentIntent.
+            """
             konbini: Optional[Konbini]
             """
             If paying by `konbini`, this sub-hash contains details about the Konbini payment method options to pass to the invoice's PaymentIntent.
             """
+            pix: Optional[Pix]
+            """
+            If paying by `pix`, this sub-hash contains details about the Pix payment method options to pass to the invoice's PaymentIntent.
+            """
             sepa_debit: Optional[SepaDebit]
             """
             If paying by `sepa_debit`, this sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice's PaymentIntent.
+            """
+            upi: Optional[Upi]
+            """
+            If paying by `upi`, this sub-hash contains details about the UPI payment method options to pass to the invoice's PaymentIntent.
             """
             us_bank_account: Optional[UsBankAccount]
             """
@@ -869,8 +994,11 @@ class Invoice(
                 "bancontact": Bancontact,
                 "card": Card,
                 "customer_balance": CustomerBalance,
+                "id_bank_transfer": IdBankTransfer,
                 "konbini": Konbini,
+                "pix": Pix,
                 "sepa_debit": SepaDebit,
+                "upi": Upi,
                 "us_bank_account": UsBankAccount,
             }
 
@@ -897,11 +1025,13 @@ class Invoice(
                     "card",
                     "cashapp",
                     "crypto",
+                    "custom",
                     "customer_balance",
                     "eps",
                     "fpx",
                     "giropay",
                     "grabpay",
+                    "id_bank_transfer",
                     "ideal",
                     "jp_credit_transfer",
                     "kakao_pay",
@@ -916,12 +1046,15 @@ class Invoice(
                     "payco",
                     "paynow",
                     "paypal",
+                    "pix",
                     "promptpay",
                     "revolut_pay",
                     "sepa_credit_transfer",
                     "sepa_debit",
                     "sofort",
+                    "stripe_balance",
                     "swish",
+                    "upi",
                     "us_bank_account",
                     "wechat_pay",
                 ]
@@ -1113,6 +1246,16 @@ class Invoice(
         The discount that was applied to get this discount amount.
         """
 
+    class TotalMarginAmount(StripeObject):
+        amount: int
+        """
+        The amount, in cents (or local equivalent), of the reduction in line item amount.
+        """
+        margin: ExpandableField["Margin"]
+        """
+        The margin that was applied to get this margin amount.
+        """
+
     class TotalPretaxCreditAmount(StripeObject):
         amount: int
         """
@@ -1128,7 +1271,11 @@ class Invoice(
         """
         The discount that was applied to get this pretax credit amount.
         """
-        type: Literal["credit_balance_transaction", "discount"]
+        margin: Optional[ExpandableField["Margin"]]
+        """
+        The margin that was applied to get this pretax credit amount.
+        """
+        type: Literal["credit_balance_transaction", "discount", "margin"]
         """
         Type of the pretax credit amount referenced.
         """
@@ -1212,6 +1359,10 @@ class Invoice(
     """
     This is the sum of all the shipping amounts.
     """
+    amounts_due: Optional[List[AmountsDue]]
+    """
+    List of expected payments and corresponding due dates. This value will be null for invoices where collection_method=charge_automatically.
+    """
     application: Optional[ExpandableField["Application"]]
     """
     ID of the Connect Application that created the invoice.
@@ -1255,7 +1406,7 @@ class Invoice(
     * `subscription_cycle`: A subscription advanced into a new period.
     * `subscription_threshold`: A subscription reached a billing threshold.
     * `subscription_update`: A subscription was updated.
-    * `upcoming`: Reserved for simulated invoices, per the upcoming invoice endpoint.
+    * `upcoming`: Reserved for upcoming invoices created through the Create Preview Invoice API or when an `invoice.upcoming` event is generated for an upcoming invoice on a subscription.
     """
     collection_method: Literal["charge_automatically", "send_invoice"]
     """
@@ -1280,6 +1431,10 @@ class Invoice(
     customer: Optional[ExpandableField["Customer"]]
     """
     The ID of the customer who will be billed.
+    """
+    customer_account: Optional[str]
+    """
+    The ID of the account who will be billed.
     """
     customer_address: Optional[CustomerAddress]
     """
@@ -1308,6 +1463,10 @@ class Invoice(
     customer_tax_ids: Optional[List[CustomerTaxId]]
     """
     The customer's tax IDs. Until the invoice is finalized, this field will contain the same tax IDs as `customer.tax_ids`. Once the invoice is finalized, this field will no longer be updated.
+    """
+    default_margins: Optional[List[ExpandableField["Margin"]]]
+    """
+    The margins applied to the invoice. Can be overridden by line item `margins`. Use `expand[]=default_margins` to expand each margin.
     """
     default_payment_method: Optional[ExpandableField["PaymentMethod"]]
     """
@@ -1484,6 +1643,10 @@ class Invoice(
     total_excluding_tax: Optional[int]
     """
     The integer amount in cents (or local equivalent) representing the total amount of the invoice including all discounts but excluding all tax.
+    """
+    total_margin_amounts: Optional[List[TotalMarginAmount]]
+    """
+    The aggregate amounts calculated per margin across all line items.
     """
     total_pretax_credit_amounts: Optional[List[TotalPretaxCreditAmount]]
     """
@@ -2941,6 +3104,7 @@ class Invoice(
         )
 
     _inner_class_types = {
+        "amounts_due": AmountsDue,
         "automatic_tax": AutomaticTax,
         "confirmation_secret": ConfirmationSecret,
         "custom_fields": CustomField,
@@ -2958,6 +3122,7 @@ class Invoice(
         "status_transitions": StatusTransitions,
         "threshold_reason": ThresholdReason,
         "total_discount_amounts": TotalDiscountAmount,
+        "total_margin_amounts": TotalMarginAmount,
         "total_pretax_credit_amounts": TotalPretaxCreditAmount,
         "total_taxes": TotalTax,
     }

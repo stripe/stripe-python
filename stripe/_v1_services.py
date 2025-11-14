@@ -6,6 +6,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._account_link_service import AccountLinkService
+    from stripe._account_notice_service import AccountNoticeService
     from stripe._account_service import AccountService
     from stripe._account_session_service import AccountSessionService
     from stripe._apple_pay_domain_service import ApplePayDomainService
@@ -16,6 +17,7 @@ if TYPE_CHECKING:
     from stripe._balance_transaction_service import BalanceTransactionService
     from stripe._billing_portal_service import BillingPortalService
     from stripe._billing_service import BillingService
+    from stripe._capital_service import CapitalService
     from stripe._charge_service import ChargeService
     from stripe._checkout_service import CheckoutService
     from stripe._climate_service import ClimateService
@@ -30,12 +32,14 @@ if TYPE_CHECKING:
     from stripe._ephemeral_key_service import EphemeralKeyService
     from stripe._event_service import EventService
     from stripe._exchange_rate_service import ExchangeRateService
+    from stripe._external_account_service import ExternalAccountService
     from stripe._file_link_service import FileLinkService
     from stripe._file_service import FileService
     from stripe._financial_connections_service import (
         FinancialConnectionsService,
     )
     from stripe._forwarding_service import ForwardingService
+    from stripe._fx_quote_service import FxQuoteService
     from stripe._identity_service import IdentityService
     from stripe._invoice_item_service import InvoiceItemService
     from stripe._invoice_payment_service import InvoicePaymentService
@@ -45,6 +49,11 @@ if TYPE_CHECKING:
     from stripe._invoice_service import InvoiceService
     from stripe._issuing_service import IssuingService
     from stripe._mandate_service import MandateService
+    from stripe._margin_service import MarginService
+    from stripe._order_service import OrderService
+    from stripe._payment_attempt_record_service import (
+        PaymentAttemptRecordService,
+    )
     from stripe._payment_intent_service import PaymentIntentService
     from stripe._payment_link_service import PaymentLinkService
     from stripe._payment_method_configuration_service import (
@@ -54,9 +63,11 @@ if TYPE_CHECKING:
         PaymentMethodDomainService,
     )
     from stripe._payment_method_service import PaymentMethodService
+    from stripe._payment_record_service import PaymentRecordService
     from stripe._payout_service import PayoutService
     from stripe._plan_service import PlanService
     from stripe._price_service import PriceService
+    from stripe._privacy_service import PrivacyService
     from stripe._product_service import ProductService
     from stripe._promotion_code_service import PromotionCodeService
     from stripe._quote_service import QuoteService
@@ -89,6 +100,10 @@ if TYPE_CHECKING:
 _subservices = {
     "accounts": ["stripe._account_service", "AccountService"],
     "account_links": ["stripe._account_link_service", "AccountLinkService"],
+    "account_notices": [
+        "stripe._account_notice_service",
+        "AccountNoticeService",
+    ],
     "account_sessions": [
         "stripe._account_session_service",
         "AccountSessionService",
@@ -116,6 +131,7 @@ _subservices = {
         "stripe._billing_portal_service",
         "BillingPortalService",
     ],
+    "capital": ["stripe._capital_service", "CapitalService"],
     "charges": ["stripe._charge_service", "ChargeService"],
     "checkout": ["stripe._checkout_service", "CheckoutService"],
     "climate": ["stripe._climate_service", "ClimateService"],
@@ -136,6 +152,10 @@ _subservices = {
     "ephemeral_keys": ["stripe._ephemeral_key_service", "EphemeralKeyService"],
     "events": ["stripe._event_service", "EventService"],
     "exchange_rates": ["stripe._exchange_rate_service", "ExchangeRateService"],
+    "external_accounts": [
+        "stripe._external_account_service",
+        "ExternalAccountService",
+    ],
     "files": ["stripe._file_service", "FileService"],
     "file_links": ["stripe._file_link_service", "FileLinkService"],
     "financial_connections": [
@@ -143,6 +163,7 @@ _subservices = {
         "FinancialConnectionsService",
     ],
     "forwarding": ["stripe._forwarding_service", "ForwardingService"],
+    "fx_quotes": ["stripe._fx_quote_service", "FxQuoteService"],
     "identity": ["stripe._identity_service", "IdentityService"],
     "invoices": ["stripe._invoice_service", "InvoiceService"],
     "invoice_items": ["stripe._invoice_item_service", "InvoiceItemService"],
@@ -156,6 +177,12 @@ _subservices = {
     ],
     "issuing": ["stripe._issuing_service", "IssuingService"],
     "mandates": ["stripe._mandate_service", "MandateService"],
+    "margins": ["stripe._margin_service", "MarginService"],
+    "orders": ["stripe._order_service", "OrderService"],
+    "payment_attempt_records": [
+        "stripe._payment_attempt_record_service",
+        "PaymentAttemptRecordService",
+    ],
     "payment_intents": [
         "stripe._payment_intent_service",
         "PaymentIntentService",
@@ -173,9 +200,14 @@ _subservices = {
         "stripe._payment_method_domain_service",
         "PaymentMethodDomainService",
     ],
+    "payment_records": [
+        "stripe._payment_record_service",
+        "PaymentRecordService",
+    ],
     "payouts": ["stripe._payout_service", "PayoutService"],
     "plans": ["stripe._plan_service", "PlanService"],
     "prices": ["stripe._price_service", "PriceService"],
+    "privacy": ["stripe._privacy_service", "PrivacyService"],
     "products": ["stripe._product_service", "ProductService"],
     "promotion_codes": [
         "stripe._promotion_code_service",
@@ -220,6 +252,7 @@ _subservices = {
 class V1Services(StripeService):
     accounts: "AccountService"
     account_links: "AccountLinkService"
+    account_notices: "AccountNoticeService"
     account_sessions: "AccountSessionService"
     apple_pay_domains: "ApplePayDomainService"
     application_fees: "ApplicationFeeService"
@@ -229,6 +262,7 @@ class V1Services(StripeService):
     balance_transactions: "BalanceTransactionService"
     billing: "BillingService"
     billing_portal: "BillingPortalService"
+    capital: "CapitalService"
     charges: "ChargeService"
     checkout: "CheckoutService"
     climate: "ClimateService"
@@ -243,10 +277,12 @@ class V1Services(StripeService):
     ephemeral_keys: "EphemeralKeyService"
     events: "EventService"
     exchange_rates: "ExchangeRateService"
+    external_accounts: "ExternalAccountService"
     files: "FileService"
     file_links: "FileLinkService"
     financial_connections: "FinancialConnectionsService"
     forwarding: "ForwardingService"
+    fx_quotes: "FxQuoteService"
     identity: "IdentityService"
     invoices: "InvoiceService"
     invoice_items: "InvoiceItemService"
@@ -254,14 +290,19 @@ class V1Services(StripeService):
     invoice_rendering_templates: "InvoiceRenderingTemplateService"
     issuing: "IssuingService"
     mandates: "MandateService"
+    margins: "MarginService"
+    orders: "OrderService"
+    payment_attempt_records: "PaymentAttemptRecordService"
     payment_intents: "PaymentIntentService"
     payment_links: "PaymentLinkService"
     payment_methods: "PaymentMethodService"
     payment_method_configurations: "PaymentMethodConfigurationService"
     payment_method_domains: "PaymentMethodDomainService"
+    payment_records: "PaymentRecordService"
     payouts: "PayoutService"
     plans: "PlanService"
     prices: "PriceService"
+    privacy: "PrivacyService"
     products: "ProductService"
     promotion_codes: "PromotionCodeService"
     quotes: "QuoteService"

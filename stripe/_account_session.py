@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, cast
+from typing import ClassVar, Optional, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -83,6 +83,39 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
                 """
                 Whether to allow creation of standard payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
                 """
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
+        class CapitalFinancing(StripeObject):
+            class Features(StripeObject):
+                pass
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
+        class CapitalFinancingApplication(StripeObject):
+            class Features(StripeObject):
+                pass
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
+        class CapitalFinancingPromotion(StripeObject):
+            class Features(StripeObject):
+                pass
 
             enabled: bool
             """
@@ -415,6 +448,9 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         account_management: AccountManagement
         account_onboarding: AccountOnboarding
         balances: Balances
+        capital_financing: Optional[CapitalFinancing]
+        capital_financing_application: Optional[CapitalFinancingApplication]
+        capital_financing_promotion: Optional[CapitalFinancingPromotion]
         disputes_list: DisputesList
         documents: Documents
         financial_account: FinancialAccount
@@ -435,6 +471,9 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "account_management": AccountManagement,
             "account_onboarding": AccountOnboarding,
             "balances": Balances,
+            "capital_financing": CapitalFinancing,
+            "capital_financing_application": CapitalFinancingApplication,
+            "capital_financing_promotion": CapitalFinancingPromotion,
             "disputes_list": DisputesList,
             "documents": Documents,
             "financial_account": FinancialAccount,

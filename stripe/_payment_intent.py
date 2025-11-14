@@ -4,6 +4,7 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
+from stripe._nested_resource_class_methods import nested_resource_class_methods
 from stripe._search_result_object import SearchResultObject
 from stripe._searchable_api_resource import SearchableAPIResource
 from stripe._stripe_object import StripeObject
@@ -29,6 +30,9 @@ if TYPE_CHECKING:
     from stripe._card import Card as CardResource
     from stripe._charge import Charge
     from stripe._customer import Customer
+    from stripe._payment_intent_amount_details_line_item import (
+        PaymentIntentAmountDetailsLineItem,
+    )
     from stripe._payment_method import PaymentMethod
     from stripe._review import Review
     from stripe._setup_intent import SetupIntent
@@ -48,8 +52,14 @@ if TYPE_CHECKING:
     from stripe.params._payment_intent_create_params import (
         PaymentIntentCreateParams,
     )
+    from stripe.params._payment_intent_decrement_authorization_params import (
+        PaymentIntentDecrementAuthorizationParams,
+    )
     from stripe.params._payment_intent_increment_authorization_params import (
         PaymentIntentIncrementAuthorizationParams,
+    )
+    from stripe.params._payment_intent_list_amount_details_line_items_params import (
+        PaymentIntentListAmountDetailsLineItemsParams,
     )
     from stripe.params._payment_intent_list_params import (
         PaymentIntentListParams,
@@ -63,12 +73,16 @@ if TYPE_CHECKING:
     from stripe.params._payment_intent_search_params import (
         PaymentIntentSearchParams,
     )
+    from stripe.params._payment_intent_trigger_action_params import (
+        PaymentIntentTriggerActionParams,
+    )
     from stripe.params._payment_intent_verify_microdeposits_params import (
         PaymentIntentVerifyMicrodepositsParams,
     )
     from typing import Any
 
 
+@nested_resource_class_methods("amount_details_line_item")
 class PaymentIntent(
     CreateableAPIResource["PaymentIntent"],
     ListableAPIResource["PaymentIntent"],
@@ -92,14 +106,48 @@ class PaymentIntent(
     OBJECT_NAME: ClassVar[Literal["payment_intent"]] = "payment_intent"
 
     class AmountDetails(StripeObject):
+        class Shipping(StripeObject):
+            amount: Optional[int]
+            """
+            If a physical good is being shipped, the cost of shipping represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than or equal to 0.
+            """
+            from_postal_code: Optional[str]
+            """
+            If a physical good is being shipped, the postal code of where it is being shipped from. At most 10 alphanumeric characters long, hyphens are allowed.
+            """
+            to_postal_code: Optional[str]
+            """
+            If a physical good is being shipped, the postal code of where it is being shipped to. At most 10 alphanumeric characters long, hyphens are allowed.
+            """
+
+        class Tax(StripeObject):
+            total_tax_amount: Optional[int]
+            """
+            The total amount of tax on the transaction represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L2 rates. An integer greater than or equal to 0.
+
+            This field is mutually exclusive with the `amount_details[line_items][#][tax][total_tax_amount]` field.
+            """
+
         class Tip(StripeObject):
             amount: Optional[int]
             """
             Portion of the amount that corresponds to a tip.
             """
 
+        discount_amount: Optional[int]
+        """
+        The total discount applied on the transaction represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than 0.
+
+        This field is mutually exclusive with the `amount_details[line_items][#][discount_amount]` field.
+        """
+        line_items: Optional[ListObject["PaymentIntentAmountDetailsLineItem"]]
+        """
+        A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
+        """
+        shipping: Optional[Shipping]
+        tax: Optional[Tax]
         tip: Optional[Tip]
-        _inner_class_types = {"tip": Tip}
+        _inner_class_types = {"shipping": Shipping, "tax": Tax, "tip": Tip}
 
     class AutomaticPaymentMethods(StripeObject):
         allow_redirects: Optional[Literal["always", "never"]]
@@ -112,6 +160,20 @@ class PaymentIntent(
         """
         Automatically calculates compatible payment methods
         """
+
+    class Hooks(StripeObject):
+        class Inputs(StripeObject):
+            class Tax(StripeObject):
+                calculation: str
+                """
+                The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
+                """
+
+            tax: Optional[Tax]
+            _inner_class_types = {"tax": Tax}
+
+        inputs: Optional[Inputs]
+        _inner_class_types = {"inputs": Inputs}
 
     class LastPaymentError(StripeObject):
         advice_code: Optional[str]
@@ -175,6 +237,7 @@ class PaymentIntent(
                 "financial_connections_account_inactive",
                 "financial_connections_account_pending_account_numbers",
                 "financial_connections_account_unavailable_account_numbers",
+                "financial_connections_institution_unavailable",
                 "financial_connections_no_successful_transaction_refresh",
                 "forwarding_api_inactive",
                 "forwarding_api_invalid_parameter",
@@ -234,6 +297,7 @@ class PaymentIntent(
                 "payment_intent_mandate_invalid",
                 "payment_intent_payment_attempt_expired",
                 "payment_intent_payment_attempt_failed",
+                "payment_intent_rate_limit_exceeded",
                 "payment_intent_unexpected_state",
                 "payment_method_bank_account_already_verified",
                 "payment_method_bank_account_blocked",
@@ -272,6 +336,7 @@ class PaymentIntent(
                 "return_intent_already_processed",
                 "routing_number_invalid",
                 "secret_key_required",
+                "sensitive_data_access_expired",
                 "sepa_unsupported_account",
                 "setup_attempt_failed",
                 "setup_intent_authentication_failure",
@@ -291,6 +356,7 @@ class PaymentIntent(
                 "taxes_calculation_failed",
                 "terminal_location_country_unsupported",
                 "terminal_reader_busy",
+                "terminal_reader_collected_data_invalid",
                 "terminal_reader_hardware_fault",
                 "terminal_reader_invalid_location_for_activation",
                 "terminal_reader_invalid_location_for_payment",
@@ -304,6 +370,8 @@ class PaymentIntent(
                 "transfer_source_balance_parameters_mismatch",
                 "transfers_not_allowed",
                 "url_invalid",
+                "v2_account_disconnection_unsupported",
+                "v2_account_missing_configuration",
             ]
         ]
         """
@@ -1362,6 +1430,363 @@ class PaymentIntent(
             "wechat_pay_redirect_to_ios_app": WechatPayRedirectToIosApp,
         }
 
+    class PaymentDetails(StripeObject):
+        class CarRental(StripeObject):
+            class Affiliate(StripeObject):
+                name: Optional[str]
+                """
+                The name of the affiliate that originated the purchase.
+                """
+
+            class Delivery(StripeObject):
+                class Recipient(StripeObject):
+                    email: Optional[str]
+                    """
+                    The email of the recipient the ticket is delivered to.
+                    """
+                    name: Optional[str]
+                    """
+                    The name of the recipient the ticket is delivered to.
+                    """
+                    phone: Optional[str]
+                    """
+                    The phone number of the recipient the ticket is delivered to.
+                    """
+
+                mode: Optional[Literal["email", "phone", "pickup", "post"]]
+                """
+                The delivery method for the payment
+                """
+                recipient: Optional[Recipient]
+                _inner_class_types = {"recipient": Recipient}
+
+            class Distance(StripeObject):
+                amount: Optional[int]
+                """
+                Distance traveled.
+                """
+                unit: Optional[str]
+                """
+                Unit of measurement for the distance traveled. One of `miles` or `kilometers`
+                """
+
+            class Driver(StripeObject):
+                driver_identification_number: Optional[str]
+                """
+                Driver's identification number.
+                """
+                driver_tax_number: Optional[str]
+                """
+                Driver's tax number.
+                """
+                name: Optional[str]
+                """
+                Full name of the driver on the reservation.
+                """
+
+            class PickupAddress(StripeObject):
+                city: Optional[str]
+                """
+                City, district, suburb, town, or village.
+                """
+                country: Optional[str]
+                """
+                Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                """
+                line1: Optional[str]
+                """
+                Address line 1, such as the street, PO Box, or company name.
+                """
+                line2: Optional[str]
+                """
+                Address line 2, such as the apartment, suite, unit, or building.
+                """
+                postal_code: Optional[str]
+                """
+                ZIP or postal code.
+                """
+                state: Optional[str]
+                """
+                State, county, province, or region.
+                """
+
+            class ReturnAddress(StripeObject):
+                city: Optional[str]
+                """
+                City, district, suburb, town, or village.
+                """
+                country: Optional[str]
+                """
+                Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                """
+                line1: Optional[str]
+                """
+                Address line 1, such as the street, PO Box, or company name.
+                """
+                line2: Optional[str]
+                """
+                Address line 2, such as the apartment, suite, unit, or building.
+                """
+                postal_code: Optional[str]
+                """
+                ZIP or postal code.
+                """
+                state: Optional[str]
+                """
+                State, county, province, or region.
+                """
+
+            affiliate: Optional[Affiliate]
+            booking_number: str
+            """
+            The booking number associated with the car rental.
+            """
+            car_class_code: Optional[str]
+            """
+            Class code of the car.
+            """
+            car_make: Optional[str]
+            """
+            Make of the car.
+            """
+            car_model: Optional[str]
+            """
+            Model of the car.
+            """
+            company: Optional[str]
+            """
+            The name of the rental car company.
+            """
+            customer_service_phone_number: Optional[str]
+            """
+            The customer service phone number of the car rental company.
+            """
+            days_rented: int
+            """
+            Number of days the car is being rented.
+            """
+            delivery: Optional[Delivery]
+            distance: Optional[Distance]
+            drivers: Optional[List[Driver]]
+            """
+            The details of the drivers associated with the trip.
+            """
+            extra_charges: Optional[
+                List[
+                    Literal[
+                        "extra_mileage",
+                        "gas",
+                        "late_return",
+                        "one_way_service",
+                        "parking_violation",
+                    ]
+                ]
+            ]
+            """
+            List of additional charges being billed.
+            """
+            no_show: Optional[bool]
+            """
+            Indicates if the customer did not keep nor cancel their booking.
+            """
+            pickup_address: Optional[PickupAddress]
+            pickup_at: int
+            """
+            Car pick-up time. Measured in seconds since the Unix epoch.
+            """
+            pickup_location_name: Optional[str]
+            """
+            Name of the pickup location.
+            """
+            rate_amount: Optional[int]
+            """
+            Rental rate.
+            """
+            rate_interval: Optional[Literal["day", "month", "week"]]
+            """
+            The frequency at which the rate amount is applied. One of `day`, `week` or `month`
+            """
+            renter_name: Optional[str]
+            """
+            The full name of the person or entity renting the car.
+            """
+            return_address: Optional[ReturnAddress]
+            return_at: int
+            """
+            Car return time. Measured in seconds since the Unix epoch.
+            """
+            return_location_name: Optional[str]
+            """
+            Name of the return location.
+            """
+            tax_exempt: Optional[bool]
+            """
+            Indicates whether the goods or services are tax-exempt or tax is not collected.
+            """
+            vehicle_identification_number: Optional[str]
+            """
+            The vehicle identification number of the car.
+            """
+            _inner_class_types = {
+                "affiliate": Affiliate,
+                "delivery": Delivery,
+                "distance": Distance,
+                "drivers": Driver,
+                "pickup_address": PickupAddress,
+                "return_address": ReturnAddress,
+            }
+
+        class EventDetails(StripeObject):
+            class Address(StripeObject):
+                city: Optional[str]
+                """
+                City, district, suburb, town, or village.
+                """
+                country: Optional[str]
+                """
+                Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                """
+                line1: Optional[str]
+                """
+                Address line 1, such as the street, PO Box, or company name.
+                """
+                line2: Optional[str]
+                """
+                Address line 2, such as the apartment, suite, unit, or building.
+                """
+                postal_code: Optional[str]
+                """
+                ZIP or postal code.
+                """
+                state: Optional[str]
+                """
+                State, county, province, or region.
+                """
+
+            class Affiliate(StripeObject):
+                name: Optional[str]
+                """
+                The name of the affiliate that originated the purchase.
+                """
+
+            class Delivery(StripeObject):
+                class Recipient(StripeObject):
+                    email: Optional[str]
+                    """
+                    The email of the recipient the ticket is delivered to.
+                    """
+                    name: Optional[str]
+                    """
+                    The name of the recipient the ticket is delivered to.
+                    """
+                    phone: Optional[str]
+                    """
+                    The phone number of the recipient the ticket is delivered to.
+                    """
+
+                mode: Optional[Literal["email", "phone", "pickup", "post"]]
+                """
+                The delivery method for the payment
+                """
+                recipient: Optional[Recipient]
+                _inner_class_types = {"recipient": Recipient}
+
+            access_controlled_venue: Optional[bool]
+            """
+            Indicates if the tickets are digitally checked when entering the venue.
+            """
+            address: Optional[Address]
+            affiliate: Optional[Affiliate]
+            company: Optional[str]
+            """
+            The name of the company
+            """
+            delivery: Optional[Delivery]
+            ends_at: Optional[int]
+            """
+            Event end time. Measured in seconds since the Unix epoch.
+            """
+            genre: Optional[str]
+            """
+            Type of the event entertainment (concert, sports event etc)
+            """
+            name: Optional[str]
+            """
+            The name of the event.
+            """
+            starts_at: Optional[int]
+            """
+            Event start time. Measured in seconds since the Unix epoch.
+            """
+            _inner_class_types = {
+                "address": Address,
+                "affiliate": Affiliate,
+                "delivery": Delivery,
+            }
+
+        class Subscription(StripeObject):
+            class Affiliate(StripeObject):
+                name: Optional[str]
+                """
+                The name of the affiliate that originated the purchase.
+                """
+
+            class BillingInterval(StripeObject):
+                count: Optional[int]
+                """
+                The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+                """
+                interval: Optional[Literal["day", "month", "week", "year"]]
+                """
+                Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+                """
+
+            affiliate: Optional[Affiliate]
+            auto_renewal: Optional[bool]
+            """
+            Info whether the subscription will be auto renewed upon expiry.
+            """
+            billing_interval: Optional[BillingInterval]
+            ends_at: Optional[int]
+            """
+            Subscription end time. Measured in seconds since the Unix epoch.
+            """
+            name: Optional[str]
+            """
+            Name of the product on subscription. e.g. Apple Music Subscription.
+            """
+            starts_at: Optional[int]
+            """
+            Subscription start time. Measured in seconds since the Unix epoch.
+            """
+            _inner_class_types = {
+                "affiliate": Affiliate,
+                "billing_interval": BillingInterval,
+            }
+
+        car_rental: Optional[CarRental]
+        customer_reference: Optional[str]
+        """
+        A unique value to identify the customer. This field is available only for card payments.
+
+        This field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks.
+        """
+        event_details: Optional[EventDetails]
+        order_reference: Optional[str]
+        """
+        A unique value assigned by the business to identify the transaction. Required for L2 and L3 rates.
+
+        Required when the Payment Method Types array contains `card`, including when [automatic_payment_methods.enabled](https://docs.stripe.com/api/payment_intents/create#create_payment_intent-automatic_payment_methods-enabled) is set to `true`.
+
+        For Cards, this field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks. For Klarna, this field is truncated to 255 characters and is visible to customers when they view the order in the Klarna app.
+        """
+        subscription: Optional[Subscription]
+        _inner_class_types = {
+            "car_rental": CarRental,
+            "event_details": EventDetails,
+            "subscription": Subscription,
+        }
+
     class PaymentMethodConfigurationDetails(StripeObject):
         id: str
         """
@@ -1677,6 +2102,40 @@ class PaymentIntent(
                 Specifies the type of mandates supported. Possible values are `india`.
                 """
 
+            class StatementDetails(StripeObject):
+                class Address(StripeObject):
+                    city: Optional[str]
+                    """
+                    City, district, suburb, town, or village.
+                    """
+                    country: Optional[str]
+                    """
+                    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                    """
+                    line1: Optional[str]
+                    """
+                    Address line 1, such as the street, PO Box, or company name.
+                    """
+                    line2: Optional[str]
+                    """
+                    Address line 2, such as the apartment, suite, unit, or building.
+                    """
+                    postal_code: Optional[str]
+                    """
+                    ZIP or postal code.
+                    """
+                    state: Optional[str]
+                    """
+                    State, county, province, or region.
+                    """
+
+                address: Optional[Address]
+                phone: Optional[str]
+                """
+                Phone number
+                """
+                _inner_class_types = {"address": Address}
+
             capture_method: Optional[Literal["manual"]]
             """
             Controls when the funds will be captured from the customer's account.
@@ -1711,6 +2170,12 @@ class PaymentIntent(
             """
             Selected network to process this payment intent on. Depends on the available networks of the card attached to the payment intent. Can be only set confirm-time.
             """
+            request_decremental_authorization: Optional[
+                Literal["if_available", "never"]
+            ]
+            """
+            Request ability to [decrement the authorization](https://stripe.com/docs/payments/decremental-authorization) for this PaymentIntent.
+            """
             request_extended_authorization: Optional[
                 Literal["if_available", "never"]
             ]
@@ -1730,6 +2195,12 @@ class PaymentIntent(
             request_overcapture: Optional[Literal["if_available", "never"]]
             """
             Request ability to [overcapture](https://stripe.com/docs/payments/overcapture) for this PaymentIntent.
+            """
+            request_partial_authorization: Optional[
+                Literal["if_available", "never"]
+            ]
+            """
+            Request partial authorization on this PaymentIntent.
             """
             request_three_d_secure: Optional[
                 Literal["any", "automatic", "challenge"]
@@ -1761,9 +2232,11 @@ class PaymentIntent(
             """
             Provides information about a card payment that customers see on their statements. Concatenated with the Kanji prefix (shortened Kanji descriptor) or Kanji statement descriptor that's set on the account to form the complete statement descriptor. Maximum 17 characters. On card statements, the *concatenation* of both prefix and suffix (including separators) will appear truncated to 17 characters.
             """
+            statement_details: Optional[StatementDetails]
             _inner_class_types = {
                 "installments": Installments,
                 "mandate_options": MandateOptions,
+                "statement_details": StatementDetails,
             }
 
         class CardPresent(StripeObject):
@@ -1775,6 +2248,10 @@ class PaymentIntent(
                 Requested routing priority
                 """
 
+            capture_method: Optional[Literal["manual", "manual_preferred"]]
+            """
+            Controls when the funds will be captured from the customer's account.
+            """
             request_extended_authorization: Optional[bool]
             """
             Request ability to capture this payment beyond the standard [authorization validity window](https://stripe.com/docs/terminal/features/extended-authorizations#authorization-validity)
@@ -1910,7 +2387,39 @@ class PaymentIntent(
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
             """
 
+        class Gopay(StripeObject):
+            setup_future_usage: Optional[Literal["none", "off_session"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+            """
+
         class Grabpay(StripeObject):
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+            """
+
+        class IdBankTransfer(StripeObject):
+            expires_after: Optional[int]
+            """
+            The UNIX timestamp until which the virtual bank account is valid. Permitted range is from now till 2678400 seconds (31 days) from now.
+            """
+            expires_at: Optional[int]
+            """
+            The UNIX timestamp until which the virtual bank account is valid. Permitted range is from now until 30 days from now. If unset, it defaults to 1 days from now.
+            """
             setup_future_usage: Optional[Literal["none"]]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -2163,15 +2672,67 @@ class PaymentIntent(
             """
 
         class Paypal(StripeObject):
+            class LineItem(StripeObject):
+                class Tax(StripeObject):
+                    amount: int
+                    """
+                    The tax for a single unit of the line item in minor units. Cannot be a negative number.
+                    """
+                    behavior: Literal["exclusive", "inclusive"]
+                    """
+                    The tax behavior for the line item.
+                    """
+
+                category: Optional[
+                    Literal["digital_goods", "donation", "physical_goods"]
+                ]
+                """
+                Type of the line item.
+                """
+                description: Optional[str]
+                """
+                Description of the line item.
+                """
+                name: str
+                """
+                Descriptive name of the line item.
+                """
+                quantity: int
+                """
+                Quantity of the line item. Cannot be a negative number.
+                """
+                sku: Optional[str]
+                """
+                Client facing stock keeping unit, article number or similar.
+                """
+                sold_by: Optional[str]
+                """
+                The Stripe account ID of the connected account that sells the item. This is only needed when using [Separate Charges and Transfers](https://docs.stripe.com/connect/separate-charges-and-transfers).
+                """
+                tax: Optional[Tax]
+                unit_amount: int
+                """
+                Price for a single unit of the line item in minor units. Cannot be a negative number.
+                """
+                _inner_class_types = {"tax": Tax}
+
             capture_method: Optional[Literal["manual"]]
             """
             Controls when the funds will be captured from the customer's account.
+            """
+            line_items: Optional[List[LineItem]]
+            """
+            The line items purchased by the customer.
             """
             preferred_locale: Optional[str]
             """
             Preferred locale of the PayPal checkout page that the customer is redirected to.
             """
             reference: Optional[str]
+            """
+            A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
+            """
+            reference_id: Optional[str]
             """
             A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
             """
@@ -2185,8 +2746,123 @@ class PaymentIntent(
 
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
             """
+            subsellers: Optional[List[str]]
+            """
+            The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
+            """
+            _inner_class_types = {"line_items": LineItem}
+
+        class Paypay(StripeObject):
+            pass
+
+        class Payto(StripeObject):
+            class MandateOptions(StripeObject):
+                amount: Optional[int]
+                """
+                Amount that will be collected. It is required when `amount_type` is `fixed`.
+                """
+                amount_type: Optional[Literal["fixed", "maximum"]]
+                """
+                The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively.
+                """
+                end_date: Optional[str]
+                """
+                Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
+                """
+                payment_schedule: Optional[
+                    Literal[
+                        "adhoc",
+                        "annual",
+                        "daily",
+                        "fortnightly",
+                        "monthly",
+                        "quarterly",
+                        "semi_annual",
+                        "weekly",
+                    ]
+                ]
+                """
+                The periodicity at which payments will be collected.
+                """
+                payments_per_period: Optional[int]
+                """
+                The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
+                """
+                purpose: Optional[
+                    Literal[
+                        "dependant_support",
+                        "government",
+                        "loan",
+                        "mortgage",
+                        "other",
+                        "pension",
+                        "personal",
+                        "retail",
+                        "salary",
+                        "tax",
+                        "utility",
+                    ]
+                ]
+                """
+                The purpose for which payments are made. Defaults to retail.
+                """
+
+            mandate_options: Optional[MandateOptions]
+            setup_future_usage: Optional[Literal["none", "off_session"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+            """
+            _inner_class_types = {"mandate_options": MandateOptions}
 
         class Pix(StripeObject):
+            class MandateOptions(StripeObject):
+                amount: Optional[int]
+                """
+                Amount to be charged for future payments.
+                """
+                amount_includes_iof: Optional[Literal["always", "never"]]
+                """
+                Determines if the amount includes the IOF tax.
+                """
+                amount_type: Optional[Literal["fixed", "maximum"]]
+                """
+                Type of amount.
+                """
+                currency: Optional[str]
+                """
+                Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
+                """
+                end_date: Optional[str]
+                """
+                Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`.
+                """
+                payment_schedule: Optional[
+                    Literal[
+                        "halfyearly",
+                        "monthly",
+                        "quarterly",
+                        "weekly",
+                        "yearly",
+                    ]
+                ]
+                """
+                Schedule at which the future payments will be charged.
+                """
+                reference: Optional[str]
+                """
+                Subscription name displayed to buyers in their bank app.
+                """
+                start_date: Optional[str]
+                """
+                Start date of the mandate, in `YYYY-MM-DD`.
+                """
+
             amount_includes_iof: Optional[Literal["always", "never"]]
             """
             Determines if the amount includes the IOF tax.
@@ -2199,7 +2875,8 @@ class PaymentIntent(
             """
             The timestamp at which the Pix expires.
             """
-            setup_future_usage: Optional[Literal["none"]]
+            mandate_options: Optional[MandateOptions]
+            setup_future_usage: Optional[Literal["none", "off_session"]]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -2209,6 +2886,7 @@ class PaymentIntent(
 
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
             """
+            _inner_class_types = {"mandate_options": MandateOptions}
 
         class Promptpay(StripeObject):
             setup_future_usage: Optional[Literal["none"]]
@@ -2221,6 +2899,21 @@ class PaymentIntent(
 
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
             """
+
+        class Qris(StripeObject):
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+            """
+
+        class Rechnung(StripeObject):
+            pass
 
         class RevolutPay(StripeObject):
             capture_method: Optional[Literal["manual"]]
@@ -2276,6 +2969,18 @@ class PaymentIntent(
             """
             _inner_class_types = {"mandate_options": MandateOptions}
 
+        class Shopeepay(StripeObject):
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+            """
+
         class Sofort(StripeObject):
             preferred_language: Optional[
                 Literal["de", "en", "es", "fr", "it", "nl", "pl"]
@@ -2283,6 +2988,18 @@ class PaymentIntent(
             """
             Preferred language of the SOFORT authorization page that the customer is redirected to.
             """
+            setup_future_usage: Optional[Literal["none", "off_session"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+            """
+
+        class StripeBalance(StripeObject):
             setup_future_usage: Optional[Literal["none", "off_session"]]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -2331,8 +3048,19 @@ class PaymentIntent(
                     """
                     The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`.
                     """
+                    institution: Optional[str]
+                    """
+                    The institution to use to filter for possible accounts to link.
+                    """
+
+                class ManualEntry(StripeObject):
+                    mode: Optional[Literal["automatic", "custom"]]
+                    """
+                    Settings for configuring manual entry of account details.
+                    """
 
                 filters: Optional[Filters]
+                manual_entry: Optional[ManualEntry]
                 permissions: Optional[
                     List[
                         Literal[
@@ -2347,7 +3075,14 @@ class PaymentIntent(
                 The list of permissions to request. The `payment_method` permission must be included.
                 """
                 prefetch: Optional[
-                    List[Literal["balances", "ownership", "transactions"]]
+                    List[
+                        Literal[
+                            "balances",
+                            "inferred_balances",
+                            "ownership",
+                            "transactions",
+                        ]
+                    ]
                 ]
                 """
                 Data features requested to be retrieved upon account creation.
@@ -2356,7 +3091,10 @@ class PaymentIntent(
                 """
                 For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
                 """
-                _inner_class_types = {"filters": Filters}
+                _inner_class_types = {
+                    "filters": Filters,
+                    "manual_entry": ManualEntry,
+                }
 
             class MandateOptions(StripeObject):
                 collection_method: Optional[Literal["paper"]]
@@ -2451,7 +3189,9 @@ class PaymentIntent(
         eps: Optional[Eps]
         fpx: Optional[Fpx]
         giropay: Optional[Giropay]
+        gopay: Optional[Gopay]
         grabpay: Optional[Grabpay]
+        id_bank_transfer: Optional[IdBankTransfer]
         ideal: Optional[Ideal]
         interac_present: Optional[InteracPresent]
         kakao_pay: Optional[KakaoPay]
@@ -2470,13 +3210,19 @@ class PaymentIntent(
         payco: Optional[Payco]
         paynow: Optional[Paynow]
         paypal: Optional[Paypal]
+        paypay: Optional[Paypay]
+        payto: Optional[Payto]
         pix: Optional[Pix]
         promptpay: Optional[Promptpay]
+        qris: Optional[Qris]
+        rechnung: Optional[Rechnung]
         revolut_pay: Optional[RevolutPay]
         samsung_pay: Optional[SamsungPay]
         satispay: Optional[Satispay]
         sepa_debit: Optional[SepaDebit]
+        shopeepay: Optional[Shopeepay]
         sofort: Optional[Sofort]
+        stripe_balance: Optional[StripeBalance]
         swish: Optional[Swish]
         twint: Optional[Twint]
         us_bank_account: Optional[UsBankAccount]
@@ -2503,7 +3249,9 @@ class PaymentIntent(
             "eps": Eps,
             "fpx": Fpx,
             "giropay": Giropay,
+            "gopay": Gopay,
             "grabpay": Grabpay,
+            "id_bank_transfer": IdBankTransfer,
             "ideal": Ideal,
             "interac_present": InteracPresent,
             "kakao_pay": KakaoPay,
@@ -2522,13 +3270,19 @@ class PaymentIntent(
             "payco": Payco,
             "paynow": Paynow,
             "paypal": Paypal,
+            "paypay": Paypay,
+            "payto": Payto,
             "pix": Pix,
             "promptpay": Promptpay,
+            "qris": Qris,
+            "rechnung": Rechnung,
             "revolut_pay": RevolutPay,
             "samsung_pay": SamsungPay,
             "satispay": Satispay,
             "sepa_debit": SepaDebit,
+            "shopeepay": Shopeepay,
             "sofort": Sofort,
+            "stripe_balance": StripeBalance,
             "swish": Swish,
             "twint": Twint,
             "us_bank_account": UsBankAccount,
@@ -2704,6 +3458,14 @@ class PaymentIntent(
 
     If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
     """
+    customer_account: Optional[str]
+    """
+    ID of the Account this PaymentIntent belongs to, if one exists.
+
+    Payment methods attached to other Accounts cannot be used with this PaymentIntent.
+
+    If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Account after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Account instead.
+    """
     description: Optional[str]
     """
     An arbitrary string attached to the object. Often useful for displaying to users.
@@ -2730,7 +3492,9 @@ class PaymentIntent(
                 "eps",
                 "fpx",
                 "giropay",
+                "gopay",
                 "grabpay",
+                "id_bank_transfer",
                 "ideal",
                 "kakao_pay",
                 "klarna",
@@ -2747,13 +3511,19 @@ class PaymentIntent(
                 "payco",
                 "paynow",
                 "paypal",
+                "paypay",
+                "payto",
                 "pix",
                 "promptpay",
+                "qris",
+                "rechnung",
                 "revolut_pay",
                 "samsung_pay",
                 "satispay",
                 "sepa_debit",
+                "shopeepay",
                 "sofort",
+                "stripe_balance",
                 "swish",
                 "twint",
                 "us_bank_account",
@@ -2765,6 +3535,11 @@ class PaymentIntent(
     """
     The list of payment method types to exclude from use with this payment.
     """
+    fx_quote: Optional[str]
+    """
+    The FX Quote used for the PaymentIntent.
+    """
+    hooks: Optional[Hooks]
     id: str
     """
     Unique identifier for the object.
@@ -2797,6 +3572,7 @@ class PaymentIntent(
     """
     The account (if any) for which the funds of the PaymentIntent are intended. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details.
     """
+    payment_details: Optional[PaymentDetails]
     payment_method: Optional[ExpandableField["PaymentMethod"]]
     """
     ID of the payment method used in this PaymentIntent.
@@ -2827,6 +3603,10 @@ class PaymentIntent(
     review: Optional[ExpandableField["Review"]]
     """
     ID of the review associated with this PaymentIntent, if any.
+    """
+    secret_key_confirmation: Optional[Literal["optional", "required"]]
+    """
+    Indicates whether confirmation for this PaymentIntent using a secret key is `required` or `optional`.
     """
     setup_future_usage: Optional[Literal["off_session", "on_session"]]
     """
@@ -3674,6 +4454,242 @@ class PaymentIntent(
         )
 
     @classmethod
+    def _cls_decrement_authorization(
+        cls,
+        intent: str,
+        **params: Unpack["PaymentIntentDecrementAuthorizationParams"],
+    ) -> "PaymentIntent":
+        """
+        Perform a decremental authorization on an eligible
+        [PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/object). To be eligible, the
+        PaymentIntent's status must be requires_capture and
+        [decremental_authorization.status](https://docs.stripe.com/docs/api/charges/object#charge_object-payment_method_details-card-decremental_authorization)
+        must be available.
+
+        Decremental authorizations decrease the authorized amount on your customer's card
+        to the new, lower amount provided. A single PaymentIntent can call this endpoint multiple times to further decrease the authorized amount.
+
+        After decrement, the PaymentIntent object
+        returns with the updated
+        [amount](https://docs.stripe.com/docs/api/payment_intents/object#payment_intent_object-amount).
+        The PaymentIntent will now be capturable up to the new authorized amount.
+
+        Each PaymentIntent can have a maximum of 10 decremental or incremental authorization attempts, including declines.
+        After it's fully captured, a PaymentIntent can no longer be decremented.
+        """
+        return cast(
+            "PaymentIntent",
+            cls._static_request(
+                "post",
+                "/v1/payment_intents/{intent}/decrement_authorization".format(
+                    intent=sanitize_id(intent)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def decrement_authorization(
+        intent: str,
+        **params: Unpack["PaymentIntentDecrementAuthorizationParams"],
+    ) -> "PaymentIntent":
+        """
+        Perform a decremental authorization on an eligible
+        [PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/object). To be eligible, the
+        PaymentIntent's status must be requires_capture and
+        [decremental_authorization.status](https://docs.stripe.com/docs/api/charges/object#charge_object-payment_method_details-card-decremental_authorization)
+        must be available.
+
+        Decremental authorizations decrease the authorized amount on your customer's card
+        to the new, lower amount provided. A single PaymentIntent can call this endpoint multiple times to further decrease the authorized amount.
+
+        After decrement, the PaymentIntent object
+        returns with the updated
+        [amount](https://docs.stripe.com/docs/api/payment_intents/object#payment_intent_object-amount).
+        The PaymentIntent will now be capturable up to the new authorized amount.
+
+        Each PaymentIntent can have a maximum of 10 decremental or incremental authorization attempts, including declines.
+        After it's fully captured, a PaymentIntent can no longer be decremented.
+        """
+        ...
+
+    @overload
+    def decrement_authorization(
+        self, **params: Unpack["PaymentIntentDecrementAuthorizationParams"]
+    ) -> "PaymentIntent":
+        """
+        Perform a decremental authorization on an eligible
+        [PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/object). To be eligible, the
+        PaymentIntent's status must be requires_capture and
+        [decremental_authorization.status](https://docs.stripe.com/docs/api/charges/object#charge_object-payment_method_details-card-decremental_authorization)
+        must be available.
+
+        Decremental authorizations decrease the authorized amount on your customer's card
+        to the new, lower amount provided. A single PaymentIntent can call this endpoint multiple times to further decrease the authorized amount.
+
+        After decrement, the PaymentIntent object
+        returns with the updated
+        [amount](https://docs.stripe.com/docs/api/payment_intents/object#payment_intent_object-amount).
+        The PaymentIntent will now be capturable up to the new authorized amount.
+
+        Each PaymentIntent can have a maximum of 10 decremental or incremental authorization attempts, including declines.
+        After it's fully captured, a PaymentIntent can no longer be decremented.
+        """
+        ...
+
+    @class_method_variant("_cls_decrement_authorization")
+    def decrement_authorization(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentIntentDecrementAuthorizationParams"]
+    ) -> "PaymentIntent":
+        """
+        Perform a decremental authorization on an eligible
+        [PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/object). To be eligible, the
+        PaymentIntent's status must be requires_capture and
+        [decremental_authorization.status](https://docs.stripe.com/docs/api/charges/object#charge_object-payment_method_details-card-decremental_authorization)
+        must be available.
+
+        Decremental authorizations decrease the authorized amount on your customer's card
+        to the new, lower amount provided. A single PaymentIntent can call this endpoint multiple times to further decrease the authorized amount.
+
+        After decrement, the PaymentIntent object
+        returns with the updated
+        [amount](https://docs.stripe.com/docs/api/payment_intents/object#payment_intent_object-amount).
+        The PaymentIntent will now be capturable up to the new authorized amount.
+
+        Each PaymentIntent can have a maximum of 10 decremental or incremental authorization attempts, including declines.
+        After it's fully captured, a PaymentIntent can no longer be decremented.
+        """
+        return cast(
+            "PaymentIntent",
+            self._request(
+                "post",
+                "/v1/payment_intents/{intent}/decrement_authorization".format(
+                    intent=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_decrement_authorization_async(
+        cls,
+        intent: str,
+        **params: Unpack["PaymentIntentDecrementAuthorizationParams"],
+    ) -> "PaymentIntent":
+        """
+        Perform a decremental authorization on an eligible
+        [PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/object). To be eligible, the
+        PaymentIntent's status must be requires_capture and
+        [decremental_authorization.status](https://docs.stripe.com/docs/api/charges/object#charge_object-payment_method_details-card-decremental_authorization)
+        must be available.
+
+        Decremental authorizations decrease the authorized amount on your customer's card
+        to the new, lower amount provided. A single PaymentIntent can call this endpoint multiple times to further decrease the authorized amount.
+
+        After decrement, the PaymentIntent object
+        returns with the updated
+        [amount](https://docs.stripe.com/docs/api/payment_intents/object#payment_intent_object-amount).
+        The PaymentIntent will now be capturable up to the new authorized amount.
+
+        Each PaymentIntent can have a maximum of 10 decremental or incremental authorization attempts, including declines.
+        After it's fully captured, a PaymentIntent can no longer be decremented.
+        """
+        return cast(
+            "PaymentIntent",
+            await cls._static_request_async(
+                "post",
+                "/v1/payment_intents/{intent}/decrement_authorization".format(
+                    intent=sanitize_id(intent)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def decrement_authorization_async(
+        intent: str,
+        **params: Unpack["PaymentIntentDecrementAuthorizationParams"],
+    ) -> "PaymentIntent":
+        """
+        Perform a decremental authorization on an eligible
+        [PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/object). To be eligible, the
+        PaymentIntent's status must be requires_capture and
+        [decremental_authorization.status](https://docs.stripe.com/docs/api/charges/object#charge_object-payment_method_details-card-decremental_authorization)
+        must be available.
+
+        Decremental authorizations decrease the authorized amount on your customer's card
+        to the new, lower amount provided. A single PaymentIntent can call this endpoint multiple times to further decrease the authorized amount.
+
+        After decrement, the PaymentIntent object
+        returns with the updated
+        [amount](https://docs.stripe.com/docs/api/payment_intents/object#payment_intent_object-amount).
+        The PaymentIntent will now be capturable up to the new authorized amount.
+
+        Each PaymentIntent can have a maximum of 10 decremental or incremental authorization attempts, including declines.
+        After it's fully captured, a PaymentIntent can no longer be decremented.
+        """
+        ...
+
+    @overload
+    async def decrement_authorization_async(
+        self, **params: Unpack["PaymentIntentDecrementAuthorizationParams"]
+    ) -> "PaymentIntent":
+        """
+        Perform a decremental authorization on an eligible
+        [PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/object). To be eligible, the
+        PaymentIntent's status must be requires_capture and
+        [decremental_authorization.status](https://docs.stripe.com/docs/api/charges/object#charge_object-payment_method_details-card-decremental_authorization)
+        must be available.
+
+        Decremental authorizations decrease the authorized amount on your customer's card
+        to the new, lower amount provided. A single PaymentIntent can call this endpoint multiple times to further decrease the authorized amount.
+
+        After decrement, the PaymentIntent object
+        returns with the updated
+        [amount](https://docs.stripe.com/docs/api/payment_intents/object#payment_intent_object-amount).
+        The PaymentIntent will now be capturable up to the new authorized amount.
+
+        Each PaymentIntent can have a maximum of 10 decremental or incremental authorization attempts, including declines.
+        After it's fully captured, a PaymentIntent can no longer be decremented.
+        """
+        ...
+
+    @class_method_variant("_cls_decrement_authorization_async")
+    async def decrement_authorization_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentIntentDecrementAuthorizationParams"]
+    ) -> "PaymentIntent":
+        """
+        Perform a decremental authorization on an eligible
+        [PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/object). To be eligible, the
+        PaymentIntent's status must be requires_capture and
+        [decremental_authorization.status](https://docs.stripe.com/docs/api/charges/object#charge_object-payment_method_details-card-decremental_authorization)
+        must be available.
+
+        Decremental authorizations decrease the authorized amount on your customer's card
+        to the new, lower amount provided. A single PaymentIntent can call this endpoint multiple times to further decrease the authorized amount.
+
+        After decrement, the PaymentIntent object
+        returns with the updated
+        [amount](https://docs.stripe.com/docs/api/payment_intents/object#payment_intent_object-amount).
+        The PaymentIntent will now be capturable up to the new authorized amount.
+
+        Each PaymentIntent can have a maximum of 10 decremental or incremental authorization attempts, including declines.
+        After it's fully captured, a PaymentIntent can no longer be decremented.
+        """
+        return cast(
+            "PaymentIntent",
+            await self._request_async(
+                "post",
+                "/v1/payment_intents/{intent}/decrement_authorization".format(
+                    intent=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def _cls_increment_authorization(
         cls,
         intent: str,
@@ -4090,6 +5106,116 @@ class PaymentIntent(
         return instance
 
     @classmethod
+    def _cls_trigger_action(
+        cls, intent: str, **params: Unpack["PaymentIntentTriggerActionParams"]
+    ) -> "PaymentIntent":
+        """
+        Trigger an external action on a PaymentIntent.
+        """
+        return cast(
+            "PaymentIntent",
+            cls._static_request(
+                "post",
+                "/v1/test/payment_intents/{intent}/trigger_action".format(
+                    intent=sanitize_id(intent)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def trigger_action(
+        intent: str, **params: Unpack["PaymentIntentTriggerActionParams"]
+    ) -> "PaymentIntent":
+        """
+        Trigger an external action on a PaymentIntent.
+        """
+        ...
+
+    @overload
+    def trigger_action(
+        self, **params: Unpack["PaymentIntentTriggerActionParams"]
+    ) -> "PaymentIntent":
+        """
+        Trigger an external action on a PaymentIntent.
+        """
+        ...
+
+    @class_method_variant("_cls_trigger_action")
+    def trigger_action(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentIntentTriggerActionParams"]
+    ) -> "PaymentIntent":
+        """
+        Trigger an external action on a PaymentIntent.
+        """
+        return cast(
+            "PaymentIntent",
+            self._request(
+                "post",
+                "/v1/test/payment_intents/{intent}/trigger_action".format(
+                    intent=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_trigger_action_async(
+        cls, intent: str, **params: Unpack["PaymentIntentTriggerActionParams"]
+    ) -> "PaymentIntent":
+        """
+        Trigger an external action on a PaymentIntent.
+        """
+        return cast(
+            "PaymentIntent",
+            await cls._static_request_async(
+                "post",
+                "/v1/test/payment_intents/{intent}/trigger_action".format(
+                    intent=sanitize_id(intent)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def trigger_action_async(
+        intent: str, **params: Unpack["PaymentIntentTriggerActionParams"]
+    ) -> "PaymentIntent":
+        """
+        Trigger an external action on a PaymentIntent.
+        """
+        ...
+
+    @overload
+    async def trigger_action_async(
+        self, **params: Unpack["PaymentIntentTriggerActionParams"]
+    ) -> "PaymentIntent":
+        """
+        Trigger an external action on a PaymentIntent.
+        """
+        ...
+
+    @class_method_variant("_cls_trigger_action_async")
+    async def trigger_action_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentIntentTriggerActionParams"]
+    ) -> "PaymentIntent":
+        """
+        Trigger an external action on a PaymentIntent.
+        """
+        return cast(
+            "PaymentIntent",
+            await self._request_async(
+                "post",
+                "/v1/test/payment_intents/{intent}/trigger_action".format(
+                    intent=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def _cls_verify_microdeposits(
         cls,
         intent: str,
@@ -4243,11 +5369,53 @@ class PaymentIntent(
     ) -> AsyncIterator["PaymentIntent"]:
         return (await cls.search_async(*args, **kwargs)).auto_paging_iter()
 
+    @classmethod
+    def list_amount_details_line_items(
+        cls,
+        intent: str,
+        **params: Unpack["PaymentIntentListAmountDetailsLineItemsParams"],
+    ) -> ListObject["PaymentIntentAmountDetailsLineItem"]:
+        """
+        Lists all LineItems of a given PaymentIntent.
+        """
+        return cast(
+            ListObject["PaymentIntentAmountDetailsLineItem"],
+            cls._static_request(
+                "get",
+                "/v1/payment_intents/{intent}/amount_details_line_items".format(
+                    intent=sanitize_id(intent)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def list_amount_details_line_items_async(
+        cls,
+        intent: str,
+        **params: Unpack["PaymentIntentListAmountDetailsLineItemsParams"],
+    ) -> ListObject["PaymentIntentAmountDetailsLineItem"]:
+        """
+        Lists all LineItems of a given PaymentIntent.
+        """
+        return cast(
+            ListObject["PaymentIntentAmountDetailsLineItem"],
+            await cls._static_request_async(
+                "get",
+                "/v1/payment_intents/{intent}/amount_details_line_items".format(
+                    intent=sanitize_id(intent)
+                ),
+                params=params,
+            ),
+        )
+
     _inner_class_types = {
         "amount_details": AmountDetails,
         "automatic_payment_methods": AutomaticPaymentMethods,
+        "hooks": Hooks,
         "last_payment_error": LastPaymentError,
         "next_action": NextAction,
+        "payment_details": PaymentDetails,
         "payment_method_configuration_details": PaymentMethodConfigurationDetails,
         "payment_method_options": PaymentMethodOptions,
         "presentment_details": PresentmentDetails,

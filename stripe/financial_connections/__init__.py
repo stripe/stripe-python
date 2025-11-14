@@ -5,6 +5,12 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.financial_connections._account import Account as Account
+    from stripe.financial_connections._account_inferred_balance import (
+        AccountInferredBalance as AccountInferredBalance,
+    )
+    from stripe.financial_connections._account_inferred_balance_service import (
+        AccountInferredBalanceService as AccountInferredBalanceService,
+    )
     from stripe.financial_connections._account_owner import (
         AccountOwner as AccountOwner,
     )
@@ -16,6 +22,12 @@ if TYPE_CHECKING:
     )
     from stripe.financial_connections._account_service import (
         AccountService as AccountService,
+    )
+    from stripe.financial_connections._institution import (
+        Institution as Institution,
+    )
+    from stripe.financial_connections._institution_service import (
+        InstitutionService as InstitutionService,
     )
     from stripe.financial_connections._session import Session as Session
     from stripe.financial_connections._session_service import (
@@ -31,6 +43,14 @@ if TYPE_CHECKING:
 # name -> (import_target, is_submodule)
 _import_map = {
     "Account": ("stripe.financial_connections._account", False),
+    "AccountInferredBalance": (
+        "stripe.financial_connections._account_inferred_balance",
+        False,
+    ),
+    "AccountInferredBalanceService": (
+        "stripe.financial_connections._account_inferred_balance_service",
+        False,
+    ),
     "AccountOwner": ("stripe.financial_connections._account_owner", False),
     "AccountOwnerService": (
         "stripe.financial_connections._account_owner_service",
@@ -41,6 +61,11 @@ _import_map = {
         False,
     ),
     "AccountService": ("stripe.financial_connections._account_service", False),
+    "Institution": ("stripe.financial_connections._institution", False),
+    "InstitutionService": (
+        "stripe.financial_connections._institution_service",
+        False,
+    ),
     "Session": ("stripe.financial_connections._session", False),
     "SessionService": ("stripe.financial_connections._session_service", False),
     "Transaction": ("stripe.financial_connections._transaction", False),

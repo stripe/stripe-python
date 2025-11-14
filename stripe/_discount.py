@@ -39,6 +39,10 @@ class Discount(StripeObject):
     """
     The ID of the customer associated with this discount.
     """
+    customer_account: Optional[str]
+    """
+    The ID of the account associated with this discount.
+    """
     deleted: Optional[Literal[True]]
     """
     Always true for a deleted object

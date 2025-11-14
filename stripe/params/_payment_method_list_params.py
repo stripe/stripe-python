@@ -43,11 +43,14 @@ class PaymentMethodListParams(RequestOptions):
             "card",
             "cashapp",
             "crypto",
+            "custom",
             "customer_balance",
             "eps",
             "fpx",
             "giropay",
+            "gopay",
             "grabpay",
+            "id_bank_transfer",
             "ideal",
             "kakao_pay",
             "klarna",
@@ -65,13 +68,19 @@ class PaymentMethodListParams(RequestOptions):
             "payco",
             "paynow",
             "paypal",
+            "paypay",
+            "payto",
             "pix",
             "promptpay",
+            "qris",
+            "rechnung",
             "revolut_pay",
             "samsung_pay",
             "satispay",
             "sepa_debit",
+            "shopeepay",
             "sofort",
+            "stripe_balance",
             "swish",
             "twint",
             "us_bank_account",
@@ -80,5 +89,5 @@ class PaymentMethodListParams(RequestOptions):
         ]
     ]
     """
-    An optional filter on the list, based on the object `type` field. Without the filter, the list includes all current and future payment method types. If your integration expects only one type of payment method in the response, make sure to provide a type value in the request.
+    Filters the list by the object `type` field. Unfiltered, the list returns all payment method types except `custom`. If your integration expects only one type of payment method in the response, specify that type value in the request to reduce your payload.
     """

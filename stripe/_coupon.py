@@ -16,6 +16,7 @@ if TYPE_CHECKING:
     from stripe.params._coupon_list_params import CouponListParams
     from stripe.params._coupon_modify_params import CouponModifyParams
     from stripe.params._coupon_retrieve_params import CouponRetrieveParams
+    from typing import Any
 
 
 class Coupon(
@@ -42,6 +43,20 @@ class Coupon(
         amount_off: int
         """
         Amount (in the `currency` specified) that will be taken off the subtotal of any invoices for this customer.
+        """
+
+    class Script(StripeObject):
+        configuration: Dict[str, "Any"]
+        """
+        The configuration values of the script. The keys and values are specific to the script implementation.
+        """
+        display_name: str
+        """
+        The name of the script used to calculate the discount.
+        """
+        id: str
+        """
+        The script implementation ID for this coupon.
         """
 
     amount_off: Optional[int]
@@ -105,9 +120,17 @@ class Coupon(
     """
     Date after which the coupon can no longer be redeemed.
     """
+    script: Optional[Script]
+    """
+    Configuration of the [script](https://docs.stripe.com/billing/subscriptions/script-coupons) used to calculate the discount.
+    """
     times_redeemed: int
     """
     Number of times this coupon has been applied to a customer.
+    """
+    type: Optional[Literal["amount_off", "percent_off", "script"]]
+    """
+    One of `amount_off`, `percent_off`, or `script`. Describes the type of coupon logic used to calculate the discount.
     """
     valid: bool
     """
@@ -341,4 +364,5 @@ class Coupon(
     _inner_class_types = {
         "applies_to": AppliesTo,
         "currency_options": CurrencyOptions,
+        "script": Script,
     }

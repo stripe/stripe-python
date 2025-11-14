@@ -151,6 +151,23 @@ class OutboundTransfer(
             "us_bank_account": UsBankAccount,
         }
 
+    class NetworkDetails(StripeObject):
+        class Ach(StripeObject):
+            addenda: Optional[str]
+            """
+            ACH Addenda record
+            """
+
+        ach: Optional[Ach]
+        """
+        Details about an ACH transaction.
+        """
+        type: Literal["ach"]
+        """
+        The type of flow that originated the OutboundTransfer.
+        """
+        _inner_class_types = {"ach": Ach}
+
     class ReturnedDetails(StripeObject):
         code: Literal[
             "account_closed",
@@ -267,6 +284,10 @@ class OutboundTransfer(
     metadata: Dict[str, str]
     """
     Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    """
+    network_details: Optional[NetworkDetails]
+    """
+    Details about the network used for the OutboundTransfer.
     """
     object: Literal["treasury.outbound_transfer"]
     """
@@ -981,6 +1002,7 @@ class OutboundTransfer(
 
     _inner_class_types = {
         "destination_payment_method_details": DestinationPaymentMethodDetails,
+        "network_details": NetworkDetails,
         "returned_details": ReturnedDetails,
         "status_transitions": StatusTransitions,
         "tracking_details": TrackingDetails,

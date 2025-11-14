@@ -158,6 +158,10 @@ class FinancialAccount(
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
     """
+    display_name: Optional[str]
+    """
+    The display name for the FinancialAccount. Use this field to customize the names of the FinancialAccounts for your connected accounts. Unlike the `nickname` field, `display_name` is not internal metadata and will be exposed to connected accounts.
+    """
     features: Optional["FinancialAccountFeatures"]
     """
     Encodes whether a FinancialAccount has access to a particular Feature, with a `status` enum and associated `status_details`.

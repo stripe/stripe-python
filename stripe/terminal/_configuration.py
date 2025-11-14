@@ -63,6 +63,12 @@ class Configuration(
         Determines whether to allow transactions to be collected while reader is offline. Defaults to false.
         """
 
+    class ReaderSecurity(StripeObject):
+        admin_menu_passcode: str
+        """
+        Passcode used to access a reader's admin menu.
+        """
+
     class RebootWindow(StripeObject):
         end_hour: int
         """
@@ -193,6 +199,20 @@ class Configuration(
             """
 
         class Gbp(StripeObject):
+            fixed_amounts: Optional[List[int]]
+            """
+            Fixed amounts displayed when collecting a tip
+            """
+            percentages: Optional[List[int]]
+            """
+            Percentages displayed when collecting a tip
+            """
+            smart_tip_threshold: Optional[int]
+            """
+            Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+            """
+
+        class Gip(StripeObject):
             fixed_amounts: Optional[List[int]]
             """
             Fixed amounts displayed when collecting a tip
@@ -383,6 +403,7 @@ class Configuration(
         dkk: Optional[Dkk]
         eur: Optional[Eur]
         gbp: Optional[Gbp]
+        gip: Optional[Gip]
         hkd: Optional[Hkd]
         huf: Optional[Huf]
         jpy: Optional[Jpy]
@@ -405,6 +426,7 @@ class Configuration(
             "dkk": Dkk,
             "eur": Eur,
             "gbp": Gbp,
+            "gip": Gip,
             "hkd": Hkd,
             "huf": Huf,
             "jpy": Jpy,
@@ -518,6 +540,7 @@ class Configuration(
     String representing the object's type. Objects of the same type share the same value.
     """
     offline: Optional[Offline]
+    reader_security: Optional[ReaderSecurity]
     reboot_window: Optional[RebootWindow]
     stripe_s700: Optional[StripeS700]
     tipping: Optional[Tipping]
@@ -754,6 +777,7 @@ class Configuration(
         "bbpos_wisepad3": BbposWisepad3,
         "bbpos_wisepos_e": BbposWiseposE,
         "offline": Offline,
+        "reader_security": ReaderSecurity,
         "reboot_window": RebootWindow,
         "stripe_s700": StripeS700,
         "tipping": Tipping,

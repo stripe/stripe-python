@@ -41,3 +41,7 @@ class AccountListParamsAccountHolder(TypedDict):
     """
     The ID of the Stripe customer whose accounts will be retrieved.
     """
+    customer_account: NotRequired[str]
+    """
+    The Account ID of the Stripe customer whose accounts will be retrieved.
+    """

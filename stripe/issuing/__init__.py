@@ -14,9 +14,27 @@ if TYPE_CHECKING:
     from stripe.issuing._cardholder_service import (
         CardholderService as CardholderService,
     )
+    from stripe.issuing._credit_underwriting_record import (
+        CreditUnderwritingRecord as CreditUnderwritingRecord,
+    )
+    from stripe.issuing._credit_underwriting_record_service import (
+        CreditUnderwritingRecordService as CreditUnderwritingRecordService,
+    )
     from stripe.issuing._dispute import Dispute as Dispute
     from stripe.issuing._dispute_service import (
         DisputeService as DisputeService,
+    )
+    from stripe.issuing._dispute_settlement_detail import (
+        DisputeSettlementDetail as DisputeSettlementDetail,
+    )
+    from stripe.issuing._dispute_settlement_detail_service import (
+        DisputeSettlementDetailService as DisputeSettlementDetailService,
+    )
+    from stripe.issuing._fraud_liability_debit import (
+        FraudLiabilityDebit as FraudLiabilityDebit,
+    )
+    from stripe.issuing._fraud_liability_debit_service import (
+        FraudLiabilityDebitService as FraudLiabilityDebitService,
     )
     from stripe.issuing._personalization_design import (
         PersonalizationDesign as PersonalizationDesign,
@@ -30,6 +48,7 @@ if TYPE_CHECKING:
     from stripe.issuing._physical_bundle_service import (
         PhysicalBundleService as PhysicalBundleService,
     )
+    from stripe.issuing._settlement import Settlement as Settlement
     from stripe.issuing._token import Token as Token
     from stripe.issuing._token_service import TokenService as TokenService
     from stripe.issuing._transaction import Transaction as Transaction
@@ -45,8 +64,29 @@ _import_map = {
     "CardService": ("stripe.issuing._card_service", False),
     "Cardholder": ("stripe.issuing._cardholder", False),
     "CardholderService": ("stripe.issuing._cardholder_service", False),
+    "CreditUnderwritingRecord": (
+        "stripe.issuing._credit_underwriting_record",
+        False,
+    ),
+    "CreditUnderwritingRecordService": (
+        "stripe.issuing._credit_underwriting_record_service",
+        False,
+    ),
     "Dispute": ("stripe.issuing._dispute", False),
     "DisputeService": ("stripe.issuing._dispute_service", False),
+    "DisputeSettlementDetail": (
+        "stripe.issuing._dispute_settlement_detail",
+        False,
+    ),
+    "DisputeSettlementDetailService": (
+        "stripe.issuing._dispute_settlement_detail_service",
+        False,
+    ),
+    "FraudLiabilityDebit": ("stripe.issuing._fraud_liability_debit", False),
+    "FraudLiabilityDebitService": (
+        "stripe.issuing._fraud_liability_debit_service",
+        False,
+    ),
     "PersonalizationDesign": ("stripe.issuing._personalization_design", False),
     "PersonalizationDesignService": (
         "stripe.issuing._personalization_design_service",
@@ -57,6 +97,7 @@ _import_map = {
         "stripe.issuing._physical_bundle_service",
         False,
     ),
+    "Settlement": ("stripe.issuing._settlement", False),
     "Token": ("stripe.issuing._token", False),
     "TokenService": ("stripe.issuing._token_service", False),
     "Transaction": ("stripe.issuing._transaction", False),

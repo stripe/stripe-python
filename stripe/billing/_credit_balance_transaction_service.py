@@ -22,7 +22,7 @@ if TYPE_CHECKING:
 class CreditBalanceTransactionService(StripeService):
     def list(
         self,
-        params: "CreditBalanceTransactionListParams",
+        params: Optional["CreditBalanceTransactionListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[CreditBalanceTransaction]":
         """
@@ -41,7 +41,7 @@ class CreditBalanceTransactionService(StripeService):
 
     async def list_async(
         self,
-        params: "CreditBalanceTransactionListParams",
+        params: Optional["CreditBalanceTransactionListParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[CreditBalanceTransaction]":
         """

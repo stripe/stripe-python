@@ -85,6 +85,10 @@ class Transfer(
     """
     If the destination is a Stripe account, this will be the ID of the payment that the destination account received for the transfer.
     """
+    fx_quote: Optional[str]
+    """
+    The FX Quote used for the transfer.
+    """
     id: str
     """
     Unique identifier for the object.

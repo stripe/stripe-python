@@ -3,11 +3,15 @@
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
+from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
     from stripe._payment_intent import PaymentIntent
+    from stripe._payment_intent_amount_details_line_item_service import (
+        PaymentIntentAmountDetailsLineItemService,
+    )
     from stripe._request_options import RequestOptions
     from stripe._search_result_object import SearchResultObject
     from stripe.params._payment_intent_apply_customer_balance_params import (
@@ -25,6 +29,9 @@ if TYPE_CHECKING:
     from stripe.params._payment_intent_create_params import (
         PaymentIntentCreateParams,
     )
+    from stripe.params._payment_intent_decrement_authorization_params import (
+        PaymentIntentDecrementAuthorizationParams,
+    )
     from stripe.params._payment_intent_increment_authorization_params import (
         PaymentIntentIncrementAuthorizationParams,
     )
@@ -37,6 +44,9 @@ if TYPE_CHECKING:
     from stripe.params._payment_intent_search_params import (
         PaymentIntentSearchParams,
     )
+    from stripe.params._payment_intent_trigger_action_params import (
+        PaymentIntentTriggerActionParams,
+    )
     from stripe.params._payment_intent_update_params import (
         PaymentIntentUpdateParams,
     )
@@ -44,8 +54,36 @@ if TYPE_CHECKING:
         PaymentIntentVerifyMicrodepositsParams,
     )
 
+_subservices = {
+    "amount_details_line_items": [
+        "stripe._payment_intent_amount_details_line_item_service",
+        "PaymentIntentAmountDetailsLineItemService",
+    ],
+}
+
 
 class PaymentIntentService(StripeService):
+    amount_details_line_items: "PaymentIntentAmountDetailsLineItemService"
+
+    def __init__(self, requestor):
+        super().__init__(requestor)
+
+    def __getattr__(self, name):
+        try:
+            import_from, service = _subservices[name]
+            service_class = getattr(
+                import_module(import_from),
+                service,
+            )
+            setattr(
+                self,
+                name,
+                service_class(self._requestor),
+            )
+            return getattr(self, name)
+        except KeyError:
+            raise AttributeError()
+
     def list(
         self,
         params: Optional["PaymentIntentListParams"] = None,
@@ -542,6 +580,80 @@ class PaymentIntentService(StripeService):
             ),
         )
 
+    def decrement_authorization(
+        self,
+        intent: str,
+        params: "PaymentIntentDecrementAuthorizationParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentIntent":
+        """
+        Perform a decremental authorization on an eligible
+        [PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/object). To be eligible, the
+        PaymentIntent's status must be requires_capture and
+        [decremental_authorization.status](https://docs.stripe.com/docs/api/charges/object#charge_object-payment_method_details-card-decremental_authorization)
+        must be available.
+
+        Decremental authorizations decrease the authorized amount on your customer's card
+        to the new, lower amount provided. A single PaymentIntent can call this endpoint multiple times to further decrease the authorized amount.
+
+        After decrement, the PaymentIntent object
+        returns with the updated
+        [amount](https://docs.stripe.com/docs/api/payment_intents/object#payment_intent_object-amount).
+        The PaymentIntent will now be capturable up to the new authorized amount.
+
+        Each PaymentIntent can have a maximum of 10 decremental or incremental authorization attempts, including declines.
+        After it's fully captured, a PaymentIntent can no longer be decremented.
+        """
+        return cast(
+            "PaymentIntent",
+            self._request(
+                "post",
+                "/v1/payment_intents/{intent}/decrement_authorization".format(
+                    intent=sanitize_id(intent),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def decrement_authorization_async(
+        self,
+        intent: str,
+        params: "PaymentIntentDecrementAuthorizationParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentIntent":
+        """
+        Perform a decremental authorization on an eligible
+        [PaymentIntent](https://docs.stripe.com/docs/api/payment_intents/object). To be eligible, the
+        PaymentIntent's status must be requires_capture and
+        [decremental_authorization.status](https://docs.stripe.com/docs/api/charges/object#charge_object-payment_method_details-card-decremental_authorization)
+        must be available.
+
+        Decremental authorizations decrease the authorized amount on your customer's card
+        to the new, lower amount provided. A single PaymentIntent can call this endpoint multiple times to further decrease the authorized amount.
+
+        After decrement, the PaymentIntent object
+        returns with the updated
+        [amount](https://docs.stripe.com/docs/api/payment_intents/object#payment_intent_object-amount).
+        The PaymentIntent will now be capturable up to the new authorized amount.
+
+        Each PaymentIntent can have a maximum of 10 decremental or incremental authorization attempts, including declines.
+        After it's fully captured, a PaymentIntent can no longer be decremented.
+        """
+        return cast(
+            "PaymentIntent",
+            await self._request_async(
+                "post",
+                "/v1/payment_intents/{intent}/decrement_authorization".format(
+                    intent=sanitize_id(intent),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def increment_authorization(
         self,
         intent: str,
@@ -668,6 +780,50 @@ class PaymentIntentService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/payment_intents/{intent}/verify_microdeposits".format(
+                    intent=sanitize_id(intent),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def trigger_action(
+        self,
+        intent: str,
+        params: "PaymentIntentTriggerActionParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentIntent":
+        """
+        Trigger an external action on a PaymentIntent.
+        """
+        return cast(
+            "PaymentIntent",
+            self._request(
+                "post",
+                "/v1/test/payment_intents/{intent}/trigger_action".format(
+                    intent=sanitize_id(intent),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def trigger_action_async(
+        self,
+        intent: str,
+        params: "PaymentIntentTriggerActionParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentIntent":
+        """
+        Trigger an external action on a PaymentIntent.
+        """
+        return cast(
+            "PaymentIntent",
+            await self._request_async(
+                "post",
+                "/v1/test/payment_intents/{intent}/trigger_action".format(
                     intent=sanitize_id(intent),
                 ),
                 base_address="api",

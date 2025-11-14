@@ -103,6 +103,12 @@ class Refund(
         class Cashapp(StripeObject):
             pass
 
+        class Crypto(StripeObject):
+            reference: Optional[str]
+            """
+            The transaction hash of the refund.
+            """
+
         class CustomerCashBalance(StripeObject):
             pass
 
@@ -134,6 +140,16 @@ class Refund(
 
         class Grabpay(StripeObject):
             pass
+
+        class IdBankTransfer(StripeObject):
+            reference: Optional[str]
+            """
+            The reference assigned to the refund.
+            """
+            reference_status: Optional[str]
+            """
+            Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
+            """
 
         class JpBankTransfer(StripeObject):
             reference: Optional[str]
@@ -249,12 +265,14 @@ class Refund(
         br_bank_transfer: Optional[BrBankTransfer]
         card: Optional[Card]
         cashapp: Optional[Cashapp]
+        crypto: Optional[Crypto]
         customer_cash_balance: Optional[CustomerCashBalance]
         eps: Optional[Eps]
         eu_bank_transfer: Optional[EuBankTransfer]
         gb_bank_transfer: Optional[GbBankTransfer]
         giropay: Optional[Giropay]
         grabpay: Optional[Grabpay]
+        id_bank_transfer: Optional[IdBankTransfer]
         jp_bank_transfer: Optional[JpBankTransfer]
         klarna: Optional[Klarna]
         multibanco: Optional[Multibanco]
@@ -286,12 +304,14 @@ class Refund(
             "br_bank_transfer": BrBankTransfer,
             "card": Card,
             "cashapp": Cashapp,
+            "crypto": Crypto,
             "customer_cash_balance": CustomerCashBalance,
             "eps": Eps,
             "eu_bank_transfer": EuBankTransfer,
             "gb_bank_transfer": GbBankTransfer,
             "giropay": Giropay,
             "grabpay": Grabpay,
+            "id_bank_transfer": IdBankTransfer,
             "jp_bank_transfer": JpBankTransfer,
             "klarna": Klarna,
             "multibanco": Multibanco,

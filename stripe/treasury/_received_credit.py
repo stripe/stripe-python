@@ -194,6 +194,23 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
         """
         _inner_class_types = {"source_flow_details": SourceFlowDetails}
 
+    class NetworkDetails(StripeObject):
+        class Ach(StripeObject):
+            addenda: Optional[str]
+            """
+            ACH Addenda record
+            """
+
+        ach: Optional[Ach]
+        """
+        Details about an ACH transaction.
+        """
+        type: Literal["ach"]
+        """
+        The type of flow that originated the ReceivedCredit.
+        """
+        _inner_class_types = {"ach": Ach}
+
     class ReversalDetails(StripeObject):
         deadline: Optional[int]
         """
@@ -260,6 +277,10 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
     network: Literal["ach", "card", "stripe", "us_domestic_wire"]
     """
     The rails used to send the funds.
+    """
+    network_details: Optional[NetworkDetails]
+    """
+    Details specific to the money movement rails.
     """
     object: Literal["treasury.received_credit"]
     """
@@ -382,6 +403,7 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
     _inner_class_types = {
         "initiating_payment_method_details": InitiatingPaymentMethodDetails,
         "linked_flows": LinkedFlows,
+        "network_details": NetworkDetails,
         "reversal_details": ReversalDetails,
     }
 

@@ -11,6 +11,9 @@ if TYPE_CHECKING:
     from stripe._request_options import RequestOptions
     from stripe._search_result_object import SearchResultObject
     from stripe._subscription import Subscription
+    from stripe.params._subscription_attach_cadence_params import (
+        SubscriptionAttachCadenceParams,
+    )
     from stripe.params._subscription_cancel_params import (
         SubscriptionCancelParams,
     )
@@ -319,7 +322,7 @@ class SubscriptionService(StripeService):
 
     def create(
         self,
-        params: "SubscriptionCreateParams",
+        params: Optional["SubscriptionCreateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Subscription":
         """
@@ -344,7 +347,7 @@ class SubscriptionService(StripeService):
 
     async def create_async(
         self,
-        params: "SubscriptionCreateParams",
+        params: Optional["SubscriptionCreateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Subscription":
         """
@@ -405,6 +408,50 @@ class SubscriptionService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/subscriptions/search",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def attach_cadence(
+        self,
+        subscription: str,
+        params: "SubscriptionAttachCadenceParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "Subscription":
+        """
+        Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
+        """
+        return cast(
+            "Subscription",
+            self._request(
+                "post",
+                "/v1/subscriptions/{subscription}/attach_cadence".format(
+                    subscription=sanitize_id(subscription),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def attach_cadence_async(
+        self,
+        subscription: str,
+        params: "SubscriptionAttachCadenceParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "Subscription":
+        """
+        Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
+        """
+        return cast(
+            "Subscription",
+            await self._request_async(
+                "post",
+                "/v1/subscriptions/{subscription}/attach_cadence".format(
+                    subscription=sanitize_id(subscription),
+                ),
                 base_address="api",
                 params=params,
                 options=options,

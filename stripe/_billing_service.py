@@ -6,6 +6,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.billing._alert_service import AlertService
+    from stripe.billing._analytics_service import AnalyticsService
     from stripe.billing._credit_balance_summary_service import (
         CreditBalanceSummaryService,
     )
@@ -21,6 +22,7 @@ if TYPE_CHECKING:
 
 _subservices = {
     "alerts": ["stripe.billing._alert_service", "AlertService"],
+    "analytics": ["stripe.billing._analytics_service", "AnalyticsService"],
     "credit_balance_summary": [
         "stripe.billing._credit_balance_summary_service",
         "CreditBalanceSummaryService",
@@ -47,6 +49,7 @@ _subservices = {
 
 class BillingService(StripeService):
     alerts: "AlertService"
+    analytics: "AnalyticsService"
     credit_balance_summary: "CreditBalanceSummaryService"
     credit_balance_transactions: "CreditBalanceTransactionService"
     credit_grants: "CreditGrantService"

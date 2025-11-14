@@ -50,6 +50,7 @@ class CustomerBalanceTransaction(APIResource["CustomerBalanceTransaction"]):
     """
     The ID of the customer the transaction belongs to.
     """
+    customer_account: Optional[str]
     description: Optional[str]
     """
     An arbitrary string attached to the object. Often useful for displaying to users.

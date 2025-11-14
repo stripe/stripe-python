@@ -36,13 +36,20 @@ import stripe._error as error
 import stripe.oauth_error as oauth_error
 from stripe._multipart_data_generator import MultipartDataGenerator
 from urllib.parse import urlencode
-from stripe._encode import _api_encode, _json_encode_date_callback
+from stripe._encode import (
+    _api_encode,
+    _json_encode_date_callback,
+)
 from stripe._stripe_response import (
     StripeResponse,
     StripeStreamResponse,
     StripeStreamResponseAsync,
 )
-from stripe._request_options import RequestOptions, merge_options
+from stripe._request_options import (
+    PERSISTENT_OPTIONS_KEYS,
+    RequestOptions,
+    merge_options,
+)
 from stripe._requestor_options import (
     RequestorOptions,
     _GlobalRequestorOptions,
@@ -121,12 +128,15 @@ class _APIRequestor(object):
             return stripe.default_http_client
         return client
 
-    def _replace_options(
+    def _new_requestor_with_options(
         self, options: Optional[RequestOptions]
     ) -> "_APIRequestor":
+        """
+        Returns a new _APIRequestor instance with the same HTTP client but a (potentially) updated set of options. Useful for ensuring the original isn't modified, but any options the original had are still used.
+        """
         options = options or {}
         new_options = self._options.to_dict()
-        for key in ["api_key", "stripe_account", "stripe_version"]:
+        for key in PERSISTENT_OPTIONS_KEYS:
             if key in options and options[key] is not None:
                 new_options[key] = options[key]
         return _APIRequestor(
@@ -165,7 +175,9 @@ class _APIRequestor(object):
     def _global_with_options(
         **params: Unpack[RequestOptions],
     ) -> "_APIRequestor":
-        return _APIRequestor._global_instance()._replace_options(params)
+        return _APIRequestor._global_instance()._new_requestor_with_options(
+            params
+        )
 
     @classmethod
     def _format_app_info(cls, info):
@@ -187,7 +199,7 @@ class _APIRequestor(object):
         usage: Optional[List[str]] = None,
     ) -> "StripeObject":
         api_mode = get_api_mode(url)
-        requestor = self._replace_options(options)
+        requestor = self._new_requestor_with_options(options)
         rbody, rcode, rheaders = requestor.request_raw(
             method.lower(),
             url,
@@ -221,7 +233,7 @@ class _APIRequestor(object):
         usage: Optional[List[str]] = None,
     ) -> "StripeObject":
         api_mode = get_api_mode(url)
-        requestor = self._replace_options(options)
+        requestor = self._new_requestor_with_options(options)
         rbody, rcode, rheaders = await requestor.request_raw_async(
             method.lower(),
             url,
@@ -372,6 +384,37 @@ class _APIRequestor(object):
                 code,
             )
         # switchCases: The beginning of the section generated from our OpenAPI spec
+        elif type == "already_canceled":
+            return error.AlreadyCanceledError(**error_args)
+        elif type == "already_exists":
+            return error.AlreadyExistsError(**error_args)
+        elif type == "blocked_by_stripe":
+            return error.BlockedByStripeError(**error_args)
+        elif type == "controlled_by_dashboard":
+            return error.ControlledByDashboardError(**error_args)
+        elif type == "feature_not_enabled":
+            return error.FeatureNotEnabledError(**error_args)
+        elif type == "financial_account_not_open":
+            return error.FinancialAccountNotOpenError(**error_args)
+        elif type == "insufficient_funds":
+            return error.InsufficientFundsError(**error_args)
+        elif type == "invalid_payment_method":
+            return error.InvalidPaymentMethodError(
+                **error_args,
+                invalid_param=error_data.get("invalid_param"),
+            )
+        elif type == "invalid_payout_method":
+            return error.InvalidPayoutMethodError(**error_args)
+        elif type == "non_zero_balance":
+            return error.NonZeroBalanceError(**error_args)
+        elif type == "not_cancelable":
+            return error.NotCancelableError(**error_args)
+        elif type == "quota_exceeded":
+            return error.QuotaExceededError(**error_args)
+        elif type == "rate_limit":
+            return error.RateLimitError(**error_args)
+        elif type == "recipient_not_notifiable":
+            return error.RecipientNotNotifiableError(**error_args)
         elif type == "temporary_session_expired":
             return error.TemporarySessionExpiredError(**error_args)
         # switchCases: The end of the section generated from our OpenAPI spec

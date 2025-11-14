@@ -4,10 +4,14 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.billing import analytics as analytics
     from stripe.billing._alert import Alert as Alert
     from stripe.billing._alert_service import AlertService as AlertService
     from stripe.billing._alert_triggered import (
         AlertTriggered as AlertTriggered,
+    )
+    from stripe.billing._analytics_service import (
+        AnalyticsService as AnalyticsService,
     )
     from stripe.billing._credit_balance_summary import (
         CreditBalanceSummary as CreditBalanceSummary,
@@ -46,9 +50,11 @@ if TYPE_CHECKING:
 
 # name -> (import_target, is_submodule)
 _import_map = {
+    "analytics": ("stripe.billing.analytics", True),
     "Alert": ("stripe.billing._alert", False),
     "AlertService": ("stripe.billing._alert_service", False),
     "AlertTriggered": ("stripe.billing._alert_triggered", False),
+    "AnalyticsService": ("stripe.billing._analytics_service", False),
     "CreditBalanceSummary": ("stripe.billing._credit_balance_summary", False),
     "CreditBalanceSummaryService": (
         "stripe.billing._credit_balance_summary_service",

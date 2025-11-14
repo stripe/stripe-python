@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from typing import List
-from typing_extensions import NotRequired, TypedDict
+from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class FinancialAccountUpdateFeaturesParams(RequestOptions):
@@ -78,6 +78,10 @@ class FinancialAccountUpdateFeaturesParamsFinancialAddresses(TypedDict):
 
 
 class FinancialAccountUpdateFeaturesParamsFinancialAddressesAba(TypedDict):
+    bank: NotRequired[Literal["evolve", "fifth_third", "goldman_sachs"]]
+    """
+    Requested bank partner
+    """
     requested: bool
     """
     Whether the FinancialAccount should have the Feature.

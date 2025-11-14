@@ -5,6 +5,11 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.v2.billing._bill_setting_service import BillSettingService
+    from stripe.v2.billing._cadence_service import CadenceService
+    from stripe.v2.billing._collection_setting_service import (
+        CollectionSettingService,
+    )
     from stripe.v2.billing._meter_event_adjustment_service import (
         MeterEventAdjustmentService,
     )
@@ -15,8 +20,18 @@ if TYPE_CHECKING:
     from stripe.v2.billing._meter_event_stream_service import (
         MeterEventStreamService,
     )
+    from stripe.v2.billing._profile_service import ProfileService
 
 _subservices = {
+    "bill_settings": [
+        "stripe.v2.billing._bill_setting_service",
+        "BillSettingService",
+    ],
+    "cadences": ["stripe.v2.billing._cadence_service", "CadenceService"],
+    "collection_settings": [
+        "stripe.v2.billing._collection_setting_service",
+        "CollectionSettingService",
+    ],
     "meter_events": [
         "stripe.v2.billing._meter_event_service",
         "MeterEventService",
@@ -33,14 +48,19 @@ _subservices = {
         "stripe.v2.billing._meter_event_stream_service",
         "MeterEventStreamService",
     ],
+    "profiles": ["stripe.v2.billing._profile_service", "ProfileService"],
 }
 
 
 class BillingService(StripeService):
+    bill_settings: "BillSettingService"
+    cadences: "CadenceService"
+    collection_settings: "CollectionSettingService"
     meter_events: "MeterEventService"
     meter_event_adjustments: "MeterEventAdjustmentService"
     meter_event_session: "MeterEventSessionService"
     meter_event_stream: "MeterEventStreamService"
+    profiles: "ProfileService"
 
     def __init__(self, requestor):
         super().__init__(requestor)

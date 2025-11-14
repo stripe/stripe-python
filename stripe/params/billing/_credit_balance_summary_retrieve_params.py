@@ -6,9 +6,13 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class CreditBalanceSummaryRetrieveParams(RequestOptions):
-    customer: str
+    customer: NotRequired[str]
     """
     The customer for which to fetch credit balance summary.
+    """
+    customer_account: NotRequired[str]
+    """
+    The account for which to fetch credit balance summary.
     """
     expand: NotRequired[List[str]]
     """

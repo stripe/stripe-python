@@ -46,6 +46,51 @@ class Event(ListableAPIResource["Event"]):
         Object containing the names of the updated attributes and their values prior to the event (only included in events of type `*.updated`). If an array attribute has any updated elements, this object contains the entire array. In Stripe API versions 2017-04-06 or earlier, an updated array attribute in this object includes only the updated array elements.
         """
 
+    class Reason(StripeObject):
+        class AutomationAction(StripeObject):
+            class StripeSendWebhookCustomEvent(StripeObject):
+                custom_data: Optional[Dict[str, str]]
+                """
+                Set of key-value pairs attached to the action when creating an Automation.
+                """
+
+            stripe_send_webhook_custom_event: Optional[
+                StripeSendWebhookCustomEvent
+            ]
+            trigger: str
+            """
+            The trigger name of the automation that triggered this action.
+             Please visit [Revenue and retention automations](https://docs.stripe.com/billing/automations#choose-a-trigger) for all possible trigger names.
+            """
+            type: Literal["stripe_send_webhook_custom_event"]
+            """
+            The type of the `automation_action`.
+            """
+            _inner_class_types = {
+                "stripe_send_webhook_custom_event": StripeSendWebhookCustomEvent,
+            }
+
+        class Request(StripeObject):
+            id: Optional[str]
+            """
+            ID of the API request that caused the event. If null, the event was automatic (e.g., Stripe's automatic subscription handling). Request logs are available in the [dashboard](https://dashboard.stripe.com/logs), but currently not in the API.
+            """
+            idempotency_key: Optional[str]
+            """
+            The idempotency key transmitted during the request, if any. *Note: This property is populated only for events on or after May 23, 2017*.
+            """
+
+        automation_action: Optional[AutomationAction]
+        request: Optional[Request]
+        type: Literal["automation_action", "request"]
+        """
+        The type of the reason for the event.
+        """
+        _inner_class_types = {
+            "automation_action": AutomationAction,
+            "request": Request,
+        }
+
     class Request(StripeObject):
         id: Optional[str]
         """
@@ -89,6 +134,10 @@ class Event(ListableAPIResource["Event"]):
     """
     Number of webhooks that haven't been successfully delivered (for example, to return a 20x response) to the URLs you specify.
     """
+    reason: Optional[Reason]
+    """
+    Information about the action that causes the event. Only present when the event is triggered by an API request or an [Automation](https://docs.stripe.com/billing/automations) action.
+    """
     request: Optional[Request]
     """
     Information on the API request that triggers the event.
@@ -100,15 +149,27 @@ class Event(ListableAPIResource["Event"]):
         "account.external_account.deleted",
         "account.external_account.updated",
         "account.updated",
+        "account_notice.created",
+        "account_notice.updated",
         "application_fee.created",
         "application_fee.refund.updated",
         "application_fee.refunded",
         "balance.available",
+        "balance_settings.updated",
         "billing.alert.triggered",
         "billing_portal.configuration.created",
         "billing_portal.configuration.updated",
         "billing_portal.session.created",
         "capability.updated",
+        "capital.financing_offer.accepted",
+        "capital.financing_offer.canceled",
+        "capital.financing_offer.created",
+        "capital.financing_offer.expired",
+        "capital.financing_offer.fully_repaid",
+        "capital.financing_offer.paid_out",
+        "capital.financing_offer.rejected",
+        "capital.financing_offer.replacement_created",
+        "capital.financing_transaction.created",
         "cash_balance.funds_available",
         "charge.captured",
         "charge.dispute.closed",
@@ -149,11 +210,15 @@ class Event(ListableAPIResource["Event"]):
         "customer.source.deleted",
         "customer.source.expiring",
         "customer.source.updated",
+        "customer.subscription.collection_paused",
+        "customer.subscription.collection_resumed",
         "customer.subscription.created",
+        "customer.subscription.custom_event",
         "customer.subscription.deleted",
         "customer.subscription.paused",
         "customer.subscription.pending_update_applied",
         "customer.subscription.pending_update_expired",
+        "customer.subscription.price_migration_failed",
         "customer.subscription.resumed",
         "customer.subscription.trial_will_end",
         "customer.subscription.updated",
@@ -169,8 +234,11 @@ class Event(ListableAPIResource["Event"]):
         "financial_connections.account.disconnected",
         "financial_connections.account.reactivated",
         "financial_connections.account.refreshed_balance",
+        "financial_connections.account.refreshed_inferred_balances",
         "financial_connections.account.refreshed_ownership",
         "financial_connections.account.refreshed_transactions",
+        "financial_connections.session.updated",
+        "fx_quote.expired",
         "identity.verification_session.canceled",
         "identity.verification_session.created",
         "identity.verification_session.processing",
@@ -185,7 +253,9 @@ class Event(ListableAPIResource["Event"]):
         "invoice.overdue",
         "invoice.overpaid",
         "invoice.paid",
+        "invoice.payment.overpaid",
         "invoice.payment_action_required",
+        "invoice.payment_attempt_required",
         "invoice.payment_failed",
         "invoice.payment_succeeded",
         "invoice.sent",
@@ -209,10 +279,15 @@ class Event(ListableAPIResource["Event"]):
         "issuing_dispute.funds_rescinded",
         "issuing_dispute.submitted",
         "issuing_dispute.updated",
+        "issuing_dispute_settlement_detail.created",
+        "issuing_dispute_settlement_detail.updated",
+        "issuing_fraud_liability_debit.created",
         "issuing_personalization_design.activated",
         "issuing_personalization_design.deactivated",
         "issuing_personalization_design.rejected",
         "issuing_personalization_design.updated",
+        "issuing_settlement.created",
+        "issuing_settlement.updated",
         "issuing_token.created",
         "issuing_token.updated",
         "issuing_transaction.created",
@@ -248,15 +323,26 @@ class Event(ListableAPIResource["Event"]):
         "price.created",
         "price.deleted",
         "price.updated",
+        "privacy.redaction_job.canceled",
+        "privacy.redaction_job.created",
+        "privacy.redaction_job.ready",
+        "privacy.redaction_job.succeeded",
+        "privacy.redaction_job.validation_error",
         "product.created",
         "product.deleted",
         "product.updated",
         "promotion_code.created",
         "promotion_code.updated",
+        "quote.accept_failed",
         "quote.accepted",
+        "quote.accepting",
         "quote.canceled",
         "quote.created",
+        "quote.draft",
         "quote.finalized",
+        "quote.reestimate_failed",
+        "quote.reestimated",
+        "quote.stale",
         "radar.early_fraud_warning.created",
         "radar.early_fraud_warning.updated",
         "refund.created",
@@ -285,8 +371,10 @@ class Event(ListableAPIResource["Event"]):
         "subscription_schedule.completed",
         "subscription_schedule.created",
         "subscription_schedule.expiring",
+        "subscription_schedule.price_migration_failed",
         "subscription_schedule.released",
         "subscription_schedule.updated",
+        "tax.form.updated",
         "tax.settings.updated",
         "tax_rate.created",
         "tax_rate.updated",
@@ -408,4 +496,4 @@ class Event(ListableAPIResource["Event"]):
         await instance.refresh_async()
         return instance
 
-    _inner_class_types = {"data": Data, "request": Request}
+    _inner_class_types = {"data": Data, "reason": Reason, "request": Request}

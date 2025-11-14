@@ -20,6 +20,10 @@ class InvoiceListParams(RequestOptions):
     """
     Only return invoices for the customer specified by this customer ID.
     """
+    customer_account: NotRequired[str]
+    """
+    Only return invoices for the account specified by this account ID.
+    """
     due_date: NotRequired["InvoiceListParamsDueDate|int"]
     ending_before: NotRequired[str]
     """

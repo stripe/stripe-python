@@ -13,6 +13,17 @@ class DisputeUpdateParams(TypedDict):
     """
     Specifies which fields in the response should be expanded.
     """
+    intended_submission_method: NotRequired[
+        Literal[
+            "manual",
+            "prefer_manual",
+            "prefer_smart_disputes",
+            "smart_disputes",
+        ]
+    ]
+    """
+    Intended submission method for the dispute.
+    """
     metadata: NotRequired["Literal['']|Dict[str, str]"]
     """
     Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.

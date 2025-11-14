@@ -7,7 +7,6 @@ import re
 import warnings
 
 from stripe._api_mode import ApiMode
-
 from urllib.parse import quote_plus
 
 from typing_extensions import Type, TYPE_CHECKING

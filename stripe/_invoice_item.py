@@ -15,6 +15,7 @@ if TYPE_CHECKING:
     from stripe._customer import Customer
     from stripe._discount import Discount
     from stripe._invoice import Invoice
+    from stripe._margin import Margin
     from stripe._tax_rate import TaxRate
     from stripe.params._invoice_item_create_params import (
         InvoiceItemCreateParams,
@@ -133,6 +134,10 @@ class InvoiceItem(
     """
     The ID of the customer who will be billed when this invoice item is billed.
     """
+    customer_account: Optional[str]
+    """
+    The ID of the account who will be billed when this invoice item is billed.
+    """
     date: int
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -164,6 +169,10 @@ class InvoiceItem(
     livemode: bool
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
+    margins: Optional[List[ExpandableField["Margin"]]]
+    """
+    The margins which apply to the invoice item. When set, the `default_margins` on the invoice do not apply to this invoice item.
     """
     metadata: Optional[Dict[str, str]]
     """

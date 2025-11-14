@@ -141,6 +141,27 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
         """
         Set if the ReceivedDebit was created due to a [Payout](https://stripe.com/docs/api#payouts) object.
         """
+        received_credit_capital_withholding: Optional[str]
+        """
+        The ReceivedCredit that Capital withheld from
+        """
+
+    class NetworkDetails(StripeObject):
+        class Ach(StripeObject):
+            addenda: Optional[str]
+            """
+            ACH Addenda record
+            """
+
+        ach: Optional[Ach]
+        """
+        Details about an ACH transaction.
+        """
+        type: Literal["ach"]
+        """
+        The type of flow that originated the ReceivedDebit.
+        """
+        _inner_class_types = {"ach": Ach}
 
     class ReversalDetails(StripeObject):
         deadline: Optional[int]
@@ -209,6 +230,10 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
     network: Literal["ach", "card", "stripe"]
     """
     The network used for the ReceivedDebit.
+    """
+    network_details: Optional[NetworkDetails]
+    """
+    Details specific to the money movement rails.
     """
     object: Literal["treasury.received_debit"]
     """
@@ -331,6 +356,7 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
     _inner_class_types = {
         "initiating_payment_method_details": InitiatingPaymentMethodDetails,
         "linked_flows": LinkedFlows,
+        "network_details": NetworkDetails,
         "reversal_details": ReversalDetails,
     }
 

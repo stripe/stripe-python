@@ -79,6 +79,10 @@ class AccountCreateParams(RequestOptions):
     """
     Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
+    risk_controls: NotRequired["AccountCreateParamsRiskControls"]
+    """
+    A hash to configure risk controls on the account. Please see [this page for more details](https://docs.stripe.com/connect/pausing-payments-or-payouts-on-connected-accounts).
+    """
     settings: NotRequired["AccountCreateParamsSettings"]
     """
     Options for customizing how the account functions within Stripe.
@@ -248,6 +252,12 @@ class AccountCreateParamsCapabilities(TypedDict):
     """
     The au_becs_debit_payments capability.
     """
+    automatic_indirect_tax: NotRequired[
+        "AccountCreateParamsCapabilitiesAutomaticIndirectTax"
+    ]
+    """
+    The automatic_indirect_tax capability.
+    """
     bacs_debit_payments: NotRequired[
         "AccountCreateParamsCapabilitiesBacsDebitPayments"
     ]
@@ -328,11 +338,27 @@ class AccountCreateParamsCapabilities(TypedDict):
     """
     The giropay_payments capability.
     """
+    gopay_payments: NotRequired["AccountCreateParamsCapabilitiesGopayPayments"]
+    """
+    The gopay_payments capability.
+    """
     grabpay_payments: NotRequired[
         "AccountCreateParamsCapabilitiesGrabpayPayments"
     ]
     """
     The grabpay_payments capability.
+    """
+    id_bank_transfer_payments: NotRequired[
+        "AccountCreateParamsCapabilitiesIdBankTransferPayments"
+    ]
+    """
+    The id_bank_transfer_payments capability.
+    """
+    id_bank_transfer_payments_bca: NotRequired[
+        "AccountCreateParamsCapabilitiesIdBankTransferPaymentsBca"
+    ]
+    """
+    The id_bank_transfer_payments_bca capability.
     """
     ideal_payments: NotRequired["AccountCreateParamsCapabilitiesIdealPayments"]
     """
@@ -448,6 +474,22 @@ class AccountCreateParamsCapabilities(TypedDict):
     """
     The paynow_payments capability.
     """
+    paypal_payments: NotRequired[
+        "AccountCreateParamsCapabilitiesPaypalPayments"
+    ]
+    """
+    The paypal_payments capability.
+    """
+    paypay_payments: NotRequired[
+        "AccountCreateParamsCapabilitiesPaypayPayments"
+    ]
+    """
+    The paypay_payments capability.
+    """
+    payto_payments: NotRequired["AccountCreateParamsCapabilitiesPaytoPayments"]
+    """
+    The payto_payments capability.
+    """
     pix_payments: NotRequired["AccountCreateParamsCapabilitiesPixPayments"]
     """
     The pix_payments capability.
@@ -457,6 +499,16 @@ class AccountCreateParamsCapabilities(TypedDict):
     ]
     """
     The promptpay_payments capability.
+    """
+    qris_payments: NotRequired["AccountCreateParamsCapabilitiesQrisPayments"]
+    """
+    The qris_payments capability.
+    """
+    rechnung_payments: NotRequired[
+        "AccountCreateParamsCapabilitiesRechnungPayments"
+    ]
+    """
+    The rechnung_payments capability.
     """
     revolut_pay_payments: NotRequired[
         "AccountCreateParamsCapabilitiesRevolutPayPayments"
@@ -488,11 +540,23 @@ class AccountCreateParamsCapabilities(TypedDict):
     """
     The sepa_debit_payments capability.
     """
+    shopeepay_payments: NotRequired[
+        "AccountCreateParamsCapabilitiesShopeepayPayments"
+    ]
+    """
+    The shopeepay_payments capability.
+    """
     sofort_payments: NotRequired[
         "AccountCreateParamsCapabilitiesSofortPayments"
     ]
     """
     The sofort_payments capability.
+    """
+    stripe_balance_payments: NotRequired[
+        "AccountCreateParamsCapabilitiesStripeBalancePayments"
+    ]
+    """
+    The stripe_balance_payments capability.
     """
     swish_payments: NotRequired["AccountCreateParamsCapabilitiesSwishPayments"]
     """
@@ -517,6 +581,24 @@ class AccountCreateParamsCapabilities(TypedDict):
     treasury: NotRequired["AccountCreateParamsCapabilitiesTreasury"]
     """
     The treasury capability.
+    """
+    treasury_evolve: NotRequired[
+        "AccountCreateParamsCapabilitiesTreasuryEvolve"
+    ]
+    """
+    The treasury_evolve capability.
+    """
+    treasury_fifth_third: NotRequired[
+        "AccountCreateParamsCapabilitiesTreasuryFifthThird"
+    ]
+    """
+    The treasury_fifth_third capability.
+    """
+    treasury_goldman_sachs: NotRequired[
+        "AccountCreateParamsCapabilitiesTreasuryGoldmanSachs"
+    ]
+    """
+    The treasury_goldman_sachs capability.
     """
     twint_payments: NotRequired["AccountCreateParamsCapabilitiesTwintPayments"]
     """
@@ -576,6 +658,13 @@ class AccountCreateParamsCapabilitiesAmazonPayPayments(TypedDict):
 
 
 class AccountCreateParamsCapabilitiesAuBecsDebitPayments(TypedDict):
+    requested: NotRequired[bool]
+    """
+    Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+    """
+
+
+class AccountCreateParamsCapabilitiesAutomaticIndirectTax(TypedDict):
     requested: NotRequired[bool]
     """
     Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -687,7 +776,28 @@ class AccountCreateParamsCapabilitiesGiropayPayments(TypedDict):
     """
 
 
+class AccountCreateParamsCapabilitiesGopayPayments(TypedDict):
+    requested: NotRequired[bool]
+    """
+    Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+    """
+
+
 class AccountCreateParamsCapabilitiesGrabpayPayments(TypedDict):
+    requested: NotRequired[bool]
+    """
+    Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+    """
+
+
+class AccountCreateParamsCapabilitiesIdBankTransferPayments(TypedDict):
+    requested: NotRequired[bool]
+    """
+    Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+    """
+
+
+class AccountCreateParamsCapabilitiesIdBankTransferPaymentsBca(TypedDict):
     requested: NotRequired[bool]
     """
     Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -841,6 +951,27 @@ class AccountCreateParamsCapabilitiesPaynowPayments(TypedDict):
     """
 
 
+class AccountCreateParamsCapabilitiesPaypalPayments(TypedDict):
+    requested: NotRequired[bool]
+    """
+    Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+    """
+
+
+class AccountCreateParamsCapabilitiesPaypayPayments(TypedDict):
+    requested: NotRequired[bool]
+    """
+    Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+    """
+
+
+class AccountCreateParamsCapabilitiesPaytoPayments(TypedDict):
+    requested: NotRequired[bool]
+    """
+    Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+    """
+
+
 class AccountCreateParamsCapabilitiesPixPayments(TypedDict):
     requested: NotRequired[bool]
     """
@@ -849,6 +980,20 @@ class AccountCreateParamsCapabilitiesPixPayments(TypedDict):
 
 
 class AccountCreateParamsCapabilitiesPromptpayPayments(TypedDict):
+    requested: NotRequired[bool]
+    """
+    Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+    """
+
+
+class AccountCreateParamsCapabilitiesQrisPayments(TypedDict):
+    requested: NotRequired[bool]
+    """
+    Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+    """
+
+
+class AccountCreateParamsCapabilitiesRechnungPayments(TypedDict):
     requested: NotRequired[bool]
     """
     Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -890,7 +1035,21 @@ class AccountCreateParamsCapabilitiesSepaDebitPayments(TypedDict):
     """
 
 
+class AccountCreateParamsCapabilitiesShopeepayPayments(TypedDict):
+    requested: NotRequired[bool]
+    """
+    Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+    """
+
+
 class AccountCreateParamsCapabilitiesSofortPayments(TypedDict):
+    requested: NotRequired[bool]
+    """
+    Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+    """
+
+
+class AccountCreateParamsCapabilitiesStripeBalancePayments(TypedDict):
     requested: NotRequired[bool]
     """
     Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -926,6 +1085,27 @@ class AccountCreateParamsCapabilitiesTransfers(TypedDict):
 
 
 class AccountCreateParamsCapabilitiesTreasury(TypedDict):
+    requested: NotRequired[bool]
+    """
+    Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+    """
+
+
+class AccountCreateParamsCapabilitiesTreasuryEvolve(TypedDict):
+    requested: NotRequired[bool]
+    """
+    Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+    """
+
+
+class AccountCreateParamsCapabilitiesTreasuryFifthThird(TypedDict):
+    requested: NotRequired[bool]
+    """
+    Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+    """
+
+
+class AccountCreateParamsCapabilitiesTreasuryGoldmanSachs(TypedDict):
     requested: NotRequired[bool]
     """
     Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -1036,6 +1216,12 @@ class AccountCreateParamsCompany(TypedDict):
     registration_number: NotRequired[str]
     """
     The identification number given to a company when it is registered or incorporated, if distinct from the identification number used for filing taxes. (Examples are the CIN for companies and LLP IN for partnerships in India, and the Company Registration Number in Hong Kong).
+    """
+    representative_declaration: NotRequired[
+        "AccountCreateParamsCompanyRepresentativeDeclaration"
+    ]
+    """
+    This hash is used to attest that the representative is authorized to act as the representative of their legal entity.
     """
     structure: NotRequired[
         "Literal['']|Literal['free_zone_establishment', 'free_zone_llc', 'government_instrumentality', 'governmental_unit', 'incorporated_non_profit', 'incorporated_partnership', 'limited_liability_partnership', 'llc', 'multi_member_llc', 'private_company', 'private_corporation', 'private_partnership', 'public_company', 'public_corporation', 'public_partnership', 'registered_charity', 'single_member_llc', 'sole_establishment', 'sole_proprietorship', 'tax_exempt_government_instrumentality', 'unincorporated_association', 'unincorporated_non_profit', 'unincorporated_partnership']"
@@ -1195,6 +1381,21 @@ class AccountCreateParamsCompanyRegistrationDate(TypedDict):
     """
 
 
+class AccountCreateParamsCompanyRepresentativeDeclaration(TypedDict):
+    date: NotRequired[int]
+    """
+    The Unix timestamp marking when the representative declaration attestation was made.
+    """
+    ip: NotRequired[str]
+    """
+    The IP address from which the representative declaration attestation was made.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser from which the representative declaration attestation was made.
+    """
+
+
 class AccountCreateParamsCompanyVerification(TypedDict):
     document: NotRequired["AccountCreateParamsCompanyVerificationDocument"]
     """
@@ -1214,6 +1415,14 @@ class AccountCreateParamsCompanyVerificationDocument(TypedDict):
 
 
 class AccountCreateParamsController(TypedDict):
+    application: NotRequired["AccountCreateParamsControllerApplication"]
+    """
+    A hash of configuration describing the Connect application that controls the account.
+    """
+    dashboard: NotRequired["AccountCreateParamsControllerDashboard"]
+    """
+    Properties of the account's dashboard.
+    """
     fees: NotRequired["AccountCreateParamsControllerFees"]
     """
     A hash of configuration for who pays Stripe fees for product usage on this account.
@@ -1231,6 +1440,28 @@ class AccountCreateParamsController(TypedDict):
     ]
     """
     A hash of configuration for Stripe-hosted dashboards.
+    """
+
+
+class AccountCreateParamsControllerApplication(TypedDict):
+    loss_liable: bool
+    """
+    Whether the controller is liable for losses on this account. For details, see [Understanding Connect Account Balances](https://stripe.com/docs/connect/account-balances).
+    """
+    onboarding_owner: NotRequired[bool]
+    """
+    Whether the controller owns onboarding for this account.
+    """
+    pricing_controls: NotRequired[bool]
+    """
+    Whether the controller has pricing controls for this account.
+    """
+
+
+class AccountCreateParamsControllerDashboard(TypedDict):
+    type: NotRequired[Literal["express", "full", "none"]]
+    """
+    Whether this account should have access to the full Stripe Dashboard (`full`), to the Express Dashboard (`express`), or to no Stripe-hosted dashboard (`none`). Defaults to `full`.
     """
 
 
@@ -1721,6 +1952,33 @@ class AccountCreateParamsIndividualVerificationDocument(TypedDict):
     """
 
 
+class AccountCreateParamsRiskControls(TypedDict):
+    charges: NotRequired["AccountCreateParamsRiskControlsCharges"]
+    """
+    Represents the risk control status of charges. Please see [this page for more details](https://stripe.com/docs/connect/pausing-payments-or-payouts-on-connected-accounts).
+    """
+    payouts: NotRequired["AccountCreateParamsRiskControlsPayouts"]
+    """
+    Represents the risk control status of payouts. Please see [this page for more details](https://stripe.com/docs/connect/pausing-payments-or-payouts-on-connected-accounts).
+    """
+
+
+class AccountCreateParamsRiskControlsCharges(TypedDict):
+    pause_requested: NotRequired[bool]
+    """
+    To request to pause a risk control, pass `true`. To request to unpause a risk control, pass `false`.
+    There can be a delay before the risk control is paused or unpaused.
+    """
+
+
+class AccountCreateParamsRiskControlsPayouts(TypedDict):
+    pause_requested: NotRequired[bool]
+    """
+    To request to pause a risk control, pass `true`. To request to unpause a risk control, pass `false`.
+    There can be a delay before the risk control is paused or unpaused.
+    """
+
+
 class AccountCreateParamsSettings(TypedDict):
     bacs_debit_payments: NotRequired[
         "AccountCreateParamsSettingsBacsDebitPayments"
@@ -1728,9 +1986,19 @@ class AccountCreateParamsSettings(TypedDict):
     """
     Settings specific to Bacs Direct Debit.
     """
+    bank_bca_onboarding: NotRequired[
+        "AccountCreateParamsSettingsBankBcaOnboarding"
+    ]
+    """
+    Settings specific to bank BCA onboarding for Indonesia bank transfers payments method.
+    """
     branding: NotRequired["AccountCreateParamsSettingsBranding"]
     """
     Settings used to apply the account's branding to email receipts, invoices, Checkout, and other products.
+    """
+    capital: NotRequired["AccountCreateParamsSettingsCapital"]
+    """
+    Settings specific to the account's use of the Capital product.
     """
     card_issuing: NotRequired["AccountCreateParamsSettingsCardIssuing"]
     """
@@ -1752,6 +2020,10 @@ class AccountCreateParamsSettings(TypedDict):
     """
     Settings specific to the account's payouts.
     """
+    tax_forms: NotRequired["AccountCreateParamsSettingsTaxForms"]
+    """
+    Settings specific to the account's tax forms.
+    """
     treasury: NotRequired["AccountCreateParamsSettingsTreasury"]
     """
     Settings specific to the account's Treasury FinancialAccounts.
@@ -1762,6 +2034,17 @@ class AccountCreateParamsSettingsBacsDebitPayments(TypedDict):
     display_name: NotRequired[str]
     """
     The Bacs Direct Debit Display Name for this account. For payments made with Bacs Direct Debit, this name appears on the mandate as the statement descriptor. Mobile banking apps display it as the name of the business. To use custom branding, set the Bacs Direct Debit Display Name during or right after creation. Custom branding incurs an additional monthly fee for the platform. If you don't set the display name before requesting Bacs capability, it's automatically set as "Stripe" and the account is onboarded to Stripe branding, which is free.
+    """
+
+
+class AccountCreateParamsSettingsBankBcaOnboarding(TypedDict):
+    account_holder_name: NotRequired[str]
+    """
+    Bank BCA business account holder name
+    """
+    business_account_number: NotRequired[str]
+    """
+    Bank BCA business account number
     """
 
 
@@ -1781,6 +2064,17 @@ class AccountCreateParamsSettingsBranding(TypedDict):
     secondary_color: NotRequired[str]
     """
     A CSS hex color value representing the secondary branding color for this account.
+    """
+
+
+class AccountCreateParamsSettingsCapital(TypedDict):
+    payout_destination: NotRequired[Dict[str, str]]
+    """
+    Per-currency mapping of user-selected destination accounts used to pay out loans.
+    """
+    payout_destination_selector: NotRequired[Dict[str, List[str]]]
+    """
+    Per-currency mapping of all destination accounts eligible to receive Capital financing payouts.
     """
 
 
@@ -1843,7 +2137,7 @@ class AccountCreateParamsSettingsInvoices(TypedDict):
         Literal["always", "never", "offer"]
     ]
     """
-    Whether payment methods should be saved when a payment is completed for a one-time invoices on a hosted invoice page.
+    Whether to save the payment method after a payment is completed for a one-time invoice or a subscription invoice when the customer already has a default payment method on the hosted invoice page.
     """
 
 
@@ -1913,6 +2207,13 @@ class AccountCreateParamsSettingsPayoutsSchedule(TypedDict):
     ]
     """
     The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. Required and applicable only if `interval` is `weekly`.
+    """
+
+
+class AccountCreateParamsSettingsTaxForms(TypedDict):
+    consented_to_paperless_delivery: NotRequired[bool]
+    """
+    Whether the account opted out of receiving their tax forms by postal delivery.
     """
 
 

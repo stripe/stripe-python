@@ -16,11 +16,11 @@ class ReaderProcessSetupIntentParams(RequestOptions):
     """
     process_config: NotRequired["ReaderProcessSetupIntentParamsProcessConfig"]
     """
-    Configuration overrides
+    Configuration overrides for this setup, such as MOTO and customer cancellation settings.
     """
     setup_intent: str
     """
-    SetupIntent ID
+    The ID of the SetupIntent to process on the reader.
     """
 
 

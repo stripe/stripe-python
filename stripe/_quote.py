@@ -4,6 +4,7 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
+from stripe._nested_resource_class_methods import nested_resource_class_methods
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
@@ -16,9 +17,17 @@ if TYPE_CHECKING:
     from stripe._customer import Customer
     from stripe._discount import Discount as DiscountResource
     from stripe._invoice import Invoice
+    from stripe._invoice_line_item import InvoiceLineItem
     from stripe._line_item import LineItem
+    from stripe._quote_line import QuoteLine
+    from stripe._quote_preview_invoice import QuotePreviewInvoice
+    from stripe._quote_preview_subscription_schedule import (
+        QuotePreviewSubscriptionSchedule,
+    )
     from stripe._subscription import Subscription
-    from stripe._subscription_schedule import SubscriptionSchedule
+    from stripe._subscription_schedule import (
+        SubscriptionSchedule as SubscriptionScheduleResource,
+    )
     from stripe._tax_rate import TaxRate
     from stripe.params._quote_accept_params import QuoteAcceptParams
     from stripe.params._quote_cancel_params import QuoteCancelParams
@@ -32,13 +41,28 @@ if TYPE_CHECKING:
     from stripe.params._quote_list_line_items_params import (
         QuoteListLineItemsParams,
     )
+    from stripe.params._quote_list_lines_params import QuoteListLinesParams
     from stripe.params._quote_list_params import QuoteListParams
+    from stripe.params._quote_list_preview_invoice_lines_params import (
+        QuoteListPreviewInvoiceLinesParams,
+    )
+    from stripe.params._quote_list_preview_invoices_params import (
+        QuoteListPreviewInvoicesParams,
+    )
+    from stripe.params._quote_list_preview_subscription_schedules_params import (
+        QuoteListPreviewSubscriptionSchedulesParams,
+    )
+    from stripe.params._quote_mark_draft_params import QuoteMarkDraftParams
+    from stripe.params._quote_mark_stale_params import QuoteMarkStaleParams
     from stripe.params._quote_modify_params import QuoteModifyParams
     from stripe.params._quote_pdf_params import QuotePdfParams
+    from stripe.params._quote_reestimate_params import QuoteReestimateParams
     from stripe.params._quote_retrieve_params import QuoteRetrieveParams
     from stripe.test_helpers._test_clock import TestClock
 
 
+@nested_resource_class_methods("preview_invoice")
+@nested_resource_class_methods("preview_subscription_schedule")
 class Quote(
     CreateableAPIResource["Quote"],
     ListableAPIResource["Quote"],
@@ -83,6 +107,31 @@ class Quote(
         _inner_class_types = {"liability": Liability}
 
     class Computed(StripeObject):
+        class LastReestimationDetails(StripeObject):
+            class Failed(StripeObject):
+                failure_code: Optional[str]
+                """
+                The failure `code` is more granular than the `reason` provided and may correspond to a Stripe error code. For automation errors, this field is one of: `reverse_api_failure`, `reverse_api_deadline_exceeeded`, or `reverse_api_response_validation_error`, which are Stripe error codes and map to the error `message` field.
+                """
+                message: Optional[str]
+                """
+                Information derived from the `failure_code` or a freeform message that explains the error as a human-readable English string. For example, "margin ID is not a valid ID".
+                """
+                reason: Literal["automation_failure", "internal_error"]
+                """
+                The reason the reestimation failed.
+                """
+
+            failed: Optional[Failed]
+            """
+            When `status` is `failed`, provides details about the quote reestimation failure.
+            """
+            status: Literal["failed", "in_progress", "succeeded"]
+            """
+            Latest status of the reestimation.
+            """
+            _inner_class_types = {"failed": Failed}
+
         class Recurring(StripeObject):
             class TotalDetails(StripeObject):
                 class Breakdown(StripeObject):
@@ -275,12 +324,24 @@ class Quote(
             total_details: TotalDetails
             _inner_class_types = {"total_details": TotalDetails}
 
+        last_reestimation_details: Optional[LastReestimationDetails]
+        """
+        Details of the most recent reestimate of the quote's preview schedules and upcoming invoices, including the status of Stripe's calculation.
+        """
         recurring: Optional[Recurring]
         """
         The definitive totals and line items the customer will be charged on a recurring basis. Takes into account the line items with recurring prices and discounts with `duration=forever` coupons only. Defaults to `null` if no inputted line items with recurring prices.
         """
+        updated_at: Optional[int]
+        """
+        The time at which the quote's estimated schedules and upcoming invoices were generated.
+        """
         upfront: Upfront
-        _inner_class_types = {"recurring": Recurring, "upfront": Upfront}
+        _inner_class_types = {
+            "last_reestimation_details": LastReestimationDetails,
+            "recurring": Recurring,
+            "upfront": Upfront,
+        }
 
     class FromQuote(StripeObject):
         is_revision: bool
@@ -310,6 +371,129 @@ class Quote(
         issuer: Issuer
         _inner_class_types = {"issuer": Issuer}
 
+    class StatusDetails(StripeObject):
+        class Canceled(StripeObject):
+            reason: Optional[
+                Literal[
+                    "canceled",
+                    "quote_accepted",
+                    "quote_expired",
+                    "quote_superseded",
+                    "subscription_canceled",
+                ]
+            ]
+            """
+            The reason this quote was marked as canceled.
+            """
+            transitioned_at: Optional[int]
+            """
+            Time at which the quote was marked as canceled. Measured in seconds since the Unix epoch.
+            """
+
+        class Stale(StripeObject):
+            class LastReason(StripeObject):
+                class LinesInvalid(StripeObject):
+                    invalid_at: int
+                    """
+                    The timestamp at which the lines were marked as invalid.
+                    """
+                    lines: List[str]
+                    """
+                    The list of lines that became invalid at the given timestamp.
+                    """
+
+                class SubscriptionChanged(StripeObject):
+                    previous_subscription: Optional["Subscription"]
+                    """
+                    The subscription's state before the quote was marked as stale.
+                    """
+
+                class SubscriptionScheduleChanged(StripeObject):
+                    previous_subscription_schedule: Optional[
+                        "SubscriptionScheduleResource"
+                    ]
+                    """
+                    The subscription schedule's state before the quote was marked as stale.
+                    """
+
+                line_invalid: Optional[str]
+                """
+                The ID of the line that is invalid if the stale reason type is `line_invalid`.
+                """
+                lines_invalid: Optional[List[LinesInvalid]]
+                """
+                The IDs of the lines that are invalid if the stale reason type is `lines_invalid`.
+                """
+                marked_stale: Optional[str]
+                """
+                The user supplied mark stale reason.
+                """
+                subscription_canceled: Optional[str]
+                """
+                The ID of the subscription that was canceled.
+                """
+                subscription_changed: Optional[SubscriptionChanged]
+                subscription_expired: Optional[str]
+                """
+                The ID of the subscription that was expired.
+                """
+                subscription_schedule_canceled: Optional[str]
+                """
+                The ID of the subscription schedule that was canceled.
+                """
+                subscription_schedule_changed: Optional[
+                    SubscriptionScheduleChanged
+                ]
+                subscription_schedule_released: Optional[str]
+                """
+                The ID of the subscription schedule that was released.
+                """
+                type: Optional[
+                    Literal[
+                        "accept_failed_validations",
+                        "bill_on_acceptance_invalid",
+                        "line_invalid",
+                        "lines_invalid",
+                        "marked_stale",
+                        "subscription_canceled",
+                        "subscription_changed",
+                        "subscription_expired",
+                        "subscription_schedule_canceled",
+                        "subscription_schedule_changed",
+                        "subscription_schedule_released",
+                    ]
+                ]
+                """
+                The reason the quote was marked as stale.
+                """
+                _inner_class_types = {
+                    "lines_invalid": LinesInvalid,
+                    "subscription_changed": SubscriptionChanged,
+                    "subscription_schedule_changed": SubscriptionScheduleChanged,
+                }
+
+            expires_at: Optional[int]
+            """
+            Time at which the quote expires. Measured in seconds since the Unix epoch.
+            """
+            last_reason: Optional[LastReason]
+            """
+            The most recent reason this quote was marked as stale.
+            """
+            last_updated_at: Optional[int]
+            """
+            Time at which the stale reason was updated. Measured in seconds since the Unix epoch.
+            """
+            transitioned_at: Optional[int]
+            """
+            Time at which the quote was marked as stale. Measured in seconds since the Unix epoch.
+            """
+            _inner_class_types = {"last_reason": LastReason}
+
+        canceled: Optional[Canceled]
+        stale: Optional[Stale]
+        _inner_class_types = {"canceled": Canceled, "stale": Stale}
+
     class StatusTransitions(StripeObject):
         accepted_at: Optional[int]
         """
@@ -325,6 +509,99 @@ class Quote(
         """
 
     class SubscriptionData(StripeObject):
+        class BillOnAcceptance(StripeObject):
+            class BillFrom(StripeObject):
+                class LineStartsAt(StripeObject):
+                    id: str
+                    """
+                    Unique identifier for the object.
+                    """
+
+                computed: Optional[int]
+                """
+                The materialized time.
+                """
+                line_starts_at: Optional[LineStartsAt]
+                """
+                The timestamp the given line starts at.
+                """
+                timestamp: Optional[int]
+                """
+                A precise Unix timestamp.
+                """
+                type: Literal[
+                    "line_starts_at",
+                    "now",
+                    "pause_collection_start",
+                    "quote_acceptance_date",
+                    "timestamp",
+                ]
+                """
+                The type of method to specify the `bill_from` time.
+                """
+                _inner_class_types = {"line_starts_at": LineStartsAt}
+
+            class BillUntil(StripeObject):
+                class Duration(StripeObject):
+                    interval: Literal["day", "month", "week", "year"]
+                    """
+                    Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+                    """
+                    interval_count: int
+                    """
+                    The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+                    """
+
+                class LineEndsAt(StripeObject):
+                    id: str
+                    """
+                    Unique identifier for the object.
+                    """
+
+                computed: Optional[int]
+                """
+                The materialized time.
+                """
+                duration: Optional[Duration]
+                """
+                Time span for the quote line starting from the `starts_at` date.
+                """
+                line_ends_at: Optional[LineEndsAt]
+                """
+                The timestamp the given line ends at.
+                """
+                timestamp: Optional[int]
+                """
+                A precise Unix timestamp.
+                """
+                type: Literal[
+                    "duration",
+                    "line_ends_at",
+                    "schedule_end",
+                    "timestamp",
+                    "upcoming_invoice",
+                ]
+                """
+                The type of method to specify the `bill_until` time.
+                """
+                _inner_class_types = {
+                    "duration": Duration,
+                    "line_ends_at": LineEndsAt,
+                }
+
+            bill_from: Optional[BillFrom]
+            """
+            The start of the period to bill from when the Quote is accepted.
+            """
+            bill_until: Optional[BillUntil]
+            """
+            The end of the period to bill until when the Quote is accepted.
+            """
+            _inner_class_types = {
+                "bill_from": BillFrom,
+                "bill_until": BillUntil,
+            }
+
         class BillingMode(StripeObject):
             class Flexible(StripeObject):
                 proration_discounts: Optional[Literal["included", "itemized"]]
@@ -339,6 +616,23 @@ class Quote(
             """
             _inner_class_types = {"flexible": Flexible}
 
+        class Prebilling(StripeObject):
+            iterations: int
+
+        bill_on_acceptance: Optional[BillOnAcceptance]
+        """
+        Describes the period to bill for upon accepting the quote.
+        """
+        billing_behavior: Optional[
+            Literal["prorate_on_next_phase", "prorate_up_front"]
+        ]
+        """
+        Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
+        """
+        billing_cycle_anchor: Optional[Literal["reset"]]
+        """
+        Whether the subscription will always start a new billing period when the quote is accepted.
+        """
         billing_mode: BillingMode
         """
         The billing mode of the quote.
@@ -351,15 +645,201 @@ class Quote(
         """
         When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. This date is ignored if it is in the past when the quote is accepted. Measured in seconds since the Unix epoch.
         """
+        end_behavior: Optional[Literal["cancel", "release"]]
+        """
+        Behavior of the subscription schedule and underlying subscription when it ends.
+        """
+        from_subscription: Optional[ExpandableField["Subscription"]]
+        """
+        The id of the subscription that will be updated when the quote is accepted.
+        """
         metadata: Optional[Dict[str, str]]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is accepted. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
+        """
+        prebilling: Optional[Prebilling]
+        """
+        If specified, the invoicing for the given billing cycle iterations will be processed when the quote is accepted. Cannot be used with `effective_date`.
+        """
+        proration_behavior: Optional[
+            Literal["always_invoice", "create_prorations", "none"]
+        ]
+        """
+        Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the quote is accepted.
         """
         trial_period_days: Optional[int]
         """
         Integer representing the number of trial period days before the customer is charged for the first time.
         """
-        _inner_class_types = {"billing_mode": BillingMode}
+        _inner_class_types = {
+            "bill_on_acceptance": BillOnAcceptance,
+            "billing_mode": BillingMode,
+            "prebilling": Prebilling,
+        }
+
+    class SubscriptionDataOverride(StripeObject):
+        class AppliesTo(StripeObject):
+            new_reference: Optional[str]
+            """
+            A custom string that identifies a new subscription schedule being created upon quote acceptance. All quote lines with the same `new_reference` field will be applied to the creation of a new subscription schedule.
+            """
+            subscription_schedule: Optional[str]
+            """
+            The ID of the schedule the line applies to.
+            """
+            type: Literal["new_reference", "subscription_schedule"]
+            """
+            Describes whether the quote line is affecting a new schedule or an existing schedule.
+            """
+
+        class BillOnAcceptance(StripeObject):
+            class BillFrom(StripeObject):
+                class LineStartsAt(StripeObject):
+                    id: str
+                    """
+                    Unique identifier for the object.
+                    """
+
+                computed: Optional[int]
+                """
+                The materialized time.
+                """
+                line_starts_at: Optional[LineStartsAt]
+                """
+                The timestamp the given line starts at.
+                """
+                timestamp: Optional[int]
+                """
+                A precise Unix timestamp.
+                """
+                type: Literal[
+                    "line_starts_at",
+                    "now",
+                    "pause_collection_start",
+                    "quote_acceptance_date",
+                    "timestamp",
+                ]
+                """
+                The type of method to specify the `bill_from` time.
+                """
+                _inner_class_types = {"line_starts_at": LineStartsAt}
+
+            class BillUntil(StripeObject):
+                class Duration(StripeObject):
+                    interval: Literal["day", "month", "week", "year"]
+                    """
+                    Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+                    """
+                    interval_count: int
+                    """
+                    The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+                    """
+
+                class LineEndsAt(StripeObject):
+                    id: str
+                    """
+                    Unique identifier for the object.
+                    """
+
+                computed: Optional[int]
+                """
+                The materialized time.
+                """
+                duration: Optional[Duration]
+                """
+                Time span for the quote line starting from the `starts_at` date.
+                """
+                line_ends_at: Optional[LineEndsAt]
+                """
+                The timestamp the given line ends at.
+                """
+                timestamp: Optional[int]
+                """
+                A precise Unix timestamp.
+                """
+                type: Literal[
+                    "duration",
+                    "line_ends_at",
+                    "schedule_end",
+                    "timestamp",
+                    "upcoming_invoice",
+                ]
+                """
+                The type of method to specify the `bill_until` time.
+                """
+                _inner_class_types = {
+                    "duration": Duration,
+                    "line_ends_at": LineEndsAt,
+                }
+
+            bill_from: Optional[BillFrom]
+            """
+            The start of the period to bill from when the Quote is accepted.
+            """
+            bill_until: Optional[BillUntil]
+            """
+            The end of the period to bill until when the Quote is accepted.
+            """
+            _inner_class_types = {
+                "bill_from": BillFrom,
+                "bill_until": BillUntil,
+            }
+
+        applies_to: AppliesTo
+        bill_on_acceptance: Optional[BillOnAcceptance]
+        """
+        Describes the period to bill for upon accepting the quote.
+        """
+        billing_behavior: Optional[
+            Literal["prorate_on_next_phase", "prorate_up_front"]
+        ]
+        """
+        Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
+        """
+        customer: Optional[str]
+        """
+        The customer which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed.
+        """
+        description: Optional[str]
+        """
+        The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
+        """
+        end_behavior: Optional[Literal["cancel", "release"]]
+        """
+        Behavior of the subscription schedule and underlying subscription when it ends.
+        """
+        proration_behavior: Optional[
+            Literal["always_invoice", "create_prorations", "none"]
+        ]
+        """
+        Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the quote is accepted.
+        """
+        _inner_class_types = {
+            "applies_to": AppliesTo,
+            "bill_on_acceptance": BillOnAcceptance,
+        }
+
+    class SubscriptionSchedule(StripeObject):
+        class AppliesTo(StripeObject):
+            new_reference: Optional[str]
+            """
+            A custom string that identifies a new subscription schedule being created upon quote acceptance. All quote lines with the same `new_reference` field will be applied to the creation of a new subscription schedule.
+            """
+            subscription_schedule: Optional[str]
+            """
+            The ID of the schedule the line applies to.
+            """
+            type: Literal["new_reference", "subscription_schedule"]
+            """
+            Describes whether the quote line is affecting a new schedule or an existing schedule.
+            """
+
+        applies_to: AppliesTo
+        subscription_schedule: str
+        """
+        The subscription schedule that was created or updated from this quote.
+        """
+        _inner_class_types = {"applies_to": AppliesTo}
 
     class TotalDetails(StripeObject):
         class Breakdown(StripeObject):
@@ -453,6 +933,10 @@ class Quote(
         The account where funds from the payment will be transferred to upon payment success.
         """
 
+    allow_backdated_lines: Optional[bool]
+    """
+    Allow quote lines to have `starts_at` in the past if collection is paused between `starts_at` and now.
+    """
     amount_subtotal: int
     """
     Total before any discounts or taxes are applied.
@@ -490,6 +974,10 @@ class Quote(
     customer: Optional[ExpandableField["Customer"]]
     """
     The customer which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed.
+    """
+    customer_account: Optional[str]
+    """
+    The account which this quote belongs to. A customer or account is required before finalizing the quote. Once specified, it cannot be changed.
     """
     default_tax_rates: Optional[List[ExpandableField["TaxRate"]]]
     """
@@ -532,6 +1020,10 @@ class Quote(
     """
     A list of items the customer is being quoted for.
     """
+    lines: Optional[List[str]]
+    """
+    A list of [quote lines](https://docs.stripe.com/api/quote_lines) on the quote. These lines describe changes, in the order provided, that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
+    """
     livemode: bool
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
@@ -552,9 +1044,15 @@ class Quote(
     """
     The account on behalf of which to charge. See the [Connect documentation](https://support.stripe.com/questions/sending-invoices-on-behalf-of-connected-accounts) for details.
     """
-    status: Literal["accepted", "canceled", "draft", "open"]
+    status: Literal[
+        "accepted", "accepting", "canceled", "draft", "open", "stale"
+    ]
     """
     The status of the quote.
+    """
+    status_details: Optional[StatusDetails]
+    """
+    Details on when and why a quote has been marked as stale or canceled.
     """
     status_transitions: StatusTransitions
     subscription: Optional[ExpandableField["Subscription"]]
@@ -562,9 +1060,19 @@ class Quote(
     The subscription that was created or updated from this quote.
     """
     subscription_data: SubscriptionData
-    subscription_schedule: Optional[ExpandableField["SubscriptionSchedule"]]
+    subscription_data_overrides: Optional[List[SubscriptionDataOverride]]
+    """
+    List representing overrides for `subscription_data` configurations for specific subscription schedules.
+    """
+    subscription_schedule: Optional[
+        ExpandableField["SubscriptionScheduleResource"]
+    ]
     """
     The subscription schedule that was created or updated from this quote.
+    """
+    subscription_schedules: Optional[List[SubscriptionSchedule]]
+    """
+    The subscription schedules that were created or updated from this quote.
     """
     test_clock: Optional[ExpandableField["TestClock"]]
     """
@@ -1179,6 +1687,460 @@ class Quote(
         )
 
     @classmethod
+    def _cls_list_lines(
+        cls, quote: str, **params: Unpack["QuoteListLinesParams"]
+    ) -> ListObject["QuoteLine"]:
+        """
+        Retrieves a paginated list of lines for a quote. These lines describe changes that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
+        """
+        return cast(
+            ListObject["QuoteLine"],
+            cls._static_request(
+                "get",
+                "/v1/quotes/{quote}/lines".format(quote=sanitize_id(quote)),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def list_lines(
+        quote: str, **params: Unpack["QuoteListLinesParams"]
+    ) -> ListObject["QuoteLine"]:
+        """
+        Retrieves a paginated list of lines for a quote. These lines describe changes that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
+        """
+        ...
+
+    @overload
+    def list_lines(
+        self, **params: Unpack["QuoteListLinesParams"]
+    ) -> ListObject["QuoteLine"]:
+        """
+        Retrieves a paginated list of lines for a quote. These lines describe changes that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
+        """
+        ...
+
+    @class_method_variant("_cls_list_lines")
+    def list_lines(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["QuoteListLinesParams"]
+    ) -> ListObject["QuoteLine"]:
+        """
+        Retrieves a paginated list of lines for a quote. These lines describe changes that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
+        """
+        return cast(
+            ListObject["QuoteLine"],
+            self._request(
+                "get",
+                "/v1/quotes/{quote}/lines".format(
+                    quote=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_list_lines_async(
+        cls, quote: str, **params: Unpack["QuoteListLinesParams"]
+    ) -> ListObject["QuoteLine"]:
+        """
+        Retrieves a paginated list of lines for a quote. These lines describe changes that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
+        """
+        return cast(
+            ListObject["QuoteLine"],
+            await cls._static_request_async(
+                "get",
+                "/v1/quotes/{quote}/lines".format(quote=sanitize_id(quote)),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def list_lines_async(
+        quote: str, **params: Unpack["QuoteListLinesParams"]
+    ) -> ListObject["QuoteLine"]:
+        """
+        Retrieves a paginated list of lines for a quote. These lines describe changes that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
+        """
+        ...
+
+    @overload
+    async def list_lines_async(
+        self, **params: Unpack["QuoteListLinesParams"]
+    ) -> ListObject["QuoteLine"]:
+        """
+        Retrieves a paginated list of lines for a quote. These lines describe changes that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
+        """
+        ...
+
+    @class_method_variant("_cls_list_lines_async")
+    async def list_lines_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["QuoteListLinesParams"]
+    ) -> ListObject["QuoteLine"]:
+        """
+        Retrieves a paginated list of lines for a quote. These lines describe changes that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
+        """
+        return cast(
+            ListObject["QuoteLine"],
+            await self._request_async(
+                "get",
+                "/v1/quotes/{quote}/lines".format(
+                    quote=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def _cls_list_preview_invoice_lines(
+        cls,
+        quote: str,
+        preview_invoice: str,
+        **params: Unpack["QuoteListPreviewInvoiceLinesParams"],
+    ) -> ListObject["InvoiceLineItem"]:
+        """
+        Preview the invoice line items that would be generated by accepting the quote.
+        """
+        return cast(
+            ListObject["InvoiceLineItem"],
+            cls._static_request(
+                "get",
+                "/v1/quotes/{quote}/preview_invoices/{preview_invoice}/lines".format(
+                    quote=sanitize_id(quote),
+                    preview_invoice=sanitize_id(preview_invoice),
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def list_preview_invoice_lines(
+        quote: str,
+        preview_invoice: str,
+        **params: Unpack["QuoteListPreviewInvoiceLinesParams"],
+    ) -> ListObject["InvoiceLineItem"]:
+        """
+        Preview the invoice line items that would be generated by accepting the quote.
+        """
+        ...
+
+    @overload
+    def list_preview_invoice_lines(
+        self,
+        preview_invoice: str,
+        **params: Unpack["QuoteListPreviewInvoiceLinesParams"],
+    ) -> ListObject["InvoiceLineItem"]:
+        """
+        Preview the invoice line items that would be generated by accepting the quote.
+        """
+        ...
+
+    @class_method_variant("_cls_list_preview_invoice_lines")
+    def list_preview_invoice_lines(  # pyright: ignore[reportGeneralTypeIssues]
+        self,
+        preview_invoice: str,
+        **params: Unpack["QuoteListPreviewInvoiceLinesParams"],
+    ) -> ListObject["InvoiceLineItem"]:
+        """
+        Preview the invoice line items that would be generated by accepting the quote.
+        """
+        return cast(
+            ListObject["InvoiceLineItem"],
+            self._request(
+                "get",
+                "/v1/quotes/{quote}/preview_invoices/{preview_invoice}/lines".format(
+                    quote=sanitize_id(self.get("id")),
+                    preview_invoice=sanitize_id(preview_invoice),
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_list_preview_invoice_lines_async(
+        cls,
+        quote: str,
+        preview_invoice: str,
+        **params: Unpack["QuoteListPreviewInvoiceLinesParams"],
+    ) -> ListObject["InvoiceLineItem"]:
+        """
+        Preview the invoice line items that would be generated by accepting the quote.
+        """
+        return cast(
+            ListObject["InvoiceLineItem"],
+            await cls._static_request_async(
+                "get",
+                "/v1/quotes/{quote}/preview_invoices/{preview_invoice}/lines".format(
+                    quote=sanitize_id(quote),
+                    preview_invoice=sanitize_id(preview_invoice),
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def list_preview_invoice_lines_async(
+        quote: str,
+        preview_invoice: str,
+        **params: Unpack["QuoteListPreviewInvoiceLinesParams"],
+    ) -> ListObject["InvoiceLineItem"]:
+        """
+        Preview the invoice line items that would be generated by accepting the quote.
+        """
+        ...
+
+    @overload
+    async def list_preview_invoice_lines_async(
+        self,
+        preview_invoice: str,
+        **params: Unpack["QuoteListPreviewInvoiceLinesParams"],
+    ) -> ListObject["InvoiceLineItem"]:
+        """
+        Preview the invoice line items that would be generated by accepting the quote.
+        """
+        ...
+
+    @class_method_variant("_cls_list_preview_invoice_lines_async")
+    async def list_preview_invoice_lines_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self,
+        preview_invoice: str,
+        **params: Unpack["QuoteListPreviewInvoiceLinesParams"],
+    ) -> ListObject["InvoiceLineItem"]:
+        """
+        Preview the invoice line items that would be generated by accepting the quote.
+        """
+        return cast(
+            ListObject["InvoiceLineItem"],
+            await self._request_async(
+                "get",
+                "/v1/quotes/{quote}/preview_invoices/{preview_invoice}/lines".format(
+                    quote=sanitize_id(self.get("id")),
+                    preview_invoice=sanitize_id(preview_invoice),
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def _cls_mark_draft(
+        cls, quote: str, **params: Unpack["QuoteMarkDraftParams"]
+    ) -> "Quote":
+        """
+        Converts a stale quote to draft.
+        """
+        return cast(
+            "Quote",
+            cls._static_request(
+                "post",
+                "/v1/quotes/{quote}/mark_draft".format(
+                    quote=sanitize_id(quote)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def mark_draft(
+        quote: str, **params: Unpack["QuoteMarkDraftParams"]
+    ) -> "Quote":
+        """
+        Converts a stale quote to draft.
+        """
+        ...
+
+    @overload
+    def mark_draft(self, **params: Unpack["QuoteMarkDraftParams"]) -> "Quote":
+        """
+        Converts a stale quote to draft.
+        """
+        ...
+
+    @class_method_variant("_cls_mark_draft")
+    def mark_draft(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["QuoteMarkDraftParams"]
+    ) -> "Quote":
+        """
+        Converts a stale quote to draft.
+        """
+        return cast(
+            "Quote",
+            self._request(
+                "post",
+                "/v1/quotes/{quote}/mark_draft".format(
+                    quote=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_mark_draft_async(
+        cls, quote: str, **params: Unpack["QuoteMarkDraftParams"]
+    ) -> "Quote":
+        """
+        Converts a stale quote to draft.
+        """
+        return cast(
+            "Quote",
+            await cls._static_request_async(
+                "post",
+                "/v1/quotes/{quote}/mark_draft".format(
+                    quote=sanitize_id(quote)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def mark_draft_async(
+        quote: str, **params: Unpack["QuoteMarkDraftParams"]
+    ) -> "Quote":
+        """
+        Converts a stale quote to draft.
+        """
+        ...
+
+    @overload
+    async def mark_draft_async(
+        self, **params: Unpack["QuoteMarkDraftParams"]
+    ) -> "Quote":
+        """
+        Converts a stale quote to draft.
+        """
+        ...
+
+    @class_method_variant("_cls_mark_draft_async")
+    async def mark_draft_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["QuoteMarkDraftParams"]
+    ) -> "Quote":
+        """
+        Converts a stale quote to draft.
+        """
+        return cast(
+            "Quote",
+            await self._request_async(
+                "post",
+                "/v1/quotes/{quote}/mark_draft".format(
+                    quote=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def _cls_mark_stale(
+        cls, quote: str, **params: Unpack["QuoteMarkStaleParams"]
+    ) -> "Quote":
+        """
+        Converts a draft or open quote to stale.
+        """
+        return cast(
+            "Quote",
+            cls._static_request(
+                "post",
+                "/v1/quotes/{quote}/mark_stale".format(
+                    quote=sanitize_id(quote)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def mark_stale(
+        quote: str, **params: Unpack["QuoteMarkStaleParams"]
+    ) -> "Quote":
+        """
+        Converts a draft or open quote to stale.
+        """
+        ...
+
+    @overload
+    def mark_stale(self, **params: Unpack["QuoteMarkStaleParams"]) -> "Quote":
+        """
+        Converts a draft or open quote to stale.
+        """
+        ...
+
+    @class_method_variant("_cls_mark_stale")
+    def mark_stale(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["QuoteMarkStaleParams"]
+    ) -> "Quote":
+        """
+        Converts a draft or open quote to stale.
+        """
+        return cast(
+            "Quote",
+            self._request(
+                "post",
+                "/v1/quotes/{quote}/mark_stale".format(
+                    quote=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_mark_stale_async(
+        cls, quote: str, **params: Unpack["QuoteMarkStaleParams"]
+    ) -> "Quote":
+        """
+        Converts a draft or open quote to stale.
+        """
+        return cast(
+            "Quote",
+            await cls._static_request_async(
+                "post",
+                "/v1/quotes/{quote}/mark_stale".format(
+                    quote=sanitize_id(quote)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def mark_stale_async(
+        quote: str, **params: Unpack["QuoteMarkStaleParams"]
+    ) -> "Quote":
+        """
+        Converts a draft or open quote to stale.
+        """
+        ...
+
+    @overload
+    async def mark_stale_async(
+        self, **params: Unpack["QuoteMarkStaleParams"]
+    ) -> "Quote":
+        """
+        Converts a draft or open quote to stale.
+        """
+        ...
+
+    @class_method_variant("_cls_mark_stale_async")
+    async def mark_stale_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["QuoteMarkStaleParams"]
+    ) -> "Quote":
+        """
+        Converts a draft or open quote to stale.
+        """
+        return cast(
+            "Quote",
+            await self._request_async(
+                "post",
+                "/v1/quotes/{quote}/mark_stale".format(
+                    quote=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def modify(cls, id: str, **params: Unpack["QuoteModifyParams"]) -> "Quote":
         """
         A quote models prices and services for a customer.
@@ -1311,6 +2273,114 @@ class Quote(
         )
 
     @classmethod
+    def _cls_reestimate(
+        cls, quote: str, **params: Unpack["QuoteReestimateParams"]
+    ) -> "Quote":
+        """
+        Recompute the upcoming invoice estimate for the quote.
+        """
+        return cast(
+            "Quote",
+            cls._static_request(
+                "post",
+                "/v1/quotes/{quote}/reestimate".format(
+                    quote=sanitize_id(quote)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def reestimate(
+        quote: str, **params: Unpack["QuoteReestimateParams"]
+    ) -> "Quote":
+        """
+        Recompute the upcoming invoice estimate for the quote.
+        """
+        ...
+
+    @overload
+    def reestimate(self, **params: Unpack["QuoteReestimateParams"]) -> "Quote":
+        """
+        Recompute the upcoming invoice estimate for the quote.
+        """
+        ...
+
+    @class_method_variant("_cls_reestimate")
+    def reestimate(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["QuoteReestimateParams"]
+    ) -> "Quote":
+        """
+        Recompute the upcoming invoice estimate for the quote.
+        """
+        return cast(
+            "Quote",
+            self._request(
+                "post",
+                "/v1/quotes/{quote}/reestimate".format(
+                    quote=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_reestimate_async(
+        cls, quote: str, **params: Unpack["QuoteReestimateParams"]
+    ) -> "Quote":
+        """
+        Recompute the upcoming invoice estimate for the quote.
+        """
+        return cast(
+            "Quote",
+            await cls._static_request_async(
+                "post",
+                "/v1/quotes/{quote}/reestimate".format(
+                    quote=sanitize_id(quote)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def reestimate_async(
+        quote: str, **params: Unpack["QuoteReestimateParams"]
+    ) -> "Quote":
+        """
+        Recompute the upcoming invoice estimate for the quote.
+        """
+        ...
+
+    @overload
+    async def reestimate_async(
+        self, **params: Unpack["QuoteReestimateParams"]
+    ) -> "Quote":
+        """
+        Recompute the upcoming invoice estimate for the quote.
+        """
+        ...
+
+    @class_method_variant("_cls_reestimate_async")
+    async def reestimate_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["QuoteReestimateParams"]
+    ) -> "Quote":
+        """
+        Recompute the upcoming invoice estimate for the quote.
+        """
+        return cast(
+            "Quote",
+            await self._request_async(
+                "post",
+                "/v1/quotes/{quote}/reestimate".format(
+                    quote=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["QuoteRetrieveParams"]
     ) -> "Quote":
@@ -1332,13 +2402,92 @@ class Quote(
         await instance.refresh_async()
         return instance
 
+    @classmethod
+    def list_preview_invoices(
+        cls, quote: str, **params: Unpack["QuoteListPreviewInvoicesParams"]
+    ) -> ListObject["QuotePreviewInvoice"]:
+        """
+        Preview the invoices that would be generated by accepting the quote.
+        """
+        return cast(
+            ListObject["QuotePreviewInvoice"],
+            cls._static_request(
+                "get",
+                "/v1/quotes/{quote}/preview_invoices".format(
+                    quote=sanitize_id(quote)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def list_preview_invoices_async(
+        cls, quote: str, **params: Unpack["QuoteListPreviewInvoicesParams"]
+    ) -> ListObject["QuotePreviewInvoice"]:
+        """
+        Preview the invoices that would be generated by accepting the quote.
+        """
+        return cast(
+            ListObject["QuotePreviewInvoice"],
+            await cls._static_request_async(
+                "get",
+                "/v1/quotes/{quote}/preview_invoices".format(
+                    quote=sanitize_id(quote)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def list_preview_subscription_schedules(
+        cls,
+        quote: str,
+        **params: Unpack["QuoteListPreviewSubscriptionSchedulesParams"],
+    ) -> ListObject["QuotePreviewSubscriptionSchedule"]:
+        """
+        Preview the schedules that would be generated by accepting the quote
+        """
+        return cast(
+            ListObject["QuotePreviewSubscriptionSchedule"],
+            cls._static_request(
+                "get",
+                "/v1/quotes/{quote}/preview_subscription_schedules".format(
+                    quote=sanitize_id(quote)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def list_preview_subscription_schedules_async(
+        cls,
+        quote: str,
+        **params: Unpack["QuoteListPreviewSubscriptionSchedulesParams"],
+    ) -> ListObject["QuotePreviewSubscriptionSchedule"]:
+        """
+        Preview the schedules that would be generated by accepting the quote
+        """
+        return cast(
+            ListObject["QuotePreviewSubscriptionSchedule"],
+            await cls._static_request_async(
+                "get",
+                "/v1/quotes/{quote}/preview_subscription_schedules".format(
+                    quote=sanitize_id(quote)
+                ),
+                params=params,
+            ),
+        )
+
     _inner_class_types = {
         "automatic_tax": AutomaticTax,
         "computed": Computed,
         "from_quote": FromQuote,
         "invoice_settings": InvoiceSettings,
+        "status_details": StatusDetails,
         "status_transitions": StatusTransitions,
         "subscription_data": SubscriptionData,
+        "subscription_data_overrides": SubscriptionDataOverride,
+        "subscription_schedules": SubscriptionSchedule,
         "total_details": TotalDetails,
         "transfer_data": TransferData,
     }

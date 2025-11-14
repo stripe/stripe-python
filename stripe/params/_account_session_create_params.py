@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from typing import List
-from typing_extensions import NotRequired, TypedDict
+from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class AccountSessionCreateParams(RequestOptions):
@@ -33,9 +33,43 @@ class AccountSessionCreateParamsComponents(TypedDict):
     """
     Configuration for the [account onboarding](https://docs.stripe.com/connect/supported-embedded-components/account-onboarding/) embedded component.
     """
+    app_install: NotRequired["AccountSessionCreateParamsComponentsAppInstall"]
+    """
+    Configuration for the [app install](https://docs.stripe.com/connect/supported-embedded-components/app-install/) embedded component.
+    """
+    app_viewport: NotRequired[
+        "AccountSessionCreateParamsComponentsAppViewport"
+    ]
+    """
+    Configuration for the [app viewport](https://docs.stripe.com/connect/supported-embedded-components/app-viewport/) embedded component.
+    """
     balances: NotRequired["AccountSessionCreateParamsComponentsBalances"]
     """
     Configuration for the [balances](https://docs.stripe.com/connect/supported-embedded-components/balances/) embedded component.
+    """
+    capital_financing: NotRequired[
+        "AccountSessionCreateParamsComponentsCapitalFinancing"
+    ]
+    """
+    Configuration for the [Capital financing](https://docs.stripe.com/connect/supported-embedded-components/capital-financing/) embedded component.
+    """
+    capital_financing_application: NotRequired[
+        "AccountSessionCreateParamsComponentsCapitalFinancingApplication"
+    ]
+    """
+    Configuration for the [Capital financing application](https://docs.stripe.com/connect/supported-embedded-components/capital-financing-application/) embedded component.
+    """
+    capital_financing_promotion: NotRequired[
+        "AccountSessionCreateParamsComponentsCapitalFinancingPromotion"
+    ]
+    """
+    Configuration for the [Capital financing promotion](https://docs.stripe.com/connect/supported-embedded-components/capital-financing-promotion/) embedded component.
+    """
+    capital_overview: NotRequired[
+        "AccountSessionCreateParamsComponentsCapitalOverview"
+    ]
+    """
+    Configuration for the [Capital overview](https://docs.stripe.com/connect/supported-embedded-components/capital-overview/) embedded component.
     """
     disputes_list: NotRequired[
         "AccountSessionCreateParamsComponentsDisputesList"
@@ -46,6 +80,12 @@ class AccountSessionCreateParamsComponents(TypedDict):
     documents: NotRequired["AccountSessionCreateParamsComponentsDocuments"]
     """
     Configuration for the [documents](https://docs.stripe.com/connect/supported-embedded-components/documents/) embedded component.
+    """
+    export_tax_transactions: NotRequired[
+        "AccountSessionCreateParamsComponentsExportTaxTransactions"
+    ]
+    """
+    Configuration for the [export tax transactions](https://docs.stripe.com/connect/supported-embedded-components/export-tax-transactions/) embedded component.
     """
     financial_account: NotRequired[
         "AccountSessionCreateParamsComponentsFinancialAccount"
@@ -95,6 +135,12 @@ class AccountSessionCreateParamsComponents(TypedDict):
     """
     Configuration for the [payment disputes](https://docs.stripe.com/connect/supported-embedded-components/payment-disputes/) embedded component.
     """
+    payment_method_settings: NotRequired[
+        "AccountSessionCreateParamsComponentsPaymentMethodSettings"
+    ]
+    """
+    Configuration for the [payment method settings](https://docs.stripe.com/connect/supported-embedded-components/payment-method-settings/) embedded component.
+    """
     payments: NotRequired["AccountSessionCreateParamsComponentsPayments"]
     """
     Configuration for the [payments](https://docs.stripe.com/connect/supported-embedded-components/payments/) embedded component.
@@ -115,6 +161,22 @@ class AccountSessionCreateParamsComponents(TypedDict):
     """
     Configuration for the [payouts list](https://docs.stripe.com/connect/supported-embedded-components/payouts-list/) embedded component.
     """
+    product_tax_code_selector: NotRequired[
+        "AccountSessionCreateParamsComponentsProductTaxCodeSelector"
+    ]
+    """
+    Configuration for the [product tax code selector](https://docs.stripe.com/connect/supported-embedded-components/product-tax-code-selector/) embedded component.
+    """
+    recipients: NotRequired["AccountSessionCreateParamsComponentsRecipients"]
+    """
+    Configuration for the [recipients](https://docs.stripe.com/connect/supported-embedded-components/recipients/) embedded component.
+    """
+    reporting_chart: NotRequired[
+        "AccountSessionCreateParamsComponentsReportingChart"
+    ]
+    """
+    Configuration for the [reporting chart](https://docs.stripe.com/connect/supported-embedded-components/reporting-chart/) embedded component.
+    """
     tax_registrations: NotRequired[
         "AccountSessionCreateParamsComponentsTaxRegistrations"
     ]
@@ -126,6 +188,12 @@ class AccountSessionCreateParamsComponents(TypedDict):
     ]
     """
     Configuration for the [tax settings](https://docs.stripe.com/connect/supported-embedded-components/tax-settings/) embedded component.
+    """
+    tax_threshold_monitoring: NotRequired[
+        "AccountSessionCreateParamsComponentsTaxThresholdMonitoring"
+    ]
+    """
+    Configuration for the [tax threshold monitoring](https://docs.stripe.com/connect/supported-embedded-components/tax-threshold-monitoring/) embedded component.
     """
 
 
@@ -177,6 +245,46 @@ class AccountSessionCreateParamsComponentsAccountOnboardingFeatures(TypedDict):
     """
 
 
+class AccountSessionCreateParamsComponentsAppInstall(TypedDict):
+    enabled: bool
+    """
+    Whether the embedded component is enabled.
+    """
+    features: NotRequired[
+        "AccountSessionCreateParamsComponentsAppInstallFeatures"
+    ]
+    """
+    The list of features enabled in the embedded component.
+    """
+
+
+class AccountSessionCreateParamsComponentsAppInstallFeatures(TypedDict):
+    allowed_apps: NotRequired["Literal['']|List[str]"]
+    """
+    The list of apps allowed to be enabled in the embedded component.
+    """
+
+
+class AccountSessionCreateParamsComponentsAppViewport(TypedDict):
+    enabled: bool
+    """
+    Whether the embedded component is enabled.
+    """
+    features: NotRequired[
+        "AccountSessionCreateParamsComponentsAppViewportFeatures"
+    ]
+    """
+    The list of features enabled in the embedded component.
+    """
+
+
+class AccountSessionCreateParamsComponentsAppViewportFeatures(TypedDict):
+    allowed_apps: NotRequired["Literal['']|List[str]"]
+    """
+    The list of apps allowed to be enabled in the embedded component.
+    """
+
+
 class AccountSessionCreateParamsComponentsBalances(TypedDict):
     enabled: bool
     """
@@ -211,6 +319,80 @@ class AccountSessionCreateParamsComponentsBalancesFeatures(TypedDict):
     """
     Whether to allow creation of standard payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
     """
+
+
+class AccountSessionCreateParamsComponentsCapitalFinancing(TypedDict):
+    enabled: bool
+    """
+    Whether the embedded component is enabled.
+    """
+    features: NotRequired[
+        "AccountSessionCreateParamsComponentsCapitalFinancingFeatures"
+    ]
+    """
+    An empty list, because this embedded component has no features.
+    """
+
+
+class AccountSessionCreateParamsComponentsCapitalFinancingFeatures(TypedDict):
+    pass
+
+
+class AccountSessionCreateParamsComponentsCapitalFinancingApplication(
+    TypedDict,
+):
+    enabled: bool
+    """
+    Whether the embedded component is enabled.
+    """
+    features: NotRequired[
+        "AccountSessionCreateParamsComponentsCapitalFinancingApplicationFeatures"
+    ]
+    """
+    An empty list, because this embedded component has no features.
+    """
+
+
+class AccountSessionCreateParamsComponentsCapitalFinancingApplicationFeatures(
+    TypedDict,
+):
+    pass
+
+
+class AccountSessionCreateParamsComponentsCapitalFinancingPromotion(TypedDict):
+    enabled: bool
+    """
+    Whether the embedded component is enabled.
+    """
+    features: NotRequired[
+        "AccountSessionCreateParamsComponentsCapitalFinancingPromotionFeatures"
+    ]
+    """
+    An empty list, because this embedded component has no features.
+    """
+
+
+class AccountSessionCreateParamsComponentsCapitalFinancingPromotionFeatures(
+    TypedDict,
+):
+    pass
+
+
+class AccountSessionCreateParamsComponentsCapitalOverview(TypedDict):
+    enabled: bool
+    """
+    Whether the embedded component is enabled.
+    """
+    features: NotRequired[
+        "AccountSessionCreateParamsComponentsCapitalOverviewFeatures"
+    ]
+    """
+    An empty list, because this embedded component has no features.
+    """
+
+
+class AccountSessionCreateParamsComponentsCapitalOverviewFeatures(TypedDict):
+    pass
 
 
 class AccountSessionCreateParamsComponentsDisputesList(TypedDict):
@@ -259,6 +441,25 @@ class AccountSessionCreateParamsComponentsDocuments(TypedDict):
 
 
 class AccountSessionCreateParamsComponentsDocumentsFeatures(TypedDict):
+    pass
+
+
+class AccountSessionCreateParamsComponentsExportTaxTransactions(TypedDict):
+    enabled: bool
+    """
+    Whether the embedded component is enabled.
+    """
+    features: NotRequired[
+        "AccountSessionCreateParamsComponentsExportTaxTransactionsFeatures"
+    ]
+    """
+    An empty list, because this embedded component has no features.
+    """
+
+
+class AccountSessionCreateParamsComponentsExportTaxTransactionsFeatures(
+    TypedDict,
+):
     pass
 
 
@@ -502,6 +703,25 @@ class AccountSessionCreateParamsComponentsPaymentDisputesFeatures(TypedDict):
     """
 
 
+class AccountSessionCreateParamsComponentsPaymentMethodSettings(TypedDict):
+    enabled: bool
+    """
+    Whether the embedded component is enabled.
+    """
+    features: NotRequired[
+        "AccountSessionCreateParamsComponentsPaymentMethodSettingsFeatures"
+    ]
+    """
+    An empty list, because this embedded component has no features.
+    """
+
+
+class AccountSessionCreateParamsComponentsPaymentMethodSettingsFeatures(
+    TypedDict,
+):
+    pass
+
+
 class AccountSessionCreateParamsComponentsPayments(TypedDict):
     enabled: bool
     """
@@ -604,6 +824,59 @@ class AccountSessionCreateParamsComponentsPayoutsListFeatures(TypedDict):
     pass
 
 
+class AccountSessionCreateParamsComponentsProductTaxCodeSelector(TypedDict):
+    enabled: bool
+    """
+    Whether the embedded component is enabled.
+    """
+    features: NotRequired[
+        "AccountSessionCreateParamsComponentsProductTaxCodeSelectorFeatures"
+    ]
+    """
+    An empty list, because this embedded component has no features.
+    """
+
+
+class AccountSessionCreateParamsComponentsProductTaxCodeSelectorFeatures(
+    TypedDict,
+):
+    pass
+
+
+class AccountSessionCreateParamsComponentsRecipients(TypedDict):
+    enabled: bool
+    """
+    Whether the embedded component is enabled.
+    """
+    features: NotRequired[
+        "AccountSessionCreateParamsComponentsRecipientsFeatures"
+    ]
+
+
+class AccountSessionCreateParamsComponentsRecipientsFeatures(TypedDict):
+    send_money: NotRequired[bool]
+    """
+    Whether to allow sending money.
+    """
+
+
+class AccountSessionCreateParamsComponentsReportingChart(TypedDict):
+    enabled: bool
+    """
+    Whether the embedded component is enabled.
+    """
+    features: NotRequired[
+        "AccountSessionCreateParamsComponentsReportingChartFeatures"
+    ]
+    """
+    An empty list, because this embedded component has no features.
+    """
+
+
+class AccountSessionCreateParamsComponentsReportingChartFeatures(TypedDict):
+    pass
+
+
 class AccountSessionCreateParamsComponentsTaxRegistrations(TypedDict):
     enabled: bool
     """
@@ -635,4 +908,23 @@ class AccountSessionCreateParamsComponentsTaxSettings(TypedDict):
 
 
 class AccountSessionCreateParamsComponentsTaxSettingsFeatures(TypedDict):
+    pass
+
+
+class AccountSessionCreateParamsComponentsTaxThresholdMonitoring(TypedDict):
+    enabled: bool
+    """
+    Whether the embedded component is enabled.
+    """
+    features: NotRequired[
+        "AccountSessionCreateParamsComponentsTaxThresholdMonitoringFeatures"
+    ]
+    """
+    An empty list, because this embedded component has no features.
+    """
+
+
+class AccountSessionCreateParamsComponentsTaxThresholdMonitoringFeatures(
+    TypedDict,
+):
     pass

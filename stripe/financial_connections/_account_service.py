@@ -10,6 +10,9 @@ if TYPE_CHECKING:
     from stripe._list_object import ListObject
     from stripe._request_options import RequestOptions
     from stripe.financial_connections._account import Account
+    from stripe.financial_connections._account_inferred_balance_service import (
+        AccountInferredBalanceService,
+    )
     from stripe.financial_connections._account_owner_service import (
         AccountOwnerService,
     )
@@ -33,6 +36,10 @@ if TYPE_CHECKING:
     )
 
 _subservices = {
+    "inferred_balances": [
+        "stripe.financial_connections._account_inferred_balance_service",
+        "AccountInferredBalanceService",
+    ],
     "owners": [
         "stripe.financial_connections._account_owner_service",
         "AccountOwnerService",
@@ -41,6 +48,7 @@ _subservices = {
 
 
 class AccountService(StripeService):
+    inferred_balances: "AccountInferredBalanceService"
     owners: "AccountOwnerService"
 
     def __init__(self, requestor):
@@ -239,7 +247,7 @@ class AccountService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Account":
         """
-        Subscribes to periodic refreshes of data associated with a Financial Connections Account.
+        Subscribes to periodic refreshes of data associated with a Financial Connections Account. When the account status is active, data is typically refreshed once a day.
         """
         return cast(
             "Account",
@@ -261,7 +269,7 @@ class AccountService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Account":
         """
-        Subscribes to periodic refreshes of data associated with a Financial Connections Account.
+        Subscribes to periodic refreshes of data associated with a Financial Connections Account. When the account status is active, data is typically refreshed once a day.
         """
         return cast(
             "Account",

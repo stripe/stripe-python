@@ -6,6 +6,9 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.financial_connections._account_service import AccountService
+    from stripe.financial_connections._institution_service import (
+        InstitutionService,
+    )
     from stripe.financial_connections._session_service import SessionService
     from stripe.financial_connections._transaction_service import (
         TransactionService,
@@ -15,6 +18,10 @@ _subservices = {
     "accounts": [
         "stripe.financial_connections._account_service",
         "AccountService",
+    ],
+    "institutions": [
+        "stripe.financial_connections._institution_service",
+        "InstitutionService",
     ],
     "sessions": [
         "stripe.financial_connections._session_service",
@@ -29,6 +36,7 @@ _subservices = {
 
 class FinancialConnectionsService(StripeService):
     accounts: "AccountService"
+    institutions: "InstitutionService"
     sessions: "SessionService"
     transactions: "TransactionService"
 

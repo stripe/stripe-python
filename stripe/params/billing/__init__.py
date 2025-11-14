@@ -4,6 +4,7 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.params.billing import analytics as analytics
     from stripe.params.billing._alert_activate_params import (
         AlertActivateParams as AlertActivateParams,
     )
@@ -102,6 +103,7 @@ if TYPE_CHECKING:
 
 # name -> (import_target, is_submodule)
 _import_map = {
+    "analytics": ("stripe.params.billing.analytics", True),
     "AlertActivateParams": (
         "stripe.params.billing._alert_activate_params",
         False,

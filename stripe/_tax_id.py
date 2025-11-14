@@ -47,6 +47,10 @@ class TaxId(
         """
         The customer being referenced when `type` is `customer`.
         """
+        customer_account: Optional[str]
+        """
+        The account being referenced when `type` is `customer`.
+        """
         type: Literal["account", "application", "customer", "self"]
         """
         Type of owner referenced.
@@ -77,6 +81,10 @@ class TaxId(
     customer: Optional[ExpandableField["Customer"]]
     """
     ID of the customer.
+    """
+    customer_account: Optional[str]
+    """
+    ID of the account.
     """
     deleted: Optional[Literal[True]]
     """

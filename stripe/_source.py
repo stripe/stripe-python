@@ -89,6 +89,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         address_line1_check: Optional[str]
         address_zip_check: Optional[str]
         brand: Optional[str]
+        brand_product: Optional[str]
         country: Optional[str]
         cvc_check: Optional[str]
         description: Optional[str]
@@ -110,6 +111,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         authorization_code: Optional[str]
         authorization_response_code: Optional[str]
         brand: Optional[str]
+        brand_product: Optional[str]
         country: Optional[str]
         cvm_type: Optional[str]
         data_type: Optional[str]
@@ -291,6 +293,17 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     class P24(StripeObject):
         reference: Optional[str]
 
+    class Paypal(StripeObject):
+        billing_agreement: Optional[str]
+        fingerprint: Optional[str]
+        payer_id: Optional[str]
+        reference_id: Optional[str]
+        reference_transaction_amount: Optional[str]
+        reference_transaction_charged: Optional[bool]
+        statement_descriptor: Optional[str]
+        transaction_id: Optional[str]
+        verified_email: Optional[str]
+
     class Receiver(StripeObject):
         address: Optional[str]
         """
@@ -463,6 +476,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         address_zip_check: Optional[str]
         authenticated: Optional[bool]
         brand: Optional[str]
+        brand_product: Optional[str]
         card: Optional[str]
         country: Optional[str]
         customer: Optional[str]
@@ -548,6 +562,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     Information about the owner of the payment instrument that may be used or required by particular source types.
     """
     p24: Optional[P24]
+    paypal: Optional[Paypal]
     receiver: Optional[Receiver]
     redirect: Optional[Redirect]
     sepa_credit_transfer: Optional[SepaCreditTransfer]
@@ -578,6 +593,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         "klarna",
         "multibanco",
         "p24",
+        "paypal",
         "sepa_credit_transfer",
         "sepa_debit",
         "sofort",
@@ -942,6 +958,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         "multibanco": Multibanco,
         "owner": Owner,
         "p24": P24,
+        "paypal": Paypal,
         "receiver": Receiver,
         "redirect": Redirect,
         "sepa_credit_transfer": SepaCreditTransfer,
