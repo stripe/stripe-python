@@ -44459,6 +44459,51 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
+    def test_v2_core_accounts_person_token_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/accounts/account_id_123/person_tokens",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.accounts.person_tokens.create("account_id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/accounts/account_id_123/person_tokens",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_core_accounts_person_token_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/core/accounts/account_id_123/person_tokens/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.accounts.person_tokens.retrieve(
+            "account_id_123",
+            "id_123",
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/core/accounts/account_id_123/person_tokens/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
     def test_v2_core_account_link_post_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -44504,6 +44549,271 @@ class TestGeneratedExamples(object):
             api_base="https://api.stripe.com",
             post_data='{"account":"account","use_case":{"type":"account_onboarding","account_onboarding":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"configurations":["storer"],"refresh_url":"refresh_url","return_url":"return_url"},"account_update":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"configurations":["storer"],"refresh_url":"refresh_url","return_url":"return_url"}}}',
             is_json=True,
+        )
+
+    def test_v2_core_account_token_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/account_tokens",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.account_tokens.create(
+            {
+                "identity": {
+                    "attestations": {
+                        "directorship_declaration": {"attested": True},
+                        "ownership_declaration": {"attested": True},
+                        "persons_provided": {
+                            "directors": True,
+                            "executives": True,
+                            "owners": True,
+                            "ownership_exemption_reason": "qualified_entity_exceeds_ownership_threshold",
+                        },
+                        "representative_declaration": {"attested": True},
+                        "terms_of_service": {
+                            "account": {"shown_and_accepted": True},
+                            "storer": {"shown_and_accepted": True},
+                        },
+                    },
+                    "business_details": {
+                        "address": {
+                            "city": "city",
+                            "country": "country",
+                            "line1": "line1",
+                            "line2": "line2",
+                            "postal_code": "postal_code",
+                            "state": "state",
+                            "town": "town",
+                        },
+                        "annual_revenue": {
+                            "amount": {"currency": "USD", "value": 96},
+                            "fiscal_year_end": "fiscal_year_end",
+                        },
+                        "documents": {
+                            "bank_account_ownership_verification": {
+                                "files": ["files"],
+                                "type": "files",
+                            },
+                            "company_license": {
+                                "files": ["files"],
+                                "type": "files",
+                            },
+                            "company_memorandum_of_association": {
+                                "files": ["files"],
+                                "type": "files",
+                            },
+                            "company_ministerial_decree": {
+                                "files": ["files"],
+                                "type": "files",
+                            },
+                            "company_registration_verification": {
+                                "files": ["files"],
+                                "type": "files",
+                            },
+                            "company_tax_id_verification": {
+                                "files": ["files"],
+                                "type": "files",
+                            },
+                            "primary_verification": {
+                                "front_back": {
+                                    "back": "back",
+                                    "front": "front",
+                                },
+                                "type": "front_back",
+                            },
+                            "proof_of_address": {
+                                "files": ["files"],
+                                "type": "files",
+                            },
+                            "proof_of_registration": {
+                                "files": ["files"],
+                                "type": "files",
+                            },
+                            "proof_of_ultimate_beneficial_ownership": {
+                                "files": ["files"],
+                                "type": "files",
+                            },
+                        },
+                        "estimated_worker_count": 884794319,
+                        "id_numbers": [
+                            {
+                                "registrar": "registrar",
+                                "type": "th_prn",
+                                "value": "value",
+                            },
+                        ],
+                        "monthly_estimated_revenue": {
+                            "amount": {"currency": "USD", "value": 96},
+                        },
+                        "phone": "phone",
+                        "registered_name": "registered_name",
+                        "script_addresses": {
+                            "kana": {
+                                "city": "city",
+                                "country": "country",
+                                "line1": "line1",
+                                "line2": "line2",
+                                "postal_code": "postal_code",
+                                "state": "state",
+                                "town": "town",
+                            },
+                            "kanji": {
+                                "city": "city",
+                                "country": "country",
+                                "line1": "line1",
+                                "line2": "line2",
+                                "postal_code": "postal_code",
+                                "state": "state",
+                                "town": "town",
+                            },
+                        },
+                        "script_names": {
+                            "kana": {"registered_name": "registered_name"},
+                            "kanji": {"registered_name": "registered_name"},
+                        },
+                        "structure": "public_listed_corporation",
+                    },
+                    "entity_type": "individual",
+                    "individual": {
+                        "additional_addresses": [
+                            {
+                                "city": "city",
+                                "country": "country",
+                                "line1": "line1",
+                                "line2": "line2",
+                                "postal_code": "postal_code",
+                                "purpose": "registered",
+                                "state": "state",
+                                "town": "town",
+                            },
+                        ],
+                        "additional_names": [
+                            {
+                                "full_name": "full_name",
+                                "given_name": "given_name",
+                                "purpose": "alias",
+                                "surname": "surname",
+                            },
+                        ],
+                        "address": {
+                            "city": "city",
+                            "country": "country",
+                            "line1": "line1",
+                            "line2": "line2",
+                            "postal_code": "postal_code",
+                            "state": "state",
+                            "town": "town",
+                        },
+                        "date_of_birth": {
+                            "day": 99228,
+                            "month": 104080000,
+                            "year": 3704893,
+                        },
+                        "documents": {
+                            "company_authorization": {
+                                "files": ["files"],
+                                "type": "files",
+                            },
+                            "passport": {"files": ["files"], "type": "files"},
+                            "primary_verification": {
+                                "front_back": {
+                                    "back": "back",
+                                    "front": "front",
+                                },
+                                "type": "front_back",
+                            },
+                            "secondary_verification": {
+                                "front_back": {
+                                    "back": "back",
+                                    "front": "front",
+                                },
+                                "type": "front_back",
+                            },
+                            "visa": {"files": ["files"], "type": "files"},
+                        },
+                        "email": "email",
+                        "given_name": "given_name",
+                        "id_numbers": [{"type": "th_lc", "value": "value"}],
+                        "legal_gender": "male",
+                        "metadata": {"key": "metadata"},
+                        "nationalities": ["nationalities"],
+                        "phone": "phone",
+                        "political_exposure": "none",
+                        "relationship": {
+                            "director": True,
+                            "executive": True,
+                            "owner": True,
+                            "percent_ownership": "percent_ownership",
+                            "title": "title",
+                        },
+                        "script_addresses": {
+                            "kana": {
+                                "city": "city",
+                                "country": "country",
+                                "line1": "line1",
+                                "line2": "line2",
+                                "postal_code": "postal_code",
+                                "state": "state",
+                                "town": "town",
+                            },
+                            "kanji": {
+                                "city": "city",
+                                "country": "country",
+                                "line1": "line1",
+                                "line2": "line2",
+                                "postal_code": "postal_code",
+                                "state": "state",
+                                "town": "town",
+                            },
+                        },
+                        "script_names": {
+                            "kana": {
+                                "given_name": "given_name",
+                                "surname": "surname",
+                            },
+                            "kanji": {
+                                "given_name": "given_name",
+                                "surname": "surname",
+                            },
+                        },
+                        "surname": "surname",
+                    },
+                },
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/account_tokens",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"identity":{"attestations":{"directorship_declaration":{"attested":true},"ownership_declaration":{"attested":true},"persons_provided":{"directors":true,"executives":true,"owners":true,"ownership_exemption_reason":"qualified_entity_exceeds_ownership_threshold"},"representative_declaration":{"attested":true},"terms_of_service":{"account":{"shown_and_accepted":true},"storer":{"shown_and_accepted":true}}},"business_details":{"address":{"city":"city","country":"country","line1":"line1","line2":"line2","postal_code":"postal_code","state":"state","town":"town"},"annual_revenue":{"amount":{"currency":"USD","value":96},"fiscal_year_end":"fiscal_year_end"},"documents":{"bank_account_ownership_verification":{"files":["files"],"type":"files"},"company_license":{"files":["files"],"type":"files"},"company_memorandum_of_association":{"files":["files"],"type":"files"},"company_ministerial_decree":{"files":["files"],"type":"files"},"company_registration_verification":{"files":["files"],"type":"files"},"company_tax_id_verification":{"files":["files"],"type":"files"},"primary_verification":{"front_back":{"back":"back","front":"front"},"type":"front_back"},"proof_of_address":{"files":["files"],"type":"files"},"proof_of_registration":{"files":["files"],"type":"files"},"proof_of_ultimate_beneficial_ownership":{"files":["files"],"type":"files"}},"estimated_worker_count":884794319,"id_numbers":[{"registrar":"registrar","type":"th_prn","value":"value"}],"monthly_estimated_revenue":{"amount":{"currency":"USD","value":96}},"phone":"phone","registered_name":"registered_name","script_addresses":{"kana":{"city":"city","country":"country","line1":"line1","line2":"line2","postal_code":"postal_code","state":"state","town":"town"},"kanji":{"city":"city","country":"country","line1":"line1","line2":"line2","postal_code":"postal_code","state":"state","town":"town"}},"script_names":{"kana":{"registered_name":"registered_name"},"kanji":{"registered_name":"registered_name"}},"structure":"public_listed_corporation"},"entity_type":"individual","individual":{"additional_addresses":[{"city":"city","country":"country","line1":"line1","line2":"line2","postal_code":"postal_code","purpose":"registered","state":"state","town":"town"}],"additional_names":[{"full_name":"full_name","given_name":"given_name","purpose":"alias","surname":"surname"}],"address":{"city":"city","country":"country","line1":"line1","line2":"line2","postal_code":"postal_code","state":"state","town":"town"},"date_of_birth":{"day":99228,"month":104080000,"year":3704893},"documents":{"company_authorization":{"files":["files"],"type":"files"},"passport":{"files":["files"],"type":"files"},"primary_verification":{"front_back":{"back":"back","front":"front"},"type":"front_back"},"secondary_verification":{"front_back":{"back":"back","front":"front"},"type":"front_back"},"visa":{"files":["files"],"type":"files"}},"email":"email","given_name":"given_name","id_numbers":[{"type":"th_lc","value":"value"}],"legal_gender":"male","metadata":{"key":"metadata"},"nationalities":["nationalities"],"phone":"phone","political_exposure":"none","relationship":{"director":true,"executive":true,"owner":true,"percent_ownership":"percent_ownership","title":"title"},"script_addresses":{"kana":{"city":"city","country":"country","line1":"line1","line2":"line2","postal_code":"postal_code","state":"state","town":"town"},"kanji":{"city":"city","country":"country","line1":"line1","line2":"line2","postal_code":"postal_code","state":"state","town":"town"}},"script_names":{"kana":{"given_name":"given_name","surname":"surname"},"kanji":{"given_name":"given_name","surname":"surname"}},"surname":"surname"}}}',
+            is_json=True,
+        )
+
+    def test_v2_core_account_token_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/core/account_tokens/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.account_tokens.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/core/account_tokens/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_v2_core_event_get_service(
@@ -45918,123 +46228,6 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/transaction_entries/id_123",
             query_string="",
             api_base="https://api.stripe.com",
-        )
-
-    def test_v2_payments_off_session_payment_get_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "get",
-            "/v2/payments/off_session_payments",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.v2.payments.off_session_payments.list()
-        http_client_mock.assert_requested(
-            "get",
-            path="/v2/payments/off_session_payments",
-            query_string="",
-            api_base="https://api.stripe.com",
-        )
-
-    def test_v2_payments_off_session_payment_post_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "post",
-            "/v2/payments/off_session_payments",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.v2.payments.off_session_payments.create(
-            {
-                "amount": {"currency": "USD", "value": 96},
-                "cadence": "unscheduled",
-                "customer": "customer",
-                "metadata": {"key": "metadata"},
-                "payment_method": "payment_method",
-            }
-        )
-        http_client_mock.assert_requested(
-            "post",
-            path="/v2/payments/off_session_payments",
-            query_string="",
-            api_base="https://api.stripe.com",
-            post_data='{"amount":{"currency":"USD","value":96},"cadence":"unscheduled","customer":"customer","metadata":{"key":"metadata"},"payment_method":"payment_method"}',
-            is_json=True,
-        )
-
-    def test_v2_payments_off_session_payment_get_2_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "get",
-            "/v2/payments/off_session_payments/id_123",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.v2.payments.off_session_payments.retrieve("id_123")
-        http_client_mock.assert_requested(
-            "get",
-            path="/v2/payments/off_session_payments/id_123",
-            query_string="",
-            api_base="https://api.stripe.com",
-        )
-
-    def test_v2_payments_off_session_payment_post_2_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "post",
-            "/v2/payments/off_session_payments/id_123/cancel",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.v2.payments.off_session_payments.cancel("id_123")
-        http_client_mock.assert_requested(
-            "post",
-            path="/v2/payments/off_session_payments/id_123/cancel",
-            query_string="",
-            api_base="https://api.stripe.com",
-            post_data="{}",
-            is_json=True,
-        )
-
-    def test_v2_payments_off_session_payment_post_3_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "post",
-            "/v2/payments/off_session_payments/id_123/capture",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.v2.payments.off_session_payments.capture(
-            "id_123",
-            {"metadata": {"key": "metadata"}},
-        )
-        http_client_mock.assert_requested(
-            "post",
-            path="/v2/payments/off_session_payments/id_123/capture",
-            query_string="",
-            api_base="https://api.stripe.com",
-            post_data='{"metadata":{"key":"metadata"}}',
-            is_json=True,
         )
 
     def test_v2_test_helpers_financial_address_post_service(
