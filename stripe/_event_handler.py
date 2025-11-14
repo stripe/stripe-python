@@ -34,8 +34,12 @@ class EventHandler:
         self._registered_handlers = {}
         self._client = client
         self._webhook_secret = webhook_secret
+        # once this is true, adding additional handlers results in an error
+        self._has_handled_events = False
 
     def handle(self, webhook_body: str, sig_header: str):
+        self._has_handled_events = True
+
         event_notif = self._client.parse_event_notification(
             webhook_body, sig_header, self._webhook_secret
         )
@@ -51,6 +55,9 @@ class EventHandler:
                 self._registered_handlers[event_notif.type](
                     event_notif, self._client
                 )
+            # TODO: make sure this handles known-but-unregistered event types correctly; it should throw?
+            # though, does that make migrations harder? Suddenly events are going to a new callback (potentially erroring) when they went to the catchall before
+            # but in languages that care about types, the event won't come through as UnknownEventNotification, so we might have to do some casting??
             elif UNKNOWN_EVENT_TYPE_KEY in self._registered_handlers:
                 self._registered_handlers[UNKNOWN_EVENT_TYPE_KEY](
                     event_notif, self._client
@@ -68,12 +75,18 @@ class EventHandler:
         event_type: str,
         func: "Callable[[EventNotificationChild, StripeClient], None]",
     ) -> None:
+        if self._has_handled_events:
+            raise RuntimeError(
+                "Cannot register new event handlers after .handle() has been called. This is indicative of a bug."
+            )
         if event_type in self._registered_handlers:
-            raise ValueError(f'Handler for "{event_type}" already registered.')
+            raise ValueError(
+                f'Handler for event type "{event_type}" already registered.'
+            )
 
         self._registered_handlers[event_type] = func
 
-    def on_UknownEventNotification(
+    def on_UnknownEventNotification(
         self, func: "Callable[[UnknownEventNotification, StripeClient], None]"
     ) -> None:
         """
