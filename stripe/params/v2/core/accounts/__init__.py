@@ -38,6 +38,34 @@ if TYPE_CHECKING:
     from stripe.params.v2.core.accounts._person_retrieve_params import (
         PersonRetrieveParams as PersonRetrieveParams,
     )
+    from stripe.params.v2.core.accounts._person_token_create_params import (
+        PersonTokenCreateParams as PersonTokenCreateParams,
+        PersonTokenCreateParamsAdditionalAddress as PersonTokenCreateParamsAdditionalAddress,
+        PersonTokenCreateParamsAdditionalName as PersonTokenCreateParamsAdditionalName,
+        PersonTokenCreateParamsAdditionalTermsOfService as PersonTokenCreateParamsAdditionalTermsOfService,
+        PersonTokenCreateParamsAdditionalTermsOfServiceAccount as PersonTokenCreateParamsAdditionalTermsOfServiceAccount,
+        PersonTokenCreateParamsAddress as PersonTokenCreateParamsAddress,
+        PersonTokenCreateParamsDateOfBirth as PersonTokenCreateParamsDateOfBirth,
+        PersonTokenCreateParamsDocuments as PersonTokenCreateParamsDocuments,
+        PersonTokenCreateParamsDocumentsCompanyAuthorization as PersonTokenCreateParamsDocumentsCompanyAuthorization,
+        PersonTokenCreateParamsDocumentsPassport as PersonTokenCreateParamsDocumentsPassport,
+        PersonTokenCreateParamsDocumentsPrimaryVerification as PersonTokenCreateParamsDocumentsPrimaryVerification,
+        PersonTokenCreateParamsDocumentsPrimaryVerificationFrontBack as PersonTokenCreateParamsDocumentsPrimaryVerificationFrontBack,
+        PersonTokenCreateParamsDocumentsSecondaryVerification as PersonTokenCreateParamsDocumentsSecondaryVerification,
+        PersonTokenCreateParamsDocumentsSecondaryVerificationFrontBack as PersonTokenCreateParamsDocumentsSecondaryVerificationFrontBack,
+        PersonTokenCreateParamsDocumentsVisa as PersonTokenCreateParamsDocumentsVisa,
+        PersonTokenCreateParamsIdNumber as PersonTokenCreateParamsIdNumber,
+        PersonTokenCreateParamsRelationship as PersonTokenCreateParamsRelationship,
+        PersonTokenCreateParamsScriptAddresses as PersonTokenCreateParamsScriptAddresses,
+        PersonTokenCreateParamsScriptAddressesKana as PersonTokenCreateParamsScriptAddressesKana,
+        PersonTokenCreateParamsScriptAddressesKanji as PersonTokenCreateParamsScriptAddressesKanji,
+        PersonTokenCreateParamsScriptNames as PersonTokenCreateParamsScriptNames,
+        PersonTokenCreateParamsScriptNamesKana as PersonTokenCreateParamsScriptNamesKana,
+        PersonTokenCreateParamsScriptNamesKanji as PersonTokenCreateParamsScriptNamesKanji,
+    )
+    from stripe.params.v2.core.accounts._person_token_retrieve_params import (
+        PersonTokenRetrieveParams as PersonTokenRetrieveParams,
+    )
     from stripe.params.v2.core.accounts._person_update_params import (
         PersonUpdateParams as PersonUpdateParams,
         PersonUpdateParamsAdditionalAddress as PersonUpdateParamsAdditionalAddress,
@@ -168,6 +196,102 @@ _import_map = {
     ),
     "PersonRetrieveParams": (
         "stripe.params.v2.core.accounts._person_retrieve_params",
+        False,
+    ),
+    "PersonTokenCreateParams": (
+        "stripe.params.v2.core.accounts._person_token_create_params",
+        False,
+    ),
+    "PersonTokenCreateParamsAdditionalAddress": (
+        "stripe.params.v2.core.accounts._person_token_create_params",
+        False,
+    ),
+    "PersonTokenCreateParamsAdditionalName": (
+        "stripe.params.v2.core.accounts._person_token_create_params",
+        False,
+    ),
+    "PersonTokenCreateParamsAdditionalTermsOfService": (
+        "stripe.params.v2.core.accounts._person_token_create_params",
+        False,
+    ),
+    "PersonTokenCreateParamsAdditionalTermsOfServiceAccount": (
+        "stripe.params.v2.core.accounts._person_token_create_params",
+        False,
+    ),
+    "PersonTokenCreateParamsAddress": (
+        "stripe.params.v2.core.accounts._person_token_create_params",
+        False,
+    ),
+    "PersonTokenCreateParamsDateOfBirth": (
+        "stripe.params.v2.core.accounts._person_token_create_params",
+        False,
+    ),
+    "PersonTokenCreateParamsDocuments": (
+        "stripe.params.v2.core.accounts._person_token_create_params",
+        False,
+    ),
+    "PersonTokenCreateParamsDocumentsCompanyAuthorization": (
+        "stripe.params.v2.core.accounts._person_token_create_params",
+        False,
+    ),
+    "PersonTokenCreateParamsDocumentsPassport": (
+        "stripe.params.v2.core.accounts._person_token_create_params",
+        False,
+    ),
+    "PersonTokenCreateParamsDocumentsPrimaryVerification": (
+        "stripe.params.v2.core.accounts._person_token_create_params",
+        False,
+    ),
+    "PersonTokenCreateParamsDocumentsPrimaryVerificationFrontBack": (
+        "stripe.params.v2.core.accounts._person_token_create_params",
+        False,
+    ),
+    "PersonTokenCreateParamsDocumentsSecondaryVerification": (
+        "stripe.params.v2.core.accounts._person_token_create_params",
+        False,
+    ),
+    "PersonTokenCreateParamsDocumentsSecondaryVerificationFrontBack": (
+        "stripe.params.v2.core.accounts._person_token_create_params",
+        False,
+    ),
+    "PersonTokenCreateParamsDocumentsVisa": (
+        "stripe.params.v2.core.accounts._person_token_create_params",
+        False,
+    ),
+    "PersonTokenCreateParamsIdNumber": (
+        "stripe.params.v2.core.accounts._person_token_create_params",
+        False,
+    ),
+    "PersonTokenCreateParamsRelationship": (
+        "stripe.params.v2.core.accounts._person_token_create_params",
+        False,
+    ),
+    "PersonTokenCreateParamsScriptAddresses": (
+        "stripe.params.v2.core.accounts._person_token_create_params",
+        False,
+    ),
+    "PersonTokenCreateParamsScriptAddressesKana": (
+        "stripe.params.v2.core.accounts._person_token_create_params",
+        False,
+    ),
+    "PersonTokenCreateParamsScriptAddressesKanji": (
+        "stripe.params.v2.core.accounts._person_token_create_params",
+        False,
+    ),
+    "PersonTokenCreateParamsScriptNames": (
+        "stripe.params.v2.core.accounts._person_token_create_params",
+        False,
+    ),
+    "PersonTokenCreateParamsScriptNamesKana": (
+        "stripe.params.v2.core.accounts._person_token_create_params",
+        False,
+    ),
+    "PersonTokenCreateParamsScriptNamesKanji": (
+        "stripe.params.v2.core.accounts._person_token_create_params",
+        False,
+    ),
+    "PersonTokenRetrieveParams": (
+        "stripe.params.v2.core.accounts._person_token_retrieve_params",
         False,
     ),
     "PersonUpdateParams": (

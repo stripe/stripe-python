@@ -6,6 +6,10 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class InvoicePaymentListParams(RequestOptions):
+    created: NotRequired["InvoicePaymentListParamsCreated|int"]
+    """
+    Only return invoice payments that were created during the given date interval.
+    """
     ending_before: NotRequired[str]
     """
     A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -33,6 +37,25 @@ class InvoicePaymentListParams(RequestOptions):
     status: NotRequired[Literal["canceled", "open", "paid"]]
     """
     The status of the invoice payments to return.
+    """
+
+
+class InvoicePaymentListParamsCreated(TypedDict):
+    gt: NotRequired[int]
+    """
+    Minimum value to filter by (exclusive)
+    """
+    gte: NotRequired[int]
+    """
+    Minimum value to filter by (inclusive)
+    """
+    lt: NotRequired[int]
+    """
+    Maximum value to filter by (exclusive)
+    """
+    lte: NotRequired[int]
+    """
+    Maximum value to filter by (inclusive)
     """
 
 

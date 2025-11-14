@@ -92,9 +92,7 @@ class FinancialAddress(StripeObject):
         """
         The credentials of the SEPA Bank Account for the FinancialAddress. This contains unique banking details such as the IBAN, BIC, etc. of a SEPA bank account.
         """
-        type: Literal[
-            "gb_bank_account", "sepa_bank_account", "us_bank_account"
-        ]
+        type: Literal["gb_bank_account", "us_bank_account"]
         """
         Open Enum. The type of Credentials that are provisioned for the FinancialAddress.
         """

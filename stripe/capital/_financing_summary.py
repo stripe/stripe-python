@@ -30,16 +30,16 @@ class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
             """
             paid_amount: Optional[int]
             """
-            The amount that has already been paid in the current repayment interval, in minor units. For example, $100 USD will be represented as 10000.
+            The amount that has already been paid in the current repayment interval, in minor units. For example, 100 USD is represented as 10000.
             """
             remaining_amount: int
             """
-            The amount that is yet to be paid in the current repayment interval, in minor units. For example, $100 USD will be represented as 10000.
+            The amount that is yet to be paid in the current repayment interval, in minor units. For example, 100 USD is represented as 10000.
             """
 
         advance_amount: int
         """
-        Amount of financing offered, in minor units. For example, $1,000 USD will be represented as 100000.
+        Amount of financing offered, in minor units. For example, 1,000 USD is represented as 100000.
         """
         advance_paid_out_at: Optional[float]
         """
@@ -55,15 +55,15 @@ class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
         """
         fee_amount: int
         """
-        Fixed fee amount, in minor units. For example, $100 USD will be represented as 10000.
+        Fixed fee amount, in minor units. For example, 100 USD is represented as 10000.
         """
         paid_amount: int
         """
-        The amount the Connected account has paid toward the financing debt so far, in minor units. For example, $1,000 USD will be represented as 100000.
+        The amount the Connected account has paid toward the financing debt so far, in minor units. For example, 1,000 USD is represented as 100000.
         """
         remaining_amount: int
         """
-        The balance remaining to be paid on the financing, in minor units. For example, $1,000 USD will be represented as 100000.
+        The balance remaining to be paid on the financing, in minor units. For example, 1,000 USD is represented as 100000.
         """
         repayments_begin_at: Optional[float]
         """
@@ -71,7 +71,7 @@ class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
         """
         withhold_rate: float
         """
-        Per-transaction rate at which Stripe will withhold funds to repay the financing.
+        Per-transaction rate at which Stripe withholds funds to repay the financing.
         """
         _inner_class_types = {
             "current_repayment_interval": CurrentRepaymentInterval,

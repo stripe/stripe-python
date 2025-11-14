@@ -183,6 +183,10 @@ class Account(
         """
         Internal-only description of the product sold or service provided by the business. It's used by Stripe for risk and underwriting purposes.
         """
+        specified_commercial_transactions_act_url: Optional[str]
+        """
+        A link to the business's publicly available terms related to the Specified Commercial Transaction Act. Only used for accounts in Japan.
+        """
         support_address: Optional[SupportAddress]
         """
         A publicly available mailing address for sending support issues to.
@@ -1487,6 +1491,12 @@ class Account(
             """
             _inner_class_types = {"schedule": Schedule}
 
+        class PaypayPayments(StripeObject):
+            goods_type: Optional[Literal["digital_content", "other"]]
+            """
+            Whether your business sells digital content or not.
+            """
+
         class SepaDebitPayments(StripeObject):
             creditor_id: Optional[str]
             """
@@ -1527,6 +1537,7 @@ class Account(
         invoices: Optional[Invoices]
         payments: Payments
         payouts: Optional[Payouts]
+        paypay_payments: Optional[PaypayPayments]
         sepa_debit_payments: Optional[SepaDebitPayments]
         tax_forms: Optional[TaxForms]
         treasury: Optional[Treasury]
@@ -1541,6 +1552,7 @@ class Account(
             "invoices": Invoices,
             "payments": Payments,
             "payouts": Payouts,
+            "paypay_payments": PaypayPayments,
             "sepa_debit_payments": SepaDebitPayments,
             "tax_forms": TaxForms,
             "treasury": Treasury,

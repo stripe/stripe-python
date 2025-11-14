@@ -417,6 +417,11 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.v2.core._account_person",
         "AccountPerson",
     ),
+    "v2.core.account_person_token": (
+        "stripe.v2.core._account_person_token",
+        "AccountPersonToken",
+    ),
+    "v2.core.account_token": ("stripe.v2.core._account_token", "AccountToken"),
     "v2.core.event": ("stripe.v2.core._event", "Event"),
     "v2.core.event_destination": (
         "stripe.v2.core._event_destination",
@@ -493,10 +498,6 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     "v2.money_management.transaction_entry": (
         "stripe.v2.money_management._transaction_entry",
         "TransactionEntry",
-    ),
-    "v2.payments.off_session_payment": (
-        "stripe.v2.payments._off_session_payment",
-        "OffSessionPayment",
     ),
     # V2 Object classes: The end of the section generated from our OpenAPI spec
 }

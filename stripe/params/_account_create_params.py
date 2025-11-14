@@ -140,6 +140,10 @@ class AccountCreateParamsBusinessProfile(TypedDict):
     """
     Internal-only description of the product sold by, or service provided by, the business. Used by Stripe for risk and underwriting purposes.
     """
+    specified_commercial_transactions_act_url: NotRequired["Literal['']|str"]
+    """
+    A link to the business's publicly available terms related to the Specified Commercial Transaction Act. Used by the Checkout product and for Japanese payment methods.
+    """
     support_address: NotRequired[
         "AccountCreateParamsBusinessProfileSupportAddress"
     ]
@@ -2020,6 +2024,10 @@ class AccountCreateParamsSettings(TypedDict):
     """
     Settings specific to the account's payouts.
     """
+    paypay_payments: NotRequired["AccountCreateParamsSettingsPaypayPayments"]
+    """
+    Settings specific to the PayPay payments method.
+    """
     tax_forms: NotRequired["AccountCreateParamsSettingsTaxForms"]
     """
     Settings specific to the account's tax forms.
@@ -2207,6 +2215,13 @@ class AccountCreateParamsSettingsPayoutsSchedule(TypedDict):
     ]
     """
     The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. Required and applicable only if `interval` is `weekly`.
+    """
+
+
+class AccountCreateParamsSettingsPaypayPayments(TypedDict):
+    goods_type: NotRequired[Literal["digital_content", "other"]]
+    """
+    Whether your business sells digital content or not.
     """
 
 
