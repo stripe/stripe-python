@@ -19,7 +19,7 @@ class MultipartDataGenerator(object):
     def add_params(self, params):
         # Flatten parameters first
 
-        params = dict(_api_encode(params, "V1"))
+        params = dict(_api_encode(params))
 
         for key, value in params.items():
             if value is None:

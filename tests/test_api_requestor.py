@@ -220,7 +220,7 @@ class TestAPIRequestor(object):
 
     def test_dictionary_list_encoding(self):
         params = {"foo": {"0": {"bar": "bat"}}}
-        encoded = list(_api_encode(params, "V1"))
+        encoded = list(_api_encode(params))
         key, value = encoded[0]
 
         assert key == "foo[0][bar]"
@@ -237,7 +237,7 @@ class TestAPIRequestor(object):
                 ]
             )
         }
-        encoded = list(_api_encode(params, "V1"))
+        encoded = list(_api_encode(params))
 
         assert encoded[0][0] == "ordered[one]"
         assert encoded[1][0] == "ordered[two]"

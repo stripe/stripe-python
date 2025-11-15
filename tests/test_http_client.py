@@ -1176,7 +1176,7 @@ class TestAPIEncode:
     def test_encode_dict(self):
         body = {"foo": {"dob": {"month": 1}, "name": "bat"}}
 
-        values = [t for t in _api_encode(body, "V1")]
+        values = [t for t in _api_encode(body)]
 
         assert ("foo[dob][month]", 1) in values
         assert ("foo[name]", "bat") in values
@@ -1184,7 +1184,7 @@ class TestAPIEncode:
     def test_encode_array(self):
         body = {"foo": [{"dob": {"month": 1}, "name": "bat"}]}
 
-        values = [t for t in _api_encode(body, "V1")]
+        values = [t for t in _api_encode(body)]
 
         assert ("foo[0][dob][month]", 1) in values
         assert ("foo[0][name]", "bat") in values
@@ -1192,10 +1192,10 @@ class TestAPIEncode:
     def test_encode_v2_array(self):
         body = {"foo": [{"dob": {"month": 1}, "name": "bat"}]}
 
-        values = [t for t in _api_encode(body, "V2")]
+        values = [t for t in _api_encode(body)]
 
-        assert ("foo[dob][month]", 1) in values
-        assert ("foo[name]", "bat") in values
+        assert ("foo[0][dob][month]", 1) in values
+        assert ("foo[0][name]", "bat") in values
 
 
 class TestHTTPXClient(ClientTestBase):
