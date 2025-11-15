@@ -3,12 +3,11 @@ from typing_extensions import TYPE_CHECKING
 
 from typing import TypeVar, Callable
 
+# Import at runtime for isinstance check and type annotations
+from stripe.v2.core._event import EventNotification, UnknownEventNotification
+
 if TYPE_CHECKING:
     from stripe._stripe_client import StripeClient
-    from stripe.v2.core._event import (
-        EventNotification,
-        UnknownEventNotification,
-    )
 
     # event-notification-types: The beginning of the section generated from our OpenAPI spec
     from stripe.events._v1_billing_meter_error_report_triggered_event import (
