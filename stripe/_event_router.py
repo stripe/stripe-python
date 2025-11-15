@@ -215,7 +215,7 @@ class UnhandledNotificationDetails:
 
     is_known_event_type: bool
     """
-    If true, the unhandled event's type is known to the SDK (i.e., it was successfully deserialized into a specific EventNotification subclass).
+    If true, the unhandled event's type is known to the SDK (i.e., it was successfully deserialized into a specific `EventNotification` subclass).
     """
 
 
@@ -261,7 +261,7 @@ class EventRouter:
                     event_notif,
                     self._client,
                     UnhandledNotificationDetails(
-                        is_known_event_type=isinstance(
+                        is_known_event_type=not isinstance(
                             event_notif, UnknownEventNotification
                         )
                     ),

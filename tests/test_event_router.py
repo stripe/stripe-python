@@ -384,7 +384,7 @@ class TestEventRouter:
         assert event_notif.type == "llama.created"
         assert isinstance(client, StripeClient)
         assert isinstance(info, UnhandledNotificationDetails)
-        assert info.is_known_event_type is True
+        assert info.is_known_event_type is False
 
     def test_known_unregistered_event_routes_to_on_unhandled(
         self,
@@ -410,7 +410,7 @@ class TestEventRouter:
         assert event_notif.type == "v1.billing.meter.error_report_triggered"
         assert isinstance(client, StripeClient)
         assert isinstance(info, UnhandledNotificationDetails)
-        assert info.is_known_event_type is False
+        assert info.is_known_event_type is True
 
     def test_registered_event_does_not_call_on_unhandled(
         self,
@@ -489,7 +489,7 @@ class TestEventRouter:
         info = on_unhandled_handler.call_args[0][2]
 
         assert isinstance(info, UnhandledNotificationDetails)
-        assert info.is_known_event_type is True
+        assert info.is_known_event_type is False
 
     def test_on_unhandled_receives_correct_info_for_known_unregistered(
         self,
@@ -506,7 +506,7 @@ class TestEventRouter:
         info = on_unhandled_handler.call_args[0][2]
 
         assert isinstance(info, UnhandledNotificationDetails)
-        assert info.is_known_event_type is False
+        assert info.is_known_event_type is True
 
     def test_validates_webhook_signature(
         self, event_router: EventRouter, v1_billing_meter_payload: str
