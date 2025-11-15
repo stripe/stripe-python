@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing_extensions import TYPE_CHECKING
 
-from typing import TypeVar, Callable
+from typing import TypeVar, Callable, List
 
 # Import at runtime for isinstance check and type annotations
 from stripe.v2.core._event import EventNotification, UnknownEventNotification
@@ -263,10 +263,6 @@ class EventRouter:
                         )
                     ),
                 )
-
-                raise ValueError(
-                    f'No handler registered for event of type "{event_notif.type}"'
-                )
         finally:
             self._client._requestor._options.stripe_context = original_context
 
@@ -287,7 +283,7 @@ class EventRouter:
         self._registered_handlers[event_type] = func
 
     @property
-    def registered_event_types(self) -> list[str]:
+    def registered_event_types(self) -> List[str]:
         """
         Returns an alphabetized list of all event types that have registered handlers.
         """

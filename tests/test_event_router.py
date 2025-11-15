@@ -371,11 +371,7 @@ class TestEventRouter:
         """Test that events without SDK types route to on_unhandled handler"""
         sig_header = generate_header(payload=unknown_event_payload)
 
-        with pytest.raises(
-            ValueError,
-            match='No handler registered for event of type "llama.created"',
-        ):
-            event_router.handle(unknown_event_payload, sig_header)
+        event_router.handle(unknown_event_payload, sig_header)
 
         on_unhandled_handler.assert_called_once()
 
@@ -399,11 +395,7 @@ class TestEventRouter:
         """Test that known event types without a registered handler route to on_unhandled"""
         sig_header = generate_header(payload=v1_billing_meter_payload)
 
-        with pytest.raises(
-            ValueError,
-            match='No handler registered for event of type "v1.billing.meter.error_report_triggered"',
-        ):
-            event_router.handle(v1_billing_meter_payload, sig_header)
+        event_router.handle(v1_billing_meter_payload, sig_header)
 
         on_unhandled_handler.assert_called_once()
 
@@ -491,8 +483,7 @@ class TestEventRouter:
         """Test that on_unhandled receives correct UnhandledEventInfo for unknown events"""
         sig_header = generate_header(payload=unknown_event_payload)
 
-        with pytest.raises(ValueError):
-            event_router.handle(unknown_event_payload, sig_header)
+        event_router.handle(unknown_event_payload, sig_header)
 
         on_unhandled_handler.assert_called_once()
         info = on_unhandled_handler.call_args[0][2]
@@ -509,26 +500,13 @@ class TestEventRouter:
         """Test that on_unhandled receives correct UnhandledEventInfo for known unregistered events"""
         sig_header = generate_header(payload=v1_billing_meter_payload)
 
-        with pytest.raises(ValueError):
-            event_router.handle(v1_billing_meter_payload, sig_header)
+        event_router.handle(v1_billing_meter_payload, sig_header)
 
         on_unhandled_handler.assert_called_once()
         info = on_unhandled_handler.call_args[0][2]
 
         assert isinstance(info, UnhandledEventInfo)
         assert info.known_event_type is False
-
-    def test_handle_raises_for_unhandled_events(
-        self, event_router: EventRouter, v1_billing_meter_payload: str
-    ) -> None:
-        """Test that handle() raises ValueError when no handler is registered"""
-        sig_header = generate_header(payload=v1_billing_meter_payload)
-
-        with pytest.raises(
-            ValueError,
-            match='No handler registered for event of type "v1.billing.meter.error_report_triggered"',
-        ):
-            event_router.handle(v1_billing_meter_payload, sig_header)
 
     def test_validates_webhook_signature(
         self, event_router: EventRouter, v1_billing_meter_payload: str
@@ -539,7 +517,9 @@ class TestEventRouter:
         with pytest.raises(SignatureVerificationError):
             event_router.handle(v1_billing_meter_payload, "invalid_signature")
 
-    def test_registered_event_types_empty(self, event_router: EventRouter) -> None:
+    def test_registered_event_types_empty(
+        self, event_router: EventRouter
+    ) -> None:
         """Test that registered_event_types returns empty list when no handlers are registered"""
         assert event_router.registered_event_types == []
 
