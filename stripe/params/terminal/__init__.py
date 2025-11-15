@@ -151,6 +151,11 @@ if TYPE_CHECKING:
         LocationUpdateParamsAddressKana as LocationUpdateParamsAddressKana,
         LocationUpdateParamsAddressKanji as LocationUpdateParamsAddressKanji,
     )
+    from stripe.params.terminal._onboarding_link_create_params import (
+        OnboardingLinkCreateParams as OnboardingLinkCreateParams,
+        OnboardingLinkCreateParamsLinkOptions as OnboardingLinkCreateParamsLinkOptions,
+        OnboardingLinkCreateParamsLinkOptionsAppleTermsAndConditions as OnboardingLinkCreateParamsLinkOptionsAppleTermsAndConditions,
+    )
     from stripe.params.terminal._reader_cancel_action_params import (
         ReaderCancelActionParams as ReaderCancelActionParams,
     )
@@ -704,6 +709,18 @@ _import_map = {
     ),
     "LocationUpdateParamsAddressKanji": (
         "stripe.params.terminal._location_update_params",
+        False,
+    ),
+    "OnboardingLinkCreateParams": (
+        "stripe.params.terminal._onboarding_link_create_params",
+        False,
+    ),
+    "OnboardingLinkCreateParamsLinkOptions": (
+        "stripe.params.terminal._onboarding_link_create_params",
+        False,
+    ),
+    "OnboardingLinkCreateParamsLinkOptionsAppleTermsAndConditions": (
+        "stripe.params.terminal._onboarding_link_create_params",
         False,
     ),
     "ReaderCancelActionParams": (

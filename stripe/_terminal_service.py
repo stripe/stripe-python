@@ -10,6 +10,7 @@ if TYPE_CHECKING:
         ConnectionTokenService,
     )
     from stripe.terminal._location_service import LocationService
+    from stripe.terminal._onboarding_link_service import OnboardingLinkService
     from stripe.terminal._reader_service import ReaderService
 
 _subservices = {
@@ -22,6 +23,10 @@ _subservices = {
         "ConnectionTokenService",
     ],
     "locations": ["stripe.terminal._location_service", "LocationService"],
+    "onboarding_links": [
+        "stripe.terminal._onboarding_link_service",
+        "OnboardingLinkService",
+    ],
     "readers": ["stripe.terminal._reader_service", "ReaderService"],
 }
 
@@ -30,6 +35,7 @@ class TerminalService(StripeService):
     configurations: "ConfigurationService"
     connection_tokens: "ConnectionTokenService"
     locations: "LocationService"
+    onboarding_links: "OnboardingLinkService"
     readers: "ReaderService"
 
     def __init__(self, requestor):

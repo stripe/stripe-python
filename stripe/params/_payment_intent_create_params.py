@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -124,6 +124,10 @@ class PaymentIntentCreateParams(RequestOptions):
     expand: NotRequired[List[str]]
     """
     Specifies which fields in the response should be expanded.
+    """
+    hooks: NotRequired["PaymentIntentCreateParamsHooks"]
+    """
+    Automations to be run during the PaymentIntent lifecycle
     """
     mandate: NotRequired[str]
     """
@@ -428,6 +432,27 @@ class PaymentIntentCreateParamsAutomaticPaymentMethods(TypedDict):
     enabled: bool
     """
     Whether this feature is enabled.
+    """
+
+
+class PaymentIntentCreateParamsHooks(TypedDict):
+    inputs: NotRequired["PaymentIntentCreateParamsHooksInputs"]
+    """
+    Arguments passed in automations
+    """
+
+
+class PaymentIntentCreateParamsHooksInputs(TypedDict):
+    tax: NotRequired["PaymentIntentCreateParamsHooksInputsTax"]
+    """
+    Tax arguments for automations
+    """
+
+
+class PaymentIntentCreateParamsHooksInputsTax(TypedDict):
+    calculation: Union[Literal[""], str]
+    """
+    The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
     """
 
 
@@ -1036,6 +1061,7 @@ class PaymentIntentCreateParamsPaymentMethodDataIdeal(TypedDict):
             "asn_bank",
             "bunq",
             "buut",
+            "finom",
             "handelsbanken",
             "ing",
             "knab",

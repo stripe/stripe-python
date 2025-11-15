@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -50,6 +50,10 @@ class PaymentIntentUpdateParams(TypedDict):
     expand: NotRequired[List[str]]
     """
     Specifies which fields in the response should be expanded.
+    """
+    hooks: NotRequired["PaymentIntentUpdateParamsHooks"]
+    """
+    Automations to be run during the PaymentIntent lifecycle
     """
     metadata: NotRequired["Literal['']|Dict[str, str]"]
     """
@@ -312,6 +316,27 @@ class PaymentIntentUpdateParamsAmountDetailsTax(TypedDict):
     The total amount of tax on the transaction represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L2 rates. An integer greater than or equal to 0.
 
     This field is mutually exclusive with the `amount_details[line_items][#][tax][total_tax_amount]` field.
+    """
+
+
+class PaymentIntentUpdateParamsHooks(TypedDict):
+    inputs: NotRequired["PaymentIntentUpdateParamsHooksInputs"]
+    """
+    Arguments passed in automations
+    """
+
+
+class PaymentIntentUpdateParamsHooksInputs(TypedDict):
+    tax: NotRequired["PaymentIntentUpdateParamsHooksInputsTax"]
+    """
+    Tax arguments for automations
+    """
+
+
+class PaymentIntentUpdateParamsHooksInputsTax(TypedDict):
+    calculation: Union[Literal[""], str]
+    """
+    The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
     """
 
 
@@ -873,6 +898,7 @@ class PaymentIntentUpdateParamsPaymentMethodDataIdeal(TypedDict):
             "asn_bank",
             "bunq",
             "buut",
+            "finom",
             "handelsbanken",
             "ing",
             "knab",

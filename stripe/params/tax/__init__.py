@@ -4,6 +4,9 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.params.tax._association_find_params import (
+        AssociationFindParams as AssociationFindParams,
+    )
     from stripe.params.tax._calculation_create_params import (
         CalculationCreateParams as CalculationCreateParams,
         CalculationCreateParamsCustomerDetails as CalculationCreateParamsCustomerDetails,
@@ -236,6 +239,10 @@ if TYPE_CHECKING:
 
 # name -> (import_target, is_submodule)
 _import_map = {
+    "AssociationFindParams": (
+        "stripe.params.tax._association_find_params",
+        False,
+    ),
     "CalculationCreateParams": (
         "stripe.params.tax._calculation_create_params",
         False,

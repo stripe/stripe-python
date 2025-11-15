@@ -155,6 +155,20 @@ class PaymentIntent(
         Automatically calculates compatible payment methods
         """
 
+    class Hooks(StripeObject):
+        class Inputs(StripeObject):
+            class Tax(StripeObject):
+                calculation: str
+                """
+                The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
+                """
+
+            tax: Optional[Tax]
+            _inner_class_types = {"tax": Tax}
+
+        inputs: Optional[Inputs]
+        _inner_class_types = {"inputs": Inputs}
+
     class LastPaymentError(StripeObject):
         advice_code: Optional[str]
         """
@@ -2828,6 +2842,7 @@ class PaymentIntent(
     """
     The list of payment method types to exclude from use with this payment.
     """
+    hooks: Optional[Hooks]
     id: str
     """
     Unique identifier for the object.
@@ -4350,6 +4365,7 @@ class PaymentIntent(
     _inner_class_types = {
         "amount_details": AmountDetails,
         "automatic_payment_methods": AutomaticPaymentMethods,
+        "hooks": Hooks,
         "last_payment_error": LastPaymentError,
         "next_action": NextAction,
         "payment_details": PaymentDetails,

@@ -4,6 +4,10 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.tax._association import Association as Association
+    from stripe.tax._association_service import (
+        AssociationService as AssociationService,
+    )
     from stripe.tax._calculation import Calculation as Calculation
     from stripe.tax._calculation_line_item import (
         CalculationLineItem as CalculationLineItem,
@@ -33,6 +37,8 @@ if TYPE_CHECKING:
 
 # name -> (import_target, is_submodule)
 _import_map = {
+    "Association": ("stripe.tax._association", False),
+    "AssociationService": ("stripe.tax._association_service", False),
     "Calculation": ("stripe.tax._calculation", False),
     "CalculationLineItem": ("stripe.tax._calculation_line_item", False),
     "CalculationLineItemService": (
