@@ -4,7 +4,7 @@ from typing import Optional
 from unittest.mock import Mock
 
 from stripe import StripeClient
-from stripe._event_router import EventRouter, UnhandledEventInfo
+from stripe._event_router import EventRouter, UnhandledNotificationDetails
 from stripe._stripe_context import StripeContext
 from stripe.events._v1_billing_meter_error_report_triggered_event import (
     V1BillingMeterErrorReportTriggeredEventNotification,
@@ -383,8 +383,8 @@ class TestEventRouter:
         assert isinstance(event_notif, UnknownEventNotification)
         assert event_notif.type == "llama.created"
         assert isinstance(client, StripeClient)
-        assert isinstance(info, UnhandledEventInfo)
-        assert info.known_event_type is True
+        assert isinstance(info, UnhandledNotificationDetails)
+        assert info.is_known_event_type is True
 
     def test_known_unregistered_event_routes_to_on_unhandled(
         self,
@@ -409,8 +409,8 @@ class TestEventRouter:
         )
         assert event_notif.type == "v1.billing.meter.error_report_triggered"
         assert isinstance(client, StripeClient)
-        assert isinstance(info, UnhandledEventInfo)
-        assert info.known_event_type is False
+        assert isinstance(info, UnhandledNotificationDetails)
+        assert info.is_known_event_type is False
 
     def test_registered_event_does_not_call_on_unhandled(
         self,
@@ -480,7 +480,7 @@ class TestEventRouter:
         unknown_event_payload: str,
         on_unhandled_handler: Mock,
     ) -> None:
-        """Test that on_unhandled receives correct UnhandledEventInfo for unknown events"""
+        """Test that on_unhandled receives correct UnhandledNotificationDetails for unknown events"""
         sig_header = generate_header(payload=unknown_event_payload)
 
         event_router.handle(unknown_event_payload, sig_header)
@@ -488,8 +488,8 @@ class TestEventRouter:
         on_unhandled_handler.assert_called_once()
         info = on_unhandled_handler.call_args[0][2]
 
-        assert isinstance(info, UnhandledEventInfo)
-        assert info.known_event_type is True
+        assert isinstance(info, UnhandledNotificationDetails)
+        assert info.is_known_event_type is True
 
     def test_on_unhandled_receives_correct_info_for_known_unregistered(
         self,
@@ -497,7 +497,7 @@ class TestEventRouter:
         v1_billing_meter_payload: str,
         on_unhandled_handler: Mock,
     ) -> None:
-        """Test that on_unhandled receives correct UnhandledEventInfo for known unregistered events"""
+        """Test that on_unhandled receives correct UnhandledNotificationDetails for known unregistered events"""
         sig_header = generate_header(payload=v1_billing_meter_payload)
 
         event_router.handle(v1_billing_meter_payload, sig_header)
@@ -505,8 +505,8 @@ class TestEventRouter:
         on_unhandled_handler.assert_called_once()
         info = on_unhandled_handler.call_args[0][2]
 
-        assert isinstance(info, UnhandledEventInfo)
-        assert info.known_event_type is False
+        assert isinstance(info, UnhandledNotificationDetails)
+        assert info.is_known_event_type is False
 
     def test_validates_webhook_signature(
         self, event_router: EventRouter, v1_billing_meter_payload: str

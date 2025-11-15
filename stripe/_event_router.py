@@ -208,16 +208,19 @@ EventNotificationChild = TypeVar(
 
 
 @dataclass
-class UnhandledEventInfo:
+class UnhandledNotificationDetails:
     """
-    A pile of information about to help user code respond to unhandled events.
+    Information about an unhandled event notification to make it easier to respond (and potentially update your integration).
     """
 
-    known_event_type: bool
+    is_known_event_type: bool
+    """
+    If true, the unhandled event's type is known to the SDK (i.e., it was successfully deserialized into a specific EventNotification subclass).
+    """
 
 
 OnUnhandledHandler = Callable[
-    [EventNotification, "StripeClient", UnhandledEventInfo], None
+    [EventNotification, "StripeClient", UnhandledNotificationDetails], None
 ]
 
 
@@ -257,8 +260,8 @@ class EventRouter:
                 self._on_unhandled_handler(
                     event_notif,
                     self._client,
-                    UnhandledEventInfo(
-                        known_event_type=isinstance(
+                    UnhandledNotificationDetails(
+                        is_known_event_type=isinstance(
                             event_notif, UnknownEventNotification
                         )
                     ),

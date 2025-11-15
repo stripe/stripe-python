@@ -348,7 +348,7 @@ if TYPE_CHECKING:
     from stripe._event import Event as Event
     from stripe._event_router import (
         EventRouter as EventRouter,
-        UnhandledEventInfo as UnhandledEventInfo,
+        UnhandledNotificationDetails as UnhandledNotificationDetails,
     )
     from stripe._event_service import EventService as EventService
     from stripe._exchange_rate import ExchangeRate as ExchangeRate
