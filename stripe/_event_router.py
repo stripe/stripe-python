@@ -286,7 +286,7 @@ class EventRouter:
 
         self._registered_handlers[event_type] = func
 
-    # event-handler-methods: The beginning of the section generated from our OpenAPI spec
+    # event-router-methods: The beginning of the section generated from our OpenAPI spec
     def on_V1BillingMeterErrorReportTriggeredEventNotification(
         self,
         func: "Callable[[V1BillingMeterErrorReportTriggeredEventNotification, StripeClient], None]",
@@ -1043,4 +1043,4 @@ class EventRouter:
             func,
         )
 
-    # event-handler-methods: The end of the section generated from our OpenAPI spec
+    # event-router-methods: The end of the section generated from our OpenAPI spec
