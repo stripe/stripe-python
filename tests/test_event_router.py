@@ -538,3 +538,41 @@ class TestEventRouter:
 
         with pytest.raises(SignatureVerificationError):
             event_router.handle(v1_billing_meter_payload, "invalid_signature")
+
+    def test_registered_event_types_empty(self, event_router: EventRouter) -> None:
+        """Test that registered_event_types returns empty list when no handlers are registered"""
+        assert event_router.registered_event_types == []
+
+    def test_registered_event_types_single(
+        self, event_router: EventRouter
+    ) -> None:
+        """Test that registered_event_types returns a single event type"""
+        handler = Mock()
+        event_router.on_V1BillingMeterErrorReportTriggeredEventNotification(
+            handler
+        )
+
+        assert event_router.registered_event_types == [
+            "v1.billing.meter.error_report_triggered"
+        ]
+
+    def test_registered_event_types_multiple_alphabetized(
+        self, event_router: EventRouter
+    ) -> None:
+        """Test that registered_event_types returns multiple event types in alphabetical order"""
+        handler = Mock()
+
+        # Register in non-alphabetical order
+        event_router.on_V2CoreAccountUpdatedEventNotification(handler)
+        event_router.on_V1BillingMeterErrorReportTriggeredEventNotification(
+            handler
+        )
+        event_router.on_V2CoreAccountCreatedEventNotification(handler)
+
+        expected = [
+            "v1.billing.meter.error_report_triggered",
+            "v2.core.account.created",
+            "v2.core.account.updated",
+        ]
+
+        assert event_router.registered_event_types == expected

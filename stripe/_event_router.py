@@ -286,6 +286,13 @@ class EventRouter:
 
         self._registered_handlers[event_type] = func
 
+    @property
+    def registered_event_types(self) -> list[str]:
+        """
+        Returns an alphabetized list of all event types that have registered handlers.
+        """
+        return sorted(self._registered_handlers.keys())
+
     # event-router-methods: The beginning of the section generated from our OpenAPI spec
     def on_V1BillingMeterErrorReportTriggeredEventNotification(
         self,
