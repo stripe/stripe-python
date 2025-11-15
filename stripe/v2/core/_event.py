@@ -42,10 +42,6 @@ class Event(StripeObject):
         """
         _inner_class_types = {"request": Request}
 
-    changes: Optional[Dict[str, "Any"]]
-    """
-    Before and after changes for the primary related object.
-    """
     context: Optional[str]
     """
     Authentication context needed to fetch the event or related object.
