@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -27,6 +27,10 @@ class PaymentIntentIncrementAuthorizationParams(RequestOptions):
     expand: NotRequired[List[str]]
     """
     Specifies which fields in the response should be expanded.
+    """
+    hooks: NotRequired["PaymentIntentIncrementAuthorizationParamsHooks"]
+    """
+    Automations to be run during the PaymentIntent lifecycle
     """
     metadata: NotRequired[Dict[str, str]]
     """
@@ -244,6 +248,27 @@ class PaymentIntentIncrementAuthorizationParamsAmountDetailsTax(TypedDict):
     The total amount of tax on the transaction represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L2 rates. An integer greater than or equal to 0.
 
     This field is mutually exclusive with the `amount_details[line_items][#][tax][total_tax_amount]` field.
+    """
+
+
+class PaymentIntentIncrementAuthorizationParamsHooks(TypedDict):
+    inputs: NotRequired["PaymentIntentIncrementAuthorizationParamsHooksInputs"]
+    """
+    Arguments passed in automations
+    """
+
+
+class PaymentIntentIncrementAuthorizationParamsHooksInputs(TypedDict):
+    tax: NotRequired["PaymentIntentIncrementAuthorizationParamsHooksInputsTax"]
+    """
+    Tax arguments for automations
+    """
+
+
+class PaymentIntentIncrementAuthorizationParamsHooksInputsTax(TypedDict):
+    calculation: Union[Literal[""], str]
+    """
+    The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
     """
 
 

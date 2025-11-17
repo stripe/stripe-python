@@ -766,6 +766,7 @@ if TYPE_CHECKING:
     )
     from stripe.params._customer_balance_transaction_list_params import (
         CustomerBalanceTransactionListParams as CustomerBalanceTransactionListParams,
+        CustomerBalanceTransactionListParamsCreated as CustomerBalanceTransactionListParamsCreated,
     )
     from stripe.params._customer_balance_transaction_retrieve_params import (
         CustomerBalanceTransactionRetrieveParams as CustomerBalanceTransactionRetrieveParams,
@@ -835,6 +836,7 @@ if TYPE_CHECKING:
     )
     from stripe.params._customer_list_balance_transactions_params import (
         CustomerListBalanceTransactionsParams as CustomerListBalanceTransactionsParams,
+        CustomerListBalanceTransactionsParamsCreated as CustomerListBalanceTransactionsParamsCreated,
     )
     from stripe.params._customer_list_cash_balance_transactions_params import (
         CustomerListCashBalanceTransactionsParams as CustomerListCashBalanceTransactionsParams,
@@ -1241,6 +1243,7 @@ if TYPE_CHECKING:
     )
     from stripe.params._invoice_payment_list_params import (
         InvoicePaymentListParams as InvoicePaymentListParams,
+        InvoicePaymentListParamsCreated as InvoicePaymentListParamsCreated,
         InvoicePaymentListParamsPayment as InvoicePaymentListParamsPayment,
     )
     from stripe.params._invoice_payment_retrieve_params import (
@@ -1351,6 +1354,9 @@ if TYPE_CHECKING:
         PaymentIntentCaptureParamsAmountDetailsLineItemTax as PaymentIntentCaptureParamsAmountDetailsLineItemTax,
         PaymentIntentCaptureParamsAmountDetailsShipping as PaymentIntentCaptureParamsAmountDetailsShipping,
         PaymentIntentCaptureParamsAmountDetailsTax as PaymentIntentCaptureParamsAmountDetailsTax,
+        PaymentIntentCaptureParamsHooks as PaymentIntentCaptureParamsHooks,
+        PaymentIntentCaptureParamsHooksInputs as PaymentIntentCaptureParamsHooksInputs,
+        PaymentIntentCaptureParamsHooksInputsTax as PaymentIntentCaptureParamsHooksInputsTax,
         PaymentIntentCaptureParamsPaymentDetails as PaymentIntentCaptureParamsPaymentDetails,
         PaymentIntentCaptureParamsTransferData as PaymentIntentCaptureParamsTransferData,
     )
@@ -1366,6 +1372,9 @@ if TYPE_CHECKING:
         PaymentIntentConfirmParamsAmountDetailsLineItemTax as PaymentIntentConfirmParamsAmountDetailsLineItemTax,
         PaymentIntentConfirmParamsAmountDetailsShipping as PaymentIntentConfirmParamsAmountDetailsShipping,
         PaymentIntentConfirmParamsAmountDetailsTax as PaymentIntentConfirmParamsAmountDetailsTax,
+        PaymentIntentConfirmParamsHooks as PaymentIntentConfirmParamsHooks,
+        PaymentIntentConfirmParamsHooksInputs as PaymentIntentConfirmParamsHooksInputs,
+        PaymentIntentConfirmParamsHooksInputsTax as PaymentIntentConfirmParamsHooksInputsTax,
         PaymentIntentConfirmParamsMandateData as PaymentIntentConfirmParamsMandateData,
         PaymentIntentConfirmParamsMandateDataCustomerAcceptance as PaymentIntentConfirmParamsMandateDataCustomerAcceptance,
         PaymentIntentConfirmParamsMandateDataCustomerAcceptanceOffline as PaymentIntentConfirmParamsMandateDataCustomerAcceptanceOffline,
@@ -1513,6 +1522,9 @@ if TYPE_CHECKING:
         PaymentIntentCreateParamsAmountDetailsShipping as PaymentIntentCreateParamsAmountDetailsShipping,
         PaymentIntentCreateParamsAmountDetailsTax as PaymentIntentCreateParamsAmountDetailsTax,
         PaymentIntentCreateParamsAutomaticPaymentMethods as PaymentIntentCreateParamsAutomaticPaymentMethods,
+        PaymentIntentCreateParamsHooks as PaymentIntentCreateParamsHooks,
+        PaymentIntentCreateParamsHooksInputs as PaymentIntentCreateParamsHooksInputs,
+        PaymentIntentCreateParamsHooksInputsTax as PaymentIntentCreateParamsHooksInputsTax,
         PaymentIntentCreateParamsMandateData as PaymentIntentCreateParamsMandateData,
         PaymentIntentCreateParamsMandateDataCustomerAcceptance as PaymentIntentCreateParamsMandateDataCustomerAcceptance,
         PaymentIntentCreateParamsMandateDataCustomerAcceptanceOffline as PaymentIntentCreateParamsMandateDataCustomerAcceptanceOffline,
@@ -1660,6 +1672,9 @@ if TYPE_CHECKING:
         PaymentIntentIncrementAuthorizationParamsAmountDetailsLineItemTax as PaymentIntentIncrementAuthorizationParamsAmountDetailsLineItemTax,
         PaymentIntentIncrementAuthorizationParamsAmountDetailsShipping as PaymentIntentIncrementAuthorizationParamsAmountDetailsShipping,
         PaymentIntentIncrementAuthorizationParamsAmountDetailsTax as PaymentIntentIncrementAuthorizationParamsAmountDetailsTax,
+        PaymentIntentIncrementAuthorizationParamsHooks as PaymentIntentIncrementAuthorizationParamsHooks,
+        PaymentIntentIncrementAuthorizationParamsHooksInputs as PaymentIntentIncrementAuthorizationParamsHooksInputs,
+        PaymentIntentIncrementAuthorizationParamsHooksInputsTax as PaymentIntentIncrementAuthorizationParamsHooksInputsTax,
         PaymentIntentIncrementAuthorizationParamsPaymentDetails as PaymentIntentIncrementAuthorizationParamsPaymentDetails,
         PaymentIntentIncrementAuthorizationParamsTransferData as PaymentIntentIncrementAuthorizationParamsTransferData,
     )
@@ -1682,6 +1697,9 @@ if TYPE_CHECKING:
         PaymentIntentModifyParamsAmountDetailsLineItemTax as PaymentIntentModifyParamsAmountDetailsLineItemTax,
         PaymentIntentModifyParamsAmountDetailsShipping as PaymentIntentModifyParamsAmountDetailsShipping,
         PaymentIntentModifyParamsAmountDetailsTax as PaymentIntentModifyParamsAmountDetailsTax,
+        PaymentIntentModifyParamsHooks as PaymentIntentModifyParamsHooks,
+        PaymentIntentModifyParamsHooksInputs as PaymentIntentModifyParamsHooksInputs,
+        PaymentIntentModifyParamsHooksInputsTax as PaymentIntentModifyParamsHooksInputsTax,
         PaymentIntentModifyParamsPaymentDetails as PaymentIntentModifyParamsPaymentDetails,
         PaymentIntentModifyParamsPaymentMethodData as PaymentIntentModifyParamsPaymentMethodData,
         PaymentIntentModifyParamsPaymentMethodDataAcssDebit as PaymentIntentModifyParamsPaymentMethodDataAcssDebit,
@@ -1830,6 +1848,9 @@ if TYPE_CHECKING:
         PaymentIntentUpdateParamsAmountDetailsLineItemTax as PaymentIntentUpdateParamsAmountDetailsLineItemTax,
         PaymentIntentUpdateParamsAmountDetailsShipping as PaymentIntentUpdateParamsAmountDetailsShipping,
         PaymentIntentUpdateParamsAmountDetailsTax as PaymentIntentUpdateParamsAmountDetailsTax,
+        PaymentIntentUpdateParamsHooks as PaymentIntentUpdateParamsHooks,
+        PaymentIntentUpdateParamsHooksInputs as PaymentIntentUpdateParamsHooksInputs,
+        PaymentIntentUpdateParamsHooksInputsTax as PaymentIntentUpdateParamsHooksInputsTax,
         PaymentIntentUpdateParamsPaymentDetails as PaymentIntentUpdateParamsPaymentDetails,
         PaymentIntentUpdateParamsPaymentMethodData as PaymentIntentUpdateParamsPaymentMethodData,
         PaymentIntentUpdateParamsPaymentMethodDataAcssDebit as PaymentIntentUpdateParamsPaymentMethodDataAcssDebit,
@@ -5931,6 +5952,10 @@ _import_map = {
         "stripe.params._customer_balance_transaction_list_params",
         False,
     ),
+    "CustomerBalanceTransactionListParamsCreated": (
+        "stripe.params._customer_balance_transaction_list_params",
+        False,
+    ),
     "CustomerBalanceTransactionRetrieveParams": (
         "stripe.params._customer_balance_transaction_retrieve_params",
         False,
@@ -6054,6 +6079,10 @@ _import_map = {
         False,
     ),
     "CustomerListBalanceTransactionsParams": (
+        "stripe.params._customer_list_balance_transactions_params",
+        False,
+    ),
+    "CustomerListBalanceTransactionsParamsCreated": (
         "stripe.params._customer_list_balance_transactions_params",
         False,
     ),
@@ -7037,6 +7066,10 @@ _import_map = {
         "stripe.params._invoice_payment_list_params",
         False,
     ),
+    "InvoicePaymentListParamsCreated": (
+        "stripe.params._invoice_payment_list_params",
+        False,
+    ),
     "InvoicePaymentListParamsPayment": (
         "stripe.params._invoice_payment_list_params",
         False,
@@ -7313,6 +7346,18 @@ _import_map = {
         "stripe.params._payment_intent_capture_params",
         False,
     ),
+    "PaymentIntentCaptureParamsHooks": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
+    "PaymentIntentCaptureParamsHooksInputs": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
+    "PaymentIntentCaptureParamsHooksInputsTax": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
     "PaymentIntentCaptureParamsPaymentDetails": (
         "stripe.params._payment_intent_capture_params",
         False,
@@ -7362,6 +7407,18 @@ _import_map = {
         False,
     ),
     "PaymentIntentConfirmParamsAmountDetailsTax": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsHooks": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsHooksInputs": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsHooksInputsTax": (
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
@@ -7945,6 +8002,18 @@ _import_map = {
         "stripe.params._payment_intent_create_params",
         False,
     ),
+    "PaymentIntentCreateParamsHooks": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsHooksInputs": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsHooksInputsTax": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
     "PaymentIntentCreateParamsMandateData": (
         "stripe.params._payment_intent_create_params",
         False,
@@ -8525,6 +8594,18 @@ _import_map = {
         "stripe.params._payment_intent_increment_authorization_params",
         False,
     ),
+    "PaymentIntentIncrementAuthorizationParamsHooks": (
+        "stripe.params._payment_intent_increment_authorization_params",
+        False,
+    ),
+    "PaymentIntentIncrementAuthorizationParamsHooksInputs": (
+        "stripe.params._payment_intent_increment_authorization_params",
+        False,
+    ),
+    "PaymentIntentIncrementAuthorizationParamsHooksInputsTax": (
+        "stripe.params._payment_intent_increment_authorization_params",
+        False,
+    ),
     "PaymentIntentIncrementAuthorizationParamsPaymentDetails": (
         "stripe.params._payment_intent_increment_authorization_params",
         False,
@@ -8586,6 +8667,18 @@ _import_map = {
         False,
     ),
     "PaymentIntentModifyParamsAmountDetailsTax": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsHooks": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsHooksInputs": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsHooksInputsTax": (
         "stripe.params._payment_intent_modify_params",
         False,
     ),
@@ -9154,6 +9247,18 @@ _import_map = {
         False,
     ),
     "PaymentIntentUpdateParamsAmountDetailsTax": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsHooks": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsHooksInputs": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsHooksInputsTax": (
         "stripe.params._payment_intent_update_params",
         False,
     ),
