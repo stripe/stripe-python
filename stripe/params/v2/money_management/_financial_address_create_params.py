@@ -8,7 +8,7 @@ class FinancialAddressCreateParams(TypedDict):
     """
     The ID of the FinancialAccount the new FinancialAddress should be associated with.
     """
-    type: Literal["gb_bank_account", "sepa_bank_account", "us_bank_account"]
+    type: Literal["gb_bank_account", "us_bank_account"]
     """
     The type of FinancialAddress details to provision.
     """

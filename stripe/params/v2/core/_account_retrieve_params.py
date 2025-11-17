@@ -13,6 +13,7 @@ class AccountRetrieveParams(TypedDict):
                 "configuration.recipient",
                 "configuration.storer",
                 "defaults",
+                "future_requirements",
                 "identity",
                 "requirements",
             ]

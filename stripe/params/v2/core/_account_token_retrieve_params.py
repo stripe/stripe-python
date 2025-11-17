@@ -3,5 +3,5 @@
 from typing_extensions import TypedDict
 
 
-class OffSessionPaymentCancelParams(TypedDict):
+class AccountTokenRetrieveParams(TypedDict):
     pass

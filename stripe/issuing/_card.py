@@ -42,6 +42,23 @@ class Card(
 
     OBJECT_NAME: ClassVar[Literal["issuing.card"]] = "issuing.card"
 
+    class LatestFraudWarning(StripeObject):
+        started_at: Optional[int]
+        """
+        Timestamp of the most recent fraud warning.
+        """
+        type: Optional[
+            Literal[
+                "card_testing_exposure",
+                "fraud_dispute_filed",
+                "third_party_reported",
+                "user_indicated_fraud",
+            ]
+        ]
+        """
+        The type of fraud warning that most recently took place on this card. This field updates with every new fraud warning, so the value changes over time. If populated, cancel and reissue the card.
+        """
+
     class Shipping(StripeObject):
         class Address(StripeObject):
             city: Optional[str]
@@ -1226,6 +1243,10 @@ class Card(
     """
     The last 4 digits of the card number.
     """
+    latest_fraud_warning: Optional[LatestFraudWarning]
+    """
+    Stripe's assessment of whether this card's details have been compromised. If this property isn't null, cancel and reissue the card to prevent fraudulent activity risk.
+    """
     livemode: bool
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
@@ -1958,6 +1979,7 @@ class Card(
         return self.TestHelpers(self)
 
     _inner_class_types = {
+        "latest_fraud_warning": LatestFraudWarning,
         "shipping": Shipping,
         "spending_controls": SpendingControls,
         "wallets": Wallets,

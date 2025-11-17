@@ -236,6 +236,7 @@ class AccountPerson(StripeObject):
         type: Literal[
             "ae_eid",
             "ao_nif",
+            "ar_dni",
             "az_tin",
             "bd_brc",
             "bd_etin",

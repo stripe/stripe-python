@@ -639,9 +639,9 @@ class MeterUsageRetrieveParams(RequestOptions):
 
 
 class MeterUsageRetrieveParamsMeter(TypedDict):
-    dimension_filters: NotRequired[Dict[str, str]]
+    dimension_filters: NotRequired[Dict[str, List[str]]]
     """
-    Key-value pairs used to filter usage events by meter dimension values. If specified, usage will be filtered for matching usage events.
+    Key-value pairs used to filter usage events by meter dimension values. Each value is an array that can include multiple values for the key. If specified, usage is filtered for matching usage events.
     """
     dimension_group_by_keys: NotRequired[List[str]]
     """
@@ -651,7 +651,7 @@ class MeterUsageRetrieveParamsMeter(TypedDict):
     """
     Meter id to query usage for.
     """
-    tenant_filters: NotRequired[Dict[str, str]]
+    tenant_filters: NotRequired[Dict[str, List[str]]]
     """
-    Key-value pairs used to filter usage events by high cardinality tenant dimension values. If specified, usage will be filtered for matching usage events.
+    Key-value pairs used to filter usage events by high cardinality tenant dimension values. Each value is an array that can include multiple values for the key. If specified, usage is filtered for matching usage events.
     """

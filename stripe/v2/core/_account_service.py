@@ -22,14 +22,22 @@ if TYPE_CHECKING:
     from stripe.v2._list_object import ListObject
     from stripe.v2.core._account import Account
     from stripe.v2.core.accounts._person_service import PersonService
+    from stripe.v2.core.accounts._person_token_service import (
+        PersonTokenService,
+    )
 
 _subservices = {
     "persons": ["stripe.v2.core.accounts._person_service", "PersonService"],
+    "person_tokens": [
+        "stripe.v2.core.accounts._person_token_service",
+        "PersonTokenService",
+    ],
 }
 
 
 class AccountService(StripeService):
     persons: "PersonService"
+    person_tokens: "PersonTokenService"
 
     def __init__(self, requestor):
         super().__init__(requestor)
