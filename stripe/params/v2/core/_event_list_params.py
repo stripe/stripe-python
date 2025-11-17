@@ -5,25 +5,13 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class EventListParams(TypedDict):
-    gt: NotRequired[str]
+    created: NotRequired["EventListParamsCreated"]
     """
-    Filter for events created after the specified timestamp.
-    """
-    gte: NotRequired[str]
-    """
-    Filter for events created at or after the specified timestamp.
+    Set of filters to query events within a range of `created` timestamps.
     """
     limit: NotRequired[int]
     """
     The page size.
-    """
-    lt: NotRequired[str]
-    """
-    Filter for events created before the specified timestamp.
-    """
-    lte: NotRequired[str]
-    """
-    Filter for events created at or before the specified timestamp.
     """
     object_id: NotRequired[str]
     """
@@ -32,4 +20,23 @@ class EventListParams(TypedDict):
     types: NotRequired[List[str]]
     """
     An array of up to 20 strings containing specific event names.
+    """
+
+
+class EventListParamsCreated(TypedDict):
+    gt: NotRequired[str]
+    """
+    Filter for events created after the specified timestamp.
+    """
+    gte: NotRequired[str]
+    """
+    Filter for events created at or after the specified timestamp.
+    """
+    lt: NotRequired[str]
+    """
+    Filter for events created before the specified timestamp.
+    """
+    lte: NotRequired[str]
+    """
+    Filter for events created at or before the specified timestamp.
     """
