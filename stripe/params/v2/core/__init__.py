@@ -419,6 +419,7 @@ if TYPE_CHECKING:
     )
     from stripe.params.v2.core._event_list_params import (
         EventListParams as EventListParams,
+        EventListParamsCreated as EventListParamsCreated,
     )
     from stripe.params.v2.core._event_retrieve_params import (
         EventRetrieveParams as EventRetrieveParams,
@@ -1946,6 +1947,10 @@ _import_map = {
         False,
     ),
     "EventListParams": ("stripe.params.v2.core._event_list_params", False),
+    "EventListParamsCreated": (
+        "stripe.params.v2.core._event_list_params",
+        False,
+    ),
     "EventRetrieveParams": (
         "stripe.params.v2.core._event_retrieve_params",
         False,
