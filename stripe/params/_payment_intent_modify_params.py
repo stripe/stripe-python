@@ -6,6 +6,10 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class PaymentIntentModifyParams(RequestOptions):
+    allocated_funds: NotRequired["PaymentIntentModifyParamsAllocatedFunds"]
+    """
+    Allocated Funds configuration for this PaymentIntent.
+    """
     amount: NotRequired[int]
     """
     Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
@@ -145,16 +149,21 @@ class PaymentIntentModifyParams(RequestOptions):
     """
     A string that identifies the resulting payment as part of a group. You can only provide `transfer_group` if it hasn't been set. Learn more about the [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
     """
-    allocated_funds: NotRequired["PaymentIntentModifyParamsAllocatedFunds"]
+
+
+class PaymentIntentModifyParamsAllocatedFunds(TypedDict):
+    enabled: NotRequired[bool]
     """
-    Allocated Funds configuration for this PaymentIntent.
+    Whether Allocated Funds creation is enabled for this PaymentIntent.
     """
 
 
 class PaymentIntentModifyParamsAmountDetails(TypedDict):
     discount_amount: NotRequired["Literal['']|int"]
     """
-    The total discount applied on the transaction.
+    The total discount applied on the transaction represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than 0.
+
+    This field is mutually exclusive with the `amount_details[line_items][#][discount_amount]` field.
     """
     line_items: NotRequired[
         "Literal['']|List[PaymentIntentModifyParamsAmountDetailsLineItem]"
@@ -177,7 +186,9 @@ class PaymentIntentModifyParamsAmountDetails(TypedDict):
 class PaymentIntentModifyParamsAmountDetailsLineItem(TypedDict):
     discount_amount: NotRequired[int]
     """
-    The amount an item was discounted for. Positive integer.
+    The discount applied on this line item represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than 0.
+
+    This field is mutually exclusive with the `amount_details[discount_amount]` field.
     """
     payment_method_options: NotRequired[
         "PaymentIntentModifyParamsAmountDetailsLineItemPaymentMethodOptions"
@@ -187,15 +198,17 @@ class PaymentIntentModifyParamsAmountDetailsLineItem(TypedDict):
     """
     product_code: NotRequired[str]
     """
-    Unique identifier of the product. At most 12 characters long.
+    The product code of the line item, such as an SKU. Required for L3 rates. At most 12 characters long.
     """
     product_name: str
     """
-    Name of the product. At most 100 characters long.
+    The product name of the line item. Required for L3 rates. At most 1024 characters long.
+
+    For Cards, this field is truncated to 26 alphanumeric characters before being sent to the card networks. For Paypal, this field is truncated to 127 characters.
     """
     quantity: int
     """
-    Number of items of the product. Positive integer.
+    The quantity of items. Required for L3 rates. An integer greater than 0.
     """
     tax: NotRequired["PaymentIntentModifyParamsAmountDetailsLineItemTax"]
     """
@@ -203,7 +216,7 @@ class PaymentIntentModifyParamsAmountDetailsLineItem(TypedDict):
     """
     unit_cost: int
     """
-    Cost of the product. Non-negative integer.
+    The unit cost of the line item represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L3 rates. An integer greater than or equal to 0.
     """
     unit_of_measure: NotRequired[str]
     """
@@ -301,29 +314,33 @@ class PaymentIntentModifyParamsAmountDetailsLineItemPaymentMethodOptionsPaypal(
 class PaymentIntentModifyParamsAmountDetailsLineItemTax(TypedDict):
     total_tax_amount: int
     """
-    The total tax on an item. Non-negative integer.
+    The total amount of tax on a single line item represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L3 rates. An integer greater than or equal to 0.
+
+    This field is mutually exclusive with the `amount_details[tax][total_tax_amount]` field.
     """
 
 
 class PaymentIntentModifyParamsAmountDetailsShipping(TypedDict):
     amount: NotRequired["Literal['']|int"]
     """
-    Portion of the amount that is for shipping.
+    If a physical good is being shipped, the cost of shipping represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than or equal to 0.
     """
     from_postal_code: NotRequired["Literal['']|str"]
     """
-    The postal code that represents the shipping source.
+    If a physical good is being shipped, the postal code of where it is being shipped from. At most 10 alphanumeric characters long, hyphens are allowed.
     """
     to_postal_code: NotRequired["Literal['']|str"]
     """
-    The postal code that represents the shipping destination.
+    If a physical good is being shipped, the postal code of where it is being shipped to. At most 10 alphanumeric characters long, hyphens are allowed.
     """
 
 
 class PaymentIntentModifyParamsAmountDetailsTax(TypedDict):
     total_tax_amount: int
     """
-    Total portion of the amount that is for tax.
+    The total amount of tax on the transaction represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L2 rates. An integer greater than or equal to 0.
+
+    This field is mutually exclusive with the `amount_details[line_items][#][tax][total_tax_amount]` field.
     """
 
 
@@ -388,9 +405,17 @@ class PaymentIntentModifyParamsPaymentDetails(TypedDict):
     """
     Car rental details for this PaymentIntent.
     """
+    car_rental_data: NotRequired[
+        "Literal['']|List[PaymentIntentModifyParamsPaymentDetailsCarRentalDatum]"
+    ]
+    """
+    Car rental data for this PaymentIntent.
+    """
     customer_reference: NotRequired["Literal['']|str"]
     """
-    Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
+    A unique value to identify the customer. This field is available only for card payments.
+
+    This field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks.
     """
     event_details: NotRequired[
         "PaymentIntentModifyParamsPaymentDetailsEventDetails"
@@ -402,13 +427,29 @@ class PaymentIntentModifyParamsPaymentDetails(TypedDict):
     """
     Flight reservation details for this PaymentIntent
     """
+    flight_data: NotRequired[
+        "Literal['']|List[PaymentIntentModifyParamsPaymentDetailsFlightDatum]"
+    ]
+    """
+    Flight data for this PaymentIntent.
+    """
     lodging: NotRequired["PaymentIntentModifyParamsPaymentDetailsLodging"]
     """
     Lodging reservation details for this PaymentIntent
     """
+    lodging_data: NotRequired[
+        "Literal['']|List[PaymentIntentModifyParamsPaymentDetailsLodgingDatum]"
+    ]
+    """
+    Lodging data for this PaymentIntent.
+    """
     order_reference: NotRequired["Literal['']|str"]
     """
-    A unique value assigned by the business to identify the transaction.
+    A unique value assigned by the business to identify the transaction. Required for L2 and L3 rates.
+
+    Required when the Payment Method Types array contains `card`, including when [automatic_payment_methods.enabled](https://docs.stripe.com/api/payment_intents/create#create_payment_intent-automatic_payment_methods-enabled) is set to `true`.
+
+    For Cards, this field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks. For Klarna, this field is truncated to 255 characters and is visible to customers when they view the order in the Klarna app.
     """
     subscription: NotRequired[
         "PaymentIntentModifyParamsPaymentDetailsSubscription"
@@ -672,6 +713,437 @@ class PaymentIntentModifyParamsPaymentDetailsCarRentalReturnAddress(TypedDict):
     """
 
 
+class PaymentIntentModifyParamsPaymentDetailsCarRentalDatum(TypedDict):
+    affiliate: NotRequired[
+        "PaymentIntentModifyParamsPaymentDetailsCarRentalDatumAffiliate"
+    ]
+    """
+    Affiliate (such as travel agency) details for the rental.
+    """
+    booking_number: NotRequired[str]
+    """
+    Booking confirmation number for the car rental.
+    """
+    carrier_name: NotRequired[str]
+    """
+    Name of the car rental company.
+    """
+    customer_service_phone_number: NotRequired[str]
+    """
+    Customer service phone number for the car rental company.
+    """
+    days_rented: NotRequired[int]
+    """
+    Number of days the car is being rented.
+    """
+    distance: NotRequired[
+        "PaymentIntentModifyParamsPaymentDetailsCarRentalDatumDistance"
+    ]
+    """
+    Distance details for the rental.
+    """
+    drivers: NotRequired[
+        List["PaymentIntentModifyParamsPaymentDetailsCarRentalDatumDriver"]
+    ]
+    """
+    List of drivers for the rental.
+    """
+    drop_off: "PaymentIntentModifyParamsPaymentDetailsCarRentalDatumDropOff"
+    """
+    Drop-off location details.
+    """
+    insurances: NotRequired[
+        List["PaymentIntentModifyParamsPaymentDetailsCarRentalDatumInsurance"]
+    ]
+    """
+    Insurance details for the rental.
+    """
+    no_show_indicator: NotRequired[bool]
+    """
+    Indicates if the customer was a no-show.
+    """
+    pickup: "PaymentIntentModifyParamsPaymentDetailsCarRentalDatumPickup"
+    """
+    Pickup location details.
+    """
+    renter_name: NotRequired[str]
+    """
+    Name of the person renting the vehicle.
+    """
+    total: "PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotal"
+    """
+    Total cost breakdown for the rental.
+    """
+    vehicle: NotRequired[
+        "PaymentIntentModifyParamsPaymentDetailsCarRentalDatumVehicle"
+    ]
+    """
+    Vehicle details for the rental.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsCarRentalDatumAffiliate(
+    TypedDict
+):
+    code: NotRequired[str]
+    """
+    Affiliate partner code.
+    """
+    name: NotRequired[str]
+    """
+    Name of affiliate partner.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsCarRentalDatumDistance(TypedDict):
+    amount: int
+    """
+    Distance traveled.
+    """
+    unit: Literal["kilometers", "miles"]
+    """
+    Unit of measurement for the distance traveled. One of `miles` or `kilometers`.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsCarRentalDatumDriver(TypedDict):
+    date_of_birth: NotRequired[
+        "PaymentIntentModifyParamsPaymentDetailsCarRentalDatumDriverDateOfBirth"
+    ]
+    """
+    Driver's date of birth.
+    """
+    driver_identification_number: NotRequired[str]
+    """
+    Driver's identification number.
+    """
+    driver_tax_number: NotRequired[str]
+    """
+    Driver's tax number.
+    """
+    name: str
+    """
+    Driver's full name.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsCarRentalDatumDriverDateOfBirth(
+    TypedDict,
+):
+    day: int
+    """
+    Day of birth (1-31).
+    """
+    month: int
+    """
+    Month of birth (1-12).
+    """
+    year: int
+    """
+    Year of birth (must be greater than 1900).
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsCarRentalDatumDropOff(TypedDict):
+    address: (
+        "PaymentIntentModifyParamsPaymentDetailsCarRentalDatumDropOffAddress"
+    )
+    """
+    Address of the rental location.
+    """
+    location_name: NotRequired[str]
+    """
+    Location name.
+    """
+    time: int
+    """
+    Timestamp for the location.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsCarRentalDatumDropOffAddress(
+    TypedDict,
+):
+    city: str
+    """
+    City, district, suburb, town, or village.
+    """
+    country: str
+    """
+    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+    """
+    line1: str
+    """
+    Address line 1, such as the street, PO Box, or company name.
+    """
+    line2: NotRequired[str]
+    """
+    Address line 2, such as the apartment, suite, unit, or building.
+    """
+    postal_code: str
+    """
+    ZIP or postal code.
+    """
+    state: NotRequired[str]
+    """
+    State, county, province, or region.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsCarRentalDatumInsurance(
+    TypedDict
+):
+    amount: int
+    """
+    Amount of the insurance coverage in cents.
+    """
+    currency: NotRequired[str]
+    """
+    Currency of the insurance amount.
+    """
+    insurance_company_name: NotRequired[str]
+    """
+    Name of the insurance company.
+    """
+    insurance_type: Literal[
+        "liability_supplement",
+        "loss_damage_waiver",
+        "other",
+        "partial_damage_waiver",
+        "personal_accident",
+        "personal_effects",
+    ]
+    """
+    Type of insurance coverage.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsCarRentalDatumPickup(TypedDict):
+    address: (
+        "PaymentIntentModifyParamsPaymentDetailsCarRentalDatumPickupAddress"
+    )
+    """
+    Address of the rental location.
+    """
+    location_name: NotRequired[str]
+    """
+    Location name.
+    """
+    time: int
+    """
+    Timestamp for the location.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsCarRentalDatumPickupAddress(
+    TypedDict,
+):
+    city: str
+    """
+    City, district, suburb, town, or village.
+    """
+    country: str
+    """
+    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+    """
+    line1: str
+    """
+    Address line 1, such as the street, PO Box, or company name.
+    """
+    line2: NotRequired[str]
+    """
+    Address line 2, such as the apartment, suite, unit, or building.
+    """
+    postal_code: str
+    """
+    ZIP or postal code.
+    """
+    state: NotRequired[str]
+    """
+    State, county, province, or region.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotal(TypedDict):
+    amount: int
+    """
+    Total amount in cents.
+    """
+    currency: NotRequired[str]
+    """
+    Currency of the amount.
+    """
+    discounts: NotRequired[
+        "PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotalDiscounts"
+    ]
+    """
+    Discount details for the rental.
+    """
+    extra_charges: NotRequired[
+        List[
+            "PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotalExtraCharge"
+        ]
+    ]
+    """
+    Additional charges for the rental.
+    """
+    rate_per_unit: NotRequired[int]
+    """
+    Rate per unit for the rental.
+    """
+    rate_unit: NotRequired[
+        Literal["days", "kilometers", "miles", "months", "weeks"]
+    ]
+    """
+    Unit of measurement for the rate.
+    """
+    tax: NotRequired[
+        "PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotalTax"
+    ]
+    """
+    Tax breakdown for the rental.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotalDiscounts(
+    TypedDict,
+):
+    corporate_client_code: NotRequired[str]
+    """
+    Corporate client discount code.
+    """
+    coupon: NotRequired[str]
+    """
+    Coupon code applied to the rental.
+    """
+    maximum_free_miles_or_kilometers: NotRequired[int]
+    """
+    Maximum number of free miles or kilometers included.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotalExtraCharge(
+    TypedDict,
+):
+    amount: int
+    """
+    Amount of the extra charge in cents.
+    """
+    type: Literal[
+        "extra_mileage",
+        "gas",
+        "gps",
+        "late_charge",
+        "one_way_drop_off",
+        "other",
+        "parking",
+        "phone",
+        "regular_mileage",
+        "towing",
+    ]
+    """
+    Type of extra charge.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotalTax(TypedDict):
+    tax_exempt_indicator: NotRequired[bool]
+    """
+    Indicates if the transaction is tax exempt.
+    """
+    taxes: NotRequired[
+        List[
+            "PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotalTaxTax"
+        ]
+    ]
+    """
+    Array of tax details.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsCarRentalDatumTotalTaxTax(
+    TypedDict,
+):
+    amount: NotRequired[int]
+    """
+    Tax amount.
+    """
+    rate: NotRequired[int]
+    """
+    Tax rate applied.
+    """
+    type: NotRequired[str]
+    """
+    Type of tax applied.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsCarRentalDatumVehicle(TypedDict):
+    make: NotRequired[str]
+    """
+    Make of the rental vehicle.
+    """
+    model: NotRequired[str]
+    """
+    Model of the rental vehicle.
+    """
+    odometer: NotRequired[int]
+    """
+    Odometer reading at the time of rental.
+    """
+    type: NotRequired[
+        Literal[
+            "cargo_van",
+            "compact",
+            "economy",
+            "exotic",
+            "exotic_suv",
+            "fifteen_passenger_van",
+            "four_wheel_drive",
+            "full_size",
+            "intermediate",
+            "large_suv",
+            "large_truck",
+            "luxury",
+            "medium_suv",
+            "midsize",
+            "mini",
+            "minivan",
+            "miscellaneous",
+            "moped",
+            "moving_van",
+            "premium",
+            "regular",
+            "small_medium_truck",
+            "small_suv",
+            "special",
+            "standard",
+            "stretch",
+            "subcompact",
+            "taxi",
+            "twelve_foot_truck",
+            "twelve_passenger_van",
+            "twenty_foot_truck",
+            "twenty_four_foot_truck",
+            "twenty_six_foot_truck",
+            "unique",
+        ]
+    ]
+    """
+    Type of the rental vehicle.
+    """
+    vehicle_class: NotRequired[
+        Literal["business", "economy", "first_class", "premium_economy"]
+    ]
+    """
+    Class of the rental vehicle.
+    """
+    vehicle_identification_number: NotRequired[str]
+    """
+    Vehicle identification number (VIN).
+    """
+
+
 class PaymentIntentModifyParamsPaymentDetailsEventDetails(TypedDict):
     access_controlled_venue: NotRequired[bool]
     """
@@ -903,6 +1375,302 @@ class PaymentIntentModifyParamsPaymentDetailsFlightSegment(TypedDict):
     """
 
 
+class PaymentIntentModifyParamsPaymentDetailsFlightDatum(TypedDict):
+    affiliate: NotRequired[
+        "PaymentIntentModifyParamsPaymentDetailsFlightDatumAffiliate"
+    ]
+    """
+    Affiliate details if applicable.
+    """
+    booking_number: NotRequired[str]
+    """
+    Reservation reference.
+    """
+    computerized_reservation_system: NotRequired[str]
+    """
+    Computerized reservation system used to make the reservation and purchase the ticket.
+    """
+    endorsements_and_restrictions: NotRequired[str]
+    """
+    Ticket restrictions.
+    """
+    insurances: NotRequired[
+        List["PaymentIntentModifyParamsPaymentDetailsFlightDatumInsurance"]
+    ]
+    """
+    List of insurances.
+    """
+    passengers: NotRequired[
+        List["PaymentIntentModifyParamsPaymentDetailsFlightDatumPassenger"]
+    ]
+    """
+    List of passengers.
+    """
+    segments: List["PaymentIntentModifyParamsPaymentDetailsFlightDatumSegment"]
+    """
+    List of flight segments.
+    """
+    ticket_electronically_issued_indicator: NotRequired[bool]
+    """
+    Electronic ticket indicator.
+    """
+    total: "PaymentIntentModifyParamsPaymentDetailsFlightDatumTotal"
+    """
+    Total cost breakdown.
+    """
+    transaction_type: NotRequired[
+        Literal[
+            "exchange_ticket", "miscellaneous", "refund", "ticket_purchase"
+        ]
+    ]
+    """
+    Type of flight transaction.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsFlightDatumAffiliate(TypedDict):
+    code: NotRequired[str]
+    """
+    Affiliate partner code.
+    """
+    name: NotRequired[str]
+    """
+    Name of affiliate partner.
+    """
+    travel_authorization_code: NotRequired[str]
+    """
+    Code provided by the company to a travel agent authorizing ticket issuance.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsFlightDatumInsurance(TypedDict):
+    amount: int
+    """
+    Insurance cost.
+    """
+    currency: NotRequired[str]
+    """
+    Insurance currency.
+    """
+    insurance_company_name: NotRequired[str]
+    """
+    Insurance company name.
+    """
+    insurance_type: Literal[
+        "baggage", "bankruptcy", "cancelation", "emergency", "medical"
+    ]
+    """
+    Type of insurance.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsFlightDatumPassenger(TypedDict):
+    name: str
+    """
+    Passenger's full name.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsFlightDatumSegment(TypedDict):
+    amount: NotRequired[int]
+    """
+    Segment fare amount.
+    """
+    arrival: "PaymentIntentModifyParamsPaymentDetailsFlightDatumSegmentArrival"
+    """
+    Arrival details.
+    """
+    carrier_code: str
+    """
+    Airline carrier code.
+    """
+    carrier_name: NotRequired[str]
+    """
+    Carrier name.
+    """
+    currency: NotRequired[str]
+    """
+    Segment currency.
+    """
+    departure: (
+        "PaymentIntentModifyParamsPaymentDetailsFlightDatumSegmentDeparture"
+    )
+    """
+    Departure details.
+    """
+    exchange_ticket_number: NotRequired[str]
+    """
+    Exchange ticket number.
+    """
+    fare_basis_code: NotRequired[str]
+    """
+    Fare basis code.
+    """
+    fees: NotRequired[int]
+    """
+    Additional fees.
+    """
+    flight_number: NotRequired[str]
+    """
+    Flight number.
+    """
+    is_stop_over_indicator: NotRequired[bool]
+    """
+    Stopover indicator.
+    """
+    refundable: NotRequired[bool]
+    """
+    Refundable ticket indicator.
+    """
+    service_class: Literal[
+        "business", "economy", "first_class", "premium_economy"
+    ]
+    """
+    Class of service.
+    """
+    tax_amount: NotRequired[int]
+    """
+    Tax amount for segment.
+    """
+    ticket_number: NotRequired[str]
+    """
+    Ticket number.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsFlightDatumSegmentArrival(
+    TypedDict,
+):
+    airport: str
+    """
+    Arrival airport IATA code.
+    """
+    arrives_at: NotRequired[int]
+    """
+    Arrival date/time.
+    """
+    city: NotRequired[str]
+    """
+    Arrival city.
+    """
+    country: NotRequired[str]
+    """
+    Arrival country.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsFlightDatumSegmentDeparture(
+    TypedDict,
+):
+    airport: str
+    """
+    Departure airport IATA code.
+    """
+    city: NotRequired[str]
+    """
+    Departure city.
+    """
+    country: NotRequired[str]
+    """
+    Departure country.
+    """
+    departs_at: int
+    """
+    Departure date/time.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsFlightDatumTotal(TypedDict):
+    amount: int
+    """
+    Total flight amount.
+    """
+    credit_reason: NotRequired[
+        Literal[
+            "other",
+            "partial_ticket_refund",
+            "passenger_transport_ancillary_cancellation",
+            "ticket_and_ancillary_cancellation",
+            "ticket_cancellation",
+        ]
+    ]
+    """
+    Reason for credit.
+    """
+    currency: NotRequired[str]
+    """
+    Total currency.
+    """
+    discounts: NotRequired[
+        "PaymentIntentModifyParamsPaymentDetailsFlightDatumTotalDiscounts"
+    ]
+    """
+    Discount details.
+    """
+    extra_charges: NotRequired[
+        List[
+            "PaymentIntentModifyParamsPaymentDetailsFlightDatumTotalExtraCharge"
+        ]
+    ]
+    """
+    Additional charges.
+    """
+    tax: NotRequired[
+        "PaymentIntentModifyParamsPaymentDetailsFlightDatumTotalTax"
+    ]
+    """
+    Tax breakdown.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsFlightDatumTotalDiscounts(
+    TypedDict,
+):
+    corporate_client_code: NotRequired[str]
+    """
+    Corporate client discount code.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsFlightDatumTotalExtraCharge(
+    TypedDict,
+):
+    amount: NotRequired[int]
+    """
+    Amount of additional charges.
+    """
+    type: NotRequired[
+        Literal["additional_fees", "ancillary_service_charges", "exchange_fee"]
+    ]
+    """
+    Type of additional charges.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsFlightDatumTotalTax(TypedDict):
+    taxes: NotRequired[
+        List["PaymentIntentModifyParamsPaymentDetailsFlightDatumTotalTaxTax"]
+    ]
+    """
+    Array of tax details.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsFlightDatumTotalTaxTax(TypedDict):
+    amount: NotRequired[int]
+    """
+    Tax amount.
+    """
+    rate: NotRequired[int]
+    """
+    Tax rate.
+    """
+    type: NotRequired[str]
+    """
+    Type of tax.
+    """
+
+
 class PaymentIntentModifyParamsPaymentDetailsLodging(TypedDict):
     address: NotRequired[
         "PaymentIntentModifyParamsPaymentDetailsLodgingAddress"
@@ -1077,6 +1845,325 @@ class PaymentIntentModifyParamsPaymentDetailsLodgingPassenger(TypedDict):
     name: str
     """
     Full name of the person or entity on the lodging reservation.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsLodgingDatum(TypedDict):
+    accommodation: NotRequired[
+        "PaymentIntentModifyParamsPaymentDetailsLodgingDatumAccommodation"
+    ]
+    """
+    Accommodation details for the lodging.
+    """
+    affiliate: NotRequired[
+        "PaymentIntentModifyParamsPaymentDetailsLodgingDatumAffiliate"
+    ]
+    """
+    Affiliate details if applicable.
+    """
+    booking_number: NotRequired[str]
+    """
+    Booking confirmation number for the lodging.
+    """
+    checkin_at: int
+    """
+    Check-in date.
+    """
+    checkout_at: int
+    """
+    Check-out date.
+    """
+    customer_service_phone_number: NotRequired[str]
+    """
+    Customer service phone number for the lodging company.
+    """
+    fire_safety_act_compliance_indicator: NotRequired[bool]
+    """
+    Whether the lodging is compliant with any hotel fire safety regulations.
+    """
+    guests: NotRequired[
+        List["PaymentIntentModifyParamsPaymentDetailsLodgingDatumGuest"]
+    ]
+    """
+    List of guests for the lodging.
+    """
+    host: NotRequired[
+        "PaymentIntentModifyParamsPaymentDetailsLodgingDatumHost"
+    ]
+    """
+    Host details for the lodging.
+    """
+    insurances: NotRequired[
+        List["PaymentIntentModifyParamsPaymentDetailsLodgingDatumInsurance"]
+    ]
+    """
+    List of insurances for the lodging.
+    """
+    no_show_indicator: NotRequired[bool]
+    """
+    Whether the renter is a no-show.
+    """
+    renter_id_number: NotRequired[str]
+    """
+    Renter ID number for the lodging.
+    """
+    renter_name: NotRequired[str]
+    """
+    Renter name for the lodging.
+    """
+    total: "PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotal"
+    """
+    Total details for the lodging.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsLodgingDatumAccommodation(
+    TypedDict,
+):
+    accommodation_type: NotRequired[
+        Literal[
+            "apartment",
+            "cabana",
+            "house",
+            "penthouse",
+            "room",
+            "standard",
+            "suite",
+            "villa",
+        ]
+    ]
+    """
+    Type of accommodation.
+    """
+    bed_type: NotRequired[str]
+    """
+    Bed type.
+    """
+    daily_rate_amount: NotRequired[int]
+    """
+    Daily accommodation rate in cents.
+    """
+    nights: NotRequired[int]
+    """
+    Number of nights.
+    """
+    number_of_rooms: NotRequired[int]
+    """
+    Number of rooms, cabanas, apartments, and so on.
+    """
+    rate_type: NotRequired[str]
+    """
+    Rate type.
+    """
+    smoking_indicator: NotRequired[bool]
+    """
+    Whether smoking is allowed.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsLodgingDatumAffiliate(TypedDict):
+    code: NotRequired[str]
+    """
+    Affiliate partner code.
+    """
+    name: NotRequired[str]
+    """
+    Affiliate partner name.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsLodgingDatumGuest(TypedDict):
+    name: str
+    """
+    Guest's full name.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsLodgingDatumHost(TypedDict):
+    address: NotRequired[
+        "PaymentIntentModifyParamsPaymentDetailsLodgingDatumHostAddress"
+    ]
+    """
+    Address of the host.
+    """
+    country_of_domicile: NotRequired[str]
+    """
+    Host's country of domicile.
+    """
+    host_reference: NotRequired[str]
+    """
+    Reference number for the host.
+    """
+    host_type: NotRequired[
+        Literal["hostel", "hotel", "owner", "rental_agency"]
+    ]
+    """
+    Type of host.
+    """
+    name: NotRequired[str]
+    """
+    Name of the lodging property or host.
+    """
+    number_of_reservations: NotRequired[int]
+    """
+    Total number of reservations for the host.
+    """
+    property_phone_number: NotRequired[str]
+    """
+    Property phone number.
+    """
+    registered_at: NotRequired[int]
+    """
+    Host's registration date.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsLodgingDatumHostAddress(
+    TypedDict
+):
+    city: str
+    """
+    City, district, suburb, town, or village.
+    """
+    country: str
+    """
+    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+    """
+    line1: str
+    """
+    Address line 1, such as the street, PO Box, or company name.
+    """
+    line2: NotRequired[str]
+    """
+    Address line 2, such as the apartment, suite, unit, or building.
+    """
+    postal_code: str
+    """
+    ZIP or postal code.
+    """
+    state: NotRequired[str]
+    """
+    State, county, province, or region.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsLodgingDatumInsurance(TypedDict):
+    amount: int
+    """
+    Price of the insurance coverage in cents.
+    """
+    currency: NotRequired[str]
+    """
+    Currency of the insurance amount.
+    """
+    insurance_company_name: NotRequired[str]
+    """
+    Name of the insurance company.
+    """
+    insurance_type: Literal[
+        "bankruptcy", "cancelation", "emergency", "medical"
+    ]
+    """
+    Type of insurance coverage.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotal(TypedDict):
+    amount: int
+    """
+    Total price of the lodging reservation in cents.
+    """
+    cash_advances: NotRequired[int]
+    """
+    Cash advances in cents.
+    """
+    currency: NotRequired[str]
+    """
+    Currency of the total amount.
+    """
+    discounts: NotRequired[
+        "PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotalDiscounts"
+    ]
+    """
+    Discount details for the lodging.
+    """
+    extra_charges: NotRequired[
+        List[
+            "PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotalExtraCharge"
+        ]
+    ]
+    """
+    Additional charges for the lodging.
+    """
+    prepaid_amount: NotRequired[int]
+    """
+    Prepaid amount in cents.
+    """
+    tax: NotRequired[
+        "PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotalTax"
+    ]
+    """
+    Tax breakdown for the lodging reservation.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotalDiscounts(
+    TypedDict,
+):
+    corporate_client_code: NotRequired[str]
+    """
+    Corporate client discount code.
+    """
+    coupon: NotRequired[str]
+    """
+    Coupon code.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotalExtraCharge(
+    TypedDict,
+):
+    amount: NotRequired[int]
+    """
+    Amount of the extra charge in cents.
+    """
+    type: NotRequired[
+        Literal[
+            "gift_shop", "laundry", "mini_bar", "other", "phone", "restaurant"
+        ]
+    ]
+    """
+    Type of extra charge.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotalTax(TypedDict):
+    tax_exempt_indicator: NotRequired[bool]
+    """
+    Indicates whether the transaction is tax exempt.
+    """
+    taxes: NotRequired[
+        List["PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotalTaxTax"]
+    ]
+    """
+    Tax details.
+    """
+
+
+class PaymentIntentModifyParamsPaymentDetailsLodgingDatumTotalTaxTax(
+    TypedDict
+):
+    amount: NotRequired[int]
+    """
+    Tax amount in cents.
+    """
+    rate: NotRequired[int]
+    """
+    Tax rate.
+    """
+    type: NotRequired[str]
+    """
+    Type of tax applied.
     """
 
 
@@ -1729,6 +2816,7 @@ class PaymentIntentModifyParamsPaymentMethodDataIdeal(TypedDict):
             "asn_bank",
             "bunq",
             "buut",
+            "finom",
             "handelsbanken",
             "ing",
             "knab",
@@ -3011,6 +4099,14 @@ class PaymentIntentModifyParamsPaymentMethodOptionsCardThreeDSecureNetworkOption
 
 
 class PaymentIntentModifyParamsPaymentMethodOptionsCardPresent(TypedDict):
+    capture_method: NotRequired[Literal["manual", "manual_preferred"]]
+    """
+    Controls when the funds are captured from the customer's account.
+
+    If provided, this parameter overrides the behavior of the top-level [capture_method](https://docs.stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+    If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+    """
     request_extended_authorization: NotRequired[bool]
     """
     Request ability to capture this payment beyond the standard [authorization validity window](https://stripe.com/docs/terminal/features/extended-authorizations#authorization-validity)
@@ -3373,6 +4469,12 @@ class PaymentIntentModifyParamsPaymentMethodOptionsKlarna(TypedDict):
     """
     Subscription details if setting up or charging a subscription.
     """
+    supplementary_purchase_data: NotRequired[
+        "Literal['']|PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseData"
+    ]
+    """
+    Supplementary Purchase Data for the corresponding Klarna payment
+    """
 
 
 class PaymentIntentModifyParamsPaymentMethodOptionsKlarnaOnDemand(TypedDict):
@@ -3435,6 +4537,1088 @@ class PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSubscriptionNextBilling
     date: str
     """
     The date of the next charge for the subscription in YYYY-MM-DD format.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseData(
+    TypedDict,
+):
+    bus_reservation_details: NotRequired[
+        "Literal['']|List[PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataBusReservationDetail]"
+    ]
+    """
+    Supplementary bus reservation details.
+    """
+    event_reservation_details: NotRequired[
+        "Literal['']|List[PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataEventReservationDetail]"
+    ]
+    """
+    Supplementary event reservation details.
+    """
+    ferry_reservation_details: NotRequired[
+        "Literal['']|List[PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataFerryReservationDetail]"
+    ]
+    """
+    Supplementary ferry reservation details.
+    """
+    insurances: NotRequired[
+        "Literal['']|List[PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataInsurance]"
+    ]
+    """
+    Supplementary insurance details.
+    """
+    marketplace_sellers: NotRequired[
+        "Literal['']|List[PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataMarketplaceSeller]"
+    ]
+    """
+    Supplementary marketplace seller details.
+    """
+    round_trip_reservation_details: NotRequired[
+        "Literal['']|List[PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataRoundTripReservationDetail]"
+    ]
+    """
+    Supplementary round trip reservation details.
+    """
+    train_reservation_details: NotRequired[
+        "Literal['']|List[PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataTrainReservationDetail]"
+    ]
+    """
+    Supplementary train reservation details.
+    """
+    vouchers: NotRequired[
+        "Literal['']|List[PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataVoucher]"
+    ]
+    """
+    Voucher details, such as a gift card or discount code.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataBusReservationDetail(
+    TypedDict,
+):
+    affiliate_name: NotRequired[str]
+    """
+    Name of associated or partner company for the service.
+    """
+    arrival: NotRequired[
+        "PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataBusReservationDetailArrival"
+    ]
+    """
+    Arrival details.
+    """
+    carrier_name: NotRequired[str]
+    """
+    Name of transportation company.
+    """
+    currency: NotRequired[str]
+    """
+    Currency.
+    """
+    departure: NotRequired[
+        "PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataBusReservationDetailDeparture"
+    ]
+    """
+    Departure details.
+    """
+    insurances: NotRequired[
+        List[
+            "PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataBusReservationDetailInsurance"
+        ]
+    ]
+    """
+    List of insurances for this reservation.
+    """
+    passengers: NotRequired[
+        List[
+            "PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataBusReservationDetailPassenger"
+        ]
+    ]
+    """
+    List of passengers that this reservation applies to.
+    """
+    price: NotRequired[int]
+    """
+    Price in cents.
+    """
+    ticket_class: NotRequired[
+        Literal["business", "economy", "first_class", "premium_economy"]
+    ]
+    """
+    Ticket class.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataBusReservationDetailArrival(
+    TypedDict,
+):
+    address: NotRequired[
+        "PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataBusReservationDetailArrivalAddress"
+    ]
+    """
+    Address of the arrival location.
+    """
+    arrival_location: NotRequired[str]
+    """
+    Identifier name or reference for the arrival location.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataBusReservationDetailArrivalAddress(
+    TypedDict,
+):
+    city: NotRequired[str]
+    """
+    The city or town.
+    """
+    country: NotRequired[str]
+    """
+    The country in ISO 3166-1 alpha-2 format.
+    """
+    postal_code: NotRequired[str]
+    """
+    The postal code formatted according to country.
+    """
+    region: NotRequired[str]
+    """
+    The state, county, province, or region formatted according to country.
+    """
+    street_address: NotRequired[str]
+    """
+    Line 1 of the street address.
+    """
+    street_address2: NotRequired[str]
+    """
+    Line 2 of the street address.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataBusReservationDetailDeparture(
+    TypedDict,
+):
+    address: NotRequired[
+        "PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataBusReservationDetailDepartureAddress"
+    ]
+    """
+    Address of the departure location.
+    """
+    departs_at: NotRequired[int]
+    """
+    Timestamp of departure.
+    """
+    departure_location: NotRequired[str]
+    """
+    Identifier name or reference for the origin location.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataBusReservationDetailDepartureAddress(
+    TypedDict,
+):
+    city: NotRequired[str]
+    """
+    The city or town.
+    """
+    country: NotRequired[str]
+    """
+    The country in ISO 3166-1 alpha-2 format.
+    """
+    postal_code: NotRequired[str]
+    """
+    The postal code formatted according to country.
+    """
+    region: NotRequired[str]
+    """
+    The state, county, province, or region formatted according to country.
+    """
+    street_address: NotRequired[str]
+    """
+    Line 1 of the street address.
+    """
+    street_address2: NotRequired[str]
+    """
+    Line 2 of the street address.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataBusReservationDetailInsurance(
+    TypedDict,
+):
+    currency: NotRequired[str]
+    """
+    Insurance currency.
+    """
+    insurance_company_name: NotRequired[str]
+    """
+    Name of the company providing the insurance.
+    """
+    insurance_type: NotRequired[
+        Literal["baggage", "bankruptcy", "cancelation", "emergency", "medical"]
+    ]
+    """
+    Type of insurance.
+    """
+    price: NotRequired[int]
+    """
+    Price of insurance in cents.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataBusReservationDetailPassenger(
+    TypedDict,
+):
+    family_name: NotRequired[str]
+    """
+    The family name of the person.
+    """
+    given_name: NotRequired[str]
+    """
+    The given name of the person.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataEventReservationDetail(
+    TypedDict,
+):
+    access_controlled_venue: NotRequired[bool]
+    """
+    Indicates if the tickets are digitally checked when entering the venue.
+    """
+    address: NotRequired[
+        "PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataEventReservationDetailAddress"
+    ]
+    """
+    Address of the event.
+    """
+    affiliate_name: NotRequired[str]
+    """
+    Name of associated or partner company for the service.
+    """
+    ends_at: NotRequired[int]
+    """
+    End timestamp of the event.
+    """
+    event_company_name: NotRequired[str]
+    """
+    Company selling the ticket.
+    """
+    event_name: NotRequired[str]
+    """
+    Name of the event.
+    """
+    event_type: NotRequired[
+        Literal[
+            "concert",
+            "conference",
+            "digital_education",
+            "expo",
+            "festival",
+            "in_person_education",
+            "sport",
+            "tour",
+        ]
+    ]
+    """
+    Type of the event.
+    """
+    insurances: NotRequired[
+        List[
+            "PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataEventReservationDetailInsurance"
+        ]
+    ]
+    """
+    List of insurances for this event.
+    """
+    starts_at: NotRequired[int]
+    """
+    Start timestamp of the event.
+    """
+    venue_name: NotRequired[str]
+    """
+    Name of the venue where the event takes place.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataEventReservationDetailAddress(
+    TypedDict,
+):
+    city: NotRequired[str]
+    """
+    The city or town.
+    """
+    country: NotRequired[str]
+    """
+    The country in ISO 3166-1 alpha-2 format.
+    """
+    postal_code: NotRequired[str]
+    """
+    The postal code formatted according to country.
+    """
+    region: NotRequired[str]
+    """
+    The state, county, province, or region formatted according to country.
+    """
+    street_address: NotRequired[str]
+    """
+    Line 1 of the street address.
+    """
+    street_address2: NotRequired[str]
+    """
+    Line 2 of the street address.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataEventReservationDetailInsurance(
+    TypedDict,
+):
+    currency: NotRequired[str]
+    """
+    Insurance currency.
+    """
+    insurance_company_name: NotRequired[str]
+    """
+    Name of the company providing the insurance.
+    """
+    insurance_type: NotRequired[
+        Literal["bankruptcy", "cancelation", "emergency", "medical"]
+    ]
+    """
+    Type of insurance.
+    """
+    price: NotRequired[int]
+    """
+    Price of insurance in cents.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataFerryReservationDetail(
+    TypedDict,
+):
+    affiliate_name: NotRequired[str]
+    """
+    Name of associated or partner company for the service.
+    """
+    arrival: NotRequired[
+        "PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataFerryReservationDetailArrival"
+    ]
+    """
+    Arrival details.
+    """
+    carrier_name: NotRequired[str]
+    """
+    Name of transportation company.
+    """
+    currency: NotRequired[str]
+    """
+    Currency.
+    """
+    departure: NotRequired[
+        "PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataFerryReservationDetailDeparture"
+    ]
+    """
+    Departure details.
+    """
+    insurances: NotRequired[
+        List[
+            "PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataFerryReservationDetailInsurance"
+        ]
+    ]
+    """
+    List of insurances for this reservation.
+    """
+    passengers: NotRequired[
+        List[
+            "PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataFerryReservationDetailPassenger"
+        ]
+    ]
+    """
+    List of passengers that this reservation applies to.
+    """
+    price: NotRequired[int]
+    """
+    Price in cents.
+    """
+    ticket_class: NotRequired[
+        Literal["business", "economy", "first_class", "premium_economy"]
+    ]
+    """
+    Ticket class.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataFerryReservationDetailArrival(
+    TypedDict,
+):
+    address: NotRequired[
+        "PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataFerryReservationDetailArrivalAddress"
+    ]
+    """
+    Address of the arrival location.
+    """
+    arrival_location: NotRequired[str]
+    """
+    Identifier name or reference for the arrival location.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataFerryReservationDetailArrivalAddress(
+    TypedDict,
+):
+    city: NotRequired[str]
+    """
+    The city or town.
+    """
+    country: NotRequired[str]
+    """
+    The country in ISO 3166-1 alpha-2 format.
+    """
+    postal_code: NotRequired[str]
+    """
+    The postal code formatted according to country.
+    """
+    region: NotRequired[str]
+    """
+    The state, county, province, or region formatted according to country.
+    """
+    street_address: NotRequired[str]
+    """
+    Line 1 of the street address.
+    """
+    street_address2: NotRequired[str]
+    """
+    Line 2 of the street address.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataFerryReservationDetailDeparture(
+    TypedDict,
+):
+    address: NotRequired[
+        "PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataFerryReservationDetailDepartureAddress"
+    ]
+    """
+    Address of the departure location.
+    """
+    departs_at: NotRequired[int]
+    """
+    Timestamp of departure.
+    """
+    departure_location: NotRequired[str]
+    """
+    Identifier name or reference for the origin location.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataFerryReservationDetailDepartureAddress(
+    TypedDict,
+):
+    city: NotRequired[str]
+    """
+    The city or town.
+    """
+    country: NotRequired[str]
+    """
+    The country in ISO 3166-1 alpha-2 format.
+    """
+    postal_code: NotRequired[str]
+    """
+    The postal code formatted according to country.
+    """
+    region: NotRequired[str]
+    """
+    The state, county, province, or region formatted according to country.
+    """
+    street_address: NotRequired[str]
+    """
+    Line 1 of the street address.
+    """
+    street_address2: NotRequired[str]
+    """
+    Line 2 of the street address.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataFerryReservationDetailInsurance(
+    TypedDict,
+):
+    currency: NotRequired[str]
+    """
+    Insurance currency.
+    """
+    insurance_company_name: NotRequired[str]
+    """
+    Name of the company providing the insurance.
+    """
+    insurance_type: NotRequired[
+        Literal["baggage", "bankruptcy", "cancelation", "emergency", "medical"]
+    ]
+    """
+    Type of insurance.
+    """
+    price: NotRequired[int]
+    """
+    Price of insurance in cents.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataFerryReservationDetailPassenger(
+    TypedDict,
+):
+    family_name: NotRequired[str]
+    """
+    The family name of the person.
+    """
+    given_name: NotRequired[str]
+    """
+    The given name of the person.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataInsurance(
+    TypedDict,
+):
+    currency: NotRequired[str]
+    """
+    Insurance currency.
+    """
+    insurance_company_name: NotRequired[str]
+    """
+    Name of the company providing the insurance.
+    """
+    insurance_type: NotRequired[
+        Literal["bankruptcy", "cancelation", "emergency", "medical"]
+    ]
+    """
+    Type of insurance
+    """
+    price: NotRequired[int]
+    """
+    Price of insurance in cents.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataMarketplaceSeller(
+    TypedDict,
+):
+    line_item_references: NotRequired[List[str]]
+    """
+    The references to line items for purchases with multiple associated sub-sellers.
+    """
+    marketplace_seller_address: NotRequired[
+        "PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataMarketplaceSellerMarketplaceSellerAddress"
+    ]
+    """
+    The address of the selling or delivering merchant.
+    """
+    marketplace_seller_name: NotRequired[str]
+    """
+    The name of the marketplace seller.
+    """
+    marketplace_seller_reference: NotRequired[str]
+    """
+    The unique identifier for the marketplace seller.
+    """
+    number_of_transactions: NotRequired[int]
+    """
+    The number of transactions the sub-seller completed in the last 12 months.
+    """
+    product_category: NotRequired[
+        Literal[
+            "accessories",
+            "appliances",
+            "apps_and_games",
+            "arts_crafts_and_sewing",
+            "automotive",
+            "baby",
+            "baby_clothing",
+            "bags_and_purses",
+            "beauty",
+            "books",
+            "cds_and_vinyl",
+            "cell_phones_and_accessories",
+            "collectibles_and_fine_arts",
+            "digital_music",
+            "electronics",
+            "grocery_and_gourmet_food",
+            "handmade",
+            "health_and_personal_care",
+            "home_and_kitchen",
+            "industrial_and_scientific",
+            "luggage_and_travel_gear",
+            "magazine_subscriptions",
+            "men_clothing",
+            "musical_instruments",
+            "office_products",
+            "patio_lawn_and_garden",
+            "pet_supplies",
+            "shoes",
+            "software",
+            "sports_and_outdoors",
+            "tools_and_home_improvement",
+            "toys_and_games",
+            "video_games",
+            "women_clothing",
+        ]
+    ]
+    """
+    The category of the product.
+    """
+    seller_last_login_at: NotRequired[int]
+    """
+    The date when the seller's account with the marketplace was last logged in.
+    """
+    seller_rating: NotRequired[
+        Literal["high", "low", "medium", "very_high", "very_low"]
+    ]
+    """
+    The current rating of the marketplace seller. If the marketplace uses numeric ranking, map these to the enum values.
+    """
+    seller_registered_at: NotRequired[int]
+    """
+    The date when the seller's account with the marketplace was created.
+    """
+    seller_updated_at: NotRequired[int]
+    """
+    The date when the seller's account with the marketplace was last updated.
+    """
+    shipping_references: NotRequired[List[str]]
+    """
+    The references to shipping addresses for purchases with multiple associated sub-sellers.
+    """
+    volume_of_transactions: NotRequired[int]
+    """
+    The accumulated amount of sales transactions made by the sub-merchant or sub-seller within the past 12 months in the payment currency. These transactions are in minor currency units.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataMarketplaceSellerMarketplaceSellerAddress(
+    TypedDict,
+):
+    city: NotRequired[str]
+    """
+    The city or town.
+    """
+    country: NotRequired[str]
+    """
+    The country in ISO 3166-1 alpha-2 format.
+    """
+    postal_code: NotRequired[str]
+    """
+    The postal code formatted according to country.
+    """
+    region: NotRequired[str]
+    """
+    The state, county, province, or region formatted according to country.
+    """
+    street_address: NotRequired[str]
+    """
+    Line 1 of the street address.
+    """
+    street_address2: NotRequired[str]
+    """
+    Line 2 of the street address.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataRoundTripReservationDetail(
+    TypedDict,
+):
+    affiliate_name: NotRequired[str]
+    """
+    Name of associated or partner company for the service.
+    """
+    arrival: NotRequired[
+        "PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataRoundTripReservationDetailArrival"
+    ]
+    """
+    Arrival details.
+    """
+    carrier_name: NotRequired[str]
+    """
+    Name of transportation company.
+    """
+    currency: NotRequired[str]
+    """
+    Currency.
+    """
+    departure: NotRequired[
+        "PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataRoundTripReservationDetailDeparture"
+    ]
+    """
+    Departure details.
+    """
+    insurances: NotRequired[
+        List[
+            "PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataRoundTripReservationDetailInsurance"
+        ]
+    ]
+    """
+    List of insurances for this reservation.
+    """
+    passengers: NotRequired[
+        List[
+            "PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataRoundTripReservationDetailPassenger"
+        ]
+    ]
+    """
+    List of passengers that this reservation applies to.
+    """
+    price: NotRequired[int]
+    """
+    Price in cents.
+    """
+    ticket_class: NotRequired[
+        Literal["business", "economy", "first_class", "premium_economy"]
+    ]
+    """
+    Ticket class.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataRoundTripReservationDetailArrival(
+    TypedDict,
+):
+    address: NotRequired[
+        "PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataRoundTripReservationDetailArrivalAddress"
+    ]
+    """
+    Address of the arrival location.
+    """
+    arrival_location: NotRequired[str]
+    """
+    Identifier name or reference for the arrival location.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataRoundTripReservationDetailArrivalAddress(
+    TypedDict,
+):
+    city: NotRequired[str]
+    """
+    The city or town.
+    """
+    country: NotRequired[str]
+    """
+    The country in ISO 3166-1 alpha-2 format.
+    """
+    postal_code: NotRequired[str]
+    """
+    The postal code formatted according to country.
+    """
+    region: NotRequired[str]
+    """
+    The state, county, province, or region formatted according to country.
+    """
+    street_address: NotRequired[str]
+    """
+    Line 1 of the street address.
+    """
+    street_address2: NotRequired[str]
+    """
+    Line 2 of the street address.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataRoundTripReservationDetailDeparture(
+    TypedDict,
+):
+    address: NotRequired[
+        "PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataRoundTripReservationDetailDepartureAddress"
+    ]
+    """
+    Address of the departure location.
+    """
+    departs_at: NotRequired[int]
+    """
+    Timestamp of departure.
+    """
+    departure_location: NotRequired[str]
+    """
+    Identifier name or reference for the origin location.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataRoundTripReservationDetailDepartureAddress(
+    TypedDict,
+):
+    city: NotRequired[str]
+    """
+    The city or town.
+    """
+    country: NotRequired[str]
+    """
+    The country in ISO 3166-1 alpha-2 format.
+    """
+    postal_code: NotRequired[str]
+    """
+    The postal code formatted according to country.
+    """
+    region: NotRequired[str]
+    """
+    The state, county, province, or region formatted according to country.
+    """
+    street_address: NotRequired[str]
+    """
+    Line 1 of the street address.
+    """
+    street_address2: NotRequired[str]
+    """
+    Line 2 of the street address.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataRoundTripReservationDetailInsurance(
+    TypedDict,
+):
+    currency: NotRequired[str]
+    """
+    Insurance currency.
+    """
+    insurance_company_name: NotRequired[str]
+    """
+    Name of the company providing the insurance.
+    """
+    insurance_type: NotRequired[
+        Literal["baggage", "bankruptcy", "cancelation", "emergency", "medical"]
+    ]
+    """
+    Type of insurance.
+    """
+    price: NotRequired[int]
+    """
+    Price of insurance in cents.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataRoundTripReservationDetailPassenger(
+    TypedDict,
+):
+    family_name: NotRequired[str]
+    """
+    The family name of the person.
+    """
+    given_name: NotRequired[str]
+    """
+    The given name of the person.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataTrainReservationDetail(
+    TypedDict,
+):
+    affiliate_name: NotRequired[str]
+    """
+    Name of associated or partner company for the service.
+    """
+    arrival: NotRequired[
+        "PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataTrainReservationDetailArrival"
+    ]
+    """
+    Arrival details.
+    """
+    carrier_name: NotRequired[str]
+    """
+    Name of transportation company.
+    """
+    currency: NotRequired[str]
+    """
+    Currency.
+    """
+    departure: NotRequired[
+        "PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataTrainReservationDetailDeparture"
+    ]
+    """
+    Departure details.
+    """
+    insurances: NotRequired[
+        List[
+            "PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataTrainReservationDetailInsurance"
+        ]
+    ]
+    """
+    List of insurances for this reservation.
+    """
+    passengers: NotRequired[
+        List[
+            "PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataTrainReservationDetailPassenger"
+        ]
+    ]
+    """
+    List of passengers that this reservation applies to.
+    """
+    price: NotRequired[int]
+    """
+    Price in cents.
+    """
+    ticket_class: NotRequired[
+        Literal["business", "economy", "first_class", "premium_economy"]
+    ]
+    """
+    Ticket class.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataTrainReservationDetailArrival(
+    TypedDict,
+):
+    address: NotRequired[
+        "PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataTrainReservationDetailArrivalAddress"
+    ]
+    """
+    Address of the arrival location.
+    """
+    arrival_location: NotRequired[str]
+    """
+    Identifier name or reference for the arrival location.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataTrainReservationDetailArrivalAddress(
+    TypedDict,
+):
+    city: NotRequired[str]
+    """
+    The city or town.
+    """
+    country: NotRequired[str]
+    """
+    The country in ISO 3166-1 alpha-2 format.
+    """
+    postal_code: NotRequired[str]
+    """
+    The postal code formatted according to country.
+    """
+    region: NotRequired[str]
+    """
+    The state, county, province, or region formatted according to country.
+    """
+    street_address: NotRequired[str]
+    """
+    Line 1 of the street address.
+    """
+    street_address2: NotRequired[str]
+    """
+    Line 2 of the street address.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataTrainReservationDetailDeparture(
+    TypedDict,
+):
+    address: NotRequired[
+        "PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataTrainReservationDetailDepartureAddress"
+    ]
+    """
+    Address of the departure location.
+    """
+    departs_at: NotRequired[int]
+    """
+    Timestamp of departure.
+    """
+    departure_location: NotRequired[str]
+    """
+    Identifier name or reference for the origin location.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataTrainReservationDetailDepartureAddress(
+    TypedDict,
+):
+    city: NotRequired[str]
+    """
+    The city or town.
+    """
+    country: NotRequired[str]
+    """
+    The country in ISO 3166-1 alpha-2 format.
+    """
+    postal_code: NotRequired[str]
+    """
+    The postal code formatted according to country.
+    """
+    region: NotRequired[str]
+    """
+    The state, county, province, or region formatted according to country.
+    """
+    street_address: NotRequired[str]
+    """
+    Line 1 of the street address.
+    """
+    street_address2: NotRequired[str]
+    """
+    Line 2 of the street address.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataTrainReservationDetailInsurance(
+    TypedDict,
+):
+    currency: NotRequired[str]
+    """
+    Insurance currency.
+    """
+    insurance_company_name: NotRequired[str]
+    """
+    Name of the company providing the insurance.
+    """
+    insurance_type: NotRequired[
+        Literal["baggage", "bankruptcy", "cancelation", "emergency", "medical"]
+    ]
+    """
+    Type of insurance.
+    """
+    price: NotRequired[int]
+    """
+    Price of insurance in cents.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataTrainReservationDetailPassenger(
+    TypedDict,
+):
+    family_name: NotRequired[str]
+    """
+    The family name of the person.
+    """
+    given_name: NotRequired[str]
+    """
+    The given name of the person.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsKlarnaSupplementaryPurchaseDataVoucher(
+    TypedDict,
+):
+    affiliate_name: NotRequired[str]
+    """
+    Name of associated or partner company for this voucher.
+    """
+    ends_at: NotRequired[int]
+    """
+    The voucher validity end time.
+    """
+    starts_at: NotRequired[int]
+    """
+    The voucher validity start time.
+    """
+    voucher_company: NotRequired[str]
+    """
+    The issuer or provider of this voucher.
+    """
+    voucher_name: NotRequired[str]
+    """
+    The name or reference to identify the voucher.
+    """
+    voucher_type: NotRequired[
+        Literal[
+            "digital_product",
+            "discount",
+            "gift_card",
+            "physical_product",
+            "services",
+        ]
+    ]
+    """
+    The type of this voucher.
     """
 
 
@@ -3852,7 +6036,7 @@ class PaymentIntentModifyParamsPaymentMethodOptionsPaytoMandateOptions(
     """
     amount_type: NotRequired[Literal["fixed", "maximum"]]
     """
-    The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively.
+    The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively. Defaults to `maximum`.
     """
     end_date: NotRequired[str]
     """
@@ -3871,7 +6055,7 @@ class PaymentIntentModifyParamsPaymentMethodOptionsPaytoMandateOptions(
         ]
     ]
     """
-    The periodicity at which payments will be collected.
+    The periodicity at which payments will be collected. Defaults to `adhoc`.
     """
     payments_per_period: NotRequired[int]
     """
@@ -3893,7 +6077,7 @@ class PaymentIntentModifyParamsPaymentMethodOptionsPaytoMandateOptions(
         ]
     ]
     """
-    The purpose for which payments are made. Defaults to retail.
+    The purpose for which payments are made. Has a default value based on your merchant category code.
     """
 
 
@@ -4395,11 +6579,4 @@ class PaymentIntentModifyParamsTransferData(TypedDict):
     amount: NotRequired[int]
     """
     The amount that will be transferred automatically when a charge succeeds.
-    """
-
-
-class PaymentIntentModifyParamsAllocatedFunds(TypedDict):
-    enabled: NotRequired[bool]
-    """
-    Whether Allocated Funds creation is enabled for this PaymentIntent.
     """

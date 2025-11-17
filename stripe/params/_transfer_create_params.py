@@ -10,6 +10,7 @@ class TransferCreateParams(RequestOptions):
     """
     A positive integer in cents (or local equivalent) representing how much to transfer.
     """
+    application_fee_amount: NotRequired[int]
     currency: str
     """
     Three-letter [ISO code for currency](https://www.iso.org/iso-4217-currency-codes.html) in lowercase. Must be a [supported currency](https://docs.stripe.com/currencies).
@@ -46,4 +47,3 @@ class TransferCreateParams(RequestOptions):
     """
     A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options) for details.
     """
-    application_fee_amount: NotRequired[int]

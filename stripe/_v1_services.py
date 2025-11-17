@@ -15,6 +15,7 @@ if TYPE_CHECKING:
     from stripe._balance_service import BalanceService
     from stripe._balance_settings_service import BalanceSettingsService
     from stripe._balance_transaction_service import BalanceTransactionService
+    from stripe._balance_transfer_service import BalanceTransferService
     from stripe._billing_portal_service import BillingPortalService
     from stripe._billing_service import BillingService
     from stripe._capital_service import CapitalService
@@ -126,6 +127,10 @@ _subservices = {
     "balance_transactions": [
         "stripe._balance_transaction_service",
         "BalanceTransactionService",
+    ],
+    "balance_transfers": [
+        "stripe._balance_transfer_service",
+        "BalanceTransferService",
     ],
     "billing": ["stripe._billing_service", "BillingService"],
     "billing_portal": [
@@ -265,6 +270,7 @@ class V1Services(StripeService):
     balance: "BalanceService"
     balance_settings: "BalanceSettingsService"
     balance_transactions: "BalanceTransactionService"
+    balance_transfers: "BalanceTransferService"
     billing: "BillingService"
     billing_portal: "BillingPortalService"
     capital: "CapitalService"

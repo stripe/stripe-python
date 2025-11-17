@@ -115,21 +115,23 @@ class PaymentIntent(
         class Shipping(StripeObject):
             amount: Optional[int]
             """
-            Portion of the amount that is for shipping.
+            If a physical good is being shipped, the cost of shipping represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than or equal to 0.
             """
             from_postal_code: Optional[str]
             """
-            The postal code that represents the shipping source.
+            If a physical good is being shipped, the postal code of where it is being shipped from. At most 10 alphanumeric characters long, hyphens are allowed.
             """
             to_postal_code: Optional[str]
             """
-            The postal code that represents the shipping destination.
+            If a physical good is being shipped, the postal code of where it is being shipped to. At most 10 alphanumeric characters long, hyphens are allowed.
             """
 
         class Tax(StripeObject):
             total_tax_amount: Optional[int]
             """
-            Total portion of the amount that is for tax.
+            The total amount of tax on the transaction represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L2 rates. An integer greater than or equal to 0.
+
+            This field is mutually exclusive with the `amount_details[line_items][#][tax][total_tax_amount]` field.
             """
 
         class Tip(StripeObject):
@@ -140,7 +142,9 @@ class PaymentIntent(
 
         discount_amount: Optional[int]
         """
-        The total discount applied on the transaction.
+        The total discount applied on the transaction represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than 0.
+
+        This field is mutually exclusive with the `amount_details[line_items][#][discount_amount]` field.
         """
         line_items: Optional[ListObject["PaymentIntentAmountDetailsLineItem"]]
         """
@@ -1780,12 +1784,18 @@ class PaymentIntent(
         car_rental: Optional[CarRental]
         customer_reference: Optional[str]
         """
-        Some customers might be required by their company or organization to provide this information. If so, provide this value. Otherwise you can ignore this field.
+        A unique value to identify the customer. This field is available only for card payments.
+
+        This field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks.
         """
         event_details: Optional[EventDetails]
         order_reference: Optional[str]
         """
-        A unique value assigned by the business to identify the transaction.
+        A unique value assigned by the business to identify the transaction. Required for L2 and L3 rates.
+
+        Required when the Payment Method Types array contains `card`, including when [automatic_payment_methods.enabled](https://docs.stripe.com/api/payment_intents/create#create_payment_intent-automatic_payment_methods-enabled) is set to `true`.
+
+        For Cards, this field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks. For Klarna, this field is truncated to 255 characters and is visible to customers when they view the order in the Klarna app.
         """
         subscription: Optional[Subscription]
         _inner_class_types = {
@@ -2256,6 +2266,10 @@ class PaymentIntent(
                 Requested routing priority
                 """
 
+            capture_method: Optional[Literal["manual", "manual_preferred"]]
+            """
+            Controls when the funds will be captured from the customer's account.
+            """
             request_extended_authorization: Optional[bool]
             """
             Request ability to capture this payment beyond the standard [authorization validity window](https://stripe.com/docs/terminal/features/extended-authorizations#authorization-validity)
@@ -2767,7 +2781,7 @@ class PaymentIntent(
                 """
                 amount_type: Optional[Literal["fixed", "maximum"]]
                 """
-                The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively.
+                The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively. Defaults to `maximum`.
                 """
                 end_date: Optional[str]
                 """
@@ -2786,7 +2800,7 @@ class PaymentIntent(
                     ]
                 ]
                 """
-                The periodicity at which payments will be collected.
+                The periodicity at which payments will be collected. Defaults to `adhoc`.
                 """
                 payments_per_period: Optional[int]
                 """
@@ -2808,7 +2822,7 @@ class PaymentIntent(
                     ]
                 ]
                 """
-                The purpose for which payments are made. Defaults to retail.
+                The purpose for which payments are made. Has a default value based on your merchant category code.
                 """
 
             mandate_options: Optional[MandateOptions]

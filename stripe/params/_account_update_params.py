@@ -127,6 +127,10 @@ class AccountUpdateParamsBusinessProfile(TypedDict):
     """
     Internal-only description of the product sold by, or service provided by, the business. Used by Stripe for risk and underwriting purposes.
     """
+    specified_commercial_transactions_act_url: NotRequired["Literal['']|str"]
+    """
+    A link to the business's publicly available terms related to the Specified Commercial Transaction Act. Only used for accounts in Japan.
+    """
     support_address: NotRequired[
         "AccountUpdateParamsBusinessProfileSupportAddress"
     ]
@@ -1665,14 +1669,6 @@ class AccountUpdateParamsIndividual(TypedDict):
     """
     Describes the person's relationship to the account.
     """
-    ssn_last_4: NotRequired[str]
-    """
-    The last four digits of the individual's Social Security Number (U.S. only).
-    """
-    verification: NotRequired["AccountUpdateParamsIndividualVerification"]
-    """
-    The individual's verification document information.
-    """
     self_reported_income: NotRequired[
         "AccountUpdateParamsIndividualSelfReportedIncome"
     ]
@@ -1684,6 +1680,14 @@ class AccountUpdateParamsIndividual(TypedDict):
     ]
     """
     The credit applicant's self-reported monthly housing payment in minor units.
+    """
+    ssn_last_4: NotRequired[str]
+    """
+    The last four digits of the individual's Social Security Number (U.S. only).
+    """
+    verification: NotRequired["AccountUpdateParamsIndividualVerification"]
+    """
+    The individual's verification document information.
     """
 
 
@@ -1841,6 +1845,18 @@ class AccountUpdateParamsIndividualRelationship(TypedDict):
     """
 
 
+class AccountUpdateParamsIndividualSelfReportedIncome(TypedDict):
+    amount: int
+    currency: str
+
+
+class AccountUpdateParamsIndividualSelfReportedMonthlyHousingPayment(
+    TypedDict
+):
+    amount: int
+    currency: str
+
+
 class AccountUpdateParamsIndividualVerification(TypedDict):
     additional_document: NotRequired[
         "AccountUpdateParamsIndividualVerificationAdditionalDocument"
@@ -1874,18 +1890,6 @@ class AccountUpdateParamsIndividualVerificationDocument(TypedDict):
     """
     The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
-
-
-class AccountUpdateParamsIndividualSelfReportedIncome(TypedDict):
-    amount: int
-    currency: str
-
-
-class AccountUpdateParamsIndividualSelfReportedMonthlyHousingPayment(
-    TypedDict
-):
-    amount: int
-    currency: str
 
 
 class AccountUpdateParamsRiskControls(TypedDict):
@@ -1955,6 +1959,10 @@ class AccountUpdateParamsSettings(TypedDict):
     payouts: NotRequired["AccountUpdateParamsSettingsPayouts"]
     """
     Settings specific to the account's payouts.
+    """
+    paypay_payments: NotRequired["AccountUpdateParamsSettingsPaypayPayments"]
+    """
+    Settings specific to the PayPay payments method.
     """
     tax_forms: NotRequired["AccountUpdateParamsSettingsTaxForms"]
     """
@@ -2077,7 +2085,7 @@ class AccountUpdateParamsSettingsInvoices(TypedDict):
         Literal["always", "never", "offer"]
     ]
     """
-    Whether payment methods should be saved when a payment is completed for a one-time invoices on a hosted invoice page.
+    Whether to save the payment method after a payment is completed for a one-time invoice or a subscription invoice when the customer already has a default payment method on the hosted invoice page.
     """
 
 
@@ -2147,6 +2155,13 @@ class AccountUpdateParamsSettingsPayoutsSchedule(TypedDict):
     ]
     """
     The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. Required and applicable only if `interval` is `weekly`.
+    """
+
+
+class AccountUpdateParamsSettingsPaypayPayments(TypedDict):
+    goods_type: NotRequired[Literal["digital_content", "other"]]
+    """
+    Whether your business sells digital content or not.
     """
 
 

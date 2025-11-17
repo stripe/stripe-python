@@ -430,14 +430,6 @@ class TokenCreateParamsAccountIndividual(TypedDict):
     """
     Describes the person's relationship to the account.
     """
-    ssn_last_4: NotRequired[str]
-    """
-    The last four digits of the individual's Social Security Number (U.S. only).
-    """
-    verification: NotRequired["TokenCreateParamsAccountIndividualVerification"]
-    """
-    The individual's verification document information.
-    """
     self_reported_income: NotRequired[
         "TokenCreateParamsAccountIndividualSelfReportedIncome"
     ]
@@ -449,6 +441,14 @@ class TokenCreateParamsAccountIndividual(TypedDict):
     ]
     """
     The credit applicant's self-reported monthly housing payment in minor units.
+    """
+    ssn_last_4: NotRequired[str]
+    """
+    The last four digits of the individual's Social Security Number (U.S. only).
+    """
+    verification: NotRequired["TokenCreateParamsAccountIndividualVerification"]
+    """
+    The individual's verification document information.
     """
 
 
@@ -606,6 +606,18 @@ class TokenCreateParamsAccountIndividualRelationship(TypedDict):
     """
 
 
+class TokenCreateParamsAccountIndividualSelfReportedIncome(TypedDict):
+    amount: int
+    currency: str
+
+
+class TokenCreateParamsAccountIndividualSelfReportedMonthlyHousingPayment(
+    TypedDict,
+):
+    amount: int
+    currency: str
+
+
 class TokenCreateParamsAccountIndividualVerification(TypedDict):
     additional_document: NotRequired[
         "TokenCreateParamsAccountIndividualVerificationAdditionalDocument"
@@ -643,18 +655,6 @@ class TokenCreateParamsAccountIndividualVerificationDocument(TypedDict):
     """
     The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
-
-
-class TokenCreateParamsAccountIndividualSelfReportedIncome(TypedDict):
-    amount: int
-    currency: str
-
-
-class TokenCreateParamsAccountIndividualSelfReportedMonthlyHousingPayment(
-    TypedDict,
-):
-    amount: int
-    currency: str
 
 
 class TokenCreateParamsBankAccount(TypedDict):
@@ -860,18 +860,6 @@ class TokenCreateParamsPerson(TypedDict):
     """
     The relationship that this person has with the account's legal entity.
     """
-    ssn_last_4: NotRequired[str]
-    """
-    The last four digits of the person's Social Security number (U.S. only).
-    """
-    us_cfpb_data: NotRequired["TokenCreateParamsPersonUsCfpbData"]
-    """
-    Demographic data related to the person.
-    """
-    verification: NotRequired["TokenCreateParamsPersonVerification"]
-    """
-    The person's verification status.
-    """
     self_reported_income: NotRequired[
         "TokenCreateParamsPersonSelfReportedIncome"
     ]
@@ -883,6 +871,18 @@ class TokenCreateParamsPerson(TypedDict):
     ]
     """
     The credit applicant's self-reported monthly housing payment in minor units.
+    """
+    ssn_last_4: NotRequired[str]
+    """
+    The last four digits of the person's Social Security number (U.S. only).
+    """
+    us_cfpb_data: NotRequired["TokenCreateParamsPersonUsCfpbData"]
+    """
+    Demographic data related to the person.
+    """
+    verification: NotRequired["TokenCreateParamsPersonVerification"]
+    """
+    The person's verification status.
     """
 
 
@@ -1114,6 +1114,16 @@ class TokenCreateParamsPersonRelationship(TypedDict):
     """
 
 
+class TokenCreateParamsPersonSelfReportedIncome(TypedDict):
+    amount: int
+    currency: str
+
+
+class TokenCreateParamsPersonSelfReportedMonthlyHousingPayment(TypedDict):
+    amount: int
+    currency: str
+
+
 class TokenCreateParamsPersonUsCfpbData(TypedDict):
     ethnicity_details: NotRequired[
         "TokenCreateParamsPersonUsCfpbDataEthnicityDetails"
@@ -1227,16 +1237,6 @@ class TokenCreateParamsPersonVerificationDocument(TypedDict):
     """
     The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
-
-
-class TokenCreateParamsPersonSelfReportedIncome(TypedDict):
-    amount: int
-    currency: str
-
-
-class TokenCreateParamsPersonSelfReportedMonthlyHousingPayment(TypedDict):
-    amount: int
-    currency: str
 
 
 class TokenCreateParamsPii(TypedDict):

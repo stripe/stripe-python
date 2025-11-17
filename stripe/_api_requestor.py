@@ -634,7 +634,7 @@ class _APIRequestor(object):
                 **params,
             }
 
-        encoded_params = urlencode(list(_api_encode(params or {}, api_mode)))
+        encoded_params = urlencode(list(_api_encode(params or {})))
 
         # Don't use strict form encoding by changing the square bracket control
         # characters back to their literals. This is fine by the server, and

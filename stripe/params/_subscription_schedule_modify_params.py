@@ -45,7 +45,7 @@ class SubscriptionScheduleModifyParams(RequestOptions):
     If the update changes the billing configuration (item price, quantity, etc.) of the current phase, indicates how prorations from this change should be handled. The default value is `create_prorations`.
     """
     billing_schedules: NotRequired[
-        List["SubscriptionScheduleModifyParamsBillingSchedule"]
+        "Literal['']|List[SubscriptionScheduleModifyParamsBillingSchedule]"
     ]
     """
     Sets the billing schedules for the subscription schedule.
