@@ -323,7 +323,7 @@ class OAuth(object):
         OAuth._set_client_id(params)
         if "response_type" not in params:
             params["response_type"] = "code"
-        query = urlencode(list(_api_encode(params, "V1")))
+        query = urlencode(list(_api_encode(params)))
         url = connect_api_base + path + "?" + query
         return url
 
