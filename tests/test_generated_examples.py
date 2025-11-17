@@ -44161,7 +44161,7 @@ class TestGeneratedExamples(object):
         http_client_mock.stub_request(
             "get",
             "/v2/billing/profiles",
-            "lookup_keys=lookup_keys",
+            "lookup_keys[0]=lookup_keys",
         )
         client = StripeClient(
             "sk_test_123",
@@ -44172,7 +44172,7 @@ class TestGeneratedExamples(object):
         http_client_mock.assert_requested(
             "get",
             path="/v2/billing/profiles",
-            query_string="lookup_keys=lookup_keys",
+            query_string="lookup_keys[0]=lookup_keys",
             api_base="https://api.stripe.com",
         )
 
