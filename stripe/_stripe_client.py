@@ -52,6 +52,7 @@ if TYPE_CHECKING:
     from stripe._balance_service import BalanceService
     from stripe._balance_settings_service import BalanceSettingsService
     from stripe._balance_transaction_service import BalanceTransactionService
+    from stripe._balance_transfer_service import BalanceTransferService
     from stripe._billing_service import BillingService
     from stripe._billing_portal_service import BillingPortalService
     from stripe._capital_service import CapitalService
@@ -437,6 +438,17 @@ class StripeClient(object):
     )
     def balance_transactions(self) -> "BalanceTransactionService":
         return self.v1.balance_transactions
+
+    @property
+    @deprecated(
+        """
+        StripeClient.balance_transfers is deprecated, use StripeClient.v1.balance_transfers instead.
+          All functionality under it has been copied over to StripeClient.v1.balance_transfers.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """,
+    )
+    def balance_transfers(self) -> "BalanceTransferService":
+        return self.v1.balance_transfers
 
     @property
     @deprecated(

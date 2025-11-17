@@ -651,7 +651,7 @@ class SetupIntent(
                 """
                 amount_type: Optional[Literal["fixed", "maximum"]]
                 """
-                The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively.
+                The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively. Defaults to `maximum`.
                 """
                 end_date: Optional[str]
                 """
@@ -670,7 +670,7 @@ class SetupIntent(
                     ]
                 ]
                 """
-                The periodicity at which payments will be collected.
+                The periodicity at which payments will be collected. Defaults to `adhoc`.
                 """
                 payments_per_period: Optional[int]
                 """
@@ -692,7 +692,7 @@ class SetupIntent(
                     ]
                 ]
                 """
-                The purpose for which payments are made. Defaults to retail.
+                The purpose for which payments are made. Has a default value based on your merchant category code.
                 """
                 start_date: Optional[str]
                 """

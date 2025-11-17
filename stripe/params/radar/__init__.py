@@ -4,6 +4,23 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.params.radar._account_evaluation_create_params import (
+        AccountEvaluationCreateParams as AccountEvaluationCreateParams,
+        AccountEvaluationCreateParamsLoginInitiated as AccountEvaluationCreateParamsLoginInitiated,
+        AccountEvaluationCreateParamsLoginInitiatedClientDeviceMetadataDetails as AccountEvaluationCreateParamsLoginInitiatedClientDeviceMetadataDetails,
+        AccountEvaluationCreateParamsRegistrationInitiated as AccountEvaluationCreateParamsRegistrationInitiated,
+        AccountEvaluationCreateParamsRegistrationInitiatedClientDeviceMetadataDetails as AccountEvaluationCreateParamsRegistrationInitiatedClientDeviceMetadataDetails,
+        AccountEvaluationCreateParamsRegistrationInitiatedCustomerData as AccountEvaluationCreateParamsRegistrationInitiatedCustomerData,
+    )
+    from stripe.params.radar._account_evaluation_modify_params import (
+        AccountEvaluationModifyParams as AccountEvaluationModifyParams,
+    )
+    from stripe.params.radar._account_evaluation_retrieve_params import (
+        AccountEvaluationRetrieveParams as AccountEvaluationRetrieveParams,
+    )
+    from stripe.params.radar._account_evaluation_update_params import (
+        AccountEvaluationUpdateParams as AccountEvaluationUpdateParams,
+    )
     from stripe.params.radar._early_fraud_warning_list_params import (
         EarlyFraudWarningListParams as EarlyFraudWarningListParams,
         EarlyFraudWarningListParamsCreated as EarlyFraudWarningListParamsCreated,
@@ -46,6 +63,42 @@ if TYPE_CHECKING:
 
 # name -> (import_target, is_submodule)
 _import_map = {
+    "AccountEvaluationCreateParams": (
+        "stripe.params.radar._account_evaluation_create_params",
+        False,
+    ),
+    "AccountEvaluationCreateParamsLoginInitiated": (
+        "stripe.params.radar._account_evaluation_create_params",
+        False,
+    ),
+    "AccountEvaluationCreateParamsLoginInitiatedClientDeviceMetadataDetails": (
+        "stripe.params.radar._account_evaluation_create_params",
+        False,
+    ),
+    "AccountEvaluationCreateParamsRegistrationInitiated": (
+        "stripe.params.radar._account_evaluation_create_params",
+        False,
+    ),
+    "AccountEvaluationCreateParamsRegistrationInitiatedClientDeviceMetadataDetails": (
+        "stripe.params.radar._account_evaluation_create_params",
+        False,
+    ),
+    "AccountEvaluationCreateParamsRegistrationInitiatedCustomerData": (
+        "stripe.params.radar._account_evaluation_create_params",
+        False,
+    ),
+    "AccountEvaluationModifyParams": (
+        "stripe.params.radar._account_evaluation_modify_params",
+        False,
+    ),
+    "AccountEvaluationRetrieveParams": (
+        "stripe.params.radar._account_evaluation_retrieve_params",
+        False,
+    ),
+    "AccountEvaluationUpdateParams": (
+        "stripe.params.radar._account_evaluation_update_params",
+        False,
+    ),
     "EarlyFraudWarningListParams": (
         "stripe.params.radar._early_fraud_warning_list_params",
         False,

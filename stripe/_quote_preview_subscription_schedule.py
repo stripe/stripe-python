@@ -204,7 +204,7 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
         """
         bill_until: BillUntil
         """
-        Specifies the billing period.
+        Specifies the end of billing period.
         """
         key: str
         """

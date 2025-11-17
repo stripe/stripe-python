@@ -53,12 +53,16 @@ class PaymentIntentAmountDetailsLineItem(StripeObject):
     class Tax(StripeObject):
         total_tax_amount: int
         """
-        Total portion of the amount that is for tax.
+        The total amount of tax on the transaction represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L2 rates. An integer greater than or equal to 0.
+
+        This field is mutually exclusive with the `amount_details[line_items][#][tax][total_tax_amount]` field.
         """
 
     discount_amount: Optional[int]
     """
-    The amount an item was discounted for. Positive integer.
+    The discount applied on this line item represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than 0.
+
+    This field is mutually exclusive with the `amount_details[discount_amount]` field.
     """
     id: str
     """
@@ -74,15 +78,17 @@ class PaymentIntentAmountDetailsLineItem(StripeObject):
     """
     product_code: Optional[str]
     """
-    Unique identifier of the product. At most 12 characters long.
+    The product code of the line item, such as an SKU. Required for L3 rates. At most 12 characters long.
     """
     product_name: str
     """
-    Name of the product. At most 100 characters long.
+    The product name of the line item. Required for L3 rates. At most 1024 characters long.
+
+    For Cards, this field is truncated to 26 alphanumeric characters before being sent to the card networks. For Paypal, this field is truncated to 127 characters.
     """
     quantity: int
     """
-    Number of items of the product. Positive integer.
+    The quantity of items. Required for L3 rates. An integer greater than 0.
     """
     tax: Optional[Tax]
     """
@@ -90,11 +96,11 @@ class PaymentIntentAmountDetailsLineItem(StripeObject):
     """
     unit_cost: int
     """
-    Cost of the product. Non-negative integer.
+    The unit cost of the line item represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L3 rates. An integer greater than or equal to 0.
     """
     unit_of_measure: Optional[str]
     """
-    A unit of measure for the line item, such as gallons, feet, meters, etc.
+    A unit of measure for the line item, such as gallons, feet, meters, etc. Required for L3 rates. At most 12 alphanumeric characters long.
     """
     _inner_class_types = {
         "payment_method_options": PaymentMethodOptions,

@@ -125,6 +125,7 @@ class WebhookEndpointCreateParams(RequestOptions):
             "2025-08-27.basil",
             "2025-09-30.clover",
             "2025-10-29.clover",
+            "2025-11-17.clover",
         ]
     ]
     """
@@ -160,6 +161,7 @@ class WebhookEndpointCreateParams(RequestOptions):
             "billing_portal.session.created",
             "capability.updated",
             "capital.financing_offer.accepted",
+            "capital.financing_offer.accepted_other_offer",
             "capital.financing_offer.canceled",
             "capital.financing_offer.created",
             "capital.financing_offer.expired",
@@ -227,6 +229,7 @@ class WebhookEndpointCreateParams(RequestOptions):
             "customer_cash_balance_transaction.created",
             "entitlements.active_entitlement_summary.updated",
             "file.created",
+            "financial_connections.account.account_numbers_updated",
             "financial_connections.account.created",
             "financial_connections.account.deactivated",
             "financial_connections.account.disconnected",
@@ -235,6 +238,7 @@ class WebhookEndpointCreateParams(RequestOptions):
             "financial_connections.account.refreshed_inferred_balances",
             "financial_connections.account.refreshed_ownership",
             "financial_connections.account.refreshed_transactions",
+            "financial_connections.account.upcoming_account_number_expiry",
             "financial_connections.session.updated",
             "fx_quote.expired",
             "identity.verification_session.canceled",

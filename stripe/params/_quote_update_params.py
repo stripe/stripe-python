@@ -822,6 +822,12 @@ class QuoteUpdateParamsSubscriptionData(TypedDict):
     """
     When specified as `reset`, the subscription will always start a new billing period when the quote is accepted.
     """
+    billing_schedules: NotRequired[
+        "Literal['']|List[QuoteUpdateParamsSubscriptionDataBillingSchedule]"
+    ]
+    """
+    Billing schedules that will be applied to the subscription or subscription schedule created when the quote is accepted.
+    """
     description: NotRequired["Literal['']|str"]
     """
     The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
@@ -839,6 +845,12 @@ class QuoteUpdateParamsSubscriptionData(TypedDict):
     metadata: NotRequired[Dict[str, str]]
     """
     Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is accepted. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
+    """
+    phase_effective_at: NotRequired[
+        Literal["billing_period_start", "phase_start"]
+    ]
+    """
+    Configures how the subscription schedule handles billing for phase transitions when the quote is accepted. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
     """
     prebilling: NotRequired[
         "Literal['']|QuoteUpdateParamsSubscriptionDataPrebilling"
@@ -861,18 +873,6 @@ class QuoteUpdateParamsSubscriptionData(TypedDict):
     trial_period_days: NotRequired["Literal['']|int"]
     """
     Integer representing the number of trial period days before the customer is charged for the first time.
-    """
-    billing_schedules: NotRequired[
-        "Literal['']|List[QuoteUpdateParamsSubscriptionDataBillingSchedule]"
-    ]
-    """
-    Billing schedules that will be applied to the subscription or subscription schedule created when the quote is accepted.
-    """
-    phase_effective_at: NotRequired[
-        Literal["billing_period_start", "phase_start"]
-    ]
-    """
-    Configures how the subscription schedule handles billing for phase transitions when the quote is accepted. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
     """
 
 
@@ -979,13 +979,6 @@ class QuoteUpdateParamsSubscriptionDataBillOnAcceptanceBillUntilLineEndsAt(
     index: NotRequired[int]
     """
     The position of the previous quote line in the `lines` array after which this line should begin. Indexes start from 0 and must be less than the index of the current line in the array.
-    """
-
-
-class QuoteUpdateParamsSubscriptionDataPrebilling(TypedDict):
-    iterations: int
-    """
-    This is used to determine the number of billing cycles to prebill.
     """
 
 
@@ -1116,6 +1109,13 @@ class QuoteUpdateParamsSubscriptionDataBillingScheduleBillUntilLineEndsAt(
     """
 
 
+class QuoteUpdateParamsSubscriptionDataPrebilling(TypedDict):
+    iterations: int
+    """
+    This is used to determine the number of billing cycles to prebill.
+    """
+
+
 class QuoteUpdateParamsSubscriptionDataOverride(TypedDict):
     applies_to: "QuoteUpdateParamsSubscriptionDataOverrideAppliesTo"
     """
@@ -1133,6 +1133,12 @@ class QuoteUpdateParamsSubscriptionDataOverride(TypedDict):
     """
     Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time. `prorate_up_front` will bill for all phases within the current billing cycle up front.
     """
+    billing_schedules: NotRequired[
+        "Literal['']|List[QuoteUpdateParamsSubscriptionDataOverrideBillingSchedule]"
+    ]
+    """
+    Billing schedules that will be applied to the subscription or subscription schedule created when the quote is accepted.
+    """
     customer: NotRequired[str]
     """
     The customer the Subscription Data override applies to.
@@ -1145,6 +1151,12 @@ class QuoteUpdateParamsSubscriptionDataOverride(TypedDict):
     """
     Behavior of the subscription schedule and underlying subscription when it ends.
     """
+    phase_effective_at: NotRequired[
+        Literal["billing_period_start", "phase_start"]
+    ]
+    """
+    Configures how the subscription schedule handles billing for phase transitions when the quote is accepted. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+    """
     proration_behavior: NotRequired[
         Literal["always_invoice", "create_prorations", "none"]
     ]
@@ -1156,18 +1168,6 @@ class QuoteUpdateParamsSubscriptionDataOverride(TypedDict):
     Passing `create_prorations` will cause proration invoice items to be created when applicable. These proration items will only be invoiced immediately under [certain conditions](https://stripe.com/docs/subscriptions/upgrading-downgrading#immediate-payment). In order to always invoice immediately for prorations, pass `always_invoice`.
 
     Prorations can be disabled by passing `none`.
-    """
-    billing_schedules: NotRequired[
-        "Literal['']|List[QuoteUpdateParamsSubscriptionDataOverrideBillingSchedule]"
-    ]
-    """
-    Billing schedules that will be applied to the subscription or subscription schedule created when the quote is accepted.
-    """
-    phase_effective_at: NotRequired[
-        Literal["billing_period_start", "phase_start"]
-    ]
-    """
-    Configures how the subscription schedule handles billing for phase transitions when the quote is accepted. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
     """
 
 

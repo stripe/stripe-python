@@ -31,6 +31,7 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe._balance_transaction",
         "BalanceTransaction",
     ),
+    "balance_transfer": ("stripe._balance_transfer", "BalanceTransfer"),
     "bank_account": ("stripe._bank_account", "BankAccount"),
     "billing_portal.configuration": (
         "stripe.billing_portal._configuration",
@@ -266,6 +267,10 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     "quote_preview_subscription_schedule": (
         "stripe._quote_preview_subscription_schedule",
         "QuotePreviewSubscriptionSchedule",
+    ),
+    "radar.account_evaluation": (
+        "stripe.radar._account_evaluation",
+        "AccountEvaluation",
     ),
     "radar.early_fraud_warning": (
         "stripe.radar._early_fraud_warning",

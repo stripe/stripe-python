@@ -223,6 +223,10 @@ if TYPE_CHECKING:
     from stripe._balance_transaction_service import (
         BalanceTransactionService as BalanceTransactionService,
     )
+    from stripe._balance_transfer import BalanceTransfer as BalanceTransfer
+    from stripe._balance_transfer_service import (
+        BalanceTransferService as BalanceTransferService,
+    )
     from stripe._bank_account import BankAccount as BankAccount
     from stripe._base_address import BaseAddress as BaseAddress
     from stripe._billing_portal_service import (
@@ -686,6 +690,8 @@ _import_map = {
         "stripe._balance_transaction_service",
         False,
     ),
+    "BalanceTransfer": ("stripe._balance_transfer", False),
+    "BalanceTransferService": ("stripe._balance_transfer_service", False),
     "BankAccount": ("stripe._bank_account", False),
     "BaseAddress": ("stripe._base_address", False),
     "BillingPortalService": ("stripe._billing_portal_service", False),
