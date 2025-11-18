@@ -1485,6 +1485,8 @@ if TYPE_CHECKING:
         InvoiceCreatePreviewParamsScheduleDetailsAmendmentAmendmentStart as InvoiceCreatePreviewParamsScheduleDetailsAmendmentAmendmentStart,
         InvoiceCreatePreviewParamsScheduleDetailsAmendmentAmendmentStartAmendmentEnd as InvoiceCreatePreviewParamsScheduleDetailsAmendmentAmendmentStartAmendmentEnd,
         InvoiceCreatePreviewParamsScheduleDetailsAmendmentAmendmentStartDiscountEnd as InvoiceCreatePreviewParamsScheduleDetailsAmendmentAmendmentStartDiscountEnd,
+        InvoiceCreatePreviewParamsScheduleDetailsAmendmentBillingSchedulesAction as InvoiceCreatePreviewParamsScheduleDetailsAmendmentBillingSchedulesAction,
+        InvoiceCreatePreviewParamsScheduleDetailsAmendmentBillingSchedulesActionAppliesTo as InvoiceCreatePreviewParamsScheduleDetailsAmendmentBillingSchedulesActionAppliesTo,
         InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountAction as InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountAction,
         InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionAdd as InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionAdd,
         InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionAddDiscountEnd as InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionAddDiscountEnd,
@@ -5212,6 +5214,8 @@ if TYPE_CHECKING:
         SubscriptionScheduleAmendParamsAmendmentAmendmentStart as SubscriptionScheduleAmendParamsAmendmentAmendmentStart,
         SubscriptionScheduleAmendParamsAmendmentAmendmentStartAmendmentEnd as SubscriptionScheduleAmendParamsAmendmentAmendmentStartAmendmentEnd,
         SubscriptionScheduleAmendParamsAmendmentAmendmentStartDiscountEnd as SubscriptionScheduleAmendParamsAmendmentAmendmentStartDiscountEnd,
+        SubscriptionScheduleAmendParamsAmendmentBillingSchedulesAction as SubscriptionScheduleAmendParamsAmendmentBillingSchedulesAction,
+        SubscriptionScheduleAmendParamsAmendmentBillingSchedulesActionAppliesTo as SubscriptionScheduleAmendParamsAmendmentBillingSchedulesActionAppliesTo,
         SubscriptionScheduleAmendParamsAmendmentDiscountAction as SubscriptionScheduleAmendParamsAmendmentDiscountAction,
         SubscriptionScheduleAmendParamsAmendmentDiscountActionAdd as SubscriptionScheduleAmendParamsAmendmentDiscountActionAdd,
         SubscriptionScheduleAmendParamsAmendmentDiscountActionAddDiscountEnd as SubscriptionScheduleAmendParamsAmendmentDiscountActionAddDiscountEnd,
@@ -9895,6 +9899,14 @@ _import_map = {
         False,
     ),
     "InvoiceCreatePreviewParamsScheduleDetailsAmendmentAmendmentStartDiscountEnd": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsAmendmentBillingSchedulesAction": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsAmendmentBillingSchedulesActionAppliesTo": (
         "stripe.params._invoice_create_preview_params",
         False,
     ),
@@ -22817,6 +22829,14 @@ _import_map = {
         False,
     ),
     "SubscriptionScheduleAmendParamsAmendmentAmendmentStartDiscountEnd": (
+        "stripe.params._subscription_schedule_amend_params",
+        False,
+    ),
+    "SubscriptionScheduleAmendParamsAmendmentBillingSchedulesAction": (
+        "stripe.params._subscription_schedule_amend_params",
+        False,
+    ),
+    "SubscriptionScheduleAmendParamsAmendmentBillingSchedulesActionAppliesTo": (
         "stripe.params._subscription_schedule_amend_params",
         False,
     ),
