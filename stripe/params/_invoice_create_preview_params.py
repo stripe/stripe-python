@@ -645,6 +645,14 @@ class InvoiceCreatePreviewParamsScheduleDetailsAmendment(TypedDict):
     """
     Settings related to subscription trials.
     """
+    billing_schedules_actions: NotRequired[
+        List[
+            "InvoiceCreatePreviewParamsScheduleDetailsAmendmentBillingSchedulesAction"
+        ]
+    ]
+    """
+    Actions to apply to the billing schedules.
+    """
 
 
 class InvoiceCreatePreviewParamsScheduleDetailsAmendmentAmendmentEnd(
@@ -1153,6 +1161,36 @@ class InvoiceCreatePreviewParamsScheduleDetailsAmendmentTrialSettingsEndBehavior
     prorate_up_front: NotRequired[Literal["defer", "include"]]
     """
     Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
+    """
+
+
+class InvoiceCreatePreviewParamsScheduleDetailsAmendmentBillingSchedulesAction(
+    TypedDict,
+):
+    applies_to: NotRequired[
+        List[
+            "InvoiceCreatePreviewParamsScheduleDetailsAmendmentBillingSchedulesActionAppliesTo"
+        ]
+    ]
+    """
+    Specify which subscription items the billing schedule applies to.
+    """
+    type: Literal["remove", "set"]
+    """
+    Select the action.
+    """
+
+
+class InvoiceCreatePreviewParamsScheduleDetailsAmendmentBillingSchedulesActionAppliesTo(
+    TypedDict,
+):
+    price: NotRequired[str]
+    """
+    The ID of the price object.
+    """
+    type: Literal["price"]
+    """
+    Controls which subscription items the billing schedule applies to.
     """
 
 
