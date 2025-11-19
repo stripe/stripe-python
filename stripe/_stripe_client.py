@@ -12,6 +12,7 @@ from stripe import (
 
 from stripe._api_mode import ApiMode
 from stripe._error import AuthenticationError
+from stripe._event_router import EventRouter, OnUnhandledHandler
 from stripe._request_options import extract_options_from_dict
 from stripe._requestor_options import RequestorOptions, BaseAddresses
 from stripe._client_options import _ClientOptions
@@ -325,6 +326,14 @@ class StripeClient(object):
             requestor=self._requestor,
             api_mode=api_mode,
         )
+
+    def router(
+        self, webhook_secret: str, on_unhandled_handler: OnUnhandledHandler
+    ) -> EventRouter:
+        """
+        Returns an EventRouter instance tied to this client.
+        """
+        return EventRouter(self, webhook_secret, on_unhandled_handler)
 
     # deprecated v1 services: The beginning of the section generated from our OpenAPI spec
     @property

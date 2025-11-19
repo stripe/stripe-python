@@ -19,9 +19,6 @@ if TYPE_CHECKING:
     from stripe.events._v2_core_account_created_event import (
         V2CoreAccountCreatedEventNotification,
     )
-    from stripe.events._v2_core_account_updated_event import (
-        V2CoreAccountUpdatedEventNotification,
-    )
     from stripe.events._v2_core_account_including_configuration_customer_capability_status_updated_event import (
         V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEventNotification,
     )
@@ -66,6 +63,9 @@ if TYPE_CHECKING:
     )
     from stripe.events._v2_core_account_person_updated_event import (
         V2CoreAccountPersonUpdatedEventNotification,
+    )
+    from stripe.events._v2_core_account_updated_event import (
+        V2CoreAccountUpdatedEventNotification,
     )
     from stripe.events._v2_core_event_destination_ping_event import (
         V2CoreEventDestinationPingEventNotification,
