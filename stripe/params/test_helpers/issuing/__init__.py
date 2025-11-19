@@ -33,6 +33,7 @@ if TYPE_CHECKING:
         AuthorizationCreateParamsNetworkData as AuthorizationCreateParamsNetworkData,
         AuthorizationCreateParamsRiskAssessment as AuthorizationCreateParamsRiskAssessment,
         AuthorizationCreateParamsRiskAssessmentCardTestingRisk as AuthorizationCreateParamsRiskAssessmentCardTestingRisk,
+        AuthorizationCreateParamsRiskAssessmentFraudRisk as AuthorizationCreateParamsRiskAssessmentFraudRisk,
         AuthorizationCreateParamsRiskAssessmentMerchantDisputeRisk as AuthorizationCreateParamsRiskAssessmentMerchantDisputeRisk,
         AuthorizationCreateParamsVerificationData as AuthorizationCreateParamsVerificationData,
         AuthorizationCreateParamsVerificationDataAuthenticationExemption as AuthorizationCreateParamsVerificationDataAuthenticationExemption,
@@ -224,6 +225,10 @@ _import_map = {
         False,
     ),
     "AuthorizationCreateParamsRiskAssessmentCardTestingRisk": (
+        "stripe.params.test_helpers.issuing._authorization_create_params",
+        False,
+    ),
+    "AuthorizationCreateParamsRiskAssessmentFraudRisk": (
         "stripe.params.test_helpers.issuing._authorization_create_params",
         False,
     ),
