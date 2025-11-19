@@ -556,3 +556,11 @@ class TestEventRouter:
         ]
 
         assert event_router.registered_event_types == expected
+
+    def test_can_call_wrapped_functions(self, event_router: EventRouter):
+        @event_router.on_V1BillingMeterErrorReportTriggeredEventNotification  # type: ignore
+        def rand_int(notif, client):
+            """cool docstring"""
+            return 4
+
+        assert rand_int(None, None) == 4  # type: ignore
