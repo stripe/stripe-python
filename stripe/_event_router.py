@@ -73,6 +73,9 @@ if TYPE_CHECKING:
     from stripe.events._v2_core_event_destination_ping_event import (
         V2CoreEventDestinationPingEventNotification,
     )
+    from stripe.events._v2_core_health_event_generation_failure_resolved_event import (
+        V2CoreHealthEventGenerationFailureResolvedEventNotification,
+    )
     from stripe.events._v2_money_management_adjustment_created_event import (
         V2MoneyManagementAdjustmentCreatedEventNotification,
     )
@@ -177,27 +180,6 @@ if TYPE_CHECKING:
     )
     from stripe.events._v2_money_management_transaction_updated_event import (
         V2MoneyManagementTransactionUpdatedEventNotification,
-    )
-    from stripe.events._v2_payments_off_session_payment_authorization_attempt_failed_event import (
-        V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEventNotification,
-    )
-    from stripe.events._v2_payments_off_session_payment_authorization_attempt_started_event import (
-        V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEventNotification,
-    )
-    from stripe.events._v2_payments_off_session_payment_canceled_event import (
-        V2PaymentsOffSessionPaymentCanceledEventNotification,
-    )
-    from stripe.events._v2_payments_off_session_payment_created_event import (
-        V2PaymentsOffSessionPaymentCreatedEventNotification,
-    )
-    from stripe.events._v2_payments_off_session_payment_failed_event import (
-        V2PaymentsOffSessionPaymentFailedEventNotification,
-    )
-    from stripe.events._v2_payments_off_session_payment_requires_capture_event import (
-        V2PaymentsOffSessionPaymentRequiresCaptureEventNotification,
-    )
-    from stripe.events._v2_payments_off_session_payment_succeeded_event import (
-        V2PaymentsOffSessionPaymentSucceededEventNotification,
     )
     # event-notification-types: The end of the section generated from our OpenAPI spec
 
@@ -542,6 +524,18 @@ class EventRouter:
         """
         self._register(
             "v2.core.event_destination.ping",
+            func,
+        )
+
+    def on_V2CoreHealthEventGenerationFailureResolvedEventNotification(
+        self,
+        func: "Callable[[V2CoreHealthEventGenerationFailureResolvedEventNotification, StripeClient], None]",
+    ) -> None:
+        """
+        Registers a handler for the `V2CoreHealthEventGenerationFailureResolvedEvent` (`v2.core.health.event_generation_failure.resolved`) event notification.
+        """
+        self._register(
+            "v2.core.health.event_generation_failure.resolved",
             func,
         )
 
@@ -962,90 +956,6 @@ class EventRouter:
         """
         self._register(
             "v2.money_management.transaction.updated",
-            func,
-        )
-
-    def on_V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEventNotification(
-        self,
-        func: "Callable[[V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEventNotification, StripeClient], None]",
-    ) -> None:
-        """
-        Registers a handler for the `V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEvent` (`v2.payments.off_session_payment.authorization_attempt_failed`) event notification.
-        """
-        self._register(
-            "v2.payments.off_session_payment.authorization_attempt_failed",
-            func,
-        )
-
-    def on_V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEventNotification(
-        self,
-        func: "Callable[[V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEventNotification, StripeClient], None]",
-    ) -> None:
-        """
-        Registers a handler for the `V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEvent` (`v2.payments.off_session_payment.authorization_attempt_started`) event notification.
-        """
-        self._register(
-            "v2.payments.off_session_payment.authorization_attempt_started",
-            func,
-        )
-
-    def on_V2PaymentsOffSessionPaymentCanceledEventNotification(
-        self,
-        func: "Callable[[V2PaymentsOffSessionPaymentCanceledEventNotification, StripeClient], None]",
-    ) -> None:
-        """
-        Registers a handler for the `V2PaymentsOffSessionPaymentCanceledEvent` (`v2.payments.off_session_payment.canceled`) event notification.
-        """
-        self._register(
-            "v2.payments.off_session_payment.canceled",
-            func,
-        )
-
-    def on_V2PaymentsOffSessionPaymentCreatedEventNotification(
-        self,
-        func: "Callable[[V2PaymentsOffSessionPaymentCreatedEventNotification, StripeClient], None]",
-    ) -> None:
-        """
-        Registers a handler for the `V2PaymentsOffSessionPaymentCreatedEvent` (`v2.payments.off_session_payment.created`) event notification.
-        """
-        self._register(
-            "v2.payments.off_session_payment.created",
-            func,
-        )
-
-    def on_V2PaymentsOffSessionPaymentFailedEventNotification(
-        self,
-        func: "Callable[[V2PaymentsOffSessionPaymentFailedEventNotification, StripeClient], None]",
-    ) -> None:
-        """
-        Registers a handler for the `V2PaymentsOffSessionPaymentFailedEvent` (`v2.payments.off_session_payment.failed`) event notification.
-        """
-        self._register(
-            "v2.payments.off_session_payment.failed",
-            func,
-        )
-
-    def on_V2PaymentsOffSessionPaymentRequiresCaptureEventNotification(
-        self,
-        func: "Callable[[V2PaymentsOffSessionPaymentRequiresCaptureEventNotification, StripeClient], None]",
-    ) -> None:
-        """
-        Registers a handler for the `V2PaymentsOffSessionPaymentRequiresCaptureEvent` (`v2.payments.off_session_payment.requires_capture`) event notification.
-        """
-        self._register(
-            "v2.payments.off_session_payment.requires_capture",
-            func,
-        )
-
-    def on_V2PaymentsOffSessionPaymentSucceededEventNotification(
-        self,
-        func: "Callable[[V2PaymentsOffSessionPaymentSucceededEventNotification, StripeClient], None]",
-    ) -> None:
-        """
-        Registers a handler for the `V2PaymentsOffSessionPaymentSucceededEvent` (`v2.payments.off_session_payment.succeeded`) event notification.
-        """
-        self._register(
-            "v2.payments.off_session_payment.succeeded",
             func,
         )
 

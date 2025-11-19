@@ -789,7 +789,7 @@ _import_map = {
     "OAuthErrorObject": ("stripe._error_object", False),
     "Event": ("stripe._event", False),
     "EventRouter": ("stripe._event_router", False),
-    "UnhandledEventInfo": ("stripe._event_router", False),
+    "UnhandledNotificationDetails": ("stripe._event_router", False),
     "EventService": ("stripe._event_service", False),
     "ExchangeRate": ("stripe._exchange_rate", False),
     "ExchangeRateService": ("stripe._exchange_rate_service", False),
