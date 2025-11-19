@@ -1855,7 +1855,7 @@ class PaymentMethod(
         **params: Unpack["PaymentMethodCheckBalanceParams"],
     ) -> "PaymentMethodBalance":
         """
-        Retrieves a payment method's balance.
+        Retrieves a PaymentMethod's Balance.
         """
         return cast(
             "PaymentMethodBalance",
@@ -1875,7 +1875,7 @@ class PaymentMethod(
         **params: Unpack["PaymentMethodCheckBalanceParams"],
     ) -> "PaymentMethodBalance":
         """
-        Retrieves a payment method's balance.
+        Retrieves a PaymentMethod's Balance.
         """
         ...
 
@@ -1884,7 +1884,7 @@ class PaymentMethod(
         self, **params: Unpack["PaymentMethodCheckBalanceParams"]
     ) -> "PaymentMethodBalance":
         """
-        Retrieves a payment method's balance.
+        Retrieves a PaymentMethod's Balance.
         """
         ...
 
@@ -1893,7 +1893,7 @@ class PaymentMethod(
         self, **params: Unpack["PaymentMethodCheckBalanceParams"]
     ) -> "PaymentMethodBalance":
         """
-        Retrieves a payment method's balance.
+        Retrieves a PaymentMethod's Balance.
         """
         return cast(
             "PaymentMethodBalance",
@@ -1913,7 +1913,7 @@ class PaymentMethod(
         **params: Unpack["PaymentMethodCheckBalanceParams"],
     ) -> "PaymentMethodBalance":
         """
-        Retrieves a payment method's balance.
+        Retrieves a PaymentMethod's Balance.
         """
         return cast(
             "PaymentMethodBalance",
@@ -1933,7 +1933,7 @@ class PaymentMethod(
         **params: Unpack["PaymentMethodCheckBalanceParams"],
     ) -> "PaymentMethodBalance":
         """
-        Retrieves a payment method's balance.
+        Retrieves a PaymentMethod's Balance.
         """
         ...
 
@@ -1942,7 +1942,7 @@ class PaymentMethod(
         self, **params: Unpack["PaymentMethodCheckBalanceParams"]
     ) -> "PaymentMethodBalance":
         """
-        Retrieves a payment method's balance.
+        Retrieves a PaymentMethod's Balance.
         """
         ...
 
@@ -1951,7 +1951,7 @@ class PaymentMethod(
         self, **params: Unpack["PaymentMethodCheckBalanceParams"]
     ) -> "PaymentMethodBalance":
         """
-        Retrieves a payment method's balance.
+        Retrieves a PaymentMethod's Balance.
         """
         return cast(
             "PaymentMethodBalance",

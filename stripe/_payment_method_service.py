@@ -277,7 +277,7 @@ class PaymentMethodService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentMethodBalance":
         """
-        Retrieves a payment method's balance.
+        Retrieves a PaymentMethod's Balance.
         """
         return cast(
             "PaymentMethodBalance",
@@ -299,7 +299,7 @@ class PaymentMethodService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentMethodBalance":
         """
-        Retrieves a payment method's balance.
+        Retrieves a PaymentMethod's Balance.
         """
         return cast(
             "PaymentMethodBalance",

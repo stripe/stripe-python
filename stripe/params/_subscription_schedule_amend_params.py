@@ -96,6 +96,12 @@ class SubscriptionScheduleAmendParamsAmendment(TypedDict):
     """
     Actions to apply to the billing schedules.
     """
+    effective_at: NotRequired[
+        Literal["amendment_start", "billing_period_start"]
+    ]
+    """
+    Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+    """
 
 
 class SubscriptionScheduleAmendParamsAmendmentAmendmentEnd(TypedDict):
@@ -338,6 +344,10 @@ class SubscriptionScheduleAmendParamsAmendmentItemActionAdd(TypedDict):
     """
     Options that configure the trial on the subscription item.
     """
+    trial_offer: NotRequired[str]
+    """
+    The ID of the trial offer to apply to the configuration item.
+    """
 
 
 class SubscriptionScheduleAmendParamsAmendmentItemActionAddDiscount(TypedDict):
@@ -439,6 +449,10 @@ class SubscriptionScheduleAmendParamsAmendmentItemActionSet(TypedDict):
     ]
     """
     If an item with the `price` already exists, passing this will override the `trial` configuration on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `trial`.
+    """
+    trial_offer: NotRequired[str]
+    """
+    The ID of the trial offer to apply to the configuration item.
     """
 
 

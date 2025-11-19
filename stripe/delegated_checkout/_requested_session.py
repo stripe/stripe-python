@@ -156,6 +156,22 @@ class RequestedSession(
         }
 
     class LineItemDetail(StripeObject):
+        amount_discount: int
+        """
+        The total discount for this line item. If no discount were applied, defaults to 0.
+        """
+        amount_subtotal: int
+        """
+        The total before any discounts or taxes are applied.
+        """
+        amount_subtotal_after_discount: int
+        """
+        The total after discounts but before taxes are applied.
+        """
+        amount_total: int
+        """
+        The total after discounts and taxes.
+        """
         description: Optional[str]
         """
         The description of the line item.
@@ -182,7 +198,15 @@ class RequestedSession(
         """
         unit_amount: int
         """
-        The unit amount of the line item.
+        The per-unit amount of the item before any discounts or taxes are applied.
+        """
+        unit_amount_after_discount: int
+        """
+        The per-unit amount of the item after discounts but before taxes are applied.
+        """
+        unit_discount: int
+        """
+        The per-unit discount amount. If no discount were applied, defaults to 0.
         """
 
     class OrderDetails(StripeObject):
@@ -294,6 +318,10 @@ class RequestedSession(
         amount_fulfillment: Optional[int]
         """
         The amount fulfillment of the total details.
+        """
+        amount_subtotal_after_discount: Optional[int]
+        """
+        Total of all items after discounts but before taxes are applied.
         """
         amount_tax: Optional[int]
         """

@@ -77,6 +77,10 @@ class SubscriptionItemModifyParams(RequestOptions):
     """
     A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
     """
+    current_trial: NotRequired["SubscriptionItemModifyParamsCurrentTrial"]
+    """
+    The trial offer to apply to this subscription item.
+    """
 
 
 class SubscriptionItemModifyParamsBillingThresholds(TypedDict):
@@ -170,4 +174,15 @@ class SubscriptionItemModifyParamsPriceDataRecurring(TypedDict):
     interval_count: NotRequired[int]
     """
     The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
+    """
+
+
+class SubscriptionItemModifyParamsCurrentTrial(TypedDict):
+    trial_end: NotRequired[int]
+    """
+    Unix timestamp representing the end of the trial offer period. Required when the trial offer has `duration.type=timestamp`. Cannot be specified when `duration.type=relative`.
+    """
+    trial_offer: str
+    """
+    The ID of the trial offer to apply to the subscription item.
     """

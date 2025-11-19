@@ -52,6 +52,11 @@ class SubscriptionItem(
         Usage threshold that triggers the subscription to create an invoice
         """
 
+    class CurrentTrial(StripeObject):
+        end_date: int
+        start_date: int
+        trial_offer: str
+
     class Trial(StripeObject):
         converts_to: Optional[List[str]]
         """
@@ -81,6 +86,10 @@ class SubscriptionItem(
     current_period_start: int
     """
     The start time of this subscription item's current billing period.
+    """
+    current_trial: Optional[CurrentTrial]
+    """
+    The current trial that is applied to this subscription item.
     """
     deleted: Optional[Literal[True]]
     """
@@ -367,5 +376,6 @@ class SubscriptionItem(
 
     _inner_class_types = {
         "billing_thresholds": BillingThresholds,
+        "current_trial": CurrentTrial,
         "trial": Trial,
     }

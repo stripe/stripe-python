@@ -81,6 +81,10 @@ class SubscriptionItemCreateParams(RequestOptions):
     """
     Options that configure the trial on the subscription item.
     """
+    current_trial: NotRequired["SubscriptionItemCreateParamsCurrentTrial"]
+    """
+    The trial offer to apply to this subscription item.
+    """
 
 
 class SubscriptionItemCreateParamsBillingThresholds(TypedDict):
@@ -185,4 +189,15 @@ class SubscriptionItemCreateParamsTrial(TypedDict):
     type: Literal["free", "paid"]
     """
     Determines the type of trial for this item.
+    """
+
+
+class SubscriptionItemCreateParamsCurrentTrial(TypedDict):
+    trial_end: NotRequired[int]
+    """
+    Unix timestamp representing the end of the trial offer period. Required when the trial offer has `duration.type=timestamp`. Cannot be specified when `duration.type=relative`.
+    """
+    trial_offer: str
+    """
+    The ID of the trial offer to apply to the subscription item.
     """

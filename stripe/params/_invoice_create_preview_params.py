@@ -577,7 +577,7 @@ class InvoiceCreatePreviewParamsScheduleDetails(TypedDict):
     In cases where the `schedule_details` params update the currently active phase, specifies if and how to prorate at the time of the request.
     """
     billing_schedules: NotRequired[
-        List["InvoiceCreatePreviewParamsScheduleDetailsBillingSchedule"]
+        "Literal['']|List[InvoiceCreatePreviewParamsScheduleDetailsBillingSchedule]"
     ]
     """
     Sets the billing schedules for the subscription schedule.
@@ -652,6 +652,12 @@ class InvoiceCreatePreviewParamsScheduleDetailsAmendment(TypedDict):
     ]
     """
     Actions to apply to the billing schedules.
+    """
+    effective_at: NotRequired[
+        Literal["amendment_start", "billing_period_start"]
+    ]
+    """
+    Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
     """
 
 
@@ -917,6 +923,10 @@ class InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionAdd(
     """
     Options that configure the trial on the subscription item.
     """
+    trial_offer: NotRequired[str]
+    """
+    The ID of the trial offer to apply to the configuration item.
+    """
 
 
 class InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionAddDiscount(
@@ -1028,6 +1038,10 @@ class InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionSet(
     ]
     """
     If an item with the `price` already exists, passing this will override the `trial` configuration on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `trial`.
+    """
+    trial_offer: NotRequired[str]
+    """
+    The ID of the trial offer to apply to the configuration item.
     """
 
 
@@ -1681,6 +1695,10 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhaseItem(TypedDict):
     """
     Options that configure the trial on the subscription item.
     """
+    trial_offer: NotRequired[str]
+    """
+    The ID of the trial offer to apply to the configuration item.
+    """
 
 
 class InvoiceCreatePreviewParamsScheduleDetailsPhaseItemBillingThresholds(
@@ -1939,14 +1957,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsBillingScheduleBillUntil(
     """
     The end date of the billing schedule.
     """
-    type: Literal[
-        "amendment_end",
-        "duration",
-        "line_ends_at",
-        "schedule_end",
-        "timestamp",
-        "upcoming_invoice",
-    ]
+    type: Literal["duration", "timestamp"]
     """
     Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
     """
@@ -2105,14 +2116,7 @@ class InvoiceCreatePreviewParamsSubscriptionDetailsBillingScheduleBillUntil(
     """
     The end date of the billing schedule.
     """
-    type: Literal[
-        "amendment_end",
-        "duration",
-        "line_ends_at",
-        "schedule_end",
-        "timestamp",
-        "upcoming_invoice",
-    ]
+    type: Literal["duration", "timestamp"]
     """
     Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
     """
@@ -2181,6 +2185,12 @@ class InvoiceCreatePreviewParamsSubscriptionDetailsItem(TypedDict):
     tax_rates: NotRequired["Literal['']|List[str]"]
     """
     A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
+    """
+    current_trial: NotRequired[
+        "InvoiceCreatePreviewParamsSubscriptionDetailsItemCurrentTrial"
+    ]
+    """
+    The trial offer to apply to this subscription item.
     """
 
 
@@ -2285,6 +2295,17 @@ class InvoiceCreatePreviewParamsSubscriptionDetailsItemPriceDataRecurring(
     interval_count: NotRequired[int]
     """
     The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
+    """
+
+
+class InvoiceCreatePreviewParamsSubscriptionDetailsItemCurrentTrial(TypedDict):
+    trial_end: NotRequired[int]
+    """
+    Unix timestamp representing the end of the trial offer period. Required when the trial offer has `duration.type=timestamp`. Cannot be specified when `duration.type=relative`.
+    """
+    trial_offer: str
+    """
+    The ID of the trial offer to apply to the subscription item.
     """
 
 

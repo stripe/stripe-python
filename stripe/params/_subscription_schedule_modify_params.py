@@ -636,6 +636,10 @@ class SubscriptionScheduleModifyParamsPhaseItem(TypedDict):
     """
     Options that configure the trial on the subscription item.
     """
+    trial_offer: NotRequired[str]
+    """
+    The ID of the trial offer to apply to the configuration item.
+    """
 
 
 class SubscriptionScheduleModifyParamsPhaseItemBillingThresholds(TypedDict):
@@ -831,14 +835,7 @@ class SubscriptionScheduleModifyParamsBillingScheduleBillUntil(TypedDict):
     """
     The end date of the billing schedule.
     """
-    type: Literal[
-        "amendment_end",
-        "duration",
-        "line_ends_at",
-        "schedule_end",
-        "timestamp",
-        "upcoming_invoice",
-    ]
+    type: Literal["duration", "timestamp"]
     """
     Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
     """

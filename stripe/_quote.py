@@ -629,32 +629,12 @@ class Quote(
                 """
 
             class BillFrom(StripeObject):
-                class AmendmentStart(StripeObject):
-                    index: int
-                    """
-                    Use an index to specify the position of an amendment to start prebilling with.
-                    """
-
                 class LineStartsAt(StripeObject):
                     id: str
                     """
                     Unique identifier for the object.
                     """
 
-                class Relative(StripeObject):
-                    interval: Literal["day", "month", "week", "year"]
-                    """
-                    Specifies billing duration. Possible values are `day`, `week`, `month`, or `year`.
-                    """
-                    interval_count: Optional[int]
-                    """
-                    The multiplier applied to the interval.
-                    """
-
-                amendment_start: Optional[AmendmentStart]
-                """
-                Use an index to specify the position of an amendment to start prebilling with.
-                """
                 computed_timestamp: Optional[int]
                 """
                 The time the billing schedule applies from.
@@ -663,39 +643,22 @@ class Quote(
                 """
                 Lets you bill the period starting from a particular Quote line.
                 """
-                relative: Optional[Relative]
-                """
-                Timestamp is calculated from the request time.
-                """
                 timestamp: Optional[int]
                 """
                 Use a precise Unix timestamp for prebilling to start. Must be earlier than `bill_until`.
                 """
                 type: Literal[
-                    "amendment_start",
                     "line_starts_at",
-                    "now",
                     "pause_collection_start",
                     "quote_acceptance_date",
-                    "relative",
                     "timestamp",
                 ]
                 """
                 Describes how the billing schedule determines the start date. Possible values are `timestamp`, `relative`, `amendment_start`, `now`, `quote_acceptance_date`, `line_starts_at`, or `pause_collection_start`.
                 """
-                _inner_class_types = {
-                    "amendment_start": AmendmentStart,
-                    "line_starts_at": LineStartsAt,
-                    "relative": Relative,
-                }
+                _inner_class_types = {"line_starts_at": LineStartsAt}
 
             class BillUntil(StripeObject):
-                class AmendmentEnd(StripeObject):
-                    index: int
-                    """
-                    Use an index to specify the position of an amendment to end prebilling with.
-                    """
-
                 class Duration(StripeObject):
                     interval: Literal["day", "month", "week", "year"]
                     """
@@ -712,11 +675,7 @@ class Quote(
                     Unique identifier for the object.
                     """
 
-                amendment_end: Optional[AmendmentEnd]
-                """
-                Use an index to specify the position of an amendment to end prebilling with.
-                """
-                computed_timestamp: int
+                computed_timestamp: Optional[int]
                 """
                 The timestamp the billing schedule will apply until.
                 """
@@ -733,7 +692,6 @@ class Quote(
                 If specified, the billing schedule will apply until the specified timestamp.
                 """
                 type: Literal[
-                    "amendment_end",
                     "duration",
                     "line_ends_at",
                     "schedule_end",
@@ -744,7 +702,6 @@ class Quote(
                 Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
                 """
                 _inner_class_types = {
-                    "amendment_end": AmendmentEnd,
                     "duration": Duration,
                     "line_ends_at": LineEndsAt,
                 }
@@ -758,9 +715,6 @@ class Quote(
             Specifies the start of the billing period.
             """
             bill_until: BillUntil
-            """
-            Specifies the end of billing period.
-            """
             key: str
             """
             Unique identifier for the billing schedule.
@@ -817,10 +771,10 @@ class Quote(
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is accepted. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
         """
         phase_effective_at: Optional[
-            Literal["billing_period_start", "phase_start"]
+            Literal["billing_period_start", "line_start"]
         ]
         """
-        Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+        Configures how the quote handles billing for line transitions. Possible values are `line_start` (default) or `billing_period_start`. `line_start` bills based on the current state of the line, ignoring changes scheduled for future lines. `billing_period_start` bills predictively for upcoming line transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
         """
         prebilling: Optional[Prebilling]
         """
@@ -963,32 +917,12 @@ class Quote(
                 """
 
             class BillFrom(StripeObject):
-                class AmendmentStart(StripeObject):
-                    index: int
-                    """
-                    Use an index to specify the position of an amendment to start prebilling with.
-                    """
-
                 class LineStartsAt(StripeObject):
                     id: str
                     """
                     Unique identifier for the object.
                     """
 
-                class Relative(StripeObject):
-                    interval: Literal["day", "month", "week", "year"]
-                    """
-                    Specifies billing duration. Possible values are `day`, `week`, `month`, or `year`.
-                    """
-                    interval_count: Optional[int]
-                    """
-                    The multiplier applied to the interval.
-                    """
-
-                amendment_start: Optional[AmendmentStart]
-                """
-                Use an index to specify the position of an amendment to start prebilling with.
-                """
                 computed_timestamp: Optional[int]
                 """
                 The time the billing schedule applies from.
@@ -997,39 +931,22 @@ class Quote(
                 """
                 Lets you bill the period starting from a particular Quote line.
                 """
-                relative: Optional[Relative]
-                """
-                Timestamp is calculated from the request time.
-                """
                 timestamp: Optional[int]
                 """
                 Use a precise Unix timestamp for prebilling to start. Must be earlier than `bill_until`.
                 """
                 type: Literal[
-                    "amendment_start",
                     "line_starts_at",
-                    "now",
                     "pause_collection_start",
                     "quote_acceptance_date",
-                    "relative",
                     "timestamp",
                 ]
                 """
                 Describes how the billing schedule determines the start date. Possible values are `timestamp`, `relative`, `amendment_start`, `now`, `quote_acceptance_date`, `line_starts_at`, or `pause_collection_start`.
                 """
-                _inner_class_types = {
-                    "amendment_start": AmendmentStart,
-                    "line_starts_at": LineStartsAt,
-                    "relative": Relative,
-                }
+                _inner_class_types = {"line_starts_at": LineStartsAt}
 
             class BillUntil(StripeObject):
-                class AmendmentEnd(StripeObject):
-                    index: int
-                    """
-                    Use an index to specify the position of an amendment to end prebilling with.
-                    """
-
                 class Duration(StripeObject):
                     interval: Literal["day", "month", "week", "year"]
                     """
@@ -1046,11 +963,7 @@ class Quote(
                     Unique identifier for the object.
                     """
 
-                amendment_end: Optional[AmendmentEnd]
-                """
-                Use an index to specify the position of an amendment to end prebilling with.
-                """
-                computed_timestamp: int
+                computed_timestamp: Optional[int]
                 """
                 The timestamp the billing schedule will apply until.
                 """
@@ -1067,7 +980,6 @@ class Quote(
                 If specified, the billing schedule will apply until the specified timestamp.
                 """
                 type: Literal[
-                    "amendment_end",
                     "duration",
                     "line_ends_at",
                     "schedule_end",
@@ -1078,7 +990,6 @@ class Quote(
                 Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
                 """
                 _inner_class_types = {
-                    "amendment_end": AmendmentEnd,
                     "duration": Duration,
                     "line_ends_at": LineEndsAt,
                 }
@@ -1092,9 +1003,6 @@ class Quote(
             Specifies the start of the billing period.
             """
             bill_until: BillUntil
-            """
-            Specifies the end of billing period.
-            """
             key: str
             """
             Unique identifier for the billing schedule.
@@ -1133,10 +1041,10 @@ class Quote(
         Behavior of the subscription schedule and underlying subscription when it ends.
         """
         phase_effective_at: Optional[
-            Literal["billing_period_start", "phase_start"]
+            Literal["billing_period_start", "line_start"]
         ]
         """
-        Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+        Configures how the quote handles billing for line transitions. Possible values are `line_start` (default) or `billing_period_start`. `line_start` bills based on the current state of the line, ignoring changes scheduled for future lines. `billing_period_start` bills predictively for upcoming line transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
         """
         proration_behavior: Optional[
             Literal["always_invoice", "create_prorations", "none"]
