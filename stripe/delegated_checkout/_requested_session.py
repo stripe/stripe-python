@@ -333,11 +333,11 @@ class RequestedSession(
         """
         _inner_class_types = {"applicable_fees": ApplicableFee}
 
-    amount_subtotal: int
+    amount_subtotal: Optional[int]
     """
     The subtotal amount of the requested session.
     """
-    amount_total: int
+    amount_total: Optional[int]
     """
     The total amount of the requested session.
     """
