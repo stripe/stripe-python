@@ -114,6 +114,10 @@ class QuoteLine(StripeObject):
             """
             Options that configure the trial on the subscription item.
             """
+            trial_offer: Optional[str]
+            """
+            The ID of the trial offer to apply to the configuration item.
+            """
             _inner_class_types = {"discounts": Discount, "trial": Trial}
 
         class RemoveDiscount(StripeObject):
@@ -243,6 +247,10 @@ class QuoteLine(StripeObject):
             trial: Optional[Trial]
             """
             Options that configure the trial on the subscription item.
+            """
+            trial_offer: Optional[str]
+            """
+            The ID of the trial offer to apply to the configuration item.
             """
             _inner_class_types = {"discounts": Discount, "trial": Trial}
 
@@ -476,6 +484,10 @@ class QuoteLine(StripeObject):
     cancel_subscription_schedule: Optional[CancelSubscriptionSchedule]
     """
     A point-in-time operation that cancels an existing subscription schedule at the line's starts_at timestamp. Currently only compatible with `quote_acceptance_date` for `starts_at`. When using cancel_subscription_schedule, the subscription schedule on the quote remains unalterable, except for modifications to the metadata, collection_method or invoice_settings.
+    """
+    effective_at: Optional[Literal["billing_period_start", "line_start"]]
+    """
+    Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
     """
     ends_at: Optional[EndsAt]
     """

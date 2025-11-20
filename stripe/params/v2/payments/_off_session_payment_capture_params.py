@@ -5,16 +5,16 @@ from typing_extensions import NotRequired, TypedDict
 
 
 class OffSessionPaymentCaptureParams(TypedDict):
-    amount_to_capture: int
+    amount_to_capture: NotRequired[int]
     """
     The amount to capture.
     """
     metadata: Dict[str, str]
     """
-    Set of [key-value pairs](https://docs.corp.stripe.com/api/metadata) that you can
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can
     attach to an object. This can be useful for storing additional information about
     the object in a structured format. Learn more about
-    [storing information in metadata](https://docs.corp.stripe.com/payments/payment-intents#storing-information-in-metadata).
+    [storing information in metadata](https://docs.stripe.com/payments/payment-intents#storing-information-in-metadata).
     """
     statement_descriptor: NotRequired[str]
     """
@@ -31,7 +31,7 @@ class OffSessionPaymentCaptureParams(TypedDict):
     """
     transfer_data: NotRequired["OffSessionPaymentCaptureParamsTransferData"]
     """
-    The data that automatically creates a Transfer after the payment finalizes. Learn more about the use case for [connected accounts](https://docs.corp.stripe.com/payments/connected-accounts).
+    The data that automatically creates a Transfer after the payment finalizes. Learn more about the use case for [connected accounts](https://docs.stripe.com/payments/connected-accounts).
     """
 
 
@@ -42,12 +42,7 @@ class OffSessionPaymentCaptureParamsTransferData(TypedDict):
     automatically after the payment succeeds. If no amount is specified, by default
     the entire payment amount is transferred to the destination account. The amount
     must be less than or equal to the
-    [amount_requested](https://docs.corp.stripe.com/api/v2/off-session-payments/object?api-version=2025-05-28.preview#v2_off_session_payment_object-amount_requested),
+    [amount_requested](https://docs.stripe.com/api/v2/off-session-payments/object?api-version=2025-05-28.preview#v2_off_session_payment_object-amount_requested),
     and must be a positive integer representing how much to transfer in the smallest
     currency unit (e.g., 100 cents to charge $1.00).
-    """
-    destination: str
-    """
-    The account (if any) that the payment is attributed to for tax reporting, and
-    where funds from the payment are transferred to after payment success.
     """

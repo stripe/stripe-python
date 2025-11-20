@@ -8,6 +8,9 @@ if TYPE_CHECKING:
     from stripe.v2.money_management._adjustment_service import (
         AdjustmentService,
     )
+    from stripe.v2.money_management._currency_conversion_service import (
+        CurrencyConversionService,
+    )
     from stripe.v2.money_management._financial_account_service import (
         FinancialAccountService,
     )
@@ -55,6 +58,10 @@ _subservices = {
     "adjustments": [
         "stripe.v2.money_management._adjustment_service",
         "AdjustmentService",
+    ],
+    "currency_conversions": [
+        "stripe.v2.money_management._currency_conversion_service",
+        "CurrencyConversionService",
     ],
     "financial_accounts": [
         "stripe.v2.money_management._financial_account_service",
@@ -117,6 +124,7 @@ _subservices = {
 
 class MoneyManagementService(StripeService):
     adjustments: "AdjustmentService"
+    currency_conversions: "CurrencyConversionService"
     financial_accounts: "FinancialAccountService"
     financial_addresses: "FinancialAddressService"
     inbound_transfers: "InboundTransferService"

@@ -313,6 +313,10 @@ class SubscriptionScheduleUpdateParamsPhase(TypedDict):
     """
     Settings related to subscription trials.
     """
+    effective_at: NotRequired[Literal["billing_period_start", "phase_start"]]
+    """
+    Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+    """
 
 
 class SubscriptionScheduleUpdateParamsPhaseAddInvoiceItem(TypedDict):
@@ -631,6 +635,10 @@ class SubscriptionScheduleUpdateParamsPhaseItem(TypedDict):
     """
     Options that configure the trial on the subscription item.
     """
+    trial_offer: NotRequired[str]
+    """
+    The ID of the trial offer to apply to the configuration item.
+    """
 
 
 class SubscriptionScheduleUpdateParamsPhaseItemBillingThresholds(TypedDict):
@@ -826,14 +834,7 @@ class SubscriptionScheduleUpdateParamsBillingScheduleBillUntil(TypedDict):
     """
     The end date of the billing schedule.
     """
-    type: Literal[
-        "amendment_end",
-        "duration",
-        "line_ends_at",
-        "schedule_end",
-        "timestamp",
-        "upcoming_invoice",
-    ]
+    type: Literal["duration", "timestamp"]
     """
     Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
     """

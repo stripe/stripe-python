@@ -1,18 +1,13 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe.v2._amount import AmountParam
-from typing import Dict, List
+from typing import Dict
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class OffSessionPaymentCreateParams(TypedDict):
-    amount: AmountParam
+    amount: "OffSessionPaymentCreateParamsAmount"
     """
     The “presentment amount” to be collected from the customer.
-    """
-    amount_details: NotRequired["OffSessionPaymentCreateParamsAmountDetails"]
-    """
-    Provides industry-specific information about the amount.
     """
     cadence: Literal["recurring", "unscheduled"]
     """
@@ -22,20 +17,16 @@ class OffSessionPaymentCreateParams(TypedDict):
     """
     Details about the capture configuration for the OffSessionPayment.
     """
-    capture_method: NotRequired[Literal["automatic", "manual"]]
-    """
-    Whether the OffSessionPayment should be captured automatically or manually.
-    """
     customer: str
     """
     ID of the Customer to which this OffSessionPayment belongs.
     """
     metadata: Dict[str, str]
     """
-    Set of [key-value pairs](https://docs.corp.stripe.com/api/metadata) that you can
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can
     attach to an object. This can be useful for storing additional information about
     the object in a structured format. Learn more about
-    [storing information in metadata](https://docs.corp.stripe.com/payments/payment-intents#storing-information-in-metadata).
+    [storing information in metadata](https://docs.stripe.com/payments/payment-intents#storing-information-in-metadata).
     """
     on_behalf_of: NotRequired[str]
     """
@@ -80,82 +71,18 @@ class OffSessionPaymentCreateParams(TypedDict):
     """
     transfer_data: NotRequired["OffSessionPaymentCreateParamsTransferData"]
     """
-    The data that automatically creates a Transfer after the payment finalizes. Learn more about the use case for [connected accounts](https://docs.corp.stripe.com/payments/connected-accounts).
+    The data that automatically creates a Transfer after the payment finalizes. Learn more about the use case for [connected accounts](https://docs.stripe.com/payments/connected-accounts).
     """
 
 
-class OffSessionPaymentCreateParamsAmountDetails(TypedDict):
-    discount_amount: NotRequired[int]
+class OffSessionPaymentCreateParamsAmount(TypedDict):
+    value: NotRequired[int]
     """
-    The amount the total transaction was discounted for.
+    A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
     """
-    line_items: List["OffSessionPaymentCreateParamsAmountDetailsLineItem"]
+    currency: NotRequired[str]
     """
-    A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
-    """
-    shipping: NotRequired["OffSessionPaymentCreateParamsAmountDetailsShipping"]
-    """
-    Contains information about the shipping portion of the amount.
-    """
-    tax: NotRequired["OffSessionPaymentCreateParamsAmountDetailsTax"]
-    """
-    Contains information about the tax portion of the amount.
-    """
-
-
-class OffSessionPaymentCreateParamsAmountDetailsLineItem(TypedDict):
-    discount_amount: NotRequired[int]
-    """
-    The amount an item was discounted for. Positive integer.
-    """
-    product_code: NotRequired[str]
-    """
-    Unique identifier of the product. At most 12 characters long.
-    """
-    product_name: str
-    """
-    Name of the product. At most 100 characters long.
-    """
-    quantity: int
-    """
-    Number of items of the product. Positive integer.
-    """
-    tax: NotRequired["OffSessionPaymentCreateParamsAmountDetailsLineItemTax"]
-    """
-    Contains information about the tax on the item.
-    """
-    unit_cost: int
-    """
-    Cost of the product. Non-negative integer.
-    """
-
-
-class OffSessionPaymentCreateParamsAmountDetailsLineItemTax(TypedDict):
-    total_tax_amount: NotRequired[int]
-    """
-    Total portion of the amount that is for tax.
-    """
-
-
-class OffSessionPaymentCreateParamsAmountDetailsShipping(TypedDict):
-    amount: NotRequired[int]
-    """
-    Portion of the amount that is for shipping.
-    """
-    from_postal_code: NotRequired[str]
-    """
-    The postal code that represents the shipping source.
-    """
-    to_postal_code: NotRequired[str]
-    """
-    The postal code that represents the shipping destination.
-    """
-
-
-class OffSessionPaymentCreateParamsAmountDetailsTax(TypedDict):
-    total_tax_amount: NotRequired[int]
-    """
-    Total portion of the amount that is for tax.
+    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
 
 
@@ -197,7 +124,7 @@ class OffSessionPaymentCreateParamsRetryDetails(TypedDict):
     """
     The pre-configured retry policy to use for the payment.
     """
-    retry_strategy: Literal["heuristic", "none", "scheduled", "smart"]
+    retry_strategy: NotRequired[Literal["best_available", "none"]]
     """
     Indicates the strategy for how you want Stripe to retry the payment.
     """
@@ -210,7 +137,7 @@ class OffSessionPaymentCreateParamsTransferData(TypedDict):
     automatically after the payment succeeds. If no amount is specified, by default
     the entire payment amount is transferred to the destination account. The amount
     must be less than or equal to the
-    [amount_requested](https://docs.corp.stripe.com/api/v2/off-session-payments/object?api-version=2025-05-28.preview#v2_off_session_payment_object-amount_requested),
+    [amount_requested](https://docs.stripe.com/api/v2/off-session-payments/object?api-version=2025-05-28.preview#v2_off_session_payment_object-amount_requested),
     and must be a positive integer representing how much to transfer in the smallest
     currency unit (e.g., 100 cents to charge $1.00).
     """

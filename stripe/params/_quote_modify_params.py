@@ -354,6 +354,10 @@ class QuoteModifyParamsLine(TypedDict):
     """
     Settings related to subscription trials.
     """
+    effective_at: NotRequired[Literal["billing_period_start", "line_start"]]
+    """
+    Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+    """
 
 
 class QuoteModifyParamsLineAction(TypedDict):
@@ -467,6 +471,10 @@ class QuoteModifyParamsLineActionAddItem(TypedDict):
     trial: NotRequired["QuoteModifyParamsLineActionAddItemTrial"]
     """
     Options that configure the trial on the subscription item.
+    """
+    trial_offer: NotRequired[str]
+    """
+    The ID of the trial offer to apply to the configuration item.
     """
 
 
@@ -591,6 +599,10 @@ class QuoteModifyParamsLineActionSetItem(TypedDict):
     trial: NotRequired["QuoteModifyParamsLineActionSetItemTrial"]
     """
     If an item with the `price` already exists, passing this will override the `trial` configuration on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `trial`.
+    """
+    trial_offer: NotRequired[str]
+    """
+    The ID of the trial offer to apply to the configuration item.
     """
 
 
@@ -848,7 +860,7 @@ class QuoteModifyParamsSubscriptionData(TypedDict):
     Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is accepted. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
     """
     phase_effective_at: NotRequired[
-        Literal["billing_period_start", "phase_start"]
+        Literal["billing_period_start", "line_start"]
     ]
     """
     Configures how the subscription schedule handles billing for phase transitions when the quote is accepted. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
@@ -1153,7 +1165,7 @@ class QuoteModifyParamsSubscriptionDataOverride(TypedDict):
     Behavior of the subscription schedule and underlying subscription when it ends.
     """
     phase_effective_at: NotRequired[
-        Literal["billing_period_start", "phase_start"]
+        Literal["billing_period_start", "line_start"]
     ]
     """
     Configures how the subscription schedule handles billing for phase transitions when the quote is accepted. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.

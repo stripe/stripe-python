@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe.v2._amount import AmountParam
 from typing import List
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -74,7 +73,7 @@ class ServiceActionCreateParamsCreditGrantAmount(TypedDict):
     """
     The custom pricing unit amount of the credit grant. Required if `type` is `custom_pricing_unit`.
     """
-    monetary: NotRequired[AmountParam]
+    monetary: NotRequired["ServiceActionCreateParamsCreditGrantAmountMonetary"]
     """
     The monetary amount of the credit grant. Required if `type` is `monetary`.
     """
@@ -88,6 +87,17 @@ class ServiceActionCreateParamsCreditGrantAmountCustomPricingUnit(TypedDict):
     value: str
     """
     The value of the credit grant, decimal value represented as a string.
+    """
+
+
+class ServiceActionCreateParamsCreditGrantAmountMonetary(TypedDict):
+    value: NotRequired[int]
+    """
+    A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+    """
+    currency: NotRequired[str]
+    """
+    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
 
 
@@ -162,7 +172,9 @@ class ServiceActionCreateParamsCreditGrantPerTenantAmount(TypedDict):
     """
     The custom pricing unit amount of the credit grant. Required if `type` is `custom_pricing_unit`.
     """
-    monetary: NotRequired[AmountParam]
+    monetary: NotRequired[
+        "ServiceActionCreateParamsCreditGrantPerTenantAmountMonetary"
+    ]
     """
     The monetary amount of the credit grant. Required if `type` is `monetary`.
     """
@@ -178,6 +190,17 @@ class ServiceActionCreateParamsCreditGrantPerTenantAmountCustomPricingUnit(
     value: str
     """
     The value of the credit grant, decimal value represented as a string.
+    """
+
+
+class ServiceActionCreateParamsCreditGrantPerTenantAmountMonetary(TypedDict):
+    value: NotRequired[int]
+    """
+    A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+    """
+    currency: NotRequired[str]
+    """
+    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
 
 

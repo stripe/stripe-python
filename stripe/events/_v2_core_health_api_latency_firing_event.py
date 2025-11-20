@@ -52,6 +52,10 @@ class V2CoreHealthApiLatencyFiringEvent(Event):
             """
             The number of impacted requests.
             """
+            impacted_requests_percentage: Optional[str]
+            """
+            The percentage of impacted requests.
+            """
 
         alert_id: str
         """

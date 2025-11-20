@@ -46,6 +46,10 @@ class V2CoreHealthPaymentMethodErrorFiringEvent(Event):
             """
             The number of impacted requests.
             """
+            impacted_requests_percentage: Optional[str]
+            """
+            The percentage of impacted requests.
+            """
             payment_method_type: Literal[
                 "acss_debit",
                 "affirm",

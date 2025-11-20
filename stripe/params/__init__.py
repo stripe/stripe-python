@@ -1558,6 +1558,7 @@ if TYPE_CHECKING:
         InvoiceCreatePreviewParamsSubscriptionDetailsBillingScheduleBillUntilDuration as InvoiceCreatePreviewParamsSubscriptionDetailsBillingScheduleBillUntilDuration,
         InvoiceCreatePreviewParamsSubscriptionDetailsItem as InvoiceCreatePreviewParamsSubscriptionDetailsItem,
         InvoiceCreatePreviewParamsSubscriptionDetailsItemBillingThresholds as InvoiceCreatePreviewParamsSubscriptionDetailsItemBillingThresholds,
+        InvoiceCreatePreviewParamsSubscriptionDetailsItemCurrentTrial as InvoiceCreatePreviewParamsSubscriptionDetailsItemCurrentTrial,
         InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscount as InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscount,
         InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscountDiscountEnd as InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscountDiscountEnd,
         InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscountDiscountEndDuration as InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscountDiscountEndDuration,
@@ -5058,6 +5059,7 @@ if TYPE_CHECKING:
         SubscriptionCreateParamsInvoiceSettingsIssuer as SubscriptionCreateParamsInvoiceSettingsIssuer,
         SubscriptionCreateParamsItem as SubscriptionCreateParamsItem,
         SubscriptionCreateParamsItemBillingThresholds as SubscriptionCreateParamsItemBillingThresholds,
+        SubscriptionCreateParamsItemCurrentTrial as SubscriptionCreateParamsItemCurrentTrial,
         SubscriptionCreateParamsItemDiscount as SubscriptionCreateParamsItemDiscount,
         SubscriptionCreateParamsItemDiscountDiscountEnd as SubscriptionCreateParamsItemDiscountDiscountEnd,
         SubscriptionCreateParamsItemDiscountDiscountEndDuration as SubscriptionCreateParamsItemDiscountDiscountEndDuration,
@@ -5096,6 +5098,7 @@ if TYPE_CHECKING:
     from stripe.params._subscription_item_create_params import (
         SubscriptionItemCreateParams as SubscriptionItemCreateParams,
         SubscriptionItemCreateParamsBillingThresholds as SubscriptionItemCreateParamsBillingThresholds,
+        SubscriptionItemCreateParamsCurrentTrial as SubscriptionItemCreateParamsCurrentTrial,
         SubscriptionItemCreateParamsDiscount as SubscriptionItemCreateParamsDiscount,
         SubscriptionItemCreateParamsDiscountDiscountEnd as SubscriptionItemCreateParamsDiscountDiscountEnd,
         SubscriptionItemCreateParamsDiscountDiscountEndDuration as SubscriptionItemCreateParamsDiscountDiscountEndDuration,
@@ -5112,6 +5115,7 @@ if TYPE_CHECKING:
     from stripe.params._subscription_item_modify_params import (
         SubscriptionItemModifyParams as SubscriptionItemModifyParams,
         SubscriptionItemModifyParamsBillingThresholds as SubscriptionItemModifyParamsBillingThresholds,
+        SubscriptionItemModifyParamsCurrentTrial as SubscriptionItemModifyParamsCurrentTrial,
         SubscriptionItemModifyParamsDiscount as SubscriptionItemModifyParamsDiscount,
         SubscriptionItemModifyParamsDiscountDiscountEnd as SubscriptionItemModifyParamsDiscountDiscountEnd,
         SubscriptionItemModifyParamsDiscountDiscountEndDuration as SubscriptionItemModifyParamsDiscountDiscountEndDuration,
@@ -5124,6 +5128,7 @@ if TYPE_CHECKING:
     from stripe.params._subscription_item_update_params import (
         SubscriptionItemUpdateParams as SubscriptionItemUpdateParams,
         SubscriptionItemUpdateParamsBillingThresholds as SubscriptionItemUpdateParamsBillingThresholds,
+        SubscriptionItemUpdateParamsCurrentTrial as SubscriptionItemUpdateParamsCurrentTrial,
         SubscriptionItemUpdateParamsDiscount as SubscriptionItemUpdateParamsDiscount,
         SubscriptionItemUpdateParamsDiscountDiscountEnd as SubscriptionItemUpdateParamsDiscountDiscountEnd,
         SubscriptionItemUpdateParamsDiscountDiscountEndDuration as SubscriptionItemUpdateParamsDiscountDiscountEndDuration,
@@ -5167,6 +5172,7 @@ if TYPE_CHECKING:
         SubscriptionModifyParamsInvoiceSettingsIssuer as SubscriptionModifyParamsInvoiceSettingsIssuer,
         SubscriptionModifyParamsItem as SubscriptionModifyParamsItem,
         SubscriptionModifyParamsItemBillingThresholds as SubscriptionModifyParamsItemBillingThresholds,
+        SubscriptionModifyParamsItemCurrentTrial as SubscriptionModifyParamsItemCurrentTrial,
         SubscriptionModifyParamsItemDiscount as SubscriptionModifyParamsItemDiscount,
         SubscriptionModifyParamsItemDiscountDiscountEnd as SubscriptionModifyParamsItemDiscountDiscountEnd,
         SubscriptionModifyParamsItemDiscountDiscountEndDuration as SubscriptionModifyParamsItemDiscountDiscountEndDuration,
@@ -5427,6 +5433,7 @@ if TYPE_CHECKING:
         SubscriptionUpdateParamsInvoiceSettingsIssuer as SubscriptionUpdateParamsInvoiceSettingsIssuer,
         SubscriptionUpdateParamsItem as SubscriptionUpdateParamsItem,
         SubscriptionUpdateParamsItemBillingThresholds as SubscriptionUpdateParamsItemBillingThresholds,
+        SubscriptionUpdateParamsItemCurrentTrial as SubscriptionUpdateParamsItemCurrentTrial,
         SubscriptionUpdateParamsItemDiscount as SubscriptionUpdateParamsItemDiscount,
         SubscriptionUpdateParamsItemDiscountDiscountEnd as SubscriptionUpdateParamsItemDiscountDiscountEnd,
         SubscriptionUpdateParamsItemDiscountDiscountEndDuration as SubscriptionUpdateParamsItemDiscountDiscountEndDuration,
@@ -10191,6 +10198,10 @@ _import_map = {
         False,
     ),
     "InvoiceCreatePreviewParamsSubscriptionDetailsItemBillingThresholds": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsSubscriptionDetailsItemCurrentTrial": (
         "stripe.params._invoice_create_preview_params",
         False,
     ),
@@ -22312,6 +22323,10 @@ _import_map = {
         "stripe.params._subscription_create_params",
         False,
     ),
+    "SubscriptionCreateParamsItemCurrentTrial": (
+        "stripe.params._subscription_create_params",
+        False,
+    ),
     "SubscriptionCreateParamsItemDiscount": (
         "stripe.params._subscription_create_params",
         False,
@@ -22448,6 +22463,10 @@ _import_map = {
         "stripe.params._subscription_item_create_params",
         False,
     ),
+    "SubscriptionItemCreateParamsCurrentTrial": (
+        "stripe.params._subscription_item_create_params",
+        False,
+    ),
     "SubscriptionItemCreateParamsDiscount": (
         "stripe.params._subscription_item_create_params",
         False,
@@ -22488,6 +22507,10 @@ _import_map = {
         "stripe.params._subscription_item_modify_params",
         False,
     ),
+    "SubscriptionItemModifyParamsCurrentTrial": (
+        "stripe.params._subscription_item_modify_params",
+        False,
+    ),
     "SubscriptionItemModifyParamsDiscount": (
         "stripe.params._subscription_item_modify_params",
         False,
@@ -22517,6 +22540,10 @@ _import_map = {
         False,
     ),
     "SubscriptionItemUpdateParamsBillingThresholds": (
+        "stripe.params._subscription_item_update_params",
+        False,
+    ),
+    "SubscriptionItemUpdateParamsCurrentTrial": (
         "stripe.params._subscription_item_update_params",
         False,
     ),
@@ -22665,6 +22692,10 @@ _import_map = {
         False,
     ),
     "SubscriptionModifyParamsItemBillingThresholds": (
+        "stripe.params._subscription_modify_params",
+        False,
+    ),
+    "SubscriptionModifyParamsItemCurrentTrial": (
         "stripe.params._subscription_modify_params",
         False,
     ),
@@ -23609,6 +23640,10 @@ _import_map = {
         False,
     ),
     "SubscriptionUpdateParamsItemBillingThresholds": (
+        "stripe.params._subscription_update_params",
+        False,
+    ),
+    "SubscriptionUpdateParamsItemCurrentTrial": (
         "stripe.params._subscription_update_params",
         False,
     ),

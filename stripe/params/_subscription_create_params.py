@@ -435,14 +435,7 @@ class SubscriptionCreateParamsBillingScheduleBillUntil(TypedDict):
     """
     The end date of the billing schedule.
     """
-    type: Literal[
-        "amendment_end",
-        "duration",
-        "line_ends_at",
-        "schedule_end",
-        "timestamp",
-        "upcoming_invoice",
-    ]
+    type: Literal["duration", "timestamp"]
     """
     Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
     """
@@ -580,6 +573,10 @@ class SubscriptionCreateParamsItem(TypedDict):
     """
     Define options to configure the trial on the subscription item.
     """
+    current_trial: NotRequired["SubscriptionCreateParamsItemCurrentTrial"]
+    """
+    The trial offer to apply to this subscription item.
+    """
 
 
 class SubscriptionCreateParamsItemBillingThresholds(TypedDict):
@@ -684,6 +681,17 @@ class SubscriptionCreateParamsItemTrial(TypedDict):
     type: Literal["free", "paid"]
     """
     Determines the type of trial for this item.
+    """
+
+
+class SubscriptionCreateParamsItemCurrentTrial(TypedDict):
+    trial_end: NotRequired[int]
+    """
+    Unix timestamp representing the end of the trial offer period. Required when the trial offer has `duration.type=timestamp`. Cannot be specified when `duration.type=relative`.
+    """
+    trial_offer: str
+    """
+    The ID of the trial offer to apply to the subscription item.
     """
 
 
