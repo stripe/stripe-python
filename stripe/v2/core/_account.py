@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from stripe.v2._amount import Amount
 from typing import ClassVar, Dict, List, Optional
 from typing_extensions import Literal
 
@@ -435,7 +434,7 @@ class Account(StripeObject):
                 """
                 location: Optional[Location]
                 """
-                The customer's identified tax location - uses `location_source`. Will only be rendered if the `automatic_indirect_tax` feature is requested and `active`.
+                The [identified](https://docs.stripe.com/tax/customer-locations#address-hierarchy-other) tax location of the customer. Will only be rendered if the `automatic_indirect_tax` feature is requested and `active`.
                 """
                 location_source: Optional[
                     Literal[
@@ -446,7 +445,7 @@ class Account(StripeObject):
                     ]
                 ]
                 """
-                The data source used to identify the customer's tax location - defaults to 'identity_address'. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
+                The data source used to identify the customer's tax location. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
                 """
                 _inner_class_types = {"location": Location}
 
@@ -549,7 +548,7 @@ class Account(StripeObject):
 
                 automatic_indirect_tax: Optional[AutomaticIndirectTax]
                 """
-                Generates requirements for enabling automatic indirect tax calculation on this customer's invoices or subscriptions. Recommended to request this capability if planning to enable automatic tax calculation on this customer's invoices or subscriptions. Uses the `location_source` field.
+                Generates requirements for enabling automatic indirect tax calculation on this customer's invoices or subscriptions. Recommended to request this capability if planning to enable automatic tax calculation on this customer's invoices or subscriptions.
                 """
                 _inner_class_types = {
                     "automatic_indirect_tax": AutomaticIndirectTax,
@@ -2576,6 +2575,69 @@ class Account(StripeObject):
                 """
                 _inner_class_types = {"decline_on": DeclineOn}
 
+            class KonbiniPayments(StripeObject):
+                class Support(StripeObject):
+                    class Hours(StripeObject):
+                        end_time: Optional[str]
+                        """
+                        Support hours end time (JST time of day) for in `HH:MM` format.
+                        """
+                        start_time: Optional[str]
+                        """
+                        Support hours start time (JST time of day) for in `HH:MM` format.
+                        """
+
+                    email: Optional[str]
+                    """
+                    Support email address for Konbini payments.
+                    """
+                    hours: Optional[Hours]
+                    """
+                    Support hours for Konbini payments.
+                    """
+                    phone: Optional[str]
+                    """
+                    Support phone number for Konbini payments.
+                    """
+                    _inner_class_types = {"hours": Hours}
+
+                support: Optional[Support]
+                """
+                Support for Konbini payments.
+                """
+                _inner_class_types = {"support": Support}
+
+            class ScriptStatementDescriptor(StripeObject):
+                class Kana(StripeObject):
+                    descriptor: Optional[str]
+                    """
+                    The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don't set a statement_descriptor_prefix, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the statement_descriptor text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
+                    """
+                    prefix: Optional[str]
+                    """
+                    Default text that appears on statements for card charges outside of Japan, prefixing any dynamic statement_descriptor_suffix specified on the charge. To maximize space for the dynamic part of the descriptor, keep this text short. If you don't specify this value, statement_descriptor is used as the prefix. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
+                    """
+
+                class Kanji(StripeObject):
+                    descriptor: Optional[str]
+                    """
+                    The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don't set a statement_descriptor_prefix, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the statement_descriptor text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
+                    """
+                    prefix: Optional[str]
+                    """
+                    Default text that appears on statements for card charges outside of Japan, prefixing any dynamic statement_descriptor_suffix specified on the charge. To maximize space for the dynamic part of the descriptor, keep this text short. If you don't specify this value, statement_descriptor is used as the prefix. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
+                    """
+
+                kana: Optional[Kana]
+                """
+                The Kana variation of statement_descriptor used for charges in Japan. Japanese statement descriptors have [special requirements](https://docs.stripe.com/get-started/account/statement-descriptors#set-japanese-statement-descriptors).
+                """
+                kanji: Optional[Kanji]
+                """
+                The Kanji variation of statement_descriptor used for charges in Japan. Japanese statement descriptors have [special requirements](https://docs.stripe.com/get-started/account/statement-descriptors#set-japanese-statement-descriptors).
+                """
+                _inner_class_types = {"kana": Kana, "kanji": Kanji}
+
             class SepaDebitPayments(StripeObject):
                 creditor_id: Optional[str]
                 """
@@ -2661,9 +2723,17 @@ class Account(StripeObject):
             """
             Card payments settings.
             """
+            konbini_payments: Optional[KonbiniPayments]
+            """
+            Settings specific to Konbini payments on the account.
+            """
             mcc: Optional[str]
             """
             The merchant category code for the merchant. MCCs are used to classify businesses based on the goods or services they provide.
+            """
+            script_statement_descriptor: Optional[ScriptStatementDescriptor]
+            """
+            Settings for the default text that appears on statements for language variations.
             """
             sepa_debit_payments: Optional[SepaDebitPayments]
             """
@@ -2682,6 +2752,8 @@ class Account(StripeObject):
                 "branding": Branding,
                 "capabilities": Capabilities,
                 "card_payments": CardPayments,
+                "konbini_payments": KonbiniPayments,
+                "script_statement_descriptor": ScriptStatementDescriptor,
                 "sepa_debit_payments": SepaDebitPayments,
                 "statement_descriptor": StatementDescriptor,
                 "support": Support,
@@ -3151,6 +3223,45 @@ class Account(StripeObject):
                     }
 
                 class HoldsCurrencies(StripeObject):
+                    class Eur(StripeObject):
+                        class StatusDetail(StripeObject):
+                            code: Literal[
+                                "determining_status",
+                                "requirements_past_due",
+                                "requirements_pending_verification",
+                                "restricted_other",
+                                "unsupported_business",
+                                "unsupported_country",
+                                "unsupported_entity_type",
+                            ]
+                            """
+                            Machine-readable code explaining the reason for the Capability to be in its current status.
+                            """
+                            resolution: Literal[
+                                "contact_stripe",
+                                "no_resolution",
+                                "provide_info",
+                            ]
+                            """
+                            Machine-readable code explaining how to make the Capability active.
+                            """
+
+                        requested: bool
+                        """
+                        Whether the Capability has been requested.
+                        """
+                        status: Literal[
+                            "active", "pending", "restricted", "unsupported"
+                        ]
+                        """
+                        The status of the Capability.
+                        """
+                        status_details: List[StatusDetail]
+                        """
+                        Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                        """
+                        _inner_class_types = {"status_details": StatusDetail}
+
                     class Gbp(StripeObject):
                         class StatusDetail(StripeObject):
                             code: Literal[
@@ -3268,6 +3379,10 @@ class Account(StripeObject):
                         """
                         _inner_class_types = {"status_details": StatusDetail}
 
+                    eur: Optional[Eur]
+                    """
+                    Can hold storage-type funds on Stripe in EUR.
+                    """
                     gbp: Optional[Gbp]
                     """
                     Can hold storage-type funds on Stripe in GBP.
@@ -3280,7 +3395,12 @@ class Account(StripeObject):
                     """
                     Can hold storage-type funds on Stripe in USDC.
                     """
-                    _inner_class_types = {"gbp": Gbp, "usd": Usd, "usdc": Usdc}
+                    _inner_class_types = {
+                        "eur": Eur,
+                        "gbp": Gbp,
+                        "usd": Usd,
+                        "usdc": Usdc,
+                    }
 
                 class InboundTransfers(StripeObject):
                     class BankAccounts(StripeObject):
@@ -3851,6 +3971,10 @@ class Account(StripeObject):
             """
             A value indicating who is responsible for losses when this Account can't pay back negative balances from payments.
             """
+            requirements_collector: Literal["application", "stripe"]
+            """
+            A value indicating responsibility for collecting requirements on this account.
+            """
 
         currency: Optional[str]
         """
@@ -3961,6 +4085,316 @@ class Account(StripeObject):
             "profile": Profile,
             "responsibilities": Responsibilities,
         }
+
+    class FutureRequirements(StripeObject):
+        class Entry(StripeObject):
+            class Error(StripeObject):
+                code: Literal[
+                    "invalid_address_city_state_postal_code",
+                    "invalid_address_highway_contract_box",
+                    "invalid_address_private_mailbox",
+                    "invalid_business_profile_name",
+                    "invalid_business_profile_name_denylisted",
+                    "invalid_company_name_denylisted",
+                    "invalid_dob_age_over_maximum",
+                    "invalid_dob_age_under_18",
+                    "invalid_dob_age_under_minimum",
+                    "invalid_product_description_length",
+                    "invalid_product_description_url_match",
+                    "invalid_representative_country",
+                    "invalid_statement_descriptor_business_mismatch",
+                    "invalid_statement_descriptor_denylisted",
+                    "invalid_statement_descriptor_length",
+                    "invalid_statement_descriptor_prefix_denylisted",
+                    "invalid_statement_descriptor_prefix_mismatch",
+                    "invalid_street_address",
+                    "invalid_tax_id",
+                    "invalid_tax_id_format",
+                    "invalid_tos_acceptance",
+                    "invalid_url_denylisted",
+                    "invalid_url_format",
+                    "invalid_url_website_business_information_mismatch",
+                    "invalid_url_website_empty",
+                    "invalid_url_website_inaccessible",
+                    "invalid_url_website_inaccessible_geoblocked",
+                    "invalid_url_website_inaccessible_password_protected",
+                    "invalid_url_website_incomplete",
+                    "invalid_url_website_incomplete_cancellation_policy",
+                    "invalid_url_website_incomplete_customer_service_details",
+                    "invalid_url_website_incomplete_legal_restrictions",
+                    "invalid_url_website_incomplete_refund_policy",
+                    "invalid_url_website_incomplete_return_policy",
+                    "invalid_url_website_incomplete_terms_and_conditions",
+                    "invalid_url_website_incomplete_under_construction",
+                    "invalid_url_website_other",
+                    "invalid_url_web_presence_detected",
+                    "invalid_value_other",
+                    "unresolvable_ip_address",
+                    "unresolvable_postal_code",
+                    "verification_directors_mismatch",
+                    "verification_document_address_mismatch",
+                    "verification_document_address_missing",
+                    "verification_document_corrupt",
+                    "verification_document_country_not_supported",
+                    "verification_document_directors_mismatch",
+                    "verification_document_dob_mismatch",
+                    "verification_document_duplicate_type",
+                    "verification_document_expired",
+                    "verification_document_failed_copy",
+                    "verification_document_failed_greyscale",
+                    "verification_document_failed_other",
+                    "verification_document_failed_test_mode",
+                    "verification_document_fraudulent",
+                    "verification_document_id_number_mismatch",
+                    "verification_document_id_number_missing",
+                    "verification_document_incomplete",
+                    "verification_document_invalid",
+                    "verification_document_issue_or_expiry_date_missing",
+                    "verification_document_manipulated",
+                    "verification_document_missing_back",
+                    "verification_document_missing_front",
+                    "verification_document_name_mismatch",
+                    "verification_document_name_missing",
+                    "verification_document_nationality_mismatch",
+                    "verification_document_not_readable",
+                    "verification_document_not_signed",
+                    "verification_document_not_uploaded",
+                    "verification_document_photo_mismatch",
+                    "verification_document_too_large",
+                    "verification_document_type_not_supported",
+                    "verification_extraneous_directors",
+                    "verification_failed_address_match",
+                    "verification_failed_business_iec_number",
+                    "verification_failed_document_match",
+                    "verification_failed_id_number_match",
+                    "verification_failed_keyed_identity",
+                    "verification_failed_keyed_match",
+                    "verification_failed_name_match",
+                    "verification_failed_other",
+                    "verification_failed_representative_authority",
+                    "verification_failed_residential_address",
+                    "verification_failed_tax_id_match",
+                    "verification_failed_tax_id_not_issued",
+                    "verification_missing_directors",
+                    "verification_missing_executives",
+                    "verification_missing_owners",
+                    "verification_requires_additional_memorandum_of_associations",
+                    "verification_requires_additional_proof_of_registration",
+                    "verification_selfie_document_missing_photo",
+                    "verification_selfie_face_mismatch",
+                    "verification_selfie_manipulated",
+                    "verification_selfie_unverified_other",
+                    "verification_supportability",
+                    "verification_token_stale",
+                ]
+                """
+                Machine-readable code describing the error.
+                """
+                description: str
+                """
+                Human-readable description of the error.
+                """
+
+            class Impact(StripeObject):
+                class RestrictsCapability(StripeObject):
+                    class Deadline(StripeObject):
+                        status: Literal[
+                            "currently_due", "eventually_due", "past_due"
+                        ]
+                        """
+                        The current status of the requirement's impact.
+                        """
+
+                    capability: Literal[
+                        "ach_debit_payments",
+                        "acss_debit_payments",
+                        "affirm_payments",
+                        "afterpay_clearpay_payments",
+                        "alma_payments",
+                        "amazon_pay_payments",
+                        "automatic_indirect_tax",
+                        "au_becs_debit_payments",
+                        "bacs_debit_payments",
+                        "bancontact_payments",
+                        "bank_accounts.local",
+                        "bank_accounts.wire",
+                        "blik_payments",
+                        "boleto_payments",
+                        "cards",
+                        "card_payments",
+                        "cartes_bancaires_payments",
+                        "cashapp_payments",
+                        "commercial.celtic.charge_card",
+                        "commercial.celtic.spend_card",
+                        "commercial.cross_river_bank.charge_card",
+                        "commercial.cross_river_bank.spend_card",
+                        "commercial.lead.prepaid_card",
+                        "commercial.stripe.charge_card",
+                        "commercial.stripe.prepaid_card",
+                        "crypto",
+                        "eps_payments",
+                        "financial_addresses.bank_accounts",
+                        "fpx_payments",
+                        "gb_bank_transfer_payments",
+                        "grabpay_payments",
+                        "holds_currencies.eur",
+                        "holds_currencies.gbp",
+                        "holds_currencies.usd",
+                        "ideal_payments",
+                        "inbound_transfers.financial_accounts",
+                        "jcb_payments",
+                        "jp_bank_transfer_payments",
+                        "kakao_pay_payments",
+                        "klarna_payments",
+                        "konbini_payments",
+                        "kr_card_payments",
+                        "link_payments",
+                        "mobilepay_payments",
+                        "multibanco_payments",
+                        "mx_bank_transfer_payments",
+                        "naver_pay_payments",
+                        "outbound_payments.bank_accounts",
+                        "outbound_payments.cards",
+                        "outbound_payments.financial_accounts",
+                        "outbound_transfers.bank_accounts",
+                        "outbound_transfers.financial_accounts",
+                        "oxxo_payments",
+                        "p24_payments",
+                        "payco_payments",
+                        "paynow_payments",
+                        "pay_by_bank_payments",
+                        "promptpay_payments",
+                        "revolut_pay_payments",
+                        "samsung_pay_payments",
+                        "sepa_bank_transfer_payments",
+                        "sepa_debit_payments",
+                        "stripe_balance.payouts",
+                        "stripe_balance.stripe_transfers",
+                        "swish_payments",
+                        "twint_payments",
+                        "us_bank_transfer_payments",
+                        "zip_payments",
+                    ]
+                    """
+                    The name of the Capability which will be restricted.
+                    """
+                    configuration: Literal[
+                        "card_creator",
+                        "customer",
+                        "merchant",
+                        "recipient",
+                        "storer",
+                    ]
+                    """
+                    The configuration which specifies the Capability which will be restricted.
+                    """
+                    deadline: Deadline
+                    """
+                    Details about when in the account lifecycle the requirement must be collected by the avoid the Capability restriction.
+                    """
+                    _inner_class_types = {"deadline": Deadline}
+
+                restricts_capabilities: Optional[List[RestrictsCapability]]
+                """
+                The Capabilities that will be restricted if the requirement is not collected and satisfactory to Stripe.
+                """
+                _inner_class_types = {
+                    "restricts_capabilities": RestrictsCapability,
+                }
+
+            class MinimumDeadline(StripeObject):
+                status: Literal["currently_due", "eventually_due", "past_due"]
+                """
+                The current status of the requirement's impact.
+                """
+
+            class Reference(StripeObject):
+                inquiry: Optional[str]
+                """
+                If `inquiry` is the type, the inquiry token.
+                """
+                resource: Optional[str]
+                """
+                If `resource` is the type, the resource token.
+                """
+                type: Literal["inquiry", "payment_method", "person"]
+                """
+                The type of the reference. If the type is "inquiry", the inquiry token can be found in the "inquiry" field.
+                Otherwise the type is an API resource, the token for which can be found in the "resource" field.
+                """
+
+            class RequestedReason(StripeObject):
+                code: Literal["routine_onboarding", "routine_verification"]
+                """
+                Machine-readable description of Stripe's reason for collecting the requirement.
+                """
+
+            awaiting_action_from: Literal["stripe", "user"]
+            """
+            Whether the responsibility is with the integrator or with Stripe (to review info, to wait for some condition, etc.) to action the requirement.
+            """
+            description: str
+            """
+            Machine-readable string describing the requirement.
+            """
+            errors: List[Error]
+            """
+            Descriptions of why the requirement must be collected, or why the collected information isn't satisfactory to Stripe.
+            """
+            impact: Impact
+            """
+            A hash describing the impact of not collecting the requirement, or Stripe not being able to verify the collected information.
+            """
+            minimum_deadline: MinimumDeadline
+            """
+            The soonest point when the account will be impacted by not providing the requirement.
+            """
+            reference: Optional[Reference]
+            """
+            A reference to the location of the requirement.
+            """
+            requested_reasons: List[RequestedReason]
+            """
+            A list of reasons why Stripe is collecting the requirement.
+            """
+            _inner_class_types = {
+                "errors": Error,
+                "impact": Impact,
+                "minimum_deadline": MinimumDeadline,
+                "reference": Reference,
+                "requested_reasons": RequestedReason,
+            }
+
+        class Summary(StripeObject):
+            class MinimumDeadline(StripeObject):
+                status: Literal["currently_due", "eventually_due", "past_due"]
+                """
+                The current strictest status of all requirements on the Account.
+                """
+                time: Optional[str]
+                """
+                The soonest RFC3339 date & time UTC value a requirement can impact the Account.
+                """
+
+            minimum_deadline: Optional[MinimumDeadline]
+            """
+            The soonest date and time a requirement on the Account will become `past due`. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
+            """
+            _inner_class_types = {"minimum_deadline": MinimumDeadline}
+
+        entries: Optional[List[Entry]]
+        """
+        A list of requirements for the Account.
+        """
+        minimum_transition_date: Optional[str]
+        """
+        The time at which the future requirements become effective.
+        """
+        summary: Optional[Summary]
+        """
+        An object containing an overview of requirements for the Account.
+        """
+        _inner_class_types = {"entries": Entry, "summary": Summary}
 
     class Identity(StripeObject):
         class Attestations(StripeObject):
@@ -4635,6 +5069,16 @@ class Account(StripeObject):
                 """
 
             class AnnualRevenue(StripeObject):
+                class Amount(StripeObject):
+                    currency: Optional[str]
+                    """
+                    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                    """
+                    value: Optional[int]
+                    """
+                    A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+                    """
+
                 amount: Optional[Amount]
                 """
                 A non-negative integer representing the amount in the smallest currency unit.
@@ -4643,6 +5087,7 @@ class Account(StripeObject):
                 """
                 The close-out date of the preceding fiscal year in ISO 8601 format. E.g. 2023-12-31 for the 31st of December, 2023.
                 """
+                _inner_class_types = {"amount": Amount}
 
             class Documents(StripeObject):
                 class BankAccountOwnershipVerification(StripeObject):
@@ -4826,6 +5271,7 @@ class Account(StripeObject):
                     "ae_crn",
                     "ae_vat",
                     "ao_nif",
+                    "ar_cuit",
                     "at_fn",
                     "au_abn",
                     "au_acn",
@@ -4901,10 +5347,21 @@ class Account(StripeObject):
                 """
 
             class MonthlyEstimatedRevenue(StripeObject):
+                class Amount(StripeObject):
+                    currency: Optional[str]
+                    """
+                    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                    """
+                    value: Optional[int]
+                    """
+                    A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+                    """
+
                 amount: Optional[Amount]
                 """
                 A non-negative integer representing the amount in the smallest currency unit.
                 """
+                _inner_class_types = {"amount": Amount}
 
             class ScriptAddresses(StripeObject):
                 class Kana(StripeObject):
@@ -5311,6 +5768,7 @@ class Account(StripeObject):
                 type: Literal[
                     "ae_eid",
                     "ao_nif",
+                    "ar_dni",
                     "az_tin",
                     "bd_brc",
                     "bd_etin",
@@ -5765,6 +6223,7 @@ class Account(StripeObject):
                         "fpx_payments",
                         "gb_bank_transfer_payments",
                         "grabpay_payments",
+                        "holds_currencies.eur",
                         "holds_currencies.gbp",
                         "holds_currencies.usd",
                         "ideal_payments",
@@ -5844,17 +6303,14 @@ class Account(StripeObject):
                 """
                 If `resource` is the type, the resource token.
                 """
-                type: Literal["inquiry", "resource"]
+                type: Literal["inquiry", "payment_method", "person"]
                 """
-                The type of the reference. An additional hash is included with a name matching the type. It contains additional information specific to the type.
+                The type of the reference. If the type is "inquiry", the inquiry token can be found in the "inquiry" field.
+                Otherwise the type is an API resource, the token for which can be found in the "resource" field.
                 """
 
             class RequestedReason(StripeObject):
-                code: Literal[
-                    "future_requirements",
-                    "routine_onboarding",
-                    "routine_verification",
-                ]
+                code: Literal["routine_onboarding", "routine_verification"]
                 """
                 Machine-readable description of Stripe's reason for collecting the requirement.
                 """
@@ -5912,10 +6368,6 @@ class Account(StripeObject):
             """
             _inner_class_types = {"minimum_deadline": MinimumDeadline}
 
-        collector: Literal["application", "stripe"]
-        """
-        A value indicating responsibility for collecting requirements on this account.
-        """
         entries: Optional[List[Entry]]
         """
         A list of requirements for the Account.
@@ -5960,6 +6412,10 @@ class Account(StripeObject):
     """
     A descriptive name for the Account. This name will be surfaced in the Stripe Dashboard and on any invoices sent to the Account.
     """
+    future_requirements: Optional[FutureRequirements]
+    """
+    Information about the future requirements for the Account that will eventually come into effect, including what information needs to be collected, and by when.
+    """
     id: str
     """
     Unique identifier for the Account.
@@ -5982,11 +6438,12 @@ class Account(StripeObject):
     """
     requirements: Optional[Requirements]
     """
-    Information about the requirements for the Account, including what information needs to be collected, and by when.
+    Information about the active requirements for the Account, including what information needs to be collected, and by when.
     """
     _inner_class_types = {
         "configuration": Configuration,
         "defaults": Defaults,
+        "future_requirements": FutureRequirements,
         "identity": Identity,
         "requirements": Requirements,
     }

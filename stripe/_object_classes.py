@@ -499,6 +499,11 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.v2.core._account_person",
         "AccountPerson",
     ),
+    "v2.core.account_person_token": (
+        "stripe.v2.core._account_person_token",
+        "AccountPersonToken",
+    ),
+    "v2.core.account_token": ("stripe.v2.core._account_token", "AccountToken"),
     "v2.core.claimable_sandbox": (
         "stripe.v2.core._claimable_sandbox",
         "ClaimableSandbox",
@@ -527,6 +532,10 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     "v2.money_management.adjustment": (
         "stripe.v2.money_management._adjustment",
         "Adjustment",
+    ),
+    "v2.money_management.currency_conversion": (
+        "stripe.v2.money_management._currency_conversion",
+        "CurrencyConversion",
     ),
     "v2.money_management.financial_account": (
         "stripe.v2.money_management._financial_account",

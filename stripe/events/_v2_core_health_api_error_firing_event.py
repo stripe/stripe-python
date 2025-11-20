@@ -56,6 +56,10 @@ class V2CoreHealthApiErrorFiringEvent(Event):
             """
             The number of impacted requests.
             """
+            impacted_requests_percentage: Optional[str]
+            """
+            The percentage of impacted requests.
+            """
 
         alert_id: str
         """

@@ -3,7 +3,6 @@
 from stripe._api_mode import ApiMode
 from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
-from stripe.v2._amount import Amount
 from stripe.v2.core._event import Event, EventNotification
 from typing import Any, Dict, Optional, cast
 from typing_extensions import Literal, TYPE_CHECKING, override
@@ -45,7 +44,27 @@ class V2CoreHealthIssuingAuthorizationRequestErrorsFiringEvent(Event):
         StripeObject,
     ):
         class Impact(StripeObject):
-            approved_amount: Optional[Amount]
+            class ApprovedAmount(StripeObject):
+                currency: Optional[str]
+                """
+                Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                """
+                value: Optional[int]
+                """
+                A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+                """
+
+            class DeclinedAmount(StripeObject):
+                currency: Optional[str]
+                """
+                Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                """
+                value: Optional[int]
+                """
+                A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+                """
+
+            approved_amount: Optional[ApprovedAmount]
             """
             Estimated aggregated amount for the approved requests.
             """
@@ -53,7 +72,7 @@ class V2CoreHealthIssuingAuthorizationRequestErrorsFiringEvent(Event):
             """
             The number of approved requests which are impacted.
             """
-            declined_amount: Optional[Amount]
+            declined_amount: Optional[DeclinedAmount]
             """
             Estimated aggregated amount for the declined requests.
             """
@@ -61,6 +80,10 @@ class V2CoreHealthIssuingAuthorizationRequestErrorsFiringEvent(Event):
             """
             The number of declined requests which are impacted.
             """
+            _inner_class_types = {
+                "approved_amount": ApprovedAmount,
+                "declined_amount": DeclinedAmount,
+            }
 
         grouping_key: str
         """

@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from stripe.v2._amount import Amount
 from typing import ClassVar, Optional
 from typing_extensions import Literal
 
@@ -14,6 +13,16 @@ class ReceivedCredit(StripeObject):
     OBJECT_NAME: ClassVar[Literal["v2.money_management.received_credit"]] = (
         "v2.money_management.received_credit"
     )
+
+    class Amount(StripeObject):
+        currency: Optional[str]
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        value: Optional[int]
+        """
+        A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+        """
 
     class BalanceTransfer(StripeObject):
         from_account: Optional[str]
@@ -136,6 +145,16 @@ class ReceivedCredit(StripeObject):
             "us_bank_account": UsBankAccount,
         }
 
+    class ExternalAmount(StripeObject):
+        currency: Optional[str]
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        value: Optional[int]
+        """
+        A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+        """
+
     class StatusDetails(StripeObject):
         class Failed(StripeObject):
             reason: Literal[
@@ -202,7 +221,7 @@ class ReceivedCredit(StripeObject):
     """
     Freeform string set by originator of the ReceivedCredit.
     """
-    external_amount: Optional[Amount]
+    external_amount: Optional[ExternalAmount]
     """
     The amount and currency of the original/external credit request.
     """
@@ -243,8 +262,10 @@ class ReceivedCredit(StripeObject):
     Open Enum. The type of flow that caused the ReceivedCredit.
     """
     _inner_class_types = {
+        "amount": Amount,
         "balance_transfer": BalanceTransfer,
         "bank_transfer": BankTransfer,
+        "external_amount": ExternalAmount,
         "status_details": StatusDetails,
         "status_transitions": StatusTransitions,
     }

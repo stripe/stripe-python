@@ -8,6 +8,12 @@ if TYPE_CHECKING:
     from stripe.v2.money_management._adjustment_service import (
         AdjustmentService as AdjustmentService,
     )
+    from stripe.v2.money_management._currency_conversion import (
+        CurrencyConversion as CurrencyConversion,
+    )
+    from stripe.v2.money_management._currency_conversion_service import (
+        CurrencyConversionService as CurrencyConversionService,
+    )
     from stripe.v2.money_management._financial_account import (
         FinancialAccount as FinancialAccount,
     )
@@ -98,6 +104,14 @@ _import_map = {
     "Adjustment": ("stripe.v2.money_management._adjustment", False),
     "AdjustmentService": (
         "stripe.v2.money_management._adjustment_service",
+        False,
+    ),
+    "CurrencyConversion": (
+        "stripe.v2.money_management._currency_conversion",
+        False,
+    ),
+    "CurrencyConversionService": (
+        "stripe.v2.money_management._currency_conversion_service",
         False,
     ),
     "FinancialAccount": (

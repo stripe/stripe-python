@@ -85,6 +85,12 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationMerchantCapabilitiesZipPayments as AccountCreateParamsConfigurationMerchantCapabilitiesZipPayments,
         AccountCreateParamsConfigurationMerchantCardPayments as AccountCreateParamsConfigurationMerchantCardPayments,
         AccountCreateParamsConfigurationMerchantCardPaymentsDeclineOn as AccountCreateParamsConfigurationMerchantCardPaymentsDeclineOn,
+        AccountCreateParamsConfigurationMerchantKonbiniPayments as AccountCreateParamsConfigurationMerchantKonbiniPayments,
+        AccountCreateParamsConfigurationMerchantKonbiniPaymentsSupport as AccountCreateParamsConfigurationMerchantKonbiniPaymentsSupport,
+        AccountCreateParamsConfigurationMerchantKonbiniPaymentsSupportHours as AccountCreateParamsConfigurationMerchantKonbiniPaymentsSupportHours,
+        AccountCreateParamsConfigurationMerchantScriptStatementDescriptor as AccountCreateParamsConfigurationMerchantScriptStatementDescriptor,
+        AccountCreateParamsConfigurationMerchantScriptStatementDescriptorKana as AccountCreateParamsConfigurationMerchantScriptStatementDescriptorKana,
+        AccountCreateParamsConfigurationMerchantScriptStatementDescriptorKanji as AccountCreateParamsConfigurationMerchantScriptStatementDescriptorKanji,
         AccountCreateParamsConfigurationMerchantStatementDescriptor as AccountCreateParamsConfigurationMerchantStatementDescriptor,
         AccountCreateParamsConfigurationMerchantSupport as AccountCreateParamsConfigurationMerchantSupport,
         AccountCreateParamsConfigurationMerchantSupportAddress as AccountCreateParamsConfigurationMerchantSupportAddress,
@@ -103,6 +109,7 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccounts as AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccounts,
         AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesCryptoWallets as AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesCryptoWallets,
         AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrencies as AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrencies,
+        AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesEur as AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesEur,
         AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbp as AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbp,
         AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsd as AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsd,
         AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsdc as AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsdc,
@@ -161,6 +168,7 @@ if TYPE_CHECKING:
         AccountCreateParamsIdentityBusinessDetails as AccountCreateParamsIdentityBusinessDetails,
         AccountCreateParamsIdentityBusinessDetailsAddress as AccountCreateParamsIdentityBusinessDetailsAddress,
         AccountCreateParamsIdentityBusinessDetailsAnnualRevenue as AccountCreateParamsIdentityBusinessDetailsAnnualRevenue,
+        AccountCreateParamsIdentityBusinessDetailsAnnualRevenueAmount as AccountCreateParamsIdentityBusinessDetailsAnnualRevenueAmount,
         AccountCreateParamsIdentityBusinessDetailsDocuments as AccountCreateParamsIdentityBusinessDetailsDocuments,
         AccountCreateParamsIdentityBusinessDetailsDocumentsBankAccountOwnershipVerification as AccountCreateParamsIdentityBusinessDetailsDocumentsBankAccountOwnershipVerification,
         AccountCreateParamsIdentityBusinessDetailsDocumentsCompanyLicense as AccountCreateParamsIdentityBusinessDetailsDocumentsCompanyLicense,
@@ -175,6 +183,7 @@ if TYPE_CHECKING:
         AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnership as AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnership,
         AccountCreateParamsIdentityBusinessDetailsIdNumber as AccountCreateParamsIdentityBusinessDetailsIdNumber,
         AccountCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenue as AccountCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenue,
+        AccountCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenueAmount as AccountCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenueAmount,
         AccountCreateParamsIdentityBusinessDetailsScriptAddresses as AccountCreateParamsIdentityBusinessDetailsScriptAddresses,
         AccountCreateParamsIdentityBusinessDetailsScriptAddressesKana as AccountCreateParamsIdentityBusinessDetailsScriptAddressesKana,
         AccountCreateParamsIdentityBusinessDetailsScriptAddressesKanji as AccountCreateParamsIdentityBusinessDetailsScriptAddressesKanji,
@@ -216,6 +225,89 @@ if TYPE_CHECKING:
     )
     from stripe.params.v2.core._account_retrieve_params import (
         AccountRetrieveParams as AccountRetrieveParams,
+    )
+    from stripe.params.v2.core._account_token_create_params import (
+        AccountTokenCreateParams as AccountTokenCreateParams,
+        AccountTokenCreateParamsIdentity as AccountTokenCreateParamsIdentity,
+        AccountTokenCreateParamsIdentityAttestations as AccountTokenCreateParamsIdentityAttestations,
+        AccountTokenCreateParamsIdentityAttestationsDirectorshipDeclaration as AccountTokenCreateParamsIdentityAttestationsDirectorshipDeclaration,
+        AccountTokenCreateParamsIdentityAttestationsOwnershipDeclaration as AccountTokenCreateParamsIdentityAttestationsOwnershipDeclaration,
+        AccountTokenCreateParamsIdentityAttestationsPersonsProvided as AccountTokenCreateParamsIdentityAttestationsPersonsProvided,
+        AccountTokenCreateParamsIdentityAttestationsRepresentativeDeclaration as AccountTokenCreateParamsIdentityAttestationsRepresentativeDeclaration,
+        AccountTokenCreateParamsIdentityAttestationsTermsOfService as AccountTokenCreateParamsIdentityAttestationsTermsOfService,
+        AccountTokenCreateParamsIdentityAttestationsTermsOfServiceAccount as AccountTokenCreateParamsIdentityAttestationsTermsOfServiceAccount,
+        AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreator as AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreator,
+        AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercial as AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercial,
+        AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialAccountHolder as AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialAccountHolder,
+        AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCeltic as AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCeltic,
+        AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCelticApplePay as AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCelticApplePay,
+        AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCelticChargeCard as AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCelticChargeCard,
+        AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCelticChargeCardBankTerms as AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCelticChargeCardBankTerms,
+        AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCelticChargeCardPlatform as AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCelticChargeCardPlatform,
+        AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCelticSpendCard as AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCelticSpendCard,
+        AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCelticSpendCardBankTerms as AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCelticSpendCardBankTerms,
+        AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCelticSpendCardFinancingDisclosures as AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCelticSpendCardFinancingDisclosures,
+        AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCelticSpendCardPlatform as AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCelticSpendCardPlatform,
+        AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBank as AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBank,
+        AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankApplePay as AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankApplePay,
+        AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankChargeCard as AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankChargeCard,
+        AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankChargeCardBankTerms as AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankChargeCardBankTerms,
+        AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankChargeCardFinancingDisclosures as AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankChargeCardFinancingDisclosures,
+        AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankChargeCardPlatform as AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankChargeCardPlatform,
+        AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCard as AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCard,
+        AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCardBankTerms as AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCardBankTerms,
+        AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCardFinancingDisclosures as AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCardFinancingDisclosures,
+        AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCryptoStorer as AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCryptoStorer,
+        AccountTokenCreateParamsIdentityAttestationsTermsOfServiceStorer as AccountTokenCreateParamsIdentityAttestationsTermsOfServiceStorer,
+        AccountTokenCreateParamsIdentityBusinessDetails as AccountTokenCreateParamsIdentityBusinessDetails,
+        AccountTokenCreateParamsIdentityBusinessDetailsAddress as AccountTokenCreateParamsIdentityBusinessDetailsAddress,
+        AccountTokenCreateParamsIdentityBusinessDetailsAnnualRevenue as AccountTokenCreateParamsIdentityBusinessDetailsAnnualRevenue,
+        AccountTokenCreateParamsIdentityBusinessDetailsAnnualRevenueAmount as AccountTokenCreateParamsIdentityBusinessDetailsAnnualRevenueAmount,
+        AccountTokenCreateParamsIdentityBusinessDetailsDocuments as AccountTokenCreateParamsIdentityBusinessDetailsDocuments,
+        AccountTokenCreateParamsIdentityBusinessDetailsDocumentsBankAccountOwnershipVerification as AccountTokenCreateParamsIdentityBusinessDetailsDocumentsBankAccountOwnershipVerification,
+        AccountTokenCreateParamsIdentityBusinessDetailsDocumentsCompanyLicense as AccountTokenCreateParamsIdentityBusinessDetailsDocumentsCompanyLicense,
+        AccountTokenCreateParamsIdentityBusinessDetailsDocumentsCompanyMemorandumOfAssociation as AccountTokenCreateParamsIdentityBusinessDetailsDocumentsCompanyMemorandumOfAssociation,
+        AccountTokenCreateParamsIdentityBusinessDetailsDocumentsCompanyMinisterialDecree as AccountTokenCreateParamsIdentityBusinessDetailsDocumentsCompanyMinisterialDecree,
+        AccountTokenCreateParamsIdentityBusinessDetailsDocumentsCompanyRegistrationVerification as AccountTokenCreateParamsIdentityBusinessDetailsDocumentsCompanyRegistrationVerification,
+        AccountTokenCreateParamsIdentityBusinessDetailsDocumentsCompanyTaxIdVerification as AccountTokenCreateParamsIdentityBusinessDetailsDocumentsCompanyTaxIdVerification,
+        AccountTokenCreateParamsIdentityBusinessDetailsDocumentsPrimaryVerification as AccountTokenCreateParamsIdentityBusinessDetailsDocumentsPrimaryVerification,
+        AccountTokenCreateParamsIdentityBusinessDetailsDocumentsPrimaryVerificationFrontBack as AccountTokenCreateParamsIdentityBusinessDetailsDocumentsPrimaryVerificationFrontBack,
+        AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfAddress as AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfAddress,
+        AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistration as AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistration,
+        AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnership as AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnership,
+        AccountTokenCreateParamsIdentityBusinessDetailsIdNumber as AccountTokenCreateParamsIdentityBusinessDetailsIdNumber,
+        AccountTokenCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenue as AccountTokenCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenue,
+        AccountTokenCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenueAmount as AccountTokenCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenueAmount,
+        AccountTokenCreateParamsIdentityBusinessDetailsScriptAddresses as AccountTokenCreateParamsIdentityBusinessDetailsScriptAddresses,
+        AccountTokenCreateParamsIdentityBusinessDetailsScriptAddressesKana as AccountTokenCreateParamsIdentityBusinessDetailsScriptAddressesKana,
+        AccountTokenCreateParamsIdentityBusinessDetailsScriptAddressesKanji as AccountTokenCreateParamsIdentityBusinessDetailsScriptAddressesKanji,
+        AccountTokenCreateParamsIdentityBusinessDetailsScriptNames as AccountTokenCreateParamsIdentityBusinessDetailsScriptNames,
+        AccountTokenCreateParamsIdentityBusinessDetailsScriptNamesKana as AccountTokenCreateParamsIdentityBusinessDetailsScriptNamesKana,
+        AccountTokenCreateParamsIdentityBusinessDetailsScriptNamesKanji as AccountTokenCreateParamsIdentityBusinessDetailsScriptNamesKanji,
+        AccountTokenCreateParamsIdentityIndividual as AccountTokenCreateParamsIdentityIndividual,
+        AccountTokenCreateParamsIdentityIndividualAdditionalAddress as AccountTokenCreateParamsIdentityIndividualAdditionalAddress,
+        AccountTokenCreateParamsIdentityIndividualAdditionalName as AccountTokenCreateParamsIdentityIndividualAdditionalName,
+        AccountTokenCreateParamsIdentityIndividualAddress as AccountTokenCreateParamsIdentityIndividualAddress,
+        AccountTokenCreateParamsIdentityIndividualDateOfBirth as AccountTokenCreateParamsIdentityIndividualDateOfBirth,
+        AccountTokenCreateParamsIdentityIndividualDocuments as AccountTokenCreateParamsIdentityIndividualDocuments,
+        AccountTokenCreateParamsIdentityIndividualDocumentsCompanyAuthorization as AccountTokenCreateParamsIdentityIndividualDocumentsCompanyAuthorization,
+        AccountTokenCreateParamsIdentityIndividualDocumentsPassport as AccountTokenCreateParamsIdentityIndividualDocumentsPassport,
+        AccountTokenCreateParamsIdentityIndividualDocumentsPrimaryVerification as AccountTokenCreateParamsIdentityIndividualDocumentsPrimaryVerification,
+        AccountTokenCreateParamsIdentityIndividualDocumentsPrimaryVerificationFrontBack as AccountTokenCreateParamsIdentityIndividualDocumentsPrimaryVerificationFrontBack,
+        AccountTokenCreateParamsIdentityIndividualDocumentsSecondaryVerification as AccountTokenCreateParamsIdentityIndividualDocumentsSecondaryVerification,
+        AccountTokenCreateParamsIdentityIndividualDocumentsSecondaryVerificationFrontBack as AccountTokenCreateParamsIdentityIndividualDocumentsSecondaryVerificationFrontBack,
+        AccountTokenCreateParamsIdentityIndividualDocumentsVisa as AccountTokenCreateParamsIdentityIndividualDocumentsVisa,
+        AccountTokenCreateParamsIdentityIndividualIdNumber as AccountTokenCreateParamsIdentityIndividualIdNumber,
+        AccountTokenCreateParamsIdentityIndividualRelationship as AccountTokenCreateParamsIdentityIndividualRelationship,
+        AccountTokenCreateParamsIdentityIndividualScriptAddresses as AccountTokenCreateParamsIdentityIndividualScriptAddresses,
+        AccountTokenCreateParamsIdentityIndividualScriptAddressesKana as AccountTokenCreateParamsIdentityIndividualScriptAddressesKana,
+        AccountTokenCreateParamsIdentityIndividualScriptAddressesKanji as AccountTokenCreateParamsIdentityIndividualScriptAddressesKanji,
+        AccountTokenCreateParamsIdentityIndividualScriptNames as AccountTokenCreateParamsIdentityIndividualScriptNames,
+        AccountTokenCreateParamsIdentityIndividualScriptNamesKana as AccountTokenCreateParamsIdentityIndividualScriptNamesKana,
+        AccountTokenCreateParamsIdentityIndividualScriptNamesKanji as AccountTokenCreateParamsIdentityIndividualScriptNamesKanji,
+    )
+    from stripe.params.v2.core._account_token_retrieve_params import (
+        AccountTokenRetrieveParams as AccountTokenRetrieveParams,
     )
     from stripe.params.v2.core._account_update_params import (
         AccountUpdateParams as AccountUpdateParams,
@@ -294,6 +386,12 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationMerchantCapabilitiesZipPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesZipPayments,
         AccountUpdateParamsConfigurationMerchantCardPayments as AccountUpdateParamsConfigurationMerchantCardPayments,
         AccountUpdateParamsConfigurationMerchantCardPaymentsDeclineOn as AccountUpdateParamsConfigurationMerchantCardPaymentsDeclineOn,
+        AccountUpdateParamsConfigurationMerchantKonbiniPayments as AccountUpdateParamsConfigurationMerchantKonbiniPayments,
+        AccountUpdateParamsConfigurationMerchantKonbiniPaymentsSupport as AccountUpdateParamsConfigurationMerchantKonbiniPaymentsSupport,
+        AccountUpdateParamsConfigurationMerchantKonbiniPaymentsSupportHours as AccountUpdateParamsConfigurationMerchantKonbiniPaymentsSupportHours,
+        AccountUpdateParamsConfigurationMerchantScriptStatementDescriptor as AccountUpdateParamsConfigurationMerchantScriptStatementDescriptor,
+        AccountUpdateParamsConfigurationMerchantScriptStatementDescriptorKana as AccountUpdateParamsConfigurationMerchantScriptStatementDescriptorKana,
+        AccountUpdateParamsConfigurationMerchantScriptStatementDescriptorKanji as AccountUpdateParamsConfigurationMerchantScriptStatementDescriptorKanji,
         AccountUpdateParamsConfigurationMerchantStatementDescriptor as AccountUpdateParamsConfigurationMerchantStatementDescriptor,
         AccountUpdateParamsConfigurationMerchantSupport as AccountUpdateParamsConfigurationMerchantSupport,
         AccountUpdateParamsConfigurationMerchantSupportAddress as AccountUpdateParamsConfigurationMerchantSupportAddress,
@@ -312,6 +410,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccounts as AccountUpdateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccounts,
         AccountUpdateParamsConfigurationStorerCapabilitiesFinancialAddressesCryptoWallets as AccountUpdateParamsConfigurationStorerCapabilitiesFinancialAddressesCryptoWallets,
         AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrencies as AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrencies,
+        AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesEur as AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesEur,
         AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbp as AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbp,
         AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsd as AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsd,
         AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsdc as AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsdc,
@@ -370,6 +469,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsIdentityBusinessDetails as AccountUpdateParamsIdentityBusinessDetails,
         AccountUpdateParamsIdentityBusinessDetailsAddress as AccountUpdateParamsIdentityBusinessDetailsAddress,
         AccountUpdateParamsIdentityBusinessDetailsAnnualRevenue as AccountUpdateParamsIdentityBusinessDetailsAnnualRevenue,
+        AccountUpdateParamsIdentityBusinessDetailsAnnualRevenueAmount as AccountUpdateParamsIdentityBusinessDetailsAnnualRevenueAmount,
         AccountUpdateParamsIdentityBusinessDetailsDocuments as AccountUpdateParamsIdentityBusinessDetailsDocuments,
         AccountUpdateParamsIdentityBusinessDetailsDocumentsBankAccountOwnershipVerification as AccountUpdateParamsIdentityBusinessDetailsDocumentsBankAccountOwnershipVerification,
         AccountUpdateParamsIdentityBusinessDetailsDocumentsCompanyLicense as AccountUpdateParamsIdentityBusinessDetailsDocumentsCompanyLicense,
@@ -384,6 +484,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnership as AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnership,
         AccountUpdateParamsIdentityBusinessDetailsIdNumber as AccountUpdateParamsIdentityBusinessDetailsIdNumber,
         AccountUpdateParamsIdentityBusinessDetailsMonthlyEstimatedRevenue as AccountUpdateParamsIdentityBusinessDetailsMonthlyEstimatedRevenue,
+        AccountUpdateParamsIdentityBusinessDetailsMonthlyEstimatedRevenueAmount as AccountUpdateParamsIdentityBusinessDetailsMonthlyEstimatedRevenueAmount,
         AccountUpdateParamsIdentityBusinessDetailsScriptAddresses as AccountUpdateParamsIdentityBusinessDetailsScriptAddresses,
         AccountUpdateParamsIdentityBusinessDetailsScriptAddressesKana as AccountUpdateParamsIdentityBusinessDetailsScriptAddressesKana,
         AccountUpdateParamsIdentityBusinessDetailsScriptAddressesKanji as AccountUpdateParamsIdentityBusinessDetailsScriptAddressesKanji,
@@ -448,6 +549,7 @@ if TYPE_CHECKING:
     )
     from stripe.params.v2.core._event_list_params import (
         EventListParams as EventListParams,
+        EventListParamsCreated as EventListParamsCreated,
     )
     from stripe.params.v2.core._event_retrieve_params import (
         EventRetrieveParams as EventRetrieveParams,
@@ -765,6 +867,30 @@ _import_map = {
         "stripe.params.v2.core._account_create_params",
         False,
     ),
+    "AccountCreateParamsConfigurationMerchantKonbiniPayments": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMerchantKonbiniPaymentsSupport": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMerchantKonbiniPaymentsSupportHours": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMerchantScriptStatementDescriptor": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMerchantScriptStatementDescriptorKana": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMerchantScriptStatementDescriptorKanji": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
     "AccountCreateParamsConfigurationMerchantStatementDescriptor": (
         "stripe.params.v2.core._account_create_params",
         False,
@@ -834,6 +960,10 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrencies": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesEur": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
@@ -1069,6 +1199,10 @@ _import_map = {
         "stripe.params.v2.core._account_create_params",
         False,
     ),
+    "AccountCreateParamsIdentityBusinessDetailsAnnualRevenueAmount": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
     "AccountCreateParamsIdentityBusinessDetailsDocuments": (
         "stripe.params.v2.core._account_create_params",
         False,
@@ -1122,6 +1256,10 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenue": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenueAmount": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
@@ -1260,6 +1398,322 @@ _import_map = {
     "AccountListParams": ("stripe.params.v2.core._account_list_params", False),
     "AccountRetrieveParams": (
         "stripe.params.v2.core._account_retrieve_params",
+        False,
+    ),
+    "AccountTokenCreateParams": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentity": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityAttestations": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityAttestationsDirectorshipDeclaration": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityAttestationsOwnershipDeclaration": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityAttestationsPersonsProvided": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityAttestationsRepresentativeDeclaration": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityAttestationsTermsOfService": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityAttestationsTermsOfServiceAccount": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreator": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercial": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialAccountHolder": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCeltic": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCelticApplePay": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCelticChargeCard": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCelticChargeCardBankTerms": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCelticChargeCardPlatform": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCelticSpendCard": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCelticSpendCardBankTerms": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCelticSpendCardFinancingDisclosures": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCelticSpendCardPlatform": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBank": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankApplePay": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankChargeCard": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankChargeCardBankTerms": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankChargeCardFinancingDisclosures": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankChargeCardPlatform": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCard": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCardBankTerms": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorCommercialCrossRiverBankSpendCardFinancingDisclosures": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCryptoStorer": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityAttestationsTermsOfServiceStorer": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityBusinessDetails": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityBusinessDetailsAddress": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityBusinessDetailsAnnualRevenue": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityBusinessDetailsAnnualRevenueAmount": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityBusinessDetailsDocuments": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityBusinessDetailsDocumentsBankAccountOwnershipVerification": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityBusinessDetailsDocumentsCompanyLicense": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityBusinessDetailsDocumentsCompanyMemorandumOfAssociation": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityBusinessDetailsDocumentsCompanyMinisterialDecree": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityBusinessDetailsDocumentsCompanyRegistrationVerification": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityBusinessDetailsDocumentsCompanyTaxIdVerification": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityBusinessDetailsDocumentsPrimaryVerification": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityBusinessDetailsDocumentsPrimaryVerificationFrontBack": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfAddress": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistration": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnership": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityBusinessDetailsIdNumber": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenue": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenueAmount": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityBusinessDetailsScriptAddresses": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityBusinessDetailsScriptAddressesKana": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityBusinessDetailsScriptAddressesKanji": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityBusinessDetailsScriptNames": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityBusinessDetailsScriptNamesKana": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityBusinessDetailsScriptNamesKanji": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityIndividual": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityIndividualAdditionalAddress": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityIndividualAdditionalName": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityIndividualAddress": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityIndividualDateOfBirth": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityIndividualDocuments": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityIndividualDocumentsCompanyAuthorization": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityIndividualDocumentsPassport": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityIndividualDocumentsPrimaryVerification": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityIndividualDocumentsPrimaryVerificationFrontBack": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityIndividualDocumentsSecondaryVerification": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityIndividualDocumentsSecondaryVerificationFrontBack": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityIndividualDocumentsVisa": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityIndividualIdNumber": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityIndividualRelationship": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityIndividualScriptAddresses": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityIndividualScriptAddressesKana": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityIndividualScriptAddressesKanji": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityIndividualScriptNames": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityIndividualScriptNamesKana": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityIndividualScriptNamesKanji": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenRetrieveParams": (
+        "stripe.params.v2.core._account_token_retrieve_params",
         False,
     ),
     "AccountUpdateParams": (
@@ -1566,6 +2020,30 @@ _import_map = {
         "stripe.params.v2.core._account_update_params",
         False,
     ),
+    "AccountUpdateParamsConfigurationMerchantKonbiniPayments": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMerchantKonbiniPaymentsSupport": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMerchantKonbiniPaymentsSupportHours": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMerchantScriptStatementDescriptor": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMerchantScriptStatementDescriptorKana": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMerchantScriptStatementDescriptorKanji": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
     "AccountUpdateParamsConfigurationMerchantStatementDescriptor": (
         "stripe.params.v2.core._account_update_params",
         False,
@@ -1635,6 +2113,10 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrencies": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesEur": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),
@@ -1870,6 +2352,10 @@ _import_map = {
         "stripe.params.v2.core._account_update_params",
         False,
     ),
+    "AccountUpdateParamsIdentityBusinessDetailsAnnualRevenueAmount": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
     "AccountUpdateParamsIdentityBusinessDetailsDocuments": (
         "stripe.params.v2.core._account_update_params",
         False,
@@ -1923,6 +2409,10 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsIdentityBusinessDetailsMonthlyEstimatedRevenue": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsIdentityBusinessDetailsMonthlyEstimatedRevenueAmount": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),
@@ -2091,6 +2581,10 @@ _import_map = {
         False,
     ),
     "EventListParams": ("stripe.params.v2.core._event_list_params", False),
+    "EventListParamsCreated": (
+        "stripe.params.v2.core._event_list_params",
+        False,
+    ),
     "EventRetrieveParams": (
         "stripe.params.v2.core._event_retrieve_params",
         False,

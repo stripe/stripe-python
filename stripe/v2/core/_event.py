@@ -74,10 +74,6 @@ class Event(StripeObject):
     """
     The type of the event.
     """
-    v1_event_id: Optional[str]
-    """
-    For interop events, this is the snapshot event ID.
-    """
     _inner_class_types = {"reason": Reason}
 
 

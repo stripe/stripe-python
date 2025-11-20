@@ -19,8 +19,15 @@ if TYPE_CHECKING:
         AccountLinkService as AccountLinkService,
     )
     from stripe.v2.core._account_person import AccountPerson as AccountPerson
+    from stripe.v2.core._account_person_token import (
+        AccountPersonToken as AccountPersonToken,
+    )
     from stripe.v2.core._account_service import (
         AccountService as AccountService,
+    )
+    from stripe.v2.core._account_token import AccountToken as AccountToken
+    from stripe.v2.core._account_token_service import (
+        AccountTokenService as AccountTokenService,
     )
     from stripe.v2.core._claimable_sandbox import (
         ClaimableSandbox as ClaimableSandbox,
@@ -46,7 +53,10 @@ _import_map = {
     "AccountLink": ("stripe.v2.core._account_link", False),
     "AccountLinkService": ("stripe.v2.core._account_link_service", False),
     "AccountPerson": ("stripe.v2.core._account_person", False),
+    "AccountPersonToken": ("stripe.v2.core._account_person_token", False),
     "AccountService": ("stripe.v2.core._account_service", False),
+    "AccountToken": ("stripe.v2.core._account_token", False),
+    "AccountTokenService": ("stripe.v2.core._account_token_service", False),
     "ClaimableSandbox": ("stripe.v2.core._claimable_sandbox", False),
     "ClaimableSandboxService": (
         "stripe.v2.core._claimable_sandbox_service",

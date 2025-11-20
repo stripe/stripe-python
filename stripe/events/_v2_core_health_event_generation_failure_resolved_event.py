@@ -40,26 +40,33 @@ class V2CoreHealthEventGenerationFailureResolvedEvent(Event):
 
     class V2CoreHealthEventGenerationFailureResolvedEventData(StripeObject):
         class Impact(StripeObject):
-            account: Optional[str]
+            class RelatedObject(StripeObject):
+                id: str
+                """
+                The ID of the related object (e.g., "pi_...").
+                """
+                type: str
+                """
+                The type of the related object (e.g., "payment_intent").
+                """
+                url: str
+                """
+                The API URL for the related object (e.g., "/v1/payment_intents/pi_...").
+                """
+
+            context: Optional[str]
             """
-            The account id the event should have been generated for. Only present when the account is a connected account.
+            The context the event should have been generated for. Only present when the account is a connected account.
             """
             event_type: str
             """
             The type of event that Stripe failed to generate.
             """
-            livemode: bool
+            related_object: RelatedObject
             """
-            Indicates if the event was for livemode or not.
+            The related object details.
             """
-            missing_delivery_attempts: int
-            """
-            The number of webhooks that Stripe failed to create and deliver.
-            """
-            related_object_id: str
-            """
-            The related object id.
-            """
+            _inner_class_types = {"related_object": RelatedObject}
 
         alert_id: str
         """
