@@ -38,3 +38,27 @@ class TestEphemeralKey(object):
             "delete", path="/v1/ephemeral_keys/ephkey_123"
         )
         assert isinstance(resource, stripe.EphemeralKey)
+
+
+class TestEphemeralKeyAsync(object):
+    @pytest.mark.anyio
+    async def test_is_creatable_async(self, http_client_mock):
+        resource = await stripe.EphemeralKey.create_async(
+            customer="cus_123", stripe_version="2017-05-25"
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/ephemeral_keys",
+            stripe_version="2017-05-25",
+            post_data="customer=cus_123",
+        )
+        assert isinstance(resource, stripe.EphemeralKey)
+
+    @pytest.mark.anyio
+    async def test_is_not_creatable_without_an_explicit_api_version_async(
+        self,
+    ):
+        with pytest.raises(
+            ValueError, match="stripe_version must be specified"
+        ):
+            await stripe.EphemeralKey.create_async(customer="cus_123")
