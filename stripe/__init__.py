@@ -159,6 +159,7 @@ if TYPE_CHECKING:
         issuing as issuing,
         params as params,
         privacy as privacy,
+        product_catalog as product_catalog,
         radar as radar,
         reporting as reporting,
         sigma as sigma,
@@ -484,6 +485,9 @@ if TYPE_CHECKING:
     from stripe._price_service import PriceService as PriceService
     from stripe._privacy_service import PrivacyService as PrivacyService
     from stripe._product import Product as Product
+    from stripe._product_catalog_service import (
+        ProductCatalogService as ProductCatalogService,
+    )
     from stripe._product_feature import ProductFeature as ProductFeature
     from stripe._product_feature_service import (
         ProductFeatureService as ProductFeatureService,
@@ -647,6 +651,7 @@ _import_map = {
     "issuing": ("stripe.issuing", True),
     "params": ("stripe.params", True),
     "privacy": ("stripe.privacy", True),
+    "product_catalog": ("stripe.product_catalog", True),
     "radar": ("stripe.radar", True),
     "reporting": ("stripe.reporting", True),
     "sigma": ("stripe.sigma", True),
@@ -905,6 +910,7 @@ _import_map = {
     "PriceService": ("stripe._price_service", False),
     "PrivacyService": ("stripe._privacy_service", False),
     "Product": ("stripe._product", False),
+    "ProductCatalogService": ("stripe._product_catalog_service", False),
     "ProductFeature": ("stripe._product_feature", False),
     "ProductFeatureService": ("stripe._product_feature_service", False),
     "ProductService": ("stripe._product_service", False),

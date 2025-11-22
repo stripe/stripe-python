@@ -262,6 +262,12 @@ class PaymentIntentCreateParams(RequestOptions):
     """
     Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions.
     """
+    payments_orchestration: NotRequired[
+        "PaymentIntentCreateParamsPaymentsOrchestration"
+    ]
+    """
+    When you enable this parameter, this PaymentIntent will route your payment to processors that you configure in the dashboard.
+    """
 
 
 class PaymentIntentCreateParamsAllocatedFunds(TypedDict):
@@ -6741,4 +6747,11 @@ class PaymentIntentCreateParamsTransferData(TypedDict):
     account for tax reporting, and the funds from charges will be transferred
     to the destination account. The ID of the resulting transfer will be
     returned on the successful charge's `transfer` field.
+    """
+
+
+class PaymentIntentCreateParamsPaymentsOrchestration(TypedDict):
+    enabled: bool
+    """
+    Whether this feature is enabled.
     """

@@ -256,6 +256,10 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "RedactionJobValidationError",
     ),
     "product": ("stripe._product", "Product"),
+    "product_catalog.trial_offer": (
+        "stripe.product_catalog._trial_offer",
+        "TrialOffer",
+    ),
     "product_feature": ("stripe._product_feature", "ProductFeature"),
     "promotion_code": ("stripe._promotion_code", "PromotionCode"),
     "quote": ("stripe._quote", "Quote"),

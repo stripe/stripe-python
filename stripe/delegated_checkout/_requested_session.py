@@ -164,14 +164,6 @@ class RequestedSession(
         """
         The total before any discounts or taxes are applied.
         """
-        amount_subtotal_after_discount: int
-        """
-        The total after discounts but before taxes are applied.
-        """
-        amount_total: int
-        """
-        The total after discounts and taxes.
-        """
         description: Optional[str]
         """
         The description of the line item.
@@ -199,14 +191,6 @@ class RequestedSession(
         unit_amount: int
         """
         The per-unit amount of the item before any discounts or taxes are applied.
-        """
-        unit_amount_after_discount: int
-        """
-        The per-unit amount of the item after discounts but before taxes are applied.
-        """
-        unit_discount: int
-        """
-        The per-unit discount amount. If no discount were applied, defaults to 0.
         """
 
     class OrderDetails(StripeObject):
@@ -311,17 +295,17 @@ class RequestedSession(
             The display name of the applicable fee.
             """
 
-        amount_discount: Optional[int]
+        amount_cart_discount: Optional[int]
         """
-        The amount discount of the total details.
+        The amount of order-level discounts applied to the cart. The total discount amount for this session can be computed by summing the cart discount and the item discounts.
         """
         amount_fulfillment: Optional[int]
         """
         The amount fulfillment of the total details.
         """
-        amount_subtotal_after_discount: Optional[int]
+        amount_items_discount: Optional[int]
         """
-        Total of all items after discounts but before taxes are applied.
+        The amount of item-level discounts applied to the cart. The total discount amount for this session can be computed by summing the cart discount and the item discounts.
         """
         amount_tax: Optional[int]
         """
