@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe.v2._amount import AmountParam
 from typing import Dict, List, Optional
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -283,13 +282,28 @@ class AccountTokenCreateParamsIdentityBusinessDetailsAddress(TypedDict):
 
 
 class AccountTokenCreateParamsIdentityBusinessDetailsAnnualRevenue(TypedDict):
-    amount: NotRequired[AmountParam]
+    amount: NotRequired[
+        "AccountTokenCreateParamsIdentityBusinessDetailsAnnualRevenueAmount"
+    ]
     """
     A non-negative integer representing the amount in the smallest currency unit.
     """
     fiscal_year_end: NotRequired[str]
     """
     The close-out date of the preceding fiscal year in ISO 8601 format. E.g. 2023-12-31 for the 31st of December, 2023.
+    """
+
+
+class AccountTokenCreateParamsIdentityBusinessDetailsAnnualRevenueAmount(
+    TypedDict,
+):
+    value: NotRequired[int]
+    """
+    A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+    """
+    currency: NotRequired[str]
+    """
+    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
 
 
@@ -591,9 +605,24 @@ class AccountTokenCreateParamsIdentityBusinessDetailsIdNumber(TypedDict):
 class AccountTokenCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenue(
     TypedDict,
 ):
-    amount: NotRequired[AmountParam]
+    amount: NotRequired[
+        "AccountTokenCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenueAmount"
+    ]
     """
     A non-negative integer representing the amount in the smallest currency unit.
+    """
+
+
+class AccountTokenCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenueAmount(
+    TypedDict,
+):
+    value: NotRequired[int]
+    """
+    A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+    """
+    currency: NotRequired[str]
+    """
+    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
 
 

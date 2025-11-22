@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from stripe.v2._amount import Amount
 from typing import ClassVar, Optional
 from typing_extensions import Literal
 
@@ -54,6 +53,16 @@ class Adjustment(StripeObject):
         Closed Enum. If applicable, the type of flow linked to this Adjustment. The field matching this value will contain the ID of the flow.
         """
 
+    class Amount(StripeObject):
+        currency: Optional[str]
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        value: Optional[int]
+        """
+        A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+        """
+
     adjusted_flow: Optional[AdjustedFlow]
     """
     If applicable, contains information about the original flow linked to this Adjustment.
@@ -90,4 +99,4 @@ class Adjustment(StripeObject):
     """
     A link to the Stripe-hosted receipt that is provided when money movement is considered regulated under Stripe's money transmission licenses. The receipt link remains active for 60 days from the Adjustment creation date. After this period, the link will expire and the receipt url value will be null.
     """
-    _inner_class_types = {"adjusted_flow": AdjustedFlow}
+    _inner_class_types = {"adjusted_flow": AdjustedFlow, "amount": Amount}

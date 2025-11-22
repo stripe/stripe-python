@@ -216,6 +216,15 @@ class StripeObject(Dict[str, Any]):
                     % (k, k, ", ".join(list(self.keys())))
                 )
             else:
+                from stripe._invoice import Invoice
+
+                # super specific one-off case to help users debug this property disappearing
+                # see also: https://go/j/DEVSDK-2835
+                if isinstance(self, Invoice) and k == "payment_intent":
+                    raise KeyError(
+                        "The 'payment_intent' attribute is no longer available on Invoice objects. See the docs for more details: https://docs.stripe.com/changelog/basil/2025-03-31/add-support-for-multiple-partial-payments-on-invoices#why-is-this-a-breaking-change"
+                    )
+
                 raise err
 
     def __delitem__(self, k: str) -> None:

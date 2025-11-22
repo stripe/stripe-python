@@ -6,6 +6,7 @@ from copy import copy, deepcopy
 import pytest
 
 import stripe
+from stripe._invoice import Invoice
 from stripe._stripe_object import StripeObject
 
 # We use this because it has a map, "restriction.currency_options" from string -> CurrencyOptions nested class.
@@ -433,3 +434,36 @@ class TestStripeObject(object):
             api_key="key2",
             stripe_account=None,
         )
+
+    def test_invoice_payment_method_gets_special_error(self):
+        def is_good_error(e: Exception) -> bool:
+            return "multiple-partial-payments-on-invoices" in str(e)
+
+        i = Invoice()
+
+        with pytest.raises(AttributeError) as e:
+            i.payment_intent  # type: ignore
+        assert is_good_error(e.value)
+
+        with pytest.raises(KeyError) as e:
+            i["payment_intent"]
+        assert is_good_error(e.value)
+
+        # only that property gets the special error
+        with pytest.raises(AttributeError) as e:
+            i.blah  # type: ignore
+        assert not is_good_error(e.value)
+
+        with pytest.raises(KeyError) as e:
+            i["blah"]
+        assert not is_good_error(e.value)
+
+        # other classes don't have that special error
+        so = StripeObject()
+        with pytest.raises(AttributeError) as e:
+            so.payment_intent  # type: ignore
+        assert not is_good_error(e.value)
+
+        with pytest.raises(KeyError) as e:
+            so["payment_intent"]
+        assert not is_good_error(e.value)
