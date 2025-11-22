@@ -108,6 +108,7 @@ if TYPE_CHECKING:
     from stripe._price_service import PriceService
     from stripe._privacy_service import PrivacyService
     from stripe._product_service import ProductService
+    from stripe._product_catalog_service import ProductCatalogService
     from stripe._promotion_code_service import PromotionCodeService
     from stripe._quote_service import QuoteService
     from stripe._radar_service import RadarService
@@ -946,6 +947,17 @@ class StripeClient(object):
     )
     def products(self) -> "ProductService":
         return self.v1.products
+
+    @property
+    @deprecated(
+        """
+        StripeClient.product_catalog is deprecated, use StripeClient.v1.product_catalog instead.
+          All functionality under it has been copied over to StripeClient.v1.product_catalog.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """,
+    )
+    def product_catalog(self) -> "ProductCatalogService":
+        return self.v1.product_catalog
 
     @property
     @deprecated(

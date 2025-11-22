@@ -3308,6 +3308,12 @@ class PaymentIntent(
             "zip": Zip,
         }
 
+    class PaymentsOrchestration(StripeObject):
+        enabled: bool
+        """
+        Whether this feature is enabled.
+        """
+
     class PresentmentDetails(StripeObject):
         presentment_amount: int
         """
@@ -3612,6 +3618,10 @@ class PaymentIntent(
     payment_method_types: List[str]
     """
     The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. A comprehensive list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
+    """
+    payments_orchestration: Optional[PaymentsOrchestration]
+    """
+    When you enable this parameter, this PaymentIntent will route your payment to processors that you configure in the dashboard.
     """
     presentment_details: Optional[PresentmentDetails]
     processing: Optional[Processing]
@@ -5441,6 +5451,7 @@ class PaymentIntent(
         "payment_details": PaymentDetails,
         "payment_method_configuration_details": PaymentMethodConfigurationDetails,
         "payment_method_options": PaymentMethodOptions,
+        "payments_orchestration": PaymentsOrchestration,
         "presentment_details": PresentmentDetails,
         "processing": Processing,
         "shipping": Shipping,

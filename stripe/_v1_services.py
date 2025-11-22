@@ -70,6 +70,7 @@ if TYPE_CHECKING:
     from stripe._plan_service import PlanService
     from stripe._price_service import PriceService
     from stripe._privacy_service import PrivacyService
+    from stripe._product_catalog_service import ProductCatalogService
     from stripe._product_service import ProductService
     from stripe._promotion_code_service import PromotionCodeService
     from stripe._quote_service import QuoteService
@@ -219,6 +220,10 @@ _subservices = {
     "prices": ["stripe._price_service", "PriceService"],
     "privacy": ["stripe._privacy_service", "PrivacyService"],
     "products": ["stripe._product_service", "ProductService"],
+    "product_catalog": [
+        "stripe._product_catalog_service",
+        "ProductCatalogService",
+    ],
     "promotion_codes": [
         "stripe._promotion_code_service",
         "PromotionCodeService",
@@ -316,6 +321,7 @@ class V1Services(StripeService):
     prices: "PriceService"
     privacy: "PrivacyService"
     products: "ProductService"
+    product_catalog: "ProductCatalogService"
     promotion_codes: "PromotionCodeService"
     quotes: "QuoteService"
     radar: "RadarService"
