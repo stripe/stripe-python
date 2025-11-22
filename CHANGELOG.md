@@ -1,3 +1,8 @@
+## 14.0.1 - 2025-11-21
+* [#1684](https://github.com/stripe/stripe-python/pull/1684) Update generated code
+  * `stripe.error` module is now accessible globally. Fixes [#1682](https://github.com/stripe/stripe-python/issues/1682)
+* [#1681](https://github.com/stripe/stripe-python/pull/1681) Throw a specific error when accessing `payment_intent` property on `Invoice` object to ease debugging. 
+
 ## 14.0.0 - 2025-11-18
 This release changes the pinned API version to `2025-11-17.clover`.
 
