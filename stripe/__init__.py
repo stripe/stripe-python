@@ -111,6 +111,7 @@ from importlib import import_module
 
 if TYPE_CHECKING:
     from stripe import (
+        _error as error,
         apps as apps,
         billing as billing,
         billing_portal as billing_portal,
@@ -539,6 +540,7 @@ if TYPE_CHECKING:
 
 # name -> (import_target, is_submodule)
 _import_map = {
+    "error": ("stripe._error", True),
     "apps": ("stripe.apps", True),
     "billing": ("stripe.billing", True),
     "billing_portal": ("stripe.billing_portal", True),
