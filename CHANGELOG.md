@@ -1,5 +1,15 @@
 # Changelog
 
+## 14.1.0a3 - 2025-11-24
+* [#1685](https://github.com/stripe/stripe-python/pull/1685) Update generated code for private-preview
+  * Add support for new resource `product_catalog.TrialOffer`
+  * Add support for `create` method on resource `product_catalog.TrialOffer`
+  * Remove support for `amount_subtotal_after_discount` on `DelegatedCheckout.RequestedSession.LineItemDetail` and `DelegatedCheckout.RequestedSession.TotalDetail`
+  * Remove support for `amount_total`, `unit_amount_after_discount`, and `unit_discount` on `DelegatedCheckout.RequestedSession.LineItemDetail`
+  * Add support for `amount_cart_discount` and `amount_items_discount` on `DelegatedCheckout.RequestedSession.TotalDetail`
+  * Remove support for `amount_discount` on `DelegatedCheckout.RequestedSession.TotalDetail`
+  * Add support for `payments_orchestration` on `PaymentIntentCreateParams` and `PaymentIntent`
+
 ## 14.1.0b1 - 2025-11-18
 This release changes the pinned API version to `2025-11-17.preview`.
 
