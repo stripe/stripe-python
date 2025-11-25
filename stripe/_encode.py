@@ -31,8 +31,13 @@ def _api_encode(data) -> Generator[Tuple[str, Any], None, None]:
     for key, value in data.items():
         if value is None:
             continue
-        elif hasattr(value, "stripe_id"):
-            yield (key, value.stripe_id)
+        elif (
+            hasattr(value, "get")
+            and callable(value.get)
+            and value.get("id") is not None
+        ):
+            # Check if value is a StripeObject with an 'id' without triggering deprecated stripe_id property
+            yield (key, value.get("id"))
         elif isinstance(value, list) or isinstance(value, tuple):
             for i, sv in enumerate(value):
                 # Always use indexed format for arrays
