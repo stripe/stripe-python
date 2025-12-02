@@ -91,7 +91,7 @@ class RequestedSessionUpdateParamsFulfillmentDetailsAddress(TypedDict):
     """
     state: str
     """
-    State, county, province, or region.
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """
 
 
@@ -191,7 +191,7 @@ class RequestedSessionUpdateParamsPaymentMethodDataBillingDetailsAddress(
     """
     state: str
     """
-    State, county, province, or region.
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """
 
 

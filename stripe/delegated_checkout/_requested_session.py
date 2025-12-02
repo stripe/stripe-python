@@ -61,7 +61,7 @@ class RequestedSession(
             """
             state: Optional[str]
             """
-            State, county, province, or region.
+            State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             """
 
         class FulfillmentOption(StripeObject):
@@ -228,7 +228,7 @@ class RequestedSession(
                 """
                 state: str
                 """
-                State, county, province, or region.
+                State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                 """
 
             address: Optional[Address]
