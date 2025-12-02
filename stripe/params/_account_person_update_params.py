@@ -369,12 +369,24 @@ class AccountPersonUpdateParamsRelationship(TypedDict):
 
 class AccountPersonUpdateParamsSelfReportedIncome(TypedDict):
     amount: int
+    """
+    The amount in the minor currency unit (for example, cents for USD).
+    """
     currency: str
+    """
+    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+    """
 
 
 class AccountPersonUpdateParamsSelfReportedMonthlyHousingPayment(TypedDict):
     amount: int
+    """
+    The amount in the minor currency unit (for example, cents for USD).
+    """
     currency: str
+    """
+    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+    """
 
 
 class AccountPersonUpdateParamsUsCfpbData(TypedDict):

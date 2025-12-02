@@ -507,7 +507,7 @@ class Person(UpdateableAPIResource["Person"]):
     class SelfReportedIncome(StripeObject):
         amount: int
         """
-        Amount in the minor currency unit (e.g., cents for USD)
+        The amount in the minor currency unit (for example, cents for USD).
         """
         currency: str
         """
@@ -517,7 +517,7 @@ class Person(UpdateableAPIResource["Person"]):
     class SelfReportedMonthlyHousingPayment(StripeObject):
         amount: int
         """
-        Amount in the minor currency unit (e.g., cents for USD)
+        The amount in the minor currency unit (for example, cents for USD).
         """
         currency: str
         """
