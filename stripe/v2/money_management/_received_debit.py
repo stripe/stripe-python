@@ -24,6 +24,16 @@ class ReceivedDebit(StripeObject):
         A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
         """
 
+    class BalanceTransfer(StripeObject):
+        topup: Optional[str]
+        """
+        The ID of the topup object that originated the ReceivedDebit.
+        """
+        type: Literal["topup"]
+        """
+        Open Enum. The type of balance transfer that originated the ReceivedDebit.
+        """
+
     class BankTransfer(StripeObject):
         class UsBankAccount(StripeObject):
             bank_name: Optional[str]
@@ -106,9 +116,23 @@ class ReceivedDebit(StripeObject):
         Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
         """
 
+    class StripeBalancePayment(StripeObject):
+        debit_agreement: Optional[str]
+        """
+        ID of the debit agreement associated with this payment.
+        """
+        statement_descriptor: Optional[str]
+        """
+        Statement descriptor for the Stripe Balance Payment.
+        """
+
     amount: Amount
     """
     Amount and currency of the ReceivedDebit.
+    """
+    balance_transfer: Optional[BalanceTransfer]
+    """
+    This object stores details about the balance transfer object that resulted in the ReceivedDebit.
     """
     bank_transfer: Optional[BankTransfer]
     """
@@ -159,14 +183,25 @@ class ReceivedDebit(StripeObject):
     """
     The time at which the ReceivedDebit transitioned to a particular status.
     """
-    type: Literal["bank_transfer", "external_debit"]
+    stripe_balance_payment: Optional[StripeBalancePayment]
     """
-    Open Enum. The type of the ReceivedDebit.
+    This object stores details about the Stripe Balance Payment that resulted in the ReceivedDebit.
+    """
+    type: Literal[
+        "balance_transfer",
+        "bank_transfer",
+        "external_debit",
+        "stripe_balance_payment",
+    ]
+    """
+    Open enum, the type of the received debit.
     """
     _inner_class_types = {
         "amount": Amount,
+        "balance_transfer": BalanceTransfer,
         "bank_transfer": BankTransfer,
         "external_amount": ExternalAmount,
         "status_details": StatusDetails,
         "status_transitions": StatusTransitions,
+        "stripe_balance_payment": StripeBalancePayment,
     }

@@ -200,6 +200,12 @@ class ReceivedCredit(StripeObject):
         Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
         """
 
+    class StripeBalancePayment(StripeObject):
+        statement_descriptor: Optional[str]
+        """
+        Statement descriptor for the Stripe Balance Payment.
+        """
+
     amount: Amount
     """
     The amount and currency of the ReceivedCredit.
@@ -257,7 +263,16 @@ class ReceivedCredit(StripeObject):
     """
     Hash containing timestamps of when the object transitioned to a particular status.
     """
-    type: Literal["balance_transfer", "bank_transfer", "external_credit"]
+    stripe_balance_payment: Optional[StripeBalancePayment]
+    """
+    This object stores details about the stripe balance pay refund that resulted in the ReceivedCredit. Present if `type` field value is `stripe_balance_payment`.
+    """
+    type: Literal[
+        "balance_transfer",
+        "bank_transfer",
+        "external_credit",
+        "stripe_balance_payment",
+    ]
     """
     Open Enum. The type of flow that caused the ReceivedCredit.
     """
@@ -268,4 +283,5 @@ class ReceivedCredit(StripeObject):
         "external_amount": ExternalAmount,
         "status_details": StatusDetails,
         "status_transitions": StatusTransitions,
+        "stripe_balance_payment": StripeBalancePayment,
     }
