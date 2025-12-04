@@ -256,6 +256,24 @@ if TYPE_CHECKING:
     from stripe.events._v2_core_health_webhook_latency_resolved_event import (
         V2CoreHealthWebhookLatencyResolvedEventNotification,
     )
+    from stripe.events._v2_iam_api_key_created_event import (
+        V2IamApiKeyCreatedEventNotification,
+    )
+    from stripe.events._v2_iam_api_key_default_secret_revealed_event import (
+        V2IamApiKeyDefaultSecretRevealedEventNotification,
+    )
+    from stripe.events._v2_iam_api_key_expired_event import (
+        V2IamApiKeyExpiredEventNotification,
+    )
+    from stripe.events._v2_iam_api_key_permissions_updated_event import (
+        V2IamApiKeyPermissionsUpdatedEventNotification,
+    )
+    from stripe.events._v2_iam_api_key_rotated_event import (
+        V2IamApiKeyRotatedEventNotification,
+    )
+    from stripe.events._v2_iam_api_key_updated_event import (
+        V2IamApiKeyUpdatedEventNotification,
+    )
     from stripe.events._v2_money_management_adjustment_created_event import (
         V2MoneyManagementAdjustmentCreatedEventNotification,
     )
@@ -740,6 +758,30 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v2.core.health.webhook_latency.resolved": (
         "stripe.events._v2_core_health_webhook_latency_resolved_event",
         "V2CoreHealthWebhookLatencyResolvedEvent",
+    ),
+    "v2.iam.api_key.created": (
+        "stripe.events._v2_iam_api_key_created_event",
+        "V2IamApiKeyCreatedEvent",
+    ),
+    "v2.iam.api_key.default_secret_revealed": (
+        "stripe.events._v2_iam_api_key_default_secret_revealed_event",
+        "V2IamApiKeyDefaultSecretRevealedEvent",
+    ),
+    "v2.iam.api_key.expired": (
+        "stripe.events._v2_iam_api_key_expired_event",
+        "V2IamApiKeyExpiredEvent",
+    ),
+    "v2.iam.api_key.permissions_updated": (
+        "stripe.events._v2_iam_api_key_permissions_updated_event",
+        "V2IamApiKeyPermissionsUpdatedEvent",
+    ),
+    "v2.iam.api_key.rotated": (
+        "stripe.events._v2_iam_api_key_rotated_event",
+        "V2IamApiKeyRotatedEvent",
+    ),
+    "v2.iam.api_key.updated": (
+        "stripe.events._v2_iam_api_key_updated_event",
+        "V2IamApiKeyUpdatedEvent",
     ),
     "v2.money_management.adjustment.created": (
         "stripe.events._v2_money_management_adjustment_created_event",
@@ -1288,6 +1330,30 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_core_health_webhook_latency_resolved_event",
         "V2CoreHealthWebhookLatencyResolvedEventNotification",
     ),
+    "v2.iam.api_key.created": (
+        "stripe.events._v2_iam_api_key_created_event",
+        "V2IamApiKeyCreatedEventNotification",
+    ),
+    "v2.iam.api_key.default_secret_revealed": (
+        "stripe.events._v2_iam_api_key_default_secret_revealed_event",
+        "V2IamApiKeyDefaultSecretRevealedEventNotification",
+    ),
+    "v2.iam.api_key.expired": (
+        "stripe.events._v2_iam_api_key_expired_event",
+        "V2IamApiKeyExpiredEventNotification",
+    ),
+    "v2.iam.api_key.permissions_updated": (
+        "stripe.events._v2_iam_api_key_permissions_updated_event",
+        "V2IamApiKeyPermissionsUpdatedEventNotification",
+    ),
+    "v2.iam.api_key.rotated": (
+        "stripe.events._v2_iam_api_key_rotated_event",
+        "V2IamApiKeyRotatedEventNotification",
+    ),
+    "v2.iam.api_key.updated": (
+        "stripe.events._v2_iam_api_key_updated_event",
+        "V2IamApiKeyUpdatedEventNotification",
+    ),
     "v2.money_management.adjustment.created": (
         "stripe.events._v2_money_management_adjustment_created_event",
         "V2MoneyManagementAdjustmentCreatedEventNotification",
@@ -1586,6 +1652,12 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2CoreHealthTrafficVolumeDropResolvedEventNotification",
     "V2CoreHealthWebhookLatencyFiringEventNotification",
     "V2CoreHealthWebhookLatencyResolvedEventNotification",
+    "V2IamApiKeyCreatedEventNotification",
+    "V2IamApiKeyDefaultSecretRevealedEventNotification",
+    "V2IamApiKeyExpiredEventNotification",
+    "V2IamApiKeyPermissionsUpdatedEventNotification",
+    "V2IamApiKeyRotatedEventNotification",
+    "V2IamApiKeyUpdatedEventNotification",
     "V2MoneyManagementAdjustmentCreatedEventNotification",
     "V2MoneyManagementFinancialAccountCreatedEventNotification",
     "V2MoneyManagementFinancialAccountUpdatedEventNotification",
