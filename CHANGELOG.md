@@ -1,5 +1,17 @@
 # Changelog
 
+## 14.1.0a4 - 2025-12-04
+* [#1691](https://github.com/stripe/stripe-python/pull/1691) Update generated code for private-preview
+  * Add support for event notifications `V2IamApiKeyCreatedEvent`, `V2IamApiKeyDefaultSecretRevealedEvent`, `V2IamApiKeyExpiredEvent`, `V2IamApiKeyPermissionsUpdatedEvent`, `V2IamApiKeyRotatedEvent`, and `V2IamApiKeyUpdatedEvent`
+* [#1686](https://github.com/stripe/stripe-python/pull/1686) Update generated code for private-preview
+  * Add support for `check_scanning` on `AccountSession.Component`
+  * Add support for `client` on `V2.Core.Event.Reason.Request`
+  * Add support for `stripe_balance_payment` on `V2.MoneyManagement.ReceivedCredit` and `V2.MoneyManagement.ReceivedDebit`
+  * Add support for new value `stripe_balance_payment` on enum `V2.MoneyManagement.ReceivedCredit.type`
+  * Add support for `balance_transfer` on `V2.MoneyManagement.ReceivedDebit`
+  * Add support for new values `balance_transfer` and `stripe_balance_payment` on enum `V2.MoneyManagement.ReceivedDebit.type`
+  * Add support for `include` on `v2.core.EventListParams` and `v2.core.EventRetrieveParams`
+
 ## 14.1.0a3 - 2025-11-24
 * [#1685](https://github.com/stripe/stripe-python/pull/1685) Update generated code for private-preview
   * Add support for new resource `product_catalog.TrialOffer`
