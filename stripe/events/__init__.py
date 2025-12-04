@@ -345,6 +345,30 @@ if TYPE_CHECKING:
         V2CoreHealthWebhookLatencyResolvedEvent as V2CoreHealthWebhookLatencyResolvedEvent,
         V2CoreHealthWebhookLatencyResolvedEventNotification as V2CoreHealthWebhookLatencyResolvedEventNotification,
     )
+    from stripe.events._v2_iam_api_key_created_event import (
+        V2IamApiKeyCreatedEvent as V2IamApiKeyCreatedEvent,
+        V2IamApiKeyCreatedEventNotification as V2IamApiKeyCreatedEventNotification,
+    )
+    from stripe.events._v2_iam_api_key_default_secret_revealed_event import (
+        V2IamApiKeyDefaultSecretRevealedEvent as V2IamApiKeyDefaultSecretRevealedEvent,
+        V2IamApiKeyDefaultSecretRevealedEventNotification as V2IamApiKeyDefaultSecretRevealedEventNotification,
+    )
+    from stripe.events._v2_iam_api_key_expired_event import (
+        V2IamApiKeyExpiredEvent as V2IamApiKeyExpiredEvent,
+        V2IamApiKeyExpiredEventNotification as V2IamApiKeyExpiredEventNotification,
+    )
+    from stripe.events._v2_iam_api_key_permissions_updated_event import (
+        V2IamApiKeyPermissionsUpdatedEvent as V2IamApiKeyPermissionsUpdatedEvent,
+        V2IamApiKeyPermissionsUpdatedEventNotification as V2IamApiKeyPermissionsUpdatedEventNotification,
+    )
+    from stripe.events._v2_iam_api_key_rotated_event import (
+        V2IamApiKeyRotatedEvent as V2IamApiKeyRotatedEvent,
+        V2IamApiKeyRotatedEventNotification as V2IamApiKeyRotatedEventNotification,
+    )
+    from stripe.events._v2_iam_api_key_updated_event import (
+        V2IamApiKeyUpdatedEvent as V2IamApiKeyUpdatedEvent,
+        V2IamApiKeyUpdatedEventNotification as V2IamApiKeyUpdatedEventNotification,
+    )
     from stripe.events._v2_money_management_adjustment_created_event import (
         V2MoneyManagementAdjustmentCreatedEvent as V2MoneyManagementAdjustmentCreatedEvent,
         V2MoneyManagementAdjustmentCreatedEventNotification as V2MoneyManagementAdjustmentCreatedEventNotification,
@@ -1211,6 +1235,54 @@ _import_map = {
     ),
     "V2CoreHealthWebhookLatencyResolvedEventNotification": (
         "stripe.events._v2_core_health_webhook_latency_resolved_event",
+        False,
+    ),
+    "V2IamApiKeyCreatedEvent": (
+        "stripe.events._v2_iam_api_key_created_event",
+        False,
+    ),
+    "V2IamApiKeyCreatedEventNotification": (
+        "stripe.events._v2_iam_api_key_created_event",
+        False,
+    ),
+    "V2IamApiKeyDefaultSecretRevealedEvent": (
+        "stripe.events._v2_iam_api_key_default_secret_revealed_event",
+        False,
+    ),
+    "V2IamApiKeyDefaultSecretRevealedEventNotification": (
+        "stripe.events._v2_iam_api_key_default_secret_revealed_event",
+        False,
+    ),
+    "V2IamApiKeyExpiredEvent": (
+        "stripe.events._v2_iam_api_key_expired_event",
+        False,
+    ),
+    "V2IamApiKeyExpiredEventNotification": (
+        "stripe.events._v2_iam_api_key_expired_event",
+        False,
+    ),
+    "V2IamApiKeyPermissionsUpdatedEvent": (
+        "stripe.events._v2_iam_api_key_permissions_updated_event",
+        False,
+    ),
+    "V2IamApiKeyPermissionsUpdatedEventNotification": (
+        "stripe.events._v2_iam_api_key_permissions_updated_event",
+        False,
+    ),
+    "V2IamApiKeyRotatedEvent": (
+        "stripe.events._v2_iam_api_key_rotated_event",
+        False,
+    ),
+    "V2IamApiKeyRotatedEventNotification": (
+        "stripe.events._v2_iam_api_key_rotated_event",
+        False,
+    ),
+    "V2IamApiKeyUpdatedEvent": (
+        "stripe.events._v2_iam_api_key_updated_event",
+        False,
+    ),
+    "V2IamApiKeyUpdatedEventNotification": (
+        "stripe.events._v2_iam_api_key_updated_event",
         False,
     ),
     "V2MoneyManagementAdjustmentCreatedEvent": (
