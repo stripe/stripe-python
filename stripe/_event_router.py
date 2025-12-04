@@ -227,29 +227,25 @@ class EventRouter:
             webhook_body, sig_header, self._webhook_secret
         )
 
-        # tie the client to the context of the event temporarily
-        # there's probably a better way to do this
-        original_context = self._client._requestor._options.stripe_context
-        try:
-            self._client._requestor._options.stripe_context = (
-                event_notif.context
+        # Create a new client with the event's context.
+        # This is thread-safe since we're not modifying the original client.
+        # The new client reuses the HTTP client to avoid TLS handshake overhead.
+        client_with_event_context = self._client.with_context(event_notif.context)
+
+        if event_notif.type in self._registered_handlers:
+            self._registered_handlers[event_notif.type](
+                event_notif, client_with_event_context
             )
-            if event_notif.type in self._registered_handlers:
-                self._registered_handlers[event_notif.type](
-                    event_notif, self._client
-                )
-            else:
-                self._on_unhandled_handler(
-                    event_notif,
-                    self._client,
-                    UnhandledNotificationDetails(
-                        is_known_event_type=not isinstance(
-                            event_notif, UnknownEventNotification
-                        )
-                    ),
-                )
-        finally:
-            self._client._requestor._options.stripe_context = original_context
+        else:
+            self._on_unhandled_handler(
+                event_notif,
+                client_with_event_context,
+                UnhandledNotificationDetails(
+                    is_known_event_type=not isinstance(
+                        event_notif, UnknownEventNotification
+                    )
+                ),
+            )
 
     def _register(
         self,

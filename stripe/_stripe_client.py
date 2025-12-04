@@ -327,6 +327,28 @@ class StripeClient(object):
             api_mode=api_mode,
         )
 
+    def with_context(
+        self, stripe_context: "Optional[Union[str, StripeContext]]"
+    ) -> "StripeClient":
+        """
+        Creates a new StripeClient with the same configuration as this client,
+        but with a different stripe_context. This is useful for handling webhooks
+        where each event may have its own context.
+
+        The new client reuses the HTTP client from this client to avoid
+        re-establishing TLS connections.
+        """
+        return StripeClient(
+            api_key=self._requestor.api_key,  # type: ignore
+            stripe_account=self._requestor._options.stripe_account,
+            stripe_context=stripe_context,
+            stripe_version=self._requestor._options.stripe_version,
+            base_addresses=self._requestor._options.base_addresses,
+            client_id=self._options.client_id,
+            max_network_retries=self._requestor._options.max_network_retries,
+            http_client=self._requestor._client,
+        )
+
     def router(
         self, webhook_secret: str, on_unhandled_handler: OnUnhandledHandler
     ) -> EventRouter:
