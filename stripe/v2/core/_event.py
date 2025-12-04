@@ -23,6 +23,52 @@ class Event(StripeObject):
 
     class Reason(StripeObject):
         class Request(StripeObject):
+            class Client(StripeObject):
+                class ApiKey(StripeObject):
+                    id: str
+                    """
+                    The ID of the API key.
+                    """
+
+                class DashboardUser(StripeObject):
+                    email: str
+                    """
+                    The email of the dashboard user.
+                    """
+                    ip_address: str
+                    """
+                    The IP address of the user.
+                    """
+                    machine_identifier: str
+                    """
+                    The machine identifier of the user.
+                    """
+
+                api_key: Optional[ApiKey]
+                """
+                API key that triggered the event.
+                """
+                dashboard_user: Optional[DashboardUser]
+                """
+                Dashboard user that triggered the event.
+                """
+                stripe_action: Optional[Dict[str, "Any"]]
+                """
+                Stripe action that triggered the event.
+                """
+                type: Literal["api_key", "dashboard_user", "stripe_action"]
+                """
+                The type of the client.
+                """
+                _inner_class_types = {
+                    "api_key": ApiKey,
+                    "dashboard_user": DashboardUser,
+                }
+
+            client: Optional[Client]
+            """
+            The client details that made the request.
+            """
             id: str
             """
             ID of the API request that caused the event.
@@ -31,6 +77,7 @@ class Event(StripeObject):
             """
             The idempotency key transmitted during the request.
             """
+            _inner_class_types = {"client": Client}
 
         request: Optional[Request]
         """

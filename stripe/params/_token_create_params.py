@@ -608,14 +608,26 @@ class TokenCreateParamsAccountIndividualRelationship(TypedDict):
 
 class TokenCreateParamsAccountIndividualSelfReportedIncome(TypedDict):
     amount: int
+    """
+    The amount in the minor currency unit (for example, cents for USD).
+    """
     currency: str
+    """
+    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+    """
 
 
 class TokenCreateParamsAccountIndividualSelfReportedMonthlyHousingPayment(
     TypedDict,
 ):
     amount: int
+    """
+    The amount in the minor currency unit (for example, cents for USD).
+    """
     currency: str
+    """
+    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+    """
 
 
 class TokenCreateParamsAccountIndividualVerification(TypedDict):
@@ -1116,12 +1128,24 @@ class TokenCreateParamsPersonRelationship(TypedDict):
 
 class TokenCreateParamsPersonSelfReportedIncome(TypedDict):
     amount: int
+    """
+    The amount in the minor currency unit (for example, cents for USD).
+    """
     currency: str
+    """
+    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+    """
 
 
 class TokenCreateParamsPersonSelfReportedMonthlyHousingPayment(TypedDict):
     amount: int
+    """
+    The amount in the minor currency unit (for example, cents for USD).
+    """
     currency: str
+    """
+    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+    """
 
 
 class TokenCreateParamsPersonUsCfpbData(TypedDict):
