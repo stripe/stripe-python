@@ -109,9 +109,7 @@ class TestEventNotificationHandler:
     ) -> None:
         """Test that a registered event type is routed to the correct handler"""
         handler = Mock()
-        event_router.on_v1_billing_meter_error_report_triggered(
-            handler
-        )
+        event_router.on_v1_billing_meter_error_report_triggered(handler)
 
         sig_header = generate_header(payload=v1_billing_meter_payload)
         event_router.handle(v1_billing_meter_payload, sig_header)
@@ -178,9 +176,7 @@ class TestEventNotificationHandler:
             received_event = event
             received_client = client
 
-        event_router.on_v1_billing_meter_error_report_triggered(
-            handler
-        )
+        event_router.on_v1_billing_meter_error_report_triggered(handler)
 
         sig_header = generate_header(payload=v1_billing_meter_payload)
         event_router.handle(v1_billing_meter_payload, sig_header)
@@ -200,9 +196,7 @@ class TestEventNotificationHandler:
     ) -> None:
         """Test that registering handlers after handle() raises RuntimeError"""
         handler = Mock()
-        event_router.on_v1_billing_meter_error_report_triggered(
-            handler
-        )
+        event_router.on_v1_billing_meter_error_report_triggered(handler)
 
         sig_header = generate_header(payload=v1_billing_meter_payload)
         event_router.handle(v1_billing_meter_payload, sig_header)
@@ -220,17 +214,13 @@ class TestEventNotificationHandler:
         handler1 = Mock()
         handler2 = Mock()
 
-        event_router.on_v1_billing_meter_error_report_triggered(
-            handler1
-        )
+        event_router.on_v1_billing_meter_error_report_triggered(handler1)
 
         with pytest.raises(
             ValueError,
             match='Handler for event type "v1.billing.meter.error_report_triggered" already registered',
         ):
-            event_router.on_v1_billing_meter_error_report_triggered(
-                handler2
-            )
+            event_router.on_v1_billing_meter_error_report_triggered(handler2)
 
     def test_handler_uses_event_stripe_context(
         self,
@@ -248,9 +238,7 @@ class TestEventNotificationHandler:
             nonlocal received_context
             received_context = client._requestor._options.stripe_context
 
-        event_router.on_v1_billing_meter_error_report_triggered(
-            handler
-        )
+        event_router.on_v1_billing_meter_error_report_triggered(handler)
 
         assert (
             str(stripe_client._requestor._options.stripe_context)
@@ -279,9 +267,7 @@ class TestEventNotificationHandler:
                 == "event_context_456"
             )
 
-        event_router.on_v1_billing_meter_error_report_triggered(
-            handler
-        )
+        event_router.on_v1_billing_meter_error_report_triggered(handler)
 
         assert (
             str(stripe_client._requestor._options.stripe_context)
@@ -314,9 +300,7 @@ class TestEventNotificationHandler:
             )
             raise RuntimeError("Handler error!")
 
-        event_router.on_v1_billing_meter_error_report_triggered(
-            handler
-        )
+        event_router.on_v1_billing_meter_error_report_triggered(handler)
 
         assert (
             str(stripe_client._requestor._options.stripe_context)
@@ -427,9 +411,7 @@ class TestEventNotificationHandler:
     ) -> None:
         """Test that registered events don't trigger on_unhandled"""
         handler = Mock()
-        event_router.on_v1_billing_meter_error_report_triggered(
-            handler
-        )
+        event_router.on_v1_billing_meter_error_report_triggered(handler)
 
         sig_header = generate_header(payload=v1_billing_meter_payload)
         event_router.handle(v1_billing_meter_payload, sig_header)
@@ -537,9 +519,7 @@ class TestEventNotificationHandler:
     ) -> None:
         """Test that registered_event_types returns a single event type"""
         handler = Mock()
-        event_router.on_v1_billing_meter_error_report_triggered(
-            handler
-        )
+        event_router.on_v1_billing_meter_error_report_triggered(handler)
 
         assert event_router.registered_event_types == [
             "v1.billing.meter.error_report_triggered"
@@ -553,9 +533,7 @@ class TestEventNotificationHandler:
 
         # Register in non-alphabetical order
         event_router.on_v2_core_account_updated(handler)
-        event_router.on_v1_billing_meter_error_report_triggered(
-            handler
-        )
+        event_router.on_v1_billing_meter_error_report_triggered(handler)
         event_router.on_v2_core_account_created(handler)
 
         expected = [

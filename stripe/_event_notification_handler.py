@@ -221,6 +221,7 @@ class StripeEventNotificationHandler:
         self._has_handled_events = False
 
     def handle(self, webhook_body: str, sig_header: str):
+        # isn't thread-safe, but we expect these to get registered synchronously at startup
         self._has_handled_events = True
 
         event_notif = self._client.parse_event_notification(
