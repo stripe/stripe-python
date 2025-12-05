@@ -14,7 +14,7 @@ from stripe._api_mode import ApiMode
 from stripe._error import AuthenticationError
 from stripe._event_notification_handler import (
     StripeEventNotificationHandler,
-    OnUnhandledHandler,
+    FallbackCallback,
 )
 from stripe._request_options import extract_options_from_dict
 from stripe._requestor_options import RequestorOptions, BaseAddresses
@@ -353,13 +353,13 @@ class StripeClient(object):
         )
 
     def notification_handler(
-        self, webhook_secret: str, on_unhandled_handler: OnUnhandledHandler
+        self, webhook_secret: str, fallback_callback: FallbackCallback
     ) -> StripeEventNotificationHandler:
         """
-        Returns an EventRouter instance tied to this client.
+        Returns an StripeEventNotificationHandler instance tied to this client.
         """
         return StripeEventNotificationHandler(
-            self, webhook_secret, on_unhandled_handler
+            self, webhook_secret, fallback_callback
         )
 
     # deprecated v1 services: The beginning of the section generated from our OpenAPI spec

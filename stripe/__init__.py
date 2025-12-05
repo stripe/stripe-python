@@ -788,7 +788,10 @@ _import_map = {
     "ErrorObject": ("stripe._error_object", False),
     "OAuthErrorObject": ("stripe._error_object", False),
     "Event": ("stripe._event", False),
-    "EventNotificationHandler": ("stripe._event_notification_handler", False),
+    "StripeEventNotificationHandler": (
+        "stripe._event_notification_handler",
+        False,
+    ),
     "UnhandledNotificationDetails": (
         "stripe._event_notification_handler",
         False,
