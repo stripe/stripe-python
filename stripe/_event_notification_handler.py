@@ -206,7 +206,7 @@ OnUnhandledHandler = Callable[
 ]
 
 
-class EventRouter:
+class StripeEventNotificationHandler:
     def __init__(
         self,
         client: "StripeClient",
@@ -230,7 +230,9 @@ class EventRouter:
         # Create a new client with the event's context.
         # This is thread-safe since we're not modifying the original client.
         # The new client reuses the HTTP client to avoid TLS handshake overhead.
-        client_with_event_context = self._client.with_context(event_notif.context)
+        client_with_event_context = self._client.with_context(
+            event_notif.context
+        )
 
         if event_notif.type in self._registered_handlers:
             self._registered_handlers[event_notif.type](
@@ -270,8 +272,8 @@ class EventRouter:
         """
         return sorted(self._registered_handlers.keys())
 
-    # event-router-methods: The beginning of the section generated from our OpenAPI spec
-    def on_V1BillingMeterErrorReportTriggeredEventNotification(
+    # event-notification-handler-methods: The beginning of the section generated from our OpenAPI spec
+    def on_v1_billing_meter_error_report_triggered(
         self,
         func: "Callable[[V1BillingMeterErrorReportTriggeredEventNotification, StripeClient], None]",
     ):
@@ -284,7 +286,7 @@ class EventRouter:
         )
         return func
 
-    def on_V1BillingMeterNoMeterFoundEventNotification(
+    def on_v1_billing_meter_no_meter_found(
         self,
         func: "Callable[[V1BillingMeterNoMeterFoundEventNotification, StripeClient], None]",
     ):
@@ -297,7 +299,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2CoreAccountClosedEventNotification(
+    def on_v2_core_account_closed(
         self,
         func: "Callable[[V2CoreAccountClosedEventNotification, StripeClient], None]",
     ):
@@ -310,7 +312,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2CoreAccountCreatedEventNotification(
+    def on_v2_core_account_created(
         self,
         func: "Callable[[V2CoreAccountCreatedEventNotification, StripeClient], None]",
     ):
@@ -323,7 +325,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEventNotification(
+    def on_v2_core_account_including_configuration_customer_capability_status_updated(
         self,
         func: "Callable[[V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEventNotification, StripeClient], None]",
     ):
@@ -336,7 +338,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2CoreAccountIncludingConfigurationCustomerUpdatedEventNotification(
+    def on_v2_core_account_including_configuration_customer_updated(
         self,
         func: "Callable[[V2CoreAccountIncludingConfigurationCustomerUpdatedEventNotification, StripeClient], None]",
     ):
@@ -349,7 +351,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEventNotification(
+    def on_v2_core_account_including_configuration_merchant_capability_status_updated(
         self,
         func: "Callable[[V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEventNotification, StripeClient], None]",
     ):
@@ -362,7 +364,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2CoreAccountIncludingConfigurationMerchantUpdatedEventNotification(
+    def on_v2_core_account_including_configuration_merchant_updated(
         self,
         func: "Callable[[V2CoreAccountIncludingConfigurationMerchantUpdatedEventNotification, StripeClient], None]",
     ):
@@ -375,7 +377,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEventNotification(
+    def on_v2_core_account_including_configuration_recipient_capability_status_updated(
         self,
         func: "Callable[[V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEventNotification, StripeClient], None]",
     ):
@@ -388,7 +390,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2CoreAccountIncludingConfigurationRecipientUpdatedEventNotification(
+    def on_v2_core_account_including_configuration_recipient_updated(
         self,
         func: "Callable[[V2CoreAccountIncludingConfigurationRecipientUpdatedEventNotification, StripeClient], None]",
     ):
@@ -401,7 +403,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEventNotification(
+    def on_v2_core_account_including_configuration_storer_capability_status_updated(
         self,
         func: "Callable[[V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEventNotification, StripeClient], None]",
     ):
@@ -414,7 +416,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2CoreAccountIncludingConfigurationStorerUpdatedEventNotification(
+    def on_v2_core_account_including_configuration_storer_updated(
         self,
         func: "Callable[[V2CoreAccountIncludingConfigurationStorerUpdatedEventNotification, StripeClient], None]",
     ):
@@ -427,7 +429,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2CoreAccountIncludingDefaultsUpdatedEventNotification(
+    def on_v2_core_account_including_defaults_updated(
         self,
         func: "Callable[[V2CoreAccountIncludingDefaultsUpdatedEventNotification, StripeClient], None]",
     ):
@@ -440,7 +442,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2CoreAccountIncludingIdentityUpdatedEventNotification(
+    def on_v2_core_account_including_identity_updated(
         self,
         func: "Callable[[V2CoreAccountIncludingIdentityUpdatedEventNotification, StripeClient], None]",
     ):
@@ -453,7 +455,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2CoreAccountIncludingRequirementsUpdatedEventNotification(
+    def on_v2_core_account_including_requirements_updated(
         self,
         func: "Callable[[V2CoreAccountIncludingRequirementsUpdatedEventNotification, StripeClient], None]",
     ):
@@ -466,7 +468,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2CoreAccountLinkReturnedEventNotification(
+    def on_v2_core_account_link_returned(
         self,
         func: "Callable[[V2CoreAccountLinkReturnedEventNotification, StripeClient], None]",
     ):
@@ -479,7 +481,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2CoreAccountPersonCreatedEventNotification(
+    def on_v2_core_account_person_created(
         self,
         func: "Callable[[V2CoreAccountPersonCreatedEventNotification, StripeClient], None]",
     ):
@@ -492,7 +494,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2CoreAccountPersonDeletedEventNotification(
+    def on_v2_core_account_person_deleted(
         self,
         func: "Callable[[V2CoreAccountPersonDeletedEventNotification, StripeClient], None]",
     ):
@@ -505,7 +507,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2CoreAccountPersonUpdatedEventNotification(
+    def on_v2_core_account_person_updated(
         self,
         func: "Callable[[V2CoreAccountPersonUpdatedEventNotification, StripeClient], None]",
     ):
@@ -518,7 +520,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2CoreAccountUpdatedEventNotification(
+    def on_v2_core_account_updated(
         self,
         func: "Callable[[V2CoreAccountUpdatedEventNotification, StripeClient], None]",
     ):
@@ -531,7 +533,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2CoreEventDestinationPingEventNotification(
+    def on_v2_core_event_destination_ping(
         self,
         func: "Callable[[V2CoreEventDestinationPingEventNotification, StripeClient], None]",
     ):
@@ -544,7 +546,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2CoreHealthEventGenerationFailureResolvedEventNotification(
+    def on_v2_core_health_event_generation_failure_resolved(
         self,
         func: "Callable[[V2CoreHealthEventGenerationFailureResolvedEventNotification, StripeClient], None]",
     ):
@@ -557,7 +559,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2MoneyManagementAdjustmentCreatedEventNotification(
+    def on_v2_money_management_adjustment_created(
         self,
         func: "Callable[[V2MoneyManagementAdjustmentCreatedEventNotification, StripeClient], None]",
     ):
@@ -570,7 +572,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2MoneyManagementFinancialAccountCreatedEventNotification(
+    def on_v2_money_management_financial_account_created(
         self,
         func: "Callable[[V2MoneyManagementFinancialAccountCreatedEventNotification, StripeClient], None]",
     ):
@@ -583,7 +585,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2MoneyManagementFinancialAccountUpdatedEventNotification(
+    def on_v2_money_management_financial_account_updated(
         self,
         func: "Callable[[V2MoneyManagementFinancialAccountUpdatedEventNotification, StripeClient], None]",
     ):
@@ -596,7 +598,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2MoneyManagementFinancialAddressActivatedEventNotification(
+    def on_v2_money_management_financial_address_activated(
         self,
         func: "Callable[[V2MoneyManagementFinancialAddressActivatedEventNotification, StripeClient], None]",
     ):
@@ -609,7 +611,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2MoneyManagementFinancialAddressFailedEventNotification(
+    def on_v2_money_management_financial_address_failed(
         self,
         func: "Callable[[V2MoneyManagementFinancialAddressFailedEventNotification, StripeClient], None]",
     ):
@@ -622,7 +624,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2MoneyManagementInboundTransferAvailableEventNotification(
+    def on_v2_money_management_inbound_transfer_available(
         self,
         func: "Callable[[V2MoneyManagementInboundTransferAvailableEventNotification, StripeClient], None]",
     ):
@@ -635,7 +637,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2MoneyManagementInboundTransferBankDebitFailedEventNotification(
+    def on_v2_money_management_inbound_transfer_bank_debit_failed(
         self,
         func: "Callable[[V2MoneyManagementInboundTransferBankDebitFailedEventNotification, StripeClient], None]",
     ):
@@ -648,7 +650,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2MoneyManagementInboundTransferBankDebitProcessingEventNotification(
+    def on_v2_money_management_inbound_transfer_bank_debit_processing(
         self,
         func: "Callable[[V2MoneyManagementInboundTransferBankDebitProcessingEventNotification, StripeClient], None]",
     ):
@@ -661,7 +663,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2MoneyManagementInboundTransferBankDebitQueuedEventNotification(
+    def on_v2_money_management_inbound_transfer_bank_debit_queued(
         self,
         func: "Callable[[V2MoneyManagementInboundTransferBankDebitQueuedEventNotification, StripeClient], None]",
     ):
@@ -674,7 +676,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2MoneyManagementInboundTransferBankDebitReturnedEventNotification(
+    def on_v2_money_management_inbound_transfer_bank_debit_returned(
         self,
         func: "Callable[[V2MoneyManagementInboundTransferBankDebitReturnedEventNotification, StripeClient], None]",
     ):
@@ -687,7 +689,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2MoneyManagementInboundTransferBankDebitSucceededEventNotification(
+    def on_v2_money_management_inbound_transfer_bank_debit_succeeded(
         self,
         func: "Callable[[V2MoneyManagementInboundTransferBankDebitSucceededEventNotification, StripeClient], None]",
     ):
@@ -700,7 +702,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2MoneyManagementOutboundPaymentCanceledEventNotification(
+    def on_v2_money_management_outbound_payment_canceled(
         self,
         func: "Callable[[V2MoneyManagementOutboundPaymentCanceledEventNotification, StripeClient], None]",
     ):
@@ -713,7 +715,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2MoneyManagementOutboundPaymentCreatedEventNotification(
+    def on_v2_money_management_outbound_payment_created(
         self,
         func: "Callable[[V2MoneyManagementOutboundPaymentCreatedEventNotification, StripeClient], None]",
     ):
@@ -726,7 +728,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2MoneyManagementOutboundPaymentFailedEventNotification(
+    def on_v2_money_management_outbound_payment_failed(
         self,
         func: "Callable[[V2MoneyManagementOutboundPaymentFailedEventNotification, StripeClient], None]",
     ):
@@ -739,7 +741,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2MoneyManagementOutboundPaymentPostedEventNotification(
+    def on_v2_money_management_outbound_payment_posted(
         self,
         func: "Callable[[V2MoneyManagementOutboundPaymentPostedEventNotification, StripeClient], None]",
     ):
@@ -752,7 +754,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2MoneyManagementOutboundPaymentReturnedEventNotification(
+    def on_v2_money_management_outbound_payment_returned(
         self,
         func: "Callable[[V2MoneyManagementOutboundPaymentReturnedEventNotification, StripeClient], None]",
     ):
@@ -765,7 +767,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2MoneyManagementOutboundPaymentUpdatedEventNotification(
+    def on_v2_money_management_outbound_payment_updated(
         self,
         func: "Callable[[V2MoneyManagementOutboundPaymentUpdatedEventNotification, StripeClient], None]",
     ):
@@ -778,7 +780,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2MoneyManagementOutboundTransferCanceledEventNotification(
+    def on_v2_money_management_outbound_transfer_canceled(
         self,
         func: "Callable[[V2MoneyManagementOutboundTransferCanceledEventNotification, StripeClient], None]",
     ):
@@ -791,7 +793,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2MoneyManagementOutboundTransferCreatedEventNotification(
+    def on_v2_money_management_outbound_transfer_created(
         self,
         func: "Callable[[V2MoneyManagementOutboundTransferCreatedEventNotification, StripeClient], None]",
     ):
@@ -804,7 +806,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2MoneyManagementOutboundTransferFailedEventNotification(
+    def on_v2_money_management_outbound_transfer_failed(
         self,
         func: "Callable[[V2MoneyManagementOutboundTransferFailedEventNotification, StripeClient], None]",
     ):
@@ -817,7 +819,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2MoneyManagementOutboundTransferPostedEventNotification(
+    def on_v2_money_management_outbound_transfer_posted(
         self,
         func: "Callable[[V2MoneyManagementOutboundTransferPostedEventNotification, StripeClient], None]",
     ):
@@ -830,7 +832,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2MoneyManagementOutboundTransferReturnedEventNotification(
+    def on_v2_money_management_outbound_transfer_returned(
         self,
         func: "Callable[[V2MoneyManagementOutboundTransferReturnedEventNotification, StripeClient], None]",
     ):
@@ -843,7 +845,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2MoneyManagementOutboundTransferUpdatedEventNotification(
+    def on_v2_money_management_outbound_transfer_updated(
         self,
         func: "Callable[[V2MoneyManagementOutboundTransferUpdatedEventNotification, StripeClient], None]",
     ):
@@ -856,7 +858,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2MoneyManagementPayoutMethodUpdatedEventNotification(
+    def on_v2_money_management_payout_method_updated(
         self,
         func: "Callable[[V2MoneyManagementPayoutMethodUpdatedEventNotification, StripeClient], None]",
     ):
@@ -869,7 +871,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2MoneyManagementReceivedCreditAvailableEventNotification(
+    def on_v2_money_management_received_credit_available(
         self,
         func: "Callable[[V2MoneyManagementReceivedCreditAvailableEventNotification, StripeClient], None]",
     ):
@@ -882,7 +884,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2MoneyManagementReceivedCreditFailedEventNotification(
+    def on_v2_money_management_received_credit_failed(
         self,
         func: "Callable[[V2MoneyManagementReceivedCreditFailedEventNotification, StripeClient], None]",
     ):
@@ -895,7 +897,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2MoneyManagementReceivedCreditReturnedEventNotification(
+    def on_v2_money_management_received_credit_returned(
         self,
         func: "Callable[[V2MoneyManagementReceivedCreditReturnedEventNotification, StripeClient], None]",
     ):
@@ -908,7 +910,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2MoneyManagementReceivedCreditSucceededEventNotification(
+    def on_v2_money_management_received_credit_succeeded(
         self,
         func: "Callable[[V2MoneyManagementReceivedCreditSucceededEventNotification, StripeClient], None]",
     ):
@@ -921,7 +923,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2MoneyManagementReceivedDebitCanceledEventNotification(
+    def on_v2_money_management_received_debit_canceled(
         self,
         func: "Callable[[V2MoneyManagementReceivedDebitCanceledEventNotification, StripeClient], None]",
     ):
@@ -934,7 +936,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2MoneyManagementReceivedDebitFailedEventNotification(
+    def on_v2_money_management_received_debit_failed(
         self,
         func: "Callable[[V2MoneyManagementReceivedDebitFailedEventNotification, StripeClient], None]",
     ):
@@ -947,7 +949,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2MoneyManagementReceivedDebitPendingEventNotification(
+    def on_v2_money_management_received_debit_pending(
         self,
         func: "Callable[[V2MoneyManagementReceivedDebitPendingEventNotification, StripeClient], None]",
     ):
@@ -960,7 +962,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2MoneyManagementReceivedDebitSucceededEventNotification(
+    def on_v2_money_management_received_debit_succeeded(
         self,
         func: "Callable[[V2MoneyManagementReceivedDebitSucceededEventNotification, StripeClient], None]",
     ):
@@ -973,7 +975,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2MoneyManagementReceivedDebitUpdatedEventNotification(
+    def on_v2_money_management_received_debit_updated(
         self,
         func: "Callable[[V2MoneyManagementReceivedDebitUpdatedEventNotification, StripeClient], None]",
     ):
@@ -986,7 +988,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2MoneyManagementTransactionCreatedEventNotification(
+    def on_v2_money_management_transaction_created(
         self,
         func: "Callable[[V2MoneyManagementTransactionCreatedEventNotification, StripeClient], None]",
     ):
@@ -999,7 +1001,7 @@ class EventRouter:
         )
         return func
 
-    def on_V2MoneyManagementTransactionUpdatedEventNotification(
+    def on_v2_money_management_transaction_updated(
         self,
         func: "Callable[[V2MoneyManagementTransactionUpdatedEventNotification, StripeClient], None]",
     ):
@@ -1012,4 +1014,4 @@ class EventRouter:
         )
         return func
 
-    # event-router-methods: The end of the section generated from our OpenAPI spec
+    # event-notification-handler-methods: The end of the section generated from our OpenAPI spec
