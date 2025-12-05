@@ -234,7 +234,7 @@ class StripeEventNotificationHandler:
         # Create a new client with the event's context.
         # This is thread-safe since we're not modifying the original client.
         # The new client reuses the HTTP client to avoid TLS handshake overhead.
-        client_with_event_context = self._client.with_context(
+        client_with_event_context = self._client.with_stripe_context(
             event_notif.context
         )
 

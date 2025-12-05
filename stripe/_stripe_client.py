@@ -330,7 +330,7 @@ class StripeClient(object):
             api_mode=api_mode,
         )
 
-    def with_context(
+    def with_stripe_context(
         self, stripe_context: "Optional[Union[str, StripeContext]]"
     ) -> "StripeClient":
         """
