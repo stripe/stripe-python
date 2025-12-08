@@ -71,6 +71,9 @@ install group: venv
     # always log deps in CI, but don't do it locally
     python -I -m pip install -r deps/{{ group }}-requirements.txt --disable-pip-version-check {{ if env("CI", "") == "true" {""} else if is_dependency() == "true" {"--quiet"} else {""} }}
 
+update-certs:
+    curl -o stripe/data/ca-certificates.crt https://curl.se/ca/cacert.pem
+
 # create a virtualenv if it doesn't exist; always installs the local package
 [private]
 venv:
