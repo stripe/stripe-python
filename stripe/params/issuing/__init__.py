@@ -99,6 +99,9 @@ if TYPE_CHECKING:
     from stripe.params.issuing._card_list_params import (
         CardListParams as CardListParams,
         CardListParamsCreated as CardListParamsCreated,
+        CardListParamsWallets as CardListParamsWallets,
+        CardListParamsWalletsApplePay as CardListParamsWalletsApplePay,
+        CardListParamsWalletsGooglePay as CardListParamsWalletsGooglePay,
     )
     from stripe.params.issuing._card_modify_params import (
         CardModifyParams as CardModifyParams,
@@ -635,6 +638,18 @@ _import_map = {
     ),
     "CardListParams": ("stripe.params.issuing._card_list_params", False),
     "CardListParamsCreated": (
+        "stripe.params.issuing._card_list_params",
+        False,
+    ),
+    "CardListParamsWallets": (
+        "stripe.params.issuing._card_list_params",
+        False,
+    ),
+    "CardListParamsWalletsApplePay": (
+        "stripe.params.issuing._card_list_params",
+        False,
+    ),
+    "CardListParamsWalletsGooglePay": (
         "stripe.params.issuing._card_list_params",
         False,
     ),

@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 class BalanceTransfer(CreateableAPIResource["BalanceTransfer"]):
     """
     Balance transfers represent funds moving between balance types on your Stripe account.
-    They currently support moving funds between your Stripe balance and your [Issuing](https://stripe.com/docs/issuing) balance and between your [Allocated Funds](https://stripe.com/docs/connect/funds-segregation) balance and your Stripe balance.
+    They currently support moving funds between your Stripe balance and your [Issuing](https://docs.stripe.com/issuing) balance and between your [Allocated Funds](https://docs.stripe.com/connect/funds-segregation) balance and your Stripe balance.
     """
 
     OBJECT_NAME: ClassVar[Literal["balance_transfer"]] = "balance_transfer"
@@ -91,7 +91,7 @@ class BalanceTransfer(CreateableAPIResource["BalanceTransfer"]):
     """
     hosted_regulatory_receipt_url: Optional[str]
     """
-    A [hosted transaction receipt](https://stripe.com/docs/treasury/moving-money/regulatory-receipts) URL that is provided when money movement is considered regulated under Stripe's money transmission licenses.
+    A [hosted transaction receipt](https://docs.stripe.com/treasury/moving-money/regulatory-receipts) URL that is provided when money movement is considered regulated under Stripe's money transmission licenses.
     """
     id: str
     """
@@ -103,7 +103,7 @@ class BalanceTransfer(CreateableAPIResource["BalanceTransfer"]):
     """
     metadata: Dict[str, str]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     object: Literal["balance_transfer"]
     """

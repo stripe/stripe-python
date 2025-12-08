@@ -407,6 +407,8 @@ if TYPE_CHECKING:
         AccountSessionCreateParamsComponentsCapitalFinancingPromotionFeatures as AccountSessionCreateParamsComponentsCapitalFinancingPromotionFeatures,
         AccountSessionCreateParamsComponentsCapitalOverview as AccountSessionCreateParamsComponentsCapitalOverview,
         AccountSessionCreateParamsComponentsCapitalOverviewFeatures as AccountSessionCreateParamsComponentsCapitalOverviewFeatures,
+        AccountSessionCreateParamsComponentsCheckScanning as AccountSessionCreateParamsComponentsCheckScanning,
+        AccountSessionCreateParamsComponentsCheckScanningFeatures as AccountSessionCreateParamsComponentsCheckScanningFeatures,
         AccountSessionCreateParamsComponentsDisputesList as AccountSessionCreateParamsComponentsDisputesList,
         AccountSessionCreateParamsComponentsDisputesListFeatures as AccountSessionCreateParamsComponentsDisputesListFeatures,
         AccountSessionCreateParamsComponentsDocuments as AccountSessionCreateParamsComponentsDocuments,
@@ -6830,6 +6832,14 @@ _import_map = {
         False,
     ),
     "AccountSessionCreateParamsComponentsCapitalOverviewFeatures": (
+        "stripe.params._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsCheckScanning": (
+        "stripe.params._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsCheckScanningFeatures": (
         "stripe.params._account_session_create_params",
         False,
     ),

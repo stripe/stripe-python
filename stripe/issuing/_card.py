@@ -1172,6 +1172,10 @@ class Card(
             """
             Reason the card is ineligible for Apple Pay
             """
+            primary_account_identifier: Optional[str]
+            """
+            Unique identifier for the card in Apple Pay
+            """
 
         class GooglePay(StripeObject):
             eligible: bool
@@ -1187,6 +1191,10 @@ class Card(
             ]
             """
             Reason the card is ineligible for Google Pay
+            """
+            primary_account_identifier: Optional[str]
+            """
+            Unique identifier for the card in Google Pay
             """
 
         apple_pay: ApplePay

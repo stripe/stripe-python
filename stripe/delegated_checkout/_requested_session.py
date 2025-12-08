@@ -156,6 +156,56 @@ class RequestedSession(
         }
 
     class LineItemDetail(StripeObject):
+        class ProductDetails(StripeObject):
+            class CustomAttribute(StripeObject):
+                display_name: str
+                """
+                The display name of the custom attribute.
+                """
+                value: str
+                """
+                The value of the custom attribute.
+                """
+
+            class Disclosure(StripeObject):
+                content: str
+                """
+                The content of the disclosure.
+                """
+                content_type: Literal["link", "markdown", "plain"]
+                """
+                The content type of the disclosure.
+                """
+                type: Literal["disclaimer"]
+                """
+                The type of disclosure.
+                """
+
+            custom_attributes: Optional[List[CustomAttribute]]
+            """
+            Custom attributes for the product.
+            """
+            description: Optional[str]
+            """
+            The description of the product.
+            """
+            disclosures: Optional[List[Disclosure]]
+            """
+            Disclosures for the product.
+            """
+            images: Optional[List[str]]
+            """
+            The images of the product.
+            """
+            title: str
+            """
+            The title of the product.
+            """
+            _inner_class_types = {
+                "custom_attributes": CustomAttribute,
+                "disclosures": Disclosure,
+            }
+
         amount_discount: int
         """
         The total discount for this line item. If no discount were applied, defaults to 0.
@@ -180,6 +230,7 @@ class RequestedSession(
         """
         The name of the line item.
         """
+        product_details: Optional[ProductDetails]
         quantity: int
         """
         The quantity of the line item.
@@ -192,6 +243,7 @@ class RequestedSession(
         """
         The per-unit amount of the item before any discounts or taxes are applied.
         """
+        _inner_class_types = {"product_details": ProductDetails}
 
     class OrderDetails(StripeObject):
         order_id: Optional[str]
@@ -359,7 +411,7 @@ class RequestedSession(
     """
     metadata: Optional[Dict[str, str]]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     object: Literal["delegated_checkout.requested_session"]
     """

@@ -195,6 +195,12 @@ class AccountSessionCreateParamsComponents(TypedDict):
     """
     Configuration for the [tax threshold monitoring](https://docs.stripe.com/connect/supported-embedded-components/tax-threshold-monitoring/) embedded component.
     """
+    check_scanning: NotRequired[
+        "AccountSessionCreateParamsComponentsCheckScanning"
+    ]
+    """
+    Configuration for the [check scanning](https://docs.stripe.com/connect/supported-embedded-components/check-scanning/) embedded component.
+    """
 
 
 class AccountSessionCreateParamsComponentsAccountManagement(TypedDict):
@@ -927,4 +933,21 @@ class AccountSessionCreateParamsComponentsTaxThresholdMonitoring(TypedDict):
 class AccountSessionCreateParamsComponentsTaxThresholdMonitoringFeatures(
     TypedDict,
 ):
+    pass
+
+
+class AccountSessionCreateParamsComponentsCheckScanning(TypedDict):
+    enabled: bool
+    """
+    Whether the embedded component is enabled.
+    """
+    features: NotRequired[
+        "AccountSessionCreateParamsComponentsCheckScanningFeatures"
+    ]
+    """
+    An empty list, because this embedded component has no features.
+    """
+
+
+class AccountSessionCreateParamsComponentsCheckScanningFeatures(TypedDict):
     pass

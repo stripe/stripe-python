@@ -51,6 +51,10 @@ class CardListParams(RequestOptions):
     """
     Only return cards that have the given type. One of `virtual` or `physical`.
     """
+    wallets: NotRequired["CardListParamsWallets"]
+    """
+    Filter cards by wallet settings.
+    """
 
 
 class CardListParamsCreated(TypedDict):
@@ -69,4 +73,29 @@ class CardListParamsCreated(TypedDict):
     lte: NotRequired[int]
     """
     Maximum value to filter by (inclusive)
+    """
+
+
+class CardListParamsWallets(TypedDict):
+    apple_pay: NotRequired["CardListParamsWalletsApplePay"]
+    """
+    Filter cards by Apple Pay wallet details.
+    """
+    google_pay: NotRequired["CardListParamsWalletsGooglePay"]
+    """
+    Filter cards by Google Pay wallet details.
+    """
+
+
+class CardListParamsWalletsApplePay(TypedDict):
+    primary_account_identifier: NotRequired[str]
+    """
+    Query by Apple Pay primary account identifier.
+    """
+
+
+class CardListParamsWalletsGooglePay(TypedDict):
+    primary_account_identifier: NotRequired[str]
+    """
+    Query by Google Pay primary account identifier.
     """
