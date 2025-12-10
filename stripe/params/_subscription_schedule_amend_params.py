@@ -50,11 +50,23 @@ class SubscriptionScheduleAmendParamsAmendment(TypedDict):
     """
     For point-in-time amendments (having no `amendment_end`), this attribute lets you set or remove whether the subscription's billing cycle anchor is reset at the `amendment_start` timestamp.For time-span based amendments (having both `amendment_start` and `amendment_end`), the only value valid is `automatic`, which removes any previously configured billing cycle anchor resets scheduled to occur during the window of time spanned by the amendment.
     """
+    billing_schedules_actions: NotRequired[
+        List["SubscriptionScheduleAmendParamsAmendmentBillingSchedulesAction"]
+    ]
+    """
+    Actions to apply to the billing schedules.
+    """
     discount_actions: NotRequired[
         List["SubscriptionScheduleAmendParamsAmendmentDiscountAction"]
     ]
     """
     Changes to the coupons being redeemed or discounts being applied during the amendment time span.
+    """
+    effective_at: NotRequired[
+        Literal["amendment_start", "billing_period_start"]
+    ]
+    """
+    Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
     """
     item_actions: NotRequired[
         List["SubscriptionScheduleAmendParamsAmendmentItemAction"]
@@ -89,18 +101,6 @@ class SubscriptionScheduleAmendParamsAmendment(TypedDict):
     ]
     """
     Settings related to subscription trials.
-    """
-    billing_schedules_actions: NotRequired[
-        List["SubscriptionScheduleAmendParamsAmendmentBillingSchedulesAction"]
-    ]
-    """
-    Actions to apply to the billing schedules.
-    """
-    effective_at: NotRequired[
-        Literal["amendment_start", "billing_period_start"]
-    ]
-    """
-    Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
     """
 
 
@@ -202,6 +202,36 @@ class SubscriptionScheduleAmendParamsAmendmentAmendmentStartDiscountEnd(
     discount: str
     """
     The ID of a specific discount.
+    """
+
+
+class SubscriptionScheduleAmendParamsAmendmentBillingSchedulesAction(
+    TypedDict
+):
+    applies_to: NotRequired[
+        List[
+            "SubscriptionScheduleAmendParamsAmendmentBillingSchedulesActionAppliesTo"
+        ]
+    ]
+    """
+    Specify which subscription items the billing schedule applies to.
+    """
+    type: Literal["remove", "set"]
+    """
+    Select the action.
+    """
+
+
+class SubscriptionScheduleAmendParamsAmendmentBillingSchedulesActionAppliesTo(
+    TypedDict,
+):
+    price: NotRequired[str]
+    """
+    The ID of the price object.
+    """
+    type: Literal["price"]
+    """
+    Controls which subscription items the billing schedule applies to.
     """
 
 
@@ -324,7 +354,7 @@ class SubscriptionScheduleAmendParamsAmendmentItemActionAdd(TypedDict):
     """
     metadata: NotRequired[Dict[str, str]]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
     price: str
     """
@@ -574,36 +604,6 @@ class SubscriptionScheduleAmendParamsAmendmentTrialSettingsEndBehavior(
     prorate_up_front: NotRequired[Literal["defer", "include"]]
     """
     Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
-    """
-
-
-class SubscriptionScheduleAmendParamsAmendmentBillingSchedulesAction(
-    TypedDict
-):
-    applies_to: NotRequired[
-        List[
-            "SubscriptionScheduleAmendParamsAmendmentBillingSchedulesActionAppliesTo"
-        ]
-    ]
-    """
-    Specify which subscription items the billing schedule applies to.
-    """
-    type: Literal["remove", "set"]
-    """
-    Select the action.
-    """
-
-
-class SubscriptionScheduleAmendParamsAmendmentBillingSchedulesActionAppliesTo(
-    TypedDict,
-):
-    price: NotRequired[str]
-    """
-    The ID of the price object.
-    """
-    type: Literal["price"]
-    """
-    Controls which subscription items the billing schedule applies to.
     """
 
 

@@ -390,6 +390,8 @@ class _APIRequestor(object):
             return error.AlreadyExistsError(**error_args)
         elif type == "blocked_by_stripe":
             return error.BlockedByStripeError(**error_args)
+        elif type == "controlled_by_alternate_resource":
+            return error.ControlledByAlternateResourceError(**error_args)
         elif type == "controlled_by_dashboard":
             return error.ControlledByDashboardError(**error_args)
         elif type == "feature_not_enabled":

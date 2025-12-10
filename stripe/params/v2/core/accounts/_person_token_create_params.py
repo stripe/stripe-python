@@ -116,7 +116,7 @@ class PersonTokenCreateParamsAdditionalAddress(TypedDict):
     """
     town: NotRequired[str]
     """
-    Town or cho-me.
+    Town or district.
     """
 
 
@@ -182,7 +182,7 @@ class PersonTokenCreateParamsAddress(TypedDict):
     """
     town: NotRequired[str]
     """
-    Town or cho-me.
+    Town or district.
     """
 
 
@@ -315,36 +315,81 @@ class PersonTokenCreateParamsIdNumber(TypedDict):
     type: Literal[
         "ae_eid",
         "ao_nif",
+        "ar_cuil",
         "ar_dni",
+        "at_stn",
         "az_tin",
         "bd_brc",
         "bd_etin",
         "bd_nid",
+        "be_nrn",
+        "bg_ucn",
+        "bn_nric",
         "br_cpf",
+        "ca_sin",
+        "ch_oasi",
+        "cl_rut",
+        "cn_pp",
+        "co_nuip",
+        "cr_ci",
         "cr_cpf",
         "cr_dimex",
         "cr_nite",
+        "cy_tic",
+        "cz_rc",
         "de_stn",
+        "dk_cpr",
+        "do_cie",
         "do_rcn",
+        "ec_ci",
+        "ee_ik",
+        "es_nif",
+        "fi_hetu",
+        "fr_nir",
+        "gb_nino",
+        "gr_afm",
         "gt_nit",
         "hk_id",
+        "hr_oib",
+        "hu_ad",
+        "id_nik",
+        "ie_ppsn",
+        "is_kt",
+        "it_cf",
+        "jp_inc",
+        "ke_pin",
         "kz_iin",
+        "li_peid",
+        "lt_ak",
+        "lu_nif",
+        "lv_pk",
         "mx_rfc",
         "my_nric",
         "mz_nuit",
+        "ng_nin",
         "nl_bsn",
+        "no_nin",
+        "nz_ird",
         "pe_dni",
         "pk_cnic",
         "pk_snic",
+        "pl_pesel",
+        "pt_nif",
+        "ro_cnp",
         "sa_tin",
+        "se_pin",
         "sg_fin",
         "sg_nric",
+        "sk_dic",
         "th_lc",
         "th_pin",
+        "tr_tin",
         "us_itin",
         "us_itin_last_4",
         "us_ssn",
         "us_ssn_last_4",
+        "uy_dni",
+        "za_id",
     ]
     """
     The ID number type of an individual.
@@ -358,7 +403,7 @@ class PersonTokenCreateParamsIdNumber(TypedDict):
 class PersonTokenCreateParamsRelationship(TypedDict):
     authorizer: NotRequired[bool]
     """
-    Whether the individual is an authorizer of the Account's legal entity.
+    Whether the individual is an authorizer of the Account's identity.
     """
     director: NotRequired[bool]
     """
@@ -428,7 +473,7 @@ class PersonTokenCreateParamsScriptAddressesKana(TypedDict):
     """
     town: NotRequired[str]
     """
-    Town or cho-me.
+    Town or district.
     """
 
 
@@ -459,7 +504,7 @@ class PersonTokenCreateParamsScriptAddressesKanji(TypedDict):
     """
     town: NotRequired[str]
     """
-    Town or cho-me.
+    Town or district.
     """
 
 

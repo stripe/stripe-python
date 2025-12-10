@@ -154,7 +154,9 @@ if TYPE_CHECKING:
         AccountCreateParamsDocumentsCompanyTaxIdVerification as AccountCreateParamsDocumentsCompanyTaxIdVerification,
         AccountCreateParamsDocumentsProofOfAddress as AccountCreateParamsDocumentsProofOfAddress,
         AccountCreateParamsDocumentsProofOfRegistration as AccountCreateParamsDocumentsProofOfRegistration,
+        AccountCreateParamsDocumentsProofOfRegistrationSigner as AccountCreateParamsDocumentsProofOfRegistrationSigner,
         AccountCreateParamsDocumentsProofOfUltimateBeneficialOwnership as AccountCreateParamsDocumentsProofOfUltimateBeneficialOwnership,
+        AccountCreateParamsDocumentsProofOfUltimateBeneficialOwnershipSigner as AccountCreateParamsDocumentsProofOfUltimateBeneficialOwnershipSigner,
         AccountCreateParamsGroups as AccountCreateParamsGroups,
         AccountCreateParamsIndividual as AccountCreateParamsIndividual,
         AccountCreateParamsIndividualAddress as AccountCreateParamsIndividualAddress,
@@ -557,7 +559,9 @@ if TYPE_CHECKING:
         AccountUpdateParamsDocumentsCompanyTaxIdVerification as AccountUpdateParamsDocumentsCompanyTaxIdVerification,
         AccountUpdateParamsDocumentsProofOfAddress as AccountUpdateParamsDocumentsProofOfAddress,
         AccountUpdateParamsDocumentsProofOfRegistration as AccountUpdateParamsDocumentsProofOfRegistration,
+        AccountUpdateParamsDocumentsProofOfRegistrationSigner as AccountUpdateParamsDocumentsProofOfRegistrationSigner,
         AccountUpdateParamsDocumentsProofOfUltimateBeneficialOwnership as AccountUpdateParamsDocumentsProofOfUltimateBeneficialOwnership,
+        AccountUpdateParamsDocumentsProofOfUltimateBeneficialOwnershipSigner as AccountUpdateParamsDocumentsProofOfUltimateBeneficialOwnershipSigner,
         AccountUpdateParamsGroups as AccountUpdateParamsGroups,
         AccountUpdateParamsIndividual as AccountUpdateParamsIndividual,
         AccountUpdateParamsIndividualAddress as AccountUpdateParamsIndividualAddress,
@@ -1440,6 +1444,8 @@ if TYPE_CHECKING:
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsIdBankTransfer as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsIdBankTransfer,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsKonbini as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsKonbini,
+        InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsPayto as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsPayto,
+        InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOptions as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOptions,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsPix as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsPix,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsSepaDebit as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsSepaDebit,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsUpi as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsUpi,
@@ -1661,6 +1667,8 @@ if TYPE_CHECKING:
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsIdBankTransfer as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsIdBankTransfer,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsKonbini as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsKonbini,
+        InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsPayto as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsPayto,
+        InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOptions as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOptions,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsPix as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsPix,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsSepaDebit as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsSepaDebit,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsUpi as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsUpi,
@@ -1753,6 +1761,8 @@ if TYPE_CHECKING:
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsIdBankTransfer as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsIdBankTransfer,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsKonbini as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsKonbini,
+        InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsPayto as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsPayto,
+        InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOptions as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOptions,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsPix as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsPix,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsSepaDebit as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsSepaDebit,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsUpi as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsUpi,
@@ -5085,6 +5095,8 @@ if TYPE_CHECKING:
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsIdBankTransfer as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsIdBankTransfer,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsKonbini as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsKonbini,
+        SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsPayto as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsPayto,
+        SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOptions as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOptions,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsPix as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsPix,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsPixMandateOptions as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsPixMandateOptions,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsSepaDebit as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsSepaDebit,
@@ -5198,6 +5210,8 @@ if TYPE_CHECKING:
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsIdBankTransfer as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsIdBankTransfer,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsKonbini as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsKonbini,
+        SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsPayto as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsPayto,
+        SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOptions as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOptions,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsPix as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsPix,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsPixMandateOptions as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsPixMandateOptions,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsSepaDebit as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsSepaDebit,
@@ -5459,6 +5473,8 @@ if TYPE_CHECKING:
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsIdBankTransfer as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsIdBankTransfer,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsKonbini as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsKonbini,
+        SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsPayto as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsPayto,
+        SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOptions as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOptions,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsPix as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsPix,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsPixMandateOptions as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsPixMandateOptions,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsSepaDebit as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsSepaDebit,
@@ -6124,7 +6140,15 @@ _import_map = {
         "stripe.params._account_create_params",
         False,
     ),
+    "AccountCreateParamsDocumentsProofOfRegistrationSigner": (
+        "stripe.params._account_create_params",
+        False,
+    ),
     "AccountCreateParamsDocumentsProofOfUltimateBeneficialOwnership": (
+        "stripe.params._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsDocumentsProofOfUltimateBeneficialOwnershipSigner": (
         "stripe.params._account_create_params",
         False,
     ),
@@ -7424,7 +7448,15 @@ _import_map = {
         "stripe.params._account_update_params",
         False,
     ),
+    "AccountUpdateParamsDocumentsProofOfRegistrationSigner": (
+        "stripe.params._account_update_params",
+        False,
+    ),
     "AccountUpdateParamsDocumentsProofOfUltimateBeneficialOwnership": (
+        "stripe.params._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsDocumentsProofOfUltimateBeneficialOwnershipSigner": (
         "stripe.params._account_update_params",
         False,
     ),
@@ -9741,6 +9773,14 @@ _import_map = {
         "stripe.params._invoice_create_params",
         False,
     ),
+    "InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsPayto": (
+        "stripe.params._invoice_create_params",
+        False,
+    ),
+    "InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOptions": (
+        "stripe.params._invoice_create_params",
+        False,
+    ),
     "InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsPix": (
         "stripe.params._invoice_create_params",
         False,
@@ -10490,6 +10530,14 @@ _import_map = {
         "stripe.params._invoice_modify_params",
         False,
     ),
+    "InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsPayto": (
+        "stripe.params._invoice_modify_params",
+        False,
+    ),
+    "InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOptions": (
+        "stripe.params._invoice_modify_params",
+        False,
+    ),
     "InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsPix": (
         "stripe.params._invoice_modify_params",
         False,
@@ -10739,6 +10787,14 @@ _import_map = {
         False,
     ),
     "InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsKonbini": (
+        "stripe.params._invoice_update_params",
+        False,
+    ),
+    "InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsPayto": (
+        "stripe.params._invoice_update_params",
+        False,
+    ),
+    "InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOptions": (
         "stripe.params._invoice_update_params",
         False,
     ),
@@ -22431,6 +22487,14 @@ _import_map = {
         "stripe.params._subscription_create_params",
         False,
     ),
+    "SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsPayto": (
+        "stripe.params._subscription_create_params",
+        False,
+    ),
+    "SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOptions": (
+        "stripe.params._subscription_create_params",
+        False,
+    ),
     "SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsPix": (
         "stripe.params._subscription_create_params",
         False,
@@ -22800,6 +22864,14 @@ _import_map = {
         False,
     ),
     "SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsKonbini": (
+        "stripe.params._subscription_modify_params",
+        False,
+    ),
+    "SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsPayto": (
+        "stripe.params._subscription_modify_params",
+        False,
+    ),
+    "SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOptions": (
         "stripe.params._subscription_modify_params",
         False,
     ),
@@ -23748,6 +23820,14 @@ _import_map = {
         False,
     ),
     "SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsKonbini": (
+        "stripe.params._subscription_update_params",
+        False,
+    ),
+    "SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsPayto": (
+        "stripe.params._subscription_update_params",
+        False,
+    ),
+    "SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOptions": (
         "stripe.params._subscription_update_params",
         False,
     ),

@@ -16,7 +16,7 @@ class PaymentIntentListParams(RequestOptions):
     """
     customer_account: NotRequired[str]
     """
-    Only return PaymentIntents for the account that this ID specifies.
+    Only return PaymentIntents for the account representing the customer that this ID specifies.
     """
     ending_before: NotRequired[str]
     """

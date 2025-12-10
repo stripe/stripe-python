@@ -12,7 +12,7 @@ class PaymentIntentDecrementAuthorizationParams(RequestOptions):
     """
     application_fee_amount: NotRequired[int]
     """
-    The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+    The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://docs.stripe.com/payments/connected-accounts).
     """
     description: NotRequired[str]
     """
@@ -28,14 +28,14 @@ class PaymentIntentDecrementAuthorizationParams(RequestOptions):
     """
     metadata: NotRequired[Dict[str, str]]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
     transfer_data: NotRequired[
         "PaymentIntentDecrementAuthorizationParamsTransferData"
     ]
     """
     The parameters used to automatically create a transfer after the payment is captured.
-    Learn more about the [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+    Learn more about the [use case for connected accounts](https://docs.stripe.com/payments/connected-accounts).
     """
 
 
@@ -56,7 +56,7 @@ class PaymentIntentDecrementAuthorizationParamsHooksInputs(TypedDict):
 class PaymentIntentDecrementAuthorizationParamsHooksInputsTax(TypedDict):
     calculation: Union[Literal[""], str]
     """
-    The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
+    The [TaxCalculation](https://docs.stripe.com/api/tax/calculations) id
     """
 
 

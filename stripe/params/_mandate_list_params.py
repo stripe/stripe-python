@@ -20,7 +20,7 @@ class MandateListParams(RequestOptions):
     """
     on_behalf_of: NotRequired[str]
     """
-    The Stripe account ID that the mandates are intended for. Learn more about the [use case for connected accounts payments](https://stripe.com/docs/payments/connected-accounts).
+    The Stripe account ID that the mandates are intended for. Learn more about the [use case for connected accounts payments](https://docs.stripe.com/payments/connected-accounts).
     """
     payment_method: str
     starting_after: NotRequired[str]

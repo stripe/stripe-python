@@ -27,5 +27,5 @@ class ClaimableSandboxCreateParamsPrefill(TypedDict):
     """
     name: NotRequired[str]
     """
-    Name for the sandbox. If not provided, this will be generated.
+    Name for the sandbox.
     """

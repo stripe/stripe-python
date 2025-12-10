@@ -35,7 +35,7 @@ class Location(
     """
     A Location represents a grouping of readers.
 
-    Related guide: [Fleet management](https://stripe.com/docs/terminal/fleet/locations)
+    Related guide: [Fleet management](https://docs.stripe.com/terminal/fleet/locations)
     """
 
     OBJECT_NAME: ClassVar[Literal["terminal.location"]] = "terminal.location"
@@ -63,7 +63,7 @@ class Location(
         """
         state: Optional[str]
         """
-        State, county, province, or region.
+        State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         """
 
     class AddressKana(StripeObject):
@@ -159,7 +159,7 @@ class Location(
     """
     metadata: Dict[str, str]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     object: Literal["terminal.location"]
     """

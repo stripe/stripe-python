@@ -44007,22 +44007,28 @@ class TestGeneratedExamples(object):
                             },
                         },
                         "deactivate": {
-                            "billing_details": {
-                                "proration_behavior": "prorated_adjustment",
-                            },
+                            "collect_at": "next_billing_date",
                             "effective_at": {
                                 "timestamp": "1970-01-01T15:18:46.294Z",
                                 "type": "on_reserve",
                             },
                             "pricing_plan_subscription_details": {
+                                "overrides": {
+                                    "partial_period_behaviors": [
+                                        {
+                                            "type": "license_fee",
+                                            "license_fee": {
+                                                "credit_proration_behavior": "prorated",
+                                            },
+                                        },
+                                    ],
+                                },
                                 "pricing_plan_subscription": "pricing_plan_subscription",
                             },
                             "type": "pricing_plan_subscription_details",
                         },
                         "modify": {
-                            "billing_details": {
-                                "proration_behavior": "prorated_adjustment",
-                            },
+                            "collect_at": "next_billing_date",
                             "effective_at": {
                                 "timestamp": "1970-01-01T15:18:46.294Z",
                                 "type": "current_billing_period_start",
@@ -44037,6 +44043,17 @@ class TestGeneratedExamples(object):
                                 ],
                                 "new_pricing_plan": "new_pricing_plan",
                                 "new_pricing_plan_version": "new_pricing_plan_version",
+                                "overrides": {
+                                    "partial_period_behaviors": [
+                                        {
+                                            "type": "license_fee",
+                                            "license_fee": {
+                                                "credit_proration_behavior": "prorated",
+                                                "debit_proration_behavior": "none",
+                                            },
+                                        },
+                                    ],
+                                },
                                 "pricing_plan_subscription": "pricing_plan_subscription",
                             },
                             "type": "pricing_plan_subscription_details",
@@ -44046,9 +44063,7 @@ class TestGeneratedExamples(object):
                             "invoice_discount_rule": "invoice_discount_rule",
                         },
                         "subscribe": {
-                            "billing_details": {
-                                "proration_behavior": "prorated_adjustment",
-                            },
+                            "collect_at": "next_billing_date",
                             "effective_at": {
                                 "timestamp": "1970-01-01T15:18:46.294Z",
                                 "type": "current_billing_period_start",
@@ -44063,6 +44078,16 @@ class TestGeneratedExamples(object):
                                     },
                                 ],
                                 "metadata": {"key": "metadata"},
+                                "overrides": {
+                                    "partial_period_behaviors": [
+                                        {
+                                            "type": "license_fee",
+                                            "license_fee": {
+                                                "debit_proration_behavior": "none",
+                                            },
+                                        },
+                                    ],
+                                },
                                 "pricing_plan": "pricing_plan",
                                 "pricing_plan_version": "pricing_plan_version",
                             },
@@ -44088,7 +44113,7 @@ class TestGeneratedExamples(object):
             path="/v2/billing/intents",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"actions":[{"type":"apply","apply":{"type":"invoice_discount_rule","invoice_discount_rule":{"applies_to":"cadence","type":"percent_off","percent_off":{"maximum_applications":{"type":"indefinite"},"percent_off":"percent_off"}}},"deactivate":{"billing_details":{"proration_behavior":"prorated_adjustment"},"effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"on_reserve"},"pricing_plan_subscription_details":{"pricing_plan_subscription":"pricing_plan_subscription"},"type":"pricing_plan_subscription_details"},"modify":{"billing_details":{"proration_behavior":"prorated_adjustment"},"effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"current_billing_period_start"},"pricing_plan_subscription_details":{"component_configurations":[{"quantity":1285004149,"lookup_key":"lookup_key","pricing_plan_component":"pricing_plan_component"}],"new_pricing_plan":"new_pricing_plan","new_pricing_plan_version":"new_pricing_plan_version","pricing_plan_subscription":"pricing_plan_subscription"},"type":"pricing_plan_subscription_details"},"remove":{"type":"invoice_discount_rule","invoice_discount_rule":"invoice_discount_rule"},"subscribe":{"billing_details":{"proration_behavior":"prorated_adjustment"},"effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"current_billing_period_start"},"type":"pricing_plan_subscription_details","pricing_plan_subscription_details":{"component_configurations":[{"quantity":1285004149,"lookup_key":"lookup_key","pricing_plan_component":"pricing_plan_component"}],"metadata":{"key":"metadata"},"pricing_plan":"pricing_plan","pricing_plan_version":"pricing_plan_version"},"v1_subscription_details":{"description":"description","items":[{"metadata":{"key":"metadata"},"price":"price","quantity":1285004149}],"metadata":{"key":"metadata"}}}}],"currency":"usd"}',
+            post_data='{"actions":[{"type":"apply","apply":{"type":"invoice_discount_rule","invoice_discount_rule":{"applies_to":"cadence","type":"percent_off","percent_off":{"maximum_applications":{"type":"indefinite"},"percent_off":"percent_off"}}},"deactivate":{"collect_at":"next_billing_date","effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"on_reserve"},"pricing_plan_subscription_details":{"overrides":{"partial_period_behaviors":[{"type":"license_fee","license_fee":{"credit_proration_behavior":"prorated"}}]},"pricing_plan_subscription":"pricing_plan_subscription"},"type":"pricing_plan_subscription_details"},"modify":{"collect_at":"next_billing_date","effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"current_billing_period_start"},"pricing_plan_subscription_details":{"component_configurations":[{"quantity":1285004149,"lookup_key":"lookup_key","pricing_plan_component":"pricing_plan_component"}],"new_pricing_plan":"new_pricing_plan","new_pricing_plan_version":"new_pricing_plan_version","overrides":{"partial_period_behaviors":[{"type":"license_fee","license_fee":{"credit_proration_behavior":"prorated","debit_proration_behavior":"none"}}]},"pricing_plan_subscription":"pricing_plan_subscription"},"type":"pricing_plan_subscription_details"},"remove":{"type":"invoice_discount_rule","invoice_discount_rule":"invoice_discount_rule"},"subscribe":{"collect_at":"next_billing_date","effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"current_billing_period_start"},"type":"pricing_plan_subscription_details","pricing_plan_subscription_details":{"component_configurations":[{"quantity":1285004149,"lookup_key":"lookup_key","pricing_plan_component":"pricing_plan_component"}],"metadata":{"key":"metadata"},"overrides":{"partial_period_behaviors":[{"type":"license_fee","license_fee":{"debit_proration_behavior":"none"}}]},"pricing_plan":"pricing_plan","pricing_plan_version":"pricing_plan_version"},"v1_subscription_details":{"description":"description","items":[{"metadata":{"key":"metadata"},"price":"price","quantity":1285004149}],"metadata":{"key":"metadata"}}}}],"currency":"usd"}',
             is_json=True,
         )
 
@@ -45832,293 +45857,13 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.v2.core.account_tokens.create(
-            {
-                "identity": {
-                    "attestations": {
-                        "directorship_declaration": {"attested": True},
-                        "ownership_declaration": {"attested": True},
-                        "persons_provided": {
-                            "directors": True,
-                            "executives": True,
-                            "owners": True,
-                            "ownership_exemption_reason": "qualified_entity_exceeds_ownership_threshold",
-                        },
-                        "representative_declaration": {"attested": True},
-                        "terms_of_service": {
-                            "account": {"shown_and_accepted": True},
-                            "card_creator": {
-                                "commercial": {
-                                    "account_holder": {
-                                        "shown_and_accepted": True
-                                    },
-                                    "celtic": {
-                                        "apple_pay": {
-                                            "shown_and_accepted": True
-                                        },
-                                        "charge_card": {
-                                            "bank_terms": {
-                                                "shown_and_accepted": True,
-                                            },
-                                            "platform": {
-                                                "shown_and_accepted": True,
-                                            },
-                                        },
-                                        "spend_card": {
-                                            "bank_terms": {
-                                                "shown_and_accepted": True,
-                                            },
-                                            "financing_disclosures": {
-                                                "shown_and_accepted": True,
-                                            },
-                                            "platform": {
-                                                "shown_and_accepted": True,
-                                            },
-                                        },
-                                    },
-                                    "cross_river_bank": {
-                                        "apple_pay": {
-                                            "shown_and_accepted": True
-                                        },
-                                        "charge_card": {
-                                            "bank_terms": {
-                                                "shown_and_accepted": True,
-                                            },
-                                            "financing_disclosures": {
-                                                "shown_and_accepted": True,
-                                            },
-                                            "platform": {
-                                                "shown_and_accepted": True,
-                                            },
-                                        },
-                                        "spend_card": {
-                                            "bank_terms": {
-                                                "shown_and_accepted": True,
-                                            },
-                                            "financing_disclosures": {
-                                                "shown_and_accepted": True,
-                                            },
-                                        },
-                                    },
-                                },
-                            },
-                            "crypto_storer": {"shown_and_accepted": True},
-                            "storer": {"shown_and_accepted": True},
-                        },
-                    },
-                    "business_details": {
-                        "address": {
-                            "city": "city",
-                            "country": "country",
-                            "line1": "line1",
-                            "line2": "line2",
-                            "postal_code": "postal_code",
-                            "state": "state",
-                            "town": "town",
-                        },
-                        "annual_revenue": {
-                            "amount": {"value": 111972721, "currency": "usd"},
-                            "fiscal_year_end": "fiscal_year_end",
-                        },
-                        "compliance_screening_description": "compliance_screening_description",
-                        "documents": {
-                            "bank_account_ownership_verification": {
-                                "files": ["files"],
-                                "type": "files",
-                            },
-                            "company_license": {
-                                "files": ["files"],
-                                "type": "files",
-                            },
-                            "company_memorandum_of_association": {
-                                "files": ["files"],
-                                "type": "files",
-                            },
-                            "company_ministerial_decree": {
-                                "files": ["files"],
-                                "type": "files",
-                            },
-                            "company_registration_verification": {
-                                "files": ["files"],
-                                "type": "files",
-                            },
-                            "company_tax_id_verification": {
-                                "files": ["files"],
-                                "type": "files",
-                            },
-                            "primary_verification": {
-                                "front_back": {
-                                    "back": "back",
-                                    "front": "front",
-                                },
-                                "type": "front_back",
-                            },
-                            "proof_of_address": {
-                                "files": ["files"],
-                                "type": "files",
-                            },
-                            "proof_of_registration": {
-                                "files": ["files"],
-                                "type": "files",
-                            },
-                            "proof_of_ultimate_beneficial_ownership": {
-                                "files": ["files"],
-                                "type": "files",
-                            },
-                        },
-                        "estimated_worker_count": 884794319,
-                        "id_numbers": [
-                            {
-                                "registrar": "registrar",
-                                "type": "th_prn",
-                                "value": "value",
-                            },
-                        ],
-                        "monthly_estimated_revenue": {
-                            "amount": {"value": 111972721, "currency": "usd"},
-                        },
-                        "phone": "phone",
-                        "registered_name": "registered_name",
-                        "script_addresses": {
-                            "kana": {
-                                "city": "city",
-                                "country": "country",
-                                "line1": "line1",
-                                "line2": "line2",
-                                "postal_code": "postal_code",
-                                "state": "state",
-                                "town": "town",
-                            },
-                            "kanji": {
-                                "city": "city",
-                                "country": "country",
-                                "line1": "line1",
-                                "line2": "line2",
-                                "postal_code": "postal_code",
-                                "state": "state",
-                                "town": "town",
-                            },
-                        },
-                        "script_names": {
-                            "kana": {"registered_name": "registered_name"},
-                            "kanji": {"registered_name": "registered_name"},
-                        },
-                        "structure": "public_listed_corporation",
-                    },
-                    "entity_type": "individual",
-                    "individual": {
-                        "additional_addresses": [
-                            {
-                                "city": "city",
-                                "country": "country",
-                                "line1": "line1",
-                                "line2": "line2",
-                                "postal_code": "postal_code",
-                                "purpose": "registered",
-                                "state": "state",
-                                "town": "town",
-                            },
-                        ],
-                        "additional_names": [
-                            {
-                                "full_name": "full_name",
-                                "given_name": "given_name",
-                                "purpose": "alias",
-                                "surname": "surname",
-                            },
-                        ],
-                        "address": {
-                            "city": "city",
-                            "country": "country",
-                            "line1": "line1",
-                            "line2": "line2",
-                            "postal_code": "postal_code",
-                            "state": "state",
-                            "town": "town",
-                        },
-                        "date_of_birth": {
-                            "day": 99228,
-                            "month": 104080000,
-                            "year": 3704893,
-                        },
-                        "documents": {
-                            "company_authorization": {
-                                "files": ["files"],
-                                "type": "files",
-                            },
-                            "passport": {"files": ["files"], "type": "files"},
-                            "primary_verification": {
-                                "front_back": {
-                                    "back": "back",
-                                    "front": "front",
-                                },
-                                "type": "front_back",
-                            },
-                            "secondary_verification": {
-                                "front_back": {
-                                    "back": "back",
-                                    "front": "front",
-                                },
-                                "type": "front_back",
-                            },
-                            "visa": {"files": ["files"], "type": "files"},
-                        },
-                        "email": "email",
-                        "given_name": "given_name",
-                        "id_numbers": [{"type": "th_lc", "value": "value"}],
-                        "legal_gender": "male",
-                        "metadata": {"key": "metadata"},
-                        "nationalities": ["nationalities"],
-                        "phone": "phone",
-                        "political_exposure": "none",
-                        "relationship": {
-                            "director": True,
-                            "executive": True,
-                            "owner": True,
-                            "percent_ownership": "percent_ownership",
-                            "title": "title",
-                        },
-                        "script_addresses": {
-                            "kana": {
-                                "city": "city",
-                                "country": "country",
-                                "line1": "line1",
-                                "line2": "line2",
-                                "postal_code": "postal_code",
-                                "state": "state",
-                                "town": "town",
-                            },
-                            "kanji": {
-                                "city": "city",
-                                "country": "country",
-                                "line1": "line1",
-                                "line2": "line2",
-                                "postal_code": "postal_code",
-                                "state": "state",
-                                "town": "town",
-                            },
-                        },
-                        "script_names": {
-                            "kana": {
-                                "given_name": "given_name",
-                                "surname": "surname",
-                            },
-                            "kanji": {
-                                "given_name": "given_name",
-                                "surname": "surname",
-                            },
-                        },
-                        "surname": "surname",
-                    },
-                },
-            }
-        )
+        client.v2.core.account_tokens.create()
         http_client_mock.assert_requested(
             "post",
             path="/v2/core/account_tokens",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"identity":{"attestations":{"directorship_declaration":{"attested":true},"ownership_declaration":{"attested":true},"persons_provided":{"directors":true,"executives":true,"owners":true,"ownership_exemption_reason":"qualified_entity_exceeds_ownership_threshold"},"representative_declaration":{"attested":true},"terms_of_service":{"account":{"shown_and_accepted":true},"card_creator":{"commercial":{"account_holder":{"shown_and_accepted":true},"celtic":{"apple_pay":{"shown_and_accepted":true},"charge_card":{"bank_terms":{"shown_and_accepted":true},"platform":{"shown_and_accepted":true}},"spend_card":{"bank_terms":{"shown_and_accepted":true},"financing_disclosures":{"shown_and_accepted":true},"platform":{"shown_and_accepted":true}}},"cross_river_bank":{"apple_pay":{"shown_and_accepted":true},"charge_card":{"bank_terms":{"shown_and_accepted":true},"financing_disclosures":{"shown_and_accepted":true},"platform":{"shown_and_accepted":true}},"spend_card":{"bank_terms":{"shown_and_accepted":true},"financing_disclosures":{"shown_and_accepted":true}}}}},"crypto_storer":{"shown_and_accepted":true},"storer":{"shown_and_accepted":true}}},"business_details":{"address":{"city":"city","country":"country","line1":"line1","line2":"line2","postal_code":"postal_code","state":"state","town":"town"},"annual_revenue":{"amount":{"value":111972721,"currency":"usd"},"fiscal_year_end":"fiscal_year_end"},"compliance_screening_description":"compliance_screening_description","documents":{"bank_account_ownership_verification":{"files":["files"],"type":"files"},"company_license":{"files":["files"],"type":"files"},"company_memorandum_of_association":{"files":["files"],"type":"files"},"company_ministerial_decree":{"files":["files"],"type":"files"},"company_registration_verification":{"files":["files"],"type":"files"},"company_tax_id_verification":{"files":["files"],"type":"files"},"primary_verification":{"front_back":{"back":"back","front":"front"},"type":"front_back"},"proof_of_address":{"files":["files"],"type":"files"},"proof_of_registration":{"files":["files"],"type":"files"},"proof_of_ultimate_beneficial_ownership":{"files":["files"],"type":"files"}},"estimated_worker_count":884794319,"id_numbers":[{"registrar":"registrar","type":"th_prn","value":"value"}],"monthly_estimated_revenue":{"amount":{"value":111972721,"currency":"usd"}},"phone":"phone","registered_name":"registered_name","script_addresses":{"kana":{"city":"city","country":"country","line1":"line1","line2":"line2","postal_code":"postal_code","state":"state","town":"town"},"kanji":{"city":"city","country":"country","line1":"line1","line2":"line2","postal_code":"postal_code","state":"state","town":"town"}},"script_names":{"kana":{"registered_name":"registered_name"},"kanji":{"registered_name":"registered_name"}},"structure":"public_listed_corporation"},"entity_type":"individual","individual":{"additional_addresses":[{"city":"city","country":"country","line1":"line1","line2":"line2","postal_code":"postal_code","purpose":"registered","state":"state","town":"town"}],"additional_names":[{"full_name":"full_name","given_name":"given_name","purpose":"alias","surname":"surname"}],"address":{"city":"city","country":"country","line1":"line1","line2":"line2","postal_code":"postal_code","state":"state","town":"town"},"date_of_birth":{"day":99228,"month":104080000,"year":3704893},"documents":{"company_authorization":{"files":["files"],"type":"files"},"passport":{"files":["files"],"type":"files"},"primary_verification":{"front_back":{"back":"back","front":"front"},"type":"front_back"},"secondary_verification":{"front_back":{"back":"back","front":"front"},"type":"front_back"},"visa":{"files":["files"],"type":"files"}},"email":"email","given_name":"given_name","id_numbers":[{"type":"th_lc","value":"value"}],"legal_gender":"male","metadata":{"key":"metadata"},"nationalities":["nationalities"],"phone":"phone","political_exposure":"none","relationship":{"director":true,"executive":true,"owner":true,"percent_ownership":"percent_ownership","title":"title"},"script_addresses":{"kana":{"city":"city","country":"country","line1":"line1","line2":"line2","postal_code":"postal_code","state":"state","town":"town"},"kanji":{"city":"city","country":"country","line1":"line1","line2":"line2","postal_code":"postal_code","state":"state","town":"town"}},"script_names":{"kana":{"given_name":"given_name","surname":"surname"},"kanji":{"given_name":"given_name","surname":"surname"}},"surname":"surname"}}}',
+            post_data="{}",
             is_json=True,
         )
 
@@ -46695,6 +46440,134 @@ class TestGeneratedExamples(object):
         http_client_mock.assert_requested(
             "post",
             path="/v2/core/vault/us_bank_accounts/id_123/send_microdeposits",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_iam_api_key_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/iam/api_keys",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.iam.api_keys.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/iam/api_keys",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_iam_api_key_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/iam/api_keys",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.iam.api_keys.create({"type": "publishable_key"})
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/iam/api_keys",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"type":"publishable_key"}',
+            is_json=True,
+        )
+
+    def test_v2_iam_api_key_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/iam/api_keys/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.iam.api_keys.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/iam/api_keys/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_iam_api_key_post_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/iam/api_keys/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.iam.api_keys.update("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/iam/api_keys/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_iam_api_key_post_3_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/iam/api_keys/id_123/expire",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.iam.api_keys.expire("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/iam/api_keys/id_123/expire",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_iam_api_key_post_4_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/iam/api_keys/id_123/rotate",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.iam.api_keys.rotate("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/iam/api_keys/id_123/rotate",
             query_string="",
             api_base="https://api.stripe.com",
             post_data="{}",
@@ -47868,6 +47741,198 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
+    def test_v2_payments_settlement_allocation_intent_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/payments/settlement_allocation_intents",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.payments.settlement_allocation_intents.create(
+            {
+                "amount": {"value": 111972721, "currency": "usd"},
+                "expected_settlement_date": "1970-01-22T14:14:13.629Z",
+                "financial_account": "financial_account",
+                "reference": "reference",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/payments/settlement_allocation_intents",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"amount":{"value":111972721,"currency":"usd"},"expected_settlement_date":"1970-01-22T14:14:13.629Z","financial_account":"financial_account","reference":"reference"}',
+            is_json=True,
+        )
+
+    def test_v2_payments_settlement_allocation_intent_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/payments/settlement_allocation_intents/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.payments.settlement_allocation_intents.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/payments/settlement_allocation_intents/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_payments_settlement_allocation_intent_post_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/payments/settlement_allocation_intents/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.payments.settlement_allocation_intents.update("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/payments/settlement_allocation_intents/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_payments_settlement_allocation_intent_post_3_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/payments/settlement_allocation_intents/id_123/cancel",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.payments.settlement_allocation_intents.cancel("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/payments/settlement_allocation_intents/id_123/cancel",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_payments_settlement_allocation_intent_post_4_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/payments/settlement_allocation_intents/id_123/submit",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.payments.settlement_allocation_intents.submit("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/payments/settlement_allocation_intents/id_123/submit",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_payments_settlement_allocation_intents_split_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/payments/settlement_allocation_intents/settlement_allocation_intent_id_123/splits",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.payments.settlement_allocation_intents.splits.create(
+            "settlement_allocation_intent_id_123",
+            {
+                "account": "account",
+                "amount": {"value": 111972721, "currency": "usd"},
+                "type": "credit",
+            },
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/payments/settlement_allocation_intents/settlement_allocation_intent_id_123/splits",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"account":"account","amount":{"value":111972721,"currency":"usd"},"type":"credit"}',
+            is_json=True,
+        )
+
+    def test_v2_payments_settlement_allocation_intents_split_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/payments/settlement_allocation_intents/settlement_allocation_intent_id_123/splits/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.payments.settlement_allocation_intents.splits.retrieve(
+            "settlement_allocation_intent_id_123",
+            "id_123",
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/payments/settlement_allocation_intents/settlement_allocation_intent_id_123/splits/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_payments_settlement_allocation_intents_split_post_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/payments/settlement_allocation_intents/settlement_allocation_intent_id_123/splits/id_123/cancel",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.payments.settlement_allocation_intents.splits.cancel(
+            "settlement_allocation_intent_id_123",
+            "id_123",
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/payments/settlement_allocation_intents/settlement_allocation_intent_id_123/splits/id_123/cancel",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
     def test_v2_reporting_report_get_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -47943,6 +48008,149 @@ class TestGeneratedExamples(object):
             path="/v2/reporting/report_runs/id_123",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_v2_tax_manual_rule_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/tax/manual_rules",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.tax.manual_rules.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/tax/manual_rules",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_tax_manual_rule_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/tax/manual_rules",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.tax.manual_rules.create(
+            {
+                "scheduled_tax_rates": [
+                    {
+                        "rates": [
+                            {
+                                "country": "country",
+                                "description": "description",
+                                "display_name": "display_name",
+                                "jurisdiction": "jurisdiction",
+                                "percentage": "percentage",
+                                "state": "state",
+                            },
+                        ],
+                        "starts_at": "1970-01-25T15:13:01.215Z",
+                    },
+                ],
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/tax/manual_rules",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"scheduled_tax_rates":[{"rates":[{"country":"country","description":"description","display_name":"display_name","jurisdiction":"jurisdiction","percentage":"percentage","state":"state"}],"starts_at":"1970-01-25T15:13:01.215Z"}]}',
+            is_json=True,
+        )
+
+    def test_v2_tax_manual_rule_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/tax/manual_rules/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.tax.manual_rules.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/tax/manual_rules/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_tax_manual_rule_post_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/tax/manual_rules/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.tax.manual_rules.update(
+            "id_123",
+            {
+                "scheduled_tax_rates": [
+                    {
+                        "rates": [
+                            {
+                                "country": "country",
+                                "description": "description",
+                                "display_name": "display_name",
+                                "jurisdiction": "jurisdiction",
+                                "percentage": "percentage",
+                                "state": "state",
+                            },
+                        ],
+                        "starts_at": "1970-01-25T15:13:01.215Z",
+                    },
+                ],
+            },
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/tax/manual_rules/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"scheduled_tax_rates":[{"rates":[{"country":"country","description":"description","display_name":"display_name","jurisdiction":"jurisdiction","percentage":"percentage","state":"state"}],"starts_at":"1970-01-25T15:13:01.215Z"}]}',
+            is_json=True,
+        )
+
+    def test_v2_tax_manual_rule_post_3_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/tax/manual_rules/id_123/deactivate",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.tax.manual_rules.deactivate("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/tax/manual_rules/id_123/deactivate",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
         )
 
     def test_v2_test_helpers_financial_address_post_service(
@@ -48110,6 +48318,33 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data='{"account_number":"account_number"}',
+            is_json=True,
+        )
+
+    def test_controlled_by_alternate_resource_error_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/outbound_setup_intents",
+            rbody='{"error":{"type":"controlled_by_alternate_resource","code":"payout_method_cannot_be_archived"}}',
+            rcode=400,
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        try:
+            client.v2.money_management.outbound_setup_intents.create()
+        except _error.ControlledByAlternateResourceError:
+            pass
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/outbound_setup_intents",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
             is_json=True,
         )
 
@@ -48388,9 +48623,9 @@ class TestGeneratedExamples(object):
         self, http_client_mock: HTTPClientMock
     ) -> None:
         http_client_mock.stub_request(
-            "get",
-            "/v2/core/accounts/id_123",
-            rbody='{"error":{"type":"rate_limit","code":"account_rate_limit_exceeded"}}',
+            "post",
+            "/v2/reporting/report_runs",
+            rbody='{"error":{"type":"rate_limit","code":"report_run_rate_limit_exceeded"}}',
             rcode=400,
         )
         client = StripeClient(
@@ -48399,14 +48634,31 @@ class TestGeneratedExamples(object):
         )
 
         try:
-            client.v2.core.accounts.retrieve("id_123")
+            client.v2.reporting.report_runs.create(
+                {
+                    "report": "report",
+                    "report_parameters": {
+                        "int_key": 123,
+                        "string_key": "value",
+                        "boolean_key": True,
+                        "object_key": {
+                            "object_int_key": 123,
+                            "object_string_key": "value",
+                            "object_boolean_key": True,
+                        },
+                        "array_key": [1, 2, 3],
+                    },
+                }
+            )
         except _error.RateLimitError:
             pass
         http_client_mock.assert_requested(
-            "get",
-            path="/v2/core/accounts/id_123",
+            "post",
+            path="/v2/reporting/report_runs",
             query_string="",
             api_base="https://api.stripe.com",
+            post_data='{"report":"report","report_parameters":{"int_key":123,"string_key":"value","boolean_key":true,"object_key":{"object_int_key":123,"object_string_key":"value","object_boolean_key":true},"array_key":[1,2,3]}}',
+            is_json=True,
         )
 
     def test_recipient_not_notifiable_error_service(

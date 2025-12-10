@@ -31,7 +31,7 @@ class ShippingRate(
 ):
     """
     Shipping rates describe the price of shipping presented to your customers and
-    applied to a purchase. For more information, see [Charge for shipping](https://stripe.com/docs/payments/during-payment/charge-shipping).
+    applied to a purchase. For more information, see [Charge for shipping](https://docs.stripe.com/payments/during-payment/charge-shipping).
     """
 
     OBJECT_NAME: ClassVar[Literal["shipping_rate"]] = "shipping_rate"
@@ -120,7 +120,7 @@ class ShippingRate(
     """
     metadata: Dict[str, str]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     object: Literal["shipping_rate"]
     """
@@ -132,7 +132,7 @@ class ShippingRate(
     """
     tax_code: Optional[ExpandableField["TaxCode"]]
     """
-    A [tax code](https://stripe.com/docs/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`.
+    A [tax code](https://docs.stripe.com/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`.
     """
     type: Literal["fixed_amount"]
     """

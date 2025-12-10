@@ -16,7 +16,7 @@ class CreditNoteListParams(RequestOptions):
     """
     customer_account: NotRequired[str]
     """
-    Only return credit notes for the account specified by this account ID.
+    Only return credit notes for the account representing the customer specified by this account ID.
     """
     ending_before: NotRequired[str]
     """

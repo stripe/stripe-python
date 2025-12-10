@@ -4,7 +4,7 @@ from stripe._api_mode import ApiMode
 from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
 from stripe.v2.core._event import Event, EventNotification
-from typing import Any, Dict, Optional, cast
+from typing import Any, Dict, List, Optional, cast
 from typing_extensions import Literal, TYPE_CHECKING, override
 
 if TYPE_CHECKING:
@@ -36,6 +36,20 @@ class V2CoreHealthApiLatencyResolvedEvent(Event):
 
     class V2CoreHealthApiLatencyResolvedEventData(StripeObject):
         class Impact(StripeObject):
+            class TopImpactedAccount(StripeObject):
+                account: str
+                """
+                The account ID of the impacted connected account.
+                """
+                impacted_requests: int
+                """
+                The number of impacted requests.
+                """
+                impacted_requests_percentage: Optional[str]
+                """
+                The percentage of impacted requests.
+                """
+
             canonical_path: str
             """
             The canonical path.
@@ -56,6 +70,11 @@ class V2CoreHealthApiLatencyResolvedEvent(Event):
             """
             The percentage of impacted requests.
             """
+            top_impacted_accounts: Optional[List[TopImpactedAccount]]
+            """
+            The top impacted connected accounts (only for platforms).
+            """
+            _inner_class_types = {"top_impacted_accounts": TopImpactedAccount}
 
         grouping_key: str
         """

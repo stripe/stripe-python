@@ -329,6 +329,14 @@ if TYPE_CHECKING:
         V2CoreHealthPaymentMethodErrorResolvedEvent as V2CoreHealthPaymentMethodErrorResolvedEvent,
         V2CoreHealthPaymentMethodErrorResolvedEventNotification as V2CoreHealthPaymentMethodErrorResolvedEventNotification,
     )
+    from stripe.events._v2_core_health_sepa_debit_delayed_firing_event import (
+        V2CoreHealthSepaDebitDelayedFiringEvent as V2CoreHealthSepaDebitDelayedFiringEvent,
+        V2CoreHealthSepaDebitDelayedFiringEventNotification as V2CoreHealthSepaDebitDelayedFiringEventNotification,
+    )
+    from stripe.events._v2_core_health_sepa_debit_delayed_resolved_event import (
+        V2CoreHealthSepaDebitDelayedResolvedEvent as V2CoreHealthSepaDebitDelayedResolvedEvent,
+        V2CoreHealthSepaDebitDelayedResolvedEventNotification as V2CoreHealthSepaDebitDelayedResolvedEventNotification,
+    )
     from stripe.events._v2_core_health_traffic_volume_drop_firing_event import (
         V2CoreHealthTrafficVolumeDropFiringEvent as V2CoreHealthTrafficVolumeDropFiringEvent,
         V2CoreHealthTrafficVolumeDropFiringEventNotification as V2CoreHealthTrafficVolumeDropFiringEventNotification,
@@ -461,6 +469,10 @@ if TYPE_CHECKING:
         V2MoneyManagementOutboundTransferUpdatedEvent as V2MoneyManagementOutboundTransferUpdatedEvent,
         V2MoneyManagementOutboundTransferUpdatedEventNotification as V2MoneyManagementOutboundTransferUpdatedEventNotification,
     )
+    from stripe.events._v2_money_management_payout_method_created_event import (
+        V2MoneyManagementPayoutMethodCreatedEvent as V2MoneyManagementPayoutMethodCreatedEvent,
+        V2MoneyManagementPayoutMethodCreatedEventNotification as V2MoneyManagementPayoutMethodCreatedEventNotification,
+    )
     from stripe.events._v2_money_management_payout_method_updated_event import (
         V2MoneyManagementPayoutMethodUpdatedEvent as V2MoneyManagementPayoutMethodUpdatedEvent,
         V2MoneyManagementPayoutMethodUpdatedEventNotification as V2MoneyManagementPayoutMethodUpdatedEventNotification,
@@ -552,6 +564,50 @@ if TYPE_CHECKING:
     from stripe.events._v2_payments_off_session_payment_succeeded_event import (
         V2PaymentsOffSessionPaymentSucceededEvent as V2PaymentsOffSessionPaymentSucceededEvent,
         V2PaymentsOffSessionPaymentSucceededEventNotification as V2PaymentsOffSessionPaymentSucceededEventNotification,
+    )
+    from stripe.events._v2_payments_settlement_allocation_intent_canceled_event import (
+        V2PaymentsSettlementAllocationIntentCanceledEvent as V2PaymentsSettlementAllocationIntentCanceledEvent,
+        V2PaymentsSettlementAllocationIntentCanceledEventNotification as V2PaymentsSettlementAllocationIntentCanceledEventNotification,
+    )
+    from stripe.events._v2_payments_settlement_allocation_intent_created_event import (
+        V2PaymentsSettlementAllocationIntentCreatedEvent as V2PaymentsSettlementAllocationIntentCreatedEvent,
+        V2PaymentsSettlementAllocationIntentCreatedEventNotification as V2PaymentsSettlementAllocationIntentCreatedEventNotification,
+    )
+    from stripe.events._v2_payments_settlement_allocation_intent_errored_event import (
+        V2PaymentsSettlementAllocationIntentErroredEvent as V2PaymentsSettlementAllocationIntentErroredEvent,
+        V2PaymentsSettlementAllocationIntentErroredEventNotification as V2PaymentsSettlementAllocationIntentErroredEventNotification,
+    )
+    from stripe.events._v2_payments_settlement_allocation_intent_funds_not_received_event import (
+        V2PaymentsSettlementAllocationIntentFundsNotReceivedEvent as V2PaymentsSettlementAllocationIntentFundsNotReceivedEvent,
+        V2PaymentsSettlementAllocationIntentFundsNotReceivedEventNotification as V2PaymentsSettlementAllocationIntentFundsNotReceivedEventNotification,
+    )
+    from stripe.events._v2_payments_settlement_allocation_intent_matched_event import (
+        V2PaymentsSettlementAllocationIntentMatchedEvent as V2PaymentsSettlementAllocationIntentMatchedEvent,
+        V2PaymentsSettlementAllocationIntentMatchedEventNotification as V2PaymentsSettlementAllocationIntentMatchedEventNotification,
+    )
+    from stripe.events._v2_payments_settlement_allocation_intent_not_found_event import (
+        V2PaymentsSettlementAllocationIntentNotFoundEvent as V2PaymentsSettlementAllocationIntentNotFoundEvent,
+        V2PaymentsSettlementAllocationIntentNotFoundEventNotification as V2PaymentsSettlementAllocationIntentNotFoundEventNotification,
+    )
+    from stripe.events._v2_payments_settlement_allocation_intent_settled_event import (
+        V2PaymentsSettlementAllocationIntentSettledEvent as V2PaymentsSettlementAllocationIntentSettledEvent,
+        V2PaymentsSettlementAllocationIntentSettledEventNotification as V2PaymentsSettlementAllocationIntentSettledEventNotification,
+    )
+    from stripe.events._v2_payments_settlement_allocation_intent_split_canceled_event import (
+        V2PaymentsSettlementAllocationIntentSplitCanceledEvent as V2PaymentsSettlementAllocationIntentSplitCanceledEvent,
+        V2PaymentsSettlementAllocationIntentSplitCanceledEventNotification as V2PaymentsSettlementAllocationIntentSplitCanceledEventNotification,
+    )
+    from stripe.events._v2_payments_settlement_allocation_intent_split_created_event import (
+        V2PaymentsSettlementAllocationIntentSplitCreatedEvent as V2PaymentsSettlementAllocationIntentSplitCreatedEvent,
+        V2PaymentsSettlementAllocationIntentSplitCreatedEventNotification as V2PaymentsSettlementAllocationIntentSplitCreatedEventNotification,
+    )
+    from stripe.events._v2_payments_settlement_allocation_intent_split_settled_event import (
+        V2PaymentsSettlementAllocationIntentSplitSettledEvent as V2PaymentsSettlementAllocationIntentSplitSettledEvent,
+        V2PaymentsSettlementAllocationIntentSplitSettledEventNotification as V2PaymentsSettlementAllocationIntentSplitSettledEventNotification,
+    )
+    from stripe.events._v2_payments_settlement_allocation_intent_submitted_event import (
+        V2PaymentsSettlementAllocationIntentSubmittedEvent as V2PaymentsSettlementAllocationIntentSubmittedEvent,
+        V2PaymentsSettlementAllocationIntentSubmittedEventNotification as V2PaymentsSettlementAllocationIntentSubmittedEventNotification,
     )
     from stripe.events._v2_reporting_report_run_created_event import (
         V2ReportingReportRunCreatedEvent as V2ReportingReportRunCreatedEvent,
@@ -1205,6 +1261,22 @@ _import_map = {
         "stripe.events._v2_core_health_payment_method_error_resolved_event",
         False,
     ),
+    "V2CoreHealthSepaDebitDelayedFiringEvent": (
+        "stripe.events._v2_core_health_sepa_debit_delayed_firing_event",
+        False,
+    ),
+    "V2CoreHealthSepaDebitDelayedFiringEventNotification": (
+        "stripe.events._v2_core_health_sepa_debit_delayed_firing_event",
+        False,
+    ),
+    "V2CoreHealthSepaDebitDelayedResolvedEvent": (
+        "stripe.events._v2_core_health_sepa_debit_delayed_resolved_event",
+        False,
+    ),
+    "V2CoreHealthSepaDebitDelayedResolvedEventNotification": (
+        "stripe.events._v2_core_health_sepa_debit_delayed_resolved_event",
+        False,
+    ),
     "V2CoreHealthTrafficVolumeDropFiringEvent": (
         "stripe.events._v2_core_health_traffic_volume_drop_firing_event",
         False,
@@ -1469,6 +1541,14 @@ _import_map = {
         "stripe.events._v2_money_management_outbound_transfer_updated_event",
         False,
     ),
+    "V2MoneyManagementPayoutMethodCreatedEvent": (
+        "stripe.events._v2_money_management_payout_method_created_event",
+        False,
+    ),
+    "V2MoneyManagementPayoutMethodCreatedEventNotification": (
+        "stripe.events._v2_money_management_payout_method_created_event",
+        False,
+    ),
     "V2MoneyManagementPayoutMethodUpdatedEvent": (
         "stripe.events._v2_money_management_payout_method_updated_event",
         False,
@@ -1651,6 +1731,94 @@ _import_map = {
     ),
     "V2PaymentsOffSessionPaymentSucceededEventNotification": (
         "stripe.events._v2_payments_off_session_payment_succeeded_event",
+        False,
+    ),
+    "V2PaymentsSettlementAllocationIntentCanceledEvent": (
+        "stripe.events._v2_payments_settlement_allocation_intent_canceled_event",
+        False,
+    ),
+    "V2PaymentsSettlementAllocationIntentCanceledEventNotification": (
+        "stripe.events._v2_payments_settlement_allocation_intent_canceled_event",
+        False,
+    ),
+    "V2PaymentsSettlementAllocationIntentCreatedEvent": (
+        "stripe.events._v2_payments_settlement_allocation_intent_created_event",
+        False,
+    ),
+    "V2PaymentsSettlementAllocationIntentCreatedEventNotification": (
+        "stripe.events._v2_payments_settlement_allocation_intent_created_event",
+        False,
+    ),
+    "V2PaymentsSettlementAllocationIntentErroredEvent": (
+        "stripe.events._v2_payments_settlement_allocation_intent_errored_event",
+        False,
+    ),
+    "V2PaymentsSettlementAllocationIntentErroredEventNotification": (
+        "stripe.events._v2_payments_settlement_allocation_intent_errored_event",
+        False,
+    ),
+    "V2PaymentsSettlementAllocationIntentFundsNotReceivedEvent": (
+        "stripe.events._v2_payments_settlement_allocation_intent_funds_not_received_event",
+        False,
+    ),
+    "V2PaymentsSettlementAllocationIntentFundsNotReceivedEventNotification": (
+        "stripe.events._v2_payments_settlement_allocation_intent_funds_not_received_event",
+        False,
+    ),
+    "V2PaymentsSettlementAllocationIntentMatchedEvent": (
+        "stripe.events._v2_payments_settlement_allocation_intent_matched_event",
+        False,
+    ),
+    "V2PaymentsSettlementAllocationIntentMatchedEventNotification": (
+        "stripe.events._v2_payments_settlement_allocation_intent_matched_event",
+        False,
+    ),
+    "V2PaymentsSettlementAllocationIntentNotFoundEvent": (
+        "stripe.events._v2_payments_settlement_allocation_intent_not_found_event",
+        False,
+    ),
+    "V2PaymentsSettlementAllocationIntentNotFoundEventNotification": (
+        "stripe.events._v2_payments_settlement_allocation_intent_not_found_event",
+        False,
+    ),
+    "V2PaymentsSettlementAllocationIntentSettledEvent": (
+        "stripe.events._v2_payments_settlement_allocation_intent_settled_event",
+        False,
+    ),
+    "V2PaymentsSettlementAllocationIntentSettledEventNotification": (
+        "stripe.events._v2_payments_settlement_allocation_intent_settled_event",
+        False,
+    ),
+    "V2PaymentsSettlementAllocationIntentSplitCanceledEvent": (
+        "stripe.events._v2_payments_settlement_allocation_intent_split_canceled_event",
+        False,
+    ),
+    "V2PaymentsSettlementAllocationIntentSplitCanceledEventNotification": (
+        "stripe.events._v2_payments_settlement_allocation_intent_split_canceled_event",
+        False,
+    ),
+    "V2PaymentsSettlementAllocationIntentSplitCreatedEvent": (
+        "stripe.events._v2_payments_settlement_allocation_intent_split_created_event",
+        False,
+    ),
+    "V2PaymentsSettlementAllocationIntentSplitCreatedEventNotification": (
+        "stripe.events._v2_payments_settlement_allocation_intent_split_created_event",
+        False,
+    ),
+    "V2PaymentsSettlementAllocationIntentSplitSettledEvent": (
+        "stripe.events._v2_payments_settlement_allocation_intent_split_settled_event",
+        False,
+    ),
+    "V2PaymentsSettlementAllocationIntentSplitSettledEventNotification": (
+        "stripe.events._v2_payments_settlement_allocation_intent_split_settled_event",
+        False,
+    ),
+    "V2PaymentsSettlementAllocationIntentSubmittedEvent": (
+        "stripe.events._v2_payments_settlement_allocation_intent_submitted_event",
+        False,
+    ),
+    "V2PaymentsSettlementAllocationIntentSubmittedEventNotification": (
+        "stripe.events._v2_payments_settlement_allocation_intent_submitted_event",
         False,
     ),
     "V2ReportingReportRunCreatedEvent": (

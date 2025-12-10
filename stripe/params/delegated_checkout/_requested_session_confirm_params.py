@@ -14,49 +14,15 @@ class RequestedSessionConfirmParams(RequestOptions):
     """
     The PaymentMethod to use with the requested session.
     """
-    risk_details: NotRequired["RequestedSessionConfirmParamsRiskDetails"]
-    """
-    Risk details/signals associated with the requested session
-    """
     payment_method_data: NotRequired[
         "RequestedSessionConfirmParamsPaymentMethodData"
     ]
     """
     The payment method data for this requested session.
     """
-
-
-class RequestedSessionConfirmParamsRiskDetails(TypedDict):
-    client_device_metadata_details: NotRequired[
-        "RequestedSessionConfirmParamsRiskDetailsClientDeviceMetadataDetails"
-    ]
+    risk_details: NotRequired["RequestedSessionConfirmParamsRiskDetails"]
     """
-    The client device metadata details for this requested session.
-    """
-
-
-class RequestedSessionConfirmParamsRiskDetailsClientDeviceMetadataDetails(
-    TypedDict,
-):
-    radar_session: NotRequired[str]
-    """
-    The radar session.
-    """
-    referrer: NotRequired[str]
-    """
-    The referrer of the client device.
-    """
-    remote_ip: NotRequired[str]
-    """
-    The remote IP address of the client device.
-    """
-    time_on_page_ms: NotRequired[int]
-    """
-    The time on page in milliseconds.
-    """
-    user_agent: NotRequired[str]
-    """
-    The user agent of the client device.
+    Risk details/signals associated with the requested session
     """
 
 
@@ -143,4 +109,38 @@ class RequestedSessionConfirmParamsPaymentMethodDataCard(TypedDict):
     number: str
     """
     The number of the card.
+    """
+
+
+class RequestedSessionConfirmParamsRiskDetails(TypedDict):
+    client_device_metadata_details: NotRequired[
+        "RequestedSessionConfirmParamsRiskDetailsClientDeviceMetadataDetails"
+    ]
+    """
+    The client device metadata details for this requested session.
+    """
+
+
+class RequestedSessionConfirmParamsRiskDetailsClientDeviceMetadataDetails(
+    TypedDict,
+):
+    radar_session: NotRequired[str]
+    """
+    The radar session.
+    """
+    referrer: NotRequired[str]
+    """
+    The referrer of the client device.
+    """
+    remote_ip: NotRequired[str]
+    """
+    The remote IP address of the client device.
+    """
+    time_on_page_ms: NotRequired[int]
+    """
+    The time on page in milliseconds.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the client device.
     """

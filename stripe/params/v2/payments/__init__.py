@@ -4,6 +4,9 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.params.v2.payments import (
+        settlement_allocation_intents as settlement_allocation_intents,
+    )
     from stripe.params.v2.payments._off_session_payment_cancel_params import (
         OffSessionPaymentCancelParams as OffSessionPaymentCancelParams,
     )
@@ -27,9 +30,30 @@ if TYPE_CHECKING:
     from stripe.params.v2.payments._off_session_payment_retrieve_params import (
         OffSessionPaymentRetrieveParams as OffSessionPaymentRetrieveParams,
     )
+    from stripe.params.v2.payments._settlement_allocation_intent_cancel_params import (
+        SettlementAllocationIntentCancelParams as SettlementAllocationIntentCancelParams,
+    )
+    from stripe.params.v2.payments._settlement_allocation_intent_create_params import (
+        SettlementAllocationIntentCreateParams as SettlementAllocationIntentCreateParams,
+        SettlementAllocationIntentCreateParamsAmount as SettlementAllocationIntentCreateParamsAmount,
+    )
+    from stripe.params.v2.payments._settlement_allocation_intent_retrieve_params import (
+        SettlementAllocationIntentRetrieveParams as SettlementAllocationIntentRetrieveParams,
+    )
+    from stripe.params.v2.payments._settlement_allocation_intent_submit_params import (
+        SettlementAllocationIntentSubmitParams as SettlementAllocationIntentSubmitParams,
+    )
+    from stripe.params.v2.payments._settlement_allocation_intent_update_params import (
+        SettlementAllocationIntentUpdateParams as SettlementAllocationIntentUpdateParams,
+        SettlementAllocationIntentUpdateParamsAmount as SettlementAllocationIntentUpdateParamsAmount,
+    )
 
 # name -> (import_target, is_submodule)
 _import_map = {
+    "settlement_allocation_intents": (
+        "stripe.params.v2.payments.settlement_allocation_intents",
+        True,
+    ),
     "OffSessionPaymentCancelParams": (
         "stripe.params.v2.payments._off_session_payment_cancel_params",
         False,
@@ -80,6 +104,34 @@ _import_map = {
     ),
     "OffSessionPaymentRetrieveParams": (
         "stripe.params.v2.payments._off_session_payment_retrieve_params",
+        False,
+    ),
+    "SettlementAllocationIntentCancelParams": (
+        "stripe.params.v2.payments._settlement_allocation_intent_cancel_params",
+        False,
+    ),
+    "SettlementAllocationIntentCreateParams": (
+        "stripe.params.v2.payments._settlement_allocation_intent_create_params",
+        False,
+    ),
+    "SettlementAllocationIntentCreateParamsAmount": (
+        "stripe.params.v2.payments._settlement_allocation_intent_create_params",
+        False,
+    ),
+    "SettlementAllocationIntentRetrieveParams": (
+        "stripe.params.v2.payments._settlement_allocation_intent_retrieve_params",
+        False,
+    ),
+    "SettlementAllocationIntentSubmitParams": (
+        "stripe.params.v2.payments._settlement_allocation_intent_submit_params",
+        False,
+    ),
+    "SettlementAllocationIntentUpdateParams": (
+        "stripe.params.v2.payments._settlement_allocation_intent_update_params",
+        False,
+    ),
+    "SettlementAllocationIntentUpdateParamsAmount": (
+        "stripe.params.v2.payments._settlement_allocation_intent_update_params",
         False,
     ),
 }

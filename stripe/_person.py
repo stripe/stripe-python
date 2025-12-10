@@ -67,7 +67,7 @@ class Person(UpdateableAPIResource["Person"]):
         """
         state: Optional[str]
         """
-        State, county, province, or region.
+        State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         """
 
     class AddressKana(StripeObject):
@@ -148,11 +148,11 @@ class Person(UpdateableAPIResource["Person"]):
         class Alternative(StripeObject):
             alternative_fields_due: List[str]
             """
-            Fields that can be provided to satisfy all fields in `original_fields_due`.
+            Fields that can be provided to resolve all fields in `original_fields_due`.
             """
             original_fields_due: List[str]
             """
-            Fields that are due and can be satisfied by providing all fields in `alternative_fields_due`.
+            Fields that are due and can be resolved by providing all fields in `alternative_fields_due`.
             """
 
         class Error(StripeObject):
@@ -270,15 +270,15 @@ class Person(UpdateableAPIResource["Person"]):
 
         alternatives: Optional[List[Alternative]]
         """
-        Fields that are due and can be satisfied by providing the corresponding alternative fields instead.
+        Fields that are due and can be resolved by providing the corresponding alternative fields instead. Many alternatives can list the same `original_fields_due`, and any of these alternatives can serve as a pathway for attempting to resolve the fields again. Re-providing `original_fields_due` also serves as a pathway for attempting to resolve the fields again.
         """
         currently_due: List[str]
         """
-        Fields that need to be collected to keep the person's account enabled. If not collected by the account's `future_requirements[current_deadline]`, these fields will transition to the main `requirements` hash, and may immediately become `past_due`, but the account may also be given a grace period depending on the account's enablement state prior to transition.
+        Fields that need to be resolved to keep the person's account enabled. If not resolved by the account's `future_requirements[current_deadline]`, these fields will transition to the main `requirements` hash, and may immediately become `past_due`, but the account may also be given a grace period depending on the account's enablement state prior to transition.
         """
         errors: List[Error]
         """
-        Fields that are `currently_due` and need to be collected again because validation or verification failed.
+        Details about validation and verification failures for `due` requirements that must be resolved.
         """
         eventually_due: List[str]
         """
@@ -286,11 +286,11 @@ class Person(UpdateableAPIResource["Person"]):
         """
         past_due: List[str]
         """
-        Fields that weren't collected by the account's `requirements.current_deadline`. These fields need to be collected to enable the person's account. New fields will never appear here; `future_requirements.past_due` will always be a subset of `requirements.past_due`.
+        Fields that haven't been resolved by the account's `requirements.current_deadline`. These fields need to be resolved to enable the person's account. `future_requirements.past_due` is a subset of `requirements.past_due`.
         """
         pending_verification: List[str]
         """
-        Fields that might become required depending on the results of verification or review. It's an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due` or `currently_due`. Fields might appear in `eventually_due` or `currently_due` and in `pending_verification` if verification fails but another verification is still pending.
+        Fields that are being reviewed, or might become required depending on the results of a review. If the review fails, these fields can move to `eventually_due`, `currently_due`, `past_due` or `alternatives`. Fields might appear in `eventually_due`, `currently_due`, `past_due` or `alternatives` and in `pending_verification` if one verification fails but another is still pending.
         """
         _inner_class_types = {"alternatives": Alternative, "errors": Error}
 
@@ -317,7 +317,7 @@ class Person(UpdateableAPIResource["Person"]):
         """
         state: Optional[str]
         """
-        State, county, province, or region.
+        State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         """
 
     class Relationship(StripeObject):
@@ -358,11 +358,11 @@ class Person(UpdateableAPIResource["Person"]):
         class Alternative(StripeObject):
             alternative_fields_due: List[str]
             """
-            Fields that can be provided to satisfy all fields in `original_fields_due`.
+            Fields that can be provided to resolve all fields in `original_fields_due`.
             """
             original_fields_due: List[str]
             """
-            Fields that are due and can be satisfied by providing all fields in `alternative_fields_due`.
+            Fields that are due and can be resolved by providing all fields in `alternative_fields_due`.
             """
 
         class Error(StripeObject):
@@ -480,15 +480,15 @@ class Person(UpdateableAPIResource["Person"]):
 
         alternatives: Optional[List[Alternative]]
         """
-        Fields that are due and can be satisfied by providing the corresponding alternative fields instead.
+        Fields that are due and can be resolved by providing the corresponding alternative fields instead. Many alternatives can list the same `original_fields_due`, and any of these alternatives can serve as a pathway for attempting to resolve the fields again. Re-providing `original_fields_due` also serves as a pathway for attempting to resolve the fields again.
         """
         currently_due: List[str]
         """
-        Fields that need to be collected to keep the person's account enabled. If not collected by the account's `current_deadline`, these fields appear in `past_due` as well, and the account is disabled.
+        Fields that need to be resolved to keep the person's account enabled. If not resolved by the account's `current_deadline`, these fields will appear in `past_due` as well, and the account is disabled.
         """
         errors: List[Error]
         """
-        Fields that are `currently_due` and need to be collected again because validation or verification failed.
+        Details about validation and verification failures for `due` requirements that must be resolved.
         """
         eventually_due: List[str]
         """
@@ -496,11 +496,11 @@ class Person(UpdateableAPIResource["Person"]):
         """
         past_due: List[str]
         """
-        Fields that weren't collected by the account's `current_deadline`. These fields need to be collected to enable the person's account.
+        Fields that haven't been resolved by `current_deadline`. These fields need to be resolved to enable the person's account.
         """
         pending_verification: List[str]
         """
-        Fields that might become required depending on the results of verification or review. It's an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due`, `currently_due`, or `past_due`. Fields might appear in `eventually_due`, `currently_due`, or `past_due` and in `pending_verification` if verification fails but another verification is still pending.
+        Fields that are being reviewed, or might become required depending on the results of a review. If the review fails, these fields can move to `eventually_due`, `currently_due`, `past_due` or `alternatives`. Fields might appear in `eventually_due`, `currently_due`, `past_due` or `alternatives` and in `pending_verification` if one verification fails but another is still pending.
         """
         _inner_class_types = {"alternatives": Alternative, "errors": Error}
 
@@ -607,7 +607,7 @@ class Person(UpdateableAPIResource["Person"]):
         class AdditionalDocument(StripeObject):
             back: Optional[ExpandableField["File"]]
             """
-            The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
+            The back of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`.
             """
             details: Optional[str]
             """
@@ -619,13 +619,13 @@ class Person(UpdateableAPIResource["Person"]):
             """
             front: Optional[ExpandableField["File"]]
             """
-            The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
+            The front of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`.
             """
 
         class Document(StripeObject):
             back: Optional[ExpandableField["File"]]
             """
-            The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
+            The back of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`.
             """
             details: Optional[str]
             """
@@ -637,7 +637,7 @@ class Person(UpdateableAPIResource["Person"]):
             """
             front: Optional[ExpandableField["File"]]
             """
-            The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
+            The front of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`.
             """
 
         additional_document: Optional[AdditionalDocument]
@@ -655,7 +655,7 @@ class Person(UpdateableAPIResource["Person"]):
         document: Optional[Document]
         status: str
         """
-        The state of verification for the person. Possible values are `unverified`, `pending`, or `verified`. Please refer [guide](https://stripe.com/docs/connect/handling-api-verification) to handle verification updates.
+        The state of verification for the person. Possible values are `unverified`, `pending`, or `verified`. Please refer [guide](https://docs.stripe.com/connect/handling-api-verification) to handle verification updates.
         """
         _inner_class_types = {
             "additional_document": AdditionalDocument,
@@ -707,7 +707,7 @@ class Person(UpdateableAPIResource["Person"]):
     """
     future_requirements: Optional[FutureRequirements]
     """
-    Information about the [upcoming new requirements for this person](https://stripe.com/docs/connect/custom-accounts/future-requirements), including what information needs to be collected, and by when.
+    Information about the [upcoming new requirements for this person](https://docs.stripe.com/connect/custom-accounts/future-requirements), including what information needs to be collected, and by when.
     """
     gender: Optional[str]
     """
@@ -743,7 +743,7 @@ class Person(UpdateableAPIResource["Person"]):
     """
     metadata: Optional[Dict[str, str]]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     nationality: Optional[str]
     """

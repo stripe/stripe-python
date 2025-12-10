@@ -12,7 +12,7 @@ class PaymentMethodAttachParams(RequestOptions):
     """
     customer_account: NotRequired[str]
     """
-    The ID of the account to which to attach the PaymentMethod.
+    The ID of the Account representing the customer to which to attach the PaymentMethod.
     """
     expand: NotRequired[List[str]]
     """

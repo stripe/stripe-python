@@ -143,10 +143,10 @@ class Quote(
                         """
                         discount: "DiscountResource"
                         """
-                        A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
+                        A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
                         It contains information about when the discount began, when it will end, and what it is applied to.
 
-                        Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
+                        Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
                         """
 
                     class Tax(StripeObject):
@@ -241,10 +241,10 @@ class Quote(
                         """
                         discount: "DiscountResource"
                         """
-                        A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
+                        A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
                         It contains information about when the discount began, when it will end, and what it is applied to.
 
-                        Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
+                        Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
                         """
 
                     class Tax(StripeObject):
@@ -768,7 +768,7 @@ class Quote(
         """
         metadata: Optional[Dict[str, str]]
         """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is accepted. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
+        Set of [key-value pairs](https://docs.stripe.com/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is accepted. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
         """
         phase_effective_at: Optional[
             Literal["billing_period_start", "line_start"]
@@ -784,7 +784,7 @@ class Quote(
             Literal["always_invoice", "create_prorations", "none"]
         ]
         """
-        Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the quote is accepted.
+        Determines how to handle [prorations](https://docs.stripe.com/subscriptions/billing-cycle#prorations) when the quote is accepted.
         """
         trial_period_days: Optional[int]
         """
@@ -1030,7 +1030,7 @@ class Quote(
         """
         customer: Optional[str]
         """
-        The customer which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed.
+        The customer who received this quote. A customer is required to finalize the quote. Once specified, you can't change it.
         """
         description: Optional[str]
         """
@@ -1050,7 +1050,7 @@ class Quote(
             Literal["always_invoice", "create_prorations", "none"]
         ]
         """
-        Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the quote is accepted.
+        Determines how to handle [prorations](https://docs.stripe.com/subscriptions/billing-cycle#prorations) when the quote is accepted.
         """
         _inner_class_types = {
             "applies_to": AppliesTo,
@@ -1089,10 +1089,10 @@ class Quote(
                 """
                 discount: "DiscountResource"
                 """
-                A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
+                A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
                 It contains information about when the discount began, when it will end, and what it is applied to.
 
-                Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
+                Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
                 """
 
             class Tax(StripeObject):
@@ -1212,11 +1212,11 @@ class Quote(
     """
     customer: Optional[ExpandableField["Customer"]]
     """
-    The customer which this quote belongs to. A customer is required before finalizing the quote. Once specified, it cannot be changed.
+    The customer who received this quote. A customer is required to finalize the quote. Once specified, you can't change it.
     """
     customer_account: Optional[str]
     """
-    The account which this quote belongs to. A customer or account is required before finalizing the quote. Once specified, it cannot be changed.
+    The account representing the customer who received this quote. A customer or account is required to finalize the quote. Once specified, you can't change it.
     """
     default_tax_rates: Optional[List[ExpandableField["TaxRate"]]]
     """
@@ -1240,7 +1240,7 @@ class Quote(
     """
     from_quote: Optional[FromQuote]
     """
-    Details of the quote that was cloned. See the [cloning documentation](https://stripe.com/docs/quotes/clone) for more details.
+    Details of the quote that was cloned. See the [cloning documentation](https://docs.stripe.com/quotes/clone) for more details.
     """
     header: Optional[str]
     """
@@ -1269,11 +1269,11 @@ class Quote(
     """
     metadata: Dict[str, str]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     number: Optional[str]
     """
-    A unique number that identifies this particular quote. This number is assigned once the quote is [finalized](https://stripe.com/docs/quotes/overview#finalize).
+    A unique number that identifies this particular quote. This number is assigned once the quote is [finalized](https://docs.stripe.com/quotes/overview#finalize).
     """
     object: Literal["quote"]
     """

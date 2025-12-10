@@ -13,8 +13,9 @@ if TYPE_CHECKING:
 
 class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
     """
-    A financing object describes an account's current financing state. Used by Connect
-    platforms to read the state of Capital offered to their connected accounts.
+    A financing summary object describes a connected account's financing status in real time.
+    A financing status is either `accepted`, `delivered`, or `none`.
+    You can read the status of your connected accounts.
     """
 
     OBJECT_NAME: ClassVar[Literal["capital.financing_summary"]] = (
@@ -82,10 +83,12 @@ class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
     Additional information about the financing summary. Describes currency, advance amount,
     fee amount, withhold rate, remaining amount, paid amount, current repayment interval,
     repayment start date, and advance payout date.
+
+    Only present for financing offers with the `paid_out` status.
     """
     financing_offer: Optional[str]
     """
-    The Financing Offer ID this Financing Summary corresponds to
+    The unique identifier of the Financing Offer object that corresponds to the Financing Summary object.
     """
     object: Literal["capital.financing_summary"]
     """
@@ -93,7 +96,7 @@ class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
     """
     status: Optional[Literal["accepted", "delivered", "none"]]
     """
-    Status of the Connected Account's financing. [/v1/capital/financing_summary](https://stripe.com/docs/api/capital/financing_summary) will only return `details` for `paid_out` financing.
+    The financing status of the connected account.
     """
 
     @classmethod
@@ -101,7 +104,7 @@ class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
         cls, **params: Unpack["FinancingSummaryRetrieveParams"]
     ) -> "FinancingSummary":
         """
-        Retrieve the financing state for the account that was authenticated in the request.
+        Retrieve the financing summary object for the account.
         """
         instance = cls(None, **params)
         instance.refresh()
@@ -112,7 +115,7 @@ class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
         cls, **params: Unpack["FinancingSummaryRetrieveParams"]
     ) -> "FinancingSummary":
         """
-        Retrieve the financing state for the account that was authenticated in the request.
+        Retrieve the financing summary object for the account.
         """
         instance = cls(None, **params)
         await instance.refresh_async()

@@ -533,6 +533,7 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.v2._financial_address_generated_microdeposits",
         "FinancialAddressGeneratedMicrodeposits",
     ),
+    "v2.iam.api_key": ("stripe.v2.iam._api_key", "ApiKey"),
     "v2.money_management.adjustment": (
         "stripe.v2.money_management._adjustment",
         "Adjustment",
@@ -601,11 +602,20 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.v2.payments._off_session_payment",
         "OffSessionPayment",
     ),
+    "v2.payments.settlement_allocation_intent": (
+        "stripe.v2.payments._settlement_allocation_intent",
+        "SettlementAllocationIntent",
+    ),
+    "v2.payments.settlement_allocation_intent_split": (
+        "stripe.v2.payments._settlement_allocation_intent_split",
+        "SettlementAllocationIntentSplit",
+    ),
     "v2.reporting.report": ("stripe.v2.reporting._report", "Report"),
     "v2.reporting.report_run": (
         "stripe.v2.reporting._report_run",
         "ReportRun",
     ),
+    "v2.tax.manual_rule": ("stripe.v2.tax._manual_rule", "ManualRule"),
     # V2 Object classes: The end of the section generated from our OpenAPI spec
 }
 

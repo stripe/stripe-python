@@ -37,7 +37,7 @@ class Card(
     UpdateableAPIResource["Card"],
 ):
     """
-    You can [create physical or virtual cards](https://stripe.com/docs/issuing) that are issued to cardholders.
+    You can [create physical or virtual cards](https://docs.stripe.com/issuing) that are issued to cardholders.
     """
 
     OBJECT_NAME: ClassVar[Literal["issuing.card"]] = "issuing.card"
@@ -83,7 +83,7 @@ class Card(
             """
             state: Optional[str]
             """
-            State, county, province, or region.
+            State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             """
 
         class AddressValidation(StripeObject):
@@ -110,7 +110,7 @@ class Card(
                 """
                 state: Optional[str]
                 """
-                State, county, province, or region.
+                State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                 """
 
             mode: Literal[
@@ -212,7 +212,7 @@ class Card(
         class SpendingLimit(StripeObject):
             amount: int
             """
-            Maximum amount allowed to spend per interval. This amount is in the card's currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+            Maximum amount allowed to spend per interval. This amount is in the card's currency and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
             """
             categories: Optional[
                 List[
@@ -516,7 +516,7 @@ class Card(
                 ]
             ]
             """
-            Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) this limit applies to. Omitting this field will apply the limit to all categories.
+            Array of strings containing [categories](https://docs.stripe.com/api#issuing_authorization_object-merchant_data-category) this limit applies to. Omitting this field will apply the limit to all categories.
             """
             interval: Literal[
                 "all_time",
@@ -832,7 +832,7 @@ class Card(
             ]
         ]
         """
-        Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations to allow. All other categories will be blocked. Cannot be set with `blocked_categories`.
+        Array of strings containing [categories](https://docs.stripe.com/api#issuing_authorization_object-merchant_data-category) of authorizations to allow. All other categories will be blocked. Cannot be set with `blocked_categories`.
         """
         allowed_merchant_countries: Optional[List[str]]
         """
@@ -1140,7 +1140,7 @@ class Card(
             ]
         ]
         """
-        Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations to decline. All other categories will be allowed. Cannot be set with `allowed_categories`.
+        Array of strings containing [categories](https://docs.stripe.com/api#issuing_authorization_object-merchant_data-category) of authorizations to decline. All other categories will be allowed. Cannot be set with `allowed_categories`.
         """
         blocked_merchant_countries: Optional[List[str]]
         """
@@ -1215,9 +1215,9 @@ class Card(
     """
     cardholder: "Cardholder"
     """
-    An Issuing `Cardholder` object represents an individual or business entity who is [issued](https://stripe.com/docs/issuing) cards.
+    An Issuing `Cardholder` object represents an individual or business entity who is [issued](https://docs.stripe.com/issuing) cards.
 
-    Related guide: [How to create a cardholder](https://stripe.com/docs/issuing/cards/virtual/issue-cards#create-cardholder)
+    Related guide: [How to create a cardholder](https://docs.stripe.com/issuing/cards/virtual/issue-cards#create-cardholder)
     """
     created: int
     """
@@ -1229,7 +1229,7 @@ class Card(
     """
     cvc: Optional[str]
     """
-    The card's CVC. For security reasons, this is only available for virtual cards, and will be omitted unless you explicitly request it with [the `expand` parameter](https://stripe.com/docs/api/expanding_objects). Additionally, it's only available via the ["Retrieve a card" endpoint](https://stripe.com/docs/api/issuing/cards/retrieve), not via "List all cards" or any other endpoint.
+    The card's CVC. For security reasons, this is only available for virtual cards, and will be omitted unless you explicitly request it with [the `expand` parameter](https://docs.stripe.com/api/expanding_objects). Additionally, it's only available via the ["Retrieve a card" endpoint](https://docs.stripe.com/api/issuing/cards/retrieve), not via "List all cards" or any other endpoint.
     """
     exp_month: int
     """
@@ -1261,11 +1261,11 @@ class Card(
     """
     metadata: Dict[str, str]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     number: Optional[str]
     """
-    The full unredacted card number. For security reasons, this is only available for virtual cards, and will be omitted unless you explicitly request it with [the `expand` parameter](https://stripe.com/docs/api/expanding_objects). Additionally, it's only available via the ["Retrieve a card" endpoint](https://stripe.com/docs/api/issuing/cards/retrieve), not via "List all cards" or any other endpoint.
+    The full unredacted card number. For security reasons, this is only available for virtual cards, and will be omitted unless you explicitly request it with [the `expand` parameter](https://docs.stripe.com/api/expanding_objects). Additionally, it's only available via the ["Retrieve a card" endpoint](https://docs.stripe.com/api/issuing/cards/retrieve), not via "List all cards" or any other endpoint.
     """
     object: Literal["issuing.card"]
     """

@@ -16,6 +16,12 @@ class SubscriptionScheduleCreateParams(RequestOptions):
     """
     Controls how prorations and invoices for subscriptions are calculated and orchestrated.
     """
+    billing_schedules: NotRequired[
+        List["SubscriptionScheduleCreateParamsBillingSchedule"]
+    ]
+    """
+    Sets the billing schedules for the subscription schedule.
+    """
     customer: NotRequired[str]
     """
     The identifier of the customer to create the subscription schedule for.
@@ -44,7 +50,7 @@ class SubscriptionScheduleCreateParams(RequestOptions):
     """
     metadata: NotRequired["Literal['']|Dict[str, str]"]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
     phases: NotRequired[List["SubscriptionScheduleCreateParamsPhase"]]
     """
@@ -57,12 +63,6 @@ class SubscriptionScheduleCreateParams(RequestOptions):
     start_date: NotRequired["int|Literal['now']"]
     """
     When the subscription schedule starts. We recommend using `now` so that it starts the subscription immediately. You can also use a Unix timestamp to backdate the subscription so that it starts on a past date, or set a future date for the subscription to start on.
-    """
-    billing_schedules: NotRequired[
-        List["SubscriptionScheduleCreateParamsBillingSchedule"]
-    ]
-    """
-    Sets the billing schedules for the subscription schedule.
     """
 
 
@@ -86,6 +86,64 @@ class SubscriptionScheduleCreateParamsBillingModeFlexible(TypedDict):
     """
 
 
+class SubscriptionScheduleCreateParamsBillingSchedule(TypedDict):
+    applies_to: NotRequired[
+        List["SubscriptionScheduleCreateParamsBillingScheduleAppliesTo"]
+    ]
+    """
+    Configure billing schedule differently for individual subscription items.
+    """
+    bill_until: "SubscriptionScheduleCreateParamsBillingScheduleBillUntil"
+    """
+    The end date for the billing schedule.
+    """
+    key: NotRequired[str]
+    """
+    Specify a key for the billing schedule. Must be unique to this field, alphanumeric, and up to 200 characters. If not provided, a unique key will be generated.
+    """
+
+
+class SubscriptionScheduleCreateParamsBillingScheduleAppliesTo(TypedDict):
+    price: NotRequired[str]
+    """
+    The ID of the price object.
+    """
+    type: Literal["price"]
+    """
+    Controls which subscription items the billing schedule applies to.
+    """
+
+
+class SubscriptionScheduleCreateParamsBillingScheduleBillUntil(TypedDict):
+    duration: NotRequired[
+        "SubscriptionScheduleCreateParamsBillingScheduleBillUntilDuration"
+    ]
+    """
+    Specifies the billing period.
+    """
+    timestamp: NotRequired[int]
+    """
+    The end date of the billing schedule.
+    """
+    type: Literal["duration", "timestamp"]
+    """
+    Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
+    """
+
+
+class SubscriptionScheduleCreateParamsBillingScheduleBillUntilDuration(
+    TypedDict,
+):
+    interval: Literal["day", "month", "week", "year"]
+    """
+    Specifies billing duration. Either `day`, `week`, `month` or `year`.
+    """
+    interval_count: NotRequired[int]
+    """
+    The multiplier applied to the interval.
+    """
+
+
 class SubscriptionScheduleCreateParamsDefaultSettings(TypedDict):
     application_fee_percent: NotRequired[float]
     """
@@ -99,7 +157,7 @@ class SubscriptionScheduleCreateParamsDefaultSettings(TypedDict):
     """
     billing_cycle_anchor: NotRequired[Literal["automatic", "phase_start"]]
     """
-    Can be set to `phase_start` to set the anchor to the start of the phase or `automatic` to automatically change it if needed. Cannot be set to `phase_start` if this phase specifies a trial. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
+    Can be set to `phase_start` to set the anchor to the start of the phase or `automatic` to automatically change it if needed. Cannot be set to `phase_start` if this phase specifies a trial. For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
     """
     billing_thresholds: NotRequired[
         "Literal['']|SubscriptionScheduleCreateParamsDefaultSettingsBillingThresholds"
@@ -131,17 +189,17 @@ class SubscriptionScheduleCreateParamsDefaultSettings(TypedDict):
     """
     The account on behalf of which to charge, for each of the associated subscription's invoices.
     """
-    transfer_data: NotRequired[
-        "Literal['']|SubscriptionScheduleCreateParamsDefaultSettingsTransferData"
-    ]
-    """
-    The data with which to automatically create a Transfer for each of the associated subscription's invoices.
-    """
     phase_effective_at: NotRequired[
         Literal["billing_period_start", "phase_start"]
     ]
     """
     Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+    """
+    transfer_data: NotRequired[
+        "Literal['']|SubscriptionScheduleCreateParamsDefaultSettingsTransferData"
+    ]
+    """
+    The data with which to automatically create a Transfer for each of the associated subscription's invoices.
     """
 
 
@@ -246,7 +304,7 @@ class SubscriptionScheduleCreateParamsPhase(TypedDict):
     """
     billing_cycle_anchor: NotRequired[Literal["automatic", "phase_start"]]
     """
-    Can be set to `phase_start` to set the anchor to the start of the phase or `automatic` to automatically change it if needed. Cannot be set to `phase_start` if this phase specifies a trial. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
+    Can be set to `phase_start` to set the anchor to the start of the phase or `automatic` to automatically change it if needed. Cannot be set to `phase_start` if this phase specifies a trial. For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
     """
     billing_thresholds: NotRequired[
         "Literal['']|SubscriptionScheduleCreateParamsPhaseBillingThresholds"
@@ -270,7 +328,7 @@ class SubscriptionScheduleCreateParamsPhase(TypedDict):
     """
     default_tax_rates: NotRequired["Literal['']|List[str]"]
     """
-    A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will set the Subscription's [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates), which means they will be the Invoice's [`default_tax_rates`](https://stripe.com/docs/api/invoices/create#create_invoice-default_tax_rates) for any Invoices issued by the Subscription during this Phase.
+    A list of [Tax Rate](https://docs.stripe.com/api/tax_rates) ids. These Tax Rates will set the Subscription's [`default_tax_rates`](https://docs.stripe.com/api/subscriptions/create#create_subscription-default_tax_rates), which means they will be the Invoice's [`default_tax_rates`](https://docs.stripe.com/api/invoices/create#create_invoice-default_tax_rates) for any Invoices issued by the Subscription during this Phase.
     """
     description: NotRequired["Literal['']|str"]
     """
@@ -286,9 +344,13 @@ class SubscriptionScheduleCreateParamsPhase(TypedDict):
     """
     The number of intervals the phase should last. If set, `end_date` must not be set.
     """
+    effective_at: NotRequired[Literal["billing_period_start", "phase_start"]]
+    """
+    Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+    """
     end_date: NotRequired[int]
     """
-    The date at which this phase of the subscription schedule ends. If set, `iterations` must not be set.
+    The date at which this phase of the subscription schedule ends. If set, `duration` must not be set.
     """
     invoice_settings: NotRequired[
         "SubscriptionScheduleCreateParamsPhaseInvoiceSettings"
@@ -302,7 +364,7 @@ class SubscriptionScheduleCreateParamsPhase(TypedDict):
     """
     metadata: NotRequired[Dict[str, str]]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered, adding new keys and replacing existing keys in the subscription's `metadata`. Individual keys in the subscription's `metadata` can be unset by posting an empty value to them in the phase's `metadata`. To unset all keys in the subscription's `metadata`, update the subscription directly or unset every key individually from the phase's `metadata`.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered, adding new keys and replacing existing keys in the subscription's `metadata`. Individual keys in the subscription's `metadata` can be unset by posting an empty value to them in the phase's `metadata`. To unset all keys in the subscription's `metadata`, update the subscription directly or unset every key individually from the phase's `metadata`.
     """
     on_behalf_of: NotRequired[str]
     """
@@ -312,13 +374,13 @@ class SubscriptionScheduleCreateParamsPhase(TypedDict):
         "SubscriptionScheduleCreateParamsPhasePauseCollection"
     ]
     """
-    If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment).
+    If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://docs.stripe.com/billing/subscriptions/pause-payment).
     """
     proration_behavior: NotRequired[
         Literal["always_invoice", "create_prorations", "none"]
     ]
     """
-    Controls whether the subscription schedule should create [prorations](https://stripe.com/docs/billing/subscriptions/prorations) when transitioning to this phase if there is a difference in billing configuration. It's different from the request-level [proration_behavior](https://stripe.com/docs/api/subscription_schedules/update#update_subscription_schedule-proration_behavior) parameter which controls what happens if the update request affects the billing configuration (item price, quantity, etc.) of the current phase.
+    Controls whether the subscription schedule should create [prorations](https://docs.stripe.com/billing/subscriptions/prorations) when transitioning to this phase if there is a difference in billing configuration. It's different from the request-level [proration_behavior](https://docs.stripe.com/api/subscription_schedules/update#update_subscription_schedule-proration_behavior) parameter which controls what happens if the update request affects the billing configuration (item price, quantity, etc.) of the current phase.
     """
     transfer_data: NotRequired[
         "SubscriptionScheduleCreateParamsPhaseTransferData"
@@ -344,10 +406,6 @@ class SubscriptionScheduleCreateParamsPhase(TypedDict):
     """
     Settings related to subscription trials.
     """
-    effective_at: NotRequired[Literal["billing_period_start", "phase_start"]]
-    """
-    Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
-    """
 
 
 class SubscriptionScheduleCreateParamsPhaseAddInvoiceItem(TypedDict):
@@ -359,7 +417,7 @@ class SubscriptionScheduleCreateParamsPhaseAddInvoiceItem(TypedDict):
     """
     metadata: NotRequired[Dict[str, str]]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
     period: NotRequired[
         "SubscriptionScheduleCreateParamsPhaseAddInvoiceItemPeriod"
@@ -375,7 +433,7 @@ class SubscriptionScheduleCreateParamsPhaseAddInvoiceItem(TypedDict):
         "SubscriptionScheduleCreateParamsPhaseAddInvoiceItemPriceData"
     ]
     """
-    Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required.
+    Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
     """
     quantity: NotRequired[int]
     """
@@ -486,7 +544,7 @@ class SubscriptionScheduleCreateParamsPhaseAddInvoiceItemPriceData(TypedDict):
     """
     tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
     """
-    Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+    Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
     """
     unit_amount: NotRequired[int]
     """
@@ -638,7 +696,7 @@ class SubscriptionScheduleCreateParamsPhaseItem(TypedDict):
     """
     metadata: NotRequired[Dict[str, str]]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a configuration item. Metadata on a configuration item will update the underlying subscription item's `metadata` when the phase is entered, adding new keys and replacing existing keys. Individual keys in the subscription item's `metadata` can be unset by posting an empty value to them in the configuration item's `metadata`. To unset all keys in the subscription item's `metadata`, update the subscription item directly or unset every key individually from the configuration item's `metadata`.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to a configuration item. Metadata on a configuration item will update the underlying subscription item's `metadata` when the phase is entered, adding new keys and replacing existing keys. Individual keys in the subscription item's `metadata` can be unset by posting an empty value to them in the configuration item's `metadata`. To unset all keys in the subscription item's `metadata`, update the subscription item directly or unset every key individually from the configuration item's `metadata`.
     """
     plan: NotRequired[str]
     """
@@ -652,7 +710,7 @@ class SubscriptionScheduleCreateParamsPhaseItem(TypedDict):
         "SubscriptionScheduleCreateParamsPhaseItemPriceData"
     ]
     """
-    Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+    Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline.
     """
     quantity: NotRequired[int]
     """
@@ -660,7 +718,7 @@ class SubscriptionScheduleCreateParamsPhaseItem(TypedDict):
     """
     tax_rates: NotRequired["Literal['']|List[str]"]
     """
-    A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
+    A list of [Tax Rate](https://docs.stripe.com/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://docs.stripe.com/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
     """
     trial: NotRequired["SubscriptionScheduleCreateParamsPhaseItemTrial"]
     """
@@ -675,7 +733,7 @@ class SubscriptionScheduleCreateParamsPhaseItem(TypedDict):
 class SubscriptionScheduleCreateParamsPhaseItemBillingThresholds(TypedDict):
     usage_gte: int
     """
-    Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
+    Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://docs.stripe.com/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
     """
 
 
@@ -745,7 +803,7 @@ class SubscriptionScheduleCreateParamsPhaseItemPriceData(TypedDict):
     """
     tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
     """
-    Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+    Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
     """
     unit_amount: NotRequired[int]
     """
@@ -821,62 +879,4 @@ class SubscriptionScheduleCreateParamsPrebilling(TypedDict):
     update_behavior: NotRequired[Literal["prebill", "reset"]]
     """
     Whether to cancel or preserve `prebilling` if the subscription is updated during the prebilled period. The default value is `reset`.
-    """
-
-
-class SubscriptionScheduleCreateParamsBillingSchedule(TypedDict):
-    applies_to: NotRequired[
-        List["SubscriptionScheduleCreateParamsBillingScheduleAppliesTo"]
-    ]
-    """
-    Configure billing schedule differently for individual subscription items.
-    """
-    bill_until: "SubscriptionScheduleCreateParamsBillingScheduleBillUntil"
-    """
-    The end date for the billing schedule.
-    """
-    key: NotRequired[str]
-    """
-    Specify a key for the billing schedule. Must be unique to this field, alphanumeric, and up to 200 characters. If not provided, a unique key will be generated.
-    """
-
-
-class SubscriptionScheduleCreateParamsBillingScheduleAppliesTo(TypedDict):
-    price: NotRequired[str]
-    """
-    The ID of the price object.
-    """
-    type: Literal["price"]
-    """
-    Controls which subscription items the billing schedule applies to.
-    """
-
-
-class SubscriptionScheduleCreateParamsBillingScheduleBillUntil(TypedDict):
-    duration: NotRequired[
-        "SubscriptionScheduleCreateParamsBillingScheduleBillUntilDuration"
-    ]
-    """
-    Specifies the billing period.
-    """
-    timestamp: NotRequired[int]
-    """
-    The end date of the billing schedule.
-    """
-    type: Literal["duration", "timestamp"]
-    """
-    Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
-    """
-
-
-class SubscriptionScheduleCreateParamsBillingScheduleBillUntilDuration(
-    TypedDict,
-):
-    interval: Literal["day", "month", "week", "year"]
-    """
-    Specifies billing duration. Either `day`, `week`, `month` or `year`.
-    """
-    interval_count: NotRequired[int]
-    """
-    The multiplier applied to the interval.
     """

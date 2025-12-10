@@ -14,6 +14,16 @@ class UsBankAccount(StripeObject):
         "v2.core.vault.us_bank_account"
     )
 
+    class AlternativeReference(StripeObject):
+        id: str
+        """
+        The ID of the alternative resource being referenced.
+        """
+        type: Literal["external_account", "payment_method"]
+        """
+        The type of the alternative reference (e.g., external_account for V1 external accounts).
+        """
+
     class Verification(StripeObject):
         class MicrodepositVerificationDetails(StripeObject):
             expires: str
@@ -48,6 +58,10 @@ class UsBankAccount(StripeObject):
             "microdeposit_verification_details": MicrodepositVerificationDetails,
         }
 
+    alternative_reference: Optional[AlternativeReference]
+    """
+    The alternative reference for this payout method, if it's a projected payout method.
+    """
     archived: bool
     """
     Whether this USBankAccount object was archived.
@@ -67,6 +81,10 @@ class UsBankAccount(StripeObject):
     fedwire_routing_number: Optional[str]
     """
     The fedwire routing number of the bank account.
+    """
+    financial_connections_account: Optional[str]
+    """
+    The ID of the Financial Connections Account used to create the bank account.
     """
     id: str
     """
@@ -92,4 +110,7 @@ class UsBankAccount(StripeObject):
     """
     The bank account verification details.
     """
-    _inner_class_types = {"verification": Verification}
+    _inner_class_types = {
+        "alternative_reference": AlternativeReference,
+        "verification": Verification,
+    }

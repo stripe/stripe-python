@@ -14,6 +14,16 @@ class PayoutMethod(StripeObject):
         "v2.money_management.payout_method"
     )
 
+    class AlternativeReference(StripeObject):
+        id: str
+        """
+        The ID of the alternative resource being referenced.
+        """
+        type: Literal["external_account", "payment_method"]
+        """
+        The type of the alternative reference (e.g., external_account for V1 external accounts).
+        """
+
     class BankAccount(StripeObject):
         archived: bool
         """
@@ -36,6 +46,10 @@ class PayoutMethod(StripeObject):
         enabled_delivery_options: List[str]
         """
         List of enabled flows for this bank account (wire or local).
+        """
+        financial_connections_account: Optional[str]
+        """
+        The ID of the Financial Connections Account used to create the bank account.
         """
         last4: str
         """
@@ -109,6 +123,10 @@ class PayoutMethod(StripeObject):
         Transfers status - used when making an OutboundTransfer (sending funds to yourself).
         """
 
+    alternative_reference: Optional[AlternativeReference]
+    """
+    The alternative reference for this payout method, if it's a projected payout method.
+    """
     available_payout_speeds: List[Literal["instant", "standard"]]
     """
     A set of available payout speeds for this payout method.
@@ -154,6 +172,7 @@ class PayoutMethod(StripeObject):
     Indicates whether the payout method has met the necessary requirements for outbound money movement.
     """
     _inner_class_types = {
+        "alternative_reference": AlternativeReference,
         "bank_account": BankAccount,
         "card": Card,
         "crypto_wallet": CryptoWallet,

@@ -36,7 +36,7 @@ class Payout(
     schedules](https://docs.stripe.com/docs/connect/manage-payout-schedule), depending on your country and
     industry.
 
-    Related guide: [Receiving payouts](https://stripe.com/docs/payouts)
+    Related guide: [Receiving payouts](https://docs.stripe.com/payouts)
     """
 
     OBJECT_NAME: ClassVar[Literal["payout"]] = "payout"
@@ -57,11 +57,11 @@ class Payout(
     """
     application_fee: Optional[ExpandableField["ApplicationFee"]]
     """
-    The application fee (if any) for the payout. [See the Connect documentation](https://stripe.com/docs/connect/instant-payouts#monetization-and-fees) for details.
+    The application fee (if any) for the payout. [See the Connect documentation](https://docs.stripe.com/connect/instant-payouts#monetization-and-fees) for details.
     """
     application_fee_amount: Optional[int]
     """
-    The amount of the application fee (if any) requested for the payout. [See the Connect documentation](https://stripe.com/docs/connect/instant-payouts#monetization-and-fees) for details.
+    The amount of the application fee (if any) requested for the payout. [See the Connect documentation](https://docs.stripe.com/connect/instant-payouts#monetization-and-fees) for details.
     """
     arrival_date: int
     """
@@ -69,7 +69,7 @@ class Payout(
     """
     automatic: bool
     """
-    Returns `true` if the payout is created by an [automated payout schedule](https://stripe.com/docs/payouts#payout-schedule) and `false` if it's [requested manually](https://stripe.com/docs/payouts#manual-payouts).
+    Returns `true` if the payout is created by an [automated payout schedule](https://docs.stripe.com/payouts#payout-schedule) and `false` if it's [requested manually](https://stripe.com/docs/payouts#manual-payouts).
     """
     balance_transaction: Optional[ExpandableField["BalanceTransaction"]]
     """
@@ -99,7 +99,7 @@ class Payout(
     """
     failure_code: Optional[str]
     """
-    Error code that provides a reason for a payout failure, if available. View our [list of failure codes](https://stripe.com/docs/api#payout_failures).
+    Error code that provides a reason for a payout failure, if available. View our [list of failure codes](https://docs.stripe.com/api#payout_failures).
     """
     failure_message: Optional[str]
     """
@@ -115,7 +115,7 @@ class Payout(
     """
     metadata: Optional[Dict[str, str]]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     method: str
     """
@@ -137,7 +137,7 @@ class Payout(
         "completed", "in_progress", "not_applicable"
     ]
     """
-    If `completed`, you can use the [Balance Transactions API](https://stripe.com/docs/api/balance_transactions/list#balance_transaction_list-payout) to list all balance transactions that are paid out in this payout.
+    If `completed`, you can use the [Balance Transactions API](https://docs.stripe.com/api/balance_transactions/list#balance_transaction_list-payout) to list all balance transactions that are paid out in this payout.
     """
     reversed_by: Optional[ExpandableField["Payout"]]
     """

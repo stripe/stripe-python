@@ -59,7 +59,7 @@ class BalanceSettings(
             """
             schedule: Optional[Schedule]
             """
-            Details on when funds from charges are available, and when they are paid out to an external account. See our [Setting Bank and Debit Card Payouts](https://stripe.com/docs/connect/bank-transfers#payout-information) documentation for details.
+            Details on when funds from charges are available, and when they are paid out to an external account. See our [Setting Bank and Debit Card Payouts](https://docs.stripe.com/connect/bank-transfers#payout-information) documentation for details.
             """
             statement_descriptor: Optional[str]
             """
