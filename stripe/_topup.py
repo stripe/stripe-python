@@ -29,7 +29,7 @@ class Topup(
     individual top-ups, as well as list all top-ups. Top-ups are identified by a
     unique, random ID.
 
-    Related guide: [Topping up your platform account](https://stripe.com/docs/connect/top-ups)
+    Related guide: [Topping up your platform account](https://docs.stripe.com/connect/top-ups)
     """
 
     OBJECT_NAME: ClassVar[Literal["topup"]] = "topup"
@@ -59,7 +59,7 @@ class Topup(
     """
     failure_code: Optional[str]
     """
-    Error code explaining reason for top-up failure if available (see [the errors section](https://stripe.com/docs/api#errors) for a list of codes).
+    Error code explaining reason for top-up failure if available (see [the errors section](https://docs.stripe.com/api#errors) for a list of codes).
     """
     failure_message: Optional[str]
     """
@@ -75,7 +75,7 @@ class Topup(
     """
     metadata: Dict[str, str]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     object: Literal["topup"]
     """

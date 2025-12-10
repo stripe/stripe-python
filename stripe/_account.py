@@ -145,7 +145,7 @@ class Account(
             """
             state: Optional[str]
             """
-            State, county, province, or region.
+            State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             """
 
         annual_revenue: Optional[AnnualRevenue]
@@ -581,7 +581,7 @@ class Account(
             """
             state: Optional[str]
             """
-            State, county, province, or region.
+            State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             """
 
         class AddressKana(StripeObject):
@@ -704,7 +704,7 @@ class Account(
             class Document(StripeObject):
                 back: Optional[ExpandableField["File"]]
                 """
-                The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](https://docs.stripe.com/file-upload#uploading-a-file).
+                The back of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](https://docs.stripe.com/file-upload#uploading-a-file).
                 """
                 details: Optional[str]
                 """
@@ -716,7 +716,7 @@ class Account(
                 """
                 front: Optional[ExpandableField["File"]]
                 """
-                The front of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](https://docs.stripe.com/file-upload#uploading-a-file).
+                The front of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. Note that `additional_verification` files are [not downloadable](https://docs.stripe.com/file-upload#uploading-a-file).
                 """
 
             document: Document
@@ -733,7 +733,7 @@ class Account(
         """
         directors_provided: Optional[bool]
         """
-        Whether the company's directors have been provided. This Boolean will be `true` if you've manually indicated that all directors are provided via [the `directors_provided` parameter](https://stripe.com/docs/api/accounts/update#update_account-company-directors_provided).
+        Whether the company's directors have been provided. This Boolean will be `true` if you've manually indicated that all directors are provided via [the `directors_provided` parameter](https://docs.stripe.com/api/accounts/update#update_account-company-directors_provided).
         """
         directorship_declaration: Optional[DirectorshipDeclaration]
         """
@@ -741,7 +741,7 @@ class Account(
         """
         executives_provided: Optional[bool]
         """
-        Whether the company's executives have been provided. This Boolean will be `true` if you've manually indicated that all executives are provided via [the `executives_provided` parameter](https://stripe.com/docs/api/accounts/update#update_account-company-executives_provided), or if Stripe determined that sufficient executives were provided.
+        Whether the company's executives have been provided. This Boolean will be `true` if you've manually indicated that all executives are provided via [the `executives_provided` parameter](https://docs.stripe.com/api/accounts/update#update_account-company-executives_provided), or if Stripe determined that sufficient executives were provided.
         """
         export_license_id: Optional[str]
         """
@@ -765,7 +765,7 @@ class Account(
         """
         owners_provided: Optional[bool]
         """
-        Whether the company's owners have been provided. This Boolean will be `true` if you've manually indicated that all owners are provided via [the `owners_provided` parameter](https://stripe.com/docs/api/accounts/update#update_account-company-owners_provided), or if Stripe determined that sufficient owners were provided. Stripe determines ownership requirements using both the number of owners provided and their total percent ownership (calculated by adding the `percent_ownership` of each owner together).
+        Whether the company's owners have been provided. This Boolean will be `true` if you've manually indicated that all owners are provided via [the `owners_provided` parameter](https://docs.stripe.com/api/accounts/update#update_account-company-owners_provided), or if Stripe determined that sufficient owners were provided. Stripe determines ownership requirements using both the number of owners provided and their total percent ownership (calculated by adding the `percent_ownership` of each owner together).
         """
         ownership_declaration: Optional[OwnershipDeclaration]
         """
@@ -817,7 +817,7 @@ class Account(
             ]
         ]
         """
-        The category identifying the legal structure of the company or legal entity. Also available for accounts where [controller.requirement_collection](https://docs.stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `stripe`. See [Business structure](https://stripe.com/docs/connect/identity-verification#business-structure) for more details.
+        The category identifying the legal structure of the company or legal entity. Also available for accounts where [controller.requirement_collection](https://docs.stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `stripe`. See [Business structure](https://docs.stripe.com/connect/identity-verification#business-structure) for more details.
         """
         tax_id_provided: Optional[bool]
         """
@@ -896,7 +896,7 @@ class Account(
         fees: Optional[Fees]
         is_controller: Optional[bool]
         """
-        `true` if the Connect application retrieving the resource controls the account and can therefore exercise [platform controls](https://stripe.com/docs/connect/platform-controls-for-standard-accounts). Otherwise, this field is null.
+        `true` if the Connect application retrieving the resource controls the account and can therefore exercise [platform controls](https://docs.stripe.com/connect/platform-controls-for-standard-accounts). Otherwise, this field is null.
         """
         losses: Optional[Losses]
         requirement_collection: Optional[Literal["application", "stripe"]]
@@ -920,11 +920,11 @@ class Account(
         class Alternative(StripeObject):
             alternative_fields_due: List[str]
             """
-            Fields that can be provided to satisfy all fields in `original_fields_due`.
+            Fields that can be provided to resolve all fields in `original_fields_due`.
             """
             original_fields_due: List[str]
             """
-            Fields that are due and can be satisfied by providing all fields in `alternative_fields_due`.
+            Fields that are due and can be resolved by providing all fields in `alternative_fields_due`.
             """
 
         class Error(StripeObject):
@@ -1042,7 +1042,7 @@ class Account(
 
         alternatives: Optional[List[Alternative]]
         """
-        Fields that are due and can be satisfied by providing the corresponding alternative fields instead.
+        Fields that are due and can be resolved by providing the corresponding alternative fields instead. Many alternatives can list the same `original_fields_due`, and any of these alternatives can serve as a pathway for attempting to resolve the fields again. Re-providing `original_fields_due` also serves as a pathway for attempting to resolve the fields again.
         """
         current_deadline: Optional[int]
         """
@@ -1050,7 +1050,7 @@ class Account(
         """
         currently_due: Optional[List[str]]
         """
-        Fields that need to be collected to keep the account enabled. If not collected by `future_requirements[current_deadline]`, these fields will transition to the main `requirements` hash.
+        Fields that need to be resolved to keep the account enabled. If not resolved by `future_requirements[current_deadline]`, these fields will transition to the main `requirements` hash.
         """
         disabled_reason: Optional[
             Literal[
@@ -1076,7 +1076,7 @@ class Account(
         """
         errors: Optional[List[Error]]
         """
-        Fields that are `currently_due` and need to be collected again because validation or verification failed.
+        Details about validation and verification failures for `due` requirements that must be resolved.
         """
         eventually_due: Optional[List[str]]
         """
@@ -1084,29 +1084,29 @@ class Account(
         """
         past_due: Optional[List[str]]
         """
-        Fields that weren't collected by `requirements.current_deadline`. These fields need to be collected to enable the capability on the account. New fields will never appear here; `future_requirements.past_due` will always be a subset of `requirements.past_due`.
+        Fields that haven't been resolved by `requirements.current_deadline`. These fields need to be resolved to enable the capability on the account. `future_requirements.past_due` is a subset of `requirements.past_due`.
         """
         pending_verification: Optional[List[str]]
         """
-        Fields that might become required depending on the results of verification or review. It's an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due` or `currently_due`. Fields might appear in `eventually_due` or `currently_due` and in `pending_verification` if verification fails but another verification is still pending.
+        Fields that are being reviewed, or might become required depending on the results of a review. If the review fails, these fields can move to `eventually_due`, `currently_due`, `past_due` or `alternatives`. Fields might appear in `eventually_due`, `currently_due`, `past_due` or `alternatives` and in `pending_verification` if one verification fails but another is still pending.
         """
         _inner_class_types = {"alternatives": Alternative, "errors": Error}
 
     class Groups(StripeObject):
         payments_pricing: Optional[str]
         """
-        The group the account is in to determine their payments pricing, and null if the account is on customized pricing. [See the Platform pricing tool documentation](https://stripe.com/docs/connect/platform-pricing-tools) for details.
+        The group the account is in to determine their payments pricing, and null if the account is on customized pricing. [See the Platform pricing tool documentation](https://docs.stripe.com/connect/platform-pricing-tools) for details.
         """
 
     class Requirements(StripeObject):
         class Alternative(StripeObject):
             alternative_fields_due: List[str]
             """
-            Fields that can be provided to satisfy all fields in `original_fields_due`.
+            Fields that can be provided to resolve all fields in `original_fields_due`.
             """
             original_fields_due: List[str]
             """
-            Fields that are due and can be satisfied by providing all fields in `alternative_fields_due`.
+            Fields that are due and can be resolved by providing all fields in `alternative_fields_due`.
             """
 
         class Error(StripeObject):
@@ -1224,7 +1224,7 @@ class Account(
 
         alternatives: Optional[List[Alternative]]
         """
-        Fields that are due and can be satisfied by providing the corresponding alternative fields instead.
+        Fields that are due and can be resolved by providing the corresponding alternative fields instead. Many alternatives can list the same `original_fields_due`, and any of these alternatives can serve as a pathway for attempting to resolve the fields again. Re-providing `original_fields_due` also serves as a pathway for attempting to resolve the fields again.
         """
         current_deadline: Optional[int]
         """
@@ -1232,7 +1232,7 @@ class Account(
         """
         currently_due: Optional[List[str]]
         """
-        Fields that need to be collected to keep the account enabled. If not collected by `current_deadline`, these fields appear in `past_due` as well, and the account is disabled.
+        Fields that need to be resolved to keep the account enabled. If not resolved by `current_deadline`, these fields will appear in `past_due` as well, and the account is disabled.
         """
         disabled_reason: Optional[
             Literal[
@@ -1254,11 +1254,11 @@ class Account(
             ]
         ]
         """
-        If the account is disabled, this enum describes why. [Learn more about handling verification issues](https://stripe.com/docs/connect/handling-api-verification).
+        If the account is disabled, this enum describes why. [Learn more about handling verification issues](https://docs.stripe.com/connect/handling-api-verification).
         """
         errors: Optional[List[Error]]
         """
-        Fields that are `currently_due` and need to be collected again because validation or verification failed.
+        Details about validation and verification failures for `due` requirements that must be resolved.
         """
         eventually_due: Optional[List[str]]
         """
@@ -1266,11 +1266,11 @@ class Account(
         """
         past_due: Optional[List[str]]
         """
-        Fields that weren't collected by `current_deadline`. These fields need to be collected to enable the account.
+        Fields that haven't been resolved by `current_deadline`. These fields need to be resolved to enable the account.
         """
         pending_verification: Optional[List[str]]
         """
-        Fields that might become required depending on the results of verification or review. It's an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due`, `currently_due`, or `past_due`. Fields might appear in `eventually_due`, `currently_due`, or `past_due` and in `pending_verification` if verification fails but another verification is still pending.
+        Fields that are being reviewed, or might become required depending on the results of a review. If the review fails, these fields can move to `eventually_due`, `currently_due`, `past_due` or `alternatives`. Fields might appear in `eventually_due`, `currently_due`, `past_due` or `alternatives` and in `pending_verification` if one verification fails but another is still pending.
         """
         _inner_class_types = {"alternatives": Alternative, "errors": Error}
 
@@ -1302,7 +1302,7 @@ class Account(
             ]
         ]
         """
-        Represents the rejected reason of the account. Empty if account is not rejected, or rejected by Stripe. Please see [this page for more details](https://stripe.com/docs/connect/)
+        Represents the rejected reason of the account. Empty if account is not rejected, or rejected by Stripe. Please see [this page for more details](https://docs.stripe.com/connect/)
         """
         _inner_class_types = {"charges": Charges, "payouts": Payouts}
 
@@ -1640,7 +1640,7 @@ class Account(
     """
     metadata: Optional[Dict[str, str]]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     object: Literal["account"]
     """

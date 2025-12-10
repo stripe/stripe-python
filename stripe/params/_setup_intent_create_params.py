@@ -121,11 +121,11 @@ class SetupIntentCreateParams(RequestOptions):
     """
     mandate_data: NotRequired["Literal['']|SetupIntentCreateParamsMandateData"]
     """
-    This hash contains details about the mandate to create. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/setup_intents/create#create_setup_intent-confirm).
+    This hash contains details about the mandate to create. This parameter can only be used with [`confirm=true`](https://docs.stripe.com/api/setup_intents/create#create_setup_intent-confirm).
     """
     metadata: NotRequired[Dict[str, str]]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
     on_behalf_of: NotRequired[str]
     """
@@ -137,13 +137,13 @@ class SetupIntentCreateParams(RequestOptions):
     """
     payment_method_configuration: NotRequired[str]
     """
-    The ID of the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) to use with this SetupIntent.
+    The ID of the [payment method configuration](https://docs.stripe.com/api/payment_method_configurations) to use with this SetupIntent.
     """
     payment_method_data: NotRequired[
         "SetupIntentCreateParamsPaymentMethodData"
     ]
     """
-    When included, this hash creates a PaymentMethod that is set as the [`payment_method`](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-payment_method)
+    When included, this hash creates a PaymentMethod that is set as the [`payment_method`](https://docs.stripe.com/api/setup_intents/object#setup_intent_object-payment_method)
     value in the SetupIntent.
     """
     payment_method_options: NotRequired[
@@ -158,7 +158,7 @@ class SetupIntentCreateParams(RequestOptions):
     """
     return_url: NotRequired[str]
     """
-    The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. To redirect to a mobile application, you can alternatively supply an application URI scheme. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/setup_intents/create#create_setup_intent-confirm).
+    The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. To redirect to a mobile application, you can alternatively supply an application URI scheme. This parameter can only be used with [`confirm=true`](https://docs.stripe.com/api/setup_intents/create#create_setup_intent-confirm).
     """
     single_use: NotRequired["SetupIntentCreateParamsSingleUse"]
     """
@@ -181,7 +181,7 @@ class SetupIntentCreateParamsAutomaticPaymentMethods(TypedDict):
     """
     Controls whether this SetupIntent will accept redirect-based payment methods.
 
-    Redirect-based payment methods may require your customer to be redirected to a payment method's app or site for authentication or additional steps. To [confirm](https://stripe.com/docs/api/setup_intents/confirm) this SetupIntent, you may be required to provide a `return_url` to redirect customers back to your site after they authenticate or complete the setup.
+    Redirect-based payment methods may require your customer to be redirected to a payment method's app or site for authentication or additional steps. To [confirm](https://docs.stripe.com/api/setup_intents/confirm) this SetupIntent, you may be required to provide a `return_url` to redirect customers back to your site after they authenticate or complete the setup.
     """
     enabled: bool
     """
@@ -381,7 +381,7 @@ class SetupIntentCreateParamsPaymentMethodData(TypedDict):
     """
     metadata: NotRequired[Dict[str, str]]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
     mobilepay: NotRequired["SetupIntentCreateParamsPaymentMethodDataMobilepay"]
     """
@@ -453,7 +453,7 @@ class SetupIntentCreateParamsPaymentMethodData(TypedDict):
         "SetupIntentCreateParamsPaymentMethodDataRadarOptions"
     ]
     """
-    Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
+    Options to configure Radar. See [Radar Session](https://docs.stripe.com/radar/radar-session) for more information.
     """
     rechnung: NotRequired["SetupIntentCreateParamsPaymentMethodDataRechnung"]
     """
@@ -695,7 +695,7 @@ class SetupIntentCreateParamsPaymentMethodDataBillingDetailsAddress(TypedDict):
     """
     state: NotRequired[str]
     """
-    State, county, province, or region.
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """
 
 
@@ -824,6 +824,7 @@ class SetupIntentCreateParamsPaymentMethodDataIdeal(TypedDict):
             "handelsbanken",
             "ing",
             "knab",
+            "mollie",
             "moneyou",
             "n26",
             "nn",
@@ -1016,7 +1017,7 @@ class SetupIntentCreateParamsPaymentMethodDataQris(TypedDict):
 class SetupIntentCreateParamsPaymentMethodDataRadarOptions(TypedDict):
     session: NotRequired[str]
     """
-    A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+    A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
     """
 
 
@@ -1290,7 +1291,7 @@ class SetupIntentCreateParamsPaymentMethodOptionsCard(TypedDict):
         Literal["any", "automatic", "challenge"]
     ]
     """
-    We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+    We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
     """
     three_d_secure: NotRequired[
         "SetupIntentCreateParamsPaymentMethodOptionsCardThreeDSecure"
@@ -1587,56 +1588,35 @@ class SetupIntentCreateParamsPaymentMethodOptionsPayto(TypedDict):
 class SetupIntentCreateParamsPaymentMethodOptionsPaytoMandateOptions(
     TypedDict
 ):
-    amount: NotRequired[int]
+    amount: NotRequired["Literal['']|int"]
     """
     Amount that will be collected. It is required when `amount_type` is `fixed`.
     """
-    amount_type: NotRequired[Literal["fixed", "maximum"]]
+    amount_type: NotRequired["Literal['']|Literal['fixed', 'maximum']"]
     """
     The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively. Defaults to `maximum`.
     """
-    end_date: NotRequired[str]
+    end_date: NotRequired["Literal['']|str"]
     """
     Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
     """
     payment_schedule: NotRequired[
-        Literal[
-            "adhoc",
-            "annual",
-            "daily",
-            "fortnightly",
-            "monthly",
-            "quarterly",
-            "semi_annual",
-            "weekly",
-        ]
+        "Literal['']|Literal['adhoc', 'annual', 'daily', 'fortnightly', 'monthly', 'quarterly', 'semi_annual', 'weekly']"
     ]
     """
     The periodicity at which payments will be collected. Defaults to `adhoc`.
     """
-    payments_per_period: NotRequired[int]
+    payments_per_period: NotRequired["Literal['']|int"]
     """
     The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
     """
     purpose: NotRequired[
-        Literal[
-            "dependant_support",
-            "government",
-            "loan",
-            "mortgage",
-            "other",
-            "pension",
-            "personal",
-            "retail",
-            "salary",
-            "tax",
-            "utility",
-        ]
+        "Literal['']|Literal['dependant_support', 'government', 'loan', 'mortgage', 'other', 'pension', 'personal', 'retail', 'salary', 'tax', 'utility']"
     ]
     """
     The purpose for which payments are made. Has a default value based on your merchant category code.
     """
-    start_date: NotRequired[str]
+    start_date: NotRequired["Literal['']|str"]
     """
     Date, in YYYY-MM-DD format, from which payments will be collected. Defaults to confirmation time.
     """
@@ -1815,7 +1795,7 @@ class SetupIntentCreateParamsPaymentMethodOptionsUsBankAccountNetworks(
 class SetupIntentCreateParamsSingleUse(TypedDict):
     amount: int
     """
-    Amount the customer is granting permission to collect later. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
+    Amount the customer is granting permission to collect later. A positive integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://docs.stripe.com/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
     """
     currency: str
     """

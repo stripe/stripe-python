@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from typing import List
-from typing_extensions import NotRequired, TypedDict
+from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class AccountListParams(TypedDict):
-    applied_configurations: NotRequired[List[str]]
+    applied_configurations: NotRequired[
+        List[Literal["customer", "merchant", "recipient", "storer"]]
+    ]
     """
     Filter only accounts that have all of the configurations specified. If omitted, returns all accounts regardless of which configurations they have.
     """

@@ -31,18 +31,18 @@ class ReaderSetReaderDisplayParamsCart(TypedDict):
     """
     tax: NotRequired[int]
     """
-    The amount of tax in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+    The amount of tax in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
     """
     total: int
     """
-    Total balance of cart due in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+    Total balance of cart due in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
     """
 
 
 class ReaderSetReaderDisplayParamsCartLineItem(TypedDict):
     amount: int
     """
-    The price of the item in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+    The price of the item in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
     """
     description: str
     """

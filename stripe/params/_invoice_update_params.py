@@ -15,11 +15,11 @@ class InvoiceUpdateParams(TypedDict):
     """
     application_fee_amount: NotRequired[int]
     """
-    A fee in cents (or local equivalent) that will be applied to the invoice and transferred to the application owner's Stripe account. The request must be made with an OAuth key or the Stripe-Account header in order to take an application fee. For more information, see the application fees [documentation](https://stripe.com/docs/billing/invoices/connect#collecting-fees).
+    A fee in cents (or local equivalent) that will be applied to the invoice and transferred to the application owner's Stripe account. The request must be made with an OAuth key or the Stripe-Account header in order to take an application fee. For more information, see the application fees [documentation](https://docs.stripe.com/billing/invoices/connect#collecting-fees).
     """
     auto_advance: NotRequired[bool]
     """
-    Controls whether Stripe performs [automatic collection](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection) of the invoice.
+    Controls whether Stripe performs [automatic collection](https://docs.stripe.com/invoicing/integration/automatic-advancement-collection) of the invoice.
     """
     automatic_tax: NotRequired["InvoiceUpdateParamsAutomaticTax"]
     """
@@ -91,7 +91,7 @@ class InvoiceUpdateParams(TypedDict):
     """
     metadata: NotRequired["Literal['']|Dict[str, str]"]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
     number: NotRequired["Literal['']|str"]
     """
@@ -99,7 +99,7 @@ class InvoiceUpdateParams(TypedDict):
     """
     on_behalf_of: NotRequired["Literal['']|str"]
     """
-    The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details.
+    The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://docs.stripe.com/billing/invoices/connect) documentation for details.
     """
     payment_settings: NotRequired["InvoiceUpdateParamsPaymentSettings"]
     """
@@ -151,7 +151,7 @@ class InvoiceUpdateParamsAmountsDue(TypedDict):
 class InvoiceUpdateParamsAutomaticTax(TypedDict):
     enabled: bool
     """
-    Whether Stripe automatically computes tax on this invoice. Note that incompatible invoice items (invoice items with manually specified [tax rates](https://stripe.com/docs/api/tax_rates), negative amounts, or `tax_behavior=unspecified`) cannot be added to automatic tax invoices.
+    Whether Stripe automatically computes tax on this invoice. Note that incompatible invoice items (invoice items with manually specified [tax rates](https://docs.stripe.com/api/tax_rates), negative amounts, or `tax_behavior=unspecified`) cannot be added to automatic tax invoices.
     """
     liability: NotRequired["InvoiceUpdateParamsAutomaticTaxLiability"]
     """
@@ -249,7 +249,7 @@ class InvoiceUpdateParamsPaymentSettings(TypedDict):
     Payment-method-specific configuration to provide to the invoice's PaymentIntent.
     """
     payment_method_types: NotRequired[
-        "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'pix', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'upi', 'us_bank_account', 'wechat_pay']]"
+        "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'upi', 'us_bank_account', 'wechat_pay']]"
     ]
     """
     The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice).
@@ -292,6 +292,12 @@ class InvoiceUpdateParamsPaymentSettingsPaymentMethodOptions(TypedDict):
     ]
     """
     If paying by `konbini`, this sub-hash contains details about the Konbini payment method options to pass to the invoice's PaymentIntent.
+    """
+    payto: NotRequired[
+        "Literal['']|InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsPayto"
+    ]
+    """
+    If paying by `payto`, this sub-hash contains details about the PayTo payment method options to pass to the invoice's PaymentIntent.
     """
     pix: NotRequired[
         "Literal['']|InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsPix"
@@ -361,13 +367,13 @@ class InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCard(TypedDict):
     """
     Installment configuration for payments attempted on this invoice.
 
-    For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
+    For more information, see the [installments integration guide](https://docs.stripe.com/payments/installments).
     """
     request_three_d_secure: NotRequired[
         Literal["any", "automatic", "challenge"]
     ]
     """
-    We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+    We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
     """
 
 
@@ -452,6 +458,42 @@ class InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsIdBankTransfer(
 
 class InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsKonbini(TypedDict):
     pass
+
+
+class InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsPayto(TypedDict):
+    mandate_options: NotRequired[
+        "InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOptions"
+    ]
+    """
+    Additional fields for Mandate creation.
+    """
+
+
+class InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOptions(
+    TypedDict,
+):
+    amount: NotRequired[int]
+    """
+    The maximum amount that can be collected in a single invoice. If you don't specify a maximum, then there is no limit.
+    """
+    purpose: NotRequired[
+        Literal[
+            "dependant_support",
+            "government",
+            "loan",
+            "mortgage",
+            "other",
+            "pension",
+            "personal",
+            "retail",
+            "salary",
+            "tax",
+            "utility",
+        ]
+    ]
+    """
+    The purpose for which payments are made. Has a default value based on your merchant category code.
+    """
 
 
 class InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsPix(TypedDict):
@@ -618,7 +660,7 @@ class InvoiceUpdateParamsShippingCostShippingRateData(TypedDict):
     """
     metadata: NotRequired[Dict[str, str]]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
     tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
     """
@@ -626,7 +668,7 @@ class InvoiceUpdateParamsShippingCostShippingRateData(TypedDict):
     """
     tax_code: NotRequired[str]
     """
-    A [tax code](https://stripe.com/docs/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`.
+    A [tax code](https://docs.stripe.com/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`.
     """
     type: NotRequired[Literal["fixed_amount"]]
     """
@@ -748,7 +790,7 @@ class InvoiceUpdateParamsShippingDetailsAddress(TypedDict):
     """
     state: NotRequired[str]
     """
-    State, county, province, or region.
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """
 
 

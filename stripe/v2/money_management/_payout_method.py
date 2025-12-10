@@ -37,6 +37,10 @@ class PayoutMethod(StripeObject):
         """
         List of enabled flows for this bank account (wire or local).
         """
+        financial_connections_account: Optional[str]
+        """
+        The ID of the Financial Connections Account used to create the bank account.
+        """
         last4: str
         """
         The last 4 digits of the account number.

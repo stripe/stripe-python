@@ -12,11 +12,11 @@ class CreditBalanceTransactionListParams(RequestOptions):
     """
     customer: NotRequired[str]
     """
-    The customer for which to fetch credit balance transactions.
+    The customer whose credit balance transactions you're retrieving.
     """
     customer_account: NotRequired[str]
     """
-    The account for which to fetch credit balance transactions.
+    The account representing the customer whose credit balance transactions you're retrieving.
     """
     ending_before: NotRequired[str]
     """

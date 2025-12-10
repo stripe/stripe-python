@@ -35,9 +35,9 @@ class Dispute(
     UpdateableAPIResource["Dispute"],
 ):
     """
-    As a [card issuer](https://stripe.com/docs/issuing), you can dispute transactions that the cardholder does not recognize, suspects to be fraudulent, or has other issues with.
+    As a [card issuer](https://docs.stripe.com/issuing), you can dispute transactions that the cardholder does not recognize, suspects to be fraudulent, or has other issues with.
 
-    Related guide: [Issuing disputes](https://stripe.com/docs/issuing/purchases/disputes)
+    Related guide: [Issuing disputes](https://docs.stripe.com/issuing/purchases/disputes)
     """
 
     OBJECT_NAME: ClassVar[Literal["issuing.dispute"]] = "issuing.dispute"
@@ -254,16 +254,16 @@ class Dispute(
     class Treasury(StripeObject):
         debit_reversal: Optional[str]
         """
-        The Treasury [DebitReversal](https://stripe.com/docs/api/treasury/debit_reversals) representing this Issuing dispute
+        The Treasury [DebitReversal](https://docs.stripe.com/api/treasury/debit_reversals) representing this Issuing dispute
         """
         received_debit: str
         """
-        The Treasury [ReceivedDebit](https://stripe.com/docs/api/treasury/received_debits) that is being disputed.
+        The Treasury [ReceivedDebit](https://docs.stripe.com/api/treasury/received_debits) that is being disputed.
         """
 
     amount: int
     """
-    Disputed amount in the card's currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Usually the amount of the `transaction`, but can differ (usually because of currency fluctuation).
+    Disputed amount in the card's currency and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). Usually the amount of the `transaction`, but can differ (usually because of currency fluctuation).
     """
     balance_transactions: Optional[List["BalanceTransaction"]]
     """
@@ -315,7 +315,7 @@ class Dispute(
     """
     metadata: Dict[str, str]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     object: Literal["issuing.dispute"]
     """
@@ -331,7 +331,7 @@ class Dispute(
     """
     treasury: Optional[Treasury]
     """
-    [Treasury](https://stripe.com/docs/api/treasury) details related to this dispute if it was created on a [FinancialAccount](/docs/api/treasury/financial_accounts
+    [Treasury](https://docs.stripe.com/api/treasury) details related to this dispute if it was created on a [FinancialAccount](/docs/api/treasury/financial_accounts
     """
 
     @classmethod

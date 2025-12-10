@@ -33,7 +33,7 @@ class ReceivedDebitCreateParams(TypedDict):
     """
     network: Literal["ach"]
     """
-    Specifies the network rails to be used. If not set, will default to the PaymentMethod's preferred network. See the [docs](https://stripe.com/docs/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
+    Specifies the network rails to be used. If not set, will default to the PaymentMethod's preferred network. See the [docs](https://docs.stripe.com/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
     """
     network_details: NotRequired["ReceivedDebitCreateParamsNetworkDetails"]
     """

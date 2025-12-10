@@ -143,7 +143,7 @@ class ReceivedDebit(StripeObject):
     """
     type: Literal["bank_transfer", "external_debit"]
     """
-    Open Enum. The type of the ReceivedDebit.
+    Open enum, the type of the received debit.
     """
     _inner_class_types = {
         "amount": Amount,

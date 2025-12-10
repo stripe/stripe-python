@@ -59,11 +59,11 @@ class Authorization(
     UpdateableAPIResource["Authorization"],
 ):
     """
-    When an [issued card](https://stripe.com/docs/issuing) is used to make a purchase, an Issuing `Authorization`
-    object is created. [Authorizations](https://stripe.com/docs/issuing/purchases/authorizations) must be approved for the
+    When an [issued card](https://docs.stripe.com/issuing) is used to make a purchase, an Issuing `Authorization`
+    object is created. [Authorizations](https://docs.stripe.com/issuing/purchases/authorizations) must be approved for the
     purchase to be completed successfully.
 
-    Related guide: [Issued card authorizations](https://stripe.com/docs/issuing/purchases/authorizations)
+    Related guide: [Issued card authorizations](https://docs.stripe.com/issuing/purchases/authorizations)
     """
 
     OBJECT_NAME: ClassVar[Literal["issuing.authorization"]] = (
@@ -239,7 +239,7 @@ class Authorization(
     class MerchantData(StripeObject):
         category: str
         """
-        A categorization of the seller's type of business. See our [merchant categories guide](https://stripe.com/docs/issuing/merchant-categories) for a list of possible values.
+        A categorization of the seller's type of business. See our [merchant categories guide](https://docs.stripe.com/issuing/merchant-categories) for a list of possible values.
         """
         category_code: str
         """
@@ -309,11 +309,11 @@ class Authorization(
 
         amount: int
         """
-        The additional amount Stripe will hold if the authorization is approved, in the card's [currency](https://stripe.com/docs/api#issuing_authorization_object-pending-request-currency) and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+        The additional amount Stripe will hold if the authorization is approved, in the card's [currency](https://docs.stripe.com/api#issuing_authorization_object-pending-request-currency) and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
         """
         amount_details: Optional[AmountDetails]
         """
-        Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+        Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
         """
         currency: str
         """
@@ -321,11 +321,11 @@ class Authorization(
         """
         is_amount_controllable: bool
         """
-        If set `true`, you may provide [amount](https://stripe.com/docs/api/issuing/authorizations/approve#approve_issuing_authorization-amount) to control how much to hold for the authorization.
+        If set `true`, you may provide [amount](https://docs.stripe.com/api/issuing/authorizations/approve#approve_issuing_authorization-amount) to control how much to hold for the authorization.
         """
         merchant_amount: int
         """
-        The amount the merchant is requesting to be authorized in the `merchant_currency`. The amount is in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+        The amount the merchant is requesting to be authorized in the `merchant_currency`. The amount is in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
         """
         merchant_currency: str
         """
@@ -350,11 +350,11 @@ class Authorization(
 
         amount: int
         """
-        The `pending_request.amount` at the time of the request, presented in your card's currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Stripe held this amount from your account to fund the authorization if the request was approved.
+        The `pending_request.amount` at the time of the request, presented in your card's currency and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). Stripe held this amount from your account to fund the authorization if the request was approved.
         """
         amount_details: Optional[AmountDetails]
         """
-        Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+        Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
         """
         approved: bool
         """
@@ -374,7 +374,7 @@ class Authorization(
         """
         merchant_amount: int
         """
-        The `pending_request.merchant_amount` at the time of the request, presented in the `merchant_currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+        The `pending_request.merchant_amount` at the time of the request, presented in the `merchant_currency` and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
         """
         merchant_currency: str
         """
@@ -422,15 +422,15 @@ class Authorization(
     class Treasury(StripeObject):
         received_credits: List[str]
         """
-        The array of [ReceivedCredits](https://stripe.com/docs/api/treasury/received_credits) associated with this authorization
+        The array of [ReceivedCredits](https://docs.stripe.com/api/treasury/received_credits) associated with this authorization
         """
         received_debits: List[str]
         """
-        The array of [ReceivedDebits](https://stripe.com/docs/api/treasury/received_debits) associated with this authorization
+        The array of [ReceivedDebits](https://docs.stripe.com/api/treasury/received_debits) associated with this authorization
         """
         transaction: Optional[str]
         """
-        The Treasury [Transaction](https://stripe.com/docs/api/treasury/transactions) associated with this authorization
+        The Treasury [Transaction](https://docs.stripe.com/api/treasury/transactions) associated with this authorization
         """
 
     class VerificationData(StripeObject):
@@ -493,7 +493,7 @@ class Authorization(
     """
     amount_details: Optional[AmountDetails]
     """
-    Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+    Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
     """
     approved: bool
     """
@@ -511,7 +511,7 @@ class Authorization(
     """
     card: "Card"
     """
-    You can [create physical or virtual cards](https://stripe.com/docs/issuing) that are issued to cardholders.
+    You can [create physical or virtual cards](https://docs.stripe.com/issuing) that are issued to cardholders.
     """
     cardholder: Optional[ExpandableField["Cardholder"]]
     """
@@ -556,7 +556,7 @@ class Authorization(
     merchant_data: MerchantData
     metadata: Dict[str, str]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     network_data: Optional[NetworkData]
     """
@@ -580,15 +580,15 @@ class Authorization(
     """
     token: Optional[ExpandableField["Token"]]
     """
-    [Token](https://stripe.com/docs/api/issuing/tokens/object) object used for this authorization. If a network token was not used for this authorization, this field will be null.
+    [Token](https://docs.stripe.com/api/issuing/tokens/object) object used for this authorization. If a network token was not used for this authorization, this field will be null.
     """
     transactions: List["Transaction"]
     """
-    List of [transactions](https://stripe.com/docs/api/issuing/transactions) associated with this authorization.
+    List of [transactions](https://docs.stripe.com/api/issuing/transactions) associated with this authorization.
     """
     treasury: Optional[Treasury]
     """
-    [Treasury](https://stripe.com/docs/api/treasury) details related to this authorization if it was created on a [FinancialAccount](https://stripe.com/docs/api/treasury/financial_accounts).
+    [Treasury](https://docs.stripe.com/api/treasury) details related to this authorization if it was created on a [FinancialAccount](https://docs.stripe.com/api/treasury/financial_accounts).
     """
     verification_data: VerificationData
     verified_by_fraud_challenge: Optional[bool]

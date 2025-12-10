@@ -29,7 +29,7 @@ class SettingsModifyParamsDefaults(TypedDict):
     """
     tax_code: NotRequired[str]
     """
-    A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
+    A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
     """
 
 

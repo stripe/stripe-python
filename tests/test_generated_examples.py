@@ -44563,236 +44563,13 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.v2.core.account_tokens.create(
-            {
-                "identity": {
-                    "attestations": {
-                        "directorship_declaration": {"attested": True},
-                        "ownership_declaration": {"attested": True},
-                        "persons_provided": {
-                            "directors": True,
-                            "executives": True,
-                            "owners": True,
-                            "ownership_exemption_reason": "qualified_entity_exceeds_ownership_threshold",
-                        },
-                        "representative_declaration": {"attested": True},
-                        "terms_of_service": {
-                            "account": {"shown_and_accepted": True},
-                            "storer": {"shown_and_accepted": True},
-                        },
-                    },
-                    "business_details": {
-                        "address": {
-                            "city": "city",
-                            "country": "country",
-                            "line1": "line1",
-                            "line2": "line2",
-                            "postal_code": "postal_code",
-                            "state": "state",
-                            "town": "town",
-                        },
-                        "annual_revenue": {
-                            "amount": {"value": 111972721, "currency": "usd"},
-                            "fiscal_year_end": "fiscal_year_end",
-                        },
-                        "documents": {
-                            "bank_account_ownership_verification": {
-                                "files": ["files"],
-                                "type": "files",
-                            },
-                            "company_license": {
-                                "files": ["files"],
-                                "type": "files",
-                            },
-                            "company_memorandum_of_association": {
-                                "files": ["files"],
-                                "type": "files",
-                            },
-                            "company_ministerial_decree": {
-                                "files": ["files"],
-                                "type": "files",
-                            },
-                            "company_registration_verification": {
-                                "files": ["files"],
-                                "type": "files",
-                            },
-                            "company_tax_id_verification": {
-                                "files": ["files"],
-                                "type": "files",
-                            },
-                            "primary_verification": {
-                                "front_back": {
-                                    "back": "back",
-                                    "front": "front",
-                                },
-                                "type": "front_back",
-                            },
-                            "proof_of_address": {
-                                "files": ["files"],
-                                "type": "files",
-                            },
-                            "proof_of_registration": {
-                                "files": ["files"],
-                                "type": "files",
-                            },
-                            "proof_of_ultimate_beneficial_ownership": {
-                                "files": ["files"],
-                                "type": "files",
-                            },
-                        },
-                        "estimated_worker_count": 884794319,
-                        "id_numbers": [
-                            {
-                                "registrar": "registrar",
-                                "type": "th_prn",
-                                "value": "value",
-                            },
-                        ],
-                        "monthly_estimated_revenue": {
-                            "amount": {"value": 111972721, "currency": "usd"},
-                        },
-                        "phone": "phone",
-                        "registered_name": "registered_name",
-                        "script_addresses": {
-                            "kana": {
-                                "city": "city",
-                                "country": "country",
-                                "line1": "line1",
-                                "line2": "line2",
-                                "postal_code": "postal_code",
-                                "state": "state",
-                                "town": "town",
-                            },
-                            "kanji": {
-                                "city": "city",
-                                "country": "country",
-                                "line1": "line1",
-                                "line2": "line2",
-                                "postal_code": "postal_code",
-                                "state": "state",
-                                "town": "town",
-                            },
-                        },
-                        "script_names": {
-                            "kana": {"registered_name": "registered_name"},
-                            "kanji": {"registered_name": "registered_name"},
-                        },
-                        "structure": "public_listed_corporation",
-                    },
-                    "entity_type": "individual",
-                    "individual": {
-                        "additional_addresses": [
-                            {
-                                "city": "city",
-                                "country": "country",
-                                "line1": "line1",
-                                "line2": "line2",
-                                "postal_code": "postal_code",
-                                "purpose": "registered",
-                                "state": "state",
-                                "town": "town",
-                            },
-                        ],
-                        "additional_names": [
-                            {
-                                "full_name": "full_name",
-                                "given_name": "given_name",
-                                "purpose": "alias",
-                                "surname": "surname",
-                            },
-                        ],
-                        "address": {
-                            "city": "city",
-                            "country": "country",
-                            "line1": "line1",
-                            "line2": "line2",
-                            "postal_code": "postal_code",
-                            "state": "state",
-                            "town": "town",
-                        },
-                        "date_of_birth": {
-                            "day": 99228,
-                            "month": 104080000,
-                            "year": 3704893,
-                        },
-                        "documents": {
-                            "company_authorization": {
-                                "files": ["files"],
-                                "type": "files",
-                            },
-                            "passport": {"files": ["files"], "type": "files"},
-                            "primary_verification": {
-                                "front_back": {
-                                    "back": "back",
-                                    "front": "front",
-                                },
-                                "type": "front_back",
-                            },
-                            "secondary_verification": {
-                                "front_back": {
-                                    "back": "back",
-                                    "front": "front",
-                                },
-                                "type": "front_back",
-                            },
-                            "visa": {"files": ["files"], "type": "files"},
-                        },
-                        "email": "email",
-                        "given_name": "given_name",
-                        "id_numbers": [{"type": "th_lc", "value": "value"}],
-                        "legal_gender": "male",
-                        "metadata": {"key": "metadata"},
-                        "nationalities": ["nationalities"],
-                        "phone": "phone",
-                        "political_exposure": "none",
-                        "relationship": {
-                            "director": True,
-                            "executive": True,
-                            "owner": True,
-                            "percent_ownership": "percent_ownership",
-                            "title": "title",
-                        },
-                        "script_addresses": {
-                            "kana": {
-                                "city": "city",
-                                "country": "country",
-                                "line1": "line1",
-                                "line2": "line2",
-                                "postal_code": "postal_code",
-                                "state": "state",
-                                "town": "town",
-                            },
-                            "kanji": {
-                                "city": "city",
-                                "country": "country",
-                                "line1": "line1",
-                                "line2": "line2",
-                                "postal_code": "postal_code",
-                                "state": "state",
-                                "town": "town",
-                            },
-                        },
-                        "script_names": {
-                            "kana": {
-                                "given_name": "given_name",
-                                "surname": "surname",
-                            },
-                            "kanji": {
-                                "given_name": "given_name",
-                                "surname": "surname",
-                            },
-                        },
-                        "surname": "surname",
-                    },
-                },
-            }
-        )
+        client.v2.core.account_tokens.create()
         http_client_mock.assert_requested(
             "post",
             path="/v2/core/account_tokens",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"identity":{"attestations":{"directorship_declaration":{"attested":true},"ownership_declaration":{"attested":true},"persons_provided":{"directors":true,"executives":true,"owners":true,"ownership_exemption_reason":"qualified_entity_exceeds_ownership_threshold"},"representative_declaration":{"attested":true},"terms_of_service":{"account":{"shown_and_accepted":true},"storer":{"shown_and_accepted":true}}},"business_details":{"address":{"city":"city","country":"country","line1":"line1","line2":"line2","postal_code":"postal_code","state":"state","town":"town"},"annual_revenue":{"amount":{"value":111972721,"currency":"usd"},"fiscal_year_end":"fiscal_year_end"},"documents":{"bank_account_ownership_verification":{"files":["files"],"type":"files"},"company_license":{"files":["files"],"type":"files"},"company_memorandum_of_association":{"files":["files"],"type":"files"},"company_ministerial_decree":{"files":["files"],"type":"files"},"company_registration_verification":{"files":["files"],"type":"files"},"company_tax_id_verification":{"files":["files"],"type":"files"},"primary_verification":{"front_back":{"back":"back","front":"front"},"type":"front_back"},"proof_of_address":{"files":["files"],"type":"files"},"proof_of_registration":{"files":["files"],"type":"files"},"proof_of_ultimate_beneficial_ownership":{"files":["files"],"type":"files"}},"estimated_worker_count":884794319,"id_numbers":[{"registrar":"registrar","type":"th_prn","value":"value"}],"monthly_estimated_revenue":{"amount":{"value":111972721,"currency":"usd"}},"phone":"phone","registered_name":"registered_name","script_addresses":{"kana":{"city":"city","country":"country","line1":"line1","line2":"line2","postal_code":"postal_code","state":"state","town":"town"},"kanji":{"city":"city","country":"country","line1":"line1","line2":"line2","postal_code":"postal_code","state":"state","town":"town"}},"script_names":{"kana":{"registered_name":"registered_name"},"kanji":{"registered_name":"registered_name"}},"structure":"public_listed_corporation"},"entity_type":"individual","individual":{"additional_addresses":[{"city":"city","country":"country","line1":"line1","line2":"line2","postal_code":"postal_code","purpose":"registered","state":"state","town":"town"}],"additional_names":[{"full_name":"full_name","given_name":"given_name","purpose":"alias","surname":"surname"}],"address":{"city":"city","country":"country","line1":"line1","line2":"line2","postal_code":"postal_code","state":"state","town":"town"},"date_of_birth":{"day":99228,"month":104080000,"year":3704893},"documents":{"company_authorization":{"files":["files"],"type":"files"},"passport":{"files":["files"],"type":"files"},"primary_verification":{"front_back":{"back":"back","front":"front"},"type":"front_back"},"secondary_verification":{"front_back":{"back":"back","front":"front"},"type":"front_back"},"visa":{"files":["files"],"type":"files"}},"email":"email","given_name":"given_name","id_numbers":[{"type":"th_lc","value":"value"}],"legal_gender":"male","metadata":{"key":"metadata"},"nationalities":["nationalities"],"phone":"phone","political_exposure":"none","relationship":{"director":true,"executive":true,"owner":true,"percent_ownership":"percent_ownership","title":"title"},"script_addresses":{"kana":{"city":"city","country":"country","line1":"line1","line2":"line2","postal_code":"postal_code","state":"state","town":"town"},"kanji":{"city":"city","country":"country","line1":"line1","line2":"line2","postal_code":"postal_code","state":"state","town":"town"}},"script_names":{"kana":{"given_name":"given_name","surname":"surname"},"kanji":{"given_name":"given_name","surname":"surname"}},"surname":"surname"}}}',
+            post_data="{}",
             is_json=True,
         )
 
@@ -46371,6 +46148,33 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
+    def test_controlled_by_alternate_resource_error_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/outbound_setup_intents",
+            rbody='{"error":{"type":"controlled_by_alternate_resource","code":"payout_method_cannot_be_archived"}}',
+            rcode=400,
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        try:
+            client.v2.money_management.outbound_setup_intents.create()
+        except _error.ControlledByAlternateResourceError:
+            pass
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/outbound_setup_intents",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
     def test_controlled_by_dashboard_error_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -46638,31 +46442,6 @@ class TestGeneratedExamples(object):
             api_base="https://api.stripe.com",
             post_data='{"account_number":"account_number"}',
             is_json=True,
-        )
-
-    def test_rate_limit_error_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "get",
-            "/v2/core/accounts/id_123",
-            rbody='{"error":{"type":"rate_limit","code":"account_rate_limit_exceeded"}}',
-            rcode=400,
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        try:
-            client.v2.core.accounts.retrieve("id_123")
-        except _error.RateLimitError:
-            pass
-        http_client_mock.assert_requested(
-            "get",
-            path="/v2/core/accounts/id_123",
-            query_string="",
-            api_base="https://api.stripe.com",
         )
 
     def test_recipient_not_notifiable_error_service(

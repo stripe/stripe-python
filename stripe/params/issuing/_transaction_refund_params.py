@@ -12,5 +12,5 @@ class TransactionRefundParams(RequestOptions):
     """
     refund_amount: NotRequired[int]
     """
-    The total amount to attempt to refund. This amount is in the provided currency, or defaults to the cards currency, and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+    The total amount to attempt to refund. This amount is in the provided currency, or defaults to the cards currency, and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
     """

@@ -8,11 +8,11 @@ from typing_extensions import Literal, NotRequired
 class QuoteListParams(RequestOptions):
     customer: NotRequired[str]
     """
-    The ID of the customer whose quotes will be retrieved.
+    The ID of the customer whose quotes you're retrieving.
     """
     customer_account: NotRequired[str]
     """
-    The ID of the account whose quotes will be retrieved.
+    The ID of the account representing the customer whose quotes you're retrieving.
     """
     ending_before: NotRequired[str]
     """

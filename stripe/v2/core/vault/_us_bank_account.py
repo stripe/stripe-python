@@ -68,6 +68,10 @@ class UsBankAccount(StripeObject):
     """
     The fedwire routing number of the bank account.
     """
+    financial_connections_account: Optional[str]
+    """
+    The ID of the Financial Connections Account used to create the bank account.
+    """
     id: str
     """
     The ID of the USBankAccount object.

@@ -8,7 +8,7 @@ from typing_extensions import NotRequired
 class ProductCreateFeatureParams(RequestOptions):
     entitlement_feature: str
     """
-    The ID of the [Feature](https://stripe.com/docs/api/entitlements/feature) object attached to this product.
+    The ID of the [Feature](https://docs.stripe.com/api/entitlements/feature) object attached to this product.
     """
     expand: NotRequired[List[str]]
     """
