@@ -20,7 +20,7 @@ class Settings(
     """
     You can use Tax `Settings` to manage configurations used by Stripe Tax calculations.
 
-    Related guide: [Using the Settings API](https://stripe.com/docs/tax/settings-api)
+    Related guide: [Using the Settings API](https://docs.stripe.com/tax/settings-api)
     """
 
     OBJECT_NAME: ClassVar[Literal["tax.settings"]] = "tax.settings"
@@ -65,7 +65,7 @@ class Settings(
             """
             state: Optional[str]
             """
-            State, county, province, or region.
+            State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             """
 
         address: Address

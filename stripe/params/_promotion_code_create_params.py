@@ -18,7 +18,11 @@ class PromotionCodeCreateParams(RequestOptions):
     """
     customer: NotRequired[str]
     """
-    The customer that this promotion code can be used by. If not set, the promotion code can be used by all customers.
+    The customer who can use this promotion code. If not set, all customers can use the promotion code.
+    """
+    customer_account: NotRequired[str]
+    """
+    The account representing the customer who can use this promotion code. If not set, all customers can use the promotion code.
     """
     expand: NotRequired[List[str]]
     """
@@ -34,7 +38,7 @@ class PromotionCodeCreateParams(RequestOptions):
     """
     metadata: NotRequired[Dict[str, str]]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
     promotion: "PromotionCodeCreateParamsPromotion"
     """

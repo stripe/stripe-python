@@ -63,7 +63,7 @@ class SourceCreateParams(RequestOptions):
     """
     type: NotRequired[str]
     """
-    The `type` of the source to create. Required unless `customer` and `original_source` are specified (see the [Cloning card Sources](https://stripe.com/docs/sources/connect#cloning-card-sources) guide)
+    The `type` of the source to create. Required unless `customer` and `original_source` are specified (see the [Cloning card Sources](https://docs.stripe.com/sources/connect#cloning-card-sources) guide)
     """
     usage: NotRequired[Literal["reusable", "single_use"]]
 
@@ -188,7 +188,7 @@ class SourceCreateParamsOwnerAddress(TypedDict):
     """
     state: NotRequired[str]
     """
-    State, county, province, or region.
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """
 
 
@@ -278,5 +278,5 @@ class SourceCreateParamsSourceOrderShippingAddress(TypedDict):
     """
     state: NotRequired[str]
     """
-    State, county, province, or region.
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """

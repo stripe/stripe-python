@@ -41,10 +41,10 @@ class PaymentMethod(
 ):
     """
     PaymentMethod objects represent your customer's payment instruments.
-    You can use them with [PaymentIntents](https://stripe.com/docs/payments/payment-intents) to collect payments or save them to
+    You can use them with [PaymentIntents](https://docs.stripe.com/payments/payment-intents) to collect payments or save them to
     Customer objects to store instrument details for future payments.
 
-    Related guides: [Payment Methods](https://stripe.com/docs/payments/payment-methods) and [More Payment Scenarios](https://stripe.com/docs/payments/more-payment-scenarios).
+    Related guides: [Payment Methods](https://docs.stripe.com/payments/payment-methods) and [More Payment Scenarios](https://docs.stripe.com/payments/more-payment-scenarios).
     """
 
     OBJECT_NAME: ClassVar[Literal["payment_method"]] = "payment_method"
@@ -144,7 +144,7 @@ class PaymentMethod(
             """
             state: Optional[str]
             """
-            State, county, province, or region.
+            State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             """
 
         address: Optional[Address]
@@ -314,7 +314,7 @@ class PaymentMethod(
                     """
                     incremental_authorization_supported: bool
                     """
-                    Whether this [PaymentIntent](https://stripe.com/docs/api/payment_intents) is eligible for incremental authorizations. Request support using [request_incremental_authorization_support](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-payment_method_options-card_present-request_incremental_authorization_support).
+                    Whether this [PaymentIntent](https://docs.stripe.com/api/payment_intents) is eligible for incremental authorizations. Request support using [request_incremental_authorization_support](https://docs.stripe.com/api/payment_intents/create#create_payment_intent-payment_method_options-card_present-request_incremental_authorization_support).
                     """
                     issuer: Optional[str]
                     """
@@ -443,7 +443,7 @@ class PaymentMethod(
                     """
                     state: Optional[str]
                     """
-                    State, county, province, or region.
+                    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                     """
 
                 class ShippingAddress(StripeObject):
@@ -469,7 +469,7 @@ class PaymentMethod(
                     """
                     state: Optional[str]
                     """
-                    State, county, province, or region.
+                    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                     """
 
                 billing_address: Optional[BillingAddress]
@@ -520,7 +520,7 @@ class PaymentMethod(
                     """
                     state: Optional[str]
                     """
-                    State, county, province, or region.
+                    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                     """
 
                 class ShippingAddress(StripeObject):
@@ -546,7 +546,7 @@ class PaymentMethod(
                     """
                     state: Optional[str]
                     """
-                    State, county, province, or region.
+                    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                     """
 
                 billing_address: Optional[BillingAddress]
@@ -917,6 +917,7 @@ class PaymentMethod(
                 "handelsbanken",
                 "ing",
                 "knab",
+                "mollie",
                 "moneyou",
                 "n26",
                 "nn",
@@ -930,7 +931,7 @@ class PaymentMethod(
             ]
         ]
         """
-        The customer's bank, if provided. Can be one of `abn_amro`, `asn_bank`, `bunq`, `buut`, `finom`, `handelsbanken`, `ing`, `knab`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
+        The customer's bank, if provided. Can be one of `abn_amro`, `asn_bank`, `bunq`, `buut`, `finom`, `handelsbanken`, `ing`, `knab`, `mollie`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
         """
         bic: Optional[
             Literal[
@@ -944,6 +945,7 @@ class PaymentMethod(
                 "HANDNL2A",
                 "INGBNL2A",
                 "KNABNL2H",
+                "MLLENL2A",
                 "MOYONL21",
                 "NNBANL2G",
                 "NTSBDEB1",
@@ -1217,6 +1219,20 @@ class PaymentMethod(
         PayPal account PayerID. This identifier uniquely identifies the PayPal customer.
         """
 
+    class Payto(StripeObject):
+        bsb_number: Optional[str]
+        """
+        Bank-State-Branch number of the bank account.
+        """
+        last4: Optional[str]
+        """
+        Last four digits of the bank account number.
+        """
+        pay_id: Optional[str]
+        """
+        The PayID alias for the bank account.
+        """
+
     class Pix(StripeObject):
         pass
 
@@ -1226,7 +1242,7 @@ class PaymentMethod(
     class RadarOptions(StripeObject):
         session: Optional[str]
         """
-        A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+        A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
         """
 
     class RevolutPay(StripeObject):
@@ -1414,6 +1430,7 @@ class PaymentMethod(
     """
     The ID of the Customer to which this PaymentMethod is saved. This will not be set when the PaymentMethod has not been saved to a Customer.
     """
+    customer_account: Optional[str]
     customer_balance: Optional[CustomerBalance]
     eps: Optional[Eps]
     fpx: Optional[Fpx]
@@ -1437,7 +1454,7 @@ class PaymentMethod(
     mb_way: Optional[MbWay]
     metadata: Optional[Dict[str, str]]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     mobilepay: Optional[Mobilepay]
     multibanco: Optional[Multibanco]
@@ -1453,11 +1470,12 @@ class PaymentMethod(
     payco: Optional[Payco]
     paynow: Optional[Paynow]
     paypal: Optional[Paypal]
+    payto: Optional[Payto]
     pix: Optional[Pix]
     promptpay: Optional[Promptpay]
     radar_options: Optional[RadarOptions]
     """
-    Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
+    Options to configure Radar. See [Radar Session](https://docs.stripe.com/radar/radar-session) for more information.
     """
     revolut_pay: Optional[RevolutPay]
     samsung_pay: Optional[SamsungPay]
@@ -1507,6 +1525,7 @@ class PaymentMethod(
         "payco",
         "paynow",
         "paypal",
+        "payto",
         "pix",
         "promptpay",
         "revolut_pay",
@@ -1884,7 +1903,7 @@ class PaymentMethod(
         cls, **params: Unpack["PaymentMethodListParams"]
     ) -> ListObject["PaymentMethod"]:
         """
-        Returns a list of PaymentMethods for Treasury flows. If you want to list the PaymentMethods attached to a Customer for payments, you should use the [List a Customer's PaymentMethods](https://docs.stripe.com/docs/api/payment_methods/customer_list) API instead.
+        Returns a list of all PaymentMethods.
         """
         result = cls._static_request(
             "get",
@@ -1904,7 +1923,7 @@ class PaymentMethod(
         cls, **params: Unpack["PaymentMethodListParams"]
     ) -> ListObject["PaymentMethod"]:
         """
-        Returns a list of PaymentMethods for Treasury flows. If you want to list the PaymentMethods attached to a Customer for payments, you should use the [List a Customer's PaymentMethods](https://docs.stripe.com/docs/api/payment_methods/customer_list) API instead.
+        Returns a list of all PaymentMethods.
         """
         result = await cls._static_request_async(
             "get",
@@ -2017,6 +2036,7 @@ class PaymentMethod(
         "payco": Payco,
         "paynow": Paynow,
         "paypal": Paypal,
+        "payto": Payto,
         "pix": Pix,
         "promptpay": Promptpay,
         "radar_options": RadarOptions,

@@ -17,6 +17,10 @@ class CustomerBalanceTransactionListParams(TypedDict):
     """
     Specifies which fields in the response should be expanded.
     """
+    invoice: NotRequired[str]
+    """
+    Only return transactions that are related to the specified invoice.
+    """
     limit: NotRequired[int]
     """
     A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.

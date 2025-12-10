@@ -18,9 +18,13 @@ class CreditGrantCreateParams(RequestOptions):
     """
     The category of this credit grant. It defaults to `paid` if not specified.
     """
-    customer: str
+    customer: NotRequired[str]
     """
-    ID of the customer to receive the billing credits.
+    ID of the customer receiving the billing credits.
+    """
+    customer_account: NotRequired[str]
+    """
+    ID of the account representing the customer receiving the billing credits.
     """
     effective_at: NotRequired[int]
     """

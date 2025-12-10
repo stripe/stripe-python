@@ -28,7 +28,7 @@ class InboundTransferCreateParams(RequestOptions):
     """
     metadata: NotRequired[Dict[str, str]]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
     origin_payment_method: str
     """
@@ -36,5 +36,5 @@ class InboundTransferCreateParams(RequestOptions):
     """
     statement_descriptor: NotRequired[str]
     """
-    The complete description that appears on your customers' statements. Maximum 10 characters.
+    The complete description that appears on your customers' statements. Maximum 10 characters. Can only include -#.$&*, spaces, and alphanumeric characters.
     """

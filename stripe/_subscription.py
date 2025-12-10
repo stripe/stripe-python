@@ -76,7 +76,7 @@ class Subscription(
     """
     Subscriptions allow you to charge a customer on a recurring basis.
 
-    Related guide: [Creating subscriptions](https://stripe.com/docs/billing/subscriptions/creating)
+    Related guide: [Creating subscriptions](https://docs.stripe.com/billing/subscriptions/creating)
     """
 
     OBJECT_NAME: ClassVar[Literal["subscription"]] = "subscription"
@@ -280,7 +280,7 @@ class Subscription(
                     Literal["any", "automatic", "challenge"]
                 ]
                 """
-                We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+                We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
                 """
                 _inner_class_types = {"mandate_options": MandateOptions}
 
@@ -308,6 +308,38 @@ class Subscription(
 
             class Konbini(StripeObject):
                 pass
+
+            class Payto(StripeObject):
+                class MandateOptions(StripeObject):
+                    amount: Optional[int]
+                    """
+                    The maximum amount that can be collected in a single invoice. If you don't specify a maximum, then there is no limit.
+                    """
+                    amount_type: Optional[Literal["fixed", "maximum"]]
+                    """
+                    Only `maximum` is supported.
+                    """
+                    purpose: Optional[
+                        Literal[
+                            "dependant_support",
+                            "government",
+                            "loan",
+                            "mortgage",
+                            "other",
+                            "pension",
+                            "personal",
+                            "retail",
+                            "salary",
+                            "tax",
+                            "utility",
+                        ]
+                    ]
+                    """
+                    The purpose for which payments are made. Has a default value based on your merchant category code.
+                    """
+
+                mandate_options: Optional[MandateOptions]
+                _inner_class_types = {"mandate_options": MandateOptions}
 
             class SepaDebit(StripeObject):
                 pass
@@ -375,6 +407,10 @@ class Subscription(
             """
             This sub-hash contains details about the Konbini payment method options to pass to invoices created by the subscription.
             """
+            payto: Optional[Payto]
+            """
+            This sub-hash contains details about the PayTo payment method options to pass to invoices created by the subscription.
+            """
             sepa_debit: Optional[SepaDebit]
             """
             This sub-hash contains details about the SEPA Direct Debit payment method options to pass to invoices created by the subscription.
@@ -389,6 +425,7 @@ class Subscription(
                 "card": Card,
                 "customer_balance": CustomerBalance,
                 "konbini": Konbini,
+                "payto": Payto,
                 "sepa_debit": SepaDebit,
                 "us_bank_account": UsBankAccount,
             }
@@ -432,6 +469,7 @@ class Subscription(
                     "payco",
                     "paynow",
                     "paypal",
+                    "payto",
                     "promptpay",
                     "revolut_pay",
                     "sepa_credit_transfer",
@@ -483,7 +521,7 @@ class Subscription(
         """
         trial_from_plan: Optional[bool]
         """
-        Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. See [Using trial periods on subscriptions](https://stripe.com/docs/billing/subscriptions/trials) to learn more.
+        Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. See [Using trial periods on subscriptions](https://docs.stripe.com/billing/subscriptions/trials) to learn more.
         """
 
     class TransferData(StripeObject):
@@ -522,7 +560,7 @@ class Subscription(
     automatic_tax: AutomaticTax
     billing_cycle_anchor: int
     """
-    The reference point that aligns future [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle) dates. It sets the day of week for `week` intervals, the day of month for `month` and `year` intervals, and the month of year for `year` intervals. The timestamp is in UTC format.
+    The reference point that aligns future [billing cycle](https://docs.stripe.com/subscriptions/billing-cycle) dates. It sets the day of week for `week` intervals, the day of month for `month` and `year` intervals, and the month of year for `year` intervals. The timestamp is in UTC format.
     """
     billing_cycle_anchor_config: Optional[BillingCycleAnchorConfig]
     """
@@ -568,13 +606,17 @@ class Subscription(
     """
     ID of the customer who owns the subscription.
     """
+    customer_account: Optional[str]
+    """
+    ID of the account representing the customer who owns the subscription.
+    """
     days_until_due: Optional[int]
     """
     Number of days a customer has to pay invoices generated by this subscription. This value will be `null` for subscriptions where `collection_method=charge_automatically`.
     """
     default_payment_method: Optional[ExpandableField["PaymentMethod"]]
     """
-    ID of the default payment method for the subscription. It must belong to the customer associated with the subscription. This takes precedence over `default_source`. If neither are set, invoices will use the customer's [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) or [default_source](https://stripe.com/docs/api/customers/object#customer_object-default_source).
+    ID of the default payment method for the subscription. It must belong to the customer associated with the subscription. This takes precedence over `default_source`. If neither are set, invoices will use the customer's [invoice_settings.default_payment_method](https://docs.stripe.com/api/customers/object#customer_object-invoice_settings-default_payment_method) or [default_source](https://docs.stripe.com/api/customers/object#customer_object-default_source).
     """
     default_source: Optional[
         ExpandableField[
@@ -582,7 +624,7 @@ class Subscription(
         ]
     ]
     """
-    ID of the default payment source for the subscription. It must belong to the customer associated with the subscription and be in a chargeable state. If `default_payment_method` is also set, `default_payment_method` will take precedence. If neither are set, invoices will use the customer's [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/object#customer_object-invoice_settings-default_payment_method) or [default_source](https://stripe.com/docs/api/customers/object#customer_object-default_source).
+    ID of the default payment source for the subscription. It must belong to the customer associated with the subscription and be in a chargeable state. If `default_payment_method` is also set, `default_payment_method` will take precedence. If neither are set, invoices will use the customer's [invoice_settings.default_payment_method](https://docs.stripe.com/api/customers/object#customer_object-invoice_settings-default_payment_method) or [default_source](https://docs.stripe.com/api/customers/object#customer_object-default_source).
     """
     default_tax_rates: Optional[List["TaxRate"]]
     """
@@ -619,7 +661,7 @@ class Subscription(
     """
     metadata: Dict[str, str]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     next_pending_invoice_item_invoice: Optional[int]
     """
@@ -631,11 +673,11 @@ class Subscription(
     """
     on_behalf_of: Optional[ExpandableField["Account"]]
     """
-    The account (if any) the charge was made on behalf of for charges associated with this subscription. See the [Connect documentation](https://stripe.com/docs/connect/subscriptions#on-behalf-of) for details.
+    The account (if any) the charge was made on behalf of for charges associated with this subscription. See the [Connect documentation](https://docs.stripe.com/connect/subscriptions#on-behalf-of) for details.
     """
     pause_collection: Optional[PauseCollection]
     """
-    If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment).
+    If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://docs.stripe.com/billing/subscriptions/pause-payment).
     """
     payment_settings: Optional[PaymentSettings]
     """
@@ -643,15 +685,15 @@ class Subscription(
     """
     pending_invoice_item_interval: Optional[PendingInvoiceItemInterval]
     """
-    Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://stripe.com/docs/api#create_invoice) for the given subscription at the specified interval.
+    Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://docs.stripe.com/api#create_invoice) for the given subscription at the specified interval.
     """
     pending_setup_intent: Optional[ExpandableField["SetupIntent"]]
     """
-    You can use this [SetupIntent](https://stripe.com/docs/api/setup_intents) to collect user authentication when creating a subscription without immediate payment or updating a subscription's payment method, allowing you to optimize for off-session payments. Learn more in the [SCA Migration Guide](https://stripe.com/docs/billing/migration/strong-customer-authentication#scenario-2).
+    You can use this [SetupIntent](https://docs.stripe.com/api/setup_intents) to collect user authentication when creating a subscription without immediate payment or updating a subscription's payment method, allowing you to optimize for off-session payments. Learn more in the [SCA Migration Guide](https://docs.stripe.com/billing/migration/strong-customer-authentication#scenario-2).
     """
     pending_update: Optional[PendingUpdate]
     """
-    If specified, [pending updates](https://stripe.com/docs/billing/subscriptions/pending-updates) that will be applied to the subscription once the `latest_invoice` has been paid.
+    If specified, [pending updates](https://docs.stripe.com/billing/subscriptions/pending-updates) that will be applied to the subscription once the `latest_invoice` has been paid.
     """
     schedule: Optional[ExpandableField["SubscriptionSchedule"]]
     """
@@ -678,7 +720,7 @@ class Subscription(
 
     A subscription that is currently in a trial period is `trialing` and moves to `active` when the trial period is over.
 
-    A subscription can only enter a `paused` status [when a trial ends without a payment method](https://stripe.com/docs/billing/subscriptions/trials#create-free-trials-without-payment). A `paused` subscription doesn't generate invoices and can be resumed after your customer adds their payment method. The `paused` status is different from [pausing collection](https://stripe.com/docs/billing/subscriptions/pause-payment), which still generates invoices and leaves the subscription's status unchanged.
+    A subscription can only enter a `paused` status [when a trial ends without a payment method](https://docs.stripe.com/billing/subscriptions/trials#create-free-trials-without-payment). A `paused` subscription doesn't generate invoices and can be resumed after your customer adds their payment method. The `paused` status is different from [pausing collection](https://docs.stripe.com/billing/subscriptions/pause-payment), which still generates invoices and leaves the subscription's status unchanged.
 
     If subscription `collection_method=charge_automatically`, it becomes `past_due` when payment is required but cannot be paid (due to failed payment or awaiting additional user actions). Once Stripe has exhausted all payment retry attempts, the subscription will become `canceled` or `unpaid` (depending on your subscriptions settings).
 

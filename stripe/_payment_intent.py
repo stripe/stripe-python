@@ -90,11 +90,11 @@ class PaymentIntent(
     see the history of payment attempts for a particular session.
 
     A PaymentIntent transitions through
-    [multiple statuses](https://stripe.com/docs/payments/intents#intent-statuses)
+    [multiple statuses](https://docs.stripe.com/payments/intents#intent-statuses)
     throughout its lifetime as it interfaces with Stripe.js to perform
     authentication flows and ultimately creates at most one successful charge.
 
-    Related guide: [Payment Intents API](https://stripe.com/docs/payments/payment-intents)
+    Related guide: [Payment Intents API](https://docs.stripe.com/payments/payment-intents)
     """
 
     OBJECT_NAME: ClassVar[Literal["payment_intent"]] = "payment_intent"
@@ -103,7 +103,7 @@ class PaymentIntent(
         class Shipping(StripeObject):
             amount: Optional[int]
             """
-            If a physical good is being shipped, the cost of shipping represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than or equal to 0.
+            If a physical good is being shipped, the cost of shipping represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). An integer greater than or equal to 0.
             """
             from_postal_code: Optional[str]
             """
@@ -117,7 +117,7 @@ class PaymentIntent(
         class Tax(StripeObject):
             total_tax_amount: Optional[int]
             """
-            The total amount of tax on the transaction represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L2 rates. An integer greater than or equal to 0.
+            The total amount of tax on the transaction represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). Required for L2 rates. An integer greater than or equal to 0.
 
             This field is mutually exclusive with the `amount_details[line_items][#][tax][total_tax_amount]` field.
             """
@@ -130,7 +130,7 @@ class PaymentIntent(
 
         discount_amount: Optional[int]
         """
-        The total discount applied on the transaction represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than 0.
+        The total discount applied on the transaction represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). An integer greater than 0.
 
         This field is mutually exclusive with the `amount_details[line_items][#][discount_amount]` field.
         """
@@ -148,7 +148,7 @@ class PaymentIntent(
         """
         Controls whether this PaymentIntent will accept redirect-based payment methods.
 
-        Redirect-based payment methods may require your customer to be redirected to a payment method's app or site for authentication or additional steps. To [confirm](https://stripe.com/docs/api/payment_intents/confirm) this PaymentIntent, you may be required to provide a `return_url` to redirect customers back to your site after they authenticate or complete the payment.
+        Redirect-based payment methods may require your customer to be redirected to a payment method's app or site for authentication or additional steps. To [confirm](https://docs.stripe.com/api/payment_intents/confirm) this PaymentIntent, you may be required to provide a `return_url` to redirect customers back to your site after they authenticate or complete the payment.
         """
         enabled: bool
         """
@@ -160,7 +160,7 @@ class PaymentIntent(
             class Tax(StripeObject):
                 calculation: str
                 """
-                The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
+                The [TaxCalculation](https://docs.stripe.com/api/tax/calculations) id
                 """
 
             tax: Optional[Tax]
@@ -172,7 +172,7 @@ class PaymentIntent(
     class LastPaymentError(StripeObject):
         advice_code: Optional[str]
         """
-        For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://stripe.com/docs/declines#retrying-issuer-declines) if they provide one.
+        For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://docs.stripe.com/declines#retrying-issuer-declines) if they provide one.
         """
         charge: Optional[str]
         """
@@ -186,6 +186,7 @@ class PaymentIntent(
                 "account_information_mismatch",
                 "account_invalid",
                 "account_number_invalid",
+                "account_token_required_for_v2_account",
                 "acss_debit_session_incomplete",
                 "alipay_upgrade_required",
                 "amount_too_large",
@@ -364,15 +365,15 @@ class PaymentIntent(
             ]
         ]
         """
-        For some errors that could be handled programmatically, a short string indicating the [error code](https://stripe.com/docs/error-codes) reported.
+        For some errors that could be handled programmatically, a short string indicating the [error code](https://docs.stripe.com/error-codes) reported.
         """
         decline_code: Optional[str]
         """
-        For card errors resulting from a card issuer decline, a short string indicating the [card issuer's reason for the decline](https://stripe.com/docs/declines#issuer-declines) if they provide one.
+        For card errors resulting from a card issuer decline, a short string indicating the [card issuer's reason for the decline](https://docs.stripe.com/declines#issuer-declines) if they provide one.
         """
         doc_url: Optional[str]
         """
-        A URL to more information about the [error code](https://stripe.com/docs/error-codes) reported.
+        A URL to more information about the [error code](https://docs.stripe.com/error-codes) reported.
         """
         message: Optional[str]
         """
@@ -398,19 +399,19 @@ class PaymentIntent(
         see the history of payment attempts for a particular session.
 
         A PaymentIntent transitions through
-        [multiple statuses](https://stripe.com/docs/payments/intents#intent-statuses)
+        [multiple statuses](https://docs.stripe.com/payments/intents#intent-statuses)
         throughout its lifetime as it interfaces with Stripe.js to perform
         authentication flows and ultimately creates at most one successful charge.
 
-        Related guide: [Payment Intents API](https://stripe.com/docs/payments/payment-intents)
+        Related guide: [Payment Intents API](https://docs.stripe.com/payments/payment-intents)
         """
         payment_method: Optional["PaymentMethod"]
         """
         PaymentMethod objects represent your customer's payment instruments.
-        You can use them with [PaymentIntents](https://stripe.com/docs/payments/payment-intents) to collect payments or save them to
+        You can use them with [PaymentIntents](https://docs.stripe.com/payments/payment-intents) to collect payments or save them to
         Customer objects to store instrument details for future payments.
 
-        Related guides: [Payment Methods](https://stripe.com/docs/payments/payment-methods) and [More Payment Scenarios](https://stripe.com/docs/payments/more-payment-scenarios).
+        Related guides: [Payment Methods](https://docs.stripe.com/payments/payment-methods) and [More Payment Scenarios](https://docs.stripe.com/payments/more-payment-scenarios).
         """
         payment_method_type: Optional[str]
         """
@@ -424,7 +425,7 @@ class PaymentIntent(
         """
         A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
         For example, you can use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
-        Later, you can use [PaymentIntents](https://stripe.com/docs/api#payment_intents) to drive the payment flow.
+        Later, you can use [PaymentIntents](https://api.stripe.com#payment_intents) to drive the payment flow.
 
         Create a SetupIntent when you're ready to collect your customer's payment credentials.
         Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
@@ -435,9 +436,9 @@ class PaymentIntent(
         For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) might need to be run through
         [Strong Customer Authentication](https://docs.stripe.com/strong-customer-authentication) during payment method collection
         to streamline later [off-session payments](https://docs.stripe.com/payments/setup-intents).
-        If you use the SetupIntent with a [Customer](https://stripe.com/docs/api#setup_intent_object-customer),
+        If you use the SetupIntent with a [Customer](https://api.stripe.com#setup_intent_object-customer),
         it automatically attaches the resulting payment method to that Customer after successful setup.
-        We recommend using SetupIntents or [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) on
+        We recommend using SetupIntents or [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) on
         PaymentIntents to save payment methods to prevent saving invalid or unoptimized payment methods.
 
         By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
@@ -556,7 +557,7 @@ class PaymentIntent(
                         """
                         state: Optional[str]
                         """
-                        State, county, province, or region.
+                        State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                         """
 
                     class BankAddress(StripeObject):
@@ -582,7 +583,7 @@ class PaymentIntent(
                         """
                         state: Optional[str]
                         """
-                        State, county, province, or region.
+                        State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                         """
 
                     account_holder_address: AccountHolderAddress
@@ -636,7 +637,7 @@ class PaymentIntent(
                         """
                         state: Optional[str]
                         """
-                        State, county, province, or region.
+                        State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                         """
 
                     class BankAddress(StripeObject):
@@ -662,7 +663,7 @@ class PaymentIntent(
                         """
                         state: Optional[str]
                         """
-                        State, county, province, or region.
+                        State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                         """
 
                     account_holder_address: AccountHolderAddress
@@ -712,7 +713,7 @@ class PaymentIntent(
                         """
                         state: Optional[str]
                         """
-                        State, county, province, or region.
+                        State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                         """
 
                     class BankAddress(StripeObject):
@@ -738,7 +739,7 @@ class PaymentIntent(
                         """
                         state: Optional[str]
                         """
-                        State, county, province, or region.
+                        State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                         """
 
                     account_holder_address: AccountHolderAddress
@@ -784,7 +785,7 @@ class PaymentIntent(
                         """
                         state: Optional[str]
                         """
-                        State, county, province, or region.
+                        State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                         """
 
                     class BankAddress(StripeObject):
@@ -810,7 +811,7 @@ class PaymentIntent(
                         """
                         state: Optional[str]
                         """
-                        State, county, province, or region.
+                        State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                         """
 
                     account_holder_address: AccountHolderAddress
@@ -860,7 +861,7 @@ class PaymentIntent(
                         """
                         state: Optional[str]
                         """
-                        State, county, province, or region.
+                        State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                         """
 
                     class BankAddress(StripeObject):
@@ -886,7 +887,7 @@ class PaymentIntent(
                         """
                         state: Optional[str]
                         """
-                        State, county, province, or region.
+                        State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                         """
 
                     account_holder_address: AccountHolderAddress
@@ -940,7 +941,7 @@ class PaymentIntent(
                         """
                         state: Optional[str]
                         """
-                        State, county, province, or region.
+                        State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                         """
 
                     class BankAddress(StripeObject):
@@ -966,7 +967,7 @@ class PaymentIntent(
                         """
                         state: Optional[str]
                         """
-                        State, county, province, or region.
+                        State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                         """
 
                     account_holder_address: AccountHolderAddress
@@ -1758,7 +1759,7 @@ class PaymentIntent(
             """
             Installment details for this payment.
 
-            For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
+            For more information, see the [installments integration guide](https://docs.stripe.com/payments/installments).
             """
             mandate_options: Optional[MandateOptions]
             """
@@ -1788,27 +1789,27 @@ class PaymentIntent(
                 Literal["if_available", "never"]
             ]
             """
-            Request ability to [capture beyond the standard authorization validity window](https://stripe.com/docs/payments/extended-authorization) for this PaymentIntent.
+            Request ability to [capture beyond the standard authorization validity window](https://docs.stripe.com/payments/extended-authorization) for this PaymentIntent.
             """
             request_incremental_authorization: Optional[
                 Literal["if_available", "never"]
             ]
             """
-            Request ability to [increment the authorization](https://stripe.com/docs/payments/incremental-authorization) for this PaymentIntent.
+            Request ability to [increment the authorization](https://docs.stripe.com/payments/incremental-authorization) for this PaymentIntent.
             """
             request_multicapture: Optional[Literal["if_available", "never"]]
             """
-            Request ability to make [multiple captures](https://stripe.com/docs/payments/multicapture) for this PaymentIntent.
+            Request ability to make [multiple captures](https://docs.stripe.com/payments/multicapture) for this PaymentIntent.
             """
             request_overcapture: Optional[Literal["if_available", "never"]]
             """
-            Request ability to [overcapture](https://stripe.com/docs/payments/overcapture) for this PaymentIntent.
+            Request ability to [overcapture](https://docs.stripe.com/payments/overcapture) for this PaymentIntent.
             """
             request_three_d_secure: Optional[
                 Literal["any", "automatic", "challenge"]
             ]
             """
-            We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+            We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
             """
             require_cvc_recollection: Optional[bool]
             """
@@ -1854,11 +1855,11 @@ class PaymentIntent(
             """
             request_extended_authorization: Optional[bool]
             """
-            Request ability to capture this payment beyond the standard [authorization validity window](https://stripe.com/docs/terminal/features/extended-authorizations#authorization-validity)
+            Request ability to capture this payment beyond the standard [authorization validity window](https://docs.stripe.com/terminal/features/extended-authorizations#authorization-validity)
             """
             request_incremental_authorization_support: Optional[bool]
             """
-            Request ability to [increment](https://stripe.com/docs/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://stripe.com/docs/api/payment_intents/confirm) response to verify support.
+            Request ability to [increment](https://docs.stripe.com/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://docs.stripe.com/api/payment_intents/confirm) response to verify support.
             """
             routing: Optional[Routing]
             _inner_class_types = {"routing": Routing}
@@ -2263,6 +2264,71 @@ class PaymentIntent(
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
             """
 
+        class Payto(StripeObject):
+            class MandateOptions(StripeObject):
+                amount: Optional[int]
+                """
+                Amount that will be collected. It is required when `amount_type` is `fixed`.
+                """
+                amount_type: Optional[Literal["fixed", "maximum"]]
+                """
+                The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively. Defaults to `maximum`.
+                """
+                end_date: Optional[str]
+                """
+                Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
+                """
+                payment_schedule: Optional[
+                    Literal[
+                        "adhoc",
+                        "annual",
+                        "daily",
+                        "fortnightly",
+                        "monthly",
+                        "quarterly",
+                        "semi_annual",
+                        "weekly",
+                    ]
+                ]
+                """
+                The periodicity at which payments will be collected. Defaults to `adhoc`.
+                """
+                payments_per_period: Optional[int]
+                """
+                The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
+                """
+                purpose: Optional[
+                    Literal[
+                        "dependant_support",
+                        "government",
+                        "loan",
+                        "mortgage",
+                        "other",
+                        "pension",
+                        "personal",
+                        "retail",
+                        "salary",
+                        "tax",
+                        "utility",
+                    ]
+                ]
+                """
+                The purpose for which payments are made. Has a default value based on your merchant category code.
+                """
+
+            mandate_options: Optional[MandateOptions]
+            setup_future_usage: Optional[Literal["none", "off_session"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+            """
+            _inner_class_types = {"mandate_options": MandateOptions}
+
         class Pix(StripeObject):
             amount_includes_iof: Optional[Literal["always", "never"]]
             """
@@ -2547,6 +2613,7 @@ class PaymentIntent(
         payco: Optional[Payco]
         paynow: Optional[Paynow]
         paypal: Optional[Paypal]
+        payto: Optional[Payto]
         pix: Optional[Pix]
         promptpay: Optional[Promptpay]
         revolut_pay: Optional[RevolutPay]
@@ -2599,6 +2666,7 @@ class PaymentIntent(
             "payco": Payco,
             "paynow": Paynow,
             "paypal": Paypal,
+            "payto": Payto,
             "pix": Pix,
             "promptpay": Promptpay,
             "revolut_pay": RevolutPay,
@@ -2671,7 +2739,7 @@ class PaymentIntent(
             """
             state: Optional[str]
             """
-            State, county, province, or region.
+            State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             """
 
         address: Optional[Address]
@@ -2697,7 +2765,7 @@ class PaymentIntent(
         amount: Optional[int]
         """
         The amount transferred to the destination account. This transfer will occur automatically after the payment succeeds. If no amount is specified, by default the entire payment amount is transferred to the destination account.
-         The amount must be less than or equal to the [amount](https://stripe.com/docs/api/payment_intents/object#payment_intent_object-amount), and must be a positive integer
+         The amount must be less than or equal to the [amount](https://docs.stripe.com/api/payment_intents/object#payment_intent_object-amount), and must be a positive integer
          representing how much to transfer in the smallest currency unit (e.g., 100 cents to charge $1.00).
         """
         destination: ExpandableField["Account"]
@@ -2707,7 +2775,7 @@ class PaymentIntent(
 
     amount: int
     """
-    Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
+    Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://docs.stripe.com/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
     """
     amount_capturable: int
     """
@@ -2724,7 +2792,7 @@ class PaymentIntent(
     """
     application_fee_amount: Optional[int]
     """
-    The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+    The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://docs.stripe.com/payments/connected-accounts).
     """
     automatic_payment_methods: Optional[AutomaticPaymentMethods]
     """
@@ -2759,7 +2827,7 @@ class PaymentIntent(
 
     The client secret can be used to complete a payment from your frontend. It should not be stored, logged, or exposed to anyone other than the customer. Make sure that you have TLS enabled on any page that includes the client secret.
 
-    Refer to our docs to [accept a payment](https://stripe.com/docs/payments/accept-a-payment?ui=elements) and learn about how `client_secret` should be handled.
+    Refer to our docs to [accept a payment](https://docs.stripe.com/payments/accept-a-payment?ui=elements) and learn about how `client_secret` should be handled.
     """
     confirmation_method: Literal["automatic", "manual"]
     """
@@ -2779,7 +2847,15 @@ class PaymentIntent(
 
     Payment methods attached to other Customers cannot be used with this PaymentIntent.
 
-    If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+    If [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+    """
+    customer_account: Optional[str]
+    """
+    ID of the Account representing the customer that this PaymentIntent belongs to, if one exists.
+
+    Payment methods attached to other Accounts cannot be used with this PaymentIntent.
+
+    If [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Account after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Account instead.
     """
     description: Optional[str]
     """
@@ -2824,6 +2900,7 @@ class PaymentIntent(
                 "payco",
                 "paynow",
                 "paypal",
+                "payto",
                 "pix",
                 "promptpay",
                 "revolut_pay",
@@ -2853,7 +2930,7 @@ class PaymentIntent(
     """
     latest_charge: Optional[ExpandableField["Charge"]]
     """
-    ID of the latest [Charge object](https://stripe.com/docs/api/charges) created by this PaymentIntent. This property is `null` until PaymentIntent confirmation is attempted.
+    ID of the latest [Charge object](https://docs.stripe.com/api/charges) created by this PaymentIntent. This property is `null` until PaymentIntent confirmation is attempted.
     """
     livemode: bool
     """
@@ -2861,7 +2938,7 @@ class PaymentIntent(
     """
     metadata: Dict[str, str]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Learn more about [storing information in metadata](https://stripe.com/docs/payments/payment-intents/creating-payment-intents#storing-information-in-metadata).
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Learn more about [storing information in metadata](https://docs.stripe.com/payments/payment-intents/creating-payment-intents#storing-information-in-metadata).
     """
     next_action: Optional[NextAction]
     """
@@ -2873,7 +2950,8 @@ class PaymentIntent(
     """
     on_behalf_of: Optional[ExpandableField["Account"]]
     """
-    The account (if any) for which the funds of the PaymentIntent are intended. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts) for details.
+    You can specify the settlement merchant as the
+    connected account using the `on_behalf_of` attribute on the charge. See the PaymentIntents [use case for connected accounts](https://docs.stripe.com/payments/connected-accounts) for details.
     """
     payment_details: Optional[PaymentDetails]
     payment_method: Optional[ExpandableField["PaymentMethod"]]
@@ -2884,7 +2962,7 @@ class PaymentIntent(
         PaymentMethodConfigurationDetails
     ]
     """
-    Information about the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) used for this PaymentIntent.
+    Information about the [payment method configuration](https://docs.stripe.com/api/payment_method_configurations) used for this PaymentIntent.
     """
     payment_method_options: Optional[PaymentMethodOptions]
     """
@@ -2949,15 +3027,15 @@ class PaymentIntent(
         "succeeded",
     ]
     """
-    Status of this PaymentIntent, one of `requires_payment_method`, `requires_confirmation`, `requires_action`, `processing`, `requires_capture`, `canceled`, or `succeeded`. Read more about each PaymentIntent [status](https://stripe.com/docs/payments/intents#intent-statuses).
+    Status of this PaymentIntent, one of `requires_payment_method`, `requires_confirmation`, `requires_action`, `processing`, `requires_capture`, `canceled`, or `succeeded`. Read more about each PaymentIntent [status](https://docs.stripe.com/payments/intents#intent-statuses).
     """
     transfer_data: Optional[TransferData]
     """
-    The data that automatically creates a Transfer after the payment finalizes. Learn more about the [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+    The data that automatically creates a Transfer after the payment finalizes. Learn more about the [use case for connected accounts](https://docs.stripe.com/payments/connected-accounts).
     """
     transfer_group: Optional[str]
     """
-    A string that identifies the resulting payment as part of a group. Learn more about the [use case for connected accounts](https://stripe.com/docs/connect/separate-charges-and-transfers).
+    A string that identifies the resulting payment as part of a group. Learn more about the [use case for connected accounts](https://docs.stripe.com/connect/separate-charges-and-transfers).
     """
 
     @classmethod

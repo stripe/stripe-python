@@ -65,6 +65,7 @@ class CustomerPaymentMethodListParams(TypedDict):
             "payco",
             "paynow",
             "paypal",
+            "payto",
             "pix",
             "promptpay",
             "revolut_pay",

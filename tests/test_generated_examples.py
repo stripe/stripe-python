@@ -43575,6 +43575,359 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
+    def test_v2_core_account_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/core/accounts",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.accounts.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/core/accounts",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_core_account_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/accounts",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.accounts.create()
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/accounts",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_core_account_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/core/accounts/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.accounts.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/core/accounts/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_core_account_post_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/accounts/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.accounts.update("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/accounts/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_core_account_post_3_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/accounts/id_123/close",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.accounts.close("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/accounts/id_123/close",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_core_accounts_person_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/core/accounts/account_id_123/persons",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.accounts.persons.list("account_id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/core/accounts/account_id_123/persons",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_core_accounts_person_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/accounts/account_id_123/persons",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.accounts.persons.create("account_id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/accounts/account_id_123/persons",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_core_accounts_person_delete_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "delete",
+            "/v2/core/accounts/account_id_123/persons/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.accounts.persons.delete(
+            "account_id_123",
+            "id_123",
+        )
+        http_client_mock.assert_requested(
+            "delete",
+            path="/v2/core/accounts/account_id_123/persons/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_core_accounts_person_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/core/accounts/account_id_123/persons/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.accounts.persons.retrieve(
+            "account_id_123",
+            "id_123",
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/core/accounts/account_id_123/persons/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_core_accounts_person_post_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/accounts/account_id_123/persons/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.accounts.persons.update(
+            "account_id_123",
+            "id_123",
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/accounts/account_id_123/persons/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_core_accounts_person_token_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/accounts/account_id_123/person_tokens",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.accounts.person_tokens.create("account_id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/accounts/account_id_123/person_tokens",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_core_accounts_person_token_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/core/accounts/account_id_123/person_tokens/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.accounts.person_tokens.retrieve(
+            "account_id_123",
+            "id_123",
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/core/accounts/account_id_123/person_tokens/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_core_account_link_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/account_links",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.account_links.create(
+            {
+                "account": "account",
+                "use_case": {
+                    "type": "account_onboarding",
+                    "account_onboarding": {
+                        "collection_options": {
+                            "fields": "eventually_due",
+                            "future_requirements": "include",
+                        },
+                        "configurations": ["merchant"],
+                        "refresh_url": "refresh_url",
+                        "return_url": "return_url",
+                    },
+                    "account_update": {
+                        "collection_options": {
+                            "fields": "eventually_due",
+                            "future_requirements": "include",
+                        },
+                        "configurations": ["merchant"],
+                        "refresh_url": "refresh_url",
+                        "return_url": "return_url",
+                    },
+                },
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/account_links",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"account":"account","use_case":{"type":"account_onboarding","account_onboarding":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"configurations":["merchant"],"refresh_url":"refresh_url","return_url":"return_url"},"account_update":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"configurations":["merchant"],"refresh_url":"refresh_url","return_url":"return_url"}}}',
+            is_json=True,
+        )
+
+    def test_v2_core_account_token_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/account_tokens",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.account_tokens.create()
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/account_tokens",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_core_account_token_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/core/account_tokens/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.account_tokens.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/core/account_tokens/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
     def test_v2_core_event_get_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:

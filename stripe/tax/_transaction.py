@@ -27,7 +27,7 @@ class Transaction(APIResource["Transaction"]):
     """
     A Tax Transaction records the tax collected from or refunded to your customer.
 
-    Related guide: [Calculate tax in your custom payment flow](https://stripe.com/docs/tax/custom#tax-transaction)
+    Related guide: [Calculate tax in your custom payment flow](https://docs.stripe.com/tax/custom#tax-transaction)
     """
 
     OBJECT_NAME: ClassVar[Literal["tax.transaction"]] = "tax.transaction"
@@ -294,7 +294,7 @@ class Transaction(APIResource["Transaction"]):
 
             amount: int
             """
-            The amount of tax, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+            The amount of tax, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
             """
             jurisdiction: Jurisdiction
             sourcing: Literal["destination", "origin"]
@@ -327,7 +327,7 @@ class Transaction(APIResource["Transaction"]):
             """
             taxable_amount: int
             """
-            The amount on which tax is calculated, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+            The amount on which tax is calculated, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
             """
             _inner_class_types = {
                 "jurisdiction": Jurisdiction,
@@ -336,15 +336,15 @@ class Transaction(APIResource["Transaction"]):
 
         amount: int
         """
-        The shipping amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes were calculated on top of this amount.
+        The shipping amount in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes were calculated on top of this amount.
         """
         amount_tax: int
         """
-        The amount of tax calculated for shipping, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+        The amount of tax calculated for shipping, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
         """
         shipping_rate: Optional[str]
         """
-        The ID of an existing [ShippingRate](https://stripe.com/docs/api/shipping_rates/object).
+        The ID of an existing [ShippingRate](https://docs.stripe.com/api/shipping_rates/object).
         """
         tax_behavior: Literal["exclusive", "inclusive"]
         """
@@ -356,7 +356,7 @@ class Transaction(APIResource["Transaction"]):
         """
         tax_code: str
         """
-        The [tax code](https://stripe.com/docs/tax/tax-categories) ID used for shipping.
+        The [tax code](https://docs.stripe.com/tax/tax-categories) ID used for shipping.
         """
         _inner_class_types = {"tax_breakdown": TaxBreakdown}
 
@@ -370,7 +370,7 @@ class Transaction(APIResource["Transaction"]):
     """
     customer: Optional[str]
     """
-    The ID of an existing [Customer](https://stripe.com/docs/api/customers/object) used for the resource.
+    The ID of an existing [Customer](https://docs.stripe.com/api/customers/object) used for the resource.
     """
     customer_details: CustomerDetails
     id: str
@@ -387,7 +387,7 @@ class Transaction(APIResource["Transaction"]):
     """
     metadata: Optional[Dict[str, str]]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     object: Literal["tax.transaction"]
     """

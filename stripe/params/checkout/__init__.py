@@ -92,6 +92,8 @@ if TYPE_CHECKING:
         SessionCreateParamsPaymentMethodOptionsPayco as SessionCreateParamsPaymentMethodOptionsPayco,
         SessionCreateParamsPaymentMethodOptionsPaynow as SessionCreateParamsPaymentMethodOptionsPaynow,
         SessionCreateParamsPaymentMethodOptionsPaypal as SessionCreateParamsPaymentMethodOptionsPaypal,
+        SessionCreateParamsPaymentMethodOptionsPayto as SessionCreateParamsPaymentMethodOptionsPayto,
+        SessionCreateParamsPaymentMethodOptionsPaytoMandateOptions as SessionCreateParamsPaymentMethodOptionsPaytoMandateOptions,
         SessionCreateParamsPaymentMethodOptionsPix as SessionCreateParamsPaymentMethodOptionsPix,
         SessionCreateParamsPaymentMethodOptionsRevolutPay as SessionCreateParamsPaymentMethodOptionsRevolutPay,
         SessionCreateParamsPaymentMethodOptionsSamsungPay as SessionCreateParamsPaymentMethodOptionsSamsungPay,
@@ -147,6 +149,11 @@ if TYPE_CHECKING:
         SessionModifyParamsCollectedInformation as SessionModifyParamsCollectedInformation,
         SessionModifyParamsCollectedInformationShippingDetails as SessionModifyParamsCollectedInformationShippingDetails,
         SessionModifyParamsCollectedInformationShippingDetailsAddress as SessionModifyParamsCollectedInformationShippingDetailsAddress,
+        SessionModifyParamsLineItem as SessionModifyParamsLineItem,
+        SessionModifyParamsLineItemAdjustableQuantity as SessionModifyParamsLineItemAdjustableQuantity,
+        SessionModifyParamsLineItemPriceData as SessionModifyParamsLineItemPriceData,
+        SessionModifyParamsLineItemPriceDataProductData as SessionModifyParamsLineItemPriceDataProductData,
+        SessionModifyParamsLineItemPriceDataRecurring as SessionModifyParamsLineItemPriceDataRecurring,
         SessionModifyParamsShippingOption as SessionModifyParamsShippingOption,
         SessionModifyParamsShippingOptionShippingRateData as SessionModifyParamsShippingOptionShippingRateData,
         SessionModifyParamsShippingOptionShippingRateDataDeliveryEstimate as SessionModifyParamsShippingOptionShippingRateDataDeliveryEstimate,
@@ -163,6 +170,11 @@ if TYPE_CHECKING:
         SessionUpdateParamsCollectedInformation as SessionUpdateParamsCollectedInformation,
         SessionUpdateParamsCollectedInformationShippingDetails as SessionUpdateParamsCollectedInformationShippingDetails,
         SessionUpdateParamsCollectedInformationShippingDetailsAddress as SessionUpdateParamsCollectedInformationShippingDetailsAddress,
+        SessionUpdateParamsLineItem as SessionUpdateParamsLineItem,
+        SessionUpdateParamsLineItemAdjustableQuantity as SessionUpdateParamsLineItemAdjustableQuantity,
+        SessionUpdateParamsLineItemPriceData as SessionUpdateParamsLineItemPriceData,
+        SessionUpdateParamsLineItemPriceDataProductData as SessionUpdateParamsLineItemPriceDataProductData,
+        SessionUpdateParamsLineItemPriceDataRecurring as SessionUpdateParamsLineItemPriceDataRecurring,
         SessionUpdateParamsShippingOption as SessionUpdateParamsShippingOption,
         SessionUpdateParamsShippingOptionShippingRateData as SessionUpdateParamsShippingOptionShippingRateData,
         SessionUpdateParamsShippingOptionShippingRateDataDeliveryEstimate as SessionUpdateParamsShippingOptionShippingRateDataDeliveryEstimate,
@@ -522,6 +534,14 @@ _import_map = {
         "stripe.params.checkout._session_create_params",
         False,
     ),
+    "SessionCreateParamsPaymentMethodOptionsPayto": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsPaytoMandateOptions": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
     "SessionCreateParamsPaymentMethodOptionsPix": (
         "stripe.params.checkout._session_create_params",
         False,
@@ -702,6 +722,26 @@ _import_map = {
         "stripe.params.checkout._session_modify_params",
         False,
     ),
+    "SessionModifyParamsLineItem": (
+        "stripe.params.checkout._session_modify_params",
+        False,
+    ),
+    "SessionModifyParamsLineItemAdjustableQuantity": (
+        "stripe.params.checkout._session_modify_params",
+        False,
+    ),
+    "SessionModifyParamsLineItemPriceData": (
+        "stripe.params.checkout._session_modify_params",
+        False,
+    ),
+    "SessionModifyParamsLineItemPriceDataProductData": (
+        "stripe.params.checkout._session_modify_params",
+        False,
+    ),
+    "SessionModifyParamsLineItemPriceDataRecurring": (
+        "stripe.params.checkout._session_modify_params",
+        False,
+    ),
     "SessionModifyParamsShippingOption": (
         "stripe.params.checkout._session_modify_params",
         False,
@@ -747,6 +787,26 @@ _import_map = {
         False,
     ),
     "SessionUpdateParamsCollectedInformationShippingDetailsAddress": (
+        "stripe.params.checkout._session_update_params",
+        False,
+    ),
+    "SessionUpdateParamsLineItem": (
+        "stripe.params.checkout._session_update_params",
+        False,
+    ),
+    "SessionUpdateParamsLineItemAdjustableQuantity": (
+        "stripe.params.checkout._session_update_params",
+        False,
+    ),
+    "SessionUpdateParamsLineItemPriceData": (
+        "stripe.params.checkout._session_update_params",
+        False,
+    ),
+    "SessionUpdateParamsLineItemPriceDataProductData": (
+        "stripe.params.checkout._session_update_params",
+        False,
+    ),
+    "SessionUpdateParamsLineItemPriceDataRecurring": (
         "stripe.params.checkout._session_update_params",
         False,
     ),

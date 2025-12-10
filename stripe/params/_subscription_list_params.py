@@ -34,7 +34,11 @@ class SubscriptionListParams(RequestOptions):
     """
     customer: NotRequired[str]
     """
-    The ID of the customer whose subscriptions will be retrieved.
+    The ID of the customer whose subscriptions you're retrieving.
+    """
+    customer_account: NotRequired[str]
+    """
+    The ID of the account representing the customer whose subscriptions you're retrieving.
     """
     ending_before: NotRequired[str]
     """
@@ -75,7 +79,7 @@ class SubscriptionListParams(RequestOptions):
         ]
     ]
     """
-    The status of the subscriptions to retrieve. Passing in a value of `canceled` will return all canceled subscriptions, including those belonging to deleted customers. Pass `ended` to find subscriptions that are canceled and subscriptions that are expired due to [incomplete payment](https://stripe.com/docs/billing/subscriptions/overview#subscription-statuses). Passing in a value of `all` will return subscriptions of all statuses. If no value is supplied, all subscriptions that have not been canceled are returned.
+    The status of the subscriptions to retrieve. Passing in a value of `canceled` will return all canceled subscriptions, including those belonging to deleted customers. Pass `ended` to find subscriptions that are canceled and subscriptions that are expired due to [incomplete payment](https://docs.stripe.com/billing/subscriptions/overview#subscription-statuses). Passing in a value of `all` will return subscriptions of all statuses. If no value is supplied, all subscriptions that have not been canceled are returned.
     """
     test_clock: NotRequired[str]
     """

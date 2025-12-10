@@ -151,19 +151,19 @@ class BankAccount(
 
         currently_due: Optional[List[str]]
         """
-        Fields that need to be collected to keep the external account enabled. If not collected by `current_deadline`, these fields appear in `past_due` as well, and the account is disabled.
+        Fields that need to be resolved to keep the external account enabled. If not resolved by `current_deadline`, these fields will appear in `past_due` as well, and the account is disabled.
         """
         errors: Optional[List[Error]]
         """
-        Fields that are `currently_due` and need to be collected again because validation or verification failed.
+        Details about validation and verification failures for `due` requirements that must be resolved.
         """
         past_due: Optional[List[str]]
         """
-        Fields that weren't collected by `current_deadline`. These fields need to be collected to enable the external account.
+        Fields that haven't been resolved by `current_deadline`. These fields need to be resolved to enable the external account.
         """
         pending_verification: Optional[List[str]]
         """
-        Fields that might become required depending on the results of verification or review. It's an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due`, `currently_due`, or `past_due`. Fields might appear in `eventually_due`, `currently_due`, or `past_due` and in `pending_verification` if verification fails but another verification is still pending.
+        Fields that are being reviewed, or might become required depending on the results of a review. If the review fails, these fields can move to `eventually_due`, `currently_due`, `past_due` or `alternatives`. Fields might appear in `eventually_due`, `currently_due`, `past_due` or `alternatives` and in `pending_verification` if one verification fails but another is still pending.
         """
         _inner_class_types = {"errors": Error}
 
@@ -282,19 +282,19 @@ class BankAccount(
 
         currently_due: Optional[List[str]]
         """
-        Fields that need to be collected to keep the external account enabled. If not collected by `current_deadline`, these fields appear in `past_due` as well, and the account is disabled.
+        Fields that need to be resolved to keep the external account enabled. If not resolved by `current_deadline`, these fields will appear in `past_due` as well, and the account is disabled.
         """
         errors: Optional[List[Error]]
         """
-        Fields that are `currently_due` and need to be collected again because validation or verification failed.
+        Details about validation and verification failures for `due` requirements that must be resolved.
         """
         past_due: Optional[List[str]]
         """
-        Fields that weren't collected by `current_deadline`. These fields need to be collected to enable the external account.
+        Fields that haven't been resolved by `current_deadline`. These fields need to be resolved to enable the external account.
         """
         pending_verification: Optional[List[str]]
         """
-        Fields that might become required depending on the results of verification or review. It's an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due`, `currently_due`, or `past_due`. Fields might appear in `eventually_due`, `currently_due`, or `past_due` and in `pending_verification` if verification fails but another verification is still pending.
+        Fields that are being reviewed, or might become required depending on the results of a review. If the review fails, these fields can move to `eventually_due`, `currently_due`, `past_due` or `alternatives`. Fields might appear in `eventually_due`, `currently_due`, `past_due` or `alternatives` and in `pending_verification` if one verification fails but another is still pending.
         """
         _inner_class_types = {"errors": Error}
 
@@ -348,7 +348,7 @@ class BankAccount(
     """
     future_requirements: Optional[FutureRequirements]
     """
-    Information about the [upcoming new requirements for the bank account](https://stripe.com/docs/connect/custom-accounts/future-requirements), including what information needs to be collected, and by when.
+    Information about the [upcoming new requirements for the bank account](https://docs.stripe.com/connect/custom-accounts/future-requirements), including what information needs to be collected, and by when.
     """
     id: str
     """
@@ -360,7 +360,7 @@ class BankAccount(
     """
     metadata: Optional[Dict[str, str]]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     object: Literal["bank_account"]
     """

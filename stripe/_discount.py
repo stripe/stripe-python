@@ -13,10 +13,10 @@ if TYPE_CHECKING:
 
 class Discount(StripeObject):
     """
-    A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
+    A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
     It contains information about when the discount began, when it will end, and what it is applied to.
 
-    Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
+    Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
     """
 
     OBJECT_NAME: ClassVar[Literal["discount"]] = "discount"
@@ -38,6 +38,10 @@ class Discount(StripeObject):
     customer: Optional[ExpandableField["Customer"]]
     """
     The ID of the customer associated with this discount.
+    """
+    customer_account: Optional[str]
+    """
+    The ID of the account representing the customer associated with this discount.
     """
     deleted: Optional[Literal[True]]
     """
