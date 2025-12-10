@@ -75,6 +75,10 @@ class ProductCreateParams(RequestOptions):
     """
     A URL of a publicly-accessible webpage for this product.
     """
+    tax_details: NotRequired["ProductCreateParamsTaxDetails"]
+    """
+    Tax details for this product, including the [tax code](https://docs.stripe.com/tax/tax-codes) and an optional performance location.
+    """
 
 
 class ProductCreateParamsDefaultPriceData(TypedDict):
@@ -240,4 +244,11 @@ class ProductCreateParamsPackageDimensions(TypedDict):
     width: float
     """
     Width, in inches. Maximum precision is 2 decimal places.
+    """
+
+
+class ProductCreateParamsTaxDetails(TypedDict):
+    tax_code: str
+    """
+    A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
     """

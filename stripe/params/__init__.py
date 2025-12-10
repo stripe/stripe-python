@@ -4134,6 +4134,7 @@ if TYPE_CHECKING:
         ProductCreateParamsDefaultPriceDataRecurring as ProductCreateParamsDefaultPriceDataRecurring,
         ProductCreateParamsMarketingFeature as ProductCreateParamsMarketingFeature,
         ProductCreateParamsPackageDimensions as ProductCreateParamsPackageDimensions,
+        ProductCreateParamsTaxDetails as ProductCreateParamsTaxDetails,
     )
     from stripe.params._product_delete_feature_params import (
         ProductDeleteFeatureParams as ProductDeleteFeatureParams,
@@ -4164,6 +4165,7 @@ if TYPE_CHECKING:
         ProductModifyParams as ProductModifyParams,
         ProductModifyParamsMarketingFeature as ProductModifyParamsMarketingFeature,
         ProductModifyParamsPackageDimensions as ProductModifyParamsPackageDimensions,
+        ProductModifyParamsTaxDetails as ProductModifyParamsTaxDetails,
     )
     from stripe.params._product_retrieve_feature_params import (
         ProductRetrieveFeatureParams as ProductRetrieveFeatureParams,
@@ -4178,6 +4180,7 @@ if TYPE_CHECKING:
         ProductUpdateParams as ProductUpdateParams,
         ProductUpdateParamsMarketingFeature as ProductUpdateParamsMarketingFeature,
         ProductUpdateParamsPackageDimensions as ProductUpdateParamsPackageDimensions,
+        ProductUpdateParamsTaxDetails as ProductUpdateParamsTaxDetails,
     )
     from stripe.params._promotion_code_create_params import (
         PromotionCodeCreateParams as PromotionCodeCreateParams,
@@ -19382,6 +19385,10 @@ _import_map = {
         "stripe.params._product_create_params",
         False,
     ),
+    "ProductCreateParamsTaxDetails": (
+        "stripe.params._product_create_params",
+        False,
+    ),
     "ProductDeleteFeatureParams": (
         "stripe.params._product_delete_feature_params",
         False,
@@ -19418,6 +19425,10 @@ _import_map = {
         "stripe.params._product_modify_params",
         False,
     ),
+    "ProductModifyParamsTaxDetails": (
+        "stripe.params._product_modify_params",
+        False,
+    ),
     "ProductRetrieveFeatureParams": (
         "stripe.params._product_retrieve_feature_params",
         False,
@@ -19430,6 +19441,10 @@ _import_map = {
         False,
     ),
     "ProductUpdateParamsPackageDimensions": (
+        "stripe.params._product_update_params",
+        False,
+    ),
+    "ProductUpdateParamsTaxDetails": (
         "stripe.params._product_update_params",
         False,
     ),

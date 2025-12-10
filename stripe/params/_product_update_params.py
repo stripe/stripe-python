@@ -68,6 +68,10 @@ class ProductUpdateParams(TypedDict):
     """
     A URL of a publicly-accessible webpage for this product.
     """
+    tax_details: NotRequired["Literal['']|ProductUpdateParamsTaxDetails"]
+    """
+    Tax details for this product, including the [tax code](https://docs.stripe.com/tax/tax-codes) and an optional performance location.
+    """
 
 
 class ProductUpdateParamsMarketingFeature(TypedDict):
@@ -93,4 +97,11 @@ class ProductUpdateParamsPackageDimensions(TypedDict):
     width: float
     """
     Width, in inches. Maximum precision is 2 decimal places.
+    """
+
+
+class ProductUpdateParamsTaxDetails(TypedDict):
+    tax_code: str
+    """
+    A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
     """
