@@ -66,7 +66,7 @@ class PaymentIntentIncrementAuthorizationParamsAmountDetails(TypedDict):
         "Literal['']|List[PaymentIntentIncrementAuthorizationParamsAmountDetailsLineItem]"
     ]
     """
-    A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
+    A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 200 line items.
     """
     shipping: NotRequired[
         "Literal['']|PaymentIntentIncrementAuthorizationParamsAmountDetailsShipping"

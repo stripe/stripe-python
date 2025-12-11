@@ -184,6 +184,10 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             """
             Name of the bank associated with the bank account.
             """
+            expected_debit_date: Optional[str]
+            """
+            Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+            """
             fingerprint: Optional[str]
             """
             Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
@@ -304,6 +308,10 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             """
             Bank-State-Branch number of the bank account.
             """
+            expected_debit_date: Optional[str]
+            """
+            Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+            """
             fingerprint: Optional[str]
             """
             Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
@@ -318,6 +326,10 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             """
 
         class BacsDebit(StripeObject):
+            expected_debit_date: Optional[str]
+            """
+            Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+            """
             fingerprint: Optional[str]
             """
             Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
@@ -1352,6 +1364,10 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             """
             The numeric code for the bank account's bank branch.
             """
+            expected_debit_date: Optional[str]
+            """
+            Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+            """
             last4: str
             """
             Last four digits of the bank account number.
@@ -1597,6 +1613,10 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             """
             Two-letter ISO code representing the country the bank account is located in.
             """
+            expected_debit_date: Optional[str]
+            """
+            Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+            """
             fingerprint: Optional[str]
             """
             Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
@@ -1684,6 +1704,10 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             bank_name: Optional[str]
             """
             Name of the bank associated with the bank account.
+            """
+            expected_debit_date: Optional[str]
+            """
+            Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
             """
             fingerprint: Optional[str]
             """

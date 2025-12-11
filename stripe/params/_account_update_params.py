@@ -1339,6 +1339,9 @@ class AccountUpdateParamsDocumentsProofOfRegistration(TypedDict):
     signer: NotRequired[
         "AccountUpdateParamsDocumentsProofOfRegistrationSigner"
     ]
+    """
+    Information regarding the person signing the document if applicable.
+    """
 
 
 class AccountUpdateParamsDocumentsProofOfRegistrationSigner(TypedDict):
@@ -1358,6 +1361,9 @@ class AccountUpdateParamsDocumentsProofOfUltimateBeneficialOwnership(
     signer: NotRequired[
         "AccountUpdateParamsDocumentsProofOfUltimateBeneficialOwnershipSigner"
     ]
+    """
+    Information regarding the person signing the document if applicable.
+    """
 
 
 class AccountUpdateParamsDocumentsProofOfUltimateBeneficialOwnershipSigner(
