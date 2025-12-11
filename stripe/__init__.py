@@ -160,6 +160,7 @@ if TYPE_CHECKING:
         privacy as privacy,
         radar as radar,
         reporting as reporting,
+        reserve as reserve,
         sigma as sigma,
         tax as tax,
         terminal as terminal,
@@ -511,6 +512,7 @@ if TYPE_CHECKING:
     from stripe._reporting_service import ReportingService as ReportingService
     from stripe._request_options import RequestOptions as RequestOptions
     from stripe._requestor_options import RequestorOptions as RequestorOptions
+    from stripe._reserve_service import ReserveService as ReserveService
     from stripe._reserve_transaction import (
         ReserveTransaction as ReserveTransaction,
     )
@@ -637,6 +639,7 @@ _import_map = {
     "privacy": ("stripe.privacy", True),
     "radar": ("stripe.radar", True),
     "reporting": ("stripe.reporting", True),
+    "reserve": ("stripe.reserve", True),
     "sigma": ("stripe.sigma", True),
     "tax": ("stripe.tax", True),
     "terminal": ("stripe.terminal", True),
@@ -923,6 +926,7 @@ _import_map = {
     "ReportingService": ("stripe._reporting_service", False),
     "RequestOptions": ("stripe._request_options", False),
     "RequestorOptions": ("stripe._requestor_options", False),
+    "ReserveService": ("stripe._reserve_service", False),
     "ReserveTransaction": ("stripe._reserve_transaction", False),
     "Reversal": ("stripe._reversal", False),
     "Review": ("stripe._review", False),

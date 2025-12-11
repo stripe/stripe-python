@@ -111,6 +111,7 @@ if TYPE_CHECKING:
     from stripe._radar_service import RadarService
     from stripe._refund_service import RefundService
     from stripe._reporting_service import ReportingService
+    from stripe._reserve_service import ReserveService
     from stripe._review_service import ReviewService
     from stripe._setup_attempt_service import SetupAttemptService
     from stripe._setup_intent_service import SetupIntentService
@@ -977,6 +978,17 @@ class StripeClient(object):
     )
     def reporting(self) -> "ReportingService":
         return self.v1.reporting
+
+    @property
+    @deprecated(
+        """
+        StripeClient.reserve is deprecated, use StripeClient.v1.reserve instead.
+          All functionality under it has been copied over to StripeClient.v1.reserve.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """,
+    )
+    def reserve(self) -> "ReserveService":
+        return self.v1.reserve
 
     @property
     @deprecated(

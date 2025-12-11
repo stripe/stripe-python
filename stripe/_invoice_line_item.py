@@ -10,6 +10,7 @@ from typing_extensions import Literal, TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe._discount import Discount
     from stripe._margin import Margin
+    from stripe._price import Price
     from stripe._subscription import Subscription
     from stripe.billing._credit_balance_transaction import (
         CreditBalanceTransaction,
@@ -175,7 +176,7 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
 
     class Pricing(StripeObject):
         class PriceDetails(StripeObject):
-            price: str
+            price: ExpandableField["Price"]
             """
             The ID of the price this item is associated with.
             """
