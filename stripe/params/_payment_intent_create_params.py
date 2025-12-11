@@ -268,6 +268,10 @@ class PaymentIntentCreateParams(RequestOptions):
     """
     Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions.
     """
+    shared_payment_granted_token: NotRequired[str]
+    """
+    ID of the SharedPaymentToken used to confirm this PaymentIntent.
+    """
 
 
 class PaymentIntentCreateParamsAllocatedFunds(TypedDict):

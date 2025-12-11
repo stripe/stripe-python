@@ -7,6 +7,7 @@ if TYPE_CHECKING:
     from stripe.params.test_helpers import (
         capital as capital,
         issuing as issuing,
+        shared_payment as shared_payment,
         terminal as terminal,
         treasury as treasury,
     )
@@ -108,6 +109,7 @@ if TYPE_CHECKING:
 _import_map = {
     "capital": ("stripe.params.test_helpers.capital", True),
     "issuing": ("stripe.params.test_helpers.issuing", True),
+    "shared_payment": ("stripe.params.test_helpers.shared_payment", True),
     "terminal": ("stripe.params.test_helpers.terminal", True),
     "treasury": ("stripe.params.test_helpers.treasury", True),
     "ConfirmationTokenCreateParams": (

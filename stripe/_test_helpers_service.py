@@ -12,6 +12,9 @@ if TYPE_CHECKING:
     from stripe.test_helpers._customer_service import CustomerService
     from stripe.test_helpers._issuing_service import IssuingService
     from stripe.test_helpers._refund_service import RefundService
+    from stripe.test_helpers._shared_payment_service import (
+        SharedPaymentService,
+    )
     from stripe.test_helpers._terminal_service import TerminalService
     from stripe.test_helpers._test_clock_service import TestClockService
     from stripe.test_helpers._treasury_service import TreasuryService
@@ -25,6 +28,10 @@ _subservices = {
     "customers": ["stripe.test_helpers._customer_service", "CustomerService"],
     "issuing": ["stripe.test_helpers._issuing_service", "IssuingService"],
     "refunds": ["stripe.test_helpers._refund_service", "RefundService"],
+    "shared_payment": [
+        "stripe.test_helpers._shared_payment_service",
+        "SharedPaymentService",
+    ],
     "terminal": ["stripe.test_helpers._terminal_service", "TerminalService"],
     "test_clocks": [
         "stripe.test_helpers._test_clock_service",
@@ -40,6 +47,7 @@ class TestHelpersService(StripeService):
     customers: "CustomerService"
     issuing: "IssuingService"
     refunds: "RefundService"
+    shared_payment: "SharedPaymentService"
     terminal: "TerminalService"
     test_clocks: "TestClockService"
     treasury: "TreasuryService"

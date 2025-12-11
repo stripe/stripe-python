@@ -3667,6 +3667,10 @@ class PaymentIntent(
 
     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
     """
+    shared_payment_granted_token: Optional[str]
+    """
+    ID of the shared payment token granted to be used in this PaymentIntent
+    """
     shipping: Optional[Shipping]
     """
     Shipping information for this PaymentIntent.
