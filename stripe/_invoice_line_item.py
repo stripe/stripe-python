@@ -293,6 +293,10 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
     The quantity of the subscription, if the line item is a subscription or a proration.
     """
     subscription: Optional[ExpandableField["Subscription"]]
+    subtotal: int
+    """
+    The subtotal of the line item, in cents (or local equivalent), before any discounts or taxes.
+    """
     taxes: Optional[List[Tax]]
     """
     The tax information of the line item.
