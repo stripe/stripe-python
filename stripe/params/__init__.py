@@ -1413,6 +1413,7 @@ if TYPE_CHECKING:
         InvoiceAddLinesParamsLinePeriod as InvoiceAddLinesParamsLinePeriod,
         InvoiceAddLinesParamsLinePriceData as InvoiceAddLinesParamsLinePriceData,
         InvoiceAddLinesParamsLinePriceDataProductData as InvoiceAddLinesParamsLinePriceDataProductData,
+        InvoiceAddLinesParamsLinePriceDataProductDataTaxDetails as InvoiceAddLinesParamsLinePriceDataProductDataTaxDetails,
         InvoiceAddLinesParamsLinePricing as InvoiceAddLinesParamsLinePricing,
         InvoiceAddLinesParamsLineTaxAmount as InvoiceAddLinesParamsLineTaxAmount,
         InvoiceAddLinesParamsLineTaxAmountTaxRateData as InvoiceAddLinesParamsLineTaxAmountTaxRateData,
@@ -1630,6 +1631,7 @@ if TYPE_CHECKING:
         InvoiceLineItemUpdateParamsPeriod as InvoiceLineItemUpdateParamsPeriod,
         InvoiceLineItemUpdateParamsPriceData as InvoiceLineItemUpdateParamsPriceData,
         InvoiceLineItemUpdateParamsPriceDataProductData as InvoiceLineItemUpdateParamsPriceDataProductData,
+        InvoiceLineItemUpdateParamsPriceDataProductDataTaxDetails as InvoiceLineItemUpdateParamsPriceDataProductDataTaxDetails,
         InvoiceLineItemUpdateParamsPricing as InvoiceLineItemUpdateParamsPricing,
         InvoiceLineItemUpdateParamsTaxAmount as InvoiceLineItemUpdateParamsTaxAmount,
         InvoiceLineItemUpdateParamsTaxAmountTaxRateData as InvoiceLineItemUpdateParamsTaxAmountTaxRateData,
@@ -1735,6 +1737,7 @@ if TYPE_CHECKING:
         InvoiceUpdateLinesParamsLinePeriod as InvoiceUpdateLinesParamsLinePeriod,
         InvoiceUpdateLinesParamsLinePriceData as InvoiceUpdateLinesParamsLinePriceData,
         InvoiceUpdateLinesParamsLinePriceDataProductData as InvoiceUpdateLinesParamsLinePriceDataProductData,
+        InvoiceUpdateLinesParamsLinePriceDataProductDataTaxDetails as InvoiceUpdateLinesParamsLinePriceDataProductDataTaxDetails,
         InvoiceUpdateLinesParamsLinePricing as InvoiceUpdateLinesParamsLinePricing,
         InvoiceUpdateLinesParamsLineTaxAmount as InvoiceUpdateLinesParamsLineTaxAmount,
         InvoiceUpdateLinesParamsLineTaxAmountTaxRateData as InvoiceUpdateLinesParamsLineTaxAmountTaxRateData,
@@ -3388,6 +3391,7 @@ if TYPE_CHECKING:
         PaymentLinkCreateParamsLineItemAdjustableQuantity as PaymentLinkCreateParamsLineItemAdjustableQuantity,
         PaymentLinkCreateParamsLineItemPriceData as PaymentLinkCreateParamsLineItemPriceData,
         PaymentLinkCreateParamsLineItemPriceDataProductData as PaymentLinkCreateParamsLineItemPriceDataProductData,
+        PaymentLinkCreateParamsLineItemPriceDataProductDataTaxDetails as PaymentLinkCreateParamsLineItemPriceDataProductDataTaxDetails,
         PaymentLinkCreateParamsLineItemPriceDataRecurring as PaymentLinkCreateParamsLineItemPriceDataRecurring,
         PaymentLinkCreateParamsNameCollection as PaymentLinkCreateParamsNameCollection,
         PaymentLinkCreateParamsNameCollectionBusiness as PaymentLinkCreateParamsNameCollectionBusiness,
@@ -9666,6 +9670,10 @@ _import_map = {
         "stripe.params._invoice_add_lines_params",
         False,
     ),
+    "InvoiceAddLinesParamsLinePriceDataProductDataTaxDetails": (
+        "stripe.params._invoice_add_lines_params",
+        False,
+    ),
     "InvoiceAddLinesParamsLinePricing": (
         "stripe.params._invoice_add_lines_params",
         False,
@@ -10424,6 +10432,10 @@ _import_map = {
         "stripe.params._invoice_line_item_update_params",
         False,
     ),
+    "InvoiceLineItemUpdateParamsPriceDataProductDataTaxDetails": (
+        "stripe.params._invoice_line_item_update_params",
+        False,
+    ),
     "InvoiceLineItemUpdateParamsPricing": (
         "stripe.params._invoice_line_item_update_params",
         False,
@@ -10692,6 +10704,10 @@ _import_map = {
         False,
     ),
     "InvoiceUpdateLinesParamsLinePriceDataProductData": (
+        "stripe.params._invoice_update_lines_params",
+        False,
+    ),
+    "InvoiceUpdateLinesParamsLinePriceDataProductDataTaxDetails": (
         "stripe.params._invoice_update_lines_params",
         False,
     ),
@@ -16925,6 +16941,10 @@ _import_map = {
         False,
     ),
     "PaymentLinkCreateParamsLineItemPriceDataProductData": (
+        "stripe.params._payment_link_create_params",
+        False,
+    ),
+    "PaymentLinkCreateParamsLineItemPriceDataProductDataTaxDetails": (
         "stripe.params._payment_link_create_params",
         False,
     ),

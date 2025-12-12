@@ -44,6 +44,7 @@ if TYPE_CHECKING:
         SessionCreateParamsLineItemAdjustableQuantity as SessionCreateParamsLineItemAdjustableQuantity,
         SessionCreateParamsLineItemPriceData as SessionCreateParamsLineItemPriceData,
         SessionCreateParamsLineItemPriceDataProductData as SessionCreateParamsLineItemPriceDataProductData,
+        SessionCreateParamsLineItemPriceDataProductDataTaxDetails as SessionCreateParamsLineItemPriceDataProductDataTaxDetails,
         SessionCreateParamsLineItemPriceDataRecurring as SessionCreateParamsLineItemPriceDataRecurring,
         SessionCreateParamsNameCollection as SessionCreateParamsNameCollection,
         SessionCreateParamsNameCollectionBusiness as SessionCreateParamsNameCollectionBusiness,
@@ -168,6 +169,7 @@ if TYPE_CHECKING:
         SessionModifyParamsLineItemAdjustableQuantity as SessionModifyParamsLineItemAdjustableQuantity,
         SessionModifyParamsLineItemPriceData as SessionModifyParamsLineItemPriceData,
         SessionModifyParamsLineItemPriceDataProductData as SessionModifyParamsLineItemPriceDataProductData,
+        SessionModifyParamsLineItemPriceDataProductDataTaxDetails as SessionModifyParamsLineItemPriceDataProductDataTaxDetails,
         SessionModifyParamsLineItemPriceDataRecurring as SessionModifyParamsLineItemPriceDataRecurring,
         SessionModifyParamsShippingOption as SessionModifyParamsShippingOption,
         SessionModifyParamsShippingOptionShippingRateData as SessionModifyParamsShippingOptionShippingRateData,
@@ -199,6 +201,7 @@ if TYPE_CHECKING:
         SessionUpdateParamsLineItemAdjustableQuantity as SessionUpdateParamsLineItemAdjustableQuantity,
         SessionUpdateParamsLineItemPriceData as SessionUpdateParamsLineItemPriceData,
         SessionUpdateParamsLineItemPriceDataProductData as SessionUpdateParamsLineItemPriceDataProductData,
+        SessionUpdateParamsLineItemPriceDataProductDataTaxDetails as SessionUpdateParamsLineItemPriceDataProductDataTaxDetails,
         SessionUpdateParamsLineItemPriceDataRecurring as SessionUpdateParamsLineItemPriceDataRecurring,
         SessionUpdateParamsShippingOption as SessionUpdateParamsShippingOption,
         SessionUpdateParamsShippingOptionShippingRateData as SessionUpdateParamsShippingOptionShippingRateData,
@@ -367,6 +370,10 @@ _import_map = {
         False,
     ),
     "SessionCreateParamsLineItemPriceDataProductData": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsLineItemPriceDataProductDataTaxDetails": (
         "stripe.params.checkout._session_create_params",
         False,
     ),
@@ -826,6 +833,10 @@ _import_map = {
         "stripe.params.checkout._session_modify_params",
         False,
     ),
+    "SessionModifyParamsLineItemPriceDataProductDataTaxDetails": (
+        "stripe.params.checkout._session_modify_params",
+        False,
+    ),
     "SessionModifyParamsLineItemPriceDataRecurring": (
         "stripe.params.checkout._session_modify_params",
         False,
@@ -931,6 +942,10 @@ _import_map = {
         False,
     ),
     "SessionUpdateParamsLineItemPriceDataProductData": (
+        "stripe.params.checkout._session_update_params",
+        False,
+    ),
+    "SessionUpdateParamsLineItemPriceDataProductDataTaxDetails": (
         "stripe.params.checkout._session_update_params",
         False,
     ),
