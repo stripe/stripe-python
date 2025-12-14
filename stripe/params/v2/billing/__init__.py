@@ -132,20 +132,26 @@ if TYPE_CHECKING:
         IntentCreateParamsActionApplyInvoiceDiscountRulePercentOff as IntentCreateParamsActionApplyInvoiceDiscountRulePercentOff,
         IntentCreateParamsActionApplyInvoiceDiscountRulePercentOffMaximumApplications as IntentCreateParamsActionApplyInvoiceDiscountRulePercentOffMaximumApplications,
         IntentCreateParamsActionDeactivate as IntentCreateParamsActionDeactivate,
-        IntentCreateParamsActionDeactivateBillingDetails as IntentCreateParamsActionDeactivateBillingDetails,
         IntentCreateParamsActionDeactivateEffectiveAt as IntentCreateParamsActionDeactivateEffectiveAt,
         IntentCreateParamsActionDeactivatePricingPlanSubscriptionDetails as IntentCreateParamsActionDeactivatePricingPlanSubscriptionDetails,
+        IntentCreateParamsActionDeactivatePricingPlanSubscriptionDetailsOverrides as IntentCreateParamsActionDeactivatePricingPlanSubscriptionDetailsOverrides,
+        IntentCreateParamsActionDeactivatePricingPlanSubscriptionDetailsOverridesPartialPeriodBehavior as IntentCreateParamsActionDeactivatePricingPlanSubscriptionDetailsOverridesPartialPeriodBehavior,
+        IntentCreateParamsActionDeactivatePricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorLicenseFee as IntentCreateParamsActionDeactivatePricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorLicenseFee,
         IntentCreateParamsActionModify as IntentCreateParamsActionModify,
-        IntentCreateParamsActionModifyBillingDetails as IntentCreateParamsActionModifyBillingDetails,
         IntentCreateParamsActionModifyEffectiveAt as IntentCreateParamsActionModifyEffectiveAt,
         IntentCreateParamsActionModifyPricingPlanSubscriptionDetails as IntentCreateParamsActionModifyPricingPlanSubscriptionDetails,
         IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsComponentConfiguration as IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsComponentConfiguration,
+        IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverrides as IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverrides,
+        IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverridesPartialPeriodBehavior as IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverridesPartialPeriodBehavior,
+        IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorLicenseFee as IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorLicenseFee,
         IntentCreateParamsActionRemove as IntentCreateParamsActionRemove,
         IntentCreateParamsActionSubscribe as IntentCreateParamsActionSubscribe,
-        IntentCreateParamsActionSubscribeBillingDetails as IntentCreateParamsActionSubscribeBillingDetails,
         IntentCreateParamsActionSubscribeEffectiveAt as IntentCreateParamsActionSubscribeEffectiveAt,
         IntentCreateParamsActionSubscribePricingPlanSubscriptionDetails as IntentCreateParamsActionSubscribePricingPlanSubscriptionDetails,
         IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsComponentConfiguration as IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsComponentConfiguration,
+        IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverrides as IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverrides,
+        IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverridesPartialPeriodBehavior as IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverridesPartialPeriodBehavior,
+        IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorLicenseFee as IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorLicenseFee,
         IntentCreateParamsActionSubscribeV1SubscriptionDetails as IntentCreateParamsActionSubscribeV1SubscriptionDetails,
         IntentCreateParamsActionSubscribeV1SubscriptionDetailsItem as IntentCreateParamsActionSubscribeV1SubscriptionDetailsItem,
     )
@@ -650,10 +656,6 @@ _import_map = {
         "stripe.params.v2.billing._intent_create_params",
         False,
     ),
-    "IntentCreateParamsActionDeactivateBillingDetails": (
-        "stripe.params.v2.billing._intent_create_params",
-        False,
-    ),
     "IntentCreateParamsActionDeactivateEffectiveAt": (
         "stripe.params.v2.billing._intent_create_params",
         False,
@@ -662,11 +664,19 @@ _import_map = {
         "stripe.params.v2.billing._intent_create_params",
         False,
     ),
-    "IntentCreateParamsActionModify": (
+    "IntentCreateParamsActionDeactivatePricingPlanSubscriptionDetailsOverrides": (
         "stripe.params.v2.billing._intent_create_params",
         False,
     ),
-    "IntentCreateParamsActionModifyBillingDetails": (
+    "IntentCreateParamsActionDeactivatePricingPlanSubscriptionDetailsOverridesPartialPeriodBehavior": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsActionDeactivatePricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorLicenseFee": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsActionModify": (
         "stripe.params.v2.billing._intent_create_params",
         False,
     ),
@@ -682,15 +692,23 @@ _import_map = {
         "stripe.params.v2.billing._intent_create_params",
         False,
     ),
+    "IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverrides": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverridesPartialPeriodBehavior": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorLicenseFee": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
     "IntentCreateParamsActionRemove": (
         "stripe.params.v2.billing._intent_create_params",
         False,
     ),
     "IntentCreateParamsActionSubscribe": (
-        "stripe.params.v2.billing._intent_create_params",
-        False,
-    ),
-    "IntentCreateParamsActionSubscribeBillingDetails": (
         "stripe.params.v2.billing._intent_create_params",
         False,
     ),
@@ -703,6 +721,18 @@ _import_map = {
         False,
     ),
     "IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsComponentConfiguration": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverrides": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverridesPartialPeriodBehavior": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorLicenseFee": (
         "stripe.params.v2.billing._intent_create_params",
         False,
     ),

@@ -15,12 +15,12 @@ if TYPE_CHECKING:
 
 class CustomerBalanceTransaction(APIResource["CustomerBalanceTransaction"]):
     """
-    Each customer has a [Balance](https://stripe.com/docs/api/customers/object#customer_object-balance) value,
+    Each customer has a [Balance](https://docs.stripe.com/api/customers/object#customer_object-balance) value,
     which denotes a debit or credit that's automatically applied to their next invoice upon finalization.
-    You may modify the value directly by using the [update customer API](https://stripe.com/docs/api/customers/update),
+    You may modify the value directly by using the [update customer API](https://docs.stripe.com/api/customers/update),
     or by creating a Customer Balance Transaction, which increments or decrements the customer's `balance` by the specified `amount`.
 
-    Related guide: [Customer balance](https://stripe.com/docs/billing/customer/balance)
+    Related guide: [Customer balance](https://docs.stripe.com/billing/customer/balance)
     """
 
     OBJECT_NAME: ClassVar[Literal["customer_balance_transaction"]] = (
@@ -51,6 +51,9 @@ class CustomerBalanceTransaction(APIResource["CustomerBalanceTransaction"]):
     The ID of the customer the transaction belongs to.
     """
     customer_account: Optional[str]
+    """
+    The ID of an Account representing a customer that the transaction belongs to.
+    """
     description: Optional[str]
     """
     An arbitrary string attached to the object. Often useful for displaying to users.
@@ -73,7 +76,7 @@ class CustomerBalanceTransaction(APIResource["CustomerBalanceTransaction"]):
     """
     metadata: Optional[Dict[str, str]]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     object: Literal["customer_balance_transaction"]
     """
@@ -94,7 +97,7 @@ class CustomerBalanceTransaction(APIResource["CustomerBalanceTransaction"]):
         "unspent_receiver_credit",
     ]
     """
-    Transaction type: `adjustment`, `applied_to_invoice`, `credit_note`, `initial`, `invoice_overpaid`, `invoice_too_large`, `invoice_too_small`, `unspent_receiver_credit`, `unapplied_from_invoice`, `checkout_session_subscription_payment`, or `checkout_session_subscription_payment_canceled`. See the [Customer Balance page](https://stripe.com/docs/billing/customer/balance#types) to learn more about transaction types.
+    Transaction type: `adjustment`, `applied_to_invoice`, `credit_note`, `initial`, `invoice_overpaid`, `invoice_too_large`, `invoice_too_small`, `unspent_receiver_credit`, `unapplied_from_invoice`, `checkout_session_subscription_payment`, or `checkout_session_subscription_payment_canceled`. See the [Customer Balance page](https://docs.stripe.com/billing/customer/balance#types) to learn more about transaction types.
     """
 
     def instance_url(self):

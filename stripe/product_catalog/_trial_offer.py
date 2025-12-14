@@ -3,7 +3,7 @@
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, cast
+from typing import ClassVar, Optional, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -30,7 +30,7 @@ class TrialOffer(CreateableAPIResource["TrialOffer"]):
             The number of iterations of the price's interval for this trial offer.
             """
 
-        relative: Relative
+        relative: Optional[Relative]
         type: Literal["relative", "timestamp"]
         """
         The type of trial offer duration.

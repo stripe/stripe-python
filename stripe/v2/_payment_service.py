@@ -8,17 +8,25 @@ if TYPE_CHECKING:
     from stripe.v2.payments._off_session_payment_service import (
         OffSessionPaymentService,
     )
+    from stripe.v2.payments._settlement_allocation_intent_service import (
+        SettlementAllocationIntentService,
+    )
 
 _subservices = {
     "off_session_payments": [
         "stripe.v2.payments._off_session_payment_service",
         "OffSessionPaymentService",
     ],
+    "settlement_allocation_intents": [
+        "stripe.v2.payments._settlement_allocation_intent_service",
+        "SettlementAllocationIntentService",
+    ],
 }
 
 
 class PaymentService(StripeService):
     off_session_payments: "OffSessionPaymentService"
+    settlement_allocation_intents: "SettlementAllocationIntentService"
 
     def __init__(self, requestor):
         super().__init__(requestor)

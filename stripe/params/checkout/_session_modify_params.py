@@ -46,7 +46,7 @@ class SessionModifyParams(RequestOptions):
     """
     metadata: NotRequired["Literal['']|Dict[str, str]"]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
     shipping_options: NotRequired[
         "Literal['']|List[SessionModifyParamsShippingOption]"
@@ -121,18 +121,18 @@ class SessionModifyParamsCollectedInformationShippingDetailsAddress(TypedDict):
     """
     state: NotRequired[str]
     """
-    State, county, province, or region.
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """
 
 
 class SessionModifyParamsDiscount(TypedDict):
     coupon: NotRequired[str]
     """
-    The ID of the [Coupon](https://stripe.com/docs/api/coupons) to apply to this Session. One of `coupon` or `coupon_data` is required when updating discounts.
+    The ID of the [Coupon](https://docs.stripe.com/api/coupons) to apply to this Session. One of `coupon` or `coupon_data` is required when updating discounts.
     """
     coupon_data: NotRequired["SessionModifyParamsDiscountCouponData"]
     """
-    Data used to generate a new [Coupon](https://stripe.com/docs/api/coupon) object inline. One of `coupon` or `coupon_data` is required when updating discounts.
+    Data used to generate a new [Coupon](https://docs.stripe.com/api/coupon) object inline. One of `coupon` or `coupon_data` is required when updating discounts.
     """
 
 
@@ -151,7 +151,7 @@ class SessionModifyParamsDiscountCouponData(TypedDict):
     """
     metadata: NotRequired["Literal['']|Dict[str, str]"]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
     name: NotRequired[str]
     """
@@ -201,15 +201,15 @@ class SessionModifyParamsLineItem(TypedDict):
     """
     metadata: NotRequired["Literal['']|Dict[str, str]"]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
     price: NotRequired[str]
     """
-    The ID of the [Price](https://stripe.com/docs/api/prices). One of `price` or `price_data` is required when creating a new line item.
+    The ID of the [Price](https://docs.stripe.com/api/prices). One of `price` or `price_data` is required when creating a new line item.
     """
     price_data: NotRequired["SessionModifyParamsLineItemPriceData"]
     """
-    Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline. One of `price` or `price_data` is required when creating a new line item.
+    Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required when creating a new line item.
     """
     quantity: NotRequired[int]
     """
@@ -217,7 +217,7 @@ class SessionModifyParamsLineItem(TypedDict):
     """
     tax_rates: NotRequired["Literal['']|List[str]"]
     """
-    The [tax rates](https://stripe.com/docs/api/tax_rates) which apply to this line item.
+    The [tax rates](https://docs.stripe.com/api/tax_rates) which apply to this line item.
     """
 
 
@@ -257,7 +257,7 @@ class SessionModifyParamsLineItemPriceData(TypedDict):
     """
     tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
     """
-    Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+    Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
     """
     unit_amount: NotRequired[int]
     """
@@ -280,7 +280,7 @@ class SessionModifyParamsLineItemPriceDataProductData(TypedDict):
     """
     metadata: NotRequired[Dict[str, str]]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
     name: str
     """
@@ -288,11 +288,24 @@ class SessionModifyParamsLineItemPriceDataProductData(TypedDict):
     """
     tax_code: NotRequired[str]
     """
-    A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
+    A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
     """
     unit_label: NotRequired[str]
     """
     A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
+    """
+    tax_details: NotRequired[
+        "SessionModifyParamsLineItemPriceDataProductDataTaxDetails"
+    ]
+    """
+    Tax details for this product, including the [tax code](https://docs.stripe.com/tax/tax-codes) and an optional performance location.
+    """
+
+
+class SessionModifyParamsLineItemPriceDataProductDataTaxDetails(TypedDict):
+    tax_code: str
+    """
+    A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
     """
 
 
@@ -339,7 +352,7 @@ class SessionModifyParamsShippingOptionShippingRateData(TypedDict):
     """
     metadata: NotRequired[Dict[str, str]]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
     tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
     """
@@ -347,7 +360,7 @@ class SessionModifyParamsShippingOptionShippingRateData(TypedDict):
     """
     tax_code: NotRequired[str]
     """
-    A [tax code](https://stripe.com/docs/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`.
+    A [tax code](https://docs.stripe.com/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`.
     """
     type: NotRequired[Literal["fixed_amount"]]
     """

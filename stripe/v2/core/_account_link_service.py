@@ -19,7 +19,7 @@ class AccountLinkService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "AccountLink":
         """
-        Creates an AccountLink object that includes a single-use Stripe URL that the merchant can redirect their user to in order to take them to a Stripe-hosted application such as Recipient Onboarding.
+        Creates an AccountLink object that includes a single-use URL that an account can use to access a Stripe-hosted flow for collecting or updating required information.
         """
         return cast(
             "AccountLink",
@@ -38,7 +38,7 @@ class AccountLinkService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "AccountLink":
         """
-        Creates an AccountLink object that includes a single-use Stripe URL that the merchant can redirect their user to in order to take them to a Stripe-hosted application such as Recipient Onboarding.
+        Creates an AccountLink object that includes a single-use URL that an account can use to access a Stripe-hosted flow for collecting or updating required information.
         """
         return cast(
             "AccountLink",

@@ -39,9 +39,9 @@ class PaymentLink(
     """
     A payment link is a shareable URL that will take your customers to a hosted payment page. A payment link can be shared and used multiple times.
 
-    When a customer opens a payment link it will open a new [checkout session](https://stripe.com/docs/api/checkout/sessions) to render the payment page. You can use [checkout session events](https://stripe.com/docs/api/events/types#event_types-checkout.session.completed) to track payments through payment links.
+    When a customer opens a payment link it will open a new [checkout session](https://docs.stripe.com/api/checkout/sessions) to render the payment page. You can use [checkout session events](https://docs.stripe.com/api/events/types#event_types-checkout.session.completed) to track payments through payment links.
 
-    Related guide: [Payment Links API](https://stripe.com/docs/payment-links)
+    Related guide: [Payment Links API](https://docs.stripe.com/payment-links)
     """
 
     OBJECT_NAME: ClassVar[Literal["payment_link"]] = "payment_link"
@@ -301,7 +301,7 @@ class PaymentLink(
             """
             metadata: Optional[Dict[str, str]]
             """
-            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+            Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
             """
             rendering_options: Optional[RenderingOptions]
             """
@@ -381,7 +381,7 @@ class PaymentLink(
         """
         metadata: Dict[str, str]
         """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on [Payment Intents](https://stripe.com/docs/api/payment_intents) generated from this payment link.
+        Set of [key-value pairs](https://docs.stripe.com/api/metadata) that will set metadata on [Payment Intents](https://docs.stripe.com/api/payment_intents) generated from this payment link.
         """
         setup_future_usage: Optional[Literal["off_session", "on_session"]]
         """
@@ -397,7 +397,7 @@ class PaymentLink(
         """
         transfer_group: Optional[str]
         """
-        A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
+        A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://docs.stripe.com/connect/separate-charges-and-transfers) for details.
         """
 
     class PhoneNumberCollection(StripeObject):
@@ -714,7 +714,7 @@ class PaymentLink(
         invoice_settings: InvoiceSettings
         metadata: Dict[str, str]
         """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on [Subscriptions](https://stripe.com/docs/api/subscriptions) generated from this payment link.
+        Set of [key-value pairs](https://docs.stripe.com/api/metadata) that will set metadata on [Subscriptions](https://docs.stripe.com/api/subscriptions) generated from this payment link.
         """
         trial_period_days: Optional[int]
         """
@@ -811,7 +811,7 @@ class PaymentLink(
     """
     metadata: Dict[str, str]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     name_collection: Optional[NameCollection]
     object: Literal["payment_link"]

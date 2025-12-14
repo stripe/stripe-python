@@ -6,6 +6,10 @@ from typing_extensions import TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe.params.delegated_checkout._requested_session_confirm_params import (
         RequestedSessionConfirmParams as RequestedSessionConfirmParams,
+        RequestedSessionConfirmParamsPaymentMethodData as RequestedSessionConfirmParamsPaymentMethodData,
+        RequestedSessionConfirmParamsPaymentMethodDataBillingDetails as RequestedSessionConfirmParamsPaymentMethodDataBillingDetails,
+        RequestedSessionConfirmParamsPaymentMethodDataBillingDetailsAddress as RequestedSessionConfirmParamsPaymentMethodDataBillingDetailsAddress,
+        RequestedSessionConfirmParamsPaymentMethodDataCard as RequestedSessionConfirmParamsPaymentMethodDataCard,
         RequestedSessionConfirmParamsRiskDetails as RequestedSessionConfirmParamsRiskDetails,
         RequestedSessionConfirmParamsRiskDetailsClientDeviceMetadataDetails as RequestedSessionConfirmParamsRiskDetailsClientDeviceMetadataDetails,
     )
@@ -54,6 +58,22 @@ if TYPE_CHECKING:
 # name -> (import_target, is_submodule)
 _import_map = {
     "RequestedSessionConfirmParams": (
+        "stripe.params.delegated_checkout._requested_session_confirm_params",
+        False,
+    ),
+    "RequestedSessionConfirmParamsPaymentMethodData": (
+        "stripe.params.delegated_checkout._requested_session_confirm_params",
+        False,
+    ),
+    "RequestedSessionConfirmParamsPaymentMethodDataBillingDetails": (
+        "stripe.params.delegated_checkout._requested_session_confirm_params",
+        False,
+    ),
+    "RequestedSessionConfirmParamsPaymentMethodDataBillingDetailsAddress": (
+        "stripe.params.delegated_checkout._requested_session_confirm_params",
+        False,
+    ),
+    "RequestedSessionConfirmParamsPaymentMethodDataCard": (
         "stripe.params.delegated_checkout._requested_session_confirm_params",
         False,
     ),

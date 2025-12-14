@@ -24,7 +24,7 @@ class ShippingRateCreateParams(RequestOptions):
     """
     metadata: NotRequired[Dict[str, str]]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
     tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
     """
@@ -32,7 +32,7 @@ class ShippingRateCreateParams(RequestOptions):
     """
     tax_code: NotRequired[str]
     """
-    A [tax code](https://stripe.com/docs/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`.
+    A [tax code](https://docs.stripe.com/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`.
     """
     type: NotRequired[Literal["fixed_amount"]]
     """

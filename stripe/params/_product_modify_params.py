@@ -12,7 +12,7 @@ class ProductModifyParams(RequestOptions):
     """
     default_price: NotRequired[str]
     """
-    The ID of the [Price](https://stripe.com/docs/api/prices) object that is the default price for this product.
+    The ID of the [Price](https://docs.stripe.com/api/prices) object that is the default price for this product.
     """
     description: NotRequired["Literal['']|str"]
     """
@@ -30,11 +30,11 @@ class ProductModifyParams(RequestOptions):
         "Literal['']|List[ProductModifyParamsMarketingFeature]"
     ]
     """
-    A list of up to 15 marketing features for this product. These are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table).
+    A list of up to 15 marketing features for this product. These are displayed in [pricing tables](https://docs.stripe.com/payments/checkout/pricing-table).
     """
     metadata: NotRequired["Literal['']|Dict[str, str]"]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
     name: NotRequired[str]
     """
@@ -59,7 +59,7 @@ class ProductModifyParams(RequestOptions):
     """
     tax_code: NotRequired["Literal['']|str"]
     """
-    A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
+    A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
     """
     unit_label: NotRequired["Literal['']|str"]
     """
@@ -68,6 +68,10 @@ class ProductModifyParams(RequestOptions):
     url: NotRequired["Literal['']|str"]
     """
     A URL of a publicly-accessible webpage for this product.
+    """
+    tax_details: NotRequired["Literal['']|ProductModifyParamsTaxDetails"]
+    """
+    Tax details for this product, including the [tax code](https://docs.stripe.com/tax/tax-codes) and an optional performance location.
     """
 
 
@@ -94,4 +98,11 @@ class ProductModifyParamsPackageDimensions(TypedDict):
     width: float
     """
     Width, in inches. Maximum precision is 2 decimal places.
+    """
+
+
+class ProductModifyParamsTaxDetails(TypedDict):
+    tax_code: str
+    """
+    A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
     """

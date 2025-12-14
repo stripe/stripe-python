@@ -62,6 +62,10 @@ class OutboundPaymentCreateParamsDeliveryOptions(TypedDict):
     """
     Open Enum. Method for bank account.
     """
+    speed: NotRequired[Literal["instant", "next_business_day", "standard"]]
+    """
+    Open Enum. Speed of the payout.
+    """
 
 
 class OutboundPaymentCreateParamsFrom(TypedDict):

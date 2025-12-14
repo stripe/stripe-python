@@ -19,7 +19,7 @@ if TYPE_CHECKING:
 class AccountTokenService(StripeService):
     def create(
         self,
-        params: "AccountTokenCreateParams",
+        params: Optional["AccountTokenCreateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "AccountToken":
         """
@@ -38,7 +38,7 @@ class AccountTokenService(StripeService):
 
     async def create_async(
         self,
-        params: "AccountTokenCreateParams",
+        params: Optional["AccountTokenCreateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "AccountToken":
         """

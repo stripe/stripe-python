@@ -244,6 +244,12 @@ if TYPE_CHECKING:
     from stripe.events._v2_core_health_payment_method_error_resolved_event import (
         V2CoreHealthPaymentMethodErrorResolvedEventNotification,
     )
+    from stripe.events._v2_core_health_sepa_debit_delayed_firing_event import (
+        V2CoreHealthSepaDebitDelayedFiringEventNotification,
+    )
+    from stripe.events._v2_core_health_sepa_debit_delayed_resolved_event import (
+        V2CoreHealthSepaDebitDelayedResolvedEventNotification,
+    )
     from stripe.events._v2_core_health_traffic_volume_drop_firing_event import (
         V2CoreHealthTrafficVolumeDropFiringEventNotification,
     )
@@ -343,6 +349,9 @@ if TYPE_CHECKING:
     from stripe.events._v2_money_management_outbound_transfer_updated_event import (
         V2MoneyManagementOutboundTransferUpdatedEventNotification,
     )
+    from stripe.events._v2_money_management_payout_method_created_event import (
+        V2MoneyManagementPayoutMethodCreatedEventNotification,
+    )
     from stripe.events._v2_money_management_payout_method_updated_event import (
         V2MoneyManagementPayoutMethodUpdatedEventNotification,
     )
@@ -411,6 +420,39 @@ if TYPE_CHECKING:
     )
     from stripe.events._v2_payments_off_session_payment_succeeded_event import (
         V2PaymentsOffSessionPaymentSucceededEventNotification,
+    )
+    from stripe.events._v2_payments_settlement_allocation_intent_canceled_event import (
+        V2PaymentsSettlementAllocationIntentCanceledEventNotification,
+    )
+    from stripe.events._v2_payments_settlement_allocation_intent_created_event import (
+        V2PaymentsSettlementAllocationIntentCreatedEventNotification,
+    )
+    from stripe.events._v2_payments_settlement_allocation_intent_errored_event import (
+        V2PaymentsSettlementAllocationIntentErroredEventNotification,
+    )
+    from stripe.events._v2_payments_settlement_allocation_intent_funds_not_received_event import (
+        V2PaymentsSettlementAllocationIntentFundsNotReceivedEventNotification,
+    )
+    from stripe.events._v2_payments_settlement_allocation_intent_matched_event import (
+        V2PaymentsSettlementAllocationIntentMatchedEventNotification,
+    )
+    from stripe.events._v2_payments_settlement_allocation_intent_not_found_event import (
+        V2PaymentsSettlementAllocationIntentNotFoundEventNotification,
+    )
+    from stripe.events._v2_payments_settlement_allocation_intent_settled_event import (
+        V2PaymentsSettlementAllocationIntentSettledEventNotification,
+    )
+    from stripe.events._v2_payments_settlement_allocation_intent_submitted_event import (
+        V2PaymentsSettlementAllocationIntentSubmittedEventNotification,
+    )
+    from stripe.events._v2_payments_settlement_allocation_intent_split_canceled_event import (
+        V2PaymentsSettlementAllocationIntentSplitCanceledEventNotification,
+    )
+    from stripe.events._v2_payments_settlement_allocation_intent_split_created_event import (
+        V2PaymentsSettlementAllocationIntentSplitCreatedEventNotification,
+    )
+    from stripe.events._v2_payments_settlement_allocation_intent_split_settled_event import (
+        V2PaymentsSettlementAllocationIntentSplitSettledEventNotification,
     )
     from stripe.events._v2_reporting_report_run_created_event import (
         V2ReportingReportRunCreatedEventNotification,
@@ -743,6 +785,14 @@ _V2_EVENT_CLASS_LOOKUP = {
         "stripe.events._v2_core_health_payment_method_error_resolved_event",
         "V2CoreHealthPaymentMethodErrorResolvedEvent",
     ),
+    "v2.core.health.sepa_debit_delayed.firing": (
+        "stripe.events._v2_core_health_sepa_debit_delayed_firing_event",
+        "V2CoreHealthSepaDebitDelayedFiringEvent",
+    ),
+    "v2.core.health.sepa_debit_delayed.resolved": (
+        "stripe.events._v2_core_health_sepa_debit_delayed_resolved_event",
+        "V2CoreHealthSepaDebitDelayedResolvedEvent",
+    ),
     "v2.core.health.traffic_volume_drop.firing": (
         "stripe.events._v2_core_health_traffic_volume_drop_firing_event",
         "V2CoreHealthTrafficVolumeDropFiringEvent",
@@ -875,6 +925,10 @@ _V2_EVENT_CLASS_LOOKUP = {
         "stripe.events._v2_money_management_outbound_transfer_updated_event",
         "V2MoneyManagementOutboundTransferUpdatedEvent",
     ),
+    "v2.money_management.payout_method.created": (
+        "stripe.events._v2_money_management_payout_method_created_event",
+        "V2MoneyManagementPayoutMethodCreatedEvent",
+    ),
     "v2.money_management.payout_method.updated": (
         "stripe.events._v2_money_management_payout_method_updated_event",
         "V2MoneyManagementPayoutMethodUpdatedEvent",
@@ -966,6 +1020,50 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v2.payments.off_session_payment.succeeded": (
         "stripe.events._v2_payments_off_session_payment_succeeded_event",
         "V2PaymentsOffSessionPaymentSucceededEvent",
+    ),
+    "v2.payments.settlement_allocation_intent.canceled": (
+        "stripe.events._v2_payments_settlement_allocation_intent_canceled_event",
+        "V2PaymentsSettlementAllocationIntentCanceledEvent",
+    ),
+    "v2.payments.settlement_allocation_intent.created": (
+        "stripe.events._v2_payments_settlement_allocation_intent_created_event",
+        "V2PaymentsSettlementAllocationIntentCreatedEvent",
+    ),
+    "v2.payments.settlement_allocation_intent.errored": (
+        "stripe.events._v2_payments_settlement_allocation_intent_errored_event",
+        "V2PaymentsSettlementAllocationIntentErroredEvent",
+    ),
+    "v2.payments.settlement_allocation_intent.funds_not_received": (
+        "stripe.events._v2_payments_settlement_allocation_intent_funds_not_received_event",
+        "V2PaymentsSettlementAllocationIntentFundsNotReceivedEvent",
+    ),
+    "v2.payments.settlement_allocation_intent.matched": (
+        "stripe.events._v2_payments_settlement_allocation_intent_matched_event",
+        "V2PaymentsSettlementAllocationIntentMatchedEvent",
+    ),
+    "v2.payments.settlement_allocation_intent.not_found": (
+        "stripe.events._v2_payments_settlement_allocation_intent_not_found_event",
+        "V2PaymentsSettlementAllocationIntentNotFoundEvent",
+    ),
+    "v2.payments.settlement_allocation_intent.settled": (
+        "stripe.events._v2_payments_settlement_allocation_intent_settled_event",
+        "V2PaymentsSettlementAllocationIntentSettledEvent",
+    ),
+    "v2.payments.settlement_allocation_intent_split.canceled": (
+        "stripe.events._v2_payments_settlement_allocation_intent_split_canceled_event",
+        "V2PaymentsSettlementAllocationIntentSplitCanceledEvent",
+    ),
+    "v2.payments.settlement_allocation_intent_split.created": (
+        "stripe.events._v2_payments_settlement_allocation_intent_split_created_event",
+        "V2PaymentsSettlementAllocationIntentSplitCreatedEvent",
+    ),
+    "v2.payments.settlement_allocation_intent_split.settled": (
+        "stripe.events._v2_payments_settlement_allocation_intent_split_settled_event",
+        "V2PaymentsSettlementAllocationIntentSplitSettledEvent",
+    ),
+    "v2.payments.settlement_allocation_intent.submitted": (
+        "stripe.events._v2_payments_settlement_allocation_intent_submitted_event",
+        "V2PaymentsSettlementAllocationIntentSubmittedEvent",
     ),
     "v2.reporting.report_run.created": (
         "stripe.events._v2_reporting_report_run_created_event",
@@ -1314,6 +1412,14 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_core_health_payment_method_error_resolved_event",
         "V2CoreHealthPaymentMethodErrorResolvedEventNotification",
     ),
+    "v2.core.health.sepa_debit_delayed.firing": (
+        "stripe.events._v2_core_health_sepa_debit_delayed_firing_event",
+        "V2CoreHealthSepaDebitDelayedFiringEventNotification",
+    ),
+    "v2.core.health.sepa_debit_delayed.resolved": (
+        "stripe.events._v2_core_health_sepa_debit_delayed_resolved_event",
+        "V2CoreHealthSepaDebitDelayedResolvedEventNotification",
+    ),
     "v2.core.health.traffic_volume_drop.firing": (
         "stripe.events._v2_core_health_traffic_volume_drop_firing_event",
         "V2CoreHealthTrafficVolumeDropFiringEventNotification",
@@ -1446,6 +1552,10 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_money_management_outbound_transfer_updated_event",
         "V2MoneyManagementOutboundTransferUpdatedEventNotification",
     ),
+    "v2.money_management.payout_method.created": (
+        "stripe.events._v2_money_management_payout_method_created_event",
+        "V2MoneyManagementPayoutMethodCreatedEventNotification",
+    ),
     "v2.money_management.payout_method.updated": (
         "stripe.events._v2_money_management_payout_method_updated_event",
         "V2MoneyManagementPayoutMethodUpdatedEventNotification",
@@ -1537,6 +1647,50 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
     "v2.payments.off_session_payment.succeeded": (
         "stripe.events._v2_payments_off_session_payment_succeeded_event",
         "V2PaymentsOffSessionPaymentSucceededEventNotification",
+    ),
+    "v2.payments.settlement_allocation_intent.canceled": (
+        "stripe.events._v2_payments_settlement_allocation_intent_canceled_event",
+        "V2PaymentsSettlementAllocationIntentCanceledEventNotification",
+    ),
+    "v2.payments.settlement_allocation_intent.created": (
+        "stripe.events._v2_payments_settlement_allocation_intent_created_event",
+        "V2PaymentsSettlementAllocationIntentCreatedEventNotification",
+    ),
+    "v2.payments.settlement_allocation_intent.errored": (
+        "stripe.events._v2_payments_settlement_allocation_intent_errored_event",
+        "V2PaymentsSettlementAllocationIntentErroredEventNotification",
+    ),
+    "v2.payments.settlement_allocation_intent.funds_not_received": (
+        "stripe.events._v2_payments_settlement_allocation_intent_funds_not_received_event",
+        "V2PaymentsSettlementAllocationIntentFundsNotReceivedEventNotification",
+    ),
+    "v2.payments.settlement_allocation_intent.matched": (
+        "stripe.events._v2_payments_settlement_allocation_intent_matched_event",
+        "V2PaymentsSettlementAllocationIntentMatchedEventNotification",
+    ),
+    "v2.payments.settlement_allocation_intent.not_found": (
+        "stripe.events._v2_payments_settlement_allocation_intent_not_found_event",
+        "V2PaymentsSettlementAllocationIntentNotFoundEventNotification",
+    ),
+    "v2.payments.settlement_allocation_intent.settled": (
+        "stripe.events._v2_payments_settlement_allocation_intent_settled_event",
+        "V2PaymentsSettlementAllocationIntentSettledEventNotification",
+    ),
+    "v2.payments.settlement_allocation_intent_split.canceled": (
+        "stripe.events._v2_payments_settlement_allocation_intent_split_canceled_event",
+        "V2PaymentsSettlementAllocationIntentSplitCanceledEventNotification",
+    ),
+    "v2.payments.settlement_allocation_intent_split.created": (
+        "stripe.events._v2_payments_settlement_allocation_intent_split_created_event",
+        "V2PaymentsSettlementAllocationIntentSplitCreatedEventNotification",
+    ),
+    "v2.payments.settlement_allocation_intent_split.settled": (
+        "stripe.events._v2_payments_settlement_allocation_intent_split_settled_event",
+        "V2PaymentsSettlementAllocationIntentSplitSettledEventNotification",
+    ),
+    "v2.payments.settlement_allocation_intent.submitted": (
+        "stripe.events._v2_payments_settlement_allocation_intent_submitted_event",
+        "V2PaymentsSettlementAllocationIntentSubmittedEventNotification",
     ),
     "v2.reporting.report_run.created": (
         "stripe.events._v2_reporting_report_run_created_event",
@@ -1648,6 +1802,8 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2CoreHealthIssuingAuthorizationRequestTimeoutResolvedEventNotification",
     "V2CoreHealthPaymentMethodErrorFiringEventNotification",
     "V2CoreHealthPaymentMethodErrorResolvedEventNotification",
+    "V2CoreHealthSepaDebitDelayedFiringEventNotification",
+    "V2CoreHealthSepaDebitDelayedResolvedEventNotification",
     "V2CoreHealthTrafficVolumeDropFiringEventNotification",
     "V2CoreHealthTrafficVolumeDropResolvedEventNotification",
     "V2CoreHealthWebhookLatencyFiringEventNotification",
@@ -1681,6 +1837,7 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2MoneyManagementOutboundTransferPostedEventNotification",
     "V2MoneyManagementOutboundTransferReturnedEventNotification",
     "V2MoneyManagementOutboundTransferUpdatedEventNotification",
+    "V2MoneyManagementPayoutMethodCreatedEventNotification",
     "V2MoneyManagementPayoutMethodUpdatedEventNotification",
     "V2MoneyManagementReceivedCreditAvailableEventNotification",
     "V2MoneyManagementReceivedCreditFailedEventNotification",
@@ -1704,6 +1861,17 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2PaymentsOffSessionPaymentFailedEventNotification",
     "V2PaymentsOffSessionPaymentRequiresCaptureEventNotification",
     "V2PaymentsOffSessionPaymentSucceededEventNotification",
+    "V2PaymentsSettlementAllocationIntentCanceledEventNotification",
+    "V2PaymentsSettlementAllocationIntentCreatedEventNotification",
+    "V2PaymentsSettlementAllocationIntentErroredEventNotification",
+    "V2PaymentsSettlementAllocationIntentFundsNotReceivedEventNotification",
+    "V2PaymentsSettlementAllocationIntentMatchedEventNotification",
+    "V2PaymentsSettlementAllocationIntentNotFoundEventNotification",
+    "V2PaymentsSettlementAllocationIntentSettledEventNotification",
+    "V2PaymentsSettlementAllocationIntentSplitCanceledEventNotification",
+    "V2PaymentsSettlementAllocationIntentSplitCreatedEventNotification",
+    "V2PaymentsSettlementAllocationIntentSplitSettledEventNotification",
+    "V2PaymentsSettlementAllocationIntentSubmittedEventNotification",
     "V2ReportingReportRunCreatedEventNotification",
     "V2ReportingReportRunFailedEventNotification",
     "V2ReportingReportRunSucceededEventNotification",

@@ -34,7 +34,7 @@ class Refund(
     refunded yet. Funds are refunded to the credit or debit card that's
     initially charged.
 
-    Related guide: [Refunds](https://stripe.com/docs/refunds)
+    Related guide: [Refunds](https://docs.stripe.com/refunds)
     """
 
     OBJECT_NAME: ClassVar[Literal["refund"]] = "refund"
@@ -428,7 +428,7 @@ class Refund(
     """
     metadata: Optional[Dict[str, str]]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     next_action: Optional[NextAction]
     object: Literal["refund"]
@@ -467,7 +467,7 @@ class Refund(
     """
     status: Optional[str]
     """
-    Status of the refund. This can be `pending`, `requires_action`, `succeeded`, `failed`, or `canceled`. Learn more about [failed refunds](https://stripe.com/docs/refunds#failed-refunds).
+    Status of the refund. This can be `pending`, `requires_action`, `succeeded`, `failed`, or `canceled`. Learn more about [failed refunds](https://docs.stripe.com/refunds#failed-refunds).
     """
     transfer_reversal: Optional[ExpandableField["Reversal"]]
     """

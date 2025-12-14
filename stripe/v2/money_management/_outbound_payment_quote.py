@@ -29,6 +29,10 @@ class OutboundPaymentQuote(StripeObject):
         """
         Open Enum. Method for bank account.
         """
+        speed: Optional[Literal["instant", "next_business_day", "standard"]]
+        """
+        Open Enum. Speed of the payout.
+        """
 
     class EstimatedFee(StripeObject):
         class Amount(StripeObject):
@@ -49,6 +53,7 @@ class OutboundPaymentQuote(StripeObject):
             "cross_border_payout_fee",
             "foreign_exchange_fee",
             "instant_payout_fee",
+            "real_time_payout_fee",
             "standard_payout_fee",
             "wire_payout_fee",
         ]

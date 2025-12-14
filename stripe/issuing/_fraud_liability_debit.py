@@ -30,7 +30,7 @@ class FraudLiabilityDebit(ListableAPIResource["FraudLiabilityDebit"]):
     """
     balance_transaction: Optional[ExpandableField["BalanceTransaction"]]
     """
-    ID of the [balance transaction](https://stripe.com/docs/api/balance_transactions) associated with this debit.
+    ID of the [balance transaction](https://docs.stripe.com/api/balance_transactions) associated with this debit.
     """
     created: int
     """

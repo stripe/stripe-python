@@ -8,7 +8,7 @@ from typing_extensions import Literal, NotRequired, TypedDict
 class CustomerModifyParams(RequestOptions):
     address: NotRequired["Literal['']|CustomerModifyParamsAddress"]
     """
-    The customer's address.
+    The customer's address. Learn about [country-specific requirements for calculating tax](https://docs.stripe.com/invoicing/taxes?dashboard-or-api=dashboard#set-up-customer).
     """
     balance: NotRequired[int]
     """
@@ -24,11 +24,11 @@ class CustomerModifyParams(RequestOptions):
     """
     default_source: NotRequired[str]
     """
-    If you are using payment methods created via the PaymentMethods API, see the [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method) parameter.
+    If you are using payment methods created via the PaymentMethods API, see the [invoice_settings.default_payment_method](https://docs.stripe.com/api/customers/update#update_customer-invoice_settings-default_payment_method) parameter.
 
     Provide the ID of a payment source already attached to this customer to make it this customer's default payment source.
 
-    If you want to add a new payment source and make it the default, see the [source](https://stripe.com/docs/api/customers/update#update_customer-source) property.
+    If you want to add a new payment source and make it the default, see the [source](https://docs.stripe.com/api/customers/update#update_customer-source) property.
     """
     description: NotRequired[str]
     """
@@ -56,7 +56,7 @@ class CustomerModifyParams(RequestOptions):
     """
     metadata: NotRequired["Literal['']|Dict[str, str]"]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
     name: NotRequired[str]
     """
@@ -113,7 +113,7 @@ class CustomerModifyParamsAddress(TypedDict):
     """
     state: NotRequired[str]
     """
-    State, county, province, or region.
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """
 
 
@@ -130,7 +130,7 @@ class CustomerModifyParamsCashBalanceSettings(TypedDict):
         Literal["automatic", "manual", "merchant_default"]
     ]
     """
-    Controls how funds transferred by the customer are applied to payment intents and invoices. Valid options are `automatic`, `manual`, or `merchant_default`. For more information about these reconciliation modes, see [Reconciliation](https://stripe.com/docs/payments/customer-balance/reconciliation).
+    Controls how funds transferred by the customer are applied to payment intents and invoices. Valid options are `automatic`, `manual`, or `merchant_default`. For more information about these reconciliation modes, see [Reconciliation](https://docs.stripe.com/payments/customer-balance/reconciliation).
     """
 
 
@@ -219,7 +219,7 @@ class CustomerModifyParamsShippingAddress(TypedDict):
     """
     state: NotRequired[str]
     """
-    State, county, province, or region.
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """
 
 

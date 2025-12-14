@@ -35,7 +35,7 @@ class PersonService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[AccountPerson]":
         """
-        Returns a list of Persons associated with an Account.
+        Returns a paginated list of Persons associated with an Account.
         """
         return cast(
             "ListObject[AccountPerson]",
@@ -57,7 +57,7 @@ class PersonService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[AccountPerson]":
         """
-        Returns a list of Persons associated with an Account.
+        Returns a paginated list of Persons associated with an Account.
         """
         return cast(
             "ListObject[AccountPerson]",
@@ -79,7 +79,7 @@ class PersonService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "AccountPerson":
         """
-        Create a Person associated with an Account.
+        Create a Person. Adds an individual to an Account's identity. You can set relationship attributes and identity information at creation.
         """
         return cast(
             "AccountPerson",
@@ -101,7 +101,7 @@ class PersonService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "AccountPerson":
         """
-        Create a Person associated with an Account.
+        Create a Person. Adds an individual to an Account's identity. You can set relationship attributes and identity information at creation.
         """
         return cast(
             "AccountPerson",

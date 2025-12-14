@@ -29,6 +29,10 @@ class OutboundPayment(StripeObject):
         """
         Open Enum. Method for bank account.
         """
+        speed: Optional[Literal["instant", "next_business_day", "standard"]]
+        """
+        Open Enum. Speed of the payout.
+        """
 
     class From(StripeObject):
         class Debited(StripeObject):

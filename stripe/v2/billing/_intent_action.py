@@ -60,14 +60,6 @@ class IntentAction(StripeObject):
         _inner_class_types = {"invoice_discount_rule": InvoiceDiscountRule}
 
     class Deactivate(StripeObject):
-        class BillingDetails(StripeObject):
-            proration_behavior: Optional[
-                Literal["no_adjustment", "prorated_adjustment"]
-            ]
-            """
-            This controls the proration adjustment for the partial servicing period.
-            """
-
         class EffectiveAt(StripeObject):
             timestamp: Optional[str]
             """
@@ -84,14 +76,45 @@ class IntentAction(StripeObject):
             """
 
         class PricingPlanSubscriptionDetails(StripeObject):
+            class Overrides(StripeObject):
+                class PartialPeriodBehavior(StripeObject):
+                    class LicenseFee(StripeObject):
+                        credit_proration_behavior: Literal["none", "prorated"]
+                        """
+                        The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is deactivating.
+                        """
+
+                    license_fee: Optional[LicenseFee]
+                    """
+                    Override for the license fee.
+                    """
+                    type: Literal["license_fee"]
+                    """
+                    Type of the partial period behavior override.
+                    """
+                    _inner_class_types = {"license_fee": LicenseFee}
+
+                partial_period_behaviors: List[PartialPeriodBehavior]
+                """
+                Override for the partial period behavior.
+                """
+                _inner_class_types = {
+                    "partial_period_behaviors": PartialPeriodBehavior,
+                }
+
+            overrides: Optional[Overrides]
+            """
+            Allows users to override the partial period behavior.
+            """
             pricing_plan_subscription: str
             """
             ID of the Pricing Plan Subscription to deactivate.
             """
+            _inner_class_types = {"overrides": Overrides}
 
-        billing_details: BillingDetails
+        collect_at: Literal["next_billing_date", "on_effective_at"]
         """
-        Configuration for the billing details.
+        Allows users to override the collect at behavior.
         """
         effective_at: EffectiveAt
         """
@@ -110,20 +133,11 @@ class IntentAction(StripeObject):
         Type of the action details.
         """
         _inner_class_types = {
-            "billing_details": BillingDetails,
             "effective_at": EffectiveAt,
             "pricing_plan_subscription_details": PricingPlanSubscriptionDetails,
         }
 
     class Modify(StripeObject):
-        class BillingDetails(StripeObject):
-            proration_behavior: Optional[
-                Literal["no_adjustment", "prorated_adjustment"]
-            ]
-            """
-            This controls the proration adjustment for the partial servicing period.
-            """
-
         class EffectiveAt(StripeObject):
             timestamp: Optional[str]
             """
@@ -151,6 +165,36 @@ class IntentAction(StripeObject):
                 Quantity of the component to be used.
                 """
 
+            class Overrides(StripeObject):
+                class PartialPeriodBehavior(StripeObject):
+                    class LicenseFee(StripeObject):
+                        credit_proration_behavior: Literal["none", "prorated"]
+                        """
+                        The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is upgrading.
+                        """
+                        debit_proration_behavior: Literal["none", "prorated"]
+                        """
+                        The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is downgrading.
+                        """
+
+                    license_fee: Optional[LicenseFee]
+                    """
+                    Override for the license fee.
+                    """
+                    type: Literal["license_fee"]
+                    """
+                    Type of the partial period behavior override.
+                    """
+                    _inner_class_types = {"license_fee": LicenseFee}
+
+                partial_period_behaviors: List[PartialPeriodBehavior]
+                """
+                Override for the partial period behavior.
+                """
+                _inner_class_types = {
+                    "partial_period_behaviors": PartialPeriodBehavior,
+                }
+
             component_configurations: List[ComponentConfiguration]
             """
             New configurations for the components of the Pricing Plan.
@@ -163,17 +207,22 @@ class IntentAction(StripeObject):
             """
             Version of the Pricing Plan to use.
             """
+            overrides: Optional[Overrides]
+            """
+            Allows users to override the partial period behavior.
+            """
             pricing_plan_subscription: str
             """
             ID of the Pricing Plan Subscription to modify.
             """
             _inner_class_types = {
                 "component_configurations": ComponentConfiguration,
+                "overrides": Overrides,
             }
 
-        billing_details: BillingDetails
+        collect_at: Literal["next_billing_date", "on_effective_at"]
         """
-        Configuration for the billing details.
+        Allows users to override the collect at behavior.
         """
         effective_at: EffectiveAt
         """
@@ -192,7 +241,6 @@ class IntentAction(StripeObject):
         Type of the action details.
         """
         _inner_class_types = {
-            "billing_details": BillingDetails,
             "effective_at": EffectiveAt,
             "pricing_plan_subscription_details": PricingPlanSubscriptionDetails,
         }
@@ -208,14 +256,6 @@ class IntentAction(StripeObject):
         """
 
     class Subscribe(StripeObject):
-        class BillingDetails(StripeObject):
-            proration_behavior: Optional[
-                Literal["no_adjustment", "prorated_adjustment"]
-            ]
-            """
-            This controls the proration adjustment for the partial servicing period.
-            """
-
         class EffectiveAt(StripeObject):
             timestamp: Optional[str]
             """
@@ -243,6 +283,32 @@ class IntentAction(StripeObject):
                 Quantity of the component to be used.
                 """
 
+            class Overrides(StripeObject):
+                class PartialPeriodBehavior(StripeObject):
+                    class LicenseFee(StripeObject):
+                        debit_proration_behavior: Literal["none", "prorated"]
+                        """
+                        The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is subscribing.
+                        """
+
+                    license_fee: Optional[LicenseFee]
+                    """
+                    Override for the license fee.
+                    """
+                    type: Literal["license_fee"]
+                    """
+                    Type of the partial period behavior override.
+                    """
+                    _inner_class_types = {"license_fee": LicenseFee}
+
+                partial_period_behaviors: List[PartialPeriodBehavior]
+                """
+                Override for the partial period behavior.
+                """
+                _inner_class_types = {
+                    "partial_period_behaviors": PartialPeriodBehavior,
+                }
+
             component_configurations: List[ComponentConfiguration]
             """
             Configurations for the components of the Pricing Plan.
@@ -250,6 +316,10 @@ class IntentAction(StripeObject):
             metadata: Optional[Dict[str, str]]
             """
             Set of [key-value pairs](https://docs.stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+            """
+            overrides: Optional[Overrides]
+            """
+            Allows users to override the partial period behavior.
             """
             pricing_plan: str
             """
@@ -265,6 +335,7 @@ class IntentAction(StripeObject):
             """
             _inner_class_types = {
                 "component_configurations": ComponentConfiguration,
+                "overrides": Overrides,
             }
 
         class V1SubscriptionDetails(StripeObject):
@@ -297,9 +368,9 @@ class IntentAction(StripeObject):
             """
             _inner_class_types = {"items": Item}
 
-        billing_details: BillingDetails
+        collect_at: Literal["next_billing_date", "on_effective_at"]
         """
-        Configuration for the billing details. If not specified, see the default behavior for individual attributes.
+        Allows users to override the collect at behavior.
         """
         effective_at: EffectiveAt
         """
@@ -322,7 +393,6 @@ class IntentAction(StripeObject):
         Details for subscribing to a V1 subscription.
         """
         _inner_class_types = {
-            "billing_details": BillingDetails,
             "effective_at": EffectiveAt,
             "pricing_plan_subscription_details": PricingPlanSubscriptionDetails,
             "v1_subscription_details": V1SubscriptionDetails,

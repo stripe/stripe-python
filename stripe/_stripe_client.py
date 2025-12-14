@@ -117,6 +117,7 @@ if TYPE_CHECKING:
     from stripe._review_service import ReviewService
     from stripe._setup_attempt_service import SetupAttemptService
     from stripe._setup_intent_service import SetupIntentService
+    from stripe._shared_payment_service import SharedPaymentService
     from stripe._shipping_rate_service import ShippingRateService
     from stripe._sigma_service import SigmaService
     from stripe._source_service import SourceService
@@ -1046,6 +1047,17 @@ class StripeClient(object):
     )
     def setup_intents(self) -> "SetupIntentService":
         return self.v1.setup_intents
+
+    @property
+    @deprecated(
+        """
+        StripeClient.shared_payment is deprecated, use StripeClient.v1.shared_payment instead.
+          All functionality under it has been copied over to StripeClient.v1.shared_payment.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """,
+    )
+    def shared_payment(self) -> "SharedPaymentService":
+        return self.v1.shared_payment
 
     @property
     @deprecated(

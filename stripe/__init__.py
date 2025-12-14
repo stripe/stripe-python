@@ -162,6 +162,7 @@ if TYPE_CHECKING:
         product_catalog as product_catalog,
         radar as radar,
         reporting as reporting,
+        shared_payment as shared_payment,
         sigma as sigma,
         tax as tax,
         terminal as terminal,
@@ -332,6 +333,7 @@ if TYPE_CHECKING:
         AuthenticationError as AuthenticationError,
         BlockedByStripeError as BlockedByStripeError,
         CardError as CardError,
+        ControlledByAlternateResourceError as ControlledByAlternateResourceError,
         ControlledByDashboardError as ControlledByDashboardError,
         FeatureNotEnabledError as FeatureNotEnabledError,
         FinancialAccountNotOpenError as FinancialAccountNotOpenError,
@@ -545,6 +547,9 @@ if TYPE_CHECKING:
     from stripe._setup_intent_service import (
         SetupIntentService as SetupIntentService,
     )
+    from stripe._shared_payment_service import (
+        SharedPaymentService as SharedPaymentService,
+    )
     from stripe._shipping_rate import ShippingRate as ShippingRate
     from stripe._shipping_rate_service import (
         ShippingRateService as ShippingRateService,
@@ -654,6 +659,7 @@ _import_map = {
     "product_catalog": ("stripe.product_catalog", True),
     "radar": ("stripe.radar", True),
     "reporting": ("stripe.reporting", True),
+    "shared_payment": ("stripe.shared_payment", True),
     "sigma": ("stripe.sigma", True),
     "tax": ("stripe.tax", True),
     "terminal": ("stripe.terminal", True),
@@ -786,6 +792,7 @@ _import_map = {
     "AuthenticationError": ("stripe._error", False),
     "BlockedByStripeError": ("stripe._error", False),
     "CardError": ("stripe._error", False),
+    "ControlledByAlternateResourceError": ("stripe._error", False),
     "ControlledByDashboardError": ("stripe._error", False),
     "FeatureNotEnabledError": ("stripe._error", False),
     "FinancialAccountNotOpenError": ("stripe._error", False),
@@ -954,6 +961,7 @@ _import_map = {
     "SetupAttemptService": ("stripe._setup_attempt_service", False),
     "SetupIntent": ("stripe._setup_intent", False),
     "SetupIntentService": ("stripe._setup_intent_service", False),
+    "SharedPaymentService": ("stripe._shared_payment_service", False),
     "ShippingRate": ("stripe._shipping_rate", False),
     "ShippingRateService": ("stripe._shipping_rate_service", False),
     "SigmaService": ("stripe._sigma_service", False),

@@ -71,6 +71,12 @@ class AccountSessionCreateParamsComponents(TypedDict):
     """
     Configuration for the [Capital overview](https://docs.stripe.com/connect/supported-embedded-components/capital-overview/) embedded component.
     """
+    check_scanning: NotRequired[
+        "AccountSessionCreateParamsComponentsCheckScanning"
+    ]
+    """
+    Configuration for the [check scanning](https://docs.stripe.com/connect/supported-embedded-components/check-scanning/) embedded component.
+    """
     disputes_list: NotRequired[
         "AccountSessionCreateParamsComponentsDisputesList"
     ]
@@ -392,6 +398,23 @@ class AccountSessionCreateParamsComponentsCapitalOverview(TypedDict):
 
 
 class AccountSessionCreateParamsComponentsCapitalOverviewFeatures(TypedDict):
+    pass
+
+
+class AccountSessionCreateParamsComponentsCheckScanning(TypedDict):
+    enabled: bool
+    """
+    Whether the embedded component is enabled.
+    """
+    features: NotRequired[
+        "AccountSessionCreateParamsComponentsCheckScanningFeatures"
+    ]
+    """
+    An empty list, because this embedded component has no features.
+    """
+
+
+class AccountSessionCreateParamsComponentsCheckScanningFeatures(TypedDict):
     pass
 
 

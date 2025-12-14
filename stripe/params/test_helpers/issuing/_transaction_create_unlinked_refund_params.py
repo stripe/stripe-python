@@ -7,7 +7,7 @@ from typing_extensions import Literal, NotRequired, TypedDict
 class TransactionCreateUnlinkedRefundParams(TypedDict):
     amount: int
     """
-    The total amount to attempt to refund. This amount is in the provided currency, or defaults to the cards currency, and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+    The total amount to attempt to refund. This amount is in the provided currency, or defaults to the cards currency, and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
     """
     card: str
     """
@@ -335,7 +335,7 @@ class TransactionCreateUnlinkedRefundParamsMerchantData(TypedDict):
         ]
     ]
     """
-    A categorization of the seller's type of business. See our [merchant categories guide](https://stripe.com/docs/issuing/merchant-categories) for a list of possible values.
+    A categorization of the seller's type of business. See our [merchant categories guide](https://docs.stripe.com/issuing/merchant-categories) for a list of possible values.
     """
     city: NotRequired[str]
     """
