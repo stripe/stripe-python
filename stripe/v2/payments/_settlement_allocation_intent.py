@@ -51,15 +51,15 @@ class SettlementAllocationIntent(StripeObject):
     """
     created: str
     """
-    Timestamp at which Settlement Intent was created .
+    Timestamp at which SettlementAllocationIntent was created .
     """
     expected_settlement_date: str
     """
-    Expected date when we expect to receive the funds.
+    Date when we expect to receive the funds.
     """
     financial_account: str
     """
-    Financial Account Id where the funds are expected.
+    FinancialAccount ID where the funds are expected.
     """
     id: str
     """
@@ -83,16 +83,16 @@ class SettlementAllocationIntent(StripeObject):
     """
     reference: str
     """
-    Reference for the settlement intent . The reference used by PSP to send funds to Stripe .
+    Reference for the SettlementAllocationIntent. This is the transaction reference used by payments processor to send funds to Stripe .
     """
     status: Literal[
         "canceled", "errored", "matched", "pending", "settled", "submitted"
     ]
     """
-    Settlement Intent status.
+    SettlementAllocationIntent status.
     """
     status_details: Optional[StatusDetails]
     """
-    This hash contains detailed information that elaborates on the specific status of the SettlementAllocationIntent. e.g the reason behind the error failure if the status is marked as `errored`.
+    Status details for a SettlementAllocationIntent in `errored` state.
     """
     _inner_class_types = {"amount": Amount, "status_details": StatusDetails}

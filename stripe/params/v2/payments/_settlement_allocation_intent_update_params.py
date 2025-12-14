@@ -6,7 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 class SettlementAllocationIntentUpdateParams(TypedDict):
     amount: NotRequired["SettlementAllocationIntentUpdateParamsAmount"]
     """
-    The new amount for the SettlementAllocationIntent.
+    The new amount for the SettlementAllocationIntent. Only amount.value can be updated and currency must remain same.
     """
     reference: NotRequired[str]
     """

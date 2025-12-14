@@ -7,15 +7,15 @@ from typing_extensions import NotRequired, TypedDict
 class SettlementAllocationIntentCreateParams(TypedDict):
     amount: "SettlementAllocationIntentCreateParamsAmount"
     """
-    The amount and currency of the SettlementAllocationIntent.
+    The amount and currency of the SettlementAllocationIntent. Allowed Currencies are `gbp` | `eur`.
     """
     expected_settlement_date: str
     """
-    Expected date when we expect to receive the funds.
+    Date when we expect to receive the funds. Must be in future .
     """
     financial_account: str
     """
-    FinancialAccount where the funds are expected to land / FinancialAccount to map this SettlementAllocationIntent to.
+    Financial Account Id where the funds are expected for this SettlementAllocationIntent.
     """
     metadata: NotRequired[Dict[str, str]]
     """
@@ -23,7 +23,7 @@ class SettlementAllocationIntentCreateParams(TypedDict):
     """
     reference: str
     """
-    Reference for the settlement intent . Max 255 characters . The reference used by PSP to send funds to Stripe .
+    Reference for the SettlementAllocationIntent. This should be same as the transaction reference used by payments processor to send funds to Stripe. Must have length between 5 and 255 characters and it must be unique among existing SettlementAllocationIntents that have a non-terminal status (`pending`, `submitted`, `matched`, `errored`).
     """
 
 

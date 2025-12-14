@@ -68,10 +68,26 @@ class FinancialAccount(StripeObject):
             "outbound_pending",
         ]
 
+    class ManagedBy(StripeObject):
+        type: Literal["multiprocessor_settlement"]
+        """
+        Enum describing the Stripe product that is managing this FinancialAccount.
+        """
+
     class Other(StripeObject):
         type: str
         """
         The type of the FinancialAccount, represented as a string. Upgrade your API version to see the type reflected in `financial_account.type`.
+        """
+
+    class Payments(StripeObject):
+        default_currency: str
+        """
+        The currency that non-settlement currency payments will be converted to.
+        """
+        settlement_currencies: List[str]
+        """
+        Settlement currencies enabled for this FinancialAccount. Payments in other currencies will be automatically converted to `default_currency`.
         """
 
     class StatusDetails(StripeObject):
@@ -123,6 +139,11 @@ class FinancialAccount(StripeObject):
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
+    managed_by: Optional[ManagedBy]
+    """
+    If this is a managed FinancialAccount, `managed_by` indicates the product that created and manages this FinancialAccount. For managed FinancialAccounts,
+    creation of money management resources can only be orchestrated by the managing product.
+    """
     metadata: Optional[Dict[str, str]]
     """
     Metadata associated with the FinancialAccount.
@@ -135,6 +156,10 @@ class FinancialAccount(StripeObject):
     """
     If this is a `other` FinancialAccount, this hash indicates what the actual type is. Upgrade your API version to see it reflected in `type`.
     """
+    payments: Optional[Payments]
+    """
+    If this is a `payments` FinancialAccount, this hash include details specific to `payments` FinancialAccount.
+    """
     status: Literal["closed", "open", "pending"]
     """
     Closed Enum. An enum representing the status of the FinancialAccount. This indicates whether or not the FinancialAccount can be used for any money movement flows.
@@ -144,14 +169,16 @@ class FinancialAccount(StripeObject):
     """
     If this is a `storage` FinancialAccount, this hash includes details specific to `storage` FinancialAccounts.
     """
-    type: Literal["other", "storage"]
+    type: Literal["other", "payments", "storage"]
     """
     Type of the FinancialAccount. An additional hash is included on the FinancialAccount with a name matching this value.
     It contains additional information specific to the FinancialAccount type.
     """
     _inner_class_types = {
         "balance": Balance,
+        "managed_by": ManagedBy,
         "other": Other,
+        "payments": Payments,
         "status_details": StatusDetails,
         "storage": Storage,
     }

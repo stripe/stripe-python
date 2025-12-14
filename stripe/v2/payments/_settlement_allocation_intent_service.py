@@ -66,7 +66,7 @@ class SettlementAllocationIntentService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "SettlementAllocationIntent":
         """
-        Create SettlementAllocationIntent API.
+        Create a new SettlementAllocationIntent.
         """
         return cast(
             "SettlementAllocationIntent",
@@ -85,7 +85,7 @@ class SettlementAllocationIntentService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "SettlementAllocationIntent":
         """
-        Create SettlementAllocationIntent API.
+        Create a new SettlementAllocationIntent.
         """
         return cast(
             "SettlementAllocationIntent",
@@ -105,7 +105,7 @@ class SettlementAllocationIntentService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "SettlementAllocationIntent":
         """
-        Retrieve SettlementAllocationIntent API.
+        Retrieve an existing SettlementAllocationIntent.
         """
         return cast(
             "SettlementAllocationIntent",
@@ -127,7 +127,7 @@ class SettlementAllocationIntentService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "SettlementAllocationIntent":
         """
-        Retrieve SettlementAllocationIntent API.
+        Retrieve an existing SettlementAllocationIntent.
         """
         return cast(
             "SettlementAllocationIntent",
@@ -149,7 +149,7 @@ class SettlementAllocationIntentService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "SettlementAllocationIntent":
         """
-        Update SettlementAllocationIntent API.
+        Updates SettlementAllocationIntent. Only SettlementAllocationIntent with status `pending`, `submitted` and `errored` can be updated. Only amount and reference fields can be updated for a SettlementAllocationIntent and at least one must be present. Updating an `amount` moves the SettlementAllocationIntent `pending` status and updating the `reference` for `errored` SettlementAllocationIntent moves it to `submitted`.
         """
         return cast(
             "SettlementAllocationIntent",
@@ -171,7 +171,7 @@ class SettlementAllocationIntentService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "SettlementAllocationIntent":
         """
-        Update SettlementAllocationIntent API.
+        Updates SettlementAllocationIntent. Only SettlementAllocationIntent with status `pending`, `submitted` and `errored` can be updated. Only amount and reference fields can be updated for a SettlementAllocationIntent and at least one must be present. Updating an `amount` moves the SettlementAllocationIntent `pending` status and updating the `reference` for `errored` SettlementAllocationIntent moves it to `submitted`.
         """
         return cast(
             "SettlementAllocationIntent",
@@ -193,7 +193,7 @@ class SettlementAllocationIntentService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "SettlementAllocationIntent":
         """
-        Cancel SettlementAllocationIntent API.
+        Cancels an existing SettlementAllocationIntent. Only SettlementAllocationIntent with status `pending`, `submitted` and `errored` can be `canceled`.
         """
         return cast(
             "SettlementAllocationIntent",
@@ -215,7 +215,7 @@ class SettlementAllocationIntentService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "SettlementAllocationIntent":
         """
-        Cancel SettlementAllocationIntent API.
+        Cancels an existing SettlementAllocationIntent. Only SettlementAllocationIntent with status `pending`, `submitted` and `errored` can be `canceled`.
         """
         return cast(
             "SettlementAllocationIntent",
@@ -237,7 +237,7 @@ class SettlementAllocationIntentService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "SettlementAllocationIntent":
         """
-        Submit SettlementAllocationIntent API.
+        Submits a SettlementAllocationIntent. Only SettlementAllocationIntent with status `pending` can be `submitted`. The net sum of SettlementAllocationIntentSplit amount must be equal to SettlementAllocationIntent amount to be eligible to be submitted.
         """
         return cast(
             "SettlementAllocationIntent",
@@ -259,7 +259,7 @@ class SettlementAllocationIntentService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "SettlementAllocationIntent":
         """
-        Submit SettlementAllocationIntent API.
+        Submits a SettlementAllocationIntent. Only SettlementAllocationIntent with status `pending` can be `submitted`. The net sum of SettlementAllocationIntentSplit amount must be equal to SettlementAllocationIntent amount to be eligible to be submitted.
         """
         return cast(
             "SettlementAllocationIntent",

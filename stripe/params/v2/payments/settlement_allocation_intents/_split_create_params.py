@@ -7,7 +7,7 @@ from typing_extensions import Literal, NotRequired, TypedDict
 class SplitCreateParams(TypedDict):
     account: str
     """
-    The account to target for this credit/debit.
+    The target account for settling the SettlementAllocationIntentSplit.
     """
     amount: "SplitCreateParamsAmount"
     """

@@ -97,6 +97,7 @@ class V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent(
         StripeObject,
     ):
         updated_capability: Literal[
+            "bank_accounts.instant",
             "bank_accounts.local",
             "bank_accounts.wire",
             "cards",

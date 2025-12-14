@@ -1403,6 +1403,12 @@ class AccountUpdateParamsConfigurationRecipientCapabilities(TypedDict):
 class AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccounts(
     TypedDict,
 ):
+    instant: NotRequired[
+        "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsInstant"
+    ]
+    """
+    Enables this Account to receive OutboundPayments to linked bank accounts over real time rails.
+    """
     local: NotRequired[
         "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsLocal"
     ]
@@ -1414,6 +1420,15 @@ class AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccounts(
     ]
     """
     Enables this Account to receive OutboundPayments to linked bank accounts over wire.
+    """
+
+
+class AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsInstant(
+    TypedDict,
+):
+    requested: NotRequired[bool]
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
     """
 
 

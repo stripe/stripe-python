@@ -97,6 +97,7 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationRecipient as AccountCreateParamsConfigurationRecipient,
         AccountCreateParamsConfigurationRecipientCapabilities as AccountCreateParamsConfigurationRecipientCapabilities,
         AccountCreateParamsConfigurationRecipientCapabilitiesBankAccounts as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccounts,
+        AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsInstant as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsInstant,
         AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsLocal as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsLocal,
         AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsWire as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsWire,
         AccountCreateParamsConfigurationRecipientCapabilitiesCards as AccountCreateParamsConfigurationRecipientCapabilitiesCards,
@@ -398,6 +399,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationRecipient as AccountUpdateParamsConfigurationRecipient,
         AccountUpdateParamsConfigurationRecipientCapabilities as AccountUpdateParamsConfigurationRecipientCapabilities,
         AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccounts as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccounts,
+        AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsInstant as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsInstant,
         AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsLocal as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsLocal,
         AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsWire as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsWire,
         AccountUpdateParamsConfigurationRecipientCapabilitiesCards as AccountUpdateParamsConfigurationRecipientCapabilitiesCards,
@@ -912,6 +914,10 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccounts": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsInstant": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
@@ -2065,6 +2071,10 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccounts": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsInstant": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),
