@@ -22,7 +22,7 @@ class EarlyFraudWarning(ListableAPIResource["EarlyFraudWarning"]):
     An early fraud warning indicates that the card issuer has notified us that a
     charge may be fraudulent.
 
-    Related guide: [Early fraud warnings](https://stripe.com/docs/disputes/measuring#early-fraud-warnings)
+    Related guide: [Early fraud warnings](https://docs.stripe.com/disputes/measuring#early-fraud-warnings)
     """
 
     OBJECT_NAME: ClassVar[Literal["radar.early_fraud_warning"]] = (

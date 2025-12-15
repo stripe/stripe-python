@@ -6,9 +6,17 @@ from typing_extensions import Literal, NotRequired
 
 
 class PaymentMethodListParams(RequestOptions):
+    allow_redisplay: NotRequired[Literal["always", "limited", "unspecified"]]
+    """
+    This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow.
+    """
     customer: NotRequired[str]
     """
     The ID of the customer whose PaymentMethods will be retrieved.
+    """
+    customer_account: NotRequired[str]
+    """
+    The ID of the Account whose PaymentMethods will be retrieved.
     """
     ending_before: NotRequired[str]
     """
@@ -66,6 +74,7 @@ class PaymentMethodListParams(RequestOptions):
             "payco",
             "paynow",
             "paypal",
+            "payto",
             "pix",
             "promptpay",
             "revolut_pay",

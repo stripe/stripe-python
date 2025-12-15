@@ -15,7 +15,7 @@ class CardUpdateParams(TypedDict):
     """
     metadata: NotRequired["Literal['']|Dict[str, str]"]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
     personalization_design: NotRequired[str]
     pin: NotRequired["CardUpdateParamsPin"]
@@ -28,7 +28,7 @@ class CardUpdateParams(TypedDict):
     """
     spending_controls: NotRequired["CardUpdateParamsSpendingControls"]
     """
-    Rules that control spending for this card. Refer to our [documentation](https://stripe.com/docs/issuing/controls/spending-controls) for more details.
+    Rules that control spending for this card. Refer to our [documentation](https://docs.stripe.com/issuing/controls/spending-controls) for more details.
     """
     status: NotRequired[Literal["active", "canceled", "inactive"]]
     """
@@ -103,7 +103,7 @@ class CardUpdateParamsShippingAddress(TypedDict):
     """
     state: NotRequired[str]
     """
-    State, county, province, or region.
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """
 
 
@@ -426,7 +426,7 @@ class CardUpdateParamsSpendingControls(TypedDict):
         ]
     ]
     """
-    Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations to allow. All other categories will be blocked. Cannot be set with `blocked_categories`.
+    Array of strings containing [categories](https://docs.stripe.com/api#issuing_authorization_object-merchant_data-category) of authorizations to allow. All other categories will be blocked. Cannot be set with `blocked_categories`.
     """
     allowed_merchant_countries: NotRequired[List[str]]
     """
@@ -734,7 +734,7 @@ class CardUpdateParamsSpendingControls(TypedDict):
         ]
     ]
     """
-    Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) of authorizations to decline. All other categories will be allowed. Cannot be set with `allowed_categories`.
+    Array of strings containing [categories](https://docs.stripe.com/api#issuing_authorization_object-merchant_data-category) of authorizations to decline. All other categories will be allowed. Cannot be set with `allowed_categories`.
     """
     blocked_merchant_countries: NotRequired[List[str]]
     """
@@ -1055,7 +1055,7 @@ class CardUpdateParamsSpendingControlsSpendingLimit(TypedDict):
         ]
     ]
     """
-    Array of strings containing [categories](https://stripe.com/docs/api#issuing_authorization_object-merchant_data-category) this limit applies to. Omitting this field will apply the limit to all categories.
+    Array of strings containing [categories](https://docs.stripe.com/api#issuing_authorization_object-merchant_data-category) this limit applies to. Omitting this field will apply the limit to all categories.
     """
     interval: Literal[
         "all_time", "daily", "monthly", "per_authorization", "weekly", "yearly"

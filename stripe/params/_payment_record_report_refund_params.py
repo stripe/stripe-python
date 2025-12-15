@@ -8,7 +8,7 @@ from typing_extensions import Literal, NotRequired, TypedDict
 class PaymentRecordReportRefundParams(RequestOptions):
     amount: NotRequired["PaymentRecordReportRefundParamsAmount"]
     """
-    A positive integer in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) representing how much of this payment to refund. Can refund only up to the remaining, unrefunded amount of the payment.
+    A positive integer in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) representing how much of this payment to refund. Can refund only up to the remaining, unrefunded amount of the payment.
     """
     expand: NotRequired[List[str]]
     """
@@ -20,7 +20,7 @@ class PaymentRecordReportRefundParams(RequestOptions):
     """
     metadata: NotRequired["Literal['']|Dict[str, str]"]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
     outcome: Literal["refunded"]
     """
@@ -43,7 +43,7 @@ class PaymentRecordReportRefundParamsAmount(TypedDict):
     """
     value: int
     """
-    A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
+    A positive integer representing the amount in the currency's [minor unit](https://docs.stripe.com/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
     """
 
 

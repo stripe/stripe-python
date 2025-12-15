@@ -8,7 +8,7 @@ from typing_extensions import Literal, NotRequired, TypedDict
 class PaymentIntentModifyParams(RequestOptions):
     amount: NotRequired[int]
     """
-    Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
+    Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://docs.stripe.com/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
     """
     amount_details: NotRequired[
         "Literal['']|PaymentIntentModifyParamsAmountDetails"
@@ -18,7 +18,7 @@ class PaymentIntentModifyParams(RequestOptions):
     """
     application_fee_amount: NotRequired["Literal['']|int"]
     """
-    The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+    The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://docs.stripe.com/payments/connected-accounts).
     """
     capture_method: NotRequired[
         Literal["automatic", "automatic_async", "manual"]
@@ -36,14 +36,22 @@ class PaymentIntentModifyParams(RequestOptions):
 
     Payment methods attached to other Customers cannot be used with this PaymentIntent.
 
-    If [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+    If [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Customer after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Customer instead.
+    """
+    customer_account: NotRequired[str]
+    """
+    ID of the Account representing the customer that this PaymentIntent belongs to, if one exists.
+
+    Payment methods attached to other Accounts cannot be used with this PaymentIntent.
+
+    If [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) is set and this PaymentIntent's payment method is not `card_present`, then the payment method attaches to the Account after the PaymentIntent has been confirmed and any required actions from the user are complete. If the payment method is `card_present` and isn't a digital wallet, then a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card is created and attached to the Account instead.
     """
     description: NotRequired[str]
     """
     An arbitrary string attached to the object. Often useful for displaying to users.
     """
     excluded_payment_method_types: NotRequired[
-        "Literal['']|List[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'pix', 'promptpay', 'revolut_pay', 'samsung_pay', 'satispay', 'sepa_debit', 'sofort', 'swish', 'twint', 'us_bank_account', 'wechat_pay', 'zip']]"
+        "Literal['']|List[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'samsung_pay', 'satispay', 'sepa_debit', 'sofort', 'swish', 'twint', 'us_bank_account', 'wechat_pay', 'zip']]"
     ]
     """
     The list of payment method types to exclude from use with this payment.
@@ -58,7 +66,7 @@ class PaymentIntentModifyParams(RequestOptions):
     """
     metadata: NotRequired["Literal['']|Dict[str, str]"]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
     payment_details: NotRequired[
         "Literal['']|PaymentIntentModifyParamsPaymentDetails"
@@ -68,18 +76,18 @@ class PaymentIntentModifyParams(RequestOptions):
     """
     payment_method: NotRequired[str]
     """
-    ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://stripe.com/docs/payments/payment-methods/transitioning#compatibility) object) to attach to this PaymentIntent. To unset this field to null, pass in an empty string.
+    ID of the payment method (a PaymentMethod, Card, or [compatible Source](https://docs.stripe.com/payments/payment-methods/transitioning#compatibility) object) to attach to this PaymentIntent. To unset this field to null, pass in an empty string.
     """
     payment_method_configuration: NotRequired[str]
     """
-    The ID of the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) to use with this PaymentIntent.
+    The ID of the [payment method configuration](https://docs.stripe.com/api/payment_method_configurations) to use with this PaymentIntent.
     """
     payment_method_data: NotRequired[
         "PaymentIntentModifyParamsPaymentMethodData"
     ]
     """
     If provided, this hash will be used to create a PaymentMethod. The new PaymentMethod will appear
-    in the [payment_method](https://stripe.com/docs/api/payment_intents/object#payment_intent_object-payment_method)
+    in the [payment_method](https://docs.stripe.com/api/payment_intents/object#payment_intent_object-payment_method)
     property on the PaymentIntent.
     """
     payment_method_options: NotRequired[
@@ -126,18 +134,18 @@ class PaymentIntentModifyParams(RequestOptions):
     """
     transfer_data: NotRequired["PaymentIntentModifyParamsTransferData"]
     """
-    Use this parameter to automatically create a Transfer when the payment succeeds. Learn more about the [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+    Use this parameter to automatically create a Transfer when the payment succeeds. Learn more about the [use case for connected accounts](https://docs.stripe.com/payments/connected-accounts).
     """
     transfer_group: NotRequired[str]
     """
-    A string that identifies the resulting payment as part of a group. You can only provide `transfer_group` if it hasn't been set. Learn more about the [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+    A string that identifies the resulting payment as part of a group. You can only provide `transfer_group` if it hasn't been set. Learn more about the [use case for connected accounts](https://docs.stripe.com/payments/connected-accounts).
     """
 
 
 class PaymentIntentModifyParamsAmountDetails(TypedDict):
     discount_amount: NotRequired["Literal['']|int"]
     """
-    The total discount applied on the transaction represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than 0.
+    The total discount applied on the transaction represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). An integer greater than 0.
 
     This field is mutually exclusive with the `amount_details[line_items][#][discount_amount]` field.
     """
@@ -145,7 +153,7 @@ class PaymentIntentModifyParamsAmountDetails(TypedDict):
         "Literal['']|List[PaymentIntentModifyParamsAmountDetailsLineItem]"
     ]
     """
-    A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
+    A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 200 line items.
     """
     shipping: NotRequired[
         "Literal['']|PaymentIntentModifyParamsAmountDetailsShipping"
@@ -162,7 +170,7 @@ class PaymentIntentModifyParamsAmountDetails(TypedDict):
 class PaymentIntentModifyParamsAmountDetailsLineItem(TypedDict):
     discount_amount: NotRequired[int]
     """
-    The discount applied on this line item represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than 0.
+    The discount applied on this line item represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). An integer greater than 0.
 
     This field is mutually exclusive with the `amount_details[discount_amount]` field.
     """
@@ -192,7 +200,7 @@ class PaymentIntentModifyParamsAmountDetailsLineItem(TypedDict):
     """
     unit_cost: int
     """
-    The unit cost of the line item represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L3 rates. An integer greater than or equal to 0.
+    The unit cost of the line item represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). Required for L3 rates. An integer greater than or equal to 0.
     """
     unit_of_measure: NotRequired[str]
     """
@@ -290,7 +298,7 @@ class PaymentIntentModifyParamsAmountDetailsLineItemPaymentMethodOptionsPaypal(
 class PaymentIntentModifyParamsAmountDetailsLineItemTax(TypedDict):
     total_tax_amount: int
     """
-    The total amount of tax on a single line item represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L3 rates. An integer greater than or equal to 0.
+    The total amount of tax on a single line item represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). Required for L3 rates. An integer greater than or equal to 0.
 
     This field is mutually exclusive with the `amount_details[tax][total_tax_amount]` field.
     """
@@ -299,7 +307,7 @@ class PaymentIntentModifyParamsAmountDetailsLineItemTax(TypedDict):
 class PaymentIntentModifyParamsAmountDetailsShipping(TypedDict):
     amount: NotRequired["Literal['']|int"]
     """
-    If a physical good is being shipped, the cost of shipping represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than or equal to 0.
+    If a physical good is being shipped, the cost of shipping represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). An integer greater than or equal to 0.
     """
     from_postal_code: NotRequired["Literal['']|str"]
     """
@@ -314,7 +322,7 @@ class PaymentIntentModifyParamsAmountDetailsShipping(TypedDict):
 class PaymentIntentModifyParamsAmountDetailsTax(TypedDict):
     total_tax_amount: int
     """
-    The total amount of tax on the transaction represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L2 rates. An integer greater than or equal to 0.
+    The total amount of tax on the transaction represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). Required for L2 rates. An integer greater than or equal to 0.
 
     This field is mutually exclusive with the `amount_details[line_items][#][tax][total_tax_amount]` field.
     """
@@ -337,7 +345,7 @@ class PaymentIntentModifyParamsHooksInputs(TypedDict):
 class PaymentIntentModifyParamsHooksInputsTax(TypedDict):
     calculation: Union[Literal[""], str]
     """
-    The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
+    The [TaxCalculation](https://docs.stripe.com/api/tax/calculations) id
     """
 
 
@@ -497,7 +505,7 @@ class PaymentIntentModifyParamsPaymentMethodData(TypedDict):
     """
     metadata: NotRequired[Dict[str, str]]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
     mobilepay: NotRequired[
         "PaymentIntentModifyParamsPaymentMethodDataMobilepay"
@@ -549,6 +557,10 @@ class PaymentIntentModifyParamsPaymentMethodData(TypedDict):
     """
     If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
     """
+    payto: NotRequired["PaymentIntentModifyParamsPaymentMethodDataPayto"]
+    """
+    If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
+    """
     pix: NotRequired["PaymentIntentModifyParamsPaymentMethodDataPix"]
     """
     If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
@@ -563,7 +575,7 @@ class PaymentIntentModifyParamsPaymentMethodData(TypedDict):
         "PaymentIntentModifyParamsPaymentMethodDataRadarOptions"
     ]
     """
-    Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
+    Options to configure Radar. See [Radar Session](https://docs.stripe.com/radar/radar-session) for more information.
     """
     revolut_pay: NotRequired[
         "PaymentIntentModifyParamsPaymentMethodDataRevolutPay"
@@ -636,6 +648,7 @@ class PaymentIntentModifyParamsPaymentMethodData(TypedDict):
         "payco",
         "paynow",
         "paypal",
+        "payto",
         "pix",
         "promptpay",
         "revolut_pay",
@@ -785,7 +798,7 @@ class PaymentIntentModifyParamsPaymentMethodDataBillingDetailsAddress(
     """
     state: NotRequired[str]
     """
-    State, county, province, or region.
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """
 
 
@@ -903,6 +916,7 @@ class PaymentIntentModifyParamsPaymentMethodDataIdeal(TypedDict):
             "handelsbanken",
             "ing",
             "knab",
+            "mollie",
             "moneyou",
             "n26",
             "nn",
@@ -1061,6 +1075,21 @@ class PaymentIntentModifyParamsPaymentMethodDataPaypal(TypedDict):
     pass
 
 
+class PaymentIntentModifyParamsPaymentMethodDataPayto(TypedDict):
+    account_number: NotRequired[str]
+    """
+    The account number for the bank account.
+    """
+    bsb_number: NotRequired[str]
+    """
+    Bank-State-Branch number of the bank account.
+    """
+    pay_id: NotRequired[str]
+    """
+    The PayID alias for the bank account.
+    """
+
+
 class PaymentIntentModifyParamsPaymentMethodDataPix(TypedDict):
     pass
 
@@ -1072,7 +1101,7 @@ class PaymentIntentModifyParamsPaymentMethodDataPromptpay(TypedDict):
 class PaymentIntentModifyParamsPaymentMethodDataRadarOptions(TypedDict):
     session: NotRequired[str]
     """
-    A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+    A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
     """
 
 
@@ -1375,6 +1404,12 @@ class PaymentIntentModifyParamsPaymentMethodOptions(TypedDict):
     ]
     """
     If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
+    """
+    payto: NotRequired[
+        "Literal['']|PaymentIntentModifyParamsPaymentMethodOptionsPayto"
+    ]
+    """
+    If this is a `payto` PaymentMethod, this sub-hash contains details about the PayTo payment method options.
     """
     pix: NotRequired[
         "Literal['']|PaymentIntentModifyParamsPaymentMethodOptionsPix"
@@ -1760,7 +1795,7 @@ class PaymentIntentModifyParamsPaymentMethodOptionsCard(TypedDict):
     """
     Installment configuration for payments attempted on this PaymentIntent.
 
-    For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
+    For more information, see the [installments integration guide](https://docs.stripe.com/payments/installments).
     """
     mandate_options: NotRequired[
         "PaymentIntentModifyParamsPaymentMethodOptionsCardMandateOptions"
@@ -1798,27 +1833,27 @@ class PaymentIntentModifyParamsPaymentMethodOptionsCard(TypedDict):
         Literal["if_available", "never"]
     ]
     """
-    Request ability to [capture beyond the standard authorization validity window](https://stripe.com/docs/payments/extended-authorization) for this PaymentIntent.
+    Request ability to [capture beyond the standard authorization validity window](https://docs.stripe.com/payments/extended-authorization) for this PaymentIntent.
     """
     request_incremental_authorization: NotRequired[
         Literal["if_available", "never"]
     ]
     """
-    Request ability to [increment the authorization](https://stripe.com/docs/payments/incremental-authorization) for this PaymentIntent.
+    Request ability to [increment the authorization](https://docs.stripe.com/payments/incremental-authorization) for this PaymentIntent.
     """
     request_multicapture: NotRequired[Literal["if_available", "never"]]
     """
-    Request ability to make [multiple captures](https://stripe.com/docs/payments/multicapture) for this PaymentIntent.
+    Request ability to make [multiple captures](https://docs.stripe.com/payments/multicapture) for this PaymentIntent.
     """
     request_overcapture: NotRequired[Literal["if_available", "never"]]
     """
-    Request ability to [overcapture](https://stripe.com/docs/payments/overcapture) for this PaymentIntent.
+    Request ability to [overcapture](https://docs.stripe.com/payments/overcapture) for this PaymentIntent.
     """
     request_three_d_secure: NotRequired[
         Literal["any", "automatic", "challenge"]
     ]
     """
-    We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+    We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
     """
     require_cvc_recollection: NotRequired[bool]
     """
@@ -2022,11 +2057,11 @@ class PaymentIntentModifyParamsPaymentMethodOptionsCardPresent(TypedDict):
     """
     request_extended_authorization: NotRequired[bool]
     """
-    Request ability to capture this payment beyond the standard [authorization validity window](https://stripe.com/docs/terminal/features/extended-authorizations#authorization-validity)
+    Request ability to capture this payment beyond the standard [authorization validity window](https://docs.stripe.com/terminal/features/extended-authorizations#authorization-validity)
     """
     request_incremental_authorization_support: NotRequired[bool]
     """
-    Request ability to [increment](https://stripe.com/docs/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://stripe.com/docs/api/payment_intents/confirm) response to verify support.
+    Request ability to [increment](https://docs.stripe.com/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://docs.stripe.com/api/payment_intents/confirm) response to verify support.
     """
     routing: NotRequired[
         "PaymentIntentModifyParamsPaymentMethodOptionsCardPresentRouting"
@@ -2688,7 +2723,7 @@ class PaymentIntentModifyParamsPaymentMethodOptionsPaypal(TypedDict):
         ]
     ]
     """
-    [Preferred locale](https://stripe.com/docs/payments/paypal/supported-locales) of the PayPal checkout page that the customer is redirected to.
+    [Preferred locale](https://docs.stripe.com/payments/paypal/supported-locales) of the PayPal checkout page that the customer is redirected to.
     """
     reference: NotRequired[str]
     """
@@ -2711,6 +2746,62 @@ class PaymentIntentModifyParamsPaymentMethodOptionsPaypal(TypedDict):
     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
 
     If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsPayto(TypedDict):
+    mandate_options: NotRequired[
+        "PaymentIntentModifyParamsPaymentMethodOptionsPaytoMandateOptions"
+    ]
+    """
+    Additional fields for Mandate creation. Only `purpose` field is configurable for PayTo PaymentIntent with `setup_future_usage=none`. Other fields are only applicable to PayTo PaymentIntent with `setup_future_usage=off_session`
+    """
+    setup_future_usage: NotRequired[
+        "Literal['']|Literal['none', 'off_session']"
+    ]
+    """
+    Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+    If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+    If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+    When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+
+    If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsPaytoMandateOptions(
+    TypedDict,
+):
+    amount: NotRequired["Literal['']|int"]
+    """
+    Amount that will be collected. It is required when `amount_type` is `fixed`.
+    """
+    amount_type: NotRequired["Literal['']|Literal['fixed', 'maximum']"]
+    """
+    The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively. Defaults to `maximum`.
+    """
+    end_date: NotRequired["Literal['']|str"]
+    """
+    Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
+    """
+    payment_schedule: NotRequired[
+        "Literal['']|Literal['adhoc', 'annual', 'daily', 'fortnightly', 'monthly', 'quarterly', 'semi_annual', 'weekly']"
+    ]
+    """
+    The periodicity at which payments will be collected. Defaults to `adhoc`.
+    """
+    payments_per_period: NotRequired["Literal['']|int"]
+    """
+    The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
+    """
+    purpose: NotRequired[
+        "Literal['']|Literal['dependant_support', 'government', 'loan', 'mortgage', 'other', 'pension', 'personal', 'retail', 'salary', 'tax', 'utility']"
+    ]
+    """
+    The purpose for which payments are made. Has a default value based on your merchant category code.
     """
 
 
@@ -3085,7 +3176,7 @@ class PaymentIntentModifyParamsShippingAddress(TypedDict):
     """
     state: NotRequired[str]
     """
-    State, county, province, or region.
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """
 
 

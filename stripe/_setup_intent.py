@@ -51,7 +51,7 @@ class SetupIntent(
     """
     A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
     For example, you can use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
-    Later, you can use [PaymentIntents](https://stripe.com/docs/api#payment_intents) to drive the payment flow.
+    Later, you can use [PaymentIntents](https://api.stripe.com#payment_intents) to drive the payment flow.
 
     Create a SetupIntent when you're ready to collect your customer's payment credentials.
     Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
@@ -62,9 +62,9 @@ class SetupIntent(
     For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) might need to be run through
     [Strong Customer Authentication](https://docs.stripe.com/strong-customer-authentication) during payment method collection
     to streamline later [off-session payments](https://docs.stripe.com/payments/setup-intents).
-    If you use the SetupIntent with a [Customer](https://stripe.com/docs/api#setup_intent_object-customer),
+    If you use the SetupIntent with a [Customer](https://api.stripe.com#setup_intent_object-customer),
     it automatically attaches the resulting payment method to that Customer after successful setup.
-    We recommend using SetupIntents or [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) on
+    We recommend using SetupIntents or [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) on
     PaymentIntents to save payment methods to prevent saving invalid or unoptimized payment methods.
 
     By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
@@ -79,7 +79,7 @@ class SetupIntent(
         """
         Controls whether this SetupIntent will accept redirect-based payment methods.
 
-        Redirect-based payment methods may require your customer to be redirected to a payment method's app or site for authentication or additional steps. To [confirm](https://stripe.com/docs/api/setup_intents/confirm) this SetupIntent, you may be required to provide a `return_url` to redirect customers back to your site after they authenticate or complete the setup.
+        Redirect-based payment methods may require your customer to be redirected to a payment method's app or site for authentication or additional steps. To [confirm](https://docs.stripe.com/api/setup_intents/confirm) this SetupIntent, you may be required to provide a `return_url` to redirect customers back to your site after they authenticate or complete the setup.
         """
         enabled: Optional[bool]
         """
@@ -89,7 +89,7 @@ class SetupIntent(
     class LastSetupError(StripeObject):
         advice_code: Optional[str]
         """
-        For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://stripe.com/docs/declines#retrying-issuer-declines) if they provide one.
+        For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://docs.stripe.com/declines#retrying-issuer-declines) if they provide one.
         """
         charge: Optional[str]
         """
@@ -103,6 +103,7 @@ class SetupIntent(
                 "account_information_mismatch",
                 "account_invalid",
                 "account_number_invalid",
+                "account_token_required_for_v2_account",
                 "acss_debit_session_incomplete",
                 "alipay_upgrade_required",
                 "amount_too_large",
@@ -281,15 +282,15 @@ class SetupIntent(
             ]
         ]
         """
-        For some errors that could be handled programmatically, a short string indicating the [error code](https://stripe.com/docs/error-codes) reported.
+        For some errors that could be handled programmatically, a short string indicating the [error code](https://docs.stripe.com/error-codes) reported.
         """
         decline_code: Optional[str]
         """
-        For card errors resulting from a card issuer decline, a short string indicating the [card issuer's reason for the decline](https://stripe.com/docs/declines#issuer-declines) if they provide one.
+        For card errors resulting from a card issuer decline, a short string indicating the [card issuer's reason for the decline](https://docs.stripe.com/declines#issuer-declines) if they provide one.
         """
         doc_url: Optional[str]
         """
-        A URL to more information about the [error code](https://stripe.com/docs/error-codes) reported.
+        A URL to more information about the [error code](https://docs.stripe.com/error-codes) reported.
         """
         message: Optional[str]
         """
@@ -315,19 +316,19 @@ class SetupIntent(
         see the history of payment attempts for a particular session.
 
         A PaymentIntent transitions through
-        [multiple statuses](https://stripe.com/docs/payments/intents#intent-statuses)
+        [multiple statuses](https://docs.stripe.com/payments/paymentintents/lifecycle)
         throughout its lifetime as it interfaces with Stripe.js to perform
         authentication flows and ultimately creates at most one successful charge.
 
-        Related guide: [Payment Intents API](https://stripe.com/docs/payments/payment-intents)
+        Related guide: [Payment Intents API](https://docs.stripe.com/payments/payment-intents)
         """
         payment_method: Optional["PaymentMethod"]
         """
         PaymentMethod objects represent your customer's payment instruments.
-        You can use them with [PaymentIntents](https://stripe.com/docs/payments/payment-intents) to collect payments or save them to
+        You can use them with [PaymentIntents](https://docs.stripe.com/payments/payment-intents) to collect payments or save them to
         Customer objects to store instrument details for future payments.
 
-        Related guides: [Payment Methods](https://stripe.com/docs/payments/payment-methods) and [More Payment Scenarios](https://stripe.com/docs/payments/more-payment-scenarios).
+        Related guides: [Payment Methods](https://docs.stripe.com/payments/payment-methods) and [More Payment Scenarios](https://docs.stripe.com/payments/more-payment-scenarios).
         """
         payment_method_type: Optional[str]
         """
@@ -341,7 +342,7 @@ class SetupIntent(
         """
         A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
         For example, you can use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
-        Later, you can use [PaymentIntents](https://stripe.com/docs/api#payment_intents) to drive the payment flow.
+        Later, you can use [PaymentIntents](https://api.stripe.com#payment_intents) to drive the payment flow.
 
         Create a SetupIntent when you're ready to collect your customer's payment credentials.
         Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
@@ -352,9 +353,9 @@ class SetupIntent(
         For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) might need to be run through
         [Strong Customer Authentication](https://docs.stripe.com/strong-customer-authentication) during payment method collection
         to streamline later [off-session payments](https://docs.stripe.com/payments/setup-intents).
-        If you use the SetupIntent with a [Customer](https://stripe.com/docs/api#setup_intent_object-customer),
+        If you use the SetupIntent with a [Customer](https://api.stripe.com#setup_intent_object-customer),
         it automatically attaches the resulting payment method to that Customer after successful setup.
-        We recommend using SetupIntents or [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) on
+        We recommend using SetupIntents or [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) on
         PaymentIntents to save payment methods to prevent saving invalid or unoptimized payment methods.
 
         By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
@@ -577,7 +578,7 @@ class SetupIntent(
                 Literal["any", "automatic", "challenge"]
             ]
             """
-            We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+            We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
             """
             _inner_class_types = {"mandate_options": MandateOptions}
 
@@ -605,6 +606,65 @@ class SetupIntent(
             """
             The PayPal Billing Agreement ID (BAID). This is an ID generated by PayPal which represents the mandate between the merchant and the customer.
             """
+
+        class Payto(StripeObject):
+            class MandateOptions(StripeObject):
+                amount: Optional[int]
+                """
+                Amount that will be collected. It is required when `amount_type` is `fixed`.
+                """
+                amount_type: Optional[Literal["fixed", "maximum"]]
+                """
+                The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively. Defaults to `maximum`.
+                """
+                end_date: Optional[str]
+                """
+                Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
+                """
+                payment_schedule: Optional[
+                    Literal[
+                        "adhoc",
+                        "annual",
+                        "daily",
+                        "fortnightly",
+                        "monthly",
+                        "quarterly",
+                        "semi_annual",
+                        "weekly",
+                    ]
+                ]
+                """
+                The periodicity at which payments will be collected. Defaults to `adhoc`.
+                """
+                payments_per_period: Optional[int]
+                """
+                The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
+                """
+                purpose: Optional[
+                    Literal[
+                        "dependant_support",
+                        "government",
+                        "loan",
+                        "mortgage",
+                        "other",
+                        "pension",
+                        "personal",
+                        "retail",
+                        "salary",
+                        "tax",
+                        "utility",
+                    ]
+                ]
+                """
+                The purpose for which payments are made. Has a default value based on your merchant category code.
+                """
+                start_date: Optional[str]
+                """
+                Date, in YYYY-MM-DD format, from which payments will be collected. Defaults to confirmation time.
+                """
+
+            mandate_options: Optional[MandateOptions]
+            _inner_class_types = {"mandate_options": MandateOptions}
 
         class SepaDebit(StripeObject):
             class MandateOptions(StripeObject):
@@ -679,6 +739,7 @@ class SetupIntent(
         klarna: Optional[Klarna]
         link: Optional[Link]
         paypal: Optional[Paypal]
+        payto: Optional[Payto]
         sepa_debit: Optional[SepaDebit]
         us_bank_account: Optional[UsBankAccount]
         _inner_class_types = {
@@ -690,6 +751,7 @@ class SetupIntent(
             "klarna": Klarna,
             "link": Link,
             "paypal": Paypal,
+            "payto": Payto,
             "sepa_debit": SepaDebit,
             "us_bank_account": UsBankAccount,
         }
@@ -729,6 +791,12 @@ class SetupIntent(
     ID of the Customer this SetupIntent belongs to, if one exists.
 
     If present, the SetupIntent's payment method will be attached to the Customer on successful setup. Payment methods attached to other Customers cannot be used with this SetupIntent.
+    """
+    customer_account: Optional[str]
+    """
+    ID of the Account this SetupIntent belongs to, if one exists.
+
+    If present, the SetupIntent's payment method will be attached to the Account on successful setup. Payment methods attached to other Accounts cannot be used with this SetupIntent.
     """
     description: Optional[str]
     """
@@ -773,6 +841,7 @@ class SetupIntent(
                 "payco",
                 "paynow",
                 "paypal",
+                "payto",
                 "pix",
                 "promptpay",
                 "revolut_pay",
@@ -819,7 +888,7 @@ class SetupIntent(
     """
     metadata: Optional[Dict[str, str]]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     next_action: Optional[NextAction]
     """
@@ -841,7 +910,7 @@ class SetupIntent(
         PaymentMethodConfigurationDetails
     ]
     """
-    Information about the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) used for this Setup Intent.
+    Information about the [payment method configuration](https://docs.stripe.com/api/payment_method_configurations) used for this Setup Intent.
     """
     payment_method_options: Optional[PaymentMethodOptions]
     """
@@ -864,7 +933,7 @@ class SetupIntent(
         "succeeded",
     ]
     """
-    [Status](https://stripe.com/docs/payments/intents#intent-statuses) of this SetupIntent, one of `requires_payment_method`, `requires_confirmation`, `requires_action`, `processing`, `canceled`, or `succeeded`.
+    [Status](https://docs.stripe.com/payments/intents#intent-statuses) of this SetupIntent, one of `requires_payment_method`, `requires_confirmation`, `requires_action`, `processing`, `canceled`, or `succeeded`.
     """
     usage: str
     """

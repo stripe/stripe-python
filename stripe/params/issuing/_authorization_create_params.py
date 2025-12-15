@@ -8,11 +8,11 @@ from typing_extensions import Literal, NotRequired, TypedDict
 class AuthorizationCreateParams(RequestOptions):
     amount: NotRequired[int]
     """
-    The total amount to attempt to authorize. This amount is in the provided currency, or defaults to the card's currency, and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+    The total amount to attempt to authorize. This amount is in the provided currency, or defaults to the card's currency, and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
     """
     amount_details: NotRequired["AuthorizationCreateParamsAmountDetails"]
     """
-    Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+    Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
     """
     authorization_method: NotRequired[
         Literal["chip", "contactless", "keyed_in", "online", "swipe"]
@@ -48,11 +48,11 @@ class AuthorizationCreateParams(RequestOptions):
     """
     is_amount_controllable: NotRequired[bool]
     """
-    If set `true`, you may provide [amount](https://stripe.com/docs/api/issuing/authorizations/approve#approve_issuing_authorization-amount) to control how much to hold for the authorization.
+    If set `true`, you may provide [amount](https://docs.stripe.com/api/issuing/authorizations/approve#approve_issuing_authorization-amount) to control how much to hold for the authorization.
     """
     merchant_amount: NotRequired[int]
     """
-    The total amount to attempt to authorize. This amount is in the provided merchant currency, and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+    The total amount to attempt to authorize. This amount is in the provided merchant currency, and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
     """
     merchant_currency: NotRequired[str]
     """
@@ -527,7 +527,7 @@ class AuthorizationCreateParamsMerchantData(TypedDict):
         ]
     ]
     """
-    A categorization of the seller's type of business. See our [merchant categories guide](https://stripe.com/docs/issuing/merchant-categories) for a list of possible values.
+    A categorization of the seller's type of business. See our [merchant categories guide](https://docs.stripe.com/issuing/merchant-categories) for a list of possible values.
     """
     city: NotRequired[str]
     """

@@ -14,6 +14,10 @@ class SessionListParams(RequestOptions):
     """
     Only return the Checkout Sessions for the Customer specified.
     """
+    customer_account: NotRequired[str]
+    """
+    Only return the Checkout Sessions for the Account specified.
+    """
     customer_details: NotRequired["SessionListParamsCustomerDetails"]
     """
     Only return the Checkout Sessions for the Customer details specified.

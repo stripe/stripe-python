@@ -26,7 +26,7 @@ class ActiveEntitlement(ListableAPIResource["ActiveEntitlement"]):
     )
     feature: ExpandableField["Feature"]
     """
-    The [Feature](https://stripe.com/docs/api/entitlements/feature) that the customer is entitled to.
+    The [Feature](https://docs.stripe.com/api/entitlements/feature) that the customer is entitled to.
     """
     id: str
     """

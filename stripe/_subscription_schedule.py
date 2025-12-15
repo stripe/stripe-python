@@ -52,7 +52,7 @@ class SubscriptionSchedule(
     """
     A subscription schedule allows you to create and manage the lifecycle of a subscription by predefining expected changes.
 
-    Related guide: [Subscription schedules](https://stripe.com/docs/billing/subscriptions/subscription-schedules)
+    Related guide: [Subscription schedules](https://docs.stripe.com/billing/subscriptions/subscription-schedules)
     """
 
     OBJECT_NAME: ClassVar[Literal["subscription_schedule"]] = (
@@ -165,7 +165,7 @@ class SubscriptionSchedule(
         automatic_tax: Optional[AutomaticTax]
         billing_cycle_anchor: Literal["automatic", "phase_start"]
         """
-        Possible values are `phase_start` or `automatic`. If `phase_start` then billing cycle anchor of the subscription is set to the start of the phase when entering the phase. If `automatic` then the billing cycle anchor is automatically modified as needed when entering the phase. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
+        Possible values are `phase_start` or `automatic`. If `phase_start` then billing cycle anchor of the subscription is set to the start of the phase when entering the phase. If `automatic` then the billing cycle anchor is automatically modified as needed when entering the phase. For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
         """
         billing_thresholds: Optional[BillingThresholds]
         """
@@ -252,7 +252,7 @@ class SubscriptionSchedule(
             """
             metadata: Optional[Dict[str, str]]
             """
-            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+            Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
             """
             period: Period
             price: ExpandableField["Price"]
@@ -374,7 +374,7 @@ class SubscriptionSchedule(
             """
             metadata: Optional[Dict[str, str]]
             """
-            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an item. Metadata on this item will update the underlying subscription item's `metadata` when the phase is entered.
+            Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an item. Metadata on this item will update the underlying subscription item's `metadata` when the phase is entered.
             """
             plan: ExpandableField["Plan"]
             """
@@ -418,7 +418,7 @@ class SubscriptionSchedule(
         automatic_tax: Optional[AutomaticTax]
         billing_cycle_anchor: Optional[Literal["automatic", "phase_start"]]
         """
-        Possible values are `phase_start` or `automatic`. If `phase_start` then billing cycle anchor of the subscription is set to the start of the phase when entering the phase. If `automatic` then the billing cycle anchor is automatically modified as needed when entering the phase. For more information, see the billing cycle [documentation](https://stripe.com/docs/billing/subscriptions/billing-cycle).
+        Possible values are `phase_start` or `automatic`. If `phase_start` then billing cycle anchor of the subscription is set to the start of the phase when entering the phase. If `automatic` then the billing cycle anchor is automatically modified as needed when entering the phase. For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
         """
         billing_thresholds: Optional[BillingThresholds]
         """
@@ -464,7 +464,7 @@ class SubscriptionSchedule(
         """
         metadata: Optional[Dict[str, str]]
         """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered. Updating the underlying subscription's `metadata` directly will not affect the current phase's `metadata`.
+        Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered. Updating the underlying subscription's `metadata` directly will not affect the current phase's `metadata`.
         """
         on_behalf_of: Optional[ExpandableField["Account"]]
         """
@@ -526,6 +526,10 @@ class SubscriptionSchedule(
     """
     ID of the customer who owns the subscription schedule.
     """
+    customer_account: Optional[str]
+    """
+    ID of the account who owns the subscription schedule.
+    """
     default_settings: DefaultSettings
     end_behavior: Literal["cancel", "none", "release", "renew"]
     """
@@ -541,7 +545,7 @@ class SubscriptionSchedule(
     """
     metadata: Optional[Dict[str, str]]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     object: Literal["subscription_schedule"]
     """
@@ -563,7 +567,7 @@ class SubscriptionSchedule(
         "active", "canceled", "completed", "not_started", "released"
     ]
     """
-    The present status of the subscription schedule. Possible values are `not_started`, `active`, `completed`, `released`, and `canceled`. You can read more about the different states in our [behavior guide](https://stripe.com/docs/billing/subscriptions/subscription-schedules).
+    The present status of the subscription schedule. Possible values are `not_started`, `active`, `completed`, `released`, and `canceled`. You can read more about the different states in our [behavior guide](https://docs.stripe.com/billing/subscriptions/subscription-schedules).
     """
     subscription: Optional[ExpandableField["Subscription"]]
     """

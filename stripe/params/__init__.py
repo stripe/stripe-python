@@ -92,6 +92,7 @@ if TYPE_CHECKING:
         AccountCreateParamsCapabilitiesPayByBankPayments as AccountCreateParamsCapabilitiesPayByBankPayments,
         AccountCreateParamsCapabilitiesPaycoPayments as AccountCreateParamsCapabilitiesPaycoPayments,
         AccountCreateParamsCapabilitiesPaynowPayments as AccountCreateParamsCapabilitiesPaynowPayments,
+        AccountCreateParamsCapabilitiesPaytoPayments as AccountCreateParamsCapabilitiesPaytoPayments,
         AccountCreateParamsCapabilitiesPixPayments as AccountCreateParamsCapabilitiesPixPayments,
         AccountCreateParamsCapabilitiesPromptpayPayments as AccountCreateParamsCapabilitiesPromptpayPayments,
         AccountCreateParamsCapabilitiesRevolutPayPayments as AccountCreateParamsCapabilitiesRevolutPayPayments,
@@ -134,7 +135,9 @@ if TYPE_CHECKING:
         AccountCreateParamsDocumentsCompanyTaxIdVerification as AccountCreateParamsDocumentsCompanyTaxIdVerification,
         AccountCreateParamsDocumentsProofOfAddress as AccountCreateParamsDocumentsProofOfAddress,
         AccountCreateParamsDocumentsProofOfRegistration as AccountCreateParamsDocumentsProofOfRegistration,
+        AccountCreateParamsDocumentsProofOfRegistrationSigner as AccountCreateParamsDocumentsProofOfRegistrationSigner,
         AccountCreateParamsDocumentsProofOfUltimateBeneficialOwnership as AccountCreateParamsDocumentsProofOfUltimateBeneficialOwnership,
+        AccountCreateParamsDocumentsProofOfUltimateBeneficialOwnershipSigner as AccountCreateParamsDocumentsProofOfUltimateBeneficialOwnershipSigner,
         AccountCreateParamsGroups as AccountCreateParamsGroups,
         AccountCreateParamsIndividual as AccountCreateParamsIndividual,
         AccountCreateParamsIndividualAddress as AccountCreateParamsIndividualAddress,
@@ -428,6 +431,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsCapabilitiesPayByBankPayments as AccountUpdateParamsCapabilitiesPayByBankPayments,
         AccountUpdateParamsCapabilitiesPaycoPayments as AccountUpdateParamsCapabilitiesPaycoPayments,
         AccountUpdateParamsCapabilitiesPaynowPayments as AccountUpdateParamsCapabilitiesPaynowPayments,
+        AccountUpdateParamsCapabilitiesPaytoPayments as AccountUpdateParamsCapabilitiesPaytoPayments,
         AccountUpdateParamsCapabilitiesPixPayments as AccountUpdateParamsCapabilitiesPixPayments,
         AccountUpdateParamsCapabilitiesPromptpayPayments as AccountUpdateParamsCapabilitiesPromptpayPayments,
         AccountUpdateParamsCapabilitiesRevolutPayPayments as AccountUpdateParamsCapabilitiesRevolutPayPayments,
@@ -466,7 +470,9 @@ if TYPE_CHECKING:
         AccountUpdateParamsDocumentsCompanyTaxIdVerification as AccountUpdateParamsDocumentsCompanyTaxIdVerification,
         AccountUpdateParamsDocumentsProofOfAddress as AccountUpdateParamsDocumentsProofOfAddress,
         AccountUpdateParamsDocumentsProofOfRegistration as AccountUpdateParamsDocumentsProofOfRegistration,
+        AccountUpdateParamsDocumentsProofOfRegistrationSigner as AccountUpdateParamsDocumentsProofOfRegistrationSigner,
         AccountUpdateParamsDocumentsProofOfUltimateBeneficialOwnership as AccountUpdateParamsDocumentsProofOfUltimateBeneficialOwnership,
+        AccountUpdateParamsDocumentsProofOfUltimateBeneficialOwnershipSigner as AccountUpdateParamsDocumentsProofOfUltimateBeneficialOwnershipSigner,
         AccountUpdateParamsGroups as AccountUpdateParamsGroups,
         AccountUpdateParamsIndividual as AccountUpdateParamsIndividual,
         AccountUpdateParamsIndividualAddress as AccountUpdateParamsIndividualAddress,
@@ -655,6 +661,7 @@ if TYPE_CHECKING:
         ConfirmationTokenCreateParamsPaymentMethodDataPayco as ConfirmationTokenCreateParamsPaymentMethodDataPayco,
         ConfirmationTokenCreateParamsPaymentMethodDataPaynow as ConfirmationTokenCreateParamsPaymentMethodDataPaynow,
         ConfirmationTokenCreateParamsPaymentMethodDataPaypal as ConfirmationTokenCreateParamsPaymentMethodDataPaypal,
+        ConfirmationTokenCreateParamsPaymentMethodDataPayto as ConfirmationTokenCreateParamsPaymentMethodDataPayto,
         ConfirmationTokenCreateParamsPaymentMethodDataPix as ConfirmationTokenCreateParamsPaymentMethodDataPix,
         ConfirmationTokenCreateParamsPaymentMethodDataPromptpay as ConfirmationTokenCreateParamsPaymentMethodDataPromptpay,
         ConfirmationTokenCreateParamsPaymentMethodDataRadarOptions as ConfirmationTokenCreateParamsPaymentMethodDataRadarOptions,
@@ -1076,6 +1083,8 @@ if TYPE_CHECKING:
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsKonbini as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsKonbini,
+        InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsPayto as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsPayto,
+        InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOptions as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOptions,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsSepaDebit as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsSepaDebit,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccount as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccount,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections,
@@ -1221,6 +1230,8 @@ if TYPE_CHECKING:
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsKonbini as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsKonbini,
+        InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsPayto as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsPayto,
+        InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOptions as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOptions,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsSepaDebit as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsSepaDebit,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccount as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccount,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections,
@@ -1304,6 +1315,8 @@ if TYPE_CHECKING:
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsKonbini as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsKonbini,
+        InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsPayto as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsPayto,
+        InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOptions as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOptions,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsSepaDebit as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsSepaDebit,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsUsBankAccount as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsUsBankAccount,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections,
@@ -1421,6 +1434,7 @@ if TYPE_CHECKING:
         PaymentIntentConfirmParamsPaymentMethodDataPayco as PaymentIntentConfirmParamsPaymentMethodDataPayco,
         PaymentIntentConfirmParamsPaymentMethodDataPaynow as PaymentIntentConfirmParamsPaymentMethodDataPaynow,
         PaymentIntentConfirmParamsPaymentMethodDataPaypal as PaymentIntentConfirmParamsPaymentMethodDataPaypal,
+        PaymentIntentConfirmParamsPaymentMethodDataPayto as PaymentIntentConfirmParamsPaymentMethodDataPayto,
         PaymentIntentConfirmParamsPaymentMethodDataPix as PaymentIntentConfirmParamsPaymentMethodDataPix,
         PaymentIntentConfirmParamsPaymentMethodDataPromptpay as PaymentIntentConfirmParamsPaymentMethodDataPromptpay,
         PaymentIntentConfirmParamsPaymentMethodDataRadarOptions as PaymentIntentConfirmParamsPaymentMethodDataRadarOptions,
@@ -1488,6 +1502,8 @@ if TYPE_CHECKING:
         PaymentIntentConfirmParamsPaymentMethodOptionsPayco as PaymentIntentConfirmParamsPaymentMethodOptionsPayco,
         PaymentIntentConfirmParamsPaymentMethodOptionsPaynow as PaymentIntentConfirmParamsPaymentMethodOptionsPaynow,
         PaymentIntentConfirmParamsPaymentMethodOptionsPaypal as PaymentIntentConfirmParamsPaymentMethodOptionsPaypal,
+        PaymentIntentConfirmParamsPaymentMethodOptionsPayto as PaymentIntentConfirmParamsPaymentMethodOptionsPayto,
+        PaymentIntentConfirmParamsPaymentMethodOptionsPaytoMandateOptions as PaymentIntentConfirmParamsPaymentMethodOptionsPaytoMandateOptions,
         PaymentIntentConfirmParamsPaymentMethodOptionsPix as PaymentIntentConfirmParamsPaymentMethodOptionsPix,
         PaymentIntentConfirmParamsPaymentMethodOptionsPromptpay as PaymentIntentConfirmParamsPaymentMethodOptionsPromptpay,
         PaymentIntentConfirmParamsPaymentMethodOptionsRevolutPay as PaymentIntentConfirmParamsPaymentMethodOptionsRevolutPay,
@@ -1571,6 +1587,7 @@ if TYPE_CHECKING:
         PaymentIntentCreateParamsPaymentMethodDataPayco as PaymentIntentCreateParamsPaymentMethodDataPayco,
         PaymentIntentCreateParamsPaymentMethodDataPaynow as PaymentIntentCreateParamsPaymentMethodDataPaynow,
         PaymentIntentCreateParamsPaymentMethodDataPaypal as PaymentIntentCreateParamsPaymentMethodDataPaypal,
+        PaymentIntentCreateParamsPaymentMethodDataPayto as PaymentIntentCreateParamsPaymentMethodDataPayto,
         PaymentIntentCreateParamsPaymentMethodDataPix as PaymentIntentCreateParamsPaymentMethodDataPix,
         PaymentIntentCreateParamsPaymentMethodDataPromptpay as PaymentIntentCreateParamsPaymentMethodDataPromptpay,
         PaymentIntentCreateParamsPaymentMethodDataRadarOptions as PaymentIntentCreateParamsPaymentMethodDataRadarOptions,
@@ -1638,6 +1655,8 @@ if TYPE_CHECKING:
         PaymentIntentCreateParamsPaymentMethodOptionsPayco as PaymentIntentCreateParamsPaymentMethodOptionsPayco,
         PaymentIntentCreateParamsPaymentMethodOptionsPaynow as PaymentIntentCreateParamsPaymentMethodOptionsPaynow,
         PaymentIntentCreateParamsPaymentMethodOptionsPaypal as PaymentIntentCreateParamsPaymentMethodOptionsPaypal,
+        PaymentIntentCreateParamsPaymentMethodOptionsPayto as PaymentIntentCreateParamsPaymentMethodOptionsPayto,
+        PaymentIntentCreateParamsPaymentMethodOptionsPaytoMandateOptions as PaymentIntentCreateParamsPaymentMethodOptionsPaytoMandateOptions,
         PaymentIntentCreateParamsPaymentMethodOptionsPix as PaymentIntentCreateParamsPaymentMethodOptionsPix,
         PaymentIntentCreateParamsPaymentMethodOptionsPromptpay as PaymentIntentCreateParamsPaymentMethodOptionsPromptpay,
         PaymentIntentCreateParamsPaymentMethodOptionsRevolutPay as PaymentIntentCreateParamsPaymentMethodOptionsRevolutPay,
@@ -1742,6 +1761,7 @@ if TYPE_CHECKING:
         PaymentIntentModifyParamsPaymentMethodDataPayco as PaymentIntentModifyParamsPaymentMethodDataPayco,
         PaymentIntentModifyParamsPaymentMethodDataPaynow as PaymentIntentModifyParamsPaymentMethodDataPaynow,
         PaymentIntentModifyParamsPaymentMethodDataPaypal as PaymentIntentModifyParamsPaymentMethodDataPaypal,
+        PaymentIntentModifyParamsPaymentMethodDataPayto as PaymentIntentModifyParamsPaymentMethodDataPayto,
         PaymentIntentModifyParamsPaymentMethodDataPix as PaymentIntentModifyParamsPaymentMethodDataPix,
         PaymentIntentModifyParamsPaymentMethodDataPromptpay as PaymentIntentModifyParamsPaymentMethodDataPromptpay,
         PaymentIntentModifyParamsPaymentMethodDataRadarOptions as PaymentIntentModifyParamsPaymentMethodDataRadarOptions,
@@ -1809,6 +1829,8 @@ if TYPE_CHECKING:
         PaymentIntentModifyParamsPaymentMethodOptionsPayco as PaymentIntentModifyParamsPaymentMethodOptionsPayco,
         PaymentIntentModifyParamsPaymentMethodOptionsPaynow as PaymentIntentModifyParamsPaymentMethodOptionsPaynow,
         PaymentIntentModifyParamsPaymentMethodOptionsPaypal as PaymentIntentModifyParamsPaymentMethodOptionsPaypal,
+        PaymentIntentModifyParamsPaymentMethodOptionsPayto as PaymentIntentModifyParamsPaymentMethodOptionsPayto,
+        PaymentIntentModifyParamsPaymentMethodOptionsPaytoMandateOptions as PaymentIntentModifyParamsPaymentMethodOptionsPaytoMandateOptions,
         PaymentIntentModifyParamsPaymentMethodOptionsPix as PaymentIntentModifyParamsPaymentMethodOptionsPix,
         PaymentIntentModifyParamsPaymentMethodOptionsPromptpay as PaymentIntentModifyParamsPaymentMethodOptionsPromptpay,
         PaymentIntentModifyParamsPaymentMethodOptionsRevolutPay as PaymentIntentModifyParamsPaymentMethodOptionsRevolutPay,
@@ -1893,6 +1915,7 @@ if TYPE_CHECKING:
         PaymentIntentUpdateParamsPaymentMethodDataPayco as PaymentIntentUpdateParamsPaymentMethodDataPayco,
         PaymentIntentUpdateParamsPaymentMethodDataPaynow as PaymentIntentUpdateParamsPaymentMethodDataPaynow,
         PaymentIntentUpdateParamsPaymentMethodDataPaypal as PaymentIntentUpdateParamsPaymentMethodDataPaypal,
+        PaymentIntentUpdateParamsPaymentMethodDataPayto as PaymentIntentUpdateParamsPaymentMethodDataPayto,
         PaymentIntentUpdateParamsPaymentMethodDataPix as PaymentIntentUpdateParamsPaymentMethodDataPix,
         PaymentIntentUpdateParamsPaymentMethodDataPromptpay as PaymentIntentUpdateParamsPaymentMethodDataPromptpay,
         PaymentIntentUpdateParamsPaymentMethodDataRadarOptions as PaymentIntentUpdateParamsPaymentMethodDataRadarOptions,
@@ -1960,6 +1983,8 @@ if TYPE_CHECKING:
         PaymentIntentUpdateParamsPaymentMethodOptionsPayco as PaymentIntentUpdateParamsPaymentMethodOptionsPayco,
         PaymentIntentUpdateParamsPaymentMethodOptionsPaynow as PaymentIntentUpdateParamsPaymentMethodOptionsPaynow,
         PaymentIntentUpdateParamsPaymentMethodOptionsPaypal as PaymentIntentUpdateParamsPaymentMethodOptionsPaypal,
+        PaymentIntentUpdateParamsPaymentMethodOptionsPayto as PaymentIntentUpdateParamsPaymentMethodOptionsPayto,
+        PaymentIntentUpdateParamsPaymentMethodOptionsPaytoMandateOptions as PaymentIntentUpdateParamsPaymentMethodOptionsPaytoMandateOptions,
         PaymentIntentUpdateParamsPaymentMethodOptionsPix as PaymentIntentUpdateParamsPaymentMethodOptionsPix,
         PaymentIntentUpdateParamsPaymentMethodOptionsPromptpay as PaymentIntentUpdateParamsPaymentMethodOptionsPromptpay,
         PaymentIntentUpdateParamsPaymentMethodOptionsRevolutPay as PaymentIntentUpdateParamsPaymentMethodOptionsRevolutPay,
@@ -2216,6 +2241,8 @@ if TYPE_CHECKING:
         PaymentMethodConfigurationCreateParamsPaynowDisplayPreference as PaymentMethodConfigurationCreateParamsPaynowDisplayPreference,
         PaymentMethodConfigurationCreateParamsPaypal as PaymentMethodConfigurationCreateParamsPaypal,
         PaymentMethodConfigurationCreateParamsPaypalDisplayPreference as PaymentMethodConfigurationCreateParamsPaypalDisplayPreference,
+        PaymentMethodConfigurationCreateParamsPayto as PaymentMethodConfigurationCreateParamsPayto,
+        PaymentMethodConfigurationCreateParamsPaytoDisplayPreference as PaymentMethodConfigurationCreateParamsPaytoDisplayPreference,
         PaymentMethodConfigurationCreateParamsPix as PaymentMethodConfigurationCreateParamsPix,
         PaymentMethodConfigurationCreateParamsPixDisplayPreference as PaymentMethodConfigurationCreateParamsPixDisplayPreference,
         PaymentMethodConfigurationCreateParamsPromptpay as PaymentMethodConfigurationCreateParamsPromptpay,
@@ -2332,6 +2359,8 @@ if TYPE_CHECKING:
         PaymentMethodConfigurationModifyParamsPaynowDisplayPreference as PaymentMethodConfigurationModifyParamsPaynowDisplayPreference,
         PaymentMethodConfigurationModifyParamsPaypal as PaymentMethodConfigurationModifyParamsPaypal,
         PaymentMethodConfigurationModifyParamsPaypalDisplayPreference as PaymentMethodConfigurationModifyParamsPaypalDisplayPreference,
+        PaymentMethodConfigurationModifyParamsPayto as PaymentMethodConfigurationModifyParamsPayto,
+        PaymentMethodConfigurationModifyParamsPaytoDisplayPreference as PaymentMethodConfigurationModifyParamsPaytoDisplayPreference,
         PaymentMethodConfigurationModifyParamsPix as PaymentMethodConfigurationModifyParamsPix,
         PaymentMethodConfigurationModifyParamsPixDisplayPreference as PaymentMethodConfigurationModifyParamsPixDisplayPreference,
         PaymentMethodConfigurationModifyParamsPromptpay as PaymentMethodConfigurationModifyParamsPromptpay,
@@ -2448,6 +2477,8 @@ if TYPE_CHECKING:
         PaymentMethodConfigurationUpdateParamsPaynowDisplayPreference as PaymentMethodConfigurationUpdateParamsPaynowDisplayPreference,
         PaymentMethodConfigurationUpdateParamsPaypal as PaymentMethodConfigurationUpdateParamsPaypal,
         PaymentMethodConfigurationUpdateParamsPaypalDisplayPreference as PaymentMethodConfigurationUpdateParamsPaypalDisplayPreference,
+        PaymentMethodConfigurationUpdateParamsPayto as PaymentMethodConfigurationUpdateParamsPayto,
+        PaymentMethodConfigurationUpdateParamsPaytoDisplayPreference as PaymentMethodConfigurationUpdateParamsPaytoDisplayPreference,
         PaymentMethodConfigurationUpdateParamsPix as PaymentMethodConfigurationUpdateParamsPix,
         PaymentMethodConfigurationUpdateParamsPixDisplayPreference as PaymentMethodConfigurationUpdateParamsPixDisplayPreference,
         PaymentMethodConfigurationUpdateParamsPromptpay as PaymentMethodConfigurationUpdateParamsPromptpay,
@@ -2518,6 +2549,7 @@ if TYPE_CHECKING:
         PaymentMethodCreateParamsPayco as PaymentMethodCreateParamsPayco,
         PaymentMethodCreateParamsPaynow as PaymentMethodCreateParamsPaynow,
         PaymentMethodCreateParamsPaypal as PaymentMethodCreateParamsPaypal,
+        PaymentMethodCreateParamsPayto as PaymentMethodCreateParamsPayto,
         PaymentMethodCreateParamsPix as PaymentMethodCreateParamsPix,
         PaymentMethodCreateParamsPromptpay as PaymentMethodCreateParamsPromptpay,
         PaymentMethodCreateParamsRadarOptions as PaymentMethodCreateParamsRadarOptions,
@@ -2562,6 +2594,7 @@ if TYPE_CHECKING:
         PaymentMethodModifyParamsBillingDetailsAddress as PaymentMethodModifyParamsBillingDetailsAddress,
         PaymentMethodModifyParamsCard as PaymentMethodModifyParamsCard,
         PaymentMethodModifyParamsCardNetworks as PaymentMethodModifyParamsCardNetworks,
+        PaymentMethodModifyParamsPayto as PaymentMethodModifyParamsPayto,
         PaymentMethodModifyParamsUsBankAccount as PaymentMethodModifyParamsUsBankAccount,
     )
     from stripe.params._payment_method_retrieve_params import (
@@ -2573,6 +2606,7 @@ if TYPE_CHECKING:
         PaymentMethodUpdateParamsBillingDetailsAddress as PaymentMethodUpdateParamsBillingDetailsAddress,
         PaymentMethodUpdateParamsCard as PaymentMethodUpdateParamsCard,
         PaymentMethodUpdateParamsCardNetworks as PaymentMethodUpdateParamsCardNetworks,
+        PaymentMethodUpdateParamsPayto as PaymentMethodUpdateParamsPayto,
         PaymentMethodUpdateParamsUsBankAccount as PaymentMethodUpdateParamsUsBankAccount,
     )
     from stripe.params._payment_record_report_payment_attempt_canceled_params import (
@@ -2947,6 +2981,7 @@ if TYPE_CHECKING:
         SetupIntentConfirmParamsPaymentMethodDataPayco as SetupIntentConfirmParamsPaymentMethodDataPayco,
         SetupIntentConfirmParamsPaymentMethodDataPaynow as SetupIntentConfirmParamsPaymentMethodDataPaynow,
         SetupIntentConfirmParamsPaymentMethodDataPaypal as SetupIntentConfirmParamsPaymentMethodDataPaypal,
+        SetupIntentConfirmParamsPaymentMethodDataPayto as SetupIntentConfirmParamsPaymentMethodDataPayto,
         SetupIntentConfirmParamsPaymentMethodDataPix as SetupIntentConfirmParamsPaymentMethodDataPix,
         SetupIntentConfirmParamsPaymentMethodDataPromptpay as SetupIntentConfirmParamsPaymentMethodDataPromptpay,
         SetupIntentConfirmParamsPaymentMethodDataRadarOptions as SetupIntentConfirmParamsPaymentMethodDataRadarOptions,
@@ -2978,6 +3013,8 @@ if TYPE_CHECKING:
         SetupIntentConfirmParamsPaymentMethodOptionsKlarnaSubscriptionNextBilling as SetupIntentConfirmParamsPaymentMethodOptionsKlarnaSubscriptionNextBilling,
         SetupIntentConfirmParamsPaymentMethodOptionsLink as SetupIntentConfirmParamsPaymentMethodOptionsLink,
         SetupIntentConfirmParamsPaymentMethodOptionsPaypal as SetupIntentConfirmParamsPaymentMethodOptionsPaypal,
+        SetupIntentConfirmParamsPaymentMethodOptionsPayto as SetupIntentConfirmParamsPaymentMethodOptionsPayto,
+        SetupIntentConfirmParamsPaymentMethodOptionsPaytoMandateOptions as SetupIntentConfirmParamsPaymentMethodOptionsPaytoMandateOptions,
         SetupIntentConfirmParamsPaymentMethodOptionsSepaDebit as SetupIntentConfirmParamsPaymentMethodOptionsSepaDebit,
         SetupIntentConfirmParamsPaymentMethodOptionsSepaDebitMandateOptions as SetupIntentConfirmParamsPaymentMethodOptionsSepaDebitMandateOptions,
         SetupIntentConfirmParamsPaymentMethodOptionsUsBankAccount as SetupIntentConfirmParamsPaymentMethodOptionsUsBankAccount,
@@ -3034,6 +3071,7 @@ if TYPE_CHECKING:
         SetupIntentCreateParamsPaymentMethodDataPayco as SetupIntentCreateParamsPaymentMethodDataPayco,
         SetupIntentCreateParamsPaymentMethodDataPaynow as SetupIntentCreateParamsPaymentMethodDataPaynow,
         SetupIntentCreateParamsPaymentMethodDataPaypal as SetupIntentCreateParamsPaymentMethodDataPaypal,
+        SetupIntentCreateParamsPaymentMethodDataPayto as SetupIntentCreateParamsPaymentMethodDataPayto,
         SetupIntentCreateParamsPaymentMethodDataPix as SetupIntentCreateParamsPaymentMethodDataPix,
         SetupIntentCreateParamsPaymentMethodDataPromptpay as SetupIntentCreateParamsPaymentMethodDataPromptpay,
         SetupIntentCreateParamsPaymentMethodDataRadarOptions as SetupIntentCreateParamsPaymentMethodDataRadarOptions,
@@ -3065,6 +3103,8 @@ if TYPE_CHECKING:
         SetupIntentCreateParamsPaymentMethodOptionsKlarnaSubscriptionNextBilling as SetupIntentCreateParamsPaymentMethodOptionsKlarnaSubscriptionNextBilling,
         SetupIntentCreateParamsPaymentMethodOptionsLink as SetupIntentCreateParamsPaymentMethodOptionsLink,
         SetupIntentCreateParamsPaymentMethodOptionsPaypal as SetupIntentCreateParamsPaymentMethodOptionsPaypal,
+        SetupIntentCreateParamsPaymentMethodOptionsPayto as SetupIntentCreateParamsPaymentMethodOptionsPayto,
+        SetupIntentCreateParamsPaymentMethodOptionsPaytoMandateOptions as SetupIntentCreateParamsPaymentMethodOptionsPaytoMandateOptions,
         SetupIntentCreateParamsPaymentMethodOptionsSepaDebit as SetupIntentCreateParamsPaymentMethodOptionsSepaDebit,
         SetupIntentCreateParamsPaymentMethodOptionsSepaDebitMandateOptions as SetupIntentCreateParamsPaymentMethodOptionsSepaDebitMandateOptions,
         SetupIntentCreateParamsPaymentMethodOptionsUsBankAccount as SetupIntentCreateParamsPaymentMethodOptionsUsBankAccount,
@@ -3121,6 +3161,7 @@ if TYPE_CHECKING:
         SetupIntentModifyParamsPaymentMethodDataPayco as SetupIntentModifyParamsPaymentMethodDataPayco,
         SetupIntentModifyParamsPaymentMethodDataPaynow as SetupIntentModifyParamsPaymentMethodDataPaynow,
         SetupIntentModifyParamsPaymentMethodDataPaypal as SetupIntentModifyParamsPaymentMethodDataPaypal,
+        SetupIntentModifyParamsPaymentMethodDataPayto as SetupIntentModifyParamsPaymentMethodDataPayto,
         SetupIntentModifyParamsPaymentMethodDataPix as SetupIntentModifyParamsPaymentMethodDataPix,
         SetupIntentModifyParamsPaymentMethodDataPromptpay as SetupIntentModifyParamsPaymentMethodDataPromptpay,
         SetupIntentModifyParamsPaymentMethodDataRadarOptions as SetupIntentModifyParamsPaymentMethodDataRadarOptions,
@@ -3152,6 +3193,8 @@ if TYPE_CHECKING:
         SetupIntentModifyParamsPaymentMethodOptionsKlarnaSubscriptionNextBilling as SetupIntentModifyParamsPaymentMethodOptionsKlarnaSubscriptionNextBilling,
         SetupIntentModifyParamsPaymentMethodOptionsLink as SetupIntentModifyParamsPaymentMethodOptionsLink,
         SetupIntentModifyParamsPaymentMethodOptionsPaypal as SetupIntentModifyParamsPaymentMethodOptionsPaypal,
+        SetupIntentModifyParamsPaymentMethodOptionsPayto as SetupIntentModifyParamsPaymentMethodOptionsPayto,
+        SetupIntentModifyParamsPaymentMethodOptionsPaytoMandateOptions as SetupIntentModifyParamsPaymentMethodOptionsPaytoMandateOptions,
         SetupIntentModifyParamsPaymentMethodOptionsSepaDebit as SetupIntentModifyParamsPaymentMethodOptionsSepaDebit,
         SetupIntentModifyParamsPaymentMethodOptionsSepaDebitMandateOptions as SetupIntentModifyParamsPaymentMethodOptionsSepaDebitMandateOptions,
         SetupIntentModifyParamsPaymentMethodOptionsUsBankAccount as SetupIntentModifyParamsPaymentMethodOptionsUsBankAccount,
@@ -3206,6 +3249,7 @@ if TYPE_CHECKING:
         SetupIntentUpdateParamsPaymentMethodDataPayco as SetupIntentUpdateParamsPaymentMethodDataPayco,
         SetupIntentUpdateParamsPaymentMethodDataPaynow as SetupIntentUpdateParamsPaymentMethodDataPaynow,
         SetupIntentUpdateParamsPaymentMethodDataPaypal as SetupIntentUpdateParamsPaymentMethodDataPaypal,
+        SetupIntentUpdateParamsPaymentMethodDataPayto as SetupIntentUpdateParamsPaymentMethodDataPayto,
         SetupIntentUpdateParamsPaymentMethodDataPix as SetupIntentUpdateParamsPaymentMethodDataPix,
         SetupIntentUpdateParamsPaymentMethodDataPromptpay as SetupIntentUpdateParamsPaymentMethodDataPromptpay,
         SetupIntentUpdateParamsPaymentMethodDataRadarOptions as SetupIntentUpdateParamsPaymentMethodDataRadarOptions,
@@ -3237,6 +3281,8 @@ if TYPE_CHECKING:
         SetupIntentUpdateParamsPaymentMethodOptionsKlarnaSubscriptionNextBilling as SetupIntentUpdateParamsPaymentMethodOptionsKlarnaSubscriptionNextBilling,
         SetupIntentUpdateParamsPaymentMethodOptionsLink as SetupIntentUpdateParamsPaymentMethodOptionsLink,
         SetupIntentUpdateParamsPaymentMethodOptionsPaypal as SetupIntentUpdateParamsPaymentMethodOptionsPaypal,
+        SetupIntentUpdateParamsPaymentMethodOptionsPayto as SetupIntentUpdateParamsPaymentMethodOptionsPayto,
+        SetupIntentUpdateParamsPaymentMethodOptionsPaytoMandateOptions as SetupIntentUpdateParamsPaymentMethodOptionsPaytoMandateOptions,
         SetupIntentUpdateParamsPaymentMethodOptionsSepaDebit as SetupIntentUpdateParamsPaymentMethodOptionsSepaDebit,
         SetupIntentUpdateParamsPaymentMethodOptionsSepaDebitMandateOptions as SetupIntentUpdateParamsPaymentMethodOptionsSepaDebitMandateOptions,
         SetupIntentUpdateParamsPaymentMethodOptionsUsBankAccount as SetupIntentUpdateParamsPaymentMethodOptionsUsBankAccount,
@@ -3366,6 +3412,8 @@ if TYPE_CHECKING:
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsKonbini as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsKonbini,
+        SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsPayto as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsPayto,
+        SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOptions as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOptions,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsSepaDebit as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsSepaDebit,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccount as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccount,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections,
@@ -3452,6 +3500,8 @@ if TYPE_CHECKING:
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsKonbini as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsKonbini,
+        SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsPayto as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsPayto,
+        SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOptions as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOptions,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsSepaDebit as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsSepaDebit,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccount as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccount,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections,
@@ -3610,6 +3660,8 @@ if TYPE_CHECKING:
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsKonbini as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsKonbini,
+        SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsPayto as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsPayto,
+        SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOptions as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOptions,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsSepaDebit as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsSepaDebit,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsUsBankAccount as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsUsBankAccount,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections,
@@ -4033,6 +4085,10 @@ _import_map = {
         "stripe.params._account_create_params",
         False,
     ),
+    "AccountCreateParamsCapabilitiesPaytoPayments": (
+        "stripe.params._account_create_params",
+        False,
+    ),
     "AccountCreateParamsCapabilitiesPixPayments": (
         "stripe.params._account_create_params",
         False,
@@ -4198,7 +4254,15 @@ _import_map = {
         "stripe.params._account_create_params",
         False,
     ),
+    "AccountCreateParamsDocumentsProofOfRegistrationSigner": (
+        "stripe.params._account_create_params",
+        False,
+    ),
     "AccountCreateParamsDocumentsProofOfUltimateBeneficialOwnership": (
+        "stripe.params._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsDocumentsProofOfUltimateBeneficialOwnershipSigner": (
         "stripe.params._account_create_params",
         False,
     ),
@@ -5097,6 +5161,10 @@ _import_map = {
         "stripe.params._account_update_params",
         False,
     ),
+    "AccountUpdateParamsCapabilitiesPaytoPayments": (
+        "stripe.params._account_update_params",
+        False,
+    ),
     "AccountUpdateParamsCapabilitiesPixPayments": (
         "stripe.params._account_update_params",
         False,
@@ -5246,7 +5314,15 @@ _import_map = {
         "stripe.params._account_update_params",
         False,
     ),
+    "AccountUpdateParamsDocumentsProofOfRegistrationSigner": (
+        "stripe.params._account_update_params",
+        False,
+    ),
     "AccountUpdateParamsDocumentsProofOfUltimateBeneficialOwnership": (
+        "stripe.params._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsDocumentsProofOfUltimateBeneficialOwnershipSigner": (
         "stripe.params._account_update_params",
         False,
     ),
@@ -5705,6 +5781,10 @@ _import_map = {
         False,
     ),
     "ConfirmationTokenCreateParamsPaymentMethodDataPaypal": (
+        "stripe.params._confirmation_token_create_params",
+        False,
+    ),
+    "ConfirmationTokenCreateParamsPaymentMethodDataPayto": (
         "stripe.params._confirmation_token_create_params",
         False,
     ),
@@ -6552,6 +6632,14 @@ _import_map = {
         "stripe.params._invoice_create_params",
         False,
     ),
+    "InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsPayto": (
+        "stripe.params._invoice_create_params",
+        False,
+    ),
+    "InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOptions": (
+        "stripe.params._invoice_create_params",
+        False,
+    ),
     "InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsSepaDebit": (
         "stripe.params._invoice_create_params",
         False,
@@ -6997,6 +7085,14 @@ _import_map = {
         "stripe.params._invoice_modify_params",
         False,
     ),
+    "InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsPayto": (
+        "stripe.params._invoice_modify_params",
+        False,
+    ),
+    "InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOptions": (
+        "stripe.params._invoice_modify_params",
+        False,
+    ),
     "InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsSepaDebit": (
         "stripe.params._invoice_modify_params",
         False,
@@ -7210,6 +7306,14 @@ _import_map = {
         False,
     ),
     "InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsKonbini": (
+        "stripe.params._invoice_update_params",
+        False,
+    ),
+    "InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsPayto": (
+        "stripe.params._invoice_update_params",
+        False,
+    ),
+    "InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOptions": (
         "stripe.params._invoice_update_params",
         False,
     ),
@@ -7606,6 +7710,10 @@ _import_map = {
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
+    "PaymentIntentConfirmParamsPaymentMethodDataPayto": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
     "PaymentIntentConfirmParamsPaymentMethodDataPix": (
         "stripe.params._payment_intent_confirm_params",
         False,
@@ -7871,6 +7979,14 @@ _import_map = {
         False,
     ),
     "PaymentIntentConfirmParamsPaymentMethodOptionsPaypal": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsPayto": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsPaytoMandateOptions": (
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
@@ -8198,6 +8314,10 @@ _import_map = {
         "stripe.params._payment_intent_create_params",
         False,
     ),
+    "PaymentIntentCreateParamsPaymentMethodDataPayto": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
     "PaymentIntentCreateParamsPaymentMethodDataPix": (
         "stripe.params._payment_intent_create_params",
         False,
@@ -8463,6 +8583,14 @@ _import_map = {
         False,
     ),
     "PaymentIntentCreateParamsPaymentMethodOptionsPaypal": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsPayto": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsPaytoMandateOptions": (
         "stripe.params._payment_intent_create_params",
         False,
     ),
@@ -8850,6 +8978,10 @@ _import_map = {
         "stripe.params._payment_intent_modify_params",
         False,
     ),
+    "PaymentIntentModifyParamsPaymentMethodDataPayto": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
     "PaymentIntentModifyParamsPaymentMethodDataPix": (
         "stripe.params._payment_intent_modify_params",
         False,
@@ -9115,6 +9247,14 @@ _import_map = {
         False,
     ),
     "PaymentIntentModifyParamsPaymentMethodOptionsPaypal": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsPayto": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsPaytoMandateOptions": (
         "stripe.params._payment_intent_modify_params",
         False,
     ),
@@ -9430,6 +9570,10 @@ _import_map = {
         "stripe.params._payment_intent_update_params",
         False,
     ),
+    "PaymentIntentUpdateParamsPaymentMethodDataPayto": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
     "PaymentIntentUpdateParamsPaymentMethodDataPix": (
         "stripe.params._payment_intent_update_params",
         False,
@@ -9695,6 +9839,14 @@ _import_map = {
         False,
     ),
     "PaymentIntentUpdateParamsPaymentMethodOptionsPaypal": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsPayto": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsPaytoMandateOptions": (
         "stripe.params._payment_intent_update_params",
         False,
     ),
@@ -10642,6 +10794,14 @@ _import_map = {
         "stripe.params._payment_method_configuration_create_params",
         False,
     ),
+    "PaymentMethodConfigurationCreateParamsPayto": (
+        "stripe.params._payment_method_configuration_create_params",
+        False,
+    ),
+    "PaymentMethodConfigurationCreateParamsPaytoDisplayPreference": (
+        "stripe.params._payment_method_configuration_create_params",
+        False,
+    ),
     "PaymentMethodConfigurationCreateParamsPix": (
         "stripe.params._payment_method_configuration_create_params",
         False,
@@ -11087,6 +11247,14 @@ _import_map = {
         False,
     ),
     "PaymentMethodConfigurationModifyParamsPaypalDisplayPreference": (
+        "stripe.params._payment_method_configuration_modify_params",
+        False,
+    ),
+    "PaymentMethodConfigurationModifyParamsPayto": (
+        "stripe.params._payment_method_configuration_modify_params",
+        False,
+    ),
+    "PaymentMethodConfigurationModifyParamsPaytoDisplayPreference": (
         "stripe.params._payment_method_configuration_modify_params",
         False,
     ),
@@ -11538,6 +11706,14 @@ _import_map = {
         "stripe.params._payment_method_configuration_update_params",
         False,
     ),
+    "PaymentMethodConfigurationUpdateParamsPayto": (
+        "stripe.params._payment_method_configuration_update_params",
+        False,
+    ),
+    "PaymentMethodConfigurationUpdateParamsPaytoDisplayPreference": (
+        "stripe.params._payment_method_configuration_update_params",
+        False,
+    ),
     "PaymentMethodConfigurationUpdateParamsPix": (
         "stripe.params._payment_method_configuration_update_params",
         False,
@@ -11810,6 +11986,10 @@ _import_map = {
         "stripe.params._payment_method_create_params",
         False,
     ),
+    "PaymentMethodCreateParamsPayto": (
+        "stripe.params._payment_method_create_params",
+        False,
+    ),
     "PaymentMethodCreateParamsPix": (
         "stripe.params._payment_method_create_params",
         False,
@@ -11914,6 +12094,10 @@ _import_map = {
         "stripe.params._payment_method_modify_params",
         False,
     ),
+    "PaymentMethodModifyParamsPayto": (
+        "stripe.params._payment_method_modify_params",
+        False,
+    ),
     "PaymentMethodModifyParamsUsBankAccount": (
         "stripe.params._payment_method_modify_params",
         False,
@@ -11939,6 +12123,10 @@ _import_map = {
         False,
     ),
     "PaymentMethodUpdateParamsCardNetworks": (
+        "stripe.params._payment_method_update_params",
+        False,
+    ),
+    "PaymentMethodUpdateParamsPayto": (
         "stripe.params._payment_method_update_params",
         False,
     ),
@@ -12674,6 +12862,10 @@ _import_map = {
         "stripe.params._setup_intent_confirm_params",
         False,
     ),
+    "SetupIntentConfirmParamsPaymentMethodDataPayto": (
+        "stripe.params._setup_intent_confirm_params",
+        False,
+    ),
     "SetupIntentConfirmParamsPaymentMethodDataPix": (
         "stripe.params._setup_intent_confirm_params",
         False,
@@ -12795,6 +12987,14 @@ _import_map = {
         False,
     ),
     "SetupIntentConfirmParamsPaymentMethodOptionsPaypal": (
+        "stripe.params._setup_intent_confirm_params",
+        False,
+    ),
+    "SetupIntentConfirmParamsPaymentMethodOptionsPayto": (
+        "stripe.params._setup_intent_confirm_params",
+        False,
+    ),
+    "SetupIntentConfirmParamsPaymentMethodOptionsPaytoMandateOptions": (
         "stripe.params._setup_intent_confirm_params",
         False,
     ),
@@ -13014,6 +13214,10 @@ _import_map = {
         "stripe.params._setup_intent_create_params",
         False,
     ),
+    "SetupIntentCreateParamsPaymentMethodDataPayto": (
+        "stripe.params._setup_intent_create_params",
+        False,
+    ),
     "SetupIntentCreateParamsPaymentMethodDataPix": (
         "stripe.params._setup_intent_create_params",
         False,
@@ -13135,6 +13339,14 @@ _import_map = {
         False,
     ),
     "SetupIntentCreateParamsPaymentMethodOptionsPaypal": (
+        "stripe.params._setup_intent_create_params",
+        False,
+    ),
+    "SetupIntentCreateParamsPaymentMethodOptionsPayto": (
+        "stripe.params._setup_intent_create_params",
+        False,
+    ),
+    "SetupIntentCreateParamsPaymentMethodOptionsPaytoMandateOptions": (
         "stripe.params._setup_intent_create_params",
         False,
     ),
@@ -13346,6 +13558,10 @@ _import_map = {
         "stripe.params._setup_intent_modify_params",
         False,
     ),
+    "SetupIntentModifyParamsPaymentMethodDataPayto": (
+        "stripe.params._setup_intent_modify_params",
+        False,
+    ),
     "SetupIntentModifyParamsPaymentMethodDataPix": (
         "stripe.params._setup_intent_modify_params",
         False,
@@ -13467,6 +13683,14 @@ _import_map = {
         False,
     ),
     "SetupIntentModifyParamsPaymentMethodOptionsPaypal": (
+        "stripe.params._setup_intent_modify_params",
+        False,
+    ),
+    "SetupIntentModifyParamsPaymentMethodOptionsPayto": (
+        "stripe.params._setup_intent_modify_params",
+        False,
+    ),
+    "SetupIntentModifyParamsPaymentMethodOptionsPaytoMandateOptions": (
         "stripe.params._setup_intent_modify_params",
         False,
     ),
@@ -13670,6 +13894,10 @@ _import_map = {
         "stripe.params._setup_intent_update_params",
         False,
     ),
+    "SetupIntentUpdateParamsPaymentMethodDataPayto": (
+        "stripe.params._setup_intent_update_params",
+        False,
+    ),
     "SetupIntentUpdateParamsPaymentMethodDataPix": (
         "stripe.params._setup_intent_update_params",
         False,
@@ -13791,6 +14019,14 @@ _import_map = {
         False,
     ),
     "SetupIntentUpdateParamsPaymentMethodOptionsPaypal": (
+        "stripe.params._setup_intent_update_params",
+        False,
+    ),
+    "SetupIntentUpdateParamsPaymentMethodOptionsPayto": (
+        "stripe.params._setup_intent_update_params",
+        False,
+    ),
+    "SetupIntentUpdateParamsPaymentMethodOptionsPaytoMandateOptions": (
         "stripe.params._setup_intent_update_params",
         False,
     ),
@@ -14155,6 +14391,14 @@ _import_map = {
         "stripe.params._subscription_create_params",
         False,
     ),
+    "SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsPayto": (
+        "stripe.params._subscription_create_params",
+        False,
+    ),
+    "SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOptions": (
+        "stripe.params._subscription_create_params",
+        False,
+    ),
     "SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsSepaDebit": (
         "stripe.params._subscription_create_params",
         False,
@@ -14416,6 +14660,14 @@ _import_map = {
         False,
     ),
     "SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsKonbini": (
+        "stripe.params._subscription_modify_params",
+        False,
+    ),
+    "SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsPayto": (
+        "stripe.params._subscription_modify_params",
+        False,
+    ),
+    "SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOptions": (
         "stripe.params._subscription_modify_params",
         False,
     ),
@@ -14960,6 +15212,14 @@ _import_map = {
         False,
     ),
     "SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsKonbini": (
+        "stripe.params._subscription_update_params",
+        False,
+    ),
+    "SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsPayto": (
+        "stripe.params._subscription_update_params",
+        False,
+    ),
+    "SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOptions": (
         "stripe.params._subscription_update_params",
         False,
     ),

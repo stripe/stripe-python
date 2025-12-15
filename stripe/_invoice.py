@@ -92,13 +92,13 @@ class Invoice(
     Invoices are statements of amounts owed by a customer, and are either
     generated one-off, or generated periodically from a subscription.
 
-    They contain [invoice items](https://stripe.com/docs/api#invoiceitems), and proration adjustments
+    They contain [invoice items](https://api.stripe.com#invoiceitems), and proration adjustments
     that may be caused by subscription upgrades/downgrades (if necessary).
 
     If your invoice is configured to be billed through automatic charges,
     Stripe automatically finalizes your invoice and attempts payment. Note
     that finalizing the invoice,
-    [when automatic](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection), does
+    [when automatic](https://docs.stripe.com/invoicing/integration/automatic-advancement-collection), does
     not happen immediately as the invoice is created. Stripe waits
     until one hour after the last webhook was successfully sent (or the last
     webhook timed out after failing). If you (and the platforms you may have
@@ -118,9 +118,9 @@ class Invoice(
     customer's credit balance which is applied to the next invoice.
 
     More details on the customer's credit balance are
-    [here](https://stripe.com/docs/billing/customer/balance).
+    [here](https://docs.stripe.com/billing/customer/balance).
 
-    Related guide: [Send invoices to customers](https://stripe.com/docs/billing/invoices/sending)
+    Related guide: [Send invoices to customers](https://docs.stripe.com/billing/invoices/sending)
     """
 
     OBJECT_NAME: ClassVar[Literal["invoice"]] = "invoice"
@@ -147,7 +147,7 @@ class Invoice(
         """
         enabled: bool
         """
-        Whether Stripe automatically computes tax on this invoice. Note that incompatible invoice items (invoice items with manually specified [tax rates](https://stripe.com/docs/api/tax_rates), negative amounts, or `tax_behavior=unspecified`) cannot be added to automatic tax invoices.
+        Whether Stripe automatically computes tax on this invoice. Note that incompatible invoice items (invoice items with manually specified [tax rates](https://docs.stripe.com/api/tax_rates), negative amounts, or `tax_behavior=unspecified`) cannot be added to automatic tax invoices.
         """
         liability: Optional[Liability]
         """
@@ -208,7 +208,7 @@ class Invoice(
         """
         state: Optional[str]
         """
-        State, county, province, or region.
+        State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
         """
 
     class CustomerShipping(StripeObject):
@@ -235,7 +235,7 @@ class Invoice(
             """
             state: Optional[str]
             """
-            State, county, province, or region.
+            State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             """
 
         address: Optional[Address]
@@ -402,7 +402,7 @@ class Invoice(
     class LastFinalizationError(StripeObject):
         advice_code: Optional[str]
         """
-        For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://stripe.com/docs/declines#retrying-issuer-declines) if they provide one.
+        For card errors resulting from a card issuer decline, a short string indicating [how to proceed with an error](https://docs.stripe.com/declines#retrying-issuer-declines) if they provide one.
         """
         charge: Optional[str]
         """
@@ -416,6 +416,7 @@ class Invoice(
                 "account_information_mismatch",
                 "account_invalid",
                 "account_number_invalid",
+                "account_token_required_for_v2_account",
                 "acss_debit_session_incomplete",
                 "alipay_upgrade_required",
                 "amount_too_large",
@@ -594,15 +595,15 @@ class Invoice(
             ]
         ]
         """
-        For some errors that could be handled programmatically, a short string indicating the [error code](https://stripe.com/docs/error-codes) reported.
+        For some errors that could be handled programmatically, a short string indicating the [error code](https://docs.stripe.com/error-codes) reported.
         """
         decline_code: Optional[str]
         """
-        For card errors resulting from a card issuer decline, a short string indicating the [card issuer's reason for the decline](https://stripe.com/docs/declines#issuer-declines) if they provide one.
+        For card errors resulting from a card issuer decline, a short string indicating the [card issuer's reason for the decline](https://docs.stripe.com/declines#issuer-declines) if they provide one.
         """
         doc_url: Optional[str]
         """
-        A URL to more information about the [error code](https://stripe.com/docs/error-codes) reported.
+        A URL to more information about the [error code](https://docs.stripe.com/error-codes) reported.
         """
         message: Optional[str]
         """
@@ -628,19 +629,19 @@ class Invoice(
         see the history of payment attempts for a particular session.
 
         A PaymentIntent transitions through
-        [multiple statuses](https://stripe.com/docs/payments/intents#intent-statuses)
+        [multiple statuses](https://docs.stripe.com/payments/paymentintents/lifecycle)
         throughout its lifetime as it interfaces with Stripe.js to perform
         authentication flows and ultimately creates at most one successful charge.
 
-        Related guide: [Payment Intents API](https://stripe.com/docs/payments/payment-intents)
+        Related guide: [Payment Intents API](https://docs.stripe.com/payments/payment-intents)
         """
         payment_method: Optional["PaymentMethod"]
         """
         PaymentMethod objects represent your customer's payment instruments.
-        You can use them with [PaymentIntents](https://stripe.com/docs/payments/payment-intents) to collect payments or save them to
+        You can use them with [PaymentIntents](https://docs.stripe.com/payments/payment-intents) to collect payments or save them to
         Customer objects to store instrument details for future payments.
 
-        Related guides: [Payment Methods](https://stripe.com/docs/payments/payment-methods) and [More Payment Scenarios](https://stripe.com/docs/payments/more-payment-scenarios).
+        Related guides: [Payment Methods](https://docs.stripe.com/payments/payment-methods) and [More Payment Scenarios](https://docs.stripe.com/payments/more-payment-scenarios).
         """
         payment_method_type: Optional[str]
         """
@@ -654,7 +655,7 @@ class Invoice(
         """
         A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
         For example, you can use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
-        Later, you can use [PaymentIntents](https://stripe.com/docs/api#payment_intents) to drive the payment flow.
+        Later, you can use [PaymentIntents](https://api.stripe.com#payment_intents) to drive the payment flow.
 
         Create a SetupIntent when you're ready to collect your customer's payment credentials.
         Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
@@ -665,9 +666,9 @@ class Invoice(
         For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) might need to be run through
         [Strong Customer Authentication](https://docs.stripe.com/strong-customer-authentication) during payment method collection
         to streamline later [off-session payments](https://docs.stripe.com/payments/setup-intents).
-        If you use the SetupIntent with a [Customer](https://stripe.com/docs/api#setup_intent_object-customer),
+        If you use the SetupIntent with a [Customer](https://api.stripe.com#setup_intent_object-customer),
         it automatically attaches the resulting payment method to that Customer after successful setup.
-        We recommend using SetupIntents or [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) on
+        We recommend using SetupIntents or [setup_future_usage](https://api.stripe.com#payment_intent_object-setup_future_usage) on
         PaymentIntents to save payment methods to prevent saving invalid or unoptimized payment methods.
 
         By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
@@ -697,7 +698,7 @@ class Invoice(
         class SubscriptionDetails(StripeObject):
             metadata: Optional[Dict[str, str]]
             """
-            Set of [key-value pairs](https://stripe.com/docs/api/metadata) defined as subscription metadata when an invoice is created. Becomes an immutable snapshot of the subscription metadata at the time of invoice finalization.
+            Set of [key-value pairs](https://docs.stripe.com/api/metadata) defined as subscription metadata when an invoice is created. Becomes an immutable snapshot of the subscription metadata at the time of invoice finalization.
              *Note: This attribute is populated only for invoices created on or after June 29, 2023.*
             """
             subscription: ExpandableField["Subscription"]
@@ -762,7 +763,7 @@ class Invoice(
                     Literal["any", "automatic", "challenge"]
                 ]
                 """
-                We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+                We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
                 """
                 _inner_class_types = {"installments": Installments}
 
@@ -790,6 +791,38 @@ class Invoice(
 
             class Konbini(StripeObject):
                 pass
+
+            class Payto(StripeObject):
+                class MandateOptions(StripeObject):
+                    amount: Optional[int]
+                    """
+                    The maximum amount that can be collected in a single invoice. If you don't specify a maximum, then there is no limit.
+                    """
+                    amount_type: Optional[Literal["fixed", "maximum"]]
+                    """
+                    Only `maximum` is supported.
+                    """
+                    purpose: Optional[
+                        Literal[
+                            "dependant_support",
+                            "government",
+                            "loan",
+                            "mortgage",
+                            "other",
+                            "pension",
+                            "personal",
+                            "retail",
+                            "salary",
+                            "tax",
+                            "utility",
+                        ]
+                    ]
+                    """
+                    The purpose for which payments are made. Has a default value based on your merchant category code.
+                    """
+
+                mandate_options: Optional[MandateOptions]
+                _inner_class_types = {"mandate_options": MandateOptions}
 
             class SepaDebit(StripeObject):
                 pass
@@ -857,6 +890,10 @@ class Invoice(
             """
             If paying by `konbini`, this sub-hash contains details about the Konbini payment method options to pass to the invoice's PaymentIntent.
             """
+            payto: Optional[Payto]
+            """
+            If paying by `payto`, this sub-hash contains details about the PayTo payment method options to pass to the invoice's PaymentIntent.
+            """
             sepa_debit: Optional[SepaDebit]
             """
             If paying by `sepa_debit`, this sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice's PaymentIntent.
@@ -871,6 +908,7 @@ class Invoice(
                 "card": Card,
                 "customer_balance": CustomerBalance,
                 "konbini": Konbini,
+                "payto": Payto,
                 "sepa_debit": SepaDebit,
                 "us_bank_account": UsBankAccount,
             }
@@ -918,6 +956,7 @@ class Invoice(
                     "payco",
                     "paynow",
                     "paypal",
+                    "payto",
                     "promptpay",
                     "revolut_pay",
                     "sepa_credit_transfer",
@@ -1044,7 +1083,7 @@ class Invoice(
             """
             state: Optional[str]
             """
-            State, county, province, or region.
+            State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             """
 
         address: Optional[Address]
@@ -1138,6 +1177,9 @@ class Invoice(
     class TotalTax(StripeObject):
         class TaxRateDetails(StripeObject):
             tax_rate: str
+            """
+            ID of the tax rate
+            """
 
         amount: int
         """
@@ -1228,7 +1270,7 @@ class Invoice(
     """
     auto_advance: Optional[bool]
     """
-    Controls whether Stripe performs [automatic collection](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection) of the invoice. If `false`, the invoice's state doesn't automatically advance without an explicit action.
+    Controls whether Stripe performs [automatic collection](https://docs.stripe.com/invoicing/integration/automatic-advancement-collection) of the invoice. If `false`, the invoice's state doesn't automatically advance without an explicit action.
     """
     automatic_tax: AutomaticTax
     automatically_finalizes_at: Optional[int]
@@ -1281,7 +1323,11 @@ class Invoice(
     """
     customer: Optional[ExpandableField["Customer"]]
     """
-    The ID of the customer who will be billed.
+    The ID of the customer to bill.
+    """
+    customer_account: Optional[str]
+    """
+    The ID of the account representing the customer to bill.
     """
     customer_address: Optional[CustomerAddress]
     """
@@ -1357,7 +1403,7 @@ class Invoice(
     """
     from_invoice: Optional[FromInvoice]
     """
-    Details of the invoice that was cloned. See the [revision documentation](https://stripe.com/docs/invoicing/invoice-revisions) for more details.
+    Details of the invoice that was cloned. See the [revision documentation](https://docs.stripe.com/invoicing/invoice-revisions) for more details.
     """
     hosted_invoice_url: Optional[str]
     """
@@ -1390,7 +1436,7 @@ class Invoice(
     """
     metadata: Optional[Dict[str, str]]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     next_payment_attempt: Optional[int]
     """
@@ -1406,7 +1452,7 @@ class Invoice(
     """
     on_behalf_of: Optional[ExpandableField["Account"]]
     """
-    The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details.
+    The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://docs.stripe.com/billing/invoices/connect) documentation for details.
     """
     parent: Optional[Parent]
     """
@@ -1459,7 +1505,7 @@ class Invoice(
     """
     status: Optional[Literal["draft", "open", "paid", "uncollectible", "void"]]
     """
-    The status of the invoice, one of `draft`, `open`, `paid`, `uncollectible`, or `void`. [Learn more](https://stripe.com/docs/billing/invoices/workflow#workflow-overview)
+    The status of the invoice, one of `draft`, `open`, `paid`, `uncollectible`, or `void`. [Learn more](https://docs.stripe.com/billing/invoices/workflow#workflow-overview)
     """
     status_transitions: StatusTransitions
     subtotal: int
@@ -1497,7 +1543,7 @@ class Invoice(
     """
     webhooks_delivered_at: Optional[int]
     """
-    Invoices are automatically paid or sent 1 hour after webhooks are delivered, or until all webhook delivery attempts have [been exhausted](https://stripe.com/docs/billing/webhooks#understand). This field tracks the time when webhooks for this invoice were successfully delivered. If the invoice had no webhooks to deliver, this will be set while the invoice is being created.
+    Invoices are automatically paid or sent 1 hour after webhooks are delivered, or until all webhook delivery attempts have [been exhausted](https://docs.stripe.com/billing/webhooks#understand). This field tracks the time when webhooks for this invoice were successfully delivered. If the invoice had no webhooks to deliver, this will be set while the invoice is being created.
     """
 
     @classmethod

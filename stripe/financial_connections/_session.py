@@ -33,12 +33,13 @@ class Session(CreateableAPIResource["Session"]):
     class AccountHolder(StripeObject):
         account: Optional[ExpandableField["AccountResource"]]
         """
-        The ID of the Stripe account this account belongs to. Should only be present if `account_holder.type` is `account`.
+        The ID of the Stripe account that this account belongs to. Only available when `account_holder.type` is `account`.
         """
         customer: Optional[ExpandableField["Customer"]]
         """
-        ID of the Stripe customer this account belongs to. Present if and only if `account_holder.type` is `customer`.
+        The ID for an Account representing a customer that this account belongs to. Only available when `account_holder.type` is `customer`.
         """
+        customer_account: Optional[str]
         type: Literal["account", "customer"]
         """
         Type of account holder that this account belongs to.
