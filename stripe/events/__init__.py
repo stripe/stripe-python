@@ -193,6 +193,10 @@ if TYPE_CHECKING:
         V2MoneyManagementOutboundTransferUpdatedEvent as V2MoneyManagementOutboundTransferUpdatedEvent,
         V2MoneyManagementOutboundTransferUpdatedEventNotification as V2MoneyManagementOutboundTransferUpdatedEventNotification,
     )
+    from stripe.events._v2_money_management_payout_method_created_event import (
+        V2MoneyManagementPayoutMethodCreatedEvent as V2MoneyManagementPayoutMethodCreatedEvent,
+        V2MoneyManagementPayoutMethodCreatedEventNotification as V2MoneyManagementPayoutMethodCreatedEventNotification,
+    )
     from stripe.events._v2_money_management_payout_method_updated_event import (
         V2MoneyManagementPayoutMethodUpdatedEvent as V2MoneyManagementPayoutMethodUpdatedEvent,
         V2MoneyManagementPayoutMethodUpdatedEventNotification as V2MoneyManagementPayoutMethodUpdatedEventNotification,
@@ -603,6 +607,14 @@ _import_map = {
     ),
     "V2MoneyManagementOutboundTransferUpdatedEventNotification": (
         "stripe.events._v2_money_management_outbound_transfer_updated_event",
+        False,
+    ),
+    "V2MoneyManagementPayoutMethodCreatedEvent": (
+        "stripe.events._v2_money_management_payout_method_created_event",
+        False,
+    ),
+    "V2MoneyManagementPayoutMethodCreatedEventNotification": (
+        "stripe.events._v2_money_management_payout_method_created_event",
         False,
     ),
     "V2MoneyManagementPayoutMethodUpdatedEvent": (

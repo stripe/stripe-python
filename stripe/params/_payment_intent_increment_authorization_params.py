@@ -18,7 +18,7 @@ class PaymentIntentIncrementAuthorizationParams(RequestOptions):
     """
     application_fee_amount: NotRequired[int]
     """
-    The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+    The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total amount captured. For more information, see the PaymentIntents [use case for connected accounts](https://docs.stripe.com/payments/connected-accounts).
     """
     description: NotRequired[str]
     """
@@ -34,7 +34,7 @@ class PaymentIntentIncrementAuthorizationParams(RequestOptions):
     """
     metadata: NotRequired[Dict[str, str]]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
     payment_details: NotRequired[
         "PaymentIntentIncrementAuthorizationParamsPaymentDetails"
@@ -57,14 +57,14 @@ class PaymentIntentIncrementAuthorizationParams(RequestOptions):
     ]
     """
     The parameters used to automatically create a transfer after the payment is captured.
-    Learn more about the [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
+    Learn more about the [use case for connected accounts](https://docs.stripe.com/payments/connected-accounts).
     """
 
 
 class PaymentIntentIncrementAuthorizationParamsAmountDetails(TypedDict):
     discount_amount: NotRequired["Literal['']|int"]
     """
-    The total discount applied on the transaction represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than 0.
+    The total discount applied on the transaction represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). An integer greater than 0.
 
     This field is mutually exclusive with the `amount_details[line_items][#][discount_amount]` field.
     """
@@ -72,7 +72,7 @@ class PaymentIntentIncrementAuthorizationParamsAmountDetails(TypedDict):
         "Literal['']|List[PaymentIntentIncrementAuthorizationParamsAmountDetailsLineItem]"
     ]
     """
-    A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
+    A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 200 line items.
     """
     shipping: NotRequired[
         "Literal['']|PaymentIntentIncrementAuthorizationParamsAmountDetailsShipping"
@@ -93,7 +93,7 @@ class PaymentIntentIncrementAuthorizationParamsAmountDetailsLineItem(
 ):
     discount_amount: NotRequired[int]
     """
-    The discount applied on this line item represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than 0.
+    The discount applied on this line item represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). An integer greater than 0.
 
     This field is mutually exclusive with the `amount_details[discount_amount]` field.
     """
@@ -125,7 +125,7 @@ class PaymentIntentIncrementAuthorizationParamsAmountDetailsLineItem(
     """
     unit_cost: int
     """
-    The unit cost of the line item represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L3 rates. An integer greater than or equal to 0.
+    The unit cost of the line item represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). Required for L3 rates. An integer greater than or equal to 0.
     """
     unit_of_measure: NotRequired[str]
     """
@@ -225,7 +225,7 @@ class PaymentIntentIncrementAuthorizationParamsAmountDetailsLineItemTax(
 ):
     total_tax_amount: int
     """
-    The total amount of tax on a single line item represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L3 rates. An integer greater than or equal to 0.
+    The total amount of tax on a single line item represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). Required for L3 rates. An integer greater than or equal to 0.
 
     This field is mutually exclusive with the `amount_details[tax][total_tax_amount]` field.
     """
@@ -236,7 +236,7 @@ class PaymentIntentIncrementAuthorizationParamsAmountDetailsShipping(
 ):
     amount: NotRequired["Literal['']|int"]
     """
-    If a physical good is being shipped, the cost of shipping represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than or equal to 0.
+    If a physical good is being shipped, the cost of shipping represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). An integer greater than or equal to 0.
     """
     from_postal_code: NotRequired["Literal['']|str"]
     """
@@ -251,7 +251,7 @@ class PaymentIntentIncrementAuthorizationParamsAmountDetailsShipping(
 class PaymentIntentIncrementAuthorizationParamsAmountDetailsTax(TypedDict):
     total_tax_amount: int
     """
-    The total amount of tax on the transaction represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L2 rates. An integer greater than or equal to 0.
+    The total amount of tax on the transaction represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). Required for L2 rates. An integer greater than or equal to 0.
 
     This field is mutually exclusive with the `amount_details[line_items][#][tax][total_tax_amount]` field.
     """
@@ -274,7 +274,7 @@ class PaymentIntentIncrementAuthorizationParamsHooksInputs(TypedDict):
 class PaymentIntentIncrementAuthorizationParamsHooksInputsTax(TypedDict):
     calculation: Union[Literal[""], str]
     """
-    The [TaxCalculation](https://stripe.com/docs/api/tax/calculations) id
+    The [TaxCalculation](https://docs.stripe.com/api/tax/calculations) id
     """
 
 

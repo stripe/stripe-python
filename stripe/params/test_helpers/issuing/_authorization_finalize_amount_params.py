@@ -11,7 +11,7 @@ class AuthorizationFinalizeAmountParams(TypedDict):
     """
     final_amount: int
     """
-    The final authorization amount that will be captured by the merchant. This amount is in the authorization currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+    The final authorization amount that will be captured by the merchant. This amount is in the authorization currency and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
     """
     fleet: NotRequired["AuthorizationFinalizeAmountParamsFleet"]
     """

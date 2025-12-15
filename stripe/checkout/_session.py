@@ -50,19 +50,19 @@ class Session(
 ):
     """
     A Checkout Session represents your customer's session as they pay for
-    one-time purchases or subscriptions through [Checkout](https://stripe.com/docs/payments/checkout)
-    or [Payment Links](https://stripe.com/docs/payments/payment-links). We recommend creating a
+    one-time purchases or subscriptions through [Checkout](https://docs.stripe.com/payments/checkout)
+    or [Payment Links](https://docs.stripe.com/payments/payment-links). We recommend creating a
     new Session each time your customer attempts to pay.
 
     Once payment is successful, the Checkout Session will contain a reference
-    to the [Customer](https://stripe.com/docs/api/customers), and either the successful
-    [PaymentIntent](https://stripe.com/docs/api/payment_intents) or an active
-    [Subscription](https://stripe.com/docs/api/subscriptions).
+    to the [Customer](https://docs.stripe.com/api/customers), and either the successful
+    [PaymentIntent](https://docs.stripe.com/api/payment_intents) or an active
+    [Subscription](https://docs.stripe.com/api/subscriptions).
 
     You can create a Checkout Session on your server and redirect to its URL
     to begin Checkout.
 
-    Related guide: [Checkout quickstart](https://stripe.com/docs/checkout/quickstart)
+    Related guide: [Checkout quickstart](https://docs.stripe.com/checkout/quickstart)
     """
 
     OBJECT_NAME: ClassVar[Literal["checkout.session"]] = "checkout.session"
@@ -215,7 +215,7 @@ class Session(
                 """
                 state: Optional[str]
                 """
-                State, county, province, or region.
+                State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                 """
 
             address: Address
@@ -599,7 +599,7 @@ class Session(
             """
             state: Optional[str]
             """
-            State, county, province, or region.
+            State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             """
 
         class TaxId(StripeObject):
@@ -823,7 +823,7 @@ class Session(
             """
             metadata: Optional[Dict[str, str]]
             """
-            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+            Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
             """
             rendering_options: Optional[RenderingOptions]
             """
@@ -1151,7 +1151,7 @@ class Session(
             """
             request_three_d_secure: Literal["any", "automatic", "challenge"]
             """
-            We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+            We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
             """
             restrictions: Optional[Restrictions]
             setup_future_usage: Optional[
@@ -2312,10 +2312,10 @@ class Session(
                 """
                 discount: "DiscountResource"
                 """
-                A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
+                A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
                 It contains information about when the discount began, when it will end, and what it is applied to.
 
-                Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
+                Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
                 """
 
             class Tax(StripeObject):
@@ -2430,7 +2430,7 @@ class Session(
     client_secret: Optional[str]
     """
     The client secret of your Checkout Session. Applies to Checkout Sessions with `ui_mode: embedded` or `ui_mode: custom`. For `ui_mode: embedded`, the client secret is to be used when initializing Stripe.js embedded checkout.
-     For `ui_mode: custom`, use the client secret with [initCheckout](https://stripe.com/docs/js/custom_checkout/init) on your front end.
+     For `ui_mode: custom`, use the client secret with [initCheckout](https://docs.stripe.com/js/custom_checkout/init) on your front end.
     """
     collected_information: Optional[CollectedInformation]
     """
@@ -2571,7 +2571,7 @@ class Session(
     """
     metadata: Optional[Dict[str, str]]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     mode: Literal["payment", "setup", "subscription"]
     """
@@ -2592,7 +2592,7 @@ class Session(
     """
     payment_intent: Optional[ExpandableField["PaymentIntent"]]
     """
-    The ID of the PaymentIntent for Checkout Sessions in `payment` mode. You can't confirm or cancel the PaymentIntent for a Checkout Session. To cancel, [expire the Checkout Session](https://stripe.com/docs/api/checkout/sessions/expire) instead.
+    The ID of the PaymentIntent for Checkout Sessions in `payment` mode. You can't confirm or cancel the PaymentIntent for a Checkout Session. To cancel, [expire the Checkout Session](https://docs.stripe.com/api/checkout/sessions/expire) instead.
     """
     payment_link: Optional[ExpandableField["PaymentLink"]]
     """
@@ -2636,7 +2636,7 @@ class Session(
     """
     redirect_on_completion: Optional[Literal["always", "if_required", "never"]]
     """
-    This parameter applies to `ui_mode: embedded`. Learn more about the [redirect behavior](https://stripe.com/docs/payments/checkout/custom-success-page?payment-ui=embedded-form) of embedded sessions. Defaults to `always`.
+    This parameter applies to `ui_mode: embedded`. Learn more about the [redirect behavior](https://docs.stripe.com/payments/checkout/custom-success-page?payment-ui=embedded-form) of embedded sessions. Defaults to `always`.
     """
     return_url: Optional[str]
     """
@@ -2648,7 +2648,7 @@ class Session(
     """
     setup_intent: Optional[ExpandableField["SetupIntent"]]
     """
-    The ID of the SetupIntent for Checkout Sessions in `setup` mode. You can't confirm or cancel the SetupIntent for a Checkout Session. To cancel, [expire the Checkout Session](https://stripe.com/docs/api/checkout/sessions/expire) instead.
+    The ID of the SetupIntent for Checkout Sessions in `setup` mode. You can't confirm or cancel the SetupIntent for a Checkout Session. To cancel, [expire the Checkout Session](https://docs.stripe.com/api/checkout/sessions/expire) instead.
     """
     shipping_address_collection: Optional[ShippingAddressCollection]
     """
@@ -2676,7 +2676,7 @@ class Session(
     """
     subscription: Optional[ExpandableField["Subscription"]]
     """
-    The ID of the [Subscription](https://stripe.com/docs/api/subscriptions) for Checkout Sessions in `subscription` mode.
+    The ID of the [Subscription](https://docs.stripe.com/api/subscriptions) for Checkout Sessions in `subscription` mode.
     """
     success_url: Optional[str]
     """
@@ -2694,7 +2694,7 @@ class Session(
     """
     url: Optional[str]
     """
-    The URL to the Checkout Session. Applies to Checkout Sessions with `ui_mode: hosted`. Redirect customers to this URL to take them to Checkout. If you're using [Custom Domains](https://stripe.com/docs/payments/checkout/custom-domains), the URL will use your subdomain. Otherwise, it'll use `checkout.stripe.com.`
+    The URL to the Checkout Session. Applies to Checkout Sessions with `ui_mode: hosted`. Redirect customers to this URL to take them to Checkout. If you're using [Custom Domains](https://docs.stripe.com/payments/checkout/custom-domains), the URL will use your subdomain. Otherwise, it'll use `checkout.stripe.com.`
     This value is only present when the session is active.
     """
     wallet_options: Optional[WalletOptions]

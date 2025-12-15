@@ -26,8 +26,8 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
     is successful, values present on the ConfirmationToken are written onto the Intent.
 
     To learn more about how to use ConfirmationToken, visit the related guides:
-    - [Finalize payments on the server](https://stripe.com/docs/payments/finalize-payments-on-the-server)
-    - [Build two-step confirmation](https://stripe.com/docs/payments/build-a-two-step-confirmation).
+    - [Finalize payments on the server](https://docs.stripe.com/payments/finalize-payments-on-the-server)
+    - [Build two-step confirmation](https://docs.stripe.com/payments/build-a-two-step-confirmation).
     """
 
     OBJECT_NAME: ClassVar[Literal["confirmation_token"]] = "confirmation_token"
@@ -197,7 +197,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                 """
                 state: Optional[str]
                 """
-                State, county, province, or region.
+                State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                 """
 
             address: Optional[Address]
@@ -372,7 +372,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                         """
                         incremental_authorization_supported: bool
                         """
-                        Whether this [PaymentIntent](https://stripe.com/docs/api/payment_intents) is eligible for incremental authorizations. Request support using [request_incremental_authorization_support](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-payment_method_options-card_present-request_incremental_authorization_support).
+                        Whether this [PaymentIntent](https://docs.stripe.com/api/payment_intents) is eligible for incremental authorizations. Request support using [request_incremental_authorization_support](https://docs.stripe.com/api/payment_intents/create#create_payment_intent-payment_method_options-card_present-request_incremental_authorization_support).
                         """
                         issuer: Optional[str]
                         """
@@ -501,7 +501,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                         """
                         state: Optional[str]
                         """
-                        State, county, province, or region.
+                        State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                         """
 
                     class ShippingAddress(StripeObject):
@@ -527,7 +527,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                         """
                         state: Optional[str]
                         """
-                        State, county, province, or region.
+                        State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                         """
 
                     billing_address: Optional[BillingAddress]
@@ -578,7 +578,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                         """
                         state: Optional[str]
                         """
-                        State, county, province, or region.
+                        State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                         """
 
                     class ShippingAddress(StripeObject):
@@ -604,7 +604,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                         """
                         state: Optional[str]
                         """
-                        State, county, province, or region.
+                        State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                         """
 
                     billing_address: Optional[BillingAddress]
@@ -961,6 +961,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                     "handelsbanken",
                     "ing",
                     "knab",
+                    "mollie",
                     "moneyou",
                     "n26",
                     "nn",
@@ -974,7 +975,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                 ]
             ]
             """
-            The customer's bank, if provided. Can be one of `abn_amro`, `asn_bank`, `bunq`, `buut`, `finom`, `handelsbanken`, `ing`, `knab`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
+            The customer's bank, if provided. Can be one of `abn_amro`, `asn_bank`, `bunq`, `buut`, `finom`, `handelsbanken`, `ing`, `knab`, `mollie`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
             """
             bic: Optional[
                 Literal[
@@ -988,6 +989,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                     "HANDNL2A",
                     "INGBNL2A",
                     "KNABNL2H",
+                    "MLLENL2A",
                     "MOYONL21",
                     "NNBANL2G",
                     "NTSBDEB1",
@@ -1707,7 +1709,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             """
             state: Optional[str]
             """
-            State, county, province, or region.
+            State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             """
 
         address: Address
@@ -1765,7 +1767,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
     """
     Indicates that you intend to make future payments with this ConfirmationToken's payment method.
 
-    The presence of this property will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete.
+    The presence of this property will [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete.
     """
     setup_intent: Optional[str]
     """

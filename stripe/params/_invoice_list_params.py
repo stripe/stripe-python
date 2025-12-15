@@ -22,7 +22,7 @@ class InvoiceListParams(RequestOptions):
     """
     customer_account: NotRequired[str]
     """
-    Only return invoices for the account specified by this account ID.
+    Only return invoices for the account representing the customer specified by this account ID.
     """
     due_date: NotRequired["InvoiceListParamsDueDate|int"]
     ending_before: NotRequired[str]
@@ -45,7 +45,7 @@ class InvoiceListParams(RequestOptions):
         Literal["draft", "open", "paid", "uncollectible", "void"]
     ]
     """
-    The status of the invoice, one of `draft`, `open`, `paid`, `uncollectible`, or `void`. [Learn more](https://stripe.com/docs/billing/invoices/workflow#workflow-overview)
+    The status of the invoice, one of `draft`, `open`, `paid`, `uncollectible`, or `void`. [Learn more](https://docs.stripe.com/billing/invoices/workflow#workflow-overview)
     """
     subscription: NotRequired[str]
     """

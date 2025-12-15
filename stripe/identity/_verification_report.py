@@ -23,11 +23,11 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
     appropriate sub-resource: `document`, `id_number`, `selfie`.
 
     Each VerificationReport contains a copy of any data collected by the user as well as
-    reference IDs which can be used to access collected images through the [FileUpload](https://stripe.com/docs/api/files)
+    reference IDs which can be used to access collected images through the [FileUpload](https://docs.stripe.com/api/files)
     API. To configure and create VerificationReports, use the
-    [VerificationSession](https://stripe.com/docs/api/identity/verification_sessions) API.
+    [VerificationSession](https://docs.stripe.com/api/identity/verification_sessions) API.
 
-    Related guide: [Accessing verification results](https://stripe.com/docs/identity/verification-sessions#results).
+    Related guide: [Accessing verification results](https://docs.stripe.com/identity/verification-sessions#results).
     """
 
     OBJECT_NAME: ClassVar[Literal["identity.verification_report"]] = (
@@ -58,7 +58,7 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
             """
             state: Optional[str]
             """
-            State, county, province, or region.
+            State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             """
 
         class Dob(StripeObject):
@@ -137,7 +137,7 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
         """
         files: Optional[List[str]]
         """
-        Array of [File](https://stripe.com/docs/api/files) ids containing images for this document.
+        Array of [File](https://docs.stripe.com/api/files) ids containing images for this document.
         """
         first_name: Optional[str]
         """
@@ -287,7 +287,7 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
             """
             require_id_number: Optional[bool]
             """
-            Collect an ID number and perform an [ID number check](https://stripe.com/docs/identity/verification-checks?type=id-number) with the document's extracted name and date of birth.
+            Collect an ID number and perform an [ID number check](https://docs.stripe.com/identity/verification-checks?type=id-number) with the document's extracted name and date of birth.
             """
             require_live_capture: Optional[bool]
             """
@@ -295,7 +295,7 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
             """
             require_matching_selfie: Optional[bool]
             """
-            Capture a face image and perform a [selfie check](https://stripe.com/docs/identity/verification-checks?type=selfie) comparing a photo ID and a picture of your user's face. [Learn more](https://stripe.com/docs/identity/selfie).
+            Capture a face image and perform a [selfie check](https://docs.stripe.com/identity/verification-checks?type=selfie) comparing a photo ID and a picture of your user's face. [Learn more](https://docs.stripe.com/identity/selfie).
             """
 
         class IdNumber(StripeObject):
@@ -354,7 +354,7 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
 
         document: Optional[str]
         """
-        ID of the [File](https://stripe.com/docs/api/files) holding the image of the identity document used in this check.
+        ID of the [File](https://docs.stripe.com/api/files) holding the image of the identity document used in this check.
         """
         error: Optional[Error]
         """
@@ -362,7 +362,7 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
         """
         selfie: Optional[str]
         """
-        ID of the [File](https://stripe.com/docs/api/files) holding the image of the selfie used in this check.
+        ID of the [File](https://docs.stripe.com/api/files) holding the image of the selfie used in this check.
         """
         status: Literal["unverified", "verified"]
         """

@@ -59,11 +59,11 @@ class Account(ListableAPIResource["Account"]):
     class AccountHolder(StripeObject):
         account: Optional[ExpandableField["AccountResource"]]
         """
-        The ID of the Stripe account this account belongs to. Should only be present if `account_holder.type` is `account`.
+        The ID of the Stripe account that this account belongs to. Only available when `account_holder.type` is `account`.
         """
         customer: Optional[ExpandableField["Customer"]]
         """
-        ID of the Stripe customer this account belongs to. Present if and only if `account_holder.type` is `customer`.
+        The ID for an Account representing a customer that this account belongs to. Only available when `account_holder.type` is `customer`.
         """
         customer_account: Optional[str]
         type: Literal["account", "customer"]
@@ -298,7 +298,7 @@ class Account(ListableAPIResource["Account"]):
     """
     supported_payment_method_types: List[Literal["link", "us_bank_account"]]
     """
-    The [PaymentMethod type](https://stripe.com/docs/api/payment_methods/object#payment_method_object-type)(s) that can be created from this account.
+    The [PaymentMethod type](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type)(s) that can be created from this account.
     """
     transaction_refresh: Optional[TransactionRefresh]
     """

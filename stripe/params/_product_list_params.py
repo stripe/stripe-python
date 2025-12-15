@@ -24,7 +24,7 @@ class ProductListParams(RequestOptions):
     """
     ids: NotRequired[List[str]]
     """
-    Only return products with the given IDs. Cannot be used with [starting_after](https://stripe.com/docs/api#list_products-starting_after) or [ending_before](https://stripe.com/docs/api#list_products-ending_before).
+    Only return products with the given IDs. Cannot be used with [starting_after](https://api.stripe.com#list_products-starting_after) or [ending_before](https://api.stripe.com#list_products-ending_before).
     """
     limit: NotRequired[int]
     """

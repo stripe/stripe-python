@@ -53,14 +53,14 @@ class PaymentIntentAmountDetailsLineItem(StripeObject):
     class Tax(StripeObject):
         total_tax_amount: int
         """
-        The total amount of tax on the transaction represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L2 rates. An integer greater than or equal to 0.
+        The total amount of tax on the transaction represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). Required for L2 rates. An integer greater than or equal to 0.
 
         This field is mutually exclusive with the `amount_details[line_items][#][tax][total_tax_amount]` field.
         """
 
     discount_amount: Optional[int]
     """
-    The discount applied on this line item represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). An integer greater than 0.
+    The discount applied on this line item represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). An integer greater than 0.
 
     This field is mutually exclusive with the `amount_details[discount_amount]` field.
     """
@@ -96,7 +96,7 @@ class PaymentIntentAmountDetailsLineItem(StripeObject):
     """
     unit_cost: int
     """
-    The unit cost of the line item represented in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Required for L3 rates. An integer greater than or equal to 0.
+    The unit cost of the line item represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). Required for L3 rates. An integer greater than or equal to 0.
     """
     unit_of_measure: Optional[str]
     """

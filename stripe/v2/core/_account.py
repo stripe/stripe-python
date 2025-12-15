@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from stripe.v2._amount import Amount
 from typing import ClassVar, Dict, List, Optional
 from typing_extensions import Literal
 
@@ -28,7 +27,7 @@ class Account(StripeObject):
 
                 exempt: Optional[Literal["exempt", "none", "reverse"]]
                 """
-                Describes the customer's tax exemption status, which is `none`, `exempt`, or `reverse`. When set to reverse, invoice and receipt PDFs include the following text: “Reverse charge”.
+                The customer account's tax exemption status: `none`, `exempt`, or `reverse`. When `reverse`, invoice and receipt PDFs include "Reverse charge".
                 """
                 ip_address: Optional[str]
                 """
@@ -36,7 +35,7 @@ class Account(StripeObject):
                 """
                 location: Optional[Location]
                 """
-                The [identified](https://docs.stripe.com/tax/customer-locations#address-hierarchy-other) tax location of the customer. Will only be rendered if the `automatic_indirect_tax` feature is requested and `active`.
+                The customer account's identified tax location, derived from `location_source`. Only rendered if the `automatic_indirect_tax` feature is requested and `active`.
                 """
                 location_source: Optional[
                     Literal[
@@ -47,7 +46,7 @@ class Account(StripeObject):
                     ]
                 ]
                 """
-                The data source used to identify the customer's tax location. Will only be used for automatic tax calculation on the customer's Invoices and Subscriptions.
+                Data source used to identify the customer account's tax location. Defaults to `identity_address`. Used for automatic indirect tax calculation.
                 """
                 _inner_class_types = {"location": Location}
 
@@ -68,7 +67,7 @@ class Account(StripeObject):
                             Literal["exclude_tax", "include_inclusive_tax"]
                         ]
                         """
-                        How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of exclude_tax or include_inclusive_tax. include_inclusive_tax will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. exclude_tax will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
+                        Indicates whether displayed line item prices and amounts on invoice PDFs include inclusive tax amounts. Must be either `include_inclusive_tax` or `exclude_tax`.
                         """
                         template: Optional[str]
                         """
@@ -81,19 +80,19 @@ class Account(StripeObject):
                     """
                     footer: Optional[str]
                     """
-                    Default footer to be displayed on invoices for this customer.
+                    Default invoice footer.
                     """
                     next_sequence: Optional[int]
                     """
-                    The sequence to be used on the customer's next invoice. Defaults to 1.
+                    Sequence number to use on the customer account's next invoice. Defaults to 1.
                     """
                     prefix: Optional[str]
                     """
-                    The prefix for the customer used to generate unique invoice numbers. Must be 3–12 uppercase letters or numbers.
+                    Prefix used to generate unique invoice numbers. Must be 3-12 uppercase letters or numbers.
                     """
                     rendering: Optional[Rendering]
                     """
-                    Default options for invoice PDF rendering for this customer.
+                    Default invoice PDF rendering options.
                     """
                     _inner_class_types = {
                         "custom_fields": CustomField,
@@ -102,11 +101,11 @@ class Account(StripeObject):
 
                 default_payment_method: Optional[str]
                 """
-                ID of a payment method that's attached to the customer, to be used as the customer's default payment method for invoices and subscriptions.
+                ID of a PaymentMethod attached to the customer account to use as the default for invoices and subscriptions.
                 """
                 invoice: Optional[Invoice]
                 """
-                Default settings used on invoices for this customer.
+                Default invoice settings for the customer account.
                 """
                 _inner_class_types = {"invoice": Invoice}
 
@@ -132,10 +131,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -144,7 +139,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -199,15 +194,15 @@ class Account(StripeObject):
 
             applied: bool
             """
-            Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
+            Indicates whether the customer configuration is active. You can deactivate or reactivate the customer configuration by updating this property. Deactivating the configuration by setting this value to false will unrequest all capabilities within the configuration. It will not delete any of the configuration's other properties.
             """
             automatic_indirect_tax: Optional[AutomaticIndirectTax]
             """
-            Automatic indirect tax settings to be used when automatic tax calculation is enabled on the customer's invoices, subscriptions, checkout sessions, or payment links. Surfaces if automatic tax calculation is possible given the current customer location information.
+            Settings for automatic indirect tax calculation on the customer's invoices, subscriptions, Checkout Sessions, and Payment Links. Available when automatic tax calculation is available for the customer account's location.
             """
             billing: Optional[Billing]
             """
-            Billing settings - default settings used for this customer in Billing flows such as Invoices and Subscriptions.
+            Default Billing settings for the customer account, used in Invoices and Subscriptions.
             """
             capabilities: Optional[Capabilities]
             """
@@ -232,11 +227,11 @@ class Account(StripeObject):
             class BacsDebitPayments(StripeObject):
                 display_name: Optional[str]
                 """
-                Display name for Bacs debit payments.
+                Display name for Bacs Direct Debit payments.
                 """
                 service_user_number: Optional[str]
                 """
-                Service user number for Bacs debit payments.
+                Service User Number (SUN) for Bacs Direct Debit payments.
                 """
 
             class Branding(StripeObject):
@@ -279,10 +274,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -291,7 +282,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -316,10 +307,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -328,7 +315,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -353,10 +340,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -365,7 +348,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -390,10 +373,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -402,7 +381,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -427,10 +406,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -439,7 +414,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -464,10 +439,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -476,7 +447,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -501,10 +472,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -513,7 +480,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -538,10 +505,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -550,7 +513,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -575,10 +538,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -587,7 +546,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -612,10 +571,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -624,7 +579,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -649,10 +604,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -661,7 +612,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -686,10 +637,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -698,7 +645,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -723,10 +670,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -735,7 +678,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -760,10 +703,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -772,7 +711,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -797,10 +736,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -809,7 +744,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -834,10 +769,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -846,7 +777,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -871,10 +802,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -883,7 +810,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -908,10 +835,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -920,7 +843,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -945,10 +868,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -957,7 +876,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -982,10 +901,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -994,7 +909,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -1019,10 +934,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1031,7 +942,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -1056,10 +967,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1068,7 +975,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -1093,10 +1000,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1105,7 +1008,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -1130,10 +1033,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1142,7 +1041,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -1167,10 +1066,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1179,7 +1074,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -1204,10 +1099,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1216,7 +1107,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -1241,10 +1132,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1253,7 +1140,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -1278,10 +1165,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1290,7 +1173,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -1315,10 +1198,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1327,7 +1206,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -1352,10 +1231,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1364,7 +1239,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -1389,10 +1264,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1401,7 +1272,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -1426,10 +1297,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1438,7 +1305,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -1463,10 +1330,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1475,7 +1338,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -1500,10 +1363,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1512,7 +1371,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -1537,10 +1396,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1549,7 +1404,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -1574,10 +1429,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1586,7 +1437,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -1611,10 +1462,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1623,7 +1470,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -1648,10 +1495,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1660,7 +1503,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -1685,10 +1528,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1697,7 +1536,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -1722,10 +1561,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1734,7 +1569,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -1762,10 +1597,6 @@ class Account(StripeObject):
                             Machine-readable code explaining how to make the Capability active.
                             """
 
-                        requested: bool
-                        """
-                        Whether the Capability has been requested.
-                        """
                         status: Literal[
                             "active", "pending", "restricted", "unsupported"
                         ]
@@ -1774,13 +1605,13 @@ class Account(StripeObject):
                         """
                         status_details: List[StatusDetail]
                         """
-                        Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                        Additional details about the capability's status. This value is empty when `status` is `active`.
                         """
                         _inner_class_types = {"status_details": StatusDetail}
 
                     payouts: Optional[Payouts]
                     """
-                    Allows the account to do payouts using their Stripe Balance (/v1/balance).
+                    Enables this Account to complete payouts from their Stripe Balance (/v1/balance).
                     """
                     _inner_class_types = {"payouts": Payouts}
 
@@ -1805,10 +1636,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1817,7 +1644,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -1842,10 +1669,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1854,7 +1677,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -1879,10 +1702,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1891,7 +1710,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -1916,10 +1735,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1928,7 +1743,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -2243,7 +2058,7 @@ class Account(StripeObject):
             class SepaDebitPayments(StripeObject):
                 creditor_id: Optional[str]
                 """
-                Creditor ID for SEPA debit payments.
+                Creditor ID for SEPA Direct Debit payments.
                 """
 
             class StatementDescriptor(StripeObject):
@@ -2284,7 +2099,7 @@ class Account(StripeObject):
                     """
                     town: Optional[str]
                     """
-                    Town or cho-me.
+                    Town or district.
                     """
 
                 address: Optional[Address]
@@ -2307,11 +2122,11 @@ class Account(StripeObject):
 
             applied: bool
             """
-            Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
+            Indicates whether the merchant configuration is active. You can deactivate or reactivate the merchant configuration by updating this property. Deactivating the configuration by setting this value to false doesn't delete the configuration's properties.
             """
             bacs_debit_payments: Optional[BacsDebitPayments]
             """
-            Settings used for Bacs debit payments.
+            Settings for Bacs Direct Debit payments.
             """
             branding: Optional[Branding]
             """
@@ -2331,7 +2146,7 @@ class Account(StripeObject):
             """
             mcc: Optional[str]
             """
-            The merchant category code for the merchant. MCCs are used to classify businesses based on the goods or services they provide.
+            The Merchant Category Code (MCC) for the merchant. MCCs classify businesses based on the goods or services they provide.
             """
             script_statement_descriptor: Optional[ScriptStatementDescriptor]
             """
@@ -2339,7 +2154,7 @@ class Account(StripeObject):
             """
             sepa_debit_payments: Optional[SepaDebitPayments]
             """
-            Settings used for SEPA debit payments.
+            Settings for SEPA Direct Debit payments.
             """
             statement_descriptor: Optional[StatementDescriptor]
             """
@@ -2387,10 +2202,6 @@ class Account(StripeObject):
                             Machine-readable code explaining how to make the Capability active.
                             """
 
-                        requested: bool
-                        """
-                        Whether the Capability has been requested.
-                        """
                         status: Literal[
                             "active", "pending", "restricted", "unsupported"
                         ]
@@ -2399,7 +2210,7 @@ class Account(StripeObject):
                         """
                         status_details: List[StatusDetail]
                         """
-                        Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                        Additional details about the capability's status. This value is empty when `status` is `active`.
                         """
                         _inner_class_types = {"status_details": StatusDetail}
 
@@ -2426,10 +2237,6 @@ class Account(StripeObject):
                             Machine-readable code explaining how to make the Capability active.
                             """
 
-                        requested: bool
-                        """
-                        Whether the Capability has been requested.
-                        """
                         status: Literal[
                             "active", "pending", "restricted", "unsupported"
                         ]
@@ -2438,7 +2245,7 @@ class Account(StripeObject):
                         """
                         status_details: List[StatusDetail]
                         """
-                        Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                        Additional details about the capability's status. This value is empty when `status` is `active`.
                         """
                         _inner_class_types = {"status_details": StatusDetail}
 
@@ -2473,10 +2280,6 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
-                    requested: bool
-                    """
-                    Whether the Capability has been requested.
-                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -2485,7 +2288,7 @@ class Account(StripeObject):
                     """
                     status_details: List[StatusDetail]
                     """
-                    Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
@@ -2513,10 +2316,6 @@ class Account(StripeObject):
                             Machine-readable code explaining how to make the Capability active.
                             """
 
-                        requested: bool
-                        """
-                        Whether the Capability has been requested.
-                        """
                         status: Literal[
                             "active", "pending", "restricted", "unsupported"
                         ]
@@ -2525,7 +2324,7 @@ class Account(StripeObject):
                         """
                         status_details: List[StatusDetail]
                         """
-                        Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                        Additional details about the capability's status. This value is empty when `status` is `active`.
                         """
                         _inner_class_types = {"status_details": StatusDetail}
 
@@ -2552,10 +2351,6 @@ class Account(StripeObject):
                             Machine-readable code explaining how to make the Capability active.
                             """
 
-                        requested: bool
-                        """
-                        Whether the Capability has been requested.
-                        """
                         status: Literal[
                             "active", "pending", "restricted", "unsupported"
                         ]
@@ -2564,17 +2359,17 @@ class Account(StripeObject):
                         """
                         status_details: List[StatusDetail]
                         """
-                        Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                        Additional details about the capability's status. This value is empty when `status` is `active`.
                         """
                         _inner_class_types = {"status_details": StatusDetail}
 
                     payouts: Optional[Payouts]
                     """
-                    Allows the account to do payouts using their Stripe Balance (/v1/balance).
+                    Enables this Account to complete payouts from their Stripe Balance (/v1/balance).
                     """
                     stripe_transfers: Optional[StripeTransfers]
                     """
-                    Allows the account to receive /v1/transfers into their Stripe Balance (/v1/balance).
+                    Enables this Account to receive /v1/transfers into their Stripe Balance (/v1/balance).
                     """
                     _inner_class_types = {
                         "payouts": Payouts,
@@ -2587,7 +2382,7 @@ class Account(StripeObject):
                 """
                 cards: Optional[Cards]
                 """
-                Capability that enable OutboundPayments to a debit card linked to this Account.
+                Enables this Account to receive OutboundPayments to a linked debit card.
                 """
                 stripe_balance: Optional[StripeBalance]
                 """
@@ -2605,13 +2400,17 @@ class Account(StripeObject):
                 The payout method ID of the default outbound destination.
                 """
                 type: Literal[
+                    "al_bank_account",
+                    "am_bank_account",
                     "at_bank_account",
                     "au_bank_account",
                     "ba_bank_account",
                     "be_bank_account",
                     "bg_bank_account",
                     "bj_bank_account",
+                    "bn_bank_account",
                     "bs_bank_account",
+                    "bw_bank_account",
                     "card",
                     "ca_bank_account",
                     "ch_bank_account",
@@ -2621,6 +2420,7 @@ class Account(StripeObject):
                     "cz_bank_account",
                     "de_bank_account",
                     "dk_bank_account",
+                    "dz_bank_account",
                     "ec_bank_account",
                     "ee_bank_account",
                     "es_bank_account",
@@ -2629,6 +2429,7 @@ class Account(StripeObject):
                     "fr_bank_account",
                     "gb_bank_account",
                     "gr_bank_account",
+                    "gy_bank_account",
                     "hr_bank_account",
                     "hu_bank_account",
                     "id_bank_account",
@@ -2637,11 +2438,16 @@ class Account(StripeObject):
                     "in_bank_account",
                     "is_bank_account",
                     "it_bank_account",
+                    "jm_bank_account",
+                    "jo_bank_account",
                     "ke_bank_account",
+                    "kw_bank_account",
                     "li_bank_account",
+                    "lk_bank_account",
                     "lt_bank_account",
                     "lu_bank_account",
                     "lv_bank_account",
+                    "ma_bank_account",
                     "mn_bank_account",
                     "mt_bank_account",
                     "mu_bank_account",
@@ -2650,6 +2456,7 @@ class Account(StripeObject):
                     "nl_bank_account",
                     "no_bank_account",
                     "nz_bank_account",
+                    "om_bank_account",
                     "pa_bank_account",
                     "ph_bank_account",
                     "pl_bank_account",
@@ -2664,6 +2471,7 @@ class Account(StripeObject):
                     "sv_bank_account",
                     "tn_bank_account",
                     "tr_bank_account",
+                    "tz_bank_account",
                     "us_bank_account",
                     "za_bank_account",
                 ]
@@ -2673,7 +2481,7 @@ class Account(StripeObject):
 
             applied: bool
             """
-            Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
+            Indicates whether the recipient configuration is active. You can deactivate or reactivate the recipient configuration by updating this property. Deactivating the configuration by setting this value to false  unrequest all capabilities within the configuration. It will not delete any of the configuration's other properties.
             """
             capabilities: Optional[Capabilities]
             """
@@ -2714,10 +2522,6 @@ class Account(StripeObject):
                             Machine-readable code explaining how to make the Capability active.
                             """
 
-                        requested: bool
-                        """
-                        Whether the Capability has been requested.
-                        """
                         status: Literal[
                             "active", "pending", "restricted", "unsupported"
                         ]
@@ -2726,7 +2530,7 @@ class Account(StripeObject):
                         """
                         status_details: List[StatusDetail]
                         """
-                        Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                        Additional details about the capability's status. This value is empty when `status` is `active`.
                         """
                         _inner_class_types = {"status_details": StatusDetail}
 
@@ -2760,10 +2564,6 @@ class Account(StripeObject):
                             Machine-readable code explaining how to make the Capability active.
                             """
 
-                        requested: bool
-                        """
-                        Whether the Capability has been requested.
-                        """
                         status: Literal[
                             "active", "pending", "restricted", "unsupported"
                         ]
@@ -2772,7 +2572,7 @@ class Account(StripeObject):
                         """
                         status_details: List[StatusDetail]
                         """
-                        Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                        Additional details about the capability's status. This value is empty when `status` is `active`.
                         """
                         _inner_class_types = {"status_details": StatusDetail}
 
@@ -2799,10 +2599,6 @@ class Account(StripeObject):
                             Machine-readable code explaining how to make the Capability active.
                             """
 
-                        requested: bool
-                        """
-                        Whether the Capability has been requested.
-                        """
                         status: Literal[
                             "active", "pending", "restricted", "unsupported"
                         ]
@@ -2811,7 +2607,7 @@ class Account(StripeObject):
                         """
                         status_details: List[StatusDetail]
                         """
-                        Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                        Additional details about the capability's status. This value is empty when `status` is `active`.
                         """
                         _inner_class_types = {"status_details": StatusDetail}
 
@@ -2838,10 +2634,6 @@ class Account(StripeObject):
                             Machine-readable code explaining how to make the Capability active.
                             """
 
-                        requested: bool
-                        """
-                        Whether the Capability has been requested.
-                        """
                         status: Literal[
                             "active", "pending", "restricted", "unsupported"
                         ]
@@ -2850,7 +2642,7 @@ class Account(StripeObject):
                         """
                         status_details: List[StatusDetail]
                         """
-                        Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                        Additional details about the capability's status. This value is empty when `status` is `active`.
                         """
                         _inner_class_types = {"status_details": StatusDetail}
 
@@ -2892,10 +2684,6 @@ class Account(StripeObject):
                             Machine-readable code explaining how to make the Capability active.
                             """
 
-                        requested: bool
-                        """
-                        Whether the Capability has been requested.
-                        """
                         status: Literal[
                             "active", "pending", "restricted", "unsupported"
                         ]
@@ -2904,13 +2692,13 @@ class Account(StripeObject):
                         """
                         status_details: List[StatusDetail]
                         """
-                        Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                        Additional details about the capability's status. This value is empty when `status` is `active`.
                         """
                         _inner_class_types = {"status_details": StatusDetail}
 
                     bank_accounts: Optional[BankAccounts]
                     """
-                    Can pull funds from an external bank account, owned by yourself, to a FinancialAccount.
+                    Can pull funds into a FinancialAccount from an external bank account owned by the user.
                     """
                     _inner_class_types = {"bank_accounts": BankAccounts}
 
@@ -2938,10 +2726,6 @@ class Account(StripeObject):
                             Machine-readable code explaining how to make the Capability active.
                             """
 
-                        requested: bool
-                        """
-                        Whether the Capability has been requested.
-                        """
                         status: Literal[
                             "active", "pending", "restricted", "unsupported"
                         ]
@@ -2950,7 +2734,7 @@ class Account(StripeObject):
                         """
                         status_details: List[StatusDetail]
                         """
-                        Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                        Additional details about the capability's status. This value is empty when `status` is `active`.
                         """
                         _inner_class_types = {"status_details": StatusDetail}
 
@@ -2977,10 +2761,6 @@ class Account(StripeObject):
                             Machine-readable code explaining how to make the Capability active.
                             """
 
-                        requested: bool
-                        """
-                        Whether the Capability has been requested.
-                        """
                         status: Literal[
                             "active", "pending", "restricted", "unsupported"
                         ]
@@ -2989,7 +2769,7 @@ class Account(StripeObject):
                         """
                         status_details: List[StatusDetail]
                         """
-                        Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                        Additional details about the capability's status. This value is empty when `status` is `active`.
                         """
                         _inner_class_types = {"status_details": StatusDetail}
 
@@ -3016,10 +2796,6 @@ class Account(StripeObject):
                             Machine-readable code explaining how to make the Capability active.
                             """
 
-                        requested: bool
-                        """
-                        Whether the Capability has been requested.
-                        """
                         status: Literal[
                             "active", "pending", "restricted", "unsupported"
                         ]
@@ -3028,21 +2804,21 @@ class Account(StripeObject):
                         """
                         status_details: List[StatusDetail]
                         """
-                        Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                        Additional details about the capability's status. This value is empty when `status` is `active`.
                         """
                         _inner_class_types = {"status_details": StatusDetail}
 
                     bank_accounts: Optional[BankAccounts]
                     """
-                    Can send funds from a FinancialAccount to a bank account, owned by someone else.
+                    Can send funds from a FinancialAccount to a bank account owned by a different entity.
                     """
                     cards: Optional[Cards]
                     """
-                    Can send funds from a FinancialAccount to a debit card, owned by someone else.
+                    Can send funds from a FinancialAccount to a debit card owned by a different entity.
                     """
                     financial_accounts: Optional[FinancialAccounts]
                     """
-                    Can send funds from a FinancialAccount to another FinancialAccount, owned by someone else.
+                    Can send funds from a FinancialAccount to a FinancialAccount owned by a different entity.
                     """
                     _inner_class_types = {
                         "bank_accounts": BankAccounts,
@@ -3074,10 +2850,6 @@ class Account(StripeObject):
                             Machine-readable code explaining how to make the Capability active.
                             """
 
-                        requested: bool
-                        """
-                        Whether the Capability has been requested.
-                        """
                         status: Literal[
                             "active", "pending", "restricted", "unsupported"
                         ]
@@ -3086,7 +2858,7 @@ class Account(StripeObject):
                         """
                         status_details: List[StatusDetail]
                         """
-                        Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                        Additional details about the capability's status. This value is empty when `status` is `active`.
                         """
                         _inner_class_types = {"status_details": StatusDetail}
 
@@ -3113,10 +2885,6 @@ class Account(StripeObject):
                             Machine-readable code explaining how to make the Capability active.
                             """
 
-                        requested: bool
-                        """
-                        Whether the Capability has been requested.
-                        """
                         status: Literal[
                             "active", "pending", "restricted", "unsupported"
                         ]
@@ -3125,17 +2893,17 @@ class Account(StripeObject):
                         """
                         status_details: List[StatusDetail]
                         """
-                        Additional details regarding the status of the Capability. `status_details` will be empty if the Capability's status is `active`.
+                        Additional details about the capability's status. This value is empty when `status` is `active`.
                         """
                         _inner_class_types = {"status_details": StatusDetail}
 
                     bank_accounts: Optional[BankAccounts]
                     """
-                    Can send funds from a FinancialAccount, to a bank account, owned by yourself.
+                    Can send funds from a FinancialAccount to a bank account belonging to the same user.
                     """
                     financial_accounts: Optional[FinancialAccounts]
                     """
-                    Can send funds from a FinancialAccount to another FinancialAccount, owned by yourself.
+                    Can send funds from a FinancialAccount to another FinancialAccount belonging to the same user.
                     """
                     _inner_class_types = {
                         "bank_accounts": BankAccounts,
@@ -3152,15 +2920,15 @@ class Account(StripeObject):
                 """
                 inbound_transfers: Optional[InboundTransfers]
                 """
-                Can pull funds from an external source, owned by yourself, to a FinancialAccount.
+                Hash containing capabilities related to InboundTransfers.
                 """
                 outbound_payments: Optional[OutboundPayments]
                 """
-                Can send funds from a FinancialAccount to a destination owned by someone else.
+                Hash containing capabilities related to [OutboundPayments](https://docs.stripe.com/api/treasury/outbound_payments?api-version=preview).
                 """
                 outbound_transfers: Optional[OutboundTransfers]
                 """
-                Can send funds from a FinancialAccount to a destination owned by yourself.
+                Hash containing capabilities related to [OutboundTransfers](https://docs.stripe.com/api/treasury/outbound_transfers?api-version=preview).
                 """
                 _inner_class_types = {
                     "financial_addresses": FinancialAddresses,
@@ -3172,7 +2940,7 @@ class Account(StripeObject):
 
             applied: bool
             """
-            Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
+            Indicates whether the storer configuration is active. You cannot deactivate (or reactivate) the storer configuration by updating this property.
             """
             capabilities: Optional[Capabilities]
             """
@@ -3186,11 +2954,11 @@ class Account(StripeObject):
         """
         merchant: Optional[Merchant]
         """
-        The Merchant configuration allows the Account to act as a connected account and collect payments facilitated by a Connect platform. You can add this configuration to your connected accounts only if you've completed onboarding as a Connect platform.
+        Enables the Account to act as a connected account and collect payments facilitated by a Connect platform. You must onboard your platform to Connect before you can add this configuration to your connected accounts. Utilize this configuration when the Account will be the Merchant of Record, like with Direct charges or Destination Charges with on_behalf_of set.
         """
         recipient: Optional[Recipient]
         """
-        The Recipient Configuration allows the Account to receive funds.
+        The Recipient Configuration allows the Account to receive funds. Utilize this configuration if the Account will not be the Merchant of Record, like with Separate Charges & Transfers, or Destination Charges without on_behalf_of set.
         """
         storer: Optional[Storer]
         """
@@ -3211,7 +2979,7 @@ class Account(StripeObject):
             """
             doing_business_as: Optional[str]
             """
-            The company's legal name.
+            The customer-facing business name.
             """
             product_description: Optional[str]
             """
@@ -3219,18 +2987,20 @@ class Account(StripeObject):
             """
 
         class Responsibilities(StripeObject):
-            fees_collector: Literal[
-                "application",
-                "application_custom",
-                "application_express",
-                "stripe",
+            fees_collector: Optional[
+                Literal[
+                    "application",
+                    "application_custom",
+                    "application_express",
+                    "stripe",
+                ]
             ]
             """
-            A value indicating the responsible payer of a bundle of Stripe fees for pricing-control eligible products on this Account.
+            Indicates whether the platform or connected account is responsible for paying Stripe fees for pricing-control-eligible products.
             """
-            losses_collector: Literal["application", "stripe"]
+            losses_collector: Optional[Literal["application", "stripe"]]
             """
-            A value indicating who is responsible for losses when this Account can't pay back negative balances from payments.
+            A value indicating responsibility for collecting requirements on this account.
             """
             requirements_collector: Literal["application", "stripe"]
             """
@@ -3338,7 +3108,7 @@ class Account(StripeObject):
         """
         Account profile information.
         """
-        responsibilities: Optional[Responsibilities]
+        responsibilities: Responsibilities
         """
         Default responsibilities held by either Stripe or the platform.
         """
@@ -3580,7 +3350,7 @@ class Account(StripeObject):
 
             awaiting_action_from: Literal["stripe", "user"]
             """
-            Whether the responsibility is with the integrator or with Stripe (to review info, to wait for some condition, etc.) to action the requirement.
+            Indicates whether the platform or Stripe is currently responsible for taking action on the requirement. Value can be `user` or `stripe`.
             """
             description: str
             """
@@ -3807,18 +3577,29 @@ class Account(StripeObject):
                 """
                 town: Optional[str]
                 """
-                Town or cho-me.
+                Town or district.
                 """
 
             class AnnualRevenue(StripeObject):
+                class Amount(StripeObject):
+                    currency: Optional[str]
+                    """
+                    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                    """
+                    value: Optional[int]
+                    """
+                    A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+                    """
+
                 amount: Optional[Amount]
                 """
-                A non-negative integer representing the amount in the smallest currency unit.
+                Annual revenue amount in minor currency units (for example, '123' for 1.23 USD).
                 """
                 fiscal_year_end: Optional[str]
                 """
                 The close-out date of the preceding fiscal year in ISO 8601 format. E.g. 2023-12-31 for the 31st of December, 2023.
                 """
+                _inner_class_types = {"amount": Amount}
 
             class Documents(StripeObject):
                 class BankAccountOwnershipVerification(StripeObject):
@@ -4004,70 +3785,111 @@ class Account(StripeObject):
                     "ao_nif",
                     "ar_cuit",
                     "at_fn",
+                    "at_stn",
+                    "at_vat",
                     "au_abn",
                     "au_acn",
                     "au_in",
                     "az_tin",
                     "bd_etin",
                     "be_cbe",
+                    "be_vat",
                     "bg_uic",
+                    "bg_vat",
                     "br_cnpj",
                     "ca_cn",
                     "ca_crarr",
+                    "ca_gst_hst",
                     "ca_neq",
                     "ca_rid",
                     "ch_chid",
                     "ch_uid",
                     "cr_cpj",
                     "cr_nite",
+                    "cy_he",
                     "cy_tic",
+                    "cy_vat",
                     "cz_ico",
+                    "cz_vat",
                     "de_hrn",
+                    "de_stn",
                     "de_vat",
                     "dk_cvr",
+                    "dk_vat",
                     "do_rcn",
                     "ee_rk",
+                    "ee_vat",
                     "es_cif",
+                    "es_vat",
+                    "fi_vat",
                     "fi_yt",
+                    "fr_rna",
                     "fr_siren",
                     "fr_vat",
                     "gb_crn",
                     "gi_crn",
+                    "gr_afm",
                     "gr_gemi",
+                    "gr_vat",
                     "gt_nit",
                     "hk_br",
                     "hk_cr",
-                    "hk_mbs",
+                    "hr_mbs",
+                    "hr_oib",
+                    "hr_vat",
                     "hu_cjs",
+                    "hu_tin",
+                    "hu_vat",
                     "ie_crn",
+                    "ie_trn",
+                    "ie_vat",
                     "it_rea",
                     "it_vat",
                     "jp_cn",
                     "kz_bin",
                     "li_uid",
                     "lt_ccrn",
+                    "lt_vat",
+                    "lu_nif",
                     "lu_rcs",
+                    "lu_vat",
                     "lv_urn",
+                    "lv_vat",
                     "mt_crn",
+                    "mt_tin",
+                    "mt_vat",
                     "mx_rfc",
                     "my_brn",
                     "my_coid",
+                    "my_itn",
                     "my_sst",
                     "mz_nuit",
                     "nl_kvk",
+                    "nl_rsin",
+                    "nl_vat",
                     "no_orgnr",
                     "nz_bn",
+                    "nz_ird",
                     "pe_ruc",
                     "pk_ntn",
+                    "pl_nip",
                     "pl_regon",
+                    "pl_vat",
                     "pt_vat",
                     "ro_cui",
+                    "ro_orc",
+                    "ro_vat",
                     "sa_crn",
                     "sa_tin",
                     "se_orgnr",
+                    "se_vat",
                     "sg_uen",
                     "si_msp",
+                    "si_tin",
+                    "si_vat",
+                    "sk_dic",
                     "sk_ico",
+                    "sk_vat",
                     "th_crn",
                     "th_prn",
                     "th_tin",
@@ -4078,10 +3900,21 @@ class Account(StripeObject):
                 """
 
             class MonthlyEstimatedRevenue(StripeObject):
+                class Amount(StripeObject):
+                    currency: Optional[str]
+                    """
+                    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                    """
+                    value: Optional[int]
+                    """
+                    A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+                    """
+
                 amount: Optional[Amount]
                 """
-                A non-negative integer representing the amount in the smallest currency unit.
+                Estimated monthly revenue amount in minor currency units (for example, '123' for 1.23 USD).
                 """
+                _inner_class_types = {"amount": Amount}
 
             class ScriptAddresses(StripeObject):
                 class Kana(StripeObject):
@@ -4111,7 +3944,7 @@ class Account(StripeObject):
                     """
                     town: Optional[str]
                     """
-                    Town or cho-me.
+                    Town or district.
                     """
 
                 class Kanji(StripeObject):
@@ -4141,7 +3974,7 @@ class Account(StripeObject):
                     """
                     town: Optional[str]
                     """
-                    Town or cho-me.
+                    Town or district.
                     """
 
                 kana: Optional[Kana]
@@ -4191,7 +4024,7 @@ class Account(StripeObject):
             """
             estimated_worker_count: Optional[int]
             """
-            An estimated upper bound of employees, contractors, vendors, etc. currently working for the business.
+            Estimated maximum number of workers currently engaged by the business (including employees, contractors, and vendors).
             """
             id_numbers: Optional[List[IdNumber]]
             """
@@ -4199,7 +4032,7 @@ class Account(StripeObject):
             """
             monthly_estimated_revenue: Optional[MonthlyEstimatedRevenue]
             """
-            An estimate of the monthly revenue of the business.
+            An estimate of the monthly revenue of the business. Only accepted for accounts in Brazil and India.
             """
             phone: Optional[str]
             """
@@ -4293,7 +4126,7 @@ class Account(StripeObject):
                 """
                 town: Optional[str]
                 """
-                Town or cho-me.
+                Town or district.
                 """
 
             class AdditionalName(StripeObject):
@@ -4362,7 +4195,7 @@ class Account(StripeObject):
                 """
                 town: Optional[str]
                 """
-                Town or cho-me.
+                Town or district.
                 """
 
             class DateOfBirth(StripeObject):
@@ -4484,36 +4317,81 @@ class Account(StripeObject):
                 type: Literal[
                     "ae_eid",
                     "ao_nif",
+                    "ar_cuil",
                     "ar_dni",
+                    "at_stn",
                     "az_tin",
                     "bd_brc",
                     "bd_etin",
                     "bd_nid",
+                    "be_nrn",
+                    "bg_ucn",
+                    "bn_nric",
                     "br_cpf",
+                    "ca_sin",
+                    "ch_oasi",
+                    "cl_rut",
+                    "cn_pp",
+                    "co_nuip",
+                    "cr_ci",
                     "cr_cpf",
                     "cr_dimex",
                     "cr_nite",
+                    "cy_tic",
+                    "cz_rc",
                     "de_stn",
+                    "dk_cpr",
+                    "do_cie",
                     "do_rcn",
+                    "ec_ci",
+                    "ee_ik",
+                    "es_nif",
+                    "fi_hetu",
+                    "fr_nir",
+                    "gb_nino",
+                    "gr_afm",
                     "gt_nit",
                     "hk_id",
+                    "hr_oib",
+                    "hu_ad",
+                    "id_nik",
+                    "ie_ppsn",
+                    "is_kt",
+                    "it_cf",
+                    "jp_inc",
+                    "ke_pin",
                     "kz_iin",
+                    "li_peid",
+                    "lt_ak",
+                    "lu_nif",
+                    "lv_pk",
                     "mx_rfc",
                     "my_nric",
                     "mz_nuit",
+                    "ng_nin",
                     "nl_bsn",
+                    "no_nin",
+                    "nz_ird",
                     "pe_dni",
                     "pk_cnic",
                     "pk_snic",
+                    "pl_pesel",
+                    "pt_nif",
+                    "ro_cnp",
                     "sa_tin",
+                    "se_pin",
                     "sg_fin",
                     "sg_nric",
+                    "sk_dic",
                     "th_lc",
                     "th_pin",
+                    "tr_tin",
                     "us_itin",
                     "us_itin_last_4",
                     "us_ssn",
                     "us_ssn_last_4",
+                    "uy_dni",
+                    "za_id",
                 ]
                 """
                 The ID number type of an individual.
@@ -4522,11 +4400,11 @@ class Account(StripeObject):
             class Relationship(StripeObject):
                 authorizer: Optional[bool]
                 """
-                Whether the individual is an authorizer of the Account's legal entity.
+                Whether the individual is an authorizer of the Account's identity.
                 """
                 director: Optional[bool]
                 """
-                Whether the individual is a director of the Account's legal entity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
+                Whether the individual is a director of the Account's identity. Directors are typically members of the governing board of the company or are responsible for making sure that the company meets its regulatory obligations.
                 """
                 executive: Optional[bool]
                 """
@@ -4538,11 +4416,11 @@ class Account(StripeObject):
                 """
                 owner: Optional[bool]
                 """
-                Whether the individual is an owner of the Account's legal entity.
+                Whether the individual is an owner of the Account's identity.
                 """
                 percent_ownership: Optional[str]
                 """
-                The percent owned by the individual of the Account's legal entity.
+                The percentage of the Account's identity that the individual owns.
                 """
                 representative: Optional[bool]
                 """
@@ -4581,7 +4459,7 @@ class Account(StripeObject):
                     """
                     town: Optional[str]
                     """
-                    Town or cho-me.
+                    Town or district.
                     """
 
                 class Kanji(StripeObject):
@@ -4611,7 +4489,7 @@ class Account(StripeObject):
                     """
                     town: Optional[str]
                     """
-                    Town or cho-me.
+                    Town or district.
                     """
 
                 kana: Optional[Kana]
@@ -5021,7 +4899,7 @@ class Account(StripeObject):
 
             awaiting_action_from: Literal["stripe", "user"]
             """
-            Whether the responsibility is with the integrator or with Stripe (to review info, to wait for some condition, etc.) to action the requirement.
+            Indicates whether the platform or Stripe is currently responsible for taking action on the requirement. Value can be `user` or `stripe`.
             """
             description: str
             """
@@ -5086,15 +4964,15 @@ class Account(StripeObject):
         Literal["customer", "merchant", "recipient", "storer"]
     ]
     """
-    Filter only accounts that have all of the configurations specified. If omitted, returns all accounts regardless of which configurations they have.
+    The configurations that have been applied to this account.
     """
     closed: Optional[bool]
     """
-    A value indicating if the Account has been closed.
+    Indicates whether the account has been closed.
     """
     configuration: Optional[Configuration]
     """
-    An Account Configuration which allows the Account to take on a key persona across Stripe products.
+    An Account represents a company, individual, or other entity that a user interacts with. Accounts store identity information and one or more configurations that enable product-specific capabilities. You can assign configurations at creation or add them later.
     """
     contact_email: Optional[str]
     """
@@ -5110,7 +4988,7 @@ class Account(StripeObject):
     """
     defaults: Optional[Defaults]
     """
-    Default values to be used on Account Configurations.
+    Default values for settings shared across Account configurations.
     """
     display_name: Optional[str]
     """

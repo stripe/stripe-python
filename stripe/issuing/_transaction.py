@@ -43,11 +43,11 @@ class Transaction(
     UpdateableAPIResource["Transaction"],
 ):
     """
-    Any use of an [issued card](https://stripe.com/docs/issuing) that results in funds entering or leaving
+    Any use of an [issued card](https://docs.stripe.com/issuing) that results in funds entering or leaving
     your Stripe account, such as a completed purchase or refund, is represented by an Issuing
     `Transaction` object.
 
-    Related guide: [Issued card transactions](https://stripe.com/docs/issuing/purchases/transactions)
+    Related guide: [Issued card transactions](https://docs.stripe.com/issuing/purchases/transactions)
     """
 
     OBJECT_NAME: ClassVar[Literal["issuing.transaction"]] = (
@@ -67,7 +67,7 @@ class Transaction(
     class MerchantData(StripeObject):
         category: str
         """
-        A categorization of the seller's type of business. See our [merchant categories guide](https://stripe.com/docs/issuing/merchant-categories) for a list of possible values.
+        A categorization of the seller's type of business. See our [merchant categories guide](https://docs.stripe.com/issuing/merchant-categories) for a list of possible values.
         """
         category_code: str
         """
@@ -344,20 +344,20 @@ class Transaction(
     class Treasury(StripeObject):
         received_credit: Optional[str]
         """
-        The Treasury [ReceivedCredit](https://stripe.com/docs/api/treasury/received_credits) representing this Issuing transaction if it is a refund
+        The Treasury [ReceivedCredit](https://docs.stripe.com/api/treasury/received_credits) representing this Issuing transaction if it is a refund
         """
         received_debit: Optional[str]
         """
-        The Treasury [ReceivedDebit](https://stripe.com/docs/api/treasury/received_debits) representing this Issuing transaction if it is a capture
+        The Treasury [ReceivedDebit](https://docs.stripe.com/api/treasury/received_debits) representing this Issuing transaction if it is a capture
         """
 
     amount: int
     """
-    The transaction amount, which will be reflected in your balance. This amount is in your currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+    The transaction amount, which will be reflected in your balance. This amount is in your currency and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
     """
     amount_details: Optional[AmountDetails]
     """
-    Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+    Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
     """
     authorization: Optional[ExpandableField["Authorization"]]
     """
@@ -365,7 +365,7 @@ class Transaction(
     """
     balance_transaction: Optional[ExpandableField["BalanceTransaction"]]
     """
-    ID of the [balance transaction](https://stripe.com/docs/api/balance_transactions) associated with this transaction.
+    ID of the [balance transaction](https://docs.stripe.com/api/balance_transactions) associated with this transaction.
     """
     card: ExpandableField["Card"]
     """
@@ -397,7 +397,7 @@ class Transaction(
     """
     merchant_amount: int
     """
-    The amount that the merchant will receive, denominated in `merchant_currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). It will be different from `amount` if the merchant is taking payment in a different currency.
+    The amount that the merchant will receive, denominated in `merchant_currency` and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). It will be different from `amount` if the merchant is taking payment in a different currency.
     """
     merchant_currency: str
     """
@@ -406,7 +406,7 @@ class Transaction(
     merchant_data: MerchantData
     metadata: Dict[str, str]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     network_data: Optional[NetworkData]
     """
@@ -422,15 +422,15 @@ class Transaction(
     """
     settlement: Optional[ExpandableField["Settlement"]]
     """
-    The ID of the [settlement](https://stripe.com/docs/api/issuing/settlements) to which this transaction belongs.
+    The ID of the [settlement](https://docs.stripe.com/api/issuing/settlements) to which this transaction belongs.
     """
     token: Optional[ExpandableField["Token"]]
     """
-    [Token](https://stripe.com/docs/api/issuing/tokens/object) object used for this transaction. If a network token was not used for this transaction, this field will be null.
+    [Token](https://docs.stripe.com/api/issuing/tokens/object) object used for this transaction. If a network token was not used for this transaction, this field will be null.
     """
     treasury: Optional[Treasury]
     """
-    [Treasury](https://stripe.com/docs/api/treasury) details related to this transaction if it was created on a [FinancialAccount](/docs/api/treasury/financial_accounts
+    [Treasury](https://docs.stripe.com/api/treasury) details related to this transaction if it was created on a [FinancialAccount](/docs/api/treasury/financial_accounts
     """
     type: Literal["capture", "refund"]
     """

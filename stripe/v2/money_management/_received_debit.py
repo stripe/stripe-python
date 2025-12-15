@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from stripe.v2._amount import Amount
 from typing import ClassVar, Optional
 from typing_extensions import Literal
 
@@ -14,6 +13,16 @@ class ReceivedDebit(StripeObject):
     OBJECT_NAME: ClassVar[Literal["v2.money_management.received_debit"]] = (
         "v2.money_management.received_debit"
     )
+
+    class Amount(StripeObject):
+        currency: Optional[str]
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        value: Optional[int]
+        """
+        A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+        """
 
     class BankTransfer(StripeObject):
         class UsBankAccount(StripeObject):
@@ -134,9 +143,10 @@ class ReceivedDebit(StripeObject):
     """
     type: Literal["bank_transfer", "external_debit"]
     """
-    Open Enum. The type of the ReceivedDebit.
+    Open enum, the type of the received debit.
     """
     _inner_class_types = {
+        "amount": Amount,
         "bank_transfer": BankTransfer,
         "status_details": StatusDetails,
         "status_transitions": StatusTransitions,

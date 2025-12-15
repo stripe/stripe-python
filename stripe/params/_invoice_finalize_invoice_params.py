@@ -8,7 +8,7 @@ from typing_extensions import NotRequired
 class InvoiceFinalizeInvoiceParams(RequestOptions):
     auto_advance: NotRequired[bool]
     """
-    Controls whether Stripe performs [automatic collection](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection) of the invoice. If `false`, the invoice's state doesn't automatically advance without an explicit action.
+    Controls whether Stripe performs [automatic collection](https://docs.stripe.com/invoicing/integration/automatic-advancement-collection) of the invoice. If `false`, the invoice's state doesn't automatically advance without an explicit action.
     """
     expand: NotRequired[List[str]]
     """
