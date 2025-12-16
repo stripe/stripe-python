@@ -349,6 +349,10 @@ if TYPE_CHECKING:
         OAuthErrorObject as OAuthErrorObject,
     )
     from stripe._event import Event as Event
+    from stripe._event_notification_handler import (
+        StripeEventNotificationHandler as StripeEventNotificationHandler,
+        UnhandledNotificationDetails as UnhandledNotificationDetails,
+    )
     from stripe._event_service import EventService as EventService
     from stripe._exchange_rate import ExchangeRate as ExchangeRate
     from stripe._exchange_rate_service import (
@@ -791,6 +795,14 @@ _import_map = {
     "ErrorObject": ("stripe._error_object", False),
     "OAuthErrorObject": ("stripe._error_object", False),
     "Event": ("stripe._event", False),
+    "StripeEventNotificationHandler": (
+        "stripe._event_notification_handler",
+        False,
+    ),
+    "UnhandledNotificationDetails": (
+        "stripe._event_notification_handler",
+        False,
+    ),
     "EventService": ("stripe._event_service", False),
     "ExchangeRate": ("stripe._exchange_rate", False),
     "ExchangeRateService": ("stripe._exchange_rate_service", False),

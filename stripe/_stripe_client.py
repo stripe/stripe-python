@@ -12,6 +12,10 @@ from stripe import (
 
 from stripe._api_mode import ApiMode
 from stripe._error import AuthenticationError
+from stripe._event_notification_handler import (
+    StripeEventNotificationHandler,
+    FallbackCallback,
+)
 from stripe._request_options import extract_options_from_dict
 from stripe._requestor_options import RequestorOptions, BaseAddresses
 from stripe._client_options import _ClientOptions
@@ -325,6 +329,38 @@ class StripeClient(object):
             params=params,
             requestor=self._requestor,
             api_mode=api_mode,
+        )
+
+    def with_stripe_context(
+        self, stripe_context: "Optional[Union[str, StripeContext]]"
+    ) -> "StripeClient":
+        """
+        Creates a new StripeClient with the same configuration as this client,
+        but with a different stripe_context. This is useful for handling webhooks
+        where each event may have its own context.
+
+        The new client reuses the HTTP client from this client to avoid
+        re-establishing TLS connections.
+        """
+        return StripeClient(
+            api_key=self._requestor.api_key,  # type: ignore
+            stripe_account=self._requestor._options.stripe_account,
+            stripe_context=stripe_context,
+            stripe_version=self._requestor._options.stripe_version,
+            base_addresses=self._requestor._options.base_addresses,
+            client_id=self._options.client_id,
+            max_network_retries=self._requestor._options.max_network_retries,
+            http_client=self._requestor._client,
+        )
+
+    def notification_handler(
+        self, webhook_secret: str, fallback_callback: FallbackCallback
+    ) -> StripeEventNotificationHandler:
+        """
+        Returns an StripeEventNotificationHandler instance tied to this client.
+        """
+        return StripeEventNotificationHandler(
+            self, webhook_secret, fallback_callback
         )
 
     # deprecated v1 services: The beginning of the section generated from our OpenAPI spec
