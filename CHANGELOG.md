@@ -4,6 +4,7 @@
 This release changes the pinned API version to `2025-12-15.preview`.
 
 * [#1653](https://github.com/stripe/stripe-python/pull/1653) Add EventNotificationHandler
+  * This is a new, simplified way to handle event notifications (AKA thin event webhooks). Learn more in the docs: https://docs.stripe.com/webhooks/event-notification-handlers
 * [#1680](https://github.com/stripe/stripe-python/pull/1680) Update generated code for beta
   * Add support for new resources `reserve.Hold`, `reserve.Plan`, and `reserve.Release`
   * Add support for `list` and `retrieve` methods on resources `reserve.Hold` and `reserve.Release`
