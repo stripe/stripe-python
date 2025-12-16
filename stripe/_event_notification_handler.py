@@ -145,6 +145,9 @@ if TYPE_CHECKING:
     from stripe.events._v2_money_management_outbound_transfer_updated_event import (
         V2MoneyManagementOutboundTransferUpdatedEventNotification,
     )
+    from stripe.events._v2_money_management_payout_method_created_event import (
+        V2MoneyManagementPayoutMethodCreatedEventNotification,
+    )
     from stripe.events._v2_money_management_payout_method_updated_event import (
         V2MoneyManagementPayoutMethodUpdatedEventNotification,
     )
@@ -858,6 +861,19 @@ class StripeEventNotificationHandler:
         """
         self._register(
             "v2.money_management.outbound_transfer.updated",
+            func,
+        )
+        return func
+
+    def on_v2_money_management_payout_method_created(
+        self,
+        func: "Callable[[V2MoneyManagementPayoutMethodCreatedEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2MoneyManagementPayoutMethodCreatedEvent` (`v2.money_management.payout_method.created`) event notification.
+        """
+        self._register(
+            "v2.money_management.payout_method.created",
             func,
         )
         return func
