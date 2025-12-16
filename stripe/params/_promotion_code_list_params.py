@@ -28,7 +28,7 @@ class PromotionCodeListParams(RequestOptions):
     """
     customer_account: NotRequired[str]
     """
-    Only return promotion codes that are restricted to this account.
+    Only return promotion codes that are restricted to this account representing the customer.
     """
     ending_before: NotRequired[str]
     """

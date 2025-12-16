@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe.v2._amount import AmountParam
 from typing_extensions import NotRequired, TypedDict
 
 _InboundTransferCreateParamsBase = TypedDict(
@@ -10,7 +9,7 @@ _InboundTransferCreateParamsBase = TypedDict(
 
 
 class InboundTransferCreateParams(_InboundTransferCreateParamsBase):
-    amount: AmountParam
+    amount: "InboundTransferCreateParamsAmount"
     """
     The amount, in specified currency, by which the FinancialAccount balance will increase due to the InboundTransfer.
     """
@@ -21,6 +20,17 @@ class InboundTransferCreateParams(_InboundTransferCreateParamsBase):
     to: "InboundTransferCreateParamsTo"
     """
     Object containing details about where the funds will land.
+    """
+
+
+class InboundTransferCreateParamsAmount(TypedDict):
+    value: NotRequired[int]
+    """
+    A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+    """
+    currency: NotRequired[str]
+    """
+    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
 
 

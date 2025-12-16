@@ -19,7 +19,7 @@ class FinancingSummaryService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "FinancingSummary":
         """
-        Retrieve the financing state for the account that was authenticated in the request.
+        Retrieve the financing summary object for the account.
         """
         return cast(
             "FinancingSummary",
@@ -38,7 +38,7 @@ class FinancingSummaryService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "FinancingSummary":
         """
-        Retrieve the financing state for the account that was authenticated in the request.
+        Retrieve the financing summary object for the account.
         """
         return cast(
             "FinancingSummary",

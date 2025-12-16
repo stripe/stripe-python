@@ -85,7 +85,7 @@ class AccountPersonUpdateParams(TypedDict):
     """
     metadata: NotRequired["Literal['']|Dict[str, str]"]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
     nationality: NotRequired[str]
     """
@@ -174,7 +174,7 @@ class AccountPersonUpdateParamsAddress(TypedDict):
     """
     state: NotRequired[str]
     """
-    State, county, province, or region.
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """
 
 
@@ -275,21 +275,21 @@ class AccountPersonUpdateParamsDocuments(TypedDict):
 class AccountPersonUpdateParamsDocumentsCompanyAuthorization(TypedDict):
     files: NotRequired[List[str]]
     """
-    One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+    One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
     """
 
 
 class AccountPersonUpdateParamsDocumentsPassport(TypedDict):
     files: NotRequired[List[str]]
     """
-    One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+    One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
     """
 
 
 class AccountPersonUpdateParamsDocumentsVisa(TypedDict):
     files: NotRequired[List[str]]
     """
-    One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+    One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
     """
 
 
@@ -316,7 +316,7 @@ class AccountPersonUpdateParamsRegisteredAddress(TypedDict):
     """
     state: NotRequired[str]
     """
-    State, county, province, or region.
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """
 
 
@@ -451,20 +451,20 @@ class AccountPersonUpdateParamsVerification(TypedDict):
 class AccountPersonUpdateParamsVerificationAdditionalDocument(TypedDict):
     back: NotRequired[str]
     """
-    The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    The back of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
     front: NotRequired[str]
     """
-    The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    The front of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
 
 
 class AccountPersonUpdateParamsVerificationDocument(TypedDict):
     back: NotRequired[str]
     """
-    The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    The back of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
     front: NotRequired[str]
     """
-    The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    The front of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """

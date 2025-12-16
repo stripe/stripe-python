@@ -200,6 +200,10 @@ class BlockedByStripeError(StripeError):
     pass
 
 
+class ControlledByAlternateResourceError(StripeError):
+    pass
+
+
 class ControlledByDashboardError(StripeError):
     pass
 

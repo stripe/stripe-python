@@ -38,7 +38,7 @@ class PaymentLinkModifyParams(RequestOptions):
     """
     customer_creation: NotRequired[Literal["always", "if_required"]]
     """
-    Configures whether [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link create a [Customer](https://stripe.com/docs/api/customers).
+    Configures whether [checkout sessions](https://docs.stripe.com/api/checkout/sessions) created by this payment link create a [Customer](https://docs.stripe.com/api/customers).
     """
     expand: NotRequired[List[str]]
     """
@@ -58,7 +58,7 @@ class PaymentLinkModifyParams(RequestOptions):
     """
     metadata: NotRequired[Dict[str, str]]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. Metadata associated with this Payment Link will automatically be copied to [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. Metadata associated with this Payment Link will automatically be copied to [checkout sessions](https://docs.stripe.com/api/checkout/sessions) created by this payment link.
     """
     name_collection: NotRequired[
         "Literal['']|PaymentLinkModifyParamsNameCollection"
@@ -78,7 +78,7 @@ class PaymentLinkModifyParams(RequestOptions):
 
     Can only be set in `subscription` mode. Defaults to `always`.
 
-    If you'd like information on how to collect a payment method outside of Checkout, read the guide on [configuring subscriptions with a free trial](https://stripe.com/docs/payments/checkout/free-trials).
+    If you'd like information on how to collect a payment method outside of Checkout, read the guide on [configuring subscriptions with a free trial](https://docs.stripe.com/payments/checkout/free-trials).
     """
     payment_method_types: NotRequired[
         "Literal['']|List[Literal['affirm', 'afterpay_clearpay', 'alipay', 'alma', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'blik', 'boleto', 'card', 'cashapp', 'eps', 'fpx', 'giropay', 'gopay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'mb_way', 'mobilepay', 'multibanco', 'oxxo', 'p24', 'pay_by_bank', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'qris', 'rechnung', 'satispay', 'sepa_debit', 'shopeepay', 'sofort', 'swish', 'twint', 'us_bank_account', 'wechat_pay', 'zip']]"
@@ -110,7 +110,7 @@ class PaymentLinkModifyParams(RequestOptions):
         Literal["auto", "book", "donate", "pay", "subscribe"]
     ]
     """
-    Describes the type of transaction being performed in order to customize relevant text on the page, such as the submit button. Changing this value will also affect the hostname in the [url](https://stripe.com/docs/api/payment_links/payment_links/object#url) property (example: `donate.stripe.com`).
+    Describes the type of transaction being performed in order to customize relevant text on the page, such as the submit button. Changing this value will also affect the hostname in the [url](https://docs.stripe.com/api/payment_links/payment_links/object#url) property (example: `donate.stripe.com`).
     """
     subscription_data: NotRequired["PaymentLinkModifyParamsSubscriptionData"]
     """
@@ -149,7 +149,7 @@ class PaymentLinkModifyParamsAfterCompletionHostedConfirmation(TypedDict):
 class PaymentLinkModifyParamsAfterCompletionRedirect(TypedDict):
     url: str
     """
-    The URL the customer will be redirected to after the purchase is complete. You can embed `{CHECKOUT_SESSION_ID}` into the URL to have the `id` of the completed [checkout session](https://stripe.com/docs/api/checkout/sessions/object#checkout_session_object-id) included.
+    The URL the customer will be redirected to after the purchase is complete. You can embed `{CHECKOUT_SESSION_ID}` into the URL to have the `id` of the completed [checkout session](https://docs.stripe.com/api/checkout/sessions/object#checkout_session_object-id) included.
     """
 
 
@@ -364,7 +364,7 @@ class PaymentLinkModifyParamsInvoiceCreationInvoiceData(TypedDict):
     """
     metadata: NotRequired["Literal['']|Dict[str, str]"]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
     rendering_options: NotRequired[
         "Literal['']|PaymentLinkModifyParamsInvoiceCreationInvoiceDataRenderingOptions"
@@ -483,7 +483,7 @@ class PaymentLinkModifyParamsPaymentIntentData(TypedDict):
     """
     metadata: NotRequired["Literal['']|Dict[str, str]"]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will declaratively set metadata on [Payment Intents](https://stripe.com/docs/api/payment_intents) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that will declaratively set metadata on [Payment Intents](https://docs.stripe.com/api/payment_intents) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
     """
     statement_descriptor: NotRequired["Literal['']|str"]
     """
@@ -497,7 +497,7 @@ class PaymentLinkModifyParamsPaymentIntentData(TypedDict):
     """
     transfer_group: NotRequired["Literal['']|str"]
     """
-    A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
+    A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://docs.stripe.com/connect/separate-charges-and-transfers) for details.
     """
 
 
@@ -780,7 +780,7 @@ class PaymentLinkModifyParamsSubscriptionData(TypedDict):
     """
     metadata: NotRequired["Literal['']|Dict[str, str]"]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will declaratively set metadata on [Subscriptions](https://stripe.com/docs/api/subscriptions) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that will declaratively set metadata on [Subscriptions](https://docs.stripe.com/api/subscriptions) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
     """
     trial_period_days: NotRequired["Literal['']|int"]
     """

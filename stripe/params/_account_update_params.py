@@ -7,7 +7,7 @@ from typing_extensions import Literal, NotRequired, TypedDict
 class AccountUpdateParams(TypedDict):
     account_token: NotRequired[str]
     """
-    An [account token](https://stripe.com/docs/api#create_account_token), used to securely provide details to the account.
+    An [account token](https://api.stripe.com#create_account_token), used to securely provide details to the account.
     """
     business_profile: NotRequired["AccountUpdateParamsBusinessProfile"]
     """
@@ -68,7 +68,7 @@ class AccountUpdateParams(TypedDict):
     """
     metadata: NotRequired["Literal['']|Dict[str, str]"]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
     risk_controls: NotRequired["AccountUpdateParamsRiskControls"]
     """
@@ -204,7 +204,7 @@ class AccountUpdateParamsBusinessProfileSupportAddress(TypedDict):
     """
     state: NotRequired[str]
     """
-    State, county, province, or region.
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """
 
 
@@ -1258,7 +1258,7 @@ class AccountUpdateParamsCompanyAddress(TypedDict):
     """
     state: NotRequired[str]
     """
-    State, county, province, or region.
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """
 
 
@@ -1394,11 +1394,11 @@ class AccountUpdateParamsCompanyVerification(TypedDict):
 class AccountUpdateParamsCompanyVerificationDocument(TypedDict):
     back: NotRequired[str]
     """
-    The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    The back of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
     front: NotRequired[str]
     """
-    The front of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    The front of a document returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `additional_verification`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
 
 
@@ -1458,56 +1458,69 @@ class AccountUpdateParamsDocuments(TypedDict):
 class AccountUpdateParamsDocumentsBankAccountOwnershipVerification(TypedDict):
     files: NotRequired[List[str]]
     """
-    One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+    One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
     """
 
 
 class AccountUpdateParamsDocumentsCompanyLicense(TypedDict):
     files: NotRequired[List[str]]
     """
-    One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+    One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
     """
 
 
 class AccountUpdateParamsDocumentsCompanyMemorandumOfAssociation(TypedDict):
     files: NotRequired[List[str]]
     """
-    One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+    One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
     """
 
 
 class AccountUpdateParamsDocumentsCompanyMinisterialDecree(TypedDict):
     files: NotRequired[List[str]]
     """
-    One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+    One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
     """
 
 
 class AccountUpdateParamsDocumentsCompanyRegistrationVerification(TypedDict):
     files: NotRequired[List[str]]
     """
-    One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+    One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
     """
 
 
 class AccountUpdateParamsDocumentsCompanyTaxIdVerification(TypedDict):
     files: NotRequired[List[str]]
     """
-    One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+    One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
     """
 
 
 class AccountUpdateParamsDocumentsProofOfAddress(TypedDict):
     files: NotRequired[List[str]]
     """
-    One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+    One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
     """
 
 
 class AccountUpdateParamsDocumentsProofOfRegistration(TypedDict):
     files: NotRequired[List[str]]
     """
-    One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+    One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+    """
+    signer: NotRequired[
+        "AccountUpdateParamsDocumentsProofOfRegistrationSigner"
+    ]
+    """
+    Information regarding the person signing the document if applicable.
+    """
+
+
+class AccountUpdateParamsDocumentsProofOfRegistrationSigner(TypedDict):
+    person: NotRequired[str]
+    """
+    The token of the person signing the document, if applicable.
     """
 
 
@@ -1516,7 +1529,22 @@ class AccountUpdateParamsDocumentsProofOfUltimateBeneficialOwnership(
 ):
     files: NotRequired[List[str]]
     """
-    One or more document ids returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `account_requirement`.
+    One or more document ids returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `account_requirement`.
+    """
+    signer: NotRequired[
+        "AccountUpdateParamsDocumentsProofOfUltimateBeneficialOwnershipSigner"
+    ]
+    """
+    Information regarding the person signing the document if applicable.
+    """
+
+
+class AccountUpdateParamsDocumentsProofOfUltimateBeneficialOwnershipSigner(
+    TypedDict,
+):
+    person: NotRequired[str]
+    """
+    The token of the person signing the document, if applicable.
     """
 
 
@@ -1578,7 +1606,7 @@ class AccountUpdateParamsCardToken(TypedDict):
 class AccountUpdateParamsGroups(TypedDict):
     payments_pricing: NotRequired["Literal['']|str"]
     """
-    The group the account is in to determine their payments pricing, and null if the account is on customized pricing. [See the Platform pricing tool documentation](https://stripe.com/docs/connect/platform-pricing-tools) for details.
+    The group the account is in to determine their payments pricing, and null if the account is on customized pricing. [See the Platform pricing tool documentation](https://docs.stripe.com/connect/platform-pricing-tools) for details.
     """
 
 
@@ -1649,7 +1677,7 @@ class AccountUpdateParamsIndividual(TypedDict):
     """
     metadata: NotRequired["Literal['']|Dict[str, str]"]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
     phone: NotRequired[str]
     """
@@ -1702,7 +1730,7 @@ class AccountUpdateParamsIndividualAddress(TypedDict):
     """
     state: NotRequired[str]
     """
-    State, county, province, or region.
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """
 
 
@@ -1806,7 +1834,7 @@ class AccountUpdateParamsIndividualRegisteredAddress(TypedDict):
     """
     state: NotRequired[str]
     """
-    State, county, province, or region.
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """
 
 
@@ -1849,33 +1877,33 @@ class AccountUpdateParamsIndividualVerification(TypedDict):
 class AccountUpdateParamsIndividualVerificationAdditionalDocument(TypedDict):
     back: NotRequired[str]
     """
-    The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    The back of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
     front: NotRequired[str]
     """
-    The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    The front of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
 
 
 class AccountUpdateParamsIndividualVerificationDocument(TypedDict):
     back: NotRequired[str]
     """
-    The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    The back of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
     front: NotRequired[str]
     """
-    The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
+    The front of an ID returned by a [file upload](https://api.stripe.com#create_file) with a `purpose` value of `identity_document`. The uploaded file needs to be a color image (smaller than 8,000px by 8,000px), in JPG, PNG, or PDF format, and less than 10 MB in size.
     """
 
 
 class AccountUpdateParamsRiskControls(TypedDict):
     charges: NotRequired["AccountUpdateParamsRiskControlsCharges"]
     """
-    Represents the risk control status of charges. Please see [this page for more details](https://stripe.com/docs/connect/pausing-payments-or-payouts-on-connected-accounts).
+    Represents the risk control status of charges. Please see [this page for more details](https://docs.stripe.com/connect/pausing-payments-or-payouts-on-connected-accounts).
     """
     payouts: NotRequired["AccountUpdateParamsRiskControlsPayouts"]
     """
-    Represents the risk control status of payouts. Please see [this page for more details](https://stripe.com/docs/connect/pausing-payments-or-payouts-on-connected-accounts).
+    Represents the risk control status of payouts. Please see [this page for more details](https://docs.stripe.com/connect/pausing-payments-or-payouts-on-connected-accounts).
     """
 
 

@@ -24,7 +24,7 @@ class ChargeModifyParams(RequestOptions):
     """
     metadata: NotRequired["Literal['']|Dict[str, str]"]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
     payment_details: NotRequired["ChargeModifyParamsPaymentDetails"]
     """
@@ -40,7 +40,7 @@ class ChargeModifyParams(RequestOptions):
     """
     transfer_group: NotRequired[str]
     """
-    A string that identifies this transaction as part of a group. `transfer_group` may only be provided if it has not been set. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options) for details.
+    A string that identifies this transaction as part of a group. `transfer_group` may only be provided if it has not been set. See the [Connect documentation](https://docs.stripe.com/connect/separate-charges-and-transfers#transfer-options) for details.
     """
 
 
@@ -307,7 +307,7 @@ class ChargeModifyParamsPaymentDetailsCarRentalPickupAddress(TypedDict):
     """
     state: NotRequired[str]
     """
-    State, county, province, or region.
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """
 
 
@@ -334,7 +334,7 @@ class ChargeModifyParamsPaymentDetailsCarRentalReturnAddress(TypedDict):
     """
     state: NotRequired[str]
     """
-    State, county, province, or region.
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """
 
 
@@ -505,7 +505,7 @@ class ChargeModifyParamsPaymentDetailsCarRentalDatumDropOffAddress(TypedDict):
     """
     state: NotRequired[str]
     """
-    State, county, province, or region.
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """
 
 
@@ -573,7 +573,7 @@ class ChargeModifyParamsPaymentDetailsCarRentalDatumPickupAddress(TypedDict):
     """
     state: NotRequired[str]
     """
-    State, county, province, or region.
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """
 
 
@@ -813,7 +813,7 @@ class ChargeModifyParamsPaymentDetailsEventDetailsAddress(TypedDict):
     """
     state: NotRequired[str]
     """
-    State, county, province, or region.
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """
 
 
@@ -1373,7 +1373,7 @@ class ChargeModifyParamsPaymentDetailsLodgingAddress(TypedDict):
     """
     state: NotRequired[str]
     """
-    State, county, province, or region.
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """
 
 
@@ -1608,7 +1608,7 @@ class ChargeModifyParamsPaymentDetailsLodgingDatumHostAddress(TypedDict):
     """
     state: NotRequired[str]
     """
-    State, county, province, or region.
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """
 
 
@@ -1817,5 +1817,5 @@ class ChargeModifyParamsShippingAddress(TypedDict):
     """
     state: NotRequired[str]
     """
-    State, county, province, or region.
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """

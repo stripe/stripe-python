@@ -27,7 +27,7 @@ class AccountNotice(
     """
     A notice to a Connected account. Notice can be sent by Stripe on your behalf or you can opt to send the notices yourself.
 
-    See the [guide to send notices](https://stripe.com/docs/issuing/compliance-us/issuing-regulated-customer-notices) to your connected accounts.
+    See the [guide to send notices](https://docs.stripe.com/issuing/compliance-us/issuing-regulated-customer-notices) to your connected accounts.
     """
 
     OBJECT_NAME: ClassVar[Literal["account_notice"]] = "account_notice"
@@ -49,15 +49,15 @@ class AccountNotice(
     class LinkedObjects(StripeObject):
         capability: Optional[str]
         """
-        Associated [Capability](https://stripe.com/docs/api/capabilities)
+        Associated [Capability](https://docs.stripe.com/api/capabilities)
         """
         issuing_credit_underwriting_record: Optional[str]
         """
-        Associated [Credit Underwriting Record](https://stripe.com/docs/api/issuing/credit_underwriting_record)
+        Associated [Credit Underwriting Record](https://docs.stripe.com/api/issuing/credit_underwriting_record)
         """
         issuing_dispute: Optional[str]
         """
-        Associated [Issuing Dispute](https://stripe.com/docs/api/issuing/disputes)
+        Associated [Issuing Dispute](https://docs.stripe.com/api/issuing/disputes)
         """
 
     created: int
@@ -86,7 +86,7 @@ class AccountNotice(
     """
     metadata: Optional[Dict[str, str]]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     object: Literal["account_notice"]
     """
@@ -108,7 +108,7 @@ class AccountNotice(
         "issuing.dispute_won",
     ]
     """
-    Reason the notice is being sent. The reason determines what copy the notice must contain. See the [regulated customer notices](https://stripe.com/docs/issuing/compliance-us/issuing-regulated-customer-notices) guide. All reasons might not apply to your integration, and Stripe might add new reasons in the future, so we recommend an internal warning when you receive an unknown reason.
+    Reason the notice is being sent. The reason determines what copy the notice must contain. See the [regulated customer notices](https://docs.stripe.com/issuing/compliance-us/issuing-regulated-customer-notices) guide. All reasons might not apply to your integration, and Stripe might add new reasons in the future, so we recommend an internal warning when you receive an unknown reason.
     """
     sent_at: Optional[int]
     """

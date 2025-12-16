@@ -167,6 +167,10 @@ class Configuration(
                 """
                 _inner_class_types = {"conditions": Condition}
 
+            billing_cycle_anchor: Optional[Literal["now", "unchanged"]]
+            """
+            Determines the value to use for the billing cycle anchor on subscription updates. Valid values are `now` or `unchanged`, and the default value is `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time (in UTC). For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
+            """
             default_allowed_updates: List[
                 Literal["price", "promotion_code", "quantity"]
             ]
@@ -219,7 +223,7 @@ class Configuration(
         """
         url: Optional[str]
         """
-        A shareable URL to the hosted portal login page. Your customers will be able to log in with their [email](https://stripe.com/docs/api/customers/object#customer_object-email) and receive a link to their customer portal.
+        A shareable URL to the hosted portal login page. Your customers will be able to log in with their [email](https://docs.stripe.com/api/customers/object#customer_object-email) and receive a link to their customer portal.
         """
 
     active: bool
@@ -237,7 +241,7 @@ class Configuration(
     """
     default_return_url: Optional[str]
     """
-    The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overriden](https://stripe.com/docs/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session.
+    The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overriden](https://docs.stripe.com/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session.
     """
     features: Features
     id: str
@@ -255,7 +259,7 @@ class Configuration(
     login_page: LoginPage
     metadata: Optional[Dict[str, str]]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     name: Optional[str]
     """

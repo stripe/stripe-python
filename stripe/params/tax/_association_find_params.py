@@ -12,5 +12,5 @@ class AssociationFindParams(RequestOptions):
     """
     payment_intent: str
     """
-    Valid [PaymentIntent](https://stripe.com/docs/api/payment_intents/object) id
+    Valid [PaymentIntent](https://docs.stripe.com/api/payment_intents/object) id
     """

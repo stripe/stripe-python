@@ -36,6 +36,11 @@ This release changes the pinned API version to `2025-11-17.preview`.
   * Remove support for thin events `V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEvent`, `V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEvent`, `V2PaymentsOffSessionPaymentCanceledEvent`, `V2PaymentsOffSessionPaymentCreatedEvent`, `V2PaymentsOffSessionPaymentFailedEvent`, `V2PaymentsOffSessionPaymentRequiresCaptureEvent`, and `V2PaymentsOffSessionPaymentSucceededEvent` with related object `v2.payments.OffSessionPayment`
 * [#1670](https://github.com/stripe/stripe-python/pull/1670) Ramya/merge python beta
 
+## 14.0.1 - 2025-11-21
+* [#1684](https://github.com/stripe/stripe-python/pull/1684) Update generated code
+  * `stripe.error` module is now accessible globally. Fixes [#1682](https://github.com/stripe/stripe-python/issues/1682)
+* [#1681](https://github.com/stripe/stripe-python/pull/1681) Throw a specific error when accessing `payment_intent` property on `Invoice` object to ease debugging.
+
 ## 14.0.0 - 2025-11-18
 This release changes the pinned API version to `2025-11-17.clover`.
 

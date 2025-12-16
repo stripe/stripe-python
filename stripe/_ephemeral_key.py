@@ -141,16 +141,43 @@ class EphemeralKey(
         )
 
     @classmethod
-    def create(cls, **params):
+    def create(cls, **params) -> "EphemeralKey":
+        """
+        Creates a short-lived API key for a given resource.
+        """
         if params.get("stripe_version") is None:
             raise ValueError(
                 "stripe_version must be specified to create an ephemeral key"
             )
 
         url = cls.class_url()
-        return cls._static_request(
-            "post",
-            url,
-            params=params,
-            base_address="api",
+        return cast(
+            "EphemeralKey",
+            cls._static_request(
+                "post",
+                url,
+                params=params,
+                base_address="api",
+            ),
+        )
+
+    @classmethod
+    async def create_async(cls, **params) -> "EphemeralKey":
+        """
+        Creates a short-lived API key for a given resource.
+        """
+        if params.get("stripe_version") is None:
+            raise ValueError(
+                "stripe_version must be specified to create an ephemeral key"
+            )
+
+        url = cls.class_url()
+        return cast(
+            "EphemeralKey",
+            await cls._static_request_async(
+                "post",
+                url,
+                params=params,
+                base_address="api",
+            ),
         )

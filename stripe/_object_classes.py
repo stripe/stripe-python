@@ -266,6 +266,9 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     "refund": ("stripe._refund", "Refund"),
     "reporting.report_run": ("stripe.reporting._report_run", "ReportRun"),
     "reporting.report_type": ("stripe.reporting._report_type", "ReportType"),
+    "reserve.hold": ("stripe.reserve._hold", "Hold"),
+    "reserve.plan": ("stripe.reserve._plan", "Plan"),
+    "reserve.release": ("stripe.reserve._release", "Release"),
     "reserve_transaction": (
         "stripe._reserve_transaction",
         "ReserveTransaction",

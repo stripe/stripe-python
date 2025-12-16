@@ -142,6 +142,9 @@ if TYPE_CHECKING:
     from stripe.events._v2_money_management_outbound_transfer_updated_event import (
         V2MoneyManagementOutboundTransferUpdatedEventNotification,
     )
+    from stripe.events._v2_money_management_payout_method_created_event import (
+        V2MoneyManagementPayoutMethodCreatedEventNotification,
+    )
     from stripe.events._v2_money_management_payout_method_updated_event import (
         V2MoneyManagementPayoutMethodUpdatedEventNotification,
     )
@@ -360,6 +363,10 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v2.money_management.outbound_transfer.updated": (
         "stripe.events._v2_money_management_outbound_transfer_updated_event",
         "V2MoneyManagementOutboundTransferUpdatedEvent",
+    ),
+    "v2.money_management.payout_method.created": (
+        "stripe.events._v2_money_management_payout_method_created_event",
+        "V2MoneyManagementPayoutMethodCreatedEvent",
     ),
     "v2.money_management.payout_method.updated": (
         "stripe.events._v2_money_management_payout_method_updated_event",
@@ -604,6 +611,10 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_money_management_outbound_transfer_updated_event",
         "V2MoneyManagementOutboundTransferUpdatedEventNotification",
     ),
+    "v2.money_management.payout_method.created": (
+        "stripe.events._v2_money_management_payout_method_created_event",
+        "V2MoneyManagementPayoutMethodCreatedEventNotification",
+    ),
     "v2.money_management.payout_method.updated": (
         "stripe.events._v2_money_management_payout_method_updated_event",
         "V2MoneyManagementPayoutMethodUpdatedEventNotification",
@@ -712,6 +723,7 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2MoneyManagementOutboundTransferPostedEventNotification",
     "V2MoneyManagementOutboundTransferReturnedEventNotification",
     "V2MoneyManagementOutboundTransferUpdatedEventNotification",
+    "V2MoneyManagementPayoutMethodCreatedEventNotification",
     "V2MoneyManagementPayoutMethodUpdatedEventNotification",
     "V2MoneyManagementReceivedCreditAvailableEventNotification",
     "V2MoneyManagementReceivedCreditFailedEventNotification",

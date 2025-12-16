@@ -31,7 +31,7 @@ class ValueListItem(
     """
     Value list items allow you to add specific values to a given Radar value list, which can then be used in rules.
 
-    Related guide: [Managing list items](https://stripe.com/docs/radar/lists#managing-list-items)
+    Related guide: [Managing list items](https://docs.stripe.com/radar/lists#managing-list-items)
     """
 
     OBJECT_NAME: ClassVar[Literal["radar.value_list_item"]] = (

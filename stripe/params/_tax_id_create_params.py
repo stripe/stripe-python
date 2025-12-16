@@ -138,7 +138,7 @@ class TaxIdCreateParams(RequestOptions):
 class TaxIdCreateParamsOwner(TypedDict):
     account: NotRequired[str]
     """
-    Account the tax ID belongs to. Required when `type=account`
+    Connected Account the tax ID belongs to. Required when `type=account`
     """
     customer: NotRequired[str]
     """
@@ -146,7 +146,7 @@ class TaxIdCreateParamsOwner(TypedDict):
     """
     customer_account: NotRequired[str]
     """
-    v2 Account the tax ID belongs to. Can be used in place of `customer` when `type=customer`
+    ID of the Account representing the customer that the tax ID belongs to. Can be used in place of `customer` when `type=customer`
     """
     type: Literal["account", "application", "customer", "self"]
     """

@@ -143,6 +143,7 @@ from importlib import import_module
 
 if TYPE_CHECKING:
     from stripe import (
+        _error as error,
         apps as apps,
         billing as billing,
         billing_portal as billing_portal,
@@ -159,6 +160,7 @@ if TYPE_CHECKING:
         privacy as privacy,
         radar as radar,
         reporting as reporting,
+        reserve as reserve,
         sigma as sigma,
         tax as tax,
         terminal as terminal,
@@ -322,6 +324,7 @@ if TYPE_CHECKING:
         AuthenticationError as AuthenticationError,
         BlockedByStripeError as BlockedByStripeError,
         CardError as CardError,
+        ControlledByAlternateResourceError as ControlledByAlternateResourceError,
         ControlledByDashboardError as ControlledByDashboardError,
         FeatureNotEnabledError as FeatureNotEnabledError,
         FinancialAccountNotOpenError as FinancialAccountNotOpenError,
@@ -513,6 +516,7 @@ if TYPE_CHECKING:
     from stripe._reporting_service import ReportingService as ReportingService
     from stripe._request_options import RequestOptions as RequestOptions
     from stripe._requestor_options import RequestorOptions as RequestorOptions
+    from stripe._reserve_service import ReserveService as ReserveService
     from stripe._reserve_transaction import (
         ReserveTransaction as ReserveTransaction,
     )
@@ -622,6 +626,7 @@ if TYPE_CHECKING:
 
 # name -> (import_target, is_submodule)
 _import_map = {
+    "error": ("stripe._error", True),
     "apps": ("stripe.apps", True),
     "billing": ("stripe.billing", True),
     "billing_portal": ("stripe.billing_portal", True),
@@ -638,6 +643,7 @@ _import_map = {
     "privacy": ("stripe.privacy", True),
     "radar": ("stripe.radar", True),
     "reporting": ("stripe.reporting", True),
+    "reserve": ("stripe.reserve", True),
     "sigma": ("stripe.sigma", True),
     "tax": ("stripe.tax", True),
     "terminal": ("stripe.terminal", True),
@@ -767,6 +773,7 @@ _import_map = {
     "AuthenticationError": ("stripe._error", False),
     "BlockedByStripeError": ("stripe._error", False),
     "CardError": ("stripe._error", False),
+    "ControlledByAlternateResourceError": ("stripe._error", False),
     "ControlledByDashboardError": ("stripe._error", False),
     "FeatureNotEnabledError": ("stripe._error", False),
     "FinancialAccountNotOpenError": ("stripe._error", False),
@@ -931,6 +938,7 @@ _import_map = {
     "ReportingService": ("stripe._reporting_service", False),
     "RequestOptions": ("stripe._request_options", False),
     "RequestorOptions": ("stripe._requestor_options", False),
+    "ReserveService": ("stripe._reserve_service", False),
     "ReserveTransaction": ("stripe._reserve_transaction", False),
     "Reversal": ("stripe._reversal", False),
     "Review": ("stripe._review", False),

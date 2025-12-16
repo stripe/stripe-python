@@ -34,7 +34,7 @@ class CreditUnderwritingRecord(
     """
     Every time an applicant submits an application for a Charge Card product your platform offers, or every time your platform takes a proactive credit decision on an existing account, you must record the decision by creating a new `CreditUnderwritingRecord` object on a connected account.
 
-    [Follow the guide](https://stripe.com/docs/issuing/credit/report-credit-decisions-and-manage-aans) to learn about your requirements as a platform.
+    [Follow the guide](https://docs.stripe.com/issuing/credit/report-credit-decisions-and-manage-aans) to learn about your requirements as a platform.
     """
 
     OBJECT_NAME: ClassVar[Literal["issuing.credit_underwriting_record"]] = (
@@ -145,7 +145,7 @@ class CreditUnderwritingRecord(
         class CreditLimitApproved(StripeObject):
             amount: int
             """
-            Credit amount approved. An approved credit limit is required before you can set a amount in the [CreditPolicy API](https://stripe.com/docs/api/issuing/credit_policy).
+            Credit amount approved. An approved credit limit is required before you can set a amount in the [CreditPolicy API](https://docs.stripe.com/api/issuing/credit_policy).
             """
             currency: str
             """
@@ -155,7 +155,7 @@ class CreditUnderwritingRecord(
         class CreditLimitDecreased(StripeObject):
             amount: int
             """
-            Credit amount approved after decrease. An approved credit limit is required before you can set a amount in the [CreditPolicy API](https://stripe.com/docs/api/issuing/credit_policy).
+            Credit amount approved after decrease. An approved credit limit is required before you can set a amount in the [CreditPolicy API](https://docs.stripe.com/api/issuing/credit_policy).
             """
             currency: str
             """
@@ -416,7 +416,7 @@ class CreditUnderwritingRecord(
     """
     metadata: Optional[Dict[str, str]]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     object: Literal["issuing.credit_underwriting_record"]
     """
@@ -424,7 +424,7 @@ class CreditUnderwritingRecord(
     """
     regulatory_reporting_file: Optional[str]
     """
-    File containing regulatory reporting data for the decision. Required if you are subject to this [reporting requirement](https://stripe.com/docs/issuing/credit/report-required-regulatory-data-for-credit-decisions).
+    File containing regulatory reporting data for the decision. Required if you are subject to this [reporting requirement](https://docs.stripe.com/issuing/credit/report-required-regulatory-data-for-credit-decisions).
     """
     underwriting_exception: Optional[UnderwritingException]
     """

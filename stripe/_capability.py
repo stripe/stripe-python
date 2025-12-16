@@ -13,7 +13,7 @@ class Capability(UpdateableAPIResource["Capability"]):
     """
     This is an object representing a capability for a Stripe account.
 
-    Related guide: [Account capabilities](https://stripe.com/docs/connect/account-capabilities)
+    Related guide: [Account capabilities](https://docs.stripe.com/connect/account-capabilities)
     """
 
     OBJECT_NAME: ClassVar[Literal["capability"]] = "capability"
@@ -22,11 +22,11 @@ class Capability(UpdateableAPIResource["Capability"]):
         class Alternative(StripeObject):
             alternative_fields_due: List[str]
             """
-            Fields that can be provided to satisfy all fields in `original_fields_due`.
+            Fields that can be provided to resolve all fields in `original_fields_due`.
             """
             original_fields_due: List[str]
             """
-            Fields that are due and can be satisfied by providing all fields in `alternative_fields_due`.
+            Fields that are due and can be resolved by providing all fields in `alternative_fields_due`.
             """
 
         class Error(StripeObject):
@@ -144,7 +144,7 @@ class Capability(UpdateableAPIResource["Capability"]):
 
         alternatives: Optional[List[Alternative]]
         """
-        Fields that are due and can be satisfied by providing the corresponding alternative fields instead.
+        Fields that are due and can be resolved by providing the corresponding alternative fields instead. Multiple alternatives can reference the same `original_fields_due`. When this happens, any of these alternatives can serve as a pathway for attempting to resolve the fields. Additionally, providing `original_fields_due` again also serves as a pathway for attempting to resolve the fields.
         """
         current_deadline: Optional[int]
         """
@@ -152,7 +152,7 @@ class Capability(UpdateableAPIResource["Capability"]):
         """
         currently_due: List[str]
         """
-        Fields that need to be collected to keep the capability enabled. If not collected by `future_requirements[current_deadline]`, these fields will transition to the main `requirements` hash.
+        Fields that need to be resolved to keep the capability enabled. If not resolved by `future_requirements[current_deadline]`, these fields will transition to the main `requirements` hash.
         """
         disabled_reason: Optional[
             Literal[
@@ -173,7 +173,7 @@ class Capability(UpdateableAPIResource["Capability"]):
         """
         errors: List[Error]
         """
-        Fields that are `currently_due` and need to be collected again because validation or verification failed.
+        Details about validation and verification failures for `due` requirements that must be resolved.
         """
         eventually_due: List[str]
         """
@@ -181,11 +181,11 @@ class Capability(UpdateableAPIResource["Capability"]):
         """
         past_due: List[str]
         """
-        Fields that weren't collected by `requirements.current_deadline`. These fields need to be collected to enable the capability on the account. New fields will never appear here; `future_requirements.past_due` will always be a subset of `requirements.past_due`.
+        Fields that haven't been resolved by `requirements.current_deadline`. These fields need to be resolved to enable the capability on the account. `future_requirements.past_due` is a subset of `requirements.past_due`.
         """
         pending_verification: List[str]
         """
-        Fields that might become required depending on the results of verification or review. It's an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due` or `currently_due`. Fields might appear in `eventually_due` or `currently_due` and in `pending_verification` if verification fails but another verification is still pending.
+        Fields that are being reviewed, or might become required depending on the results of a review. If the review fails, these fields can move to `eventually_due`, `currently_due`, `past_due` or `alternatives`. Fields might appear in `eventually_due`, `currently_due`, `past_due` or `alternatives` and in `pending_verification` if one verification fails but another is still pending.
         """
         _inner_class_types = {"alternatives": Alternative, "errors": Error}
 
@@ -193,11 +193,11 @@ class Capability(UpdateableAPIResource["Capability"]):
         class Alternative(StripeObject):
             alternative_fields_due: List[str]
             """
-            Fields that can be provided to satisfy all fields in `original_fields_due`.
+            Fields that can be provided to resolve all fields in `original_fields_due`.
             """
             original_fields_due: List[str]
             """
-            Fields that are due and can be satisfied by providing all fields in `alternative_fields_due`.
+            Fields that are due and can be resolved by providing all fields in `alternative_fields_due`.
             """
 
         class Error(StripeObject):
@@ -315,7 +315,7 @@ class Capability(UpdateableAPIResource["Capability"]):
 
         alternatives: Optional[List[Alternative]]
         """
-        Fields that are due and can be satisfied by providing the corresponding alternative fields instead.
+        Fields that are due and can be resolved by providing the corresponding alternative fields instead. Multiple alternatives can reference the same `original_fields_due`. When this happens, any of these alternatives can serve as a pathway for attempting to resolve the fields. Additionally, providing `original_fields_due` again also serves as a pathway for attempting to resolve the fields.
         """
         current_deadline: Optional[int]
         """
@@ -323,7 +323,7 @@ class Capability(UpdateableAPIResource["Capability"]):
         """
         currently_due: List[str]
         """
-        Fields that need to be collected to keep the capability enabled. If not collected by `current_deadline`, these fields appear in `past_due` as well, and the capability is disabled.
+        Fields that need to be resolved to keep the capability enabled. If not resolved by `current_deadline`, these fields will appear in `past_due` as well, and the capability is disabled.
         """
         disabled_reason: Optional[
             Literal[
@@ -340,11 +340,11 @@ class Capability(UpdateableAPIResource["Capability"]):
             ]
         ]
         """
-        Description of why the capability is disabled. [Learn more about handling verification issues](https://stripe.com/docs/connect/handling-api-verification).
+        Description of why the capability is disabled. [Learn more about handling verification issues](https://docs.stripe.com/connect/handling-api-verification).
         """
         errors: List[Error]
         """
-        Fields that are `currently_due` and need to be collected again because validation or verification failed.
+        Details about validation and verification failures for `due` requirements that must be resolved.
         """
         eventually_due: List[str]
         """
@@ -352,11 +352,11 @@ class Capability(UpdateableAPIResource["Capability"]):
         """
         past_due: List[str]
         """
-        Fields that weren't collected by `current_deadline`. These fields need to be collected to enable the capability on the account.
+        Fields that haven't been resolved by `current_deadline`. These fields need to be resolved to enable the capability on the account.
         """
         pending_verification: List[str]
         """
-        Fields that might become required depending on the results of verification or review. It's an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due`, `currently_due`, or `past_due`. Fields might appear in `eventually_due`, `currently_due`, or `past_due` and in `pending_verification` if verification fails but another verification is still pending.
+        Fields that are being reviewed, or might become required depending on the results of a review. If the review fails, these fields can move to `eventually_due`, `currently_due`, `past_due` or `alternatives`. Fields might appear in `eventually_due`, `currently_due`, `past_due` or `alternatives` and in `pending_verification` if one verification fails but another is still pending.
         """
         _inner_class_types = {"alternatives": Alternative, "errors": Error}
 

@@ -12,7 +12,7 @@ class CreditGrantListParams(RequestOptions):
     """
     customer_account: NotRequired[str]
     """
-    Only return credit grants for this account.
+    Only return credit grants for this account representing the customer.
     """
     ending_before: NotRequired[str]
     """

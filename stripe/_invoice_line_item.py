@@ -10,6 +10,7 @@ from typing_extensions import Literal, TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe._discount import Discount
     from stripe._margin import Margin
+    from stripe._price import Price
     from stripe._subscription import Subscription
     from stripe.billing._credit_balance_transaction import (
         CreditBalanceTransaction,
@@ -18,9 +19,9 @@ if TYPE_CHECKING:
 
 class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
     """
-    Invoice Line Items represent the individual lines within an [invoice](https://stripe.com/docs/api/invoices) and only exist within the context of an invoice.
+    Invoice Line Items represent the individual lines within an [invoice](https://docs.stripe.com/api/invoices) and only exist within the context of an invoice.
 
-    Each line item is backed by either an [invoice item](https://stripe.com/docs/api/invoiceitems) or a [subscription item](https://stripe.com/docs/api/subscription_items).
+    Each line item is backed by either an [invoice item](https://docs.stripe.com/api/invoiceitems) or a [subscription item](https://docs.stripe.com/api/subscription_items).
     """
 
     OBJECT_NAME: ClassVar[Literal["line_item"]] = "line_item"
@@ -175,7 +176,7 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
 
     class Pricing(StripeObject):
         class PriceDetails(StripeObject):
-            price: str
+            price: ExpandableField["Price"]
             """
             The ID of the price this item is associated with.
             """
@@ -208,6 +209,9 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
     class Tax(StripeObject):
         class TaxRateDetails(StripeObject):
             tax_rate: str
+            """
+            ID of the tax rate
+            """
 
         amount: int
         """
@@ -298,7 +302,7 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
     """
     metadata: Dict[str, str]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Note that for line items with `type=subscription`, `metadata` reflects the current metadata from the subscription associated with the line item, unless the invoice line was directly updated with different metadata after creation.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Note that for line items with `type=subscription`, `metadata` reflects the current metadata from the subscription associated with the line item, unless the invoice line was directly updated with different metadata after creation.
     """
     object: Literal["line_item"]
     """
@@ -322,6 +326,10 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
     The quantity of the subscription, if the line item is a subscription or a proration.
     """
     subscription: Optional[ExpandableField["Subscription"]]
+    subtotal: int
+    """
+    The subtotal of the line item, in cents (or local equivalent), before any discounts or taxes.
+    """
     tax_calculation_reference: Optional[TaxCalculationReference]
     """
     The tax calculation identifiers of the line item.

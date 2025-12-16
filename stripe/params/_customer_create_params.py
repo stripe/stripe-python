@@ -8,7 +8,7 @@ from typing_extensions import Literal, NotRequired, TypedDict
 class CustomerCreateParams(RequestOptions):
     address: NotRequired["Literal['']|CustomerCreateParamsAddress"]
     """
-    The customer's address.
+    The customer's address. Learn about [country-specific requirements for calculating tax](https://docs.stripe.com/invoicing/taxes?dashboard-or-api=dashboard#set-up-customer).
     """
     balance: NotRequired[int]
     """
@@ -48,7 +48,7 @@ class CustomerCreateParams(RequestOptions):
     """
     metadata: NotRequired["Literal['']|Dict[str, str]"]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
     name: NotRequired[str]
     """
@@ -114,7 +114,7 @@ class CustomerCreateParamsAddress(TypedDict):
     """
     state: NotRequired[str]
     """
-    State, county, province, or region.
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """
 
 
@@ -131,7 +131,7 @@ class CustomerCreateParamsCashBalanceSettings(TypedDict):
         Literal["automatic", "manual", "merchant_default"]
     ]
     """
-    Controls how funds transferred by the customer are applied to payment intents and invoices. Valid options are `automatic`, `manual`, or `merchant_default`. For more information about these reconciliation modes, see [Reconciliation](https://stripe.com/docs/payments/customer-balance/reconciliation).
+    Controls how funds transferred by the customer are applied to payment intents and invoices. Valid options are `automatic`, `manual`, or `merchant_default`. For more information about these reconciliation modes, see [Reconciliation](https://docs.stripe.com/payments/customer-balance/reconciliation).
     """
 
 
@@ -220,7 +220,7 @@ class CustomerCreateParamsShippingAddress(TypedDict):
     """
     state: NotRequired[str]
     """
-    State, county, province, or region.
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """
 
 
