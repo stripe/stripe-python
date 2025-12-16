@@ -329,6 +329,17 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.v2.billing._meter_event_session",
         "MeterEventSession",
     ),
+    "v2.core.account": ("stripe.v2.core._account", "Account"),
+    "v2.core.account_link": ("stripe.v2.core._account_link", "AccountLink"),
+    "v2.core.account_person": (
+        "stripe.v2.core._account_person",
+        "AccountPerson",
+    ),
+    "v2.core.account_person_token": (
+        "stripe.v2.core._account_person_token",
+        "AccountPersonToken",
+    ),
+    "v2.core.account_token": ("stripe.v2.core._account_token", "AccountToken"),
     "v2.core.event": ("stripe.v2.core._event", "Event"),
     "v2.core.event_destination": (
         "stripe.v2.core._event_destination",

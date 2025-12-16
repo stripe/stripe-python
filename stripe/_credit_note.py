@@ -52,7 +52,7 @@ class CreditNote(
     """
     Issue a credit note to adjust an invoice's amount after the invoice is finalized.
 
-    Related guide: [Credit notes](https://stripe.com/docs/billing/invoices/credit-notes)
+    Related guide: [Credit notes](https://docs.stripe.com/billing/invoices/credit-notes)
     """
 
     OBJECT_NAME: ClassVar[Literal["credit_note"]] = "credit_note"
@@ -180,6 +180,9 @@ class CreditNote(
     class TotalTax(StripeObject):
         class TaxRateDetails(StripeObject):
             tax_rate: str
+            """
+            ID of the tax rate
+            """
 
         amount: int
         """
@@ -244,6 +247,10 @@ class CreditNote(
     """
     ID of the customer.
     """
+    customer_account: Optional[str]
+    """
+    ID of the account representing the customer.
+    """
     customer_balance_transaction: Optional[
         ExpandableField["CustomerBalanceTransaction"]
     ]
@@ -284,7 +291,7 @@ class CreditNote(
     """
     metadata: Optional[Dict[str, str]]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     number: str
     """
@@ -332,7 +339,7 @@ class CreditNote(
     """
     status: Literal["issued", "void"]
     """
-    Status of this credit note, one of `issued` or `void`. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+    Status of this credit note, one of `issued` or `void`. Learn more about [voiding credit notes](https://docs.stripe.com/billing/invoices/credit-notes#voiding).
     """
     subtotal: int
     """

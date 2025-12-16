@@ -55,6 +55,9 @@ class CreditNoteLineItem(StripeObject):
     class Tax(StripeObject):
         class TaxRateDetails(StripeObject):
             tax_rate: str
+            """
+            ID of the tax rate
+            """
 
         amount: int
         """

@@ -17,12 +17,18 @@ class SetupIntentUpdateParams(TypedDict):
 
     If present, the SetupIntent's payment method will be attached to the Customer on successful setup. Payment methods attached to other Customers cannot be used with this SetupIntent.
     """
+    customer_account: NotRequired[str]
+    """
+    ID of the Account this SetupIntent belongs to, if one exists.
+
+    If present, the SetupIntent's payment method will be attached to the Account on successful setup. Payment methods attached to other Accounts cannot be used with this SetupIntent.
+    """
     description: NotRequired[str]
     """
     An arbitrary string attached to the object. Often useful for displaying to users.
     """
     excluded_payment_method_types: NotRequired[
-        "Literal['']|List[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'pix', 'promptpay', 'revolut_pay', 'samsung_pay', 'satispay', 'sepa_debit', 'sofort', 'swish', 'twint', 'us_bank_account', 'wechat_pay', 'zip']]"
+        "Literal['']|List[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'samsung_pay', 'satispay', 'sepa_debit', 'sofort', 'swish', 'twint', 'us_bank_account', 'wechat_pay', 'zip']]"
     ]
     """
     The list of payment method types to exclude from use with this SetupIntent.
@@ -39,7 +45,7 @@ class SetupIntentUpdateParams(TypedDict):
     """
     metadata: NotRequired["Literal['']|Dict[str, str]"]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
     payment_method: NotRequired[str]
     """
@@ -47,13 +53,13 @@ class SetupIntentUpdateParams(TypedDict):
     """
     payment_method_configuration: NotRequired[str]
     """
-    The ID of the [payment method configuration](https://stripe.com/docs/api/payment_method_configurations) to use with this SetupIntent.
+    The ID of the [payment method configuration](https://docs.stripe.com/api/payment_method_configurations) to use with this SetupIntent.
     """
     payment_method_data: NotRequired[
         "SetupIntentUpdateParamsPaymentMethodData"
     ]
     """
-    When included, this hash creates a PaymentMethod that is set as the [`payment_method`](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-payment_method)
+    When included, this hash creates a PaymentMethod that is set as the [`payment_method`](https://docs.stripe.com/api/setup_intents/object#setup_intent_object-payment_method)
     value in the SetupIntent.
     """
     payment_method_options: NotRequired[
@@ -205,7 +211,7 @@ class SetupIntentUpdateParamsPaymentMethodData(TypedDict):
     """
     metadata: NotRequired[Dict[str, str]]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
     mobilepay: NotRequired["SetupIntentUpdateParamsPaymentMethodDataMobilepay"]
     """
@@ -253,6 +259,10 @@ class SetupIntentUpdateParamsPaymentMethodData(TypedDict):
     """
     If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
     """
+    payto: NotRequired["SetupIntentUpdateParamsPaymentMethodDataPayto"]
+    """
+    If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
+    """
     pix: NotRequired["SetupIntentUpdateParamsPaymentMethodDataPix"]
     """
     If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
@@ -265,7 +275,7 @@ class SetupIntentUpdateParamsPaymentMethodData(TypedDict):
         "SetupIntentUpdateParamsPaymentMethodDataRadarOptions"
     ]
     """
-    Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
+    Options to configure Radar. See [Radar Session](https://docs.stripe.com/radar/radar-session) for more information.
     """
     revolut_pay: NotRequired[
         "SetupIntentUpdateParamsPaymentMethodDataRevolutPay"
@@ -338,6 +348,7 @@ class SetupIntentUpdateParamsPaymentMethodData(TypedDict):
         "payco",
         "paynow",
         "paypal",
+        "payto",
         "pix",
         "promptpay",
         "revolut_pay",
@@ -485,7 +496,7 @@ class SetupIntentUpdateParamsPaymentMethodDataBillingDetailsAddress(TypedDict):
     """
     state: NotRequired[str]
     """
-    State, county, province, or region.
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """
 
 
@@ -603,6 +614,7 @@ class SetupIntentUpdateParamsPaymentMethodDataIdeal(TypedDict):
             "handelsbanken",
             "ing",
             "knab",
+            "mollie",
             "moneyou",
             "n26",
             "nn",
@@ -761,6 +773,21 @@ class SetupIntentUpdateParamsPaymentMethodDataPaypal(TypedDict):
     pass
 
 
+class SetupIntentUpdateParamsPaymentMethodDataPayto(TypedDict):
+    account_number: NotRequired[str]
+    """
+    The account number for the bank account.
+    """
+    bsb_number: NotRequired[str]
+    """
+    Bank-State-Branch number of the bank account.
+    """
+    pay_id: NotRequired[str]
+    """
+    The PayID alias for the bank account.
+    """
+
+
 class SetupIntentUpdateParamsPaymentMethodDataPix(TypedDict):
     pass
 
@@ -772,7 +799,7 @@ class SetupIntentUpdateParamsPaymentMethodDataPromptpay(TypedDict):
 class SetupIntentUpdateParamsPaymentMethodDataRadarOptions(TypedDict):
     session: NotRequired[str]
     """
-    A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+    A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
     """
 
 
@@ -881,6 +908,10 @@ class SetupIntentUpdateParamsPaymentMethodOptions(TypedDict):
     paypal: NotRequired["SetupIntentUpdateParamsPaymentMethodOptionsPaypal"]
     """
     If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
+    """
+    payto: NotRequired["SetupIntentUpdateParamsPaymentMethodOptionsPayto"]
+    """
+    If this is a `payto` SetupIntent, this sub-hash contains details about the PayTo payment method options.
     """
     sepa_debit: NotRequired[
         "SetupIntentUpdateParamsPaymentMethodOptionsSepaDebit"
@@ -1001,7 +1032,7 @@ class SetupIntentUpdateParamsPaymentMethodOptionsCard(TypedDict):
         Literal["any", "automatic", "challenge"]
     ]
     """
-    We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+    We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
     """
     three_d_secure: NotRequired[
         "SetupIntentUpdateParamsPaymentMethodOptionsCardThreeDSecure"
@@ -1278,6 +1309,52 @@ class SetupIntentUpdateParamsPaymentMethodOptionsPaypal(TypedDict):
     billing_agreement_id: NotRequired[str]
     """
     The PayPal Billing Agreement ID (BAID). This is an ID generated by PayPal which represents the mandate between the merchant and the customer.
+    """
+
+
+class SetupIntentUpdateParamsPaymentMethodOptionsPayto(TypedDict):
+    mandate_options: NotRequired[
+        "SetupIntentUpdateParamsPaymentMethodOptionsPaytoMandateOptions"
+    ]
+    """
+    Additional fields for Mandate creation.
+    """
+
+
+class SetupIntentUpdateParamsPaymentMethodOptionsPaytoMandateOptions(
+    TypedDict
+):
+    amount: NotRequired["Literal['']|int"]
+    """
+    Amount that will be collected. It is required when `amount_type` is `fixed`.
+    """
+    amount_type: NotRequired["Literal['']|Literal['fixed', 'maximum']"]
+    """
+    The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively. Defaults to `maximum`.
+    """
+    end_date: NotRequired["Literal['']|str"]
+    """
+    Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
+    """
+    payment_schedule: NotRequired[
+        "Literal['']|Literal['adhoc', 'annual', 'daily', 'fortnightly', 'monthly', 'quarterly', 'semi_annual', 'weekly']"
+    ]
+    """
+    The periodicity at which payments will be collected. Defaults to `adhoc`.
+    """
+    payments_per_period: NotRequired["Literal['']|int"]
+    """
+    The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
+    """
+    purpose: NotRequired[
+        "Literal['']|Literal['dependant_support', 'government', 'loan', 'mortgage', 'other', 'pension', 'personal', 'retail', 'salary', 'tax', 'utility']"
+    ]
+    """
+    The purpose for which payments are made. Has a default value based on your merchant category code.
+    """
+    start_date: NotRequired["Literal['']|str"]
+    """
+    Date, in YYYY-MM-DD format, from which payments will be collected. Defaults to confirmation time.
     """
 
 

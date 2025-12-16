@@ -12,7 +12,11 @@ class InvoiceItemListParams(RequestOptions):
     """
     customer: NotRequired[str]
     """
-    The identifier of the customer whose invoice items to return. If none is provided, all invoice items will be returned.
+    The identifier of the customer whose invoice items to return. If none is provided, returns all invoice items.
+    """
+    customer_account: NotRequired[str]
+    """
+    The identifier of the account representing the customer whose invoice items to return. If none is provided, returns all invoice items.
     """
     ending_before: NotRequired[str]
     """

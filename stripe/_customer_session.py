@@ -207,6 +207,10 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
     """
     The Customer the Customer Session was created for.
     """
+    customer_account: Optional[str]
+    """
+    The Account that the Customer Session was created for.
+    """
     expires_at: int
     """
     The timestamp at which this Customer Session will expire.

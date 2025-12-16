@@ -80,6 +80,10 @@ class CreditBalanceSummary(SingletonAPIResource["CreditBalanceSummary"]):
     """
     The customer the balance is for.
     """
+    customer_account: Optional[str]
+    """
+    The account the balance is for.
+    """
     livemode: bool
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.

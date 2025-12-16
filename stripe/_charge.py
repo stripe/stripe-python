@@ -61,7 +61,7 @@ class Charge(
 ):
     """
     The `Charge` object represents a single attempt to move money into your Stripe account.
-    PaymentIntent confirmation is the most common way to create Charges, but [Account Debits](https://stripe.com/docs/connect/account-debits) may also create Charges.
+    PaymentIntent confirmation is the most common way to create Charges, but [Account Debits](https://docs.stripe.com/connect/account-debits) may also create Charges.
     Some legacy payment flows create Charges directly, which is not recommended for new integrations.
     """
 
@@ -91,7 +91,7 @@ class Charge(
             """
             state: Optional[str]
             """
-            State, county, province, or region.
+            State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             """
 
         address: Optional[Address]
@@ -162,7 +162,7 @@ class Charge(
             Literal["confirm_card_data", "do_not_try_again", "try_again_later"]
         ]
         """
-        An enumerated value providing a more detailed explanation on [how to proceed with an error](https://stripe.com/docs/declines#retrying-issuer-declines).
+        An enumerated value providing a more detailed explanation on [how to proceed with an error](https://docs.stripe.com/declines#retrying-issuer-declines).
         """
         network_advice_code: Optional[str]
         """
@@ -174,11 +174,11 @@ class Charge(
         """
         network_status: Optional[str]
         """
-        Possible values are `approved_by_network`, `declined_by_network`, `not_sent_to_network`, and `reversed_after_approval`. The value `reversed_after_approval` indicates the payment was [blocked by Stripe](https://stripe.com/docs/declines#blocked-payments) after bank authorization, and may temporarily appear as "pending" on a cardholder's statement.
+        Possible values are `approved_by_network`, `declined_by_network`, `not_sent_to_network`, and `reversed_after_approval`. The value `reversed_after_approval` indicates the payment was [blocked by Stripe](https://docs.stripe.com/declines#blocked-payments) after bank authorization, and may temporarily appear as "pending" on a cardholder's statement.
         """
         reason: Optional[str]
         """
-        An enumerated value providing a more detailed explanation of the outcome's `type`. Charges blocked by Radar's default block rule have the value `highest_risk_level`. Charges placed in review by Radar's default review rule have the value `elevated_risk_level`. Charges blocked because the payment is unlikely to be authorized have the value `low_probability_of_authorization`. Charges authorized, blocked, or placed in review by custom rules have the value `rule`. See [understanding declines](https://stripe.com/docs/declines) for more details.
+        An enumerated value providing a more detailed explanation of the outcome's `type`. Charges blocked by Radar's default block rule have the value `highest_risk_level`. Charges placed in review by Radar's default review rule have the value `elevated_risk_level`. Charges blocked because the payment is unlikely to be authorized have the value `low_probability_of_authorization`. Charges authorized, blocked, or placed in review by custom rules have the value `rule`. See [understanding declines](https://docs.stripe.com/declines) for more details.
         """
         risk_level: Optional[str]
         """
@@ -198,7 +198,7 @@ class Charge(
         """
         type: str
         """
-        Possible values are `authorized`, `manual_review`, `issuer_declined`, `blocked`, and `invalid`. See [understanding declines](https://stripe.com/docs/declines) and [Radar reviews](https://stripe.com/docs/radar/reviews) for details.
+        Possible values are `authorized`, `manual_review`, `issuer_declined`, `blocked`, and `invalid`. See [understanding declines](https://docs.stripe.com/declines) and [Radar reviews](https://docs.stripe.com/radar/reviews) for details.
         """
         _inner_class_types = {"rule": Rule}
 
@@ -252,6 +252,10 @@ class Charge(
             """
             Name of the bank associated with the bank account.
             """
+            expected_debit_date: Optional[str]
+            """
+            Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+            """
             fingerprint: Optional[str]
             """
             Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
@@ -276,11 +280,11 @@ class Charge(
         class Affirm(StripeObject):
             location: Optional[str]
             """
-            ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
+            ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
             """
             reader: Optional[str]
             """
-            ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
+            ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
             """
             transaction_id: Optional[str]
             """
@@ -372,6 +376,10 @@ class Charge(
             """
             Bank-State-Branch number of the bank account.
             """
+            expected_debit_date: Optional[str]
+            """
+            Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+            """
             fingerprint: Optional[str]
             """
             Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
@@ -386,6 +394,10 @@ class Charge(
             """
 
         class BacsDebit(StripeObject):
+            expected_debit_date: Optional[str]
+            """
+            Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+            """
             fingerprint: Optional[str]
             """
             Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
@@ -627,7 +639,7 @@ class Charge(
                         """
                         state: Optional[str]
                         """
-                        State, county, province, or region.
+                        State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                         """
 
                     class ShippingAddress(StripeObject):
@@ -653,7 +665,7 @@ class Charge(
                         """
                         state: Optional[str]
                         """
-                        State, county, province, or region.
+                        State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                         """
 
                     billing_address: Optional[BillingAddress]
@@ -704,7 +716,7 @@ class Charge(
                         """
                         state: Optional[str]
                         """
-                        State, county, province, or region.
+                        State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                         """
 
                     class ShippingAddress(StripeObject):
@@ -730,7 +742,7 @@ class Charge(
                         """
                         state: Optional[str]
                         """
-                        State, county, province, or region.
+                        State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                         """
 
                     billing_address: Optional[BillingAddress]
@@ -843,7 +855,7 @@ class Charge(
             """
             Installment details for this payment.
 
-            For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
+            For more information, see the [installments integration guide](https://docs.stripe.com/payments/installments).
             """
             issuer: Optional[str]
             """
@@ -1018,7 +1030,7 @@ class Charge(
             """
             incremental_authorization_supported: bool
             """
-            Whether this [PaymentIntent](https://stripe.com/docs/api/payment_intents) is eligible for incremental authorizations. Request support using [request_incremental_authorization_support](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-payment_method_options-card_present-request_incremental_authorization_support).
+            Whether this [PaymentIntent](https://docs.stripe.com/api/payment_intents) is eligible for incremental authorizations. Request support using [request_incremental_authorization_support](https://docs.stripe.com/api/payment_intents/create#create_payment_intent-payment_method_options-card_present-request_incremental_authorization_support).
             """
             issuer: Optional[str]
             """
@@ -1223,6 +1235,7 @@ class Charge(
                     "handelsbanken",
                     "ing",
                     "knab",
+                    "mollie",
                     "moneyou",
                     "n26",
                     "nn",
@@ -1236,7 +1249,7 @@ class Charge(
                 ]
             ]
             """
-            The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `buut`, `finom`, `handelsbanken`, `ing`, `knab`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
+            The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `buut`, `finom`, `handelsbanken`, `ing`, `knab`, `mollie`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
             """
             bic: Optional[
                 Literal[
@@ -1250,6 +1263,7 @@ class Charge(
                     "HANDNL2A",
                     "INGBNL2A",
                     "KNABNL2H",
+                    "MLLENL2A",
                     "MOYONL21",
                     "NNBANL2G",
                     "NTSBDEB1",
@@ -1585,6 +1599,10 @@ class Charge(
             """
             The numeric code for the bank account's bank branch.
             """
+            expected_debit_date: Optional[str]
+            """
+            Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+            """
             last4: str
             """
             Last four digits of the bank account number.
@@ -1661,11 +1679,11 @@ class Charge(
         class Paynow(StripeObject):
             location: Optional[str]
             """
-            ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
+            ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
             """
             reader: Optional[str]
             """
-            ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
+            ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
             """
             reference: Optional[str]
             """
@@ -1714,6 +1732,24 @@ class Charge(
             A unique ID generated by PayPal for this transaction.
             """
             _inner_class_types = {"seller_protection": SellerProtection}
+
+        class Payto(StripeObject):
+            bsb_number: Optional[str]
+            """
+            Bank-State-Branch number of the bank account.
+            """
+            last4: Optional[str]
+            """
+            Last four digits of the bank account number.
+            """
+            mandate: Optional[str]
+            """
+            ID of the mandate used to make this payment.
+            """
+            pay_id: Optional[str]
+            """
+            The PayID alias for the bank account.
+            """
 
         class Pix(StripeObject):
             bank_transaction_id: Optional[str]
@@ -1812,6 +1848,10 @@ class Charge(
             """
             Two-letter ISO code representing the country the bank account is located in.
             """
+            expected_debit_date: Optional[str]
+            """
+            Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+            """
             fingerprint: Optional[str]
             """
             Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
@@ -1822,7 +1862,7 @@ class Charge(
             """
             mandate: Optional[str]
             """
-            Find the ID of the mandate used for this payment under the [payment_method_details.sepa_debit.mandate](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-sepa_debit-mandate) property on the Charge. Use this mandate ID to [retrieve the Mandate](https://stripe.com/docs/api/mandates/retrieve).
+            Find the ID of the mandate used for this payment under the [payment_method_details.sepa_debit.mandate](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-sepa_debit-mandate) property on the Charge. Use this mandate ID to [retrieve the Mandate](https://docs.stripe.com/api/mandates/retrieve).
             """
 
         class Sofort(StripeObject):
@@ -1900,6 +1940,10 @@ class Charge(
             """
             Name of the bank associated with the bank account.
             """
+            expected_debit_date: Optional[str]
+            """
+            Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+            """
             fingerprint: Optional[str]
             """
             Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
@@ -1931,11 +1975,11 @@ class Charge(
             """
             location: Optional[str]
             """
-            ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
+            ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
             """
             reader: Optional[str]
             """
-            ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
+            ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
             """
             transaction_id: Optional[str]
             """
@@ -1986,6 +2030,7 @@ class Charge(
         payco: Optional[Payco]
         paynow: Optional[Paynow]
         paypal: Optional[Paypal]
+        payto: Optional[Payto]
         pix: Optional[Pix]
         promptpay: Optional[Promptpay]
         revolut_pay: Optional[RevolutPay]
@@ -1999,7 +2044,7 @@ class Charge(
         twint: Optional[Twint]
         type: str
         """
-        The type of transaction-specific details of the payment method used in the payment. See [PaymentMethod.type](https://stripe.com/docs/api/payment_methods/object#payment_method_object-type) for the full list of possible types.
+        The type of transaction-specific details of the payment method used in the payment. See [PaymentMethod.type](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type) for the full list of possible types.
         An additional hash is included on `payment_method_details` with a name matching this value.
         It contains information specific to the payment method.
         """
@@ -2049,6 +2094,7 @@ class Charge(
             "payco": Payco,
             "paynow": Paynow,
             "paypal": Paypal,
+            "payto": Payto,
             "pix": Pix,
             "promptpay": Promptpay,
             "revolut_pay": RevolutPay,
@@ -2079,7 +2125,7 @@ class Charge(
     class RadarOptions(StripeObject):
         session: Optional[str]
         """
-        A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+        A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
         """
 
     class Shipping(StripeObject):
@@ -2106,7 +2152,7 @@ class Charge(
             """
             state: Optional[str]
             """
-            State, county, province, or region.
+            State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             """
 
         address: Optional[Address]
@@ -2140,7 +2186,7 @@ class Charge(
 
     amount: int
     """
-    Amount intended to be collected by this payment. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
+    Amount intended to be collected by this payment. A positive integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://docs.stripe.com/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
     """
     amount_captured: int
     """
@@ -2156,11 +2202,11 @@ class Charge(
     """
     application_fee: Optional[ExpandableField["ApplicationFee"]]
     """
-    The application fee (if any) for the charge. [See the Connect documentation](https://stripe.com/docs/connect/direct-charges#collect-fees) for details.
+    The application fee (if any) for the charge. [See the Connect documentation](https://docs.stripe.com/connect/direct-charges#collect-fees) for details.
     """
     application_fee_amount: Optional[int]
     """
-    The amount of the application fee (if any) requested for the charge. [See the Connect documentation](https://stripe.com/docs/connect/direct-charges#collect-fees) for details.
+    The amount of the application fee (if any) requested for the charge. [See the Connect documentation](https://docs.stripe.com/connect/direct-charges#collect-fees) for details.
     """
     authorization_code: Optional[str]
     """
@@ -2207,7 +2253,7 @@ class Charge(
     """
     failure_code: Optional[str]
     """
-    Error code explaining reason for charge failure if available (see [the errors section](https://stripe.com/docs/error-codes) for a list of codes).
+    Error code explaining reason for charge failure if available (see [the errors section](https://docs.stripe.com/error-codes) for a list of codes).
     """
     failure_message: Optional[str]
     """
@@ -2228,7 +2274,7 @@ class Charge(
     """
     metadata: Dict[str, str]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     object: Literal["charge"]
     """
@@ -2236,11 +2282,11 @@ class Charge(
     """
     on_behalf_of: Optional[ExpandableField["Account"]]
     """
-    The account (if any) the charge was made on behalf of without triggering an automatic transfer. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
+    The account (if any) the charge was made on behalf of without triggering an automatic transfer. See the [Connect documentation](https://docs.stripe.com/connect/separate-charges-and-transfers) for details.
     """
     outcome: Optional[Outcome]
     """
-    Details about whether the payment was accepted, and why. See [understanding declines](https://stripe.com/docs/declines) for details.
+    Details about whether the payment was accepted, and why. See [understanding declines](https://docs.stripe.com/declines) for details.
     """
     paid: bool
     """
@@ -2261,7 +2307,7 @@ class Charge(
     presentment_details: Optional[PresentmentDetails]
     radar_options: Optional[RadarOptions]
     """
-    Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
+    Options to configure Radar. See [Radar Session](https://docs.stripe.com/radar/radar-session) for more information.
     """
     receipt_email: Optional[str]
     """
@@ -2319,11 +2365,11 @@ class Charge(
     """
     transfer_data: Optional[TransferData]
     """
-    An optional dictionary including the account to automatically transfer to as part of a destination charge. [See the Connect documentation](https://stripe.com/docs/connect/destination-charges) for details.
+    An optional dictionary including the account to automatically transfer to as part of a destination charge. [See the Connect documentation](https://docs.stripe.com/connect/destination-charges) for details.
     """
     transfer_group: Optional[str]
     """
-    A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options) for details.
+    A string that identifies this transaction as part of a group. See the [Connect documentation](https://docs.stripe.com/connect/separate-charges-and-transfers#transfer-options) for details.
     """
 
     @classmethod

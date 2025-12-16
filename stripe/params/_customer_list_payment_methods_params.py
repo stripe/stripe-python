@@ -66,6 +66,7 @@ class CustomerListPaymentMethodsParams(RequestOptions):
             "payco",
             "paynow",
             "paypal",
+            "payto",
             "pix",
             "promptpay",
             "revolut_pay",

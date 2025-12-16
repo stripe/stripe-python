@@ -197,7 +197,7 @@ class InvoiceItemService(StripeService):
 
     def create(
         self,
-        params: "InvoiceItemCreateParams",
+        params: Optional["InvoiceItemCreateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "InvoiceItem":
         """
@@ -216,7 +216,7 @@ class InvoiceItemService(StripeService):
 
     async def create_async(
         self,
-        params: "InvoiceItemCreateParams",
+        params: Optional["InvoiceItemCreateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "InvoiceItem":
         """

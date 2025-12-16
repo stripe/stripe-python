@@ -35,9 +35,13 @@ class AccountListParams(RequestOptions):
 class AccountListParamsAccountHolder(TypedDict):
     account: NotRequired[str]
     """
-    The ID of the Stripe account whose accounts will be retrieved.
+    The ID of the Stripe account whose accounts you will retrieve.
     """
     customer: NotRequired[str]
     """
-    The ID of the Stripe customer whose accounts will be retrieved.
+    The ID of the Stripe customer whose accounts you will retrieve.
+    """
+    customer_account: NotRequired[str]
+    """
+    The ID of the Account representing a customer whose accounts you will retrieve.
     """

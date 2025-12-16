@@ -41,11 +41,15 @@ class SessionCreateParams(RequestOptions):
 class SessionCreateParamsAccountHolder(TypedDict):
     account: NotRequired[str]
     """
-    The ID of the Stripe account whose accounts will be retrieved. Should only be present if `type` is `account`.
+    The ID of the Stripe account whose accounts you will retrieve. Only available when `type` is `account`.
     """
     customer: NotRequired[str]
     """
-    The ID of the Stripe customer whose accounts will be retrieved. Should only be present if `type` is `customer`.
+    The ID of the Stripe customer whose accounts you will retrieve. Only available when `type` is `customer`.
+    """
+    customer_account: NotRequired[str]
+    """
+    The ID of Account representing a customer whose accounts you will retrieve. Only available when `type` is `customer`.
     """
     type: Literal["account", "customer"]
     """

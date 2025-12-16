@@ -7,11 +7,11 @@ from typing_extensions import Literal
 
 class FundingInstructions(StripeObject):
     """
-    Each customer has a [`balance`](https://stripe.com/docs/api/customers/object#customer_object-balance) that is
+    Each customer has a [`balance`](https://docs.stripe.com/api/customers/object#customer_object-balance) that is
     automatically applied to future invoices and payments using the `customer_balance` payment method.
     Customers can fund this balance by initiating a bank transfer to any account in the
     `financial_addresses` field.
-    Related guide: [Customer balance funding instructions](https://stripe.com/docs/payments/customer-balance/funding-instructions)
+    Related guide: [Customer balance funding instructions](https://docs.stripe.com/payments/customer-balance/funding-instructions)
     """
 
     OBJECT_NAME: ClassVar[Literal["funding_instructions"]] = (
@@ -44,7 +44,7 @@ class FundingInstructions(StripeObject):
                     """
                     state: Optional[str]
                     """
-                    State, county, province, or region.
+                    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                     """
 
                 class BankAddress(StripeObject):
@@ -70,7 +70,7 @@ class FundingInstructions(StripeObject):
                     """
                     state: Optional[str]
                     """
-                    State, county, province, or region.
+                    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                     """
 
                 account_holder_address: AccountHolderAddress
@@ -124,7 +124,7 @@ class FundingInstructions(StripeObject):
                     """
                     state: Optional[str]
                     """
-                    State, county, province, or region.
+                    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                     """
 
                 class BankAddress(StripeObject):
@@ -150,7 +150,7 @@ class FundingInstructions(StripeObject):
                     """
                     state: Optional[str]
                     """
-                    State, county, province, or region.
+                    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                     """
 
                 account_holder_address: AccountHolderAddress
@@ -200,7 +200,7 @@ class FundingInstructions(StripeObject):
                     """
                     state: Optional[str]
                     """
-                    State, county, province, or region.
+                    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                     """
 
                 class BankAddress(StripeObject):
@@ -226,7 +226,7 @@ class FundingInstructions(StripeObject):
                     """
                     state: Optional[str]
                     """
-                    State, county, province, or region.
+                    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                     """
 
                 account_holder_address: AccountHolderAddress
@@ -272,7 +272,7 @@ class FundingInstructions(StripeObject):
                     """
                     state: Optional[str]
                     """
-                    State, county, province, or region.
+                    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                     """
 
                 class BankAddress(StripeObject):
@@ -298,7 +298,7 @@ class FundingInstructions(StripeObject):
                     """
                     state: Optional[str]
                     """
-                    State, county, province, or region.
+                    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                     """
 
                 account_holder_address: AccountHolderAddress
@@ -348,7 +348,7 @@ class FundingInstructions(StripeObject):
                     """
                     state: Optional[str]
                     """
-                    State, county, province, or region.
+                    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                     """
 
                 class BankAddress(StripeObject):
@@ -374,7 +374,7 @@ class FundingInstructions(StripeObject):
                     """
                     state: Optional[str]
                     """
-                    State, county, province, or region.
+                    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                     """
 
                 account_holder_address: AccountHolderAddress
@@ -428,7 +428,7 @@ class FundingInstructions(StripeObject):
                     """
                     state: Optional[str]
                     """
-                    State, county, province, or region.
+                    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                     """
 
                 class BankAddress(StripeObject):
@@ -454,7 +454,7 @@ class FundingInstructions(StripeObject):
                     """
                     state: Optional[str]
                     """
-                    State, county, province, or region.
+                    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                     """
 
                 account_holder_address: AccountHolderAddress

@@ -37,7 +37,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         """
         value: int
         """
-        A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
+        A positive integer representing the amount in the currency's [minor unit](https://docs.stripe.com/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
         """
 
     class AmountAuthorized(StripeObject):
@@ -47,7 +47,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         """
         value: int
         """
-        A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
+        A positive integer representing the amount in the currency's [minor unit](https://docs.stripe.com/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
         """
 
     class AmountCanceled(StripeObject):
@@ -57,7 +57,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         """
         value: int
         """
-        A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
+        A positive integer representing the amount in the currency's [minor unit](https://docs.stripe.com/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
         """
 
     class AmountFailed(StripeObject):
@@ -67,7 +67,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         """
         value: int
         """
-        A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
+        A positive integer representing the amount in the currency's [minor unit](https://docs.stripe.com/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
         """
 
     class AmountGuaranteed(StripeObject):
@@ -77,7 +77,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         """
         value: int
         """
-        A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
+        A positive integer representing the amount in the currency's [minor unit](https://docs.stripe.com/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
         """
 
     class AmountRefunded(StripeObject):
@@ -87,7 +87,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         """
         value: int
         """
-        A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
+        A positive integer representing the amount in the currency's [minor unit](https://docs.stripe.com/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
         """
 
     class AmountRequested(StripeObject):
@@ -97,7 +97,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         """
         value: int
         """
-        A positive integer representing the amount in the currency's [minor unit](https://stripe.com/docs/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
+        A positive integer representing the amount in the currency's [minor unit](https://docs.stripe.com/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
         """
 
     class CustomerDetails(StripeObject):
@@ -168,6 +168,10 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
             Name of the bank associated with the bank account.
             """
+            expected_debit_date: Optional[str]
+            """
+            Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+            """
             fingerprint: Optional[str]
             """
             Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
@@ -192,11 +196,11 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         class Affirm(StripeObject):
             location: Optional[str]
             """
-            ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
+            ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
             """
             reader: Optional[str]
             """
-            ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
+            ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
             """
             transaction_id: Optional[str]
             """
@@ -288,6 +292,10 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
             Bank-State-Branch number of the bank account.
             """
+            expected_debit_date: Optional[str]
+            """
+            Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+            """
             fingerprint: Optional[str]
             """
             Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
@@ -302,6 +310,10 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
 
         class BacsDebit(StripeObject):
+            expected_debit_date: Optional[str]
+            """
+            Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+            """
             fingerprint: Optional[str]
             """
             Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
@@ -385,7 +397,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
                 """
                 state: Optional[str]
                 """
-                State, county, province, or region.
+                State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                 """
 
             address: Address
@@ -429,6 +441,24 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
                 cvc_check: Optional[
                     Literal["fail", "pass", "unavailable", "unchecked"]
                 ]
+
+            class Installments(StripeObject):
+                class Plan(StripeObject):
+                    count: Optional[int]
+                    """
+                    For `fixed_count` installment plans, this is the number of installment payments your customer will make to their credit card.
+                    """
+                    interval: Optional[Literal["month"]]
+                    """
+                    For `fixed_count` installment plans, this is the interval between installment payments your customer will make to their credit card. One of `month`.
+                    """
+                    type: Literal["bonus", "fixed_count", "revolving"]
+                    """
+                    Type of installment plan, one of `fixed_count`, `revolving`, or `bonus`.
+                    """
+
+                plan: Optional[Plan]
+                _inner_class_types = {"plan": Plan}
 
             class NetworkToken(StripeObject):
                 used: bool
@@ -488,6 +518,10 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
                     "google_pay": GooglePay,
                 }
 
+            authorization_code: Optional[str]
+            """
+            The authorization code of the payment.
+            """
             brand: Literal[
                 "amex",
                 "cartes_bancaires",
@@ -517,6 +551,10 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
             Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
             """
+            description: Optional[str]
+            """
+            A high-level description of the type of cards issued in this range.
+            """
             exp_month: int
             """
             Two-digit number representing the card's expiration month.
@@ -534,6 +572,18 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             funding: Literal["credit", "debit", "prepaid", "unknown"]
             """
             Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
+            """
+            iin: Optional[str]
+            """
+            Issuer identification number of the card.
+            """
+            installments: Optional[Installments]
+            """
+            Installment details for this payment.
+            """
+            issuer: Optional[str]
+            """
+            The name of the card's issuing bank.
             """
             last4: str
             """
@@ -562,6 +612,14 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
             Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
             """
+            network_advice_code: Optional[str]
+            """
+            Advice code from the card network for the failed payment.
+            """
+            network_decline_code: Optional[str]
+            """
+            Decline code from the card network for the failed payment.
+            """
             network_token: Optional[NetworkToken]
             """
             If this card has network token credentials, this contains the details of the network token credentials.
@@ -569,6 +627,12 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             network_transaction_id: Optional[str]
             """
             This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. This value will be present if it is returned by the financial network in the authorization response, and null otherwise.
+            """
+            stored_credential_usage: Optional[
+                Literal["recurring", "unscheduled"]
+            ]
+            """
+            The transaction type that was passed for an off-session, Merchant-Initiated transaction, one of `recurring` or `unscheduled`.
             """
             three_d_secure: Optional[ThreeDSecure]
             """
@@ -580,6 +644,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
             _inner_class_types = {
                 "checks": Checks,
+                "installments": Installments,
                 "network_token": NetworkToken,
                 "three_d_secure": ThreeDSecure,
                 "wallet": Wallet,
@@ -704,7 +769,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
             incremental_authorization_supported: bool
             """
-            Whether this [PaymentIntent](https://stripe.com/docs/api/payment_intents) is eligible for incremental authorizations. Request support using [request_incremental_authorization_support](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-payment_method_options-card_present-request_incremental_authorization_support).
+            Whether this [PaymentIntent](https://docs.stripe.com/api/payment_intents) is eligible for incremental authorizations. Request support using [request_incremental_authorization_support](https://docs.stripe.com/api/payment_intents/create#create_payment_intent-payment_method_options-card_present-request_incremental_authorization_support).
             """
             issuer: Optional[str]
             """
@@ -919,6 +984,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
                     "handelsbanken",
                     "ing",
                     "knab",
+                    "mollie",
                     "moneyou",
                     "n26",
                     "nn",
@@ -932,7 +998,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
                 ]
             ]
             """
-            The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `buut`, `finom`, `handelsbanken`, `ing`, `knab`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
+            The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `buut`, `finom`, `handelsbanken`, `ing`, `knab`, `mollie`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
             """
             bic: Optional[
                 Literal[
@@ -946,6 +1012,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
                     "HANDNL2A",
                     "INGBNL2A",
                     "KNABNL2H",
+                    "MLLENL2A",
                     "MOYONL21",
                     "NNBANL2G",
                     "NTSBDEB1",
@@ -1281,6 +1348,10 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
             The numeric code for the bank account's bank branch.
             """
+            expected_debit_date: Optional[str]
+            """
+            Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+            """
             last4: str
             """
             Last four digits of the bank account number.
@@ -1357,11 +1428,11 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         class Paynow(StripeObject):
             location: Optional[str]
             """
-            ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
+            ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
             """
             reader: Optional[str]
             """
-            ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
+            ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
             """
             reference: Optional[str]
             """
@@ -1410,6 +1481,24 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             A unique ID generated by PayPal for this transaction.
             """
             _inner_class_types = {"seller_protection": SellerProtection}
+
+        class Payto(StripeObject):
+            bsb_number: Optional[str]
+            """
+            Bank-State-Branch number of the bank account.
+            """
+            last4: Optional[str]
+            """
+            Last four digits of the bank account number.
+            """
+            mandate: Optional[str]
+            """
+            ID of the mandate used to make this payment.
+            """
+            pay_id: Optional[str]
+            """
+            The PayID alias for the bank account.
+            """
 
         class Pix(StripeObject):
             bank_transaction_id: Optional[str]
@@ -1508,6 +1597,10 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
             Two-letter ISO code representing the country the bank account is located in.
             """
+            expected_debit_date: Optional[str]
+            """
+            Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+            """
             fingerprint: Optional[str]
             """
             Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
@@ -1518,7 +1611,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
             mandate: Optional[str]
             """
-            Find the ID of the mandate used for this payment under the [payment_method_details.sepa_debit.mandate](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-sepa_debit-mandate) property on the Charge. Use this mandate ID to [retrieve the Mandate](https://stripe.com/docs/api/mandates/retrieve).
+            Find the ID of the mandate used for this payment under the [payment_method_details.sepa_debit.mandate](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-sepa_debit-mandate) property on the Charge. Use this mandate ID to [retrieve the Mandate](https://docs.stripe.com/api/mandates/retrieve).
             """
 
         class Sofort(StripeObject):
@@ -1596,6 +1689,10 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
             Name of the bank associated with the bank account.
             """
+            expected_debit_date: Optional[str]
+            """
+            Estimated date to debit the customer's bank account. A date string in YYYY-MM-DD format.
+            """
             fingerprint: Optional[str]
             """
             Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
@@ -1627,11 +1724,11 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
             location: Optional[str]
             """
-            ID of the [location](https://stripe.com/docs/api/terminal/locations) that this transaction's reader is assigned to.
+            ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
             """
             reader: Optional[str]
             """
-            ID of the [reader](https://stripe.com/docs/api/terminal/readers) this transaction was made on.
+            ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
             """
             transaction_id: Optional[str]
             """
@@ -1699,6 +1796,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         """
         paynow: Optional[Paynow]
         paypal: Optional[Paypal]
+        payto: Optional[Payto]
         pix: Optional[Pix]
         promptpay: Optional[Promptpay]
         revolut_pay: Optional[RevolutPay]
@@ -1712,7 +1810,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         twint: Optional[Twint]
         type: str
         """
-        The type of transaction-specific details of the payment method used in the payment. See [PaymentMethod.type](https://stripe.com/docs/api/payment_methods/object#payment_method_object-type) for the full list of possible types.
+        The type of transaction-specific details of the payment method used in the payment. See [PaymentMethod.type](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type) for the full list of possible types.
         An additional hash is included on `payment_method_details` with a name matching this value.
         It contains information specific to the payment method.
         """
@@ -1764,6 +1862,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             "payco": Payco,
             "paynow": Paynow,
             "paypal": Paypal,
+            "payto": Payto,
             "pix": Pix,
             "promptpay": Promptpay,
             "revolut_pay": RevolutPay,
@@ -1824,7 +1923,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
             state: Optional[str]
             """
-            State, county, province, or region.
+            State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             """
 
         address: Address
@@ -1899,7 +1998,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
     """
     metadata: Dict[str, str]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     object: Literal["payment_attempt_record"]
     """

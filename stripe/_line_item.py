@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional
+from typing import ClassVar, Dict, List, Optional
 from typing_extensions import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -24,10 +24,10 @@ class LineItem(StripeObject):
         """
         discount: "DiscountResource"
         """
-        A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
+        A discount represents the actual application of a [coupon](https://api.stripe.com#coupons) or [promotion code](https://api.stripe.com#promotion_codes).
         It contains information about when the discount began, when it will end, and what it is applied to.
 
-        Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
+        Related guide: [Applying discounts to subscriptions](https://docs.stripe.com/billing/subscriptions/discounts)
         """
 
     class Tax(StripeObject):
@@ -99,6 +99,10 @@ class LineItem(StripeObject):
     id: str
     """
     Unique identifier for the object.
+    """
+    metadata: Optional[Dict[str, str]]
+    """
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
     object: Literal["item"]
     """

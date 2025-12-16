@@ -319,7 +319,7 @@ class SubscriptionService(StripeService):
 
     def create(
         self,
-        params: "SubscriptionCreateParams",
+        params: Optional["SubscriptionCreateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Subscription":
         """
@@ -344,7 +344,7 @@ class SubscriptionService(StripeService):
 
     async def create_async(
         self,
-        params: "SubscriptionCreateParams",
+        params: Optional["SubscriptionCreateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Subscription":
         """

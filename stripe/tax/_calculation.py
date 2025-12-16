@@ -24,7 +24,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
     """
     A Tax Calculation allows you to calculate the tax to collect from your customer.
 
-    Related guide: [Calculate tax in your custom payment flow](https://stripe.com/docs/tax/custom)
+    Related guide: [Calculate tax in your custom payment flow](https://docs.stripe.com/tax/custom)
     """
 
     OBJECT_NAME: ClassVar[Literal["tax.calculation"]] = "tax.calculation"
@@ -285,7 +285,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
 
             amount: int
             """
-            The amount of tax, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+            The amount of tax, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
             """
             jurisdiction: Jurisdiction
             sourcing: Literal["destination", "origin"]
@@ -318,7 +318,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
             """
             taxable_amount: int
             """
-            The amount on which tax is calculated, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+            The amount on which tax is calculated, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
             """
             _inner_class_types = {
                 "jurisdiction": Jurisdiction,
@@ -327,15 +327,15 @@ class Calculation(CreateableAPIResource["Calculation"]):
 
         amount: int
         """
-        The shipping amount in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes were calculated on top of this amount.
+        The shipping amount in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes were calculated on top of this amount.
         """
         amount_tax: int
         """
-        The amount of tax calculated for shipping, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+        The amount of tax calculated for shipping, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
         """
         shipping_rate: Optional[str]
         """
-        The ID of an existing [ShippingRate](https://stripe.com/docs/api/shipping_rates/object).
+        The ID of an existing [ShippingRate](https://docs.stripe.com/api/shipping_rates/object).
         """
         tax_behavior: Literal["exclusive", "inclusive"]
         """
@@ -347,7 +347,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
         """
         tax_code: str
         """
-        The [tax code](https://stripe.com/docs/tax/tax-categories) ID used for shipping.
+        The [tax code](https://docs.stripe.com/tax/tax-categories) ID used for shipping.
         """
         _inner_class_types = {"tax_breakdown": TaxBreakdown}
 
@@ -381,7 +381,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
             """
             state: Optional[str]
             """
-            State, county, province, or region.
+            State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             """
             tax_type: Optional[
                 Literal[
@@ -408,7 +408,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
 
         amount: int
         """
-        The amount of tax, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+        The amount of tax, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
         """
         inclusive: bool
         """
@@ -437,13 +437,13 @@ class Calculation(CreateableAPIResource["Calculation"]):
         """
         taxable_amount: int
         """
-        The amount on which tax is calculated, in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+        The amount on which tax is calculated, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
         """
         _inner_class_types = {"tax_rate_details": TaxRateDetails}
 
     amount_total: int
     """
-    Total amount after taxes in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+    Total amount after taxes in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
     """
     currency: str
     """
@@ -451,7 +451,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
     """
     customer: Optional[str]
     """
-    The ID of an existing [Customer](https://stripe.com/docs/api/customers/object) used for the resource.
+    The ID of an existing [Customer](https://docs.stripe.com/api/customers/object) used for the resource.
     """
     customer_details: CustomerDetails
     expires_at: Optional[int]

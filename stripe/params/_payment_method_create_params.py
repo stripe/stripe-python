@@ -140,7 +140,7 @@ class PaymentMethodCreateParams(RequestOptions):
     """
     metadata: NotRequired[Dict[str, str]]
     """
-    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
     mobilepay: NotRequired["PaymentMethodCreateParamsMobilepay"]
     """
@@ -186,6 +186,10 @@ class PaymentMethodCreateParams(RequestOptions):
     """
     If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
     """
+    payto: NotRequired["PaymentMethodCreateParamsPayto"]
+    """
+    If this is a `payto` PaymentMethod, this hash contains details about the PayTo payment method.
+    """
     pix: NotRequired["PaymentMethodCreateParamsPix"]
     """
     If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
@@ -196,7 +200,7 @@ class PaymentMethodCreateParams(RequestOptions):
     """
     radar_options: NotRequired["PaymentMethodCreateParamsRadarOptions"]
     """
-    Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
+    Options to configure Radar. See [Radar Session](https://docs.stripe.com/radar/radar-session) for more information.
     """
     revolut_pay: NotRequired["PaymentMethodCreateParamsRevolutPay"]
     """
@@ -266,6 +270,7 @@ class PaymentMethodCreateParams(RequestOptions):
             "payco",
             "paynow",
             "paypal",
+            "payto",
             "pix",
             "promptpay",
             "revolut_pay",
@@ -410,7 +415,7 @@ class PaymentMethodCreateParamsBillingDetailsAddress(TypedDict):
     """
     state: NotRequired[str]
     """
-    State, county, province, or region.
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """
 
 
@@ -569,6 +574,7 @@ class PaymentMethodCreateParamsIdeal(TypedDict):
             "handelsbanken",
             "ing",
             "knab",
+            "mollie",
             "moneyou",
             "n26",
             "nn",
@@ -727,6 +733,21 @@ class PaymentMethodCreateParamsPaypal(TypedDict):
     pass
 
 
+class PaymentMethodCreateParamsPayto(TypedDict):
+    account_number: NotRequired[str]
+    """
+    The account number for the bank account.
+    """
+    bsb_number: NotRequired[str]
+    """
+    Bank-State-Branch number of the bank account.
+    """
+    pay_id: NotRequired[str]
+    """
+    The PayID alias for the bank account.
+    """
+
+
 class PaymentMethodCreateParamsPix(TypedDict):
     pass
 
@@ -738,7 +759,7 @@ class PaymentMethodCreateParamsPromptpay(TypedDict):
 class PaymentMethodCreateParamsRadarOptions(TypedDict):
     session: NotRequired[str]
     """
-    A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+    A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
     """
 
 

@@ -36,7 +36,7 @@ class PaymentMethodService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[PaymentMethod]":
         """
-        Returns a list of PaymentMethods for Treasury flows. If you want to list the PaymentMethods attached to a Customer for payments, you should use the [List a Customer's PaymentMethods](https://docs.stripe.com/docs/api/payment_methods/customer_list) API instead.
+        Returns a list of all PaymentMethods.
         """
         return cast(
             "ListObject[PaymentMethod]",
@@ -55,7 +55,7 @@ class PaymentMethodService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[PaymentMethod]":
         """
-        Returns a list of PaymentMethods for Treasury flows. If you want to list the PaymentMethods attached to a Customer for payments, you should use the [List a Customer's PaymentMethods](https://docs.stripe.com/docs/api/payment_methods/customer_list) API instead.
+        Returns a list of all PaymentMethods.
         """
         return cast(
             "ListObject[PaymentMethod]",
@@ -201,7 +201,7 @@ class PaymentMethodService(StripeService):
     def attach(
         self,
         payment_method: str,
-        params: "PaymentMethodAttachParams",
+        params: Optional["PaymentMethodAttachParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentMethod":
         """
@@ -235,7 +235,7 @@ class PaymentMethodService(StripeService):
     async def attach_async(
         self,
         payment_method: str,
-        params: "PaymentMethodAttachParams",
+        params: Optional["PaymentMethodAttachParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentMethod":
         """
