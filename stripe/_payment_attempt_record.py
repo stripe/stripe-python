@@ -1610,6 +1610,24 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             The PayID alias for the bank account.
             """
 
+        class Payto(StripeObject):
+            bsb_number: Optional[str]
+            """
+            Bank-State-Branch number of the bank account.
+            """
+            last4: Optional[str]
+            """
+            Last four digits of the bank account number.
+            """
+            mandate: Optional[str]
+            """
+            ID of the mandate used to make this payment.
+            """
+            pay_id: Optional[str]
+            """
+            The PayID alias for the bank account.
+            """
+
         class Pix(StripeObject):
             bank_transaction_id: Optional[str]
             """

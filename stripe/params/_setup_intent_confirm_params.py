@@ -1545,6 +1545,52 @@ class SetupIntentConfirmParamsPaymentMethodOptionsPixMandateOptions(TypedDict):
     """
 
 
+class SetupIntentConfirmParamsPaymentMethodOptionsPayto(TypedDict):
+    mandate_options: NotRequired[
+        "SetupIntentConfirmParamsPaymentMethodOptionsPaytoMandateOptions"
+    ]
+    """
+    Additional fields for Mandate creation.
+    """
+
+
+class SetupIntentConfirmParamsPaymentMethodOptionsPaytoMandateOptions(
+    TypedDict,
+):
+    amount: NotRequired["Literal['']|int"]
+    """
+    Amount that will be collected. It is required when `amount_type` is `fixed`.
+    """
+    amount_type: NotRequired["Literal['']|Literal['fixed', 'maximum']"]
+    """
+    The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively. Defaults to `maximum`.
+    """
+    end_date: NotRequired["Literal['']|str"]
+    """
+    Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
+    """
+    payment_schedule: NotRequired[
+        "Literal['']|Literal['adhoc', 'annual', 'daily', 'fortnightly', 'monthly', 'quarterly', 'semi_annual', 'weekly']"
+    ]
+    """
+    The periodicity at which payments will be collected. Defaults to `adhoc`.
+    """
+    payments_per_period: NotRequired["Literal['']|int"]
+    """
+    The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
+    """
+    purpose: NotRequired[
+        "Literal['']|Literal['dependant_support', 'government', 'loan', 'mortgage', 'other', 'pension', 'personal', 'retail', 'salary', 'tax', 'utility']"
+    ]
+    """
+    The purpose for which payments are made. Has a default value based on your merchant category code.
+    """
+    start_date: NotRequired["Literal['']|str"]
+    """
+    Date, in YYYY-MM-DD format, from which payments will be collected. Defaults to confirmation time.
+    """
+
+
 class SetupIntentConfirmParamsPaymentMethodOptionsSepaDebit(TypedDict):
     mandate_options: NotRequired[
         "SetupIntentConfirmParamsPaymentMethodOptionsSepaDebitMandateOptions"

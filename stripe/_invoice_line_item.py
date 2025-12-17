@@ -262,7 +262,7 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
             """
 
         class PriceDetails(StripeObject):
-            price: str
+            price: ExpandableField["Price"]
             """
             The ID of the price this item is associated with.
             """

@@ -2259,6 +2259,60 @@ class SessionCreateParamsPaymentMethodOptionsPaytoMandateOptions(TypedDict):
     """
 
 
+class SessionCreateParamsPaymentMethodOptionsPayto(TypedDict):
+    mandate_options: NotRequired[
+        "SessionCreateParamsPaymentMethodOptionsPaytoMandateOptions"
+    ]
+    """
+    Additional fields for Mandate creation
+    """
+    setup_future_usage: NotRequired[Literal["none", "off_session"]]
+    """
+    Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+    If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+    If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+    When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+    """
+
+
+class SessionCreateParamsPaymentMethodOptionsPaytoMandateOptions(TypedDict):
+    amount: NotRequired["Literal['']|int"]
+    """
+    Amount that will be collected. It is required when `amount_type` is `fixed`.
+    """
+    amount_type: NotRequired["Literal['']|Literal['fixed', 'maximum']"]
+    """
+    The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively. Defaults to `maximum`.
+    """
+    end_date: NotRequired["Literal['']|str"]
+    """
+    Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
+    """
+    payment_schedule: NotRequired[
+        "Literal['']|Literal['adhoc', 'annual', 'daily', 'fortnightly', 'monthly', 'quarterly', 'semi_annual', 'weekly']"
+    ]
+    """
+    The periodicity at which payments will be collected. Defaults to `adhoc`.
+    """
+    payments_per_period: NotRequired["Literal['']|int"]
+    """
+    The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
+    """
+    purpose: NotRequired[
+        "Literal['']|Literal['dependant_support', 'government', 'loan', 'mortgage', 'other', 'pension', 'personal', 'retail', 'salary', 'tax', 'utility']"
+    ]
+    """
+    The purpose for which payments are made. Has a default value based on your merchant category code.
+    """
+    start_date: NotRequired["Literal['']|str"]
+    """
+    Date, in YYYY-MM-DD format, from which payments will be collected. Defaults to confirmation time.
+    """
+
+
 class SessionCreateParamsPaymentMethodOptionsPix(TypedDict):
     amount_includes_iof: NotRequired[Literal["always", "never"]]
     """

@@ -1301,6 +1301,20 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             The PayID alias for the bank account.
             """
 
+        class Payto(StripeObject):
+            bsb_number: Optional[str]
+            """
+            Bank-State-Branch number of the bank account.
+            """
+            last4: Optional[str]
+            """
+            Last four digits of the bank account number.
+            """
+            pay_id: Optional[str]
+            """
+            The PayID alias for the bank account.
+            """
+
         class Pix(StripeObject):
             pass
 
