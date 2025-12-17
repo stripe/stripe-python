@@ -1678,7 +1678,7 @@ class SetupIntentConfirmParamsSetupDetails(TypedDict):
 
 class SetupIntentConfirmParamsSetupDetailsBenefit(TypedDict):
     fr_meal_voucher: NotRequired[
-        "SetupIntentConfirmParamsSetupDetailsBenefitFrMealVoucher"
+        "Literal['']|SetupIntentConfirmParamsSetupDetailsBenefitFrMealVoucher"
     ]
     """
     French meal voucher benefit details for this SetupIntent.

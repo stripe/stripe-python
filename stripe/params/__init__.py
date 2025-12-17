@@ -4081,6 +4081,7 @@ if TYPE_CHECKING:
     from stripe.params._plan_create_params import (
         PlanCreateParams as PlanCreateParams,
         PlanCreateParamsProduct as PlanCreateParamsProduct,
+        PlanCreateParamsProductTaxDetails as PlanCreateParamsProductTaxDetails,
         PlanCreateParamsTier as PlanCreateParamsTier,
         PlanCreateParamsTransformUsage as PlanCreateParamsTransformUsage,
     )
@@ -4107,6 +4108,7 @@ if TYPE_CHECKING:
         PriceCreateParamsCurrencyOptionsTier as PriceCreateParamsCurrencyOptionsTier,
         PriceCreateParamsCustomUnitAmount as PriceCreateParamsCustomUnitAmount,
         PriceCreateParamsProductData as PriceCreateParamsProductData,
+        PriceCreateParamsProductDataTaxDetails as PriceCreateParamsProductDataTaxDetails,
         PriceCreateParamsRecurring as PriceCreateParamsRecurring,
         PriceCreateParamsTier as PriceCreateParamsTier,
         PriceCreateParamsTransformQuantity as PriceCreateParamsTransformQuantity,
@@ -19346,6 +19348,10 @@ _import_map = {
     "PayoutUpdateParams": ("stripe.params._payout_update_params", False),
     "PlanCreateParams": ("stripe.params._plan_create_params", False),
     "PlanCreateParamsProduct": ("stripe.params._plan_create_params", False),
+    "PlanCreateParamsProductTaxDetails": (
+        "stripe.params._plan_create_params",
+        False,
+    ),
     "PlanCreateParamsTier": ("stripe.params._plan_create_params", False),
     "PlanCreateParamsTransformUsage": (
         "stripe.params._plan_create_params",
@@ -19375,6 +19381,10 @@ _import_map = {
         False,
     ),
     "PriceCreateParamsProductData": (
+        "stripe.params._price_create_params",
+        False,
+    ),
+    "PriceCreateParamsProductDataTaxDetails": (
         "stripe.params._price_create_params",
         False,
     ),
