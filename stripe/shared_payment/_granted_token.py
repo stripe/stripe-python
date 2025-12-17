@@ -14,8 +14,8 @@ if TYPE_CHECKING:
     from stripe.params.shared_payment._granted_token_retrieve_params import (
         GrantedTokenRetrieveParams,
     )
-    from stripe.params.shared_payment._granted_token_update_params import (
-        GrantedTokenUpdateParams,
+    from stripe.params.shared_payment._granted_token_revoke_params import (
+        GrantedTokenRevokeParams,
     )
 
 
@@ -155,10 +155,10 @@ class GrantedToken(APIResource["GrantedToken"]):
             )
 
         @classmethod
-        def _cls_update(
+        def _cls_revoke(
             cls,
             shared_payment_granted_token: str,
-            **params: Unpack["GrantedTokenUpdateParams"],
+            **params: Unpack["GrantedTokenRevokeParams"],
         ) -> "GrantedToken":
             """
             Revokes a test SharedPaymentGrantedToken object. This endpoint is only available in test mode and allows sellers to revoke SharedPaymentGrantedTokens for testing their integration
@@ -178,9 +178,9 @@ class GrantedToken(APIResource["GrantedToken"]):
 
         @overload
         @staticmethod
-        def update(
+        def revoke(
             shared_payment_granted_token: str,
-            **params: Unpack["GrantedTokenUpdateParams"],
+            **params: Unpack["GrantedTokenRevokeParams"],
         ) -> "GrantedToken":
             """
             Revokes a test SharedPaymentGrantedToken object. This endpoint is only available in test mode and allows sellers to revoke SharedPaymentGrantedTokens for testing their integration
@@ -188,17 +188,17 @@ class GrantedToken(APIResource["GrantedToken"]):
             ...
 
         @overload
-        def update(
-            self, **params: Unpack["GrantedTokenUpdateParams"]
+        def revoke(
+            self, **params: Unpack["GrantedTokenRevokeParams"]
         ) -> "GrantedToken":
             """
             Revokes a test SharedPaymentGrantedToken object. This endpoint is only available in test mode and allows sellers to revoke SharedPaymentGrantedTokens for testing their integration
             """
             ...
 
-        @class_method_variant("_cls_update")
-        def update(  # pyright: ignore[reportGeneralTypeIssues]
-            self, **params: Unpack["GrantedTokenUpdateParams"]
+        @class_method_variant("_cls_revoke")
+        def revoke(  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["GrantedTokenRevokeParams"]
         ) -> "GrantedToken":
             """
             Revokes a test SharedPaymentGrantedToken object. This endpoint is only available in test mode and allows sellers to revoke SharedPaymentGrantedTokens for testing their integration
@@ -217,10 +217,10 @@ class GrantedToken(APIResource["GrantedToken"]):
             )
 
         @classmethod
-        async def _cls_update_async(
+        async def _cls_revoke_async(
             cls,
             shared_payment_granted_token: str,
-            **params: Unpack["GrantedTokenUpdateParams"],
+            **params: Unpack["GrantedTokenRevokeParams"],
         ) -> "GrantedToken":
             """
             Revokes a test SharedPaymentGrantedToken object. This endpoint is only available in test mode and allows sellers to revoke SharedPaymentGrantedTokens for testing their integration
@@ -240,9 +240,9 @@ class GrantedToken(APIResource["GrantedToken"]):
 
         @overload
         @staticmethod
-        async def update_async(
+        async def revoke_async(
             shared_payment_granted_token: str,
-            **params: Unpack["GrantedTokenUpdateParams"],
+            **params: Unpack["GrantedTokenRevokeParams"],
         ) -> "GrantedToken":
             """
             Revokes a test SharedPaymentGrantedToken object. This endpoint is only available in test mode and allows sellers to revoke SharedPaymentGrantedTokens for testing their integration
@@ -250,17 +250,17 @@ class GrantedToken(APIResource["GrantedToken"]):
             ...
 
         @overload
-        async def update_async(
-            self, **params: Unpack["GrantedTokenUpdateParams"]
+        async def revoke_async(
+            self, **params: Unpack["GrantedTokenRevokeParams"]
         ) -> "GrantedToken":
             """
             Revokes a test SharedPaymentGrantedToken object. This endpoint is only available in test mode and allows sellers to revoke SharedPaymentGrantedTokens for testing their integration
             """
             ...
 
-        @class_method_variant("_cls_update_async")
-        async def update_async(  # pyright: ignore[reportGeneralTypeIssues]
-            self, **params: Unpack["GrantedTokenUpdateParams"]
+        @class_method_variant("_cls_revoke_async")
+        async def revoke_async(  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["GrantedTokenRevokeParams"]
         ) -> "GrantedToken":
             """
             Revokes a test SharedPaymentGrantedToken object. This endpoint is only available in test mode and allows sellers to revoke SharedPaymentGrantedTokens for testing their integration
