@@ -273,19 +273,27 @@ class Transaction(APIResource["Transaction"]):
                 The tax rate percentage as a string. For example, 8.5% is represented as "8.5".
                 """
                 tax_type: Literal[
+                    "admissions_tax",
                     "amusement_tax",
+                    "attendance_tax",
                     "communications_tax",
+                    "entertainment_tax",
+                    "gross_receipts_tax",
                     "gst",
+                    "hospitality_tax",
                     "hst",
                     "igst",
                     "jct",
                     "lease_tax",
+                    "luxury_tax",
                     "pst",
                     "qst",
+                    "resort_tax",
                     "retail_delivery_fee",
                     "rst",
                     "sales_tax",
                     "service_tax",
+                    "tourism_tax",
                     "vat",
                 ]
                 """
@@ -297,7 +305,7 @@ class Transaction(APIResource["Transaction"]):
             The amount of tax, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
             """
             jurisdiction: Jurisdiction
-            sourcing: Literal["destination", "origin"]
+            sourcing: Literal["destination", "origin", "performance"]
             """
             Indicates whether the jurisdiction was determined by the origin (merchant's address) or destination (customer's address).
             """

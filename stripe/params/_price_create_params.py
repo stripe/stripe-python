@@ -210,6 +210,10 @@ class PriceCreateParamsProductData(TypedDict):
 
 
 class PriceCreateParamsProductDataTaxDetails(TypedDict):
+    performance_location: NotRequired[str]
+    """
+    A tax location ID. Depending on the [tax code](https://docs.stripe.com/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+    """
     tax_code: str
     """
     A [tax code](https://docs.stripe.com/tax/tax-categories) ID.

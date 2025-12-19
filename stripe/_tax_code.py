@@ -2,7 +2,8 @@
 # File generated from our OpenAPI spec
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from typing import ClassVar
+from stripe._stripe_object import StripeObject
+from typing import ClassVar, Optional
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -16,6 +17,13 @@ class TaxCode(ListableAPIResource["TaxCode"]):
     """
 
     OBJECT_NAME: ClassVar[Literal["tax_code"]] = "tax_code"
+
+    class Requirements(StripeObject):
+        performance_location: Optional[Literal["optional", "required"]]
+        """
+        Describes whether a performance location is required for a successful tax calculation with a tax code.
+        """
+
     description: str
     """
     A detailed description of which types of products the tax code represents.
@@ -31,6 +39,10 @@ class TaxCode(ListableAPIResource["TaxCode"]):
     object: Literal["tax_code"]
     """
     String representing the object's type. Objects of the same type share the same value.
+    """
+    requirements: Optional[Requirements]
+    """
+    An object that describes more information about the tax location required for this tax code. Some [tax codes](https://docs.stripe.com/tax/tax-for-tickets/integration-guide#types-of-products) require a tax location of type `performance` to calculate tax correctly.
     """
 
     @classmethod
@@ -94,3 +106,5 @@ class TaxCode(ListableAPIResource["TaxCode"]):
         instance = cls(id, **params)
         await instance.refresh_async()
         return instance
+
+    _inner_class_types = {"requirements": Requirements}

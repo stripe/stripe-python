@@ -244,6 +244,10 @@ class CalculationCreateParamsLineItem(TypedDict):
     """
     A [tax code](https://docs.stripe.com/tax/tax-categories) ID to use for this line item. If not provided, we will use the tax code from the provided `product` param. If neither `tax_code` nor `product` is provided, we will use the default tax code from your Tax Settings.
     """
+    performance_location: NotRequired[str]
+    """
+    A tax location ID. Depending on the [tax code](https://docs.stripe.com/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+    """
 
 
 class CalculationCreateParamsShipFromDetails(TypedDict):
