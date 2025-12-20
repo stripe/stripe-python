@@ -38,7 +38,7 @@ def _api_encode(data) -> Generator[Tuple[str, Any], None, None]:
                 warnings.simplefilter("ignore", DeprecationWarning)
                 has_stripe_id = hasattr(value, "stripe_id")
 
-            if has_stripe_id and hasattr(value, "id"):
+            if has_stripe_id and hasattr(value, "id") and getattr(value, "id") is not None:
                 yield (key, getattr(value, "id"))
             elif isinstance(value, list) or isinstance(value, tuple):
                 for i, sv in enumerate(value):
