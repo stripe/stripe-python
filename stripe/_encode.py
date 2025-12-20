@@ -33,18 +33,14 @@ def _api_encode(data) -> Generator[Tuple[str, Any], None, None]:
         if value is None:
             continue
         else:
-            # Check if value has stripe_id attribute, suppressing deprecation warnings
+            # Check for stripe_id attribute without triggering deprecation warning
             with warnings.catch_warnings():
                 warnings.simplefilter("ignore", DeprecationWarning)
                 has_stripe_id = hasattr(value, "stripe_id")
 
-            if has_stripe_id:
-                with warnings.catch_warnings():
-                    warnings.simplefilter("ignore", DeprecationWarning)
-                    yield (key, value.stripe_id)
-                continue
-
-            if isinstance(value, list) or isinstance(value, tuple):
+            if has_stripe_id and hasattr(value, "id"):
+                yield (key, getattr(value, "id"))
+            elif isinstance(value, list) or isinstance(value, tuple):
                 for i, sv in enumerate(value):
                     # Always use indexed format for arrays
                     encoded_key = "%s[%d]" % (key, i)
