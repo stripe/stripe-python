@@ -1,7 +1,6 @@
 import calendar
 import datetime
 import time
-import warnings
 from collections import OrderedDict
 from typing import Generator, Tuple, Any
 
@@ -32,31 +31,25 @@ def _api_encode(data) -> Generator[Tuple[str, Any], None, None]:
     for key, value in data.items():
         if value is None:
             continue
+        elif hasattr(value, "id"):
+            yield (key, getattr(value, "id"))
+        elif isinstance(value, list) or isinstance(value, tuple):
+            for i, sv in enumerate(value):
+                # Always use indexed format for arrays
+                encoded_key = "%s[%d]" % (key, i)
+                if isinstance(sv, dict):
+                    subdict = _encode_nested_dict(encoded_key, sv)
+                    for k, v in _api_encode(subdict):
+                        yield (k, v)
+                else:
+                    yield (encoded_key, sv)
+        elif isinstance(value, dict):
+            subdict = _encode_nested_dict(key, value)
+            for subkey, subvalue in _api_encode(subdict):
+                yield (subkey, subvalue)
+        elif isinstance(value, datetime.datetime):
+            yield (key, _encode_datetime(value))
+        elif isinstance(value, bool):
+            yield (key, str(value).lower())
         else:
-            # Check for stripe_id attribute without triggering deprecation warning
-            with warnings.catch_warnings():
-                warnings.simplefilter("ignore", DeprecationWarning)
-                has_stripe_id = hasattr(value, "stripe_id")
-
-            if has_stripe_id and hasattr(value, "id") and getattr(value, "id") is not None:
-                yield (key, getattr(value, "id"))
-            elif isinstance(value, list) or isinstance(value, tuple):
-                for i, sv in enumerate(value):
-                    # Always use indexed format for arrays
-                    encoded_key = "%s[%d]" % (key, i)
-                    if isinstance(sv, dict):
-                        subdict = _encode_nested_dict(encoded_key, sv)
-                        for k, v in _api_encode(subdict):
-                            yield (k, v)
-                    else:
-                        yield (encoded_key, sv)
-            elif isinstance(value, dict):
-                subdict = _encode_nested_dict(key, value)
-                for subkey, subvalue in _api_encode(subdict):
-                    yield (subkey, subvalue)
-            elif isinstance(value, datetime.datetime):
-                yield (key, _encode_datetime(value))
-            elif isinstance(value, bool):
-                yield (key, str(value).lower())
-            else:
-                yield (key, value)
+            yield (key, value)
