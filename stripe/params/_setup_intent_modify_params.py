@@ -1646,7 +1646,7 @@ class SetupIntentModifyParamsSetupDetails(TypedDict):
 
 class SetupIntentModifyParamsSetupDetailsBenefit(TypedDict):
     fr_meal_voucher: NotRequired[
-        "SetupIntentModifyParamsSetupDetailsBenefitFrMealVoucher"
+        "Literal['']|SetupIntentModifyParamsSetupDetailsBenefitFrMealVoucher"
     ]
     """
     French meal voucher benefit details for this SetupIntent.

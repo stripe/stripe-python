@@ -22,6 +22,12 @@ if TYPE_CHECKING:
     from stripe.events._v2_billing_cadence_created_event import (
         V2BillingCadenceCreatedEventNotification,
     )
+    from stripe.events._v2_billing_licensed_item_created_event import (
+        V2BillingLicensedItemCreatedEventNotification,
+    )
+    from stripe.events._v2_billing_licensed_item_updated_event import (
+        V2BillingLicensedItemUpdatedEventNotification,
+    )
     from stripe.events._v2_billing_license_fee_created_event import (
         V2BillingLicenseFeeCreatedEventNotification,
     )
@@ -31,29 +37,20 @@ if TYPE_CHECKING:
     from stripe.events._v2_billing_license_fee_version_created_event import (
         V2BillingLicenseFeeVersionCreatedEventNotification,
     )
-    from stripe.events._v2_billing_licensed_item_created_event import (
-        V2BillingLicensedItemCreatedEventNotification,
-    )
-    from stripe.events._v2_billing_licensed_item_updated_event import (
-        V2BillingLicensedItemUpdatedEventNotification,
-    )
     from stripe.events._v2_billing_metered_item_created_event import (
         V2BillingMeteredItemCreatedEventNotification,
     )
     from stripe.events._v2_billing_metered_item_updated_event import (
         V2BillingMeteredItemUpdatedEventNotification,
     )
-    from stripe.events._v2_billing_pricing_plan_created_event import (
-        V2BillingPricingPlanCreatedEventNotification,
-    )
-    from stripe.events._v2_billing_pricing_plan_updated_event import (
-        V2BillingPricingPlanUpdatedEventNotification,
-    )
     from stripe.events._v2_billing_pricing_plan_component_created_event import (
         V2BillingPricingPlanComponentCreatedEventNotification,
     )
     from stripe.events._v2_billing_pricing_plan_component_updated_event import (
         V2BillingPricingPlanComponentUpdatedEventNotification,
+    )
+    from stripe.events._v2_billing_pricing_plan_created_event import (
+        V2BillingPricingPlanCreatedEventNotification,
     )
     from stripe.events._v2_billing_pricing_plan_subscription_collection_awaiting_customer_action_event import (
         V2BillingPricingPlanSubscriptionCollectionAwaitingCustomerActionEventNotification,
@@ -79,14 +76,14 @@ if TYPE_CHECKING:
     from stripe.events._v2_billing_pricing_plan_subscription_servicing_paused_event import (
         V2BillingPricingPlanSubscriptionServicingPausedEventNotification,
     )
+    from stripe.events._v2_billing_pricing_plan_updated_event import (
+        V2BillingPricingPlanUpdatedEventNotification,
+    )
     from stripe.events._v2_billing_pricing_plan_version_created_event import (
         V2BillingPricingPlanVersionCreatedEventNotification,
     )
     from stripe.events._v2_billing_rate_card_created_event import (
         V2BillingRateCardCreatedEventNotification,
-    )
-    from stripe.events._v2_billing_rate_card_updated_event import (
-        V2BillingRateCardUpdatedEventNotification,
     )
     from stripe.events._v2_billing_rate_card_rate_created_event import (
         V2BillingRateCardRateCreatedEventNotification,
@@ -121,6 +118,9 @@ if TYPE_CHECKING:
     from stripe.events._v2_billing_rate_card_subscription_servicing_paused_event import (
         V2BillingRateCardSubscriptionServicingPausedEventNotification,
     )
+    from stripe.events._v2_billing_rate_card_updated_event import (
+        V2BillingRateCardUpdatedEventNotification,
+    )
     from stripe.events._v2_billing_rate_card_version_created_event import (
         V2BillingRateCardVersionCreatedEventNotification,
     )
@@ -129,9 +129,6 @@ if TYPE_CHECKING:
     )
     from stripe.events._v2_core_account_created_event import (
         V2CoreAccountCreatedEventNotification,
-    )
-    from stripe.events._v2_core_account_updated_event import (
-        V2CoreAccountUpdatedEventNotification,
     )
     from stripe.events._v2_core_account_including_configuration_card_creator_capability_status_updated_event import (
         V2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEventNotification,
@@ -183,6 +180,9 @@ if TYPE_CHECKING:
     )
     from stripe.events._v2_core_account_person_updated_event import (
         V2CoreAccountPersonUpdatedEventNotification,
+    )
+    from stripe.events._v2_core_account_updated_event import (
+        V2CoreAccountUpdatedEventNotification,
     )
     from stripe.events._v2_core_claimable_sandbox_claimed_event import (
         V2CoreClaimableSandboxClaimedEventNotification,
@@ -442,9 +442,6 @@ if TYPE_CHECKING:
     from stripe.events._v2_payments_settlement_allocation_intent_settled_event import (
         V2PaymentsSettlementAllocationIntentSettledEventNotification,
     )
-    from stripe.events._v2_payments_settlement_allocation_intent_submitted_event import (
-        V2PaymentsSettlementAllocationIntentSubmittedEventNotification,
-    )
     from stripe.events._v2_payments_settlement_allocation_intent_split_canceled_event import (
         V2PaymentsSettlementAllocationIntentSplitCanceledEventNotification,
     )
@@ -453,6 +450,9 @@ if TYPE_CHECKING:
     )
     from stripe.events._v2_payments_settlement_allocation_intent_split_settled_event import (
         V2PaymentsSettlementAllocationIntentSplitSettledEventNotification,
+    )
+    from stripe.events._v2_payments_settlement_allocation_intent_submitted_event import (
+        V2PaymentsSettlementAllocationIntentSubmittedEventNotification,
     )
     from stripe.events._v2_reporting_report_run_created_event import (
         V2ReportingReportRunCreatedEventNotification,

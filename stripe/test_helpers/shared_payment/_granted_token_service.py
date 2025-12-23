@@ -10,8 +10,8 @@ if TYPE_CHECKING:
     from stripe.params.test_helpers.shared_payment._granted_token_create_params import (
         GrantedTokenCreateParams,
     )
-    from stripe.params.test_helpers.shared_payment._granted_token_update_params import (
-        GrantedTokenUpdateParams,
+    from stripe.params.test_helpers.shared_payment._granted_token_revoke_params import (
+        GrantedTokenRevokeParams,
     )
     from stripe.shared_payment._granted_token import GrantedToken
 
@@ -55,10 +55,10 @@ class GrantedTokenService(StripeService):
             ),
         )
 
-    def update(
+    def revoke(
         self,
         shared_payment_granted_token: str,
-        params: Optional["GrantedTokenUpdateParams"] = None,
+        params: Optional["GrantedTokenRevokeParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "GrantedToken":
         """
@@ -79,10 +79,10 @@ class GrantedTokenService(StripeService):
             ),
         )
 
-    async def update_async(
+    async def revoke_async(
         self,
         shared_payment_granted_token: str,
-        params: Optional["GrantedTokenUpdateParams"] = None,
+        params: Optional["GrantedTokenRevokeParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "GrantedToken":
         """

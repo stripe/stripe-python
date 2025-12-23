@@ -160,7 +160,7 @@ class SubscriptionScheduleUpdateParamsDefaultSettings(TypedDict):
         Literal["billing_period_start", "phase_start"]
     ]
     """
-    Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+    Configures how the subscription schedule handles billing for phase transitions.
     """
     transfer_data: NotRequired[
         "Literal['']|SubscriptionScheduleUpdateParamsDefaultSettingsTransferData"
@@ -313,7 +313,7 @@ class SubscriptionScheduleUpdateParamsPhase(TypedDict):
     """
     effective_at: NotRequired[Literal["billing_period_start", "phase_start"]]
     """
-    Configures how the subscription schedule handles billing for phase transitions. Possible values are `phase_start` (default) or `billing_period_start`. `phase_start` bills based on the current state of the subscription, ignoring changes scheduled in future phases. `billing_period_start` bills predictively for upcoming phase transitions within the current billing cycle, including pricing changes and service period adjustments that will occur before the next invoice.
+    Configures how the subscription schedule handles billing for phase transitions.
     """
     end_date: NotRequired["int|Literal['now']"]
     """

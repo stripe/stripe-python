@@ -941,6 +941,36 @@ class Registration(
             """
 
         class Us(StripeObject):
+            class AdmissionsTax(StripeObject):
+                jurisdiction: str
+                """
+                A [jurisdiction code](https://docs.stripe.com/tax/registering?type=admissions_tax#registration-types) representing the local jurisdiction.
+                """
+
+            class AttendanceTax(StripeObject):
+                jurisdiction: str
+                """
+                A [jurisdiction code](https://docs.stripe.com/tax/registering?type=attendance_tax#registration-types) representing the local jurisdiction.
+                """
+
+            class EntertainmentTax(StripeObject):
+                jurisdiction: str
+                """
+                A [jurisdiction code](https://docs.stripe.com/tax/registering?type=entertainment_tax#registration-types) representing the local jurisdiction.
+                """
+
+            class GrossReceiptsTax(StripeObject):
+                jurisdiction: str
+                """
+                A [jurisdiction code](https://docs.stripe.com/tax/registering?type=gross_receipts_tax#registration-types) representing the local jurisdiction.
+                """
+
+            class HospitalityTax(StripeObject):
+                jurisdiction: str
+                """
+                A [jurisdiction code](https://docs.stripe.com/tax/registering?type=hospitality_tax#registration-types) representing the local jurisdiction.
+                """
+
             class LocalAmusementTax(StripeObject):
                 jurisdiction: str
                 """
@@ -951,6 +981,18 @@ class Registration(
                 jurisdiction: str
                 """
                 A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction.
+                """
+
+            class LuxuryTax(StripeObject):
+                jurisdiction: str
+                """
+                A [jurisdiction code](https://docs.stripe.com/tax/registering?type=luxury_tax#registration-types) representing the local jurisdiction.
+                """
+
+            class ResortTax(StripeObject):
+                jurisdiction: str
+                """
+                A [jurisdiction code](https://docs.stripe.com/tax/registering?type=resort_tax#registration-types) representing the local jurisdiction.
                 """
 
             class StateSalesTax(StripeObject):
@@ -974,27 +1016,57 @@ class Registration(
                 """
                 _inner_class_types = {"elections": Election}
 
+            class TourismTax(StripeObject):
+                jurisdiction: str
+                """
+                A [jurisdiction code](https://docs.stripe.com/tax/registering?type=tourism_tax#registration-types) representing the local jurisdiction.
+                """
+
+            admissions_tax: Optional[AdmissionsTax]
+            attendance_tax: Optional[AttendanceTax]
+            entertainment_tax: Optional[EntertainmentTax]
+            gross_receipts_tax: Optional[GrossReceiptsTax]
+            hospitality_tax: Optional[HospitalityTax]
             local_amusement_tax: Optional[LocalAmusementTax]
             local_lease_tax: Optional[LocalLeaseTax]
+            luxury_tax: Optional[LuxuryTax]
+            resort_tax: Optional[ResortTax]
             state: str
             """
             Two-letter US state code ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             """
             state_sales_tax: Optional[StateSalesTax]
+            tourism_tax: Optional[TourismTax]
             type: Literal[
+                "admissions_tax",
+                "attendance_tax",
+                "entertainment_tax",
+                "gross_receipts_tax",
+                "hospitality_tax",
                 "local_amusement_tax",
                 "local_lease_tax",
+                "luxury_tax",
+                "resort_tax",
                 "state_communications_tax",
                 "state_retail_delivery_fee",
                 "state_sales_tax",
+                "tourism_tax",
             ]
             """
             Type of registration in the US.
             """
             _inner_class_types = {
+                "admissions_tax": AdmissionsTax,
+                "attendance_tax": AttendanceTax,
+                "entertainment_tax": EntertainmentTax,
+                "gross_receipts_tax": GrossReceiptsTax,
+                "hospitality_tax": HospitalityTax,
                 "local_amusement_tax": LocalAmusementTax,
                 "local_lease_tax": LocalLeaseTax,
+                "luxury_tax": LuxuryTax,
+                "resort_tax": ResortTax,
                 "state_sales_tax": StateSalesTax,
+                "tourism_tax": TourismTax,
             }
 
         class Uy(StripeObject):
