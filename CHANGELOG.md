@@ -39,27 +39,47 @@
   * Add support for event notifications `V2PaymentsSettlementAllocationIntentSplitCanceledEvent`, `V2PaymentsSettlementAllocationIntentSplitCreatedEvent`, and `V2PaymentsSettlementAllocationIntentSplitSettledEvent` with related object `v2.payments.SettlementAllocationIntentSplit`
   * Remove support for error code `account_rate_limit_exceeded` on `RateLimitError`
 
-## 14.1.0a4 - 2025-12-04
-* [#1691](https://github.com/stripe/stripe-python/pull/1691) Update generated code for private-preview
-  * Add support for event notifications `V2IamApiKeyCreatedEvent`, `V2IamApiKeyDefaultSecretRevealedEvent`, `V2IamApiKeyExpiredEvent`, `V2IamApiKeyPermissionsUpdatedEvent`, `V2IamApiKeyRotatedEvent`, and `V2IamApiKeyUpdatedEvent`
-* [#1686](https://github.com/stripe/stripe-python/pull/1686) Update generated code for private-preview
-  * Add support for `check_scanning` on `AccountSession.Component`
-  * Add support for `client` on `V2.Core.Event.Reason.Request`
-  * Add support for `stripe_balance_payment` on `V2.MoneyManagement.ReceivedCredit` and `V2.MoneyManagement.ReceivedDebit`
-  * Add support for new value `stripe_balance_payment` on enum `V2.MoneyManagement.ReceivedCredit.type`
-  * Add support for `balance_transfer` on `V2.MoneyManagement.ReceivedDebit`
-  * Add support for new values `balance_transfer` and `stripe_balance_payment` on enum `V2.MoneyManagement.ReceivedDebit.type`
-  * Add support for `include` on `v2.core.EventListParams` and `v2.core.EventRetrieveParams`
+## 14.1.0 - 2025-12-16
+This release changes the pinned API version to `2025-12-15.clover`.
 
-## 14.1.0a3 - 2025-11-24
-* [#1685](https://github.com/stripe/stripe-python/pull/1685) Update generated code for private-preview
-  * Add support for new resource `product_catalog.TrialOffer`
-  * Add support for `create` method on resource `product_catalog.TrialOffer`
-  * Remove support for `amount_subtotal_after_discount` on `DelegatedCheckout.RequestedSession.LineItemDetail` and `DelegatedCheckout.RequestedSession.TotalDetail`
-  * Remove support for `amount_total`, `unit_amount_after_discount`, and `unit_discount` on `DelegatedCheckout.RequestedSession.LineItemDetail`
-  * Add support for `amount_cart_discount` and `amount_items_discount` on `DelegatedCheckout.RequestedSession.TotalDetail`
-  * Remove support for `amount_discount` on `DelegatedCheckout.RequestedSession.TotalDetail`
-  * Add support for `payments_orchestration` on `PaymentIntentCreateParams` and `PaymentIntent`
+* [#1696](https://github.com/stripe/stripe-python/pull/1696) Update generated code
+  * Add support for new resources `v2.core.AccountLink`, `v2.core.AccountPersonToken`, `v2.core.AccountPerson`, `v2.core.AccountToken`, and `v2.core.Account`
+  * Add support for `create` and `retrieve` methods on resources `v2.core.AccountPersonToken` and `v2.core.AccountToken`
+  * Add support for `create` method on resource `v2.core.AccountLink`
+  * Add support for `close`, `create`, `list`, `modify`, and `retrieve` methods on resource `v2.core.Account`
+  * Add support for `create`, `delete`, `list`, `modify`, and `retrieve` methods on resource `v2.core.AccountPerson`
+  * Add support for `customer_account` on `Billing.CreditBalanceSummary`, `Billing.CreditGrant`, `BillingPortal.Session`, `CashBalance`, `Checkout.Session`, `ConfirmationToken.PaymentMethodPreview`, `CreditNoteListParams`, `CreditNote`, `CustomerBalanceTransaction`, `CustomerCashBalanceTransaction`, `CustomerSessionCreateParams`, `CustomerSession`, `Customer`, `Discount`, `FinancialConnections.Account.AccountHolder`, `FinancialConnections.Session.AccountHolder`, `InvoiceCreateParams`, `InvoiceCreatePreviewParams`, `InvoiceItemCreateParams`, `InvoiceItemListParams`, `InvoiceItem`, `InvoiceListParams`, `Invoice`, `PaymentIntentCreateParams`, `PaymentIntentListParams`, `PaymentIntentModifyParams`, `PaymentIntent`, `PaymentMethodAttachParams`, `PaymentMethodListParams`, `PaymentMethod`, `PromotionCodeCreateParams`, `PromotionCodeListParams`, `PromotionCode`, `QuoteCreateParams`, `QuoteListParams`, `QuoteModifyParams`, `Quote`, `SetupAttempt`, `SetupIntentCreateParams`, `SetupIntentListParams`, `SetupIntentModifyParams`, `SetupIntent`, `SubscriptionCreateParams`, `SubscriptionListParams`, `SubscriptionScheduleCreateParams`, `SubscriptionScheduleListParams`, `SubscriptionSchedule`, `Subscription`, `TaxId.Owner`, `TaxIdCreateParamsOwner`, `TaxIdListParamsOwner`, `TaxId`, `billing.CreditBalanceSummaryRetrieveParams`, `billing.CreditBalanceTransactionListParams`, `billing.CreditGrantCreateParams`, `billing.CreditGrantListParams`, `billing_portal.SessionCreateParams`, `checkout.SessionCreateParams`, `checkout.SessionListParams`, `financial_connections.AccountListParamsAccountHolder`, and `financial_connections.SessionCreateParamsAccountHolder`
+  * Add support for `metadata` on `LineItem` and `checkout.SessionCreateParamsLineItem`
+  * Add support for `payto_payments` on `Account.Capability`, `AccountCreateParamsCapability`, and `AccountModifyParamsCapability`
+  * Add support for `signer` on `AccountCreateParamsDocumentProofOfRegistration`, `AccountCreateParamsDocumentProofOfUltimateBeneficialOwnership`, `AccountModifyParamsDocumentProofOfRegistration`, and `AccountModifyParamsDocumentProofOfUltimateBeneficialOwnership`
+  * Change `CustomerSessionCreateParams.customer`, `InvoiceItemCreateParams.customer`, `PaymentMethodAttachParams.customer`, `SubscriptionCreateParams.customer`, `billing.CreditBalanceSummaryRetrieveParams.customer`, `billing.CreditBalanceTransactionListParams.customer`, `billing.CreditGrantCreateParams.customer`, and `billing_portal.SessionCreateParams.customer` to be optional
+  * Add support for `billing_cycle_anchor` on `BillingPortal.Configuration.Feature.SubscriptionUpdate`, `billing_portal.ConfigurationCreateParamsFeatureSubscriptionUpdate`, and `billing_portal.ConfigurationModifyParamsFeatureSubscriptionUpdate`
+  * Add support for `payto` on `Charge.PaymentMethodDetail`, `Checkout.Session.PaymentMethodOption`, `ConfirmationToken.PaymentMethodPreview`, `ConfirmationTokenCreateParamsPaymentMethodDatum`, `Invoice.PaymentSetting.PaymentMethodOption`, `InvoiceCreateParamsPaymentSettingPaymentMethodOption`, `InvoiceModifyParamsPaymentSettingPaymentMethodOption`, `Mandate.PaymentMethodDetail`, `PaymentAttemptRecord.PaymentMethodDetail`, `PaymentIntent.PaymentMethodOption`, `PaymentIntentConfirmParamsPaymentMethodDatum`, `PaymentIntentConfirmParamsPaymentMethodOption`, `PaymentIntentCreateParamsPaymentMethodDatum`, `PaymentIntentCreateParamsPaymentMethodOption`, `PaymentIntentModifyParamsPaymentMethodDatum`, `PaymentIntentModifyParamsPaymentMethodOption`, `PaymentMethodConfigurationCreateParams`, `PaymentMethodConfigurationModifyParams`, `PaymentMethodConfiguration`, `PaymentMethodCreateParams`, `PaymentMethodModifyParams`, `PaymentMethod`, `PaymentRecord.PaymentMethodDetail`, `SetupAttempt.PaymentMethodDetail`, `SetupIntent.PaymentMethodOption`, `SetupIntentConfirmParamsPaymentMethodDatum`, `SetupIntentConfirmParamsPaymentMethodOption`, `SetupIntentCreateParamsPaymentMethodDatum`, `SetupIntentCreateParamsPaymentMethodOption`, `SetupIntentModifyParamsPaymentMethodDatum`, `SetupIntentModifyParamsPaymentMethodOption`, `Subscription.PaymentSetting.PaymentMethodOption`, `SubscriptionCreateParamsPaymentSettingPaymentMethodOption`, `SubscriptionModifyParamsPaymentSettingPaymentMethodOption`, and `checkout.SessionCreateParamsPaymentMethodOption`
+  * Add support for `expected_debit_date` on `Charge.PaymentMethodDetail.AcssDebit`, `Charge.PaymentMethodDetail.AuBecsDebit`, `Charge.PaymentMethodDetail.BacsDebit`, `Charge.PaymentMethodDetail.NzBankAccount`, `Charge.PaymentMethodDetail.SepaDebit`, `Charge.PaymentMethodDetail.UsBankAccount`, `PaymentAttemptRecord.PaymentMethodDetail.AcssDebit`, `PaymentAttemptRecord.PaymentMethodDetail.AuBecsDebit`, `PaymentAttemptRecord.PaymentMethodDetail.BacsDebit`, `PaymentAttemptRecord.PaymentMethodDetail.NzBankAccount`, `PaymentAttemptRecord.PaymentMethodDetail.SepaDebit`, `PaymentAttemptRecord.PaymentMethodDetail.UsBankAccount`, `PaymentRecord.PaymentMethodDetail.AcssDebit`, `PaymentRecord.PaymentMethodDetail.AuBecsDebit`, `PaymentRecord.PaymentMethodDetail.BacsDebit`, `PaymentRecord.PaymentMethodDetail.NzBankAccount`, `PaymentRecord.PaymentMethodDetail.SepaDebit`, and `PaymentRecord.PaymentMethodDetail.UsBankAccount`
+  * Add support for new value `mollie` on enums `Charge.PaymentMethodDetail.Ideal.bank`, `ConfirmationToken.PaymentMethodPreview.Ideal.bank`, `ConfirmationTokenCreateParamsPaymentMethodDatumIdeal.bank`, `PaymentAttemptRecord.PaymentMethodDetail.Ideal.bank`, `PaymentIntentConfirmParamsPaymentMethodDatumIdeal.bank`, `PaymentIntentCreateParamsPaymentMethodDatumIdeal.bank`, `PaymentIntentModifyParamsPaymentMethodDatumIdeal.bank`, `PaymentMethod.Ideal.bank`, `PaymentMethodCreateParamsIdeal.bank`, `PaymentRecord.PaymentMethodDetail.Ideal.bank`, `SetupAttempt.PaymentMethodDetail.Ideal.bank`, `SetupIntentConfirmParamsPaymentMethodDatumIdeal.bank`, `SetupIntentCreateParamsPaymentMethodDatumIdeal.bank`, and `SetupIntentModifyParamsPaymentMethodDatumIdeal.bank`
+  * Add support for new value `MLLENL2A` on enums `Charge.PaymentMethodDetail.Ideal.bic`, `ConfirmationToken.PaymentMethodPreview.Ideal.bic`, `PaymentAttemptRecord.PaymentMethodDetail.Ideal.bic`, `PaymentMethod.Ideal.bic`, `PaymentRecord.PaymentMethodDetail.Ideal.bic`, and `SetupAttempt.PaymentMethodDetail.Ideal.bic`
+  * Add support for new value `payto` on enums `PaymentIntent.excluded_payment_method_types`, `PaymentIntentConfirmParams.excluded_payment_method_types`, `PaymentIntentCreateParams.excluded_payment_method_types`, `PaymentIntentModifyParams.excluded_payment_method_types`, `SetupIntent.excluded_payment_method_types`, `SetupIntentCreateParams.excluded_payment_method_types`, `SetupIntentModifyParams.excluded_payment_method_types`, and `checkout.SessionCreateParams.excluded_payment_method_types`
+  * Add support for new value `payto` on enum `checkout.SessionCreateParams.payment_method_types`
+  * Add support for `line_items` on `checkout.SessionModifyParams`
+  * Add support for new value `payto` on enums `ConfirmationTokenCreateParamsPaymentMethodDatum.type`, `PaymentIntentConfirmParamsPaymentMethodDatum.type`, `PaymentIntentCreateParamsPaymentMethodDatum.type`, `PaymentIntentModifyParamsPaymentMethodDatum.type`, `SetupIntentConfirmParamsPaymentMethodDatum.type`, `SetupIntentCreateParamsPaymentMethodDatum.type`, and `SetupIntentModifyParamsPaymentMethodDatum.type`
+  * Add support for new value `payto` on enums `ConfirmationToken.PaymentMethodPreview.type` and `PaymentMethod.type`
+  * Add support for new value `payto` on enums `CustomerListPaymentMethodsParams.type`, `PaymentMethodCreateParams.type`, and `PaymentMethodListParams.type`
+  * Add support for `invoice` on `CustomerListCustomerBalanceTransactionParams`
+  * Add support for `related_customer_account` on `Identity.VerificationSession`, `identity.VerificationSessionCreateParams`, and `identity.VerificationSessionListParams`
+  * Change type of `InvoiceItem.Pricing.PriceDetail.price` and `InvoiceLineItem.Pricing.PriceDetail.price` from `string` to `expandable($Price)`
+  * Add support for new value `payto` on enums `Invoice.PaymentSetting.payment_method_types`, `InvoiceCreateParamsPaymentSetting.payment_method_types`, `InvoiceModifyParamsPaymentSetting.payment_method_types`, `Subscription.PaymentSetting.payment_method_types`, `SubscriptionCreateParamsPaymentSetting.payment_method_types`, and `SubscriptionModifyParamsPaymentSetting.payment_method_types`
+  * Add support for `subtotal` on `InvoiceLineItem`
+  * Add support for `authorization_code`, `description`, `iin`, `installments`, `issuer`, `network_advice_code`, `network_decline_code`, and `stored_credential_usage` on `PaymentAttemptRecord.PaymentMethodDetail.Card` and `PaymentRecord.PaymentMethodDetail.Card`
+  * Change `PaymentIntent.transfer_data` to be optional
+  * Add support for new value `payto` on enums `PaymentLink.payment_method_types`, `PaymentLinkCreateParams.payment_method_types`, and `PaymentLinkModifyParams.payment_method_types`
+  * Add support for `allow_redisplay` on `PaymentMethodListParams`
+  * Add support for `reported_by` on `PaymentRecord`
+  * Change `Product.tax_code` to be optional
+  * Add support for new values `2025-12-15.clover` and `2026-01-28.clover` on enum `WebhookEndpointCreateParams.api_version`
+  * Add support for `changes` on `V2.Core.Event`
+  * Add support for error code `account_token_required_for_v2_account` on `Invoice.LastFinalizationError`, `PaymentIntent.LastPaymentError`, `SetupAttempt.SetupError`, `SetupIntent.LastSetupError`, and `StripeError`
+* [#1692](https://github.com/stripe/stripe-python/pull/1692) Updated bundled CA certificates
+* [#1676](https://github.com/stripe/stripe-python/pull/1676) Add create_async method to EphemeralKey
 
 ## 14.1.0b1 - 2025-11-18
 This release changes the pinned API version to `2025-11-17.preview`.
@@ -95,6 +115,28 @@ This release changes the pinned API version to `2025-11-17.preview`.
   * Add support for `person_token` on `v2.core.AccountPersonCreateParams` and `v2.core.AccountPersonModifyParams`
   * Add support for thin event `V2CoreHealthEventGenerationFailureResolvedEvent`
   * Remove support for thin events `V2PaymentsOffSessionPaymentAuthorizationAttemptFailedEvent`, `V2PaymentsOffSessionPaymentAuthorizationAttemptStartedEvent`, `V2PaymentsOffSessionPaymentCanceledEvent`, `V2PaymentsOffSessionPaymentCreatedEvent`, `V2PaymentsOffSessionPaymentFailedEvent`, `V2PaymentsOffSessionPaymentRequiresCaptureEvent`, and `V2PaymentsOffSessionPaymentSucceededEvent` with related object `v2.payments.OffSessionPayment`
+
+## 14.1.0a4 - 2025-12-04
+* [#1691](https://github.com/stripe/stripe-python/pull/1691) Update generated code for private-preview
+  * Add support for event notifications `V2IamApiKeyCreatedEvent`, `V2IamApiKeyDefaultSecretRevealedEvent`, `V2IamApiKeyExpiredEvent`, `V2IamApiKeyPermissionsUpdatedEvent`, `V2IamApiKeyRotatedEvent`, and `V2IamApiKeyUpdatedEvent`
+* [#1686](https://github.com/stripe/stripe-python/pull/1686) Update generated code for private-preview
+  * Add support for `check_scanning` on `AccountSession.Component`
+  * Add support for `client` on `V2.Core.Event.Reason.Request`
+  * Add support for `stripe_balance_payment` on `V2.MoneyManagement.ReceivedCredit` and `V2.MoneyManagement.ReceivedDebit`
+  * Add support for new value `stripe_balance_payment` on enum `V2.MoneyManagement.ReceivedCredit.type`
+  * Add support for `balance_transfer` on `V2.MoneyManagement.ReceivedDebit`
+  * Add support for new values `balance_transfer` and `stripe_balance_payment` on enum `V2.MoneyManagement.ReceivedDebit.type`
+  * Add support for `include` on `v2.core.EventListParams` and `v2.core.EventRetrieveParams`
+
+## 14.1.0a3 - 2025-11-24
+* [#1685](https://github.com/stripe/stripe-python/pull/1685) Update generated code for private-preview
+  * Add support for new resource `product_catalog.TrialOffer`
+  * Add support for `create` method on resource `product_catalog.TrialOffer`
+  * Remove support for `amount_subtotal_after_discount` on `DelegatedCheckout.RequestedSession.LineItemDetail` and `DelegatedCheckout.RequestedSession.TotalDetail`
+  * Remove support for `amount_total`, `unit_amount_after_discount`, and `unit_discount` on `DelegatedCheckout.RequestedSession.LineItemDetail`
+  * Add support for `amount_cart_discount` and `amount_items_discount` on `DelegatedCheckout.RequestedSession.TotalDetail`
+  * Remove support for `amount_discount` on `DelegatedCheckout.RequestedSession.TotalDetail`
+  * Add support for `payments_orchestration` on `PaymentIntentCreateParams` and `PaymentIntent`
 
 ## 14.1.0a2 - 2025-11-20
 This release changes the pinned API version to `2025-11-17.preview`.

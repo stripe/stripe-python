@@ -335,7 +335,6 @@ class TestIntegration(object):
         usage = telemetry["last_request_metrics"]["usage"]
         assert usage == ["stripe_client", "async"]
 
-    @pytest.mark.anyio
     @pytest.fixture(params=["aiohttp", "httpx"])
     async def async_http_client(self, request, anyio_backend):
         if request.param == "httpx":

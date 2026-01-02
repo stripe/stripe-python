@@ -324,6 +324,7 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "CalculationLineItem",
     ),
     "tax.form": ("stripe.tax._form", "Form"),
+    "tax.location": ("stripe.tax._location", "Location"),
     "tax.registration": ("stripe.tax._registration", "Registration"),
     "tax.settings": ("stripe.tax._settings", "Settings"),
     "tax.transaction": ("stripe.tax._transaction", "Transaction"),

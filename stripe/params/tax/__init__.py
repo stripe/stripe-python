@@ -36,6 +36,16 @@ if TYPE_CHECKING:
     from stripe.params.tax._form_retrieve_params import (
         FormRetrieveParams as FormRetrieveParams,
     )
+    from stripe.params.tax._location_create_params import (
+        LocationCreateParams as LocationCreateParams,
+        LocationCreateParamsAddress as LocationCreateParamsAddress,
+    )
+    from stripe.params.tax._location_list_params import (
+        LocationListParams as LocationListParams,
+    )
+    from stripe.params.tax._location_retrieve_params import (
+        LocationRetrieveParams as LocationRetrieveParams,
+    )
     from stripe.params.tax._registration_create_params import (
         RegistrationCreateParams as RegistrationCreateParams,
         RegistrationCreateParamsCountryOptions as RegistrationCreateParamsCountryOptions,
@@ -301,6 +311,19 @@ _import_map = {
     "FormListParamsPayee": ("stripe.params.tax._form_list_params", False),
     "FormPdfParams": ("stripe.params.tax._form_pdf_params", False),
     "FormRetrieveParams": ("stripe.params.tax._form_retrieve_params", False),
+    "LocationCreateParams": (
+        "stripe.params.tax._location_create_params",
+        False,
+    ),
+    "LocationCreateParamsAddress": (
+        "stripe.params.tax._location_create_params",
+        False,
+    ),
+    "LocationListParams": ("stripe.params.tax._location_list_params", False),
+    "LocationRetrieveParams": (
+        "stripe.params.tax._location_retrieve_params",
+        False,
+    ),
     "RegistrationCreateParams": (
         "stripe.params.tax._registration_create_params",
         False,

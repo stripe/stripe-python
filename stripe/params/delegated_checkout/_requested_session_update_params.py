@@ -21,7 +21,7 @@ class RequestedSessionUpdateParams(TypedDict):
     """
     The details of the line items.
     """
-    metadata: NotRequired[Dict[str, str]]
+    metadata: NotRequired["Literal['']|Dict[str, str]"]
     """
     The metadata for this requested session.
     """
@@ -30,12 +30,12 @@ class RequestedSessionUpdateParams(TypedDict):
     The payment method for this requested session.
     """
     payment_method_data: NotRequired[
-        "RequestedSessionUpdateParamsPaymentMethodData"
+        "Literal['']|RequestedSessionUpdateParamsPaymentMethodData"
     ]
     """
     The payment method data for this requested session.
     """
-    shared_metadata: NotRequired[Dict[str, str]]
+    shared_metadata: NotRequired["Literal['']|Dict[str, str]"]
     """
     The shared metadata for this requested session.
     """

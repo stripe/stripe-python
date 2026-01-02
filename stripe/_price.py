@@ -220,6 +220,10 @@ class Price(
     """
     Always true for a deleted object
     """
+    external_reference: Optional[str]
+    """
+    A custom identifier for this price, such as a SKU number or product code, that can be used to reference records from external systems.
+    """
     id: str
     """
     Unique identifier for the object.

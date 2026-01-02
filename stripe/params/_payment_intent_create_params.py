@@ -613,7 +613,7 @@ class PaymentIntentCreateParamsPaymentDetails(TypedDict):
 
 class PaymentIntentCreateParamsPaymentDetailsBenefit(TypedDict):
     fr_meal_voucher: NotRequired[
-        "PaymentIntentCreateParamsPaymentDetailsBenefitFrMealVoucher"
+        "Literal['']|PaymentIntentCreateParamsPaymentDetailsBenefitFrMealVoucher"
     ]
     """
     French meal voucher benefit details for this PaymentIntent.

@@ -704,6 +704,10 @@ class QuotePreviewInvoice(StripeObject):
             """
             The schedule that generated this invoice
             """
+            subscription: Optional[ExpandableField["Subscription"]]
+            """
+            The subscription associated with this schedule
+            """
 
         class SubscriptionDetails(StripeObject):
             class PauseCollection(StripeObject):

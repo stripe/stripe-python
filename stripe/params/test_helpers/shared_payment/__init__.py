@@ -8,8 +8,8 @@ if TYPE_CHECKING:
         GrantedTokenCreateParams as GrantedTokenCreateParams,
         GrantedTokenCreateParamsUsageLimits as GrantedTokenCreateParamsUsageLimits,
     )
-    from stripe.params.test_helpers.shared_payment._granted_token_update_params import (
-        GrantedTokenUpdateParams as GrantedTokenUpdateParams,
+    from stripe.params.test_helpers.shared_payment._granted_token_revoke_params import (
+        GrantedTokenRevokeParams as GrantedTokenRevokeParams,
     )
 
 # name -> (import_target, is_submodule)
@@ -22,8 +22,8 @@ _import_map = {
         "stripe.params.test_helpers.shared_payment._granted_token_create_params",
         False,
     ),
-    "GrantedTokenUpdateParams": (
-        "stripe.params.test_helpers.shared_payment._granted_token_update_params",
+    "GrantedTokenRevokeParams": (
+        "stripe.params.test_helpers.shared_payment._granted_token_revoke_params",
         False,
     ),
 }
