@@ -5233,6 +5233,10 @@ if TYPE_CHECKING:
         SubscriptionModifyParamsTrialSettings as SubscriptionModifyParamsTrialSettings,
         SubscriptionModifyParamsTrialSettingsEndBehavior as SubscriptionModifyParamsTrialSettingsEndBehavior,
     )
+    from stripe.params._subscription_pause_params import (
+        SubscriptionPauseParams as SubscriptionPauseParams,
+        SubscriptionPauseParamsBillFor as SubscriptionPauseParamsBillFor,
+    )
     from stripe.params._subscription_resume_params import (
         SubscriptionResumeParams as SubscriptionResumeParams,
     )
@@ -22957,6 +22961,14 @@ _import_map = {
     ),
     "SubscriptionModifyParamsTrialSettingsEndBehavior": (
         "stripe.params._subscription_modify_params",
+        False,
+    ),
+    "SubscriptionPauseParams": (
+        "stripe.params._subscription_pause_params",
+        False,
+    ),
+    "SubscriptionPauseParamsBillFor": (
+        "stripe.params._subscription_pause_params",
         False,
     ),
     "SubscriptionResumeParams": (
