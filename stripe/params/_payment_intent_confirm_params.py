@@ -466,7 +466,7 @@ class PaymentIntentConfirmParamsPaymentDetails(TypedDict):
 
 class PaymentIntentConfirmParamsPaymentDetailsBenefit(TypedDict):
     fr_meal_voucher: NotRequired[
-        "PaymentIntentConfirmParamsPaymentDetailsBenefitFrMealVoucher"
+        "Literal['']|PaymentIntentConfirmParamsPaymentDetailsBenefitFrMealVoucher"
     ]
     """
     French meal voucher benefit details for this PaymentIntent.
