@@ -69,6 +69,7 @@ if TYPE_CHECKING:
         OutboundPaymentCreateParams as OutboundPaymentCreateParams,
         OutboundPaymentCreateParamsAmount as OutboundPaymentCreateParamsAmount,
         OutboundPaymentCreateParamsDeliveryOptions as OutboundPaymentCreateParamsDeliveryOptions,
+        OutboundPaymentCreateParamsDeliveryOptionsPaperCheck as OutboundPaymentCreateParamsDeliveryOptionsPaperCheck,
         OutboundPaymentCreateParamsFrom as OutboundPaymentCreateParamsFrom,
         OutboundPaymentCreateParamsRecipientNotification as OutboundPaymentCreateParamsRecipientNotification,
         OutboundPaymentCreateParamsTo as OutboundPaymentCreateParamsTo,
@@ -296,6 +297,10 @@ _import_map = {
         False,
     ),
     "OutboundPaymentCreateParamsDeliveryOptions": (
+        "stripe.params.v2.money_management._outbound_payment_create_params",
+        False,
+    ),
+    "OutboundPaymentCreateParamsDeliveryOptionsPaperCheck": (
         "stripe.params.v2.money_management._outbound_payment_create_params",
         False,
     ),

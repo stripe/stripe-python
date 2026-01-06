@@ -25,14 +25,33 @@ class OutboundPayment(StripeObject):
         """
 
     class DeliveryOptions(StripeObject):
+        class PaperCheck(StripeObject):
+            memo: Optional[str]
+            """
+            Memo printed on the memo field of the check.
+            """
+            shipping_speed: Literal["priority", "standard"]
+            """
+            Open Enum. Shipping speed of the paper check.
+            """
+            signature: str
+            """
+            Signature for the paper check.
+            """
+
         bank_account: Optional[Literal["automatic", "local", "wire"]]
         """
         Open Enum. Method for bank account.
+        """
+        paper_check: Optional[PaperCheck]
+        """
+        Delivery options for paper check.
         """
         speed: Optional[Literal["instant", "next_business_day", "standard"]]
         """
         Open Enum. Speed of the payout.
         """
+        _inner_class_types = {"paper_check": PaperCheck}
 
     class From(StripeObject):
         class Debited(StripeObject):
@@ -164,6 +183,74 @@ class OutboundPayment(StripeObject):
         The trace ID value if `trace_id.status` is `supported`, otherwise empty.
         """
 
+    class TrackingDetails(StripeObject):
+        class PaperCheck(StripeObject):
+            class MailingAddress(StripeObject):
+                city: Optional[str]
+                """
+                City, district, suburb, town, or village.
+                """
+                country: Optional[str]
+                """
+                Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                """
+                line1: Optional[str]
+                """
+                Address line 1 (e.g., street, PO Box, or company name).
+                """
+                line2: Optional[str]
+                """
+                Address line 2 (e.g., apartment, suite, unit, or building).
+                """
+                postal_code: Optional[str]
+                """
+                ZIP or postal code.
+                """
+                state: Optional[str]
+                """
+                State, county, province, or region.
+                """
+                town: Optional[str]
+                """
+                Town or district.
+                """
+
+            carrier: Literal["fedex", "usps"]
+            """
+            Open Enum. Carrier of the paper check.
+            """
+            check_number: str
+            """
+            Check number.
+            """
+            current_postal_code: str
+            """
+            Postal code of the latest tracking update.
+            """
+            mailing_address: MailingAddress
+            """
+            Mailing address of the paper check.
+            """
+            tracking_number: str
+            """
+            Tracking number for the check.
+            """
+            tracking_status: Literal["delivered", "in_transit", "mailed"]
+            """
+            Open Enum. Tracking status of the paper check.
+            """
+            updated_at: str
+            """
+            When the tracking details were last updated.
+            """
+            _inner_class_types = {"mailing_address": MailingAddress}
+
+        paper_check: Optional[PaperCheck]
+        """
+        Paper check tracking details.
+        """
+        _inner_class_types = {"paper_check": PaperCheck}
+
     amount: Amount
     """
     The "presentment amount" for the OutboundPayment.
@@ -253,6 +340,10 @@ class OutboundPayment(StripeObject):
     """
     A unique identifier that can be used to track this OutboundPayment with recipient bank. Banks might call this a “reference number” or something similar.
     """
+    tracking_details: Optional[TrackingDetails]
+    """
+    Information to track this OutboundPayment with the recipient bank.
+    """
     _inner_class_types = {
         "amount": Amount,
         "delivery_options": DeliveryOptions,
@@ -262,5 +353,6 @@ class OutboundPayment(StripeObject):
         "status_transitions": StatusTransitions,
         "to": To,
         "trace_id": TraceId,
+        "tracking_details": TrackingDetails,
     }
     _field_remappings = {"from_": "from"}

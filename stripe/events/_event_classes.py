@@ -163,6 +163,9 @@ if TYPE_CHECKING:
     from stripe.events._v2_core_account_including_defaults_updated_event import (
         V2CoreAccountIncludingDefaultsUpdatedEventNotification,
     )
+    from stripe.events._v2_core_account_including_future_requirements_updated_event import (
+        V2CoreAccountIncludingFutureRequirementsUpdatedEventNotification,
+    )
     from stripe.events._v2_core_account_including_identity_updated_event import (
         V2CoreAccountIncludingIdentityUpdatedEventNotification,
     )
@@ -676,6 +679,10 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v2.core.account[defaults].updated": (
         "stripe.events._v2_core_account_including_defaults_updated_event",
         "V2CoreAccountIncludingDefaultsUpdatedEvent",
+    ),
+    "v2.core.account[future_requirements].updated": (
+        "stripe.events._v2_core_account_including_future_requirements_updated_event",
+        "V2CoreAccountIncludingFutureRequirementsUpdatedEvent",
     ),
     "v2.core.account[identity].updated": (
         "stripe.events._v2_core_account_including_identity_updated_event",
@@ -1304,6 +1311,10 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_core_account_including_defaults_updated_event",
         "V2CoreAccountIncludingDefaultsUpdatedEventNotification",
     ),
+    "v2.core.account[future_requirements].updated": (
+        "stripe.events._v2_core_account_including_future_requirements_updated_event",
+        "V2CoreAccountIncludingFutureRequirementsUpdatedEventNotification",
+    ),
     "v2.core.account[identity].updated": (
         "stripe.events._v2_core_account_including_identity_updated_event",
         "V2CoreAccountIncludingIdentityUpdatedEventNotification",
@@ -1775,6 +1786,7 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEventNotification",
     "V2CoreAccountIncludingConfigurationStorerUpdatedEventNotification",
     "V2CoreAccountIncludingDefaultsUpdatedEventNotification",
+    "V2CoreAccountIncludingFutureRequirementsUpdatedEventNotification",
     "V2CoreAccountIncludingIdentityUpdatedEventNotification",
     "V2CoreAccountIncludingRequirementsUpdatedEventNotification",
     "V2CoreAccountLinkReturnedEventNotification",

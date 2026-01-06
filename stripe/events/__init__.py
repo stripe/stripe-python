@@ -221,6 +221,10 @@ if TYPE_CHECKING:
         V2CoreAccountIncludingDefaultsUpdatedEvent as V2CoreAccountIncludingDefaultsUpdatedEvent,
         V2CoreAccountIncludingDefaultsUpdatedEventNotification as V2CoreAccountIncludingDefaultsUpdatedEventNotification,
     )
+    from stripe.events._v2_core_account_including_future_requirements_updated_event import (
+        V2CoreAccountIncludingFutureRequirementsUpdatedEvent as V2CoreAccountIncludingFutureRequirementsUpdatedEvent,
+        V2CoreAccountIncludingFutureRequirementsUpdatedEventNotification as V2CoreAccountIncludingFutureRequirementsUpdatedEventNotification,
+    )
     from stripe.events._v2_core_account_including_identity_updated_event import (
         V2CoreAccountIncludingIdentityUpdatedEvent as V2CoreAccountIncludingIdentityUpdatedEvent,
         V2CoreAccountIncludingIdentityUpdatedEventNotification as V2CoreAccountIncludingIdentityUpdatedEventNotification,
@@ -1043,6 +1047,14 @@ _import_map = {
     ),
     "V2CoreAccountIncludingDefaultsUpdatedEventNotification": (
         "stripe.events._v2_core_account_including_defaults_updated_event",
+        False,
+    ),
+    "V2CoreAccountIncludingFutureRequirementsUpdatedEvent": (
+        "stripe.events._v2_core_account_including_future_requirements_updated_event",
+        False,
+    ),
+    "V2CoreAccountIncludingFutureRequirementsUpdatedEventNotification": (
+        "stripe.events._v2_core_account_including_future_requirements_updated_event",
         False,
     ),
     "V2CoreAccountIncludingIdentityUpdatedEvent": (
