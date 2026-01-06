@@ -37,13 +37,13 @@ class OutboundPaymentQuoteCreateParamsAmount(TypedDict):
 
 
 class OutboundPaymentQuoteCreateParamsDeliveryOptions(TypedDict):
-    bank_account: NotRequired[Literal["automatic", "local", "wire"]]
-    """
-    Open Enum. Method for bank account.
-    """
     speed: NotRequired[Literal["instant", "next_business_day", "standard"]]
     """
     Open Enum. Speed of the payout.
+    """
+    bank_account: NotRequired[Literal["automatic", "local", "wire"]]
+    """
+    Open Enum. Method for bank account.
     """
 
 

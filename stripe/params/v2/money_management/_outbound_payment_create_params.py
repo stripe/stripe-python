@@ -58,13 +58,34 @@ class OutboundPaymentCreateParamsAmount(TypedDict):
 
 
 class OutboundPaymentCreateParamsDeliveryOptions(TypedDict):
+    speed: NotRequired[Literal["instant", "next_business_day", "standard"]]
+    """
+    Open Enum. Speed of the payout.
+    """
     bank_account: NotRequired[Literal["automatic", "local", "wire"]]
     """
     Open Enum. Method for bank account.
     """
-    speed: NotRequired[Literal["instant", "next_business_day", "standard"]]
+    paper_check: NotRequired[
+        "OutboundPaymentCreateParamsDeliveryOptionsPaperCheck"
+    ]
     """
-    Open Enum. Speed of the payout.
+    Delivery options for paper check.
+    """
+
+
+class OutboundPaymentCreateParamsDeliveryOptionsPaperCheck(TypedDict):
+    memo: NotRequired[str]
+    """
+    Memo printed on the memo field of the check.
+    """
+    shipping_speed: NotRequired[Literal["priority", "standard"]]
+    """
+    Open Enum. Shipping speed of the paper check. Defaults to standard.
+    """
+    signature: str
+    """
+    Signature for the paper check.
     """
 
 
