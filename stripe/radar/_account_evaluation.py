@@ -32,14 +32,38 @@ class AccountEvaluation(
     )
 
     class Event(StripeObject):
+        class LoginFailed(StripeObject):
+            reason: str
+            """
+            The reason why this login failed.
+            """
+
+        class RegistrationFailed(StripeObject):
+            reason: str
+            """
+            The reason why this registration failed.
+            """
+
+        login_failed: Optional[LoginFailed]
+        """
+        Data about a failed login event.
+        """
         occurred_at: int
         """
         Time at which the event occurred. Measured in seconds since the Unix epoch.
+        """
+        registration_failed: Optional[RegistrationFailed]
+        """
+        Data about a failed registration event.
         """
         type: str
         """
         The type of event that occurred.
         """
+        _inner_class_types = {
+            "login_failed": LoginFailed,
+            "registration_failed": RegistrationFailed,
+        }
 
     class Signals(StripeObject):
         class AccountSharing(StripeObject):

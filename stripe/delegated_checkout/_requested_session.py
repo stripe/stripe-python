@@ -214,21 +214,9 @@ class RequestedSession(
         """
         The total before any discounts or taxes are applied.
         """
-        description: Optional[str]
-        """
-        The description of the line item.
-        """
-        images: Optional[List[str]]
-        """
-        The images of the line item.
-        """
         key: str
         """
         The key of the line item.
-        """
-        name: str
-        """
-        The name of the line item.
         """
         product_details: Optional[ProductDetails]
         quantity: int
@@ -329,6 +317,37 @@ class RequestedSession(
         """
         _inner_class_types = {"billing_details": BillingDetails, "card": Card}
 
+    class RiskDetails(StripeObject):
+        class ClientDeviceMetadataDetails(StripeObject):
+            radar_session: Optional[str]
+            """
+            The radar session for the client device.
+            """
+            referrer: Optional[str]
+            """
+            The referrer of the client device.
+            """
+            remote_ip: Optional[str]
+            """
+            The remote IP address of the client device.
+            """
+            time_on_page_ms: Optional[int]
+            """
+            The time spent on the page by the client device.
+            """
+            user_agent: Optional[str]
+            """
+            The user agent of the client device.
+            """
+
+        client_device_metadata_details: Optional[ClientDeviceMetadataDetails]
+        """
+        The risk metadata for the client device.
+        """
+        _inner_class_types = {
+            "client_device_metadata_details": ClientDeviceMetadataDetails,
+        }
+
     class SellerDetails(StripeObject):
         pass
 
@@ -428,6 +447,10 @@ class RequestedSession(
     payment_method_preview: Optional[PaymentMethodPreview]
     """
     The preview of the payment method to be created when the requested session is confirmed.
+    """
+    risk_details: Optional[RiskDetails]
+    """
+    The risk details of the requested session.
     """
     seller_details: SellerDetails
     setup_future_usage: Optional[Literal["on_session"]]
@@ -777,6 +800,7 @@ class RequestedSession(
         "line_item_details": LineItemDetail,
         "order_details": OrderDetails,
         "payment_method_preview": PaymentMethodPreview,
+        "risk_details": RiskDetails,
         "seller_details": SellerDetails,
         "total_details": TotalDetails,
     }

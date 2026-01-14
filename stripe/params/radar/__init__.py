@@ -14,12 +14,16 @@ if TYPE_CHECKING:
     )
     from stripe.params.radar._account_evaluation_modify_params import (
         AccountEvaluationModifyParams as AccountEvaluationModifyParams,
+        AccountEvaluationModifyParamsLoginFailed as AccountEvaluationModifyParamsLoginFailed,
+        AccountEvaluationModifyParamsRegistrationFailed as AccountEvaluationModifyParamsRegistrationFailed,
     )
     from stripe.params.radar._account_evaluation_retrieve_params import (
         AccountEvaluationRetrieveParams as AccountEvaluationRetrieveParams,
     )
     from stripe.params.radar._account_evaluation_update_params import (
         AccountEvaluationUpdateParams as AccountEvaluationUpdateParams,
+        AccountEvaluationUpdateParamsLoginFailed as AccountEvaluationUpdateParamsLoginFailed,
+        AccountEvaluationUpdateParamsRegistrationFailed as AccountEvaluationUpdateParamsRegistrationFailed,
     )
     from stripe.params.radar._early_fraud_warning_list_params import (
         EarlyFraudWarningListParams as EarlyFraudWarningListParams,
@@ -91,11 +95,27 @@ _import_map = {
         "stripe.params.radar._account_evaluation_modify_params",
         False,
     ),
+    "AccountEvaluationModifyParamsLoginFailed": (
+        "stripe.params.radar._account_evaluation_modify_params",
+        False,
+    ),
+    "AccountEvaluationModifyParamsRegistrationFailed": (
+        "stripe.params.radar._account_evaluation_modify_params",
+        False,
+    ),
     "AccountEvaluationRetrieveParams": (
         "stripe.params.radar._account_evaluation_retrieve_params",
         False,
     ),
     "AccountEvaluationUpdateParams": (
+        "stripe.params.radar._account_evaluation_update_params",
+        False,
+    ),
+    "AccountEvaluationUpdateParamsLoginFailed": (
+        "stripe.params.radar._account_evaluation_update_params",
+        False,
+    ),
+    "AccountEvaluationUpdateParamsRegistrationFailed": (
         "stripe.params.radar._account_evaluation_update_params",
         False,
     ),

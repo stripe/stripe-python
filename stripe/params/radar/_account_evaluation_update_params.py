@@ -9,7 +9,36 @@ class AccountEvaluationUpdateParams(TypedDict):
     """
     Specifies which fields in the response should be expanded.
     """
-    type: Literal["registration_succeeded"]
+    type: Literal[
+        "login_failed",
+        "login_succeeded",
+        "registration_failed",
+        "registration_succeeded",
+    ]
     """
     The type of event to report.
+    """
+    login_failed: NotRequired["AccountEvaluationUpdateParamsLoginFailed"]
+    """
+    Event payload for login_failed.
+    """
+    registration_failed: NotRequired[
+        "AccountEvaluationUpdateParamsRegistrationFailed"
+    ]
+    """
+    Event payload for registration_failed.
+    """
+
+
+class AccountEvaluationUpdateParamsLoginFailed(TypedDict):
+    reason: Literal["other", "suspected_account_sharing"]
+    """
+    The reason why this login failed.
+    """
+
+
+class AccountEvaluationUpdateParamsRegistrationFailed(TypedDict):
+    reason: Literal["other", "suspected_multi_accounting"]
+    """
+    The reason why this registration failed.
     """

@@ -61,6 +61,10 @@ class TrialOffer(CreateableAPIResource["TrialOffer"]):
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
+    name: Optional[str]
+    """
+    A brief, user-friendly name for the trial offer-for identification purposes.
+    """
     object: Literal["product_catalog.trial_offer"]
     """
     String representing the object's type. Objects of the same type share the same value.
