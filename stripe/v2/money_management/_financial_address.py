@@ -62,6 +62,44 @@ class FinancialAddress(StripeObject):
             """
 
         class UsBankAccount(StripeObject):
+            class AccountHolderAddress(StripeObject):
+                city: str
+                """
+                The city of the address.
+                """
+                country: str
+                """
+                The country of the address.
+                """
+                line1: str
+                """
+                The first line of the address.
+                """
+                line2: str
+                """
+                The second line of the address.
+                """
+                postal_code: str
+                """
+                The postal / zip code of the address.
+                """
+                state: str
+                """
+                The state of the address.
+                """
+                town: str
+                """
+                The town of the address.
+                """
+
+            account_holder_address: Optional[AccountHolderAddress]
+            """
+            The address of the account holder.
+            """
+            account_holder_name: Optional[str]
+            """
+            The name of the account holder.
+            """
             account_number: Optional[str]
             """
             The account number of the US Bank Account.
@@ -83,6 +121,9 @@ class FinancialAddress(StripeObject):
             """
             The swift code of the bank or financial institution.
             """
+            _inner_class_types = {
+                "account_holder_address": AccountHolderAddress,
+            }
 
         gb_bank_account: Optional[GbBankAccount]
         """

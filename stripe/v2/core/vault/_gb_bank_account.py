@@ -14,6 +14,16 @@ class GbBankAccount(StripeObject):
         "v2.core.vault.gb_bank_account"
     )
 
+    class AlternativeReference(StripeObject):
+        id: str
+        """
+        The ID of the alternative resource being referenced.
+        """
+        type: Literal["external_account", "payment_method"]
+        """
+        The type of the alternative reference (e.g., external_account for V1 external accounts).
+        """
+
     class ConfirmationOfPayee(StripeObject):
         class Result(StripeObject):
             class Matched(StripeObject):
@@ -71,6 +81,10 @@ class GbBankAccount(StripeObject):
         """
         _inner_class_types = {"result": Result}
 
+    alternative_reference: Optional[AlternativeReference]
+    """
+    The alternative reference for this payout method, if it's a projected payout method.
+    """
     archived: bool
     """
     Whether this bank account object was archived. Bank account objects can be archived through
@@ -114,4 +128,7 @@ class GbBankAccount(StripeObject):
     """
     The Sort Code of the bank account.
     """
-    _inner_class_types = {"confirmation_of_payee": ConfirmationOfPayee}
+    _inner_class_types = {
+        "alternative_reference": AlternativeReference,
+        "confirmation_of_payee": ConfirmationOfPayee,
+    }
