@@ -22,6 +22,10 @@ class TrialOfferCreateParams(RequestOptions):
     """
     Price configuration during the trial period (amount, billing scheme, etc).
     """
+    name: NotRequired[str]
+    """
+    A brief, user-friendly name for the trial offer-for identification purposes.
+    """
 
 
 class TrialOfferCreateParamsDuration(TypedDict):
