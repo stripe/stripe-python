@@ -1,5 +1,13 @@
 # Changelog
 
+## 14.2.0a3 - 2026-01-14
+* [#1718](https://github.com/stripe/stripe-python/pull/1718) Update generated code for private-preview
+  * Add support for `risk_details` on `DelegatedCheckout.RequestedSession`
+  * Remove support for `description`, `images`, and `name` on `DelegatedCheckout.RequestedSession.LineItemDetail`
+  * Add support for `name` on `ProductCatalog.TrialOffer` and `product_catalog.TrialOfferCreateParams`
+  * Add support for `login_failed` and `registration_failed` on `Radar.AccountEvaluation.Event` and `radar.AccountEvaluationModifyParams`
+  * Change type of `radar.AccountEvaluationModifyParams.type` from `literal('registration_succeeded')` to `enum('login_failed'|'login_succeeded'|'registration_failed'|'registration_succeeded')`
+
 ## 14.2.0a2 - 2026-01-07
 * [#1711](https://github.com/stripe/stripe-python/pull/1711) Update generated code for private-preview
   * Add support for `tracking_details` on `V2.MoneyManagement.OutboundPayment`
