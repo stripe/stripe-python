@@ -381,6 +381,8 @@ class _APIRequestor(object):
                 code,
             )
         # switchCases: The beginning of the section generated from our OpenAPI spec
+        elif type == "rate_limit":
+            return error.RateLimitError(**error_args)
         elif type == "temporary_session_expired":
             return error.TemporarySessionExpiredError(**error_args)
         # switchCases: The end of the section generated from our OpenAPI spec
