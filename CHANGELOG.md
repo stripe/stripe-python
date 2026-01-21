@@ -1,5 +1,10 @@
 # Changelog
 
+## 14.3.0a1 - 2026-01-21
+* [#1723](https://github.com/stripe/stripe-python/pull/1723) Update generated code for private-preview
+  * Remove support for `pause` method on resource `Subscription`
+  * Change type of `Quote.SubscriptionDataOverride.phase_effective_at` and `Quote.SubscriptionDatum.phase_effective_at` from `enum('billing_period_start'|'phase_start')` to `nullable(enum('billing_period_start'|'phase_start'))`
+
 ## 14.2.0 - 2026-01-16
 * [#1720](https://github.com/stripe/stripe-python/pull/1720) Update generated code
   * Add support for event notifications `V2CoreAccountClosedEvent`, `V2CoreAccountCreatedEvent`, `V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent`, `V2CoreAccountIncludingConfigurationCustomerUpdatedEvent`, `V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEvent`, `V2CoreAccountIncludingConfigurationMerchantUpdatedEvent`, `V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent`, `V2CoreAccountIncludingConfigurationRecipientUpdatedEvent`, `V2CoreAccountIncludingDefaultsUpdatedEvent`, `V2CoreAccountIncludingFutureRequirementsUpdatedEvent`, `V2CoreAccountIncludingIdentityUpdatedEvent`, `V2CoreAccountIncludingRequirementsUpdatedEvent`, and `V2CoreAccountUpdatedEvent` with related object `v2.core.Account`
