@@ -144,7 +144,9 @@ class SessionUpdateParamsDiscountCouponData(TypedDict):
     """
     Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `amount_off` parameter (required if `amount_off` is passed).
     """
-    duration: NotRequired[Literal["forever", "once", "repeating"]]
+    duration: NotRequired[
+        Literal["forever", "once", "repeating", "service_period"]
+    ]
     """
     Specifies how long the discount will be in effect if used on a subscription. Defaults to `once`.
     """

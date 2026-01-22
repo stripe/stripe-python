@@ -342,6 +342,10 @@ class InvoiceCreatePreviewParamsDiscount(TypedDict):
     """
     ID of the promotion code to create a new discount for.
     """
+    settings: NotRequired["InvoiceCreatePreviewParamsDiscountSettings"]
+    """
+    Settings for discount application including service period anchoring.
+    """
 
 
 class InvoiceCreatePreviewParamsDiscountDiscountEnd(TypedDict):
@@ -369,6 +373,61 @@ class InvoiceCreatePreviewParamsDiscountDiscountEndDuration(TypedDict):
     interval_count: int
     """
     The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+    """
+
+
+class InvoiceCreatePreviewParamsDiscountSettings(TypedDict):
+    service_period_anchor_config: NotRequired[
+        "InvoiceCreatePreviewParamsDiscountSettingsServicePeriodAnchorConfig"
+    ]
+    """
+    Configures service period cycle anchoring.
+    """
+    start_date: NotRequired[
+        Literal["current_period_end", "current_period_start", "now"]
+    ]
+    """
+    The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `now` if omitted.
+    """
+
+
+class InvoiceCreatePreviewParamsDiscountSettingsServicePeriodAnchorConfig(
+    TypedDict,
+):
+    custom: NotRequired[
+        "InvoiceCreatePreviewParamsDiscountSettingsServicePeriodAnchorConfigCustom"
+    ]
+    """
+    Anchor the service period to a custom date. Type must be `custom` to specify.
+    """
+    type: NotRequired[Literal["custom", "subscription_service_cycle_anchor"]]
+    """
+    The type of service period anchor config. Defaults to `subscription_service_cycle_anchor` if omitted.
+    """
+
+
+class InvoiceCreatePreviewParamsDiscountSettingsServicePeriodAnchorConfigCustom(
+    TypedDict,
+):
+    day_of_month: int
+    """
+    The day of the month the anchor should be. Ranges from 1 to 31.
+    """
+    hour: NotRequired[int]
+    """
+    The hour of the day the anchor should be. Ranges from 0 to 23.
+    """
+    minute: NotRequired[int]
+    """
+    The minute of the hour the anchor should be. Ranges from 0 to 59.
+    """
+    month: NotRequired[int]
+    """
+    The month to start full cycle periods. Ranges from 1 to 12.
+    """
+    second: NotRequired[int]
+    """
+    The second of the minute the anchor should be. Ranges from 0 to 59.
     """
 
 
@@ -850,6 +909,12 @@ class InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionAdd(
     """
     The promotion code to redeem.
     """
+    settings: NotRequired[
+        "InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionAddSettings"
+    ]
+    """
+    Settings for discount application including service period anchoring.
+    """
 
 
 class InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionAddDiscountEnd(
@@ -858,6 +923,65 @@ class InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionAddDiscoun
     type: Literal["amendment_end"]
     """
     The type of calculation made to determine when the discount ends.
+    """
+
+
+class InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionAddSettings(
+    TypedDict,
+):
+    service_period_anchor_config: NotRequired[
+        "InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionAddSettingsServicePeriodAnchorConfig"
+    ]
+    """
+    Configures service period cycle anchoring.
+    """
+    start_date: NotRequired[
+        Literal[
+            "amendment_start", "current_period_end", "current_period_start"
+        ]
+    ]
+    """
+    The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `amendment_start` if omitted.
+    """
+
+
+class InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionAddSettingsServicePeriodAnchorConfig(
+    TypedDict,
+):
+    custom: NotRequired[
+        "InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionAddSettingsServicePeriodAnchorConfigCustom"
+    ]
+    """
+    Anchor the service period to a custom date. Type must be `custom` to specify.
+    """
+    type: NotRequired[Literal["custom", "inherit"]]
+    """
+    The type of service period anchor config. Defaults to `inherit` if omitted.
+    """
+
+
+class InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionAddSettingsServicePeriodAnchorConfigCustom(
+    TypedDict,
+):
+    day_of_month: int
+    """
+    The day of the month the anchor should be. Ranges from 1 to 31.
+    """
+    hour: NotRequired[int]
+    """
+    The hour of the day the anchor should be. Ranges from 0 to 23.
+    """
+    minute: NotRequired[int]
+    """
+    The minute of the hour the anchor should be. Ranges from 0 to 59.
+    """
+    month: NotRequired[int]
+    """
+    The month to start full cycle periods. Ranges from 1 to 12.
+    """
+    second: NotRequired[int]
+    """
+    The second of the minute the anchor should be. Ranges from 0 to 59.
     """
 
 
@@ -892,6 +1016,71 @@ class InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionSet(
     promotion_code: NotRequired[str]
     """
     An ID of an existing promotion code to replace the `discounts` array with.
+    """
+    settings: NotRequired[
+        "InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionSetSettings"
+    ]
+    """
+    Settings for discount application including service period anchoring.
+    """
+
+
+class InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionSetSettings(
+    TypedDict,
+):
+    service_period_anchor_config: NotRequired[
+        "InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionSetSettingsServicePeriodAnchorConfig"
+    ]
+    """
+    Configures service period cycle anchoring.
+    """
+    start_date: NotRequired[
+        Literal[
+            "amendment_start", "current_period_end", "current_period_start"
+        ]
+    ]
+    """
+    The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `amendment_start` if omitted.
+    """
+
+
+class InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionSetSettingsServicePeriodAnchorConfig(
+    TypedDict,
+):
+    custom: NotRequired[
+        "InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionSetSettingsServicePeriodAnchorConfigCustom"
+    ]
+    """
+    Anchor the service period to a custom date. Type must be `custom` to specify.
+    """
+    type: NotRequired[Literal["custom", "inherit"]]
+    """
+    The type of service period anchor config. Defaults to `inherit` if omitted.
+    """
+
+
+class InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionSetSettingsServicePeriodAnchorConfigCustom(
+    TypedDict,
+):
+    day_of_month: int
+    """
+    The day of the month the anchor should be. Ranges from 1 to 31.
+    """
+    hour: NotRequired[int]
+    """
+    The hour of the day the anchor should be. Ranges from 0 to 23.
+    """
+    minute: NotRequired[int]
+    """
+    The minute of the hour the anchor should be. Ranges from 0 to 59.
+    """
+    month: NotRequired[int]
+    """
+    The month to start full cycle periods. Ranges from 1 to 12.
+    """
+    second: NotRequired[int]
+    """
+    The second of the minute the anchor should be. Ranges from 0 to 59.
     """
 
 
@@ -980,6 +1169,12 @@ class InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionAddDiscount(
     """
     ID of the promotion code to create a new discount for.
     """
+    settings: NotRequired[
+        "InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionAddDiscountSettings"
+    ]
+    """
+    Settings for discount application including service period anchoring.
+    """
 
 
 class InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionAddDiscountDiscountEnd(
@@ -1011,6 +1206,65 @@ class InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionAddDiscountDis
     interval_count: int
     """
     The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+    """
+
+
+class InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionAddDiscountSettings(
+    TypedDict,
+):
+    service_period_anchor_config: NotRequired[
+        "InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionAddDiscountSettingsServicePeriodAnchorConfig"
+    ]
+    """
+    Configures service period cycle anchoring.
+    """
+    start_date: NotRequired[
+        Literal[
+            "amendment_start", "current_period_end", "current_period_start"
+        ]
+    ]
+    """
+    The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `amendment_start` if omitted.
+    """
+
+
+class InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionAddDiscountSettingsServicePeriodAnchorConfig(
+    TypedDict,
+):
+    custom: NotRequired[
+        "InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionAddDiscountSettingsServicePeriodAnchorConfigCustom"
+    ]
+    """
+    Anchor the service period to a custom date. Type must be `custom` to specify.
+    """
+    type: NotRequired[Literal["custom", "inherit"]]
+    """
+    The type of service period anchor config. Defaults to `inherit` if omitted.
+    """
+
+
+class InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionAddDiscountSettingsServicePeriodAnchorConfigCustom(
+    TypedDict,
+):
+    day_of_month: int
+    """
+    The day of the month the anchor should be. Ranges from 1 to 31.
+    """
+    hour: NotRequired[int]
+    """
+    The hour of the day the anchor should be. Ranges from 0 to 23.
+    """
+    minute: NotRequired[int]
+    """
+    The minute of the hour the anchor should be. Ranges from 0 to 59.
+    """
+    month: NotRequired[int]
+    """
+    The month to start full cycle periods. Ranges from 1 to 12.
+    """
+    second: NotRequired[int]
+    """
+    The second of the minute the anchor should be. Ranges from 0 to 59.
     """
 
 
@@ -1096,6 +1350,12 @@ class InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionSetDiscount(
     """
     ID of the promotion code to create a new discount for.
     """
+    settings: NotRequired[
+        "InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionSetDiscountSettings"
+    ]
+    """
+    Settings for discount application including service period anchoring.
+    """
 
 
 class InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionSetDiscountDiscountEnd(
@@ -1127,6 +1387,65 @@ class InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionSetDiscountDis
     interval_count: int
     """
     The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+    """
+
+
+class InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionSetDiscountSettings(
+    TypedDict,
+):
+    service_period_anchor_config: NotRequired[
+        "InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionSetDiscountSettingsServicePeriodAnchorConfig"
+    ]
+    """
+    Configures service period cycle anchoring.
+    """
+    start_date: NotRequired[
+        Literal[
+            "amendment_start", "current_period_end", "current_period_start"
+        ]
+    ]
+    """
+    The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `amendment_start` if omitted.
+    """
+
+
+class InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionSetDiscountSettingsServicePeriodAnchorConfig(
+    TypedDict,
+):
+    custom: NotRequired[
+        "InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionSetDiscountSettingsServicePeriodAnchorConfigCustom"
+    ]
+    """
+    Anchor the service period to a custom date. Type must be `custom` to specify.
+    """
+    type: NotRequired[Literal["custom", "inherit"]]
+    """
+    The type of service period anchor config. Defaults to `inherit` if omitted.
+    """
+
+
+class InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionSetDiscountSettingsServicePeriodAnchorConfigCustom(
+    TypedDict,
+):
+    day_of_month: int
+    """
+    The day of the month the anchor should be. Ranges from 1 to 31.
+    """
+    hour: NotRequired[int]
+    """
+    The hour of the day the anchor should be. Ranges from 0 to 23.
+    """
+    minute: NotRequired[int]
+    """
+    The minute of the hour the anchor should be. Ranges from 0 to 59.
+    """
+    month: NotRequired[int]
+    """
+    The month to start full cycle periods. Ranges from 1 to 12.
+    """
+    second: NotRequired[int]
+    """
+    The second of the minute the anchor should be. Ranges from 0 to 59.
     """
 
 
@@ -1641,6 +1960,12 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhaseDiscount(TypedDict):
     """
     ID of the promotion code to create a new discount for.
     """
+    settings: NotRequired[
+        "InvoiceCreatePreviewParamsScheduleDetailsPhaseDiscountSettings"
+    ]
+    """
+    Settings for discount application including service period anchoring.
+    """
 
 
 class InvoiceCreatePreviewParamsScheduleDetailsPhaseDiscountDiscountEnd(
@@ -1672,6 +1997,63 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhaseDiscountDiscountEndDuration(
     interval_count: int
     """
     The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+    """
+
+
+class InvoiceCreatePreviewParamsScheduleDetailsPhaseDiscountSettings(
+    TypedDict
+):
+    service_period_anchor_config: NotRequired[
+        "InvoiceCreatePreviewParamsScheduleDetailsPhaseDiscountSettingsServicePeriodAnchorConfig"
+    ]
+    """
+    Configures service period cycle anchoring.
+    """
+    start_date: NotRequired[
+        Literal["current_period_end", "current_period_start", "phase_start"]
+    ]
+    """
+    The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `phase_start` if omitted.
+    """
+
+
+class InvoiceCreatePreviewParamsScheduleDetailsPhaseDiscountSettingsServicePeriodAnchorConfig(
+    TypedDict,
+):
+    custom: NotRequired[
+        "InvoiceCreatePreviewParamsScheduleDetailsPhaseDiscountSettingsServicePeriodAnchorConfigCustom"
+    ]
+    """
+    Anchor the service period to a custom date. Type must be `custom` to specify.
+    """
+    type: NotRequired[Literal["custom", "inherit"]]
+    """
+    The type of service period anchor config. Defaults to `inherit` if omitted.
+    """
+
+
+class InvoiceCreatePreviewParamsScheduleDetailsPhaseDiscountSettingsServicePeriodAnchorConfigCustom(
+    TypedDict,
+):
+    day_of_month: int
+    """
+    The day of the month the anchor should be. Ranges from 1 to 31.
+    """
+    hour: NotRequired[int]
+    """
+    The hour of the day the anchor should be. Ranges from 0 to 23.
+    """
+    minute: NotRequired[int]
+    """
+    The minute of the hour the anchor should be. Ranges from 0 to 59.
+    """
+    month: NotRequired[int]
+    """
+    The month to start full cycle periods. Ranges from 1 to 12.
+    """
+    second: NotRequired[int]
+    """
+    The second of the minute the anchor should be. Ranges from 0 to 59.
     """
 
 
@@ -1795,6 +2177,12 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhaseItemDiscount(TypedDict):
     """
     ID of the promotion code to create a new discount for.
     """
+    settings: NotRequired[
+        "InvoiceCreatePreviewParamsScheduleDetailsPhaseItemDiscountSettings"
+    ]
+    """
+    Settings for discount application including service period anchoring.
+    """
 
 
 class InvoiceCreatePreviewParamsScheduleDetailsPhaseItemDiscountDiscountEnd(
@@ -1826,6 +2214,63 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhaseItemDiscountDiscountEndDurat
     interval_count: int
     """
     The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+    """
+
+
+class InvoiceCreatePreviewParamsScheduleDetailsPhaseItemDiscountSettings(
+    TypedDict,
+):
+    service_period_anchor_config: NotRequired[
+        "InvoiceCreatePreviewParamsScheduleDetailsPhaseItemDiscountSettingsServicePeriodAnchorConfig"
+    ]
+    """
+    Configures service period cycle anchoring.
+    """
+    start_date: NotRequired[
+        Literal["current_period_end", "current_period_start", "phase_start"]
+    ]
+    """
+    The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `phase_start` if omitted.
+    """
+
+
+class InvoiceCreatePreviewParamsScheduleDetailsPhaseItemDiscountSettingsServicePeriodAnchorConfig(
+    TypedDict,
+):
+    custom: NotRequired[
+        "InvoiceCreatePreviewParamsScheduleDetailsPhaseItemDiscountSettingsServicePeriodAnchorConfigCustom"
+    ]
+    """
+    Anchor the service period to a custom date. Type must be `custom` to specify.
+    """
+    type: NotRequired[Literal["custom", "inherit"]]
+    """
+    The type of service period anchor config. Defaults to `inherit` if omitted.
+    """
+
+
+class InvoiceCreatePreviewParamsScheduleDetailsPhaseItemDiscountSettingsServicePeriodAnchorConfigCustom(
+    TypedDict,
+):
+    day_of_month: int
+    """
+    The day of the month the anchor should be. Ranges from 1 to 31.
+    """
+    hour: NotRequired[int]
+    """
+    The hour of the day the anchor should be. Ranges from 0 to 23.
+    """
+    minute: NotRequired[int]
+    """
+    The minute of the hour the anchor should be. Ranges from 0 to 59.
+    """
+    month: NotRequired[int]
+    """
+    The month to start full cycle periods. Ranges from 1 to 12.
+    """
+    second: NotRequired[int]
+    """
+    The second of the minute the anchor should be. Ranges from 0 to 59.
     """
 
 
@@ -2233,6 +2678,12 @@ class InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscount(TypedDict):
     """
     ID of the promotion code to create a new discount for.
     """
+    settings: NotRequired[
+        "InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscountSettings"
+    ]
+    """
+    Settings for discount application including service period anchoring.
+    """
 
 
 class InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscountDiscountEnd(
@@ -2264,6 +2715,63 @@ class InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscountDiscountEndDurati
     interval_count: int
     """
     The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+    """
+
+
+class InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscountSettings(
+    TypedDict,
+):
+    service_period_anchor_config: NotRequired[
+        "InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscountSettingsServicePeriodAnchorConfig"
+    ]
+    """
+    Configures service period cycle anchoring.
+    """
+    start_date: NotRequired[
+        Literal["current_period_end", "current_period_start", "now"]
+    ]
+    """
+    The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `now` if omitted.
+    """
+
+
+class InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscountSettingsServicePeriodAnchorConfig(
+    TypedDict,
+):
+    custom: NotRequired[
+        "InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscountSettingsServicePeriodAnchorConfigCustom"
+    ]
+    """
+    Anchor the service period to a custom date. Type must be `custom` to specify.
+    """
+    type: NotRequired[Literal["custom", "subscription_service_cycle_anchor"]]
+    """
+    The type of service period anchor config. Defaults to `subscription_service_cycle_anchor` if omitted.
+    """
+
+
+class InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscountSettingsServicePeriodAnchorConfigCustom(
+    TypedDict,
+):
+    day_of_month: int
+    """
+    The day of the month the anchor should be. Ranges from 1 to 31.
+    """
+    hour: NotRequired[int]
+    """
+    The hour of the day the anchor should be. Ranges from 0 to 23.
+    """
+    minute: NotRequired[int]
+    """
+    The minute of the hour the anchor should be. Ranges from 0 to 59.
+    """
+    month: NotRequired[int]
+    """
+    The month to start full cycle periods. Ranges from 1 to 12.
+    """
+    second: NotRequired[int]
+    """
+    The second of the minute the anchor should be. Ranges from 0 to 59.
     """
 
 

@@ -283,6 +283,12 @@ class SubscriptionScheduleAmendParamsAmendmentDiscountActionAdd(TypedDict):
     """
     The promotion code to redeem.
     """
+    settings: NotRequired[
+        "SubscriptionScheduleAmendParamsAmendmentDiscountActionAddSettings"
+    ]
+    """
+    Settings for discount application including service period anchoring.
+    """
 
 
 class SubscriptionScheduleAmendParamsAmendmentDiscountActionAddDiscountEnd(
@@ -291,6 +297,65 @@ class SubscriptionScheduleAmendParamsAmendmentDiscountActionAddDiscountEnd(
     type: Literal["amendment_end"]
     """
     The type of calculation made to determine when the discount ends.
+    """
+
+
+class SubscriptionScheduleAmendParamsAmendmentDiscountActionAddSettings(
+    TypedDict,
+):
+    service_period_anchor_config: NotRequired[
+        "SubscriptionScheduleAmendParamsAmendmentDiscountActionAddSettingsServicePeriodAnchorConfig"
+    ]
+    """
+    Configures service period cycle anchoring.
+    """
+    start_date: NotRequired[
+        Literal[
+            "amendment_start", "current_period_end", "current_period_start"
+        ]
+    ]
+    """
+    The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `amendment_start` if omitted.
+    """
+
+
+class SubscriptionScheduleAmendParamsAmendmentDiscountActionAddSettingsServicePeriodAnchorConfig(
+    TypedDict,
+):
+    custom: NotRequired[
+        "SubscriptionScheduleAmendParamsAmendmentDiscountActionAddSettingsServicePeriodAnchorConfigCustom"
+    ]
+    """
+    Anchor the service period to a custom date. Type must be `custom` to specify.
+    """
+    type: NotRequired[Literal["custom", "inherit"]]
+    """
+    The type of service period anchor config. Defaults to `inherit` if omitted.
+    """
+
+
+class SubscriptionScheduleAmendParamsAmendmentDiscountActionAddSettingsServicePeriodAnchorConfigCustom(
+    TypedDict,
+):
+    day_of_month: int
+    """
+    The day of the month the anchor should be. Ranges from 1 to 31.
+    """
+    hour: NotRequired[int]
+    """
+    The hour of the day the anchor should be. Ranges from 0 to 23.
+    """
+    minute: NotRequired[int]
+    """
+    The minute of the hour the anchor should be. Ranges from 0 to 59.
+    """
+    month: NotRequired[int]
+    """
+    The month to start full cycle periods. Ranges from 1 to 12.
+    """
+    second: NotRequired[int]
+    """
+    The second of the minute the anchor should be. Ranges from 0 to 59.
     """
 
 
@@ -321,6 +386,71 @@ class SubscriptionScheduleAmendParamsAmendmentDiscountActionSet(TypedDict):
     promotion_code: NotRequired[str]
     """
     An ID of an existing promotion code to replace the `discounts` array with.
+    """
+    settings: NotRequired[
+        "SubscriptionScheduleAmendParamsAmendmentDiscountActionSetSettings"
+    ]
+    """
+    Settings for discount application including service period anchoring.
+    """
+
+
+class SubscriptionScheduleAmendParamsAmendmentDiscountActionSetSettings(
+    TypedDict,
+):
+    service_period_anchor_config: NotRequired[
+        "SubscriptionScheduleAmendParamsAmendmentDiscountActionSetSettingsServicePeriodAnchorConfig"
+    ]
+    """
+    Configures service period cycle anchoring.
+    """
+    start_date: NotRequired[
+        Literal[
+            "amendment_start", "current_period_end", "current_period_start"
+        ]
+    ]
+    """
+    The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `amendment_start` if omitted.
+    """
+
+
+class SubscriptionScheduleAmendParamsAmendmentDiscountActionSetSettingsServicePeriodAnchorConfig(
+    TypedDict,
+):
+    custom: NotRequired[
+        "SubscriptionScheduleAmendParamsAmendmentDiscountActionSetSettingsServicePeriodAnchorConfigCustom"
+    ]
+    """
+    Anchor the service period to a custom date. Type must be `custom` to specify.
+    """
+    type: NotRequired[Literal["custom", "inherit"]]
+    """
+    The type of service period anchor config. Defaults to `inherit` if omitted.
+    """
+
+
+class SubscriptionScheduleAmendParamsAmendmentDiscountActionSetSettingsServicePeriodAnchorConfigCustom(
+    TypedDict,
+):
+    day_of_month: int
+    """
+    The day of the month the anchor should be. Ranges from 1 to 31.
+    """
+    hour: NotRequired[int]
+    """
+    The hour of the day the anchor should be. Ranges from 0 to 23.
+    """
+    minute: NotRequired[int]
+    """
+    The minute of the hour the anchor should be. Ranges from 0 to 59.
+    """
+    month: NotRequired[int]
+    """
+    The month to start full cycle periods. Ranges from 1 to 12.
+    """
+    second: NotRequired[int]
+    """
+    The second of the minute the anchor should be. Ranges from 0 to 59.
     """
 
 
@@ -399,6 +529,12 @@ class SubscriptionScheduleAmendParamsAmendmentItemActionAddDiscount(TypedDict):
     """
     ID of the promotion code to create a new discount for.
     """
+    settings: NotRequired[
+        "SubscriptionScheduleAmendParamsAmendmentItemActionAddDiscountSettings"
+    ]
+    """
+    Settings for discount application including service period anchoring.
+    """
 
 
 class SubscriptionScheduleAmendParamsAmendmentItemActionAddDiscountDiscountEnd(
@@ -430,6 +566,65 @@ class SubscriptionScheduleAmendParamsAmendmentItemActionAddDiscountDiscountEndDu
     interval_count: int
     """
     The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+    """
+
+
+class SubscriptionScheduleAmendParamsAmendmentItemActionAddDiscountSettings(
+    TypedDict,
+):
+    service_period_anchor_config: NotRequired[
+        "SubscriptionScheduleAmendParamsAmendmentItemActionAddDiscountSettingsServicePeriodAnchorConfig"
+    ]
+    """
+    Configures service period cycle anchoring.
+    """
+    start_date: NotRequired[
+        Literal[
+            "amendment_start", "current_period_end", "current_period_start"
+        ]
+    ]
+    """
+    The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `amendment_start` if omitted.
+    """
+
+
+class SubscriptionScheduleAmendParamsAmendmentItemActionAddDiscountSettingsServicePeriodAnchorConfig(
+    TypedDict,
+):
+    custom: NotRequired[
+        "SubscriptionScheduleAmendParamsAmendmentItemActionAddDiscountSettingsServicePeriodAnchorConfigCustom"
+    ]
+    """
+    Anchor the service period to a custom date. Type must be `custom` to specify.
+    """
+    type: NotRequired[Literal["custom", "inherit"]]
+    """
+    The type of service period anchor config. Defaults to `inherit` if omitted.
+    """
+
+
+class SubscriptionScheduleAmendParamsAmendmentItemActionAddDiscountSettingsServicePeriodAnchorConfigCustom(
+    TypedDict,
+):
+    day_of_month: int
+    """
+    The day of the month the anchor should be. Ranges from 1 to 31.
+    """
+    hour: NotRequired[int]
+    """
+    The hour of the day the anchor should be. Ranges from 0 to 23.
+    """
+    minute: NotRequired[int]
+    """
+    The minute of the hour the anchor should be. Ranges from 0 to 59.
+    """
+    month: NotRequired[int]
+    """
+    The month to start full cycle periods. Ranges from 1 to 12.
+    """
+    second: NotRequired[int]
+    """
+    The second of the minute the anchor should be. Ranges from 0 to 59.
     """
 
 
@@ -505,6 +700,12 @@ class SubscriptionScheduleAmendParamsAmendmentItemActionSetDiscount(TypedDict):
     """
     ID of the promotion code to create a new discount for.
     """
+    settings: NotRequired[
+        "SubscriptionScheduleAmendParamsAmendmentItemActionSetDiscountSettings"
+    ]
+    """
+    Settings for discount application including service period anchoring.
+    """
 
 
 class SubscriptionScheduleAmendParamsAmendmentItemActionSetDiscountDiscountEnd(
@@ -536,6 +737,65 @@ class SubscriptionScheduleAmendParamsAmendmentItemActionSetDiscountDiscountEndDu
     interval_count: int
     """
     The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+    """
+
+
+class SubscriptionScheduleAmendParamsAmendmentItemActionSetDiscountSettings(
+    TypedDict,
+):
+    service_period_anchor_config: NotRequired[
+        "SubscriptionScheduleAmendParamsAmendmentItemActionSetDiscountSettingsServicePeriodAnchorConfig"
+    ]
+    """
+    Configures service period cycle anchoring.
+    """
+    start_date: NotRequired[
+        Literal[
+            "amendment_start", "current_period_end", "current_period_start"
+        ]
+    ]
+    """
+    The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `amendment_start` if omitted.
+    """
+
+
+class SubscriptionScheduleAmendParamsAmendmentItemActionSetDiscountSettingsServicePeriodAnchorConfig(
+    TypedDict,
+):
+    custom: NotRequired[
+        "SubscriptionScheduleAmendParamsAmendmentItemActionSetDiscountSettingsServicePeriodAnchorConfigCustom"
+    ]
+    """
+    Anchor the service period to a custom date. Type must be `custom` to specify.
+    """
+    type: NotRequired[Literal["custom", "inherit"]]
+    """
+    The type of service period anchor config. Defaults to `inherit` if omitted.
+    """
+
+
+class SubscriptionScheduleAmendParamsAmendmentItemActionSetDiscountSettingsServicePeriodAnchorConfigCustom(
+    TypedDict,
+):
+    day_of_month: int
+    """
+    The day of the month the anchor should be. Ranges from 1 to 31.
+    """
+    hour: NotRequired[int]
+    """
+    The hour of the day the anchor should be. Ranges from 0 to 23.
+    """
+    minute: NotRequired[int]
+    """
+    The minute of the hour the anchor should be. Ranges from 0 to 59.
+    """
+    month: NotRequired[int]
+    """
+    The month to start full cycle periods. Ranges from 1 to 12.
+    """
+    second: NotRequired[int]
+    """
+    The second of the minute the anchor should be. Ranges from 0 to 59.
     """
 
 

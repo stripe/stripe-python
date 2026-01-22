@@ -41,6 +41,9 @@ if TYPE_CHECKING:
         FinancialConnectionsService,
     )
     from stripe._forwarding_service import ForwardingService
+    from stripe._fr_meal_vouchers_onboarding_service import (
+        FrMealVouchersOnboardingService,
+    )
     from stripe._fx_quote_service import FxQuoteService
     from stripe._identity_service import IdentityService
     from stripe._invoice_item_service import InvoiceItemService
@@ -175,6 +178,10 @@ _subservices = {
         "FinancialConnectionsService",
     ],
     "forwarding": ["stripe._forwarding_service", "ForwardingService"],
+    "fr_meal_vouchers_onboardings": [
+        "stripe._fr_meal_vouchers_onboarding_service",
+        "FrMealVouchersOnboardingService",
+    ],
     "fx_quotes": ["stripe._fx_quote_service", "FxQuoteService"],
     "identity": ["stripe._identity_service", "IdentityService"],
     "invoices": ["stripe._invoice_service", "InvoiceService"],
@@ -304,6 +311,7 @@ class V1Services(StripeService):
     file_links: "FileLinkService"
     financial_connections: "FinancialConnectionsService"
     forwarding: "ForwardingService"
+    fr_meal_vouchers_onboardings: "FrMealVouchersOnboardingService"
     fx_quotes: "FxQuoteService"
     identity: "IdentityService"
     invoices: "InvoiceService"

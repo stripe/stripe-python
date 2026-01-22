@@ -161,6 +161,10 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "Transaction",
     ),
     "forwarding.request": ("stripe.forwarding._request", "Request"),
+    "fr_meal_vouchers_onboarding": (
+        "stripe._fr_meal_vouchers_onboarding",
+        "FrMealVouchersOnboarding",
+    ),
     "funding_instructions": (
         "stripe._funding_instructions",
         "FundingInstructions",

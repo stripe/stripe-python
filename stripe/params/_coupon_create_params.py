@@ -24,7 +24,9 @@ class CouponCreateParams(RequestOptions):
     """
     Coupons defined in each available currency option (only supported if `amount_off` is passed). Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
     """
-    duration: NotRequired[Literal["forever", "once", "repeating"]]
+    duration: NotRequired[
+        Literal["forever", "once", "repeating", "service_period"]
+    ]
     """
     Specifies how long the discount will be in effect if used on a subscription. Defaults to `once`.
     """
@@ -64,6 +66,10 @@ class CouponCreateParams(RequestOptions):
     """
     Configuration of the [script](https://docs.stripe.com/billing/subscriptions/script-coupons) used to calculate the discount.
     """
+    service_period: NotRequired["CouponCreateParamsServicePeriod"]
+    """
+    A hash specifying the service period for the coupon.
+    """
 
 
 class CouponCreateParamsAppliesTo(TypedDict):
@@ -88,4 +94,15 @@ class CouponCreateParamsScript(TypedDict):
     id: str
     """
     The script implementation ID for this coupon.
+    """
+
+
+class CouponCreateParamsServicePeriod(TypedDict):
+    interval: Literal["day", "month", "week", "year"]
+    """
+    Specifies coupon frequency. Either `day`, `week`, `month` or `year`.
+    """
+    interval_count: int
+    """
+    The number of intervals for which the coupon will be applied.
     """

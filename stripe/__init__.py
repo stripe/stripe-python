@@ -376,6 +376,12 @@ if TYPE_CHECKING:
     from stripe._forwarding_service import (
         ForwardingService as ForwardingService,
     )
+    from stripe._fr_meal_vouchers_onboarding import (
+        FrMealVouchersOnboarding as FrMealVouchersOnboarding,
+    )
+    from stripe._fr_meal_vouchers_onboarding_service import (
+        FrMealVouchersOnboardingService as FrMealVouchersOnboardingService,
+    )
     from stripe._funding_instructions import (
         FundingInstructions as FundingInstructions,
     )
@@ -827,6 +833,11 @@ _import_map = {
         False,
     ),
     "ForwardingService": ("stripe._forwarding_service", False),
+    "FrMealVouchersOnboarding": ("stripe._fr_meal_vouchers_onboarding", False),
+    "FrMealVouchersOnboardingService": (
+        "stripe._fr_meal_vouchers_onboarding_service",
+        False,
+    ),
     "FundingInstructions": ("stripe._funding_instructions", False),
     "FxQuote": ("stripe._fx_quote", False),
     "FxQuoteService": ("stripe._fx_quote_service", False),
