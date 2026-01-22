@@ -58,6 +58,9 @@ if TYPE_CHECKING:
     from stripe.params._subscription_modify_params import (
         SubscriptionModifyParams,
     )
+    from stripe.params._subscription_pause_params import (
+        SubscriptionPauseParams,
+    )
     from stripe.params._subscription_resume_params import (
         SubscriptionResumeParams,
     )
@@ -855,7 +858,7 @@ class Subscription(
     """
     latest_invoice: Optional[ExpandableField["Invoice"]]
     """
-    The most recent invoice this subscription has generated.
+    The most recent invoice this subscription has generated over its lifecycle (for example, when it cycles or is updated).
     """
     livemode: bool
     """
@@ -1603,6 +1606,116 @@ class Subscription(
             await cls._static_request_async(
                 "post",
                 url,
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def _cls_pause(
+        cls, subscription: str, **params: Unpack["SubscriptionPauseParams"]
+    ) -> "Subscription":
+        """
+        Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
+        """
+        return cast(
+            "Subscription",
+            cls._static_request(
+                "post",
+                "/v1/subscriptions/{subscription}/pause".format(
+                    subscription=sanitize_id(subscription)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def pause(
+        subscription: str, **params: Unpack["SubscriptionPauseParams"]
+    ) -> "Subscription":
+        """
+        Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
+        """
+        ...
+
+    @overload
+    def pause(
+        self, **params: Unpack["SubscriptionPauseParams"]
+    ) -> "Subscription":
+        """
+        Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
+        """
+        ...
+
+    @class_method_variant("_cls_pause")
+    def pause(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["SubscriptionPauseParams"]
+    ) -> "Subscription":
+        """
+        Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
+        """
+        return cast(
+            "Subscription",
+            self._request(
+                "post",
+                "/v1/subscriptions/{subscription}/pause".format(
+                    subscription=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_pause_async(
+        cls, subscription: str, **params: Unpack["SubscriptionPauseParams"]
+    ) -> "Subscription":
+        """
+        Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
+        """
+        return cast(
+            "Subscription",
+            await cls._static_request_async(
+                "post",
+                "/v1/subscriptions/{subscription}/pause".format(
+                    subscription=sanitize_id(subscription)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def pause_async(
+        subscription: str, **params: Unpack["SubscriptionPauseParams"]
+    ) -> "Subscription":
+        """
+        Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
+        """
+        ...
+
+    @overload
+    async def pause_async(
+        self, **params: Unpack["SubscriptionPauseParams"]
+    ) -> "Subscription":
+        """
+        Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
+        """
+        ...
+
+    @class_method_variant("_cls_pause_async")
+    async def pause_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["SubscriptionPauseParams"]
+    ) -> "Subscription":
+        """
+        Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
+        """
+        return cast(
+            "Subscription",
+            await self._request_async(
+                "post",
+                "/v1/subscriptions/{subscription}/pause".format(
+                    subscription=sanitize_id(self.get("id"))
+                ),
                 params=params,
             ),
         )

@@ -106,6 +106,21 @@ class PaymentIntent(
     OBJECT_NAME: ClassVar[Literal["payment_intent"]] = "payment_intent"
 
     class AmountDetails(StripeObject):
+        class Error(StripeObject):
+            code: Optional[
+                Literal[
+                    "amount_details_amount_mismatch",
+                    "amount_details_tax_shipping_discount_greater_than_amount",
+                ]
+            ]
+            """
+            The code of the error that occurred when validating the current amount details.
+            """
+            message: Optional[str]
+            """
+            A message providing more details about the error.
+            """
+
         class Shipping(StripeObject):
             amount: Optional[int]
             """
@@ -140,6 +155,7 @@ class PaymentIntent(
 
         This field is mutually exclusive with the `amount_details[line_items][#][discount_amount]` field.
         """
+        error: Optional[Error]
         line_items: Optional[ListObject["PaymentIntentAmountDetailsLineItem"]]
         """
         A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 200 line items.
@@ -147,7 +163,12 @@ class PaymentIntent(
         shipping: Optional[Shipping]
         tax: Optional[Tax]
         tip: Optional[Tip]
-        _inner_class_types = {"shipping": Shipping, "tax": Tax, "tip": Tip}
+        _inner_class_types = {
+            "error": Error,
+            "shipping": Shipping,
+            "tax": Tax,
+            "tip": Tip,
+        }
 
     class AsyncWorkflows(StripeObject):
         class Inputs(StripeObject):
@@ -346,6 +367,7 @@ class PaymentIntent(
                 "rate_limit",
                 "refer_to_customer",
                 "refund_disputed_payment",
+                "request_blocked",
                 "resource_already_exists",
                 "resource_missing",
                 "return_intent_already_processed",
@@ -1651,6 +1673,367 @@ class PaymentIntent(
                 "return_address": ReturnAddress,
             }
 
+        class CarRentalDatum(StripeObject):
+            class Affiliate(StripeObject):
+                code: Optional[str]
+                """
+                Affiliate code.
+                """
+                name: Optional[str]
+                """
+                Affiliate name.
+                """
+
+            class Distance(StripeObject):
+                amount: Optional[int]
+                """
+                Distance amount.
+                """
+                unit: Optional[Literal["kilometers", "miles"]]
+                """
+                Unit for the distance.
+                """
+
+            class Driver(StripeObject):
+                class DateOfBirth(StripeObject):
+                    day: Optional[int]
+                    """
+                    Day of birth.
+                    """
+                    month: Optional[int]
+                    """
+                    Month of birth.
+                    """
+                    year: Optional[int]
+                    """
+                    Year of birth.
+                    """
+
+                date_of_birth: Optional[DateOfBirth]
+                driver_identification_number: Optional[str]
+                """
+                Driver's identification number.
+                """
+                driver_tax_number: Optional[str]
+                """
+                Driver's tax number.
+                """
+                name: Optional[str]
+                """
+                Full name of the driver.
+                """
+                _inner_class_types = {"date_of_birth": DateOfBirth}
+
+            class DropOff(StripeObject):
+                class Address(StripeObject):
+                    city: Optional[str]
+                    """
+                    City, district, suburb, town, or village.
+                    """
+                    country: Optional[str]
+                    """
+                    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                    """
+                    line1: Optional[str]
+                    """
+                    Address line 1, such as the street, PO Box, or company name.
+                    """
+                    line2: Optional[str]
+                    """
+                    Address line 2, such as the apartment, suite, unit, or building.
+                    """
+                    postal_code: Optional[str]
+                    """
+                    ZIP or postal code.
+                    """
+                    state: Optional[str]
+                    """
+                    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+                    """
+
+                address: Optional[Address]
+                location_name: Optional[str]
+                """
+                Name of the location.
+                """
+                time: Optional[int]
+                """
+                Time associated with the location.
+                """
+                _inner_class_types = {"address": Address}
+
+            class Insurance(StripeObject):
+                amount: Optional[int]
+                """
+                Amount of the insurance.
+                """
+                currency: Optional[str]
+                """
+                Currency for the insurance price.
+                """
+                insurance_company_name: Optional[str]
+                """
+                Name of the insurance company.
+                """
+                insurance_type: Optional[
+                    Literal[
+                        "liability_supplement",
+                        "loss_damage_waiver",
+                        "other",
+                        "partial_damage_waiver",
+                        "personal_accident",
+                        "personal_effects",
+                    ]
+                ]
+                """
+                Type of insurance.
+                """
+
+            class Pickup(StripeObject):
+                class Address(StripeObject):
+                    city: Optional[str]
+                    """
+                    City, district, suburb, town, or village.
+                    """
+                    country: Optional[str]
+                    """
+                    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                    """
+                    line1: Optional[str]
+                    """
+                    Address line 1, such as the street, PO Box, or company name.
+                    """
+                    line2: Optional[str]
+                    """
+                    Address line 2, such as the apartment, suite, unit, or building.
+                    """
+                    postal_code: Optional[str]
+                    """
+                    ZIP or postal code.
+                    """
+                    state: Optional[str]
+                    """
+                    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+                    """
+
+                address: Optional[Address]
+                location_name: Optional[str]
+                """
+                Name of the location.
+                """
+                time: Optional[int]
+                """
+                Time associated with the location.
+                """
+                _inner_class_types = {"address": Address}
+
+            class Total(StripeObject):
+                class Discounts(StripeObject):
+                    corporate_client_code: Optional[str]
+                    """
+                    Corporate client discount code.
+                    """
+                    coupon: Optional[str]
+                    """
+                    Coupon code applied.
+                    """
+                    maximum_free_miles_or_kilometers: Optional[int]
+                    """
+                    Maximum free miles or kilometers included.
+                    """
+
+                class ExtraCharge(StripeObject):
+                    amount: Optional[int]
+                    """
+                    Amount of the extra charge.
+                    """
+                    type: Optional[
+                        Literal[
+                            "extra_mileage",
+                            "gas",
+                            "gps",
+                            "late_charge",
+                            "one_way_drop_off",
+                            "other",
+                            "parking",
+                            "phone",
+                            "regular_mileage",
+                            "towing",
+                        ]
+                    ]
+                    """
+                    Type of extra charge.
+                    """
+
+                class Tax(StripeObject):
+                    class Tax(StripeObject):
+                        amount: Optional[int]
+                        """
+                        Tax amount.
+                        """
+                        rate: Optional[int]
+                        """
+                        Tax rate.
+                        """
+                        type: Optional[str]
+                        """
+                        Type of tax.
+                        """
+
+                    tax_exempt_indicator: Optional[bool]
+                    """
+                    Indicates whether the rental is tax-exempt.
+                    """
+                    taxes: Optional[List[Tax]]
+                    """
+                    Tax details.
+                    """
+                    _inner_class_types = {"taxes": Tax}
+
+                amount: Optional[int]
+                """
+                Total amount.
+                """
+                currency: Optional[str]
+                """
+                Currency for the total amount.
+                """
+                discounts: Optional[Discounts]
+                extra_charges: Optional[List[ExtraCharge]]
+                """
+                Additional charges for the rental.
+                """
+                rate_per_unit: Optional[int]
+                """
+                Rate per unit.
+                """
+                rate_unit: Optional[Literal["kilometers", "miles"]]
+                """
+                Unit for the rate.
+                """
+                tax: Optional[Tax]
+                _inner_class_types = {
+                    "discounts": Discounts,
+                    "extra_charges": ExtraCharge,
+                    "tax": Tax,
+                }
+
+            class Vehicle(StripeObject):
+                make: Optional[str]
+                """
+                Make of the vehicle.
+                """
+                model: Optional[str]
+                """
+                Model of the vehicle.
+                """
+                odometer: Optional[int]
+                """
+                Odometer reading.
+                """
+                type: Optional[
+                    Literal[
+                        "cargo_van",
+                        "compact",
+                        "economy",
+                        "exotic",
+                        "exotic_suv",
+                        "fifteen_passenger_van",
+                        "four_wheel_drive",
+                        "full_size",
+                        "intermediate",
+                        "large_suv",
+                        "large_truck",
+                        "luxury",
+                        "medium_suv",
+                        "midsize",
+                        "mini",
+                        "minivan",
+                        "miscellaneous",
+                        "moped",
+                        "moving_van",
+                        "premium",
+                        "regular",
+                        "small_medium_truck",
+                        "small_suv",
+                        "special",
+                        "standard",
+                        "stretch",
+                        "subcompact",
+                        "taxi",
+                        "twelve_foot_truck",
+                        "twelve_passenger_van",
+                        "twenty_foot_truck",
+                        "twenty_four_foot_truck",
+                        "twenty_six_foot_truck",
+                        "unique",
+                    ]
+                ]
+                """
+                Type of the vehicle.
+                """
+                vehicle_class: Optional[
+                    Literal[
+                        "business", "economy", "first_class", "premium_economy"
+                    ]
+                ]
+                """
+                Class of the vehicle.
+                """
+                vehicle_identification_number: Optional[str]
+                """
+                Vehicle identification number.
+                """
+
+            affiliate: Optional[Affiliate]
+            booking_number: Optional[str]
+            """
+            The booking number associated with the car rental.
+            """
+            carrier_name: Optional[str]
+            """
+            The name of the car rental company.
+            """
+            customer_service_phone_number: Optional[str]
+            """
+            The customer service phone number of the car rental company.
+            """
+            days_rented: Optional[int]
+            """
+            Number of days the car is being rented.
+            """
+            distance: Optional[Distance]
+            drivers: Optional[List[Driver]]
+            """
+            The details of the drivers associated with the rental.
+            """
+            drop_off: Optional[DropOff]
+            insurances: Optional[List[Insurance]]
+            """
+            Insurance details for the car rental.
+            """
+            no_show_indicator: Optional[bool]
+            """
+            Indicates if the customer did not keep nor cancel their booking.
+            """
+            pickup: Optional[Pickup]
+            renter_name: Optional[str]
+            """
+            Name of the person renting the vehicle.
+            """
+            total: Optional[Total]
+            vehicle: Optional[Vehicle]
+            _inner_class_types = {
+                "affiliate": Affiliate,
+                "distance": Distance,
+                "drivers": Driver,
+                "drop_off": DropOff,
+                "insurances": Insurance,
+                "pickup": Pickup,
+                "total": Total,
+                "vehicle": Vehicle,
+            }
+
         class EventDetails(StripeObject):
             class Address(StripeObject):
                 city: Optional[str]
@@ -1739,6 +2122,554 @@ class PaymentIntent(
                 "delivery": Delivery,
             }
 
+        class FlightDatum(StripeObject):
+            class Affiliate(StripeObject):
+                code: Optional[str]
+                """
+                Affiliate code.
+                """
+                name: Optional[str]
+                """
+                Affiliate name.
+                """
+                travel_authorization_code: Optional[str]
+                """
+                Code provided by the company to a travel agent authorizing ticket issuance.
+                """
+
+            class Insurance(StripeObject):
+                amount: Optional[int]
+                """
+                Amount of the insurance.
+                """
+                currency: Optional[str]
+                """
+                Currency for the insurance price.
+                """
+                insurance_company_name: Optional[str]
+                """
+                Name of the insurance company.
+                """
+                insurance_type: Optional[
+                    Literal[
+                        "baggage",
+                        "bankruptcy",
+                        "cancelation",
+                        "emergency",
+                        "medical",
+                    ]
+                ]
+                """
+                Type of insurance.
+                """
+
+            class Passenger(StripeObject):
+                name: Optional[str]
+                """
+                Full name of the passenger.
+                """
+
+            class Segment(StripeObject):
+                class Arrival(StripeObject):
+                    airport: Optional[str]
+                    """
+                    Arrival airport IATA code.
+                    """
+                    arrives_at: Optional[int]
+                    """
+                    Arrival date and time.
+                    """
+                    city: Optional[str]
+                    """
+                    Arrival city.
+                    """
+                    country: Optional[str]
+                    """
+                    Arrival country.
+                    """
+
+                class Departure(StripeObject):
+                    airport: Optional[str]
+                    """
+                    Departure airport IATA code.
+                    """
+                    city: Optional[str]
+                    """
+                    Departure city.
+                    """
+                    country: Optional[str]
+                    """
+                    Departure country.
+                    """
+                    departs_at: Optional[int]
+                    """
+                    Departure date and time.
+                    """
+
+                amount: Optional[int]
+                """
+                Segment fare amount.
+                """
+                arrival: Optional[Arrival]
+                carrier_code: Optional[str]
+                """
+                Airline carrier code.
+                """
+                carrier_name: Optional[str]
+                """
+                Carrier name.
+                """
+                currency: Optional[str]
+                """
+                Segment currency.
+                """
+                departure: Optional[Departure]
+                exchange_ticket_number: Optional[str]
+                """
+                Exchange ticket number.
+                """
+                fare_basis_code: Optional[str]
+                """
+                Fare basis code.
+                """
+                fees: Optional[int]
+                """
+                Additional fees.
+                """
+                flight_number: Optional[str]
+                """
+                Flight number.
+                """
+                is_stop_over_indicator: Optional[bool]
+                """
+                Stopover indicator.
+                """
+                refundable: Optional[bool]
+                """
+                Refundable ticket indicator.
+                """
+                service_class: Optional[
+                    Literal[
+                        "business", "economy", "first_class", "premium_economy"
+                    ]
+                ]
+                """
+                Class of service.
+                """
+                tax_amount: Optional[int]
+                """
+                Tax amount for segment.
+                """
+                ticket_number: Optional[str]
+                """
+                Ticket number.
+                """
+                _inner_class_types = {
+                    "arrival": Arrival,
+                    "departure": Departure,
+                }
+
+            class Total(StripeObject):
+                class Discounts(StripeObject):
+                    corporate_client_code: Optional[str]
+                    """
+                    Corporate client discount code.
+                    """
+
+                class ExtraCharge(StripeObject):
+                    amount: Optional[int]
+                    """
+                    Amount of the extra charge.
+                    """
+                    type: Optional[
+                        Literal[
+                            "additional_fees",
+                            "ancillary_service_charges",
+                            "exchange_fee",
+                        ]
+                    ]
+                    """
+                    Type of extra charge.
+                    """
+
+                class Tax(StripeObject):
+                    class Tax(StripeObject):
+                        amount: Optional[int]
+                        """
+                        Tax amount.
+                        """
+                        rate: Optional[int]
+                        """
+                        Tax rate.
+                        """
+                        type: Optional[str]
+                        """
+                        Type of tax.
+                        """
+
+                    taxes: Optional[List[Tax]]
+                    """
+                    Tax details.
+                    """
+                    _inner_class_types = {"taxes": Tax}
+
+                amount: Optional[int]
+                """
+                Total amount.
+                """
+                credit_reason: Optional[
+                    Literal[
+                        "other",
+                        "partial_ticket_refund",
+                        "passenger_transport_ancillary_cancellation",
+                        "ticket_and_ancillary_cancellation",
+                        "ticket_cancellation",
+                    ]
+                ]
+                """
+                Reason for credit.
+                """
+                currency: Optional[str]
+                """
+                Currency for the total amount.
+                """
+                discounts: Optional[Discounts]
+                extra_charges: Optional[List[ExtraCharge]]
+                """
+                Additional charges for the flight.
+                """
+                tax: Optional[Tax]
+                _inner_class_types = {
+                    "discounts": Discounts,
+                    "extra_charges": ExtraCharge,
+                    "tax": Tax,
+                }
+
+            affiliate: Optional[Affiliate]
+            booking_number: Optional[str]
+            """
+            The booking number associated with the flight reservation.
+            """
+            computerized_reservation_system: Optional[str]
+            """
+            The computerized reservation system used to make the reservation and purchase the ticket.
+            """
+            endorsements_and_restrictions: Optional[str]
+            """
+            Ticket restrictions.
+            """
+            insurances: Optional[List[Insurance]]
+            """
+            Insurance details for the flight.
+            """
+            passengers: Optional[List[Passenger]]
+            """
+            The list of passengers for this flight.
+            """
+            segments: Optional[List[Segment]]
+            """
+            The list of flight segments for this reservation.
+            """
+            ticket_electronically_issued_indicator: Optional[bool]
+            """
+            Electronic ticket indicator.
+            """
+            total: Optional[Total]
+            transaction_type: Optional[
+                Literal[
+                    "exchange_ticket",
+                    "miscellaneous",
+                    "refund",
+                    "ticket_purchase",
+                ]
+            ]
+            """
+            Type of flight transaction.
+            """
+            _inner_class_types = {
+                "affiliate": Affiliate,
+                "insurances": Insurance,
+                "passengers": Passenger,
+                "segments": Segment,
+                "total": Total,
+            }
+
+        class LodgingDatum(StripeObject):
+            class Accommodation(StripeObject):
+                accommodation_type: Optional[
+                    Literal[
+                        "apartment",
+                        "cabana",
+                        "house",
+                        "penthouse",
+                        "room",
+                        "standard",
+                        "suite",
+                        "villa",
+                    ]
+                ]
+                """
+                Type of accommodation.
+                """
+                bed_type: Optional[str]
+                """
+                Bed type.
+                """
+                daily_rate_amount: Optional[int]
+                """
+                Daily accommodation rate in cents.
+                """
+                nights: Optional[int]
+                """
+                Number of nights.
+                """
+                number_of_rooms: Optional[int]
+                """
+                Number of rooms, cabanas, apartments, and so on.
+                """
+                rate_type: Optional[str]
+                """
+                Rate type.
+                """
+                smoking_indicator: Optional[bool]
+                """
+                Whether smoking is allowed.
+                """
+
+            class Affiliate(StripeObject):
+                code: Optional[str]
+                """
+                Affiliate partner code.
+                """
+                name: Optional[str]
+                """
+                Affiliate partner name.
+                """
+
+            class Guest(StripeObject):
+                name: Optional[str]
+                """
+                Guest's full name.
+                """
+
+            class Host(StripeObject):
+                class Address(StripeObject):
+                    city: Optional[str]
+                    """
+                    City, district, suburb, town, or village.
+                    """
+                    country: Optional[str]
+                    """
+                    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                    """
+                    line1: Optional[str]
+                    """
+                    Address line 1, such as the street, PO Box, or company name.
+                    """
+                    line2: Optional[str]
+                    """
+                    Address line 2, such as the apartment, suite, unit, or building.
+                    """
+                    postal_code: Optional[str]
+                    """
+                    ZIP or postal code.
+                    """
+                    state: Optional[str]
+                    """
+                    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+                    """
+
+                address: Optional[Address]
+                country_of_domicile: Optional[str]
+                """
+                Host's country of domicile.
+                """
+                host_reference: Optional[str]
+                """
+                Reference number for the host.
+                """
+                host_type: Optional[
+                    Literal["hostel", "hotel", "owner", "rental_agency"]
+                ]
+                """
+                Type of host.
+                """
+                name: Optional[str]
+                """
+                Name of the lodging property or host.
+                """
+                number_of_reservations: Optional[int]
+                """
+                Total number of reservations for the host.
+                """
+                property_phone_number: Optional[str]
+                """
+                Property phone number.
+                """
+                registered_at: Optional[int]
+                """
+                Host's registration date.
+                """
+                _inner_class_types = {"address": Address}
+
+            class Insurance(StripeObject):
+                amount: Optional[int]
+                """
+                Price of the insurance coverage in cents.
+                """
+                currency: Optional[str]
+                """
+                Currency of the insurance amount.
+                """
+                insurance_company_name: Optional[str]
+                """
+                Name of the insurance company.
+                """
+                insurance_type: Optional[
+                    Literal[
+                        "bankruptcy", "cancelation", "emergency", "medical"
+                    ]
+                ]
+                """
+                Type of insurance coverage.
+                """
+
+            class Total(StripeObject):
+                class Discounts(StripeObject):
+                    corporate_client_code: Optional[str]
+                    """
+                    Corporate client discount code.
+                    """
+                    coupon: Optional[str]
+                    """
+                    Coupon code.
+                    """
+
+                class ExtraCharge(StripeObject):
+                    amount: Optional[int]
+                    """
+                    Amount of the extra charge in cents.
+                    """
+                    type: Optional[
+                        Literal[
+                            "gift_shop",
+                            "laundry",
+                            "mini_bar",
+                            "other",
+                            "phone",
+                            "restaurant",
+                        ]
+                    ]
+                    """
+                    Type of extra charge.
+                    """
+
+                class Tax(StripeObject):
+                    class Tax(StripeObject):
+                        amount: Optional[int]
+                        """
+                        Tax amount in cents.
+                        """
+                        rate: Optional[int]
+                        """
+                        Tax rate.
+                        """
+                        type: Optional[str]
+                        """
+                        Type of tax applied.
+                        """
+
+                    tax_exempt_indicator: Optional[bool]
+                    """
+                    Indicates whether the transaction is tax exempt.
+                    """
+                    taxes: Optional[List[Tax]]
+                    """
+                    Tax details.
+                    """
+                    _inner_class_types = {"taxes": Tax}
+
+                amount: Optional[int]
+                """
+                Total price of the lodging reservation in cents.
+                """
+                cash_advances: Optional[int]
+                """
+                Cash advances in cents.
+                """
+                currency: Optional[str]
+                """
+                Currency of the total amount.
+                """
+                discounts: Optional[Discounts]
+                extra_charges: Optional[List[ExtraCharge]]
+                """
+                Additional charges for the lodging.
+                """
+                prepaid_amount: Optional[int]
+                """
+                Prepaid amount in cents.
+                """
+                tax: Optional[Tax]
+                _inner_class_types = {
+                    "discounts": Discounts,
+                    "extra_charges": ExtraCharge,
+                    "tax": Tax,
+                }
+
+            accommodation: Optional[Accommodation]
+            affiliate: Optional[Affiliate]
+            booking_number: Optional[str]
+            """
+            Booking confirmation number for the lodging.
+            """
+            checkin_at: Optional[int]
+            """
+            Check-in date.
+            """
+            checkout_at: Optional[int]
+            """
+            Check-out date.
+            """
+            customer_service_phone_number: Optional[str]
+            """
+            Customer service phone number for the lodging company.
+            """
+            fire_safety_act_compliance_indicator: Optional[bool]
+            """
+            Whether the lodging is compliant with any hotel fire safety regulations.
+            """
+            guests: Optional[List[Guest]]
+            """
+            List of guests for the lodging.
+            """
+            host: Optional[Host]
+            insurances: Optional[List[Insurance]]
+            """
+            List of insurances for the lodging.
+            """
+            no_show_indicator: Optional[bool]
+            """
+            Whether the renter is a no-show.
+            """
+            renter_id_number: Optional[str]
+            """
+            Renter ID number for the lodging.
+            """
+            renter_name: Optional[str]
+            """
+            Renter name for the lodging.
+            """
+            total: Optional[Total]
+            _inner_class_types = {
+                "accommodation": Accommodation,
+                "affiliate": Affiliate,
+                "guests": Guest,
+                "host": Host,
+                "insurances": Insurance,
+                "total": Total,
+            }
+
         class Subscription(StripeObject):
             class Affiliate(StripeObject):
                 name: Optional[str]
@@ -1780,6 +2711,7 @@ class PaymentIntent(
             }
 
         car_rental: Optional[CarRental]
+        car_rental_data: Optional[List[CarRentalDatum]]
         customer_reference: Optional[str]
         """
         A unique value to identify the customer. This field is available only for card payments.
@@ -1787,6 +2719,8 @@ class PaymentIntent(
         This field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks.
         """
         event_details: Optional[EventDetails]
+        flight_data: Optional[List[FlightDatum]]
+        lodging_data: Optional[List[LodgingDatum]]
         order_reference: Optional[str]
         """
         A unique value assigned by the business to identify the transaction. Required for L2 and L3 rates.
@@ -1798,7 +2732,10 @@ class PaymentIntent(
         subscription: Optional[Subscription]
         _inner_class_types = {
             "car_rental": CarRental,
+            "car_rental_data": CarRentalDatum,
             "event_details": EventDetails,
+            "flight_data": FlightDatum,
+            "lodging_data": LodgingDatum,
             "subscription": Subscription,
         }
 
@@ -3119,12 +4056,6 @@ class PaymentIntent(
 
             financial_connections: Optional[FinancialConnections]
             mandate_options: Optional[MandateOptions]
-            preferred_settlement_speed: Optional[
-                Literal["fastest", "standard"]
-            ]
-            """
-            Preferred transaction settlement speed
-            """
             setup_future_usage: Optional[
                 Literal["none", "off_session", "on_session"]
             ]

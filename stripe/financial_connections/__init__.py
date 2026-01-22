@@ -23,6 +23,12 @@ if TYPE_CHECKING:
     from stripe.financial_connections._account_service import (
         AccountService as AccountService,
     )
+    from stripe.financial_connections._authorization import (
+        Authorization as Authorization,
+    )
+    from stripe.financial_connections._authorization_service import (
+        AuthorizationService as AuthorizationService,
+    )
     from stripe.financial_connections._institution import (
         Institution as Institution,
     )
@@ -61,6 +67,11 @@ _import_map = {
         False,
     ),
     "AccountService": ("stripe.financial_connections._account_service", False),
+    "Authorization": ("stripe.financial_connections._authorization", False),
+    "AuthorizationService": (
+        "stripe.financial_connections._authorization_service",
+        False,
+    ),
     "Institution": ("stripe.financial_connections._institution", False),
     "InstitutionService": (
         "stripe.financial_connections._institution_service",

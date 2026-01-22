@@ -184,6 +184,10 @@ if TYPE_CHECKING:
         AccountCreateParamsSettingsPayouts as AccountCreateParamsSettingsPayouts,
         AccountCreateParamsSettingsPayoutsSchedule as AccountCreateParamsSettingsPayoutsSchedule,
         AccountCreateParamsSettingsPaypayPayments as AccountCreateParamsSettingsPaypayPayments,
+        AccountCreateParamsSettingsPaypayPaymentsSite as AccountCreateParamsSettingsPaypayPaymentsSite,
+        AccountCreateParamsSettingsPaypayPaymentsSiteAccessible as AccountCreateParamsSettingsPaypayPaymentsSiteAccessible,
+        AccountCreateParamsSettingsPaypayPaymentsSiteInDevelopment as AccountCreateParamsSettingsPaypayPaymentsSiteInDevelopment,
+        AccountCreateParamsSettingsPaypayPaymentsSiteRestricted as AccountCreateParamsSettingsPaypayPaymentsSiteRestricted,
         AccountCreateParamsSettingsTaxForms as AccountCreateParamsSettingsTaxForms,
         AccountCreateParamsSettingsTreasury as AccountCreateParamsSettingsTreasury,
         AccountCreateParamsSettingsTreasuryTosAcceptance as AccountCreateParamsSettingsTreasuryTosAcceptance,
@@ -577,6 +581,10 @@ if TYPE_CHECKING:
         AccountUpdateParamsSettingsPayouts as AccountUpdateParamsSettingsPayouts,
         AccountUpdateParamsSettingsPayoutsSchedule as AccountUpdateParamsSettingsPayoutsSchedule,
         AccountUpdateParamsSettingsPaypayPayments as AccountUpdateParamsSettingsPaypayPayments,
+        AccountUpdateParamsSettingsPaypayPaymentsSite as AccountUpdateParamsSettingsPaypayPaymentsSite,
+        AccountUpdateParamsSettingsPaypayPaymentsSiteAccessible as AccountUpdateParamsSettingsPaypayPaymentsSiteAccessible,
+        AccountUpdateParamsSettingsPaypayPaymentsSiteInDevelopment as AccountUpdateParamsSettingsPaypayPaymentsSiteInDevelopment,
+        AccountUpdateParamsSettingsPaypayPaymentsSiteRestricted as AccountUpdateParamsSettingsPaypayPaymentsSiteRestricted,
         AccountUpdateParamsSettingsTaxForms as AccountUpdateParamsSettingsTaxForms,
         AccountUpdateParamsSettingsTreasury as AccountUpdateParamsSettingsTreasury,
         AccountUpdateParamsSettingsTreasuryTosAcceptance as AccountUpdateParamsSettingsTreasuryTosAcceptance,
@@ -1549,6 +1557,9 @@ if TYPE_CHECKING:
     )
     from stripe.params._invoice_delete_params import (
         InvoiceDeleteParams as InvoiceDeleteParams,
+    )
+    from stripe.params._invoice_detach_payment_params import (
+        InvoiceDetachPaymentParams as InvoiceDetachPaymentParams,
     )
     from stripe.params._invoice_finalize_invoice_params import (
         InvoiceFinalizeInvoiceParams as InvoiceFinalizeInvoiceParams,
@@ -5120,6 +5131,10 @@ if TYPE_CHECKING:
         SubscriptionModifyParamsTrialSettings as SubscriptionModifyParamsTrialSettings,
         SubscriptionModifyParamsTrialSettingsEndBehavior as SubscriptionModifyParamsTrialSettingsEndBehavior,
     )
+    from stripe.params._subscription_pause_params import (
+        SubscriptionPauseParams as SubscriptionPauseParams,
+        SubscriptionPauseParamsBillFor as SubscriptionPauseParamsBillFor,
+    )
     from stripe.params._subscription_resume_params import (
         SubscriptionResumeParams as SubscriptionResumeParams,
     )
@@ -6135,6 +6150,22 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsSettingsPaypayPayments": (
+        "stripe.params._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsSettingsPaypayPaymentsSite": (
+        "stripe.params._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsSettingsPaypayPaymentsSiteAccessible": (
+        "stripe.params._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsSettingsPaypayPaymentsSiteInDevelopment": (
+        "stripe.params._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsSettingsPaypayPaymentsSiteRestricted": (
         "stripe.params._account_create_params",
         False,
     ),
@@ -7395,6 +7426,22 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsSettingsPaypayPayments": (
+        "stripe.params._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsSettingsPaypayPaymentsSite": (
+        "stripe.params._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsSettingsPaypayPaymentsSiteAccessible": (
+        "stripe.params._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsSettingsPaypayPaymentsSiteInDevelopment": (
+        "stripe.params._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsSettingsPaypayPaymentsSiteRestricted": (
         "stripe.params._account_update_params",
         False,
     ),
@@ -10060,6 +10107,10 @@ _import_map = {
         False,
     ),
     "InvoiceDeleteParams": ("stripe.params._invoice_delete_params", False),
+    "InvoiceDetachPaymentParams": (
+        "stripe.params._invoice_detach_payment_params",
+        False,
+    ),
     "InvoiceFinalizeInvoiceParams": (
         "stripe.params._invoice_finalize_invoice_params",
         False,
@@ -22395,6 +22446,14 @@ _import_map = {
     ),
     "SubscriptionModifyParamsTrialSettingsEndBehavior": (
         "stripe.params._subscription_modify_params",
+        False,
+    ),
+    "SubscriptionPauseParams": (
+        "stripe.params._subscription_pause_params",
+        False,
+    ),
+    "SubscriptionPauseParamsBillFor": (
+        "stripe.params._subscription_pause_params",
         False,
     ),
     "SubscriptionResumeParams": (

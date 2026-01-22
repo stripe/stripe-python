@@ -15,7 +15,6 @@ if TYPE_CHECKING:
         ConfigurationCreateParamsTipping as ConfigurationCreateParamsTipping,
         ConfigurationCreateParamsTippingAed as ConfigurationCreateParamsTippingAed,
         ConfigurationCreateParamsTippingAud as ConfigurationCreateParamsTippingAud,
-        ConfigurationCreateParamsTippingBgn as ConfigurationCreateParamsTippingBgn,
         ConfigurationCreateParamsTippingCad as ConfigurationCreateParamsTippingCad,
         ConfigurationCreateParamsTippingChf as ConfigurationCreateParamsTippingChf,
         ConfigurationCreateParamsTippingCzk as ConfigurationCreateParamsTippingCzk,
@@ -58,7 +57,6 @@ if TYPE_CHECKING:
         ConfigurationModifyParamsTipping as ConfigurationModifyParamsTipping,
         ConfigurationModifyParamsTippingAed as ConfigurationModifyParamsTippingAed,
         ConfigurationModifyParamsTippingAud as ConfigurationModifyParamsTippingAud,
-        ConfigurationModifyParamsTippingBgn as ConfigurationModifyParamsTippingBgn,
         ConfigurationModifyParamsTippingCad as ConfigurationModifyParamsTippingCad,
         ConfigurationModifyParamsTippingChf as ConfigurationModifyParamsTippingChf,
         ConfigurationModifyParamsTippingCzk as ConfigurationModifyParamsTippingCzk,
@@ -98,7 +96,6 @@ if TYPE_CHECKING:
         ConfigurationUpdateParamsTipping as ConfigurationUpdateParamsTipping,
         ConfigurationUpdateParamsTippingAed as ConfigurationUpdateParamsTippingAed,
         ConfigurationUpdateParamsTippingAud as ConfigurationUpdateParamsTippingAud,
-        ConfigurationUpdateParamsTippingBgn as ConfigurationUpdateParamsTippingBgn,
         ConfigurationUpdateParamsTippingCad as ConfigurationUpdateParamsTippingCad,
         ConfigurationUpdateParamsTippingChf as ConfigurationUpdateParamsTippingChf,
         ConfigurationUpdateParamsTippingCzk as ConfigurationUpdateParamsTippingCzk,
@@ -273,10 +270,6 @@ _import_map = {
         "stripe.params.terminal._configuration_create_params",
         False,
     ),
-    "ConfigurationCreateParamsTippingBgn": (
-        "stripe.params.terminal._configuration_create_params",
-        False,
-    ),
     "ConfigurationCreateParamsTippingCad": (
         "stripe.params.terminal._configuration_create_params",
         False,
@@ -421,10 +414,6 @@ _import_map = {
         "stripe.params.terminal._configuration_modify_params",
         False,
     ),
-    "ConfigurationModifyParamsTippingBgn": (
-        "stripe.params.terminal._configuration_modify_params",
-        False,
-    ),
     "ConfigurationModifyParamsTippingCad": (
         "stripe.params.terminal._configuration_modify_params",
         False,
@@ -562,10 +551,6 @@ _import_map = {
         False,
     ),
     "ConfigurationUpdateParamsTippingAud": (
-        "stripe.params.terminal._configuration_update_params",
-        False,
-    ),
-    "ConfigurationUpdateParamsTippingBgn": (
         "stripe.params.terminal._configuration_update_params",
         False,
     ),
