@@ -11,6 +11,19 @@ if TYPE_CHECKING:
     from stripe.params.radar._early_fraud_warning_retrieve_params import (
         EarlyFraudWarningRetrieveParams as EarlyFraudWarningRetrieveParams,
     )
+    from stripe.params.radar._payment_evaluation_create_params import (
+        PaymentEvaluationCreateParams as PaymentEvaluationCreateParams,
+        PaymentEvaluationCreateParamsClientDeviceMetadataDetails as PaymentEvaluationCreateParamsClientDeviceMetadataDetails,
+        PaymentEvaluationCreateParamsCustomerDetails as PaymentEvaluationCreateParamsCustomerDetails,
+        PaymentEvaluationCreateParamsPaymentDetails as PaymentEvaluationCreateParamsPaymentDetails,
+        PaymentEvaluationCreateParamsPaymentDetailsMoneyMovementDetails as PaymentEvaluationCreateParamsPaymentDetailsMoneyMovementDetails,
+        PaymentEvaluationCreateParamsPaymentDetailsMoneyMovementDetailsCard as PaymentEvaluationCreateParamsPaymentDetailsMoneyMovementDetailsCard,
+        PaymentEvaluationCreateParamsPaymentDetailsPaymentMethodDetails as PaymentEvaluationCreateParamsPaymentDetailsPaymentMethodDetails,
+        PaymentEvaluationCreateParamsPaymentDetailsPaymentMethodDetailsBillingDetails as PaymentEvaluationCreateParamsPaymentDetailsPaymentMethodDetailsBillingDetails,
+        PaymentEvaluationCreateParamsPaymentDetailsPaymentMethodDetailsBillingDetailsAddress as PaymentEvaluationCreateParamsPaymentDetailsPaymentMethodDetailsBillingDetailsAddress,
+        PaymentEvaluationCreateParamsPaymentDetailsShippingDetails as PaymentEvaluationCreateParamsPaymentDetailsShippingDetails,
+        PaymentEvaluationCreateParamsPaymentDetailsShippingDetailsAddress as PaymentEvaluationCreateParamsPaymentDetailsShippingDetailsAddress,
+    )
     from stripe.params.radar._value_list_create_params import (
         ValueListCreateParams as ValueListCreateParams,
     )
@@ -56,6 +69,50 @@ _import_map = {
     ),
     "EarlyFraudWarningRetrieveParams": (
         "stripe.params.radar._early_fraud_warning_retrieve_params",
+        False,
+    ),
+    "PaymentEvaluationCreateParams": (
+        "stripe.params.radar._payment_evaluation_create_params",
+        False,
+    ),
+    "PaymentEvaluationCreateParamsClientDeviceMetadataDetails": (
+        "stripe.params.radar._payment_evaluation_create_params",
+        False,
+    ),
+    "PaymentEvaluationCreateParamsCustomerDetails": (
+        "stripe.params.radar._payment_evaluation_create_params",
+        False,
+    ),
+    "PaymentEvaluationCreateParamsPaymentDetails": (
+        "stripe.params.radar._payment_evaluation_create_params",
+        False,
+    ),
+    "PaymentEvaluationCreateParamsPaymentDetailsMoneyMovementDetails": (
+        "stripe.params.radar._payment_evaluation_create_params",
+        False,
+    ),
+    "PaymentEvaluationCreateParamsPaymentDetailsMoneyMovementDetailsCard": (
+        "stripe.params.radar._payment_evaluation_create_params",
+        False,
+    ),
+    "PaymentEvaluationCreateParamsPaymentDetailsPaymentMethodDetails": (
+        "stripe.params.radar._payment_evaluation_create_params",
+        False,
+    ),
+    "PaymentEvaluationCreateParamsPaymentDetailsPaymentMethodDetailsBillingDetails": (
+        "stripe.params.radar._payment_evaluation_create_params",
+        False,
+    ),
+    "PaymentEvaluationCreateParamsPaymentDetailsPaymentMethodDetailsBillingDetailsAddress": (
+        "stripe.params.radar._payment_evaluation_create_params",
+        False,
+    ),
+    "PaymentEvaluationCreateParamsPaymentDetailsShippingDetails": (
+        "stripe.params.radar._payment_evaluation_create_params",
+        False,
+    ),
+    "PaymentEvaluationCreateParamsPaymentDetailsShippingDetailsAddress": (
+        "stripe.params.radar._payment_evaluation_create_params",
         False,
     ),
     "ValueListCreateParams": (

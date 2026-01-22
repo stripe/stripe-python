@@ -653,7 +653,7 @@ class Subscription(
     """
     latest_invoice: Optional[ExpandableField["Invoice"]]
     """
-    The most recent invoice this subscription has generated.
+    The most recent invoice this subscription has generated over its lifecycle (for example, when it cycles or is updated).
     """
     livemode: bool
     """

@@ -100,6 +100,21 @@ class PaymentIntent(
     OBJECT_NAME: ClassVar[Literal["payment_intent"]] = "payment_intent"
 
     class AmountDetails(StripeObject):
+        class Error(StripeObject):
+            code: Optional[
+                Literal[
+                    "amount_details_amount_mismatch",
+                    "amount_details_tax_shipping_discount_greater_than_amount",
+                ]
+            ]
+            """
+            The code of the error that occurred when validating the current amount details.
+            """
+            message: Optional[str]
+            """
+            A message providing more details about the error.
+            """
+
         class Shipping(StripeObject):
             amount: Optional[int]
             """
@@ -134,6 +149,7 @@ class PaymentIntent(
 
         This field is mutually exclusive with the `amount_details[line_items][#][discount_amount]` field.
         """
+        error: Optional[Error]
         line_items: Optional[ListObject["PaymentIntentAmountDetailsLineItem"]]
         """
         A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 200 line items.
@@ -141,7 +157,12 @@ class PaymentIntent(
         shipping: Optional[Shipping]
         tax: Optional[Tax]
         tip: Optional[Tip]
-        _inner_class_types = {"shipping": Shipping, "tax": Tax, "tip": Tip}
+        _inner_class_types = {
+            "error": Error,
+            "shipping": Shipping,
+            "tax": Tax,
+            "tip": Tip,
+        }
 
     class AutomaticPaymentMethods(StripeObject):
         allow_redirects: Optional[Literal["always", "never"]]
@@ -325,6 +346,7 @@ class PaymentIntent(
                 "rate_limit",
                 "refer_to_customer",
                 "refund_disputed_payment",
+                "request_blocked",
                 "resource_already_exists",
                 "resource_missing",
                 "return_intent_already_processed",
@@ -2509,12 +2531,6 @@ class PaymentIntent(
 
             financial_connections: Optional[FinancialConnections]
             mandate_options: Optional[MandateOptions]
-            preferred_settlement_speed: Optional[
-                Literal["fastest", "standard"]
-            ]
-            """
-            Preferred transaction settlement speed
-            """
             setup_future_usage: Optional[
                 Literal["none", "off_session", "on_session"]
             ]

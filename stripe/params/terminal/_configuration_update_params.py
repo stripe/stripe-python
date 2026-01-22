@@ -103,10 +103,6 @@ class ConfigurationUpdateParamsTipping(TypedDict):
     """
     Tipping configuration for AUD
     """
-    bgn: NotRequired["ConfigurationUpdateParamsTippingBgn"]
-    """
-    Tipping configuration for BGN
-    """
     cad: NotRequired["ConfigurationUpdateParamsTippingCad"]
     """
     Tipping configuration for CAD
@@ -201,21 +197,6 @@ class ConfigurationUpdateParamsTippingAed(TypedDict):
 
 
 class ConfigurationUpdateParamsTippingAud(TypedDict):
-    fixed_amounts: NotRequired[List[int]]
-    """
-    Fixed amounts displayed when collecting a tip
-    """
-    percentages: NotRequired[List[int]]
-    """
-    Percentages displayed when collecting a tip
-    """
-    smart_tip_threshold: NotRequired[int]
-    """
-    Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-    """
-
-
-class ConfigurationUpdateParamsTippingBgn(TypedDict):
     fixed_amounts: NotRequired[List[int]]
     """
     Fixed amounts displayed when collecting a tip

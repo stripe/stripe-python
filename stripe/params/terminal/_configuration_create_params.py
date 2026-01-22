@@ -36,7 +36,7 @@ class ConfigurationCreateParams(RequestOptions):
     """
     tipping: NotRequired["Literal['']|ConfigurationCreateParamsTipping"]
     """
-    Tipping configurations for readers. supporting on-reader tips
+    Tipping configurations for readers that support on-reader tips.
     """
     verifone_p400: NotRequired["ConfigurationCreateParamsVerifoneP400"]
     """
@@ -95,10 +95,6 @@ class ConfigurationCreateParamsTipping(TypedDict):
     aud: NotRequired["ConfigurationCreateParamsTippingAud"]
     """
     Tipping configuration for AUD
-    """
-    bgn: NotRequired["ConfigurationCreateParamsTippingBgn"]
-    """
-    Tipping configuration for BGN
     """
     cad: NotRequired["ConfigurationCreateParamsTippingCad"]
     """
@@ -194,21 +190,6 @@ class ConfigurationCreateParamsTippingAed(TypedDict):
 
 
 class ConfigurationCreateParamsTippingAud(TypedDict):
-    fixed_amounts: NotRequired[List[int]]
-    """
-    Fixed amounts displayed when collecting a tip
-    """
-    percentages: NotRequired[List[int]]
-    """
-    Percentages displayed when collecting a tip
-    """
-    smart_tip_threshold: NotRequired[int]
-    """
-    Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-    """
-
-
-class ConfigurationCreateParamsTippingBgn(TypedDict):
     fixed_amounts: NotRequired[List[int]]
     """
     Fixed amounts displayed when collecting a tip
