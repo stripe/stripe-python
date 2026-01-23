@@ -106,3 +106,18 @@ class CouponCreateParamsServicePeriod(TypedDict):
     """
     The number of intervals for which the coupon will be applied.
     """
+    iterations: NotRequired["CouponCreateParamsServicePeriodIterations"]
+    """
+    Specifies the number of times the coupon is contiguously applied.
+    """
+
+
+class CouponCreateParamsServicePeriodIterations(TypedDict):
+    count: NotRequired[int]
+    """
+    The number of iterations the service period will repeat for. Only used when type is `count`, defaults to 1.
+    """
+    type: Literal["count", "forever"]
+    """
+    The type of iterations, defaults to `count` if omitted.
+    """

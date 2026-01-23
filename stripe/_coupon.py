@@ -60,8 +60,14 @@ class Coupon(
         """
 
     class ServicePeriod(StripeObject):
+        class Iterations(StripeObject):
+            count: Optional[int]
+            type: Literal["count", "forever"]
+
         interval: str
         interval_count: int
+        iterations: Iterations
+        _inner_class_types = {"iterations": Iterations}
 
     amount_off: Optional[int]
     """

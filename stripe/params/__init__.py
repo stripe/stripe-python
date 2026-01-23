@@ -1017,6 +1017,7 @@ if TYPE_CHECKING:
         CouponCreateParamsCurrencyOptions as CouponCreateParamsCurrencyOptions,
         CouponCreateParamsScript as CouponCreateParamsScript,
         CouponCreateParamsServicePeriod as CouponCreateParamsServicePeriod,
+        CouponCreateParamsServicePeriodIterations as CouponCreateParamsServicePeriodIterations,
     )
     from stripe.params._coupon_delete_params import (
         CouponDeleteParams as CouponDeleteParams,
@@ -9074,6 +9075,10 @@ _import_map = {
     ),
     "CouponCreateParamsScript": ("stripe.params._coupon_create_params", False),
     "CouponCreateParamsServicePeriod": (
+        "stripe.params._coupon_create_params",
+        False,
+    ),
+    "CouponCreateParamsServicePeriodIterations": (
         "stripe.params._coupon_create_params",
         False,
     ),
