@@ -3036,6 +3036,10 @@ class PaymentIntentUpdateParamsPaymentMethodOptionsUsBankAccount(TypedDict):
     """
     Bank account verification method.
     """
+    preferred_settlement_speed: NotRequired[Literal["fastest", "standard"]]
+    """
+    Preferred transaction settlement speed
+    """
 
 
 class PaymentIntentUpdateParamsPaymentMethodOptionsUsBankAccountFinancialConnections(
