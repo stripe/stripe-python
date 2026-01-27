@@ -4056,6 +4056,12 @@ class PaymentIntent(
 
             financial_connections: Optional[FinancialConnections]
             mandate_options: Optional[MandateOptions]
+            preferred_settlement_speed: Optional[
+                Literal["fastest", "standard"]
+            ]
+            """
+            Preferred transaction settlement speed
+            """
             setup_future_usage: Optional[
                 Literal["none", "off_session", "on_session"]
             ]
