@@ -17,6 +17,11 @@ class LineItem(StripeObject):
 
     OBJECT_NAME: ClassVar[Literal["item"]] = "item"
 
+    class AdjustableQuantity(StripeObject):
+        enabled: bool
+        maximum: Optional[int]
+        minimum: Optional[int]
+
     class Discount(StripeObject):
         amount: int
         """
@@ -68,6 +73,7 @@ class LineItem(StripeObject):
         The amount on which tax is calculated, in cents (or local equivalent).
         """
 
+    adjustable_quantity: Optional[AdjustableQuantity]
     amount_discount: int
     """
     Total discount amount applied. If no discounts were applied, defaults to 0.
@@ -120,4 +126,8 @@ class LineItem(StripeObject):
     """
     The taxes applied to the line item.
     """
-    _inner_class_types = {"discounts": Discount, "taxes": Tax}
+    _inner_class_types = {
+        "adjustable_quantity": AdjustableQuantity,
+        "discounts": Discount,
+        "taxes": Tax,
+    }
