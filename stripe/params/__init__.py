@@ -1790,9 +1790,6 @@ if TYPE_CHECKING:
     from stripe.params._margin_update_params import (
         MarginUpdateParams as MarginUpdateParams,
     )
-    from stripe.params._order_cancel_params import (
-        OrderCancelParams as OrderCancelParams,
-    )
     from stripe.params._order_create_params import (
         OrderCreateParams as OrderCreateParams,
         OrderCreateParamsAutomaticTax as OrderCreateParamsAutomaticTax,
@@ -1879,12 +1876,6 @@ if TYPE_CHECKING:
         OrderCreateParamsShippingDetailsAddress as OrderCreateParamsShippingDetailsAddress,
         OrderCreateParamsTaxDetails as OrderCreateParamsTaxDetails,
         OrderCreateParamsTaxDetailsTaxId as OrderCreateParamsTaxDetailsTaxId,
-    )
-    from stripe.params._order_line_item_list_params import (
-        OrderLineItemListParams as OrderLineItemListParams,
-    )
-    from stripe.params._order_list_line_items_params import (
-        OrderListLineItemsParams as OrderListLineItemsParams,
     )
     from stripe.params._order_list_params import (
         OrderListParams as OrderListParams,
@@ -1975,9 +1966,6 @@ if TYPE_CHECKING:
         OrderModifyParamsShippingDetailsAddress as OrderModifyParamsShippingDetailsAddress,
         OrderModifyParamsTaxDetails as OrderModifyParamsTaxDetails,
         OrderModifyParamsTaxDetailsTaxId as OrderModifyParamsTaxDetailsTaxId,
-    )
-    from stripe.params._order_reopen_params import (
-        OrderReopenParams as OrderReopenParams,
     )
     from stripe.params._order_retrieve_params import (
         OrderRetrieveParams as OrderRetrieveParams,
@@ -4952,9 +4940,6 @@ if TYPE_CHECKING:
     from stripe.params._source_verify_params import (
         SourceVerifyParams as SourceVerifyParams,
     )
-    from stripe.params._subscription_attach_cadence_params import (
-        SubscriptionAttachCadenceParams as SubscriptionAttachCadenceParams,
-    )
     from stripe.params._subscription_cancel_params import (
         SubscriptionCancelParams as SubscriptionCancelParams,
         SubscriptionCancelParamsCancellationDetails as SubscriptionCancelParamsCancellationDetails,
@@ -5130,10 +5115,6 @@ if TYPE_CHECKING:
         SubscriptionModifyParamsTransferData as SubscriptionModifyParamsTransferData,
         SubscriptionModifyParamsTrialSettings as SubscriptionModifyParamsTrialSettings,
         SubscriptionModifyParamsTrialSettingsEndBehavior as SubscriptionModifyParamsTrialSettingsEndBehavior,
-    )
-    from stripe.params._subscription_pause_params import (
-        SubscriptionPauseParams as SubscriptionPauseParams,
-        SubscriptionPauseParamsBillFor as SubscriptionPauseParamsBillFor,
     )
     from stripe.params._subscription_resume_params import (
         SubscriptionResumeParams as SubscriptionResumeParams,
@@ -10710,7 +10691,6 @@ _import_map = {
     "MarginModifyParams": ("stripe.params._margin_modify_params", False),
     "MarginRetrieveParams": ("stripe.params._margin_retrieve_params", False),
     "MarginUpdateParams": ("stripe.params._margin_update_params", False),
-    "OrderCancelParams": ("stripe.params._order_cancel_params", False),
     "OrderCreateParams": ("stripe.params._order_create_params", False),
     "OrderCreateParamsAutomaticTax": (
         "stripe.params._order_create_params",
@@ -11037,14 +11017,6 @@ _import_map = {
     ),
     "OrderCreateParamsTaxDetailsTaxId": (
         "stripe.params._order_create_params",
-        False,
-    ),
-    "OrderLineItemListParams": (
-        "stripe.params._order_line_item_list_params",
-        False,
-    ),
-    "OrderListLineItemsParams": (
-        "stripe.params._order_list_line_items_params",
         False,
     ),
     "OrderListParams": ("stripe.params._order_list_params", False),
@@ -11376,7 +11348,6 @@ _import_map = {
         "stripe.params._order_modify_params",
         False,
     ),
-    "OrderReopenParams": ("stripe.params._order_reopen_params", False),
     "OrderRetrieveParams": ("stripe.params._order_retrieve_params", False),
     "OrderSubmitParams": ("stripe.params._order_submit_params", False),
     "OrderUpdateParams": ("stripe.params._order_update_params", False),
@@ -21836,10 +21807,6 @@ _import_map = {
         False,
     ),
     "SourceVerifyParams": ("stripe.params._source_verify_params", False),
-    "SubscriptionAttachCadenceParams": (
-        "stripe.params._subscription_attach_cadence_params",
-        False,
-    ),
     "SubscriptionCancelParams": (
         "stripe.params._subscription_cancel_params",
         False,
@@ -22446,14 +22413,6 @@ _import_map = {
     ),
     "SubscriptionModifyParamsTrialSettingsEndBehavior": (
         "stripe.params._subscription_modify_params",
-        False,
-    ),
-    "SubscriptionPauseParams": (
-        "stripe.params._subscription_pause_params",
-        False,
-    ),
-    "SubscriptionPauseParamsBillFor": (
-        "stripe.params._subscription_pause_params",
         False,
     ),
     "SubscriptionResumeParams": (

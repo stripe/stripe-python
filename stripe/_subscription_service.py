@@ -11,9 +11,6 @@ if TYPE_CHECKING:
     from stripe._request_options import RequestOptions
     from stripe._search_result_object import SearchResultObject
     from stripe._subscription import Subscription
-    from stripe.params._subscription_attach_cadence_params import (
-        SubscriptionAttachCadenceParams,
-    )
     from stripe.params._subscription_cancel_params import (
         SubscriptionCancelParams,
     )
@@ -26,9 +23,6 @@ if TYPE_CHECKING:
     from stripe.params._subscription_list_params import SubscriptionListParams
     from stripe.params._subscription_migrate_params import (
         SubscriptionMigrateParams,
-    )
-    from stripe.params._subscription_pause_params import (
-        SubscriptionPauseParams,
     )
     from stripe.params._subscription_resume_params import (
         SubscriptionResumeParams,
@@ -417,50 +411,6 @@ class SubscriptionService(StripeService):
             ),
         )
 
-    def attach_cadence(
-        self,
-        subscription: str,
-        params: "SubscriptionAttachCadenceParams",
-        options: Optional["RequestOptions"] = None,
-    ) -> "Subscription":
-        """
-        Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
-        """
-        return cast(
-            "Subscription",
-            self._request(
-                "post",
-                "/v1/subscriptions/{subscription}/attach_cadence".format(
-                    subscription=sanitize_id(subscription),
-                ),
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    async def attach_cadence_async(
-        self,
-        subscription: str,
-        params: "SubscriptionAttachCadenceParams",
-        options: Optional["RequestOptions"] = None,
-    ) -> "Subscription":
-        """
-        Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
-        """
-        return cast(
-            "Subscription",
-            await self._request_async(
-                "post",
-                "/v1/subscriptions/{subscription}/attach_cadence".format(
-                    subscription=sanitize_id(subscription),
-                ),
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
     def migrate(
         self,
         subscription: str,
@@ -497,50 +447,6 @@ class SubscriptionService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/subscriptions/{subscription}/migrate".format(
-                    subscription=sanitize_id(subscription),
-                ),
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    def pause(
-        self,
-        subscription: str,
-        params: "SubscriptionPauseParams",
-        options: Optional["RequestOptions"] = None,
-    ) -> "Subscription":
-        """
-        Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
-        """
-        return cast(
-            "Subscription",
-            self._request(
-                "post",
-                "/v1/subscriptions/{subscription}/pause".format(
-                    subscription=sanitize_id(subscription),
-                ),
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    async def pause_async(
-        self,
-        subscription: str,
-        params: "SubscriptionPauseParams",
-        options: Optional["RequestOptions"] = None,
-    ) -> "Subscription":
-        """
-        Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
-        """
-        return cast(
-            "Subscription",
-            await self._request_async(
-                "post",
-                "/v1/subscriptions/{subscription}/pause".format(
                     subscription=sanitize_id(subscription),
                 ),
                 base_address="api",
