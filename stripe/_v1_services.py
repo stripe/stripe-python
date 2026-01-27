@@ -80,6 +80,7 @@ if TYPE_CHECKING:
     from stripe._radar_service import RadarService
     from stripe._refund_service import RefundService
     from stripe._reporting_service import ReportingService
+    from stripe._reserve_service import ReserveService
     from stripe._review_service import ReviewService
     from stripe._setup_attempt_service import SetupAttemptService
     from stripe._setup_intent_service import SetupIntentService
@@ -240,6 +241,7 @@ _subservices = {
     "radar": ["stripe._radar_service", "RadarService"],
     "refunds": ["stripe._refund_service", "RefundService"],
     "reporting": ["stripe._reporting_service", "ReportingService"],
+    "reserve": ["stripe._reserve_service", "ReserveService"],
     "reviews": ["stripe._review_service", "ReviewService"],
     "setup_attempts": ["stripe._setup_attempt_service", "SetupAttemptService"],
     "setup_intents": ["stripe._setup_intent_service", "SetupIntentService"],
@@ -340,6 +342,7 @@ class V1Services(StripeService):
     radar: "RadarService"
     refunds: "RefundService"
     reporting: "ReportingService"
+    reserve: "ReserveService"
     reviews: "ReviewService"
     setup_attempts: "SetupAttemptService"
     setup_intents: "SetupIntentService"

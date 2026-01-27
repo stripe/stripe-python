@@ -88,7 +88,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
                 """
                 instant_payouts: bool
                 """
-                Whether to allow creation of instant payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
+                Whether to allow creation of instant payouts. The default value is `enabled` when Stripe is responsible for negative account balances, and `use_dashboard_rules` otherwise.
                 """
                 standard_payouts: bool
                 """
@@ -235,7 +235,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
                 """
                 instant_payouts: bool
                 """
-                Whether to allow creation of instant payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
+                Whether to allow creation of instant payouts. The default value is `enabled` when Stripe is responsible for negative account balances, and `use_dashboard_rules` otherwise.
                 """
 
             enabled: bool
@@ -420,7 +420,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
                 """
                 instant_payouts: bool
                 """
-                Whether to allow creation of instant payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
+                Whether to allow creation of instant payouts. The default value is `enabled` when Stripe is responsible for negative account balances, and `use_dashboard_rules` otherwise.
                 """
                 standard_payouts: bool
                 """

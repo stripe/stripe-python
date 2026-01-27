@@ -40,11 +40,11 @@ class PaymentLinkCreateParams(RequestOptions):
     """
     custom_fields: NotRequired[List["PaymentLinkCreateParamsCustomField"]]
     """
-    Collect additional information from your customer using custom fields. Up to 3 fields are supported.
+    Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `custom`.
     """
     custom_text: NotRequired["PaymentLinkCreateParamsCustomText"]
     """
-    Display additional text for your customers using custom text.
+    Display additional text for your customers using custom text. You can't set this parameter if `ui_mode` is `custom`.
     """
     customer_creation: NotRequired[Literal["always", "if_required"]]
     """
@@ -604,15 +604,15 @@ class PaymentLinkCreateParamsLineItemPriceDataProductData(TypedDict):
     """
     A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
     """
-    unit_label: NotRequired[str]
-    """
-    A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
-    """
     tax_details: NotRequired[
         "PaymentLinkCreateParamsLineItemPriceDataProductDataTaxDetails"
     ]
     """
     Tax details for this product, including the [tax code](https://docs.stripe.com/tax/tax-codes) and an optional performance location.
+    """
+    unit_label: NotRequired[str]
+    """
+    A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
     """
 
 
@@ -1097,7 +1097,7 @@ class PaymentLinkCreateParamsTaxIdCollection(TypedDict):
     """
     required: NotRequired[Literal["if_supported", "never"]]
     """
-    Describes whether a tax ID is required during checkout. Defaults to `never`.
+    Describes whether a tax ID is required during checkout. Defaults to `never`. You can't set this parameter if `ui_mode` is `custom`.
     """
 
 

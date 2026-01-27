@@ -6,7 +6,7 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class SessionCreateParams(RequestOptions):
-    account_holder: "SessionCreateParamsAccountHolder"
+    account_holder: NotRequired["SessionCreateParamsAccountHolder"]
     """
     The account holder to link accounts for.
     """
@@ -43,6 +43,10 @@ class SessionCreateParams(RequestOptions):
     ]
     """
     List of data features that you would like to retrieve upon account creation.
+    """
+    relink_options: NotRequired["SessionCreateParamsRelinkOptions"]
+    """
+    Options for specifying a Session targeted to relinking an authorization.
     """
     return_url: NotRequired[str]
     """
@@ -105,4 +109,15 @@ class SessionCreateParamsManualEntry(TypedDict):
     mode: NotRequired[Literal["automatic", "custom"]]
     """
     Whether manual entry will be handled by Stripe during the Session.
+    """
+
+
+class SessionCreateParamsRelinkOptions(TypedDict):
+    account: NotRequired[str]
+    """
+    The account to relink. Must belong to the authorization specified in `authorization`.
+    """
+    authorization: str
+    """
+    The authorization to relink.
     """

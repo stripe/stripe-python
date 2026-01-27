@@ -162,6 +162,7 @@ if TYPE_CHECKING:
         product_catalog as product_catalog,
         radar as radar,
         reporting as reporting,
+        reserve as reserve,
         shared_payment as shared_payment,
         sigma as sigma,
         tax as tax,
@@ -434,9 +435,6 @@ if TYPE_CHECKING:
     from stripe._oauth import OAuth as OAuth
     from stripe._oauth_service import OAuthService as OAuthService
     from stripe._order import Order as Order
-    from stripe._order_line_item_service import (
-        OrderLineItemService as OrderLineItemService,
-    )
     from stripe._order_service import OrderService as OrderService
     from stripe._payment_attempt_record import (
         PaymentAttemptRecord as PaymentAttemptRecord,
@@ -533,6 +531,7 @@ if TYPE_CHECKING:
     from stripe._reporting_service import ReportingService as ReportingService
     from stripe._request_options import RequestOptions as RequestOptions
     from stripe._requestor_options import RequestorOptions as RequestorOptions
+    from stripe._reserve_service import ReserveService as ReserveService
     from stripe._reserve_transaction import (
         ReserveTransaction as ReserveTransaction,
     )
@@ -665,6 +664,7 @@ _import_map = {
     "product_catalog": ("stripe.product_catalog", True),
     "radar": ("stripe.radar", True),
     "reporting": ("stripe.reporting", True),
+    "reserve": ("stripe.reserve", True),
     "shared_payment": ("stripe.shared_payment", True),
     "sigma": ("stripe.sigma", True),
     "tax": ("stripe.tax", True),
@@ -878,7 +878,6 @@ _import_map = {
     "OAuth": ("stripe._oauth", False),
     "OAuthService": ("stripe._oauth_service", False),
     "Order": ("stripe._order", False),
-    "OrderLineItemService": ("stripe._order_line_item_service", False),
     "OrderService": ("stripe._order_service", False),
     "PaymentAttemptRecord": ("stripe._payment_attempt_record", False),
     "PaymentAttemptRecordService": (
@@ -962,6 +961,7 @@ _import_map = {
     "ReportingService": ("stripe._reporting_service", False),
     "RequestOptions": ("stripe._request_options", False),
     "RequestorOptions": ("stripe._requestor_options", False),
+    "ReserveService": ("stripe._reserve_service", False),
     "ReserveTransaction": ("stripe._reserve_transaction", False),
     "Reversal": ("stripe._reversal", False),
     "Review": ("stripe._review", False),

@@ -61,6 +61,10 @@ class ProductModifyParams(RequestOptions):
     """
     A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
     """
+    tax_details: NotRequired["Literal['']|ProductModifyParamsTaxDetails"]
+    """
+    Tax details for this product, including the [tax code](https://docs.stripe.com/tax/tax-codes) and an optional performance location.
+    """
     unit_label: NotRequired["Literal['']|str"]
     """
     A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal. May only be set if `type=service`.
@@ -68,10 +72,6 @@ class ProductModifyParams(RequestOptions):
     url: NotRequired["Literal['']|str"]
     """
     A URL of a publicly-accessible webpage for this product.
-    """
-    tax_details: NotRequired["Literal['']|ProductModifyParamsTaxDetails"]
-    """
-    Tax details for this product, including the [tax code](https://docs.stripe.com/tax/tax-codes) and an optional performance location.
     """
 
 

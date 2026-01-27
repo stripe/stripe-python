@@ -10,6 +10,7 @@ from typing_extensions import Literal, TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe._discount import Discount
     from stripe._margin import Margin
+    from stripe._price import Price
     from stripe._subscription import Subscription
     from stripe.billing._credit_balance_transaction import (
         CreditBalanceTransaction,
@@ -262,7 +263,7 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
             """
 
         class PriceDetails(StripeObject):
-            price: str
+            price: ExpandableField["Price"]
             """
             The ID of the price this item is associated with.
             """
@@ -434,6 +435,10 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
     The quantity of the subscription, if the line item is a subscription or a proration.
     """
     subscription: Optional[ExpandableField["Subscription"]]
+    subtotal: int
+    """
+    The subtotal of the line item, in cents (or local equivalent), before any discounts or taxes.
+    """
     tax_calculation_reference: Optional[TaxCalculationReference]
     """
     The tax calculation identifiers of the line item.

@@ -16,6 +16,7 @@ if TYPE_CHECKING:
     from stripe._discount import Discount
     from stripe._invoice import Invoice
     from stripe._margin import Margin
+    from stripe._price import Price
     from stripe._tax_rate import TaxRate
     from stripe.params._invoice_item_create_params import (
         InvoiceItemCreateParams,
@@ -165,7 +166,7 @@ class InvoiceItem(
             """
 
         class PriceDetails(StripeObject):
-            price: str
+            price: ExpandableField["Price"]
             """
             The ID of the price this item is associated with.
             """

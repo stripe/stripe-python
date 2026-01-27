@@ -21,6 +21,7 @@ if TYPE_CHECKING:
         product_catalog as product_catalog,
         radar as radar,
         reporting as reporting,
+        reserve as reserve,
         shared_payment as shared_payment,
         sigma as sigma,
         tax as tax,
@@ -188,6 +189,10 @@ if TYPE_CHECKING:
         AccountCreateParamsSettingsPayouts as AccountCreateParamsSettingsPayouts,
         AccountCreateParamsSettingsPayoutsSchedule as AccountCreateParamsSettingsPayoutsSchedule,
         AccountCreateParamsSettingsPaypayPayments as AccountCreateParamsSettingsPaypayPayments,
+        AccountCreateParamsSettingsPaypayPaymentsSite as AccountCreateParamsSettingsPaypayPaymentsSite,
+        AccountCreateParamsSettingsPaypayPaymentsSiteAccessible as AccountCreateParamsSettingsPaypayPaymentsSiteAccessible,
+        AccountCreateParamsSettingsPaypayPaymentsSiteInDevelopment as AccountCreateParamsSettingsPaypayPaymentsSiteInDevelopment,
+        AccountCreateParamsSettingsPaypayPaymentsSiteRestricted as AccountCreateParamsSettingsPaypayPaymentsSiteRestricted,
         AccountCreateParamsSettingsTaxForms as AccountCreateParamsSettingsTaxForms,
         AccountCreateParamsSettingsTreasury as AccountCreateParamsSettingsTreasury,
         AccountCreateParamsSettingsTreasuryTosAcceptance as AccountCreateParamsSettingsTreasuryTosAcceptance,
@@ -593,6 +598,10 @@ if TYPE_CHECKING:
         AccountUpdateParamsSettingsPayouts as AccountUpdateParamsSettingsPayouts,
         AccountUpdateParamsSettingsPayoutsSchedule as AccountUpdateParamsSettingsPayoutsSchedule,
         AccountUpdateParamsSettingsPaypayPayments as AccountUpdateParamsSettingsPaypayPayments,
+        AccountUpdateParamsSettingsPaypayPaymentsSite as AccountUpdateParamsSettingsPaypayPaymentsSite,
+        AccountUpdateParamsSettingsPaypayPaymentsSiteAccessible as AccountUpdateParamsSettingsPaypayPaymentsSiteAccessible,
+        AccountUpdateParamsSettingsPaypayPaymentsSiteInDevelopment as AccountUpdateParamsSettingsPaypayPaymentsSiteInDevelopment,
+        AccountUpdateParamsSettingsPaypayPaymentsSiteRestricted as AccountUpdateParamsSettingsPaypayPaymentsSiteRestricted,
         AccountUpdateParamsSettingsTaxForms as AccountUpdateParamsSettingsTaxForms,
         AccountUpdateParamsSettingsTreasury as AccountUpdateParamsSettingsTreasury,
         AccountUpdateParamsSettingsTreasuryTosAcceptance as AccountUpdateParamsSettingsTreasuryTosAcceptance,
@@ -1621,6 +1630,9 @@ if TYPE_CHECKING:
     from stripe.params._invoice_delete_params import (
         InvoiceDeleteParams as InvoiceDeleteParams,
     )
+    from stripe.params._invoice_detach_payment_params import (
+        InvoiceDetachPaymentParams as InvoiceDetachPaymentParams,
+    )
     from stripe.params._invoice_finalize_invoice_params import (
         InvoiceFinalizeInvoiceParams as InvoiceFinalizeInvoiceParams,
     )
@@ -1852,9 +1864,6 @@ if TYPE_CHECKING:
     from stripe.params._margin_update_params import (
         MarginUpdateParams as MarginUpdateParams,
     )
-    from stripe.params._order_cancel_params import (
-        OrderCancelParams as OrderCancelParams,
-    )
     from stripe.params._order_create_params import (
         OrderCreateParams as OrderCreateParams,
         OrderCreateParamsAutomaticTax as OrderCreateParamsAutomaticTax,
@@ -1941,12 +1950,6 @@ if TYPE_CHECKING:
         OrderCreateParamsShippingDetailsAddress as OrderCreateParamsShippingDetailsAddress,
         OrderCreateParamsTaxDetails as OrderCreateParamsTaxDetails,
         OrderCreateParamsTaxDetailsTaxId as OrderCreateParamsTaxDetailsTaxId,
-    )
-    from stripe.params._order_line_item_list_params import (
-        OrderLineItemListParams as OrderLineItemListParams,
-    )
-    from stripe.params._order_list_line_items_params import (
-        OrderListLineItemsParams as OrderListLineItemsParams,
     )
     from stripe.params._order_list_params import (
         OrderListParams as OrderListParams,
@@ -2037,9 +2040,6 @@ if TYPE_CHECKING:
         OrderModifyParamsShippingDetailsAddress as OrderModifyParamsShippingDetailsAddress,
         OrderModifyParamsTaxDetails as OrderModifyParamsTaxDetails,
         OrderModifyParamsTaxDetailsTaxId as OrderModifyParamsTaxDetailsTaxId,
-    )
-    from stripe.params._order_reopen_params import (
-        OrderReopenParams as OrderReopenParams,
     )
     from stripe.params._order_retrieve_params import (
         OrderRetrieveParams as OrderRetrieveParams,
@@ -5331,6 +5331,10 @@ if TYPE_CHECKING:
         SubscriptionModifyParamsTrialSettings as SubscriptionModifyParamsTrialSettings,
         SubscriptionModifyParamsTrialSettingsEndBehavior as SubscriptionModifyParamsTrialSettingsEndBehavior,
     )
+    from stripe.params._subscription_pause_params import (
+        SubscriptionPauseParams as SubscriptionPauseParams,
+        SubscriptionPauseParamsBillFor as SubscriptionPauseParamsBillFor,
+    )
     from stripe.params._subscription_resume_params import (
         SubscriptionResumeParams as SubscriptionResumeParams,
     )
@@ -5818,6 +5822,7 @@ _import_map = {
     "product_catalog": ("stripe.params.product_catalog", True),
     "radar": ("stripe.params.radar", True),
     "reporting": ("stripe.params.reporting", True),
+    "reserve": ("stripe.params.reserve", True),
     "shared_payment": ("stripe.params.shared_payment", True),
     "sigma": ("stripe.params.sigma", True),
     "tax": ("stripe.params.tax", True),
@@ -6411,6 +6416,22 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsSettingsPaypayPayments": (
+        "stripe.params._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsSettingsPaypayPaymentsSite": (
+        "stripe.params._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsSettingsPaypayPaymentsSiteAccessible": (
+        "stripe.params._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsSettingsPaypayPaymentsSiteInDevelopment": (
+        "stripe.params._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsSettingsPaypayPaymentsSiteRestricted": (
         "stripe.params._account_create_params",
         False,
     ),
@@ -7719,6 +7740,22 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsSettingsPaypayPayments": (
+        "stripe.params._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsSettingsPaypayPaymentsSite": (
+        "stripe.params._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsSettingsPaypayPaymentsSiteAccessible": (
+        "stripe.params._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsSettingsPaypayPaymentsSiteInDevelopment": (
+        "stripe.params._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsSettingsPaypayPaymentsSiteRestricted": (
         "stripe.params._account_update_params",
         False,
     ),
@@ -10556,6 +10593,10 @@ _import_map = {
         False,
     ),
     "InvoiceDeleteParams": ("stripe.params._invoice_delete_params", False),
+    "InvoiceDetachPaymentParams": (
+        "stripe.params._invoice_detach_payment_params",
+        False,
+    ),
     "InvoiceFinalizeInvoiceParams": (
         "stripe.params._invoice_finalize_invoice_params",
         False,
@@ -11163,7 +11204,6 @@ _import_map = {
     "MarginModifyParams": ("stripe.params._margin_modify_params", False),
     "MarginRetrieveParams": ("stripe.params._margin_retrieve_params", False),
     "MarginUpdateParams": ("stripe.params._margin_update_params", False),
-    "OrderCancelParams": ("stripe.params._order_cancel_params", False),
     "OrderCreateParams": ("stripe.params._order_create_params", False),
     "OrderCreateParamsAutomaticTax": (
         "stripe.params._order_create_params",
@@ -11490,14 +11530,6 @@ _import_map = {
     ),
     "OrderCreateParamsTaxDetailsTaxId": (
         "stripe.params._order_create_params",
-        False,
-    ),
-    "OrderLineItemListParams": (
-        "stripe.params._order_line_item_list_params",
-        False,
-    ),
-    "OrderListLineItemsParams": (
-        "stripe.params._order_list_line_items_params",
         False,
     ),
     "OrderListParams": ("stripe.params._order_list_params", False),
@@ -11829,7 +11861,6 @@ _import_map = {
         "stripe.params._order_modify_params",
         False,
     ),
-    "OrderReopenParams": ("stripe.params._order_reopen_params", False),
     "OrderRetrieveParams": ("stripe.params._order_retrieve_params", False),
     "OrderSubmitParams": ("stripe.params._order_submit_params", False),
     "OrderUpdateParams": ("stripe.params._order_update_params", False),
@@ -23443,6 +23474,14 @@ _import_map = {
     ),
     "SubscriptionModifyParamsTrialSettingsEndBehavior": (
         "stripe.params._subscription_modify_params",
+        False,
+    ),
+    "SubscriptionPauseParams": (
+        "stripe.params._subscription_pause_params",
+        False,
+    ),
+    "SubscriptionPauseParamsBillFor": (
+        "stripe.params._subscription_pause_params",
         False,
     ),
     "SubscriptionResumeParams": (

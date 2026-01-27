@@ -1600,6 +1600,9 @@ class AccountCreateParamsDocumentsProofOfRegistration(TypedDict):
     signer: NotRequired[
         "AccountCreateParamsDocumentsProofOfRegistrationSigner"
     ]
+    """
+    Information regarding the person signing the document if applicable.
+    """
 
 
 class AccountCreateParamsDocumentsProofOfRegistrationSigner(TypedDict):
@@ -1619,6 +1622,9 @@ class AccountCreateParamsDocumentsProofOfUltimateBeneficialOwnership(
     signer: NotRequired[
         "AccountCreateParamsDocumentsProofOfUltimateBeneficialOwnershipSigner"
     ]
+    """
+    Information regarding the person signing the document if applicable.
+    """
 
 
 class AccountCreateParamsDocumentsProofOfUltimateBeneficialOwnershipSigner(
@@ -2277,9 +2283,64 @@ class AccountCreateParamsSettingsPayoutsSchedule(TypedDict):
 
 
 class AccountCreateParamsSettingsPaypayPayments(TypedDict):
+    additional_files: NotRequired[List[str]]
+    """
+    Additional files that are required to support the onboarding process of your business.
+    """
     goods_type: NotRequired[Literal["digital_content", "other"]]
     """
     Whether your business sells digital content or not.
+    """
+    site: NotRequired["AccountCreateParamsSettingsPaypayPaymentsSite"]
+    """
+    Details regarding your business's website.
+    """
+
+
+class AccountCreateParamsSettingsPaypayPaymentsSite(TypedDict):
+    accessible: NotRequired[
+        "AccountCreateParamsSettingsPaypayPaymentsSiteAccessible"
+    ]
+    """
+    Additional information about your business's website.
+    """
+    in_development: NotRequired[
+        "AccountCreateParamsSettingsPaypayPaymentsSiteInDevelopment"
+    ]
+    """
+    Additional information about your business's website.
+    """
+    restricted: NotRequired[
+        "AccountCreateParamsSettingsPaypayPaymentsSiteRestricted"
+    ]
+    """
+    Additional information about your business's website.
+    """
+    type: NotRequired[Literal["accessible", "in_development", "restricted"]]
+    """
+    The status of your business's website.
+    """
+
+
+class AccountCreateParamsSettingsPaypayPaymentsSiteAccessible(TypedDict):
+    pass
+
+
+class AccountCreateParamsSettingsPaypayPaymentsSiteInDevelopment(TypedDict):
+    password: str
+    """
+    The password needed to access your business's website.
+    """
+    username: NotRequired[str]
+    """
+    The username needed to access your business's website.
+    """
+
+
+class AccountCreateParamsSettingsPaypayPaymentsSiteRestricted(TypedDict):
+    payment_flow_file: NotRequired[str]
+    """
+    The file explaining the payment flow for your business.
     """
 
 

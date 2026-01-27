@@ -45,6 +45,7 @@ class WebhookEndpointModifyParams(RequestOptions):
                 "capital.financing_offer.paid_out",
                 "capital.financing_offer.rejected",
                 "capital.financing_offer.replacement_created",
+                "capital.financing_summary.line_of_credit_update",
                 "capital.financing_transaction.created",
                 "cash_balance.funds_available",
                 "charge.captured",
