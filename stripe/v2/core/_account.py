@@ -3122,6 +3122,7 @@ class Account(StripeObject):
                     "fr_siren",
                     "fr_vat",
                     "gb_crn",
+                    "gb_vat",
                     "gi_crn",
                     "gr_afm",
                     "gr_gemi",
@@ -3210,6 +3211,20 @@ class Account(StripeObject):
                 Estimated monthly revenue amount in minor currency units (for example, '123' for 1.23 USD).
                 """
                 _inner_class_types = {"amount": Amount}
+
+            class RegistrationDate(StripeObject):
+                day: int
+                """
+                The day of registration, between 1 and 31.
+                """
+                month: int
+                """
+                The month of registration, between 1 and 12.
+                """
+                year: int
+                """
+                The four-digit year of registration.
+                """
 
             class ScriptAddresses(StripeObject):
                 class Kana(StripeObject):
@@ -3337,6 +3352,10 @@ class Account(StripeObject):
             """
             The business legal name.
             """
+            registration_date: Optional[RegistrationDate]
+            """
+            When the business was incorporated or registered.
+            """
             script_addresses: Optional[ScriptAddresses]
             """
             The business registration address of the business entity in non latin script.
@@ -3385,6 +3404,7 @@ class Account(StripeObject):
                 "documents": Documents,
                 "id_numbers": IdNumber,
                 "monthly_estimated_revenue": MonthlyEstimatedRevenue,
+                "registration_date": RegistrationDate,
                 "script_addresses": ScriptAddresses,
                 "script_names": ScriptNames,
             }
@@ -4258,6 +4278,10 @@ class Account(StripeObject):
     contact_email: Optional[str]
     """
     The default contact email address for the Account. Required when configuring the account as a merchant or recipient.
+    """
+    contact_phone: Optional[str]
+    """
+    The default contact phone for the Account.
     """
     created: str
     """

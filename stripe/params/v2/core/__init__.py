@@ -114,6 +114,7 @@ if TYPE_CHECKING:
         AccountCreateParamsIdentityBusinessDetailsIdNumber as AccountCreateParamsIdentityBusinessDetailsIdNumber,
         AccountCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenue as AccountCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenue,
         AccountCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenueAmount as AccountCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenueAmount,
+        AccountCreateParamsIdentityBusinessDetailsRegistrationDate as AccountCreateParamsIdentityBusinessDetailsRegistrationDate,
         AccountCreateParamsIdentityBusinessDetailsScriptAddresses as AccountCreateParamsIdentityBusinessDetailsScriptAddresses,
         AccountCreateParamsIdentityBusinessDetailsScriptAddressesKana as AccountCreateParamsIdentityBusinessDetailsScriptAddressesKana,
         AccountCreateParamsIdentityBusinessDetailsScriptAddressesKanji as AccountCreateParamsIdentityBusinessDetailsScriptAddressesKanji,
@@ -185,6 +186,7 @@ if TYPE_CHECKING:
         AccountTokenCreateParamsIdentityBusinessDetailsIdNumber as AccountTokenCreateParamsIdentityBusinessDetailsIdNumber,
         AccountTokenCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenue as AccountTokenCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenue,
         AccountTokenCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenueAmount as AccountTokenCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenueAmount,
+        AccountTokenCreateParamsIdentityBusinessDetailsRegistrationDate as AccountTokenCreateParamsIdentityBusinessDetailsRegistrationDate,
         AccountTokenCreateParamsIdentityBusinessDetailsScriptAddresses as AccountTokenCreateParamsIdentityBusinessDetailsScriptAddresses,
         AccountTokenCreateParamsIdentityBusinessDetailsScriptAddressesKana as AccountTokenCreateParamsIdentityBusinessDetailsScriptAddressesKana,
         AccountTokenCreateParamsIdentityBusinessDetailsScriptAddressesKanji as AccountTokenCreateParamsIdentityBusinessDetailsScriptAddressesKanji,
@@ -324,6 +326,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsIdentityBusinessDetailsIdNumber as AccountUpdateParamsIdentityBusinessDetailsIdNumber,
         AccountUpdateParamsIdentityBusinessDetailsMonthlyEstimatedRevenue as AccountUpdateParamsIdentityBusinessDetailsMonthlyEstimatedRevenue,
         AccountUpdateParamsIdentityBusinessDetailsMonthlyEstimatedRevenueAmount as AccountUpdateParamsIdentityBusinessDetailsMonthlyEstimatedRevenueAmount,
+        AccountUpdateParamsIdentityBusinessDetailsRegistrationDate as AccountUpdateParamsIdentityBusinessDetailsRegistrationDate,
         AccountUpdateParamsIdentityBusinessDetailsScriptAddresses as AccountUpdateParamsIdentityBusinessDetailsScriptAddresses,
         AccountUpdateParamsIdentityBusinessDetailsScriptAddressesKana as AccountUpdateParamsIdentityBusinessDetailsScriptAddressesKana,
         AccountUpdateParamsIdentityBusinessDetailsScriptAddressesKanji as AccountUpdateParamsIdentityBusinessDetailsScriptAddressesKanji,
@@ -814,6 +817,10 @@ _import_map = {
         "stripe.params.v2.core._account_create_params",
         False,
     ),
+    "AccountCreateParamsIdentityBusinessDetailsRegistrationDate": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
     "AccountCreateParamsIdentityBusinessDetailsScriptAddresses": (
         "stripe.params.v2.core._account_create_params",
         False,
@@ -1060,6 +1067,10 @@ _import_map = {
         False,
     ),
     "AccountTokenCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenueAmount": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityBusinessDetailsRegistrationDate": (
         "stripe.params.v2.core._account_token_create_params",
         False,
     ),
@@ -1600,6 +1611,10 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsIdentityBusinessDetailsMonthlyEstimatedRevenueAmount": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsIdentityBusinessDetailsRegistrationDate": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),
