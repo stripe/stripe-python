@@ -17,6 +17,10 @@ class AccountUpdateParams(TypedDict):
     """
     The default contact email address for the Account. Required when configuring the account as a merchant or recipient.
     """
+    contact_phone: NotRequired[str]
+    """
+    The default contact phone for the Account.
+    """
     dashboard: NotRequired[Literal["express", "full", "none"]]
     """
     A value indicating the Stripe dashboard this Account has access to. This will depend on which configurations are enabled for this account.
@@ -1874,6 +1878,12 @@ class AccountUpdateParamsIdentityBusinessDetails(TypedDict):
     """
     The business legal name.
     """
+    registration_date: NotRequired[
+        "AccountUpdateParamsIdentityBusinessDetailsRegistrationDate"
+    ]
+    """
+    When the business was incorporated or registered.
+    """
     script_addresses: NotRequired[
         "AccountUpdateParamsIdentityBusinessDetailsScriptAddresses"
     ]
@@ -2236,6 +2246,7 @@ class AccountUpdateParamsIdentityBusinessDetailsIdNumber(TypedDict):
         "fr_siren",
         "fr_vat",
         "gb_crn",
+        "gb_vat",
         "gi_crn",
         "gr_afm",
         "gr_gemi",
@@ -2334,6 +2345,21 @@ class AccountUpdateParamsIdentityBusinessDetailsMonthlyEstimatedRevenueAmount(
     currency: NotRequired[str]
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+    """
+
+
+class AccountUpdateParamsIdentityBusinessDetailsRegistrationDate(TypedDict):
+    day: int
+    """
+    The day of registration, between 1 and 31.
+    """
+    month: int
+    """
+    The month of registration, between 1 and 12.
+    """
+    year: int
+    """
+    The four-digit year of registration.
     """
 
 
