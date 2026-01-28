@@ -634,6 +634,7 @@ class SetupIntentConfirmParamsPaymentMethodDataIdeal(TypedDict):
     bank: NotRequired[
         Literal[
             "abn_amro",
+            "adyen",
             "asn_bank",
             "bunq",
             "buut",
@@ -1152,7 +1153,7 @@ class SetupIntentConfirmParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
     For 3D Secure 1, the XID. For 3D Secure 2, the Directory Server
     Transaction ID (dsTransID).
     """
-    version: NotRequired[Literal["1.0.2", "2.1.0", "2.2.0"]]
+    version: NotRequired[Literal["1.0.2", "2.1.0", "2.2.0", "2.3.0", "2.3.1"]]
     """
     The version of 3D Secure that was performed.
     """

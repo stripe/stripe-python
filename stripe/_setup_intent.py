@@ -242,6 +242,7 @@ class SetupIntent(
                 "rate_limit",
                 "refer_to_customer",
                 "refund_disputed_payment",
+                "request_blocked",
                 "resource_already_exists",
                 "resource_missing",
                 "return_intent_already_processed",

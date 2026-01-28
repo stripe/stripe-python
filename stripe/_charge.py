@@ -597,7 +597,9 @@ class Charge(
                 The 3D Secure 1 XID or 3D Secure 2 Directory Server Transaction ID
                 (dsTransId) for this payment.
                 """
-                version: Optional[Literal["1.0.2", "2.1.0", "2.2.0"]]
+                version: Optional[
+                    Literal["1.0.2", "2.1.0", "2.2.0", "2.3.0", "2.3.1"]
+                ]
                 """
                 The version of 3D Secure that was used.
                 """
@@ -1228,6 +1230,7 @@ class Charge(
             bank: Optional[
                 Literal[
                     "abn_amro",
+                    "adyen",
                     "asn_bank",
                     "bunq",
                     "buut",
@@ -1249,11 +1252,12 @@ class Charge(
                 ]
             ]
             """
-            The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `buut`, `finom`, `handelsbanken`, `ing`, `knab`, `mollie`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
+            The customer's bank. Can be one of `abn_amro`, `adyen`, `asn_bank`, `bunq`, `buut`, `finom`, `handelsbanken`, `ing`, `knab`, `mollie`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
             """
             bic: Optional[
                 Literal[
                     "ABNANL2A",
+                    "ADYBNL2A",
                     "ASNBNL21",
                     "BITSNL2A",
                     "BUNQNL2A",

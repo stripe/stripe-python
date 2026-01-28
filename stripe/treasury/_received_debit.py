@@ -141,6 +141,10 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
         """
         Set if the ReceivedDebit was created due to a [Payout](https://api.stripe.com#payouts) object.
         """
+        topup: Optional[str]
+        """
+        Set if the ReceivedDebit was created due to a [Topup](https://api.stripe.com#topups) object.
+        """
 
     class ReversalDetails(StripeObject):
         deadline: Optional[int]

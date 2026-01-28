@@ -108,20 +108,6 @@ class Configuration(
             Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
             """
 
-        class Bgn(StripeObject):
-            fixed_amounts: Optional[List[int]]
-            """
-            Fixed amounts displayed when collecting a tip
-            """
-            percentages: Optional[List[int]]
-            """
-            Percentages displayed when collecting a tip
-            """
-            smart_tip_threshold: Optional[int]
-            """
-            Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-            """
-
         class Cad(StripeObject):
             fixed_amounts: Optional[List[int]]
             """
@@ -390,7 +376,6 @@ class Configuration(
 
         aed: Optional[Aed]
         aud: Optional[Aud]
-        bgn: Optional[Bgn]
         cad: Optional[Cad]
         chf: Optional[Chf]
         czk: Optional[Czk]
@@ -413,7 +398,6 @@ class Configuration(
         _inner_class_types = {
             "aed": Aed,
             "aud": Aud,
-            "bgn": Bgn,
             "cad": Cad,
             "chf": Chf,
             "czk": Czk,

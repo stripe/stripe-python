@@ -782,7 +782,7 @@ class PaymentLink(
     """
     custom_fields: List[CustomField]
     """
-    Collect additional information from your customer using custom fields. Up to 3 fields are supported.
+    Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `custom`.
     """
     custom_text: CustomText
     customer_creation: Literal["always", "if_required"]

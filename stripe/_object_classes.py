@@ -199,6 +199,10 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.radar._early_fraud_warning",
         "EarlyFraudWarning",
     ),
+    "radar.payment_evaluation": (
+        "stripe.radar._payment_evaluation",
+        "PaymentEvaluation",
+    ),
     "radar.value_list": ("stripe.radar._value_list", "ValueList"),
     "radar.value_list_item": (
         "stripe.radar._value_list_item",

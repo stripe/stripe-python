@@ -977,6 +977,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             bank: Optional[
                 Literal[
                     "abn_amro",
+                    "adyen",
                     "asn_bank",
                     "bunq",
                     "buut",
@@ -998,11 +999,12 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
                 ]
             ]
             """
-            The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `buut`, `finom`, `handelsbanken`, `ing`, `knab`, `mollie`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
+            The customer's bank. Can be one of `abn_amro`, `adyen`, `asn_bank`, `bunq`, `buut`, `finom`, `handelsbanken`, `ing`, `knab`, `mollie`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
             """
             bic: Optional[
                 Literal[
                     "ABNANL2A",
+                    "ADYBNL2A",
                     "ASNBNL21",
                     "BITSNL2A",
                     "BUNQNL2A",
