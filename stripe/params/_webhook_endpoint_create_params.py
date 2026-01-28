@@ -429,6 +429,7 @@ class WebhookEndpointCreateParams(RequestOptions):
             "treasury.received_credit.failed",
             "treasury.received_credit.succeeded",
             "treasury.received_debit.created",
+            "invoice_payment.detached",
             "billing.credit_balance_transaction.created",
             "billing.credit_grant.created",
             "billing.credit_grant.updated",
