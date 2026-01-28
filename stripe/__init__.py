@@ -423,9 +423,6 @@ if TYPE_CHECKING:
     from stripe._oauth import OAuth as OAuth
     from stripe._oauth_service import OAuthService as OAuthService
     from stripe._order import Order as Order
-    from stripe._order_line_item_service import (
-        OrderLineItemService as OrderLineItemService,
-    )
     from stripe._order_service import OrderService as OrderService
     from stripe._payment_attempt_record import (
         PaymentAttemptRecord as PaymentAttemptRecord,
@@ -856,7 +853,6 @@ _import_map = {
     "OAuth": ("stripe._oauth", False),
     "OAuthService": ("stripe._oauth_service", False),
     "Order": ("stripe._order", False),
-    "OrderLineItemService": ("stripe._order_line_item_service", False),
     "OrderService": ("stripe._order_service", False),
     "PaymentAttemptRecord": ("stripe._payment_attempt_record", False),
     "PaymentAttemptRecordService": (

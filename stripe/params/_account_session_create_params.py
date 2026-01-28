@@ -313,7 +313,7 @@ class AccountSessionCreateParamsComponentsBalancesFeatures(TypedDict):
     """
     instant_payouts: NotRequired[bool]
     """
-    Whether to allow creation of instant payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
+    Whether instant payouts are enabled for this component.
     """
     standard_payouts: NotRequired[bool]
     """
@@ -545,7 +545,7 @@ class AccountSessionCreateParamsComponentsInstantPayoutsPromotionFeatures(
     """
     instant_payouts: NotRequired[bool]
     """
-    Whether to allow creation of instant payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
+    Whether instant payouts are enabled for this component.
     """
 
 
@@ -799,7 +799,7 @@ class AccountSessionCreateParamsComponentsPayoutsFeatures(TypedDict):
     """
     instant_payouts: NotRequired[bool]
     """
-    Whether to allow creation of instant payouts. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
+    Whether instant payouts are enabled for this component.
     """
     standard_payouts: NotRequired[bool]
     """

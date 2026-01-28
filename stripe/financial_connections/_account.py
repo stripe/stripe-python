@@ -172,6 +172,26 @@ class Account(ListableAPIResource["Account"]):
         The status of the last refresh attempt.
         """
 
+    class StatusDetails(StripeObject):
+        class Inactive(StripeObject):
+            action: Literal["none", "relink_required"]
+            """
+            The action (if any) to relink the inactive Account.
+            """
+            cause: Literal[
+                "access_denied",
+                "access_expired",
+                "account_closed",
+                "account_unavailable",
+                "unspecified",
+            ]
+            """
+            The underlying cause of the Account being inactive.
+            """
+
+        inactive: Optional[Inactive]
+        _inner_class_types = {"inactive": Inactive}
+
     class TransactionRefresh(StripeObject):
         id: str
         """
@@ -197,6 +217,10 @@ class Account(ListableAPIResource["Account"]):
     account_numbers: Optional[List[AccountNumber]]
     """
     Details about the account numbers.
+    """
+    authorization: Optional[str]
+    """
+    The ID of the Financial Connections Authorization this account belongs to.
     """
     balance: Optional[Balance]
     """
@@ -266,6 +290,7 @@ class Account(ListableAPIResource["Account"]):
     """
     The status of the link to the account.
     """
+    status_details: Optional[StatusDetails]
     subcategory: Literal[
         "checking",
         "credit_card",
@@ -964,5 +989,6 @@ class Account(ListableAPIResource["Account"]):
         "balance_refresh": BalanceRefresh,
         "inferred_balances_refresh": InferredBalancesRefresh,
         "ownership_refresh": OwnershipRefresh,
+        "status_details": StatusDetails,
         "transaction_refresh": TransactionRefresh,
     }

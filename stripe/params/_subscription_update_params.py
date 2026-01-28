@@ -19,10 +19,6 @@ class SubscriptionUpdateParams(TypedDict):
     """
     Automatic tax settings for this subscription. We recommend you only include this parameter when the existing value is being changed.
     """
-    billing_cadence: NotRequired[str]
-    """
-    The Billing Cadence which controls the timing of recurring invoice generation for this subscription. If unset, the subscription will bill according to its own configured schedule and create its own invoices. If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
-    """
     billing_cycle_anchor: NotRequired[Literal["now", "unchanged"]]
     """
     Either `now` or `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time (in UTC). For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).

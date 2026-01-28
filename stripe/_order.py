@@ -19,14 +19,9 @@ if TYPE_CHECKING:
     from stripe._payment_intent import PaymentIntent
     from stripe._shipping_rate import ShippingRate
     from stripe._tax_rate import TaxRate
-    from stripe.params._order_cancel_params import OrderCancelParams
     from stripe.params._order_create_params import OrderCreateParams
-    from stripe.params._order_list_line_items_params import (
-        OrderListLineItemsParams,
-    )
     from stripe.params._order_list_params import OrderListParams
     from stripe.params._order_modify_params import OrderModifyParams
-    from stripe.params._order_reopen_params import OrderReopenParams
     from stripe.params._order_retrieve_params import OrderRetrieveParams
     from stripe.params._order_submit_params import OrderSubmitParams
 
@@ -853,6 +848,7 @@ class Order(
                 "om_vat",
                 "pe_ruc",
                 "ph_tin",
+                "pl_nip",
                 "ro_tin",
                 "rs_pib",
                 "ru_inn",
@@ -883,7 +879,7 @@ class Order(
                 "zw_tin",
             ]
             """
-            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, or `unknown`
+            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, or `unknown`
             """
             value: Optional[str]
             """
@@ -1064,108 +1060,6 @@ class Order(
     total_details: TotalDetails
 
     @classmethod
-    def _cls_cancel(
-        cls, id: str, **params: Unpack["OrderCancelParams"]
-    ) -> "Order":
-        """
-        Cancels the order as well as the payment intent if one is attached.
-        """
-        return cast(
-            "Order",
-            cls._static_request(
-                "post",
-                "/v1/orders/{id}/cancel".format(id=sanitize_id(id)),
-                params=params,
-            ),
-        )
-
-    @overload
-    @staticmethod
-    def cancel(id: str, **params: Unpack["OrderCancelParams"]) -> "Order":
-        """
-        Cancels the order as well as the payment intent if one is attached.
-        """
-        ...
-
-    @overload
-    def cancel(self, **params: Unpack["OrderCancelParams"]) -> "Order":
-        """
-        Cancels the order as well as the payment intent if one is attached.
-        """
-        ...
-
-    @class_method_variant("_cls_cancel")
-    def cancel(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["OrderCancelParams"]
-    ) -> "Order":
-        """
-        Cancels the order as well as the payment intent if one is attached.
-        """
-        return cast(
-            "Order",
-            self._request(
-                "post",
-                "/v1/orders/{id}/cancel".format(
-                    id=sanitize_id(self.get("id"))
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    async def _cls_cancel_async(
-        cls, id: str, **params: Unpack["OrderCancelParams"]
-    ) -> "Order":
-        """
-        Cancels the order as well as the payment intent if one is attached.
-        """
-        return cast(
-            "Order",
-            await cls._static_request_async(
-                "post",
-                "/v1/orders/{id}/cancel".format(id=sanitize_id(id)),
-                params=params,
-            ),
-        )
-
-    @overload
-    @staticmethod
-    async def cancel_async(
-        id: str, **params: Unpack["OrderCancelParams"]
-    ) -> "Order":
-        """
-        Cancels the order as well as the payment intent if one is attached.
-        """
-        ...
-
-    @overload
-    async def cancel_async(
-        self, **params: Unpack["OrderCancelParams"]
-    ) -> "Order":
-        """
-        Cancels the order as well as the payment intent if one is attached.
-        """
-        ...
-
-    @class_method_variant("_cls_cancel_async")
-    async def cancel_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["OrderCancelParams"]
-    ) -> "Order":
-        """
-        Cancels the order as well as the payment intent if one is attached.
-        """
-        return cast(
-            "Order",
-            await self._request_async(
-                "post",
-                "/v1/orders/{id}/cancel".format(
-                    id=sanitize_id(self.get("id"))
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def create(cls, **params: Unpack["OrderCreateParams"]) -> "Order":
         """
         Creates a new open order object.
@@ -1234,112 +1128,6 @@ class Order(
         return result
 
     @classmethod
-    def _cls_list_line_items(
-        cls, id: str, **params: Unpack["OrderListLineItemsParams"]
-    ) -> ListObject["LineItemResource"]:
-        """
-        When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
-        """
-        return cast(
-            ListObject["LineItemResource"],
-            cls._static_request(
-                "get",
-                "/v1/orders/{id}/line_items".format(id=sanitize_id(id)),
-                params=params,
-            ),
-        )
-
-    @overload
-    @staticmethod
-    def list_line_items(
-        id: str, **params: Unpack["OrderListLineItemsParams"]
-    ) -> ListObject["LineItemResource"]:
-        """
-        When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
-        """
-        ...
-
-    @overload
-    def list_line_items(
-        self, **params: Unpack["OrderListLineItemsParams"]
-    ) -> ListObject["LineItemResource"]:
-        """
-        When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
-        """
-        ...
-
-    @class_method_variant("_cls_list_line_items")
-    def list_line_items(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["OrderListLineItemsParams"]
-    ) -> ListObject["LineItemResource"]:
-        """
-        When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
-        """
-        return cast(
-            ListObject["LineItemResource"],
-            self._request(
-                "get",
-                "/v1/orders/{id}/line_items".format(
-                    id=sanitize_id(self.get("id"))
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    async def _cls_list_line_items_async(
-        cls, id: str, **params: Unpack["OrderListLineItemsParams"]
-    ) -> ListObject["LineItemResource"]:
-        """
-        When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
-        """
-        return cast(
-            ListObject["LineItemResource"],
-            await cls._static_request_async(
-                "get",
-                "/v1/orders/{id}/line_items".format(id=sanitize_id(id)),
-                params=params,
-            ),
-        )
-
-    @overload
-    @staticmethod
-    async def list_line_items_async(
-        id: str, **params: Unpack["OrderListLineItemsParams"]
-    ) -> ListObject["LineItemResource"]:
-        """
-        When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
-        """
-        ...
-
-    @overload
-    async def list_line_items_async(
-        self, **params: Unpack["OrderListLineItemsParams"]
-    ) -> ListObject["LineItemResource"]:
-        """
-        When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
-        """
-        ...
-
-    @class_method_variant("_cls_list_line_items_async")
-    async def list_line_items_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["OrderListLineItemsParams"]
-    ) -> ListObject["LineItemResource"]:
-        """
-        When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
-        """
-        return cast(
-            ListObject["LineItemResource"],
-            await self._request_async(
-                "get",
-                "/v1/orders/{id}/line_items".format(
-                    id=sanitize_id(self.get("id"))
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
     def modify(cls, id: str, **params: Unpack["OrderModifyParams"]) -> "Order":
         """
         Updates the specific order by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -1367,108 +1155,6 @@ class Order(
             await cls._static_request_async(
                 "post",
                 url,
-                params=params,
-            ),
-        )
-
-    @classmethod
-    def _cls_reopen(
-        cls, id: str, **params: Unpack["OrderReopenParams"]
-    ) -> "Order":
-        """
-        Reopens a submitted order.
-        """
-        return cast(
-            "Order",
-            cls._static_request(
-                "post",
-                "/v1/orders/{id}/reopen".format(id=sanitize_id(id)),
-                params=params,
-            ),
-        )
-
-    @overload
-    @staticmethod
-    def reopen(id: str, **params: Unpack["OrderReopenParams"]) -> "Order":
-        """
-        Reopens a submitted order.
-        """
-        ...
-
-    @overload
-    def reopen(self, **params: Unpack["OrderReopenParams"]) -> "Order":
-        """
-        Reopens a submitted order.
-        """
-        ...
-
-    @class_method_variant("_cls_reopen")
-    def reopen(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["OrderReopenParams"]
-    ) -> "Order":
-        """
-        Reopens a submitted order.
-        """
-        return cast(
-            "Order",
-            self._request(
-                "post",
-                "/v1/orders/{id}/reopen".format(
-                    id=sanitize_id(self.get("id"))
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    async def _cls_reopen_async(
-        cls, id: str, **params: Unpack["OrderReopenParams"]
-    ) -> "Order":
-        """
-        Reopens a submitted order.
-        """
-        return cast(
-            "Order",
-            await cls._static_request_async(
-                "post",
-                "/v1/orders/{id}/reopen".format(id=sanitize_id(id)),
-                params=params,
-            ),
-        )
-
-    @overload
-    @staticmethod
-    async def reopen_async(
-        id: str, **params: Unpack["OrderReopenParams"]
-    ) -> "Order":
-        """
-        Reopens a submitted order.
-        """
-        ...
-
-    @overload
-    async def reopen_async(
-        self, **params: Unpack["OrderReopenParams"]
-    ) -> "Order":
-        """
-        Reopens a submitted order.
-        """
-        ...
-
-    @class_method_variant("_cls_reopen_async")
-    async def reopen_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["OrderReopenParams"]
-    ) -> "Order":
-        """
-        Reopens a submitted order.
-        """
-        return cast(
-            "Order",
-            await self._request_async(
-                "post",
-                "/v1/orders/{id}/reopen".format(
-                    id=sanitize_id(self.get("id"))
-                ),
                 params=params,
             ),
         )

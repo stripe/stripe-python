@@ -154,6 +154,14 @@ class PaymentIntentModifyParamsAmountDetails(TypedDict):
 
     This field is mutually exclusive with the `amount_details[line_items][#][discount_amount]` field.
     """
+    enforce_arithmetic_validation: NotRequired[bool]
+    """
+    Set to `false` to return arithmetic validation errors in the response without failing the request. Use this when you want the operation to proceed regardless of arithmetic errors in the line item data.
+
+    Omit or set to `true` to immediately return a 400 error when arithmetic validation fails. Use this for strict validation that prevents processing with line item data that has arithmetic inconsistencies.
+
+    For card payments, Stripe doesn't send line item data if there's an arithmetic validation error to card networks.
+    """
     line_items: NotRequired[
         "Literal['']|List[PaymentIntentModifyParamsAmountDetailsLineItem]"
     ]
@@ -2782,6 +2790,7 @@ class PaymentIntentModifyParamsPaymentMethodDataIdeal(TypedDict):
     bank: NotRequired[
         Literal[
             "abn_amro",
+            "adyen",
             "asn_bank",
             "bunq",
             "buut",
@@ -4028,7 +4037,7 @@ class PaymentIntentModifyParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
     For 3D Secure 1, the XID. For 3D Secure 2, the Directory Server
     Transaction ID (dsTransID).
     """
-    version: Literal["1.0.2", "2.1.0", "2.2.0"]
+    version: Literal["1.0.2", "2.1.0", "2.2.0", "2.3.0", "2.3.1"]
     """
     The version of 3D Secure that was performed.
     """
@@ -6325,12 +6334,6 @@ class PaymentIntentModifyParamsPaymentMethodOptionsUsBankAccount(TypedDict):
     """
     Additional fields for network related functions
     """
-    preferred_settlement_speed: NotRequired[
-        "Literal['']|Literal['fastest', 'standard']"
-    ]
-    """
-    Preferred transaction settlement speed
-    """
     setup_future_usage: NotRequired[
         "Literal['']|Literal['none', 'off_session', 'on_session']"
     ]
@@ -6354,6 +6357,12 @@ class PaymentIntentModifyParamsPaymentMethodOptionsUsBankAccount(TypedDict):
     ]
     """
     Bank account verification method.
+    """
+    preferred_settlement_speed: NotRequired[
+        "Literal['']|Literal['fastest', 'standard']"
+    ]
+    """
+    Preferred transaction settlement speed
     """
 
 

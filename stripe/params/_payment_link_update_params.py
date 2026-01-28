@@ -29,11 +29,11 @@ class PaymentLinkUpdateParams(TypedDict):
         "Literal['']|List[PaymentLinkUpdateParamsCustomField]"
     ]
     """
-    Collect additional information from your customer using custom fields. Up to 3 fields are supported.
+    Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `custom`.
     """
     custom_text: NotRequired["PaymentLinkUpdateParamsCustomText"]
     """
-    Display additional text for your customers using custom text.
+    Display additional text for your customers using custom text. You can't set this parameter if `ui_mode` is `custom`.
     """
     customer_creation: NotRequired[Literal["always", "if_required"]]
     """
@@ -838,5 +838,5 @@ class PaymentLinkUpdateParamsTaxIdCollection(TypedDict):
     """
     required: NotRequired[Literal["if_supported", "never"]]
     """
-    Describes whether a tax ID is required during checkout. Defaults to `never`.
+    Describes whether a tax ID is required during checkout. Defaults to `never`. You can't set this parameter if `ui_mode` is `custom`.
     """

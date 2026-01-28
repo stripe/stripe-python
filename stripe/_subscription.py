@@ -39,9 +39,6 @@ if TYPE_CHECKING:
     from stripe._subscription_schedule import SubscriptionSchedule
     from stripe._tax_id import TaxId
     from stripe._tax_rate import TaxRate
-    from stripe.params._subscription_attach_cadence_params import (
-        SubscriptionAttachCadenceParams,
-    )
     from stripe.params._subscription_cancel_params import (
         SubscriptionCancelParams,
     )
@@ -748,10 +745,6 @@ class Subscription(
     A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account.
     """
     automatic_tax: AutomaticTax
-    billing_cadence: Optional[str]
-    """
-    The Billing Cadence which controls the timing of recurring invoice generation for this subscription.If unset, the subscription will bill according to its own configured schedule and create its own invoices.If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
-    """
     billing_cycle_anchor: int
     """
     The reference point that aligns future [billing cycle](https://docs.stripe.com/subscriptions/billing-cycle) dates. It sets the day of week for `week` intervals, the day of month for `month` and `year` intervals, and the month of year for `year` intervals. The timestamp is in UTC format.
@@ -855,7 +848,7 @@ class Subscription(
     """
     latest_invoice: Optional[ExpandableField["Invoice"]]
     """
-    The most recent invoice this subscription has generated.
+    The most recent invoice this subscription has generated over its lifecycle (for example, when it cycles or is updated).
     """
     livemode: bool
     """
@@ -952,120 +945,6 @@ class Subscription(
     """
     If the subscription has a trial, the beginning of that trial.
     """
-
-    @classmethod
-    def _cls_attach_cadence(
-        cls,
-        subscription: str,
-        **params: Unpack["SubscriptionAttachCadenceParams"],
-    ) -> "Subscription":
-        """
-        Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
-        """
-        return cast(
-            "Subscription",
-            cls._static_request(
-                "post",
-                "/v1/subscriptions/{subscription}/attach_cadence".format(
-                    subscription=sanitize_id(subscription)
-                ),
-                params=params,
-            ),
-        )
-
-    @overload
-    @staticmethod
-    def attach_cadence(
-        subscription: str, **params: Unpack["SubscriptionAttachCadenceParams"]
-    ) -> "Subscription":
-        """
-        Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
-        """
-        ...
-
-    @overload
-    def attach_cadence(
-        self, **params: Unpack["SubscriptionAttachCadenceParams"]
-    ) -> "Subscription":
-        """
-        Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
-        """
-        ...
-
-    @class_method_variant("_cls_attach_cadence")
-    def attach_cadence(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["SubscriptionAttachCadenceParams"]
-    ) -> "Subscription":
-        """
-        Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
-        """
-        return cast(
-            "Subscription",
-            self._request(
-                "post",
-                "/v1/subscriptions/{subscription}/attach_cadence".format(
-                    subscription=sanitize_id(self.get("id"))
-                ),
-                params=params,
-            ),
-        )
-
-    @classmethod
-    async def _cls_attach_cadence_async(
-        cls,
-        subscription: str,
-        **params: Unpack["SubscriptionAttachCadenceParams"],
-    ) -> "Subscription":
-        """
-        Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
-        """
-        return cast(
-            "Subscription",
-            await cls._static_request_async(
-                "post",
-                "/v1/subscriptions/{subscription}/attach_cadence".format(
-                    subscription=sanitize_id(subscription)
-                ),
-                params=params,
-            ),
-        )
-
-    @overload
-    @staticmethod
-    async def attach_cadence_async(
-        subscription: str, **params: Unpack["SubscriptionAttachCadenceParams"]
-    ) -> "Subscription":
-        """
-        Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
-        """
-        ...
-
-    @overload
-    async def attach_cadence_async(
-        self, **params: Unpack["SubscriptionAttachCadenceParams"]
-    ) -> "Subscription":
-        """
-        Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
-        """
-        ...
-
-    @class_method_variant("_cls_attach_cadence_async")
-    async def attach_cadence_async(  # pyright: ignore[reportGeneralTypeIssues]
-        self, **params: Unpack["SubscriptionAttachCadenceParams"]
-    ) -> "Subscription":
-        """
-        Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
-        """
-        return cast(
-            "Subscription",
-            await self._request_async(
-                "post",
-                "/v1/subscriptions/{subscription}/attach_cadence".format(
-                    subscription=sanitize_id(self.get("id"))
-                ),
-                params=params,
-            ),
-        )
 
     @classmethod
     def _cls_cancel(
