@@ -59,6 +59,16 @@ class Coupon(
         The script implementation ID for this coupon.
         """
 
+    class ServicePeriod(StripeObject):
+        class Iterations(StripeObject):
+            count: Optional[int]
+            type: Literal["count", "forever"]
+
+        interval: str
+        interval_count: int
+        iterations: Iterations
+        _inner_class_types = {"iterations": Iterations}
+
     amount_off: Optional[int]
     """
     Amount (in the `currency` specified) that will be taken off the subtotal of any invoices for this customer.
@@ -80,7 +90,7 @@ class Coupon(
     """
     Always true for a deleted object
     """
-    duration: Literal["forever", "once", "repeating"]
+    duration: Literal["forever", "once", "repeating", "service_period"]
     """
     One of `forever`, `once`, or `repeating`. Describes how long a customer who applies this coupon will get the discount.
     """
@@ -124,6 +134,7 @@ class Coupon(
     """
     Configuration of the [script](https://docs.stripe.com/billing/subscriptions/script-coupons) used to calculate the discount.
     """
+    service_period: Optional[ServicePeriod]
     times_redeemed: int
     """
     Number of times this coupon has been applied to a customer.
@@ -365,4 +376,5 @@ class Coupon(
         "applies_to": AppliesTo,
         "currency_options": CurrencyOptions,
         "script": Script,
+        "service_period": ServicePeriod,
     }

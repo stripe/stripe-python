@@ -21,6 +21,16 @@ class Discount(StripeObject):
 
     OBJECT_NAME: ClassVar[Literal["discount"]] = "discount"
 
+    class ServicePeriodDetails(StripeObject):
+        service_period_anchored_at: int
+        """
+        The date that the service period was anchored to.
+        """
+        start_date: int
+        """
+        The date that the service period started.
+        """
+
     class Source(StripeObject):
         coupon: Optional[ExpandableField["Coupon"]]
         """
@@ -75,6 +85,7 @@ class Discount(StripeObject):
     """
     The subscription schedule that this coupon is applied to, if it is applied to a particular subscription schedule.
     """
+    service_period_details: Optional[ServicePeriodDetails]
     source: Source
     start: int
     """
@@ -88,4 +99,7 @@ class Discount(StripeObject):
     """
     The subscription item that this coupon is applied to, if it is applied to a particular subscription item.
     """
-    _inner_class_types = {"source": Source}
+    _inner_class_types = {
+        "service_period_details": ServicePeriodDetails,
+        "source": Source,
+    }

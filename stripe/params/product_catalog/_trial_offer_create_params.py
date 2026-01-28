@@ -18,13 +18,13 @@ class TrialOfferCreateParams(RequestOptions):
     """
     Specifies which fields in the response should be expanded.
     """
-    price: str
-    """
-    Price configuration during the trial period (amount, billing scheme, etc).
-    """
     name: NotRequired[str]
     """
     A brief, user-friendly name for the trial offer-for identification purposes.
+    """
+    price: str
+    """
+    Price configuration during the trial period (amount, billing scheme, etc).
     """
 
 

@@ -10,6 +10,10 @@ class SubscriptionListParams(RequestOptions):
     """
     Filter subscriptions by their automatic tax settings.
     """
+    billing_cadence: NotRequired[str]
+    """
+    Filter for subscriptions that have the specified billing cadence.
+    """
     collection_method: NotRequired[
         Literal["charge_automatically", "send_invoice"]
     ]

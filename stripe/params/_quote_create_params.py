@@ -449,12 +449,71 @@ class QuoteCreateParamsLineActionAddDiscount(TypedDict):
     """
     The promotion code to redeem.
     """
+    settings: NotRequired["QuoteCreateParamsLineActionAddDiscountSettings"]
+    """
+    Settings for discount application including service period anchoring.
+    """
 
 
 class QuoteCreateParamsLineActionAddDiscountDiscountEnd(TypedDict):
     type: Literal["line_ends_at"]
     """
     The type of calculation made to determine when the discount ends.
+    """
+
+
+class QuoteCreateParamsLineActionAddDiscountSettings(TypedDict):
+    service_period_anchor_config: NotRequired[
+        "QuoteCreateParamsLineActionAddDiscountSettingsServicePeriodAnchorConfig"
+    ]
+    """
+    Configures service period cycle anchoring.
+    """
+    start_date: NotRequired[
+        Literal["current_period_end", "current_period_start", "line_start"]
+    ]
+    """
+    The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `line_start` if omitted.
+    """
+
+
+class QuoteCreateParamsLineActionAddDiscountSettingsServicePeriodAnchorConfig(
+    TypedDict,
+):
+    custom: NotRequired[
+        "QuoteCreateParamsLineActionAddDiscountSettingsServicePeriodAnchorConfigCustom"
+    ]
+    """
+    Anchor the service period to a custom date. Type must be `custom` to specify.
+    """
+    type: NotRequired[Literal["custom", "inherit"]]
+    """
+    The type of service period anchor config. Defaults to `inherit` if omitted.
+    """
+
+
+class QuoteCreateParamsLineActionAddDiscountSettingsServicePeriodAnchorConfigCustom(
+    TypedDict,
+):
+    day_of_month: int
+    """
+    The day of the month the anchor should be. Ranges from 1 to 31.
+    """
+    hour: NotRequired[int]
+    """
+    The hour of the day the anchor should be. Ranges from 0 to 23.
+    """
+    minute: NotRequired[int]
+    """
+    The minute of the hour the anchor should be. Ranges from 0 to 59.
+    """
+    month: NotRequired[int]
+    """
+    The month to start full cycle periods. Ranges from 1 to 12.
+    """
+    second: NotRequired[int]
+    """
+    The second of the minute the anchor should be. Ranges from 0 to 59.
     """
 
 
@@ -508,6 +567,10 @@ class QuoteCreateParamsLineActionAddItemDiscount(TypedDict):
     """
     ID of the promotion code to create a new discount for.
     """
+    settings: NotRequired["QuoteCreateParamsLineActionAddItemDiscountSettings"]
+    """
+    Settings for discount application including service period anchoring.
+    """
 
 
 class QuoteCreateParamsLineActionAddItemDiscountDiscountEnd(TypedDict):
@@ -535,6 +598,61 @@ class QuoteCreateParamsLineActionAddItemDiscountDiscountEndDuration(TypedDict):
     interval_count: int
     """
     The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+    """
+
+
+class QuoteCreateParamsLineActionAddItemDiscountSettings(TypedDict):
+    service_period_anchor_config: NotRequired[
+        "QuoteCreateParamsLineActionAddItemDiscountSettingsServicePeriodAnchorConfig"
+    ]
+    """
+    Configures service period cycle anchoring.
+    """
+    start_date: NotRequired[
+        Literal["current_period_end", "current_period_start", "line_start"]
+    ]
+    """
+    The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `line_start` if omitted.
+    """
+
+
+class QuoteCreateParamsLineActionAddItemDiscountSettingsServicePeriodAnchorConfig(
+    TypedDict,
+):
+    custom: NotRequired[
+        "QuoteCreateParamsLineActionAddItemDiscountSettingsServicePeriodAnchorConfigCustom"
+    ]
+    """
+    Anchor the service period to a custom date. Type must be `custom` to specify.
+    """
+    type: NotRequired[Literal["custom", "inherit"]]
+    """
+    The type of service period anchor config. Defaults to `inherit` if omitted.
+    """
+
+
+class QuoteCreateParamsLineActionAddItemDiscountSettingsServicePeriodAnchorConfigCustom(
+    TypedDict,
+):
+    day_of_month: int
+    """
+    The day of the month the anchor should be. Ranges from 1 to 31.
+    """
+    hour: NotRequired[int]
+    """
+    The hour of the day the anchor should be. Ranges from 0 to 23.
+    """
+    minute: NotRequired[int]
+    """
+    The minute of the hour the anchor should be. Ranges from 0 to 59.
+    """
+    month: NotRequired[int]
+    """
+    The month to start full cycle periods. Ranges from 1 to 12.
+    """
+    second: NotRequired[int]
+    """
+    The second of the minute the anchor should be. Ranges from 0 to 59.
     """
 
 
@@ -583,6 +701,65 @@ class QuoteCreateParamsLineActionSetDiscount(TypedDict):
     promotion_code: NotRequired[str]
     """
     An ID of an existing promotion code to replace the `discounts` array with.
+    """
+    settings: NotRequired["QuoteCreateParamsLineActionSetDiscountSettings"]
+    """
+    Settings for discount application including service period anchoring.
+    """
+
+
+class QuoteCreateParamsLineActionSetDiscountSettings(TypedDict):
+    service_period_anchor_config: NotRequired[
+        "QuoteCreateParamsLineActionSetDiscountSettingsServicePeriodAnchorConfig"
+    ]
+    """
+    Configures service period cycle anchoring.
+    """
+    start_date: NotRequired[
+        Literal["current_period_end", "current_period_start", "line_start"]
+    ]
+    """
+    The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `line_start` if omitted.
+    """
+
+
+class QuoteCreateParamsLineActionSetDiscountSettingsServicePeriodAnchorConfig(
+    TypedDict,
+):
+    custom: NotRequired[
+        "QuoteCreateParamsLineActionSetDiscountSettingsServicePeriodAnchorConfigCustom"
+    ]
+    """
+    Anchor the service period to a custom date. Type must be `custom` to specify.
+    """
+    type: NotRequired[Literal["custom", "inherit"]]
+    """
+    The type of service period anchor config. Defaults to `inherit` if omitted.
+    """
+
+
+class QuoteCreateParamsLineActionSetDiscountSettingsServicePeriodAnchorConfigCustom(
+    TypedDict,
+):
+    day_of_month: int
+    """
+    The day of the month the anchor should be. Ranges from 1 to 31.
+    """
+    hour: NotRequired[int]
+    """
+    The hour of the day the anchor should be. Ranges from 0 to 23.
+    """
+    minute: NotRequired[int]
+    """
+    The minute of the hour the anchor should be. Ranges from 0 to 59.
+    """
+    month: NotRequired[int]
+    """
+    The month to start full cycle periods. Ranges from 1 to 12.
+    """
+    second: NotRequired[int]
+    """
+    The second of the minute the anchor should be. Ranges from 0 to 59.
     """
 
 
@@ -636,6 +813,10 @@ class QuoteCreateParamsLineActionSetItemDiscount(TypedDict):
     """
     ID of the promotion code to create a new discount for.
     """
+    settings: NotRequired["QuoteCreateParamsLineActionSetItemDiscountSettings"]
+    """
+    Settings for discount application including service period anchoring.
+    """
 
 
 class QuoteCreateParamsLineActionSetItemDiscountDiscountEnd(TypedDict):
@@ -663,6 +844,61 @@ class QuoteCreateParamsLineActionSetItemDiscountDiscountEndDuration(TypedDict):
     interval_count: int
     """
     The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+    """
+
+
+class QuoteCreateParamsLineActionSetItemDiscountSettings(TypedDict):
+    service_period_anchor_config: NotRequired[
+        "QuoteCreateParamsLineActionSetItemDiscountSettingsServicePeriodAnchorConfig"
+    ]
+    """
+    Configures service period cycle anchoring.
+    """
+    start_date: NotRequired[
+        Literal["current_period_end", "current_period_start", "line_start"]
+    ]
+    """
+    The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `line_start` if omitted.
+    """
+
+
+class QuoteCreateParamsLineActionSetItemDiscountSettingsServicePeriodAnchorConfig(
+    TypedDict,
+):
+    custom: NotRequired[
+        "QuoteCreateParamsLineActionSetItemDiscountSettingsServicePeriodAnchorConfigCustom"
+    ]
+    """
+    Anchor the service period to a custom date. Type must be `custom` to specify.
+    """
+    type: NotRequired[Literal["custom", "inherit"]]
+    """
+    The type of service period anchor config. Defaults to `inherit` if omitted.
+    """
+
+
+class QuoteCreateParamsLineActionSetItemDiscountSettingsServicePeriodAnchorConfigCustom(
+    TypedDict,
+):
+    day_of_month: int
+    """
+    The day of the month the anchor should be. Ranges from 1 to 31.
+    """
+    hour: NotRequired[int]
+    """
+    The hour of the day the anchor should be. Ranges from 0 to 23.
+    """
+    minute: NotRequired[int]
+    """
+    The minute of the hour the anchor should be. Ranges from 0 to 59.
+    """
+    month: NotRequired[int]
+    """
+    The month to start full cycle periods. Ranges from 1 to 12.
+    """
+    second: NotRequired[int]
+    """
+    The second of the minute the anchor should be. Ranges from 0 to 59.
     """
 
 

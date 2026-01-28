@@ -610,6 +610,12 @@ class SubscriptionScheduleCreateParamsPhaseDiscount(TypedDict):
     """
     ID of the promotion code to create a new discount for.
     """
+    settings: NotRequired[
+        "SubscriptionScheduleCreateParamsPhaseDiscountSettings"
+    ]
+    """
+    Settings for discount application including service period anchoring.
+    """
 
 
 class SubscriptionScheduleCreateParamsPhaseDiscountDiscountEnd(TypedDict):
@@ -639,6 +645,61 @@ class SubscriptionScheduleCreateParamsPhaseDiscountDiscountEndDuration(
     interval_count: int
     """
     The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+    """
+
+
+class SubscriptionScheduleCreateParamsPhaseDiscountSettings(TypedDict):
+    service_period_anchor_config: NotRequired[
+        "SubscriptionScheduleCreateParamsPhaseDiscountSettingsServicePeriodAnchorConfig"
+    ]
+    """
+    Configures service period cycle anchoring.
+    """
+    start_date: NotRequired[
+        Literal["current_period_end", "current_period_start", "phase_start"]
+    ]
+    """
+    The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `phase_start` if omitted.
+    """
+
+
+class SubscriptionScheduleCreateParamsPhaseDiscountSettingsServicePeriodAnchorConfig(
+    TypedDict,
+):
+    custom: NotRequired[
+        "SubscriptionScheduleCreateParamsPhaseDiscountSettingsServicePeriodAnchorConfigCustom"
+    ]
+    """
+    Anchor the service period to a custom date. Type must be `custom` to specify.
+    """
+    type: NotRequired[Literal["custom", "inherit"]]
+    """
+    The type of service period anchor config. Defaults to `inherit` if omitted.
+    """
+
+
+class SubscriptionScheduleCreateParamsPhaseDiscountSettingsServicePeriodAnchorConfigCustom(
+    TypedDict,
+):
+    day_of_month: int
+    """
+    The day of the month the anchor should be. Ranges from 1 to 31.
+    """
+    hour: NotRequired[int]
+    """
+    The hour of the day the anchor should be. Ranges from 0 to 23.
+    """
+    minute: NotRequired[int]
+    """
+    The minute of the hour the anchor should be. Ranges from 0 to 59.
+    """
+    month: NotRequired[int]
+    """
+    The month to start full cycle periods. Ranges from 1 to 12.
+    """
+    second: NotRequired[int]
+    """
+    The second of the minute the anchor should be. Ranges from 0 to 59.
     """
 
 
@@ -756,6 +817,12 @@ class SubscriptionScheduleCreateParamsPhaseItemDiscount(TypedDict):
     """
     ID of the promotion code to create a new discount for.
     """
+    settings: NotRequired[
+        "SubscriptionScheduleCreateParamsPhaseItemDiscountSettings"
+    ]
+    """
+    Settings for discount application including service period anchoring.
+    """
 
 
 class SubscriptionScheduleCreateParamsPhaseItemDiscountDiscountEnd(TypedDict):
@@ -785,6 +852,61 @@ class SubscriptionScheduleCreateParamsPhaseItemDiscountDiscountEndDuration(
     interval_count: int
     """
     The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+    """
+
+
+class SubscriptionScheduleCreateParamsPhaseItemDiscountSettings(TypedDict):
+    service_period_anchor_config: NotRequired[
+        "SubscriptionScheduleCreateParamsPhaseItemDiscountSettingsServicePeriodAnchorConfig"
+    ]
+    """
+    Configures service period cycle anchoring.
+    """
+    start_date: NotRequired[
+        Literal["current_period_end", "current_period_start", "phase_start"]
+    ]
+    """
+    The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `phase_start` if omitted.
+    """
+
+
+class SubscriptionScheduleCreateParamsPhaseItemDiscountSettingsServicePeriodAnchorConfig(
+    TypedDict,
+):
+    custom: NotRequired[
+        "SubscriptionScheduleCreateParamsPhaseItemDiscountSettingsServicePeriodAnchorConfigCustom"
+    ]
+    """
+    Anchor the service period to a custom date. Type must be `custom` to specify.
+    """
+    type: NotRequired[Literal["custom", "inherit"]]
+    """
+    The type of service period anchor config. Defaults to `inherit` if omitted.
+    """
+
+
+class SubscriptionScheduleCreateParamsPhaseItemDiscountSettingsServicePeriodAnchorConfigCustom(
+    TypedDict,
+):
+    day_of_month: int
+    """
+    The day of the month the anchor should be. Ranges from 1 to 31.
+    """
+    hour: NotRequired[int]
+    """
+    The hour of the day the anchor should be. Ranges from 0 to 23.
+    """
+    minute: NotRequired[int]
+    """
+    The minute of the hour the anchor should be. Ranges from 0 to 59.
+    """
+    month: NotRequired[int]
+    """
+    The month to start full cycle periods. Ranges from 1 to 12.
+    """
+    second: NotRequired[int]
+    """
+    The second of the minute the anchor should be. Ranges from 0 to 59.
     """
 
 

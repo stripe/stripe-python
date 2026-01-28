@@ -5,8 +5,12 @@ from typing import List
 from typing_extensions import NotRequired
 
 
-class OrderCancelParams(RequestOptions):
+class FrMealVouchersOnboardingModifyParams(RequestOptions):
     expand: NotRequired[List[str]]
     """
     Specifies which fields in the response should be expanded.
+    """
+    postal_code: str
+    """
+    Corrected Postal code of the restaurant.
     """

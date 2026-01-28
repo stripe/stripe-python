@@ -185,15 +185,15 @@ class InvoiceAddLinesParamsLinePriceDataProductData(TypedDict):
     """
     A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
     """
-    unit_label: NotRequired[str]
-    """
-    A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
-    """
     tax_details: NotRequired[
         "InvoiceAddLinesParamsLinePriceDataProductDataTaxDetails"
     ]
     """
     Tax details for this product, including the [tax code](https://docs.stripe.com/tax/tax-codes) and an optional performance location.
+    """
+    unit_label: NotRequired[str]
+    """
+    A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
     """
 
 

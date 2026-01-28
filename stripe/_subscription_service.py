@@ -27,6 +27,9 @@ if TYPE_CHECKING:
     from stripe.params._subscription_migrate_params import (
         SubscriptionMigrateParams,
     )
+    from stripe.params._subscription_pause_params import (
+        SubscriptionPauseParams,
+    )
     from stripe.params._subscription_resume_params import (
         SubscriptionResumeParams,
     )
@@ -494,6 +497,50 @@ class SubscriptionService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/subscriptions/{subscription}/migrate".format(
+                    subscription=sanitize_id(subscription),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def pause(
+        self,
+        subscription: str,
+        params: "SubscriptionPauseParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "Subscription":
+        """
+        Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
+        """
+        return cast(
+            "Subscription",
+            self._request(
+                "post",
+                "/v1/subscriptions/{subscription}/pause".format(
+                    subscription=sanitize_id(subscription),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def pause_async(
+        self,
+        subscription: str,
+        params: "SubscriptionPauseParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "Subscription":
+        """
+        Pauses a subscription by transitioning it to the paused status. A paused subscription does not generate invoices and will not advance to new billing periods. The subscription can be resumed later using the resume endpoint. Cannot pause subscriptions with attached schedules.
+        """
+        return cast(
+            "Subscription",
+            await self._request_async(
+                "post",
+                "/v1/subscriptions/{subscription}/pause".format(
                     subscription=sanitize_id(subscription),
                 ),
                 base_address="api",

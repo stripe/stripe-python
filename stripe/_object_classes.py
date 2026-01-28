@@ -148,6 +148,10 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.financial_connections._account_ownership",
         "AccountOwnership",
     ),
+    "financial_connections.authorization": (
+        "stripe.financial_connections._authorization",
+        "Authorization",
+    ),
     "financial_connections.institution": (
         "stripe.financial_connections._institution",
         "Institution",
@@ -161,6 +165,10 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "Transaction",
     ),
     "forwarding.request": ("stripe.forwarding._request", "Request"),
+    "fr_meal_vouchers_onboarding": (
+        "stripe._fr_meal_vouchers_onboarding",
+        "FrMealVouchersOnboarding",
+    ),
     "funding_instructions": (
         "stripe._funding_instructions",
         "FundingInstructions",
@@ -280,6 +288,10 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.radar._early_fraud_warning",
         "EarlyFraudWarning",
     ),
+    "radar.payment_evaluation": (
+        "stripe.radar._payment_evaluation",
+        "PaymentEvaluation",
+    ),
     "radar.value_list": ("stripe.radar._value_list", "ValueList"),
     "radar.value_list_item": (
         "stripe.radar._value_list_item",
@@ -288,6 +300,9 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     "refund": ("stripe._refund", "Refund"),
     "reporting.report_run": ("stripe.reporting._report_run", "ReportRun"),
     "reporting.report_type": ("stripe.reporting._report_type", "ReportType"),
+    "reserve.hold": ("stripe.reserve._hold", "Hold"),
+    "reserve.plan": ("stripe.reserve._plan", "Plan"),
+    "reserve.release": ("stripe.reserve._release", "Release"),
     "reserve_transaction": (
         "stripe._reserve_transaction",
         "ReserveTransaction",

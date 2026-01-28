@@ -41,6 +41,9 @@ if TYPE_CHECKING:
         FinancialConnectionsService,
     )
     from stripe._forwarding_service import ForwardingService
+    from stripe._fr_meal_vouchers_onboarding_service import (
+        FrMealVouchersOnboardingService,
+    )
     from stripe._fx_quote_service import FxQuoteService
     from stripe._identity_service import IdentityService
     from stripe._invoice_item_service import InvoiceItemService
@@ -77,6 +80,7 @@ if TYPE_CHECKING:
     from stripe._radar_service import RadarService
     from stripe._refund_service import RefundService
     from stripe._reporting_service import ReportingService
+    from stripe._reserve_service import ReserveService
     from stripe._review_service import ReviewService
     from stripe._setup_attempt_service import SetupAttemptService
     from stripe._setup_intent_service import SetupIntentService
@@ -175,6 +179,10 @@ _subservices = {
         "FinancialConnectionsService",
     ],
     "forwarding": ["stripe._forwarding_service", "ForwardingService"],
+    "fr_meal_vouchers_onboardings": [
+        "stripe._fr_meal_vouchers_onboarding_service",
+        "FrMealVouchersOnboardingService",
+    ],
     "fx_quotes": ["stripe._fx_quote_service", "FxQuoteService"],
     "identity": ["stripe._identity_service", "IdentityService"],
     "invoices": ["stripe._invoice_service", "InvoiceService"],
@@ -233,6 +241,7 @@ _subservices = {
     "radar": ["stripe._radar_service", "RadarService"],
     "refunds": ["stripe._refund_service", "RefundService"],
     "reporting": ["stripe._reporting_service", "ReportingService"],
+    "reserve": ["stripe._reserve_service", "ReserveService"],
     "reviews": ["stripe._review_service", "ReviewService"],
     "setup_attempts": ["stripe._setup_attempt_service", "SetupAttemptService"],
     "setup_intents": ["stripe._setup_intent_service", "SetupIntentService"],
@@ -304,6 +313,7 @@ class V1Services(StripeService):
     file_links: "FileLinkService"
     financial_connections: "FinancialConnectionsService"
     forwarding: "ForwardingService"
+    fr_meal_vouchers_onboardings: "FrMealVouchersOnboardingService"
     fx_quotes: "FxQuoteService"
     identity: "IdentityService"
     invoices: "InvoiceService"
@@ -332,6 +342,7 @@ class V1Services(StripeService):
     radar: "RadarService"
     refunds: "RefundService"
     reporting: "ReportingService"
+    reserve: "ReserveService"
     reviews: "ReviewService"
     setup_attempts: "SetupAttemptService"
     setup_intents: "SetupIntentService"

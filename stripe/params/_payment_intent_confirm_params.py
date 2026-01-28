@@ -122,6 +122,10 @@ class PaymentIntentConfirmParams(RequestOptions):
 
     If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
     """
+    shared_payment_granted_token: NotRequired[str]
+    """
+    ID of the SharedPaymentToken used to confirm this PaymentIntent.
+    """
     shipping: NotRequired["Literal['']|PaymentIntentConfirmParamsShipping"]
     """
     Shipping information for this PaymentIntent.
@@ -129,10 +133,6 @@ class PaymentIntentConfirmParams(RequestOptions):
     use_stripe_sdk: NotRequired[bool]
     """
     Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions.
-    """
-    shared_payment_granted_token: NotRequired[str]
-    """
-    ID of the SharedPaymentToken used to confirm this PaymentIntent.
     """
 
 
@@ -150,11 +150,19 @@ class PaymentIntentConfirmParamsAmountDetails(TypedDict):
 
     This field is mutually exclusive with the `amount_details[line_items][#][discount_amount]` field.
     """
+    enforce_arithmetic_validation: NotRequired[bool]
+    """
+    Set to `false` to return arithmetic validation errors in the response without failing the request. Use this when you want the operation to proceed regardless of arithmetic errors in the line item data.
+
+    Omit or set to `true` to immediately return a 400 error when arithmetic validation fails. Use this for strict validation that prevents processing with line item data that has arithmetic inconsistencies.
+
+    For card payments, Stripe doesn't send line item data if there's an arithmetic validation error to card networks.
+    """
     line_items: NotRequired[
         "Literal['']|List[PaymentIntentConfirmParamsAmountDetailsLineItem]"
     ]
     """
-    A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
+    A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 200 line items.
     """
     shipping: NotRequired[
         "Literal['']|PaymentIntentConfirmParamsAmountDetailsShipping"
@@ -2836,6 +2844,7 @@ class PaymentIntentConfirmParamsPaymentMethodDataIdeal(TypedDict):
     bank: NotRequired[
         Literal[
             "abn_amro",
+            "adyen",
             "asn_bank",
             "bunq",
             "buut",
@@ -4088,7 +4097,7 @@ class PaymentIntentConfirmParamsPaymentMethodOptionsCardThreeDSecure(
     For 3D Secure 1, the XID. For 3D Secure 2, the Directory Server
     Transaction ID (dsTransID).
     """
-    version: Literal["1.0.2", "2.1.0", "2.2.0"]
+    version: Literal["1.0.2", "2.1.0", "2.2.0", "2.3.0", "2.3.1"]
     """
     The version of 3D Secure that was performed.
     """
@@ -6385,12 +6394,6 @@ class PaymentIntentConfirmParamsPaymentMethodOptionsUsBankAccount(TypedDict):
     """
     Additional fields for network related functions
     """
-    preferred_settlement_speed: NotRequired[
-        "Literal['']|Literal['fastest', 'standard']"
-    ]
-    """
-    Preferred transaction settlement speed
-    """
     setup_future_usage: NotRequired[
         "Literal['']|Literal['none', 'off_session', 'on_session']"
     ]
@@ -6414,6 +6417,12 @@ class PaymentIntentConfirmParamsPaymentMethodOptionsUsBankAccount(TypedDict):
     ]
     """
     Bank account verification method.
+    """
+    preferred_settlement_speed: NotRequired[
+        "Literal['']|Literal['fastest', 'standard']"
+    ]
+    """
+    Preferred transaction settlement speed
     """
 
 

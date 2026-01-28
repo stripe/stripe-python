@@ -9,15 +9,6 @@ class AccountEvaluationUpdateParams(TypedDict):
     """
     Specifies which fields in the response should be expanded.
     """
-    type: Literal[
-        "login_failed",
-        "login_succeeded",
-        "registration_failed",
-        "registration_succeeded",
-    ]
-    """
-    The type of event to report.
-    """
     login_failed: NotRequired["AccountEvaluationUpdateParamsLoginFailed"]
     """
     Event payload for login_failed.
@@ -27,6 +18,15 @@ class AccountEvaluationUpdateParams(TypedDict):
     ]
     """
     Event payload for registration_failed.
+    """
+    type: Literal[
+        "login_failed",
+        "login_succeeded",
+        "registration_failed",
+        "registration_succeeded",
+    ]
+    """
+    The type of event to report.
     """
 
 

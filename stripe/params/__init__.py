@@ -21,6 +21,7 @@ if TYPE_CHECKING:
         product_catalog as product_catalog,
         radar as radar,
         reporting as reporting,
+        reserve as reserve,
         shared_payment as shared_payment,
         sigma as sigma,
         tax as tax,
@@ -188,6 +189,10 @@ if TYPE_CHECKING:
         AccountCreateParamsSettingsPayouts as AccountCreateParamsSettingsPayouts,
         AccountCreateParamsSettingsPayoutsSchedule as AccountCreateParamsSettingsPayoutsSchedule,
         AccountCreateParamsSettingsPaypayPayments as AccountCreateParamsSettingsPaypayPayments,
+        AccountCreateParamsSettingsPaypayPaymentsSite as AccountCreateParamsSettingsPaypayPaymentsSite,
+        AccountCreateParamsSettingsPaypayPaymentsSiteAccessible as AccountCreateParamsSettingsPaypayPaymentsSiteAccessible,
+        AccountCreateParamsSettingsPaypayPaymentsSiteInDevelopment as AccountCreateParamsSettingsPaypayPaymentsSiteInDevelopment,
+        AccountCreateParamsSettingsPaypayPaymentsSiteRestricted as AccountCreateParamsSettingsPaypayPaymentsSiteRestricted,
         AccountCreateParamsSettingsTaxForms as AccountCreateParamsSettingsTaxForms,
         AccountCreateParamsSettingsTreasury as AccountCreateParamsSettingsTreasury,
         AccountCreateParamsSettingsTreasuryTosAcceptance as AccountCreateParamsSettingsTreasuryTosAcceptance,
@@ -593,6 +598,10 @@ if TYPE_CHECKING:
         AccountUpdateParamsSettingsPayouts as AccountUpdateParamsSettingsPayouts,
         AccountUpdateParamsSettingsPayoutsSchedule as AccountUpdateParamsSettingsPayoutsSchedule,
         AccountUpdateParamsSettingsPaypayPayments as AccountUpdateParamsSettingsPaypayPayments,
+        AccountUpdateParamsSettingsPaypayPaymentsSite as AccountUpdateParamsSettingsPaypayPaymentsSite,
+        AccountUpdateParamsSettingsPaypayPaymentsSiteAccessible as AccountUpdateParamsSettingsPaypayPaymentsSiteAccessible,
+        AccountUpdateParamsSettingsPaypayPaymentsSiteInDevelopment as AccountUpdateParamsSettingsPaypayPaymentsSiteInDevelopment,
+        AccountUpdateParamsSettingsPaypayPaymentsSiteRestricted as AccountUpdateParamsSettingsPaypayPaymentsSiteRestricted,
         AccountUpdateParamsSettingsTaxForms as AccountUpdateParamsSettingsTaxForms,
         AccountUpdateParamsSettingsTreasury as AccountUpdateParamsSettingsTreasury,
         AccountUpdateParamsSettingsTreasuryTosAcceptance as AccountUpdateParamsSettingsTreasuryTosAcceptance,
@@ -1016,6 +1025,8 @@ if TYPE_CHECKING:
         CouponCreateParamsAppliesTo as CouponCreateParamsAppliesTo,
         CouponCreateParamsCurrencyOptions as CouponCreateParamsCurrencyOptions,
         CouponCreateParamsScript as CouponCreateParamsScript,
+        CouponCreateParamsServicePeriod as CouponCreateParamsServicePeriod,
+        CouponCreateParamsServicePeriodIterations as CouponCreateParamsServicePeriodIterations,
     )
     from stripe.params._coupon_delete_params import (
         CouponDeleteParams as CouponDeleteParams,
@@ -1392,6 +1403,21 @@ if TYPE_CHECKING:
     from stripe.params._file_retrieve_params import (
         FileRetrieveParams as FileRetrieveParams,
     )
+    from stripe.params._fr_meal_vouchers_onboarding_create_params import (
+        FrMealVouchersOnboardingCreateParams as FrMealVouchersOnboardingCreateParams,
+    )
+    from stripe.params._fr_meal_vouchers_onboarding_list_params import (
+        FrMealVouchersOnboardingListParams as FrMealVouchersOnboardingListParams,
+    )
+    from stripe.params._fr_meal_vouchers_onboarding_modify_params import (
+        FrMealVouchersOnboardingModifyParams as FrMealVouchersOnboardingModifyParams,
+    )
+    from stripe.params._fr_meal_vouchers_onboarding_retrieve_params import (
+        FrMealVouchersOnboardingRetrieveParams as FrMealVouchersOnboardingRetrieveParams,
+    )
+    from stripe.params._fr_meal_vouchers_onboarding_update_params import (
+        FrMealVouchersOnboardingUpdateParams as FrMealVouchersOnboardingUpdateParams,
+    )
     from stripe.params._fx_quote_create_params import (
         FxQuoteCreateParams as FxQuoteCreateParams,
         FxQuoteCreateParamsUsage as FxQuoteCreateParamsUsage,
@@ -1481,6 +1507,9 @@ if TYPE_CHECKING:
         InvoiceCreatePreviewParamsDiscount as InvoiceCreatePreviewParamsDiscount,
         InvoiceCreatePreviewParamsDiscountDiscountEnd as InvoiceCreatePreviewParamsDiscountDiscountEnd,
         InvoiceCreatePreviewParamsDiscountDiscountEndDuration as InvoiceCreatePreviewParamsDiscountDiscountEndDuration,
+        InvoiceCreatePreviewParamsDiscountSettings as InvoiceCreatePreviewParamsDiscountSettings,
+        InvoiceCreatePreviewParamsDiscountSettingsServicePeriodAnchorConfig as InvoiceCreatePreviewParamsDiscountSettingsServicePeriodAnchorConfig,
+        InvoiceCreatePreviewParamsDiscountSettingsServicePeriodAnchorConfigCustom as InvoiceCreatePreviewParamsDiscountSettingsServicePeriodAnchorConfigCustom,
         InvoiceCreatePreviewParamsInvoiceItem as InvoiceCreatePreviewParamsInvoiceItem,
         InvoiceCreatePreviewParamsInvoiceItemDiscount as InvoiceCreatePreviewParamsInvoiceItemDiscount,
         InvoiceCreatePreviewParamsInvoiceItemDiscountDiscountEnd as InvoiceCreatePreviewParamsInvoiceItemDiscountDiscountEnd,
@@ -1501,19 +1530,31 @@ if TYPE_CHECKING:
         InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountAction as InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountAction,
         InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionAdd as InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionAdd,
         InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionAddDiscountEnd as InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionAddDiscountEnd,
+        InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionAddSettings as InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionAddSettings,
+        InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionAddSettingsServicePeriodAnchorConfig as InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionAddSettingsServicePeriodAnchorConfig,
+        InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionAddSettingsServicePeriodAnchorConfigCustom as InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionAddSettingsServicePeriodAnchorConfigCustom,
         InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionRemove as InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionRemove,
         InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionSet as InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionSet,
+        InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionSetSettings as InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionSetSettings,
+        InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionSetSettingsServicePeriodAnchorConfig as InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionSetSettingsServicePeriodAnchorConfig,
+        InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionSetSettingsServicePeriodAnchorConfigCustom as InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionSetSettingsServicePeriodAnchorConfigCustom,
         InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemAction as InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemAction,
         InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionAdd as InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionAdd,
         InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionAddDiscount as InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionAddDiscount,
         InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionAddDiscountDiscountEnd as InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionAddDiscountDiscountEnd,
         InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionAddDiscountDiscountEndDuration as InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionAddDiscountDiscountEndDuration,
+        InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionAddDiscountSettings as InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionAddDiscountSettings,
+        InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionAddDiscountSettingsServicePeriodAnchorConfig as InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionAddDiscountSettingsServicePeriodAnchorConfig,
+        InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionAddDiscountSettingsServicePeriodAnchorConfigCustom as InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionAddDiscountSettingsServicePeriodAnchorConfigCustom,
         InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionAddTrial as InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionAddTrial,
         InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionRemove as InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionRemove,
         InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionSet as InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionSet,
         InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionSetDiscount as InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionSetDiscount,
         InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionSetDiscountDiscountEnd as InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionSetDiscountDiscountEnd,
         InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionSetDiscountDiscountEndDuration as InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionSetDiscountDiscountEndDuration,
+        InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionSetDiscountSettings as InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionSetDiscountSettings,
+        InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionSetDiscountSettingsServicePeriodAnchorConfig as InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionSetDiscountSettingsServicePeriodAnchorConfig,
+        InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionSetDiscountSettingsServicePeriodAnchorConfigCustom as InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionSetDiscountSettingsServicePeriodAnchorConfigCustom,
         InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionSetTrial as InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionSetTrial,
         InvoiceCreatePreviewParamsScheduleDetailsAmendmentMetadataAction as InvoiceCreatePreviewParamsScheduleDetailsAmendmentMetadataAction,
         InvoiceCreatePreviewParamsScheduleDetailsAmendmentSetPauseCollection as InvoiceCreatePreviewParamsScheduleDetailsAmendmentSetPauseCollection,
@@ -1541,6 +1582,9 @@ if TYPE_CHECKING:
         InvoiceCreatePreviewParamsScheduleDetailsPhaseDiscount as InvoiceCreatePreviewParamsScheduleDetailsPhaseDiscount,
         InvoiceCreatePreviewParamsScheduleDetailsPhaseDiscountDiscountEnd as InvoiceCreatePreviewParamsScheduleDetailsPhaseDiscountDiscountEnd,
         InvoiceCreatePreviewParamsScheduleDetailsPhaseDiscountDiscountEndDuration as InvoiceCreatePreviewParamsScheduleDetailsPhaseDiscountDiscountEndDuration,
+        InvoiceCreatePreviewParamsScheduleDetailsPhaseDiscountSettings as InvoiceCreatePreviewParamsScheduleDetailsPhaseDiscountSettings,
+        InvoiceCreatePreviewParamsScheduleDetailsPhaseDiscountSettingsServicePeriodAnchorConfig as InvoiceCreatePreviewParamsScheduleDetailsPhaseDiscountSettingsServicePeriodAnchorConfig,
+        InvoiceCreatePreviewParamsScheduleDetailsPhaseDiscountSettingsServicePeriodAnchorConfigCustom as InvoiceCreatePreviewParamsScheduleDetailsPhaseDiscountSettingsServicePeriodAnchorConfigCustom,
         InvoiceCreatePreviewParamsScheduleDetailsPhaseDuration as InvoiceCreatePreviewParamsScheduleDetailsPhaseDuration,
         InvoiceCreatePreviewParamsScheduleDetailsPhaseInvoiceSettings as InvoiceCreatePreviewParamsScheduleDetailsPhaseInvoiceSettings,
         InvoiceCreatePreviewParamsScheduleDetailsPhaseInvoiceSettingsIssuer as InvoiceCreatePreviewParamsScheduleDetailsPhaseInvoiceSettingsIssuer,
@@ -1549,6 +1593,9 @@ if TYPE_CHECKING:
         InvoiceCreatePreviewParamsScheduleDetailsPhaseItemDiscount as InvoiceCreatePreviewParamsScheduleDetailsPhaseItemDiscount,
         InvoiceCreatePreviewParamsScheduleDetailsPhaseItemDiscountDiscountEnd as InvoiceCreatePreviewParamsScheduleDetailsPhaseItemDiscountDiscountEnd,
         InvoiceCreatePreviewParamsScheduleDetailsPhaseItemDiscountDiscountEndDuration as InvoiceCreatePreviewParamsScheduleDetailsPhaseItemDiscountDiscountEndDuration,
+        InvoiceCreatePreviewParamsScheduleDetailsPhaseItemDiscountSettings as InvoiceCreatePreviewParamsScheduleDetailsPhaseItemDiscountSettings,
+        InvoiceCreatePreviewParamsScheduleDetailsPhaseItemDiscountSettingsServicePeriodAnchorConfig as InvoiceCreatePreviewParamsScheduleDetailsPhaseItemDiscountSettingsServicePeriodAnchorConfig,
+        InvoiceCreatePreviewParamsScheduleDetailsPhaseItemDiscountSettingsServicePeriodAnchorConfigCustom as InvoiceCreatePreviewParamsScheduleDetailsPhaseItemDiscountSettingsServicePeriodAnchorConfigCustom,
         InvoiceCreatePreviewParamsScheduleDetailsPhaseItemPriceData as InvoiceCreatePreviewParamsScheduleDetailsPhaseItemPriceData,
         InvoiceCreatePreviewParamsScheduleDetailsPhaseItemPriceDataRecurring as InvoiceCreatePreviewParamsScheduleDetailsPhaseItemPriceDataRecurring,
         InvoiceCreatePreviewParamsScheduleDetailsPhaseItemTrial as InvoiceCreatePreviewParamsScheduleDetailsPhaseItemTrial,
@@ -1573,12 +1620,18 @@ if TYPE_CHECKING:
         InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscount as InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscount,
         InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscountDiscountEnd as InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscountDiscountEnd,
         InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscountDiscountEndDuration as InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscountDiscountEndDuration,
+        InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscountSettings as InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscountSettings,
+        InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscountSettingsServicePeriodAnchorConfig as InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscountSettingsServicePeriodAnchorConfig,
+        InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscountSettingsServicePeriodAnchorConfigCustom as InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscountSettingsServicePeriodAnchorConfigCustom,
         InvoiceCreatePreviewParamsSubscriptionDetailsItemPriceData as InvoiceCreatePreviewParamsSubscriptionDetailsItemPriceData,
         InvoiceCreatePreviewParamsSubscriptionDetailsItemPriceDataRecurring as InvoiceCreatePreviewParamsSubscriptionDetailsItemPriceDataRecurring,
         InvoiceCreatePreviewParamsSubscriptionDetailsPrebilling as InvoiceCreatePreviewParamsSubscriptionDetailsPrebilling,
     )
     from stripe.params._invoice_delete_params import (
         InvoiceDeleteParams as InvoiceDeleteParams,
+    )
+    from stripe.params._invoice_detach_payment_params import (
+        InvoiceDetachPaymentParams as InvoiceDetachPaymentParams,
     )
     from stripe.params._invoice_finalize_invoice_params import (
         InvoiceFinalizeInvoiceParams as InvoiceFinalizeInvoiceParams,
@@ -1811,9 +1864,6 @@ if TYPE_CHECKING:
     from stripe.params._margin_update_params import (
         MarginUpdateParams as MarginUpdateParams,
     )
-    from stripe.params._order_cancel_params import (
-        OrderCancelParams as OrderCancelParams,
-    )
     from stripe.params._order_create_params import (
         OrderCreateParams as OrderCreateParams,
         OrderCreateParamsAutomaticTax as OrderCreateParamsAutomaticTax,
@@ -1900,12 +1950,6 @@ if TYPE_CHECKING:
         OrderCreateParamsShippingDetailsAddress as OrderCreateParamsShippingDetailsAddress,
         OrderCreateParamsTaxDetails as OrderCreateParamsTaxDetails,
         OrderCreateParamsTaxDetailsTaxId as OrderCreateParamsTaxDetailsTaxId,
-    )
-    from stripe.params._order_line_item_list_params import (
-        OrderLineItemListParams as OrderLineItemListParams,
-    )
-    from stripe.params._order_list_line_items_params import (
-        OrderListLineItemsParams as OrderListLineItemsParams,
     )
     from stripe.params._order_list_params import (
         OrderListParams as OrderListParams,
@@ -1996,9 +2040,6 @@ if TYPE_CHECKING:
         OrderModifyParamsShippingDetailsAddress as OrderModifyParamsShippingDetailsAddress,
         OrderModifyParamsTaxDetails as OrderModifyParamsTaxDetails,
         OrderModifyParamsTaxDetailsTaxId as OrderModifyParamsTaxDetailsTaxId,
-    )
-    from stripe.params._order_reopen_params import (
-        OrderReopenParams as OrderReopenParams,
     )
     from stripe.params._order_retrieve_params import (
         OrderRetrieveParams as OrderRetrieveParams,
@@ -4245,18 +4286,30 @@ if TYPE_CHECKING:
         QuoteCreateParamsLineAction as QuoteCreateParamsLineAction,
         QuoteCreateParamsLineActionAddDiscount as QuoteCreateParamsLineActionAddDiscount,
         QuoteCreateParamsLineActionAddDiscountDiscountEnd as QuoteCreateParamsLineActionAddDiscountDiscountEnd,
+        QuoteCreateParamsLineActionAddDiscountSettings as QuoteCreateParamsLineActionAddDiscountSettings,
+        QuoteCreateParamsLineActionAddDiscountSettingsServicePeriodAnchorConfig as QuoteCreateParamsLineActionAddDiscountSettingsServicePeriodAnchorConfig,
+        QuoteCreateParamsLineActionAddDiscountSettingsServicePeriodAnchorConfigCustom as QuoteCreateParamsLineActionAddDiscountSettingsServicePeriodAnchorConfigCustom,
         QuoteCreateParamsLineActionAddItem as QuoteCreateParamsLineActionAddItem,
         QuoteCreateParamsLineActionAddItemDiscount as QuoteCreateParamsLineActionAddItemDiscount,
         QuoteCreateParamsLineActionAddItemDiscountDiscountEnd as QuoteCreateParamsLineActionAddItemDiscountDiscountEnd,
         QuoteCreateParamsLineActionAddItemDiscountDiscountEndDuration as QuoteCreateParamsLineActionAddItemDiscountDiscountEndDuration,
+        QuoteCreateParamsLineActionAddItemDiscountSettings as QuoteCreateParamsLineActionAddItemDiscountSettings,
+        QuoteCreateParamsLineActionAddItemDiscountSettingsServicePeriodAnchorConfig as QuoteCreateParamsLineActionAddItemDiscountSettingsServicePeriodAnchorConfig,
+        QuoteCreateParamsLineActionAddItemDiscountSettingsServicePeriodAnchorConfigCustom as QuoteCreateParamsLineActionAddItemDiscountSettingsServicePeriodAnchorConfigCustom,
         QuoteCreateParamsLineActionAddItemTrial as QuoteCreateParamsLineActionAddItemTrial,
         QuoteCreateParamsLineActionRemoveDiscount as QuoteCreateParamsLineActionRemoveDiscount,
         QuoteCreateParamsLineActionRemoveItem as QuoteCreateParamsLineActionRemoveItem,
         QuoteCreateParamsLineActionSetDiscount as QuoteCreateParamsLineActionSetDiscount,
+        QuoteCreateParamsLineActionSetDiscountSettings as QuoteCreateParamsLineActionSetDiscountSettings,
+        QuoteCreateParamsLineActionSetDiscountSettingsServicePeriodAnchorConfig as QuoteCreateParamsLineActionSetDiscountSettingsServicePeriodAnchorConfig,
+        QuoteCreateParamsLineActionSetDiscountSettingsServicePeriodAnchorConfigCustom as QuoteCreateParamsLineActionSetDiscountSettingsServicePeriodAnchorConfigCustom,
         QuoteCreateParamsLineActionSetItem as QuoteCreateParamsLineActionSetItem,
         QuoteCreateParamsLineActionSetItemDiscount as QuoteCreateParamsLineActionSetItemDiscount,
         QuoteCreateParamsLineActionSetItemDiscountDiscountEnd as QuoteCreateParamsLineActionSetItemDiscountDiscountEnd,
         QuoteCreateParamsLineActionSetItemDiscountDiscountEndDuration as QuoteCreateParamsLineActionSetItemDiscountDiscountEndDuration,
+        QuoteCreateParamsLineActionSetItemDiscountSettings as QuoteCreateParamsLineActionSetItemDiscountSettings,
+        QuoteCreateParamsLineActionSetItemDiscountSettingsServicePeriodAnchorConfig as QuoteCreateParamsLineActionSetItemDiscountSettingsServicePeriodAnchorConfig,
+        QuoteCreateParamsLineActionSetItemDiscountSettingsServicePeriodAnchorConfigCustom as QuoteCreateParamsLineActionSetItemDiscountSettingsServicePeriodAnchorConfigCustom,
         QuoteCreateParamsLineActionSetItemTrial as QuoteCreateParamsLineActionSetItemTrial,
         QuoteCreateParamsLineAppliesTo as QuoteCreateParamsLineAppliesTo,
         QuoteCreateParamsLineCancelSubscriptionSchedule as QuoteCreateParamsLineCancelSubscriptionSchedule,
@@ -4359,18 +4412,30 @@ if TYPE_CHECKING:
         QuoteModifyParamsLineAction as QuoteModifyParamsLineAction,
         QuoteModifyParamsLineActionAddDiscount as QuoteModifyParamsLineActionAddDiscount,
         QuoteModifyParamsLineActionAddDiscountDiscountEnd as QuoteModifyParamsLineActionAddDiscountDiscountEnd,
+        QuoteModifyParamsLineActionAddDiscountSettings as QuoteModifyParamsLineActionAddDiscountSettings,
+        QuoteModifyParamsLineActionAddDiscountSettingsServicePeriodAnchorConfig as QuoteModifyParamsLineActionAddDiscountSettingsServicePeriodAnchorConfig,
+        QuoteModifyParamsLineActionAddDiscountSettingsServicePeriodAnchorConfigCustom as QuoteModifyParamsLineActionAddDiscountSettingsServicePeriodAnchorConfigCustom,
         QuoteModifyParamsLineActionAddItem as QuoteModifyParamsLineActionAddItem,
         QuoteModifyParamsLineActionAddItemDiscount as QuoteModifyParamsLineActionAddItemDiscount,
         QuoteModifyParamsLineActionAddItemDiscountDiscountEnd as QuoteModifyParamsLineActionAddItemDiscountDiscountEnd,
         QuoteModifyParamsLineActionAddItemDiscountDiscountEndDuration as QuoteModifyParamsLineActionAddItemDiscountDiscountEndDuration,
+        QuoteModifyParamsLineActionAddItemDiscountSettings as QuoteModifyParamsLineActionAddItemDiscountSettings,
+        QuoteModifyParamsLineActionAddItemDiscountSettingsServicePeriodAnchorConfig as QuoteModifyParamsLineActionAddItemDiscountSettingsServicePeriodAnchorConfig,
+        QuoteModifyParamsLineActionAddItemDiscountSettingsServicePeriodAnchorConfigCustom as QuoteModifyParamsLineActionAddItemDiscountSettingsServicePeriodAnchorConfigCustom,
         QuoteModifyParamsLineActionAddItemTrial as QuoteModifyParamsLineActionAddItemTrial,
         QuoteModifyParamsLineActionRemoveDiscount as QuoteModifyParamsLineActionRemoveDiscount,
         QuoteModifyParamsLineActionRemoveItem as QuoteModifyParamsLineActionRemoveItem,
         QuoteModifyParamsLineActionSetDiscount as QuoteModifyParamsLineActionSetDiscount,
+        QuoteModifyParamsLineActionSetDiscountSettings as QuoteModifyParamsLineActionSetDiscountSettings,
+        QuoteModifyParamsLineActionSetDiscountSettingsServicePeriodAnchorConfig as QuoteModifyParamsLineActionSetDiscountSettingsServicePeriodAnchorConfig,
+        QuoteModifyParamsLineActionSetDiscountSettingsServicePeriodAnchorConfigCustom as QuoteModifyParamsLineActionSetDiscountSettingsServicePeriodAnchorConfigCustom,
         QuoteModifyParamsLineActionSetItem as QuoteModifyParamsLineActionSetItem,
         QuoteModifyParamsLineActionSetItemDiscount as QuoteModifyParamsLineActionSetItemDiscount,
         QuoteModifyParamsLineActionSetItemDiscountDiscountEnd as QuoteModifyParamsLineActionSetItemDiscountDiscountEnd,
         QuoteModifyParamsLineActionSetItemDiscountDiscountEndDuration as QuoteModifyParamsLineActionSetItemDiscountDiscountEndDuration,
+        QuoteModifyParamsLineActionSetItemDiscountSettings as QuoteModifyParamsLineActionSetItemDiscountSettings,
+        QuoteModifyParamsLineActionSetItemDiscountSettingsServicePeriodAnchorConfig as QuoteModifyParamsLineActionSetItemDiscountSettingsServicePeriodAnchorConfig,
+        QuoteModifyParamsLineActionSetItemDiscountSettingsServicePeriodAnchorConfigCustom as QuoteModifyParamsLineActionSetItemDiscountSettingsServicePeriodAnchorConfigCustom,
         QuoteModifyParamsLineActionSetItemTrial as QuoteModifyParamsLineActionSetItemTrial,
         QuoteModifyParamsLineAppliesTo as QuoteModifyParamsLineAppliesTo,
         QuoteModifyParamsLineCancelSubscriptionSchedule as QuoteModifyParamsLineCancelSubscriptionSchedule,
@@ -4450,18 +4515,30 @@ if TYPE_CHECKING:
         QuoteUpdateParamsLineAction as QuoteUpdateParamsLineAction,
         QuoteUpdateParamsLineActionAddDiscount as QuoteUpdateParamsLineActionAddDiscount,
         QuoteUpdateParamsLineActionAddDiscountDiscountEnd as QuoteUpdateParamsLineActionAddDiscountDiscountEnd,
+        QuoteUpdateParamsLineActionAddDiscountSettings as QuoteUpdateParamsLineActionAddDiscountSettings,
+        QuoteUpdateParamsLineActionAddDiscountSettingsServicePeriodAnchorConfig as QuoteUpdateParamsLineActionAddDiscountSettingsServicePeriodAnchorConfig,
+        QuoteUpdateParamsLineActionAddDiscountSettingsServicePeriodAnchorConfigCustom as QuoteUpdateParamsLineActionAddDiscountSettingsServicePeriodAnchorConfigCustom,
         QuoteUpdateParamsLineActionAddItem as QuoteUpdateParamsLineActionAddItem,
         QuoteUpdateParamsLineActionAddItemDiscount as QuoteUpdateParamsLineActionAddItemDiscount,
         QuoteUpdateParamsLineActionAddItemDiscountDiscountEnd as QuoteUpdateParamsLineActionAddItemDiscountDiscountEnd,
         QuoteUpdateParamsLineActionAddItemDiscountDiscountEndDuration as QuoteUpdateParamsLineActionAddItemDiscountDiscountEndDuration,
+        QuoteUpdateParamsLineActionAddItemDiscountSettings as QuoteUpdateParamsLineActionAddItemDiscountSettings,
+        QuoteUpdateParamsLineActionAddItemDiscountSettingsServicePeriodAnchorConfig as QuoteUpdateParamsLineActionAddItemDiscountSettingsServicePeriodAnchorConfig,
+        QuoteUpdateParamsLineActionAddItemDiscountSettingsServicePeriodAnchorConfigCustom as QuoteUpdateParamsLineActionAddItemDiscountSettingsServicePeriodAnchorConfigCustom,
         QuoteUpdateParamsLineActionAddItemTrial as QuoteUpdateParamsLineActionAddItemTrial,
         QuoteUpdateParamsLineActionRemoveDiscount as QuoteUpdateParamsLineActionRemoveDiscount,
         QuoteUpdateParamsLineActionRemoveItem as QuoteUpdateParamsLineActionRemoveItem,
         QuoteUpdateParamsLineActionSetDiscount as QuoteUpdateParamsLineActionSetDiscount,
+        QuoteUpdateParamsLineActionSetDiscountSettings as QuoteUpdateParamsLineActionSetDiscountSettings,
+        QuoteUpdateParamsLineActionSetDiscountSettingsServicePeriodAnchorConfig as QuoteUpdateParamsLineActionSetDiscountSettingsServicePeriodAnchorConfig,
+        QuoteUpdateParamsLineActionSetDiscountSettingsServicePeriodAnchorConfigCustom as QuoteUpdateParamsLineActionSetDiscountSettingsServicePeriodAnchorConfigCustom,
         QuoteUpdateParamsLineActionSetItem as QuoteUpdateParamsLineActionSetItem,
         QuoteUpdateParamsLineActionSetItemDiscount as QuoteUpdateParamsLineActionSetItemDiscount,
         QuoteUpdateParamsLineActionSetItemDiscountDiscountEnd as QuoteUpdateParamsLineActionSetItemDiscountDiscountEnd,
         QuoteUpdateParamsLineActionSetItemDiscountDiscountEndDuration as QuoteUpdateParamsLineActionSetItemDiscountDiscountEndDuration,
+        QuoteUpdateParamsLineActionSetItemDiscountSettings as QuoteUpdateParamsLineActionSetItemDiscountSettings,
+        QuoteUpdateParamsLineActionSetItemDiscountSettingsServicePeriodAnchorConfig as QuoteUpdateParamsLineActionSetItemDiscountSettingsServicePeriodAnchorConfig,
+        QuoteUpdateParamsLineActionSetItemDiscountSettingsServicePeriodAnchorConfigCustom as QuoteUpdateParamsLineActionSetItemDiscountSettingsServicePeriodAnchorConfigCustom,
         QuoteUpdateParamsLineActionSetItemTrial as QuoteUpdateParamsLineActionSetItemTrial,
         QuoteUpdateParamsLineAppliesTo as QuoteUpdateParamsLineAppliesTo,
         QuoteUpdateParamsLineCancelSubscriptionSchedule as QuoteUpdateParamsLineCancelSubscriptionSchedule,
@@ -5079,6 +5156,9 @@ if TYPE_CHECKING:
         SubscriptionCreateParamsDiscount as SubscriptionCreateParamsDiscount,
         SubscriptionCreateParamsDiscountDiscountEnd as SubscriptionCreateParamsDiscountDiscountEnd,
         SubscriptionCreateParamsDiscountDiscountEndDuration as SubscriptionCreateParamsDiscountDiscountEndDuration,
+        SubscriptionCreateParamsDiscountSettings as SubscriptionCreateParamsDiscountSettings,
+        SubscriptionCreateParamsDiscountSettingsServicePeriodAnchorConfig as SubscriptionCreateParamsDiscountSettingsServicePeriodAnchorConfig,
+        SubscriptionCreateParamsDiscountSettingsServicePeriodAnchorConfigCustom as SubscriptionCreateParamsDiscountSettingsServicePeriodAnchorConfigCustom,
         SubscriptionCreateParamsInvoiceSettings as SubscriptionCreateParamsInvoiceSettings,
         SubscriptionCreateParamsInvoiceSettingsIssuer as SubscriptionCreateParamsInvoiceSettingsIssuer,
         SubscriptionCreateParamsItem as SubscriptionCreateParamsItem,
@@ -5087,6 +5167,9 @@ if TYPE_CHECKING:
         SubscriptionCreateParamsItemDiscount as SubscriptionCreateParamsItemDiscount,
         SubscriptionCreateParamsItemDiscountDiscountEnd as SubscriptionCreateParamsItemDiscountDiscountEnd,
         SubscriptionCreateParamsItemDiscountDiscountEndDuration as SubscriptionCreateParamsItemDiscountDiscountEndDuration,
+        SubscriptionCreateParamsItemDiscountSettings as SubscriptionCreateParamsItemDiscountSettings,
+        SubscriptionCreateParamsItemDiscountSettingsServicePeriodAnchorConfig as SubscriptionCreateParamsItemDiscountSettingsServicePeriodAnchorConfig,
+        SubscriptionCreateParamsItemDiscountSettingsServicePeriodAnchorConfigCustom as SubscriptionCreateParamsItemDiscountSettingsServicePeriodAnchorConfigCustom,
         SubscriptionCreateParamsItemPriceData as SubscriptionCreateParamsItemPriceData,
         SubscriptionCreateParamsItemPriceDataRecurring as SubscriptionCreateParamsItemPriceDataRecurring,
         SubscriptionCreateParamsItemTrial as SubscriptionCreateParamsItemTrial,
@@ -5128,6 +5211,9 @@ if TYPE_CHECKING:
         SubscriptionItemCreateParamsDiscount as SubscriptionItemCreateParamsDiscount,
         SubscriptionItemCreateParamsDiscountDiscountEnd as SubscriptionItemCreateParamsDiscountDiscountEnd,
         SubscriptionItemCreateParamsDiscountDiscountEndDuration as SubscriptionItemCreateParamsDiscountDiscountEndDuration,
+        SubscriptionItemCreateParamsDiscountSettings as SubscriptionItemCreateParamsDiscountSettings,
+        SubscriptionItemCreateParamsDiscountSettingsServicePeriodAnchorConfig as SubscriptionItemCreateParamsDiscountSettingsServicePeriodAnchorConfig,
+        SubscriptionItemCreateParamsDiscountSettingsServicePeriodAnchorConfigCustom as SubscriptionItemCreateParamsDiscountSettingsServicePeriodAnchorConfigCustom,
         SubscriptionItemCreateParamsPriceData as SubscriptionItemCreateParamsPriceData,
         SubscriptionItemCreateParamsPriceDataRecurring as SubscriptionItemCreateParamsPriceDataRecurring,
         SubscriptionItemCreateParamsTrial as SubscriptionItemCreateParamsTrial,
@@ -5145,6 +5231,9 @@ if TYPE_CHECKING:
         SubscriptionItemModifyParamsDiscount as SubscriptionItemModifyParamsDiscount,
         SubscriptionItemModifyParamsDiscountDiscountEnd as SubscriptionItemModifyParamsDiscountDiscountEnd,
         SubscriptionItemModifyParamsDiscountDiscountEndDuration as SubscriptionItemModifyParamsDiscountDiscountEndDuration,
+        SubscriptionItemModifyParamsDiscountSettings as SubscriptionItemModifyParamsDiscountSettings,
+        SubscriptionItemModifyParamsDiscountSettingsServicePeriodAnchorConfig as SubscriptionItemModifyParamsDiscountSettingsServicePeriodAnchorConfig,
+        SubscriptionItemModifyParamsDiscountSettingsServicePeriodAnchorConfigCustom as SubscriptionItemModifyParamsDiscountSettingsServicePeriodAnchorConfigCustom,
         SubscriptionItemModifyParamsPriceData as SubscriptionItemModifyParamsPriceData,
         SubscriptionItemModifyParamsPriceDataRecurring as SubscriptionItemModifyParamsPriceDataRecurring,
     )
@@ -5158,6 +5247,9 @@ if TYPE_CHECKING:
         SubscriptionItemUpdateParamsDiscount as SubscriptionItemUpdateParamsDiscount,
         SubscriptionItemUpdateParamsDiscountDiscountEnd as SubscriptionItemUpdateParamsDiscountDiscountEnd,
         SubscriptionItemUpdateParamsDiscountDiscountEndDuration as SubscriptionItemUpdateParamsDiscountDiscountEndDuration,
+        SubscriptionItemUpdateParamsDiscountSettings as SubscriptionItemUpdateParamsDiscountSettings,
+        SubscriptionItemUpdateParamsDiscountSettingsServicePeriodAnchorConfig as SubscriptionItemUpdateParamsDiscountSettingsServicePeriodAnchorConfig,
+        SubscriptionItemUpdateParamsDiscountSettingsServicePeriodAnchorConfigCustom as SubscriptionItemUpdateParamsDiscountSettingsServicePeriodAnchorConfigCustom,
         SubscriptionItemUpdateParamsPriceData as SubscriptionItemUpdateParamsPriceData,
         SubscriptionItemUpdateParamsPriceDataRecurring as SubscriptionItemUpdateParamsPriceDataRecurring,
     )
@@ -5194,6 +5286,9 @@ if TYPE_CHECKING:
         SubscriptionModifyParamsDiscount as SubscriptionModifyParamsDiscount,
         SubscriptionModifyParamsDiscountDiscountEnd as SubscriptionModifyParamsDiscountDiscountEnd,
         SubscriptionModifyParamsDiscountDiscountEndDuration as SubscriptionModifyParamsDiscountDiscountEndDuration,
+        SubscriptionModifyParamsDiscountSettings as SubscriptionModifyParamsDiscountSettings,
+        SubscriptionModifyParamsDiscountSettingsServicePeriodAnchorConfig as SubscriptionModifyParamsDiscountSettingsServicePeriodAnchorConfig,
+        SubscriptionModifyParamsDiscountSettingsServicePeriodAnchorConfigCustom as SubscriptionModifyParamsDiscountSettingsServicePeriodAnchorConfigCustom,
         SubscriptionModifyParamsInvoiceSettings as SubscriptionModifyParamsInvoiceSettings,
         SubscriptionModifyParamsInvoiceSettingsIssuer as SubscriptionModifyParamsInvoiceSettingsIssuer,
         SubscriptionModifyParamsItem as SubscriptionModifyParamsItem,
@@ -5202,6 +5297,9 @@ if TYPE_CHECKING:
         SubscriptionModifyParamsItemDiscount as SubscriptionModifyParamsItemDiscount,
         SubscriptionModifyParamsItemDiscountDiscountEnd as SubscriptionModifyParamsItemDiscountDiscountEnd,
         SubscriptionModifyParamsItemDiscountDiscountEndDuration as SubscriptionModifyParamsItemDiscountDiscountEndDuration,
+        SubscriptionModifyParamsItemDiscountSettings as SubscriptionModifyParamsItemDiscountSettings,
+        SubscriptionModifyParamsItemDiscountSettingsServicePeriodAnchorConfig as SubscriptionModifyParamsItemDiscountSettingsServicePeriodAnchorConfig,
+        SubscriptionModifyParamsItemDiscountSettingsServicePeriodAnchorConfigCustom as SubscriptionModifyParamsItemDiscountSettingsServicePeriodAnchorConfigCustom,
         SubscriptionModifyParamsItemPriceData as SubscriptionModifyParamsItemPriceData,
         SubscriptionModifyParamsItemPriceDataRecurring as SubscriptionModifyParamsItemPriceDataRecurring,
         SubscriptionModifyParamsPauseCollection as SubscriptionModifyParamsPauseCollection,
@@ -5233,6 +5331,10 @@ if TYPE_CHECKING:
         SubscriptionModifyParamsTrialSettings as SubscriptionModifyParamsTrialSettings,
         SubscriptionModifyParamsTrialSettingsEndBehavior as SubscriptionModifyParamsTrialSettingsEndBehavior,
     )
+    from stripe.params._subscription_pause_params import (
+        SubscriptionPauseParams as SubscriptionPauseParams,
+        SubscriptionPauseParamsBillFor as SubscriptionPauseParamsBillFor,
+    )
     from stripe.params._subscription_resume_params import (
         SubscriptionResumeParams as SubscriptionResumeParams,
     )
@@ -5253,19 +5355,31 @@ if TYPE_CHECKING:
         SubscriptionScheduleAmendParamsAmendmentDiscountAction as SubscriptionScheduleAmendParamsAmendmentDiscountAction,
         SubscriptionScheduleAmendParamsAmendmentDiscountActionAdd as SubscriptionScheduleAmendParamsAmendmentDiscountActionAdd,
         SubscriptionScheduleAmendParamsAmendmentDiscountActionAddDiscountEnd as SubscriptionScheduleAmendParamsAmendmentDiscountActionAddDiscountEnd,
+        SubscriptionScheduleAmendParamsAmendmentDiscountActionAddSettings as SubscriptionScheduleAmendParamsAmendmentDiscountActionAddSettings,
+        SubscriptionScheduleAmendParamsAmendmentDiscountActionAddSettingsServicePeriodAnchorConfig as SubscriptionScheduleAmendParamsAmendmentDiscountActionAddSettingsServicePeriodAnchorConfig,
+        SubscriptionScheduleAmendParamsAmendmentDiscountActionAddSettingsServicePeriodAnchorConfigCustom as SubscriptionScheduleAmendParamsAmendmentDiscountActionAddSettingsServicePeriodAnchorConfigCustom,
         SubscriptionScheduleAmendParamsAmendmentDiscountActionRemove as SubscriptionScheduleAmendParamsAmendmentDiscountActionRemove,
         SubscriptionScheduleAmendParamsAmendmentDiscountActionSet as SubscriptionScheduleAmendParamsAmendmentDiscountActionSet,
+        SubscriptionScheduleAmendParamsAmendmentDiscountActionSetSettings as SubscriptionScheduleAmendParamsAmendmentDiscountActionSetSettings,
+        SubscriptionScheduleAmendParamsAmendmentDiscountActionSetSettingsServicePeriodAnchorConfig as SubscriptionScheduleAmendParamsAmendmentDiscountActionSetSettingsServicePeriodAnchorConfig,
+        SubscriptionScheduleAmendParamsAmendmentDiscountActionSetSettingsServicePeriodAnchorConfigCustom as SubscriptionScheduleAmendParamsAmendmentDiscountActionSetSettingsServicePeriodAnchorConfigCustom,
         SubscriptionScheduleAmendParamsAmendmentItemAction as SubscriptionScheduleAmendParamsAmendmentItemAction,
         SubscriptionScheduleAmendParamsAmendmentItemActionAdd as SubscriptionScheduleAmendParamsAmendmentItemActionAdd,
         SubscriptionScheduleAmendParamsAmendmentItemActionAddDiscount as SubscriptionScheduleAmendParamsAmendmentItemActionAddDiscount,
         SubscriptionScheduleAmendParamsAmendmentItemActionAddDiscountDiscountEnd as SubscriptionScheduleAmendParamsAmendmentItemActionAddDiscountDiscountEnd,
         SubscriptionScheduleAmendParamsAmendmentItemActionAddDiscountDiscountEndDuration as SubscriptionScheduleAmendParamsAmendmentItemActionAddDiscountDiscountEndDuration,
+        SubscriptionScheduleAmendParamsAmendmentItemActionAddDiscountSettings as SubscriptionScheduleAmendParamsAmendmentItemActionAddDiscountSettings,
+        SubscriptionScheduleAmendParamsAmendmentItemActionAddDiscountSettingsServicePeriodAnchorConfig as SubscriptionScheduleAmendParamsAmendmentItemActionAddDiscountSettingsServicePeriodAnchorConfig,
+        SubscriptionScheduleAmendParamsAmendmentItemActionAddDiscountSettingsServicePeriodAnchorConfigCustom as SubscriptionScheduleAmendParamsAmendmentItemActionAddDiscountSettingsServicePeriodAnchorConfigCustom,
         SubscriptionScheduleAmendParamsAmendmentItemActionAddTrial as SubscriptionScheduleAmendParamsAmendmentItemActionAddTrial,
         SubscriptionScheduleAmendParamsAmendmentItemActionRemove as SubscriptionScheduleAmendParamsAmendmentItemActionRemove,
         SubscriptionScheduleAmendParamsAmendmentItemActionSet as SubscriptionScheduleAmendParamsAmendmentItemActionSet,
         SubscriptionScheduleAmendParamsAmendmentItemActionSetDiscount as SubscriptionScheduleAmendParamsAmendmentItemActionSetDiscount,
         SubscriptionScheduleAmendParamsAmendmentItemActionSetDiscountDiscountEnd as SubscriptionScheduleAmendParamsAmendmentItemActionSetDiscountDiscountEnd,
         SubscriptionScheduleAmendParamsAmendmentItemActionSetDiscountDiscountEndDuration as SubscriptionScheduleAmendParamsAmendmentItemActionSetDiscountDiscountEndDuration,
+        SubscriptionScheduleAmendParamsAmendmentItemActionSetDiscountSettings as SubscriptionScheduleAmendParamsAmendmentItemActionSetDiscountSettings,
+        SubscriptionScheduleAmendParamsAmendmentItemActionSetDiscountSettingsServicePeriodAnchorConfig as SubscriptionScheduleAmendParamsAmendmentItemActionSetDiscountSettingsServicePeriodAnchorConfig,
+        SubscriptionScheduleAmendParamsAmendmentItemActionSetDiscountSettingsServicePeriodAnchorConfigCustom as SubscriptionScheduleAmendParamsAmendmentItemActionSetDiscountSettingsServicePeriodAnchorConfigCustom,
         SubscriptionScheduleAmendParamsAmendmentItemActionSetTrial as SubscriptionScheduleAmendParamsAmendmentItemActionSetTrial,
         SubscriptionScheduleAmendParamsAmendmentMetadataAction as SubscriptionScheduleAmendParamsAmendmentMetadataAction,
         SubscriptionScheduleAmendParamsAmendmentSetPauseCollection as SubscriptionScheduleAmendParamsAmendmentSetPauseCollection,
@@ -5313,6 +5427,9 @@ if TYPE_CHECKING:
         SubscriptionScheduleCreateParamsPhaseDiscount as SubscriptionScheduleCreateParamsPhaseDiscount,
         SubscriptionScheduleCreateParamsPhaseDiscountDiscountEnd as SubscriptionScheduleCreateParamsPhaseDiscountDiscountEnd,
         SubscriptionScheduleCreateParamsPhaseDiscountDiscountEndDuration as SubscriptionScheduleCreateParamsPhaseDiscountDiscountEndDuration,
+        SubscriptionScheduleCreateParamsPhaseDiscountSettings as SubscriptionScheduleCreateParamsPhaseDiscountSettings,
+        SubscriptionScheduleCreateParamsPhaseDiscountSettingsServicePeriodAnchorConfig as SubscriptionScheduleCreateParamsPhaseDiscountSettingsServicePeriodAnchorConfig,
+        SubscriptionScheduleCreateParamsPhaseDiscountSettingsServicePeriodAnchorConfigCustom as SubscriptionScheduleCreateParamsPhaseDiscountSettingsServicePeriodAnchorConfigCustom,
         SubscriptionScheduleCreateParamsPhaseDuration as SubscriptionScheduleCreateParamsPhaseDuration,
         SubscriptionScheduleCreateParamsPhaseInvoiceSettings as SubscriptionScheduleCreateParamsPhaseInvoiceSettings,
         SubscriptionScheduleCreateParamsPhaseInvoiceSettingsIssuer as SubscriptionScheduleCreateParamsPhaseInvoiceSettingsIssuer,
@@ -5321,6 +5438,9 @@ if TYPE_CHECKING:
         SubscriptionScheduleCreateParamsPhaseItemDiscount as SubscriptionScheduleCreateParamsPhaseItemDiscount,
         SubscriptionScheduleCreateParamsPhaseItemDiscountDiscountEnd as SubscriptionScheduleCreateParamsPhaseItemDiscountDiscountEnd,
         SubscriptionScheduleCreateParamsPhaseItemDiscountDiscountEndDuration as SubscriptionScheduleCreateParamsPhaseItemDiscountDiscountEndDuration,
+        SubscriptionScheduleCreateParamsPhaseItemDiscountSettings as SubscriptionScheduleCreateParamsPhaseItemDiscountSettings,
+        SubscriptionScheduleCreateParamsPhaseItemDiscountSettingsServicePeriodAnchorConfig as SubscriptionScheduleCreateParamsPhaseItemDiscountSettingsServicePeriodAnchorConfig,
+        SubscriptionScheduleCreateParamsPhaseItemDiscountSettingsServicePeriodAnchorConfigCustom as SubscriptionScheduleCreateParamsPhaseItemDiscountSettingsServicePeriodAnchorConfigCustom,
         SubscriptionScheduleCreateParamsPhaseItemPriceData as SubscriptionScheduleCreateParamsPhaseItemPriceData,
         SubscriptionScheduleCreateParamsPhaseItemPriceDataRecurring as SubscriptionScheduleCreateParamsPhaseItemPriceDataRecurring,
         SubscriptionScheduleCreateParamsPhaseItemTrial as SubscriptionScheduleCreateParamsPhaseItemTrial,
@@ -5365,6 +5485,9 @@ if TYPE_CHECKING:
         SubscriptionScheduleModifyParamsPhaseDiscount as SubscriptionScheduleModifyParamsPhaseDiscount,
         SubscriptionScheduleModifyParamsPhaseDiscountDiscountEnd as SubscriptionScheduleModifyParamsPhaseDiscountDiscountEnd,
         SubscriptionScheduleModifyParamsPhaseDiscountDiscountEndDuration as SubscriptionScheduleModifyParamsPhaseDiscountDiscountEndDuration,
+        SubscriptionScheduleModifyParamsPhaseDiscountSettings as SubscriptionScheduleModifyParamsPhaseDiscountSettings,
+        SubscriptionScheduleModifyParamsPhaseDiscountSettingsServicePeriodAnchorConfig as SubscriptionScheduleModifyParamsPhaseDiscountSettingsServicePeriodAnchorConfig,
+        SubscriptionScheduleModifyParamsPhaseDiscountSettingsServicePeriodAnchorConfigCustom as SubscriptionScheduleModifyParamsPhaseDiscountSettingsServicePeriodAnchorConfigCustom,
         SubscriptionScheduleModifyParamsPhaseDuration as SubscriptionScheduleModifyParamsPhaseDuration,
         SubscriptionScheduleModifyParamsPhaseInvoiceSettings as SubscriptionScheduleModifyParamsPhaseInvoiceSettings,
         SubscriptionScheduleModifyParamsPhaseInvoiceSettingsIssuer as SubscriptionScheduleModifyParamsPhaseInvoiceSettingsIssuer,
@@ -5373,6 +5496,9 @@ if TYPE_CHECKING:
         SubscriptionScheduleModifyParamsPhaseItemDiscount as SubscriptionScheduleModifyParamsPhaseItemDiscount,
         SubscriptionScheduleModifyParamsPhaseItemDiscountDiscountEnd as SubscriptionScheduleModifyParamsPhaseItemDiscountDiscountEnd,
         SubscriptionScheduleModifyParamsPhaseItemDiscountDiscountEndDuration as SubscriptionScheduleModifyParamsPhaseItemDiscountDiscountEndDuration,
+        SubscriptionScheduleModifyParamsPhaseItemDiscountSettings as SubscriptionScheduleModifyParamsPhaseItemDiscountSettings,
+        SubscriptionScheduleModifyParamsPhaseItemDiscountSettingsServicePeriodAnchorConfig as SubscriptionScheduleModifyParamsPhaseItemDiscountSettingsServicePeriodAnchorConfig,
+        SubscriptionScheduleModifyParamsPhaseItemDiscountSettingsServicePeriodAnchorConfigCustom as SubscriptionScheduleModifyParamsPhaseItemDiscountSettingsServicePeriodAnchorConfigCustom,
         SubscriptionScheduleModifyParamsPhaseItemPriceData as SubscriptionScheduleModifyParamsPhaseItemPriceData,
         SubscriptionScheduleModifyParamsPhaseItemPriceDataRecurring as SubscriptionScheduleModifyParamsPhaseItemPriceDataRecurring,
         SubscriptionScheduleModifyParamsPhaseItemTrial as SubscriptionScheduleModifyParamsPhaseItemTrial,
@@ -5416,6 +5542,9 @@ if TYPE_CHECKING:
         SubscriptionScheduleUpdateParamsPhaseDiscount as SubscriptionScheduleUpdateParamsPhaseDiscount,
         SubscriptionScheduleUpdateParamsPhaseDiscountDiscountEnd as SubscriptionScheduleUpdateParamsPhaseDiscountDiscountEnd,
         SubscriptionScheduleUpdateParamsPhaseDiscountDiscountEndDuration as SubscriptionScheduleUpdateParamsPhaseDiscountDiscountEndDuration,
+        SubscriptionScheduleUpdateParamsPhaseDiscountSettings as SubscriptionScheduleUpdateParamsPhaseDiscountSettings,
+        SubscriptionScheduleUpdateParamsPhaseDiscountSettingsServicePeriodAnchorConfig as SubscriptionScheduleUpdateParamsPhaseDiscountSettingsServicePeriodAnchorConfig,
+        SubscriptionScheduleUpdateParamsPhaseDiscountSettingsServicePeriodAnchorConfigCustom as SubscriptionScheduleUpdateParamsPhaseDiscountSettingsServicePeriodAnchorConfigCustom,
         SubscriptionScheduleUpdateParamsPhaseDuration as SubscriptionScheduleUpdateParamsPhaseDuration,
         SubscriptionScheduleUpdateParamsPhaseInvoiceSettings as SubscriptionScheduleUpdateParamsPhaseInvoiceSettings,
         SubscriptionScheduleUpdateParamsPhaseInvoiceSettingsIssuer as SubscriptionScheduleUpdateParamsPhaseInvoiceSettingsIssuer,
@@ -5424,6 +5553,9 @@ if TYPE_CHECKING:
         SubscriptionScheduleUpdateParamsPhaseItemDiscount as SubscriptionScheduleUpdateParamsPhaseItemDiscount,
         SubscriptionScheduleUpdateParamsPhaseItemDiscountDiscountEnd as SubscriptionScheduleUpdateParamsPhaseItemDiscountDiscountEnd,
         SubscriptionScheduleUpdateParamsPhaseItemDiscountDiscountEndDuration as SubscriptionScheduleUpdateParamsPhaseItemDiscountDiscountEndDuration,
+        SubscriptionScheduleUpdateParamsPhaseItemDiscountSettings as SubscriptionScheduleUpdateParamsPhaseItemDiscountSettings,
+        SubscriptionScheduleUpdateParamsPhaseItemDiscountSettingsServicePeriodAnchorConfig as SubscriptionScheduleUpdateParamsPhaseItemDiscountSettingsServicePeriodAnchorConfig,
+        SubscriptionScheduleUpdateParamsPhaseItemDiscountSettingsServicePeriodAnchorConfigCustom as SubscriptionScheduleUpdateParamsPhaseItemDiscountSettingsServicePeriodAnchorConfigCustom,
         SubscriptionScheduleUpdateParamsPhaseItemPriceData as SubscriptionScheduleUpdateParamsPhaseItemPriceData,
         SubscriptionScheduleUpdateParamsPhaseItemPriceDataRecurring as SubscriptionScheduleUpdateParamsPhaseItemPriceDataRecurring,
         SubscriptionScheduleUpdateParamsPhaseItemTrial as SubscriptionScheduleUpdateParamsPhaseItemTrial,
@@ -5457,6 +5589,9 @@ if TYPE_CHECKING:
         SubscriptionUpdateParamsDiscount as SubscriptionUpdateParamsDiscount,
         SubscriptionUpdateParamsDiscountDiscountEnd as SubscriptionUpdateParamsDiscountDiscountEnd,
         SubscriptionUpdateParamsDiscountDiscountEndDuration as SubscriptionUpdateParamsDiscountDiscountEndDuration,
+        SubscriptionUpdateParamsDiscountSettings as SubscriptionUpdateParamsDiscountSettings,
+        SubscriptionUpdateParamsDiscountSettingsServicePeriodAnchorConfig as SubscriptionUpdateParamsDiscountSettingsServicePeriodAnchorConfig,
+        SubscriptionUpdateParamsDiscountSettingsServicePeriodAnchorConfigCustom as SubscriptionUpdateParamsDiscountSettingsServicePeriodAnchorConfigCustom,
         SubscriptionUpdateParamsInvoiceSettings as SubscriptionUpdateParamsInvoiceSettings,
         SubscriptionUpdateParamsInvoiceSettingsIssuer as SubscriptionUpdateParamsInvoiceSettingsIssuer,
         SubscriptionUpdateParamsItem as SubscriptionUpdateParamsItem,
@@ -5465,6 +5600,9 @@ if TYPE_CHECKING:
         SubscriptionUpdateParamsItemDiscount as SubscriptionUpdateParamsItemDiscount,
         SubscriptionUpdateParamsItemDiscountDiscountEnd as SubscriptionUpdateParamsItemDiscountDiscountEnd,
         SubscriptionUpdateParamsItemDiscountDiscountEndDuration as SubscriptionUpdateParamsItemDiscountDiscountEndDuration,
+        SubscriptionUpdateParamsItemDiscountSettings as SubscriptionUpdateParamsItemDiscountSettings,
+        SubscriptionUpdateParamsItemDiscountSettingsServicePeriodAnchorConfig as SubscriptionUpdateParamsItemDiscountSettingsServicePeriodAnchorConfig,
+        SubscriptionUpdateParamsItemDiscountSettingsServicePeriodAnchorConfigCustom as SubscriptionUpdateParamsItemDiscountSettingsServicePeriodAnchorConfigCustom,
         SubscriptionUpdateParamsItemPriceData as SubscriptionUpdateParamsItemPriceData,
         SubscriptionUpdateParamsItemPriceDataRecurring as SubscriptionUpdateParamsItemPriceDataRecurring,
         SubscriptionUpdateParamsPauseCollection as SubscriptionUpdateParamsPauseCollection,
@@ -5684,6 +5822,7 @@ _import_map = {
     "product_catalog": ("stripe.params.product_catalog", True),
     "radar": ("stripe.params.radar", True),
     "reporting": ("stripe.params.reporting", True),
+    "reserve": ("stripe.params.reserve", True),
     "shared_payment": ("stripe.params.shared_payment", True),
     "sigma": ("stripe.params.sigma", True),
     "tax": ("stripe.params.tax", True),
@@ -6277,6 +6416,22 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsSettingsPaypayPayments": (
+        "stripe.params._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsSettingsPaypayPaymentsSite": (
+        "stripe.params._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsSettingsPaypayPaymentsSiteAccessible": (
+        "stripe.params._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsSettingsPaypayPaymentsSiteInDevelopment": (
+        "stripe.params._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsSettingsPaypayPaymentsSiteRestricted": (
         "stripe.params._account_create_params",
         False,
     ),
@@ -7585,6 +7740,22 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsSettingsPaypayPayments": (
+        "stripe.params._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsSettingsPaypayPaymentsSite": (
+        "stripe.params._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsSettingsPaypayPaymentsSiteAccessible": (
+        "stripe.params._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsSettingsPaypayPaymentsSiteInDevelopment": (
+        "stripe.params._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsSettingsPaypayPaymentsSiteRestricted": (
         "stripe.params._account_update_params",
         False,
     ),
@@ -8940,6 +9111,14 @@ _import_map = {
         False,
     ),
     "CouponCreateParamsScript": ("stripe.params._coupon_create_params", False),
+    "CouponCreateParamsServicePeriod": (
+        "stripe.params._coupon_create_params",
+        False,
+    ),
+    "CouponCreateParamsServicePeriodIterations": (
+        "stripe.params._coupon_create_params",
+        False,
+    ),
     "CouponDeleteParams": ("stripe.params._coupon_delete_params", False),
     "CouponListParams": ("stripe.params._coupon_list_params", False),
     "CouponListParamsCreated": ("stripe.params._coupon_list_params", False),
@@ -9622,6 +9801,26 @@ _import_map = {
     "FileListParams": ("stripe.params._file_list_params", False),
     "FileListParamsCreated": ("stripe.params._file_list_params", False),
     "FileRetrieveParams": ("stripe.params._file_retrieve_params", False),
+    "FrMealVouchersOnboardingCreateParams": (
+        "stripe.params._fr_meal_vouchers_onboarding_create_params",
+        False,
+    ),
+    "FrMealVouchersOnboardingListParams": (
+        "stripe.params._fr_meal_vouchers_onboarding_list_params",
+        False,
+    ),
+    "FrMealVouchersOnboardingModifyParams": (
+        "stripe.params._fr_meal_vouchers_onboarding_modify_params",
+        False,
+    ),
+    "FrMealVouchersOnboardingRetrieveParams": (
+        "stripe.params._fr_meal_vouchers_onboarding_retrieve_params",
+        False,
+    ),
+    "FrMealVouchersOnboardingUpdateParams": (
+        "stripe.params._fr_meal_vouchers_onboarding_update_params",
+        False,
+    ),
     "FxQuoteCreateParams": ("stripe.params._fx_quote_create_params", False),
     "FxQuoteCreateParamsUsage": (
         "stripe.params._fx_quote_create_params",
@@ -9917,6 +10116,18 @@ _import_map = {
         "stripe.params._invoice_create_preview_params",
         False,
     ),
+    "InvoiceCreatePreviewParamsDiscountSettings": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsDiscountSettingsServicePeriodAnchorConfig": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsDiscountSettingsServicePeriodAnchorConfigCustom": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
     "InvoiceCreatePreviewParamsInvoiceItem": (
         "stripe.params._invoice_create_preview_params",
         False,
@@ -9997,11 +10208,35 @@ _import_map = {
         "stripe.params._invoice_create_preview_params",
         False,
     ),
+    "InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionAddSettings": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionAddSettingsServicePeriodAnchorConfig": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionAddSettingsServicePeriodAnchorConfigCustom": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
     "InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionRemove": (
         "stripe.params._invoice_create_preview_params",
         False,
     ),
     "InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionSet": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionSetSettings": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionSetSettingsServicePeriodAnchorConfig": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsAmendmentDiscountActionSetSettingsServicePeriodAnchorConfigCustom": (
         "stripe.params._invoice_create_preview_params",
         False,
     ),
@@ -10022,6 +10257,18 @@ _import_map = {
         False,
     ),
     "InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionAddDiscountDiscountEndDuration": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionAddDiscountSettings": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionAddDiscountSettingsServicePeriodAnchorConfig": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionAddDiscountSettingsServicePeriodAnchorConfigCustom": (
         "stripe.params._invoice_create_preview_params",
         False,
     ),
@@ -10046,6 +10293,18 @@ _import_map = {
         False,
     ),
     "InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionSetDiscountDiscountEndDuration": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionSetDiscountSettings": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionSetDiscountSettingsServicePeriodAnchorConfig": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionSetDiscountSettingsServicePeriodAnchorConfigCustom": (
         "stripe.params._invoice_create_preview_params",
         False,
     ),
@@ -10157,6 +10416,18 @@ _import_map = {
         "stripe.params._invoice_create_preview_params",
         False,
     ),
+    "InvoiceCreatePreviewParamsScheduleDetailsPhaseDiscountSettings": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsPhaseDiscountSettingsServicePeriodAnchorConfig": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsPhaseDiscountSettingsServicePeriodAnchorConfigCustom": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
     "InvoiceCreatePreviewParamsScheduleDetailsPhaseDuration": (
         "stripe.params._invoice_create_preview_params",
         False,
@@ -10186,6 +10457,18 @@ _import_map = {
         False,
     ),
     "InvoiceCreatePreviewParamsScheduleDetailsPhaseItemDiscountDiscountEndDuration": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsPhaseItemDiscountSettings": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsPhaseItemDiscountSettingsServicePeriodAnchorConfig": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsPhaseItemDiscountSettingsServicePeriodAnchorConfigCustom": (
         "stripe.params._invoice_create_preview_params",
         False,
     ),
@@ -10285,6 +10568,18 @@ _import_map = {
         "stripe.params._invoice_create_preview_params",
         False,
     ),
+    "InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscountSettings": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscountSettingsServicePeriodAnchorConfig": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscountSettingsServicePeriodAnchorConfigCustom": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
     "InvoiceCreatePreviewParamsSubscriptionDetailsItemPriceData": (
         "stripe.params._invoice_create_preview_params",
         False,
@@ -10298,6 +10593,10 @@ _import_map = {
         False,
     ),
     "InvoiceDeleteParams": ("stripe.params._invoice_delete_params", False),
+    "InvoiceDetachPaymentParams": (
+        "stripe.params._invoice_detach_payment_params",
+        False,
+    ),
     "InvoiceFinalizeInvoiceParams": (
         "stripe.params._invoice_finalize_invoice_params",
         False,
@@ -10905,7 +11204,6 @@ _import_map = {
     "MarginModifyParams": ("stripe.params._margin_modify_params", False),
     "MarginRetrieveParams": ("stripe.params._margin_retrieve_params", False),
     "MarginUpdateParams": ("stripe.params._margin_update_params", False),
-    "OrderCancelParams": ("stripe.params._order_cancel_params", False),
     "OrderCreateParams": ("stripe.params._order_create_params", False),
     "OrderCreateParamsAutomaticTax": (
         "stripe.params._order_create_params",
@@ -11232,14 +11530,6 @@ _import_map = {
     ),
     "OrderCreateParamsTaxDetailsTaxId": (
         "stripe.params._order_create_params",
-        False,
-    ),
-    "OrderLineItemListParams": (
-        "stripe.params._order_line_item_list_params",
-        False,
-    ),
-    "OrderListLineItemsParams": (
-        "stripe.params._order_list_line_items_params",
         False,
     ),
     "OrderListParams": ("stripe.params._order_list_params", False),
@@ -11571,7 +11861,6 @@ _import_map = {
         "stripe.params._order_modify_params",
         False,
     ),
-    "OrderReopenParams": ("stripe.params._order_reopen_params", False),
     "OrderRetrieveParams": ("stripe.params._order_retrieve_params", False),
     "OrderSubmitParams": ("stripe.params._order_submit_params", False),
     "OrderUpdateParams": ("stripe.params._order_update_params", False),
@@ -19637,6 +19926,18 @@ _import_map = {
         "stripe.params._quote_create_params",
         False,
     ),
+    "QuoteCreateParamsLineActionAddDiscountSettings": (
+        "stripe.params._quote_create_params",
+        False,
+    ),
+    "QuoteCreateParamsLineActionAddDiscountSettingsServicePeriodAnchorConfig": (
+        "stripe.params._quote_create_params",
+        False,
+    ),
+    "QuoteCreateParamsLineActionAddDiscountSettingsServicePeriodAnchorConfigCustom": (
+        "stripe.params._quote_create_params",
+        False,
+    ),
     "QuoteCreateParamsLineActionAddItem": (
         "stripe.params._quote_create_params",
         False,
@@ -19650,6 +19951,18 @@ _import_map = {
         False,
     ),
     "QuoteCreateParamsLineActionAddItemDiscountDiscountEndDuration": (
+        "stripe.params._quote_create_params",
+        False,
+    ),
+    "QuoteCreateParamsLineActionAddItemDiscountSettings": (
+        "stripe.params._quote_create_params",
+        False,
+    ),
+    "QuoteCreateParamsLineActionAddItemDiscountSettingsServicePeriodAnchorConfig": (
+        "stripe.params._quote_create_params",
+        False,
+    ),
+    "QuoteCreateParamsLineActionAddItemDiscountSettingsServicePeriodAnchorConfigCustom": (
         "stripe.params._quote_create_params",
         False,
     ),
@@ -19669,6 +19982,18 @@ _import_map = {
         "stripe.params._quote_create_params",
         False,
     ),
+    "QuoteCreateParamsLineActionSetDiscountSettings": (
+        "stripe.params._quote_create_params",
+        False,
+    ),
+    "QuoteCreateParamsLineActionSetDiscountSettingsServicePeriodAnchorConfig": (
+        "stripe.params._quote_create_params",
+        False,
+    ),
+    "QuoteCreateParamsLineActionSetDiscountSettingsServicePeriodAnchorConfigCustom": (
+        "stripe.params._quote_create_params",
+        False,
+    ),
     "QuoteCreateParamsLineActionSetItem": (
         "stripe.params._quote_create_params",
         False,
@@ -19682,6 +20007,18 @@ _import_map = {
         False,
     ),
     "QuoteCreateParamsLineActionSetItemDiscountDiscountEndDuration": (
+        "stripe.params._quote_create_params",
+        False,
+    ),
+    "QuoteCreateParamsLineActionSetItemDiscountSettings": (
+        "stripe.params._quote_create_params",
+        False,
+    ),
+    "QuoteCreateParamsLineActionSetItemDiscountSettingsServicePeriodAnchorConfig": (
+        "stripe.params._quote_create_params",
+        False,
+    ),
+    "QuoteCreateParamsLineActionSetItemDiscountSettingsServicePeriodAnchorConfigCustom": (
         "stripe.params._quote_create_params",
         False,
     ),
@@ -19962,6 +20299,18 @@ _import_map = {
         "stripe.params._quote_modify_params",
         False,
     ),
+    "QuoteModifyParamsLineActionAddDiscountSettings": (
+        "stripe.params._quote_modify_params",
+        False,
+    ),
+    "QuoteModifyParamsLineActionAddDiscountSettingsServicePeriodAnchorConfig": (
+        "stripe.params._quote_modify_params",
+        False,
+    ),
+    "QuoteModifyParamsLineActionAddDiscountSettingsServicePeriodAnchorConfigCustom": (
+        "stripe.params._quote_modify_params",
+        False,
+    ),
     "QuoteModifyParamsLineActionAddItem": (
         "stripe.params._quote_modify_params",
         False,
@@ -19975,6 +20324,18 @@ _import_map = {
         False,
     ),
     "QuoteModifyParamsLineActionAddItemDiscountDiscountEndDuration": (
+        "stripe.params._quote_modify_params",
+        False,
+    ),
+    "QuoteModifyParamsLineActionAddItemDiscountSettings": (
+        "stripe.params._quote_modify_params",
+        False,
+    ),
+    "QuoteModifyParamsLineActionAddItemDiscountSettingsServicePeriodAnchorConfig": (
+        "stripe.params._quote_modify_params",
+        False,
+    ),
+    "QuoteModifyParamsLineActionAddItemDiscountSettingsServicePeriodAnchorConfigCustom": (
         "stripe.params._quote_modify_params",
         False,
     ),
@@ -19994,6 +20355,18 @@ _import_map = {
         "stripe.params._quote_modify_params",
         False,
     ),
+    "QuoteModifyParamsLineActionSetDiscountSettings": (
+        "stripe.params._quote_modify_params",
+        False,
+    ),
+    "QuoteModifyParamsLineActionSetDiscountSettingsServicePeriodAnchorConfig": (
+        "stripe.params._quote_modify_params",
+        False,
+    ),
+    "QuoteModifyParamsLineActionSetDiscountSettingsServicePeriodAnchorConfigCustom": (
+        "stripe.params._quote_modify_params",
+        False,
+    ),
     "QuoteModifyParamsLineActionSetItem": (
         "stripe.params._quote_modify_params",
         False,
@@ -20007,6 +20380,18 @@ _import_map = {
         False,
     ),
     "QuoteModifyParamsLineActionSetItemDiscountDiscountEndDuration": (
+        "stripe.params._quote_modify_params",
+        False,
+    ),
+    "QuoteModifyParamsLineActionSetItemDiscountSettings": (
+        "stripe.params._quote_modify_params",
+        False,
+    ),
+    "QuoteModifyParamsLineActionSetItemDiscountSettingsServicePeriodAnchorConfig": (
+        "stripe.params._quote_modify_params",
+        False,
+    ),
+    "QuoteModifyParamsLineActionSetItemDiscountSettingsServicePeriodAnchorConfigCustom": (
         "stripe.params._quote_modify_params",
         False,
     ),
@@ -20257,6 +20642,18 @@ _import_map = {
         "stripe.params._quote_update_params",
         False,
     ),
+    "QuoteUpdateParamsLineActionAddDiscountSettings": (
+        "stripe.params._quote_update_params",
+        False,
+    ),
+    "QuoteUpdateParamsLineActionAddDiscountSettingsServicePeriodAnchorConfig": (
+        "stripe.params._quote_update_params",
+        False,
+    ),
+    "QuoteUpdateParamsLineActionAddDiscountSettingsServicePeriodAnchorConfigCustom": (
+        "stripe.params._quote_update_params",
+        False,
+    ),
     "QuoteUpdateParamsLineActionAddItem": (
         "stripe.params._quote_update_params",
         False,
@@ -20270,6 +20667,18 @@ _import_map = {
         False,
     ),
     "QuoteUpdateParamsLineActionAddItemDiscountDiscountEndDuration": (
+        "stripe.params._quote_update_params",
+        False,
+    ),
+    "QuoteUpdateParamsLineActionAddItemDiscountSettings": (
+        "stripe.params._quote_update_params",
+        False,
+    ),
+    "QuoteUpdateParamsLineActionAddItemDiscountSettingsServicePeriodAnchorConfig": (
+        "stripe.params._quote_update_params",
+        False,
+    ),
+    "QuoteUpdateParamsLineActionAddItemDiscountSettingsServicePeriodAnchorConfigCustom": (
         "stripe.params._quote_update_params",
         False,
     ),
@@ -20289,6 +20698,18 @@ _import_map = {
         "stripe.params._quote_update_params",
         False,
     ),
+    "QuoteUpdateParamsLineActionSetDiscountSettings": (
+        "stripe.params._quote_update_params",
+        False,
+    ),
+    "QuoteUpdateParamsLineActionSetDiscountSettingsServicePeriodAnchorConfig": (
+        "stripe.params._quote_update_params",
+        False,
+    ),
+    "QuoteUpdateParamsLineActionSetDiscountSettingsServicePeriodAnchorConfigCustom": (
+        "stripe.params._quote_update_params",
+        False,
+    ),
     "QuoteUpdateParamsLineActionSetItem": (
         "stripe.params._quote_update_params",
         False,
@@ -20302,6 +20723,18 @@ _import_map = {
         False,
     ),
     "QuoteUpdateParamsLineActionSetItemDiscountDiscountEndDuration": (
+        "stripe.params._quote_update_params",
+        False,
+    ),
+    "QuoteUpdateParamsLineActionSetItemDiscountSettings": (
+        "stripe.params._quote_update_params",
+        False,
+    ),
+    "QuoteUpdateParamsLineActionSetItemDiscountSettingsServicePeriodAnchorConfig": (
+        "stripe.params._quote_update_params",
+        False,
+    ),
+    "QuoteUpdateParamsLineActionSetItemDiscountSettingsServicePeriodAnchorConfigCustom": (
         "stripe.params._quote_update_params",
         False,
     ),
@@ -22427,6 +22860,18 @@ _import_map = {
         "stripe.params._subscription_create_params",
         False,
     ),
+    "SubscriptionCreateParamsDiscountSettings": (
+        "stripe.params._subscription_create_params",
+        False,
+    ),
+    "SubscriptionCreateParamsDiscountSettingsServicePeriodAnchorConfig": (
+        "stripe.params._subscription_create_params",
+        False,
+    ),
+    "SubscriptionCreateParamsDiscountSettingsServicePeriodAnchorConfigCustom": (
+        "stripe.params._subscription_create_params",
+        False,
+    ),
     "SubscriptionCreateParamsInvoiceSettings": (
         "stripe.params._subscription_create_params",
         False,
@@ -22456,6 +22901,18 @@ _import_map = {
         False,
     ),
     "SubscriptionCreateParamsItemDiscountDiscountEndDuration": (
+        "stripe.params._subscription_create_params",
+        False,
+    ),
+    "SubscriptionCreateParamsItemDiscountSettings": (
+        "stripe.params._subscription_create_params",
+        False,
+    ),
+    "SubscriptionCreateParamsItemDiscountSettingsServicePeriodAnchorConfig": (
+        "stripe.params._subscription_create_params",
+        False,
+    ),
+    "SubscriptionCreateParamsItemDiscountSettingsServicePeriodAnchorConfigCustom": (
         "stripe.params._subscription_create_params",
         False,
     ),
@@ -22607,6 +23064,18 @@ _import_map = {
         "stripe.params._subscription_item_create_params",
         False,
     ),
+    "SubscriptionItemCreateParamsDiscountSettings": (
+        "stripe.params._subscription_item_create_params",
+        False,
+    ),
+    "SubscriptionItemCreateParamsDiscountSettingsServicePeriodAnchorConfig": (
+        "stripe.params._subscription_item_create_params",
+        False,
+    ),
+    "SubscriptionItemCreateParamsDiscountSettingsServicePeriodAnchorConfigCustom": (
+        "stripe.params._subscription_item_create_params",
+        False,
+    ),
     "SubscriptionItemCreateParamsPriceData": (
         "stripe.params._subscription_item_create_params",
         False,
@@ -22651,6 +23120,18 @@ _import_map = {
         "stripe.params._subscription_item_modify_params",
         False,
     ),
+    "SubscriptionItemModifyParamsDiscountSettings": (
+        "stripe.params._subscription_item_modify_params",
+        False,
+    ),
+    "SubscriptionItemModifyParamsDiscountSettingsServicePeriodAnchorConfig": (
+        "stripe.params._subscription_item_modify_params",
+        False,
+    ),
+    "SubscriptionItemModifyParamsDiscountSettingsServicePeriodAnchorConfigCustom": (
+        "stripe.params._subscription_item_modify_params",
+        False,
+    ),
     "SubscriptionItemModifyParamsPriceData": (
         "stripe.params._subscription_item_modify_params",
         False,
@@ -22684,6 +23165,18 @@ _import_map = {
         False,
     ),
     "SubscriptionItemUpdateParamsDiscountDiscountEndDuration": (
+        "stripe.params._subscription_item_update_params",
+        False,
+    ),
+    "SubscriptionItemUpdateParamsDiscountSettings": (
+        "stripe.params._subscription_item_update_params",
+        False,
+    ),
+    "SubscriptionItemUpdateParamsDiscountSettingsServicePeriodAnchorConfig": (
+        "stripe.params._subscription_item_update_params",
+        False,
+    ),
+    "SubscriptionItemUpdateParamsDiscountSettingsServicePeriodAnchorConfigCustom": (
         "stripe.params._subscription_item_update_params",
         False,
     ),
@@ -22807,6 +23300,18 @@ _import_map = {
         "stripe.params._subscription_modify_params",
         False,
     ),
+    "SubscriptionModifyParamsDiscountSettings": (
+        "stripe.params._subscription_modify_params",
+        False,
+    ),
+    "SubscriptionModifyParamsDiscountSettingsServicePeriodAnchorConfig": (
+        "stripe.params._subscription_modify_params",
+        False,
+    ),
+    "SubscriptionModifyParamsDiscountSettingsServicePeriodAnchorConfigCustom": (
+        "stripe.params._subscription_modify_params",
+        False,
+    ),
     "SubscriptionModifyParamsInvoiceSettings": (
         "stripe.params._subscription_modify_params",
         False,
@@ -22836,6 +23341,18 @@ _import_map = {
         False,
     ),
     "SubscriptionModifyParamsItemDiscountDiscountEndDuration": (
+        "stripe.params._subscription_modify_params",
+        False,
+    ),
+    "SubscriptionModifyParamsItemDiscountSettings": (
+        "stripe.params._subscription_modify_params",
+        False,
+    ),
+    "SubscriptionModifyParamsItemDiscountSettingsServicePeriodAnchorConfig": (
+        "stripe.params._subscription_modify_params",
+        False,
+    ),
+    "SubscriptionModifyParamsItemDiscountSettingsServicePeriodAnchorConfigCustom": (
         "stripe.params._subscription_modify_params",
         False,
     ),
@@ -22959,6 +23476,14 @@ _import_map = {
         "stripe.params._subscription_modify_params",
         False,
     ),
+    "SubscriptionPauseParams": (
+        "stripe.params._subscription_pause_params",
+        False,
+    ),
+    "SubscriptionPauseParamsBillFor": (
+        "stripe.params._subscription_pause_params",
+        False,
+    ),
     "SubscriptionResumeParams": (
         "stripe.params._subscription_resume_params",
         False,
@@ -23019,11 +23544,35 @@ _import_map = {
         "stripe.params._subscription_schedule_amend_params",
         False,
     ),
+    "SubscriptionScheduleAmendParamsAmendmentDiscountActionAddSettings": (
+        "stripe.params._subscription_schedule_amend_params",
+        False,
+    ),
+    "SubscriptionScheduleAmendParamsAmendmentDiscountActionAddSettingsServicePeriodAnchorConfig": (
+        "stripe.params._subscription_schedule_amend_params",
+        False,
+    ),
+    "SubscriptionScheduleAmendParamsAmendmentDiscountActionAddSettingsServicePeriodAnchorConfigCustom": (
+        "stripe.params._subscription_schedule_amend_params",
+        False,
+    ),
     "SubscriptionScheduleAmendParamsAmendmentDiscountActionRemove": (
         "stripe.params._subscription_schedule_amend_params",
         False,
     ),
     "SubscriptionScheduleAmendParamsAmendmentDiscountActionSet": (
+        "stripe.params._subscription_schedule_amend_params",
+        False,
+    ),
+    "SubscriptionScheduleAmendParamsAmendmentDiscountActionSetSettings": (
+        "stripe.params._subscription_schedule_amend_params",
+        False,
+    ),
+    "SubscriptionScheduleAmendParamsAmendmentDiscountActionSetSettingsServicePeriodAnchorConfig": (
+        "stripe.params._subscription_schedule_amend_params",
+        False,
+    ),
+    "SubscriptionScheduleAmendParamsAmendmentDiscountActionSetSettingsServicePeriodAnchorConfigCustom": (
         "stripe.params._subscription_schedule_amend_params",
         False,
     ),
@@ -23044,6 +23593,18 @@ _import_map = {
         False,
     ),
     "SubscriptionScheduleAmendParamsAmendmentItemActionAddDiscountDiscountEndDuration": (
+        "stripe.params._subscription_schedule_amend_params",
+        False,
+    ),
+    "SubscriptionScheduleAmendParamsAmendmentItemActionAddDiscountSettings": (
+        "stripe.params._subscription_schedule_amend_params",
+        False,
+    ),
+    "SubscriptionScheduleAmendParamsAmendmentItemActionAddDiscountSettingsServicePeriodAnchorConfig": (
+        "stripe.params._subscription_schedule_amend_params",
+        False,
+    ),
+    "SubscriptionScheduleAmendParamsAmendmentItemActionAddDiscountSettingsServicePeriodAnchorConfigCustom": (
         "stripe.params._subscription_schedule_amend_params",
         False,
     ),
@@ -23068,6 +23629,18 @@ _import_map = {
         False,
     ),
     "SubscriptionScheduleAmendParamsAmendmentItemActionSetDiscountDiscountEndDuration": (
+        "stripe.params._subscription_schedule_amend_params",
+        False,
+    ),
+    "SubscriptionScheduleAmendParamsAmendmentItemActionSetDiscountSettings": (
+        "stripe.params._subscription_schedule_amend_params",
+        False,
+    ),
+    "SubscriptionScheduleAmendParamsAmendmentItemActionSetDiscountSettingsServicePeriodAnchorConfig": (
+        "stripe.params._subscription_schedule_amend_params",
+        False,
+    ),
+    "SubscriptionScheduleAmendParamsAmendmentItemActionSetDiscountSettingsServicePeriodAnchorConfigCustom": (
         "stripe.params._subscription_schedule_amend_params",
         False,
     ),
@@ -23243,6 +23816,18 @@ _import_map = {
         "stripe.params._subscription_schedule_create_params",
         False,
     ),
+    "SubscriptionScheduleCreateParamsPhaseDiscountSettings": (
+        "stripe.params._subscription_schedule_create_params",
+        False,
+    ),
+    "SubscriptionScheduleCreateParamsPhaseDiscountSettingsServicePeriodAnchorConfig": (
+        "stripe.params._subscription_schedule_create_params",
+        False,
+    ),
+    "SubscriptionScheduleCreateParamsPhaseDiscountSettingsServicePeriodAnchorConfigCustom": (
+        "stripe.params._subscription_schedule_create_params",
+        False,
+    ),
     "SubscriptionScheduleCreateParamsPhaseDuration": (
         "stripe.params._subscription_schedule_create_params",
         False,
@@ -23272,6 +23857,18 @@ _import_map = {
         False,
     ),
     "SubscriptionScheduleCreateParamsPhaseItemDiscountDiscountEndDuration": (
+        "stripe.params._subscription_schedule_create_params",
+        False,
+    ),
+    "SubscriptionScheduleCreateParamsPhaseItemDiscountSettings": (
+        "stripe.params._subscription_schedule_create_params",
+        False,
+    ),
+    "SubscriptionScheduleCreateParamsPhaseItemDiscountSettingsServicePeriodAnchorConfig": (
+        "stripe.params._subscription_schedule_create_params",
+        False,
+    ),
+    "SubscriptionScheduleCreateParamsPhaseItemDiscountSettingsServicePeriodAnchorConfigCustom": (
         "stripe.params._subscription_schedule_create_params",
         False,
     ),
@@ -23435,6 +24032,18 @@ _import_map = {
         "stripe.params._subscription_schedule_modify_params",
         False,
     ),
+    "SubscriptionScheduleModifyParamsPhaseDiscountSettings": (
+        "stripe.params._subscription_schedule_modify_params",
+        False,
+    ),
+    "SubscriptionScheduleModifyParamsPhaseDiscountSettingsServicePeriodAnchorConfig": (
+        "stripe.params._subscription_schedule_modify_params",
+        False,
+    ),
+    "SubscriptionScheduleModifyParamsPhaseDiscountSettingsServicePeriodAnchorConfigCustom": (
+        "stripe.params._subscription_schedule_modify_params",
+        False,
+    ),
     "SubscriptionScheduleModifyParamsPhaseDuration": (
         "stripe.params._subscription_schedule_modify_params",
         False,
@@ -23464,6 +24073,18 @@ _import_map = {
         False,
     ),
     "SubscriptionScheduleModifyParamsPhaseItemDiscountDiscountEndDuration": (
+        "stripe.params._subscription_schedule_modify_params",
+        False,
+    ),
+    "SubscriptionScheduleModifyParamsPhaseItemDiscountSettings": (
+        "stripe.params._subscription_schedule_modify_params",
+        False,
+    ),
+    "SubscriptionScheduleModifyParamsPhaseItemDiscountSettingsServicePeriodAnchorConfig": (
+        "stripe.params._subscription_schedule_modify_params",
+        False,
+    ),
+    "SubscriptionScheduleModifyParamsPhaseItemDiscountSettingsServicePeriodAnchorConfigCustom": (
         "stripe.params._subscription_schedule_modify_params",
         False,
     ),
@@ -23615,6 +24236,18 @@ _import_map = {
         "stripe.params._subscription_schedule_update_params",
         False,
     ),
+    "SubscriptionScheduleUpdateParamsPhaseDiscountSettings": (
+        "stripe.params._subscription_schedule_update_params",
+        False,
+    ),
+    "SubscriptionScheduleUpdateParamsPhaseDiscountSettingsServicePeriodAnchorConfig": (
+        "stripe.params._subscription_schedule_update_params",
+        False,
+    ),
+    "SubscriptionScheduleUpdateParamsPhaseDiscountSettingsServicePeriodAnchorConfigCustom": (
+        "stripe.params._subscription_schedule_update_params",
+        False,
+    ),
     "SubscriptionScheduleUpdateParamsPhaseDuration": (
         "stripe.params._subscription_schedule_update_params",
         False,
@@ -23644,6 +24277,18 @@ _import_map = {
         False,
     ),
     "SubscriptionScheduleUpdateParamsPhaseItemDiscountDiscountEndDuration": (
+        "stripe.params._subscription_schedule_update_params",
+        False,
+    ),
+    "SubscriptionScheduleUpdateParamsPhaseItemDiscountSettings": (
+        "stripe.params._subscription_schedule_update_params",
+        False,
+    ),
+    "SubscriptionScheduleUpdateParamsPhaseItemDiscountSettingsServicePeriodAnchorConfig": (
+        "stripe.params._subscription_schedule_update_params",
+        False,
+    ),
+    "SubscriptionScheduleUpdateParamsPhaseItemDiscountSettingsServicePeriodAnchorConfigCustom": (
         "stripe.params._subscription_schedule_update_params",
         False,
     ),
@@ -23763,6 +24408,18 @@ _import_map = {
         "stripe.params._subscription_update_params",
         False,
     ),
+    "SubscriptionUpdateParamsDiscountSettings": (
+        "stripe.params._subscription_update_params",
+        False,
+    ),
+    "SubscriptionUpdateParamsDiscountSettingsServicePeriodAnchorConfig": (
+        "stripe.params._subscription_update_params",
+        False,
+    ),
+    "SubscriptionUpdateParamsDiscountSettingsServicePeriodAnchorConfigCustom": (
+        "stripe.params._subscription_update_params",
+        False,
+    ),
     "SubscriptionUpdateParamsInvoiceSettings": (
         "stripe.params._subscription_update_params",
         False,
@@ -23792,6 +24449,18 @@ _import_map = {
         False,
     ),
     "SubscriptionUpdateParamsItemDiscountDiscountEndDuration": (
+        "stripe.params._subscription_update_params",
+        False,
+    ),
+    "SubscriptionUpdateParamsItemDiscountSettings": (
+        "stripe.params._subscription_update_params",
+        False,
+    ),
+    "SubscriptionUpdateParamsItemDiscountSettingsServicePeriodAnchorConfig": (
+        "stripe.params._subscription_update_params",
+        False,
+    ),
+    "SubscriptionUpdateParamsItemDiscountSettingsServicePeriodAnchorConfigCustom": (
         "stripe.params._subscription_update_params",
         False,
     ),

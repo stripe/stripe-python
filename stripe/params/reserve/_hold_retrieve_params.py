@@ -5,7 +5,7 @@ from typing import List
 from typing_extensions import NotRequired
 
 
-class OrderReopenParams(RequestOptions):
+class HoldRetrieveParams(RequestOptions):
     expand: NotRequired[List[str]]
     """
     Specifies which fields in the response should be expanded.

@@ -5,7 +5,11 @@ from typing import List
 from typing_extensions import NotRequired
 
 
-class OrderListLineItemsParams(RequestOptions):
+class ReleaseListParams(RequestOptions):
+    currency: NotRequired[str]
+    """
+    Only return ReserveReleases associated with the currency specified by this currency code. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+    """
     ending_before: NotRequired[str]
     """
     A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -17,6 +21,14 @@ class OrderListLineItemsParams(RequestOptions):
     limit: NotRequired[int]
     """
     A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+    """
+    reserve_hold: NotRequired[str]
+    """
+    Only return ReserveReleases associated with the ReserveHold specified by this ReserveHold ID.
+    """
+    reserve_plan: NotRequired[str]
+    """
+    Only return ReserveReleases associated with the ReservePlan specified by this ReservePlan ID.
     """
     starting_after: NotRequired[str]
     """
