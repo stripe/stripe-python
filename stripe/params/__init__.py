@@ -401,6 +401,8 @@ if TYPE_CHECKING:
         AccountSessionCreateParamsComponentsAccountManagementFeatures as AccountSessionCreateParamsComponentsAccountManagementFeatures,
         AccountSessionCreateParamsComponentsAccountOnboarding as AccountSessionCreateParamsComponentsAccountOnboarding,
         AccountSessionCreateParamsComponentsAccountOnboardingFeatures as AccountSessionCreateParamsComponentsAccountOnboardingFeatures,
+        AccountSessionCreateParamsComponentsAgenticCommerceSettings as AccountSessionCreateParamsComponentsAgenticCommerceSettings,
+        AccountSessionCreateParamsComponentsAgenticCommerceSettingsFeatures as AccountSessionCreateParamsComponentsAgenticCommerceSettingsFeatures,
         AccountSessionCreateParamsComponentsAppInstall as AccountSessionCreateParamsComponentsAppInstall,
         AccountSessionCreateParamsComponentsAppInstallFeatures as AccountSessionCreateParamsComponentsAppInstallFeatures,
         AccountSessionCreateParamsComponentsAppViewport as AccountSessionCreateParamsComponentsAppViewport,
@@ -6966,6 +6968,14 @@ _import_map = {
         False,
     ),
     "AccountSessionCreateParamsComponentsAccountOnboardingFeatures": (
+        "stripe.params._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsAgenticCommerceSettings": (
+        "stripe.params._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsAgenticCommerceSettingsFeatures": (
         "stripe.params._account_session_create_params",
         False,
     ),
