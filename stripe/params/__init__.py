@@ -463,6 +463,10 @@ if TYPE_CHECKING:
         AccountSessionCreateParamsComponentsTaxSettingsFeatures as AccountSessionCreateParamsComponentsTaxSettingsFeatures,
         AccountSessionCreateParamsComponentsTaxThresholdMonitoring as AccountSessionCreateParamsComponentsTaxThresholdMonitoring,
         AccountSessionCreateParamsComponentsTaxThresholdMonitoringFeatures as AccountSessionCreateParamsComponentsTaxThresholdMonitoringFeatures,
+        AccountSessionCreateParamsComponentsTerminalHardwareOrders as AccountSessionCreateParamsComponentsTerminalHardwareOrders,
+        AccountSessionCreateParamsComponentsTerminalHardwareOrdersFeatures as AccountSessionCreateParamsComponentsTerminalHardwareOrdersFeatures,
+        AccountSessionCreateParamsComponentsTerminalHardwareShop as AccountSessionCreateParamsComponentsTerminalHardwareShop,
+        AccountSessionCreateParamsComponentsTerminalHardwareShopFeatures as AccountSessionCreateParamsComponentsTerminalHardwareShopFeatures,
     )
     from stripe.params._account_update_params import (
         AccountUpdateParams as AccountUpdateParams,
@@ -7216,6 +7220,22 @@ _import_map = {
         False,
     ),
     "AccountSessionCreateParamsComponentsTaxThresholdMonitoringFeatures": (
+        "stripe.params._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsTerminalHardwareOrders": (
+        "stripe.params._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsTerminalHardwareOrdersFeatures": (
+        "stripe.params._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsTerminalHardwareShop": (
+        "stripe.params._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsTerminalHardwareShopFeatures": (
         "stripe.params._account_session_create_params",
         False,
     ),
