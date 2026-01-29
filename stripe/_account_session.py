@@ -301,6 +301,17 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             features: Features
             _inner_class_types = {"features": Features}
 
+        class NetworkCostPassthroughReport(StripeObject):
+            class Features(StripeObject):
+                pass
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
         class NotificationBanner(StripeObject):
             class Features(StripeObject):
                 disable_stripe_user_authentication: bool
@@ -488,6 +499,10 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         instant_payouts_promotion: InstantPayoutsPromotion
         issuing_card: IssuingCard
         issuing_cards_list: IssuingCardsList
+        network_cost_passthrough_report: Optional[NetworkCostPassthroughReport]
+        """
+        Configuration for the [network cost passthrough report](https://docs.stripe.com/connect/supported-embedded-components/network-cost-passthrough-report/) embedded component.
+        """
         notification_banner: NotificationBanner
         payment_details: PaymentDetails
         payment_disputes: PaymentDisputes
@@ -513,6 +528,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "instant_payouts_promotion": InstantPayoutsPromotion,
             "issuing_card": IssuingCard,
             "issuing_cards_list": IssuingCardsList,
+            "network_cost_passthrough_report": NetworkCostPassthroughReport,
             "notification_banner": NotificationBanner,
             "payment_details": PaymentDetails,
             "payment_disputes": PaymentDisputes,
