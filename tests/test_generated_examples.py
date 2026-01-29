@@ -44593,6 +44593,32 @@ class TestGeneratedExamples(object):
             api_base="https://api.stripe.com",
         )
 
+    def test_v2_core_batch_job_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/batch_jobs",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.batch_jobs.create(
+            {
+                "endpoint": "/v1/subscription_schedules",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/batch_jobs",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"endpoint":"/v1/subscription_schedules"}',
+            is_json=True,
+        )
+
     def test_v2_core_event_get_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:

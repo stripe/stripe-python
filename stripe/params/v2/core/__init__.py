@@ -399,6 +399,9 @@ if TYPE_CHECKING:
         AccountUpdateParamsIdentityIndividualScriptNamesKana as AccountUpdateParamsIdentityIndividualScriptNamesKana,
         AccountUpdateParamsIdentityIndividualScriptNamesKanji as AccountUpdateParamsIdentityIndividualScriptNamesKanji,
     )
+    from stripe.params.v2.core._batch_job_create_params import (
+        BatchJobCreateParams as BatchJobCreateParams,
+    )
     from stripe.params.v2.core._event_destination_create_params import (
         EventDestinationCreateParams as EventDestinationCreateParams,
         EventDestinationCreateParamsAmazonEventbridge as EventDestinationCreateParamsAmazonEventbridge,
@@ -1945,6 +1948,10 @@ _import_map = {
     ),
     "AccountUpdateParamsIdentityIndividualScriptNamesKanji": (
         "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "BatchJobCreateParams": (
+        "stripe.params.v2.core._batch_job_create_params",
         False,
     ),
     "EventDestinationCreateParams": (
