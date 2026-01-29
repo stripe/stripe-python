@@ -433,6 +433,7 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "AccountPersonToken",
     ),
     "v2.core.account_token": ("stripe.v2.core._account_token", "AccountToken"),
+    "v2.core.batch_job": ("stripe.v2.core._batch_job", "BatchJob"),
     "v2.core.event": ("stripe.v2.core._event", "Event"),
     "v2.core.event_destination": (
         "stripe.v2.core._event_destination",
