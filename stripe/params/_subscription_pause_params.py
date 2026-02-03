@@ -27,9 +27,9 @@ class SubscriptionPauseParams(RequestOptions):
 class SubscriptionPauseParamsBillFor(TypedDict):
     outstanding_usage: NotRequired[bool]
     """
-    Controls whether to debit for accrued metered usage in the current billing period. The default is `false`.
+    Controls whether to debit for accrued metered usage in the current billing period. The default is `true`.
     """
     unused_time: NotRequired[bool]
     """
-    Controls whether to credit for licensed items in the current billing period. The default is `false`.
+    Controls whether to credit for licensed items in the current billing period. The default is `true`.
     """
