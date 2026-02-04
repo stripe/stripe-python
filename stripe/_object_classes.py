@@ -532,6 +532,10 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.v2.core._claimable_sandbox",
         "ClaimableSandbox",
     ),
+    "v2.core.connection_session": (
+        "stripe.v2.core._connection_session",
+        "ConnectionSession",
+    ),
     "v2.core.event": ("stripe.v2.core._event", "Event"),
     "v2.core.event_destination": (
         "stripe.v2.core._event_destination",

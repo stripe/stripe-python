@@ -56,7 +56,7 @@ class SettlementAllocationIntentSplit(StripeObject):
     """
     Timestamp at which SettlementAllocationIntentSplit was created.
     """
-    flow: Flow
+    flow: Optional[Flow]
     """
     Details about the Flow object that settled the split.
     """

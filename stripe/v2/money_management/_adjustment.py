@@ -99,4 +99,8 @@ class Adjustment(StripeObject):
     """
     A link to the Stripe-hosted receipt that is provided when money movement is considered regulated under Stripe's money transmission licenses. The receipt link remains active for 60 days from the Adjustment creation date. After this period, the link will expire and the receipt url value will be null.
     """
+    reference: Optional[str]
+    """
+    A reference for the Adjustment that associates it with related records or operations.
+    """
     _inner_class_types = {"adjusted_flow": AdjustedFlow, "amount": Amount}

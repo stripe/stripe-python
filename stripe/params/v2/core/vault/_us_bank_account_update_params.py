@@ -6,7 +6,7 @@ from typing_extensions import NotRequired, TypedDict
 class UsBankAccountUpdateParams(TypedDict):
     fedwire_routing_number: NotRequired[str]
     """
-    The bank account's fedwire routing number can be provided for update it was were empty previously.
+    The bank account's Fedwire routing number can be provided for update if it was empty previously.
     """
     routing_number: NotRequired[str]
     """

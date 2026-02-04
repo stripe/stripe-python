@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional
+from typing import ClassVar, List, Optional
 from typing_extensions import Literal
 
 
@@ -71,6 +71,66 @@ class ReceivedDebit(StripeObject):
         """
         _inner_class_types = {"us_bank_account": UsBankAccount}
 
+    class CardSpend(StripeObject):
+        class Authorization(StripeObject):
+            class Amount(StripeObject):
+                currency: Optional[str]
+                """
+                Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                """
+                value: Optional[int]
+                """
+                A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+                """
+
+            amount: Amount
+            """
+            Amount associated with this issuing authorization.
+            """
+            issuing_authorization_v1: str
+            """
+            The reference to the v1 issuing authorization ID.
+            """
+            _inner_class_types = {"amount": Amount}
+
+        class CardTransaction(StripeObject):
+            class Amount(StripeObject):
+                currency: Optional[str]
+                """
+                Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                """
+                value: Optional[int]
+                """
+                A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+                """
+
+            amount: Amount
+            """
+            Amount associated with this issuing transaction.
+            """
+            issuing_transaction_v1: str
+            """
+            The reference to the v1 issuing transaction ID.
+            """
+            _inner_class_types = {"amount": Amount}
+
+        authorization: Optional[Authorization]
+        """
+        The Issuing Authorization for this card_spend. Contains the reference id and the amount.
+        """
+        card_transactions: List[CardTransaction]
+        """
+        The list of card spend transactions. These contain the transaction reference ID and the amount.
+        """
+        card_v1_id: str
+        """
+        The reference to the card object that resulted in the debit.
+        """
+        _inner_class_types = {
+            "authorization": Authorization,
+            "card_transactions": CardTransaction,
+        }
+
     class ExternalAmount(StripeObject):
         currency: Optional[str]
         """
@@ -138,6 +198,10 @@ class ReceivedDebit(StripeObject):
     """
     This object stores details about the originating banking transaction that resulted in the ReceivedDebit. Present if `type` field value is `bank_transfer`.
     """
+    card_spend: Optional[CardSpend]
+    """
+    This object stores details about the issuing transactions that resulted in the ReceivedDebit. Present if `type` field value is `card_spend`.
+    """
     created: str
     """
     The time at which the ReceivedDebit was created.
@@ -190,6 +254,7 @@ class ReceivedDebit(StripeObject):
     type: Literal[
         "balance_transfer",
         "bank_transfer",
+        "card_spend",
         "external_debit",
         "stripe_balance_payment",
     ]
@@ -200,6 +265,7 @@ class ReceivedDebit(StripeObject):
         "amount": Amount,
         "balance_transfer": BalanceTransfer,
         "bank_transfer": BankTransfer,
+        "card_spend": CardSpend,
         "external_amount": ExternalAmount,
         "status_details": StatusDetails,
         "status_transitions": StatusTransitions,

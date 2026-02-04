@@ -11,6 +11,9 @@ if TYPE_CHECKING:
     from stripe.v2.core._claimable_sandbox_service import (
         ClaimableSandboxService,
     )
+    from stripe.v2.core._connection_session_service import (
+        ConnectionSessionService,
+    )
     from stripe.v2.core._event_destination_service import (
         EventDestinationService,
     )
@@ -31,6 +34,10 @@ _subservices = {
         "stripe.v2.core._claimable_sandbox_service",
         "ClaimableSandboxService",
     ],
+    "connection_sessions": [
+        "stripe.v2.core._connection_session_service",
+        "ConnectionSessionService",
+    ],
     "events": ["stripe.v2.core._event_service", "EventService"],
     "event_destinations": [
         "stripe.v2.core._event_destination_service",
@@ -45,6 +52,7 @@ class CoreService(StripeService):
     account_links: "AccountLinkService"
     account_tokens: "AccountTokenService"
     claimable_sandboxes: "ClaimableSandboxService"
+    connection_sessions: "ConnectionSessionService"
     events: "EventService"
     event_destinations: "EventDestinationService"
     vault: "VaultService"

@@ -301,6 +301,17 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             features: Features
             _inner_class_types = {"features": Features}
 
+        class NetworkCostPassthroughReport(StripeObject):
+            class Features(StripeObject):
+                pass
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
         class NotificationBanner(StripeObject):
             class Features(StripeObject):
                 disable_stripe_user_authentication: bool
@@ -467,6 +478,28 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             features: Features
             _inner_class_types = {"features": Features}
 
+        class TerminalHardwareOrders(StripeObject):
+            class Features(StripeObject):
+                pass
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
+        class TerminalHardwareShop(StripeObject):
+            class Features(StripeObject):
+                pass
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
         account_management: AccountManagement
         account_onboarding: AccountOnboarding
         agentic_commerce_settings: Optional[AgenticCommerceSettings]
@@ -488,6 +521,10 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         instant_payouts_promotion: InstantPayoutsPromotion
         issuing_card: IssuingCard
         issuing_cards_list: IssuingCardsList
+        network_cost_passthrough_report: Optional[NetworkCostPassthroughReport]
+        """
+        Configuration for the [network cost passthrough report](https://docs.stripe.com/connect/supported-embedded-components/network-cost-passthrough-report/) embedded component.
+        """
         notification_banner: NotificationBanner
         payment_details: PaymentDetails
         payment_disputes: PaymentDisputes
@@ -497,6 +534,14 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         payouts_list: PayoutsList
         tax_registrations: TaxRegistrations
         tax_settings: TaxSettings
+        terminal_hardware_orders: Optional[TerminalHardwareOrders]
+        """
+        Configuration for the [Terminal hardware orders](https://docs.stripe.com/connect/supported-embedded-components/terminal-hardware-orders/) embedded component.
+        """
+        terminal_hardware_shop: Optional[TerminalHardwareShop]
+        """
+        Configuration for the [Terminal hardware shop](https://docs.stripe.com/connect/supported-embedded-components/terminal-hardware-shop/) embedded component.
+        """
         _inner_class_types = {
             "account_management": AccountManagement,
             "account_onboarding": AccountOnboarding,
@@ -513,6 +558,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "instant_payouts_promotion": InstantPayoutsPromotion,
             "issuing_card": IssuingCard,
             "issuing_cards_list": IssuingCardsList,
+            "network_cost_passthrough_report": NetworkCostPassthroughReport,
             "notification_banner": NotificationBanner,
             "payment_details": PaymentDetails,
             "payment_disputes": PaymentDisputes,
@@ -522,6 +568,8 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "payouts_list": PayoutsList,
             "tax_registrations": TaxRegistrations,
             "tax_settings": TaxSettings,
+            "terminal_hardware_orders": TerminalHardwareOrders,
+            "terminal_hardware_shop": TerminalHardwareShop,
         }
 
     account: str

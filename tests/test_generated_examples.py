@@ -44007,6 +44007,10 @@ class TestGeneratedExamples(object):
                             },
                         },
                         "deactivate": {
+                            "cancellation_details": {
+                                "comment": "comment",
+                                "feedback": "other",
+                            },
                             "collect_at": "next_billing_date",
                             "effective_at": {
                                 "timestamp": "1970-01-01T15:18:46.294Z",
@@ -44113,7 +44117,7 @@ class TestGeneratedExamples(object):
             path="/v2/billing/intents",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"actions":[{"type":"apply","apply":{"type":"invoice_discount_rule","invoice_discount_rule":{"applies_to":"cadence","type":"percent_off","percent_off":{"maximum_applications":{"type":"indefinite"},"percent_off":"percent_off"}}},"deactivate":{"collect_at":"next_billing_date","effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"on_reserve"},"pricing_plan_subscription_details":{"overrides":{"partial_period_behaviors":[{"type":"license_fee","license_fee":{"credit_proration_behavior":"prorated"}}]},"pricing_plan_subscription":"pricing_plan_subscription"},"type":"pricing_plan_subscription_details"},"modify":{"collect_at":"next_billing_date","effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"current_billing_period_start"},"pricing_plan_subscription_details":{"component_configurations":[{"quantity":1285004149,"lookup_key":"lookup_key","pricing_plan_component":"pricing_plan_component"}],"new_pricing_plan":"new_pricing_plan","new_pricing_plan_version":"new_pricing_plan_version","overrides":{"partial_period_behaviors":[{"type":"license_fee","license_fee":{"credit_proration_behavior":"prorated","debit_proration_behavior":"none"}}]},"pricing_plan_subscription":"pricing_plan_subscription"},"type":"pricing_plan_subscription_details"},"remove":{"type":"invoice_discount_rule","invoice_discount_rule":"invoice_discount_rule"},"subscribe":{"collect_at":"next_billing_date","effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"current_billing_period_start"},"type":"pricing_plan_subscription_details","pricing_plan_subscription_details":{"component_configurations":[{"quantity":1285004149,"lookup_key":"lookup_key","pricing_plan_component":"pricing_plan_component"}],"metadata":{"key":"metadata"},"overrides":{"partial_period_behaviors":[{"type":"license_fee","license_fee":{"debit_proration_behavior":"none"}}]},"pricing_plan":"pricing_plan","pricing_plan_version":"pricing_plan_version"},"v1_subscription_details":{"description":"description","items":[{"metadata":{"key":"metadata"},"price":"price","quantity":1285004149}],"metadata":{"key":"metadata"}}}}],"currency":"usd"}',
+            post_data='{"actions":[{"type":"apply","apply":{"type":"invoice_discount_rule","invoice_discount_rule":{"applies_to":"cadence","type":"percent_off","percent_off":{"maximum_applications":{"type":"indefinite"},"percent_off":"percent_off"}}},"deactivate":{"cancellation_details":{"comment":"comment","feedback":"other"},"collect_at":"next_billing_date","effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"on_reserve"},"pricing_plan_subscription_details":{"overrides":{"partial_period_behaviors":[{"type":"license_fee","license_fee":{"credit_proration_behavior":"prorated"}}]},"pricing_plan_subscription":"pricing_plan_subscription"},"type":"pricing_plan_subscription_details"},"modify":{"collect_at":"next_billing_date","effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"current_billing_period_start"},"pricing_plan_subscription_details":{"component_configurations":[{"quantity":1285004149,"lookup_key":"lookup_key","pricing_plan_component":"pricing_plan_component"}],"new_pricing_plan":"new_pricing_plan","new_pricing_plan_version":"new_pricing_plan_version","overrides":{"partial_period_behaviors":[{"type":"license_fee","license_fee":{"credit_proration_behavior":"prorated","debit_proration_behavior":"none"}}]},"pricing_plan_subscription":"pricing_plan_subscription"},"type":"pricing_plan_subscription_details"},"remove":{"type":"invoice_discount_rule","invoice_discount_rule":"invoice_discount_rule"},"subscribe":{"collect_at":"next_billing_date","effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"current_billing_period_start"},"type":"pricing_plan_subscription_details","pricing_plan_subscription_details":{"component_configurations":[{"quantity":1285004149,"lookup_key":"lookup_key","pricing_plan_component":"pricing_plan_component"}],"metadata":{"key":"metadata"},"overrides":{"partial_period_behaviors":[{"type":"license_fee","license_fee":{"debit_proration_behavior":"none"}}]},"pricing_plan":"pricing_plan","pricing_plan_version":"pricing_plan_version"},"v1_subscription_details":{"description":"description","items":[{"metadata":{"key":"metadata"},"price":"price","quantity":1285004149}],"metadata":{"key":"metadata"}}}}],"currency":"usd"}',
             is_json=True,
         )
 
@@ -45254,13 +45258,16 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.v2.billing.rate_cards.rates.create("rate_card_id_123")
+        client.v2.billing.rate_cards.rates.create(
+            "rate_card_id_123",
+            {"metered_item": "metered_item"},
+        )
         http_client_mock.assert_requested(
             "post",
             path="/v2/billing/rate_cards/rate_card_id_123/rates",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data="{}",
+            post_data='{"metered_item":"metered_item"}',
             is_json=True,
         )
 
@@ -45934,6 +45941,48 @@ class TestGeneratedExamples(object):
         http_client_mock.assert_requested(
             "get",
             path="/v2/core/claimable_sandboxes/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_core_connection_session_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/connection_sessions",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.connection_sessions.create({"account": "account"})
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/connection_sessions",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"account":"account"}',
+            is_json=True,
+        )
+
+    def test_v2_core_connection_session_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/core/connection_sessions/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.connection_sessions.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/core/connection_sessions/id_123",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -47741,6 +47790,26 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
+    def test_v2_payments_settlement_allocation_intent_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/payments/settlement_allocation_intents",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.payments.settlement_allocation_intents.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/payments/settlement_allocation_intents",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
     def test_v2_payments_settlement_allocation_intent_post_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -47770,7 +47839,7 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
-    def test_v2_payments_settlement_allocation_intent_get_service(
+    def test_v2_payments_settlement_allocation_intent_get_2_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
         http_client_mock.stub_request(
@@ -47856,6 +47925,28 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
+    def test_v2_payments_settlement_allocation_intents_split_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/payments/settlement_allocation_intents/settlement_allocation_intent_id_123/splits",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.payments.settlement_allocation_intents.splits.list(
+            "settlement_allocation_intent_id_123",
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/payments/settlement_allocation_intents/settlement_allocation_intent_id_123/splits",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
     def test_v2_payments_settlement_allocation_intents_split_post_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -47885,7 +47976,7 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
-    def test_v2_payments_settlement_allocation_intents_split_get_service(
+    def test_v2_payments_settlement_allocation_intents_split_get_2_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
         http_client_mock.stub_request(
@@ -48296,7 +48387,7 @@ class TestGeneratedExamples(object):
         http_client_mock.stub_request(
             "post",
             "/v2/core/vault/us_bank_accounts",
-            rbody='{"error":{"type":"blocked_by_stripe","code":"blocked_payout_method_bank_account"}}',
+            rbody='{"error":{"type":"blocked_by_stripe","code":"blocked_payout_method"}}',
             rcode=400,
         )
         client = StripeClient(

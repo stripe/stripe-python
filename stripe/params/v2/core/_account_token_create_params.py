@@ -9,6 +9,10 @@ class AccountTokenCreateParams(TypedDict):
     """
     The default contact email address for the Account. Required when configuring the account as a merchant or recipient.
     """
+    contact_phone: NotRequired[str]
+    """
+    The default contact phone for the Account.
+    """
     display_name: NotRequired[str]
     """
     A descriptive name for the Account. This name will be surfaced in the Stripe Dashboard and on any invoices sent to the Account.
@@ -504,6 +508,12 @@ class AccountTokenCreateParamsIdentityBusinessDetails(TypedDict):
     """
     The business legal name.
     """
+    registration_date: NotRequired[
+        "AccountTokenCreateParamsIdentityBusinessDetailsRegistrationDate"
+    ]
+    """
+    When the business was incorporated or registered.
+    """
     script_addresses: NotRequired[
         "AccountTokenCreateParamsIdentityBusinessDetailsScriptAddresses"
     ]
@@ -868,6 +878,7 @@ class AccountTokenCreateParamsIdentityBusinessDetailsIdNumber(TypedDict):
         "fr_siren",
         "fr_vat",
         "gb_crn",
+        "gb_vat",
         "gi_crn",
         "gr_afm",
         "gr_gemi",
@@ -966,6 +977,23 @@ class AccountTokenCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenueAmou
     currency: NotRequired[str]
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+    """
+
+
+class AccountTokenCreateParamsIdentityBusinessDetailsRegistrationDate(
+    TypedDict,
+):
+    day: int
+    """
+    The day of registration, between 1 and 31.
+    """
+    month: int
+    """
+    The month of registration, between 1 and 12.
+    """
+    year: int
+    """
+    The four-digit year of registration.
     """
 
 

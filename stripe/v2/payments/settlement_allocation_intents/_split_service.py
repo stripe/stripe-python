@@ -13,15 +13,67 @@ if TYPE_CHECKING:
     from stripe.params.v2.payments.settlement_allocation_intents._split_create_params import (
         SplitCreateParams,
     )
+    from stripe.params.v2.payments.settlement_allocation_intents._split_list_params import (
+        SplitListParams,
+    )
     from stripe.params.v2.payments.settlement_allocation_intents._split_retrieve_params import (
         SplitRetrieveParams,
     )
+    from stripe.v2._list_object import ListObject
     from stripe.v2.payments._settlement_allocation_intent_split import (
         SettlementAllocationIntentSplit,
     )
 
 
 class SplitService(StripeService):
+    def list(
+        self,
+        settlement_allocation_intent_id: str,
+        params: Optional["SplitListParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[SettlementAllocationIntentSplit]":
+        """
+        List SettlementAllocationIntentSplits API.
+        """
+        return cast(
+            "ListObject[SettlementAllocationIntentSplit]",
+            self._request(
+                "get",
+                "/v2/payments/settlement_allocation_intents/{settlement_allocation_intent_id}/splits".format(
+                    settlement_allocation_intent_id=sanitize_id(
+                        settlement_allocation_intent_id
+                    ),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def list_async(
+        self,
+        settlement_allocation_intent_id: str,
+        params: Optional["SplitListParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[SettlementAllocationIntentSplit]":
+        """
+        List SettlementAllocationIntentSplits API.
+        """
+        return cast(
+            "ListObject[SettlementAllocationIntentSplit]",
+            await self._request_async(
+                "get",
+                "/v2/payments/settlement_allocation_intents/{settlement_allocation_intent_id}/splits".format(
+                    settlement_allocation_intent_id=sanitize_id(
+                        settlement_allocation_intent_id
+                    ),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         settlement_allocation_intent_id: str,

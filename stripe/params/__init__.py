@@ -401,6 +401,8 @@ if TYPE_CHECKING:
         AccountSessionCreateParamsComponentsAccountManagementFeatures as AccountSessionCreateParamsComponentsAccountManagementFeatures,
         AccountSessionCreateParamsComponentsAccountOnboarding as AccountSessionCreateParamsComponentsAccountOnboarding,
         AccountSessionCreateParamsComponentsAccountOnboardingFeatures as AccountSessionCreateParamsComponentsAccountOnboardingFeatures,
+        AccountSessionCreateParamsComponentsAgenticCommerceSettings as AccountSessionCreateParamsComponentsAgenticCommerceSettings,
+        AccountSessionCreateParamsComponentsAgenticCommerceSettingsFeatures as AccountSessionCreateParamsComponentsAgenticCommerceSettingsFeatures,
         AccountSessionCreateParamsComponentsAppInstall as AccountSessionCreateParamsComponentsAppInstall,
         AccountSessionCreateParamsComponentsAppInstallFeatures as AccountSessionCreateParamsComponentsAppInstallFeatures,
         AccountSessionCreateParamsComponentsAppViewport as AccountSessionCreateParamsComponentsAppViewport,
@@ -461,6 +463,10 @@ if TYPE_CHECKING:
         AccountSessionCreateParamsComponentsTaxSettingsFeatures as AccountSessionCreateParamsComponentsTaxSettingsFeatures,
         AccountSessionCreateParamsComponentsTaxThresholdMonitoring as AccountSessionCreateParamsComponentsTaxThresholdMonitoring,
         AccountSessionCreateParamsComponentsTaxThresholdMonitoringFeatures as AccountSessionCreateParamsComponentsTaxThresholdMonitoringFeatures,
+        AccountSessionCreateParamsComponentsTerminalHardwareOrders as AccountSessionCreateParamsComponentsTerminalHardwareOrders,
+        AccountSessionCreateParamsComponentsTerminalHardwareOrdersFeatures as AccountSessionCreateParamsComponentsTerminalHardwareOrdersFeatures,
+        AccountSessionCreateParamsComponentsTerminalHardwareShop as AccountSessionCreateParamsComponentsTerminalHardwareShop,
+        AccountSessionCreateParamsComponentsTerminalHardwareShopFeatures as AccountSessionCreateParamsComponentsTerminalHardwareShopFeatures,
     )
     from stripe.params._account_update_params import (
         AccountUpdateParams as AccountUpdateParams,
@@ -6969,6 +6975,14 @@ _import_map = {
         "stripe.params._account_session_create_params",
         False,
     ),
+    "AccountSessionCreateParamsComponentsAgenticCommerceSettings": (
+        "stripe.params._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsAgenticCommerceSettingsFeatures": (
+        "stripe.params._account_session_create_params",
+        False,
+    ),
     "AccountSessionCreateParamsComponentsAppInstall": (
         "stripe.params._account_session_create_params",
         False,
@@ -7206,6 +7220,22 @@ _import_map = {
         False,
     ),
     "AccountSessionCreateParamsComponentsTaxThresholdMonitoringFeatures": (
+        "stripe.params._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsTerminalHardwareOrders": (
+        "stripe.params._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsTerminalHardwareOrdersFeatures": (
+        "stripe.params._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsTerminalHardwareShop": (
+        "stripe.params._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsTerminalHardwareShopFeatures": (
         "stripe.params._account_session_create_params",
         False,
     ),

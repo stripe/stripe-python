@@ -2852,6 +2852,8 @@ class Account(StripeObject):
                 The payout method ID of the default outbound destination.
                 """
                 type: Literal[
+                    "ae_bank_account",
+                    "ag_bank_account",
                     "al_bank_account",
                     "am_bank_account",
                     "at_bank_account",
@@ -2859,6 +2861,7 @@ class Account(StripeObject):
                     "ba_bank_account",
                     "be_bank_account",
                     "bg_bank_account",
+                    "bh_bank_account",
                     "bj_bank_account",
                     "bn_bank_account",
                     "bs_bank_account",
@@ -2880,8 +2883,10 @@ class Account(StripeObject):
                     "fi_bank_account",
                     "fr_bank_account",
                     "gb_bank_account",
+                    "gm_bank_account",
                     "gr_bank_account",
                     "gy_bank_account",
+                    "hk_bank_account",
                     "hr_bank_account",
                     "hu_bank_account",
                     "id_bank_account",
@@ -2893,17 +2898,22 @@ class Account(StripeObject):
                     "jm_bank_account",
                     "jo_bank_account",
                     "ke_bank_account",
+                    "kh_bank_account",
                     "kw_bank_account",
+                    "lc_bank_account",
                     "li_bank_account",
                     "lk_bank_account",
                     "lt_bank_account",
                     "lu_bank_account",
                     "lv_bank_account",
                     "ma_bank_account",
+                    "mc_bank_account",
+                    "mg_bank_account",
                     "mn_bank_account",
                     "mt_bank_account",
                     "mu_bank_account",
                     "mx_bank_account",
+                    "my_bank_account",
                     "na_bank_account",
                     "nl_bank_account",
                     "no_bank_account",
@@ -2913,18 +2923,23 @@ class Account(StripeObject):
                     "ph_bank_account",
                     "pl_bank_account",
                     "pt_bank_account",
+                    "qa_bank_account",
                     "ro_bank_account",
                     "rs_bank_account",
+                    "rw_bank_account",
                     "se_bank_account",
                     "sg_bank_account",
                     "si_bank_account",
                     "sk_bank_account",
                     "sn_bank_account",
                     "sv_bank_account",
+                    "th_bank_account",
                     "tn_bank_account",
                     "tr_bank_account",
+                    "tt_bank_account",
                     "tz_bank_account",
                     "us_bank_account",
+                    "vn_bank_account",
                     "za_bank_account",
                 ]
                 """
@@ -5082,6 +5097,7 @@ class Account(StripeObject):
                     "fr_siren",
                     "fr_vat",
                     "gb_crn",
+                    "gb_vat",
                     "gi_crn",
                     "gr_afm",
                     "gr_gemi",
@@ -5170,6 +5186,20 @@ class Account(StripeObject):
                 Estimated monthly revenue amount in minor currency units (for example, '123' for 1.23 USD).
                 """
                 _inner_class_types = {"amount": Amount}
+
+            class RegistrationDate(StripeObject):
+                day: int
+                """
+                The day of registration, between 1 and 31.
+                """
+                month: int
+                """
+                The month of registration, between 1 and 12.
+                """
+                year: int
+                """
+                The four-digit year of registration.
+                """
 
             class ScriptAddresses(StripeObject):
                 class Kana(StripeObject):
@@ -5301,6 +5331,10 @@ class Account(StripeObject):
             """
             The business legal name.
             """
+            registration_date: Optional[RegistrationDate]
+            """
+            When the business was incorporated or registered.
+            """
             script_addresses: Optional[ScriptAddresses]
             """
             The business registration address of the business entity in non latin script.
@@ -5349,6 +5383,7 @@ class Account(StripeObject):
                 "documents": Documents,
                 "id_numbers": IdNumber,
                 "monthly_estimated_revenue": MonthlyEstimatedRevenue,
+                "registration_date": RegistrationDate,
                 "script_addresses": ScriptAddresses,
                 "script_names": ScriptNames,
             }
@@ -6249,6 +6284,10 @@ class Account(StripeObject):
     contact_email: Optional[str]
     """
     The default contact email address for the Account. Required when configuring the account as a merchant or recipient.
+    """
+    contact_phone: Optional[str]
+    """
+    The default contact phone for the Account.
     """
     created: str
     """
