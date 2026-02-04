@@ -17,6 +17,10 @@ class IntentCreateParams(TypedDict):
     """
     ID of an existing Cadence to use.
     """
+    cadence_data: NotRequired["IntentCreateParamsCadenceData"]
+    """
+    Data for creating a new Cadence.
+    """
 
 
 class IntentCreateParamsAction(TypedDict):
@@ -97,6 +101,12 @@ class IntentCreateParamsActionApplyInvoiceDiscountRulePercentOffMaximumApplicati
 
 
 class IntentCreateParamsActionDeactivate(TypedDict):
+    cancellation_details: NotRequired[
+        "IntentCreateParamsActionDeactivateCancellationDetails"
+    ]
+    """
+    Details about why the cancellation is being requested.
+    """
     collect_at: NotRequired[Literal["next_billing_date", "on_effective_at"]]
     """
     Allows users to override the collect at behavior.
@@ -116,6 +126,28 @@ class IntentCreateParamsActionDeactivate(TypedDict):
     ]
     """
     Type of the action details.
+    """
+
+
+class IntentCreateParamsActionDeactivateCancellationDetails(TypedDict):
+    comment: NotRequired[str]
+    """
+    Additional comments about why the user canceled the subscription, if the subscription was canceled explicitly by the user.
+    """
+    feedback: NotRequired[
+        Literal[
+            "customer_service",
+            "low_quality",
+            "missing_features",
+            "other",
+            "switched_service",
+            "too_complex",
+            "too_expensive",
+            "unused",
+        ]
+    ]
+    """
+    The customer submitted reason for why they canceled, if the subscription was canceled explicitly by the user.
     """
 
 
@@ -466,4 +498,258 @@ class IntentCreateParamsActionSubscribeV1SubscriptionDetailsItem(TypedDict):
     quantity: NotRequired[int]
     """
     Quantity for this item. If not provided, will default to 1.
+    """
+
+
+class IntentCreateParamsCadenceData(TypedDict):
+    billing_cycle: "IntentCreateParamsCadenceDataBillingCycle"
+    """
+    The billing cycle configuration for this Cadence.
+    """
+    payer: "IntentCreateParamsCadenceDataPayer"
+    """
+    Information about the payer for this Cadence.
+    """
+    settings: NotRequired["IntentCreateParamsCadenceDataSettings"]
+    """
+    Settings for creating the Cadence.
+    """
+
+
+class IntentCreateParamsCadenceDataBillingCycle(TypedDict):
+    interval_count: NotRequired[int]
+    """
+    The number of intervals (specified in the interval attribute) between
+    cadence billings. For example, type=month and interval_count=3 bills every
+    3 months. If this is not provided, it will default to 1.
+    """
+    type: Literal["day", "month", "week", "year"]
+    """
+    The frequency at which a cadence bills.
+    """
+    day: NotRequired["IntentCreateParamsCadenceDataBillingCycleDay"]
+    """
+    Specific configuration for determining billing dates when type=day.
+    """
+    month: NotRequired["IntentCreateParamsCadenceDataBillingCycleMonth"]
+    """
+    Specific configuration for determining billing dates when type=month.
+    """
+    week: NotRequired["IntentCreateParamsCadenceDataBillingCycleWeek"]
+    """
+    Specific configuration for determining billing dates when type=week.
+    """
+    year: NotRequired["IntentCreateParamsCadenceDataBillingCycleYear"]
+    """
+    Specific configuration for determining billing dates when type=year.
+    """
+
+
+class IntentCreateParamsCadenceDataBillingCycleDay(TypedDict):
+    time: NotRequired["IntentCreateParamsCadenceDataBillingCycleDayTime"]
+    """
+    The time at which the billing cycle ends.
+    This field is optional, and if not provided, it will default to
+    the time at which the cadence was created in UTC timezone.
+    """
+
+
+class IntentCreateParamsCadenceDataBillingCycleDayTime(TypedDict):
+    hour: int
+    """
+    The hour at which the billing cycle ends.
+    This must be an integer between 0 and 23, inclusive.
+    0 represents midnight, and 23 represents 11 PM.
+    """
+    minute: int
+    """
+    The minute at which the billing cycle ends.
+    Must be an integer between 0 and 59, inclusive.
+    """
+    second: int
+    """
+    The second at which the billing cycle ends.
+    Must be an integer between 0 and 59, inclusive.
+    """
+
+
+class IntentCreateParamsCadenceDataBillingCycleMonth(TypedDict):
+    day_of_month: int
+    """
+    The day to anchor the billing on for a type="month" billing cycle from
+    1-31. If this number is greater than the number of days in the month being
+    billed, this will anchor to the last day of the month. If not provided,
+    this will default to the day the cadence was created.
+    """
+    month_of_year: NotRequired[int]
+    """
+    The month to anchor the billing on for a type="month" billing cycle from
+    1-12. If not provided, this will default to the month the cadence was created.
+    This setting can only be used for monthly billing cycles with `interval_count` of 2, 3, 4 or 6.
+    All occurrences will be calculated from month provided.
+    """
+    time: NotRequired["IntentCreateParamsCadenceDataBillingCycleMonthTime"]
+    """
+    The time at which the billing cycle ends.
+    This field is optional, and if not provided, it will default to
+    the time at which the cadence was created in UTC timezone.
+    """
+
+
+class IntentCreateParamsCadenceDataBillingCycleMonthTime(TypedDict):
+    hour: int
+    """
+    The hour at which the billing cycle ends.
+    This must be an integer between 0 and 23, inclusive.
+    0 represents midnight, and 23 represents 11 PM.
+    """
+    minute: int
+    """
+    The minute at which the billing cycle ends.
+    Must be an integer between 0 and 59, inclusive.
+    """
+    second: int
+    """
+    The second at which the billing cycle ends.
+    Must be an integer between 0 and 59, inclusive.
+    """
+
+
+class IntentCreateParamsCadenceDataBillingCycleWeek(TypedDict):
+    day_of_week: int
+    """
+    The day of the week to bill the type=week billing cycle on.
+    Numbered from 1-7 for Monday to Sunday respectively, based on the ISO-8601
+    week day numbering. If not provided, this will default to the day the
+    cadence was created.
+    """
+    time: NotRequired["IntentCreateParamsCadenceDataBillingCycleWeekTime"]
+    """
+    The time at which the billing cycle ends.
+    This field is optional, and if not provided, it will default to
+    the time at which the cadence was created in UTC timezone.
+    """
+
+
+class IntentCreateParamsCadenceDataBillingCycleWeekTime(TypedDict):
+    hour: int
+    """
+    The hour at which the billing cycle ends.
+    This must be an integer between 0 and 23, inclusive.
+    0 represents midnight, and 23 represents 11 PM.
+    """
+    minute: int
+    """
+    The minute at which the billing cycle ends.
+    Must be an integer between 0 and 59, inclusive.
+    """
+    second: int
+    """
+    The second at which the billing cycle ends.
+    Must be an integer between 0 and 59, inclusive.
+    """
+
+
+class IntentCreateParamsCadenceDataBillingCycleYear(TypedDict):
+    day_of_month: NotRequired[int]
+    """
+    The day to anchor the billing on for a type="month" billing cycle from
+    1-31. If this number is greater than the number of days in the month being
+    billed, this will anchor to the last day of the month. If not provided,
+    this will default to the day the cadence was created.
+    """
+    month_of_year: NotRequired[int]
+    """
+    The month to bill on from 1-12. If not provided, this will default to the
+    month the cadence was created.
+    """
+    time: NotRequired["IntentCreateParamsCadenceDataBillingCycleYearTime"]
+    """
+    The time at which the billing cycle ends.
+    This field is optional, and if not provided, it will default to
+    the time at which the cadence was created in UTC timezone.
+    """
+
+
+class IntentCreateParamsCadenceDataBillingCycleYearTime(TypedDict):
+    hour: int
+    """
+    The hour at which the billing cycle ends.
+    This must be an integer between 0 and 23, inclusive.
+    0 represents midnight, and 23 represents 11 PM.
+    """
+    minute: int
+    """
+    The minute at which the billing cycle ends.
+    Must be an integer between 0 and 59, inclusive.
+    """
+    second: int
+    """
+    The second at which the billing cycle ends.
+    Must be an integer between 0 and 59, inclusive.
+    """
+
+
+class IntentCreateParamsCadenceDataPayer(TypedDict):
+    billing_profile: NotRequired[str]
+    """
+    The ID of the Billing Profile object which determines how a bill will be paid.
+    """
+    billing_profile_data: NotRequired[
+        "IntentCreateParamsCadenceDataPayerBillingProfileData"
+    ]
+    """
+    Data for creating a new profile.
+    """
+
+
+class IntentCreateParamsCadenceDataPayerBillingProfileData(TypedDict):
+    customer: str
+    """
+    The customer to associate with the profile.
+    """
+    default_payment_method: NotRequired[str]
+    """
+    The default payment method to use when billing this profile.
+    If left blank, the `PaymentMethod` from the `PaymentIntent` provided
+    on commit will be used to create the profile.
+    """
+
+
+class IntentCreateParamsCadenceDataSettings(TypedDict):
+    bill: NotRequired["IntentCreateParamsCadenceDataSettingsBill"]
+    """
+    Settings that configure bill generation, which includes calculating totals, tax, and presenting invoices.
+    If no setting is provided here, the settings from the customer referenced on the payer will be used.
+    If no customer settings are present, the merchant default settings will be used.
+    """
+    collection: NotRequired["IntentCreateParamsCadenceDataSettingsCollection"]
+    """
+    Settings that configure and manage the behavior of collecting payments.
+    If no setting is provided here, the settings from the customer referenced from the payer will be used if they exist.
+    If no customer settings are present, the merchant default settings will be used.
+    """
+
+
+class IntentCreateParamsCadenceDataSettingsBill(TypedDict):
+    id: str
+    """
+    The ID of the referenced settings object.
+    """
+    version: NotRequired[str]
+    """
+    An optional field to specify the version of the Settings to use.
+    If not provided, this will always default to the live version any time the settings are used.
+    """
+
+
+class IntentCreateParamsCadenceDataSettingsCollection(TypedDict):
+    id: str
+    """
+    The ID of the referenced settings object.
+    """
+    version: NotRequired[str]
+    """
+    An optional field to specify the version of the Settings to use.
+    If not provided, this will always default to the live version any time the settings are used.
     """

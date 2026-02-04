@@ -72,7 +72,7 @@ class RateService(StripeService):
     def create(
         self,
         rate_card_id: str,
-        params: Optional["RateCreateParams"] = None,
+        params: "RateCreateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "RateCardRate":
         """
@@ -95,7 +95,7 @@ class RateService(StripeService):
     async def create_async(
         self,
         rate_card_id: str,
-        params: Optional["RateCreateParams"] = None,
+        params: "RateCreateParams",
         options: Optional["RequestOptions"] = None,
     ) -> "RateCardRate":
         """

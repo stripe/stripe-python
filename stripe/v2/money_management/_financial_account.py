@@ -14,6 +14,16 @@ class FinancialAccount(StripeObject):
         "v2.money_management.financial_account"
     )
 
+    class AccruedFees(StripeObject):
+        currencies: List[str]
+        """
+        The currencies enabled for fee accrual on this FinancialAccount.
+        """
+        direction: Literal["payable", "receivable"]
+        """
+        Direction of fee accrual for this FinancialAccount.
+        """
+
     class Balance(StripeObject):
         class Available(StripeObject):
             currency: Optional[str]
@@ -81,6 +91,28 @@ class FinancialAccount(StripeObject):
         """
 
     class Payments(StripeObject):
+        class StartingBalance(StripeObject):
+            class Available(StripeObject):
+                currency: Optional[str]
+                """
+                Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                """
+                value: Optional[int]
+                """
+                A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+                """
+
+            at: str
+            """
+            When the balance was projected.
+            """
+            available: Dict[str, Available]
+            """
+            The available balance at the time when the balance was projected.
+            """
+            _inner_class_types = {"available": Available}
+            _inner_class_dicts = ["available"]
+
         default_currency: str
         """
         The currency that non-settlement currency payments will be converted to.
@@ -89,6 +121,11 @@ class FinancialAccount(StripeObject):
         """
         Settlement currencies enabled for this FinancialAccount. Payments in other currencies will be automatically converted to `default_currency`.
         """
+        starting_balance: Optional[StartingBalance]
+        """
+        Describes the available balance when it was projected.
+        """
+        _inner_class_types = {"starting_balance": StartingBalance}
 
     class StatusDetails(StripeObject):
         class Closed(StripeObject):
@@ -115,6 +152,10 @@ class FinancialAccount(StripeObject):
         The currencies that this FinancialAccount can hold.
         """
 
+    accrued_fees: Optional[AccruedFees]
+    """
+    If this is a `accrued_fees` FinancialAccount, this hash include details specific to `accrued_fees` FinancialAccount.
+    """
     balance: Balance
     """
     Multi-currency balance of this FinancialAccount, split by availability state. Each balance is represented as a hash where the key is the three-letter ISO currency code, in lowercase, and the value is the amount for that currency.
@@ -169,12 +210,13 @@ class FinancialAccount(StripeObject):
     """
     If this is a `storage` FinancialAccount, this hash includes details specific to `storage` FinancialAccounts.
     """
-    type: Literal["other", "payments", "storage"]
+    type: Literal["accrued_fees", "other", "payments", "storage"]
     """
     Type of the FinancialAccount. An additional hash is included on the FinancialAccount with a name matching this value.
     It contains additional information specific to the FinancialAccount type.
     """
     _inner_class_types = {
+        "accrued_fees": AccruedFees,
         "balance": Balance,
         "managed_by": ManagedBy,
         "other": Other,

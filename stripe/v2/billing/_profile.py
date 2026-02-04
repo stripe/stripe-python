@@ -6,6 +6,10 @@ from typing_extensions import Literal
 
 
 class Profile(StripeObject):
+    """
+    A Billing Profile is a representation of how a bill is paid, separating payment behavior from customer identity.
+    """
+
     OBJECT_NAME: ClassVar[Literal["v2.billing.profile"]] = "v2.billing.profile"
     created: str
     """

@@ -35,6 +35,12 @@ if TYPE_CHECKING:
     from stripe.v2.core._claimable_sandbox_service import (
         ClaimableSandboxService as ClaimableSandboxService,
     )
+    from stripe.v2.core._connection_session import (
+        ConnectionSession as ConnectionSession,
+    )
+    from stripe.v2.core._connection_session_service import (
+        ConnectionSessionService as ConnectionSessionService,
+    )
     from stripe.v2.core._event import Event as Event
     from stripe.v2.core._event_destination import (
         EventDestination as EventDestination,
@@ -60,6 +66,11 @@ _import_map = {
     "ClaimableSandbox": ("stripe.v2.core._claimable_sandbox", False),
     "ClaimableSandboxService": (
         "stripe.v2.core._claimable_sandbox_service",
+        False,
+    ),
+    "ConnectionSession": ("stripe.v2.core._connection_session", False),
+    "ConnectionSessionService": (
+        "stripe.v2.core._connection_session_service",
         False,
     ),
     "Event": ("stripe.v2.core._event", False),

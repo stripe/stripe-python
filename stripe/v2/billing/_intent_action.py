@@ -60,6 +60,27 @@ class IntentAction(StripeObject):
         _inner_class_types = {"invoice_discount_rule": InvoiceDiscountRule}
 
     class Deactivate(StripeObject):
+        class CancellationDetails(StripeObject):
+            comment: Optional[str]
+            """
+            Additional comments about why the user canceled the subscription, if the subscription was canceled explicitly by the user.
+            """
+            feedback: Optional[
+                Literal[
+                    "customer_service",
+                    "low_quality",
+                    "missing_features",
+                    "other",
+                    "switched_service",
+                    "too_complex",
+                    "too_expensive",
+                    "unused",
+                ]
+            ]
+            """
+            The customer submitted reason for why they canceled, if the subscription was canceled explicitly by the user.
+            """
+
         class EffectiveAt(StripeObject):
             timestamp: Optional[str]
             """
@@ -112,6 +133,10 @@ class IntentAction(StripeObject):
             """
             _inner_class_types = {"overrides": Overrides}
 
+        cancellation_details: Optional[CancellationDetails]
+        """
+        Details about why the cancellation was requested by the user.
+        """
         collect_at: Literal["next_billing_date", "on_effective_at"]
         """
         Allows users to override the collect at behavior.
@@ -133,6 +158,7 @@ class IntentAction(StripeObject):
         Type of the action details.
         """
         _inner_class_types = {
+            "cancellation_details": CancellationDetails,
             "effective_at": EffectiveAt,
             "pricing_plan_subscription_details": PricingPlanSubscriptionDetails,
         }

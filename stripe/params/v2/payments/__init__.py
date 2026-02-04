@@ -37,6 +37,9 @@ if TYPE_CHECKING:
         SettlementAllocationIntentCreateParams as SettlementAllocationIntentCreateParams,
         SettlementAllocationIntentCreateParamsAmount as SettlementAllocationIntentCreateParamsAmount,
     )
+    from stripe.params.v2.payments._settlement_allocation_intent_list_params import (
+        SettlementAllocationIntentListParams as SettlementAllocationIntentListParams,
+    )
     from stripe.params.v2.payments._settlement_allocation_intent_retrieve_params import (
         SettlementAllocationIntentRetrieveParams as SettlementAllocationIntentRetrieveParams,
     )
@@ -116,6 +119,10 @@ _import_map = {
     ),
     "SettlementAllocationIntentCreateParamsAmount": (
         "stripe.params.v2.payments._settlement_allocation_intent_create_params",
+        False,
+    ),
+    "SettlementAllocationIntentListParams": (
+        "stripe.params.v2.payments._settlement_allocation_intent_list_params",
         False,
     ),
     "SettlementAllocationIntentRetrieveParams": (

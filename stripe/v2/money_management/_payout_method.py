@@ -79,6 +79,11 @@ class PayoutMethod(StripeObject):
         """
         The year the card expires.
         """
+        fingerprint: str
+        """
+        Uniquely identifies this particular card number. You can use this attribute to check whether two
+        recipients who've signed up with you are using the same card number, for example.
+        """
         last4: str
         """
         The last 4 digits of the card number.

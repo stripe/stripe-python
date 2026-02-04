@@ -14,6 +14,9 @@ if TYPE_CHECKING:
     from stripe.params.v2.payments._settlement_allocation_intent_create_params import (
         SettlementAllocationIntentCreateParams,
     )
+    from stripe.params.v2.payments._settlement_allocation_intent_list_params import (
+        SettlementAllocationIntentListParams,
+    )
     from stripe.params.v2.payments._settlement_allocation_intent_retrieve_params import (
         SettlementAllocationIntentRetrieveParams,
     )
@@ -23,6 +26,7 @@ if TYPE_CHECKING:
     from stripe.params.v2.payments._settlement_allocation_intent_update_params import (
         SettlementAllocationIntentUpdateParams,
     )
+    from stripe.v2._list_object import ListObject
     from stripe.v2.payments._settlement_allocation_intent import (
         SettlementAllocationIntent,
     )
@@ -59,6 +63,44 @@ class SettlementAllocationIntentService(StripeService):
             return getattr(self, name)
         except KeyError:
             raise AttributeError()
+
+    def list(
+        self,
+        params: Optional["SettlementAllocationIntentListParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[SettlementAllocationIntent]":
+        """
+        Lists all SettlementAllocationIntents.
+        """
+        return cast(
+            "ListObject[SettlementAllocationIntent]",
+            self._request(
+                "get",
+                "/v2/payments/settlement_allocation_intents",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def list_async(
+        self,
+        params: Optional["SettlementAllocationIntentListParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[SettlementAllocationIntent]":
+        """
+        Lists all SettlementAllocationIntents.
+        """
+        return cast(
+            "ListObject[SettlementAllocationIntent]",
+            await self._request_async(
+                "get",
+                "/v2/payments/settlement_allocation_intents",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
 
     def create(
         self,

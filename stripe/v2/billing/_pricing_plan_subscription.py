@@ -10,6 +10,31 @@ class PricingPlanSubscription(StripeObject):
         "v2.billing.pricing_plan_subscription"
     )
 
+    class CancellationDetails(StripeObject):
+        comment: Optional[str]
+        """
+        Additional comments about why the user canceled the subscription, if the subscription was canceled explicitly by the user.
+        """
+        feedback: Optional[
+            Literal[
+                "customer_service",
+                "low_quality",
+                "missing_features",
+                "other",
+                "switched_service",
+                "too_complex",
+                "too_expensive",
+                "unused",
+            ]
+        ]
+        """
+        The customer submitted reason for why they canceled, if the subscription was canceled explicitly by the user.
+        """
+        reason: Optional[Literal["cancellation_requested"]]
+        """
+        System-generated reason for cancellation.
+        """
+
     class CollectionStatusTransitions(StripeObject):
         awaiting_customer_action_at: Optional[str]
         """
@@ -57,6 +82,10 @@ class PricingPlanSubscription(StripeObject):
     billing_cadence: str
     """
     The ID of the Billing Cadence this subscription is billed on.
+    """
+    cancellation_details: Optional[CancellationDetails]
+    """
+    Details about why the subscription was canceled, if applicable. Includes system-generated reason.
     """
     collection_status: Literal[
         "awaiting_customer_action", "current", "past_due", "paused", "unpaid"
@@ -109,6 +138,7 @@ class PricingPlanSubscription(StripeObject):
     The ID of the Test Clock of the associated Billing Cadence, if any.
     """
     _inner_class_types = {
+        "cancellation_details": CancellationDetails,
         "collection_status_transitions": CollectionStatusTransitions,
         "servicing_status_transitions": ServicingStatusTransitions,
     }

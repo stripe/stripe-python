@@ -151,6 +151,33 @@ class ReceivedCredit(StripeObject):
             "us_bank_account": UsBankAccount,
         }
 
+    class CardSpend(StripeObject):
+        class Dispute(StripeObject):
+            issuing_dispute_v1: str
+            """
+            The reference to the v1 issuing dispute ID.
+            """
+
+        class Refund(StripeObject):
+            issuing_transaction_v1: str
+            """
+            The reference to the v1 issuing transaction ID.
+            """
+
+        card_v1_id: str
+        """
+        The reference to the issuing card object.
+        """
+        dispute: Optional[Dispute]
+        """
+        Hash containing information about the Dispute that triggered this credit.
+        """
+        refund: Optional[Refund]
+        """
+        Hash containing information about the Refund that triggered this credit.
+        """
+        _inner_class_types = {"dispute": Dispute, "refund": Refund}
+
     class ExternalAmount(StripeObject):
         currency: Optional[str]
         """
@@ -224,6 +251,10 @@ class ReceivedCredit(StripeObject):
     """
     This object stores details about the originating banking transaction that resulted in the ReceivedCredit. Present if `type` field value is `bank_transfer`.
     """
+    card_spend: Optional[CardSpend]
+    """
+    This object stores details about the originating issuing card spend that resulted in the ReceivedCredit. Present if `type` field value is `card_spend`.
+    """
     created: str
     """
     Time at which the ReceivedCredit was created.
@@ -276,6 +307,7 @@ class ReceivedCredit(StripeObject):
     type: Literal[
         "balance_transfer",
         "bank_transfer",
+        "card_spend",
         "external_credit",
         "stripe_balance_payment",
     ]
@@ -286,6 +318,7 @@ class ReceivedCredit(StripeObject):
         "amount": Amount,
         "balance_transfer": BalanceTransfer,
         "bank_transfer": BankTransfer,
+        "card_spend": CardSpend,
         "external_amount": ExternalAmount,
         "status_details": StatusDetails,
         "status_transitions": StatusTransitions,

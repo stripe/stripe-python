@@ -132,6 +132,7 @@ if TYPE_CHECKING:
         IntentCreateParamsActionApplyInvoiceDiscountRulePercentOff as IntentCreateParamsActionApplyInvoiceDiscountRulePercentOff,
         IntentCreateParamsActionApplyInvoiceDiscountRulePercentOffMaximumApplications as IntentCreateParamsActionApplyInvoiceDiscountRulePercentOffMaximumApplications,
         IntentCreateParamsActionDeactivate as IntentCreateParamsActionDeactivate,
+        IntentCreateParamsActionDeactivateCancellationDetails as IntentCreateParamsActionDeactivateCancellationDetails,
         IntentCreateParamsActionDeactivateEffectiveAt as IntentCreateParamsActionDeactivateEffectiveAt,
         IntentCreateParamsActionDeactivatePricingPlanSubscriptionDetails as IntentCreateParamsActionDeactivatePricingPlanSubscriptionDetails,
         IntentCreateParamsActionDeactivatePricingPlanSubscriptionDetailsOverrides as IntentCreateParamsActionDeactivatePricingPlanSubscriptionDetailsOverrides,
@@ -154,6 +155,21 @@ if TYPE_CHECKING:
         IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorLicenseFee as IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorLicenseFee,
         IntentCreateParamsActionSubscribeV1SubscriptionDetails as IntentCreateParamsActionSubscribeV1SubscriptionDetails,
         IntentCreateParamsActionSubscribeV1SubscriptionDetailsItem as IntentCreateParamsActionSubscribeV1SubscriptionDetailsItem,
+        IntentCreateParamsCadenceData as IntentCreateParamsCadenceData,
+        IntentCreateParamsCadenceDataBillingCycle as IntentCreateParamsCadenceDataBillingCycle,
+        IntentCreateParamsCadenceDataBillingCycleDay as IntentCreateParamsCadenceDataBillingCycleDay,
+        IntentCreateParamsCadenceDataBillingCycleDayTime as IntentCreateParamsCadenceDataBillingCycleDayTime,
+        IntentCreateParamsCadenceDataBillingCycleMonth as IntentCreateParamsCadenceDataBillingCycleMonth,
+        IntentCreateParamsCadenceDataBillingCycleMonthTime as IntentCreateParamsCadenceDataBillingCycleMonthTime,
+        IntentCreateParamsCadenceDataBillingCycleWeek as IntentCreateParamsCadenceDataBillingCycleWeek,
+        IntentCreateParamsCadenceDataBillingCycleWeekTime as IntentCreateParamsCadenceDataBillingCycleWeekTime,
+        IntentCreateParamsCadenceDataBillingCycleYear as IntentCreateParamsCadenceDataBillingCycleYear,
+        IntentCreateParamsCadenceDataBillingCycleYearTime as IntentCreateParamsCadenceDataBillingCycleYearTime,
+        IntentCreateParamsCadenceDataPayer as IntentCreateParamsCadenceDataPayer,
+        IntentCreateParamsCadenceDataPayerBillingProfileData as IntentCreateParamsCadenceDataPayerBillingProfileData,
+        IntentCreateParamsCadenceDataSettings as IntentCreateParamsCadenceDataSettings,
+        IntentCreateParamsCadenceDataSettingsBill as IntentCreateParamsCadenceDataSettingsBill,
+        IntentCreateParamsCadenceDataSettingsCollection as IntentCreateParamsCadenceDataSettingsCollection,
     )
     from stripe.params.v2.billing._intent_list_params import (
         IntentListParams as IntentListParams,
@@ -656,6 +672,10 @@ _import_map = {
         "stripe.params.v2.billing._intent_create_params",
         False,
     ),
+    "IntentCreateParamsActionDeactivateCancellationDetails": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
     "IntentCreateParamsActionDeactivateEffectiveAt": (
         "stripe.params.v2.billing._intent_create_params",
         False,
@@ -741,6 +761,66 @@ _import_map = {
         False,
     ),
     "IntentCreateParamsActionSubscribeV1SubscriptionDetailsItem": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsCadenceData": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsCadenceDataBillingCycle": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsCadenceDataBillingCycleDay": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsCadenceDataBillingCycleDayTime": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsCadenceDataBillingCycleMonth": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsCadenceDataBillingCycleMonthTime": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsCadenceDataBillingCycleWeek": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsCadenceDataBillingCycleWeekTime": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsCadenceDataBillingCycleYear": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsCadenceDataBillingCycleYearTime": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsCadenceDataPayer": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsCadenceDataPayerBillingProfileData": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsCadenceDataSettings": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsCadenceDataSettingsBill": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsCadenceDataSettingsCollection": (
         "stripe.params.v2.billing._intent_create_params",
         False,
     ),
