@@ -30,8 +30,14 @@ class FrMealVouchersOnboarding(
     UpdateableAPIResource["FrMealVouchersOnboarding"],
 ):
     """
-    The French Meal Vouchers Onboarding resource encapsulates the onboarding status and other related information
+    The `French Meal Vouchers Onboarding` resource encapsulates the onboarding status and other related information
     for a single restaurant (SIRET number) in the context of the French Meal Vouchers program.
+
+    To onboard a restaurant for the French Meal Vouchers program, you create a `French Meal Vouchers Onboarding` object.
+    You can retrieve individual objects, list all such objects, or update objects to correct the postal code of the restaurant.
+    We identify `French Meal Vouchers Onboarding` objects with a unique, random ID.
+
+    Related guide: [Set up a restaurant for titres-restaurant payments](https://docs.stripe.com/payments/meal-vouchers/fr-meal-vouchers/set-up-restaurant)
     """
 
     OBJECT_NAME: ClassVar[Literal["fr_meal_vouchers_onboarding"]] = (
@@ -166,7 +172,7 @@ class FrMealVouchersOnboarding(
         cls, **params: Unpack["FrMealVouchersOnboardingListParams"]
     ) -> ListObject["FrMealVouchersOnboarding"]:
         """
-        Lists French Meal Vouchers Onboarding objects
+        Lists French Meal Vouchers Onboarding objects. The objects are returned in sorted order, with the most recently created objects appearing first.
         """
         result = cls._static_request(
             "get",
@@ -186,7 +192,7 @@ class FrMealVouchersOnboarding(
         cls, **params: Unpack["FrMealVouchersOnboardingListParams"]
     ) -> ListObject["FrMealVouchersOnboarding"]:
         """
-        Lists French Meal Vouchers Onboarding objects
+        Lists French Meal Vouchers Onboarding objects. The objects are returned in sorted order, with the most recently created objects appearing first.
         """
         result = await cls._static_request_async(
             "get",
@@ -206,7 +212,11 @@ class FrMealVouchersOnboarding(
         cls, id: str, **params: Unpack["FrMealVouchersOnboardingModifyParams"]
     ) -> "FrMealVouchersOnboarding":
         """
-        Updates the details of a restaurant's French Meal Vouchers Onboarding object
+        Updates the details of a restaurant's French Meal Vouchers Onboarding object by
+        setting the values of the parameters passed. Any parameters not provided are left unchanged.
+        After you update the object, the onboarding process automatically restarts.
+
+        You can only update French Meal Vouchers Onboarding objects with the postal_code field requirement in past_due.
         """
         url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
@@ -223,7 +233,11 @@ class FrMealVouchersOnboarding(
         cls, id: str, **params: Unpack["FrMealVouchersOnboardingModifyParams"]
     ) -> "FrMealVouchersOnboarding":
         """
-        Updates the details of a restaurant's French Meal Vouchers Onboarding object
+        Updates the details of a restaurant's French Meal Vouchers Onboarding object by
+        setting the values of the parameters passed. Any parameters not provided are left unchanged.
+        After you update the object, the onboarding process automatically restarts.
+
+        You can only update French Meal Vouchers Onboarding objects with the postal_code field requirement in past_due.
         """
         url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
@@ -242,7 +256,10 @@ class FrMealVouchersOnboarding(
         **params: Unpack["FrMealVouchersOnboardingRetrieveParams"],
     ) -> "FrMealVouchersOnboarding":
         """
-        Retrieves the details of a French Meal Vouchers Onboarding object
+        Retrieves the details of a previously created French Meal Vouchers Onboarding object.
+
+        Supply the unique French Meal Vouchers Onboarding ID that was returned from your previous request,
+        and Stripe returns the corresponding onboarding information.
         """
         instance = cls(id, **params)
         instance.refresh()
@@ -255,7 +272,10 @@ class FrMealVouchersOnboarding(
         **params: Unpack["FrMealVouchersOnboardingRetrieveParams"],
     ) -> "FrMealVouchersOnboarding":
         """
-        Retrieves the details of a French Meal Vouchers Onboarding object
+        Retrieves the details of a previously created French Meal Vouchers Onboarding object.
+
+        Supply the unique French Meal Vouchers Onboarding ID that was returned from your previous request,
+        and Stripe returns the corresponding onboarding information.
         """
         instance = cls(id, **params)
         await instance.refresh_async()
