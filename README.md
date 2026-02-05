@@ -415,6 +415,12 @@ just format
 # or: venv/bin/ruff format . --quiet
 ```
 
+Update bundled CA certificates from the [Mozilla cURL release][curl]:
+
+```sh
+just update-certs
+```
+
 [api-keys]: https://dashboard.stripe.com/account/apikeys
 [ruff]: https://github.com/astral-sh/ruff
 [connect]: https://stripe.com/connect
