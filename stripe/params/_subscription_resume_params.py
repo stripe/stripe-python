@@ -24,3 +24,9 @@ class SubscriptionResumeParams(RequestOptions):
     """
     If set, prorations will be calculated as though the subscription was resumed at the given time. This can be used to apply exactly the same prorations that were previewed with the [create preview](https://stripe.com/docs/api/invoices/create_preview) endpoint.
     """
+    payment_behavior: NotRequired[
+        Literal["allow_incomplete", "pending_if_incomplete"]
+    ]
+    """
+    Controls when the subscription transitions from `paused` to `active`. Determines how payment on the invoice affects the resumption process.The default is `pending_if_incomplete`.
+    """
