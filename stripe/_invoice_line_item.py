@@ -272,6 +272,24 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
             The ID of the product this item is associated with.
             """
 
+        class RateCardCustomPricingUnitOverageRateDetails(StripeObject):
+            custom_pricing_unit: str
+            """
+            The ID of the custom pricing unit this item is associated with
+            """
+            custom_pricing_unit_overage_rate: str
+            """
+            The ID of the custom pricing unit overage rate this item is associated with
+            """
+            one_time_item: str
+            """
+            The ID of the one-time item this custom pricing unit overage rate is associated with
+            """
+            rate_card: str
+            """
+            The ID of the rate card this item is associated with
+            """
+
         class RateCardRateDetails(StripeObject):
             metered_item: str
             """
@@ -288,9 +306,15 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
 
         license_fee_details: Optional[LicenseFeeDetails]
         price_details: Optional[PriceDetails]
+        rate_card_custom_pricing_unit_overage_rate_details: Optional[
+            RateCardCustomPricingUnitOverageRateDetails
+        ]
         rate_card_rate_details: Optional[RateCardRateDetails]
         type: Literal[
-            "license_fee_details", "price_details", "rate_card_rate_details"
+            "license_fee_details",
+            "price_details",
+            "rate_card_custom_pricing_unit_overage_rate_details",
+            "rate_card_rate_details",
         ]
         """
         The type of the pricing details.
@@ -302,6 +326,7 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         _inner_class_types = {
             "license_fee_details": LicenseFeeDetails,
             "price_details": PriceDetails,
+            "rate_card_custom_pricing_unit_overage_rate_details": RateCardCustomPricingUnitOverageRateDetails,
             "rate_card_rate_details": RateCardRateDetails,
         }
 

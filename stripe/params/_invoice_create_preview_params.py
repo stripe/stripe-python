@@ -642,6 +642,12 @@ class InvoiceCreatePreviewParamsScheduleDetails(TypedDict):
     """
     In cases where the `schedule_details` params update the currently active phase, specifies if and how to prorate at the time of the request.
     """
+    default_settings: NotRequired[
+        "InvoiceCreatePreviewParamsScheduleDetailsDefaultSettings"
+    ]
+    """
+    Object representing the subscription schedule's default settings.
+    """
 
 
 class InvoiceCreatePreviewParamsScheduleDetailsAmendment(TypedDict):
@@ -2419,6 +2425,15 @@ class InvoiceCreatePreviewParamsScheduleDetailsPrebillingBillUntilDuration(
     interval_count: int
     """
     The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+    """
+
+
+class InvoiceCreatePreviewParamsScheduleDetailsDefaultSettings(TypedDict):
+    phase_effective_at: NotRequired[
+        Literal["billing_period_start", "phase_start"]
+    ]
+    """
+    Configures how the subscription schedule handles billing for phase transitions.
     """
 
 
