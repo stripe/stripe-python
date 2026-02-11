@@ -6,6 +6,7 @@ from typing_extensions import TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe.params.v2.billing import (
         bill_settings as bill_settings,
+        cadences as cadences,
         collection_settings as collection_settings,
         intents as intents,
         license_fees as license_fees,
@@ -128,9 +129,15 @@ if TYPE_CHECKING:
         IntentCreateParams as IntentCreateParams,
         IntentCreateParamsAction as IntentCreateParamsAction,
         IntentCreateParamsActionApply as IntentCreateParamsActionApply,
+        IntentCreateParamsActionApplyEffectiveAt as IntentCreateParamsActionApplyEffectiveAt,
         IntentCreateParamsActionApplyInvoiceDiscountRule as IntentCreateParamsActionApplyInvoiceDiscountRule,
         IntentCreateParamsActionApplyInvoiceDiscountRulePercentOff as IntentCreateParamsActionApplyInvoiceDiscountRulePercentOff,
         IntentCreateParamsActionApplyInvoiceDiscountRulePercentOffMaximumApplications as IntentCreateParamsActionApplyInvoiceDiscountRulePercentOffMaximumApplications,
+        IntentCreateParamsActionApplySpendModifierRule as IntentCreateParamsActionApplySpendModifierRule,
+        IntentCreateParamsActionApplySpendModifierRuleMaxBillingPeriodSpend as IntentCreateParamsActionApplySpendModifierRuleMaxBillingPeriodSpend,
+        IntentCreateParamsActionApplySpendModifierRuleMaxBillingPeriodSpendAmount as IntentCreateParamsActionApplySpendModifierRuleMaxBillingPeriodSpendAmount,
+        IntentCreateParamsActionApplySpendModifierRuleMaxBillingPeriodSpendAmountCustomPricingUnit as IntentCreateParamsActionApplySpendModifierRuleMaxBillingPeriodSpendAmountCustomPricingUnit,
+        IntentCreateParamsActionApplySpendModifierRuleMaxBillingPeriodSpendCustomPricingUnitOverageRate as IntentCreateParamsActionApplySpendModifierRuleMaxBillingPeriodSpendCustomPricingUnitOverageRate,
         IntentCreateParamsActionDeactivate as IntentCreateParamsActionDeactivate,
         IntentCreateParamsActionDeactivateCancellationDetails as IntentCreateParamsActionDeactivateCancellationDetails,
         IntentCreateParamsActionDeactivateEffectiveAt as IntentCreateParamsActionDeactivateEffectiveAt,
@@ -146,6 +153,7 @@ if TYPE_CHECKING:
         IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverridesPartialPeriodBehavior as IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverridesPartialPeriodBehavior,
         IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorLicenseFee as IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorLicenseFee,
         IntentCreateParamsActionRemove as IntentCreateParamsActionRemove,
+        IntentCreateParamsActionRemoveEffectiveAt as IntentCreateParamsActionRemoveEffectiveAt,
         IntentCreateParamsActionSubscribe as IntentCreateParamsActionSubscribe,
         IntentCreateParamsActionSubscribeEffectiveAt as IntentCreateParamsActionSubscribeEffectiveAt,
         IntentCreateParamsActionSubscribePricingPlanSubscriptionDetails as IntentCreateParamsActionSubscribePricingPlanSubscriptionDetails,
@@ -245,6 +253,20 @@ if TYPE_CHECKING:
         MeteredItemUpdateParams as MeteredItemUpdateParams,
         MeteredItemUpdateParamsTaxDetails as MeteredItemUpdateParamsTaxDetails,
     )
+    from stripe.params.v2.billing._one_time_item_create_params import (
+        OneTimeItemCreateParams as OneTimeItemCreateParams,
+        OneTimeItemCreateParamsTaxDetails as OneTimeItemCreateParamsTaxDetails,
+    )
+    from stripe.params.v2.billing._one_time_item_list_params import (
+        OneTimeItemListParams as OneTimeItemListParams,
+    )
+    from stripe.params.v2.billing._one_time_item_retrieve_params import (
+        OneTimeItemRetrieveParams as OneTimeItemRetrieveParams,
+    )
+    from stripe.params.v2.billing._one_time_item_update_params import (
+        OneTimeItemUpdateParams as OneTimeItemUpdateParams,
+        OneTimeItemUpdateParamsTaxDetails as OneTimeItemUpdateParamsTaxDetails,
+    )
     from stripe.params.v2.billing._pricing_plan_create_params import (
         PricingPlanCreateParams as PricingPlanCreateParams,
     )
@@ -340,6 +362,7 @@ if TYPE_CHECKING:
 # name -> (import_target, is_submodule)
 _import_map = {
     "bill_settings": ("stripe.params.v2.billing.bill_settings", True),
+    "cadences": ("stripe.params.v2.billing.cadences", True),
     "collection_settings": (
         "stripe.params.v2.billing.collection_settings",
         True,
@@ -656,6 +679,10 @@ _import_map = {
         "stripe.params.v2.billing._intent_create_params",
         False,
     ),
+    "IntentCreateParamsActionApplyEffectiveAt": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
     "IntentCreateParamsActionApplyInvoiceDiscountRule": (
         "stripe.params.v2.billing._intent_create_params",
         False,
@@ -665,6 +692,26 @@ _import_map = {
         False,
     ),
     "IntentCreateParamsActionApplyInvoiceDiscountRulePercentOffMaximumApplications": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsActionApplySpendModifierRule": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsActionApplySpendModifierRuleMaxBillingPeriodSpend": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsActionApplySpendModifierRuleMaxBillingPeriodSpendAmount": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsActionApplySpendModifierRuleMaxBillingPeriodSpendAmountCustomPricingUnit": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsActionApplySpendModifierRuleMaxBillingPeriodSpendCustomPricingUnitOverageRate": (
         "stripe.params.v2.billing._intent_create_params",
         False,
     ),
@@ -725,6 +772,10 @@ _import_map = {
         False,
     ),
     "IntentCreateParamsActionRemove": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsActionRemoveEffectiveAt": (
         "stripe.params.v2.billing._intent_create_params",
         False,
     ),
@@ -950,6 +1001,30 @@ _import_map = {
     ),
     "MeteredItemUpdateParamsTaxDetails": (
         "stripe.params.v2.billing._metered_item_update_params",
+        False,
+    ),
+    "OneTimeItemCreateParams": (
+        "stripe.params.v2.billing._one_time_item_create_params",
+        False,
+    ),
+    "OneTimeItemCreateParamsTaxDetails": (
+        "stripe.params.v2.billing._one_time_item_create_params",
+        False,
+    ),
+    "OneTimeItemListParams": (
+        "stripe.params.v2.billing._one_time_item_list_params",
+        False,
+    ),
+    "OneTimeItemRetrieveParams": (
+        "stripe.params.v2.billing._one_time_item_retrieve_params",
+        False,
+    ),
+    "OneTimeItemUpdateParams": (
+        "stripe.params.v2.billing._one_time_item_update_params",
+        False,
+    ),
+    "OneTimeItemUpdateParamsTaxDetails": (
+        "stripe.params.v2.billing._one_time_item_update_params",
         False,
     ),
     "PricingPlanCreateParams": (

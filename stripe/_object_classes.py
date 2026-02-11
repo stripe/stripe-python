@@ -436,6 +436,10 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "BillSettingVersion",
     ),
     "v2.billing.cadence": ("stripe.v2.billing._cadence", "Cadence"),
+    "v2.billing.cadence_spend_modifier": (
+        "stripe.v2.billing._cadence_spend_modifier",
+        "CadenceSpendModifier",
+    ),
     "v2.billing.collection_setting": (
         "stripe.v2.billing._collection_setting",
         "CollectionSetting",
@@ -479,6 +483,10 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.v2.billing._meter_event_session",
         "MeterEventSession",
     ),
+    "v2.billing.one_time_item": (
+        "stripe.v2.billing._one_time_item",
+        "OneTimeItem",
+    ),
     "v2.billing.pricing_plan": (
         "stripe.v2.billing._pricing_plan",
         "PricingPlan",
@@ -501,6 +509,10 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     ),
     "v2.billing.profile": ("stripe.v2.billing._profile", "Profile"),
     "v2.billing.rate_card": ("stripe.v2.billing._rate_card", "RateCard"),
+    "v2.billing.rate_card_custom_pricing_unit_overage_rate": (
+        "stripe.v2.billing._rate_card_custom_pricing_unit_overage_rate",
+        "RateCardCustomPricingUnitOverageRate",
+    ),
     "v2.billing.rate_card_rate": (
         "stripe.v2.billing._rate_card_rate",
         "RateCardRate",

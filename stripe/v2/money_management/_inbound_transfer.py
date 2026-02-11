@@ -19,22 +19,22 @@ class InboundTransfer(StripeObject):
     )
 
     class Amount(StripeObject):
-        currency: Optional[str]
+        currency: str
         """
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         """
-        value: Optional[int]
+        value: int
         """
         A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
         """
 
     class From(StripeObject):
         class Debited(StripeObject):
-            currency: Optional[str]
+            currency: str
             """
             Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             """
-            value: Optional[int]
+            value: int
             """
             A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
             """
@@ -64,11 +64,11 @@ class InboundTransfer(StripeObject):
 
     class To(StripeObject):
         class Credited(StripeObject):
-            currency: Optional[str]
+            currency: str
             """
             Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             """
-            value: Optional[int]
+            value: int
             """
             A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
             """

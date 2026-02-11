@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional
+from typing import ClassVar
 from typing_extensions import Literal
 
 
@@ -16,11 +16,11 @@ class CurrencyConversion(StripeObject):
 
     class From(StripeObject):
         class Amount(StripeObject):
-            currency: Optional[str]
+            currency: str
             """
             Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             """
-            value: Optional[int]
+            value: int
             """
             A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
             """
@@ -33,11 +33,11 @@ class CurrencyConversion(StripeObject):
 
     class To(StripeObject):
         class Amount(StripeObject):
-            currency: Optional[str]
+            currency: str
             """
             Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             """
-            value: Optional[int]
+            value: int
             """
             A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
             """

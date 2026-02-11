@@ -43739,6 +43739,49 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
+    def test_v2_billing_cadences_spend_modifier_rule_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/billing/cadences/cadence_id_123/spend_modifier_rules",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.billing.cadences.spend_modifier_rules.list("cadence_id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/billing/cadences/cadence_id_123/spend_modifier_rules",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_billing_cadences_spend_modifier_rule_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/billing/cadences/cadence_id_123/spend_modifier_rules/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.billing.cadences.spend_modifier_rules.retrieve(
+            "cadence_id_123",
+            "id_123",
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/billing/cadences/cadence_id_123/spend_modifier_rules/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
     def test_v2_billing_collection_setting_get_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -43994,6 +44037,9 @@ class TestGeneratedExamples(object):
                     {
                         "type": "apply",
                         "apply": {
+                            "effective_at": {
+                                "type": "current_billing_period_end"
+                            },
                             "type": "invoice_discount_rule",
                             "invoice_discount_rule": {
                                 "applies_to": "cadence",
@@ -44003,6 +44049,21 @@ class TestGeneratedExamples(object):
                                         "type": "indefinite"
                                     },
                                     "percent_off": "percent_off",
+                                },
+                            },
+                            "spend_modifier_rule": {
+                                "applies_to": "cadence",
+                                "type": "max_billing_period_spend",
+                                "max_billing_period_spend": {
+                                    "amount": {
+                                        "type": "custom_pricing_unit",
+                                        "custom_pricing_unit": {
+                                            "value": "value"
+                                        },
+                                    },
+                                    "custom_pricing_unit_overage_rate": {
+                                        "id": "obj_123",
+                                    },
                                 },
                             },
                         },
@@ -44063,8 +44124,12 @@ class TestGeneratedExamples(object):
                             "type": "pricing_plan_subscription_details",
                         },
                         "remove": {
+                            "effective_at": {
+                                "type": "current_billing_period_end"
+                            },
                             "type": "invoice_discount_rule",
                             "invoice_discount_rule": "invoice_discount_rule",
+                            "spend_modifier_rule": "spend_modifier_rule",
                         },
                         "subscribe": {
                             "collect_at": "next_billing_date",
@@ -44117,7 +44182,7 @@ class TestGeneratedExamples(object):
             path="/v2/billing/intents",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"actions":[{"type":"apply","apply":{"type":"invoice_discount_rule","invoice_discount_rule":{"applies_to":"cadence","type":"percent_off","percent_off":{"maximum_applications":{"type":"indefinite"},"percent_off":"percent_off"}}},"deactivate":{"cancellation_details":{"comment":"comment","feedback":"other"},"collect_at":"next_billing_date","effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"on_reserve"},"pricing_plan_subscription_details":{"overrides":{"partial_period_behaviors":[{"type":"license_fee","license_fee":{"credit_proration_behavior":"prorated"}}]},"pricing_plan_subscription":"pricing_plan_subscription"},"type":"pricing_plan_subscription_details"},"modify":{"collect_at":"next_billing_date","effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"current_billing_period_start"},"pricing_plan_subscription_details":{"component_configurations":[{"quantity":1285004149,"lookup_key":"lookup_key","pricing_plan_component":"pricing_plan_component"}],"new_pricing_plan":"new_pricing_plan","new_pricing_plan_version":"new_pricing_plan_version","overrides":{"partial_period_behaviors":[{"type":"license_fee","license_fee":{"credit_proration_behavior":"prorated","debit_proration_behavior":"none"}}]},"pricing_plan_subscription":"pricing_plan_subscription"},"type":"pricing_plan_subscription_details"},"remove":{"type":"invoice_discount_rule","invoice_discount_rule":"invoice_discount_rule"},"subscribe":{"collect_at":"next_billing_date","effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"current_billing_period_start"},"type":"pricing_plan_subscription_details","pricing_plan_subscription_details":{"component_configurations":[{"quantity":1285004149,"lookup_key":"lookup_key","pricing_plan_component":"pricing_plan_component"}],"metadata":{"key":"metadata"},"overrides":{"partial_period_behaviors":[{"type":"license_fee","license_fee":{"debit_proration_behavior":"none"}}]},"pricing_plan":"pricing_plan","pricing_plan_version":"pricing_plan_version"},"v1_subscription_details":{"description":"description","items":[{"metadata":{"key":"metadata"},"price":"price","quantity":1285004149}],"metadata":{"key":"metadata"}}}}],"currency":"usd"}',
+            post_data='{"actions":[{"type":"apply","apply":{"effective_at":{"type":"current_billing_period_end"},"type":"invoice_discount_rule","invoice_discount_rule":{"applies_to":"cadence","type":"percent_off","percent_off":{"maximum_applications":{"type":"indefinite"},"percent_off":"percent_off"}},"spend_modifier_rule":{"applies_to":"cadence","type":"max_billing_period_spend","max_billing_period_spend":{"amount":{"type":"custom_pricing_unit","custom_pricing_unit":{"value":"value"}},"custom_pricing_unit_overage_rate":{"id":"obj_123"}}}},"deactivate":{"cancellation_details":{"comment":"comment","feedback":"other"},"collect_at":"next_billing_date","effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"on_reserve"},"pricing_plan_subscription_details":{"overrides":{"partial_period_behaviors":[{"type":"license_fee","license_fee":{"credit_proration_behavior":"prorated"}}]},"pricing_plan_subscription":"pricing_plan_subscription"},"type":"pricing_plan_subscription_details"},"modify":{"collect_at":"next_billing_date","effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"current_billing_period_start"},"pricing_plan_subscription_details":{"component_configurations":[{"quantity":1285004149,"lookup_key":"lookup_key","pricing_plan_component":"pricing_plan_component"}],"new_pricing_plan":"new_pricing_plan","new_pricing_plan_version":"new_pricing_plan_version","overrides":{"partial_period_behaviors":[{"type":"license_fee","license_fee":{"credit_proration_behavior":"prorated","debit_proration_behavior":"none"}}]},"pricing_plan_subscription":"pricing_plan_subscription"},"type":"pricing_plan_subscription_details"},"remove":{"effective_at":{"type":"current_billing_period_end"},"type":"invoice_discount_rule","invoice_discount_rule":"invoice_discount_rule","spend_modifier_rule":"spend_modifier_rule"},"subscribe":{"collect_at":"next_billing_date","effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"current_billing_period_start"},"type":"pricing_plan_subscription_details","pricing_plan_subscription_details":{"component_configurations":[{"quantity":1285004149,"lookup_key":"lookup_key","pricing_plan_component":"pricing_plan_component"}],"metadata":{"key":"metadata"},"overrides":{"partial_period_behaviors":[{"type":"license_fee","license_fee":{"debit_proration_behavior":"none"}}]},"pricing_plan":"pricing_plan","pricing_plan_version":"pricing_plan_version"},"v1_subscription_details":{"description":"description","items":[{"metadata":{"key":"metadata"},"price":"price","quantity":1285004149}],"metadata":{"key":"metadata"}}}}],"currency":"usd"}',
             is_json=True,
         )
 
@@ -44716,6 +44781,94 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
+    def test_v2_billing_one_time_item_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/billing/one_time_items",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.billing.one_time_items.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/billing/one_time_items",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_billing_one_time_item_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/billing/one_time_items",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.billing.one_time_items.create(
+            {
+                "display_name": "display_name",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/billing/one_time_items",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"display_name":"display_name"}',
+            is_json=True,
+        )
+
+    def test_v2_billing_one_time_item_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/billing/one_time_items/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.billing.one_time_items.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/billing/one_time_items/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_billing_one_time_item_post_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/billing/one_time_items/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.billing.one_time_items.update("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/billing/one_time_items/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
     def test_v2_billing_pricing_plan_get_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -45224,6 +45377,103 @@ class TestGeneratedExamples(object):
             api_base="https://api.stripe.com",
             post_data="{}",
             is_json=True,
+        )
+
+    def test_v2_billing_rate_cards_custom_pricing_unit_overage_rate_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/billing/rate_cards/rate_card_id_123/custom_pricing_unit_overage_rates",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.billing.rate_cards.custom_pricing_unit_overage_rates.list(
+            "rate_card_id_123",
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/billing/rate_cards/rate_card_id_123/custom_pricing_unit_overage_rates",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_billing_rate_cards_custom_pricing_unit_overage_rate_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/billing/rate_cards/rate_card_id_123/custom_pricing_unit_overage_rates",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.billing.rate_cards.custom_pricing_unit_overage_rates.create(
+            "rate_card_id_123",
+            {
+                "custom_pricing_unit": "custom_pricing_unit",
+                "one_time_item": "one_time_item",
+                "unit_amount": "unit_amount",
+            },
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/billing/rate_cards/rate_card_id_123/custom_pricing_unit_overage_rates",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"custom_pricing_unit":"custom_pricing_unit","one_time_item":"one_time_item","unit_amount":"unit_amount"}',
+            is_json=True,
+        )
+
+    def test_v2_billing_rate_cards_custom_pricing_unit_overage_rate_delete_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "delete",
+            "/v2/billing/rate_cards/rate_card_id_123/custom_pricing_unit_overage_rates/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.billing.rate_cards.custom_pricing_unit_overage_rates.delete(
+            "rate_card_id_123",
+            "id_123",
+        )
+        http_client_mock.assert_requested(
+            "delete",
+            path="/v2/billing/rate_cards/rate_card_id_123/custom_pricing_unit_overage_rates/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_billing_rate_cards_custom_pricing_unit_overage_rate_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/billing/rate_cards/rate_card_id_123/custom_pricing_unit_overage_rates/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.billing.rate_cards.custom_pricing_unit_overage_rates.retrieve(
+            "rate_card_id_123",
+            "id_123",
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/billing/rate_cards/rate_card_id_123/custom_pricing_unit_overage_rates/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_v2_billing_rate_cards_rate_get_service(
@@ -48548,7 +48798,7 @@ class TestGeneratedExamples(object):
         try:
             client.v2.money_management.outbound_payments.create(
                 {
-                    "amount": {},
+                    "amount": {"value": 111972721, "currency": "usd"},
                     "from": {
                         "currency": "usd",
                         "financial_account": "financial_account",
@@ -48563,7 +48813,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/outbound_payments",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"amount":{},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"recipient":"recipient"}}',
+            post_data='{"amount":{"value":111972721,"currency":"usd"},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"recipient":"recipient"}}',
             is_json=True,
         )
 
@@ -48752,7 +49002,7 @@ class TestGeneratedExamples(object):
         try:
             client.v2.money_management.outbound_payments.create(
                 {
-                    "amount": {},
+                    "amount": {"value": 111972721, "currency": "usd"},
                     "from": {
                         "currency": "usd",
                         "financial_account": "financial_account",
@@ -48767,7 +49017,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/outbound_payments",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"amount":{},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"recipient":"recipient"}}',
+            post_data='{"amount":{"value":111972721,"currency":"usd"},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"recipient":"recipient"}}',
             is_json=True,
         )
 
