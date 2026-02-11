@@ -26,31 +26,31 @@ class FinancialAccount(StripeObject):
 
     class Balance(StripeObject):
         class Available(StripeObject):
-            currency: Optional[str]
+            currency: str
             """
             Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             """
-            value: Optional[int]
+            value: int
             """
             A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
             """
 
         class InboundPending(StripeObject):
-            currency: Optional[str]
+            currency: str
             """
             Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             """
-            value: Optional[int]
+            value: int
             """
             A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
             """
 
         class OutboundPending(StripeObject):
-            currency: Optional[str]
+            currency: str
             """
             Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             """
-            value: Optional[int]
+            value: int
             """
             A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
             """
@@ -93,11 +93,11 @@ class FinancialAccount(StripeObject):
     class Payments(StripeObject):
         class StartingBalance(StripeObject):
             class Available(StripeObject):
-                currency: Optional[str]
+                currency: str
                 """
                 Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
                 """
-                value: Optional[int]
+                value: int
                 """
                 A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
                 """

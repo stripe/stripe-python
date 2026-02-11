@@ -11,6 +11,12 @@ class IntentAction(StripeObject):
     )
 
     class Apply(StripeObject):
+        class EffectiveAt(StripeObject):
+            type: Literal["current_billing_period_end", "on_reserve"]
+            """
+            When the apply action will take effect.
+            """
+
         class InvoiceDiscountRule(StripeObject):
             class PercentOff(StripeObject):
                 class MaximumApplications(StripeObject):
@@ -49,15 +55,87 @@ class IntentAction(StripeObject):
             """
             _inner_class_types = {"percent_off": PercentOff}
 
+        class SpendModifierRule(StripeObject):
+            class MaxBillingPeriodSpend(StripeObject):
+                class Amount(StripeObject):
+                    class CustomPricingUnit(StripeObject):
+                        value: str
+                        """
+                        The value of the custom pricing unit.
+                        """
+
+                    custom_pricing_unit: Optional[CustomPricingUnit]
+                    """
+                    The custom pricing unit amount.
+                    """
+                    type: Literal["custom_pricing_unit"]
+                    """
+                    The type of the amount.
+                    """
+                    _inner_class_types = {
+                        "custom_pricing_unit": CustomPricingUnit,
+                    }
+
+                class CustomPricingUnitOverageRate(StripeObject):
+                    id: str
+                    """
+                    ID of the custom pricing unit overage rate.
+                    """
+
+                amount: Amount
+                """
+                The maximum amount allowed for the billing period.
+                """
+                custom_pricing_unit_overage_rate: CustomPricingUnitOverageRate
+                """
+                The configration for the overage rate for the custom pricing unit.
+                """
+                _inner_class_types = {
+                    "amount": Amount,
+                    "custom_pricing_unit_overage_rate": CustomPricingUnitOverageRate,
+                }
+
+            applies_to: Literal["cadence"]
+            """
+            What the spend modifier applies to.
+            """
+            id: str
+            """
+            The ID of the spend modifier.
+            """
+            max_billing_period_spend: Optional[MaxBillingPeriodSpend]
+            """
+            Details for max billing period spend modifier. Only present if type is max_billing_period_spend.
+            """
+            type: Literal["max_billing_period_spend"]
+            """
+            Type of the spend modifier.
+            """
+            _inner_class_types = {
+                "max_billing_period_spend": MaxBillingPeriodSpend,
+            }
+
+        effective_at: Optional[EffectiveAt]
+        """
+        When the apply action will take effect. Defaults to on_reserve if not specified.
+        """
         invoice_discount_rule: Optional[InvoiceDiscountRule]
         """
         Details for applying a discount rule to future invoices.
         """
-        type: Literal["invoice_discount_rule"]
+        spend_modifier_rule: Optional[SpendModifierRule]
+        """
+        Details for applying a spend modifier rule. Only present if type is spend_modifier_rule.
+        """
+        type: Literal["invoice_discount_rule", "spend_modifier_rule"]
         """
         Type of the apply action details.
         """
-        _inner_class_types = {"invoice_discount_rule": InvoiceDiscountRule}
+        _inner_class_types = {
+            "effective_at": EffectiveAt,
+            "invoice_discount_rule": InvoiceDiscountRule,
+            "spend_modifier_rule": SpendModifierRule,
+        }
 
     class Deactivate(StripeObject):
         class CancellationDetails(StripeObject):
@@ -272,14 +350,29 @@ class IntentAction(StripeObject):
         }
 
     class Remove(StripeObject):
+        class EffectiveAt(StripeObject):
+            type: Literal["current_billing_period_end", "on_reserve"]
+            """
+            When the remove action will take effect.
+            """
+
+        effective_at: Optional[EffectiveAt]
+        """
+        When the remove action will take effect. Defaults to on_reserve if not specified.
+        """
         invoice_discount_rule: Optional[str]
         """
         The ID of the discount rule to remove for future invoices.
         """
-        type: Literal["invoice_discount_rule"]
+        spend_modifier_rule: Optional[str]
+        """
+        The ID of the spend modifier rule removed.
+        """
+        type: Literal["invoice_discount_rule", "spend_modifier_rule"]
         """
         Type of the remove action.
         """
+        _inner_class_types = {"effective_at": EffectiveAt}
 
     class Subscribe(StripeObject):
         class EffectiveAt(StripeObject):

@@ -4,6 +4,9 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.v2.billing.rate_cards._custom_pricing_unit_overage_rate_service import (
+        CustomPricingUnitOverageRateService as CustomPricingUnitOverageRateService,
+    )
     from stripe.v2.billing.rate_cards._rate_service import (
         RateService as RateService,
     )
@@ -13,6 +16,10 @@ if TYPE_CHECKING:
 
 # name -> (import_target, is_submodule)
 _import_map = {
+    "CustomPricingUnitOverageRateService": (
+        "stripe.v2.billing.rate_cards._custom_pricing_unit_overage_rate_service",
+        False,
+    ),
     "RateService": ("stripe.v2.billing.rate_cards._rate_service", False),
     "VersionService": ("stripe.v2.billing.rate_cards._version_service", False),
 }

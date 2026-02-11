@@ -51,7 +51,11 @@ class IntentCreateParamsAction(TypedDict):
 
 
 class IntentCreateParamsActionApply(TypedDict):
-    type: Literal["invoice_discount_rule"]
+    effective_at: NotRequired["IntentCreateParamsActionApplyEffectiveAt"]
+    """
+    When the apply action will take effect. Defaults to on_reserve if not specified.
+    """
+    type: Literal["invoice_discount_rule", "spend_modifier_rule"]
     """
     Type of the apply action details.
     """
@@ -60,6 +64,19 @@ class IntentCreateParamsActionApply(TypedDict):
     ]
     """
     Details for applying a discount rule to future invoices.
+    """
+    spend_modifier_rule: NotRequired[
+        "IntentCreateParamsActionApplySpendModifierRule"
+    ]
+    """
+    Details for applying a spend modifier rule. Only present if type is spend_modifier_rule.
+    """
+
+
+class IntentCreateParamsActionApplyEffectiveAt(TypedDict):
+    type: Literal["current_billing_period_end", "on_reserve"]
+    """
+    When the apply action will take effect.
     """
 
 
@@ -97,6 +114,69 @@ class IntentCreateParamsActionApplyInvoiceDiscountRulePercentOffMaximumApplicati
     type: Literal["indefinite"]
     """
     The type of maximum applications configuration.
+    """
+
+
+class IntentCreateParamsActionApplySpendModifierRule(TypedDict):
+    applies_to: Literal["cadence"]
+    """
+    What the spend modifier applies to.
+    """
+    type: Literal["max_billing_period_spend"]
+    """
+    Type of the spend modifier.
+    """
+    max_billing_period_spend: NotRequired[
+        "IntentCreateParamsActionApplySpendModifierRuleMaxBillingPeriodSpend"
+    ]
+    """
+    Details for max billing period spend modifier. Only present if type is max_billing_period_spend.
+    """
+
+
+class IntentCreateParamsActionApplySpendModifierRuleMaxBillingPeriodSpend(
+    TypedDict,
+):
+    amount: "IntentCreateParamsActionApplySpendModifierRuleMaxBillingPeriodSpendAmount"
+    """
+    The maximum amount allowed for the billing period.
+    """
+    custom_pricing_unit_overage_rate: "IntentCreateParamsActionApplySpendModifierRuleMaxBillingPeriodSpendCustomPricingUnitOverageRate"
+    """
+    The configration for the overage rate for the custom pricing unit.
+    """
+
+
+class IntentCreateParamsActionApplySpendModifierRuleMaxBillingPeriodSpendAmount(
+    TypedDict,
+):
+    type: Literal["custom_pricing_unit"]
+    """
+    The type of the amount.
+    """
+    custom_pricing_unit: NotRequired[
+        "IntentCreateParamsActionApplySpendModifierRuleMaxBillingPeriodSpendAmountCustomPricingUnit"
+    ]
+    """
+    The custom pricing unit amount.
+    """
+
+
+class IntentCreateParamsActionApplySpendModifierRuleMaxBillingPeriodSpendAmountCustomPricingUnit(
+    TypedDict,
+):
+    value: str
+    """
+    The value of the custom pricing unit.
+    """
+
+
+class IntentCreateParamsActionApplySpendModifierRuleMaxBillingPeriodSpendCustomPricingUnitOverageRate(
+    TypedDict,
+):
+    id: str
+    """
+    ID of the custom pricing unit overage rate.
     """
 
 
@@ -337,13 +417,28 @@ class IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverridesParti
 
 
 class IntentCreateParamsActionRemove(TypedDict):
-    type: Literal["invoice_discount_rule"]
+    effective_at: NotRequired["IntentCreateParamsActionRemoveEffectiveAt"]
+    """
+    When the remove action will take effect. Defaults to on_reserve if not specified.
+    """
+    type: Literal["invoice_discount_rule", "spend_modifier_rule"]
     """
     Type of the remove action.
     """
     invoice_discount_rule: NotRequired[str]
     """
     The ID of the discount rule to remove for future invoices.
+    """
+    spend_modifier_rule: NotRequired[str]
+    """
+    The ID of the spend modifier rule to remove.
+    """
+
+
+class IntentCreateParamsActionRemoveEffectiveAt(TypedDict):
+    type: Literal["current_billing_period_end", "on_reserve"]
+    """
+    When the remove action will take effect.
     """
 
 

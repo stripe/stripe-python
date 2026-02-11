@@ -6,6 +6,7 @@ from typing_extensions import TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe.v2.billing import (
         bill_settings as bill_settings,
+        cadences as cadences,
         collection_settings as collection_settings,
         intents as intents,
         license_fees as license_fees,
@@ -23,6 +24,9 @@ if TYPE_CHECKING:
     from stripe.v2.billing._cadence import Cadence as Cadence
     from stripe.v2.billing._cadence_service import (
         CadenceService as CadenceService,
+    )
+    from stripe.v2.billing._cadence_spend_modifier import (
+        CadenceSpendModifier as CadenceSpendModifier,
     )
     from stripe.v2.billing._collection_setting import (
         CollectionSetting as CollectionSetting,
@@ -84,6 +88,10 @@ if TYPE_CHECKING:
     from stripe.v2.billing._metered_item_service import (
         MeteredItemService as MeteredItemService,
     )
+    from stripe.v2.billing._one_time_item import OneTimeItem as OneTimeItem
+    from stripe.v2.billing._one_time_item_service import (
+        OneTimeItemService as OneTimeItemService,
+    )
     from stripe.v2.billing._pricing_plan import PricingPlan as PricingPlan
     from stripe.v2.billing._pricing_plan_component import (
         PricingPlanComponent as PricingPlanComponent,
@@ -108,6 +116,9 @@ if TYPE_CHECKING:
         ProfileService as ProfileService,
     )
     from stripe.v2.billing._rate_card import RateCard as RateCard
+    from stripe.v2.billing._rate_card_custom_pricing_unit_overage_rate import (
+        RateCardCustomPricingUnitOverageRate as RateCardCustomPricingUnitOverageRate,
+    )
     from stripe.v2.billing._rate_card_rate import RateCardRate as RateCardRate
     from stripe.v2.billing._rate_card_service import (
         RateCardService as RateCardService,
@@ -131,6 +142,7 @@ if TYPE_CHECKING:
 # name -> (import_target, is_submodule)
 _import_map = {
     "bill_settings": ("stripe.v2.billing.bill_settings", True),
+    "cadences": ("stripe.v2.billing.cadences", True),
     "collection_settings": ("stripe.v2.billing.collection_settings", True),
     "intents": ("stripe.v2.billing.intents", True),
     "license_fees": ("stripe.v2.billing.license_fees", True),
@@ -145,6 +157,10 @@ _import_map = {
     "BillSettingVersion": ("stripe.v2.billing._bill_setting_version", False),
     "Cadence": ("stripe.v2.billing._cadence", False),
     "CadenceService": ("stripe.v2.billing._cadence_service", False),
+    "CadenceSpendModifier": (
+        "stripe.v2.billing._cadence_spend_modifier",
+        False,
+    ),
     "CollectionSetting": ("stripe.v2.billing._collection_setting", False),
     "CollectionSettingService": (
         "stripe.v2.billing._collection_setting_service",
@@ -196,6 +212,8 @@ _import_map = {
     ),
     "MeteredItem": ("stripe.v2.billing._metered_item", False),
     "MeteredItemService": ("stripe.v2.billing._metered_item_service", False),
+    "OneTimeItem": ("stripe.v2.billing._one_time_item", False),
+    "OneTimeItemService": ("stripe.v2.billing._one_time_item_service", False),
     "PricingPlan": ("stripe.v2.billing._pricing_plan", False),
     "PricingPlanComponent": (
         "stripe.v2.billing._pricing_plan_component",
@@ -218,6 +236,10 @@ _import_map = {
     "Profile": ("stripe.v2.billing._profile", False),
     "ProfileService": ("stripe.v2.billing._profile_service", False),
     "RateCard": ("stripe.v2.billing._rate_card", False),
+    "RateCardCustomPricingUnitOverageRate": (
+        "stripe.v2.billing._rate_card_custom_pricing_unit_overage_rate",
+        False,
+    ),
     "RateCardRate": ("stripe.v2.billing._rate_card_rate", False),
     "RateCardService": ("stripe.v2.billing._rate_card_service", False),
     "RateCardSubscription": (

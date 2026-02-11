@@ -30,6 +30,7 @@ if TYPE_CHECKING:
         MeterEventStreamService,
     )
     from stripe.v2.billing._metered_item_service import MeteredItemService
+    from stripe.v2.billing._one_time_item_service import OneTimeItemService
     from stripe.v2.billing._pricing_plan_service import PricingPlanService
     from stripe.v2.billing._pricing_plan_subscription_service import (
         PricingPlanSubscriptionService,
@@ -88,6 +89,10 @@ _subservices = {
         "stripe.v2.billing._metered_item_service",
         "MeteredItemService",
     ],
+    "one_time_items": [
+        "stripe.v2.billing._one_time_item_service",
+        "OneTimeItemService",
+    ],
     "pricing_plans": [
         "stripe.v2.billing._pricing_plan_service",
         "PricingPlanService",
@@ -123,6 +128,7 @@ class BillingService(StripeService):
     meter_event_session: "MeterEventSessionService"
     meter_event_stream: "MeterEventStreamService"
     metered_items: "MeteredItemService"
+    one_time_items: "OneTimeItemService"
     pricing_plans: "PricingPlanService"
     pricing_plan_subscriptions: "PricingPlanSubscriptionService"
     profiles: "ProfileService"

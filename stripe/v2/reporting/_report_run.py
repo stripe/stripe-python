@@ -1,11 +1,8 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Dict, Optional
-from typing_extensions import Literal, TYPE_CHECKING
-
-if TYPE_CHECKING:
-    from typing import Any
+from typing import Any, ClassVar, Dict, Optional
+from typing_extensions import Literal
 
 
 class ReportRun(StripeObject):
@@ -99,7 +96,7 @@ class ReportRun(StripeObject):
     """
     The human-readable name of the `Report` which was run.
     """
-    report_parameters: Dict[str, "Any"]
+    report_parameters: Dict[str, Any]
     """
     The parameters used to customize the generation of the report.
     """

@@ -52,7 +52,7 @@ class Event(StripeObject):
                 """
                 Dashboard user that triggered the event.
                 """
-                stripe_action: Optional[Dict[str, "Any"]]
+                stripe_action: Optional[Dict[str, Any]]
                 """
                 Stripe action that triggered the event.
                 """
@@ -89,7 +89,7 @@ class Event(StripeObject):
         """
         _inner_class_types = {"request": Request}
 
-    changes: Optional[Dict[str, "Any"]]
+    changes: Optional[Dict[str, Any]]
     """
     Before and after changes for the primary related object.
     """

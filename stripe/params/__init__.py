@@ -1573,6 +1573,7 @@ if TYPE_CHECKING:
         InvoiceCreatePreviewParamsScheduleDetailsBillingScheduleAppliesTo as InvoiceCreatePreviewParamsScheduleDetailsBillingScheduleAppliesTo,
         InvoiceCreatePreviewParamsScheduleDetailsBillingScheduleBillUntil as InvoiceCreatePreviewParamsScheduleDetailsBillingScheduleBillUntil,
         InvoiceCreatePreviewParamsScheduleDetailsBillingScheduleBillUntilDuration as InvoiceCreatePreviewParamsScheduleDetailsBillingScheduleBillUntilDuration,
+        InvoiceCreatePreviewParamsScheduleDetailsDefaultSettings as InvoiceCreatePreviewParamsScheduleDetailsDefaultSettings,
         InvoiceCreatePreviewParamsScheduleDetailsPhase as InvoiceCreatePreviewParamsScheduleDetailsPhase,
         InvoiceCreatePreviewParamsScheduleDetailsPhaseAddInvoiceItem as InvoiceCreatePreviewParamsScheduleDetailsPhaseAddInvoiceItem,
         InvoiceCreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemDiscount as InvoiceCreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemDiscount,
@@ -10383,6 +10384,10 @@ _import_map = {
         False,
     ),
     "InvoiceCreatePreviewParamsScheduleDetailsBillingScheduleBillUntilDuration": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsScheduleDetailsDefaultSettings": (
         "stripe.params._invoice_create_preview_params",
         False,
     ),

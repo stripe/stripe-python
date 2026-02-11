@@ -22,10 +22,17 @@ if TYPE_CHECKING:
     )
     from stripe.v2._list_object import ListObject
     from stripe.v2.billing._rate_card import RateCard
+    from stripe.v2.billing.rate_cards._custom_pricing_unit_overage_rate_service import (
+        CustomPricingUnitOverageRateService,
+    )
     from stripe.v2.billing.rate_cards._rate_service import RateService
     from stripe.v2.billing.rate_cards._version_service import VersionService
 
 _subservices = {
+    "custom_pricing_unit_overage_rates": [
+        "stripe.v2.billing.rate_cards._custom_pricing_unit_overage_rate_service",
+        "CustomPricingUnitOverageRateService",
+    ],
     "rates": ["stripe.v2.billing.rate_cards._rate_service", "RateService"],
     "versions": [
         "stripe.v2.billing.rate_cards._version_service",
@@ -35,6 +42,7 @@ _subservices = {
 
 
 class RateCardService(StripeService):
+    custom_pricing_unit_overage_rates: "CustomPricingUnitOverageRateService"
     rates: "RateService"
     versions: "VersionService"
 

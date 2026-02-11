@@ -4,6 +4,18 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.params.v2.billing.rate_cards._custom_pricing_unit_overage_rate_create_params import (
+        CustomPricingUnitOverageRateCreateParams as CustomPricingUnitOverageRateCreateParams,
+    )
+    from stripe.params.v2.billing.rate_cards._custom_pricing_unit_overage_rate_delete_params import (
+        CustomPricingUnitOverageRateDeleteParams as CustomPricingUnitOverageRateDeleteParams,
+    )
+    from stripe.params.v2.billing.rate_cards._custom_pricing_unit_overage_rate_list_params import (
+        CustomPricingUnitOverageRateListParams as CustomPricingUnitOverageRateListParams,
+    )
+    from stripe.params.v2.billing.rate_cards._custom_pricing_unit_overage_rate_retrieve_params import (
+        CustomPricingUnitOverageRateRetrieveParams as CustomPricingUnitOverageRateRetrieveParams,
+    )
     from stripe.params.v2.billing.rate_cards._rate_create_params import (
         RateCreateParams as RateCreateParams,
         RateCreateParamsCustomPricingUnitAmount as RateCreateParamsCustomPricingUnitAmount,
@@ -28,6 +40,22 @@ if TYPE_CHECKING:
 
 # name -> (import_target, is_submodule)
 _import_map = {
+    "CustomPricingUnitOverageRateCreateParams": (
+        "stripe.params.v2.billing.rate_cards._custom_pricing_unit_overage_rate_create_params",
+        False,
+    ),
+    "CustomPricingUnitOverageRateDeleteParams": (
+        "stripe.params.v2.billing.rate_cards._custom_pricing_unit_overage_rate_delete_params",
+        False,
+    ),
+    "CustomPricingUnitOverageRateListParams": (
+        "stripe.params.v2.billing.rate_cards._custom_pricing_unit_overage_rate_list_params",
+        False,
+    ),
+    "CustomPricingUnitOverageRateRetrieveParams": (
+        "stripe.params.v2.billing.rate_cards._custom_pricing_unit_overage_rate_retrieve_params",
+        False,
+    ),
     "RateCreateParams": (
         "stripe.params.v2.billing.rate_cards._rate_create_params",
         False,
