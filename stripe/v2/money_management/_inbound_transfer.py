@@ -1,11 +1,8 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Dict, List, Optional
-from typing_extensions import Literal, TYPE_CHECKING
-
-if TYPE_CHECKING:
-    from typing import Any
+from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Literal
 
 
 class InboundTransfer(StripeObject):
@@ -112,11 +109,11 @@ class InboundTransfer(StripeObject):
         """
         The history entry for a failed InboundTransfer.
         """
-        bank_debit_processing: Optional[Dict[str, "Any"]]
+        bank_debit_processing: Optional[Dict[str, Any]]
         """
         The history entry for a processing InboundTransfer.
         """
-        bank_debit_queued: Optional[Dict[str, "Any"]]
+        bank_debit_queued: Optional[Dict[str, Any]]
         """
         The history entry for a queued InboundTransfer.
         """
@@ -124,7 +121,7 @@ class InboundTransfer(StripeObject):
         """
         The history entry for a returned InboundTransfer.
         """
-        bank_debit_succeeded: Optional[Dict[str, "Any"]]
+        bank_debit_succeeded: Optional[Dict[str, Any]]
         """
         The history entry for a succeeded InboundTransfer.
         """

@@ -9,7 +9,7 @@ class ReportRunCreateParams(TypedDict):
     """
     The unique identifier of the `Report` being requested.
     """
-    report_parameters: Dict[str, "Any"]
+    report_parameters: Dict[str, Any]
     """
     A map of parameter names to values, specifying how the report should be customized.
     The accepted parameters depend on the specific `Report` being run.
