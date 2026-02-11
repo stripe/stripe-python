@@ -1,6 +1,6 @@
 [project]
 name = "stripe"
-version = "14.4.0a2"
+version = "14.4.0a3"
 readme = "README.md"
 description = "Python bindings for the Stripe API"
 authors = [{ name = "Stripe", email = "support@stripe.com" }]
