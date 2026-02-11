@@ -81,7 +81,7 @@ class CouponCreateParamsCurrencyOptions(TypedDict):
 
 
 class CouponCreateParamsScript(TypedDict):
-    configuration: Dict[str, "Any"]
+    configuration: Dict[str, Any]
     """
     The configuration values of the script. The keys and values are specific to the script implementation.
     """

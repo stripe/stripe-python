@@ -11,6 +11,7 @@ from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
 from typing import (
+    Any,
     AsyncIterator,
     ClassVar,
     Dict,
@@ -79,7 +80,6 @@ if TYPE_CHECKING:
     from stripe.params._payment_intent_verify_microdeposits_params import (
         PaymentIntentVerifyMicrodepositsParams,
     )
-    from typing import Any
 
 
 @nested_resource_class_methods("amount_details_line_item")
@@ -1437,7 +1437,7 @@ class PaymentIntent(
         """
         Type of the next action to perform. Refer to the other child attributes under `next_action` for available values. Examples include: `redirect_to_url`, `use_stripe_sdk`, `alipay_handle_redirect`, `oxxo_display_details`, or `verify_with_microdeposits`.
         """
-        use_stripe_sdk: Optional[Dict[str, "Any"]]
+        use_stripe_sdk: Optional[Dict[str, Any]]
         """
         When confirming a PaymentIntent with Stripe.js, Stripe.js depends on the contents of this dictionary to invoke authentication flows. The shape of the contents is subject to change and is only intended to be used by Stripe.js.
         """

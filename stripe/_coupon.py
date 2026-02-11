@@ -7,7 +7,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, Dict, List, Optional, cast, overload
+from typing import Any, ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -16,7 +16,6 @@ if TYPE_CHECKING:
     from stripe.params._coupon_list_params import CouponListParams
     from stripe.params._coupon_modify_params import CouponModifyParams
     from stripe.params._coupon_retrieve_params import CouponRetrieveParams
-    from typing import Any
 
 
 class Coupon(
@@ -46,7 +45,7 @@ class Coupon(
         """
 
     class Script(StripeObject):
-        configuration: Dict[str, "Any"]
+        configuration: Dict[str, Any]
         """
         The configuration values of the script. The keys and values are specific to the script implementation.
         """
