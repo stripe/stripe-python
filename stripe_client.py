@@ -9,7 +9,7 @@ from datetime import datetime
 
 # Configuration
 API_BASE_URL = "https://api.stripe.com/v1"
-DEFAULT_TIMEOUT = 30
+DEFAULT_TIMEOUT = 31
 
 class StripeClient:
     """Client for interacting with Stripe API."""
