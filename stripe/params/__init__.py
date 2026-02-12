@@ -4037,6 +4037,7 @@ if TYPE_CHECKING:
         PaymentMethodModifyParamsBillingDetailsAddress as PaymentMethodModifyParamsBillingDetailsAddress,
         PaymentMethodModifyParamsCard as PaymentMethodModifyParamsCard,
         PaymentMethodModifyParamsCardNetworks as PaymentMethodModifyParamsCardNetworks,
+        PaymentMethodModifyParamsCustom as PaymentMethodModifyParamsCustom,
         PaymentMethodModifyParamsPayto as PaymentMethodModifyParamsPayto,
         PaymentMethodModifyParamsUsBankAccount as PaymentMethodModifyParamsUsBankAccount,
     )
@@ -4049,6 +4050,7 @@ if TYPE_CHECKING:
         PaymentMethodUpdateParamsBillingDetailsAddress as PaymentMethodUpdateParamsBillingDetailsAddress,
         PaymentMethodUpdateParamsCard as PaymentMethodUpdateParamsCard,
         PaymentMethodUpdateParamsCardNetworks as PaymentMethodUpdateParamsCardNetworks,
+        PaymentMethodUpdateParamsCustom as PaymentMethodUpdateParamsCustom,
         PaymentMethodUpdateParamsPayto as PaymentMethodUpdateParamsPayto,
         PaymentMethodUpdateParamsUsBankAccount as PaymentMethodUpdateParamsUsBankAccount,
     )
@@ -19478,6 +19480,10 @@ _import_map = {
         "stripe.params._payment_method_modify_params",
         False,
     ),
+    "PaymentMethodModifyParamsCustom": (
+        "stripe.params._payment_method_modify_params",
+        False,
+    ),
     "PaymentMethodModifyParamsPayto": (
         "stripe.params._payment_method_modify_params",
         False,
@@ -19507,6 +19513,10 @@ _import_map = {
         False,
     ),
     "PaymentMethodUpdateParamsCardNetworks": (
+        "stripe.params._payment_method_update_params",
+        False,
+    ),
+    "PaymentMethodUpdateParamsCustom": (
         "stripe.params._payment_method_update_params",
         False,
     ),
