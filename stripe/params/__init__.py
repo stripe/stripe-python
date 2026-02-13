@@ -4037,6 +4037,7 @@ if TYPE_CHECKING:
         PaymentMethodModifyParamsBillingDetailsAddress as PaymentMethodModifyParamsBillingDetailsAddress,
         PaymentMethodModifyParamsCard as PaymentMethodModifyParamsCard,
         PaymentMethodModifyParamsCardNetworks as PaymentMethodModifyParamsCardNetworks,
+        PaymentMethodModifyParamsCustom as PaymentMethodModifyParamsCustom,
         PaymentMethodModifyParamsPayto as PaymentMethodModifyParamsPayto,
         PaymentMethodModifyParamsUsBankAccount as PaymentMethodModifyParamsUsBankAccount,
     )
@@ -4049,6 +4050,7 @@ if TYPE_CHECKING:
         PaymentMethodUpdateParamsBillingDetailsAddress as PaymentMethodUpdateParamsBillingDetailsAddress,
         PaymentMethodUpdateParamsCard as PaymentMethodUpdateParamsCard,
         PaymentMethodUpdateParamsCardNetworks as PaymentMethodUpdateParamsCardNetworks,
+        PaymentMethodUpdateParamsCustom as PaymentMethodUpdateParamsCustom,
         PaymentMethodUpdateParamsPayto as PaymentMethodUpdateParamsPayto,
         PaymentMethodUpdateParamsUsBankAccount as PaymentMethodUpdateParamsUsBankAccount,
     )
@@ -5341,6 +5343,8 @@ if TYPE_CHECKING:
     from stripe.params._subscription_pause_params import (
         SubscriptionPauseParams as SubscriptionPauseParams,
         SubscriptionPauseParamsBillFor as SubscriptionPauseParamsBillFor,
+        SubscriptionPauseParamsBillForOutstandingUsageThrough as SubscriptionPauseParamsBillForOutstandingUsageThrough,
+        SubscriptionPauseParamsBillForUnusedTimeFrom as SubscriptionPauseParamsBillForUnusedTimeFrom,
     )
     from stripe.params._subscription_resume_params import (
         SubscriptionResumeParams as SubscriptionResumeParams,
@@ -19478,6 +19482,10 @@ _import_map = {
         "stripe.params._payment_method_modify_params",
         False,
     ),
+    "PaymentMethodModifyParamsCustom": (
+        "stripe.params._payment_method_modify_params",
+        False,
+    ),
     "PaymentMethodModifyParamsPayto": (
         "stripe.params._payment_method_modify_params",
         False,
@@ -19507,6 +19515,10 @@ _import_map = {
         False,
     ),
     "PaymentMethodUpdateParamsCardNetworks": (
+        "stripe.params._payment_method_update_params",
+        False,
+    ),
+    "PaymentMethodUpdateParamsCustom": (
         "stripe.params._payment_method_update_params",
         False,
     ),
@@ -23516,6 +23528,14 @@ _import_map = {
         False,
     ),
     "SubscriptionPauseParamsBillFor": (
+        "stripe.params._subscription_pause_params",
+        False,
+    ),
+    "SubscriptionPauseParamsBillForOutstandingUsageThrough": (
+        "stripe.params._subscription_pause_params",
+        False,
+    ),
+    "SubscriptionPauseParamsBillForUnusedTimeFrom": (
         "stripe.params._subscription_pause_params",
         False,
     ),

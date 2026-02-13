@@ -33,6 +33,10 @@ class PaymentMethodUpdateParams(TypedDict):
     """
     If this is an `us_bank_account` PaymentMethod, this hash contains details about the US bank account payment method.
     """
+    custom: NotRequired["PaymentMethodUpdateParamsCustom"]
+    """
+    If this is a `custom` PaymentMethod, this hash contains details about the Custom payment method.
+    """
 
 
 class PaymentMethodUpdateParamsBillingDetails(TypedDict):
@@ -134,4 +138,11 @@ class PaymentMethodUpdateParamsUsBankAccount(TypedDict):
     account_type: NotRequired[Literal["checking", "savings"]]
     """
     Bank account type.
+    """
+
+
+class PaymentMethodUpdateParamsCustom(TypedDict):
+    payment_method_reference: NotRequired[str]
+    """
+    A reference to an external payment method, such as a PayPal Billing Agreement ID.
     """
