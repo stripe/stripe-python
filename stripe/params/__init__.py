@@ -5343,6 +5343,8 @@ if TYPE_CHECKING:
     from stripe.params._subscription_pause_params import (
         SubscriptionPauseParams as SubscriptionPauseParams,
         SubscriptionPauseParamsBillFor as SubscriptionPauseParamsBillFor,
+        SubscriptionPauseParamsBillForOutstandingUsageThrough as SubscriptionPauseParamsBillForOutstandingUsageThrough,
+        SubscriptionPauseParamsBillForUnusedTimeFrom as SubscriptionPauseParamsBillForUnusedTimeFrom,
     )
     from stripe.params._subscription_resume_params import (
         SubscriptionResumeParams as SubscriptionResumeParams,
@@ -23526,6 +23528,14 @@ _import_map = {
         False,
     ),
     "SubscriptionPauseParamsBillFor": (
+        "stripe.params._subscription_pause_params",
+        False,
+    ),
+    "SubscriptionPauseParamsBillForOutstandingUsageThrough": (
+        "stripe.params._subscription_pause_params",
+        False,
+    ),
+    "SubscriptionPauseParamsBillForUnusedTimeFrom": (
         "stripe.params._subscription_pause_params",
         False,
     ),
