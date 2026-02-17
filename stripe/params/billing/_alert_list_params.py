@@ -7,7 +7,9 @@ from typing_extensions import Literal, NotRequired
 
 class AlertListParams(RequestOptions):
     alert_type: NotRequired[
-        Literal["credit_balance_threshold", "usage_threshold"]
+        Literal[
+            "credit_balance_threshold", "spend_threshold", "usage_threshold"
+        ]
     ]
     """
     Filter results to only include this type of alert.

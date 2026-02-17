@@ -119,6 +119,114 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
         lte: Lte
         _inner_class_types = {"filters": Filter, "lte": Lte}
 
+    class SpendThreshold(StripeObject):
+        class Filters(StripeObject):
+            billable_items: Optional[List[str]]
+            """
+            Filter by billable item IDs.
+            """
+            billing_cadence: Optional[str]
+            """
+            Filter by billing cadence ID.
+            """
+            pricing_plan: Optional[str]
+            """
+            Filter by pricing plan ID.
+            """
+            pricing_plan_subscription: Optional[str]
+            """
+            Filter by pricing plan subscription ID.
+            """
+
+        class Gte(StripeObject):
+            class Amount(StripeObject):
+                currency: str
+                """
+                Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                """
+                value: int
+                """
+                A positive integer representing the amount.
+                """
+
+            class CustomPricingUnit(StripeObject):
+                class CustomPricingUnitDetails(StripeObject):
+                    created: int
+                    """
+                    Time at which the object was created. Measured in seconds since the Unix epoch.
+                    """
+                    display_name: str
+                    """
+                    The name of the custom pricing unit.
+                    """
+                    id: str
+                    """
+                    Unique identifier for the object.
+                    """
+                    lookup_key: Optional[str]
+                    """
+                    A lookup key for the custom pricing unit.
+                    """
+                    metadata: Dict[str, str]
+                    """
+                    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+                    """
+                    status: str
+                    """
+                    The status of the custom pricing unit.
+                    """
+
+                custom_pricing_unit_details: Optional[CustomPricingUnitDetails]
+                """
+                The custom pricing unit object.
+                """
+                id: str
+                """
+                Unique identifier for the object.
+                """
+                value: str
+                """
+                A positive decimal string representing the amount.
+                """
+                _inner_class_types = {
+                    "custom_pricing_unit_details": CustomPricingUnitDetails,
+                }
+
+            amount: Optional[Amount]
+            """
+            The monetary amount. Present when type is `amount`.
+            """
+            custom_pricing_unit: Optional[CustomPricingUnit]
+            """
+            The custom pricing unit amount. Present when type is `custom_pricing_unit`.
+            """
+            type: Literal["amount", "custom_pricing_unit"]
+            """
+            The type of the threshold amount.
+            """
+            _inner_class_types = {
+                "amount": Amount,
+                "custom_pricing_unit": CustomPricingUnit,
+            }
+
+        aggregation_period: Literal["billing"]
+        """
+        Defines the period over which spend is aggregated.
+        """
+        filters: Optional[Filters]
+        """
+        Filters to scope the spend calculation.
+        """
+        group_by: Optional[Literal["pricing_plan_subscription"]]
+        """
+        Defines the granularity of spend aggregation.
+        """
+        gte: Gte
+        """
+        The threshold value configuration for a spend threshold alert.
+        """
+        _inner_class_types = {"filters": Filters, "gte": Gte}
+
     class UsageThreshold(StripeObject):
         class Filter(StripeObject):
             customer: Optional[ExpandableField["Customer"]]
@@ -145,7 +253,9 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
         """
         _inner_class_types = {"filters": Filter}
 
-    alert_type: Literal["credit_balance_threshold", "usage_threshold"]
+    alert_type: Literal[
+        "credit_balance_threshold", "spend_threshold", "usage_threshold"
+    ]
     """
     Defines the type of the alert.
     """
@@ -164,6 +274,10 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
     object: Literal["billing.alert"]
     """
     String representing the object's type. Objects of the same type share the same value.
+    """
+    spend_threshold: Optional[SpendThreshold]
+    """
+    Encapsulates the alert's configuration to monitor spend on pricing plan subscriptions.
     """
     status: Optional[Literal["active", "archived", "inactive"]]
     """
@@ -582,5 +696,6 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
 
     _inner_class_types = {
         "credit_balance_threshold": CreditBalanceThreshold,
+        "spend_threshold": SpendThreshold,
         "usage_threshold": UsageThreshold,
     }

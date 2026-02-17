@@ -6,7 +6,9 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class AlertCreateParams(RequestOptions):
-    alert_type: Literal["credit_balance_threshold", "usage_threshold"]
+    alert_type: Literal[
+        "credit_balance_threshold", "spend_threshold", "usage_threshold"
+    ]
     """
     The type of alert to create.
     """
@@ -27,6 +29,10 @@ class AlertCreateParams(RequestOptions):
     usage_threshold: NotRequired["AlertCreateParamsUsageThreshold"]
     """
     The configuration of the usage threshold.
+    """
+    spend_threshold: NotRequired["AlertCreateParamsSpendThreshold"]
+    """
+    The configuration of the spend threshold.
     """
 
 
@@ -183,4 +189,81 @@ class AlertCreateParamsUsageThresholdFilter(TypedDict):
     type: Literal["customer"]
     """
     What type of filter is being applied to this usage alert.
+    """
+
+
+class AlertCreateParamsSpendThreshold(TypedDict):
+    aggregation_period: Literal["billing"]
+    """
+    Defines the period over which spend is aggregated.
+    """
+    filters: NotRequired["AlertCreateParamsSpendThresholdFilters"]
+    """
+    Filters to scope the spend calculation.
+    """
+    group_by: NotRequired[Literal["pricing_plan_subscription"]]
+    """
+    Defines the granularity of spend aggregation. Defaults to `pricing_plan_subscription`.
+    """
+    gte: "AlertCreateParamsSpendThresholdGte"
+    """
+    Defines at which value the alert will fire.
+    """
+
+
+class AlertCreateParamsSpendThresholdFilters(TypedDict):
+    billable_items: NotRequired[List[str]]
+    """
+    Filter by billable item IDs. Maximum of 20 billable items.
+    """
+    billing_cadence: NotRequired[str]
+    """
+    Filter by billing cadence ID.
+    """
+    pricing_plan: NotRequired[str]
+    """
+    Filter by pricing plan ID.
+    """
+    pricing_plan_subscription: NotRequired[str]
+    """
+    Filter by pricing plan subscription ID.
+    """
+
+
+class AlertCreateParamsSpendThresholdGte(TypedDict):
+    amount: NotRequired["AlertCreateParamsSpendThresholdGteAmount"]
+    """
+    The monetary amount. Required when type is `amount`.
+    """
+    custom_pricing_unit: NotRequired[
+        "AlertCreateParamsSpendThresholdGteCustomPricingUnit"
+    ]
+    """
+    The custom pricing unit amount. Required when type is `custom_pricing_unit`.
+    """
+    type: Literal["amount", "custom_pricing_unit"]
+    """
+    The type of the threshold amount.
+    """
+
+
+class AlertCreateParamsSpendThresholdGteAmount(TypedDict):
+    currency: str
+    """
+    Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `value` parameter.
+    """
+    value: int
+    """
+    An integer representing the amount of the threshold.
+    """
+
+
+class AlertCreateParamsSpendThresholdGteCustomPricingUnit(TypedDict):
+    id: str
+    """
+    The ID of the custom pricing unit.
+    """
+    value: str
+    """
+    A positive decimal string representing the amount of the custom pricing unit threshold.
     """
