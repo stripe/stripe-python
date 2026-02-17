@@ -850,6 +850,10 @@ class PaymentMethod(
         """
         ID of the Dashboard-only CustomPaymentMethodType. Not expandable.
         """
+        usage: Optional[Literal["off_session"]]
+        """
+        Indicates whether the payment method supports off-session payments.
+        """
         _inner_class_types = {"logo": Logo}
 
     class CustomerBalance(StripeObject):

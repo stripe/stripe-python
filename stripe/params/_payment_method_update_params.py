@@ -146,3 +146,7 @@ class PaymentMethodUpdateParamsCustom(TypedDict):
     """
     A reference to an external payment method, such as a PayPal Billing Agreement ID.
     """
+    usage: NotRequired[Literal["off_session"]]
+    """
+    Indicates whether the payment method supports off-session payments.
+    """
