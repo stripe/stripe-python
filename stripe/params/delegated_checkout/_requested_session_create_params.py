@@ -86,7 +86,7 @@ class RequestedSessionCreateParamsFulfillmentDetailsAddress(TypedDict):
     """
     Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
     """
-    line1: str
+    line1: NotRequired[str]
     """
     Address line 1, such as the street, PO Box, or company name.
     """
@@ -164,7 +164,7 @@ class RequestedSessionCreateParamsPaymentMethodDataBillingDetailsAddress(
     """
     Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
     """
-    line1: str
+    line1: NotRequired[str]
     """
     Address line 1, such as the street, PO Box, or company name.
     """
