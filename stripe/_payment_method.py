@@ -842,9 +842,17 @@ class PaymentMethod(
         """
         Contains information about the Dashboard-only CustomPaymentMethodType logo.
         """
+        payment_method_reference: Optional[str]
+        """
+        A reference to an external payment method, such as a PayPal Billing Agreement ID.
+        """
         type: str
         """
         ID of the Dashboard-only CustomPaymentMethodType. Not expandable.
+        """
+        usage: Optional[Literal["off_session"]]
+        """
+        Indicates whether the payment method supports off-session payments.
         """
         _inner_class_types = {"logo": Logo}
 

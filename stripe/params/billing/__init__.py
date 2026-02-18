@@ -23,6 +23,11 @@ if TYPE_CHECKING:
         AlertCreateParamsCreditBalanceThresholdLte as AlertCreateParamsCreditBalanceThresholdLte,
         AlertCreateParamsCreditBalanceThresholdLteCustomPricingUnit as AlertCreateParamsCreditBalanceThresholdLteCustomPricingUnit,
         AlertCreateParamsCreditBalanceThresholdLteMonetary as AlertCreateParamsCreditBalanceThresholdLteMonetary,
+        AlertCreateParamsSpendThreshold as AlertCreateParamsSpendThreshold,
+        AlertCreateParamsSpendThresholdFilters as AlertCreateParamsSpendThresholdFilters,
+        AlertCreateParamsSpendThresholdGte as AlertCreateParamsSpendThresholdGte,
+        AlertCreateParamsSpendThresholdGteAmount as AlertCreateParamsSpendThresholdGteAmount,
+        AlertCreateParamsSpendThresholdGteCustomPricingUnit as AlertCreateParamsSpendThresholdGteCustomPricingUnit,
         AlertCreateParamsUsageThreshold as AlertCreateParamsUsageThreshold,
         AlertCreateParamsUsageThresholdFilter as AlertCreateParamsUsageThresholdFilter,
     )
@@ -163,6 +168,26 @@ _import_map = {
         False,
     ),
     "AlertCreateParamsCreditBalanceThresholdLteMonetary": (
+        "stripe.params.billing._alert_create_params",
+        False,
+    ),
+    "AlertCreateParamsSpendThreshold": (
+        "stripe.params.billing._alert_create_params",
+        False,
+    ),
+    "AlertCreateParamsSpendThresholdFilters": (
+        "stripe.params.billing._alert_create_params",
+        False,
+    ),
+    "AlertCreateParamsSpendThresholdGte": (
+        "stripe.params.billing._alert_create_params",
+        False,
+    ),
+    "AlertCreateParamsSpendThresholdGteAmount": (
+        "stripe.params.billing._alert_create_params",
+        False,
+    ),
+    "AlertCreateParamsSpendThresholdGteCustomPricingUnit": (
         "stripe.params.billing._alert_create_params",
         False,
     ),

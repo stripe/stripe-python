@@ -25,11 +25,29 @@ class SubscriptionPauseParams(RequestOptions):
 
 
 class SubscriptionPauseParamsBillFor(TypedDict):
-    outstanding_usage: NotRequired[bool]
+    outstanding_usage_through: NotRequired[
+        "SubscriptionPauseParamsBillForOutstandingUsageThrough"
+    ]
     """
-    Controls whether to debit for accrued metered usage in the current billing period. The default is `true`.
+    Controls when to bill for metered usage in the current period. Defaults to `{ type: "now" }`.
     """
-    unused_time: NotRequired[bool]
+    unused_time_from: NotRequired[
+        "SubscriptionPauseParamsBillForUnusedTimeFrom"
+    ]
     """
-    Controls whether to credit for licensed items in the current billing period. The default is `true`.
+    Controls when to credit for unused time on licensed items. Defaults to `{ type: "now" }`.
+    """
+
+
+class SubscriptionPauseParamsBillForOutstandingUsageThrough(TypedDict):
+    type: Literal["none", "now"]
+    """
+    When to bill metered usage in the current period.
+    """
+
+
+class SubscriptionPauseParamsBillForUnusedTimeFrom(TypedDict):
+    type: Literal["item_current_period_start", "none", "now"]
+    """
+    When to credit for unused time.
     """
