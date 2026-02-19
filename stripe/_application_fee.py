@@ -60,6 +60,16 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         Type of object that created the application fee.
         """
 
+    class FundingSource(StripeObject):
+        invoice: Optional[str]
+        """
+        The invoice ID associated with this funding source, if applicable.
+        """
+        type: str
+        """
+        The type of funding source.
+        """
+
     account: ExpandableField["Account"]
     """
     ID of the Stripe account this fee was taken from.
@@ -95,6 +105,10 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
     fee_source: Optional[FeeSource]
     """
     Polymorphic source of the application fee. Includes the ID of the object the application fee was created from.
+    """
+    funding_source: Optional[FundingSource]
+    """
+    Polymorphic funding source of the application fee. Includes the type and details of the funding source.
     """
     id: str
     """
@@ -525,4 +539,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
             ),
         )
 
-    _inner_class_types = {"fee_source": FeeSource}
+    _inner_class_types = {
+        "fee_source": FeeSource,
+        "funding_source": FundingSource,
+    }
