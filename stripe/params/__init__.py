@@ -394,6 +394,9 @@ if TYPE_CHECKING:
     from stripe.params._account_retrieve_person_params import (
         AccountRetrievePersonParams as AccountRetrievePersonParams,
     )
+    from stripe.params._account_retrieve_signal_params import (
+        AccountRetrieveSignalParams as AccountRetrieveSignalParams,
+    )
     from stripe.params._account_session_create_params import (
         AccountSessionCreateParams as AccountSessionCreateParams,
         AccountSessionCreateParamsComponents as AccountSessionCreateParamsComponents,
@@ -467,6 +470,9 @@ if TYPE_CHECKING:
         AccountSessionCreateParamsComponentsTerminalHardwareOrdersFeatures as AccountSessionCreateParamsComponentsTerminalHardwareOrdersFeatures,
         AccountSessionCreateParamsComponentsTerminalHardwareShop as AccountSessionCreateParamsComponentsTerminalHardwareShop,
         AccountSessionCreateParamsComponentsTerminalHardwareShopFeatures as AccountSessionCreateParamsComponentsTerminalHardwareShopFeatures,
+    )
+    from stripe.params._account_signals_retrieve_params import (
+        AccountSignalsRetrieveParams as AccountSignalsRetrieveParams,
     )
     from stripe.params._account_update_params import (
         AccountUpdateParams as AccountUpdateParams,
@@ -6956,6 +6962,10 @@ _import_map = {
         "stripe.params._account_retrieve_person_params",
         False,
     ),
+    "AccountRetrieveSignalParams": (
+        "stripe.params._account_retrieve_signal_params",
+        False,
+    ),
     "AccountSessionCreateParams": (
         "stripe.params._account_session_create_params",
         False,
@@ -7242,6 +7252,10 @@ _import_map = {
     ),
     "AccountSessionCreateParamsComponentsTerminalHardwareShopFeatures": (
         "stripe.params._account_session_create_params",
+        False,
+    ),
+    "AccountSignalsRetrieveParams": (
+        "stripe.params._account_signals_retrieve_params",
         False,
     ),
     "AccountUpdateParams": ("stripe.params._account_update_params", False),

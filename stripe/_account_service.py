@@ -14,6 +14,7 @@ if TYPE_CHECKING:
     )
     from stripe._account_login_link_service import AccountLoginLinkService
     from stripe._account_person_service import AccountPersonService
+    from stripe._account_signals_service import AccountSignalsService
     from stripe._list_object import ListObject
     from stripe._request_options import RequestOptions
     from stripe.params._account_create_params import AccountCreateParams
@@ -40,6 +41,7 @@ _subservices = {
         "AccountLoginLinkService",
     ],
     "persons": ["stripe._account_person_service", "AccountPersonService"],
+    "signals": ["stripe._account_signals_service", "AccountSignalsService"],
 }
 
 
@@ -48,6 +50,7 @@ class AccountService(StripeService):
     external_accounts: "AccountExternalAccountService"
     login_links: "AccountLoginLinkService"
     persons: "AccountPersonService"
+    signals: "AccountSignalsService"
 
     def __init__(self, requestor):
         super().__init__(requestor)

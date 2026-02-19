@@ -197,6 +197,10 @@ if TYPE_CHECKING:
     from stripe._account_session_service import (
         AccountSessionService as AccountSessionService,
     )
+    from stripe._account_signals import AccountSignals as AccountSignals
+    from stripe._account_signals_service import (
+        AccountSignalsService as AccountSignalsService,
+    )
     from stripe._api_mode import ApiMode as ApiMode
     from stripe._api_resource import APIResource as APIResource
     from stripe._apple_pay_domain import ApplePayDomain as ApplePayDomain
@@ -687,6 +691,8 @@ _import_map = {
     "AccountService": ("stripe._account_service", False),
     "AccountSession": ("stripe._account_session", False),
     "AccountSessionService": ("stripe._account_session_service", False),
+    "AccountSignals": ("stripe._account_signals", False),
+    "AccountSignalsService": ("stripe._account_signals_service", False),
     "ApiMode": ("stripe._api_mode", False),
     "APIResource": ("stripe._api_resource", False),
     "ApplePayDomain": ("stripe._apple_pay_domain", False),

@@ -20,6 +20,7 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     "account_link": ("stripe._account_link", "AccountLink"),
     "account_notice": ("stripe._account_notice", "AccountNotice"),
     "account_session": ("stripe._account_session", "AccountSession"),
+    "account_signals": ("stripe._account_signals", "AccountSignals"),
     "apple_pay_domain": ("stripe._apple_pay_domain", "ApplePayDomain"),
     "application": ("stripe._application", "Application"),
     "application_fee": ("stripe._application_fee", "ApplicationFee"),
