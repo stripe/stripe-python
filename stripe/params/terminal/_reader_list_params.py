@@ -13,9 +13,11 @@ class ReaderListParams(RequestOptions):
             "bbpos_wisepos_e",
             "mobile_phone_reader",
             "simulated_stripe_s700",
+            "simulated_stripe_s710",
             "simulated_wisepos_e",
             "stripe_m2",
             "stripe_s700",
+            "stripe_s710",
             "verifone_P400",
         ]
     ]
