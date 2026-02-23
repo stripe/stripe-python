@@ -15,42 +15,42 @@ class Transaction(StripeObject):
     )
 
     class Amount(StripeObject):
-        currency: Optional[str]
+        currency: str
         """
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         """
-        value: Optional[int]
+        value: int
         """
         A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
         """
 
     class BalanceImpact(StripeObject):
         class Available(StripeObject):
-            currency: Optional[str]
+            currency: str
             """
             Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             """
-            value: Optional[int]
+            value: int
             """
             A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
             """
 
         class InboundPending(StripeObject):
-            currency: Optional[str]
+            currency: str
             """
             Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             """
-            value: Optional[int]
+            value: int
             """
             A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
             """
 
         class OutboundPending(StripeObject):
-            currency: Optional[str]
+            currency: str
             """
             Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             """
-            value: Optional[int]
+            value: int
             """
             A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
             """
@@ -161,7 +161,7 @@ class Transaction(StripeObject):
     """
     Indicates the FinancialAccount affected by this Transaction.
     """
-    flow: Flow
+    flow: Optional[Flow]
     """
     Details about the Flow object that created the Transaction.
     """

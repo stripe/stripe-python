@@ -77,6 +77,8 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationMerchantScriptStatementDescriptor as AccountCreateParamsConfigurationMerchantScriptStatementDescriptor,
         AccountCreateParamsConfigurationMerchantScriptStatementDescriptorKana as AccountCreateParamsConfigurationMerchantScriptStatementDescriptorKana,
         AccountCreateParamsConfigurationMerchantScriptStatementDescriptorKanji as AccountCreateParamsConfigurationMerchantScriptStatementDescriptorKanji,
+        AccountCreateParamsConfigurationMerchantSmartDisputes as AccountCreateParamsConfigurationMerchantSmartDisputes,
+        AccountCreateParamsConfigurationMerchantSmartDisputesAutoRespond as AccountCreateParamsConfigurationMerchantSmartDisputesAutoRespond,
         AccountCreateParamsConfigurationMerchantStatementDescriptor as AccountCreateParamsConfigurationMerchantStatementDescriptor,
         AccountCreateParamsConfigurationMerchantSupport as AccountCreateParamsConfigurationMerchantSupport,
         AccountCreateParamsConfigurationMerchantSupportAddress as AccountCreateParamsConfigurationMerchantSupportAddress,
@@ -310,6 +312,8 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationMerchantScriptStatementDescriptor as AccountUpdateParamsConfigurationMerchantScriptStatementDescriptor,
         AccountUpdateParamsConfigurationMerchantScriptStatementDescriptorKana as AccountUpdateParamsConfigurationMerchantScriptStatementDescriptorKana,
         AccountUpdateParamsConfigurationMerchantScriptStatementDescriptorKanji as AccountUpdateParamsConfigurationMerchantScriptStatementDescriptorKanji,
+        AccountUpdateParamsConfigurationMerchantSmartDisputes as AccountUpdateParamsConfigurationMerchantSmartDisputes,
+        AccountUpdateParamsConfigurationMerchantSmartDisputesAutoRespond as AccountUpdateParamsConfigurationMerchantSmartDisputesAutoRespond,
         AccountUpdateParamsConfigurationMerchantStatementDescriptor as AccountUpdateParamsConfigurationMerchantStatementDescriptor,
         AccountUpdateParamsConfigurationMerchantSupport as AccountUpdateParamsConfigurationMerchantSupport,
         AccountUpdateParamsConfigurationMerchantSupportAddress as AccountUpdateParamsConfigurationMerchantSupportAddress,
@@ -711,6 +715,14 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsConfigurationMerchantScriptStatementDescriptorKanji": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMerchantSmartDisputes": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMerchantSmartDisputesAutoRespond": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
@@ -1592,6 +1604,14 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsConfigurationMerchantScriptStatementDescriptorKanji": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMerchantSmartDisputes": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMerchantSmartDisputesAutoRespond": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),

@@ -6,6 +6,10 @@ from typing_extensions import Literal
 
 
 class BillSettingVersion(StripeObject):
+    """
+    A Bill Setting Version is a specific configuration of a BillSetting at a point in time. Bill Setting Versions enable you to track changes to bill generation and invoice settings over time and manage which version is active for new billing operations.
+    """
+
     OBJECT_NAME: ClassVar[Literal["v2.billing.bill_setting_version"]] = (
         "v2.billing.bill_setting_version"
     )

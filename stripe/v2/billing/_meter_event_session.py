@@ -6,6 +6,10 @@ from typing_extensions import Literal
 
 
 class MeterEventSession(StripeObject):
+    """
+    A Meter Event Session is an authentication session for the high-throughput meter event API. Meter Event Sessions provide temporary authentication tokens with expiration times, enabling secure and efficient bulk submission of usage events.
+    """
+
     OBJECT_NAME: ClassVar[Literal["v2.billing.meter_event_session"]] = (
         "v2.billing.meter_event_session"
     )

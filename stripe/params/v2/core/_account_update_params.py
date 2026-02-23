@@ -311,6 +311,12 @@ class AccountUpdateParamsConfigurationMerchant(TypedDict):
     """
     Settings for the default text that appears on statements for language variations.
     """
+    smart_disputes: NotRequired[
+        "AccountUpdateParamsConfigurationMerchantSmartDisputes"
+    ]
+    """
+    Settings for Smart Disputes automatic response feature.
+    """
     statement_descriptor: NotRequired[
         "AccountUpdateParamsConfigurationMerchantStatementDescriptor"
     ]
@@ -1113,6 +1119,24 @@ class AccountUpdateParamsConfigurationMerchantScriptStatementDescriptorKanji(
     prefix: NotRequired[str]
     """
     Default text that appears on statements for card charges outside of Japan, prefixing any dynamic statement_descriptor_suffix specified on the charge. To maximize space for the dynamic part of the descriptor, keep this text short. If you don't specify this value, statement_descriptor is used as the prefix. For more information about statement descriptors and their requirements, see the Merchant Configuration settings documentation.
+    """
+
+
+class AccountUpdateParamsConfigurationMerchantSmartDisputes(TypedDict):
+    auto_respond: NotRequired[
+        "AccountUpdateParamsConfigurationMerchantSmartDisputesAutoRespond"
+    ]
+    """
+    Settings for Smart Disputes auto_respond.
+    """
+
+
+class AccountUpdateParamsConfigurationMerchantSmartDisputesAutoRespond(
+    TypedDict,
+):
+    preference: NotRequired[Literal["inherit", "off", "on"]]
+    """
+    The preference for automatic dispute responses.
     """
 
 
@@ -1977,11 +2001,11 @@ class AccountUpdateParamsIdentityBusinessDetailsAnnualRevenue(TypedDict):
 
 
 class AccountUpdateParamsIdentityBusinessDetailsAnnualRevenueAmount(TypedDict):
-    value: NotRequired[int]
+    value: int
     """
     A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
     """
-    currency: NotRequired[str]
+    currency: str
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
@@ -2338,11 +2362,11 @@ class AccountUpdateParamsIdentityBusinessDetailsMonthlyEstimatedRevenue(
 class AccountUpdateParamsIdentityBusinessDetailsMonthlyEstimatedRevenueAmount(
     TypedDict,
 ):
-    value: NotRequired[int]
+    value: int
     """
     A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
     """
-    currency: NotRequired[str]
+    currency: str
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
