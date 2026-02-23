@@ -69,6 +69,8 @@ class File(CreateableAPIResource["File"], ListableAPIResource["File"]):
         "tax_document_user_upload",
         "terminal_android_apk",
         "terminal_reader_splashscreen",
+        "terminal_wifi_certificate",
+        "terminal_wifi_private_key",
     ]
     """
     The [purpose](https://docs.stripe.com/file-upload#uploading-a-file) of the uploaded file.

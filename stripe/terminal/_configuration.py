@@ -57,6 +57,12 @@ class Configuration(
         A File ID representing an image to display on the reader
         """
 
+    class Cellular(StripeObject):
+        enabled: bool
+        """
+        Whether a cellular-capable reader can connect to the internet over cellular.
+        """
+
     class Offline(StripeObject):
         enabled: Optional[bool]
         """
@@ -74,6 +80,12 @@ class Configuration(
         """
 
     class StripeS700(StripeObject):
+        splashscreen: Optional[ExpandableField["File"]]
+        """
+        A File ID representing an image to display on the reader
+        """
+
+    class StripeS710(StripeObject):
         splashscreen: Optional[ExpandableField["File"]]
         """
         A File ID representing an image to display on the reader
@@ -493,6 +505,7 @@ class Configuration(
 
     bbpos_wisepad3: Optional[BbposWisepad3]
     bbpos_wisepos_e: Optional[BbposWiseposE]
+    cellular: Optional[Cellular]
     deleted: Optional[Literal[True]]
     """
     Always true for a deleted object
@@ -520,6 +533,7 @@ class Configuration(
     offline: Optional[Offline]
     reboot_window: Optional[RebootWindow]
     stripe_s700: Optional[StripeS700]
+    stripe_s710: Optional[StripeS710]
     tipping: Optional[Tipping]
     verifone_p400: Optional[VerifoneP400]
     wifi: Optional[Wifi]
@@ -753,9 +767,11 @@ class Configuration(
     _inner_class_types = {
         "bbpos_wisepad3": BbposWisepad3,
         "bbpos_wisepos_e": BbposWiseposE,
+        "cellular": Cellular,
         "offline": Offline,
         "reboot_window": RebootWindow,
         "stripe_s700": StripeS700,
+        "stripe_s710": StripeS710,
         "tipping": Tipping,
         "verifone_p400": VerifoneP400,
         "wifi": Wifi,
