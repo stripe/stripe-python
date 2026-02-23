@@ -108,7 +108,7 @@ class SessionCreateParamsLimits(TypedDict):
 class SessionCreateParamsManualEntry(TypedDict):
     mode: NotRequired[Literal["automatic", "custom"]]
     """
-    Whether manual entry will be handled by Stripe during the Session.
+    How manual entry should be handled.
     """
 
 

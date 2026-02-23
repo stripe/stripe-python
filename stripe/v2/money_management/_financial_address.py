@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 class FinancialAddress(StripeObject):
     """
-    A FinancialAddress contains information needed to transfer money to a Financial Account. A Financial Account can have more than one Financial Address.
+    A Financial Address contains information needed to transfer money to a Financial Account. A Financial Account can have more than one Financial Address.
     """
 
     OBJECT_NAME: ClassVar[Literal["v2.money_management.financial_address"]] = (

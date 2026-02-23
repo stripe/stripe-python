@@ -2056,6 +2056,10 @@ class AccountCreateParamsSettings(TypedDict):
     """
     Settings specific to the PayPay payments method.
     """
+    smart_disputes: NotRequired["AccountCreateParamsSettingsSmartDisputes"]
+    """
+    Settings specific to the account's use of Smart Disputes.
+    """
     tax_forms: NotRequired["AccountCreateParamsSettingsTaxForms"]
     """
     Settings specific to the account's tax forms.
@@ -2178,6 +2182,10 @@ class AccountCreateParamsSettingsInvoices(TypedDict):
 
 
 class AccountCreateParamsSettingsPayments(TypedDict):
+    email_customers_on_successful_payment: NotRequired[bool]
+    """
+    When you enable this parameter, the customer of this Account receives an email receipt when their payment succeeds. If this parameter isn't set, the default value is `false`.
+    """
     statement_descriptor: NotRequired[str]
     """
     The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don't set a `statement_descriptor_prefix`, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the `statement_descriptor` text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the [account settings documentation](https://docs.stripe.com/get-started/account/statement-descriptors).
@@ -2305,6 +2313,22 @@ class AccountCreateParamsSettingsPaypayPaymentsSiteRestricted(TypedDict):
     payment_flow_file: NotRequired[str]
     """
     The file explaining the payment flow for your business.
+    """
+
+
+class AccountCreateParamsSettingsSmartDisputes(TypedDict):
+    auto_respond: NotRequired[
+        "AccountCreateParamsSettingsSmartDisputesAutoRespond"
+    ]
+    """
+    Smart Disputes auto-respond settings for the account.
+    """
+
+
+class AccountCreateParamsSettingsSmartDisputesAutoRespond(TypedDict):
+    preference: NotRequired[Literal["inherit", "off", "on"]]
+    """
+    The preference setting for auto-respond. Can be 'on', 'off', or 'inherit'.
     """
 
 

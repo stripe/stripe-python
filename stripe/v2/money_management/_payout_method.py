@@ -39,6 +39,10 @@ class PayoutMethod(StripeObject):
         """
         The name of the bank this bank account is in. This field is populated automatically by Stripe.
         """
+        branch_number: Optional[str]
+        """
+        The branch number of the bank account, if present.
+        """
         country: str
         """
         The country code of the bank account.
@@ -62,6 +66,10 @@ class PayoutMethod(StripeObject):
         supported_currencies: List[str]
         """
         The list of currencies supported by this bank account.
+        """
+        swift_code: Optional[str]
+        """
+        The swift code of the bank or financial institution.
         """
 
     class Card(StripeObject):

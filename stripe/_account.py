@@ -1412,6 +1412,10 @@ class Account(
             """
 
         class Payments(StripeObject):
+            email_customers_on_successful_payment: Optional[bool]
+            """
+            When enabled, the customer of this Account will receive an email receipt when their payment is successful. If this parameter is not set, the default value is `false`.
+            """
             statement_descriptor: Optional[str]
             """
             The default text that appears on credit card statements when a charge is made. This field prefixes any dynamic `statement_descriptor` specified on the charge.
@@ -1534,6 +1538,20 @@ class Account(
             SEPA creditor identifier that identifies the company making the payment.
             """
 
+        class SmartDisputes(StripeObject):
+            class AutoRespond(StripeObject):
+                preference: Literal["inherit", "off", "on"]
+                """
+                The preference setting for auto-respond. Can be 'on', 'off', or 'inherit'.
+                """
+                value: Literal["off", "on"]
+                """
+                The effective value for auto-respond. Can be 'on' or 'off'.
+                """
+
+            auto_respond: AutoRespond
+            _inner_class_types = {"auto_respond": AutoRespond}
+
         class TaxForms(StripeObject):
             consented_to_paperless_delivery: bool
             """
@@ -1569,6 +1587,7 @@ class Account(
         payouts: Optional[Payouts]
         paypay_payments: Optional[PaypayPayments]
         sepa_debit_payments: Optional[SepaDebitPayments]
+        smart_disputes: Optional[SmartDisputes]
         tax_forms: Optional[TaxForms]
         treasury: Optional[Treasury]
         _inner_class_types = {
@@ -1583,6 +1602,7 @@ class Account(
             "payouts": Payouts,
             "paypay_payments": PaypayPayments,
             "sepa_debit_payments": SepaDebitPayments,
+            "smart_disputes": SmartDisputes,
             "tax_forms": TaxForms,
             "treasury": Treasury,
         }

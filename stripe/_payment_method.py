@@ -329,6 +329,10 @@ class PaymentMethod(
                     """
                     The last four digits of the card.
                     """
+                    location: Optional[str]
+                    """
+                    ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
+                    """
                     network: Optional[str]
                     """
                     Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
@@ -360,6 +364,10 @@ class PaymentMethod(
                     ]
                     """
                     How card details were read in this transaction.
+                    """
+                    reader: Optional[str]
+                    """
+                    ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
                     """
                     receipt: Optional[Receipt]
                     """

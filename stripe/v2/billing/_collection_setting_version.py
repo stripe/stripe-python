@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Dict, List, Optional
-from typing_extensions import Literal, TYPE_CHECKING
-
-if TYPE_CHECKING:
-    from typing import Any
+from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Literal
 
 
 class CollectionSettingVersion(StripeObject):
+    """
+    A Collection Setting Version is a specific configuration of a CollectionSetting at a point in time. Collection Setting Versions enable you to track changes to payment collection settings over time and manage which version is active for new billing operations.
+    """
+
     OBJECT_NAME: ClassVar[Literal["v2.billing.collection_setting_version"]] = (
         "v2.billing.collection_setting_version"
     )
@@ -187,11 +188,11 @@ class CollectionSettingVersion(StripeObject):
         """
         This sub-hash contains details about the Bank transfer payment method options.
         """
-        konbini: Optional[Dict[str, "Any"]]
+        konbini: Optional[Dict[str, Any]]
         """
         This sub-hash contains details about the Konbini payment method options.
         """
-        sepa_debit: Optional[Dict[str, "Any"]]
+        sepa_debit: Optional[Dict[str, Any]]
         """
         This sub-hash contains details about the SEPA Direct Debit payment method options.
         """

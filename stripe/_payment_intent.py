@@ -11,6 +11,7 @@ from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
 from typing import (
+    Any,
     AsyncIterator,
     ClassVar,
     Dict,
@@ -79,7 +80,6 @@ if TYPE_CHECKING:
     from stripe.params._payment_intent_verify_microdeposits_params import (
         PaymentIntentVerifyMicrodepositsParams,
     )
-    from typing import Any
 
 
 @nested_resource_class_methods("amount_details_line_item")
@@ -387,6 +387,8 @@ class PaymentIntent(
                 "sku_inactive",
                 "state_unsupported",
                 "status_transition_invalid",
+                "storer_capability_missing",
+                "storer_capability_not_active",
                 "stripe_tax_inactive",
                 "tax_id_invalid",
                 "tax_id_prohibited",
@@ -503,6 +505,12 @@ class PaymentIntent(
         ]
         """
         The type of error returned. One of `api_error`, `card_error`, `idempotency_error`, or `invalid_request_error`
+        """
+
+    class ManagedPayments(StripeObject):
+        enabled: bool
+        """
+        Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution, for this session.
         """
 
     class NextAction(StripeObject):
@@ -1437,7 +1445,7 @@ class PaymentIntent(
         """
         Type of the next action to perform. Refer to the other child attributes under `next_action` for available values. Examples include: `redirect_to_url`, `use_stripe_sdk`, `alipay_handle_redirect`, `oxxo_display_details`, or `verify_with_microdeposits`.
         """
-        use_stripe_sdk: Optional[Dict[str, "Any"]]
+        use_stripe_sdk: Optional[Dict[str, Any]]
         """
         When confirming a PaymentIntent with Stripe.js, Stripe.js depends on the contents of this dictionary to invoke authentication flows. The shape of the contents is subject to change and is only intended to be used by Stripe.js.
         """
@@ -3250,7 +3258,7 @@ class PaymentIntent(
                 class EuBankTransfer(StripeObject):
                     country: Literal["BE", "DE", "ES", "FR", "IE", "NL"]
                     """
-                    The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
+                    The desired country code of the bank account information. Permitted values include: `DE`, `FR`, `IE`, or `NL`.
                     """
 
                 eu_bank_transfer: Optional[EuBankTransfer]
@@ -4078,6 +4086,12 @@ class PaymentIntent(
             """
             Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
             """
+            transaction_purpose: Optional[
+                Literal["goods", "other", "services", "unspecified"]
+            ]
+            """
+            The purpose of the transaction.
+            """
             verification_method: Optional[
                 Literal["automatic", "instant", "microdeposits"]
             ]
@@ -4508,6 +4522,10 @@ class PaymentIntent(
     livemode: bool
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
+    managed_payments: Optional[ManagedPayments]
+    """
+    Settings for Managed Payments.
     """
     metadata: Dict[str, str]
     """
@@ -6369,6 +6387,7 @@ class PaymentIntent(
         "automatic_payment_methods": AutomaticPaymentMethods,
         "hooks": Hooks,
         "last_payment_error": LastPaymentError,
+        "managed_payments": ManagedPayments,
         "next_action": NextAction,
         "payment_details": PaymentDetails,
         "payment_method_configuration_details": PaymentMethodConfigurationDetails,

@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Dict, List, Optional
-from typing_extensions import Literal, TYPE_CHECKING
-
-if TYPE_CHECKING:
-    from typing import Any
+from typing import Any, ClassVar, Dict, List, Optional
+from typing_extensions import Literal
 
 
 class Cadence(StripeObject):
+    """
+    A Cadence represents a billing schedule applied to a customer, defining when and how often to generate invoices, such as on monthly or annual billing cycle.
+    """
+
     OBJECT_NAME: ClassVar[Literal["v2.billing.cadence"]] = "v2.billing.cadence"
 
     class BillingCycle(StripeObject):
@@ -449,11 +450,11 @@ class Cadence(StripeObject):
                 """
                 This sub-hash contains details about the Bank transfer payment method options.
                 """
-                konbini: Optional[Dict[str, "Any"]]
+                konbini: Optional[Dict[str, Any]]
                 """
                 This sub-hash contains details about the Konbini payment method options.
                 """
-                sepa_debit: Optional[Dict[str, "Any"]]
+                sepa_debit: Optional[Dict[str, Any]]
                 """
                 This sub-hash contains details about the SEPA Direct Debit payment method options.
                 """

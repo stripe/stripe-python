@@ -196,11 +196,11 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
         class Affirm(StripeObject):
             location: Optional[str]
             """
-            ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
+            ID of the location that this reader is assigned to.
             """
             reader: Optional[str]
             """
-            ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
+            ID of the reader this transaction was made on.
             """
             transaction_id: Optional[str]
             """
@@ -362,13 +362,11 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
             preferred_language: Optional[Literal["de", "en", "fr", "nl"]]
             """
-            Preferred language of the Bancontact authorization page that the customer is redirected to.
-            Can be one of `en`, `de`, `fr`, or `nl`
+            Preferred language of the Bancontact authorization page that the customer is redirected to. Can be one of `en`, `de`, `fr`, or `nl`
             """
             verified_name: Optional[str]
             """
-            Owner's verified full name. Values are verified or provided by Bancontact directly
-            (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+            Owner's verified full name. Values are verified or provided by Bancontact directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
             """
 
         class Billie(StripeObject):
@@ -429,7 +427,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
 
         class Boleto(StripeObject):
-            tax_id: str
+            tax_id: Optional[str]
             """
             The tax ID of the customer (CPF for individuals consumers or CNPJ for businesses consumers)
             """
@@ -439,12 +437,21 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
                 address_line1_check: Optional[
                     Literal["fail", "pass", "unavailable", "unchecked"]
                 ]
+                """
+                If you provide a value for `address.line1`, the check result is one of `pass`, `fail`, `unavailable`, or `unchecked`.
+                """
                 address_postal_code_check: Optional[
                     Literal["fail", "pass", "unavailable", "unchecked"]
                 ]
+                """
+                If you provide a address postal code, the check result is one of `pass`, `fail`, `unavailable`, or `unchecked`.
+                """
                 cvc_check: Optional[
                     Literal["fail", "pass", "unavailable", "unchecked"]
                 ]
+                """
+                If you provide a CVC, the check results is one of `pass`, `fail`, `unavailable`, or `unchecked`.
+                """
 
             class Installments(StripeObject):
                 class Plan(StripeObject):
@@ -462,6 +469,9 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
                     """
 
                 plan: Optional[Plan]
+                """
+                Installment plan selected for the payment.
+                """
                 _inner_class_types = {"plan": Plan}
 
             class NetworkToken(StripeObject):
@@ -474,6 +484,9 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
                 authentication_flow: Optional[
                     Literal["challenge", "frictionless"]
                 ]
+                """
+                For authenticated transactions: Indicates how the issuing bank authenticated the customer.
+                """
                 result: Optional[
                     Literal[
                         "attempt_acknowledged",
@@ -484,6 +497,9 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
                         "processing_error",
                     ]
                 ]
+                """
+                Indicates the outcome of 3D Secure authentication.
+                """
                 result_reason: Optional[
                     Literal[
                         "abandoned",
@@ -495,7 +511,13 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
                         "rejected",
                     ]
                 ]
+                """
+                Additional information about why 3D Secure succeeded or failed, based on the `result`.
+                """
                 version: Optional[Literal["1.0.2", "2.1.0", "2.2.0"]]
+                """
+                The version of 3D Secure that was used.
+                """
 
             class Wallet(StripeObject):
                 class ApplePay(StripeObject):
@@ -783,6 +805,10 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
             The last four digits of the card.
             """
+            location: Optional[str]
+            """
+            ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
+            """
             network: Optional[str]
             """
             Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
@@ -815,6 +841,10 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
             How card details were read in this transaction.
             """
+            reader: Optional[str]
+            """
+            ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
+            """
             receipt: Optional[Receipt]
             """
             A collection of fields required to be displayed on receipts. Only required for EMV transactions.
@@ -837,7 +867,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
             transaction_id: Optional[str]
             """
-            A unique and immutable identifier of payments assigned by Cash App
+            A unique and immutable identifier of payments assigned by Cash App.
             """
 
         class Crypto(StripeObject):
@@ -966,9 +996,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
             verified_name: Optional[str]
             """
-            Owner's verified full name. Values are verified or provided by Giropay directly
-            (if supported) at the time of authorization or settlement. They cannot be set or mutated.
-            Giropay rarely provides this information so the attribute is usually empty.
+            Owner's verified full name. Values are verified or provided by Giropay directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. Giropay rarely provides this information so the attribute is usually empty.
             """
 
         class Gopay(StripeObject):
@@ -1175,6 +1203,10 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
             The last four digits of the card.
             """
+            location: Optional[str]
+            """
+            ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
+            """
             network: Optional[str]
             """
             Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
@@ -1198,6 +1230,10 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             ]
             """
             How card details were read in this transaction.
+            """
+            reader: Optional[str]
+            """
+            ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
             """
             receipt: Optional[Receipt]
             """
