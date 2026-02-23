@@ -128,6 +128,7 @@ class WebhookEndpointCreateParams(RequestOptions):
             "2025-11-17.clover",
             "2025-12-15.clover",
             "2026-01-28.clover",
+            "2026-02-25.clover",
         ]
     ]
     """
@@ -156,6 +157,7 @@ class WebhookEndpointCreateParams(RequestOptions):
             "balance.available",
             "balance_settings.updated",
             "billing.alert.triggered",
+            "billing.credit_grant.created",
             "billing_portal.configuration.created",
             "billing_portal.configuration.updated",
             "billing_portal.session.created",
@@ -319,6 +321,13 @@ class WebhookEndpointCreateParams(RequestOptions):
             "reporting.report_run.failed",
             "reporting.report_run.succeeded",
             "reporting.report_type.updated",
+            "reserve.hold.created",
+            "reserve.hold.updated",
+            "reserve.plan.created",
+            "reserve.plan.disabled",
+            "reserve.plan.expired",
+            "reserve.plan.updated",
+            "reserve.release.created",
             "review.closed",
             "review.opened",
             "setup_intent.canceled",
@@ -391,7 +400,6 @@ class WebhookEndpointCreateParams(RequestOptions):
             "treasury.received_credit.succeeded",
             "treasury.received_debit.created",
             "billing.credit_balance_transaction.created",
-            "billing.credit_grant.created",
             "billing.credit_grant.updated",
             "billing.meter.created",
             "billing.meter.deactivated",

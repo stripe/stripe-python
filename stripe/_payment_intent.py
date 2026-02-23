@@ -365,6 +365,8 @@ class PaymentIntent(
                 "sku_inactive",
                 "state_unsupported",
                 "status_transition_invalid",
+                "storer_capability_missing",
+                "storer_capability_not_active",
                 "stripe_tax_inactive",
                 "tax_id_invalid",
                 "tax_id_prohibited",
@@ -1921,7 +1923,7 @@ class PaymentIntent(
                 class EuBankTransfer(StripeObject):
                     country: Literal["BE", "DE", "ES", "FR", "IE", "NL"]
                     """
-                    The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
+                    The desired country code of the bank account information. Permitted values include: `DE`, `FR`, `IE`, or `NL`.
                     """
 
                 eu_bank_transfer: Optional[EuBankTransfer]
@@ -2552,6 +2554,12 @@ class PaymentIntent(
             target_date: Optional[str]
             """
             Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+            """
+            transaction_purpose: Optional[
+                Literal["goods", "other", "services", "unspecified"]
+            ]
+            """
+            The purpose of the transaction.
             """
             verification_method: Optional[
                 Literal["automatic", "instant", "microdeposits"]

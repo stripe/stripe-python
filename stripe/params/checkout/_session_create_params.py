@@ -621,7 +621,7 @@ class SessionCreateParamsCustomField(TypedDict):
 class SessionCreateParamsCustomFieldDropdown(TypedDict):
     default_value: NotRequired[str]
     """
-    The value that will pre-fill the field on the payment page.Must match a `value` in the `options` array.
+    The value that pre-fills the field on the payment page.Must match a `value` in the `options` array.
     """
     options: List["SessionCreateParamsCustomFieldDropdownOption"]
     """
@@ -654,7 +654,7 @@ class SessionCreateParamsCustomFieldLabel(TypedDict):
 class SessionCreateParamsCustomFieldNumeric(TypedDict):
     default_value: NotRequired[str]
     """
-    The value that will pre-fill the field on the payment page.
+    The value that pre-fills the field on the payment page.
     """
     maximum_length: NotRequired[int]
     """
@@ -669,7 +669,7 @@ class SessionCreateParamsCustomFieldNumeric(TypedDict):
 class SessionCreateParamsCustomFieldText(TypedDict):
     default_value: NotRequired[str]
     """
-    The value that will pre-fill the field on the payment page.
+    The value that pre-fills the field on the payment page.
     """
     maximum_length: NotRequired[int]
     """
@@ -709,28 +709,28 @@ class SessionCreateParamsCustomText(TypedDict):
 class SessionCreateParamsCustomTextAfterSubmit(TypedDict):
     message: str
     """
-    Text may be up to 1200 characters in length.
+    Text can be up to 1200 characters in length.
     """
 
 
 class SessionCreateParamsCustomTextShippingAddress(TypedDict):
     message: str
     """
-    Text may be up to 1200 characters in length.
+    Text can be up to 1200 characters in length.
     """
 
 
 class SessionCreateParamsCustomTextSubmit(TypedDict):
     message: str
     """
-    Text may be up to 1200 characters in length.
+    Text can be up to 1200 characters in length.
     """
 
 
 class SessionCreateParamsCustomTextTermsOfServiceAcceptance(TypedDict):
     message: str
     """
-    Text may be up to 1200 characters in length.
+    Text can be up to 1200 characters in length.
     """
 
 
@@ -1768,7 +1768,7 @@ class SessionCreateParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTr
 ):
     country: str
     """
-    The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
+    The desired country code of the bank account information. Permitted values include: `DE`, `FR`, `IE`, or `NL`.
     """
 
 

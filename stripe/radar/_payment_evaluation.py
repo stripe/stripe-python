@@ -178,16 +178,6 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
         }
 
     class Insights(StripeObject):
-        class CardIssuerDecline(StripeObject):
-            model_score: float
-            """
-            Stripe Radar's evaluation of the likelihood that the payment will be declined by the card issuer. Scores range from 0 to 100, with higher values indicating a higher likelihood of decline.
-            """
-            recommended_action: Literal["block", "continue"]
-            """
-            Recommended action based on the model score. Possible values are `block` and `continue`.
-            """
-
         class FraudulentDispute(StripeObject):
             recommended_action: Literal["block", "continue"]
             """
@@ -198,10 +188,6 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
             Stripe Radar's evaluation of the risk level of the payment. Possible values for evaluated payments are between 0 and 100, with higher scores indicating higher risk.
             """
 
-        card_issuer_decline: Optional[CardIssuerDecline]
-        """
-        Stripe Radar's evaluation of the likelihood of a card issuer decline on this payment.
-        """
         evaluated_at: int
         """
         The timestamp when the evaluation was performed.
@@ -210,10 +196,7 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
         """
         Scores, insights and recommended action for one scorer for this PaymentEvaluation.
         """
-        _inner_class_types = {
-            "card_issuer_decline": CardIssuerDecline,
-            "fraudulent_dispute": FraudulentDispute,
-        }
+        _inner_class_types = {"fraudulent_dispute": FraudulentDispute}
 
     class Outcome(StripeObject):
         class MerchantBlocked(StripeObject):

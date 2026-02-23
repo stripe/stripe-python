@@ -18,6 +18,10 @@ class ConfigurationModifyParams(RequestOptions):
     """
     An object containing device type specific settings for BBPOS WisePOS E readers.
     """
+    cellular: NotRequired["Literal['']|ConfigurationModifyParamsCellular"]
+    """
+    Configuration for cellular connectivity.
+    """
     expand: NotRequired[List[str]]
     """
     Specifies which fields in the response should be expanded.
@@ -42,7 +46,7 @@ class ConfigurationModifyParams(RequestOptions):
     """
     tipping: NotRequired["Literal['']|ConfigurationModifyParamsTipping"]
     """
-    Tipping configurations for readers. supporting on-reader tips
+    Tipping configurations for readers that support on-reader tips.
     """
     verifone_p400: NotRequired[
         "Literal['']|ConfigurationModifyParamsVerifoneP400"
@@ -67,6 +71,13 @@ class ConfigurationModifyParamsBbposWiseposE(TypedDict):
     splashscreen: NotRequired["Literal['']|str"]
     """
     A File ID representing an image to display on the reader
+    """
+
+
+class ConfigurationModifyParamsCellular(TypedDict):
+    enabled: bool
+    """
+    Determines whether to allow the reader to connect to a cellular network. Defaults to false.
     """
 
 
