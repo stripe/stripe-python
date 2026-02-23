@@ -52,3 +52,7 @@ class AccountLinkCreateParamsCollectionOptions(TypedDict):
     """
     Specifies whether the platform collects future_requirements in addition to requirements in Connect Onboarding. The default value is `omit`.
     """
+    external_account_collection: NotRequired[bool]
+    """
+    Specifies whether the platform collects external account information from connected accounts during Connect Onboarding. When set to `false`, external account collection is skipped. Defaults to `true`.
+    """

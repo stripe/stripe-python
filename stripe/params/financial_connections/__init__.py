@@ -51,6 +51,7 @@ if TYPE_CHECKING:
         SessionCreateParams as SessionCreateParams,
         SessionCreateParamsAccountHolder as SessionCreateParamsAccountHolder,
         SessionCreateParamsFilters as SessionCreateParamsFilters,
+        SessionCreateParamsHosted as SessionCreateParamsHosted,
         SessionCreateParamsLimits as SessionCreateParamsLimits,
         SessionCreateParamsManualEntry as SessionCreateParamsManualEntry,
         SessionCreateParamsRelinkOptions as SessionCreateParamsRelinkOptions,
@@ -138,6 +139,10 @@ _import_map = {
         False,
     ),
     "SessionCreateParamsFilters": (
+        "stripe.params.financial_connections._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsHosted": (
         "stripe.params.financial_connections._session_create_params",
         False,
     ),

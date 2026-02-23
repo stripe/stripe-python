@@ -15,6 +15,7 @@ from typing import ClassVar, Dict, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._account_signals import AccountSignals
     from stripe._bank_account import BankAccount
     from stripe._capability import Capability
     from stripe._card import Card
@@ -67,6 +68,9 @@ if TYPE_CHECKING:
     )
     from stripe.params._account_retrieve_person_params import (
         AccountRetrievePersonParams,
+    )
+    from stripe.params._account_retrieve_signal_params import (
+        AccountRetrieveSignalParams,
     )
 
 
@@ -2774,6 +2778,42 @@ class Account(
                 "post",
                 "/v1/accounts/{account}/persons".format(
                     account=sanitize_id(account)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def retrieve_signal(
+        cls, account_id: str, **params: Unpack["AccountRetrieveSignalParams"]
+    ) -> "AccountSignals":
+        """
+        Retrieves the account's Signal objects
+        """
+        return cast(
+            "AccountSignals",
+            cls._static_request(
+                "get",
+                "/v1/accounts/{account_id}/signals".format(
+                    account_id=sanitize_id(account_id)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def retrieve_signal_async(
+        cls, account_id: str, **params: Unpack["AccountRetrieveSignalParams"]
+    ) -> "AccountSignals":
+        """
+        Retrieves the account's Signal objects
+        """
+        return cast(
+            "AccountSignals",
+            await cls._static_request_async(
+                "get",
+                "/v1/accounts/{account_id}/signals".format(
+                    account_id=sanitize_id(account_id)
                 ),
                 params=params,
             ),

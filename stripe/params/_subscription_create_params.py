@@ -1255,3 +1255,7 @@ class SubscriptionCreateParamsTrialSettingsEndBehavior(TypedDict):
     """
     Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
     """
+    billing_cycle_anchor: NotRequired[Literal["now", "unchanged"]]
+    """
+    Indicates how the subscription's billing cycle anchor is reset when a trial ends. Defaults to `now`.
+    """

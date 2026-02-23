@@ -52,6 +52,14 @@ class SessionCreateParams(RequestOptions):
     """
     For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
     """
+    hosted: NotRequired["SessionCreateParamsHosted"]
+    """
+    Settings for hosted Sessions. Required if `ui_mode` is `hosted`.
+    """
+    ui_mode: NotRequired[Literal["hosted", "modal"]]
+    """
+    The UI mode of the Session. Defaults to `modal`.
+    """
 
 
 class SessionCreateParamsAccountHolder(TypedDict):
@@ -120,4 +128,11 @@ class SessionCreateParamsRelinkOptions(TypedDict):
     authorization: str
     """
     The authorization to relink.
+    """
+
+
+class SessionCreateParamsHosted(TypedDict):
+    delivery_method: NotRequired[Literal["email", "url"]]
+    """
+    How the user should enter the hosted flow. The values `email` and `url` can only be used if `relink_options` is provided.
     """
