@@ -57,6 +57,12 @@ class Configuration(
         A File ID representing an image to display on the reader
         """
 
+    class Cellular(StripeObject):
+        enabled: bool
+        """
+        Whether a cellular-capable reader can connect to the internet over cellular.
+        """
+
     class Offline(StripeObject):
         enabled: Optional[bool]
         """
@@ -499,6 +505,7 @@ class Configuration(
 
     bbpos_wisepad3: Optional[BbposWisepad3]
     bbpos_wisepos_e: Optional[BbposWiseposE]
+    cellular: Optional[Cellular]
     deleted: Optional[Literal[True]]
     """
     Always true for a deleted object
@@ -760,6 +767,7 @@ class Configuration(
     _inner_class_types = {
         "bbpos_wisepad3": BbposWisepad3,
         "bbpos_wisepos_e": BbposWiseposE,
+        "cellular": Cellular,
         "offline": Offline,
         "reader_security": ReaderSecurity,
         "reboot_window": RebootWindow,

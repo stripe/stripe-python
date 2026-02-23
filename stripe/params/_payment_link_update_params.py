@@ -65,6 +65,14 @@ class PaymentLinkUpdateParams(TypedDict):
     """
     Controls settings applied for collecting the customer's name.
     """
+    optional_items: NotRequired[
+        "Literal['']|List[PaymentLinkUpdateParamsOptionalItem]"
+    ]
+    """
+    A list of optional items the customer can add to their order at checkout. Use this parameter to pass one-time or recurring [Prices](https://docs.stripe.com/api/prices).
+    There is a maximum of 10 optional items allowed on a payment link, and the existing limits on the number of line items allowed on a payment link apply to the combined number of line items and optional items.
+    There is a maximum of 20 combined line items and optional items.
+    """
     payment_intent_data: NotRequired[
         "PaymentLinkUpdateParamsPaymentIntentData"
     ]
@@ -210,7 +218,7 @@ class PaymentLinkUpdateParamsCustomField(TypedDict):
 class PaymentLinkUpdateParamsCustomFieldDropdown(TypedDict):
     default_value: NotRequired[str]
     """
-    The value that will pre-fill the field on the payment page.Must match a `value` in the `options` array.
+    The value that pre-fills the field on the payment page.Must match a `value` in the `options` array.
     """
     options: List["PaymentLinkUpdateParamsCustomFieldDropdownOption"]
     """
@@ -243,7 +251,7 @@ class PaymentLinkUpdateParamsCustomFieldLabel(TypedDict):
 class PaymentLinkUpdateParamsCustomFieldNumeric(TypedDict):
     default_value: NotRequired[str]
     """
-    The value that will pre-fill the field on the payment page.
+    The value that pre-fills the field on the payment page.
     """
     maximum_length: NotRequired[int]
     """
@@ -258,7 +266,7 @@ class PaymentLinkUpdateParamsCustomFieldNumeric(TypedDict):
 class PaymentLinkUpdateParamsCustomFieldText(TypedDict):
     default_value: NotRequired[str]
     """
-    The value that will pre-fill the field on the payment page.
+    The value that pre-fills the field on the payment page.
     """
     maximum_length: NotRequired[int]
     """
@@ -298,28 +306,28 @@ class PaymentLinkUpdateParamsCustomText(TypedDict):
 class PaymentLinkUpdateParamsCustomTextAfterSubmit(TypedDict):
     message: str
     """
-    Text may be up to 1200 characters in length.
+    Text can be up to 1200 characters in length.
     """
 
 
 class PaymentLinkUpdateParamsCustomTextShippingAddress(TypedDict):
     message: str
     """
-    Text may be up to 1200 characters in length.
+    Text can be up to 1200 characters in length.
     """
 
 
 class PaymentLinkUpdateParamsCustomTextSubmit(TypedDict):
     message: str
     """
-    Text may be up to 1200 characters in length.
+    Text can be up to 1200 characters in length.
     """
 
 
 class PaymentLinkUpdateParamsCustomTextTermsOfServiceAcceptance(TypedDict):
     message: str
     """
-    Text may be up to 1200 characters in length.
+    Text can be up to 1200 characters in length.
     """
 
 
@@ -472,6 +480,38 @@ class PaymentLinkUpdateParamsNameCollectionIndividual(TypedDict):
     optional: NotRequired[bool]
     """
     Whether the customer is required to provide their full name before checking out. Defaults to `false`.
+    """
+
+
+class PaymentLinkUpdateParamsOptionalItem(TypedDict):
+    adjustable_quantity: NotRequired[
+        "PaymentLinkUpdateParamsOptionalItemAdjustableQuantity"
+    ]
+    """
+    When set, provides configuration for the customer to adjust the quantity of the line item created when a customer chooses to add this optional item to their order.
+    """
+    price: str
+    """
+    The ID of the [Price](https://docs.stripe.com/api/prices) or [Plan](https://docs.stripe.com/api/plans) object.
+    """
+    quantity: int
+    """
+    The initial quantity of the line item created when a customer chooses to add this optional item to their order.
+    """
+
+
+class PaymentLinkUpdateParamsOptionalItemAdjustableQuantity(TypedDict):
+    enabled: bool
+    """
+    Set to true if the quantity can be adjusted to any non-negative integer.
+    """
+    maximum: NotRequired[int]
+    """
+    The maximum quantity of this item the customer can purchase. By default this value is 99.
+    """
+    minimum: NotRequired[int]
+    """
+    The minimum quantity of this item the customer must purchase, if they choose to purchase it. Because this item is optional, the customer will always be able to remove it from their order, even if the `minimum` configured here is greater than 0. By default this value is 0.
     """
 
 

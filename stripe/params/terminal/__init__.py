@@ -8,6 +8,7 @@ if TYPE_CHECKING:
         ConfigurationCreateParams as ConfigurationCreateParams,
         ConfigurationCreateParamsBbposWisepad3 as ConfigurationCreateParamsBbposWisepad3,
         ConfigurationCreateParamsBbposWiseposE as ConfigurationCreateParamsBbposWiseposE,
+        ConfigurationCreateParamsCellular as ConfigurationCreateParamsCellular,
         ConfigurationCreateParamsOffline as ConfigurationCreateParamsOffline,
         ConfigurationCreateParamsReaderSecurity as ConfigurationCreateParamsReaderSecurity,
         ConfigurationCreateParamsRebootWindow as ConfigurationCreateParamsRebootWindow,
@@ -50,6 +51,7 @@ if TYPE_CHECKING:
         ConfigurationModifyParams as ConfigurationModifyParams,
         ConfigurationModifyParamsBbposWisepad3 as ConfigurationModifyParamsBbposWisepad3,
         ConfigurationModifyParamsBbposWiseposE as ConfigurationModifyParamsBbposWiseposE,
+        ConfigurationModifyParamsCellular as ConfigurationModifyParamsCellular,
         ConfigurationModifyParamsOffline as ConfigurationModifyParamsOffline,
         ConfigurationModifyParamsReaderSecurity as ConfigurationModifyParamsReaderSecurity,
         ConfigurationModifyParamsRebootWindow as ConfigurationModifyParamsRebootWindow,
@@ -89,6 +91,7 @@ if TYPE_CHECKING:
         ConfigurationUpdateParams as ConfigurationUpdateParams,
         ConfigurationUpdateParamsBbposWisepad3 as ConfigurationUpdateParamsBbposWisepad3,
         ConfigurationUpdateParamsBbposWiseposE as ConfigurationUpdateParamsBbposWiseposE,
+        ConfigurationUpdateParamsCellular as ConfigurationUpdateParamsCellular,
         ConfigurationUpdateParamsOffline as ConfigurationUpdateParamsOffline,
         ConfigurationUpdateParamsReaderSecurity as ConfigurationUpdateParamsReaderSecurity,
         ConfigurationUpdateParamsRebootWindow as ConfigurationUpdateParamsRebootWindow,
@@ -242,6 +245,10 @@ _import_map = {
         "stripe.params.terminal._configuration_create_params",
         False,
     ),
+    "ConfigurationCreateParamsCellular": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
     "ConfigurationCreateParamsOffline": (
         "stripe.params.terminal._configuration_create_params",
         False,
@@ -386,6 +393,10 @@ _import_map = {
         "stripe.params.terminal._configuration_modify_params",
         False,
     ),
+    "ConfigurationModifyParamsCellular": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
     "ConfigurationModifyParamsOffline": (
         "stripe.params.terminal._configuration_modify_params",
         False,
@@ -523,6 +534,10 @@ _import_map = {
         False,
     ),
     "ConfigurationUpdateParamsBbposWiseposE": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsCellular": (
         "stripe.params.terminal._configuration_update_params",
         False,
     ),

@@ -40,6 +40,7 @@ if TYPE_CHECKING:
         SessionCreateParamsLineItemPriceData as SessionCreateParamsLineItemPriceData,
         SessionCreateParamsLineItemPriceDataProductData as SessionCreateParamsLineItemPriceDataProductData,
         SessionCreateParamsLineItemPriceDataRecurring as SessionCreateParamsLineItemPriceDataRecurring,
+        SessionCreateParamsManagedPayments as SessionCreateParamsManagedPayments,
         SessionCreateParamsNameCollection as SessionCreateParamsNameCollection,
         SessionCreateParamsNameCollectionBusiness as SessionCreateParamsNameCollectionBusiness,
         SessionCreateParamsNameCollectionIndividual as SessionCreateParamsNameCollectionIndividual,
@@ -346,6 +347,10 @@ _import_map = {
         False,
     ),
     "SessionCreateParamsLineItemPriceDataRecurring": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsManagedPayments": (
         "stripe.params.checkout._session_create_params",
         False,
     ),

@@ -159,7 +159,7 @@ class PaymentIntentUpdateParamsAmountDetails(TypedDict):
 
     Omit or set to `true` to immediately return a 400 error when arithmetic validation fails. Use this for strict validation that prevents processing with line item data that has arithmetic inconsistencies.
 
-    For card payments, Stripe doesn't send line item data if there's an arithmetic validation error to card networks.
+    For card payments, Stripe doesn't send line item data to card networks if there's an arithmetic validation error.
     """
     line_items: NotRequired[
         "Literal['']|List[PaymentIntentUpdateParamsAmountDetailsLineItem]"
@@ -200,7 +200,7 @@ class PaymentIntentUpdateParamsAmountDetailsLineItem(TypedDict):
     """
     The product name of the line item. Required for L3 rates. At most 1024 characters long.
 
-    For Cards, this field is truncated to 26 alphanumeric characters before being sent to the card networks. For Paypal, this field is truncated to 127 characters.
+    For Cards, this field is truncated to 26 alphanumeric characters before being sent to the card networks. For PayPal, this field is truncated to 127 characters.
     """
     quantity: int
     """
@@ -227,25 +227,25 @@ class PaymentIntentUpdateParamsAmountDetailsLineItemPaymentMethodOptions(
         "PaymentIntentUpdateParamsAmountDetailsLineItemPaymentMethodOptionsCard"
     ]
     """
-    This sub-hash contains line item details that are specific to `card` payment method."
+    This sub-hash contains line item details that are specific to the `card` payment method.
     """
     card_present: NotRequired[
         "PaymentIntentUpdateParamsAmountDetailsLineItemPaymentMethodOptionsCardPresent"
     ]
     """
-    This sub-hash contains line item details that are specific to `card_present` payment method."
+    This sub-hash contains line item details that are specific to the `card_present` payment method.
     """
     klarna: NotRequired[
         "PaymentIntentUpdateParamsAmountDetailsLineItemPaymentMethodOptionsKlarna"
     ]
     """
-    This sub-hash contains line item details that are specific to `klarna` payment method."
+    This sub-hash contains line item details that are specific to the `klarna` payment method.
     """
     paypal: NotRequired[
         "PaymentIntentUpdateParamsAmountDetailsLineItemPaymentMethodOptionsPaypal"
     ]
     """
-    This sub-hash contains line item details that are specific to `paypal` payment method."
+    This sub-hash contains line item details that are specific to the `paypal` payment method.
     """
 
 
@@ -254,7 +254,7 @@ class PaymentIntentUpdateParamsAmountDetailsLineItemPaymentMethodOptionsCard(
 ):
     commodity_code: NotRequired[str]
     """
-    Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
+    Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, and so on.
     """
 
 
@@ -263,7 +263,7 @@ class PaymentIntentUpdateParamsAmountDetailsLineItemPaymentMethodOptionsCardPres
 ):
     commodity_code: NotRequired[str]
     """
-    Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
+    Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, and so on.
     """
 
 
@@ -4213,7 +4213,7 @@ class PaymentIntentUpdateParamsPaymentMethodOptionsCustomerBalanceBankTransferEu
 ):
     country: str
     """
-    The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
+    The desired country code of the bank account information. Permitted values include: `DE`, `FR`, `IE`, or `NL`.
     """
 
 
@@ -6350,6 +6350,12 @@ class PaymentIntentUpdateParamsPaymentMethodOptionsUsBankAccount(TypedDict):
     target_date: NotRequired[str]
     """
     Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
+    """
+    transaction_purpose: NotRequired[
+        "Literal['']|Literal['goods', 'other', 'services', 'unspecified']"
+    ]
+    """
+    The purpose of the transaction.
     """
     verification_method: NotRequired[
         Literal["automatic", "instant", "microdeposits"]
