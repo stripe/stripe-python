@@ -49,6 +49,10 @@ class ConfigurationUpdateParams(TypedDict):
     """
     An object containing device type specific settings for Stripe S700 readers.
     """
+    stripe_s710: NotRequired["Literal['']|ConfigurationUpdateParamsStripeS710"]
+    """
+    An object containing device type specific settings for Stripe S710 readers.
+    """
     tipping: NotRequired["Literal['']|ConfigurationUpdateParamsTipping"]
     """
     Tipping configurations for readers that support on-reader tips.
@@ -112,6 +116,13 @@ class ConfigurationUpdateParamsRebootWindow(TypedDict):
 
 
 class ConfigurationUpdateParamsStripeS700(TypedDict):
+    splashscreen: NotRequired["Literal['']|str"]
+    """
+    A File ID representing an image you want to display on the reader.
+    """
+
+
+class ConfigurationUpdateParamsStripeS710(TypedDict):
     splashscreen: NotRequired["Literal['']|str"]
     """
     A File ID representing an image you want to display on the reader.

@@ -13,6 +13,7 @@ if TYPE_CHECKING:
         ConfigurationCreateParamsReaderSecurity as ConfigurationCreateParamsReaderSecurity,
         ConfigurationCreateParamsRebootWindow as ConfigurationCreateParamsRebootWindow,
         ConfigurationCreateParamsStripeS700 as ConfigurationCreateParamsStripeS700,
+        ConfigurationCreateParamsStripeS710 as ConfigurationCreateParamsStripeS710,
         ConfigurationCreateParamsTipping as ConfigurationCreateParamsTipping,
         ConfigurationCreateParamsTippingAed as ConfigurationCreateParamsTippingAed,
         ConfigurationCreateParamsTippingAud as ConfigurationCreateParamsTippingAud,
@@ -56,6 +57,7 @@ if TYPE_CHECKING:
         ConfigurationModifyParamsReaderSecurity as ConfigurationModifyParamsReaderSecurity,
         ConfigurationModifyParamsRebootWindow as ConfigurationModifyParamsRebootWindow,
         ConfigurationModifyParamsStripeS700 as ConfigurationModifyParamsStripeS700,
+        ConfigurationModifyParamsStripeS710 as ConfigurationModifyParamsStripeS710,
         ConfigurationModifyParamsTipping as ConfigurationModifyParamsTipping,
         ConfigurationModifyParamsTippingAed as ConfigurationModifyParamsTippingAed,
         ConfigurationModifyParamsTippingAud as ConfigurationModifyParamsTippingAud,
@@ -96,6 +98,7 @@ if TYPE_CHECKING:
         ConfigurationUpdateParamsReaderSecurity as ConfigurationUpdateParamsReaderSecurity,
         ConfigurationUpdateParamsRebootWindow as ConfigurationUpdateParamsRebootWindow,
         ConfigurationUpdateParamsStripeS700 as ConfigurationUpdateParamsStripeS700,
+        ConfigurationUpdateParamsStripeS710 as ConfigurationUpdateParamsStripeS710,
         ConfigurationUpdateParamsTipping as ConfigurationUpdateParamsTipping,
         ConfigurationUpdateParamsTippingAed as ConfigurationUpdateParamsTippingAed,
         ConfigurationUpdateParamsTippingAud as ConfigurationUpdateParamsTippingAud,
@@ -265,6 +268,10 @@ _import_map = {
         "stripe.params.terminal._configuration_create_params",
         False,
     ),
+    "ConfigurationCreateParamsStripeS710": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
     "ConfigurationCreateParamsTipping": (
         "stripe.params.terminal._configuration_create_params",
         False,
@@ -413,6 +420,10 @@ _import_map = {
         "stripe.params.terminal._configuration_modify_params",
         False,
     ),
+    "ConfigurationModifyParamsStripeS710": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
     "ConfigurationModifyParamsTipping": (
         "stripe.params.terminal._configuration_modify_params",
         False,
@@ -554,6 +565,10 @@ _import_map = {
         False,
     ),
     "ConfigurationUpdateParamsStripeS700": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsStripeS710": (
         "stripe.params.terminal._configuration_update_params",
         False,
     ),

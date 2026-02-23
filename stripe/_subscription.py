@@ -739,7 +739,7 @@ class Subscription(
 
         end_behavior: EndBehavior
         """
-        Defines how a subscription behaves when a free trial ends.
+        Defines how a subscription behaves when a trial ends.
         """
         _inner_class_types = {"end_behavior": EndBehavior}
 
