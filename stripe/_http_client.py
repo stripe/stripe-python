@@ -1417,17 +1417,17 @@ class AIOHTTPClient(HTTPClient):
         self._timeout = timeout
         self._user_session = session
         self._user_connector = connector
-        self._owns_session = session is None
+        self._internally_managed_session = session is None
         self._cached_session = None
 
     @property
     def _session(self):
         if self._cached_session is None:
-            if self._user_session is not None:
+            if self._user_session:
                 self._cached_session = self._user_session
             else:
                 kwargs = {}
-                if self._user_connector is not None:
+                if self._user_connector:
                     kwargs["connector"] = self._user_connector
                 elif self._verify_ssl_certs:
                     ssl_context = ssl.create_default_context(
@@ -1524,7 +1524,7 @@ class AIOHTTPClient(HTTPClient):
         pass
 
     async def close_async(self):
-        if self._owns_session:
+        if self._internally_managed_session:
             await self._session.close()
 
 
