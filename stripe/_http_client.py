@@ -1401,6 +1401,8 @@ class AIOHTTPClient(HTTPClient):
         self,
         timeout: Optional[Union[float, "AIOHTTPTimeout"]] = 80,
         _lib=None,  # used for internal unit testing
+        session=None,
+        connector=None,
         **kwargs,
     ):
         super(AIOHTTPClient, self).__init__(**kwargs)
@@ -1413,25 +1415,33 @@ class AIOHTTPClient(HTTPClient):
         self.aiohttp = _lib
 
         self._timeout = timeout
+        self._user_session = session
+        self._user_connector = connector
+        self._owns_session = session is None
         self._cached_session = None
 
     @property
     def _session(self):
         if self._cached_session is None:
-            kwargs = {}
-            if self._verify_ssl_certs:
-                ssl_context = ssl.create_default_context(
-                    cafile=stripe.ca_bundle_path
-                )
-                kwargs["connector"] = self.aiohttp.TCPConnector(
-                    ssl=ssl_context
-                )
+            if self._user_session is not None:
+                self._cached_session = self._user_session
             else:
-                kwargs["connector"] = self.aiohttp.TCPConnector(
-                    verify_ssl=False
-                )
+                kwargs = {}
+                if self._user_connector is not None:
+                    kwargs["connector"] = self._user_connector
+                elif self._verify_ssl_certs:
+                    ssl_context = ssl.create_default_context(
+                        cafile=stripe.ca_bundle_path
+                    )
+                    kwargs["connector"] = self.aiohttp.TCPConnector(
+                        ssl=ssl_context
+                    )
+                else:
+                    kwargs["connector"] = self.aiohttp.TCPConnector(
+                        verify_ssl=False
+                    )
 
-            self._cached_session = self.aiohttp.ClientSession(**kwargs)
+                self._cached_session = self.aiohttp.ClientSession(**kwargs)
 
         return self._cached_session
 
@@ -1514,7 +1524,8 @@ class AIOHTTPClient(HTTPClient):
         pass
 
     async def close_async(self):
-        await self._session.close()
+        if self._owns_session:
+            await self._session.close()
 
 
 class NoImportFoundAsyncClient(HTTPClient):
