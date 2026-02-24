@@ -8,7 +8,7 @@ from typing_extensions import Literal, NotRequired, TypedDict
 class SessionCreateParams(RequestOptions):
     configuration: NotRequired[str]
     """
-    The ID of an existing [configuration](https://docs.stripe.com/api/customer_portal/configuration) to use for this session, describing its functionality and features. If not specified, the session uses the default configuration.
+    The ID of an existing [configuration](https://docs.stripe.com/api/customer_portal/configurations) to use for this session, describing its functionality and features. If not specified, the session uses the default configuration.
     """
     customer: NotRequired[str]
     """

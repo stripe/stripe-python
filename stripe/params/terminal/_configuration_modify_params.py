@@ -18,6 +18,10 @@ class ConfigurationModifyParams(RequestOptions):
     """
     An object containing device type specific settings for BBPOS WisePOS E readers.
     """
+    cellular: NotRequired["Literal['']|ConfigurationModifyParamsCellular"]
+    """
+    Configuration for cellular connectivity.
+    """
     expand: NotRequired[List[str]]
     """
     Specifies which fields in the response should be expanded.
@@ -40,9 +44,13 @@ class ConfigurationModifyParams(RequestOptions):
     """
     An object containing device type specific settings for Stripe S700 readers.
     """
+    stripe_s710: NotRequired["Literal['']|ConfigurationModifyParamsStripeS710"]
+    """
+    An object containing device type specific settings for Stripe S710 readers.
+    """
     tipping: NotRequired["Literal['']|ConfigurationModifyParamsTipping"]
     """
-    Tipping configurations for readers. supporting on-reader tips
+    Tipping configurations for readers that support on-reader tips.
     """
     verifone_p400: NotRequired[
         "Literal['']|ConfigurationModifyParamsVerifoneP400"
@@ -70,6 +78,13 @@ class ConfigurationModifyParamsBbposWiseposE(TypedDict):
     """
 
 
+class ConfigurationModifyParamsCellular(TypedDict):
+    enabled: bool
+    """
+    Determines whether to allow the reader to connect to a cellular network. Defaults to false.
+    """
+
+
 class ConfigurationModifyParamsOffline(TypedDict):
     enabled: bool
     """
@@ -89,6 +104,13 @@ class ConfigurationModifyParamsRebootWindow(TypedDict):
 
 
 class ConfigurationModifyParamsStripeS700(TypedDict):
+    splashscreen: NotRequired["Literal['']|str"]
+    """
+    A File ID representing an image you want to display on the reader.
+    """
+
+
+class ConfigurationModifyParamsStripeS710(TypedDict):
     splashscreen: NotRequired["Literal['']|str"]
     """
     A File ID representing an image you want to display on the reader.

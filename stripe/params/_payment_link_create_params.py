@@ -309,7 +309,7 @@ class PaymentLinkCreateParamsCustomField(TypedDict):
 class PaymentLinkCreateParamsCustomFieldDropdown(TypedDict):
     default_value: NotRequired[str]
     """
-    The value that will pre-fill the field on the payment page.Must match a `value` in the `options` array.
+    The value that pre-fills the field on the payment page.Must match a `value` in the `options` array.
     """
     options: List["PaymentLinkCreateParamsCustomFieldDropdownOption"]
     """
@@ -342,7 +342,7 @@ class PaymentLinkCreateParamsCustomFieldLabel(TypedDict):
 class PaymentLinkCreateParamsCustomFieldNumeric(TypedDict):
     default_value: NotRequired[str]
     """
-    The value that will pre-fill the field on the payment page.
+    The value that pre-fills the field on the payment page.
     """
     maximum_length: NotRequired[int]
     """
@@ -357,7 +357,7 @@ class PaymentLinkCreateParamsCustomFieldNumeric(TypedDict):
 class PaymentLinkCreateParamsCustomFieldText(TypedDict):
     default_value: NotRequired[str]
     """
-    The value that will pre-fill the field on the payment page.
+    The value that pre-fills the field on the payment page.
     """
     maximum_length: NotRequired[int]
     """
@@ -397,28 +397,28 @@ class PaymentLinkCreateParamsCustomText(TypedDict):
 class PaymentLinkCreateParamsCustomTextAfterSubmit(TypedDict):
     message: str
     """
-    Text may be up to 1200 characters in length.
+    Text can be up to 1200 characters in length.
     """
 
 
 class PaymentLinkCreateParamsCustomTextShippingAddress(TypedDict):
     message: str
     """
-    Text may be up to 1200 characters in length.
+    Text can be up to 1200 characters in length.
     """
 
 
 class PaymentLinkCreateParamsCustomTextSubmit(TypedDict):
     message: str
     """
-    Text may be up to 1200 characters in length.
+    Text can be up to 1200 characters in length.
     """
 
 
 class PaymentLinkCreateParamsCustomTextTermsOfServiceAcceptance(TypedDict):
     message: str
     """
-    Text may be up to 1200 characters in length.
+    Text can be up to 1200 characters in length.
     """
 
 

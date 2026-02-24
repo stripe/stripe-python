@@ -2095,6 +2095,8 @@ if TYPE_CHECKING:
         PaymentLinkModifyParamsNameCollection as PaymentLinkModifyParamsNameCollection,
         PaymentLinkModifyParamsNameCollectionBusiness as PaymentLinkModifyParamsNameCollectionBusiness,
         PaymentLinkModifyParamsNameCollectionIndividual as PaymentLinkModifyParamsNameCollectionIndividual,
+        PaymentLinkModifyParamsOptionalItem as PaymentLinkModifyParamsOptionalItem,
+        PaymentLinkModifyParamsOptionalItemAdjustableQuantity as PaymentLinkModifyParamsOptionalItemAdjustableQuantity,
         PaymentLinkModifyParamsPaymentIntentData as PaymentLinkModifyParamsPaymentIntentData,
         PaymentLinkModifyParamsPhoneNumberCollection as PaymentLinkModifyParamsPhoneNumberCollection,
         PaymentLinkModifyParamsRestrictions as PaymentLinkModifyParamsRestrictions,
@@ -2138,6 +2140,8 @@ if TYPE_CHECKING:
         PaymentLinkUpdateParamsNameCollection as PaymentLinkUpdateParamsNameCollection,
         PaymentLinkUpdateParamsNameCollectionBusiness as PaymentLinkUpdateParamsNameCollectionBusiness,
         PaymentLinkUpdateParamsNameCollectionIndividual as PaymentLinkUpdateParamsNameCollectionIndividual,
+        PaymentLinkUpdateParamsOptionalItem as PaymentLinkUpdateParamsOptionalItem,
+        PaymentLinkUpdateParamsOptionalItemAdjustableQuantity as PaymentLinkUpdateParamsOptionalItemAdjustableQuantity,
         PaymentLinkUpdateParamsPaymentIntentData as PaymentLinkUpdateParamsPaymentIntentData,
         PaymentLinkUpdateParamsPhoneNumberCollection as PaymentLinkUpdateParamsPhoneNumberCollection,
         PaymentLinkUpdateParamsRestrictions as PaymentLinkUpdateParamsRestrictions,
@@ -10242,6 +10246,14 @@ _import_map = {
         "stripe.params._payment_link_modify_params",
         False,
     ),
+    "PaymentLinkModifyParamsOptionalItem": (
+        "stripe.params._payment_link_modify_params",
+        False,
+    ),
+    "PaymentLinkModifyParamsOptionalItemAdjustableQuantity": (
+        "stripe.params._payment_link_modify_params",
+        False,
+    ),
     "PaymentLinkModifyParamsPaymentIntentData": (
         "stripe.params._payment_link_modify_params",
         False,
@@ -10395,6 +10407,14 @@ _import_map = {
         False,
     ),
     "PaymentLinkUpdateParamsNameCollectionIndividual": (
+        "stripe.params._payment_link_update_params",
+        False,
+    ),
+    "PaymentLinkUpdateParamsOptionalItem": (
+        "stripe.params._payment_link_update_params",
+        False,
+    ),
+    "PaymentLinkUpdateParamsOptionalItemAdjustableQuantity": (
         "stripe.params._payment_link_update_params",
         False,
     ),
