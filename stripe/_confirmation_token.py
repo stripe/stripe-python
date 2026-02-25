@@ -382,6 +382,10 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                         """
                         The last four digits of the card.
                         """
+                        location: Optional[str]
+                        """
+                        ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
+                        """
                         network: Optional[str]
                         """
                         Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
@@ -413,6 +417,10 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                         ]
                         """
                         How card details were read in this transaction.
+                        """
+                        reader: Optional[str]
+                        """
+                        ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
                         """
                         receipt: Optional[Receipt]
                         """
@@ -954,6 +962,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             bank: Optional[
                 Literal[
                     "abn_amro",
+                    "adyen",
                     "asn_bank",
                     "bunq",
                     "buut",
@@ -975,11 +984,12 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                 ]
             ]
             """
-            The customer's bank, if provided. Can be one of `abn_amro`, `asn_bank`, `bunq`, `buut`, `finom`, `handelsbanken`, `ing`, `knab`, `mollie`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
+            The customer's bank, if provided. Can be one of `abn_amro`, `adyen`, `asn_bank`, `bunq`, `buut`, `finom`, `handelsbanken`, `ing`, `knab`, `mollie`, `moneyou`, `n26`, `nn`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
             """
             bic: Optional[
                 Literal[
                     "ABNANL2A",
+                    "ADYBNL2A",
                     "ASNBNL21",
                     "BITSNL2A",
                     "BUNQNL2A",
@@ -1376,7 +1386,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             """
             The connected account ID whose Stripe balance to use as the source of payment
             """
-            source_type: Literal["bank_account", "card", "fpx"]
+            source_type: Optional[Literal["bank_account", "card", "fpx"]]
             """
             The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
             """

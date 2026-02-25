@@ -38,6 +38,9 @@ if TYPE_CHECKING:
     from stripe.params.financial_connections._account_unsubscribe_params import (
         AccountUnsubscribeParams as AccountUnsubscribeParams,
     )
+    from stripe.params.financial_connections._authorization_retrieve_params import (
+        AuthorizationRetrieveParams as AuthorizationRetrieveParams,
+    )
     from stripe.params.financial_connections._institution_list_params import (
         InstitutionListParams as InstitutionListParams,
     )
@@ -50,6 +53,7 @@ if TYPE_CHECKING:
         SessionCreateParamsFilters as SessionCreateParamsFilters,
         SessionCreateParamsLimits as SessionCreateParamsLimits,
         SessionCreateParamsManualEntry as SessionCreateParamsManualEntry,
+        SessionCreateParamsRelinkOptions as SessionCreateParamsRelinkOptions,
     )
     from stripe.params.financial_connections._session_retrieve_params import (
         SessionRetrieveParams as SessionRetrieveParams,
@@ -113,6 +117,10 @@ _import_map = {
         "stripe.params.financial_connections._account_unsubscribe_params",
         False,
     ),
+    "AuthorizationRetrieveParams": (
+        "stripe.params.financial_connections._authorization_retrieve_params",
+        False,
+    ),
     "InstitutionListParams": (
         "stripe.params.financial_connections._institution_list_params",
         False,
@@ -138,6 +146,10 @@ _import_map = {
         False,
     ),
     "SessionCreateParamsManualEntry": (
+        "stripe.params.financial_connections._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsRelinkOptions": (
         "stripe.params.financial_connections._session_create_params",
         False,
     ),

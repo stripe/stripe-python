@@ -58,7 +58,7 @@ class CouponCreateParams(RequestOptions):
     """
     redeem_by: NotRequired[int]
     """
-    Unix timestamp specifying the last time at which the coupon can be redeemed. After the redeem_by date, the coupon can no longer be applied to new customers.
+    Unix timestamp specifying the last time at which the coupon can be redeemed (cannot be set to more than 5 years in the future). After the redeem_by date, the coupon can no longer be applied to new customers.
     """
     script: NotRequired["CouponCreateParamsScript"]
     """
@@ -81,7 +81,7 @@ class CouponCreateParamsCurrencyOptions(TypedDict):
 
 
 class CouponCreateParamsScript(TypedDict):
-    configuration: Dict[str, "Any"]
+    configuration: Dict[str, Any]
     """
     The configuration values of the script. The keys and values are specific to the script implementation.
     """

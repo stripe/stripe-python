@@ -145,6 +145,10 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
         """
         The ReceivedCredit that Capital withheld from
         """
+        topup: Optional[str]
+        """
+        Set if the ReceivedDebit was created due to a [Topup](https://api.stripe.com#topups) object.
+        """
 
     class NetworkDetails(StripeObject):
         class Ach(StripeObject):

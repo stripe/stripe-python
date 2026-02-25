@@ -135,6 +135,14 @@ class PaymentIntentConfirmParamsAmountDetails(TypedDict):
 
     This field is mutually exclusive with the `amount_details[line_items][#][discount_amount]` field.
     """
+    enforce_arithmetic_validation: NotRequired[bool]
+    """
+    Set to `false` to return arithmetic validation errors in the response without failing the request. Use this when you want the operation to proceed regardless of arithmetic errors in the line item data.
+
+    Omit or set to `true` to immediately return a 400 error when arithmetic validation fails. Use this for strict validation that prevents processing with line item data that has arithmetic inconsistencies.
+
+    For card payments, Stripe doesn't send line item data to card networks if there's an arithmetic validation error.
+    """
     line_items: NotRequired[
         "Literal['']|List[PaymentIntentConfirmParamsAmountDetailsLineItem]"
     ]
@@ -174,7 +182,7 @@ class PaymentIntentConfirmParamsAmountDetailsLineItem(TypedDict):
     """
     The product name of the line item. Required for L3 rates. At most 1024 characters long.
 
-    For Cards, this field is truncated to 26 alphanumeric characters before being sent to the card networks. For Paypal, this field is truncated to 127 characters.
+    For Cards, this field is truncated to 26 alphanumeric characters before being sent to the card networks. For PayPal, this field is truncated to 127 characters.
     """
     quantity: int
     """
@@ -201,25 +209,25 @@ class PaymentIntentConfirmParamsAmountDetailsLineItemPaymentMethodOptions(
         "PaymentIntentConfirmParamsAmountDetailsLineItemPaymentMethodOptionsCard"
     ]
     """
-    This sub-hash contains line item details that are specific to `card` payment method."
+    This sub-hash contains line item details that are specific to the `card` payment method.
     """
     card_present: NotRequired[
         "PaymentIntentConfirmParamsAmountDetailsLineItemPaymentMethodOptionsCardPresent"
     ]
     """
-    This sub-hash contains line item details that are specific to `card_present` payment method."
+    This sub-hash contains line item details that are specific to the `card_present` payment method.
     """
     klarna: NotRequired[
         "PaymentIntentConfirmParamsAmountDetailsLineItemPaymentMethodOptionsKlarna"
     ]
     """
-    This sub-hash contains line item details that are specific to `klarna` payment method."
+    This sub-hash contains line item details that are specific to the `klarna` payment method.
     """
     paypal: NotRequired[
         "PaymentIntentConfirmParamsAmountDetailsLineItemPaymentMethodOptionsPaypal"
     ]
     """
-    This sub-hash contains line item details that are specific to `paypal` payment method."
+    This sub-hash contains line item details that are specific to the `paypal` payment method.
     """
 
 
@@ -228,7 +236,7 @@ class PaymentIntentConfirmParamsAmountDetailsLineItemPaymentMethodOptionsCard(
 ):
     commodity_code: NotRequired[str]
     """
-    Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
+    Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, and so on.
     """
 
 
@@ -237,7 +245,7 @@ class PaymentIntentConfirmParamsAmountDetailsLineItemPaymentMethodOptionsCardPre
 ):
     commodity_code: NotRequired[str]
     """
-    Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, etc.
+    Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, and so on.
     """
 
 
@@ -2801,6 +2809,7 @@ class PaymentIntentConfirmParamsPaymentMethodDataIdeal(TypedDict):
     bank: NotRequired[
         Literal[
             "abn_amro",
+            "adyen",
             "asn_bank",
             "bunq",
             "buut",
@@ -4053,7 +4062,7 @@ class PaymentIntentConfirmParamsPaymentMethodOptionsCardThreeDSecure(
     For 3D Secure 1, the XID. For 3D Secure 2, the Directory Server
     Transaction ID (dsTransID).
     """
-    version: Literal["1.0.2", "2.1.0", "2.2.0"]
+    version: Literal["1.0.2", "2.1.0", "2.2.0", "2.3.0", "2.3.1"]
     """
     The version of 3D Secure that was performed.
     """
@@ -4230,7 +4239,7 @@ class PaymentIntentConfirmParamsPaymentMethodOptionsCustomerBalanceBankTransferE
 ):
     country: str
     """
-    The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
+    The desired country code of the bank account information. Permitted values include: `DE`, `FR`, `IE`, or `NL`.
     """
 
 
@@ -6350,12 +6359,6 @@ class PaymentIntentConfirmParamsPaymentMethodOptionsUsBankAccount(TypedDict):
     """
     Additional fields for network related functions
     """
-    preferred_settlement_speed: NotRequired[
-        "Literal['']|Literal['fastest', 'standard']"
-    ]
-    """
-    Preferred transaction settlement speed
-    """
     setup_future_usage: NotRequired[
         "Literal['']|Literal['none', 'off_session', 'on_session']"
     ]
@@ -6374,11 +6377,23 @@ class PaymentIntentConfirmParamsPaymentMethodOptionsUsBankAccount(TypedDict):
     """
     Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
     """
+    transaction_purpose: NotRequired[
+        "Literal['']|Literal['goods', 'other', 'services', 'unspecified']"
+    ]
+    """
+    The purpose of the transaction.
+    """
     verification_method: NotRequired[
         Literal["automatic", "instant", "microdeposits"]
     ]
     """
     Bank account verification method.
+    """
+    preferred_settlement_speed: NotRequired[
+        "Literal['']|Literal['fastest', 'standard']"
+    ]
+    """
+    Preferred transaction settlement speed
     """
 
 

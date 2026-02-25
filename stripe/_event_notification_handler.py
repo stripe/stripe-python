@@ -49,6 +49,9 @@ if TYPE_CHECKING:
     from stripe.events._v2_core_account_including_defaults_updated_event import (
         V2CoreAccountIncludingDefaultsUpdatedEventNotification,
     )
+    from stripe.events._v2_core_account_including_future_requirements_updated_event import (
+        V2CoreAccountIncludingFutureRequirementsUpdatedEventNotification,
+    )
     from stripe.events._v2_core_account_including_identity_updated_event import (
         V2CoreAccountIncludingIdentityUpdatedEventNotification,
     )
@@ -445,6 +448,19 @@ class StripeEventNotificationHandler:
         """
         self._register(
             "v2.core.account[defaults].updated",
+            func,
+        )
+        return func
+
+    def on_v2_core_account_including_future_requirements_updated(
+        self,
+        func: "Callable[[V2CoreAccountIncludingFutureRequirementsUpdatedEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2CoreAccountIncludingFutureRequirementsUpdatedEvent` (`v2.core.account[future_requirements].updated`) event notification.
+        """
+        self._register(
+            "v2.core.account[future_requirements].updated",
             func,
         )
         return func

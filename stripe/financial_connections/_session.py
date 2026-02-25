@@ -78,6 +78,32 @@ class Session(CreateableAPIResource["Session"]):
     class ManualEntry(StripeObject):
         pass
 
+    class RelinkOptions(StripeObject):
+        account: Optional[str]
+        """
+        Requires the end user to repair this specific account during the authentication flow instead of connecting a different one.
+        """
+        authorization: str
+        """
+        The authorization to relink in the Session.
+        """
+
+    class RelinkResult(StripeObject):
+        account: Optional[str]
+        """
+        The account relinked in the Session. Only present if `relink_options[account]` is set and relink is successful.
+        """
+        authorization: Optional[str]
+        """
+        The authorization relinked in the Session. Only present if relink is successful.
+        """
+        failure_reason: Optional[
+            Literal["no_account", "no_authorization", "other"]
+        ]
+        """
+        Reason for why relink failed. One of `no_authorization`, `no_account`, or `other`.
+        """
+
     class StatusDetails(StripeObject):
         class Cancelled(StripeObject):
             reason: Literal["custom_manual_entry", "other"]
@@ -131,6 +157,8 @@ class Session(CreateableAPIResource["Session"]):
     """
     Data features requested to be retrieved upon account creation.
     """
+    relink_options: Optional[RelinkOptions]
+    relink_result: Optional[RelinkResult]
     return_url: Optional[str]
     """
     For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
@@ -198,5 +226,7 @@ class Session(CreateableAPIResource["Session"]):
         "filters": Filters,
         "limits": Limits,
         "manual_entry": ManualEntry,
+        "relink_options": RelinkOptions,
+        "relink_result": RelinkResult,
         "status_details": StatusDetails,
     }

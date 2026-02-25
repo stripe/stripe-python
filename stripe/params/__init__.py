@@ -184,6 +184,12 @@ if TYPE_CHECKING:
         AccountCreateParamsSettingsPayouts as AccountCreateParamsSettingsPayouts,
         AccountCreateParamsSettingsPayoutsSchedule as AccountCreateParamsSettingsPayoutsSchedule,
         AccountCreateParamsSettingsPaypayPayments as AccountCreateParamsSettingsPaypayPayments,
+        AccountCreateParamsSettingsPaypayPaymentsSite as AccountCreateParamsSettingsPaypayPaymentsSite,
+        AccountCreateParamsSettingsPaypayPaymentsSiteAccessible as AccountCreateParamsSettingsPaypayPaymentsSiteAccessible,
+        AccountCreateParamsSettingsPaypayPaymentsSiteInDevelopment as AccountCreateParamsSettingsPaypayPaymentsSiteInDevelopment,
+        AccountCreateParamsSettingsPaypayPaymentsSiteRestricted as AccountCreateParamsSettingsPaypayPaymentsSiteRestricted,
+        AccountCreateParamsSettingsSmartDisputes as AccountCreateParamsSettingsSmartDisputes,
+        AccountCreateParamsSettingsSmartDisputesAutoRespond as AccountCreateParamsSettingsSmartDisputesAutoRespond,
         AccountCreateParamsSettingsTaxForms as AccountCreateParamsSettingsTaxForms,
         AccountCreateParamsSettingsTreasury as AccountCreateParamsSettingsTreasury,
         AccountCreateParamsSettingsTreasuryTosAcceptance as AccountCreateParamsSettingsTreasuryTosAcceptance,
@@ -577,6 +583,12 @@ if TYPE_CHECKING:
         AccountUpdateParamsSettingsPayouts as AccountUpdateParamsSettingsPayouts,
         AccountUpdateParamsSettingsPayoutsSchedule as AccountUpdateParamsSettingsPayoutsSchedule,
         AccountUpdateParamsSettingsPaypayPayments as AccountUpdateParamsSettingsPaypayPayments,
+        AccountUpdateParamsSettingsPaypayPaymentsSite as AccountUpdateParamsSettingsPaypayPaymentsSite,
+        AccountUpdateParamsSettingsPaypayPaymentsSiteAccessible as AccountUpdateParamsSettingsPaypayPaymentsSiteAccessible,
+        AccountUpdateParamsSettingsPaypayPaymentsSiteInDevelopment as AccountUpdateParamsSettingsPaypayPaymentsSiteInDevelopment,
+        AccountUpdateParamsSettingsPaypayPaymentsSiteRestricted as AccountUpdateParamsSettingsPaypayPaymentsSiteRestricted,
+        AccountUpdateParamsSettingsSmartDisputes as AccountUpdateParamsSettingsSmartDisputes,
+        AccountUpdateParamsSettingsSmartDisputesAutoRespond as AccountUpdateParamsSettingsSmartDisputesAutoRespond,
         AccountUpdateParamsSettingsTaxForms as AccountUpdateParamsSettingsTaxForms,
         AccountUpdateParamsSettingsTreasury as AccountUpdateParamsSettingsTreasury,
         AccountUpdateParamsSettingsTreasuryTosAcceptance as AccountUpdateParamsSettingsTreasuryTosAcceptance,
@@ -1550,6 +1562,9 @@ if TYPE_CHECKING:
     from stripe.params._invoice_delete_params import (
         InvoiceDeleteParams as InvoiceDeleteParams,
     )
+    from stripe.params._invoice_detach_payment_params import (
+        InvoiceDetachPaymentParams as InvoiceDetachPaymentParams,
+    )
     from stripe.params._invoice_finalize_invoice_params import (
         InvoiceFinalizeInvoiceParams as InvoiceFinalizeInvoiceParams,
     )
@@ -1779,9 +1794,6 @@ if TYPE_CHECKING:
     from stripe.params._margin_update_params import (
         MarginUpdateParams as MarginUpdateParams,
     )
-    from stripe.params._order_cancel_params import (
-        OrderCancelParams as OrderCancelParams,
-    )
     from stripe.params._order_create_params import (
         OrderCreateParams as OrderCreateParams,
         OrderCreateParamsAutomaticTax as OrderCreateParamsAutomaticTax,
@@ -1868,12 +1880,6 @@ if TYPE_CHECKING:
         OrderCreateParamsShippingDetailsAddress as OrderCreateParamsShippingDetailsAddress,
         OrderCreateParamsTaxDetails as OrderCreateParamsTaxDetails,
         OrderCreateParamsTaxDetailsTaxId as OrderCreateParamsTaxDetailsTaxId,
-    )
-    from stripe.params._order_line_item_list_params import (
-        OrderLineItemListParams as OrderLineItemListParams,
-    )
-    from stripe.params._order_list_line_items_params import (
-        OrderListLineItemsParams as OrderListLineItemsParams,
     )
     from stripe.params._order_list_params import (
         OrderListParams as OrderListParams,
@@ -1964,9 +1970,6 @@ if TYPE_CHECKING:
         OrderModifyParamsShippingDetailsAddress as OrderModifyParamsShippingDetailsAddress,
         OrderModifyParamsTaxDetails as OrderModifyParamsTaxDetails,
         OrderModifyParamsTaxDetailsTaxId as OrderModifyParamsTaxDetailsTaxId,
-    )
-    from stripe.params._order_reopen_params import (
-        OrderReopenParams as OrderReopenParams,
     )
     from stripe.params._order_retrieve_params import (
         OrderRetrieveParams as OrderRetrieveParams,
@@ -3403,6 +3406,8 @@ if TYPE_CHECKING:
         PaymentLinkModifyParamsNameCollection as PaymentLinkModifyParamsNameCollection,
         PaymentLinkModifyParamsNameCollectionBusiness as PaymentLinkModifyParamsNameCollectionBusiness,
         PaymentLinkModifyParamsNameCollectionIndividual as PaymentLinkModifyParamsNameCollectionIndividual,
+        PaymentLinkModifyParamsOptionalItem as PaymentLinkModifyParamsOptionalItem,
+        PaymentLinkModifyParamsOptionalItemAdjustableQuantity as PaymentLinkModifyParamsOptionalItemAdjustableQuantity,
         PaymentLinkModifyParamsPaymentIntentData as PaymentLinkModifyParamsPaymentIntentData,
         PaymentLinkModifyParamsPhoneNumberCollection as PaymentLinkModifyParamsPhoneNumberCollection,
         PaymentLinkModifyParamsRestrictions as PaymentLinkModifyParamsRestrictions,
@@ -3446,6 +3451,8 @@ if TYPE_CHECKING:
         PaymentLinkUpdateParamsNameCollection as PaymentLinkUpdateParamsNameCollection,
         PaymentLinkUpdateParamsNameCollectionBusiness as PaymentLinkUpdateParamsNameCollectionBusiness,
         PaymentLinkUpdateParamsNameCollectionIndividual as PaymentLinkUpdateParamsNameCollectionIndividual,
+        PaymentLinkUpdateParamsOptionalItem as PaymentLinkUpdateParamsOptionalItem,
+        PaymentLinkUpdateParamsOptionalItemAdjustableQuantity as PaymentLinkUpdateParamsOptionalItemAdjustableQuantity,
         PaymentLinkUpdateParamsPaymentIntentData as PaymentLinkUpdateParamsPaymentIntentData,
         PaymentLinkUpdateParamsPhoneNumberCollection as PaymentLinkUpdateParamsPhoneNumberCollection,
         PaymentLinkUpdateParamsRestrictions as PaymentLinkUpdateParamsRestrictions,
@@ -4941,9 +4948,6 @@ if TYPE_CHECKING:
     from stripe.params._source_verify_params import (
         SourceVerifyParams as SourceVerifyParams,
     )
-    from stripe.params._subscription_attach_cadence_params import (
-        SubscriptionAttachCadenceParams as SubscriptionAttachCadenceParams,
-    )
     from stripe.params._subscription_cancel_params import (
         SubscriptionCancelParams as SubscriptionCancelParams,
         SubscriptionCancelParamsCancellationDetails as SubscriptionCancelParamsCancellationDetails,
@@ -6135,6 +6139,30 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsSettingsPaypayPayments": (
+        "stripe.params._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsSettingsPaypayPaymentsSite": (
+        "stripe.params._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsSettingsPaypayPaymentsSiteAccessible": (
+        "stripe.params._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsSettingsPaypayPaymentsSiteInDevelopment": (
+        "stripe.params._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsSettingsPaypayPaymentsSiteRestricted": (
+        "stripe.params._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsSettingsSmartDisputes": (
+        "stripe.params._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsSettingsSmartDisputesAutoRespond": (
         "stripe.params._account_create_params",
         False,
     ),
@@ -7395,6 +7423,30 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsSettingsPaypayPayments": (
+        "stripe.params._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsSettingsPaypayPaymentsSite": (
+        "stripe.params._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsSettingsPaypayPaymentsSiteAccessible": (
+        "stripe.params._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsSettingsPaypayPaymentsSiteInDevelopment": (
+        "stripe.params._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsSettingsPaypayPaymentsSiteRestricted": (
+        "stripe.params._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsSettingsSmartDisputes": (
+        "stripe.params._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsSettingsSmartDisputesAutoRespond": (
         "stripe.params._account_update_params",
         False,
     ),
@@ -10060,6 +10112,10 @@ _import_map = {
         False,
     ),
     "InvoiceDeleteParams": ("stripe.params._invoice_delete_params", False),
+    "InvoiceDetachPaymentParams": (
+        "stripe.params._invoice_detach_payment_params",
+        False,
+    ),
     "InvoiceFinalizeInvoiceParams": (
         "stripe.params._invoice_finalize_invoice_params",
         False,
@@ -10659,7 +10715,6 @@ _import_map = {
     "MarginModifyParams": ("stripe.params._margin_modify_params", False),
     "MarginRetrieveParams": ("stripe.params._margin_retrieve_params", False),
     "MarginUpdateParams": ("stripe.params._margin_update_params", False),
-    "OrderCancelParams": ("stripe.params._order_cancel_params", False),
     "OrderCreateParams": ("stripe.params._order_create_params", False),
     "OrderCreateParamsAutomaticTax": (
         "stripe.params._order_create_params",
@@ -10986,14 +11041,6 @@ _import_map = {
     ),
     "OrderCreateParamsTaxDetailsTaxId": (
         "stripe.params._order_create_params",
-        False,
-    ),
-    "OrderLineItemListParams": (
-        "stripe.params._order_line_item_list_params",
-        False,
-    ),
-    "OrderListLineItemsParams": (
-        "stripe.params._order_list_line_items_params",
         False,
     ),
     "OrderListParams": ("stripe.params._order_list_params", False),
@@ -11325,7 +11372,6 @@ _import_map = {
         "stripe.params._order_modify_params",
         False,
     ),
-    "OrderReopenParams": ("stripe.params._order_reopen_params", False),
     "OrderRetrieveParams": ("stripe.params._order_retrieve_params", False),
     "OrderSubmitParams": ("stripe.params._order_submit_params", False),
     "OrderUpdateParams": ("stripe.params._order_update_params", False),
@@ -16844,6 +16890,14 @@ _import_map = {
         "stripe.params._payment_link_modify_params",
         False,
     ),
+    "PaymentLinkModifyParamsOptionalItem": (
+        "stripe.params._payment_link_modify_params",
+        False,
+    ),
+    "PaymentLinkModifyParamsOptionalItemAdjustableQuantity": (
+        "stripe.params._payment_link_modify_params",
+        False,
+    ),
     "PaymentLinkModifyParamsPaymentIntentData": (
         "stripe.params._payment_link_modify_params",
         False,
@@ -16997,6 +17051,14 @@ _import_map = {
         False,
     ),
     "PaymentLinkUpdateParamsNameCollectionIndividual": (
+        "stripe.params._payment_link_update_params",
+        False,
+    ),
+    "PaymentLinkUpdateParamsOptionalItem": (
+        "stripe.params._payment_link_update_params",
+        False,
+    ),
+    "PaymentLinkUpdateParamsOptionalItemAdjustableQuantity": (
         "stripe.params._payment_link_update_params",
         False,
     ),
@@ -21785,10 +21847,6 @@ _import_map = {
         False,
     ),
     "SourceVerifyParams": ("stripe.params._source_verify_params", False),
-    "SubscriptionAttachCadenceParams": (
-        "stripe.params._subscription_attach_cadence_params",
-        False,
-    ),
     "SubscriptionCancelParams": (
         "stripe.params._subscription_cancel_params",
         False,

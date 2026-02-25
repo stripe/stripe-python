@@ -30,6 +30,10 @@ class OutboundPaymentCreateParams(_OutboundPaymentCreateParamsBase):
     """
     The quote for this OutboundPayment. Only required for countries with regulatory mandates to display fee estimates before OutboundPayment creation.
     """
+    purpose: NotRequired[Literal["payroll"]]
+    """
+    The purpose of the OutboundPayment.
+    """
     recipient_notification: NotRequired[
         "OutboundPaymentCreateParamsRecipientNotification"
     ]
@@ -43,11 +47,11 @@ class OutboundPaymentCreateParams(_OutboundPaymentCreateParamsBase):
 
 
 class OutboundPaymentCreateParamsAmount(TypedDict):
-    value: NotRequired[int]
+    value: int
     """
     A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
     """
-    currency: NotRequired[str]
+    currency: str
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """

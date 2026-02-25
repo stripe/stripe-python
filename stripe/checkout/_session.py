@@ -293,6 +293,7 @@ class Session(
                 "la_tin",
                 "li_uid",
                 "li_vat",
+                "lk_vat",
                 "ma_vat",
                 "md_vat",
                 "me_pib",
@@ -310,6 +311,7 @@ class Session(
                 "om_vat",
                 "pe_ruc",
                 "ph_tin",
+                "pl_nip",
                 "ro_tin",
                 "rs_pib",
                 "ru_inn",
@@ -340,7 +342,7 @@ class Session(
                 "zw_tin",
             ]
             """
-            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, or `unknown`
+            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, or `unknown`
             """
             value: Optional[str]
             """
@@ -446,7 +448,7 @@ class Session(
 
             default_value: Optional[str]
             """
-            The value that will pre-fill on the payment page.
+            The value that pre-fills on the payment page.
             """
             options: List[Option]
             """
@@ -471,7 +473,7 @@ class Session(
         class Numeric(StripeObject):
             default_value: Optional[str]
             """
-            The value that will pre-fill the field on the payment page.
+            The value that pre-fills the field on the payment page.
             """
             maximum_length: Optional[int]
             """
@@ -489,7 +491,7 @@ class Session(
         class Text(StripeObject):
             default_value: Optional[str]
             """
-            The value that will pre-fill the field on the payment page.
+            The value that pre-fills the field on the payment page.
             """
             maximum_length: Optional[int]
             """
@@ -531,25 +533,25 @@ class Session(
         class AfterSubmit(StripeObject):
             message: str
             """
-            Text may be up to 1200 characters in length.
+            Text can be up to 1200 characters in length.
             """
 
         class ShippingAddress(StripeObject):
             message: str
             """
-            Text may be up to 1200 characters in length.
+            Text can be up to 1200 characters in length.
             """
 
         class Submit(StripeObject):
             message: str
             """
-            Text may be up to 1200 characters in length.
+            Text can be up to 1200 characters in length.
             """
 
         class TermsOfServiceAcceptance(StripeObject):
             message: str
             """
-            Text may be up to 1200 characters in length.
+            Text can be up to 1200 characters in length.
             """
 
         after_submit: Optional[AfterSubmit]
@@ -670,6 +672,7 @@ class Session(
                 "la_tin",
                 "li_uid",
                 "li_vat",
+                "lk_vat",
                 "ma_vat",
                 "md_vat",
                 "me_pib",
@@ -687,6 +690,7 @@ class Session(
                 "om_vat",
                 "pe_ruc",
                 "ph_tin",
+                "pl_nip",
                 "ro_tin",
                 "rs_pib",
                 "ru_inn",
@@ -717,7 +721,7 @@ class Session(
                 "zw_tin",
             ]
             """
-            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, or `unknown`
+            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, or `unknown`
             """
             value: Optional[str]
             """
@@ -841,6 +845,12 @@ class Session(
         """
         invoice_data: InvoiceData
         _inner_class_types = {"invoice_data": InvoiceData}
+
+    class ManagedPayments(StripeObject):
+        enabled: bool
+        """
+        Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution, for this session.
+        """
 
     class NameCollection(StripeObject):
         class Business(StripeObject):
@@ -1200,7 +1210,7 @@ class Session(
                 class EuBankTransfer(StripeObject):
                     country: Literal["BE", "DE", "ES", "FR", "IE", "NL"]
                     """
-                    The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
+                    The desired country code of the bank account information. Permitted values include: `DE`, `FR`, `IE`, or `NL`.
                     """
 
                 eu_bank_transfer: Optional[EuBankTransfer]
@@ -2458,7 +2468,7 @@ class Session(
     """
     custom_fields: List[CustomField]
     """
-    Collect additional information from your customer using custom fields. Up to 3 fields are supported.
+    Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `custom`.
     """
     custom_text: CustomText
     customer: Optional[ExpandableField["Customer"]]
@@ -2568,6 +2578,10 @@ class Session(
     ]
     """
     The IETF language tag of the locale Checkout is displayed in. If blank or `auto`, the browser's locale is used.
+    """
+    managed_payments: Optional[ManagedPayments]
+    """
+    Settings for Managed Payments for this Checkout Session and resulting [PaymentIntents](https://docs.stripe.com/api/payment_intents/object), [Invoices](https://docs.stripe.com/api/invoices/object), and [Subscriptions](https://docs.stripe.com/api/subscriptions/object).
     """
     metadata: Optional[Dict[str, str]]
     """
@@ -3013,7 +3027,7 @@ class Session(
         """
         Updates a Checkout Session object.
 
-        Related guide: [Dynamically update Checkout](https://docs.stripe.com/payments/checkout/dynamic-updates)
+        Related guide: [Dynamically update a Checkout Session](https://docs.stripe.com/payments/advanced/dynamic-updates)
         """
         url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
@@ -3032,7 +3046,7 @@ class Session(
         """
         Updates a Checkout Session object.
 
-        Related guide: [Dynamically update Checkout](https://docs.stripe.com/payments/checkout/dynamic-updates)
+        Related guide: [Dynamically update a Checkout Session](https://docs.stripe.com/payments/advanced/dynamic-updates)
         """
         url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
@@ -3080,6 +3094,7 @@ class Session(
         "customer_details": CustomerDetails,
         "discounts": Discount,
         "invoice_creation": InvoiceCreation,
+        "managed_payments": ManagedPayments,
         "name_collection": NameCollection,
         "optional_items": OptionalItem,
         "payment_method_configuration_details": PaymentMethodConfigurationDetails,

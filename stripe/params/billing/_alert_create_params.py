@@ -31,7 +31,7 @@ class AlertCreateParamsUsageThreshold(TypedDict):
     """
     gte: int
     """
-    Defines at which value the alert will fire.
+    Defines the threshold value that triggers the alert.
     """
     meter: str
     """

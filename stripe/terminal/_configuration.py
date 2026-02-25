@@ -57,6 +57,12 @@ class Configuration(
         A File ID representing an image to display on the reader
         """
 
+    class Cellular(StripeObject):
+        enabled: bool
+        """
+        Whether a cellular-capable reader can connect to the internet over cellular.
+        """
+
     class Offline(StripeObject):
         enabled: Optional[bool]
         """
@@ -85,6 +91,12 @@ class Configuration(
         A File ID representing an image to display on the reader
         """
 
+    class StripeS710(StripeObject):
+        splashscreen: Optional[ExpandableField["File"]]
+        """
+        A File ID representing an image to display on the reader
+        """
+
     class Tipping(StripeObject):
         class Aed(StripeObject):
             fixed_amounts: Optional[List[int]]
@@ -101,20 +113,6 @@ class Configuration(
             """
 
         class Aud(StripeObject):
-            fixed_amounts: Optional[List[int]]
-            """
-            Fixed amounts displayed when collecting a tip
-            """
-            percentages: Optional[List[int]]
-            """
-            Percentages displayed when collecting a tip
-            """
-            smart_tip_threshold: Optional[int]
-            """
-            Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-            """
-
-        class Bgn(StripeObject):
             fixed_amounts: Optional[List[int]]
             """
             Fixed amounts displayed when collecting a tip
@@ -396,7 +394,6 @@ class Configuration(
 
         aed: Optional[Aed]
         aud: Optional[Aud]
-        bgn: Optional[Bgn]
         cad: Optional[Cad]
         chf: Optional[Chf]
         czk: Optional[Czk]
@@ -419,7 +416,6 @@ class Configuration(
         _inner_class_types = {
             "aed": Aed,
             "aud": Aud,
-            "bgn": Bgn,
             "cad": Cad,
             "chf": Chf,
             "czk": Czk,
@@ -515,6 +511,7 @@ class Configuration(
 
     bbpos_wisepad3: Optional[BbposWisepad3]
     bbpos_wisepos_e: Optional[BbposWiseposE]
+    cellular: Optional[Cellular]
     deleted: Optional[Literal[True]]
     """
     Always true for a deleted object
@@ -543,6 +540,7 @@ class Configuration(
     reader_security: Optional[ReaderSecurity]
     reboot_window: Optional[RebootWindow]
     stripe_s700: Optional[StripeS700]
+    stripe_s710: Optional[StripeS710]
     tipping: Optional[Tipping]
     verifone_p400: Optional[VerifoneP400]
     wifi: Optional[Wifi]
@@ -776,10 +774,12 @@ class Configuration(
     _inner_class_types = {
         "bbpos_wisepad3": BbposWisepad3,
         "bbpos_wisepos_e": BbposWiseposE,
+        "cellular": Cellular,
         "offline": Offline,
         "reader_security": ReaderSecurity,
         "reboot_window": RebootWindow,
         "stripe_s700": StripeS700,
+        "stripe_s710": StripeS710,
         "tipping": Tipping,
         "verifone_p400": VerifoneP400,
         "wifi": Wifi,

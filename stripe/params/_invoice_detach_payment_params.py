@@ -5,8 +5,12 @@ from typing import List
 from typing_extensions import NotRequired
 
 
-class OrderReopenParams(RequestOptions):
+class InvoiceDetachPaymentParams(RequestOptions):
     expand: NotRequired[List[str]]
     """
     Specifies which fields in the response should be expanded.
+    """
+    payment_intent: NotRequired[str]
+    """
+    The ID of the PaymentIntent to detach from the invoice.
     """

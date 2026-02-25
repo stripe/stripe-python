@@ -21,6 +21,9 @@ if TYPE_CHECKING:
         InvoiceCreatePreviewParams,
     )
     from stripe.params._invoice_delete_params import InvoiceDeleteParams
+    from stripe.params._invoice_detach_payment_params import (
+        InvoiceDetachPaymentParams,
+    )
     from stripe.params._invoice_finalize_invoice_params import (
         InvoiceFinalizeInvoiceParams,
     )
@@ -249,7 +252,7 @@ class InvoiceService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Invoice":
         """
-        This endpoint creates a draft invoice for a given customer. The invoice remains a draft until you [finalize the invoice, which allows you to [pay](#pay_invoice) or <a href="#send_invoice">send](https://docs.stripe.com/api#finalize_invoice) the invoice to your customers.
+        This endpoint creates a draft invoice for a given customer. The invoice remains a draft until you [finalize the invoice, which allows you to [pay](https://docs.stripe.com/api#finalize_invoice) or <a href="/api/invoices/send">send](https://docs.stripe.com/api/invoices/pay) the invoice to your customers.
         """
         return cast(
             "Invoice",
@@ -268,7 +271,7 @@ class InvoiceService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Invoice":
         """
-        This endpoint creates a draft invoice for a given customer. The invoice remains a draft until you [finalize the invoice, which allows you to [pay](#pay_invoice) or <a href="#send_invoice">send](https://docs.stripe.com/api#finalize_invoice) the invoice to your customers.
+        This endpoint creates a draft invoice for a given customer. The invoice remains a draft until you [finalize the invoice, which allows you to [pay](https://docs.stripe.com/api#finalize_invoice) or <a href="/api/invoices/send">send](https://docs.stripe.com/api/invoices/pay) the invoice to your customers.
         """
         return cast(
             "Invoice",
@@ -423,6 +426,50 @@ class InvoiceService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/invoices/{invoice}/attach_payment".format(
+                    invoice=sanitize_id(invoice),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def detach_payment(
+        self,
+        invoice: str,
+        params: Optional["InvoiceDetachPaymentParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "Invoice":
+        """
+        Detaches a payment from the invoice, removing it from the list of payments
+        """
+        return cast(
+            "Invoice",
+            self._request(
+                "post",
+                "/v1/invoices/{invoice}/detach_payment".format(
+                    invoice=sanitize_id(invoice),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def detach_payment_async(
+        self,
+        invoice: str,
+        params: Optional["InvoiceDetachPaymentParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "Invoice":
+        """
+        Detaches a payment from the invoice, removing it from the list of payments
+        """
+        return cast(
+            "Invoice",
+            await self._request_async(
+                "post",
+                "/v1/invoices/{invoice}/detach_payment".format(
                     invoice=sanitize_id(invoice),
                 ),
                 base_address="api",

@@ -1968,6 +1968,10 @@ class AccountUpdateParamsSettings(TypedDict):
     """
     Settings specific to the PayPay payments method.
     """
+    smart_disputes: NotRequired["AccountUpdateParamsSettingsSmartDisputes"]
+    """
+    Settings specific to the account's use of Smart Disputes.
+    """
     tax_forms: NotRequired["AccountUpdateParamsSettingsTaxForms"]
     """
     Settings specific to the account's tax forms.
@@ -2094,6 +2098,10 @@ class AccountUpdateParamsSettingsInvoices(TypedDict):
 
 
 class AccountUpdateParamsSettingsPayments(TypedDict):
+    email_customers_on_successful_payment: NotRequired[bool]
+    """
+    When you enable this parameter, the customer of this Account receives an email receipt when their payment succeeds. If this parameter isn't set, the default value is `false`.
+    """
     statement_descriptor: NotRequired[str]
     """
     The default text that appears on statements for non-card charges outside of Japan. For card charges, if you don't set a `statement_descriptor_prefix`, this text is also used as the statement descriptor prefix. In that case, if concatenating the statement descriptor suffix causes the combined statement descriptor to exceed 22 characters, we truncate the `statement_descriptor` text to limit the full descriptor to 22 characters. For more information about statement descriptors and their requirements, see the [account settings documentation](https://docs.stripe.com/get-started/account/statement-descriptors).
@@ -2163,9 +2171,80 @@ class AccountUpdateParamsSettingsPayoutsSchedule(TypedDict):
 
 
 class AccountUpdateParamsSettingsPaypayPayments(TypedDict):
+    additional_files: NotRequired[List[str]]
+    """
+    Additional files that are required to support the onboarding process of your business.
+    """
     goods_type: NotRequired[Literal["digital_content", "other"]]
     """
     Whether your business sells digital content or not.
+    """
+    site: NotRequired["AccountUpdateParamsSettingsPaypayPaymentsSite"]
+    """
+    Details regarding your business's website.
+    """
+
+
+class AccountUpdateParamsSettingsPaypayPaymentsSite(TypedDict):
+    accessible: NotRequired[
+        "AccountUpdateParamsSettingsPaypayPaymentsSiteAccessible"
+    ]
+    """
+    Additional information about your business's website.
+    """
+    in_development: NotRequired[
+        "AccountUpdateParamsSettingsPaypayPaymentsSiteInDevelopment"
+    ]
+    """
+    Additional information about your business's website.
+    """
+    restricted: NotRequired[
+        "AccountUpdateParamsSettingsPaypayPaymentsSiteRestricted"
+    ]
+    """
+    Additional information about your business's website.
+    """
+    type: NotRequired[Literal["accessible", "in_development", "restricted"]]
+    """
+    The status of your business's website.
+    """
+
+
+class AccountUpdateParamsSettingsPaypayPaymentsSiteAccessible(TypedDict):
+    pass
+
+
+class AccountUpdateParamsSettingsPaypayPaymentsSiteInDevelopment(TypedDict):
+    password: str
+    """
+    The password needed to access your business's website.
+    """
+    username: NotRequired[str]
+    """
+    The username needed to access your business's website.
+    """
+
+
+class AccountUpdateParamsSettingsPaypayPaymentsSiteRestricted(TypedDict):
+    payment_flow_file: NotRequired[str]
+    """
+    The file explaining the payment flow for your business.
+    """
+
+
+class AccountUpdateParamsSettingsSmartDisputes(TypedDict):
+    auto_respond: NotRequired[
+        "AccountUpdateParamsSettingsSmartDisputesAutoRespond"
+    ]
+    """
+    Smart Disputes auto-respond settings for the account.
+    """
+
+
+class AccountUpdateParamsSettingsSmartDisputesAutoRespond(TypedDict):
+    preference: NotRequired[Literal["inherit", "off", "on"]]
+    """
+    The preference setting for auto-respond. Can be 'on', 'off', or 'inherit'.
     """
 
 

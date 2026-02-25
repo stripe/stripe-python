@@ -1,5 +1,121 @@
 # Changelog
 
+## 14.5.0b1 - 2026-02-25
+This release changes the pinned API version to `2026-02-25.preview`.
+
+* [#1727](https://github.com/stripe/stripe-python/pull/1727) Update generated code for beta
+  * Add support for `smart_disputes` on `Account.Setting`, `AccountCreateParamsSetting`, `AccountModifyParamsSetting`, `V2.Core.Account.Configuration.Merchant`, `v2.core.AccountCreateParamsConfigurationMerchant`, and `v2.core.AccountModifyParamsConfigurationMerchant`
+  * Add support for `email_customers_on_successful_payment` on `Account.Setting.Payment`, `AccountCreateParamsSettingPayment`, and `AccountModifyParamsSettingPayment`
+  * Add support for `managed_payments` on `Checkout.Session`, `PaymentIntent`, `SetupIntent`, `Subscription`, and `checkout.SessionCreateParams`
+  * Add support for new value `lk_vat` on enums `Checkout.Session.CollectedInformation.TaxId.type`, `Order.TaxDetail.TaxId.type`, and `QuotePreviewInvoice.CustomerTaxId.type`
+  * Add support for new value `lk_vat` on enums `OrderCreateParamsTaxDetailTaxId.type` and `OrderModifyParamsTaxDetailTaxId.type`
+  * Add support for new value `pay_by_bank` on enum `QuotePreviewInvoice.PaymentSetting.payment_method_types`
+  * Add support for new values `bt_bank_account`, `cr_bank_account`, `do_bank_account`, `gt_bank_account`, `md_bank_account`, `mk_bank_account`, `mo_bank_account`, `mz_bank_account`, `pe_bank_account`, `pk_bank_account`, `tw_bank_account`, and `uz_bank_account` on enum `V2.Core.Account.Configuration.Recipient.DefaultOutboundDestination.type`
+  * Add support for `purpose` on `V2.MoneyManagement.OutboundPayment` and `v2.money_management.OutboundPaymentCreateParams`
+  * Add support for `branch_number` and `swift_code` on `V2.MoneyManagement.PayoutMethod.BankAccount`
+  * Change `V2.MoneyManagement.Transaction.flow` and `V2.MoneyManagement.TransactionEntry.TransactionDetail.flow` to be optional
+  * Add support for error codes `storer_capability_missing` and `storer_capability_not_active` on `QuotePreviewInvoice.LastFinalizationError`
+
+## 14.4.0 - 2026-02-25
+This release changes the pinned API version to `2026-02-25.clover`.
+
+* [#1737](https://github.com/stripe/stripe-python/pull/1737) Allow AIOHTTPClient to accept user-provided session or connector. Fixes [#1736](https://github.com/stripe/stripe-python/pull/1736)
+* [#1732](https://github.com/stripe/stripe-python/pull/1732) Update generated code
+  * Add support for new resources `reserve.Hold`, `reserve.Plan`, and `reserve.Release`
+  * Add support for `location` and `reader` on `Charge.PaymentMethodDetail.CardPresent`, `Charge.PaymentMethodDetail.InteracPresent`, `ConfirmationToken.PaymentMethodPreview.Card.GeneratedFrom.PaymentMethodDetail.CardPresent`, `PaymentAttemptRecord.PaymentMethodDetail.CardPresent`, `PaymentAttemptRecord.PaymentMethodDetail.InteracPresent`, `PaymentMethod.Card.GeneratedFrom.PaymentMethodDetail.CardPresent`, `PaymentRecord.PaymentMethodDetail.CardPresent`, and `PaymentRecord.PaymentMethodDetail.InteracPresent`
+  * Add support for new value `lk_vat` on enums `Checkout.Session.CustomerDetail.TaxId.type`, `Invoice.CustomerTaxId.type`, `Tax.Calculation.CustomerDetail.TaxId.type`, `Tax.Transaction.CustomerDetail.TaxId.type`, and `TaxId.type`
+  * Add support for new value `lk_vat` on enums `CustomerCreateParamsTaxIdDatum.type`, `CustomerCreateTaxIdParams.type`, `InvoiceCreatePreviewParamsCustomerDetailTaxId.type`, `TaxIdCreateParams.type`, and `tax.CalculationCreateParamsCustomerDetailTaxId.type`
+  * Add support for new values `reserve.hold.created`, `reserve.hold.updated`, `reserve.plan.created`, `reserve.plan.disabled`, `reserve.plan.expired`, `reserve.plan.updated`, and `reserve.release.created` on enum `Event.type`
+  * Add support for new values `terminal_wifi_certificate` and `terminal_wifi_private_key` on enums `File.purpose` and `FileListParams.purpose`
+  * Add support for new values `terminal_wifi_certificate` and `terminal_wifi_private_key` on enum `FileCreateParams.purpose`
+  * Add support for new value `pay_by_bank` on enums `Invoice.PaymentSetting.payment_method_types`, `InvoiceCreateParamsPaymentSetting.payment_method_types`, `InvoiceModifyParamsPaymentSetting.payment_method_types`, `Subscription.PaymentSetting.payment_method_types`, `SubscriptionCreateParamsPaymentSetting.payment_method_types`, and `SubscriptionModifyParamsPaymentSetting.payment_method_types`
+  * Add support for `display_name` and `service_user_number` on `Mandate.PaymentMethodDetail.BacsDebit`
+  * Change type of `PaymentAttemptRecord.PaymentMethodDetail.Boleto.tax_id` and `PaymentRecord.PaymentMethodDetail.Boleto.tax_id` from `string` to `nullable(string)`
+  * Change type of `PaymentAttemptRecord.PaymentMethodDetail.UsBankAccount.expected_debit_date` and `PaymentRecord.PaymentMethodDetail.UsBankAccount.expected_debit_date` from `nullable(string)` to `string`
+  * Add support for `transaction_purpose` on `PaymentIntent.PaymentMethodOption.UsBankAccount`, `PaymentIntentConfirmParamsPaymentMethodOptionUsBankAccount`, `PaymentIntentCreateParamsPaymentMethodOptionUsBankAccount`, and `PaymentIntentModifyParamsPaymentMethodOptionUsBankAccount`
+  * Add support for `optional_items` on `PaymentLinkModifyParams`
+  * Remove support for unused `card_issuer_decline` on `Radar.PaymentEvaluation.Insight`
+  * Add support for `payment_behavior` on `SubscriptionItemDeleteParams`
+  * Add support for `lk` on `Tax.Registration.CountryOption` and `tax.RegistrationCreateParamsCountryOption`
+  * Add support for `cellular` and `stripe_s710` on `Terminal.Configuration`, `terminal.ConfigurationCreateParams`, and `terminal.ConfigurationModifyParams`
+  * Add support for new values `simulated_stripe_s710` and `stripe_s710` on enums `Terminal.Reader.device_type` and `terminal.ReaderListParams.device_type`
+  * Add support for new values `reserve.hold.created`, `reserve.hold.updated`, `reserve.plan.created`, `reserve.plan.disabled`, `reserve.plan.expired`, `reserve.plan.updated`, and `reserve.release.created` on enums `WebhookEndpointCreateParams.enabled_events` and `WebhookEndpointModifyParams.enabled_events`
+  * Add support for new value `2026-02-25.clover` on enum `WebhookEndpointCreateParams.api_version`
+  * Add support for snapshot events `reserve.hold.created` and `reserve.hold.updated` with resource `reserve.Hold`
+  * Add support for snapshot events `reserve.plan.created`, `reserve.plan.disabled`, `reserve.plan.expired`, and `reserve.plan.updated` with resource `reserve.Plan`
+  * Add support for snapshot event `reserve.release.created` with resource `reserve.Release`
+  * Add support for error codes `storer_capability_missing` and `storer_capability_not_active` on `Invoice.LastFinalizationError`, `PaymentIntent.LastPaymentError`, `SetupAttempt.SetupError`, `SetupIntent.LastSetupError`, and `StripeError`
+* [#1731](https://github.com/stripe/stripe-python/pull/1731) Added instruction to update CA certificates in README.
+
+## 14.4.0b1 - 2026-01-28
+This release changes the pinned API version to `2026-01-28.preview`.
+
+* [#1719](https://github.com/stripe/stripe-python/pull/1719) Update generated code for beta
+  * Add support for new resource `financial_connections.Authorization`
+  * Add support for `retrieve` method on resource `financial_connections.Authorization`
+  * Add support for `detach_payment` method on resource `Invoice`
+  * Remove support for `cancel`, `list_line_items`, and `reopen` methods on resource `Order`
+  * Remove support for `attach_cadence` method on resource `Subscription`
+  * Add support for `additional_files` and `site` on `Account.Setting.PaypayPayment`, `AccountCreateParamsSettingPaypayPayment`, and `AccountModifyParamsSettingPaypayPayment`
+  * Remove support for `capital` on `Account.Setting`
+  * Change type of `Charge.PaymentMethodDetail.StripeBalance.source_type`, `ConfirmationToken.PaymentMethodPreview.StripeBalance.source_type`, `PaymentAttemptRecord.PaymentMethodDetail.StripeBalance.source_type`, `PaymentMethod.StripeBalance.source_type`, and `PaymentRecord.PaymentMethodDetail.StripeBalance.source_type` from `enum('bank_account'|'card'|'fpx')` to `nullable(enum('bank_account'|'card'|'fpx'))`
+  * Add support for new value `pl_nip` on enums `Checkout.Session.CollectedInformation.TaxId.type`, `Order.TaxDetail.TaxId.type`, and `QuotePreviewInvoice.CustomerTaxId.type`
+  * Add support for new value `capital.financing_summary.line_of_credit_update` on enum `Event.type`
+  * Add support for `authorization` and `status_details` on `FinancialConnections.Account`
+  * Add support for `relink_options` on `FinancialConnections.Session` and `financial_connections.SessionCreateParams`
+  * Change `financial_connections.SessionCreateParams.account_holder` to be optional
+  * Add support for `relink_result` on `FinancialConnections.Session`
+  * Remove support for `billing_cadence` on `InvoiceCreatePreviewParams`, `SubscriptionCreateParams`, `SubscriptionModifyParams`, and `Subscription`
+  * Remove support for `billing_cadence_details` on `Invoice.Parent` and `QuotePreviewInvoice.Parent`
+  * Remove support for value `billing_cadence_details` from enums `Invoice.Parent.type` and `QuotePreviewInvoice.Parent.type`
+  * Add support for new value `pl_nip` on enums `OrderCreateParamsTaxDetailTaxId.type` and `OrderModifyParamsTaxDetailTaxId.type`
+  * Add support for `car_rental_data`, `flight_data`, and `lodging_data` on `PaymentIntent.PaymentDetail`
+  * Change `QuotePreviewInvoice.PaymentSetting.PaymentMethodOption.payto` to be required
+  * Add support for new value `capital.financing_summary.line_of_credit_update` on enums `WebhookEndpointCreateParams.enabled_events` and `WebhookEndpointModifyParams.enabled_events`
+  * Add support for new values `ae_bank_account`, `ag_bank_account`, `bh_bank_account`, `gm_bank_account`, `hk_bank_account`, `kh_bank_account`, `lc_bank_account`, `mc_bank_account`, `mg_bank_account`, `my_bank_account`, `qa_bank_account`, `rw_bank_account`, `th_bank_account`, `tt_bank_account`, and `vn_bank_account` on enum `V2.Core.Account.Configuration.Recipient.DefaultOutboundDestination.type`
+  * Add support for `alternative_reference` on `V2.Core.Vault.GbBankAccount`, `V2.Core.Vault.UsBankAccount`, and `V2.MoneyManagement.PayoutMethod`
+  * Add support for `account_holder_address` and `account_holder_name` on `V2.MoneyManagement.FinancialAddress.Credential.UsBankAccount`
+  * Add support for `fingerprint` on `V2.MoneyManagement.PayoutMethod.Card`
+  * Add support for snapshot event `invoice_payment.detached` with resource `InvoicePayment`
+  * Add support for error code `request_blocked` on `QuotePreviewInvoice.LastFinalizationError`
+  * Add support for error codes `blocked_payout_method` and `unsupported_payout_method` on `BlockedByStripeError`
+  * Add support for error code `invalid_payout_method_data` on `InvalidPayoutMethodError`
+  * Add support for error code `limit_payout_method` on `QuotaExceededError`
+* [#1701](https://github.com/stripe/stripe-python/pull/1701) Add EventNotificationHandler example
+
+## 14.3.0 - 2026-01-28
+This release changes the pinned API version to `2026-01-28.clover`.
+
+* [#1725](https://github.com/stripe/stripe-python/pull/1725) Update generated code
+  * Add support for new resource `radar.PaymentEvaluation`
+  * Add support for `create` method on resource `radar.PaymentEvaluation`
+  * Add support for `adjustable_quantity` on `LineItem`
+  * Add support for new value `risk_reserved` on enum `BalanceTransaction.balance_type`
+  * Add support for new values `reserve_hold` and `reserve_release` on enum `BalanceTransaction.type`
+  * Add support for new values `2.3.0` and `2.3.1` on enums `Charge.PaymentMethodDetail.Card.ThreeDSecure.version`, `PaymentIntentConfirmParamsPaymentMethodOptionCardThreeDSecure.version`, `PaymentIntentCreateParamsPaymentMethodOptionCardThreeDSecure.version`, `PaymentIntentModifyParamsPaymentMethodOptionCardThreeDSecure.version`, `SetupAttempt.PaymentMethodDetail.Card.ThreeDSecure.version`, `SetupIntentConfirmParamsPaymentMethodOptionCardThreeDSecure.version`, `SetupIntentCreateParamsPaymentMethodOptionCardThreeDSecure.version`, and `SetupIntentModifyParamsPaymentMethodOptionCardThreeDSecure.version`
+  * Add support for new value `adyen` on enums `Charge.PaymentMethodDetail.Ideal.bank`, `ConfirmationToken.PaymentMethodPreview.Ideal.bank`, `ConfirmationTokenCreateParamsPaymentMethodDatumIdeal.bank`, `PaymentAttemptRecord.PaymentMethodDetail.Ideal.bank`, `PaymentIntentConfirmParamsPaymentMethodDatumIdeal.bank`, `PaymentIntentCreateParamsPaymentMethodDatumIdeal.bank`, `PaymentIntentModifyParamsPaymentMethodDatumIdeal.bank`, `PaymentMethod.Ideal.bank`, `PaymentMethodCreateParamsIdeal.bank`, `PaymentRecord.PaymentMethodDetail.Ideal.bank`, `SetupAttempt.PaymentMethodDetail.Ideal.bank`, `SetupIntentConfirmParamsPaymentMethodDatumIdeal.bank`, `SetupIntentCreateParamsPaymentMethodDatumIdeal.bank`, and `SetupIntentModifyParamsPaymentMethodDatumIdeal.bank`
+  * Add support for new value `ADYBNL2A` on enums `Charge.PaymentMethodDetail.Ideal.bic`, `ConfirmationToken.PaymentMethodPreview.Ideal.bic`, `PaymentAttemptRecord.PaymentMethodDetail.Ideal.bic`, `PaymentMethod.Ideal.bic`, `PaymentRecord.PaymentMethodDetail.Ideal.bic`, and `SetupAttempt.PaymentMethodDetail.Ideal.bic`
+  * Add support for new value `pl_nip` on enums `Checkout.Session.CustomerDetail.TaxId.type`, `Invoice.CustomerTaxId.type`, `Tax.Calculation.CustomerDetail.TaxId.type`, `Tax.Transaction.CustomerDetail.TaxId.type`, and `TaxId.type`
+  * Add support for new value `pl_nip` on enums `CustomerCreateParamsTaxIdDatum.type`, `CustomerCreateTaxIdParams.type`, `InvoiceCreatePreviewParamsCustomerDetailTaxId.type`, `TaxIdCreateParams.type`, and `tax.CalculationCreateParamsCustomerDetailTaxId.type`
+  * Change `Invoice.PaymentSetting.PaymentMethodOption.payto` and `Subscription.PaymentSetting.PaymentMethodOption.payto` to be required
+  * Add support for `enforce_arithmetic_validation` on `PaymentIntentCaptureParamsAmountDetail`, `PaymentIntentConfirmParamsAmountDetail`, `PaymentIntentCreateParamsAmountDetail`, `PaymentIntentIncrementAuthorizationParamsAmountDetail`, and `PaymentIntentModifyParamsAmountDetail`
+  * Add support for `error` on `PaymentIntent.AmountDetail`
+  * Remove support for `bgn` on `Terminal.Configuration.Tipping`, `terminal.ConfigurationCreateParamsTipping`, and `terminal.ConfigurationModifyParamsTipping`
+  * Add support for `topup` on `Treasury.ReceivedDebit.LinkedFlow`
+  * Add support for `contact_phone` on `V2.Core.Account`, `v2.core.AccountCreateParams`, `v2.core.AccountModifyParams`, and `v2.core.AccountTokenCreateParams`
+  * Add support for `registration_date` on `V2.Core.Account.Identity.BusinessDetail`, `v2.core.AccountCreateParamsIdentityBusinessDetail`, `v2.core.AccountModifyParamsIdentityBusinessDetail`, and `v2.core.AccountTokenCreateParamsIdentityBusinessDetail`
+  * Add support for new value `gb_vat` on enums `V2.Core.Account.Identity.BusinessDetail.IdNumber.type`, `v2.core.AccountCreateParamsIdentityBusinessDetailIdNumber.type`, `v2.core.AccountModifyParamsIdentityBusinessDetailIdNumber.type`, and `v2.core.AccountTokenCreateParamsIdentityBusinessDetailIdNumber.type`
+  * Add support for error code `request_blocked` on `Invoice.LastFinalizationError`, `PaymentIntent.LastPaymentError`, `SetupAttempt.SetupError`, `SetupIntent.LastSetupError`, and `StripeError`
+* [#1722](https://github.com/stripe/stripe-python/pull/1722) Add documentation for undocumented API parameters
+
+## 14.2.0 - 2026-01-16
+* [#1720](https://github.com/stripe/stripe-python/pull/1720) Update generated code
+  * Add support for event notifications `V2CoreAccountClosedEvent`, `V2CoreAccountCreatedEvent`, `V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEvent`, `V2CoreAccountIncludingConfigurationCustomerUpdatedEvent`, `V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEvent`, `V2CoreAccountIncludingConfigurationMerchantUpdatedEvent`, `V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent`, `V2CoreAccountIncludingConfigurationRecipientUpdatedEvent`, `V2CoreAccountIncludingDefaultsUpdatedEvent`, `V2CoreAccountIncludingFutureRequirementsUpdatedEvent`, `V2CoreAccountIncludingIdentityUpdatedEvent`, `V2CoreAccountIncludingRequirementsUpdatedEvent`, and `V2CoreAccountUpdatedEvent` with related object `v2.core.Account`
+  * Add support for event notification `V2CoreAccountLinkReturnedEvent`
+  * Add support for event notifications `V2CoreAccountPersonCreatedEvent`, `V2CoreAccountPersonDeletedEvent`, and `V2CoreAccountPersonUpdatedEvent` with related object `v2.core.AccountPerson`
+* [#1687](https://github.com/stripe/stripe-python/pull/1687) Fix DeprecationWarning when encoding StripeObject metadata (fixes #1651)
+* [#1703](https://github.com/stripe/stripe-python/pull/1703) Update ci to run on Python 3.14 as well
+
 ## 14.2.0b1 - 2025-12-16
 This release changes the pinned API version to `2025-12-15.preview`.
 

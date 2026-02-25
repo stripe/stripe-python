@@ -1345,16 +1345,6 @@ class Account(
             A CSS hex color value representing the secondary branding color for this account
             """
 
-        class Capital(StripeObject):
-            payout_destination: Optional[Dict[str, str]]
-            """
-            Per-currency mapping of user-selected destination accounts used to pay out loans.
-            """
-            payout_destination_selector: Optional[Dict[str, List[str]]]
-            """
-            Per-currency mapping of all destination accounts eligible to receive loan payouts.
-            """
-
         class CardIssuing(StripeObject):
             class TosAcceptance(StripeObject):
                 date: Optional[int]
@@ -1422,6 +1412,10 @@ class Account(
             """
 
         class Payments(StripeObject):
+            email_customers_on_successful_payment: Optional[bool]
+            """
+            When enabled, the customer of this Account will receive an email receipt when their payment is successful. If this parameter is not set, the default value is `false`.
+            """
             statement_descriptor: Optional[str]
             """
             The default text that appears on credit card statements when a charge is made. This field prefixes any dynamic `statement_descriptor` specified on the charge.
@@ -1492,16 +1486,71 @@ class Account(
             _inner_class_types = {"schedule": Schedule}
 
         class PaypayPayments(StripeObject):
+            class Site(StripeObject):
+                class Accessible(StripeObject):
+                    pass
+
+                class InDevelopment(StripeObject):
+                    password_provided: Optional[bool]
+                    """
+                    Field to indicate that the website password has been provided.
+                    """
+                    username: Optional[str]
+                    """
+                    The username needed to access your business's website.
+                    """
+
+                class Restricted(StripeObject):
+                    payment_flow_file: Optional[str]
+                    """
+                    File explaining the payment flow for your business.
+                    """
+
+                accessible: Optional[Accessible]
+                in_development: Optional[InDevelopment]
+                restricted: Optional[Restricted]
+                type: Optional[
+                    Literal["accessible", "in_development", "restricted"]
+                ]
+                """
+                The status of your business's website.
+                """
+                _inner_class_types = {
+                    "accessible": Accessible,
+                    "in_development": InDevelopment,
+                    "restricted": Restricted,
+                }
+
+            additional_files: Optional[List[str]]
+            """
+            Additional files that are required to support the onboarding process of your business.
+            """
             goods_type: Optional[Literal["digital_content", "other"]]
             """
             Whether your business sells digital content or not.
             """
+            site: Optional[Site]
+            _inner_class_types = {"site": Site}
 
         class SepaDebitPayments(StripeObject):
             creditor_id: Optional[str]
             """
             SEPA creditor identifier that identifies the company making the payment.
             """
+
+        class SmartDisputes(StripeObject):
+            class AutoRespond(StripeObject):
+                preference: Literal["inherit", "off", "on"]
+                """
+                The preference setting for auto-respond. Can be 'on', 'off', or 'inherit'.
+                """
+                value: Literal["off", "on"]
+                """
+                The effective value for auto-respond. Can be 'on' or 'off'.
+                """
+
+            auto_respond: AutoRespond
+            _inner_class_types = {"auto_respond": AutoRespond}
 
         class TaxForms(StripeObject):
             consented_to_paperless_delivery: bool
@@ -1530,7 +1579,6 @@ class Account(
         bacs_debit_payments: Optional[BacsDebitPayments]
         bank_bca_onboarding: Optional[BankBcaOnboarding]
         branding: Branding
-        capital: Optional[Capital]
         card_issuing: Optional[CardIssuing]
         card_payments: CardPayments
         dashboard: Dashboard
@@ -1539,13 +1587,13 @@ class Account(
         payouts: Optional[Payouts]
         paypay_payments: Optional[PaypayPayments]
         sepa_debit_payments: Optional[SepaDebitPayments]
+        smart_disputes: Optional[SmartDisputes]
         tax_forms: Optional[TaxForms]
         treasury: Optional[Treasury]
         _inner_class_types = {
             "bacs_debit_payments": BacsDebitPayments,
             "bank_bca_onboarding": BankBcaOnboarding,
             "branding": Branding,
-            "capital": Capital,
             "card_issuing": CardIssuing,
             "card_payments": CardPayments,
             "dashboard": Dashboard,
@@ -1554,6 +1602,7 @@ class Account(
             "payouts": Payouts,
             "paypay_payments": PaypayPayments,
             "sepa_debit_payments": SepaDebitPayments,
+            "smart_disputes": SmartDisputes,
             "tax_forms": TaxForms,
             "treasury": Treasury,
         }

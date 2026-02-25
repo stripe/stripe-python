@@ -318,6 +318,7 @@ class QuotePreviewInvoice(StripeObject):
             "la_tin",
             "li_uid",
             "li_vat",
+            "lk_vat",
             "ma_vat",
             "md_vat",
             "me_pib",
@@ -335,6 +336,7 @@ class QuotePreviewInvoice(StripeObject):
             "om_vat",
             "pe_ruc",
             "ph_tin",
+            "pl_nip",
             "ro_tin",
             "rs_pib",
             "ru_inn",
@@ -365,7 +367,7 @@ class QuotePreviewInvoice(StripeObject):
             "zw_tin",
         ]
         """
-        The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, or `unknown`
+        The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, or `unknown`
         """
         value: Optional[str]
         """
@@ -549,6 +551,7 @@ class QuotePreviewInvoice(StripeObject):
                 "rate_limit",
                 "refer_to_customer",
                 "refund_disputed_payment",
+                "request_blocked",
                 "resource_already_exists",
                 "resource_missing",
                 "return_intent_already_processed",
@@ -568,6 +571,8 @@ class QuotePreviewInvoice(StripeObject):
                 "sku_inactive",
                 "state_unsupported",
                 "status_transition_invalid",
+                "storer_capability_missing",
+                "storer_capability_not_active",
                 "stripe_tax_inactive",
                 "tax_id_invalid",
                 "tax_id_prohibited",
@@ -687,12 +692,6 @@ class QuotePreviewInvoice(StripeObject):
         """
 
     class Parent(StripeObject):
-        class BillingCadenceDetails(StripeObject):
-            billing_cadence: str
-            """
-            The billing cadence that generated this invoice
-            """
-
         class QuoteDetails(StripeObject):
             quote: str
             """
@@ -731,10 +730,6 @@ class QuotePreviewInvoice(StripeObject):
             """
             _inner_class_types = {"pause_collection": PauseCollection}
 
-        billing_cadence_details: Optional[BillingCadenceDetails]
-        """
-        Details about the billing cadence that generated this invoice
-        """
         quote_details: Optional[QuoteDetails]
         """
         Details about the quote that generated this invoice
@@ -743,14 +738,11 @@ class QuotePreviewInvoice(StripeObject):
         """
         Details about the subscription that generated this invoice
         """
-        type: Literal[
-            "billing_cadence_details", "quote_details", "subscription_details"
-        ]
+        type: Literal["quote_details", "subscription_details"]
         """
         The type of parent that generated this invoice
         """
         _inner_class_types = {
-            "billing_cadence_details": BillingCadenceDetails,
             "quote_details": QuoteDetails,
             "subscription_details": SubscriptionDetails,
         }
@@ -800,7 +792,7 @@ class QuotePreviewInvoice(StripeObject):
                     class EuBankTransfer(StripeObject):
                         country: Literal["BE", "DE", "ES", "FR", "IE", "NL"]
                         """
-                        The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
+                        The desired country code of the bank account information. Permitted values include: `DE`, `FR`, `IE`, or `NL`.
                         """
 
                     eu_bank_transfer: Optional[EuBankTransfer]
@@ -880,7 +872,7 @@ class QuotePreviewInvoice(StripeObject):
                     """
                     end_date: Optional[int]
                     """
-                    End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+                    End date of the mandate or subscription.
                     """
 
                 mandate_options: Optional[MandateOptions]
@@ -1039,6 +1031,7 @@ class QuotePreviewInvoice(StripeObject):
                     "naver_pay",
                     "nz_bank_account",
                     "p24",
+                    "pay_by_bank",
                     "payco",
                     "paynow",
                     "paypal",
@@ -1553,7 +1546,7 @@ class QuotePreviewInvoice(StripeObject):
     payment_settings: PaymentSettings
     payments: Optional[ListObject["InvoicePayment"]]
     """
-    Payments for this invoice
+    Payments for this invoice. Use [invoice payment](https://docs.stripe.com/api/invoice-payment) to get more details.
     """
     period_end: int
     """

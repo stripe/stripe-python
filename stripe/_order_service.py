@@ -3,49 +3,20 @@
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
-from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
     from stripe._order import Order
-    from stripe._order_line_item_service import OrderLineItemService
     from stripe._request_options import RequestOptions
-    from stripe.params._order_cancel_params import OrderCancelParams
     from stripe.params._order_create_params import OrderCreateParams
     from stripe.params._order_list_params import OrderListParams
-    from stripe.params._order_reopen_params import OrderReopenParams
     from stripe.params._order_retrieve_params import OrderRetrieveParams
     from stripe.params._order_submit_params import OrderSubmitParams
     from stripe.params._order_update_params import OrderUpdateParams
 
-_subservices = {
-    "line_items": ["stripe._order_line_item_service", "OrderLineItemService"],
-}
-
 
 class OrderService(StripeService):
-    line_items: "OrderLineItemService"
-
-    def __init__(self, requestor):
-        super().__init__(requestor)
-
-    def __getattr__(self, name):
-        try:
-            import_from, service = _subservices[name]
-            service_class = getattr(
-                import_module(import_from),
-                service,
-            )
-            setattr(
-                self,
-                name,
-                service_class(self._requestor),
-            )
-            return getattr(self, name)
-        except KeyError:
-            raise AttributeError()
-
     def list(
         self,
         params: Optional["OrderListParams"] = None,
@@ -196,86 +167,6 @@ class OrderService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/orders/{id}".format(id=sanitize_id(id)),
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    def cancel(
-        self,
-        id: str,
-        params: Optional["OrderCancelParams"] = None,
-        options: Optional["RequestOptions"] = None,
-    ) -> "Order":
-        """
-        Cancels the order as well as the payment intent if one is attached.
-        """
-        return cast(
-            "Order",
-            self._request(
-                "post",
-                "/v1/orders/{id}/cancel".format(id=sanitize_id(id)),
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    async def cancel_async(
-        self,
-        id: str,
-        params: Optional["OrderCancelParams"] = None,
-        options: Optional["RequestOptions"] = None,
-    ) -> "Order":
-        """
-        Cancels the order as well as the payment intent if one is attached.
-        """
-        return cast(
-            "Order",
-            await self._request_async(
-                "post",
-                "/v1/orders/{id}/cancel".format(id=sanitize_id(id)),
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    def reopen(
-        self,
-        id: str,
-        params: Optional["OrderReopenParams"] = None,
-        options: Optional["RequestOptions"] = None,
-    ) -> "Order":
-        """
-        Reopens a submitted order.
-        """
-        return cast(
-            "Order",
-            self._request(
-                "post",
-                "/v1/orders/{id}/reopen".format(id=sanitize_id(id)),
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    async def reopen_async(
-        self,
-        id: str,
-        params: Optional["OrderReopenParams"] = None,
-        options: Optional["RequestOptions"] = None,
-    ) -> "Order":
-        """
-        Reopens a submitted order.
-        """
-        return cast(
-            "Order",
-            await self._request_async(
-                "post",
-                "/v1/orders/{id}/reopen".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
                 options=options,

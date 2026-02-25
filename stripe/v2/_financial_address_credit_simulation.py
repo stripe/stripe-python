@@ -6,6 +6,10 @@ from typing_extensions import Literal
 
 
 class FinancialAddressCreditSimulation(StripeObject):
+    """
+    Credit Simulations represent simulated credit transactions applied to financial addresses for testing purposes.
+    """
+
     OBJECT_NAME: ClassVar[Literal["financial_address_credit_simulation"]] = (
         "financial_address_credit_simulation"
     )

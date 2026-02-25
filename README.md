@@ -192,6 +192,12 @@ print(customer.last_response.code)
 print(customer.last_response.headers)
 ```
 
+### How to use undocumented parameters and properties
+
+In some cases, you might encounter parameters on an API request or fields on an API response that aren’t available in the SDKs.
+This might happen when they’re undocumented or when they’re in preview and you aren’t using a preview SDK. 
+See [undocumented params and properties](https://docs.stripe.com/sdks/server-side?lang=python#undocumented-params-and-fields) to send those parameters or access those fields.
+
 ### Writing a Plugin
 
 If you're writing a plugin that uses the library, we'd appreciate it if you
@@ -407,6 +413,12 @@ with:
 ```sh
 just format
 # or: venv/bin/ruff format . --quiet
+```
+
+Update bundled CA certificates from the [Mozilla cURL release][curl]:
+
+```sh
+just update-certs
 ```
 
 [api-keys]: https://dashboard.stripe.com/account/apikeys

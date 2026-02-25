@@ -12,7 +12,7 @@ class SessionCreateParams(RequestOptions):
     """
     after_expiration: NotRequired["SessionCreateParamsAfterExpiration"]
     """
-    Configure actions after a Checkout Session has expired.
+    Configure actions after a Checkout Session has expired. You can't set this parameter if `ui_mode` is `custom`.
     """
     allow_promotion_codes: NotRequired[bool]
     """
@@ -50,11 +50,11 @@ class SessionCreateParams(RequestOptions):
     """
     custom_fields: NotRequired[List["SessionCreateParamsCustomField"]]
     """
-    Collect additional information from your customer using custom fields. Up to 3 fields are supported.
+    Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `custom`.
     """
     custom_text: NotRequired["SessionCreateParamsCustomText"]
     """
-    Display additional text for your customers using custom text.
+    Display additional text for your customers using custom text. You can't set this parameter if `ui_mode` is `custom`.
     """
     customer: NotRequired[str]
     """
@@ -233,6 +233,10 @@ class SessionCreateParams(RequestOptions):
     """
     The IETF language tag of the locale Checkout is displayed in. If blank or `auto`, the browser's locale is used.
     """
+    managed_payments: NotRequired["SessionCreateParamsManagedPayments"]
+    """
+    Settings for Managed Payments for this Checkout Session and resulting [PaymentIntents](https://docs.stripe.com/api/payment_intents/object), [Invoices](https://docs.stripe.com/api/invoices/object), and [Subscriptions](https://docs.stripe.com/api/subscriptions/object).
+    """
     metadata: NotRequired[Dict[str, str]]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -248,6 +252,8 @@ class SessionCreateParams(RequestOptions):
     You can configure Checkout to collect your customers' business names, individual names, or both. Each name field can be either required or optional.
 
     If a [Customer](https://docs.stripe.com/api/customers) is created or provided, the names can be saved to the Customer object as well.
+
+    You can't set this parameter if `ui_mode` is `custom`.
     """
     optional_items: NotRequired[List["SessionCreateParamsOptionalItem"]]
     """
@@ -258,10 +264,12 @@ class SessionCreateParams(RequestOptions):
     For `payment` mode, there is a maximum of 100 combined line items and optional items, however it is recommended to consolidate items if there are more than a few dozen.
 
     For `subscription` mode, there is a maximum of 20 line items and optional items with recurring Prices and 20 line items and optional items with one-time Prices.
+
+    You can't set this parameter if `ui_mode` is `custom`.
     """
     origin_context: NotRequired[Literal["mobile_app", "web"]]
     """
-    Where the user is coming from. This informs the optimizations that are applied to the session.
+    Where the user is coming from. This informs the optimizations that are applied to the session. You can't set this parameter if `ui_mode` is `custom`.
     """
     payment_intent_data: NotRequired["SessionCreateParamsPaymentIntentData"]
     """
@@ -419,6 +427,7 @@ class SessionCreateParams(RequestOptions):
     to customize relevant text on the page, such as the submit button.
      `submit_type` can only be specified on Checkout Sessions in
     `payment` or `subscription` mode. If blank or `auto`, `pay` is used.
+    You can't set this parameter if `ui_mode` is `custom`.
     """
     subscription_data: NotRequired["SessionCreateParamsSubscriptionData"]
     """
@@ -626,7 +635,7 @@ class SessionCreateParamsCustomField(TypedDict):
 class SessionCreateParamsCustomFieldDropdown(TypedDict):
     default_value: NotRequired[str]
     """
-    The value that will pre-fill the field on the payment page.Must match a `value` in the `options` array.
+    The value that pre-fills the field on the payment page.Must match a `value` in the `options` array.
     """
     options: List["SessionCreateParamsCustomFieldDropdownOption"]
     """
@@ -659,7 +668,7 @@ class SessionCreateParamsCustomFieldLabel(TypedDict):
 class SessionCreateParamsCustomFieldNumeric(TypedDict):
     default_value: NotRequired[str]
     """
-    The value that will pre-fill the field on the payment page.
+    The value that pre-fills the field on the payment page.
     """
     maximum_length: NotRequired[int]
     """
@@ -674,7 +683,7 @@ class SessionCreateParamsCustomFieldNumeric(TypedDict):
 class SessionCreateParamsCustomFieldText(TypedDict):
     default_value: NotRequired[str]
     """
-    The value that will pre-fill the field on the payment page.
+    The value that pre-fills the field on the payment page.
     """
     maximum_length: NotRequired[int]
     """
@@ -714,28 +723,28 @@ class SessionCreateParamsCustomText(TypedDict):
 class SessionCreateParamsCustomTextAfterSubmit(TypedDict):
     message: str
     """
-    Text may be up to 1200 characters in length.
+    Text can be up to 1200 characters in length.
     """
 
 
 class SessionCreateParamsCustomTextShippingAddress(TypedDict):
     message: str
     """
-    Text may be up to 1200 characters in length.
+    Text can be up to 1200 characters in length.
     """
 
 
 class SessionCreateParamsCustomTextSubmit(TypedDict):
     message: str
     """
-    Text may be up to 1200 characters in length.
+    Text can be up to 1200 characters in length.
     """
 
 
 class SessionCreateParamsCustomTextTermsOfServiceAcceptance(TypedDict):
     message: str
     """
-    Text may be up to 1200 characters in length.
+    Text can be up to 1200 characters in length.
     """
 
 
@@ -888,7 +897,7 @@ class SessionCreateParamsLineItem(TypedDict):
     """
     dynamic_tax_rates: NotRequired[List[str]]
     """
-    The [tax rates](https://docs.stripe.com/api/tax_rates) that will be applied to this line item depending on the customer's billing/shipping address. We currently support the following countries: US, GB, AU, and all countries in the EU.
+    The [tax rates](https://docs.stripe.com/api/tax_rates) that will be applied to this line item depending on the customer's billing/shipping address. We currently support the following countries: US, GB, AU, and all countries in the EU. You can't set this parameter if `ui_mode` is `custom`.
     """
     metadata: NotRequired[Dict[str, str]]
     """
@@ -995,6 +1004,13 @@ class SessionCreateParamsLineItemPriceDataRecurring(TypedDict):
     interval_count: NotRequired[int]
     """
     The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
+    """
+
+
+class SessionCreateParamsManagedPayments(TypedDict):
+    enabled: NotRequired[bool]
+    """
+    Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution, for this session.
     """
 
 
@@ -1216,7 +1232,7 @@ class SessionCreateParamsPaymentMethodData(TypedDict):
 class SessionCreateParamsPaymentMethodOptions(TypedDict):
     acss_debit: NotRequired["SessionCreateParamsPaymentMethodOptionsAcssDebit"]
     """
-    contains details about the ACSS Debit payment method options.
+    contains details about the ACSS Debit payment method options. You can't set this parameter if `ui_mode` is `custom`.
     """
     affirm: NotRequired["SessionCreateParamsPaymentMethodOptionsAffirm"]
     """
@@ -1684,7 +1700,7 @@ class SessionCreateParamsPaymentMethodOptionsCard(TypedDict):
         "SessionCreateParamsPaymentMethodOptionsCardRestrictions"
     ]
     """
-    Restrictions to apply to the card payment method. For example, you can block specific card brands.
+    Restrictions to apply to the card payment method. For example, you can block specific card brands. You can't set this parameter if `ui_mode` is `custom`.
     """
     setup_future_usage: NotRequired[Literal["off_session", "on_session"]]
     """
@@ -1810,7 +1826,7 @@ class SessionCreateParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTr
 ):
     country: str
     """
-    The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
+    The desired country code of the bank account information. Permitted values include: `DE`, `FR`, `IE`, or `NL`.
     """
 
 
@@ -2949,7 +2965,7 @@ class SessionCreateParamsSubscriptionData(TypedDict):
     """
     billing_cycle_anchor: NotRequired[int]
     """
-    A future timestamp to anchor the subscription's billing cycle for new subscriptions.
+    A future timestamp to anchor the subscription's billing cycle for new subscriptions. You can't set this parameter if `ui_mode` is `custom`.
     """
     billing_mode: NotRequired["SessionCreateParamsSubscriptionDataBillingMode"]
     """
@@ -3079,7 +3095,7 @@ class SessionCreateParamsTaxIdCollection(TypedDict):
     """
     required: NotRequired[Literal["if_supported", "never"]]
     """
-    Describes whether a tax ID is required during checkout. Defaults to `never`.
+    Describes whether a tax ID is required during checkout. Defaults to `never`. You can't set this parameter if `ui_mode` is `custom`.
     """
 
 

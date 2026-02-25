@@ -46123,7 +46123,7 @@ class TestGeneratedExamples(object):
         http_client_mock.stub_request(
             "post",
             "/v2/core/vault/us_bank_accounts",
-            rbody='{"error":{"type":"blocked_by_stripe","code":"blocked_payout_method_bank_account"}}',
+            rbody='{"error":{"type":"blocked_by_stripe","code":"blocked_payout_method"}}',
             rcode=400,
         )
         client = StripeClient(
@@ -46282,7 +46282,7 @@ class TestGeneratedExamples(object):
         try:
             client.v2.money_management.outbound_payments.create(
                 {
-                    "amount": {},
+                    "amount": {"value": 111972721, "currency": "usd"},
                     "from": {
                         "currency": "usd",
                         "financial_account": "financial_account",
@@ -46297,7 +46297,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/outbound_payments",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"amount":{},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"recipient":"recipient"}}',
+            post_data='{"amount":{"value":111972721,"currency":"usd"},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"recipient":"recipient"}}',
             is_json=True,
         )
 
@@ -46444,6 +46444,31 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
+    def test_rate_limit_error_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/core/accounts",
+            rbody='{"error":{"type":"rate_limit","code":"account_rate_limit_exceeded"}}',
+            rcode=400,
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        try:
+            client.v2.core.accounts.list()
+        except _error.RateLimitError:
+            pass
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/core/accounts",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
     def test_recipient_not_notifiable_error_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -46461,7 +46486,7 @@ class TestGeneratedExamples(object):
         try:
             client.v2.money_management.outbound_payments.create(
                 {
-                    "amount": {},
+                    "amount": {"value": 111972721, "currency": "usd"},
                     "from": {
                         "currency": "usd",
                         "financial_account": "financial_account",
@@ -46476,7 +46501,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/outbound_payments",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"amount":{},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"recipient":"recipient"}}',
+            post_data='{"amount":{"value":111972721,"currency":"usd"},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"recipient":"recipient"}}',
             is_json=True,
         )
 

@@ -18,6 +18,10 @@ class ConfigurationModifyParams(RequestOptions):
     """
     An object containing device type specific settings for BBPOS WisePOS E readers.
     """
+    cellular: NotRequired["Literal['']|ConfigurationModifyParamsCellular"]
+    """
+    Configuration for cellular connectivity.
+    """
     expand: NotRequired[List[str]]
     """
     Specifies which fields in the response should be expanded.
@@ -46,9 +50,13 @@ class ConfigurationModifyParams(RequestOptions):
     """
     An object containing device type specific settings for Stripe S700 readers.
     """
+    stripe_s710: NotRequired["Literal['']|ConfigurationModifyParamsStripeS710"]
+    """
+    An object containing device type specific settings for Stripe S710 readers.
+    """
     tipping: NotRequired["Literal['']|ConfigurationModifyParamsTipping"]
     """
-    Tipping configurations for readers. supporting on-reader tips
+    Tipping configurations for readers that support on-reader tips.
     """
     verifone_p400: NotRequired[
         "Literal['']|ConfigurationModifyParamsVerifoneP400"
@@ -73,6 +81,13 @@ class ConfigurationModifyParamsBbposWiseposE(TypedDict):
     splashscreen: NotRequired["Literal['']|str"]
     """
     A File ID representing an image to display on the reader
+    """
+
+
+class ConfigurationModifyParamsCellular(TypedDict):
+    enabled: bool
+    """
+    Determines whether to allow the reader to connect to a cellular network. Defaults to false.
     """
 
 
@@ -108,6 +123,13 @@ class ConfigurationModifyParamsStripeS700(TypedDict):
     """
 
 
+class ConfigurationModifyParamsStripeS710(TypedDict):
+    splashscreen: NotRequired["Literal['']|str"]
+    """
+    A File ID representing an image you want to display on the reader.
+    """
+
+
 class ConfigurationModifyParamsTipping(TypedDict):
     aed: NotRequired["ConfigurationModifyParamsTippingAed"]
     """
@@ -116,10 +138,6 @@ class ConfigurationModifyParamsTipping(TypedDict):
     aud: NotRequired["ConfigurationModifyParamsTippingAud"]
     """
     Tipping configuration for AUD
-    """
-    bgn: NotRequired["ConfigurationModifyParamsTippingBgn"]
-    """
-    Tipping configuration for BGN
     """
     cad: NotRequired["ConfigurationModifyParamsTippingCad"]
     """
@@ -215,21 +233,6 @@ class ConfigurationModifyParamsTippingAed(TypedDict):
 
 
 class ConfigurationModifyParamsTippingAud(TypedDict):
-    fixed_amounts: NotRequired[List[int]]
-    """
-    Fixed amounts displayed when collecting a tip
-    """
-    percentages: NotRequired[List[int]]
-    """
-    Percentages displayed when collecting a tip
-    """
-    smart_tip_threshold: NotRequired[int]
-    """
-    Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
-    """
-
-
-class ConfigurationModifyParamsTippingBgn(TypedDict):
     fixed_amounts: NotRequired[List[int]]
     """
     Fixed amounts displayed when collecting a tip

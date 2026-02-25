@@ -24,10 +24,6 @@ class SubscriptionCreateParams(RequestOptions):
     """
     A past timestamp to backdate the subscription's start date to. If set, the first invoice will contain line items for the timespan between the start date and the current time. Can be combined with trials and the billing cycle anchor.
     """
-    billing_cadence: NotRequired[str]
-    """
-    The Billing Cadence which controls the timing of recurring invoice generation for this subscription. If unset, the subscription will bill according to its own configured schedule and create its own invoices. If set, this subscription will be billed by the cadence instead, potentially sharing invoices with the other subscriptions linked to that Cadence.
-    """
     billing_cycle_anchor: NotRequired[int]
     """
     A future timestamp in UTC format to anchor the subscription's [billing cycle](https://docs.stripe.com/subscriptions/billing-cycle). The anchor is the reference point that aligns future billing cycle dates. It sets the day of week for `week` intervals, the day of month for `month` and `year` intervals, and the month of year for `year` intervals.
@@ -688,7 +684,7 @@ class SubscriptionCreateParamsPaymentSettings(TypedDict):
     Payment-method-specific configuration to provide to invoices created by the subscription.
     """
     payment_method_types: NotRequired[
-        "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'payco', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'upi', 'us_bank_account', 'wechat_pay']]"
+        "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'upi', 'us_bank_account', 'wechat_pay']]"
     ]
     """
     The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
@@ -892,7 +888,7 @@ class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance
 ):
     country: str
     """
-    The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
+    The desired country code of the bank account information. Permitted values include: `DE`, `FR`, `IE`, or `NL`.
     """
 
 
@@ -1014,7 +1010,7 @@ class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsUpiMandateOptio
     """
     end_date: NotRequired[int]
     """
-    End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+    End date of the mandate or subscription.
     """
 
 

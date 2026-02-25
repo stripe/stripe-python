@@ -17,6 +17,10 @@ class AccountCreateParams(TypedDict):
     """
     The default contact email address for the Account. Required when configuring the account as a merchant or recipient.
     """
+    contact_phone: NotRequired[str]
+    """
+    The default contact phone for the Account.
+    """
     dashboard: NotRequired[Literal["express", "full", "none"]]
     """
     A value indicating the Stripe dashboard this Account has access to. This will depend on which configurations are enabled for this account.
@@ -290,6 +294,12 @@ class AccountCreateParamsConfigurationMerchant(TypedDict):
     ]
     """
     Settings for the default text that appears on statements for language variations.
+    """
+    smart_disputes: NotRequired[
+        "AccountCreateParamsConfigurationMerchantSmartDisputes"
+    ]
+    """
+    Settings used for Smart Disputes.
     """
     statement_descriptor: NotRequired[
         "AccountCreateParamsConfigurationMerchantStatementDescriptor"
@@ -1096,6 +1106,24 @@ class AccountCreateParamsConfigurationMerchantScriptStatementDescriptorKanji(
     """
 
 
+class AccountCreateParamsConfigurationMerchantSmartDisputes(TypedDict):
+    auto_respond: NotRequired[
+        "AccountCreateParamsConfigurationMerchantSmartDisputesAutoRespond"
+    ]
+    """
+    Settings for Smart Disputes auto_respond.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantSmartDisputesAutoRespond(
+    TypedDict,
+):
+    preference: NotRequired[Literal["inherit", "off", "on"]]
+    """
+    The preference for Smart Disputes auto-respond.
+    """
+
+
 class AccountCreateParamsConfigurationMerchantStatementDescriptor(TypedDict):
     descriptor: NotRequired[str]
     """
@@ -1823,6 +1851,12 @@ class AccountCreateParamsIdentityBusinessDetails(TypedDict):
     """
     The business legal name.
     """
+    registration_date: NotRequired[
+        "AccountCreateParamsIdentityBusinessDetailsRegistrationDate"
+    ]
+    """
+    When the business was incorporated or registered.
+    """
     script_addresses: NotRequired[
         "AccountCreateParamsIdentityBusinessDetailsScriptAddresses"
     ]
@@ -1916,11 +1950,11 @@ class AccountCreateParamsIdentityBusinessDetailsAnnualRevenue(TypedDict):
 
 
 class AccountCreateParamsIdentityBusinessDetailsAnnualRevenueAmount(TypedDict):
-    value: NotRequired[int]
+    value: int
     """
     A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
     """
-    currency: NotRequired[str]
+    currency: str
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
@@ -2185,6 +2219,7 @@ class AccountCreateParamsIdentityBusinessDetailsIdNumber(TypedDict):
         "fr_siren",
         "fr_vat",
         "gb_crn",
+        "gb_vat",
         "gi_crn",
         "gr_afm",
         "gr_gemi",
@@ -2276,13 +2311,28 @@ class AccountCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenue(
 class AccountCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenueAmount(
     TypedDict,
 ):
-    value: NotRequired[int]
+    value: int
     """
     A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
     """
-    currency: NotRequired[str]
+    currency: str
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+    """
+
+
+class AccountCreateParamsIdentityBusinessDetailsRegistrationDate(TypedDict):
+    day: int
+    """
+    The day of registration, between 1 and 31.
+    """
+    month: int
+    """
+    The month of registration, between 1 and 12.
+    """
+    year: int
+    """
+    The four-digit year of registration.
     """
 
 

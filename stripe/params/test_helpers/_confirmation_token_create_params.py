@@ -652,6 +652,7 @@ class ConfirmationTokenCreateParamsPaymentMethodDataIdeal(TypedDict):
     bank: NotRequired[
         Literal[
             "abn_amro",
+            "adyen",
             "asn_bank",
             "bunq",
             "buut",

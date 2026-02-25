@@ -40,11 +40,11 @@ class PaymentLinkCreateParams(RequestOptions):
     """
     custom_fields: NotRequired[List["PaymentLinkCreateParamsCustomField"]]
     """
-    Collect additional information from your customer using custom fields. Up to 3 fields are supported.
+    Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `custom`.
     """
     custom_text: NotRequired["PaymentLinkCreateParamsCustomText"]
     """
-    Display additional text for your customers using custom text.
+    Display additional text for your customers using custom text. You can't set this parameter if `ui_mode` is `custom`.
     """
     customer_creation: NotRequired[Literal["always", "if_required"]]
     """
@@ -314,7 +314,7 @@ class PaymentLinkCreateParamsCustomField(TypedDict):
 class PaymentLinkCreateParamsCustomFieldDropdown(TypedDict):
     default_value: NotRequired[str]
     """
-    The value that will pre-fill the field on the payment page.Must match a `value` in the `options` array.
+    The value that pre-fills the field on the payment page.Must match a `value` in the `options` array.
     """
     options: List["PaymentLinkCreateParamsCustomFieldDropdownOption"]
     """
@@ -347,7 +347,7 @@ class PaymentLinkCreateParamsCustomFieldLabel(TypedDict):
 class PaymentLinkCreateParamsCustomFieldNumeric(TypedDict):
     default_value: NotRequired[str]
     """
-    The value that will pre-fill the field on the payment page.
+    The value that pre-fills the field on the payment page.
     """
     maximum_length: NotRequired[int]
     """
@@ -362,7 +362,7 @@ class PaymentLinkCreateParamsCustomFieldNumeric(TypedDict):
 class PaymentLinkCreateParamsCustomFieldText(TypedDict):
     default_value: NotRequired[str]
     """
-    The value that will pre-fill the field on the payment page.
+    The value that pre-fills the field on the payment page.
     """
     maximum_length: NotRequired[int]
     """
@@ -402,28 +402,28 @@ class PaymentLinkCreateParamsCustomText(TypedDict):
 class PaymentLinkCreateParamsCustomTextAfterSubmit(TypedDict):
     message: str
     """
-    Text may be up to 1200 characters in length.
+    Text can be up to 1200 characters in length.
     """
 
 
 class PaymentLinkCreateParamsCustomTextShippingAddress(TypedDict):
     message: str
     """
-    Text may be up to 1200 characters in length.
+    Text can be up to 1200 characters in length.
     """
 
 
 class PaymentLinkCreateParamsCustomTextSubmit(TypedDict):
     message: str
     """
-    Text may be up to 1200 characters in length.
+    Text can be up to 1200 characters in length.
     """
 
 
 class PaymentLinkCreateParamsCustomTextTermsOfServiceAcceptance(TypedDict):
     message: str
     """
-    Text may be up to 1200 characters in length.
+    Text can be up to 1200 characters in length.
     """
 
 
@@ -1080,7 +1080,7 @@ class PaymentLinkCreateParamsTaxIdCollection(TypedDict):
     """
     required: NotRequired[Literal["if_supported", "never"]]
     """
-    Describes whether a tax ID is required during checkout. Defaults to `never`.
+    Describes whether a tax ID is required during checkout. Defaults to `never`. You can't set this parameter if `ui_mode` is `custom`.
     """
 
 

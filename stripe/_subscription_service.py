@@ -11,9 +11,6 @@ if TYPE_CHECKING:
     from stripe._request_options import RequestOptions
     from stripe._search_result_object import SearchResultObject
     from stripe._subscription import Subscription
-    from stripe.params._subscription_attach_cadence_params import (
-        SubscriptionAttachCadenceParams,
-    )
     from stripe.params._subscription_cancel_params import (
         SubscriptionCancelParams,
     )
@@ -414,50 +411,6 @@ class SubscriptionService(StripeService):
             ),
         )
 
-    def attach_cadence(
-        self,
-        subscription: str,
-        params: "SubscriptionAttachCadenceParams",
-        options: Optional["RequestOptions"] = None,
-    ) -> "Subscription":
-        """
-        Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
-        """
-        return cast(
-            "Subscription",
-            self._request(
-                "post",
-                "/v1/subscriptions/{subscription}/attach_cadence".format(
-                    subscription=sanitize_id(subscription),
-                ),
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
-    async def attach_cadence_async(
-        self,
-        subscription: str,
-        params: "SubscriptionAttachCadenceParams",
-        options: Optional["RequestOptions"] = None,
-    ) -> "Subscription":
-        """
-        Attach a Billing Cadence to an existing subscription. When attached, the subscription is billed by the Billing Cadence, potentially sharing invoices with the other subscriptions linked to the Billing Cadence.
-        """
-        return cast(
-            "Subscription",
-            await self._request_async(
-                "post",
-                "/v1/subscriptions/{subscription}/attach_cadence".format(
-                    subscription=sanitize_id(subscription),
-                ),
-                base_address="api",
-                params=params,
-                options=options,
-            ),
-        )
-
     def migrate(
         self,
         subscription: str,
@@ -509,7 +462,7 @@ class SubscriptionService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Subscription":
         """
-        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
+        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice is not paid by the expiration date, it is voided and the subscription remains paused.
         """
         return cast(
             "Subscription",
@@ -531,7 +484,7 @@ class SubscriptionService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Subscription":
         """
-        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
+        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice is not paid by the expiration date, it is voided and the subscription remains paused.
         """
         return cast(
             "Subscription",
