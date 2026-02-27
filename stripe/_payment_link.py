@@ -130,7 +130,7 @@ class PaymentLink(
 
             default_value: Optional[str]
             """
-            The value that will pre-fill on the payment page.
+            The value that pre-fills on the payment page.
             """
             options: List[Option]
             """
@@ -151,7 +151,7 @@ class PaymentLink(
         class Numeric(StripeObject):
             default_value: Optional[str]
             """
-            The value that will pre-fill the field on the payment page.
+            The value that pre-fills the field on the payment page.
             """
             maximum_length: Optional[int]
             """
@@ -165,7 +165,7 @@ class PaymentLink(
         class Text(StripeObject):
             default_value: Optional[str]
             """
-            The value that will pre-fill the field on the payment page.
+            The value that pre-fills the field on the payment page.
             """
             maximum_length: Optional[int]
             """
@@ -203,25 +203,25 @@ class PaymentLink(
         class AfterSubmit(StripeObject):
             message: str
             """
-            Text may be up to 1200 characters in length.
+            Text can be up to 1200 characters in length.
             """
 
         class ShippingAddress(StripeObject):
             message: str
             """
-            Text may be up to 1200 characters in length.
+            Text can be up to 1200 characters in length.
             """
 
         class Submit(StripeObject):
             message: str
             """
-            Text may be up to 1200 characters in length.
+            Text can be up to 1200 characters in length.
             """
 
         class TermsOfServiceAcceptance(StripeObject):
             message: str
             """
-            Text may be up to 1200 characters in length.
+            Text can be up to 1200 characters in length.
             """
 
         after_submit: Optional[AfterSubmit]

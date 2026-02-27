@@ -76,6 +76,10 @@ class Mandate(APIResource["Mandate"]):
             """
 
         class BacsDebit(StripeObject):
+            display_name: Optional[str]
+            """
+            The display name for the account on this mandate.
+            """
             network_status: Literal[
                 "accepted", "pending", "refused", "revoked"
             ]
@@ -97,6 +101,10 @@ class Mandate(APIResource["Mandate"]):
             ]
             """
             When the mandate is revoked on the Bacs network this field displays the reason for the revocation.
+            """
+            service_user_number: Optional[str]
+            """
+            The service user number for the account on this mandate.
             """
             url: str
             """

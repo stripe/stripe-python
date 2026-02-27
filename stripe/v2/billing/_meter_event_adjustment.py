@@ -6,6 +6,10 @@ from typing_extensions import Literal
 
 
 class MeterEventAdjustment(StripeObject):
+    """
+    A Meter Event Adjustment is used to cancel or modify previously recorded meter events. Meter Event Adjustments allow you to correct billing data by canceling individual events or event ranges, with tracking of adjustment status and creation time.
+    """
+
     OBJECT_NAME: ClassVar[Literal["v2.billing.meter_event_adjustment"]] = (
         "v2.billing.meter_event_adjustment"
     )

@@ -42,7 +42,7 @@ class Event(StripeObject):
         """
         _inner_class_types = {"request": Request}
 
-    changes: Optional[Dict[str, "Any"]]
+    changes: Optional[Dict[str, Any]]
     """
     Before and after changes for the primary related object.
     """
