@@ -672,9 +672,7 @@ class TestAPIRequestor(object):
         assert stripe.default_http_client == new_default_client
 
     def test_uses_app_info(self, requestor, mocker, http_client_mock):
-        mocker.patch.object(
-            _APIRequestor, "_detect_ai_agent", return_value=""
-        )
+        mocker.patch.object(_APIRequestor, "_detect_ai_agent", return_value="")
         try:
             old = stripe.app_info
             stripe.set_app_info(
@@ -711,7 +709,10 @@ class TestAPIRequestor(object):
             stripe.app_info = old
 
     def test_detect_ai_agent(self):
-        assert _APIRequestor._detect_ai_agent({"CLAUDECODE": "1"}) == "claude_code"
+        assert (
+            _APIRequestor._detect_ai_agent({"CLAUDECODE": "1"})
+            == "claude_code"
+        )
 
     def test_detect_ai_agent_no_env_vars(self):
         assert _APIRequestor._detect_ai_agent({}) == ""
