@@ -14,7 +14,7 @@
     "venv": true
   },
   // uses default venv name from Makefile
-  "python.defaultInterpreterPath": "./venv/bin/python",
+  "python.defaultInterpreterPath": "",
 
   // Formatting
   "editor.formatOnSave": true,
