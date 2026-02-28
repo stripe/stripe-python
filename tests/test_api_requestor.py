@@ -671,7 +671,8 @@ class TestAPIRequestor(object):
         # the newly created client is reused
         assert stripe.default_http_client == new_default_client
 
-    def test_uses_app_info(self, requestor, http_client_mock):
+    def test_uses_app_info(self, requestor, mocker, http_client_mock):
+        mocker.patch.object(_APIRequestor, "_detect_ai_agent", return_value="")
         try:
             old = stripe.app_info
             stripe.set_app_info(
@@ -706,6 +707,42 @@ class TestAPIRequestor(object):
             )
         finally:
             stripe.app_info = old
+
+    def test_detect_ai_agent(self):
+        assert (
+            _APIRequestor._detect_ai_agent({"CLAUDECODE": "1"})
+            == "claude_code"
+        )
+
+    def test_detect_ai_agent_no_env_vars(self):
+        assert _APIRequestor._detect_ai_agent({}) == ""
+
+    def test_detect_ai_agent_first_match_wins(self):
+        assert (
+            _APIRequestor._detect_ai_agent(
+                {"CURSOR_AGENT": "1", "OPENCODE": "1"}
+            )
+            == "cursor"
+        )
+
+    def test_ai_agent_included_in_request_headers(
+        self, requestor, mocker, http_client_mock
+    ):
+        mocker.patch.object(
+            _APIRequestor, "_detect_ai_agent", return_value="cursor"
+        )
+        http_client_mock.stub_request(
+            "get", path=self.v1_path, rbody="{}", rcode=200
+        )
+        requestor.request("get", self.v1_path, {}, base_address="api")
+
+        last_call = http_client_mock.get_last_call()
+        ua = last_call.get_raw_header("User-Agent")
+        assert ua.endswith(" AIAgent/cursor")
+        client_ua = json.loads(
+            last_call.get_raw_header("X-Stripe-Client-User-Agent")
+        )
+        assert client_ua["ai_agent"] == "cursor"
 
     def test_handles_failed_platform_call(
         self, requestor, mocker, http_client_mock
