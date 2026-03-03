@@ -1,5 +1,6 @@
 from io import BytesIO, IOBase
 import json
+import os
 import platform
 from typing import (
     Any,
@@ -505,6 +506,23 @@ class _APIRequestor(object):
 
         return None
 
+    AI_AGENTS = [
+        ("ANTIGRAVITY_CLI_ALIAS", "antigravity"),
+        ("CLAUDECODE", "claude_code"),
+        ("CLINE_ACTIVE", "cline"),
+        ("CODEX_SANDBOX", "codex_cli"),
+        ("CURSOR_AGENT", "cursor"),
+        ("GEMINI_CLI", "gemini_cli"),
+        ("OPENCODE", "open_code"),
+    ]
+
+    @staticmethod
+    def _detect_ai_agent(environ: Mapping[str, str]) -> str:
+        for env_var, agent_name in _APIRequestor.AI_AGENTS:
+            if environ.get(env_var):
+                return agent_name
+        return ""
+
     def request_headers(
         self, method: HttpVerb, api_mode: ApiMode, options: RequestOptions
     ):
@@ -514,6 +532,10 @@ class _APIRequestor(object):
         )
         if stripe.app_info:
             user_agent += " " + self._format_app_info(stripe.app_info)
+
+        agent = self._detect_ai_agent(os.environ)
+        if agent:
+            user_agent += " AIAgent/" + agent
 
         ua: Dict[str, Union[str, "AppInfo"]] = {
             "bindings_version": VERSION,
@@ -533,6 +555,8 @@ class _APIRequestor(object):
             ua[attr] = val
         if stripe.app_info:
             ua["application"] = stripe.app_info
+        if agent:
+            ua["ai_agent"] = agent
 
         headers: Dict[str, str] = {
             "X-Stripe-Client-User-Agent": json.dumps(ua),
