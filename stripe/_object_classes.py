@@ -40,6 +40,10 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     ),
     "billing_portal.session": ("stripe.billing_portal._session", "Session"),
     "billing.alert": ("stripe.billing._alert", "Alert"),
+    "billing.alert_recovered": (
+        "stripe.billing._alert_recovered",
+        "AlertRecovered",
+    ),
     "billing.alert_triggered": (
         "stripe.billing._alert_triggered",
         "AlertTriggered",
@@ -270,6 +274,7 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "TrialOffer",
     ),
     "product_feature": ("stripe._product_feature", "ProductFeature"),
+    "profile": ("stripe._profile", "Profile"),
     "promotion_code": ("stripe._promotion_code", "PromotionCode"),
     "quote": ("stripe._quote", "Quote"),
     "quote_line": ("stripe._quote_line", "QuoteLine"),

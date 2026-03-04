@@ -38,6 +38,9 @@ if TYPE_CHECKING:
     from stripe.params._payment_intent_list_params import (
         PaymentIntentListParams,
     )
+    from stripe.params._payment_intent_reauthorize_params import (
+        PaymentIntentReauthorizeParams,
+    )
     from stripe.params._payment_intent_retrieve_params import (
         PaymentIntentRetrieveParams,
     )
@@ -736,6 +739,64 @@ class PaymentIntentService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/payment_intents/{intent}/increment_authorization".format(
+                    intent=sanitize_id(intent),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def reauthorize(
+        self,
+        intent: str,
+        params: Optional["PaymentIntentReauthorizeParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentIntent":
+        """
+        Reauthorize a PaymentIntent to obtain a new valid authorization after the initial authorization has expired.
+
+        When a PaymentIntent's authorization expires and the capture window elapses, the PaymentIntent transitions to
+        requires_reauthorization status with amount_capturable set to 0. This endpoint
+        brings the PaymentIntent back to requires_capture status, allowing you to capture payment.
+
+        This is useful for retail and ecommerce scenarios with delayed shipments where
+        authorization validity periods (typically 7 days) expire before the merchant is ready to capture payment.
+        """
+        return cast(
+            "PaymentIntent",
+            self._request(
+                "post",
+                "/v1/payment_intents/{intent}/reauthorize".format(
+                    intent=sanitize_id(intent),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def reauthorize_async(
+        self,
+        intent: str,
+        params: Optional["PaymentIntentReauthorizeParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentIntent":
+        """
+        Reauthorize a PaymentIntent to obtain a new valid authorization after the initial authorization has expired.
+
+        When a PaymentIntent's authorization expires and the capture window elapses, the PaymentIntent transitions to
+        requires_reauthorization status with amount_capturable set to 0. This endpoint
+        brings the PaymentIntent back to requires_capture status, allowing you to capture payment.
+
+        This is useful for retail and ecommerce scenarios with delayed shipments where
+        authorization validity periods (typically 7 days) expire before the merchant is ready to capture payment.
+        """
+        return cast(
+            "PaymentIntent",
+            await self._request_async(
+                "post",
+                "/v1/payment_intents/{intent}/reauthorize".format(
                     intent=sanitize_id(intent),
                 ),
                 base_address="api",

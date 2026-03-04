@@ -6,6 +6,12 @@ from typing_extensions import Literal
 
 
 class PricingPlanComponent(StripeObject):
+    """
+    A Pricing Plan Component represents an individual billing element within a Pricing Plan. Components can be Rate Cards
+    for usage-based charges, License Fees for recurring fixed charges, or Service Actions for recurring credit grants. Each component
+    is associated with a specific version of the Pricing Plan and defines one aspect of how customers are billed.
+    """
+
     OBJECT_NAME: ClassVar[Literal["v2.billing.pricing_plan_component"]] = (
         "v2.billing.pricing_plan_component"
     )

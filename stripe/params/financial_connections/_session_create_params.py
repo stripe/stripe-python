@@ -18,6 +18,10 @@ class SessionCreateParams(RequestOptions):
     """
     Filters to restrict the kinds of accounts to collect.
     """
+    hosted: NotRequired["SessionCreateParamsHosted"]
+    """
+    Settings for hosted Sessions. Required if `ui_mode` is `hosted`.
+    """
     limits: NotRequired["SessionCreateParamsLimits"]
     """
     Settings for configuring Session-specific limits.
@@ -51,10 +55,6 @@ class SessionCreateParams(RequestOptions):
     return_url: NotRequired[str]
     """
     For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
-    """
-    hosted: NotRequired["SessionCreateParamsHosted"]
-    """
-    Settings for hosted Sessions. Required if `ui_mode` is `hosted`.
     """
     ui_mode: NotRequired[Literal["hosted", "modal"]]
     """
@@ -106,6 +106,13 @@ class SessionCreateParamsFilters(TypedDict):
     """
 
 
+class SessionCreateParamsHosted(TypedDict):
+    delivery_method: NotRequired[Literal["email", "url"]]
+    """
+    How the user should enter the hosted flow. The values `email` and `url` can only be used if `relink_options` is provided.
+    """
+
+
 class SessionCreateParamsLimits(TypedDict):
     accounts: int
     """
@@ -116,7 +123,7 @@ class SessionCreateParamsLimits(TypedDict):
 class SessionCreateParamsManualEntry(TypedDict):
     mode: NotRequired[Literal["automatic", "custom"]]
     """
-    Whether manual entry will be handled by Stripe during the Session.
+    How manual entry should be handled.
     """
 
 
@@ -128,11 +135,4 @@ class SessionCreateParamsRelinkOptions(TypedDict):
     authorization: str
     """
     The authorization to relink.
-    """
-
-
-class SessionCreateParamsHosted(TypedDict):
-    delivery_method: NotRequired[Literal["email", "url"]]
-    """
-    How the user should enter the hosted flow. The values `email` and `url` can only be used if `relink_options` is provided.
     """

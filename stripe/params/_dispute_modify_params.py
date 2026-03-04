@@ -33,6 +33,10 @@ class DisputeModifyParams(RequestOptions):
     """
     Whether to immediately submit evidence to the bank. If `false`, evidence is staged on the dispute. Staged evidence is visible in the API and Dashboard, and can be submitted to the bank by making another request with this attribute set to `true` (the default).
     """
+    amount_to_counter: NotRequired[int]
+    """
+    If not countering the full disputed amount, specify an alternate amount, less than or equal to the disputed amount.
+    """
 
 
 class DisputeModifyParamsEvidence(TypedDict):

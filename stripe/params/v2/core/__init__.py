@@ -91,6 +91,8 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationMerchantScriptStatementDescriptor as AccountCreateParamsConfigurationMerchantScriptStatementDescriptor,
         AccountCreateParamsConfigurationMerchantScriptStatementDescriptorKana as AccountCreateParamsConfigurationMerchantScriptStatementDescriptorKana,
         AccountCreateParamsConfigurationMerchantScriptStatementDescriptorKanji as AccountCreateParamsConfigurationMerchantScriptStatementDescriptorKanji,
+        AccountCreateParamsConfigurationMerchantSmartDisputes as AccountCreateParamsConfigurationMerchantSmartDisputes,
+        AccountCreateParamsConfigurationMerchantSmartDisputesAutoRespond as AccountCreateParamsConfigurationMerchantSmartDisputesAutoRespond,
         AccountCreateParamsConfigurationMerchantStatementDescriptor as AccountCreateParamsConfigurationMerchantStatementDescriptor,
         AccountCreateParamsConfigurationMerchantSupport as AccountCreateParamsConfigurationMerchantSupport,
         AccountCreateParamsConfigurationMerchantSupportAddress as AccountCreateParamsConfigurationMerchantSupportAddress,
@@ -106,6 +108,9 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationRecipientCapabilitiesStripeBalanceStripeTransfers as AccountCreateParamsConfigurationRecipientCapabilitiesStripeBalanceStripeTransfers,
         AccountCreateParamsConfigurationStorer as AccountCreateParamsConfigurationStorer,
         AccountCreateParamsConfigurationStorerCapabilities as AccountCreateParamsConfigurationStorerCapabilities,
+        AccountCreateParamsConfigurationStorerCapabilitiesConsumer as AccountCreateParamsConfigurationStorerCapabilitiesConsumer,
+        AccountCreateParamsConfigurationStorerCapabilitiesConsumerHoldsCurrencies as AccountCreateParamsConfigurationStorerCapabilitiesConsumerHoldsCurrencies,
+        AccountCreateParamsConfigurationStorerCapabilitiesConsumerHoldsCurrenciesUsd as AccountCreateParamsConfigurationStorerCapabilitiesConsumerHoldsCurrenciesUsd,
         AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddresses as AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddresses,
         AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccounts as AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccounts,
         AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesCryptoWallets as AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesCryptoWallets,
@@ -221,6 +226,10 @@ if TYPE_CHECKING:
         AccountLinkCreateParamsUseCaseAccountOnboardingCollectionOptions as AccountLinkCreateParamsUseCaseAccountOnboardingCollectionOptions,
         AccountLinkCreateParamsUseCaseAccountUpdate as AccountLinkCreateParamsUseCaseAccountUpdate,
         AccountLinkCreateParamsUseCaseAccountUpdateCollectionOptions as AccountLinkCreateParamsUseCaseAccountUpdateCollectionOptions,
+        AccountLinkCreateParamsUseCaseRecipientOnboarding as AccountLinkCreateParamsUseCaseRecipientOnboarding,
+        AccountLinkCreateParamsUseCaseRecipientOnboardingCollectionOptions as AccountLinkCreateParamsUseCaseRecipientOnboardingCollectionOptions,
+        AccountLinkCreateParamsUseCaseRecipientUpdate as AccountLinkCreateParamsUseCaseRecipientUpdate,
+        AccountLinkCreateParamsUseCaseRecipientUpdateCollectionOptions as AccountLinkCreateParamsUseCaseRecipientUpdateCollectionOptions,
     )
     from stripe.params.v2.core._account_list_params import (
         AccountListParams as AccountListParams,
@@ -395,6 +404,8 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationMerchantScriptStatementDescriptor as AccountUpdateParamsConfigurationMerchantScriptStatementDescriptor,
         AccountUpdateParamsConfigurationMerchantScriptStatementDescriptorKana as AccountUpdateParamsConfigurationMerchantScriptStatementDescriptorKana,
         AccountUpdateParamsConfigurationMerchantScriptStatementDescriptorKanji as AccountUpdateParamsConfigurationMerchantScriptStatementDescriptorKanji,
+        AccountUpdateParamsConfigurationMerchantSmartDisputes as AccountUpdateParamsConfigurationMerchantSmartDisputes,
+        AccountUpdateParamsConfigurationMerchantSmartDisputesAutoRespond as AccountUpdateParamsConfigurationMerchantSmartDisputesAutoRespond,
         AccountUpdateParamsConfigurationMerchantStatementDescriptor as AccountUpdateParamsConfigurationMerchantStatementDescriptor,
         AccountUpdateParamsConfigurationMerchantSupport as AccountUpdateParamsConfigurationMerchantSupport,
         AccountUpdateParamsConfigurationMerchantSupportAddress as AccountUpdateParamsConfigurationMerchantSupportAddress,
@@ -410,6 +421,9 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationRecipientCapabilitiesStripeBalanceStripeTransfers as AccountUpdateParamsConfigurationRecipientCapabilitiesStripeBalanceStripeTransfers,
         AccountUpdateParamsConfigurationStorer as AccountUpdateParamsConfigurationStorer,
         AccountUpdateParamsConfigurationStorerCapabilities as AccountUpdateParamsConfigurationStorerCapabilities,
+        AccountUpdateParamsConfigurationStorerCapabilitiesConsumer as AccountUpdateParamsConfigurationStorerCapabilitiesConsumer,
+        AccountUpdateParamsConfigurationStorerCapabilitiesConsumerHoldsCurrencies as AccountUpdateParamsConfigurationStorerCapabilitiesConsumerHoldsCurrencies,
+        AccountUpdateParamsConfigurationStorerCapabilitiesConsumerHoldsCurrenciesUsd as AccountUpdateParamsConfigurationStorerCapabilitiesConsumerHoldsCurrenciesUsd,
         AccountUpdateParamsConfigurationStorerCapabilitiesFinancialAddresses as AccountUpdateParamsConfigurationStorerCapabilitiesFinancialAddresses,
         AccountUpdateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccounts as AccountUpdateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccounts,
         AccountUpdateParamsConfigurationStorerCapabilitiesFinancialAddressesCryptoWallets as AccountUpdateParamsConfigurationStorerCapabilitiesFinancialAddressesCryptoWallets,
@@ -902,6 +916,14 @@ _import_map = {
         "stripe.params.v2.core._account_create_params",
         False,
     ),
+    "AccountCreateParamsConfigurationMerchantSmartDisputes": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMerchantSmartDisputesAutoRespond": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
     "AccountCreateParamsConfigurationMerchantStatementDescriptor": (
         "stripe.params.v2.core._account_create_params",
         False,
@@ -959,6 +981,18 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsConfigurationStorerCapabilities": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationStorerCapabilitiesConsumer": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationStorerCapabilitiesConsumerHoldsCurrencies": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationStorerCapabilitiesConsumerHoldsCurrenciesUsd": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
@@ -1411,6 +1445,22 @@ _import_map = {
         False,
     ),
     "AccountLinkCreateParamsUseCaseAccountUpdateCollectionOptions": (
+        "stripe.params.v2.core._account_link_create_params",
+        False,
+    ),
+    "AccountLinkCreateParamsUseCaseRecipientOnboarding": (
+        "stripe.params.v2.core._account_link_create_params",
+        False,
+    ),
+    "AccountLinkCreateParamsUseCaseRecipientOnboardingCollectionOptions": (
+        "stripe.params.v2.core._account_link_create_params",
+        False,
+    ),
+    "AccountLinkCreateParamsUseCaseRecipientUpdate": (
+        "stripe.params.v2.core._account_link_create_params",
+        False,
+    ),
+    "AccountLinkCreateParamsUseCaseRecipientUpdateCollectionOptions": (
         "stripe.params.v2.core._account_link_create_params",
         False,
     ),
@@ -2067,6 +2117,14 @@ _import_map = {
         "stripe.params.v2.core._account_update_params",
         False,
     ),
+    "AccountUpdateParamsConfigurationMerchantSmartDisputes": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMerchantSmartDisputesAutoRespond": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
     "AccountUpdateParamsConfigurationMerchantStatementDescriptor": (
         "stripe.params.v2.core._account_update_params",
         False,
@@ -2124,6 +2182,18 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsConfigurationStorerCapabilities": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationStorerCapabilitiesConsumer": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationStorerCapabilitiesConsumerHoldsCurrencies": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationStorerCapabilitiesConsumerHoldsCurrenciesUsd": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),

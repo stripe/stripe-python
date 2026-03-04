@@ -24,6 +24,10 @@ class FinancialAccountCreateParams(TypedDict):
 
 
 class FinancialAccountCreateParamsStorage(TypedDict):
+    funds_usage_type: NotRequired[Literal["business", "consumer"]]
+    """
+    The usage type for funds in this FinancialAccount. Can be used to specify that the funds are for Consumer activity.
+    """
     holds_currencies: List[str]
     """
     The currencies that this FinancialAccount can hold.

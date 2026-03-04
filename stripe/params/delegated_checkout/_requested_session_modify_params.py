@@ -99,13 +99,21 @@ class RequestedSessionModifyParamsFulfillmentDetailsAddress(TypedDict):
 class RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOption(
     TypedDict,
 ):
-    shipping: "RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOptionShipping"
+    shipping: NotRequired[
+        "RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOptionShipping"
+    ]
     """
     The shipping fulfillment option.
     """
     type: str
     """
     The type of fulfillment option.
+    """
+    digital: NotRequired[
+        "RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOptionDigital"
+    ]
+    """
+    The digital fulfillment option.
     """
 
 
@@ -115,6 +123,15 @@ class RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOptionShi
     shipping_option: str
     """
     The shipping option identifer.
+    """
+
+
+class RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOptionDigital(
+    TypedDict,
+):
+    digital_option: str
+    """
+    The digital option identifier.
     """
 
 

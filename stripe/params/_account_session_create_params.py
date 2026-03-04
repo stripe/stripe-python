@@ -33,6 +33,12 @@ class AccountSessionCreateParamsComponents(TypedDict):
     """
     Configuration for the [account onboarding](https://docs.stripe.com/connect/supported-embedded-components/account-onboarding/) embedded component.
     """
+    agentic_commerce_settings: NotRequired[
+        "AccountSessionCreateParamsComponentsAgenticCommerceSettings"
+    ]
+    """
+    Configuration for the [agentic commerce settings](https://docs.stripe.com/connect/supported-embedded-components/agentic-commerce-settings/) embedded component.
+    """
     app_install: NotRequired["AccountSessionCreateParamsComponentsAppInstall"]
     """
     Configuration for the [app install](https://docs.stripe.com/connect/supported-embedded-components/app-install/) embedded component.
@@ -201,12 +207,6 @@ class AccountSessionCreateParamsComponents(TypedDict):
     """
     Configuration for the [tax threshold monitoring](https://docs.stripe.com/connect/supported-embedded-components/tax-threshold-monitoring/) embedded component.
     """
-    agentic_commerce_settings: NotRequired[
-        "AccountSessionCreateParamsComponentsAgenticCommerceSettings"
-    ]
-    """
-    Configuration for the [agentic commerce settings](https://docs.stripe.com/connect/supported-embedded-components/agentic-commerce-settings/) embedded component.
-    """
     terminal_hardware_orders: NotRequired[
         "AccountSessionCreateParamsComponentsTerminalHardwareOrders"
     ]
@@ -267,6 +267,25 @@ class AccountSessionCreateParamsComponentsAccountOnboardingFeatures(TypedDict):
     """
     Whether external account collection is enabled. This feature can only be `false` for accounts where you're responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
     """
+
+
+class AccountSessionCreateParamsComponentsAgenticCommerceSettings(TypedDict):
+    enabled: bool
+    """
+    Whether the embedded component is enabled.
+    """
+    features: NotRequired[
+        "AccountSessionCreateParamsComponentsAgenticCommerceSettingsFeatures"
+    ]
+    """
+    An empty list, because this embedded component has no features.
+    """
+
+
+class AccountSessionCreateParamsComponentsAgenticCommerceSettingsFeatures(
+    TypedDict,
+):
+    pass
 
 
 class AccountSessionCreateParamsComponentsAppInstall(TypedDict):
@@ -966,25 +985,6 @@ class AccountSessionCreateParamsComponentsTaxThresholdMonitoring(TypedDict):
 
 
 class AccountSessionCreateParamsComponentsTaxThresholdMonitoringFeatures(
-    TypedDict,
-):
-    pass
-
-
-class AccountSessionCreateParamsComponentsAgenticCommerceSettings(TypedDict):
-    enabled: bool
-    """
-    Whether the embedded component is enabled.
-    """
-    features: NotRequired[
-        "AccountSessionCreateParamsComponentsAgenticCommerceSettingsFeatures"
-    ]
-    """
-    An empty list, because this embedded component has no features.
-    """
-
-
-class AccountSessionCreateParamsComponentsAgenticCommerceSettingsFeatures(
     TypedDict,
 ):
     pass

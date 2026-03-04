@@ -22,6 +22,10 @@ class AlertCreateParams(RequestOptions):
     """
     Specifies which fields in the response should be expanded.
     """
+    spend_threshold: NotRequired["AlertCreateParamsSpendThreshold"]
+    """
+    The configuration of the spend threshold. An event fires when the amount consumed exceeds the threshold, after all credits and discounts are applied but before tax is applied.
+    """
     title: str
     """
     The title of the alert.
@@ -29,10 +33,6 @@ class AlertCreateParams(RequestOptions):
     usage_threshold: NotRequired["AlertCreateParamsUsageThreshold"]
     """
     The configuration of the usage threshold.
-    """
-    spend_threshold: NotRequired["AlertCreateParamsSpendThreshold"]
-    """
-    The configuration of the spend threshold.
     """
 
 
@@ -162,36 +162,6 @@ class AlertCreateParamsCreditBalanceThresholdLteMonetary(TypedDict):
     """
 
 
-class AlertCreateParamsUsageThreshold(TypedDict):
-    filters: NotRequired[List["AlertCreateParamsUsageThresholdFilter"]]
-    """
-    The filters allows limiting the scope of this usage alert. You can only specify up to one filter at this time.
-    """
-    gte: int
-    """
-    Defines at which value the alert will fire.
-    """
-    meter: str
-    """
-    The [Billing Meter](https://docs.stripe.com/api/billing/meter) ID whose usage is monitored.
-    """
-    recurrence: Literal["one_time"]
-    """
-    Defines how the alert will behave.
-    """
-
-
-class AlertCreateParamsUsageThresholdFilter(TypedDict):
-    customer: NotRequired[str]
-    """
-    Limit the scope to this usage alert only to this customer.
-    """
-    type: Literal["customer"]
-    """
-    What type of filter is being applied to this usage alert.
-    """
-
-
 class AlertCreateParamsSpendThreshold(TypedDict):
     aggregation_period: Literal["billing"]
     """
@@ -233,7 +203,7 @@ class AlertCreateParamsSpendThresholdFilters(TypedDict):
 class AlertCreateParamsSpendThresholdGte(TypedDict):
     amount: NotRequired["AlertCreateParamsSpendThresholdGteAmount"]
     """
-    The monetary amount. Required when type is `amount`.
+    The monetary amount. Required when type is `amount`. The threshold is the total_before_tax, the amount consumed after all credits and discounts are applied, but before tax is applied.
     """
     custom_pricing_unit: NotRequired[
         "AlertCreateParamsSpendThresholdGteCustomPricingUnit"
@@ -266,4 +236,34 @@ class AlertCreateParamsSpendThresholdGteCustomPricingUnit(TypedDict):
     value: str
     """
     A positive decimal string representing the amount of the custom pricing unit threshold.
+    """
+
+
+class AlertCreateParamsUsageThreshold(TypedDict):
+    filters: NotRequired[List["AlertCreateParamsUsageThresholdFilter"]]
+    """
+    The filters allows limiting the scope of this usage alert. You can only specify up to one filter at this time.
+    """
+    gte: int
+    """
+    Defines the threshold value that triggers the alert.
+    """
+    meter: str
+    """
+    The [Billing Meter](https://docs.stripe.com/api/billing/meter) ID whose usage is monitored.
+    """
+    recurrence: Literal["one_time"]
+    """
+    Defines how the alert will behave.
+    """
+
+
+class AlertCreateParamsUsageThresholdFilter(TypedDict):
+    customer: NotRequired[str]
+    """
+    Limit the scope to this usage alert only to this customer.
+    """
+    type: Literal["customer"]
+    """
+    What type of filter is being applied to this usage alert.
     """

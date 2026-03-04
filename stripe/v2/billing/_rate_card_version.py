@@ -6,6 +6,12 @@ from typing_extensions import Literal
 
 
 class RateCardVersion(StripeObject):
+    """
+    A Rate Card Version represents a specific configuration of a Rate Card at a point in time. Versions are created automatically
+    when you add or modify rates on a Rate Card, allowing you to track changes and manage which version is active for new
+    subscriptions. Each version maintains a record of when it was created.
+    """
+
     OBJECT_NAME: ClassVar[Literal["v2.billing.rate_card_version"]] = (
         "v2.billing.rate_card_version"
     )

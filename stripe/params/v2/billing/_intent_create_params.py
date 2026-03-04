@@ -189,7 +189,7 @@ class IntentCreateParamsActionDeactivate(TypedDict):
     """
     collect_at: NotRequired[Literal["next_billing_date", "on_effective_at"]]
     """
-    Allows users to override the collect at behavior.
+    When the invoice will be collected. If not specified, the default behavior is on_effective_at.
     """
     effective_at: NotRequired["IntentCreateParamsActionDeactivateEffectiveAt"]
     """
@@ -254,7 +254,7 @@ class IntentCreateParamsActionDeactivatePricingPlanSubscriptionDetails(
         "IntentCreateParamsActionDeactivatePricingPlanSubscriptionDetailsOverrides"
     ]
     """
-    Allows users to override the partial period behavior.
+    Configurations for overriding behaviors related to the subscription.
     """
     pricing_plan_subscription: str
     """
@@ -269,7 +269,7 @@ class IntentCreateParamsActionDeactivatePricingPlanSubscriptionDetailsOverrides(
         "IntentCreateParamsActionDeactivatePricingPlanSubscriptionDetailsOverridesPartialPeriodBehavior"
     ]
     """
-    Override for the partial period behavior.
+    Configurations for behaviors when the action takes effect during the service period.
     """
 
 
@@ -278,13 +278,13 @@ class IntentCreateParamsActionDeactivatePricingPlanSubscriptionDetailsOverridesP
 ):
     type: Literal["license_fee"]
     """
-    Type of the partial period behavior override.
+    The type of behavior to override.
     """
     license_fee: NotRequired[
         "IntentCreateParamsActionDeactivatePricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorLicenseFee"
     ]
     """
-    Override for the license fee.
+    Overrides the behavior for license fee components when the action takes effect during the service period.
     """
 
 
@@ -293,14 +293,14 @@ class IntentCreateParamsActionDeactivatePricingPlanSubscriptionDetailsOverridesP
 ):
     credit_proration_behavior: Literal["none", "prorated"]
     """
-    The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is deactivating.
+    The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is deactivating. If not specified, defaults to none.
     """
 
 
 class IntentCreateParamsActionModify(TypedDict):
     collect_at: NotRequired[Literal["next_billing_date", "on_effective_at"]]
     """
-    Allows users to override the collect at behavior.
+    When the invoice will be collected. If not specified, the default behavior is next_billing_date.
     """
     effective_at: NotRequired["IntentCreateParamsActionModifyEffectiveAt"]
     """
@@ -352,7 +352,7 @@ class IntentCreateParamsActionModifyPricingPlanSubscriptionDetails(TypedDict):
         "IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverrides"
     ]
     """
-    Allows users to override the partial period behavior.
+    Configurations for overriding behaviors related to the subscription.
     """
     pricing_plan_subscription: str
     """
@@ -384,7 +384,7 @@ class IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverrides(
         "IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverridesPartialPeriodBehavior"
     ]
     """
-    Override for the partial period behavior.
+    Configurations for behaviors when the action takes effect during the service period.
     """
 
 
@@ -393,13 +393,13 @@ class IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverridesParti
 ):
     type: Literal["license_fee"]
     """
-    Type of the partial period behavior override.
+    The type of behavior to override.
     """
     license_fee: NotRequired[
         "IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorLicenseFee"
     ]
     """
-    Override for the license fee.
+    Overrides the behavior for license fee components when the action takes effect during the service period.
     """
 
 
@@ -408,11 +408,11 @@ class IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverridesParti
 ):
     credit_proration_behavior: Literal["none", "prorated"]
     """
-    The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is upgrading.
+    The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user modifies the subscription. If not specified, defaults to prorated.
     """
     debit_proration_behavior: Literal["none", "prorated"]
     """
-    The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is downgrading.
+    The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user modifies the subscription. If not specified, defaults to prorated.
     """
 
 
@@ -445,7 +445,7 @@ class IntentCreateParamsActionRemoveEffectiveAt(TypedDict):
 class IntentCreateParamsActionSubscribe(TypedDict):
     collect_at: NotRequired[Literal["next_billing_date", "on_effective_at"]]
     """
-    Allows users to override the collect at behavior.
+    When the invoice will be collected. If not specified, defaults to on_effective_at.
     """
     effective_at: NotRequired["IntentCreateParamsActionSubscribeEffectiveAt"]
     """
@@ -501,7 +501,7 @@ class IntentCreateParamsActionSubscribePricingPlanSubscriptionDetails(
         "IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverrides"
     ]
     """
-    Allows users to override the partial period behavior.
+    Configurations for overriding behaviors related to the subscription.
     """
     pricing_plan: str
     """
@@ -537,7 +537,7 @@ class IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverrides(
         "IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverridesPartialPeriodBehavior"
     ]
     """
-    Override for the partial period behavior.
+    Configurations for behaviors when the action takes effect during the service period.
     """
 
 
@@ -546,13 +546,13 @@ class IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverridesPa
 ):
     type: Literal["license_fee"]
     """
-    Type of the partial period behavior override.
+    The type of behavior to override.
     """
     license_fee: NotRequired[
         "IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorLicenseFee"
     ]
     """
-    Override for the license fee.
+    Overrides the behavior for license fee components when the action takes effect during the service period.
     """
 
 
@@ -561,7 +561,7 @@ class IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverridesPa
 ):
     debit_proration_behavior: Literal["none", "prorated"]
     """
-    The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is subscribing.
+    The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is subscribing. If not specified, defaults to prorated.
     """
 
 

@@ -578,6 +578,12 @@ class Registration(
             Type of registration in `country`.
             """
 
+        class Lk(StripeObject):
+            type: Literal["simplified"]
+            """
+            Type of registration in `country`.
+            """
+
         class Lt(StripeObject):
             class Standard(StripeObject):
                 place_of_supply_scheme: Literal[
@@ -1160,6 +1166,7 @@ class Registration(
         kr: Optional[Kr]
         kz: Optional[Kz]
         la: Optional[La]
+        lk: Optional[Lk]
         lt: Optional[Lt]
         lu: Optional[Lu]
         lv: Optional[Lv]
@@ -1261,6 +1268,7 @@ class Registration(
             "kr": Kr,
             "kz": Kz,
             "la": La,
+            "lk": Lk,
             "lt": Lt,
             "lu": Lu,
             "lv": Lv,

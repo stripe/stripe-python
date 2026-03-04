@@ -6,6 +6,8 @@ from typing_extensions import TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe.params.delegated_checkout._requested_session_confirm_params import (
         RequestedSessionConfirmParams as RequestedSessionConfirmParams,
+        RequestedSessionConfirmParamsAffiliateAttribution as RequestedSessionConfirmParamsAffiliateAttribution,
+        RequestedSessionConfirmParamsAffiliateAttributionSource as RequestedSessionConfirmParamsAffiliateAttributionSource,
         RequestedSessionConfirmParamsPaymentMethodData as RequestedSessionConfirmParamsPaymentMethodData,
         RequestedSessionConfirmParamsPaymentMethodDataBillingDetails as RequestedSessionConfirmParamsPaymentMethodDataBillingDetails,
         RequestedSessionConfirmParamsPaymentMethodDataBillingDetailsAddress as RequestedSessionConfirmParamsPaymentMethodDataBillingDetailsAddress,
@@ -15,6 +17,8 @@ if TYPE_CHECKING:
     )
     from stripe.params.delegated_checkout._requested_session_create_params import (
         RequestedSessionCreateParams as RequestedSessionCreateParams,
+        RequestedSessionCreateParamsAffiliateAttribution as RequestedSessionCreateParamsAffiliateAttribution,
+        RequestedSessionCreateParamsAffiliateAttributionSource as RequestedSessionCreateParamsAffiliateAttributionSource,
         RequestedSessionCreateParamsFulfillmentDetails as RequestedSessionCreateParamsFulfillmentDetails,
         RequestedSessionCreateParamsFulfillmentDetailsAddress as RequestedSessionCreateParamsFulfillmentDetailsAddress,
         RequestedSessionCreateParamsLineItemDetail as RequestedSessionCreateParamsLineItemDetail,
@@ -32,6 +36,7 @@ if TYPE_CHECKING:
         RequestedSessionModifyParamsFulfillmentDetails as RequestedSessionModifyParamsFulfillmentDetails,
         RequestedSessionModifyParamsFulfillmentDetailsAddress as RequestedSessionModifyParamsFulfillmentDetailsAddress,
         RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOption as RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOption,
+        RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOptionDigital as RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOptionDigital,
         RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOptionShipping as RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOptionShipping,
         RequestedSessionModifyParamsLineItemDetail as RequestedSessionModifyParamsLineItemDetail,
         RequestedSessionModifyParamsPaymentMethodData as RequestedSessionModifyParamsPaymentMethodData,
@@ -47,6 +52,7 @@ if TYPE_CHECKING:
         RequestedSessionUpdateParamsFulfillmentDetails as RequestedSessionUpdateParamsFulfillmentDetails,
         RequestedSessionUpdateParamsFulfillmentDetailsAddress as RequestedSessionUpdateParamsFulfillmentDetailsAddress,
         RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOption as RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOption,
+        RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOptionDigital as RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOptionDigital,
         RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOptionShipping as RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOptionShipping,
         RequestedSessionUpdateParamsLineItemDetail as RequestedSessionUpdateParamsLineItemDetail,
         RequestedSessionUpdateParamsPaymentMethodData as RequestedSessionUpdateParamsPaymentMethodData,
@@ -58,6 +64,14 @@ if TYPE_CHECKING:
 # name -> (import_target, is_submodule)
 _import_map = {
     "RequestedSessionConfirmParams": (
+        "stripe.params.delegated_checkout._requested_session_confirm_params",
+        False,
+    ),
+    "RequestedSessionConfirmParamsAffiliateAttribution": (
+        "stripe.params.delegated_checkout._requested_session_confirm_params",
+        False,
+    ),
+    "RequestedSessionConfirmParamsAffiliateAttributionSource": (
         "stripe.params.delegated_checkout._requested_session_confirm_params",
         False,
     ),
@@ -86,6 +100,14 @@ _import_map = {
         False,
     ),
     "RequestedSessionCreateParams": (
+        "stripe.params.delegated_checkout._requested_session_create_params",
+        False,
+    ),
+    "RequestedSessionCreateParamsAffiliateAttribution": (
+        "stripe.params.delegated_checkout._requested_session_create_params",
+        False,
+    ),
+    "RequestedSessionCreateParamsAffiliateAttributionSource": (
         "stripe.params.delegated_checkout._requested_session_create_params",
         False,
     ),
@@ -141,6 +163,10 @@ _import_map = {
         "stripe.params.delegated_checkout._requested_session_modify_params",
         False,
     ),
+    "RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOptionDigital": (
+        "stripe.params.delegated_checkout._requested_session_modify_params",
+        False,
+    ),
     "RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOptionShipping": (
         "stripe.params.delegated_checkout._requested_session_modify_params",
         False,
@@ -182,6 +208,10 @@ _import_map = {
         False,
     ),
     "RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOption": (
+        "stripe.params.delegated_checkout._requested_session_update_params",
+        False,
+    ),
+    "RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOptionDigital": (
         "stripe.params.delegated_checkout._requested_session_update_params",
         False,
     ),

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._createable_api_resource import CreateableAPIResource
+from stripe._expandable_field import ExpandableField
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
@@ -8,6 +9,7 @@ from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._profile import Profile
     from stripe.params.delegated_checkout._requested_session_confirm_params import (
         RequestedSessionConfirmParams,
     )
@@ -37,6 +39,67 @@ class RequestedSession(
         "delegated_checkout.requested_session"
     )
 
+    class AffiliateAttribution(StripeObject):
+        class Source(StripeObject):
+            platform: Optional[str]
+            """
+            The platform of the attribution source.
+            """
+            type: Literal["platform", "url"]
+            """
+            The type of the attribution source.
+            """
+            url: Optional[str]
+            """
+            The URL of the attribution source.
+            """
+
+        campaign_id: Optional[str]
+        """
+        Agent-scoped campaign identifier.
+        """
+        creative_id: Optional[str]
+        """
+        Agent-scoped creative identifier.
+        """
+        expires_at: int
+        """
+        Timestamp when the attribution token expires.
+        """
+        identification_token: str
+        """
+        Agent-issued secret to validate the legitimacy of the source of this data.
+        """
+        issued_at: int
+        """
+        Timestamp for when the attribution token was issued.
+        """
+        provider: str
+        """
+        Identifier for the attribution agent / affiliate network namespace.
+        """
+        publisher_id: Optional[str]
+        """
+        Agent-scoped affiliate/publisher identifier.
+        """
+        shared_metadata: Optional[Dict[str, str]]
+        """
+        Freeform key/value pairs for additional non-sensitive per-agent data.
+        """
+        source: Optional[Source]
+        """
+        Context about where the attribution originated.
+        """
+        sub_id: Optional[str]
+        """
+        Agent-scoped sub-tracking identifier.
+        """
+        touchpoint: Literal["first", "last"]
+        """
+        Whether this is the first or last touchpoint.
+        """
+        _inner_class_types = {"source": Source}
+
     class FulfillmentDetails(StripeObject):
         class Address(StripeObject):
             city: Optional[str]
@@ -65,6 +128,31 @@ class RequestedSession(
             """
 
         class FulfillmentOption(StripeObject):
+            class Digital(StripeObject):
+                class DigitalOption(StripeObject):
+                    description: Optional[str]
+                    """
+                    The description of the digital fulfillment option.
+                    """
+                    digital_amount: int
+                    """
+                    The digital amount of the digital fulfillment option.
+                    """
+                    display_name: str
+                    """
+                    The display name of the digital fulfillment option.
+                    """
+                    key: str
+                    """
+                    The key of the digital fulfillment option.
+                    """
+
+                digital_options: Optional[List[DigitalOption]]
+                """
+                The digital options.
+                """
+                _inner_class_types = {"digital_options": DigitalOption}
+
             class Shipping(StripeObject):
                 class ShippingOption(StripeObject):
                     description: Optional[str]
@@ -98,6 +186,10 @@ class RequestedSession(
                 """
                 _inner_class_types = {"shipping_options": ShippingOption}
 
+            digital: Optional[Digital]
+            """
+            The digital fulfillment option.
+            """
             shipping: Optional[Shipping]
             """
             The shipping option.
@@ -106,15 +198,25 @@ class RequestedSession(
             """
             The type of the fulfillment option.
             """
-            _inner_class_types = {"shipping": Shipping}
+            _inner_class_types = {"digital": Digital, "shipping": Shipping}
 
         class SelectedFulfillmentOption(StripeObject):
+            class Digital(StripeObject):
+                digital_option: Optional[str]
+                """
+                The digital option.
+                """
+
             class Shipping(StripeObject):
                 shipping_option: Optional[str]
                 """
                 The shipping option.
                 """
 
+            digital: Optional[Digital]
+            """
+            The digital fulfillment option.
+            """
             shipping: Optional[Shipping]
             """
             The shipping option.
@@ -123,7 +225,7 @@ class RequestedSession(
             """
             The type of the selected fulfillment option.
             """
-            _inner_class_types = {"shipping": Shipping}
+            _inner_class_types = {"digital": Digital, "shipping": Shipping}
 
         address: Optional[Address]
         """
@@ -213,6 +315,10 @@ class RequestedSession(
         amount_subtotal: int
         """
         The total before any discounts or taxes are applied.
+        """
+        fulfillment_type: str
+        """
+        The fulfillment type of the line item.
         """
         key: str
         """
@@ -349,7 +455,36 @@ class RequestedSession(
         }
 
     class SellerDetails(StripeObject):
-        pass
+        class MarketplaceSellerDetails(StripeObject):
+            pass
+
+        marketplace_seller_details: Optional[MarketplaceSellerDetails]
+        """
+        The marketplace seller details.
+        """
+        network_profile: ExpandableField["Profile"]
+        """
+        The network profile of the seller.
+        """
+        privacy_notice_url: Optional[str]
+        """
+        The URL to the seller's privacy notice.
+        """
+        return_policy_url: Optional[str]
+        """
+        The URL to the seller's return policy.
+        """
+        store_policy_url: Optional[str]
+        """
+        The URL to the seller's store policy.
+        """
+        terms_of_service_url: Optional[str]
+        """
+        The URL to the seller's terms of service.
+        """
+        _inner_class_types = {
+            "marketplace_seller_details": MarketplaceSellerDetails,
+        }
 
     class TotalDetails(StripeObject):
         class ApplicableFee(StripeObject):
@@ -388,6 +523,10 @@ class RequestedSession(
         """
         _inner_class_types = {"applicable_fees": ApplicableFee}
 
+    affiliate_attributions: Optional[List[AffiliateAttribution]]
+    """
+    Affiliate attribution data associated with this requested session.
+    """
     amount_subtotal: Optional[int]
     """
     The subtotal amount of the requested session.
@@ -426,7 +565,7 @@ class RequestedSession(
     """
     livemode: bool
     """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
     metadata: Optional[Dict[str, str]]
     """
@@ -796,6 +935,7 @@ class RequestedSession(
         return instance
 
     _inner_class_types = {
+        "affiliate_attributions": AffiliateAttribution,
         "fulfillment_details": FulfillmentDetails,
         "line_item_details": LineItemDetail,
         "order_details": OrderDetails,

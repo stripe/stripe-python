@@ -101,6 +101,7 @@ class V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEvent(
         StripeObject,
     ):
         updated_capability: Literal[
+            "consumer.holds_currencies.usd",
             "financial_addressses.bank_accounts",
             "financial_addressses.crypto_wallets",
             "holds_currencies.eur",

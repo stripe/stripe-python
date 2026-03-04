@@ -117,6 +117,10 @@ if TYPE_CHECKING:
         V2BillingRateCardCreatedEvent as V2BillingRateCardCreatedEvent,
         V2BillingRateCardCreatedEventNotification as V2BillingRateCardCreatedEventNotification,
     )
+    from stripe.events._v2_billing_rate_card_custom_pricing_unit_overage_rate_created_event import (
+        V2BillingRateCardCustomPricingUnitOverageRateCreatedEvent as V2BillingRateCardCustomPricingUnitOverageRateCreatedEvent,
+        V2BillingRateCardCustomPricingUnitOverageRateCreatedEventNotification as V2BillingRateCardCustomPricingUnitOverageRateCreatedEventNotification,
+    )
     from stripe.events._v2_billing_rate_card_rate_created_event import (
         V2BillingRateCardRateCreatedEvent as V2BillingRateCardRateCreatedEvent,
         V2BillingRateCardRateCreatedEventNotification as V2BillingRateCardRateCreatedEventNotification,
@@ -380,6 +384,30 @@ if TYPE_CHECKING:
     from stripe.events._v2_iam_api_key_updated_event import (
         V2IamApiKeyUpdatedEvent as V2IamApiKeyUpdatedEvent,
         V2IamApiKeyUpdatedEventNotification as V2IamApiKeyUpdatedEventNotification,
+    )
+    from stripe.events._v2_iam_stripe_access_grant_approved_event import (
+        V2IamStripeAccessGrantApprovedEvent as V2IamStripeAccessGrantApprovedEvent,
+        V2IamStripeAccessGrantApprovedEventNotification as V2IamStripeAccessGrantApprovedEventNotification,
+    )
+    from stripe.events._v2_iam_stripe_access_grant_canceled_event import (
+        V2IamStripeAccessGrantCanceledEvent as V2IamStripeAccessGrantCanceledEvent,
+        V2IamStripeAccessGrantCanceledEventNotification as V2IamStripeAccessGrantCanceledEventNotification,
+    )
+    from stripe.events._v2_iam_stripe_access_grant_denied_event import (
+        V2IamStripeAccessGrantDeniedEvent as V2IamStripeAccessGrantDeniedEvent,
+        V2IamStripeAccessGrantDeniedEventNotification as V2IamStripeAccessGrantDeniedEventNotification,
+    )
+    from stripe.events._v2_iam_stripe_access_grant_removed_event import (
+        V2IamStripeAccessGrantRemovedEvent as V2IamStripeAccessGrantRemovedEvent,
+        V2IamStripeAccessGrantRemovedEventNotification as V2IamStripeAccessGrantRemovedEventNotification,
+    )
+    from stripe.events._v2_iam_stripe_access_grant_requested_event import (
+        V2IamStripeAccessGrantRequestedEvent as V2IamStripeAccessGrantRequestedEvent,
+        V2IamStripeAccessGrantRequestedEventNotification as V2IamStripeAccessGrantRequestedEventNotification,
+    )
+    from stripe.events._v2_iam_stripe_access_grant_updated_event import (
+        V2IamStripeAccessGrantUpdatedEvent as V2IamStripeAccessGrantUpdatedEvent,
+        V2IamStripeAccessGrantUpdatedEventNotification as V2IamStripeAccessGrantUpdatedEventNotification,
     )
     from stripe.events._v2_money_management_adjustment_created_event import (
         V2MoneyManagementAdjustmentCreatedEvent as V2MoneyManagementAdjustmentCreatedEvent,
@@ -839,6 +867,14 @@ _import_map = {
     ),
     "V2BillingRateCardCreatedEventNotification": (
         "stripe.events._v2_billing_rate_card_created_event",
+        False,
+    ),
+    "V2BillingRateCardCustomPricingUnitOverageRateCreatedEvent": (
+        "stripe.events._v2_billing_rate_card_custom_pricing_unit_overage_rate_created_event",
+        False,
+    ),
+    "V2BillingRateCardCustomPricingUnitOverageRateCreatedEventNotification": (
+        "stripe.events._v2_billing_rate_card_custom_pricing_unit_overage_rate_created_event",
         False,
     ),
     "V2BillingRateCardRateCreatedEvent": (
@@ -1367,6 +1403,54 @@ _import_map = {
     ),
     "V2IamApiKeyUpdatedEventNotification": (
         "stripe.events._v2_iam_api_key_updated_event",
+        False,
+    ),
+    "V2IamStripeAccessGrantApprovedEvent": (
+        "stripe.events._v2_iam_stripe_access_grant_approved_event",
+        False,
+    ),
+    "V2IamStripeAccessGrantApprovedEventNotification": (
+        "stripe.events._v2_iam_stripe_access_grant_approved_event",
+        False,
+    ),
+    "V2IamStripeAccessGrantCanceledEvent": (
+        "stripe.events._v2_iam_stripe_access_grant_canceled_event",
+        False,
+    ),
+    "V2IamStripeAccessGrantCanceledEventNotification": (
+        "stripe.events._v2_iam_stripe_access_grant_canceled_event",
+        False,
+    ),
+    "V2IamStripeAccessGrantDeniedEvent": (
+        "stripe.events._v2_iam_stripe_access_grant_denied_event",
+        False,
+    ),
+    "V2IamStripeAccessGrantDeniedEventNotification": (
+        "stripe.events._v2_iam_stripe_access_grant_denied_event",
+        False,
+    ),
+    "V2IamStripeAccessGrantRemovedEvent": (
+        "stripe.events._v2_iam_stripe_access_grant_removed_event",
+        False,
+    ),
+    "V2IamStripeAccessGrantRemovedEventNotification": (
+        "stripe.events._v2_iam_stripe_access_grant_removed_event",
+        False,
+    ),
+    "V2IamStripeAccessGrantRequestedEvent": (
+        "stripe.events._v2_iam_stripe_access_grant_requested_event",
+        False,
+    ),
+    "V2IamStripeAccessGrantRequestedEventNotification": (
+        "stripe.events._v2_iam_stripe_access_grant_requested_event",
+        False,
+    ),
+    "V2IamStripeAccessGrantUpdatedEvent": (
+        "stripe.events._v2_iam_stripe_access_grant_updated_event",
+        False,
+    ),
+    "V2IamStripeAccessGrantUpdatedEventNotification": (
+        "stripe.events._v2_iam_stripe_access_grant_updated_event",
         False,
     ),
     "V2MoneyManagementAdjustmentCreatedEvent": (

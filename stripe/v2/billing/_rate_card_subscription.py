@@ -6,6 +6,12 @@ from typing_extensions import Literal
 
 
 class RateCardSubscription(StripeObject):
+    """
+    A Rate Card Subscription represents a customer's subscription to a Rate Card's usage-based pricing. It tracks the
+    servicing status (whether usage is being measured) and collection status (whether payments are current). Subscriptions
+    bill according to the service interval defined in the Rate Card and are collected on the associated Billing Cadence.
+    """
+
     OBJECT_NAME: ClassVar[Literal["v2.billing.rate_card_subscription"]] = (
         "v2.billing.rate_card_subscription"
     )

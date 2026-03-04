@@ -6,6 +6,12 @@ from typing_extensions import Literal
 
 
 class LicenseFeeVersion(StripeObject):
+    """
+    A License Fee Version represents a specific configuration of a License Fee at a point in time. Versions are created
+    automatically when you update the pricing structure of a License Fee, allowing you to track changes and manage which
+    version is active for new subscriptions. Each version maintains the pricing details including unit amounts and tiers.
+    """
+
     OBJECT_NAME: ClassVar[Literal["v2.billing.license_fee_version"]] = (
         "v2.billing.license_fee_version"
     )

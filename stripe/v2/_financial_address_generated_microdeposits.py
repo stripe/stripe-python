@@ -6,6 +6,10 @@ from typing_extensions import Literal
 
 
 class FinancialAddressGeneratedMicrodeposits(StripeObject):
+    """
+    Generated Microdeposits represent verification deposits sent to a financial address for ownership verification, containing the deposited amounts and status.
+    """
+
     OBJECT_NAME: ClassVar[
         Literal["financial_address_generated_microdeposits"]
     ] = "financial_address_generated_microdeposits"

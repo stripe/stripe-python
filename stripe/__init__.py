@@ -503,6 +503,7 @@ if TYPE_CHECKING:
         ProductFeatureService as ProductFeatureService,
     )
     from stripe._product_service import ProductService as ProductService
+    from stripe._profile import Profile as Profile
     from stripe._promotion_code import PromotionCode as PromotionCode
     from stripe._promotion_code_service import (
         PromotionCodeService as PromotionCodeService,
@@ -937,6 +938,7 @@ _import_map = {
     "ProductFeature": ("stripe._product_feature", False),
     "ProductFeatureService": ("stripe._product_feature_service", False),
     "ProductService": ("stripe._product_service", False),
+    "Profile": ("stripe._profile", False),
     "PromotionCode": ("stripe._promotion_code", False),
     "PromotionCodeService": ("stripe._promotion_code_service", False),
     "Quote": ("stripe._quote", False),

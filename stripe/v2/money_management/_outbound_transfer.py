@@ -228,7 +228,7 @@ class OutboundTransfer(StripeObject):
     """
     trace_id: TraceId
     """
-    A unique identifier that can be used to track this OutboundTransfer with recipient bank. Banks might call this a “reference number” or something similar.
+    A unique identifier that can be used to track this OutboundTransfer with recipient bank. Banks might call this a "reference number" or something similar.
     """
     _inner_class_types = {
         "amount": Amount,

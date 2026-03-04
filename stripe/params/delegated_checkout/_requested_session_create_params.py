@@ -54,6 +54,12 @@ class RequestedSessionCreateParams(RequestOptions):
     """
     The shared metadata for this requested session.
     """
+    affiliate_attributions: NotRequired[
+        List["RequestedSessionCreateParamsAffiliateAttribution"]
+    ]
+    """
+    Affiliate attribution data associated with this requested session.
+    """
 
 
 class RequestedSessionCreateParamsFulfillmentDetails(TypedDict):
@@ -205,4 +211,68 @@ class RequestedSessionCreateParamsSellerDetails(TypedDict):
     network_profile: str
     """
     The network profile for the seller.
+    """
+
+
+class RequestedSessionCreateParamsAffiliateAttribution(TypedDict):
+    campaign_id: NotRequired[str]
+    """
+    Agent-scoped campaign identifier.
+    """
+    creative_id: NotRequired[str]
+    """
+    Agent-scoped creative identifier.
+    """
+    expires_at: int
+    """
+    Timestamp when the attribution token expires.
+    """
+    identification_token: str
+    """
+    Agent-issued secret to validate the legitimacy of the source of this data.
+    """
+    issued_at: int
+    """
+    Timestamp for when the attribution token was issued.
+    """
+    provider: str
+    """
+    Identifier for the attribution agent / affiliate network namespace.
+    """
+    publisher_id: NotRequired[str]
+    """
+    Agent-scoped affiliate/publisher identifier.
+    """
+    shared_metadata: NotRequired[Dict[str, str]]
+    """
+    Freeform key/value pairs for additional non-sensitive per-agent data.
+    """
+    source: NotRequired[
+        "RequestedSessionCreateParamsAffiliateAttributionSource"
+    ]
+    """
+    Context about where the attribution originated.
+    """
+    sub_id: NotRequired[str]
+    """
+    Agent-scoped sub-tracking identifier.
+    """
+    touchpoint: Literal["first", "last"]
+    """
+    Whether this is the first or last touchpoint.
+    """
+
+
+class RequestedSessionCreateParamsAffiliateAttributionSource(TypedDict):
+    platform: NotRequired[str]
+    """
+    The platform where the attribution originated.
+    """
+    type: Literal["platform", "url"]
+    """
+    The type of the attribution source.
+    """
+    url: NotRequired[str]
+    """
+    The URL where the attribution originated.
     """
