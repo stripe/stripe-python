@@ -28,6 +28,48 @@ class QuoteLine(StripeObject):
                 The discount end type.
                 """
 
+            class Settings(StripeObject):
+                class ServicePeriodAnchorConfig(StripeObject):
+                    class Custom(StripeObject):
+                        day_of_month: int
+                        """
+                        The day of the month the anchor should be. Ranges from 1 to 31.
+                        """
+                        hour: Optional[int]
+                        """
+                        The hour of the day the anchor should be. Ranges from 0 to 23.
+                        """
+                        minute: Optional[int]
+                        """
+                        The minute of the hour the anchor should be. Ranges from 0 to 59.
+                        """
+                        month: Optional[int]
+                        """
+                        The month to start full cycle periods. Ranges from 1 to 12.
+                        """
+                        second: Optional[int]
+                        """
+                        The second of the minute the anchor should be. Ranges from 0 to 59.
+                        """
+
+                    custom: Optional[Custom]
+                    type: Literal["custom", "inherit"]
+                    """
+                    The type of service period anchor config.
+                    """
+                    _inner_class_types = {"custom": Custom}
+
+                service_period_anchor_config: ServicePeriodAnchorConfig
+                start_date: Literal[
+                    "current_period_end", "current_period_start", "line_start"
+                ]
+                """
+                The start date of the discount's service period when applying a coupon or promotion code with a service period duration.
+                """
+                _inner_class_types = {
+                    "service_period_anchor_config": ServicePeriodAnchorConfig,
+                }
+
             coupon: Optional[ExpandableField["Coupon"]]
             """
             ID of the coupon to create a new discount for.
@@ -48,7 +90,11 @@ class QuoteLine(StripeObject):
             """
             ID of the promotion code to create a new discount for.
             """
-            _inner_class_types = {"discount_end": DiscountEnd}
+            settings: Optional[Settings]
+            _inner_class_types = {
+                "discount_end": DiscountEnd,
+                "settings": Settings,
+            }
 
         class AddItem(StripeObject):
             class Discount(StripeObject):
@@ -61,6 +107,50 @@ class QuoteLine(StripeObject):
                     """
                     The discount end type.
                     """
+
+                class Settings(StripeObject):
+                    class ServicePeriodAnchorConfig(StripeObject):
+                        class Custom(StripeObject):
+                            day_of_month: int
+                            """
+                            The day of the month the anchor should be. Ranges from 1 to 31.
+                            """
+                            hour: Optional[int]
+                            """
+                            The hour of the day the anchor should be. Ranges from 0 to 23.
+                            """
+                            minute: Optional[int]
+                            """
+                            The minute of the hour the anchor should be. Ranges from 0 to 59.
+                            """
+                            month: Optional[int]
+                            """
+                            The month to start full cycle periods. Ranges from 1 to 12.
+                            """
+                            second: Optional[int]
+                            """
+                            The second of the minute the anchor should be. Ranges from 0 to 59.
+                            """
+
+                        custom: Optional[Custom]
+                        type: Literal["custom", "inherit"]
+                        """
+                        The type of service period anchor config.
+                        """
+                        _inner_class_types = {"custom": Custom}
+
+                    service_period_anchor_config: ServicePeriodAnchorConfig
+                    start_date: Literal[
+                        "current_period_end",
+                        "current_period_start",
+                        "line_start",
+                    ]
+                    """
+                    The start date of the discount's service period when applying a coupon or promotion code with a service period duration.
+                    """
+                    _inner_class_types = {
+                        "service_period_anchor_config": ServicePeriodAnchorConfig,
+                    }
 
                 coupon: Optional[ExpandableField["Coupon"]]
                 """
@@ -78,7 +168,11 @@ class QuoteLine(StripeObject):
                 """
                 ID of the promotion code to create a new discount for.
                 """
-                _inner_class_types = {"discount_end": DiscountEnd}
+                settings: Optional[Settings]
+                _inner_class_types = {
+                    "discount_end": DiscountEnd,
+                    "settings": Settings,
+                }
 
             class Trial(StripeObject):
                 converts_to: Optional[List[str]]
@@ -166,6 +260,48 @@ class QuoteLine(StripeObject):
                 The discount end type.
                 """
 
+            class Settings(StripeObject):
+                class ServicePeriodAnchorConfig(StripeObject):
+                    class Custom(StripeObject):
+                        day_of_month: int
+                        """
+                        The day of the month the anchor should be. Ranges from 1 to 31.
+                        """
+                        hour: Optional[int]
+                        """
+                        The hour of the day the anchor should be. Ranges from 0 to 23.
+                        """
+                        minute: Optional[int]
+                        """
+                        The minute of the hour the anchor should be. Ranges from 0 to 59.
+                        """
+                        month: Optional[int]
+                        """
+                        The month to start full cycle periods. Ranges from 1 to 12.
+                        """
+                        second: Optional[int]
+                        """
+                        The second of the minute the anchor should be. Ranges from 0 to 59.
+                        """
+
+                    custom: Optional[Custom]
+                    type: Literal["custom", "inherit"]
+                    """
+                    The type of service period anchor config.
+                    """
+                    _inner_class_types = {"custom": Custom}
+
+                service_period_anchor_config: ServicePeriodAnchorConfig
+                start_date: Literal[
+                    "current_period_end", "current_period_start", "line_start"
+                ]
+                """
+                The start date of the discount's service period when applying a coupon or promotion code with a service period duration.
+                """
+                _inner_class_types = {
+                    "service_period_anchor_config": ServicePeriodAnchorConfig,
+                }
+
             coupon: Optional[ExpandableField["Coupon"]]
             """
             ID of the coupon to create a new discount for.
@@ -182,7 +318,11 @@ class QuoteLine(StripeObject):
             """
             ID of the promotion code to create a new discount for.
             """
-            _inner_class_types = {"discount_end": DiscountEnd}
+            settings: Optional[Settings]
+            _inner_class_types = {
+                "discount_end": DiscountEnd,
+                "settings": Settings,
+            }
 
         class SetItem(StripeObject):
             class Discount(StripeObject):
@@ -195,6 +335,50 @@ class QuoteLine(StripeObject):
                     """
                     The discount end type.
                     """
+
+                class Settings(StripeObject):
+                    class ServicePeriodAnchorConfig(StripeObject):
+                        class Custom(StripeObject):
+                            day_of_month: int
+                            """
+                            The day of the month the anchor should be. Ranges from 1 to 31.
+                            """
+                            hour: Optional[int]
+                            """
+                            The hour of the day the anchor should be. Ranges from 0 to 23.
+                            """
+                            minute: Optional[int]
+                            """
+                            The minute of the hour the anchor should be. Ranges from 0 to 59.
+                            """
+                            month: Optional[int]
+                            """
+                            The month to start full cycle periods. Ranges from 1 to 12.
+                            """
+                            second: Optional[int]
+                            """
+                            The second of the minute the anchor should be. Ranges from 0 to 59.
+                            """
+
+                        custom: Optional[Custom]
+                        type: Literal["custom", "inherit"]
+                        """
+                        The type of service period anchor config.
+                        """
+                        _inner_class_types = {"custom": Custom}
+
+                    service_period_anchor_config: ServicePeriodAnchorConfig
+                    start_date: Literal[
+                        "current_period_end",
+                        "current_period_start",
+                        "line_start",
+                    ]
+                    """
+                    The start date of the discount's service period when applying a coupon or promotion code with a service period duration.
+                    """
+                    _inner_class_types = {
+                        "service_period_anchor_config": ServicePeriodAnchorConfig,
+                    }
 
                 coupon: Optional[ExpandableField["Coupon"]]
                 """
@@ -212,7 +396,11 @@ class QuoteLine(StripeObject):
                 """
                 ID of the promotion code to create a new discount for.
                 """
-                _inner_class_types = {"discount_end": DiscountEnd}
+                settings: Optional[Settings]
+                _inner_class_types = {
+                    "discount_end": DiscountEnd,
+                    "settings": Settings,
+                }
 
             class Trial(StripeObject):
                 converts_to: Optional[List[str]]

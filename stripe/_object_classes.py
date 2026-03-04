@@ -270,6 +270,7 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "TrialOffer",
     ),
     "product_feature": ("stripe._product_feature", "ProductFeature"),
+    "profile": ("stripe._profile", "Profile"),
     "promotion_code": ("stripe._promotion_code", "PromotionCode"),
     "quote": ("stripe._quote", "Quote"),
     "quote_line": ("stripe._quote_line", "QuoteLine"),

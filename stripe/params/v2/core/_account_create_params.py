@@ -472,6 +472,12 @@ class AccountCreateParamsConfigurationMerchant(TypedDict):
     """
     Settings for the default text that appears on statements for language variations.
     """
+    smart_disputes: NotRequired[
+        "AccountCreateParamsConfigurationMerchantSmartDisputes"
+    ]
+    """
+    Settings used for Smart Disputes.
+    """
     statement_descriptor: NotRequired[
         "AccountCreateParamsConfigurationMerchantStatementDescriptor"
     ]
@@ -1277,6 +1283,24 @@ class AccountCreateParamsConfigurationMerchantScriptStatementDescriptorKanji(
     """
 
 
+class AccountCreateParamsConfigurationMerchantSmartDisputes(TypedDict):
+    auto_respond: NotRequired[
+        "AccountCreateParamsConfigurationMerchantSmartDisputesAutoRespond"
+    ]
+    """
+    Settings for Smart Disputes auto_respond.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantSmartDisputesAutoRespond(
+    TypedDict,
+):
+    preference: NotRequired[Literal["inherit", "off", "on"]]
+    """
+    The preference for Smart Disputes auto-respond.
+    """
+
+
 class AccountCreateParamsConfigurationMerchantStatementDescriptor(TypedDict):
     descriptor: NotRequired[str]
     """
@@ -1565,6 +1589,12 @@ class AccountCreateParamsConfigurationStorer(TypedDict):
 
 
 class AccountCreateParamsConfigurationStorerCapabilities(TypedDict):
+    consumer: NotRequired[
+        "AccountCreateParamsConfigurationStorerCapabilitiesConsumer"
+    ]
+    """
+    Can provision a consumer financial account on Stripe.
+    """
     financial_addresses: NotRequired[
         "AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddresses"
     ]
@@ -1594,6 +1624,35 @@ class AccountCreateParamsConfigurationStorerCapabilities(TypedDict):
     ]
     """
     Can send funds from a FinancialAccount to a destination owned by yourself.
+    """
+
+
+class AccountCreateParamsConfigurationStorerCapabilitiesConsumer(TypedDict):
+    holds_currencies: NotRequired[
+        "AccountCreateParamsConfigurationStorerCapabilitiesConsumerHoldsCurrencies"
+    ]
+    """
+    Can hold storage-type funds on Stripe in a consumer financial account.
+    """
+
+
+class AccountCreateParamsConfigurationStorerCapabilitiesConsumerHoldsCurrencies(
+    TypedDict,
+):
+    usd: NotRequired[
+        "AccountCreateParamsConfigurationStorerCapabilitiesConsumerHoldsCurrenciesUsd"
+    ]
+    """
+    Can hold storage-type funds on Stripe in USD in a consumer financial account.
+    """
+
+
+class AccountCreateParamsConfigurationStorerCapabilitiesConsumerHoldsCurrenciesUsd(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
     """
 
 

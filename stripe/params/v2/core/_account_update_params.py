@@ -492,6 +492,12 @@ class AccountUpdateParamsConfigurationMerchant(TypedDict):
     """
     Settings for the default text that appears on statements for language variations.
     """
+    smart_disputes: NotRequired[
+        "AccountUpdateParamsConfigurationMerchantSmartDisputes"
+    ]
+    """
+    Settings for Smart Disputes automatic response feature.
+    """
     statement_descriptor: NotRequired[
         "AccountUpdateParamsConfigurationMerchantStatementDescriptor"
     ]
@@ -1297,6 +1303,24 @@ class AccountUpdateParamsConfigurationMerchantScriptStatementDescriptorKanji(
     """
 
 
+class AccountUpdateParamsConfigurationMerchantSmartDisputes(TypedDict):
+    auto_respond: NotRequired[
+        "AccountUpdateParamsConfigurationMerchantSmartDisputesAutoRespond"
+    ]
+    """
+    Settings for Smart Disputes auto_respond.
+    """
+
+
+class AccountUpdateParamsConfigurationMerchantSmartDisputesAutoRespond(
+    TypedDict,
+):
+    preference: NotRequired[Literal["inherit", "off", "on"]]
+    """
+    The preference for automatic dispute responses.
+    """
+
+
 class AccountUpdateParamsConfigurationMerchantStatementDescriptor(TypedDict):
     descriptor: NotRequired[str]
     """
@@ -1597,6 +1621,12 @@ class AccountUpdateParamsConfigurationStorer(TypedDict):
 
 
 class AccountUpdateParamsConfigurationStorerCapabilities(TypedDict):
+    consumer: NotRequired[
+        "AccountUpdateParamsConfigurationStorerCapabilitiesConsumer"
+    ]
+    """
+    Can provision a consumer financial account.
+    """
     financial_addresses: NotRequired[
         "AccountUpdateParamsConfigurationStorerCapabilitiesFinancialAddresses"
     ]
@@ -1626,6 +1656,35 @@ class AccountUpdateParamsConfigurationStorerCapabilities(TypedDict):
     ]
     """
     Can send funds from a FinancialAccount to a destination owned by yourself.
+    """
+
+
+class AccountUpdateParamsConfigurationStorerCapabilitiesConsumer(TypedDict):
+    holds_currencies: NotRequired[
+        "AccountUpdateParamsConfigurationStorerCapabilitiesConsumerHoldsCurrencies"
+    ]
+    """
+    Can hold storage-type funds on Stripe in a consumer financial account.
+    """
+
+
+class AccountUpdateParamsConfigurationStorerCapabilitiesConsumerHoldsCurrencies(
+    TypedDict,
+):
+    usd: NotRequired[
+        "AccountUpdateParamsConfigurationStorerCapabilitiesConsumerHoldsCurrenciesUsd"
+    ]
+    """
+    Can hold storage-type funds on Stripe in USD in a consumer financial account.
+    """
+
+
+class AccountUpdateParamsConfigurationStorerCapabilitiesConsumerHoldsCurrenciesUsd(
+    TypedDict,
+):
+    requested: NotRequired[bool]
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
     """
 
 

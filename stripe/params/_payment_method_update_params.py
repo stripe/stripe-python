@@ -17,6 +17,10 @@ class PaymentMethodUpdateParams(TypedDict):
     """
     If this is a `card` PaymentMethod, this hash contains the user's card details.
     """
+    custom: NotRequired["PaymentMethodUpdateParamsCustom"]
+    """
+    If this is a `custom` PaymentMethod, this hash contains details about the Custom payment method.
+    """
     expand: NotRequired[List[str]]
     """
     Specifies which fields in the response should be expanded.
@@ -32,10 +36,6 @@ class PaymentMethodUpdateParams(TypedDict):
     us_bank_account: NotRequired["PaymentMethodUpdateParamsUsBankAccount"]
     """
     If this is an `us_bank_account` PaymentMethod, this hash contains details about the US bank account payment method.
-    """
-    custom: NotRequired["PaymentMethodUpdateParamsCustom"]
-    """
-    If this is a `custom` PaymentMethod, this hash contains details about the Custom payment method.
     """
 
 
@@ -115,6 +115,17 @@ class PaymentMethodUpdateParamsCardNetworks(TypedDict):
     """
 
 
+class PaymentMethodUpdateParamsCustom(TypedDict):
+    payment_method_reference: NotRequired[str]
+    """
+    A reference to an external payment method, such as a PayPal Billing Agreement ID.
+    """
+    usage: NotRequired[Literal["off_session"]]
+    """
+    Indicates whether the payment method supports off-session payments.
+    """
+
+
 class PaymentMethodUpdateParamsPayto(TypedDict):
     account_number: NotRequired[str]
     """
@@ -138,15 +149,4 @@ class PaymentMethodUpdateParamsUsBankAccount(TypedDict):
     account_type: NotRequired[Literal["checking", "savings"]]
     """
     Bank account type.
-    """
-
-
-class PaymentMethodUpdateParamsCustom(TypedDict):
-    payment_method_reference: NotRequired[str]
-    """
-    A reference to an external payment method, such as a PayPal Billing Agreement ID.
-    """
-    usage: NotRequired[Literal["off_session"]]
-    """
-    Indicates whether the payment method supports off-session payments.
     """

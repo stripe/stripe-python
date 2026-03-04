@@ -6,6 +6,12 @@ from typing_extensions import Literal
 
 
 class Intent(StripeObject):
+    """
+    A Billing Intent represents a proposed change to a customer's billing configuration, such as subscribing to a new service,
+    modifying an existing subscription, or canceling service. Intents follow a draft-reserve-commit workflow where they can be
+    previewed before committing, allowing you to see the billing impact before changes take effect.
+    """
+
     OBJECT_NAME: ClassVar[Literal["v2.billing.intent"]] = "v2.billing.intent"
 
     class AmountDetails(StripeObject):

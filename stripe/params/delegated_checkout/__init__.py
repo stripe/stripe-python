@@ -32,6 +32,7 @@ if TYPE_CHECKING:
         RequestedSessionModifyParamsFulfillmentDetails as RequestedSessionModifyParamsFulfillmentDetails,
         RequestedSessionModifyParamsFulfillmentDetailsAddress as RequestedSessionModifyParamsFulfillmentDetailsAddress,
         RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOption as RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOption,
+        RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOptionDigital as RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOptionDigital,
         RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOptionShipping as RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOptionShipping,
         RequestedSessionModifyParamsLineItemDetail as RequestedSessionModifyParamsLineItemDetail,
         RequestedSessionModifyParamsPaymentMethodData as RequestedSessionModifyParamsPaymentMethodData,
@@ -47,6 +48,7 @@ if TYPE_CHECKING:
         RequestedSessionUpdateParamsFulfillmentDetails as RequestedSessionUpdateParamsFulfillmentDetails,
         RequestedSessionUpdateParamsFulfillmentDetailsAddress as RequestedSessionUpdateParamsFulfillmentDetailsAddress,
         RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOption as RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOption,
+        RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOptionDigital as RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOptionDigital,
         RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOptionShipping as RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOptionShipping,
         RequestedSessionUpdateParamsLineItemDetail as RequestedSessionUpdateParamsLineItemDetail,
         RequestedSessionUpdateParamsPaymentMethodData as RequestedSessionUpdateParamsPaymentMethodData,
@@ -141,6 +143,10 @@ _import_map = {
         "stripe.params.delegated_checkout._requested_session_modify_params",
         False,
     ),
+    "RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOptionDigital": (
+        "stripe.params.delegated_checkout._requested_session_modify_params",
+        False,
+    ),
     "RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOptionShipping": (
         "stripe.params.delegated_checkout._requested_session_modify_params",
         False,
@@ -182,6 +188,10 @@ _import_map = {
         False,
     ),
     "RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOption": (
+        "stripe.params.delegated_checkout._requested_session_update_params",
+        False,
+    ),
+    "RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOptionDigital": (
         "stripe.params.delegated_checkout._requested_session_update_params",
         False,
     ),

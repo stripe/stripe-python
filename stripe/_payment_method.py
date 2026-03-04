@@ -225,6 +225,12 @@ class PaymentMethod(
                         The method used to process this payment method offline. Only deferred is allowed.
                         """
 
+                    class Reauthorization(StripeObject):
+                        status: Literal["available", "unavailable"]
+                        """
+                        Indicates whether or not the reauthorization feature is supported.
+                        """
+
                     class Receipt(StripeObject):
                         account_type: Optional[
                             Literal["checking", "credit", "prepaid", "unknown"]
@@ -343,6 +349,10 @@ class PaymentMethod(
                     """
                     The last four digits of the card.
                     """
+                    location: Optional[str]
+                    """
+                    ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
+                    """
                     network: Optional[str]
                     """
                     Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
@@ -375,6 +385,18 @@ class PaymentMethod(
                     """
                     How card details were read in this transaction.
                     """
+                    reader: Optional[str]
+                    """
+                    ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
+                    """
+                    reauthorization: Optional[Reauthorization]
+                    """
+                    Whether the PaymentIntent can be reauthorized or not.
+                    """
+                    reauthorize_before: Optional[int]
+                    """
+                    The time at which the associated PaymentIntent will transition to a terminal state if it is not reauthorized.
+                    """
                     receipt: Optional[Receipt]
                     """
                     A collection of fields required to be displayed on receipts. Only required for EMV transactions.
@@ -382,6 +404,7 @@ class PaymentMethod(
                     wallet: Optional[Wallet]
                     _inner_class_types = {
                         "offline": Offline,
+                        "reauthorization": Reauthorization,
                         "receipt": Receipt,
                         "wallet": Wallet,
                     }

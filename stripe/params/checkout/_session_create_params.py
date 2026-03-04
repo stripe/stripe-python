@@ -233,6 +233,10 @@ class SessionCreateParams(RequestOptions):
     """
     The IETF language tag of the locale Checkout is displayed in. If blank or `auto`, the browser's locale is used.
     """
+    managed_payments: NotRequired["SessionCreateParamsManagedPayments"]
+    """
+    Settings for Managed Payments for this Checkout Session and resulting [PaymentIntents](https://docs.stripe.com/api/payment_intents/object), [Invoices](https://docs.stripe.com/api/invoices/object), and [Subscriptions](https://docs.stripe.com/api/subscriptions/object).
+    """
     metadata: NotRequired[Dict[str, str]]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -632,7 +636,7 @@ class SessionCreateParamsCustomField(TypedDict):
 class SessionCreateParamsCustomFieldDropdown(TypedDict):
     default_value: NotRequired[str]
     """
-    The value that will pre-fill the field on the payment page.Must match a `value` in the `options` array.
+    The value that pre-fills the field on the payment page.Must match a `value` in the `options` array.
     """
     options: List["SessionCreateParamsCustomFieldDropdownOption"]
     """
@@ -665,7 +669,7 @@ class SessionCreateParamsCustomFieldLabel(TypedDict):
 class SessionCreateParamsCustomFieldNumeric(TypedDict):
     default_value: NotRequired[str]
     """
-    The value that will pre-fill the field on the payment page.
+    The value that pre-fills the field on the payment page.
     """
     maximum_length: NotRequired[int]
     """
@@ -680,7 +684,7 @@ class SessionCreateParamsCustomFieldNumeric(TypedDict):
 class SessionCreateParamsCustomFieldText(TypedDict):
     default_value: NotRequired[str]
     """
-    The value that will pre-fill the field on the payment page.
+    The value that pre-fills the field on the payment page.
     """
     maximum_length: NotRequired[int]
     """
@@ -720,28 +724,28 @@ class SessionCreateParamsCustomText(TypedDict):
 class SessionCreateParamsCustomTextAfterSubmit(TypedDict):
     message: str
     """
-    Text may be up to 1200 characters in length.
+    Text can be up to 1200 characters in length.
     """
 
 
 class SessionCreateParamsCustomTextShippingAddress(TypedDict):
     message: str
     """
-    Text may be up to 1200 characters in length.
+    Text can be up to 1200 characters in length.
     """
 
 
 class SessionCreateParamsCustomTextSubmit(TypedDict):
     message: str
     """
-    Text may be up to 1200 characters in length.
+    Text can be up to 1200 characters in length.
     """
 
 
 class SessionCreateParamsCustomTextTermsOfServiceAcceptance(TypedDict):
     message: str
     """
-    Text may be up to 1200 characters in length.
+    Text can be up to 1200 characters in length.
     """
 
 
@@ -1020,6 +1024,13 @@ class SessionCreateParamsLineItemPriceDataRecurring(TypedDict):
     interval_count: NotRequired[int]
     """
     The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
+    """
+
+
+class SessionCreateParamsManagedPayments(TypedDict):
+    enabled: NotRequired[bool]
+    """
+    Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution, for this session.
     """
 
 
@@ -1835,7 +1846,7 @@ class SessionCreateParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTr
 ):
     country: str
     """
-    The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
+    The desired country code of the bank account information. Permitted values include: `DE`, `FR`, `IE`, or `NL`.
     """
 
 

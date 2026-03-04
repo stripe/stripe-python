@@ -8,10 +8,12 @@ if TYPE_CHECKING:
         ConfigurationCreateParams as ConfigurationCreateParams,
         ConfigurationCreateParamsBbposWisepad3 as ConfigurationCreateParamsBbposWisepad3,
         ConfigurationCreateParamsBbposWiseposE as ConfigurationCreateParamsBbposWiseposE,
+        ConfigurationCreateParamsCellular as ConfigurationCreateParamsCellular,
         ConfigurationCreateParamsOffline as ConfigurationCreateParamsOffline,
         ConfigurationCreateParamsReaderSecurity as ConfigurationCreateParamsReaderSecurity,
         ConfigurationCreateParamsRebootWindow as ConfigurationCreateParamsRebootWindow,
         ConfigurationCreateParamsStripeS700 as ConfigurationCreateParamsStripeS700,
+        ConfigurationCreateParamsStripeS710 as ConfigurationCreateParamsStripeS710,
         ConfigurationCreateParamsTipping as ConfigurationCreateParamsTipping,
         ConfigurationCreateParamsTippingAed as ConfigurationCreateParamsTippingAed,
         ConfigurationCreateParamsTippingAud as ConfigurationCreateParamsTippingAud,
@@ -50,10 +52,12 @@ if TYPE_CHECKING:
         ConfigurationModifyParams as ConfigurationModifyParams,
         ConfigurationModifyParamsBbposWisepad3 as ConfigurationModifyParamsBbposWisepad3,
         ConfigurationModifyParamsBbposWiseposE as ConfigurationModifyParamsBbposWiseposE,
+        ConfigurationModifyParamsCellular as ConfigurationModifyParamsCellular,
         ConfigurationModifyParamsOffline as ConfigurationModifyParamsOffline,
         ConfigurationModifyParamsReaderSecurity as ConfigurationModifyParamsReaderSecurity,
         ConfigurationModifyParamsRebootWindow as ConfigurationModifyParamsRebootWindow,
         ConfigurationModifyParamsStripeS700 as ConfigurationModifyParamsStripeS700,
+        ConfigurationModifyParamsStripeS710 as ConfigurationModifyParamsStripeS710,
         ConfigurationModifyParamsTipping as ConfigurationModifyParamsTipping,
         ConfigurationModifyParamsTippingAed as ConfigurationModifyParamsTippingAed,
         ConfigurationModifyParamsTippingAud as ConfigurationModifyParamsTippingAud,
@@ -89,10 +93,12 @@ if TYPE_CHECKING:
         ConfigurationUpdateParams as ConfigurationUpdateParams,
         ConfigurationUpdateParamsBbposWisepad3 as ConfigurationUpdateParamsBbposWisepad3,
         ConfigurationUpdateParamsBbposWiseposE as ConfigurationUpdateParamsBbposWiseposE,
+        ConfigurationUpdateParamsCellular as ConfigurationUpdateParamsCellular,
         ConfigurationUpdateParamsOffline as ConfigurationUpdateParamsOffline,
         ConfigurationUpdateParamsReaderSecurity as ConfigurationUpdateParamsReaderSecurity,
         ConfigurationUpdateParamsRebootWindow as ConfigurationUpdateParamsRebootWindow,
         ConfigurationUpdateParamsStripeS700 as ConfigurationUpdateParamsStripeS700,
+        ConfigurationUpdateParamsStripeS710 as ConfigurationUpdateParamsStripeS710,
         ConfigurationUpdateParamsTipping as ConfigurationUpdateParamsTipping,
         ConfigurationUpdateParamsTippingAed as ConfigurationUpdateParamsTippingAed,
         ConfigurationUpdateParamsTippingAud as ConfigurationUpdateParamsTippingAud,
@@ -242,6 +248,10 @@ _import_map = {
         "stripe.params.terminal._configuration_create_params",
         False,
     ),
+    "ConfigurationCreateParamsCellular": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
     "ConfigurationCreateParamsOffline": (
         "stripe.params.terminal._configuration_create_params",
         False,
@@ -255,6 +265,10 @@ _import_map = {
         False,
     ),
     "ConfigurationCreateParamsStripeS700": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsStripeS710": (
         "stripe.params.terminal._configuration_create_params",
         False,
     ),
@@ -386,6 +400,10 @@ _import_map = {
         "stripe.params.terminal._configuration_modify_params",
         False,
     ),
+    "ConfigurationModifyParamsCellular": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
     "ConfigurationModifyParamsOffline": (
         "stripe.params.terminal._configuration_modify_params",
         False,
@@ -399,6 +417,10 @@ _import_map = {
         False,
     ),
     "ConfigurationModifyParamsStripeS700": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsStripeS710": (
         "stripe.params.terminal._configuration_modify_params",
         False,
     ),
@@ -526,6 +548,10 @@ _import_map = {
         "stripe.params.terminal._configuration_update_params",
         False,
     ),
+    "ConfigurationUpdateParamsCellular": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
     "ConfigurationUpdateParamsOffline": (
         "stripe.params.terminal._configuration_update_params",
         False,
@@ -539,6 +565,10 @@ _import_map = {
         False,
     ),
     "ConfigurationUpdateParamsStripeS700": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsStripeS710": (
         "stripe.params.terminal._configuration_update_params",
         False,
     ),

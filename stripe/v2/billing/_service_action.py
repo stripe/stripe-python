@@ -11,6 +11,10 @@ if TYPE_CHECKING:
 
 
 class ServiceAction(StripeObject):
+    """
+    Service Actions represent actions applied during service assessment periods, such as granting credits to a customer.
+    """
+
     OBJECT_NAME: ClassVar[Literal["v2.billing.service_action"]] = (
         "v2.billing.service_action"
     )

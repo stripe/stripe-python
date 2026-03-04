@@ -94,6 +94,23 @@ class CreditBalanceSummary(SingletonAPIResource["CreditBalanceSummary"]):
                 "monetary": Monetary,
             }
 
+        class BalanceUpdateDetails(StripeObject):
+            class LatestMeterEvent(StripeObject):
+                created: Optional[int]
+                """
+                Time at which the object was created. Measured in seconds since the Unix epoch.
+                """
+                timestamp: Optional[int]
+                """
+                Maximum event time across all meter events that were processed and included in the balance update. Measured in seconds since the Unix epoch.
+                """
+
+            latest_meter_event: Optional[LatestMeterEvent]
+            """
+            The details of the most recent meter event included in the balance update.
+            """
+            _inner_class_types = {"latest_meter_event": LatestMeterEvent}
+
         class LedgerBalance(StripeObject):
             class CustomPricingUnit(StripeObject):
                 class CustomPricingUnitDetails(StripeObject):
@@ -166,9 +183,11 @@ class CreditBalanceSummary(SingletonAPIResource["CreditBalanceSummary"]):
             }
 
         available_balance: AvailableBalance
+        balance_update_details: Optional[BalanceUpdateDetails]
         ledger_balance: LedgerBalance
         _inner_class_types = {
             "available_balance": AvailableBalance,
+            "balance_update_details": BalanceUpdateDetails,
             "ledger_balance": LedgerBalance,
         }
 

@@ -85,6 +85,9 @@ if TYPE_CHECKING:
     from stripe.events._v2_billing_rate_card_created_event import (
         V2BillingRateCardCreatedEventNotification,
     )
+    from stripe.events._v2_billing_rate_card_custom_pricing_unit_overage_rate_created_event import (
+        V2BillingRateCardCustomPricingUnitOverageRateCreatedEventNotification,
+    )
     from stripe.events._v2_billing_rate_card_rate_created_event import (
         V2BillingRateCardRateCreatedEventNotification,
     )
@@ -282,6 +285,24 @@ if TYPE_CHECKING:
     )
     from stripe.events._v2_iam_api_key_updated_event import (
         V2IamApiKeyUpdatedEventNotification,
+    )
+    from stripe.events._v2_iam_stripe_access_grant_approved_event import (
+        V2IamStripeAccessGrantApprovedEventNotification,
+    )
+    from stripe.events._v2_iam_stripe_access_grant_canceled_event import (
+        V2IamStripeAccessGrantCanceledEventNotification,
+    )
+    from stripe.events._v2_iam_stripe_access_grant_denied_event import (
+        V2IamStripeAccessGrantDeniedEventNotification,
+    )
+    from stripe.events._v2_iam_stripe_access_grant_removed_event import (
+        V2IamStripeAccessGrantRemovedEventNotification,
+    )
+    from stripe.events._v2_iam_stripe_access_grant_requested_event import (
+        V2IamStripeAccessGrantRequestedEventNotification,
+    )
+    from stripe.events._v2_iam_stripe_access_grant_updated_event import (
+        V2IamStripeAccessGrantUpdatedEventNotification,
     )
     from stripe.events._v2_money_management_adjustment_created_event import (
         V2MoneyManagementAdjustmentCreatedEventNotification,
@@ -576,6 +597,10 @@ _V2_EVENT_CLASS_LOOKUP = {
         "stripe.events._v2_billing_rate_card_created_event",
         "V2BillingRateCardCreatedEvent",
     ),
+    "v2.billing.rate_card_custom_pricing_unit_overage_rate.created": (
+        "stripe.events._v2_billing_rate_card_custom_pricing_unit_overage_rate_created_event",
+        "V2BillingRateCardCustomPricingUnitOverageRateCreatedEvent",
+    ),
     "v2.billing.rate_card_rate.created": (
         "stripe.events._v2_billing_rate_card_rate_created_event",
         "V2BillingRateCardRateCreatedEvent",
@@ -839,6 +864,30 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v2.iam.api_key.updated": (
         "stripe.events._v2_iam_api_key_updated_event",
         "V2IamApiKeyUpdatedEvent",
+    ),
+    "v2.iam.stripe_access_grant.approved": (
+        "stripe.events._v2_iam_stripe_access_grant_approved_event",
+        "V2IamStripeAccessGrantApprovedEvent",
+    ),
+    "v2.iam.stripe_access_grant.canceled": (
+        "stripe.events._v2_iam_stripe_access_grant_canceled_event",
+        "V2IamStripeAccessGrantCanceledEvent",
+    ),
+    "v2.iam.stripe_access_grant.denied": (
+        "stripe.events._v2_iam_stripe_access_grant_denied_event",
+        "V2IamStripeAccessGrantDeniedEvent",
+    ),
+    "v2.iam.stripe_access_grant.removed": (
+        "stripe.events._v2_iam_stripe_access_grant_removed_event",
+        "V2IamStripeAccessGrantRemovedEvent",
+    ),
+    "v2.iam.stripe_access_grant.requested": (
+        "stripe.events._v2_iam_stripe_access_grant_requested_event",
+        "V2IamStripeAccessGrantRequestedEvent",
+    ),
+    "v2.iam.stripe_access_grant.updated": (
+        "stripe.events._v2_iam_stripe_access_grant_updated_event",
+        "V2IamStripeAccessGrantUpdatedEvent",
     ),
     "v2.money_management.adjustment.created": (
         "stripe.events._v2_money_management_adjustment_created_event",
@@ -1207,6 +1256,10 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_billing_rate_card_created_event",
         "V2BillingRateCardCreatedEventNotification",
     ),
+    "v2.billing.rate_card_custom_pricing_unit_overage_rate.created": (
+        "stripe.events._v2_billing_rate_card_custom_pricing_unit_overage_rate_created_event",
+        "V2BillingRateCardCustomPricingUnitOverageRateCreatedEventNotification",
+    ),
     "v2.billing.rate_card_rate.created": (
         "stripe.events._v2_billing_rate_card_rate_created_event",
         "V2BillingRateCardRateCreatedEventNotification",
@@ -1470,6 +1523,30 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
     "v2.iam.api_key.updated": (
         "stripe.events._v2_iam_api_key_updated_event",
         "V2IamApiKeyUpdatedEventNotification",
+    ),
+    "v2.iam.stripe_access_grant.approved": (
+        "stripe.events._v2_iam_stripe_access_grant_approved_event",
+        "V2IamStripeAccessGrantApprovedEventNotification",
+    ),
+    "v2.iam.stripe_access_grant.canceled": (
+        "stripe.events._v2_iam_stripe_access_grant_canceled_event",
+        "V2IamStripeAccessGrantCanceledEventNotification",
+    ),
+    "v2.iam.stripe_access_grant.denied": (
+        "stripe.events._v2_iam_stripe_access_grant_denied_event",
+        "V2IamStripeAccessGrantDeniedEventNotification",
+    ),
+    "v2.iam.stripe_access_grant.removed": (
+        "stripe.events._v2_iam_stripe_access_grant_removed_event",
+        "V2IamStripeAccessGrantRemovedEventNotification",
+    ),
+    "v2.iam.stripe_access_grant.requested": (
+        "stripe.events._v2_iam_stripe_access_grant_requested_event",
+        "V2IamStripeAccessGrantRequestedEventNotification",
+    ),
+    "v2.iam.stripe_access_grant.updated": (
+        "stripe.events._v2_iam_stripe_access_grant_updated_event",
+        "V2IamStripeAccessGrantUpdatedEventNotification",
     ),
     "v2.money_management.adjustment.created": (
         "stripe.events._v2_money_management_adjustment_created_event",
@@ -1760,6 +1837,7 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2BillingPricingPlanUpdatedEventNotification",
     "V2BillingPricingPlanVersionCreatedEventNotification",
     "V2BillingRateCardCreatedEventNotification",
+    "V2BillingRateCardCustomPricingUnitOverageRateCreatedEventNotification",
     "V2BillingRateCardRateCreatedEventNotification",
     "V2BillingRateCardSubscriptionActivatedEventNotification",
     "V2BillingRateCardSubscriptionCanceledEventNotification",
@@ -1826,6 +1904,12 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2IamApiKeyPermissionsUpdatedEventNotification",
     "V2IamApiKeyRotatedEventNotification",
     "V2IamApiKeyUpdatedEventNotification",
+    "V2IamStripeAccessGrantApprovedEventNotification",
+    "V2IamStripeAccessGrantCanceledEventNotification",
+    "V2IamStripeAccessGrantDeniedEventNotification",
+    "V2IamStripeAccessGrantRemovedEventNotification",
+    "V2IamStripeAccessGrantRequestedEventNotification",
+    "V2IamStripeAccessGrantUpdatedEventNotification",
     "V2MoneyManagementAdjustmentCreatedEventNotification",
     "V2MoneyManagementFinancialAccountCreatedEventNotification",
     "V2MoneyManagementFinancialAccountUpdatedEventNotification",

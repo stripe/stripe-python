@@ -6,6 +6,12 @@ from typing_extensions import Literal
 
 
 class PricingPlanVersion(StripeObject):
+    """
+    A Pricing Plan Version represents a specific configuration of a Pricing Plan at a point in time. Versions are created
+    automatically when you update a Pricing Plan, allowing you to track changes and manage which version is active for new
+    subscriptions. Each version has a start date and optionally an end date if it has been superseded.
+    """
+
     OBJECT_NAME: ClassVar[Literal["v2.billing.pricing_plan_version"]] = (
         "v2.billing.pricing_plan_version"
     )

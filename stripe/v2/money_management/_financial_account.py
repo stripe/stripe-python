@@ -147,6 +147,10 @@ class FinancialAccount(StripeObject):
         _inner_class_types = {"closed": Closed}
 
     class Storage(StripeObject):
+        funds_usage_type: Optional[Literal["business", "consumer"]]
+        """
+        The usage type for funds in this FinancialAccount. Can be used to specify that the funds are for Consumer activity.
+        """
         holds_currencies: List[str]
         """
         The currencies that this FinancialAccount can hold.

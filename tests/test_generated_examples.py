@@ -46071,7 +46071,7 @@ class TestGeneratedExamples(object):
             {
                 "account": "account",
                 "use_case": {
-                    "type": "account_onboarding",
+                    "type": "recipient_onboarding",
                     "account_onboarding": {
                         "collection_options": {
                             "fields": "eventually_due",
@@ -46090,6 +46090,24 @@ class TestGeneratedExamples(object):
                         "refresh_url": "refresh_url",
                         "return_url": "return_url",
                     },
+                    "recipient_onboarding": {
+                        "collection_options": {
+                            "fields": "eventually_due",
+                            "future_requirements": "include",
+                        },
+                        "configurations": ["recipient"],
+                        "refresh_url": "refresh_url",
+                        "return_url": "return_url",
+                    },
+                    "recipient_update": {
+                        "collection_options": {
+                            "fields": "eventually_due",
+                            "future_requirements": "include",
+                        },
+                        "configurations": ["recipient"],
+                        "refresh_url": "refresh_url",
+                        "return_url": "return_url",
+                    },
                 },
             }
         )
@@ -46098,7 +46116,7 @@ class TestGeneratedExamples(object):
             path="/v2/core/account_links",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"account":"account","use_case":{"type":"account_onboarding","account_onboarding":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"configurations":["storer"],"refresh_url":"refresh_url","return_url":"return_url"},"account_update":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"configurations":["storer"],"refresh_url":"refresh_url","return_url":"return_url"}}}',
+            post_data='{"account":"account","use_case":{"type":"recipient_onboarding","account_onboarding":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"configurations":["storer"],"refresh_url":"refresh_url","return_url":"return_url"},"account_update":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"configurations":["storer"],"refresh_url":"refresh_url","return_url":"return_url"},"recipient_onboarding":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"configurations":["recipient"],"refresh_url":"refresh_url","return_url":"return_url"},"recipient_update":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"configurations":["recipient"],"refresh_url":"refresh_url","return_url":"return_url"}}}',
             is_json=True,
         )
 

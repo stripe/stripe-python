@@ -252,6 +252,10 @@ class RegistrationCreateParamsCountryOptions(
     """
     Options for the registration in LA.
     """
+    lk: NotRequired["RegistrationCreateParamsCountryOptionsLk"]
+    """
+    Options for the registration in LK.
+    """
     lt: NotRequired["RegistrationCreateParamsCountryOptionsLt"]
     """
     Options for the registration in LT.
@@ -1238,6 +1242,13 @@ class RegistrationCreateParamsCountryOptionsLa(TypedDict):
     """
 
 
+class RegistrationCreateParamsCountryOptionsLk(TypedDict):
+    type: Literal["simplified"]
+    """
+    Type of registration to be created in `country`.
+    """
+
+
 class RegistrationCreateParamsCountryOptionsLt(TypedDict):
     standard: NotRequired["RegistrationCreateParamsCountryOptionsLtStandard"]
     """
@@ -1792,7 +1803,7 @@ class RegistrationCreateParamsCountryOptionsUs(TypedDict):
 class RegistrationCreateParamsCountryOptionsUsLocalAmusementTax(TypedDict):
     jurisdiction: str
     """
-    A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction. Supported FIPS codes are: `14000` (Chicago), `02154` (Arlington Heights), `06613` (Bloomington), `10906` (Campton Hills), `21696` (East Dundee), `24582` (Evanston), `45421` (Lynwood), `48892` (Midlothian), `64343` (River Grove), and `68081` (Schiller Park).
+    A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction. Supported FIPS codes are: `02154` (Arlington Heights), `05248` (Bensenville), `06613` (Bloomington), `10906` (Campton Hills), `14000` (Chicago), `21696` (East Dundee), `24582` (Evanston), `45421` (Lynwood), `48892` (Midlothian), `64343` (River Grove), `64421` (Riverside), `65806` (Roselle), and `68081` (Schiller Park).
     """
 
 

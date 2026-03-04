@@ -68,6 +68,9 @@ if TYPE_CHECKING:
     from stripe.params._payment_intent_modify_params import (
         PaymentIntentModifyParams,
     )
+    from stripe.params._payment_intent_reauthorize_params import (
+        PaymentIntentReauthorizeParams,
+    )
     from stripe.params._payment_intent_retrieve_params import (
         PaymentIntentRetrieveParams,
     )
@@ -393,6 +396,8 @@ class PaymentIntent(
                 "sku_inactive",
                 "state_unsupported",
                 "status_transition_invalid",
+                "storer_capability_missing",
+                "storer_capability_not_active",
                 "stripe_tax_inactive",
                 "tax_id_invalid",
                 "tax_id_prohibited",
@@ -509,6 +514,12 @@ class PaymentIntent(
         ]
         """
         The type of error returned. One of `api_error`, `card_error`, `idempotency_error`, or `invalid_request_error`
+        """
+
+    class ManagedPayments(StripeObject):
+        enabled: bool
+        """
+        Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution, for this session.
         """
 
     class NextAction(StripeObject):
@@ -3172,6 +3183,10 @@ class PaymentIntent(
             """
             Request partial authorization on this PaymentIntent.
             """
+            request_reauthorization: Optional[Literal["if_available", "never"]]
+            """
+            Request ability to [reauthorize](https://docs.stripe.com/payments/reauthorization) for this PaymentIntent.
+            """
             request_three_d_secure: Optional[
                 Literal["any", "automatic", "challenge"]
             ]
@@ -3230,6 +3245,10 @@ class PaymentIntent(
             """
             Request ability to [increment](https://docs.stripe.com/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://docs.stripe.com/api/payment_intents/confirm) response to verify support.
             """
+            request_reauthorization: Optional[Literal["if_available", "never"]]
+            """
+            Request ability to [reauthorize](https://docs.stripe.com/payments/reauthorization) for this PaymentIntent.
+            """
             routing: Optional[Routing]
             _inner_class_types = {"routing": Routing}
 
@@ -3268,7 +3287,7 @@ class PaymentIntent(
                 class EuBankTransfer(StripeObject):
                     country: Literal["BE", "DE", "ES", "FR", "IE", "NL"]
                     """
-                    The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
+                    The desired country code of the bank account information. Permitted values include: `DE`, `FR`, `IE`, or `NL`.
                     """
 
                 eu_bank_transfer: Optional[EuBankTransfer]
@@ -4096,6 +4115,12 @@ class PaymentIntent(
             """
             Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
             """
+            transaction_purpose: Optional[
+                Literal["goods", "other", "services", "unspecified"]
+            ]
+            """
+            The purpose of the transaction.
+            """
             verification_method: Optional[
                 Literal["automatic", "instant", "microdeposits"]
             ]
@@ -4537,6 +4562,10 @@ class PaymentIntent(
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
+    managed_payments: Optional[ManagedPayments]
+    """
+    Settings for Managed Payments.
+    """
     metadata: Dict[str, str]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Learn more about [storing information in metadata](https://docs.stripe.com/payments/payment-intents/creating-payment-intents#storing-information-in-metadata).
@@ -4637,6 +4666,7 @@ class PaymentIntent(
         "requires_capture",
         "requires_confirmation",
         "requires_payment_method",
+        "requires_reauthorization",
         "succeeded",
     ]
     """
@@ -6066,6 +6096,172 @@ class PaymentIntent(
         )
 
     @classmethod
+    def _cls_reauthorize(
+        cls, intent: str, **params: Unpack["PaymentIntentReauthorizeParams"]
+    ) -> "PaymentIntent":
+        """
+        Reauthorize a PaymentIntent to obtain a new valid authorization after the initial authorization has expired.
+
+        When a PaymentIntent's authorization expires and the capture window elapses, the PaymentIntent transitions to
+        requires_reauthorization status with amount_capturable set to 0. This endpoint
+        brings the PaymentIntent back to requires_capture status, allowing you to capture payment.
+
+        This is useful for retail and ecommerce scenarios with delayed shipments where
+        authorization validity periods (typically 7 days) expire before the merchant is ready to capture payment.
+        """
+        return cast(
+            "PaymentIntent",
+            cls._static_request(
+                "post",
+                "/v1/payment_intents/{intent}/reauthorize".format(
+                    intent=sanitize_id(intent)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def reauthorize(
+        intent: str, **params: Unpack["PaymentIntentReauthorizeParams"]
+    ) -> "PaymentIntent":
+        """
+        Reauthorize a PaymentIntent to obtain a new valid authorization after the initial authorization has expired.
+
+        When a PaymentIntent's authorization expires and the capture window elapses, the PaymentIntent transitions to
+        requires_reauthorization status with amount_capturable set to 0. This endpoint
+        brings the PaymentIntent back to requires_capture status, allowing you to capture payment.
+
+        This is useful for retail and ecommerce scenarios with delayed shipments where
+        authorization validity periods (typically 7 days) expire before the merchant is ready to capture payment.
+        """
+        ...
+
+    @overload
+    def reauthorize(
+        self, **params: Unpack["PaymentIntentReauthorizeParams"]
+    ) -> "PaymentIntent":
+        """
+        Reauthorize a PaymentIntent to obtain a new valid authorization after the initial authorization has expired.
+
+        When a PaymentIntent's authorization expires and the capture window elapses, the PaymentIntent transitions to
+        requires_reauthorization status with amount_capturable set to 0. This endpoint
+        brings the PaymentIntent back to requires_capture status, allowing you to capture payment.
+
+        This is useful for retail and ecommerce scenarios with delayed shipments where
+        authorization validity periods (typically 7 days) expire before the merchant is ready to capture payment.
+        """
+        ...
+
+    @class_method_variant("_cls_reauthorize")
+    def reauthorize(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentIntentReauthorizeParams"]
+    ) -> "PaymentIntent":
+        """
+        Reauthorize a PaymentIntent to obtain a new valid authorization after the initial authorization has expired.
+
+        When a PaymentIntent's authorization expires and the capture window elapses, the PaymentIntent transitions to
+        requires_reauthorization status with amount_capturable set to 0. This endpoint
+        brings the PaymentIntent back to requires_capture status, allowing you to capture payment.
+
+        This is useful for retail and ecommerce scenarios with delayed shipments where
+        authorization validity periods (typically 7 days) expire before the merchant is ready to capture payment.
+        """
+        return cast(
+            "PaymentIntent",
+            self._request(
+                "post",
+                "/v1/payment_intents/{intent}/reauthorize".format(
+                    intent=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_reauthorize_async(
+        cls, intent: str, **params: Unpack["PaymentIntentReauthorizeParams"]
+    ) -> "PaymentIntent":
+        """
+        Reauthorize a PaymentIntent to obtain a new valid authorization after the initial authorization has expired.
+
+        When a PaymentIntent's authorization expires and the capture window elapses, the PaymentIntent transitions to
+        requires_reauthorization status with amount_capturable set to 0. This endpoint
+        brings the PaymentIntent back to requires_capture status, allowing you to capture payment.
+
+        This is useful for retail and ecommerce scenarios with delayed shipments where
+        authorization validity periods (typically 7 days) expire before the merchant is ready to capture payment.
+        """
+        return cast(
+            "PaymentIntent",
+            await cls._static_request_async(
+                "post",
+                "/v1/payment_intents/{intent}/reauthorize".format(
+                    intent=sanitize_id(intent)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def reauthorize_async(
+        intent: str, **params: Unpack["PaymentIntentReauthorizeParams"]
+    ) -> "PaymentIntent":
+        """
+        Reauthorize a PaymentIntent to obtain a new valid authorization after the initial authorization has expired.
+
+        When a PaymentIntent's authorization expires and the capture window elapses, the PaymentIntent transitions to
+        requires_reauthorization status with amount_capturable set to 0. This endpoint
+        brings the PaymentIntent back to requires_capture status, allowing you to capture payment.
+
+        This is useful for retail and ecommerce scenarios with delayed shipments where
+        authorization validity periods (typically 7 days) expire before the merchant is ready to capture payment.
+        """
+        ...
+
+    @overload
+    async def reauthorize_async(
+        self, **params: Unpack["PaymentIntentReauthorizeParams"]
+    ) -> "PaymentIntent":
+        """
+        Reauthorize a PaymentIntent to obtain a new valid authorization after the initial authorization has expired.
+
+        When a PaymentIntent's authorization expires and the capture window elapses, the PaymentIntent transitions to
+        requires_reauthorization status with amount_capturable set to 0. This endpoint
+        brings the PaymentIntent back to requires_capture status, allowing you to capture payment.
+
+        This is useful for retail and ecommerce scenarios with delayed shipments where
+        authorization validity periods (typically 7 days) expire before the merchant is ready to capture payment.
+        """
+        ...
+
+    @class_method_variant("_cls_reauthorize_async")
+    async def reauthorize_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentIntentReauthorizeParams"]
+    ) -> "PaymentIntent":
+        """
+        Reauthorize a PaymentIntent to obtain a new valid authorization after the initial authorization has expired.
+
+        When a PaymentIntent's authorization expires and the capture window elapses, the PaymentIntent transitions to
+        requires_reauthorization status with amount_capturable set to 0. This endpoint
+        brings the PaymentIntent back to requires_capture status, allowing you to capture payment.
+
+        This is useful for retail and ecommerce scenarios with delayed shipments where
+        authorization validity periods (typically 7 days) expire before the merchant is ready to capture payment.
+        """
+        return cast(
+            "PaymentIntent",
+            await self._request_async(
+                "post",
+                "/v1/payment_intents/{intent}/reauthorize".format(
+                    intent=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve(
         cls, id: str, **params: Unpack["PaymentIntentRetrieveParams"]
     ) -> "PaymentIntent":
@@ -6406,6 +6602,7 @@ class PaymentIntent(
         "automatic_payment_methods": AutomaticPaymentMethods,
         "hooks": Hooks,
         "last_payment_error": LastPaymentError,
+        "managed_payments": ManagedPayments,
         "next_action": NextAction,
         "payment_details": PaymentDetails,
         "payment_method_configuration_details": PaymentMethodConfigurationDetails,

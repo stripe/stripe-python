@@ -6,6 +6,12 @@ from typing_extensions import Literal
 
 
 class LicenseFeeSubscription(StripeObject):
+    """
+    A License Fee Subscription represents a customer's subscription to a License Fee at a specified quantity. It tracks
+    the number of units (such as seats or licenses) the customer has subscribed to and bills them according to the service
+    interval defined in the License Fee and the Billing Cadence.
+    """
+
     OBJECT_NAME: ClassVar[Literal["v2.billing.license_fee_subscription"]] = (
         "v2.billing.license_fee_subscription"
     )

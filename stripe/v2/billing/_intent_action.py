@@ -6,6 +6,12 @@ from typing_extensions import Literal
 
 
 class IntentAction(StripeObject):
+    """
+    A Billing Intent Action represents a specific operation within a Billing Intent, such as subscribing to a Pricing Plan,
+    modifying a subscription's quantity, or deactivating service. Each action has a specific type and associated details that
+    define what change will be made when the Intent is committed.
+    """
+
     OBJECT_NAME: ClassVar[Literal["v2.billing.intent_action"]] = (
         "v2.billing.intent_action"
     )
@@ -180,22 +186,22 @@ class IntentAction(StripeObject):
                     class LicenseFee(StripeObject):
                         credit_proration_behavior: Literal["none", "prorated"]
                         """
-                        The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is deactivating.
+                        The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is deactivating. If not specified, defaults to none.
                         """
 
                     license_fee: Optional[LicenseFee]
                     """
-                    Override for the license fee.
+                    Overrides the behavior for license fee components when the action takes effect during the service period.
                     """
                     type: Literal["license_fee"]
                     """
-                    Type of the partial period behavior override.
+                    The type of behavior to override.
                     """
                     _inner_class_types = {"license_fee": LicenseFee}
 
                 partial_period_behaviors: List[PartialPeriodBehavior]
                 """
-                Override for the partial period behavior.
+                Configurations for behaviors when the action takes effect during the service period.
                 """
                 _inner_class_types = {
                     "partial_period_behaviors": PartialPeriodBehavior,
@@ -203,7 +209,7 @@ class IntentAction(StripeObject):
 
             overrides: Optional[Overrides]
             """
-            Allows users to override the partial period behavior.
+            Configurations for overriding behaviors related to the subscription.
             """
             pricing_plan_subscription: str
             """
@@ -274,26 +280,26 @@ class IntentAction(StripeObject):
                     class LicenseFee(StripeObject):
                         credit_proration_behavior: Literal["none", "prorated"]
                         """
-                        The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is upgrading.
+                        The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user modifies the subscription. If not specified, defaults to prorated.
                         """
                         debit_proration_behavior: Literal["none", "prorated"]
                         """
-                        The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is downgrading.
+                        The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user modifies the subscription. If not specified, defaults to prorated.
                         """
 
                     license_fee: Optional[LicenseFee]
                     """
-                    Override for the license fee.
+                    Overrides the behavior for license fee components when the action takes effect during the service period.
                     """
                     type: Literal["license_fee"]
                     """
-                    Type of the partial period behavior override.
+                    The type of behavior to override.
                     """
                     _inner_class_types = {"license_fee": LicenseFee}
 
                 partial_period_behaviors: List[PartialPeriodBehavior]
                 """
-                Override for the partial period behavior.
+                Configurations for behaviors when the action takes effect during the service period.
                 """
                 _inner_class_types = {
                     "partial_period_behaviors": PartialPeriodBehavior,
@@ -313,7 +319,7 @@ class IntentAction(StripeObject):
             """
             overrides: Optional[Overrides]
             """
-            Allows users to override the partial period behavior.
+            Configurations for overriding behaviors related to the subscription.
             """
             pricing_plan_subscription: str
             """
@@ -407,22 +413,22 @@ class IntentAction(StripeObject):
                     class LicenseFee(StripeObject):
                         debit_proration_behavior: Literal["none", "prorated"]
                         """
-                        The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is subscribing.
+                        The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is subscribing. If not specified, defaults to prorated.
                         """
 
                     license_fee: Optional[LicenseFee]
                     """
-                    Override for the license fee.
+                    Overrides the behavior for license fee components when the action takes effect during the service period.
                     """
                     type: Literal["license_fee"]
                     """
-                    Type of the partial period behavior override.
+                    The type of behavior to override.
                     """
                     _inner_class_types = {"license_fee": LicenseFee}
 
                 partial_period_behaviors: List[PartialPeriodBehavior]
                 """
-                Override for the partial period behavior.
+                Configurations for behaviors when the action takes effect during the service period.
                 """
                 _inner_class_types = {
                     "partial_period_behaviors": PartialPeriodBehavior,
@@ -438,7 +444,7 @@ class IntentAction(StripeObject):
             """
             overrides: Optional[Overrides]
             """
-            Allows users to override the partial period behavior.
+            Configurations for overriding behaviors related to the subscription.
             """
             pricing_plan: str
             """

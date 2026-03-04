@@ -6,6 +6,12 @@ from typing_extensions import Literal
 
 
 class PricingPlanSubscription(StripeObject):
+    """
+    A Pricing Plan Subscription represents a customer's active subscription to a Pricing Plan. It tracks both the servicing
+    status (whether the customer is receiving service) and collection status (whether payments are current). Subscriptions
+    are created through Billing Intents and bill according to the associated Billing Cadence.
+    """
+
     OBJECT_NAME: ClassVar[Literal["v2.billing.pricing_plan_subscription"]] = (
         "v2.billing.pricing_plan_subscription"
     )

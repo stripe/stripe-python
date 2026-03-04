@@ -6,6 +6,10 @@ from typing_extensions import Literal
 
 
 class Cadence(StripeObject):
+    """
+    A Cadence represents a billing schedule applied to a customer, defining when and how often to generate invoices, such as on monthly or annual billing cycle.
+    """
+
     OBJECT_NAME: ClassVar[Literal["v2.billing.cadence"]] = "v2.billing.cadence"
 
     class BillingCycle(StripeObject):

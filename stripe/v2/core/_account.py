@@ -7,7 +7,9 @@ from typing_extensions import Literal
 
 class Account(StripeObject):
     """
-    A V2 Account is a representation of a company or individual that a Stripe user does business with. Accounts contain the contact details, Legal Entity information, and configuration required to enable the Account for use across Stripe products.
+    An Account v2 object represents a company, individual, or other entity that interacts with a platform on Stripe. It contains both identifying information and properties that control its behavior and functionality. An Account can have one or more configurations that enable sets of related features, such as allowing it to act as a merchant or customer.
+    The Accounts v2 API supports both the Global Payouts preview feature and the Connect-Billing integration preview feature. However, a particular Account can only access one of them.
+    The Connect-Billing integration preview feature allows an Account v2 to pay subscription fees to a platform. An Account v1 required a separate Customer object to pay subscription fees.
     """
 
     OBJECT_NAME: ClassVar[Literal["v2.core.account"]] = "v2.core.account"
@@ -2432,6 +2434,23 @@ class Account(StripeObject):
                 Creditor ID for SEPA Direct Debit payments.
                 """
 
+            class SmartDisputes(StripeObject):
+                class AutoRespond(StripeObject):
+                    preference: Optional[Literal["inherit", "off", "on"]]
+                    """
+                    The preference for automatic dispute responses.
+                    """
+                    value: Optional[Literal["off", "on"]]
+                    """
+                    The effective value for automatic dispute responses.
+                    """
+
+                auto_respond: Optional[AutoRespond]
+                """
+                Settings for Smart Disputes auto_respond.
+                """
+                _inner_class_types = {"auto_respond": AutoRespond}
+
             class StatementDescriptor(StripeObject):
                 descriptor: Optional[str]
                 """
@@ -2527,6 +2546,10 @@ class Account(StripeObject):
             """
             Settings for SEPA Direct Debit payments.
             """
+            smart_disputes: Optional[SmartDisputes]
+            """
+            Settings for Smart Disputes automatic response feature.
+            """
             statement_descriptor: Optional[StatementDescriptor]
             """
             Statement descriptor.
@@ -2543,6 +2566,7 @@ class Account(StripeObject):
                 "konbini_payments": KonbiniPayments,
                 "script_statement_descriptor": ScriptStatementDescriptor,
                 "sepa_debit_payments": SepaDebitPayments,
+                "smart_disputes": SmartDisputes,
                 "statement_descriptor": StatementDescriptor,
                 "support": Support,
             }
@@ -2856,6 +2880,7 @@ class Account(StripeObject):
                     "ag_bank_account",
                     "al_bank_account",
                     "am_bank_account",
+                    "ar_bank_account",
                     "at_bank_account",
                     "au_bank_account",
                     "ba_bank_account",
@@ -2865,16 +2890,20 @@ class Account(StripeObject):
                     "bj_bank_account",
                     "bn_bank_account",
                     "bs_bank_account",
+                    "bt_bank_account",
                     "bw_bank_account",
                     "card",
                     "ca_bank_account",
                     "ch_bank_account",
                     "ci_bank_account",
+                    "co_bank_account",
                     "crypto_wallet",
+                    "cr_bank_account",
                     "cy_bank_account",
                     "cz_bank_account",
                     "de_bank_account",
                     "dk_bank_account",
+                    "do_bank_account",
                     "dz_bank_account",
                     "ec_bank_account",
                     "ee_bank_account",
@@ -2885,6 +2914,7 @@ class Account(StripeObject):
                     "gb_bank_account",
                     "gm_bank_account",
                     "gr_bank_account",
+                    "gt_bank_account",
                     "gy_bank_account",
                     "hk_bank_account",
                     "hr_bank_account",
@@ -2908,19 +2938,25 @@ class Account(StripeObject):
                     "lv_bank_account",
                     "ma_bank_account",
                     "mc_bank_account",
+                    "md_bank_account",
                     "mg_bank_account",
+                    "mk_bank_account",
                     "mn_bank_account",
+                    "mo_bank_account",
                     "mt_bank_account",
                     "mu_bank_account",
                     "mx_bank_account",
                     "my_bank_account",
+                    "mz_bank_account",
                     "na_bank_account",
                     "nl_bank_account",
                     "no_bank_account",
                     "nz_bank_account",
                     "om_bank_account",
                     "pa_bank_account",
+                    "pe_bank_account",
                     "ph_bank_account",
+                    "pk_bank_account",
                     "pl_bank_account",
                     "pt_bank_account",
                     "qa_bank_account",
@@ -2937,8 +2973,10 @@ class Account(StripeObject):
                     "tn_bank_account",
                     "tr_bank_account",
                     "tt_bank_account",
+                    "tw_bank_account",
                     "tz_bank_account",
                     "us_bank_account",
+                    "uz_bank_account",
                     "vn_bank_account",
                     "za_bank_account",
                 ]
@@ -2965,6 +3003,60 @@ class Account(StripeObject):
 
         class Storer(StripeObject):
             class Capabilities(StripeObject):
+                class Consumer(StripeObject):
+                    class HoldsCurrencies(StripeObject):
+                        class Usd(StripeObject):
+                            class StatusDetail(StripeObject):
+                                code: Literal[
+                                    "determining_status",
+                                    "requirements_past_due",
+                                    "requirements_pending_verification",
+                                    "restricted_other",
+                                    "unsupported_business",
+                                    "unsupported_country",
+                                    "unsupported_entity_type",
+                                ]
+                                """
+                                Machine-readable code explaining the reason for the Capability to be in its current status.
+                                """
+                                resolution: Literal[
+                                    "contact_stripe",
+                                    "no_resolution",
+                                    "provide_info",
+                                ]
+                                """
+                                Machine-readable code explaining how to make the Capability active.
+                                """
+
+                            status: Literal[
+                                "active",
+                                "pending",
+                                "restricted",
+                                "unsupported",
+                            ]
+                            """
+                            The status of the Capability.
+                            """
+                            status_details: List[StatusDetail]
+                            """
+                            Additional details about the capability's status. This value is empty when `status` is `active`.
+                            """
+                            _inner_class_types = {
+                                "status_details": StatusDetail,
+                            }
+
+                        usd: Optional[Usd]
+                        """
+                        Can hold storage-type funds on Stripe consumer FAs in USD.
+                        """
+                        _inner_class_types = {"usd": Usd}
+
+                    holds_currencies: Optional[HoldsCurrencies]
+                    """
+                    Can hold storage-type funds on Stripe consumer FAs in USD.
+                    """
+                    _inner_class_types = {"holds_currencies": HoldsCurrencies}
+
                 class FinancialAddresses(StripeObject):
                     class BankAccounts(StripeObject):
                         class StatusDetail(StripeObject):
@@ -3543,6 +3635,10 @@ class Account(StripeObject):
                         "financial_accounts": FinancialAccounts,
                     }
 
+                consumer: Optional[Consumer]
+                """
+                Hash containing capabilities related to consumer financial accounts.
+                """
                 financial_addresses: Optional[FinancialAddresses]
                 """
                 Can provision a financial address to credit/debit a FinancialAccount.
@@ -3564,6 +3660,7 @@ class Account(StripeObject):
                 Hash containing capabilities related to [OutboundTransfers](https://docs.stripe.com/api/treasury/outbound_transfers?api-version=preview).
                 """
                 _inner_class_types = {
+                    "consumer": Consumer,
                     "financial_addresses": FinancialAddresses,
                     "holds_currencies": HoldsCurrencies,
                     "inbound_transfers": InboundTransfers,
@@ -4013,6 +4110,7 @@ class Account(StripeObject):
                         "commercial.lead.prepaid_card",
                         "commercial.stripe.charge_card",
                         "commercial.stripe.prepaid_card",
+                        "consumer.holds_currencies.usd",
                         "crypto",
                         "eps_payments",
                         "financial_addresses.bank_accounts",
@@ -6106,6 +6204,7 @@ class Account(StripeObject):
                         "commercial.lead.prepaid_card",
                         "commercial.stripe.charge_card",
                         "commercial.stripe.prepaid_card",
+                        "consumer.holds_currencies.usd",
                         "crypto",
                         "eps_payments",
                         "financial_addresses.bank_accounts",

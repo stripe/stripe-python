@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 class ApiKey(StripeObject):
     """
-    An API key.
+    An API key is used to authenticate API requests.
     """
 
     OBJECT_NAME: ClassVar[Literal["v2.iam.api_key"]] = "v2.iam.api_key"
