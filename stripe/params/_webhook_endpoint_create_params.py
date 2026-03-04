@@ -439,6 +439,7 @@ class WebhookEndpointCreateParams(RequestOptions):
             "treasury.received_credit.succeeded",
             "treasury.received_debit.created",
             "invoice_payment.detached",
+            "billing.alert.recovered",
             "billing.credit_balance_transaction.created",
             "billing.credit_grant.updated",
             "billing.meter.created",
