@@ -40,6 +40,10 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     ),
     "billing_portal.session": ("stripe.billing_portal._session", "Session"),
     "billing.alert": ("stripe.billing._alert", "Alert"),
+    "billing.alert_recovered": (
+        "stripe.billing._alert_recovered",
+        "AlertRecovered",
+    ),
     "billing.alert_triggered": (
         "stripe.billing._alert_triggered",
         "AlertTriggered",

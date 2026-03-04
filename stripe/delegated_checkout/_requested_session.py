@@ -39,6 +39,67 @@ class RequestedSession(
         "delegated_checkout.requested_session"
     )
 
+    class AffiliateAttribution(StripeObject):
+        class Source(StripeObject):
+            platform: Optional[str]
+            """
+            The platform of the attribution source.
+            """
+            type: Literal["platform", "url"]
+            """
+            The type of the attribution source.
+            """
+            url: Optional[str]
+            """
+            The URL of the attribution source.
+            """
+
+        campaign_id: Optional[str]
+        """
+        Agent-scoped campaign identifier.
+        """
+        creative_id: Optional[str]
+        """
+        Agent-scoped creative identifier.
+        """
+        expires_at: int
+        """
+        Timestamp when the attribution token expires.
+        """
+        identification_token: str
+        """
+        Agent-issued secret to validate the legitimacy of the source of this data.
+        """
+        issued_at: int
+        """
+        Timestamp for when the attribution token was issued.
+        """
+        provider: str
+        """
+        Identifier for the attribution agent / affiliate network namespace.
+        """
+        publisher_id: Optional[str]
+        """
+        Agent-scoped affiliate/publisher identifier.
+        """
+        shared_metadata: Optional[Dict[str, str]]
+        """
+        Freeform key/value pairs for additional non-sensitive per-agent data.
+        """
+        source: Optional[Source]
+        """
+        Context about where the attribution originated.
+        """
+        sub_id: Optional[str]
+        """
+        Agent-scoped sub-tracking identifier.
+        """
+        touchpoint: Literal["first", "last"]
+        """
+        Whether this is the first or last touchpoint.
+        """
+        _inner_class_types = {"source": Source}
+
     class FulfillmentDetails(StripeObject):
         class Address(StripeObject):
             city: Optional[str]
@@ -462,6 +523,10 @@ class RequestedSession(
         """
         _inner_class_types = {"applicable_fees": ApplicableFee}
 
+    affiliate_attributions: Optional[List[AffiliateAttribution]]
+    """
+    Affiliate attribution data associated with this requested session.
+    """
     amount_subtotal: Optional[int]
     """
     The subtotal amount of the requested session.
@@ -870,6 +935,7 @@ class RequestedSession(
         return instance
 
     _inner_class_types = {
+        "affiliate_attributions": AffiliateAttribution,
         "fulfillment_details": FulfillmentDetails,
         "line_item_details": LineItemDetail,
         "order_details": OrderDetails,

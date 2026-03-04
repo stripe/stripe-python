@@ -6,6 +6,8 @@ from typing_extensions import TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe.params.delegated_checkout._requested_session_confirm_params import (
         RequestedSessionConfirmParams as RequestedSessionConfirmParams,
+        RequestedSessionConfirmParamsAffiliateAttribution as RequestedSessionConfirmParamsAffiliateAttribution,
+        RequestedSessionConfirmParamsAffiliateAttributionSource as RequestedSessionConfirmParamsAffiliateAttributionSource,
         RequestedSessionConfirmParamsPaymentMethodData as RequestedSessionConfirmParamsPaymentMethodData,
         RequestedSessionConfirmParamsPaymentMethodDataBillingDetails as RequestedSessionConfirmParamsPaymentMethodDataBillingDetails,
         RequestedSessionConfirmParamsPaymentMethodDataBillingDetailsAddress as RequestedSessionConfirmParamsPaymentMethodDataBillingDetailsAddress,
@@ -15,6 +17,8 @@ if TYPE_CHECKING:
     )
     from stripe.params.delegated_checkout._requested_session_create_params import (
         RequestedSessionCreateParams as RequestedSessionCreateParams,
+        RequestedSessionCreateParamsAffiliateAttribution as RequestedSessionCreateParamsAffiliateAttribution,
+        RequestedSessionCreateParamsAffiliateAttributionSource as RequestedSessionCreateParamsAffiliateAttributionSource,
         RequestedSessionCreateParamsFulfillmentDetails as RequestedSessionCreateParamsFulfillmentDetails,
         RequestedSessionCreateParamsFulfillmentDetailsAddress as RequestedSessionCreateParamsFulfillmentDetailsAddress,
         RequestedSessionCreateParamsLineItemDetail as RequestedSessionCreateParamsLineItemDetail,
@@ -63,6 +67,14 @@ _import_map = {
         "stripe.params.delegated_checkout._requested_session_confirm_params",
         False,
     ),
+    "RequestedSessionConfirmParamsAffiliateAttribution": (
+        "stripe.params.delegated_checkout._requested_session_confirm_params",
+        False,
+    ),
+    "RequestedSessionConfirmParamsAffiliateAttributionSource": (
+        "stripe.params.delegated_checkout._requested_session_confirm_params",
+        False,
+    ),
     "RequestedSessionConfirmParamsPaymentMethodData": (
         "stripe.params.delegated_checkout._requested_session_confirm_params",
         False,
@@ -88,6 +100,14 @@ _import_map = {
         False,
     ),
     "RequestedSessionCreateParams": (
+        "stripe.params.delegated_checkout._requested_session_create_params",
+        False,
+    ),
+    "RequestedSessionCreateParamsAffiliateAttribution": (
+        "stripe.params.delegated_checkout._requested_session_create_params",
+        False,
+    ),
+    "RequestedSessionCreateParamsAffiliateAttributionSource": (
         "stripe.params.delegated_checkout._requested_session_create_params",
         False,
     ),
