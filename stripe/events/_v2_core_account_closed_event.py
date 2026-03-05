@@ -37,7 +37,6 @@ class V2CoreAccountClosedEventNotification(EventNotification):
             "get",
             self.related_object.url,
             stripe_context=self.context,
-            headers={"Stripe-Request-Trigger": f"event={self.id}"},
             usage=["fetch_related_object"],
         )
         return cast(
@@ -60,7 +59,6 @@ class V2CoreAccountClosedEventNotification(EventNotification):
             "get",
             self.related_object.url,
             stripe_context=self.context,
-            headers={"Stripe-Request-Trigger": f"event={self.id}"},
             usage=["fetch_related_object"],
         )
         return cast(
@@ -105,9 +103,6 @@ class V2CoreAccountClosedEvent(Event):
                 "get",
                 self.related_object.url,
                 base_address="api",
-                options={
-                    "stripe_context": self.context,
-                    "headers": {"Stripe-Request-Trigger": f"event={self.id}"},
-                },
+                options={"stripe_context": self.context},
             ),
         )

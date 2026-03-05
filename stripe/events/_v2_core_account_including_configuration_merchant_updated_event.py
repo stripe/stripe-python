@@ -41,7 +41,6 @@ class V2CoreAccountIncludingConfigurationMerchantUpdatedEventNotification(
             "get",
             self.related_object.url,
             stripe_context=self.context,
-            headers={"Stripe-Request-Trigger": f"event={self.id}"},
             usage=["fetch_related_object"],
         )
         return cast(
@@ -66,7 +65,6 @@ class V2CoreAccountIncludingConfigurationMerchantUpdatedEventNotification(
             "get",
             self.related_object.url,
             stripe_context=self.context,
-            headers={"Stripe-Request-Trigger": f"event={self.id}"},
             usage=["fetch_related_object"],
         )
         return cast(
@@ -111,9 +109,6 @@ class V2CoreAccountIncludingConfigurationMerchantUpdatedEvent(Event):
                 "get",
                 self.related_object.url,
                 base_address="api",
-                options={
-                    "stripe_context": self.context,
-                    "headers": {"Stripe-Request-Trigger": f"event={self.id}"},
-                },
+                options={"stripe_context": self.context},
             ),
         )
