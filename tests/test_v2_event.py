@@ -247,6 +247,7 @@ class TestV2Event(object):
             api_key="sk_test_1234",
             # context read from event
             stripe_context="acct_123",
+            extra_headers={"Stripe-Request-Trigger": "event=evt_234"},
         )
         http_client_mock.assert_requested(
             method,
@@ -255,6 +256,7 @@ class TestV2Event(object):
             api_key="sk_test_1234",
             # context read from event
             stripe_context="acct_123",
+            extra_headers={"Stripe-Request-Trigger": "event=evt_234"},
         )
 
         assert isinstance(
