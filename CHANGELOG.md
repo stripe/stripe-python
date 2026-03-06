@@ -75,6 +75,10 @@ This release uses the API version `2026-01-28.preview`.
   * Add support for `url` on `FinancialConnections.Session`
   * Add support for `billing_cycle_anchor` on `SubscriptionCreateParamsTrialSettingEndBehavior` and `SubscriptionModifyParamsTrialSettingEndBehavior`
 
+## 14.4.1 - 2026-03-06
+* [#1748](https://github.com/stripe/stripe-python/pull/1748) Add Stripe-Request-Trigger header
+* [#1743](https://github.com/stripe/stripe-python/pull/1743) Add agent information to UserAgent
+
 ## 14.4.0 - 2026-02-25
 This release changes the pinned API version to `2026-02-25.clover`.
 
