@@ -1,3 +1,7 @@
+## 14.4.1 - 2026-03-06
+* [#1748](https://github.com/stripe/stripe-python/pull/1748) Add Stripe-Request-Trigger header
+* [#1743](https://github.com/stripe/stripe-python/pull/1743) Add agent information to UserAgent
+
 ## 14.4.0 - 2026-02-25
 This release changes the pinned API version to `2026-02-25.clover`.
 
