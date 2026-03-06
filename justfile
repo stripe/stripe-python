@@ -9,6 +9,9 @@ export PATH := `pwd` / VENV_NAME / "bin:" + env('PATH')
 _default:
     just --list --unsorted
 
+# ⭐ run format, lint, typecheck, and tests to prepare for CI
+prepare: format lint typecheck test
+
 # ⭐ run all unit tests
 [positional-arguments]
 test *args: install-test-deps
