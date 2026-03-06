@@ -471,13 +471,18 @@ class _APIRequestor(object):
         return None
 
     AI_AGENTS = [
+        # aiAgents: The beginning of the section generated from our OpenAPI spec
         ("ANTIGRAVITY_CLI_ALIAS", "antigravity"),
         ("CLAUDECODE", "claude_code"),
         ("CLINE_ACTIVE", "cline"),
         ("CODEX_SANDBOX", "codex_cli"),
+        ("CODEX_THREAD_ID", "codex_cli"),
+        ("CODEX_SANDBOX_NETWORK_DISABLED", "codex_cli"),
+        ("CODEX_CI", "codex_cli"),
         ("CURSOR_AGENT", "cursor"),
         ("GEMINI_CLI", "gemini_cli"),
         ("OPENCODE", "open_code"),
+        # aiAgents: The end of the section generated from our OpenAPI spec
     ]
 
     @staticmethod
