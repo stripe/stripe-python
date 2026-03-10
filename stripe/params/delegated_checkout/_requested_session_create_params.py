@@ -54,8 +54,8 @@ class RequestedSessionCreateParams(RequestOptions):
     """
     The shared metadata for this requested session.
     """
-    affiliate_attributions: NotRequired[
-        List["RequestedSessionCreateParamsAffiliateAttribution"]
+    affiliate_attribution: NotRequired[
+        "RequestedSessionCreateParamsAffiliateAttribution"
     ]
     """
     Affiliate attribution data associated with this requested session.

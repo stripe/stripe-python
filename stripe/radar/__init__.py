@@ -16,6 +16,12 @@ if TYPE_CHECKING:
     from stripe.radar._early_fraud_warning_service import (
         EarlyFraudWarningService as EarlyFraudWarningService,
     )
+    from stripe.radar._issuing_authorization_evaluation import (
+        IssuingAuthorizationEvaluation as IssuingAuthorizationEvaluation,
+    )
+    from stripe.radar._issuing_authorization_evaluation_service import (
+        IssuingAuthorizationEvaluationService as IssuingAuthorizationEvaluationService,
+    )
     from stripe.radar._payment_evaluation import (
         PaymentEvaluation as PaymentEvaluation,
     )
@@ -41,6 +47,14 @@ _import_map = {
     "EarlyFraudWarning": ("stripe.radar._early_fraud_warning", False),
     "EarlyFraudWarningService": (
         "stripe.radar._early_fraud_warning_service",
+        False,
+    ),
+    "IssuingAuthorizationEvaluation": (
+        "stripe.radar._issuing_authorization_evaluation",
+        False,
+    ),
+    "IssuingAuthorizationEvaluationService": (
+        "stripe.radar._issuing_authorization_evaluation_service",
         False,
     ),
     "PaymentEvaluation": ("stripe.radar._payment_evaluation", False),

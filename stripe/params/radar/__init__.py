@@ -32,6 +32,16 @@ if TYPE_CHECKING:
     from stripe.params.radar._early_fraud_warning_retrieve_params import (
         EarlyFraudWarningRetrieveParams as EarlyFraudWarningRetrieveParams,
     )
+    from stripe.params.radar._issuing_authorization_evaluation_create_params import (
+        IssuingAuthorizationEvaluationCreateParams as IssuingAuthorizationEvaluationCreateParams,
+        IssuingAuthorizationEvaluationCreateParamsAuthorizationDetails as IssuingAuthorizationEvaluationCreateParamsAuthorizationDetails,
+        IssuingAuthorizationEvaluationCreateParamsCardDetails as IssuingAuthorizationEvaluationCreateParamsCardDetails,
+        IssuingAuthorizationEvaluationCreateParamsCardholderDetails as IssuingAuthorizationEvaluationCreateParamsCardholderDetails,
+        IssuingAuthorizationEvaluationCreateParamsMerchantDetails as IssuingAuthorizationEvaluationCreateParamsMerchantDetails,
+        IssuingAuthorizationEvaluationCreateParamsNetworkDetails as IssuingAuthorizationEvaluationCreateParamsNetworkDetails,
+        IssuingAuthorizationEvaluationCreateParamsTokenDetails as IssuingAuthorizationEvaluationCreateParamsTokenDetails,
+        IssuingAuthorizationEvaluationCreateParamsVerificationDetails as IssuingAuthorizationEvaluationCreateParamsVerificationDetails,
+    )
     from stripe.params.radar._payment_evaluation_create_params import (
         PaymentEvaluationCreateParams as PaymentEvaluationCreateParams,
         PaymentEvaluationCreateParamsClientDeviceMetadataDetails as PaymentEvaluationCreateParamsClientDeviceMetadataDetails,
@@ -142,6 +152,38 @@ _import_map = {
     ),
     "EarlyFraudWarningRetrieveParams": (
         "stripe.params.radar._early_fraud_warning_retrieve_params",
+        False,
+    ),
+    "IssuingAuthorizationEvaluationCreateParams": (
+        "stripe.params.radar._issuing_authorization_evaluation_create_params",
+        False,
+    ),
+    "IssuingAuthorizationEvaluationCreateParamsAuthorizationDetails": (
+        "stripe.params.radar._issuing_authorization_evaluation_create_params",
+        False,
+    ),
+    "IssuingAuthorizationEvaluationCreateParamsCardDetails": (
+        "stripe.params.radar._issuing_authorization_evaluation_create_params",
+        False,
+    ),
+    "IssuingAuthorizationEvaluationCreateParamsCardholderDetails": (
+        "stripe.params.radar._issuing_authorization_evaluation_create_params",
+        False,
+    ),
+    "IssuingAuthorizationEvaluationCreateParamsMerchantDetails": (
+        "stripe.params.radar._issuing_authorization_evaluation_create_params",
+        False,
+    ),
+    "IssuingAuthorizationEvaluationCreateParamsNetworkDetails": (
+        "stripe.params.radar._issuing_authorization_evaluation_create_params",
+        False,
+    ),
+    "IssuingAuthorizationEvaluationCreateParamsTokenDetails": (
+        "stripe.params.radar._issuing_authorization_evaluation_create_params",
+        False,
+    ),
+    "IssuingAuthorizationEvaluationCreateParamsVerificationDetails": (
+        "stripe.params.radar._issuing_authorization_evaluation_create_params",
         False,
     ),
     "PaymentEvaluationCreateParams": (

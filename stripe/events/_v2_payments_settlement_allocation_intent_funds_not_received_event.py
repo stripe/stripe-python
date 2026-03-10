@@ -45,6 +45,7 @@ class V2PaymentsSettlementAllocationIntentFundsNotReceivedEventNotification(
             "get",
             self.related_object.url,
             stripe_context=self.context,
+            headers={"Stripe-Request-Trigger": f"event={self.id}"},
             usage=["fetch_related_object"],
         )
         return cast(
@@ -69,6 +70,7 @@ class V2PaymentsSettlementAllocationIntentFundsNotReceivedEventNotification(
             "get",
             self.related_object.url,
             stripe_context=self.context,
+            headers={"Stripe-Request-Trigger": f"event={self.id}"},
             usage=["fetch_related_object"],
         )
         return cast(
@@ -115,6 +117,9 @@ class V2PaymentsSettlementAllocationIntentFundsNotReceivedEvent(Event):
                 "get",
                 self.related_object.url,
                 base_address="api",
-                options={"stripe_context": self.context},
+                options={
+                    "stripe_context": self.context,
+                    "headers": {"Stripe-Request-Trigger": f"event={self.id}"},
+                },
             ),
         )

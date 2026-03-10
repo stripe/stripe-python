@@ -433,6 +433,10 @@ class Dispute(
     """
     Disputed amount. Usually the amount of the charge, but it can differ (usually because of currency fluctuation or because only part of the order is disputed).
     """
+    amount_to_counter: Optional[int]
+    """
+    The amount you want to contest, in the dispute's currency. Setting this to less than the full dispute amount means accepting the loss on the remaining amount. If not specified, the entire disputed amount is contested.
+    """
     balance_transactions: List["BalanceTransaction"]
     """
     List of zero, one, or two balance transactions that show funds withdrawn and reinstated to your Stripe account as a result of this dispute.
