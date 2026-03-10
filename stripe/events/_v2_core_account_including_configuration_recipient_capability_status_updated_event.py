@@ -48,6 +48,7 @@ class V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEventNo
             "get",
             self.related_object.url,
             stripe_context=self.context,
+            headers={"Stripe-Request-Trigger": f"event={self.id}"},
             usage=["fetch_related_object"],
         )
         return cast(
@@ -72,6 +73,7 @@ class V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEventNo
             "get",
             self.related_object.url,
             stripe_context=self.context,
+            headers={"Stripe-Request-Trigger": f"event={self.id}"},
             usage=["fetch_related_object"],
         )
         return cast(
@@ -168,6 +170,9 @@ class V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent(
                 "get",
                 self.related_object.url,
                 base_address="api",
-                options={"stripe_context": self.context},
+                options={
+                    "stripe_context": self.context,
+                    "headers": {"Stripe-Request-Trigger": f"event={self.id}"},
+                },
             ),
         )
