@@ -238,6 +238,7 @@ class EventNotification:
             "get",
             f"/v2/core/events/{self.id}",
             stripe_context=self.context,
+            headers={"Stripe-Request-Trigger": f"event={self.id}"},
             usage=["pushed_event_pull"],
         )
         return cast(Event, self._client.deserialize(response, api_mode="V2"))
@@ -247,6 +248,7 @@ class EventNotification:
             "get",
             f"/v2/core/events/{self.id}",
             stripe_context=self.context,
+            headers={"Stripe-Request-Trigger": f"event={self.id}"},
             usage=["pushed_event_pull", "pushed_event_pull_async"],
         )
         return cast(Event, self._client.deserialize(response, api_mode="V2"))
@@ -278,6 +280,7 @@ class UnknownEventNotification(EventNotification):
             "get",
             self.related_object.url,
             stripe_context=self.context,
+            headers={"Stripe-Request-Trigger": f"event={self.id}"},
             usage=["fetch_related_object", "unknown_event"],
         )
         return self._client.deserialize(
@@ -293,6 +296,7 @@ class UnknownEventNotification(EventNotification):
             "get",
             self.related_object.url,
             stripe_context=self.context,
+            headers={"Stripe-Request-Trigger": f"event={self.id}"},
             usage=["fetch_related_object", "unknown_event"],
         )
         return self._client.deserialize(
