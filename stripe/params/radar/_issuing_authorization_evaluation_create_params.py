@@ -30,7 +30,7 @@ class IssuingAuthorizationEvaluationCreateParams(RequestOptions):
         "IssuingAuthorizationEvaluationCreateParamsMerchantDetails"
     )
     """
-    Details about the merchant where the authorization occurred.
+    Details about the seller (grocery store, e-commerce website, etc.) where the card authorization happened.
     """
     metadata: NotRequired[Dict[str, str]]
     """
@@ -40,19 +40,19 @@ class IssuingAuthorizationEvaluationCreateParams(RequestOptions):
         "IssuingAuthorizationEvaluationCreateParamsNetworkDetails"
     ]
     """
-    Details about the card network processing.
+    Details about the authorization, such as identifiers, set by the card network.
     """
     token_details: NotRequired[
         "IssuingAuthorizationEvaluationCreateParamsTokenDetails"
     ]
     """
-    Details about the token, if a tokenized payment method was used.
+    Details about the token, if a tokenized payment method was used for the authorization.
     """
     verification_details: NotRequired[
         "IssuingAuthorizationEvaluationCreateParamsVerificationDetails"
     ]
     """
-    Details about verification checks performed.
+    Details about verification data for the authorization.
     """
 
 
@@ -61,17 +61,17 @@ class IssuingAuthorizationEvaluationCreateParamsAuthorizationDetails(
 ):
     amount: int
     """
-    The authorization amount in the smallest currency unit.
+    The total amount of the authorization in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
     """
     authorization_method: NotRequired[
         Literal["chip", "contactless", "keyed_in", "online", "swipe"]
     ]
     """
-    The method used for authorization.
+    How the card details were provided.
     """
     currency: str
     """
-    Three-letter ISO currency code in lowercase.
+    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
     entry_mode: NotRequired[
         Literal[
@@ -87,15 +87,15 @@ class IssuingAuthorizationEvaluationCreateParamsAuthorizationDetails(
         ]
     ]
     """
-    The card entry mode.
+    Defines how the card's information was entered for the authorization.
     """
     entry_mode_raw_code: NotRequired[str]
     """
-    The raw code for the card entry mode.
+    Raw code indicating the entry mode from the network message.
     """
     initiated_at: int
     """
-    The time when the authorization was initiated (Unix timestamp).
+    The timestamp of the authorization initiated in seconds.
     """
     point_of_sale_condition: NotRequired[
         Literal[
@@ -112,83 +112,83 @@ class IssuingAuthorizationEvaluationCreateParamsAuthorizationDetails(
         ]
     ]
     """
-    The point of sale condition.
+    Defines how the card was read at the point of sale.
     """
     point_of_sale_condition_raw_code: NotRequired[str]
     """
-    The raw code for the point of sale condition.
+    Raw code indicating the point of sale condition from the network message.
     """
     reference: str
     """
-    External reference for the authorization.
+    User's specified unique ID for this authorization attempt (e.g., RRN or internal reference).
     """
 
 
 class IssuingAuthorizationEvaluationCreateParamsCardDetails(TypedDict):
     bin: str
     """
-    Bank Identification Number (BIN) of the card.
+    The Bank Identification Number (BIN) of the card.
     """
-    bin_country: NotRequired[str]
+    bin_country: str
     """
-    Two-letter ISO country code of the card's issuing bank.
+    The two-letter country code of the BIN issuer.
     """
     card_type: Literal["physical", "virtual"]
     """
-    The type of card (physical or virtual).
+    The type of the card.
     """
     created_at: int
     """
-    The time when the card was created (Unix timestamp).
+    The timestamp when the card was created.
     """
     last4: NotRequired[str]
     """
-    Last 4 digits of the card number.
+    The last 4 digits of the card number.
     """
     reference: str
     """
-    External reference for the card.
+    User's specified unique ID of the card for this authorization attempt (e.g., RRN or internal reference).
     """
 
 
 class IssuingAuthorizationEvaluationCreateParamsCardholderDetails(TypedDict):
     created_at: NotRequired[int]
     """
-    The time when the cardholder was created (Unix timestamp).
+    The timestamp when the cardholder was created.
     """
     reference: NotRequired[str]
     """
-    External reference for the cardholder.
+    User's specified unique ID of the cardholder for this authorization attempt (e.g., RRN or internal reference).
     """
 
 
 class IssuingAuthorizationEvaluationCreateParamsMerchantDetails(TypedDict):
     category_code: str
     """
-    Merchant Category Code (MCC).
+    The merchant category code for the seller's business.
     """
     country: NotRequired[str]
     """
-    Two-letter ISO country code of the merchant.
+    Country where the seller is located.
     """
     name: str
     """
-    Name of the merchant.
+    Name of the seller.
     """
     network_id: str
     """
-    Network merchant identifier.
+    Identifier assigned to the seller by the card network. Different card networks may assign different network_id fields to the same merchant.
     """
     terminal_id: NotRequired[str]
     """
-    Terminal identifier.
+    An ID assigned by the seller to the location of the sale.
     """
 
 
 class IssuingAuthorizationEvaluationCreateParamsNetworkDetails(TypedDict):
     acquiring_institution_id: NotRequired[str]
     """
-    The acquiring institution identifier.
+    Identifier assigned to the acquirer by the card network. Sometimes this value is not provided by the network; in this case, the value will be null.
     """
     routed_network: NotRequired[
         Literal[
@@ -202,22 +202,22 @@ class IssuingAuthorizationEvaluationCreateParamsNetworkDetails(TypedDict):
         ]
     ]
     """
-    The card network that routed the authorization.
+    The card network over which Stripe received the authorization.
     """
 
 
 class IssuingAuthorizationEvaluationCreateParamsTokenDetails(TypedDict):
     created_at: NotRequired[int]
     """
-    The time when the token was created (Unix timestamp).
+    The timestamp when the network token was created.
     """
     reference: NotRequired[str]
     """
-    External reference for the token.
+    User's specified unique ID of the card token for this authorization attempt (e.g., RRN or internal reference).
     """
     wallet: NotRequired[Literal["apple_pay", "google_pay", "samsung_pay"]]
     """
-    The wallet provider for the tokenized payment method.
+    The digital wallet used for this transaction. One of `apple_pay`, `google_pay`, or `samsung_pay`.
     """
 
 
@@ -232,5 +232,5 @@ class IssuingAuthorizationEvaluationCreateParamsVerificationDetails(TypedDict):
         ]
     ]
     """
-    The result of 3D Secure verification.
+    The outcome of the 3D Secure authentication request.
     """
