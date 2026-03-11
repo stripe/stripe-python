@@ -86,7 +86,7 @@ class LicenseFeeCreateParamsTier(TypedDict):
 
 
 class LicenseFeeCreateParamsTransformQuantity(TypedDict):
-    divide_by: int
+    divide_by: str
     """
     Divide usage by this number.
     """

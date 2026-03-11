@@ -347,7 +347,7 @@ class Cadence(StripeObject):
 
                 class Card(StripeObject):
                     class MandateOptions(StripeObject):
-                        amount: Optional[int]
+                        amount: Optional[str]
                         """
                         Amount to be charged for future payments.
                         """

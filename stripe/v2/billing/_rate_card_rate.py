@@ -55,7 +55,7 @@ class RateCardRate(StripeObject):
         """
 
     class TransformQuantity(StripeObject):
-        divide_by: int
+        divide_by: str
         """
         Divide usage by this number.
         """

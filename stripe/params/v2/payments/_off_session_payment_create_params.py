@@ -32,9 +32,15 @@ class OffSessionPaymentCreateParams(TypedDict):
     """
     The account (if any) for which the funds of the OffSessionPayment are intended.
     """
-    payment_method: str
+    payment_method: NotRequired[str]
     """
     ID of the payment method used in this OffSessionPayment.
+    """
+    payment_method_data: NotRequired[
+        "OffSessionPaymentCreateParamsPaymentMethodData"
+    ]
+    """
+    If provided, this hash will be used to create a PaymentMethod. The new PaymentMethod will appear in the payment_method property on the OffSessionPayment.
     """
     payment_method_options: NotRequired[
         "OffSessionPaymentCreateParamsPaymentMethodOptions"
@@ -90,6 +96,92 @@ class OffSessionPaymentCreateParamsCapture(TypedDict):
     capture_method: Literal["automatic", "manual"]
     """
     The method to use to capture the payment.
+    """
+
+
+class OffSessionPaymentCreateParamsPaymentMethodData(TypedDict):
+    billing_details: NotRequired[
+        "OffSessionPaymentCreateParamsPaymentMethodDataBillingDetails"
+    ]
+    """
+    Billing information associated with the payment method.
+    """
+    type: Literal["card"]
+    """
+    The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
+    """
+    card: NotRequired["OffSessionPaymentCreateParamsPaymentMethodDataCard"]
+    """
+    Contains card details that can be used to create a card PaymentMethod for PCI compliant users.
+    """
+
+
+class OffSessionPaymentCreateParamsPaymentMethodDataBillingDetails(TypedDict):
+    address: NotRequired[
+        "OffSessionPaymentCreateParamsPaymentMethodDataBillingDetailsAddress"
+    ]
+    """
+    Billing address.
+    """
+    email: NotRequired[str]
+    """
+    Email address.
+    """
+    name: NotRequired[str]
+    """
+    Full name.
+    """
+    phone: NotRequired[str]
+    """
+    Billing phone number (including extension).
+    """
+
+
+class OffSessionPaymentCreateParamsPaymentMethodDataBillingDetailsAddress(
+    TypedDict,
+):
+    city: NotRequired[str]
+    """
+    City, district, suburb, town, or village.
+    """
+    country: NotRequired[str]
+    """
+    Two-letter country code (ISO 3166-1 alpha-2).
+    """
+    line1: NotRequired[str]
+    """
+    Address line 1, such as the street, PO Box, or company name.
+    """
+    line2: NotRequired[str]
+    """
+    Address line 2, such as the apartment, suite, unit, or building.
+    """
+    postal_code: NotRequired[str]
+    """
+    ZIP or postal code.
+    """
+    state: NotRequired[str]
+    """
+    State, county, province, or region (ISO 3166-2).
+    """
+
+
+class OffSessionPaymentCreateParamsPaymentMethodDataCard(TypedDict):
+    cvc: NotRequired[str]
+    """
+    The card CVC.
+    """
+    exp_month: str
+    """
+    The card expiration month.
+    """
+    exp_year: str
+    """
+    The card expiration year.
+    """
+    number: NotRequired[str]
+    """
+    The card number.
     """
 
 

@@ -47979,7 +47979,6 @@ class TestGeneratedExamples(object):
                 "cadence": "unscheduled",
                 "customer": "customer",
                 "metadata": {"key": "metadata"},
-                "payment_method": "payment_method",
             }
         )
         http_client_mock.assert_requested(
@@ -47987,7 +47986,7 @@ class TestGeneratedExamples(object):
             path="/v2/payments/off_session_payments",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"amount":{"value":111972721,"currency":"usd"},"cadence":"unscheduled","customer":"customer","metadata":{"key":"metadata"},"payment_method":"payment_method"}',
+            post_data='{"amount":{"value":111972721,"currency":"usd"},"cadence":"unscheduled","customer":"customer","metadata":{"key":"metadata"}}',
             is_json=True,
         )
 

@@ -159,7 +159,7 @@ class CollectionSettingUpdateParamsPaymentMethodOptionsCard(TypedDict):
 class CollectionSettingUpdateParamsPaymentMethodOptionsCardMandateOptions(
     TypedDict,
 ):
-    amount: NotRequired[int]
+    amount: NotRequired[str]
     """
     Amount to be charged for future payments.
     """
