@@ -59,7 +59,7 @@ class CollectionSetting(StripeObject):
 
         class Card(StripeObject):
             class MandateOptions(StripeObject):
-                amount: Optional[str]
+                amount: Optional[int]
                 """
                 Amount to be charged for future payments.
                 """

@@ -36,7 +36,7 @@ class ReportRun(StripeObject):
             """
             A pre-signed URL that allows secure, time-limited access to download the file.
             """
-            size: str
+            size: int
             """
             The total size of the file in bytes.
             """

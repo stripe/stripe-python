@@ -37,7 +37,7 @@ class LicenseFeeVersion(StripeObject):
         """
 
     class TransformQuantity(StripeObject):
-        divide_by: str
+        divide_by: int
         """
         Divide usage by this number.
         """

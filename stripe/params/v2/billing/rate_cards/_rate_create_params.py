@@ -73,7 +73,7 @@ class RateCreateParamsTier(TypedDict):
 
 
 class RateCreateParamsTransformQuantity(TypedDict):
-    divide_by: str
+    divide_by: int
     """
     Divide usage by this number.
     """
