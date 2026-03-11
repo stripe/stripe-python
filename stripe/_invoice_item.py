@@ -286,6 +286,10 @@ class InvoiceItem(
     """
     The discounts which apply to the invoice item. Item discounts are applied before invoice discounts. Use `expand[]=discounts` to expand each discount.
     """
+    frozen_fields: Optional[List[Literal["pricing", "quantity"]]]
+    """
+    Array of field names that can't be modified. Attempting to update a frozen field returns an error.
+    """
     id: str
     """
     Unique identifier for the object.

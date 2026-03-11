@@ -18,7 +18,11 @@ class IntentAction(StripeObject):
 
     class Apply(StripeObject):
         class EffectiveAt(StripeObject):
-            type: Literal["current_billing_period_end", "on_reserve"]
+            type: Literal[
+                "current_billing_period_end",
+                "next_billing_period_start",
+                "on_reserve",
+            ]
             """
             When the apply action will take effect.
             """

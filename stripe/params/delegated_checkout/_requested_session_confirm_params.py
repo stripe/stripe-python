@@ -24,8 +24,8 @@ class RequestedSessionConfirmParams(RequestOptions):
     """
     Risk details/signals associated with the requested session
     """
-    affiliate_attributions: NotRequired[
-        List["RequestedSessionConfirmParamsAffiliateAttribution"]
+    affiliate_attribution: NotRequired[
+        "RequestedSessionConfirmParamsAffiliateAttribution"
     ]
     """
     Affiliate attribution data associated with this requested session.

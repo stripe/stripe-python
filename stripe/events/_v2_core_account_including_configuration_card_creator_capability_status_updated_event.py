@@ -48,6 +48,7 @@ class V2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEvent
             "get",
             self.related_object.url,
             stripe_context=self.context,
+            headers={"Stripe-Request-Trigger": f"event={self.id}"},
             usage=["fetch_related_object"],
         )
         return cast(
@@ -72,6 +73,7 @@ class V2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEvent
             "get",
             self.related_object.url,
             stripe_context=self.context,
+            headers={"Stripe-Request-Trigger": f"event={self.id}"},
             usage=["fetch_related_object"],
         )
         return cast(
@@ -100,10 +102,15 @@ class V2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEvent
             "commercial.celtic.charge_card",
             "commercial.celtic.spend_card",
             "commercial.cross_river_bank.charge_card",
+            "commercial.cross_river_bank.prepaid_card",
             "commercial.cross_river_bank.spend_card",
+            "commercial.fifth_third.charge_card",
             "commercial.lead.prepaid_card",
             "commercial.stripe.charge_card",
             "commercial.stripe.prepaid_card",
+            "consumer.celtic.revolving_credit_card",
+            "consumer.cross_river_bank.prepaid_card",
+            "consumer.lead.prepaid_card",
         ]
         """
         Open Enum. The capability which had its status updated.
@@ -167,6 +174,9 @@ class V2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEvent
                 "get",
                 self.related_object.url,
                 base_address="api",
-                options={"stripe_context": self.context},
+                options={
+                    "stripe_context": self.context,
+                    "headers": {"Stripe-Request-Trigger": f"event={self.id}"},
+                },
             ),
         )

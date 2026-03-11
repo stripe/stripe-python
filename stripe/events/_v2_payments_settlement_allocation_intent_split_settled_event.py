@@ -46,6 +46,7 @@ class V2PaymentsSettlementAllocationIntentSplitSettledEventNotification(
             "get",
             self.related_object.url,
             stripe_context=self.context,
+            headers={"Stripe-Request-Trigger": f"event={self.id}"},
             usage=["fetch_related_object"],
         )
         return cast(
@@ -72,6 +73,7 @@ class V2PaymentsSettlementAllocationIntentSplitSettledEventNotification(
             "get",
             self.related_object.url,
             stripe_context=self.context,
+            headers={"Stripe-Request-Trigger": f"event={self.id}"},
             usage=["fetch_related_object"],
         )
         return cast(
@@ -153,6 +155,9 @@ class V2PaymentsSettlementAllocationIntentSplitSettledEvent(Event):
                 "get",
                 self.related_object.url,
                 base_address="api",
-                options={"stripe_context": self.context},
+                options={
+                    "stripe_context": self.context,
+                    "headers": {"Stripe-Request-Trigger": f"event={self.id}"},
+                },
             ),
         )

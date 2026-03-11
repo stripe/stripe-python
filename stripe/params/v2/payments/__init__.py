@@ -18,6 +18,10 @@ if TYPE_CHECKING:
         OffSessionPaymentCreateParams as OffSessionPaymentCreateParams,
         OffSessionPaymentCreateParamsAmount as OffSessionPaymentCreateParamsAmount,
         OffSessionPaymentCreateParamsCapture as OffSessionPaymentCreateParamsCapture,
+        OffSessionPaymentCreateParamsPaymentMethodData as OffSessionPaymentCreateParamsPaymentMethodData,
+        OffSessionPaymentCreateParamsPaymentMethodDataBillingDetails as OffSessionPaymentCreateParamsPaymentMethodDataBillingDetails,
+        OffSessionPaymentCreateParamsPaymentMethodDataBillingDetailsAddress as OffSessionPaymentCreateParamsPaymentMethodDataBillingDetailsAddress,
+        OffSessionPaymentCreateParamsPaymentMethodDataCard as OffSessionPaymentCreateParamsPaymentMethodDataCard,
         OffSessionPaymentCreateParamsPaymentMethodOptions as OffSessionPaymentCreateParamsPaymentMethodOptions,
         OffSessionPaymentCreateParamsPaymentMethodOptionsCard as OffSessionPaymentCreateParamsPaymentMethodOptionsCard,
         OffSessionPaymentCreateParamsPaymentsOrchestration as OffSessionPaymentCreateParamsPaymentsOrchestration,
@@ -78,6 +82,22 @@ _import_map = {
         False,
     ),
     "OffSessionPaymentCreateParamsCapture": (
+        "stripe.params.v2.payments._off_session_payment_create_params",
+        False,
+    ),
+    "OffSessionPaymentCreateParamsPaymentMethodData": (
+        "stripe.params.v2.payments._off_session_payment_create_params",
+        False,
+    ),
+    "OffSessionPaymentCreateParamsPaymentMethodDataBillingDetails": (
+        "stripe.params.v2.payments._off_session_payment_create_params",
+        False,
+    ),
+    "OffSessionPaymentCreateParamsPaymentMethodDataBillingDetailsAddress": (
+        "stripe.params.v2.payments._off_session_payment_create_params",
+        False,
+    ),
+    "OffSessionPaymentCreateParamsPaymentMethodDataCard": (
         "stripe.params.v2.payments._off_session_payment_create_params",
         False,
     ),
