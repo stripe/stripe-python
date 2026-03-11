@@ -54,33 +54,17 @@ class InvoiceItem(
     OBJECT_NAME: ClassVar[Literal["invoiceitem"]] = "invoiceitem"
 
     class Parent(StripeObject):
-        class LicenseFeeSubscriptionDetails(StripeObject):
-            license_fee_subscription: str
-            """
-            The license fee subscription that generated this invoice item
-            """
-            license_fee_version: str
-            """
-            The license fee version that generated this invoice item
-            """
+        class PricingPlanSubscriptionDetails(StripeObject):
             pricing_plan_subscription: str
             """
-            The pricing plan subscription that manages the license fee subscription
+            The pricing plan subscription that manages this charge
             """
             pricing_plan_version: str
             """
-            The pricing plan version at the time this invoice item was generated
+            The pricing plan version at the time this charge was generated
             """
 
         class RateCardSubscriptionDetails(StripeObject):
-            pricing_plan_subscription: Optional[str]
-            """
-            The pricing plan subscription that manages the rate card subscription
-            """
-            pricing_plan_version: Optional[str]
-            """
-            The pricing plan version at the time this invoice item was generated
-            """
             rate_card_subscription: str
             """
             The rate card subscription that generated this invoice item
@@ -106,11 +90,11 @@ class InvoiceItem(
             The subscription item that generated this invoice item
             """
 
-        license_fee_subscription_details: Optional[
-            LicenseFeeSubscriptionDetails
+        pricing_plan_subscription_details: Optional[
+            PricingPlanSubscriptionDetails
         ]
         """
-        Details about the license fee subscription that generated this invoice item
+        Details about the pricing plan subscription that generated this invoice item
         """
         rate_card_subscription_details: Optional[RateCardSubscriptionDetails]
         """
@@ -125,7 +109,7 @@ class InvoiceItem(
         Details about the subscription that generated this invoice item
         """
         type: Literal[
-            "license_fee_subscription_details",
+            "pricing_plan_subscription_details",
             "rate_card_subscription_details",
             "schedule_details",
             "subscription_details",
@@ -134,7 +118,7 @@ class InvoiceItem(
         The type of parent that generated this invoice item
         """
         _inner_class_types = {
-            "license_fee_subscription_details": LicenseFeeSubscriptionDetails,
+            "pricing_plan_subscription_details": PricingPlanSubscriptionDetails,
             "rate_card_subscription_details": RateCardSubscriptionDetails,
             "schedule_details": ScheduleDetails,
             "subscription_details": SubscriptionDetails,
