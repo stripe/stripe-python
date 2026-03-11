@@ -199,6 +199,7 @@ if TYPE_CHECKING:
         RegistrationCreateParamsCountryOptionsUa as RegistrationCreateParamsCountryOptionsUa,
         RegistrationCreateParamsCountryOptionsUg as RegistrationCreateParamsCountryOptionsUg,
         RegistrationCreateParamsCountryOptionsUs as RegistrationCreateParamsCountryOptionsUs,
+        RegistrationCreateParamsCountryOptionsUsHomeRuleTax as RegistrationCreateParamsCountryOptionsUsHomeRuleTax,
         RegistrationCreateParamsCountryOptionsUsLocalAmusementTax as RegistrationCreateParamsCountryOptionsUsLocalAmusementTax,
         RegistrationCreateParamsCountryOptionsUsLocalLeaseTax as RegistrationCreateParamsCountryOptionsUsLocalLeaseTax,
         RegistrationCreateParamsCountryOptionsUsStateSalesTax as RegistrationCreateParamsCountryOptionsUsStateSalesTax,
@@ -930,6 +931,10 @@ _import_map = {
         False,
     ),
     "RegistrationCreateParamsCountryOptionsUs": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsUsHomeRuleTax": (
         "stripe.params.tax._registration_create_params",
         False,
     ),

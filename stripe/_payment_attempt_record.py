@@ -4,7 +4,8 @@ from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Dict, List, Optional
+from stripe._util import class_method_variant, sanitize_id
+from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -12,6 +13,24 @@ if TYPE_CHECKING:
     from stripe._payment_method import PaymentMethod
     from stripe.params._payment_attempt_record_list_params import (
         PaymentAttemptRecordListParams,
+    )
+    from stripe.params._payment_attempt_record_report_authenticated_params import (
+        PaymentAttemptRecordReportAuthenticatedParams,
+    )
+    from stripe.params._payment_attempt_record_report_canceled_params import (
+        PaymentAttemptRecordReportCanceledParams,
+    )
+    from stripe.params._payment_attempt_record_report_failed_params import (
+        PaymentAttemptRecordReportFailedParams,
+    )
+    from stripe.params._payment_attempt_record_report_guaranteed_params import (
+        PaymentAttemptRecordReportGuaranteedParams,
+    )
+    from stripe.params._payment_attempt_record_report_informational_params import (
+        PaymentAttemptRecordReportInformationalParams,
+    )
+    from stripe.params._payment_attempt_record_report_refund_params import (
+        PaymentAttemptRecordReportRefundParams,
     )
     from stripe.params._payment_attempt_record_retrieve_params import (
         PaymentAttemptRecordRetrieveParams,
@@ -2271,6 +2290,702 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             )
 
         return result
+
+    @classmethod
+    def _cls_report_authenticated(
+        cls,
+        payment_attempt_record: str,
+        **params: Unpack["PaymentAttemptRecordReportAuthenticatedParams"],
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record was authenticated.
+        """
+        return cast(
+            "PaymentAttemptRecord",
+            cls._static_request(
+                "post",
+                "/v1/payment_attempt_records/{payment_attempt_record}/report_authenticated".format(
+                    payment_attempt_record=sanitize_id(payment_attempt_record)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def report_authenticated(
+        payment_attempt_record: str,
+        **params: Unpack["PaymentAttemptRecordReportAuthenticatedParams"],
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record was authenticated.
+        """
+        ...
+
+    @overload
+    def report_authenticated(
+        self, **params: Unpack["PaymentAttemptRecordReportAuthenticatedParams"]
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record was authenticated.
+        """
+        ...
+
+    @class_method_variant("_cls_report_authenticated")
+    def report_authenticated(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentAttemptRecordReportAuthenticatedParams"]
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record was authenticated.
+        """
+        return cast(
+            "PaymentAttemptRecord",
+            self._request(
+                "post",
+                "/v1/payment_attempt_records/{payment_attempt_record}/report_authenticated".format(
+                    payment_attempt_record=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_report_authenticated_async(
+        cls,
+        payment_attempt_record: str,
+        **params: Unpack["PaymentAttemptRecordReportAuthenticatedParams"],
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record was authenticated.
+        """
+        return cast(
+            "PaymentAttemptRecord",
+            await cls._static_request_async(
+                "post",
+                "/v1/payment_attempt_records/{payment_attempt_record}/report_authenticated".format(
+                    payment_attempt_record=sanitize_id(payment_attempt_record)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def report_authenticated_async(
+        payment_attempt_record: str,
+        **params: Unpack["PaymentAttemptRecordReportAuthenticatedParams"],
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record was authenticated.
+        """
+        ...
+
+    @overload
+    async def report_authenticated_async(
+        self, **params: Unpack["PaymentAttemptRecordReportAuthenticatedParams"]
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record was authenticated.
+        """
+        ...
+
+    @class_method_variant("_cls_report_authenticated_async")
+    async def report_authenticated_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentAttemptRecordReportAuthenticatedParams"]
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record was authenticated.
+        """
+        return cast(
+            "PaymentAttemptRecord",
+            await self._request_async(
+                "post",
+                "/v1/payment_attempt_records/{payment_attempt_record}/report_authenticated".format(
+                    payment_attempt_record=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def _cls_report_canceled(
+        cls,
+        payment_attempt_record: str,
+        **params: Unpack["PaymentAttemptRecordReportCanceledParams"],
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record was canceled.
+        """
+        return cast(
+            "PaymentAttemptRecord",
+            cls._static_request(
+                "post",
+                "/v1/payment_attempt_records/{payment_attempt_record}/report_canceled".format(
+                    payment_attempt_record=sanitize_id(payment_attempt_record)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def report_canceled(
+        payment_attempt_record: str,
+        **params: Unpack["PaymentAttemptRecordReportCanceledParams"],
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record was canceled.
+        """
+        ...
+
+    @overload
+    def report_canceled(
+        self, **params: Unpack["PaymentAttemptRecordReportCanceledParams"]
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record was canceled.
+        """
+        ...
+
+    @class_method_variant("_cls_report_canceled")
+    def report_canceled(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentAttemptRecordReportCanceledParams"]
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record was canceled.
+        """
+        return cast(
+            "PaymentAttemptRecord",
+            self._request(
+                "post",
+                "/v1/payment_attempt_records/{payment_attempt_record}/report_canceled".format(
+                    payment_attempt_record=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_report_canceled_async(
+        cls,
+        payment_attempt_record: str,
+        **params: Unpack["PaymentAttemptRecordReportCanceledParams"],
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record was canceled.
+        """
+        return cast(
+            "PaymentAttemptRecord",
+            await cls._static_request_async(
+                "post",
+                "/v1/payment_attempt_records/{payment_attempt_record}/report_canceled".format(
+                    payment_attempt_record=sanitize_id(payment_attempt_record)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def report_canceled_async(
+        payment_attempt_record: str,
+        **params: Unpack["PaymentAttemptRecordReportCanceledParams"],
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record was canceled.
+        """
+        ...
+
+    @overload
+    async def report_canceled_async(
+        self, **params: Unpack["PaymentAttemptRecordReportCanceledParams"]
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record was canceled.
+        """
+        ...
+
+    @class_method_variant("_cls_report_canceled_async")
+    async def report_canceled_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentAttemptRecordReportCanceledParams"]
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record was canceled.
+        """
+        return cast(
+            "PaymentAttemptRecord",
+            await self._request_async(
+                "post",
+                "/v1/payment_attempt_records/{payment_attempt_record}/report_canceled".format(
+                    payment_attempt_record=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def _cls_report_failed(
+        cls,
+        payment_attempt_record: str,
+        **params: Unpack["PaymentAttemptRecordReportFailedParams"],
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record failed.
+        """
+        return cast(
+            "PaymentAttemptRecord",
+            cls._static_request(
+                "post",
+                "/v1/payment_attempt_records/{payment_attempt_record}/report_failed".format(
+                    payment_attempt_record=sanitize_id(payment_attempt_record)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def report_failed(
+        payment_attempt_record: str,
+        **params: Unpack["PaymentAttemptRecordReportFailedParams"],
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record failed.
+        """
+        ...
+
+    @overload
+    def report_failed(
+        self, **params: Unpack["PaymentAttemptRecordReportFailedParams"]
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record failed.
+        """
+        ...
+
+    @class_method_variant("_cls_report_failed")
+    def report_failed(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentAttemptRecordReportFailedParams"]
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record failed.
+        """
+        return cast(
+            "PaymentAttemptRecord",
+            self._request(
+                "post",
+                "/v1/payment_attempt_records/{payment_attempt_record}/report_failed".format(
+                    payment_attempt_record=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_report_failed_async(
+        cls,
+        payment_attempt_record: str,
+        **params: Unpack["PaymentAttemptRecordReportFailedParams"],
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record failed.
+        """
+        return cast(
+            "PaymentAttemptRecord",
+            await cls._static_request_async(
+                "post",
+                "/v1/payment_attempt_records/{payment_attempt_record}/report_failed".format(
+                    payment_attempt_record=sanitize_id(payment_attempt_record)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def report_failed_async(
+        payment_attempt_record: str,
+        **params: Unpack["PaymentAttemptRecordReportFailedParams"],
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record failed.
+        """
+        ...
+
+    @overload
+    async def report_failed_async(
+        self, **params: Unpack["PaymentAttemptRecordReportFailedParams"]
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record failed.
+        """
+        ...
+
+    @class_method_variant("_cls_report_failed_async")
+    async def report_failed_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentAttemptRecordReportFailedParams"]
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record failed.
+        """
+        return cast(
+            "PaymentAttemptRecord",
+            await self._request_async(
+                "post",
+                "/v1/payment_attempt_records/{payment_attempt_record}/report_failed".format(
+                    payment_attempt_record=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def _cls_report_guaranteed(
+        cls,
+        payment_attempt_record: str,
+        **params: Unpack["PaymentAttemptRecordReportGuaranteedParams"],
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record was guaranteed.
+        """
+        return cast(
+            "PaymentAttemptRecord",
+            cls._static_request(
+                "post",
+                "/v1/payment_attempt_records/{payment_attempt_record}/report_guaranteed".format(
+                    payment_attempt_record=sanitize_id(payment_attempt_record)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def report_guaranteed(
+        payment_attempt_record: str,
+        **params: Unpack["PaymentAttemptRecordReportGuaranteedParams"],
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record was guaranteed.
+        """
+        ...
+
+    @overload
+    def report_guaranteed(
+        self, **params: Unpack["PaymentAttemptRecordReportGuaranteedParams"]
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record was guaranteed.
+        """
+        ...
+
+    @class_method_variant("_cls_report_guaranteed")
+    def report_guaranteed(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentAttemptRecordReportGuaranteedParams"]
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record was guaranteed.
+        """
+        return cast(
+            "PaymentAttemptRecord",
+            self._request(
+                "post",
+                "/v1/payment_attempt_records/{payment_attempt_record}/report_guaranteed".format(
+                    payment_attempt_record=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_report_guaranteed_async(
+        cls,
+        payment_attempt_record: str,
+        **params: Unpack["PaymentAttemptRecordReportGuaranteedParams"],
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record was guaranteed.
+        """
+        return cast(
+            "PaymentAttemptRecord",
+            await cls._static_request_async(
+                "post",
+                "/v1/payment_attempt_records/{payment_attempt_record}/report_guaranteed".format(
+                    payment_attempt_record=sanitize_id(payment_attempt_record)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def report_guaranteed_async(
+        payment_attempt_record: str,
+        **params: Unpack["PaymentAttemptRecordReportGuaranteedParams"],
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record was guaranteed.
+        """
+        ...
+
+    @overload
+    async def report_guaranteed_async(
+        self, **params: Unpack["PaymentAttemptRecordReportGuaranteedParams"]
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record was guaranteed.
+        """
+        ...
+
+    @class_method_variant("_cls_report_guaranteed_async")
+    async def report_guaranteed_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentAttemptRecordReportGuaranteedParams"]
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record was guaranteed.
+        """
+        return cast(
+            "PaymentAttemptRecord",
+            await self._request_async(
+                "post",
+                "/v1/payment_attempt_records/{payment_attempt_record}/report_guaranteed".format(
+                    payment_attempt_record=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def _cls_report_informational(
+        cls,
+        payment_attempt_record: str,
+        **params: Unpack["PaymentAttemptRecordReportInformationalParams"],
+    ) -> "PaymentAttemptRecord":
+        """
+        Report informational updates on the specified Payment Attempt Record.
+        """
+        return cast(
+            "PaymentAttemptRecord",
+            cls._static_request(
+                "post",
+                "/v1/payment_attempt_records/{payment_attempt_record}/report_informational".format(
+                    payment_attempt_record=sanitize_id(payment_attempt_record)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def report_informational(
+        payment_attempt_record: str,
+        **params: Unpack["PaymentAttemptRecordReportInformationalParams"],
+    ) -> "PaymentAttemptRecord":
+        """
+        Report informational updates on the specified Payment Attempt Record.
+        """
+        ...
+
+    @overload
+    def report_informational(
+        self, **params: Unpack["PaymentAttemptRecordReportInformationalParams"]
+    ) -> "PaymentAttemptRecord":
+        """
+        Report informational updates on the specified Payment Attempt Record.
+        """
+        ...
+
+    @class_method_variant("_cls_report_informational")
+    def report_informational(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentAttemptRecordReportInformationalParams"]
+    ) -> "PaymentAttemptRecord":
+        """
+        Report informational updates on the specified Payment Attempt Record.
+        """
+        return cast(
+            "PaymentAttemptRecord",
+            self._request(
+                "post",
+                "/v1/payment_attempt_records/{payment_attempt_record}/report_informational".format(
+                    payment_attempt_record=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_report_informational_async(
+        cls,
+        payment_attempt_record: str,
+        **params: Unpack["PaymentAttemptRecordReportInformationalParams"],
+    ) -> "PaymentAttemptRecord":
+        """
+        Report informational updates on the specified Payment Attempt Record.
+        """
+        return cast(
+            "PaymentAttemptRecord",
+            await cls._static_request_async(
+                "post",
+                "/v1/payment_attempt_records/{payment_attempt_record}/report_informational".format(
+                    payment_attempt_record=sanitize_id(payment_attempt_record)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def report_informational_async(
+        payment_attempt_record: str,
+        **params: Unpack["PaymentAttemptRecordReportInformationalParams"],
+    ) -> "PaymentAttemptRecord":
+        """
+        Report informational updates on the specified Payment Attempt Record.
+        """
+        ...
+
+    @overload
+    async def report_informational_async(
+        self, **params: Unpack["PaymentAttemptRecordReportInformationalParams"]
+    ) -> "PaymentAttemptRecord":
+        """
+        Report informational updates on the specified Payment Attempt Record.
+        """
+        ...
+
+    @class_method_variant("_cls_report_informational_async")
+    async def report_informational_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentAttemptRecordReportInformationalParams"]
+    ) -> "PaymentAttemptRecord":
+        """
+        Report informational updates on the specified Payment Attempt Record.
+        """
+        return cast(
+            "PaymentAttemptRecord",
+            await self._request_async(
+                "post",
+                "/v1/payment_attempt_records/{payment_attempt_record}/report_informational".format(
+                    payment_attempt_record=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def _cls_report_refund(
+        cls,
+        payment_attempt_record: str,
+        **params: Unpack["PaymentAttemptRecordReportRefundParams"],
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record was refunded.
+        """
+        return cast(
+            "PaymentAttemptRecord",
+            cls._static_request(
+                "post",
+                "/v1/payment_attempt_records/{payment_attempt_record}/report_refund".format(
+                    payment_attempt_record=sanitize_id(payment_attempt_record)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def report_refund(
+        payment_attempt_record: str,
+        **params: Unpack["PaymentAttemptRecordReportRefundParams"],
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record was refunded.
+        """
+        ...
+
+    @overload
+    def report_refund(
+        self, **params: Unpack["PaymentAttemptRecordReportRefundParams"]
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record was refunded.
+        """
+        ...
+
+    @class_method_variant("_cls_report_refund")
+    def report_refund(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentAttemptRecordReportRefundParams"]
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record was refunded.
+        """
+        return cast(
+            "PaymentAttemptRecord",
+            self._request(
+                "post",
+                "/v1/payment_attempt_records/{payment_attempt_record}/report_refund".format(
+                    payment_attempt_record=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_report_refund_async(
+        cls,
+        payment_attempt_record: str,
+        **params: Unpack["PaymentAttemptRecordReportRefundParams"],
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record was refunded.
+        """
+        return cast(
+            "PaymentAttemptRecord",
+            await cls._static_request_async(
+                "post",
+                "/v1/payment_attempt_records/{payment_attempt_record}/report_refund".format(
+                    payment_attempt_record=sanitize_id(payment_attempt_record)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def report_refund_async(
+        payment_attempt_record: str,
+        **params: Unpack["PaymentAttemptRecordReportRefundParams"],
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record was refunded.
+        """
+        ...
+
+    @overload
+    async def report_refund_async(
+        self, **params: Unpack["PaymentAttemptRecordReportRefundParams"]
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record was refunded.
+        """
+        ...
+
+    @class_method_variant("_cls_report_refund_async")
+    async def report_refund_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentAttemptRecordReportRefundParams"]
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record was refunded.
+        """
+        return cast(
+            "PaymentAttemptRecord",
+            await self._request_async(
+                "post",
+                "/v1/payment_attempt_records/{payment_attempt_record}/report_refund".format(
+                    payment_attempt_record=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
 
     @classmethod
     def retrieve(

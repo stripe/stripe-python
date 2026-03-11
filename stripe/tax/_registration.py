@@ -971,6 +971,12 @@ class Registration(
                 A [jurisdiction code](https://docs.stripe.com/tax/registering?type=gross_receipts_tax#registration-types) representing the local jurisdiction.
                 """
 
+            class HomeRuleTax(StripeObject):
+                jurisdiction: str
+                """
+                A [jurisdiction code](https://docs.stripe.com/tax/registering?type=home_rule_tax#registration-types) representing the local jurisdiction.
+                """
+
             class HospitalityTax(StripeObject):
                 jurisdiction: str
                 """
@@ -1032,6 +1038,7 @@ class Registration(
             attendance_tax: Optional[AttendanceTax]
             entertainment_tax: Optional[EntertainmentTax]
             gross_receipts_tax: Optional[GrossReceiptsTax]
+            home_rule_tax: Optional[HomeRuleTax]
             hospitality_tax: Optional[HospitalityTax]
             local_amusement_tax: Optional[LocalAmusementTax]
             local_lease_tax: Optional[LocalLeaseTax]
@@ -1048,6 +1055,7 @@ class Registration(
                 "attendance_tax",
                 "entertainment_tax",
                 "gross_receipts_tax",
+                "home_rule_tax",
                 "hospitality_tax",
                 "local_amusement_tax",
                 "local_lease_tax",
@@ -1066,6 +1074,7 @@ class Registration(
                 "attendance_tax": AttendanceTax,
                 "entertainment_tax": EntertainmentTax,
                 "gross_receipts_tax": GrossReceiptsTax,
+                "home_rule_tax": HomeRuleTax,
                 "hospitality_tax": HospitalityTax,
                 "local_amusement_tax": LocalAmusementTax,
                 "local_lease_tax": LocalLeaseTax,

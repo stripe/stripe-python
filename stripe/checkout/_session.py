@@ -25,6 +25,9 @@ if TYPE_CHECKING:
     from stripe._subscription import Subscription
     from stripe._tax_id import TaxId as TaxIdResource
     from stripe._tax_rate import TaxRate
+    from stripe.params.checkout._session_approve_params import (
+        SessionApproveParams,
+    )
     from stripe.params.checkout._session_create_params import (
         SessionCreateParams,
     )
@@ -473,6 +476,196 @@ class Session(
         """
         Creation currency of the CheckoutSession before localization
         """
+
+    class CurrentAttempt(StripeObject):
+        class BillingDetails(StripeObject):
+            class Address(StripeObject):
+                city: Optional[str]
+                """
+                City, district, suburb, town, or village.
+                """
+                country: Optional[str]
+                """
+                Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                """
+                line1: Optional[str]
+                """
+                Address line 1, such as the street, PO Box, or company name.
+                """
+                line2: Optional[str]
+                """
+                Address line 2, such as the apartment, suite, unit, or building.
+                """
+                postal_code: Optional[str]
+                """
+                ZIP or postal code.
+                """
+                state: Optional[str]
+                """
+                State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+                """
+
+            address: Address
+            name: Optional[str]
+            """
+            Customer name.
+            """
+            _inner_class_types = {"address": Address}
+
+        class PaymentMethodDetails(StripeObject):
+            class Card(StripeObject):
+                class Wallet(StripeObject):
+                    type: Literal[
+                        "amex_express_checkout",
+                        "apple_pay",
+                        "google_pay",
+                        "link",
+                        "masterpass",
+                        "meta_pay",
+                        "samsung_pay",
+                        "visa_checkout",
+                    ]
+                    """
+                    The type of the wallet, one of `amex_express_checkout`, `apple_pay`, `google_pay`, `masterpass`, `samsung_pay`, `visa_checkout`, `meta_pay`, or `link`.
+                    """
+
+                brand: Literal[
+                    "accel",
+                    "amex",
+                    "carnet",
+                    "cartes_bancaires",
+                    "conecs",
+                    "diners",
+                    "discover",
+                    "eftpos_au",
+                    "elo",
+                    "girocard",
+                    "interac",
+                    "jcb",
+                    "link",
+                    "maestro",
+                    "mastercard",
+                    "nyce",
+                    "pulse",
+                    "rupay",
+                    "star",
+                    "unionpay",
+                    "unknown",
+                    "visa",
+                ]
+                """
+                The brand of the card, accounting for customer's brand choice on dual-branded cards.
+                """
+                country: Optional[str]
+                """
+                Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
+                """
+                exp_month: int
+                """
+                Two-digit number representing the card's expiration month.
+                """
+                exp_year: int
+                """
+                Four-digit number representing the card's expiration year.
+                """
+                fingerprint: Optional[str]
+                """
+                Uniquely identifies this particular card number. You can use this attribute to check whether two customers who've signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
+
+                *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
+                """
+                funding: Literal["credit", "debit", "prepaid", "unknown"]
+                """
+                Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
+                """
+                iin: Optional[str]
+                """
+                Issuer identification number of the card. (For internal use only and not typically available in standard API requests.)
+                """
+                last4: str
+                """
+                The last four digits of the card.
+                """
+                wallet: Optional[Wallet]
+                """
+                If this Card is part of a card wallet, this contains the details of the card wallet.
+                """
+                _inner_class_types = {"wallet": Wallet}
+
+            allow_redisplay: Literal["always", "limited", "unspecified"]
+            """
+            Indicates whether this payment method can be shown again to its customer in a checkout flow.
+            """
+            card: Optional[Card]
+            type: str
+            """
+            The type of payment method the customer is attempting to pay with. An additional hash is included in the payment method details with a name matching this value. It contains additional information specific to the payment method type.
+            """
+            _inner_class_types = {"card": Card}
+
+        class ShippingDetails(StripeObject):
+            class Address(StripeObject):
+                city: Optional[str]
+                """
+                City, district, suburb, town, or village.
+                """
+                country: Optional[str]
+                """
+                Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                """
+                line1: Optional[str]
+                """
+                Address line 1, such as the street, PO Box, or company name.
+                """
+                line2: Optional[str]
+                """
+                Address line 2, such as the apartment, suite, unit, or building.
+                """
+                postal_code: Optional[str]
+                """
+                ZIP or postal code.
+                """
+                state: Optional[str]
+                """
+                State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+                """
+
+            address: Address
+            name: str
+            """
+            Customer name.
+            """
+            _inner_class_types = {"address": Address}
+
+        billing_details: Optional[BillingDetails]
+        """
+        The customer's billing information, if provided.
+        """
+        email: Optional[str]
+        """
+        The customer's email.
+        """
+        id: str
+        """
+        The attempt ID you will pass to the [Checkout Session approve](api/checkout/sessions/approve) endpoint to approve the attempt.
+        """
+        payment_method_details: Optional[PaymentMethodDetails]
+        """
+        Information about the payment method the customer is attempting to pay with.
+        """
+        phone: Optional[str]
+        """
+        The customer's phone number.
+        """
+        shipping_details: Optional[ShippingDetails]
+        """
+        The customer's shipping information, if provided.
+        """
+        _inner_class_types = {
+            "billing_details": BillingDetails,
+            "payment_method_details": PaymentMethodDetails,
+            "shipping_details": ShippingDetails,
+        }
 
     class CustomField(StripeObject):
         class Dropdown(StripeObject):
@@ -2461,6 +2654,14 @@ class Session(
     """
     Total of all items after discounts and taxes are applied.
     """
+    approval_method: Optional[Literal["auto", "manual"]]
+    """
+    Determines whether the customer's attempt to pay must be manually approved.
+
+    Default is `auto`, when the customer's attempt to pay is approved automatically with no action required on your server.
+
+    When set to `manual`, you must approve the customer's attempt to pay by calling [approve](api/checkout/sessions/approve) from your server.
+    """
     automatic_tax: AutomaticTax
     billing_address_collection: Optional[Literal["auto", "required"]]
     """
@@ -2506,6 +2707,10 @@ class Session(
     currency_conversion: Optional[CurrencyConversion]
     """
     Currency conversion details for [Adaptive Pricing](https://docs.stripe.com/payments/checkout/adaptive-pricing) sessions created before 2025-03-31.
+    """
+    current_attempt: Optional[CurrentAttempt]
+    """
+    The customer's pending attempt to pay that requires your approval. Contains information about the customer and their payment details.
     """
     custom_fields: List[CustomField]
     """
@@ -2756,6 +2961,114 @@ class Session(
     """
     Wallet-specific configuration for this Checkout Session.
     """
+
+    @classmethod
+    def _cls_approve(
+        cls, session: str, **params: Unpack["SessionApproveParams"]
+    ) -> "Session":
+        """
+        Approves a customer's attempt to pay for a Checkout Session with approval_method set to manual.
+        """
+        return cast(
+            "Session",
+            cls._static_request(
+                "post",
+                "/v1/checkout/sessions/{session}/approve".format(
+                    session=sanitize_id(session)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def approve(
+        session: str, **params: Unpack["SessionApproveParams"]
+    ) -> "Session":
+        """
+        Approves a customer's attempt to pay for a Checkout Session with approval_method set to manual.
+        """
+        ...
+
+    @overload
+    def approve(self, **params: Unpack["SessionApproveParams"]) -> "Session":
+        """
+        Approves a customer's attempt to pay for a Checkout Session with approval_method set to manual.
+        """
+        ...
+
+    @class_method_variant("_cls_approve")
+    def approve(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["SessionApproveParams"]
+    ) -> "Session":
+        """
+        Approves a customer's attempt to pay for a Checkout Session with approval_method set to manual.
+        """
+        return cast(
+            "Session",
+            self._request(
+                "post",
+                "/v1/checkout/sessions/{session}/approve".format(
+                    session=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_approve_async(
+        cls, session: str, **params: Unpack["SessionApproveParams"]
+    ) -> "Session":
+        """
+        Approves a customer's attempt to pay for a Checkout Session with approval_method set to manual.
+        """
+        return cast(
+            "Session",
+            await cls._static_request_async(
+                "post",
+                "/v1/checkout/sessions/{session}/approve".format(
+                    session=sanitize_id(session)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def approve_async(
+        session: str, **params: Unpack["SessionApproveParams"]
+    ) -> "Session":
+        """
+        Approves a customer's attempt to pay for a Checkout Session with approval_method set to manual.
+        """
+        ...
+
+    @overload
+    async def approve_async(
+        self, **params: Unpack["SessionApproveParams"]
+    ) -> "Session":
+        """
+        Approves a customer's attempt to pay for a Checkout Session with approval_method set to manual.
+        """
+        ...
+
+    @class_method_variant("_cls_approve_async")
+    async def approve_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["SessionApproveParams"]
+    ) -> "Session":
+        """
+        Approves a customer's attempt to pay for a Checkout Session with approval_method set to manual.
+        """
+        return cast(
+            "Session",
+            await self._request_async(
+                "post",
+                "/v1/checkout/sessions/{session}/approve".format(
+                    session=sanitize_id(self.get("id"))
+                ),
+                params=params,
+            ),
+        )
 
     @classmethod
     def create(cls, **params: Unpack["SessionCreateParams"]) -> "Session":
@@ -3131,6 +3444,7 @@ class Session(
         "consent": Consent,
         "consent_collection": ConsentCollection,
         "currency_conversion": CurrencyConversion,
+        "current_attempt": CurrentAttempt,
         "custom_fields": CustomField,
         "custom_text": CustomText,
         "customer_details": CustomerDetails,

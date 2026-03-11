@@ -17,6 +17,7 @@ if TYPE_CHECKING:
         forwarding as forwarding,
         identity as identity,
         issuing as issuing,
+        orchestration as orchestration,
         privacy as privacy,
         product_catalog as product_catalog,
         radar as radar,
@@ -2153,6 +2154,31 @@ if TYPE_CHECKING:
     )
     from stripe.params._payment_attempt_record_list_params import (
         PaymentAttemptRecordListParams as PaymentAttemptRecordListParams,
+    )
+    from stripe.params._payment_attempt_record_report_authenticated_params import (
+        PaymentAttemptRecordReportAuthenticatedParams as PaymentAttemptRecordReportAuthenticatedParams,
+    )
+    from stripe.params._payment_attempt_record_report_canceled_params import (
+        PaymentAttemptRecordReportCanceledParams as PaymentAttemptRecordReportCanceledParams,
+    )
+    from stripe.params._payment_attempt_record_report_failed_params import (
+        PaymentAttemptRecordReportFailedParams as PaymentAttemptRecordReportFailedParams,
+    )
+    from stripe.params._payment_attempt_record_report_guaranteed_params import (
+        PaymentAttemptRecordReportGuaranteedParams as PaymentAttemptRecordReportGuaranteedParams,
+    )
+    from stripe.params._payment_attempt_record_report_informational_params import (
+        PaymentAttemptRecordReportInformationalParams as PaymentAttemptRecordReportInformationalParams,
+        PaymentAttemptRecordReportInformationalParamsCustomerDetails as PaymentAttemptRecordReportInformationalParamsCustomerDetails,
+        PaymentAttemptRecordReportInformationalParamsShippingDetails as PaymentAttemptRecordReportInformationalParamsShippingDetails,
+        PaymentAttemptRecordReportInformationalParamsShippingDetailsAddress as PaymentAttemptRecordReportInformationalParamsShippingDetailsAddress,
+    )
+    from stripe.params._payment_attempt_record_report_refund_params import (
+        PaymentAttemptRecordReportRefundParams as PaymentAttemptRecordReportRefundParams,
+        PaymentAttemptRecordReportRefundParamsAmount as PaymentAttemptRecordReportRefundParamsAmount,
+        PaymentAttemptRecordReportRefundParamsProcessorDetails as PaymentAttemptRecordReportRefundParamsProcessorDetails,
+        PaymentAttemptRecordReportRefundParamsProcessorDetailsCustom as PaymentAttemptRecordReportRefundParamsProcessorDetailsCustom,
+        PaymentAttemptRecordReportRefundParamsRefunded as PaymentAttemptRecordReportRefundParamsRefunded,
     )
     from stripe.params._payment_attempt_record_retrieve_params import (
         PaymentAttemptRecordRetrieveParams as PaymentAttemptRecordRetrieveParams,
@@ -5846,6 +5872,7 @@ _import_map = {
     "forwarding": ("stripe.params.forwarding", True),
     "identity": ("stripe.params.identity", True),
     "issuing": ("stripe.params.issuing", True),
+    "orchestration": ("stripe.params.orchestration", True),
     "privacy": ("stripe.params.privacy", True),
     "product_catalog": ("stripe.params.product_catalog", True),
     "radar": ("stripe.params.radar", True),
@@ -12273,6 +12300,58 @@ _import_map = {
     ),
     "PaymentAttemptRecordListParams": (
         "stripe.params._payment_attempt_record_list_params",
+        False,
+    ),
+    "PaymentAttemptRecordReportAuthenticatedParams": (
+        "stripe.params._payment_attempt_record_report_authenticated_params",
+        False,
+    ),
+    "PaymentAttemptRecordReportCanceledParams": (
+        "stripe.params._payment_attempt_record_report_canceled_params",
+        False,
+    ),
+    "PaymentAttemptRecordReportFailedParams": (
+        "stripe.params._payment_attempt_record_report_failed_params",
+        False,
+    ),
+    "PaymentAttemptRecordReportGuaranteedParams": (
+        "stripe.params._payment_attempt_record_report_guaranteed_params",
+        False,
+    ),
+    "PaymentAttemptRecordReportInformationalParams": (
+        "stripe.params._payment_attempt_record_report_informational_params",
+        False,
+    ),
+    "PaymentAttemptRecordReportInformationalParamsCustomerDetails": (
+        "stripe.params._payment_attempt_record_report_informational_params",
+        False,
+    ),
+    "PaymentAttemptRecordReportInformationalParamsShippingDetails": (
+        "stripe.params._payment_attempt_record_report_informational_params",
+        False,
+    ),
+    "PaymentAttemptRecordReportInformationalParamsShippingDetailsAddress": (
+        "stripe.params._payment_attempt_record_report_informational_params",
+        False,
+    ),
+    "PaymentAttemptRecordReportRefundParams": (
+        "stripe.params._payment_attempt_record_report_refund_params",
+        False,
+    ),
+    "PaymentAttemptRecordReportRefundParamsAmount": (
+        "stripe.params._payment_attempt_record_report_refund_params",
+        False,
+    ),
+    "PaymentAttemptRecordReportRefundParamsProcessorDetails": (
+        "stripe.params._payment_attempt_record_report_refund_params",
+        False,
+    ),
+    "PaymentAttemptRecordReportRefundParamsProcessorDetailsCustom": (
+        "stripe.params._payment_attempt_record_report_refund_params",
+        False,
+    ),
+    "PaymentAttemptRecordReportRefundParamsRefunded": (
+        "stripe.params._payment_attempt_record_report_refund_params",
         False,
     ),
     "PaymentAttemptRecordRetrieveParams": (

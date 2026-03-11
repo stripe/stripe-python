@@ -55,6 +55,7 @@ if TYPE_CHECKING:
     from stripe._issuing_service import IssuingService
     from stripe._mandate_service import MandateService
     from stripe._margin_service import MarginService
+    from stripe._orchestration_service import OrchestrationService
     from stripe._order_service import OrderService
     from stripe._payment_attempt_record_service import (
         PaymentAttemptRecordService,
@@ -198,6 +199,7 @@ _subservices = {
     "issuing": ["stripe._issuing_service", "IssuingService"],
     "mandates": ["stripe._mandate_service", "MandateService"],
     "margins": ["stripe._margin_service", "MarginService"],
+    "orchestration": ["stripe._orchestration_service", "OrchestrationService"],
     "orders": ["stripe._order_service", "OrderService"],
     "payment_attempt_records": [
         "stripe._payment_attempt_record_service",
@@ -323,6 +325,7 @@ class V1Services(StripeService):
     issuing: "IssuingService"
     mandates: "MandateService"
     margins: "MarginService"
+    orchestration: "OrchestrationService"
     orders: "OrderService"
     payment_attempt_records: "PaymentAttemptRecordService"
     payment_intents: "PaymentIntentService"
