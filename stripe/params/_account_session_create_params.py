@@ -447,12 +447,12 @@ class AccountSessionCreateParamsComponentsCheckScanning(TypedDict):
         "AccountSessionCreateParamsComponentsCheckScanningFeatures"
     ]
     """
-    An empty list, because this embedded component has no features.
+    The list of features enabled in the embedded component.
     """
 
 
 class AccountSessionCreateParamsComponentsCheckScanningFeatures(TypedDict):
-    pass
+    create_us_paper_check_on_application: NotRequired[bool]
 
 
 class AccountSessionCreateParamsComponentsDisputesList(TypedDict):
