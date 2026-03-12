@@ -32,11 +32,15 @@ class GrantedTokenCreateParamsUsageLimits(TypedDict):
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
-    expires_at: int
+    expires_at: NotRequired[int]
     """
     Time at which this SharedPaymentToken expires and can no longer be used to confirm a PaymentIntent.
     """
     max_amount: int
     """
     Max amount that can be captured using this SharedPaymentToken
+    """
+    recurring_interval: NotRequired[Literal["month", "week", "year"]]
+    """
+    The recurring interval at which the shared payment token's amount usage restrictions reset.
     """
