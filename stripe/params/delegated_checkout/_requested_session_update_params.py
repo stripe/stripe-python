@@ -66,6 +66,14 @@ class RequestedSessionUpdateParamsFulfillmentDetails(TypedDict):
     """
     The fulfillment option to select.
     """
+    selected_fulfillment_option_overrides: NotRequired[
+        List[
+            "RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOptionOverride"
+        ]
+    ]
+    """
+    The fulfillment option overrides for specific line items.
+    """
 
 
 class RequestedSessionUpdateParamsFulfillmentDetailsAddress(TypedDict):
@@ -121,7 +129,7 @@ class RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOptionShi
 ):
     shipping_option: str
     """
-    The shipping option identifer.
+    The shipping option identifier.
     """
 
 
@@ -131,6 +139,49 @@ class RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOptionDig
     digital_option: str
     """
     The digital option identifier.
+    """
+
+
+class RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOptionOverride(
+    TypedDict,
+):
+    digital: NotRequired[
+        "RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOptionOverrideDigital"
+    ]
+    """
+    The digital fulfillment option.
+    """
+    line_item_keys: List[str]
+    """
+    The line item keys that this fulfillment option override applies to.
+    """
+    shipping: NotRequired[
+        "RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOptionOverrideShipping"
+    ]
+    """
+    The shipping fulfillment option.
+    """
+    type: str
+    """
+    The type of fulfillment option.
+    """
+
+
+class RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOptionOverrideDigital(
+    TypedDict,
+):
+    digital_option: str
+    """
+    The digital option identifier.
+    """
+
+
+class RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOptionOverrideShipping(
+    TypedDict,
+):
+    shipping_option: str
+    """
+    The shipping option identifier.
     """
 
 

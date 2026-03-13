@@ -83,40 +83,24 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
             """
             _inner_class_types = {"proration_details": ProrationDetails}
 
-        class LicenseFeeSubscriptionDetails(StripeObject):
+        class PricingPlanSubscriptionDetails(StripeObject):
             invoice_item: str
             """
             The invoice item that generated this line item
             """
-            license_fee_subscription: str
-            """
-            The license fee subscription that generated this line item
-            """
-            license_fee_version: str
-            """
-            The license fee version at the time this line item was generated
-            """
             pricing_plan_subscription: str
             """
-            The pricing plan subscription that manages the license fee subscription
+            The pricing plan subscription that manages this charge
             """
             pricing_plan_version: str
             """
-            The pricing plan version at the time this line item was generated
+            The pricing plan version at the time this charge was generated
             """
 
         class RateCardSubscriptionDetails(StripeObject):
             invoice_item: str
             """
             The invoice item that generated this line item
-            """
-            pricing_plan_subscription: Optional[str]
-            """
-            The pricing plan subscription that manages the rate card subscription
-            """
-            pricing_plan_version: Optional[str]
-            """
-            The pricing plan version at the time this line item was generated
             """
             rate_card_subscription: str
             """
@@ -211,11 +195,11 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         """
         Details about the invoice item that generated this line item
         """
-        license_fee_subscription_details: Optional[
-            LicenseFeeSubscriptionDetails
+        pricing_plan_subscription_details: Optional[
+            PricingPlanSubscriptionDetails
         ]
         """
-        Details about the license fee subscription that generated this line item
+        Details about the pricing plan subscription that generated this line item
         """
         rate_card_subscription_details: Optional[RateCardSubscriptionDetails]
         """
@@ -231,7 +215,7 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         """
         type: Literal[
             "invoice_item_details",
-            "license_fee_subscription_details",
+            "pricing_plan_subscription_details",
             "rate_card_subscription_details",
             "schedule_details",
             "subscription_item_details",
@@ -241,7 +225,7 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         """
         _inner_class_types = {
             "invoice_item_details": InvoiceItemDetails,
-            "license_fee_subscription_details": LicenseFeeSubscriptionDetails,
+            "pricing_plan_subscription_details": PricingPlanSubscriptionDetails,
             "rate_card_subscription_details": RateCardSubscriptionDetails,
             "schedule_details": ScheduleDetails,
             "subscription_item_details": SubscriptionItemDetails,

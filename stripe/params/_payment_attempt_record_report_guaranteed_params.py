@@ -5,7 +5,7 @@ from typing import Dict, List
 from typing_extensions import Literal, NotRequired
 
 
-class PaymentRecordReportPaymentAttemptGuaranteedParams(RequestOptions):
+class PaymentAttemptRecordReportGuaranteedParams(RequestOptions):
     expand: NotRequired[List[str]]
     """
     Specifies which fields in the response should be expanded.

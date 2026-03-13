@@ -13,6 +13,9 @@ if TYPE_CHECKING:
     from stripe.checkout._session_line_item_service import (
         SessionLineItemService,
     )
+    from stripe.params.checkout._session_approve_params import (
+        SessionApproveParams,
+    )
     from stripe.params.checkout._session_create_params import (
         SessionCreateParams,
     )
@@ -217,6 +220,50 @@ class SessionService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/checkout/sessions/{session}".format(
+                    session=sanitize_id(session),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def approve(
+        self,
+        session: str,
+        params: "SessionApproveParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "Session":
+        """
+        Approves a customer's attempt to pay for a Checkout Session with approval_method set to manual.
+        """
+        return cast(
+            "Session",
+            self._request(
+                "post",
+                "/v1/checkout/sessions/{session}/approve".format(
+                    session=sanitize_id(session),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def approve_async(
+        self,
+        session: str,
+        params: "SessionApproveParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "Session":
+        """
+        Approves a customer's attempt to pay for a Checkout Session with approval_method set to manual.
+        """
+        return cast(
+            "Session",
+            await self._request_async(
+                "post",
+                "/v1/checkout/sessions/{session}/approve".format(
                     session=sanitize_id(session),
                 ),
                 base_address="api",

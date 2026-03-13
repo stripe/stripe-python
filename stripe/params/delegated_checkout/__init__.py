@@ -37,6 +37,9 @@ if TYPE_CHECKING:
         RequestedSessionModifyParamsFulfillmentDetailsAddress as RequestedSessionModifyParamsFulfillmentDetailsAddress,
         RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOption as RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOption,
         RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOptionDigital as RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOptionDigital,
+        RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOptionOverride as RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOptionOverride,
+        RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOptionOverrideDigital as RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOptionOverrideDigital,
+        RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOptionOverrideShipping as RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOptionOverrideShipping,
         RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOptionShipping as RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOptionShipping,
         RequestedSessionModifyParamsLineItemDetail as RequestedSessionModifyParamsLineItemDetail,
         RequestedSessionModifyParamsPaymentMethodData as RequestedSessionModifyParamsPaymentMethodData,
@@ -53,6 +56,9 @@ if TYPE_CHECKING:
         RequestedSessionUpdateParamsFulfillmentDetailsAddress as RequestedSessionUpdateParamsFulfillmentDetailsAddress,
         RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOption as RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOption,
         RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOptionDigital as RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOptionDigital,
+        RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOptionOverride as RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOptionOverride,
+        RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOptionOverrideDigital as RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOptionOverrideDigital,
+        RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOptionOverrideShipping as RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOptionOverrideShipping,
         RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOptionShipping as RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOptionShipping,
         RequestedSessionUpdateParamsLineItemDetail as RequestedSessionUpdateParamsLineItemDetail,
         RequestedSessionUpdateParamsPaymentMethodData as RequestedSessionUpdateParamsPaymentMethodData,
@@ -167,6 +173,18 @@ _import_map = {
         "stripe.params.delegated_checkout._requested_session_modify_params",
         False,
     ),
+    "RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOptionOverride": (
+        "stripe.params.delegated_checkout._requested_session_modify_params",
+        False,
+    ),
+    "RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOptionOverrideDigital": (
+        "stripe.params.delegated_checkout._requested_session_modify_params",
+        False,
+    ),
+    "RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOptionOverrideShipping": (
+        "stripe.params.delegated_checkout._requested_session_modify_params",
+        False,
+    ),
     "RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOptionShipping": (
         "stripe.params.delegated_checkout._requested_session_modify_params",
         False,
@@ -212,6 +230,18 @@ _import_map = {
         False,
     ),
     "RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOptionDigital": (
+        "stripe.params.delegated_checkout._requested_session_update_params",
+        False,
+    ),
+    "RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOptionOverride": (
+        "stripe.params.delegated_checkout._requested_session_update_params",
+        False,
+    ),
+    "RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOptionOverrideDigital": (
+        "stripe.params.delegated_checkout._requested_session_update_params",
+        False,
+    ),
+    "RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOptionOverrideShipping": (
         "stripe.params.delegated_checkout._requested_session_update_params",
         False,
     ),

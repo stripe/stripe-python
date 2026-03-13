@@ -1785,6 +1785,7 @@ class RegistrationCreateParamsCountryOptionsUs(TypedDict):
         "attendance_tax",
         "entertainment_tax",
         "gross_receipts_tax",
+        "home_rule_tax",
         "hospitality_tax",
         "local_amusement_tax",
         "local_lease_tax",
@@ -1797,6 +1798,12 @@ class RegistrationCreateParamsCountryOptionsUs(TypedDict):
     ]
     """
     Type of registration to be created in the US.
+    """
+    home_rule_tax: NotRequired[
+        "RegistrationCreateParamsCountryOptionsUsHomeRuleTax"
+    ]
+    """
+    Options for the home rule tax registration.
     """
 
 
@@ -1833,6 +1840,13 @@ class RegistrationCreateParamsCountryOptionsUsStateSalesTaxElection(TypedDict):
     ]
     """
     The type of the election for the state sales tax registration.
+    """
+
+
+class RegistrationCreateParamsCountryOptionsUsHomeRuleTax(TypedDict):
+    jurisdiction: str
+    """
+    A jurisdiction code representing the [local jurisdiction](https://docs.stripe.com/tax/registering?type=home_rule_tax#registration-types).
     """
 
 

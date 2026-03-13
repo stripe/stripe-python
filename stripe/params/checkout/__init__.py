@@ -4,6 +4,11 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.params.checkout._session_approve_params import (
+        SessionApproveParams as SessionApproveParams,
+        SessionApproveParamsPaymentIntentData as SessionApproveParamsPaymentIntentData,
+        SessionApproveParamsSubscriptionData as SessionApproveParamsSubscriptionData,
+    )
     from stripe.params.checkout._session_create_params import (
         SessionCreateParams as SessionCreateParams,
         SessionCreateParamsAdaptivePricing as SessionCreateParamsAdaptivePricing,
@@ -218,6 +223,18 @@ if TYPE_CHECKING:
 
 # name -> (import_target, is_submodule)
 _import_map = {
+    "SessionApproveParams": (
+        "stripe.params.checkout._session_approve_params",
+        False,
+    ),
+    "SessionApproveParamsPaymentIntentData": (
+        "stripe.params.checkout._session_approve_params",
+        False,
+    ),
+    "SessionApproveParamsSubscriptionData": (
+        "stripe.params.checkout._session_approve_params",
+        False,
+    ),
     "SessionCreateParams": (
         "stripe.params.checkout._session_create_params",
         False,

@@ -157,6 +157,7 @@ if TYPE_CHECKING:
         forwarding as forwarding,
         identity as identity,
         issuing as issuing,
+        orchestration as orchestration,
         params as params,
         privacy as privacy,
         product_catalog as product_catalog,
@@ -438,6 +439,9 @@ if TYPE_CHECKING:
     )
     from stripe._oauth import OAuth as OAuth
     from stripe._oauth_service import OAuthService as OAuthService
+    from stripe._orchestration_service import (
+        OrchestrationService as OrchestrationService,
+    )
     from stripe._order import Order as Order
     from stripe._order_service import OrderService as OrderService
     from stripe._payment_attempt_record import (
@@ -664,6 +668,7 @@ _import_map = {
     "forwarding": ("stripe.forwarding", True),
     "identity": ("stripe.identity", True),
     "issuing": ("stripe.issuing", True),
+    "orchestration": ("stripe.orchestration", True),
     "params": ("stripe.params", True),
     "privacy": ("stripe.privacy", True),
     "product_catalog": ("stripe.product_catalog", True),
@@ -884,6 +889,7 @@ _import_map = {
     ),
     "OAuth": ("stripe._oauth", False),
     "OAuthService": ("stripe._oauth_service", False),
+    "OrchestrationService": ("stripe._orchestration_service", False),
     "Order": ("stripe._order", False),
     "OrderService": ("stripe._order_service", False),
     "PaymentAttemptRecord": ("stripe._payment_attempt_record", False),
