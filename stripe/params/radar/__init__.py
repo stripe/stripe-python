@@ -32,6 +32,18 @@ if TYPE_CHECKING:
         CustomerEvaluationCreateParamsEvaluationContextCustomerDetails as CustomerEvaluationCreateParamsEvaluationContextCustomerDetails,
         CustomerEvaluationCreateParamsEvaluationContextCustomerDetailsCustomerData as CustomerEvaluationCreateParamsEvaluationContextCustomerDetailsCustomerData,
     )
+    from stripe.params.radar._customer_evaluation_modify_params import (
+        CustomerEvaluationModifyParams as CustomerEvaluationModifyParams,
+        CustomerEvaluationModifyParamsLoginFailed as CustomerEvaluationModifyParamsLoginFailed,
+        CustomerEvaluationModifyParamsRegistrationFailed as CustomerEvaluationModifyParamsRegistrationFailed,
+        CustomerEvaluationModifyParamsRegistrationSuccess as CustomerEvaluationModifyParamsRegistrationSuccess,
+    )
+    from stripe.params.radar._customer_evaluation_update_params import (
+        CustomerEvaluationUpdateParams as CustomerEvaluationUpdateParams,
+        CustomerEvaluationUpdateParamsLoginFailed as CustomerEvaluationUpdateParamsLoginFailed,
+        CustomerEvaluationUpdateParamsRegistrationFailed as CustomerEvaluationUpdateParamsRegistrationFailed,
+        CustomerEvaluationUpdateParamsRegistrationSuccess as CustomerEvaluationUpdateParamsRegistrationSuccess,
+    )
     from stripe.params.radar._early_fraud_warning_list_params import (
         EarlyFraudWarningListParams as EarlyFraudWarningListParams,
         EarlyFraudWarningListParamsCreated as EarlyFraudWarningListParamsCreated,
@@ -167,6 +179,38 @@ _import_map = {
     ),
     "CustomerEvaluationCreateParamsEvaluationContextCustomerDetailsCustomerData": (
         "stripe.params.radar._customer_evaluation_create_params",
+        False,
+    ),
+    "CustomerEvaluationModifyParams": (
+        "stripe.params.radar._customer_evaluation_modify_params",
+        False,
+    ),
+    "CustomerEvaluationModifyParamsLoginFailed": (
+        "stripe.params.radar._customer_evaluation_modify_params",
+        False,
+    ),
+    "CustomerEvaluationModifyParamsRegistrationFailed": (
+        "stripe.params.radar._customer_evaluation_modify_params",
+        False,
+    ),
+    "CustomerEvaluationModifyParamsRegistrationSuccess": (
+        "stripe.params.radar._customer_evaluation_modify_params",
+        False,
+    ),
+    "CustomerEvaluationUpdateParams": (
+        "stripe.params.radar._customer_evaluation_update_params",
+        False,
+    ),
+    "CustomerEvaluationUpdateParamsLoginFailed": (
+        "stripe.params.radar._customer_evaluation_update_params",
+        False,
+    ),
+    "CustomerEvaluationUpdateParamsRegistrationFailed": (
+        "stripe.params.radar._customer_evaluation_update_params",
+        False,
+    ),
+    "CustomerEvaluationUpdateParamsRegistrationSuccess": (
+        "stripe.params.radar._customer_evaluation_update_params",
         False,
     ),
     "EarlyFraudWarningListParams": (

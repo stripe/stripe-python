@@ -10,7 +10,7 @@ class CustomerEvaluationCreateParams(RequestOptions):
     """
     Array of context entries for the evaluation.
     """
-    event_type: Literal["registration"]
+    event_type: Literal["login", "registration"]
     """
     The type of evaluation event.
     """
