@@ -780,6 +780,7 @@ class TestAPIRequestor(object):
 
         mocker.patch("platform.platform", side_effect=fail)
 
+        stripe.enable_telemetry = True
         requestor.request("get", self.v1_path, {}, {}, base_address="api")
 
         last_call = http_client_mock.get_last_call()
@@ -789,6 +790,26 @@ class TestAPIRequestor(object):
                 "platform"
             ]
             == "(disabled)"
+        )
+
+    def test_platform_only_used_with_telemetry(
+        self, requestor, mocker, http_client_mock
+    ):
+        http_client_mock.stub_request(
+            "get", path=self.v1_path, rbody="{}", rcode=200
+        )
+
+        def fail():
+            raise RuntimeError
+
+        mocker.patch("platform.platform", side_effect=fail)
+
+        requestor.request("get", self.v1_path, {}, {}, base_address="api")
+
+        last_call = http_client_mock.get_last_call()
+        last_call.assert_method("get")
+        assert "platform" not in json.loads(
+            last_call.get_raw_header("X-Stripe-Client-User-Agent")
         )
 
     def test_uses_given_idempotency_key(self, requestor, http_client_mock):
