@@ -10,6 +10,12 @@ if TYPE_CHECKING:
     from stripe.radar._account_evaluation_service import (
         AccountEvaluationService as AccountEvaluationService,
     )
+    from stripe.radar._customer_evaluation import (
+        CustomerEvaluation as CustomerEvaluation,
+    )
+    from stripe.radar._customer_evaluation_service import (
+        CustomerEvaluationService as CustomerEvaluationService,
+    )
     from stripe.radar._early_fraud_warning import (
         EarlyFraudWarning as EarlyFraudWarning,
     )
@@ -42,6 +48,11 @@ _import_map = {
     "AccountEvaluation": ("stripe.radar._account_evaluation", False),
     "AccountEvaluationService": (
         "stripe.radar._account_evaluation_service",
+        False,
+    ),
+    "CustomerEvaluation": ("stripe.radar._customer_evaluation", False),
+    "CustomerEvaluationService": (
+        "stripe.radar._customer_evaluation_service",
         False,
     ),
     "EarlyFraudWarning": ("stripe.radar._early_fraud_warning", False),

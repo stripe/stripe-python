@@ -25,6 +25,13 @@ if TYPE_CHECKING:
         AccountEvaluationUpdateParamsLoginFailed as AccountEvaluationUpdateParamsLoginFailed,
         AccountEvaluationUpdateParamsRegistrationFailed as AccountEvaluationUpdateParamsRegistrationFailed,
     )
+    from stripe.params.radar._customer_evaluation_create_params import (
+        CustomerEvaluationCreateParams as CustomerEvaluationCreateParams,
+        CustomerEvaluationCreateParamsEvaluationContext as CustomerEvaluationCreateParamsEvaluationContext,
+        CustomerEvaluationCreateParamsEvaluationContextClientDetails as CustomerEvaluationCreateParamsEvaluationContextClientDetails,
+        CustomerEvaluationCreateParamsEvaluationContextCustomerDetails as CustomerEvaluationCreateParamsEvaluationContextCustomerDetails,
+        CustomerEvaluationCreateParamsEvaluationContextCustomerDetailsCustomerData as CustomerEvaluationCreateParamsEvaluationContextCustomerDetailsCustomerData,
+    )
     from stripe.params.radar._early_fraud_warning_list_params import (
         EarlyFraudWarningListParams as EarlyFraudWarningListParams,
         EarlyFraudWarningListParamsCreated as EarlyFraudWarningListParamsCreated,
@@ -140,6 +147,26 @@ _import_map = {
     ),
     "AccountEvaluationUpdateParamsRegistrationFailed": (
         "stripe.params.radar._account_evaluation_update_params",
+        False,
+    ),
+    "CustomerEvaluationCreateParams": (
+        "stripe.params.radar._customer_evaluation_create_params",
+        False,
+    ),
+    "CustomerEvaluationCreateParamsEvaluationContext": (
+        "stripe.params.radar._customer_evaluation_create_params",
+        False,
+    ),
+    "CustomerEvaluationCreateParamsEvaluationContextClientDetails": (
+        "stripe.params.radar._customer_evaluation_create_params",
+        False,
+    ),
+    "CustomerEvaluationCreateParamsEvaluationContextCustomerDetails": (
+        "stripe.params.radar._customer_evaluation_create_params",
+        False,
+    ),
+    "CustomerEvaluationCreateParamsEvaluationContextCustomerDetailsCustomerData": (
+        "stripe.params.radar._customer_evaluation_create_params",
         False,
     ),
     "EarlyFraudWarningListParams": (
