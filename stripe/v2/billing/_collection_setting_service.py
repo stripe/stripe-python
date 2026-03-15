@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe._encode import _coerce_v2_params
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
@@ -108,7 +109,16 @@ class CollectionSettingService(StripeService):
                 "post",
                 "/v2/billing/collection_settings",
                 base_address="api",
-                params=params,
+                params=_coerce_v2_params(
+                    params,
+                    {
+                        "payment_method_options": {
+                            "card": {
+                                "mandate_options": {"amount": "int64_string"},
+                            },
+                        },
+                    },
+                ),
                 options=options,
             ),
         )
@@ -127,7 +137,16 @@ class CollectionSettingService(StripeService):
                 "post",
                 "/v2/billing/collection_settings",
                 base_address="api",
-                params=params,
+                params=_coerce_v2_params(
+                    params,
+                    {
+                        "payment_method_options": {
+                            "card": {
+                                "mandate_options": {"amount": "int64_string"},
+                            },
+                        },
+                    },
+                ),
                 options=options,
             ),
         )
@@ -193,7 +212,16 @@ class CollectionSettingService(StripeService):
                     id=sanitize_id(id),
                 ),
                 base_address="api",
-                params=params,
+                params=_coerce_v2_params(
+                    params,
+                    {
+                        "payment_method_options": {
+                            "card": {
+                                "mandate_options": {"amount": "int64_string"},
+                            },
+                        },
+                    },
+                ),
                 options=options,
             ),
         )
@@ -215,7 +243,16 @@ class CollectionSettingService(StripeService):
                     id=sanitize_id(id),
                 ),
                 base_address="api",
-                params=params,
+                params=_coerce_v2_params(
+                    params,
+                    {
+                        "payment_method_options": {
+                            "card": {
+                                "mandate_options": {"amount": "int64_string"},
+                            },
+                        },
+                    },
+                ),
                 options=options,
             ),
         )
