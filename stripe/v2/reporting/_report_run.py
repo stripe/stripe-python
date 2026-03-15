@@ -41,6 +41,7 @@ class ReportRun(StripeObject):
             The total size of the file in bytes.
             """
             _inner_class_types = {"download_url": DownloadUrl}
+            _field_encodings = {"size": "int64_string"}
 
         file: File
         """

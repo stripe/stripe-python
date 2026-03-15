@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe._encode import _coerce_v2_params
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
@@ -87,7 +88,10 @@ class RateService(StripeService):
                     rate_card_id=sanitize_id(rate_card_id),
                 ),
                 base_address="api",
-                params=params,
+                params=_coerce_v2_params(
+                    params,
+                    {"transform_quantity": {"divide_by": "int64_string"}},
+                ),
                 options=options,
             ),
         )
@@ -110,7 +114,10 @@ class RateService(StripeService):
                     rate_card_id=sanitize_id(rate_card_id),
                 ),
                 base_address="api",
-                params=params,
+                params=_coerce_v2_params(
+                    params,
+                    {"transform_quantity": {"divide_by": "int64_string"}},
+                ),
                 options=options,
             ),
         )
