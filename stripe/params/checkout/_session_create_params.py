@@ -453,6 +453,14 @@ class SessionCreateParams(RequestOptions):
     """
     Wallet-specific configuration.
     """
+    approval_method: NotRequired[Literal["auto", "manual"]]
+    """
+    Determines whether the customer's attempt to pay must be manually approved.
+
+    Default is `auto`, when the customer's attempt to pay is approved automatically with no action required on your server.
+
+    When set to `manual`, you must approve the customer's attempt to pay by calling [approve](api/checkout/sessions/approve) from your server.
+    """
     checkout_items: NotRequired[List["SessionCreateParamsCheckoutItem"]]
 
 

@@ -124,7 +124,9 @@ class PaymentRecordService(StripeService):
     def report_payment_attempt_canceled(
         self,
         id: str,
-        params: "PaymentRecordReportPaymentAttemptCanceledParams",
+        params: Optional[
+            "PaymentRecordReportPaymentAttemptCanceledParams"
+        ] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentRecord":
         """
@@ -147,7 +149,9 @@ class PaymentRecordService(StripeService):
     async def report_payment_attempt_canceled_async(
         self,
         id: str,
-        params: "PaymentRecordReportPaymentAttemptCanceledParams",
+        params: Optional[
+            "PaymentRecordReportPaymentAttemptCanceledParams"
+        ] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentRecord":
         """
@@ -170,7 +174,9 @@ class PaymentRecordService(StripeService):
     def report_payment_attempt_failed(
         self,
         id: str,
-        params: "PaymentRecordReportPaymentAttemptFailedParams",
+        params: Optional[
+            "PaymentRecordReportPaymentAttemptFailedParams"
+        ] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentRecord":
         """
@@ -193,7 +199,9 @@ class PaymentRecordService(StripeService):
     async def report_payment_attempt_failed_async(
         self,
         id: str,
-        params: "PaymentRecordReportPaymentAttemptFailedParams",
+        params: Optional[
+            "PaymentRecordReportPaymentAttemptFailedParams"
+        ] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentRecord":
         """
@@ -216,7 +224,9 @@ class PaymentRecordService(StripeService):
     def report_payment_attempt_guaranteed(
         self,
         id: str,
-        params: "PaymentRecordReportPaymentAttemptGuaranteedParams",
+        params: Optional[
+            "PaymentRecordReportPaymentAttemptGuaranteedParams"
+        ] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentRecord":
         """
@@ -239,7 +249,9 @@ class PaymentRecordService(StripeService):
     async def report_payment_attempt_guaranteed_async(
         self,
         id: str,
-        params: "PaymentRecordReportPaymentAttemptGuaranteedParams",
+        params: Optional[
+            "PaymentRecordReportPaymentAttemptGuaranteedParams"
+        ] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentRecord":
         """

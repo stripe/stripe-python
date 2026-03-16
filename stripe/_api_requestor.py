@@ -5,6 +5,7 @@ import platform
 from typing import (
     Any,
     AsyncIterable,
+    Callable,
     Dict,
     List,
     Mapping,
@@ -545,14 +546,14 @@ class _APIRequestor(object):
         ua: Dict[str, Union[str, "AppInfo"]] = {
             "bindings_version": VERSION,
             "lang": "python",
-            "publisher": "stripe",
             "httplib": self._get_http_client().name,
         }
-        for attr, func in [
-            ["lang_version", platform.python_version],
-            ["platform", platform.platform],
-            ["uname", lambda: " ".join(platform.uname())],
-        ]:
+        attr_funcs: List[Tuple[str, Callable[[], str]]] = [
+            ("lang_version", platform.python_version),
+        ]
+        if stripe.enable_telemetry:
+            attr_funcs.append(("platform", platform.platform))
+        for attr, func in attr_funcs:
             try:
                 val = func()
             except Exception:

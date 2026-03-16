@@ -25,17 +25,17 @@ class IssuingAuthorizationEvaluation(
     class AuthorizationDetails(StripeObject):
         amount: int
         """
-        The authorization amount in the smallest currency unit.
+        The total amount of the authorization in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
         """
         authorization_method: Optional[
             Literal["chip", "contactless", "keyed_in", "online", "swipe"]
         ]
         """
-        The method used for authorization.
+        How the card details were provided.
         """
         currency: str
         """
-        Three-letter ISO currency code in lowercase.
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         """
         entry_mode: Optional[
             Literal[
@@ -51,15 +51,15 @@ class IssuingAuthorizationEvaluation(
             ]
         ]
         """
-        The card entry mode.
+        Defines how the card's information was entered for the authorization.
         """
         entry_mode_raw_code: Optional[str]
         """
-        The raw code for the card entry mode.
+        Raw code indicating the entry mode from the network message.
         """
         initiated_at: int
         """
-        The time when the authorization was initiated.
+        The timestamp of the authorization initiated in seconds.
         """
         point_of_sale_condition: Optional[
             Literal[
@@ -76,15 +76,15 @@ class IssuingAuthorizationEvaluation(
             ]
         ]
         """
-        The point of sale condition.
+        Defines how the card was read at the point of sale.
         """
         point_of_sale_condition_raw_code: Optional[str]
         """
-        The raw code for the point of sale condition.
+        Raw code indicating the point of sale condition from the network message.
         """
         reference: str
         """
-        External reference for the authorization.
+        User's specified unique ID for this authorization attempt (e.g., RRN or internal reference).
         """
 
     class CardDetails(StripeObject):
@@ -94,15 +94,15 @@ class IssuingAuthorizationEvaluation(
         """
         bin_country: str
         """
-        The country code associated with the card BIN.
+        The two-letter country code of the BIN issuer.
         """
         card_type: Literal["physical", "virtual"]
         """
-        The type of card (physical or virtual).
+        The type of the card.
         """
         created_at: int
         """
-        The time when the card was created.
+        The timestamp when the card was created.
         """
         last4: str
         """
@@ -110,45 +110,45 @@ class IssuingAuthorizationEvaluation(
         """
         reference: str
         """
-        External reference for the card.
+        User's specified unique ID of the card for this authorization attempt (e.g., RRN or internal reference).
         """
 
     class CardholderDetails(StripeObject):
         created_at: Optional[int]
         """
-        The time when the cardholder was created.
+        The timestamp when the cardholder was created.
         """
         reference: Optional[str]
         """
-        External reference for the cardholder.
+        User's specified unique ID of the cardholder for this authorization attempt (e.g., RRN or internal reference).
         """
 
     class MerchantDetails(StripeObject):
         category_code: str
         """
-        The merchant category code (MCC).
+        The merchant category code for the seller's business.
         """
         country: Optional[str]
         """
-        The merchant country code.
+        Country where the seller is located.
         """
         name: str
         """
-        The merchant name.
+        Name of the seller.
         """
         network_id: str
         """
-        The merchant identifier from the card network.
+        Identifier assigned to the seller by the card network. Different card networks may assign different network_id fields to the same merchant.
         """
         terminal_id: Optional[str]
         """
-        The terminal identifier.
+        An ID assigned by the seller to the location of the sale.
         """
 
     class NetworkDetails(StripeObject):
         acquiring_institution_id: Optional[str]
         """
-        The acquiring institution identifier.
+        Identifier assigned to the acquirer by the card network. Sometimes this value is not provided by the network; in this case, the value will be null.
         """
         routed_network: Optional[
             Literal[
@@ -162,7 +162,7 @@ class IssuingAuthorizationEvaluation(
             ]
         ]
         """
-        The card network that processed the authorization.
+        The card network over which Stripe received the authorization.
         """
 
     class Signals(StripeObject):
@@ -211,15 +211,15 @@ class IssuingAuthorizationEvaluation(
     class TokenDetails(StripeObject):
         created_at: Optional[int]
         """
-        The time when the token was created.
+        The timestamp when the network token was created.
         """
         reference: Optional[str]
         """
-        External reference for the token.
+        User's specified unique ID of the card token for this authorization attempt (e.g., RRN or internal reference).
         """
         wallet: Optional[Literal["apple_pay", "google_pay", "samsung_pay"]]
         """
-        The wallet provider, if applicable.
+        The digital wallet used for this transaction. One of `apple_pay`, `google_pay`, or `samsung_pay`.
         """
 
     class VerificationDetails(StripeObject):
@@ -233,12 +233,12 @@ class IssuingAuthorizationEvaluation(
             ]
         ]
         """
-        The result of the 3D Secure verification.
+        The outcome of the 3D Secure authentication request.
         """
 
     authorization_details: Optional[AuthorizationDetails]
     """
-    Details about the authorization transaction.
+    Details about the authorization.
     """
     card_details: Optional[CardDetails]
     """
@@ -258,7 +258,7 @@ class IssuingAuthorizationEvaluation(
     """
     merchant_details: Optional[MerchantDetails]
     """
-    Details about the merchant where the authorization occurred.
+    Details about the seller (grocery store, e-commerce website, etc.) where the card authorization happened.
     """
     metadata: Optional[Dict[str, str]]
     """
@@ -266,7 +266,7 @@ class IssuingAuthorizationEvaluation(
     """
     network_details: Optional[NetworkDetails]
     """
-    Details about the card network processing.
+    Details about the authorization, such as identifiers, set by the card network.
     """
     object: Literal["radar.issuing_authorization_evaluation"]
     """
@@ -278,11 +278,11 @@ class IssuingAuthorizationEvaluation(
     """
     token_details: Optional[TokenDetails]
     """
-    Details about the token, if a tokenized payment method was used.
+    Details about the token, if a tokenized payment method was used for the authorization.
     """
     verification_details: Optional[VerificationDetails]
     """
-    Details about verification checks performed.
+    Details about verification data for the authorization.
     """
 
     @classmethod

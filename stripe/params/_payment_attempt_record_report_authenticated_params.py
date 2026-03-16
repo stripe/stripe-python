@@ -5,14 +5,14 @@ from typing import Dict, List
 from typing_extensions import Literal, NotRequired
 
 
-class PaymentRecordReportPaymentAttemptGuaranteedParams(RequestOptions):
+class PaymentAttemptRecordReportAuthenticatedParams(RequestOptions):
+    authenticated_at: NotRequired[int]
+    """
+    When the reported payment was authenticated. Measured in seconds since the Unix epoch.
+    """
     expand: NotRequired[List[str]]
     """
     Specifies which fields in the response should be expanded.
-    """
-    guaranteed_at: NotRequired[int]
-    """
-    When the reported payment was guaranteed. Measured in seconds since the Unix epoch.
     """
     metadata: NotRequired["Literal['']|Dict[str, str]"]
     """

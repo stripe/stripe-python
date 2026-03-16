@@ -1280,7 +1280,6 @@ class QuoteModifyParamsSubscriptionDataBillingScheduleBillFrom(TypedDict):
     """
     type: Literal[
         "line_starts_at",
-        "now",
         "pause_collection_start",
         "quote_acceptance_date",
         "timestamp",
@@ -1600,7 +1599,6 @@ class QuoteModifyParamsSubscriptionDataOverrideBillingScheduleBillFrom(
     """
     type: Literal[
         "line_starts_at",
-        "now",
         "pause_collection_start",
         "quote_acceptance_date",
         "timestamp",

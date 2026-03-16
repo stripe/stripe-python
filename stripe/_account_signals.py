@@ -75,7 +75,7 @@ class AccountSignals(StripeObject):
     """
     delinquency: Optional[Delinquency]
     """
-    The delinquency signal of the account
+    The delinquency signal of the account.
     """
     livemode: bool
     """

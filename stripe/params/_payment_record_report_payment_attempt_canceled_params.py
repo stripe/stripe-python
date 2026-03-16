@@ -6,7 +6,7 @@ from typing_extensions import Literal, NotRequired
 
 
 class PaymentRecordReportPaymentAttemptCanceledParams(RequestOptions):
-    canceled_at: int
+    canceled_at: NotRequired[int]
     """
     When the reported payment was canceled. Measured in seconds since the Unix epoch.
     """

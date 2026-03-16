@@ -5,8 +5,8 @@ from typing import Dict, List
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
-class PaymentRecordReportRefundParams(RequestOptions):
-    amount: NotRequired["PaymentRecordReportRefundParamsAmount"]
+class PaymentAttemptRecordReportRefundParams(RequestOptions):
+    amount: NotRequired["PaymentAttemptRecordReportRefundParamsAmount"]
     """
     A positive integer in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) representing how much of this payment to refund. Can refund only up to the remaining, unrefunded amount of the payment.
     """
@@ -26,17 +26,17 @@ class PaymentRecordReportRefundParams(RequestOptions):
     """
     The outcome of the reported refund.
     """
-    processor_details: "PaymentRecordReportRefundParamsProcessorDetails"
+    processor_details: "PaymentAttemptRecordReportRefundParamsProcessorDetails"
     """
     Processor information for this refund.
     """
-    refunded: NotRequired["PaymentRecordReportRefundParamsRefunded"]
+    refunded: NotRequired["PaymentAttemptRecordReportRefundParamsRefunded"]
     """
     Information about the payment attempt refund.
     """
 
 
-class PaymentRecordReportRefundParamsAmount(TypedDict):
+class PaymentAttemptRecordReportRefundParamsAmount(TypedDict):
     currency: str
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -47,9 +47,9 @@ class PaymentRecordReportRefundParamsAmount(TypedDict):
     """
 
 
-class PaymentRecordReportRefundParamsProcessorDetails(TypedDict):
+class PaymentAttemptRecordReportRefundParamsProcessorDetails(TypedDict):
     custom: NotRequired[
-        "PaymentRecordReportRefundParamsProcessorDetailsCustom"
+        "PaymentAttemptRecordReportRefundParamsProcessorDetailsCustom"
     ]
     """
     Information about the custom processor used to make this refund.
@@ -60,14 +60,14 @@ class PaymentRecordReportRefundParamsProcessorDetails(TypedDict):
     """
 
 
-class PaymentRecordReportRefundParamsProcessorDetailsCustom(TypedDict):
+class PaymentAttemptRecordReportRefundParamsProcessorDetailsCustom(TypedDict):
     refund_reference: str
     """
     A reference to the external refund. This field must be unique across all refunds.
     """
 
 
-class PaymentRecordReportRefundParamsRefunded(TypedDict):
+class PaymentAttemptRecordReportRefundParamsRefunded(TypedDict):
     refunded_at: int
     """
     When the reported refund completed. Measured in seconds since the Unix epoch.

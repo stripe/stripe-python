@@ -92,6 +92,7 @@ if TYPE_CHECKING:
     from stripe._issuing_service import IssuingService
     from stripe._mandate_service import MandateService
     from stripe._margin_service import MarginService
+    from stripe._orchestration_service import OrchestrationService
     from stripe._order_service import OrderService
     from stripe._payment_attempt_record_service import (
         PaymentAttemptRecordService,
@@ -820,6 +821,17 @@ class StripeClient(object):
     )
     def margins(self) -> "MarginService":
         return self.v1.margins
+
+    @property
+    @deprecated(
+        """
+        StripeClient.orchestration is deprecated, use StripeClient.v1.orchestration instead.
+          All functionality under it has been copied over to StripeClient.v1.orchestration.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """,
+    )
+    def orchestration(self) -> "OrchestrationService":
+        return self.v1.orchestration
 
     @property
     @deprecated(

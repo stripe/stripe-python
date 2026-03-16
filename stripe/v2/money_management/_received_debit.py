@@ -259,7 +259,7 @@ class ReceivedDebit(StripeObject):
         "stripe_balance_payment",
     ]
     """
-    Open enum, the type of the received debit.
+    Open Enum. The type of the ReceivedDebit.
     """
     _inner_class_types = {
         "amount": Amount,
