@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from stripe.v2._amount import Amount
 from typing import ClassVar, Optional
 from typing_extensions import Literal
 
@@ -54,6 +53,16 @@ class Adjustment(StripeObject):
         Closed Enum. If applicable, the type of flow linked to this Adjustment. The field matching this value will contain the ID of the flow.
         """
 
+    class Amount(StripeObject):
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        value: int
+        """
+        A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+        """
+
     adjusted_flow: Optional[AdjustedFlow]
     """
     If applicable, contains information about the original flow linked to this Adjustment.
@@ -94,4 +103,4 @@ class Adjustment(StripeObject):
     """
     A reference for the Adjustment that associates it with related records or operations.
     """
-    _inner_class_types = {"adjusted_flow": AdjustedFlow}
+    _inner_class_types = {"adjusted_flow": AdjustedFlow, "amount": Amount}

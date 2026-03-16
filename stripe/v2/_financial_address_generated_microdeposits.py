@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from stripe.v2._amount import Amount
 from typing import ClassVar, List
 from typing_extensions import Literal
 
@@ -14,6 +13,17 @@ class FinancialAddressGeneratedMicrodeposits(StripeObject):
     OBJECT_NAME: ClassVar[
         Literal["financial_address_generated_microdeposits"]
     ] = "financial_address_generated_microdeposits"
+
+    class Amount(StripeObject):
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        value: int
+        """
+        A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+        """
+
     amounts: List[Amount]
     """
     The amounts of the microdeposits that were generated.
@@ -30,3 +40,4 @@ class FinancialAddressGeneratedMicrodeposits(StripeObject):
     """
     Closed Enum. The status of the request.
     """
+    _inner_class_types = {"amounts": Amount}

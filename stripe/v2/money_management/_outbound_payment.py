@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from stripe.v2._amount import Amount
 from typing import ClassVar, Dict, Optional
 from typing_extensions import Literal
 
@@ -14,6 +13,16 @@ class OutboundPayment(StripeObject):
     OBJECT_NAME: ClassVar[Literal["v2.money_management.outbound_payment"]] = (
         "v2.money_management.outbound_payment"
     )
+
+    class Amount(StripeObject):
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        value: int
+        """
+        A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+        """
 
     class DeliveryOptions(StripeObject):
         class PaperCheck(StripeObject):
@@ -45,7 +54,17 @@ class OutboundPayment(StripeObject):
         _inner_class_types = {"paper_check": PaperCheck}
 
     class From(StripeObject):
-        debited: Amount
+        class Debited(StripeObject):
+            currency: str
+            """
+            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            """
+            value: int
+            """
+            A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+            """
+
+        debited: Debited
         """
         The monetary amount debited from the sender, only set on responses.
         """
@@ -53,6 +72,7 @@ class OutboundPayment(StripeObject):
         """
         The FinancialAccount that funds were pulled from.
         """
+        _inner_class_types = {"debited": Debited}
 
     class RecipientNotification(StripeObject):
         setting: Literal["configured", "none"]
@@ -126,7 +146,17 @@ class OutboundPayment(StripeObject):
         """
 
     class To(StripeObject):
-        credited: Amount
+        class Credited(StripeObject):
+            currency: str
+            """
+            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            """
+            value: int
+            """
+            A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+            """
+
+        credited: Credited
         """
         The monetary amount being credited to the destination.
         """
@@ -138,6 +168,7 @@ class OutboundPayment(StripeObject):
         """
         To which account the OutboundPayment is sent.
         """
+        _inner_class_types = {"credited": Credited}
 
     class TraceId(StripeObject):
         status: Literal["pending", "supported", "unsupported"]
@@ -318,6 +349,7 @@ class OutboundPayment(StripeObject):
     Information to track this OutboundPayment with the recipient bank.
     """
     _inner_class_types = {
+        "amount": Amount,
         "delivery_options": DeliveryOptions,
         "from": From,
         "recipient_notification": RecipientNotification,

@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from stripe.v2._amount import Amount
 from typing import ClassVar, List, Optional
 from typing_extensions import Literal
 
@@ -14,6 +13,16 @@ class ReceivedDebit(StripeObject):
     OBJECT_NAME: ClassVar[Literal["v2.money_management.received_debit"]] = (
         "v2.money_management.received_debit"
     )
+
+    class Amount(StripeObject):
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        value: int
+        """
+        A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+        """
 
     class BalanceTransfer(StripeObject):
         topup: Optional[str]
@@ -64,6 +73,16 @@ class ReceivedDebit(StripeObject):
 
     class CardSpend(StripeObject):
         class Authorization(StripeObject):
+            class Amount(StripeObject):
+                currency: str
+                """
+                Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                """
+                value: int
+                """
+                A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+                """
+
             amount: Amount
             """
             Amount associated with this issuing authorization.
@@ -72,8 +91,19 @@ class ReceivedDebit(StripeObject):
             """
             The reference to the v1 issuing authorization ID.
             """
+            _inner_class_types = {"amount": Amount}
 
         class CardTransaction(StripeObject):
+            class Amount(StripeObject):
+                currency: str
+                """
+                Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                """
+                value: int
+                """
+                A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+                """
+
             amount: Amount
             """
             Amount associated with this issuing transaction.
@@ -82,6 +112,7 @@ class ReceivedDebit(StripeObject):
             """
             The reference to the v1 issuing transaction ID.
             """
+            _inner_class_types = {"amount": Amount}
 
         authorization: Optional[Authorization]
         """
@@ -99,6 +130,16 @@ class ReceivedDebit(StripeObject):
             "authorization": Authorization,
             "card_transactions": CardTransaction,
         }
+
+    class ExternalAmount(StripeObject):
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        value: int
+        """
+        A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+        """
 
     class StatusDetails(StripeObject):
         class Failed(StripeObject):
@@ -170,7 +211,7 @@ class ReceivedDebit(StripeObject):
     """
     Freeform string sent by the originator of the ReceivedDebit.
     """
-    external_amount: Optional[Amount]
+    external_amount: Optional[ExternalAmount]
     """
     The amount and currency of the original/external debit request.
     """
@@ -221,9 +262,11 @@ class ReceivedDebit(StripeObject):
     Open Enum. The type of the ReceivedDebit.
     """
     _inner_class_types = {
+        "amount": Amount,
         "balance_transfer": BalanceTransfer,
         "bank_transfer": BankTransfer,
         "card_spend": CardSpend,
+        "external_amount": ExternalAmount,
         "status_details": StatusDetails,
         "status_transitions": StatusTransitions,
         "stripe_balance_payment": StripeBalancePayment,

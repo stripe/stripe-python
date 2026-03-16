@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from stripe.v2._amount import Amount
 from typing import ClassVar, Dict, Optional
 from typing_extensions import Literal
 
@@ -19,6 +18,26 @@ class OffSessionPayment(StripeObject):
     OBJECT_NAME: ClassVar[Literal["v2.payments.off_session_payment"]] = (
         "v2.payments.off_session_payment"
     )
+
+    class AmountCapturable(StripeObject):
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        value: int
+        """
+        A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+        """
+
+    class AmountRequested(StripeObject):
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        value: int
+        """
+        A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+        """
 
     class Capture(StripeObject):
         capture_before: Optional[str]
@@ -67,11 +86,11 @@ class OffSessionPayment(StripeObject):
         where funds from the payment are transferred to after payment success.
         """
 
-    amount_capturable: Optional[Amount]
+    amount_capturable: Optional[AmountCapturable]
     """
     The amount available to be captured.
     """
-    amount_requested: Amount
+    amount_requested: AmountRequested
     """
     The “presentment amount” to be collected from the customer.
     """
@@ -186,6 +205,8 @@ class OffSessionPayment(StripeObject):
     The data that automatically creates a Transfer after the payment finalizes. Learn more about the use case for [connected accounts](https://docs.stripe.com/payments/connected-accounts).
     """
     _inner_class_types = {
+        "amount_capturable": AmountCapturable,
+        "amount_requested": AmountRequested,
         "capture": Capture,
         "payments_orchestration": PaymentsOrchestration,
         "retry_details": RetryDetails,

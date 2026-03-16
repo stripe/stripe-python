@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from stripe.v2._amount import Amount as V2AmountResource
 from typing import ClassVar, List, Optional
 from typing_extensions import Literal, TYPE_CHECKING
 
@@ -38,11 +37,21 @@ class ServiceAction(StripeObject):
                 The value of the credit grant, decimal value represented as a string.
                 """
 
+            class Monetary(StripeObject):
+                currency: str
+                """
+                Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                """
+                value: int
+                """
+                A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+                """
+
             custom_pricing_unit: Optional[CustomPricingUnit]
             """
             The custom pricing unit amount of the credit grant. Required if `type` is `custom_pricing_unit`.
             """
-            monetary: Optional[V2AmountResource]
+            monetary: Optional[Monetary]
             """
             The monetary amount of the credit grant. Required if `type` is `monetary`.
             """
@@ -50,7 +59,10 @@ class ServiceAction(StripeObject):
             """
             The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
             """
-            _inner_class_types = {"custom_pricing_unit": CustomPricingUnit}
+            _inner_class_types = {
+                "custom_pricing_unit": CustomPricingUnit,
+                "monetary": Monetary,
+            }
 
         class ApplicabilityConfig(StripeObject):
             class Scope(StripeObject):
@@ -123,11 +135,21 @@ class ServiceAction(StripeObject):
                 The value of the credit grant, decimal value represented as a string.
                 """
 
+            class Monetary(StripeObject):
+                currency: str
+                """
+                Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                """
+                value: int
+                """
+                A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
+                """
+
             custom_pricing_unit: Optional[CustomPricingUnit]
             """
             The custom pricing unit amount of the credit grant. Required if `type` is `custom_pricing_unit`.
             """
-            monetary: Optional[V2AmountResource]
+            monetary: Optional[Monetary]
             """
             The monetary amount of the credit grant. Required if `type` is `monetary`.
             """
@@ -135,7 +157,10 @@ class ServiceAction(StripeObject):
             """
             The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
             """
-            _inner_class_types = {"custom_pricing_unit": CustomPricingUnit}
+            _inner_class_types = {
+                "custom_pricing_unit": CustomPricingUnit,
+                "monetary": Monetary,
+            }
 
         class ApplicabilityConfig(StripeObject):
             class Scope(StripeObject):

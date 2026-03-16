@@ -16,6 +16,7 @@ if TYPE_CHECKING:
     )
     from stripe.params.v2.payments._off_session_payment_create_params import (
         OffSessionPaymentCreateParams as OffSessionPaymentCreateParams,
+        OffSessionPaymentCreateParamsAmount as OffSessionPaymentCreateParamsAmount,
         OffSessionPaymentCreateParamsCapture as OffSessionPaymentCreateParamsCapture,
         OffSessionPaymentCreateParamsPaymentMethodData as OffSessionPaymentCreateParamsPaymentMethodData,
         OffSessionPaymentCreateParamsPaymentMethodDataBillingDetails as OffSessionPaymentCreateParamsPaymentMethodDataBillingDetails,
@@ -38,6 +39,7 @@ if TYPE_CHECKING:
     )
     from stripe.params.v2.payments._settlement_allocation_intent_create_params import (
         SettlementAllocationIntentCreateParams as SettlementAllocationIntentCreateParams,
+        SettlementAllocationIntentCreateParamsAmount as SettlementAllocationIntentCreateParamsAmount,
     )
     from stripe.params.v2.payments._settlement_allocation_intent_list_params import (
         SettlementAllocationIntentListParams as SettlementAllocationIntentListParams,
@@ -50,6 +52,7 @@ if TYPE_CHECKING:
     )
     from stripe.params.v2.payments._settlement_allocation_intent_update_params import (
         SettlementAllocationIntentUpdateParams as SettlementAllocationIntentUpdateParams,
+        SettlementAllocationIntentUpdateParamsAmount as SettlementAllocationIntentUpdateParamsAmount,
     )
 
 # name -> (import_target, is_submodule)
@@ -71,6 +74,10 @@ _import_map = {
         False,
     ),
     "OffSessionPaymentCreateParams": (
+        "stripe.params.v2.payments._off_session_payment_create_params",
+        False,
+    ),
+    "OffSessionPaymentCreateParamsAmount": (
         "stripe.params.v2.payments._off_session_payment_create_params",
         False,
     ),
@@ -130,6 +137,10 @@ _import_map = {
         "stripe.params.v2.payments._settlement_allocation_intent_create_params",
         False,
     ),
+    "SettlementAllocationIntentCreateParamsAmount": (
+        "stripe.params.v2.payments._settlement_allocation_intent_create_params",
+        False,
+    ),
     "SettlementAllocationIntentListParams": (
         "stripe.params.v2.payments._settlement_allocation_intent_list_params",
         False,
@@ -143,6 +154,10 @@ _import_map = {
         False,
     ),
     "SettlementAllocationIntentUpdateParams": (
+        "stripe.params.v2.payments._settlement_allocation_intent_update_params",
+        False,
+    ),
+    "SettlementAllocationIntentUpdateParamsAmount": (
         "stripe.params.v2.payments._settlement_allocation_intent_update_params",
         False,
     ),
