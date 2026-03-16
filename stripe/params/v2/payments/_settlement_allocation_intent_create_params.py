@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe.v2._amount import AmountParam
 from typing import Dict
 from typing_extensions import NotRequired, TypedDict
 
 
 class SettlementAllocationIntentCreateParams(TypedDict):
-    amount: "SettlementAllocationIntentCreateParamsAmount"
+    amount: AmountParam
     """
     The amount and currency of the SettlementAllocationIntent. Allowed Currencies are `gbp` | `eur`.
     """
@@ -24,15 +25,4 @@ class SettlementAllocationIntentCreateParams(TypedDict):
     reference: str
     """
     Reference for the SettlementAllocationIntent. This should be same as the transaction reference used by payments processor to send funds to Stripe. Must have length between 5 and 255 characters and it must be unique among existing SettlementAllocationIntents that have a non-terminal status (`pending`, `submitted`, `matched`, `errored`).
-    """
-
-
-class SettlementAllocationIntentCreateParamsAmount(TypedDict):
-    value: int
-    """
-    A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-    """
-    currency: str
-    """
-    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """

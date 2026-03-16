@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe.v2._amount import AmountParam
 from typing import Dict
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -10,7 +11,7 @@ _OutboundPaymentCreateParamsBase = TypedDict(
 
 
 class OutboundPaymentCreateParams(_OutboundPaymentCreateParamsBase):
-    amount: "OutboundPaymentCreateParamsAmount"
+    amount: AmountParam
     """
     The "presentment amount" to be sent to the recipient.
     """
@@ -47,17 +48,6 @@ class OutboundPaymentCreateParams(_OutboundPaymentCreateParamsBase):
     to: "OutboundPaymentCreateParamsTo"
     """
     To which payout method to send the OutboundPayment.
-    """
-
-
-class OutboundPaymentCreateParamsAmount(TypedDict):
-    value: int
-    """
-    A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-    """
-    currency: str
-    """
-    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
 
 

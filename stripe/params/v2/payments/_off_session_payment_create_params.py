@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe.v2._amount import AmountParam
 from typing import Dict
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class OffSessionPaymentCreateParams(TypedDict):
-    amount: "OffSessionPaymentCreateParamsAmount"
+    amount: AmountParam
     """
     The “presentment amount” to be collected from the customer.
     """
@@ -78,17 +79,6 @@ class OffSessionPaymentCreateParams(TypedDict):
     transfer_data: NotRequired["OffSessionPaymentCreateParamsTransferData"]
     """
     The data that automatically creates a Transfer after the payment finalizes. Learn more about the use case for [connected accounts](https://docs.stripe.com/payments/connected-accounts).
-    """
-
-
-class OffSessionPaymentCreateParamsAmount(TypedDict):
-    value: int
-    """
-    A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-    """
-    currency: str
-    """
-    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
 
 

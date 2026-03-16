@@ -334,14 +334,12 @@ if TYPE_CHECKING:
         ServiceActionCreateParamsCreditGrant as ServiceActionCreateParamsCreditGrant,
         ServiceActionCreateParamsCreditGrantAmount as ServiceActionCreateParamsCreditGrantAmount,
         ServiceActionCreateParamsCreditGrantAmountCustomPricingUnit as ServiceActionCreateParamsCreditGrantAmountCustomPricingUnit,
-        ServiceActionCreateParamsCreditGrantAmountMonetary as ServiceActionCreateParamsCreditGrantAmountMonetary,
         ServiceActionCreateParamsCreditGrantApplicabilityConfig as ServiceActionCreateParamsCreditGrantApplicabilityConfig,
         ServiceActionCreateParamsCreditGrantApplicabilityConfigScope as ServiceActionCreateParamsCreditGrantApplicabilityConfigScope,
         ServiceActionCreateParamsCreditGrantExpiryConfig as ServiceActionCreateParamsCreditGrantExpiryConfig,
         ServiceActionCreateParamsCreditGrantPerTenant as ServiceActionCreateParamsCreditGrantPerTenant,
         ServiceActionCreateParamsCreditGrantPerTenantAmount as ServiceActionCreateParamsCreditGrantPerTenantAmount,
         ServiceActionCreateParamsCreditGrantPerTenantAmountCustomPricingUnit as ServiceActionCreateParamsCreditGrantPerTenantAmountCustomPricingUnit,
-        ServiceActionCreateParamsCreditGrantPerTenantAmountMonetary as ServiceActionCreateParamsCreditGrantPerTenantAmountMonetary,
         ServiceActionCreateParamsCreditGrantPerTenantApplicabilityConfig as ServiceActionCreateParamsCreditGrantPerTenantApplicabilityConfig,
         ServiceActionCreateParamsCreditGrantPerTenantApplicabilityConfigScope as ServiceActionCreateParamsCreditGrantPerTenantApplicabilityConfigScope,
         ServiceActionCreateParamsCreditGrantPerTenantExpiryConfig as ServiceActionCreateParamsCreditGrantPerTenantExpiryConfig,
@@ -1131,10 +1129,6 @@ _import_map = {
         "stripe.params.v2.billing._service_action_create_params",
         False,
     ),
-    "ServiceActionCreateParamsCreditGrantAmountMonetary": (
-        "stripe.params.v2.billing._service_action_create_params",
-        False,
-    ),
     "ServiceActionCreateParamsCreditGrantApplicabilityConfig": (
         "stripe.params.v2.billing._service_action_create_params",
         False,
@@ -1156,10 +1150,6 @@ _import_map = {
         False,
     ),
     "ServiceActionCreateParamsCreditGrantPerTenantAmountCustomPricingUnit": (
-        "stripe.params.v2.billing._service_action_create_params",
-        False,
-    ),
-    "ServiceActionCreateParamsCreditGrantPerTenantAmountMonetary": (
         "stripe.params.v2.billing._service_action_create_params",
         False,
     ),

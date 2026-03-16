@@ -46967,11 +46967,11 @@ class TestGeneratedExamples(object):
             {
                 "financial_account": "financial_account",
                 "from": {
-                    "amount": {"value": 111972721, "currency": "usd"},
+                    "amount": {"currency": "USD", "value": 96},
                     "currency": "usd",
                 },
                 "to": {
-                    "amount": {"value": 111972721, "currency": "usd"},
+                    "amount": {"currency": "USD", "value": 96},
                     "currency": "usd",
                 },
             }
@@ -46981,7 +46981,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/currency_conversions",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"financial_account":"financial_account","from":{"amount":{"value":111972721,"currency":"usd"},"currency":"usd"},"to":{"amount":{"value":111972721,"currency":"usd"},"currency":"usd"}}',
+            post_data='{"financial_account":"financial_account","from":{"amount":{"currency":"USD","value":96},"currency":"usd"},"to":{"amount":{"currency":"USD","value":96},"currency":"usd"}}',
             is_json=True,
         )
 
@@ -47216,7 +47216,7 @@ class TestGeneratedExamples(object):
 
         client.v2.money_management.inbound_transfers.create(
             {
-                "amount": {"value": 111972721, "currency": "usd"},
+                "amount": {"currency": "USD", "value": 96},
                 "from": {
                     "currency": "usd",
                     "payment_method": "payment_method",
@@ -47232,7 +47232,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/inbound_transfers",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"amount":{"value":111972721,"currency":"usd"},"from":{"currency":"usd","payment_method":"payment_method"},"to":{"currency":"usd","financial_account":"financial_account"}}',
+            post_data='{"amount":{"currency":"USD","value":96},"from":{"currency":"usd","payment_method":"payment_method"},"to":{"currency":"usd","financial_account":"financial_account"}}',
             is_json=True,
         )
 
@@ -47290,7 +47290,7 @@ class TestGeneratedExamples(object):
 
         client.v2.money_management.outbound_payments.create(
             {
-                "amount": {"value": 111972721, "currency": "usd"},
+                "amount": {"currency": "USD", "value": 96},
                 "from": {
                     "currency": "usd",
                     "financial_account": "financial_account",
@@ -47307,7 +47307,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/outbound_payments",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"amount":{"value":111972721,"currency":"usd"},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"currency":"usd","payout_method":"payout_method","recipient":"recipient"}}',
+            post_data='{"amount":{"currency":"USD","value":96},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"currency":"usd","payout_method":"payout_method","recipient":"recipient"}}',
             is_json=True,
         )
 
@@ -47367,7 +47367,7 @@ class TestGeneratedExamples(object):
 
         client.v2.money_management.outbound_payment_quotes.create(
             {
-                "amount": {"value": 111972721, "currency": "usd"},
+                "amount": {"currency": "USD", "value": 96},
                 "from": {
                     "currency": "usd",
                     "financial_account": "financial_account",
@@ -47384,7 +47384,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/outbound_payment_quotes",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"amount":{"value":111972721,"currency":"usd"},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"currency":"usd","payout_method":"payout_method","recipient":"recipient"}}',
+            post_data='{"amount":{"currency":"USD","value":96},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"currency":"usd","payout_method":"payout_method","recipient":"recipient"}}',
             is_json=True,
         )
 
@@ -47548,7 +47548,7 @@ class TestGeneratedExamples(object):
 
         client.v2.money_management.outbound_transfers.create(
             {
-                "amount": {"value": 111972721, "currency": "usd"},
+                "amount": {"currency": "USD", "value": 96},
                 "from": {
                     "currency": "usd",
                     "financial_account": "financial_account",
@@ -47561,7 +47561,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/outbound_transfers",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"amount":{"value":111972721,"currency":"usd"},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"currency":"usd","payout_method":"payout_method"}}',
+            post_data='{"amount":{"currency":"USD","value":96},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"currency":"usd","payout_method":"payout_method"}}',
             is_json=True,
         )
 
@@ -47975,7 +47975,7 @@ class TestGeneratedExamples(object):
 
         client.v2.payments.off_session_payments.create(
             {
-                "amount": {"value": 111972721, "currency": "usd"},
+                "amount": {"currency": "USD", "value": 96},
                 "cadence": "unscheduled",
                 "customer": "customer",
                 "metadata": {"key": "metadata"},
@@ -47986,7 +47986,7 @@ class TestGeneratedExamples(object):
             path="/v2/payments/off_session_payments",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"amount":{"value":111972721,"currency":"usd"},"cadence":"unscheduled","customer":"customer","metadata":{"key":"metadata"}}',
+            post_data='{"amount":{"currency":"USD","value":96},"cadence":"unscheduled","customer":"customer","metadata":{"key":"metadata"}}',
             is_json=True,
         )
 
@@ -48091,7 +48091,7 @@ class TestGeneratedExamples(object):
 
         client.v2.payments.settlement_allocation_intents.create(
             {
-                "amount": {"value": 111972721, "currency": "usd"},
+                "amount": {"currency": "USD", "value": 96},
                 "expected_settlement_date": "1970-01-22T14:14:13.629Z",
                 "financial_account": "financial_account",
                 "reference": "reference",
@@ -48102,7 +48102,7 @@ class TestGeneratedExamples(object):
             path="/v2/payments/settlement_allocation_intents",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"amount":{"value":111972721,"currency":"usd"},"expected_settlement_date":"1970-01-22T14:14:13.629Z","financial_account":"financial_account","reference":"reference"}',
+            post_data='{"amount":{"currency":"USD","value":96},"expected_settlement_date":"1970-01-22T14:14:13.629Z","financial_account":"financial_account","reference":"reference"}',
             is_json=True,
         )
 
@@ -48230,7 +48230,7 @@ class TestGeneratedExamples(object):
             "settlement_allocation_intent_id_123",
             {
                 "account": "account",
-                "amount": {"value": 111972721, "currency": "usd"},
+                "amount": {"currency": "USD", "value": 96},
                 "type": "credit",
             },
         )
@@ -48239,7 +48239,7 @@ class TestGeneratedExamples(object):
             path="/v2/payments/settlement_allocation_intents/settlement_allocation_intent_id_123/splits",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"account":"account","amount":{"value":111972721,"currency":"usd"},"type":"credit"}',
+            post_data='{"account":"account","amount":{"currency":"USD","value":96},"type":"credit"}',
             is_json=True,
         )
 
@@ -48525,17 +48525,14 @@ class TestGeneratedExamples(object):
 
         client.v2.test_helpers.financial_addresses.credit(
             "id_123",
-            {
-                "amount": {"value": 111972721, "currency": "usd"},
-                "network": "ach",
-            },
+            {"amount": {"currency": "USD", "value": 96}, "network": "ach"},
         )
         http_client_mock.assert_requested(
             "post",
             path="/v2/test_helpers/financial_addresses/id_123/credit",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"amount":{"value":111972721,"currency":"usd"},"network":"ach"}',
+            post_data='{"amount":{"currency":"USD","value":96},"network":"ach"}',
             is_json=True,
         )
 
@@ -48815,7 +48812,7 @@ class TestGeneratedExamples(object):
         try:
             client.v2.money_management.outbound_payments.create(
                 {
-                    "amount": {"value": 111972721, "currency": "usd"},
+                    "amount": {"currency": "USD", "value": 96},
                     "from": {
                         "currency": "usd",
                         "financial_account": "financial_account",
@@ -48830,7 +48827,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/outbound_payments",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"amount":{"value":111972721,"currency":"usd"},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"recipient":"recipient"}}',
+            post_data='{"amount":{"currency":"USD","value":96},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"recipient":"recipient"}}',
             is_json=True,
         )
 
@@ -49019,7 +49016,7 @@ class TestGeneratedExamples(object):
         try:
             client.v2.money_management.outbound_payments.create(
                 {
-                    "amount": {"value": 111972721, "currency": "usd"},
+                    "amount": {"currency": "USD", "value": 96},
                     "from": {
                         "currency": "usd",
                         "financial_account": "financial_account",
@@ -49034,7 +49031,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/outbound_payments",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"amount":{"value":111972721,"currency":"usd"},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"recipient":"recipient"}}',
+            post_data='{"amount":{"currency":"USD","value":96},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"recipient":"recipient"}}',
             is_json=True,
         )
 

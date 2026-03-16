@@ -9,7 +9,6 @@ if TYPE_CHECKING:
     )
     from stripe.params.v2.payments.settlement_allocation_intents._split_create_params import (
         SplitCreateParams as SplitCreateParams,
-        SplitCreateParamsAmount as SplitCreateParamsAmount,
     )
     from stripe.params.v2.payments.settlement_allocation_intents._split_list_params import (
         SplitListParams as SplitListParams,
@@ -25,10 +24,6 @@ _import_map = {
         False,
     ),
     "SplitCreateParams": (
-        "stripe.params.v2.payments.settlement_allocation_intents._split_create_params",
-        False,
-    ),
-    "SplitCreateParamsAmount": (
         "stripe.params.v2.payments.settlement_allocation_intents._split_create_params",
         False,
     ),
