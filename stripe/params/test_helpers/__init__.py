@@ -86,6 +86,9 @@ if TYPE_CHECKING:
     from stripe.params.test_helpers._customer_fund_cash_balance_params import (
         CustomerFundCashBalanceParams as CustomerFundCashBalanceParams,
     )
+    from stripe.params.test_helpers._payment_intent_simulate_crypto_deposit_params import (
+        PaymentIntentSimulateCryptoDepositParams as PaymentIntentSimulateCryptoDepositParams,
+    )
     from stripe.params.test_helpers._refund_expire_params import (
         RefundExpireParams as RefundExpireParams,
     )
@@ -394,6 +397,10 @@ _import_map = {
     ),
     "CustomerFundCashBalanceParams": (
         "stripe.params.test_helpers._customer_fund_cash_balance_params",
+        False,
+    ),
+    "PaymentIntentSimulateCryptoDepositParams": (
+        "stripe.params.test_helpers._payment_intent_simulate_crypto_deposit_params",
         False,
     ),
     "RefundExpireParams": (

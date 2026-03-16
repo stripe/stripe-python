@@ -23,6 +23,9 @@ if TYPE_CHECKING:
     from stripe.test_helpers._issuing_service import (
         IssuingService as IssuingService,
     )
+    from stripe.test_helpers._payment_intent_service import (
+        PaymentIntentService as PaymentIntentService,
+    )
     from stripe.test_helpers._refund_service import (
         RefundService as RefundService,
     )
@@ -54,6 +57,10 @@ _import_map = {
     ),
     "CustomerService": ("stripe.test_helpers._customer_service", False),
     "IssuingService": ("stripe.test_helpers._issuing_service", False),
+    "PaymentIntentService": (
+        "stripe.test_helpers._payment_intent_service",
+        False,
+    ),
     "RefundService": ("stripe.test_helpers._refund_service", False),
     "SharedPaymentService": (
         "stripe.test_helpers._shared_payment_service",

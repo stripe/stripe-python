@@ -8,6 +8,7 @@ from stripe._nested_resource_class_methods import nested_resource_class_methods
 from stripe._search_result_object import SearchResultObject
 from stripe._searchable_api_resource import SearchableAPIResource
 from stripe._stripe_object import StripeObject
+from stripe._test_helpers import APIResourceTestHelpers
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
 from typing import (
@@ -22,7 +23,7 @@ from typing import (
     cast,
     overload,
 )
-from typing_extensions import Literal, Unpack, TYPE_CHECKING
+from typing_extensions import Literal, Type, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._account import Account
@@ -76,6 +77,9 @@ if TYPE_CHECKING:
     )
     from stripe.params._payment_intent_search_params import (
         PaymentIntentSearchParams,
+    )
+    from stripe.params._payment_intent_simulate_crypto_deposit_params import (
+        PaymentIntentSimulateCryptoDepositParams,
     )
     from stripe.params._payment_intent_trigger_action_params import (
         PaymentIntentTriggerActionParams,
@@ -594,6 +598,83 @@ class PaymentIntent(
             """
             qr_code: QrCode
             _inner_class_types = {"qr_code": QrCode}
+
+        class CryptoDisplayDetails(StripeObject):
+            class DepositAddresses(StripeObject):
+                class Base(StripeObject):
+                    class SupportedToken(StripeObject):
+                        token_contract_address: str
+                        """
+                        The on-chain contract address for the supported token currency on this specific network.
+                        """
+                        token_currency: Literal["usdc"]
+                        """
+                        The supported token currency. Supported token currencies include: `usdc`.
+                        """
+
+                    address: str
+                    """
+                    Address of the deposit address.
+                    """
+                    supported_tokens: List[SupportedToken]
+                    """
+                    The token currencies supported on this network.
+                    """
+                    _inner_class_types = {"supported_tokens": SupportedToken}
+
+                class Solana(StripeObject):
+                    class SupportedToken(StripeObject):
+                        token_contract_address: str
+                        """
+                        The on-chain contract address for the supported token currency on this specific network.
+                        """
+                        token_currency: Literal["usdc"]
+                        """
+                        The supported token currency. Supported token currencies include: `usdc`.
+                        """
+
+                    address: str
+                    """
+                    Address of the deposit address.
+                    """
+                    supported_tokens: List[SupportedToken]
+                    """
+                    The token currencies supported on this network.
+                    """
+                    _inner_class_types = {"supported_tokens": SupportedToken}
+
+                class Tempo(StripeObject):
+                    class SupportedToken(StripeObject):
+                        token_contract_address: str
+                        """
+                        The on-chain contract address for the supported token currency on this specific network.
+                        """
+                        token_currency: Literal["usdc"]
+                        """
+                        The supported token currency. Supported token currencies include: `usdc`.
+                        """
+
+                    address: str
+                    """
+                    Address of the deposit address.
+                    """
+                    supported_tokens: List[SupportedToken]
+                    """
+                    The token currencies supported on this network.
+                    """
+                    _inner_class_types = {"supported_tokens": SupportedToken}
+
+                base: Optional[Base]
+                solana: Optional[Solana]
+                tempo: Optional[Tempo]
+                _inner_class_types = {
+                    "base": Base,
+                    "solana": Solana,
+                    "tempo": Tempo,
+                }
+
+            deposit_addresses: DepositAddresses
+            _inner_class_types = {"deposit_addresses": DepositAddresses}
 
         class DisplayBankTransferInstructions(StripeObject):
             class FinancialAddress(StripeObject):
@@ -1437,6 +1518,7 @@ class PaymentIntent(
         cashapp_handle_redirect_or_display_qr_code: Optional[
             CashappHandleRedirectOrDisplayQrCode
         ]
+        crypto_display_details: Optional[CryptoDisplayDetails]
         display_bank_transfer_instructions: Optional[
             DisplayBankTransferInstructions
         ]
@@ -1469,6 +1551,7 @@ class PaymentIntent(
             "boleto_display_details": BoletoDisplayDetails,
             "card_await_notification": CardAwaitNotification,
             "cashapp_handle_redirect_or_display_qr_code": CashappHandleRedirectOrDisplayQrCode,
+            "crypto_display_details": CryptoDisplayDetails,
             "display_bank_transfer_instructions": DisplayBankTransferInstructions,
             "konbini_display_details": KonbiniDisplayDetails,
             "multibanco_display_details": MultibancoDisplayDetails,
@@ -3271,6 +3354,17 @@ class PaymentIntent(
             """
 
         class Crypto(StripeObject):
+            class DepositOptions(StripeObject):
+                networks: Optional[List[Literal["base", "solana", "tempo"]]]
+                """
+                The blockchain networks to support for deposits. Learn more about [supported networks and tokens](https://docs.stripe.com/payments/deposit-mode-stablecoin-payments#token-and-network-support).
+                """
+
+            deposit_options: Optional[DepositOptions]
+            mode: Optional[Literal["default", "deposit"]]
+            """
+            The mode of the crypto payment.
+            """
             setup_future_usage: Optional[Literal["none"]]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -3281,6 +3375,7 @@ class PaymentIntent(
 
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
             """
+            _inner_class_types = {"deposit_options": DepositOptions}
 
         class CustomerBalance(StripeObject):
             class BankTransfer(StripeObject):
@@ -6595,6 +6690,129 @@ class PaymentIntent(
             ),
         )
 
+    class TestHelpers(APIResourceTestHelpers["PaymentIntent"]):
+        _resource_cls: Type["PaymentIntent"]
+
+        @classmethod
+        def _cls_simulate_crypto_deposit(
+            cls,
+            intent: str,
+            **params: Unpack["PaymentIntentSimulateCryptoDepositParams"],
+        ) -> "PaymentIntent":
+            """
+            Simulate an incoming crypto deposit for a testmode PaymentIntent with payment_method_options[crypto][mode]=deposit. The transaction_hash parameter determines whether the simulated deposit succeeds or fails. Learn more about [testing your integration](https://docs.stripe.com/docs/payments/deposit-mode-stablecoin-payments#test-your-integration).
+            """
+            return cast(
+                "PaymentIntent",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/payment_intents/{intent}/simulate_crypto_deposit".format(
+                        intent=sanitize_id(intent)
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        def simulate_crypto_deposit(
+            intent: str,
+            **params: Unpack["PaymentIntentSimulateCryptoDepositParams"],
+        ) -> "PaymentIntent":
+            """
+            Simulate an incoming crypto deposit for a testmode PaymentIntent with payment_method_options[crypto][mode]=deposit. The transaction_hash parameter determines whether the simulated deposit succeeds or fails. Learn more about [testing your integration](https://docs.stripe.com/docs/payments/deposit-mode-stablecoin-payments#test-your-integration).
+            """
+            ...
+
+        @overload
+        def simulate_crypto_deposit(
+            self, **params: Unpack["PaymentIntentSimulateCryptoDepositParams"]
+        ) -> "PaymentIntent":
+            """
+            Simulate an incoming crypto deposit for a testmode PaymentIntent with payment_method_options[crypto][mode]=deposit. The transaction_hash parameter determines whether the simulated deposit succeeds or fails. Learn more about [testing your integration](https://docs.stripe.com/docs/payments/deposit-mode-stablecoin-payments#test-your-integration).
+            """
+            ...
+
+        @class_method_variant("_cls_simulate_crypto_deposit")
+        def simulate_crypto_deposit(  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["PaymentIntentSimulateCryptoDepositParams"]
+        ) -> "PaymentIntent":
+            """
+            Simulate an incoming crypto deposit for a testmode PaymentIntent with payment_method_options[crypto][mode]=deposit. The transaction_hash parameter determines whether the simulated deposit succeeds or fails. Learn more about [testing your integration](https://docs.stripe.com/docs/payments/deposit-mode-stablecoin-payments#test-your-integration).
+            """
+            return cast(
+                "PaymentIntent",
+                self.resource._request(
+                    "post",
+                    "/v1/test_helpers/payment_intents/{intent}/simulate_crypto_deposit".format(
+                        intent=sanitize_id(self.resource.get("id"))
+                    ),
+                    params=params,
+                ),
+            )
+
+        @classmethod
+        async def _cls_simulate_crypto_deposit_async(
+            cls,
+            intent: str,
+            **params: Unpack["PaymentIntentSimulateCryptoDepositParams"],
+        ) -> "PaymentIntent":
+            """
+            Simulate an incoming crypto deposit for a testmode PaymentIntent with payment_method_options[crypto][mode]=deposit. The transaction_hash parameter determines whether the simulated deposit succeeds or fails. Learn more about [testing your integration](https://docs.stripe.com/docs/payments/deposit-mode-stablecoin-payments#test-your-integration).
+            """
+            return cast(
+                "PaymentIntent",
+                await cls._static_request_async(
+                    "post",
+                    "/v1/test_helpers/payment_intents/{intent}/simulate_crypto_deposit".format(
+                        intent=sanitize_id(intent)
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        async def simulate_crypto_deposit_async(
+            intent: str,
+            **params: Unpack["PaymentIntentSimulateCryptoDepositParams"],
+        ) -> "PaymentIntent":
+            """
+            Simulate an incoming crypto deposit for a testmode PaymentIntent with payment_method_options[crypto][mode]=deposit. The transaction_hash parameter determines whether the simulated deposit succeeds or fails. Learn more about [testing your integration](https://docs.stripe.com/docs/payments/deposit-mode-stablecoin-payments#test-your-integration).
+            """
+            ...
+
+        @overload
+        async def simulate_crypto_deposit_async(
+            self, **params: Unpack["PaymentIntentSimulateCryptoDepositParams"]
+        ) -> "PaymentIntent":
+            """
+            Simulate an incoming crypto deposit for a testmode PaymentIntent with payment_method_options[crypto][mode]=deposit. The transaction_hash parameter determines whether the simulated deposit succeeds or fails. Learn more about [testing your integration](https://docs.stripe.com/docs/payments/deposit-mode-stablecoin-payments#test-your-integration).
+            """
+            ...
+
+        @class_method_variant("_cls_simulate_crypto_deposit_async")
+        async def simulate_crypto_deposit_async(  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["PaymentIntentSimulateCryptoDepositParams"]
+        ) -> "PaymentIntent":
+            """
+            Simulate an incoming crypto deposit for a testmode PaymentIntent with payment_method_options[crypto][mode]=deposit. The transaction_hash parameter determines whether the simulated deposit succeeds or fails. Learn more about [testing your integration](https://docs.stripe.com/docs/payments/deposit-mode-stablecoin-payments#test-your-integration).
+            """
+            return cast(
+                "PaymentIntent",
+                await self.resource._request_async(
+                    "post",
+                    "/v1/test_helpers/payment_intents/{intent}/simulate_crypto_deposit".format(
+                        intent=sanitize_id(self.resource.get("id"))
+                    ),
+                    params=params,
+                ),
+            )
+
+    @property
+    def test_helpers(self):
+        return self.TestHelpers(self)
+
     _inner_class_types = {
         "allocated_funds": AllocatedFunds,
         "amount_details": AmountDetails,
@@ -6613,3 +6831,6 @@ class PaymentIntent(
         "shipping": Shipping,
         "transfer_data": TransferData,
     }
+
+
+PaymentIntent.TestHelpers._resource_cls = PaymentIntent
