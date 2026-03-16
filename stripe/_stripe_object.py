@@ -647,6 +647,7 @@ class StripeObject(Dict[str, Any]):
             if isinstance(value, str):
                 return int(value)
             if isinstance(value, list):
-                return [int(v) if isinstance(v, str) else v for v in value]
+                items: List[Any] = value
+                return [int(v) if isinstance(v, str) else v for v in items]
 
         return value
