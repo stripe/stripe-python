@@ -597,7 +597,7 @@ class AuthorizationCreateParamsRiskAssessmentCardTestingRisk(TypedDict):
     """
     The % of declines due to incorrect verification data (like CVV or expiry) in the past hour, taking place at the same merchant. Higher rates correspond to a greater probability of bad actors attempting to utilize valid card credentials at merchants with verification requirements. Takes on values between 0 and 100.
     """
-    risk_level: Literal[
+    level: Literal[
         "elevated", "highest", "low", "normal", "not_assessed", "unknown"
     ]
     """
@@ -623,7 +623,7 @@ class AuthorizationCreateParamsRiskAssessmentMerchantDisputeRisk(TypedDict):
     """
     The dispute rate observed across all Stripe Issuing authorizations for this merchant. For example, a value of 50 means 50% of authorizations from this merchant on Stripe Issuing have resulted in a dispute. Higher values mean a higher likelihood the authorization is disputed. Takes on values between 0 and 100.
     """
-    risk_level: Literal[
+    level: Literal[
         "elevated", "highest", "low", "normal", "not_assessed", "unknown"
     ]
     """

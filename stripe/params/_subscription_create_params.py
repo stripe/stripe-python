@@ -149,7 +149,7 @@ class SubscriptionCreateParams(RequestOptions):
         "Literal['']|SubscriptionCreateParamsPendingInvoiceItemInterval"
     ]
     """
-    Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://docs.stripe.com/api#create_invoice) for the given subscription at the specified interval.
+    Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://docs.stripe.com/api/invoices/create) for the given subscription at the specified interval.
     """
     proration_behavior: NotRequired[
         Literal["always_invoice", "create_prorations", "none"]
@@ -640,7 +640,7 @@ class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCardMandateOpti
 ):
     amount: NotRequired[int]
     """
-    Amount to be charged for future payments.
+    Amount to be charged for future payments, specified in the presentment currency.
     """
     amount_type: NotRequired[Literal["fixed", "maximum"]]
     """

@@ -513,6 +513,10 @@ class AccountUpdateParamsCapabilities(TypedDict):
     """
     The twint_payments capability.
     """
+    upi_payments: NotRequired["AccountUpdateParamsCapabilitiesUpiPayments"]
+    """
+    The upi_payments capability.
+    """
     us_bank_account_ach_payments: NotRequired[
         "AccountUpdateParamsCapabilitiesUsBankAccountAchPayments"
     ]
@@ -931,6 +935,13 @@ class AccountUpdateParamsCapabilitiesTreasury(TypedDict):
 
 
 class AccountUpdateParamsCapabilitiesTwintPayments(TypedDict):
+    requested: NotRequired[bool]
+    """
+    Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+    """
+
+
+class AccountUpdateParamsCapabilitiesUpiPayments(TypedDict):
     requested: NotRequired[bool]
     """
     Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.

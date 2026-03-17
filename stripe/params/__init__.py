@@ -107,6 +107,7 @@ if TYPE_CHECKING:
         AccountCreateParamsCapabilitiesTransfers as AccountCreateParamsCapabilitiesTransfers,
         AccountCreateParamsCapabilitiesTreasury as AccountCreateParamsCapabilitiesTreasury,
         AccountCreateParamsCapabilitiesTwintPayments as AccountCreateParamsCapabilitiesTwintPayments,
+        AccountCreateParamsCapabilitiesUpiPayments as AccountCreateParamsCapabilitiesUpiPayments,
         AccountCreateParamsCapabilitiesUsBankAccountAchPayments as AccountCreateParamsCapabilitiesUsBankAccountAchPayments,
         AccountCreateParamsCapabilitiesUsBankTransferPayments as AccountCreateParamsCapabilitiesUsBankTransferPayments,
         AccountCreateParamsCapabilitiesZipPayments as AccountCreateParamsCapabilitiesZipPayments,
@@ -446,6 +447,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsCapabilitiesTransfers as AccountUpdateParamsCapabilitiesTransfers,
         AccountUpdateParamsCapabilitiesTreasury as AccountUpdateParamsCapabilitiesTreasury,
         AccountUpdateParamsCapabilitiesTwintPayments as AccountUpdateParamsCapabilitiesTwintPayments,
+        AccountUpdateParamsCapabilitiesUpiPayments as AccountUpdateParamsCapabilitiesUpiPayments,
         AccountUpdateParamsCapabilitiesUsBankAccountAchPayments as AccountUpdateParamsCapabilitiesUsBankAccountAchPayments,
         AccountUpdateParamsCapabilitiesUsBankTransferPayments as AccountUpdateParamsCapabilitiesUsBankTransferPayments,
         AccountUpdateParamsCapabilitiesZipPayments as AccountUpdateParamsCapabilitiesZipPayments,
@@ -672,6 +674,8 @@ if TYPE_CHECKING:
         ConfirmationTokenCreateParamsPaymentMethodDataSofort as ConfirmationTokenCreateParamsPaymentMethodDataSofort,
         ConfirmationTokenCreateParamsPaymentMethodDataSwish as ConfirmationTokenCreateParamsPaymentMethodDataSwish,
         ConfirmationTokenCreateParamsPaymentMethodDataTwint as ConfirmationTokenCreateParamsPaymentMethodDataTwint,
+        ConfirmationTokenCreateParamsPaymentMethodDataUpi as ConfirmationTokenCreateParamsPaymentMethodDataUpi,
+        ConfirmationTokenCreateParamsPaymentMethodDataUpiMandateOptions as ConfirmationTokenCreateParamsPaymentMethodDataUpiMandateOptions,
         ConfirmationTokenCreateParamsPaymentMethodDataUsBankAccount as ConfirmationTokenCreateParamsPaymentMethodDataUsBankAccount,
         ConfirmationTokenCreateParamsPaymentMethodDataWechatPay as ConfirmationTokenCreateParamsPaymentMethodDataWechatPay,
         ConfirmationTokenCreateParamsPaymentMethodDataZip as ConfirmationTokenCreateParamsPaymentMethodDataZip,
@@ -1445,6 +1449,8 @@ if TYPE_CHECKING:
         PaymentIntentConfirmParamsPaymentMethodDataSofort as PaymentIntentConfirmParamsPaymentMethodDataSofort,
         PaymentIntentConfirmParamsPaymentMethodDataSwish as PaymentIntentConfirmParamsPaymentMethodDataSwish,
         PaymentIntentConfirmParamsPaymentMethodDataTwint as PaymentIntentConfirmParamsPaymentMethodDataTwint,
+        PaymentIntentConfirmParamsPaymentMethodDataUpi as PaymentIntentConfirmParamsPaymentMethodDataUpi,
+        PaymentIntentConfirmParamsPaymentMethodDataUpiMandateOptions as PaymentIntentConfirmParamsPaymentMethodDataUpiMandateOptions,
         PaymentIntentConfirmParamsPaymentMethodDataUsBankAccount as PaymentIntentConfirmParamsPaymentMethodDataUsBankAccount,
         PaymentIntentConfirmParamsPaymentMethodDataWechatPay as PaymentIntentConfirmParamsPaymentMethodDataWechatPay,
         PaymentIntentConfirmParamsPaymentMethodDataZip as PaymentIntentConfirmParamsPaymentMethodDataZip,
@@ -1514,6 +1520,8 @@ if TYPE_CHECKING:
         PaymentIntentConfirmParamsPaymentMethodOptionsSofort as PaymentIntentConfirmParamsPaymentMethodOptionsSofort,
         PaymentIntentConfirmParamsPaymentMethodOptionsSwish as PaymentIntentConfirmParamsPaymentMethodOptionsSwish,
         PaymentIntentConfirmParamsPaymentMethodOptionsTwint as PaymentIntentConfirmParamsPaymentMethodOptionsTwint,
+        PaymentIntentConfirmParamsPaymentMethodOptionsUpi as PaymentIntentConfirmParamsPaymentMethodOptionsUpi,
+        PaymentIntentConfirmParamsPaymentMethodOptionsUpiMandateOptions as PaymentIntentConfirmParamsPaymentMethodOptionsUpiMandateOptions,
         PaymentIntentConfirmParamsPaymentMethodOptionsUsBankAccount as PaymentIntentConfirmParamsPaymentMethodOptionsUsBankAccount,
         PaymentIntentConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections as PaymentIntentConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections,
         PaymentIntentConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters as PaymentIntentConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters,
@@ -1598,6 +1606,8 @@ if TYPE_CHECKING:
         PaymentIntentCreateParamsPaymentMethodDataSofort as PaymentIntentCreateParamsPaymentMethodDataSofort,
         PaymentIntentCreateParamsPaymentMethodDataSwish as PaymentIntentCreateParamsPaymentMethodDataSwish,
         PaymentIntentCreateParamsPaymentMethodDataTwint as PaymentIntentCreateParamsPaymentMethodDataTwint,
+        PaymentIntentCreateParamsPaymentMethodDataUpi as PaymentIntentCreateParamsPaymentMethodDataUpi,
+        PaymentIntentCreateParamsPaymentMethodDataUpiMandateOptions as PaymentIntentCreateParamsPaymentMethodDataUpiMandateOptions,
         PaymentIntentCreateParamsPaymentMethodDataUsBankAccount as PaymentIntentCreateParamsPaymentMethodDataUsBankAccount,
         PaymentIntentCreateParamsPaymentMethodDataWechatPay as PaymentIntentCreateParamsPaymentMethodDataWechatPay,
         PaymentIntentCreateParamsPaymentMethodDataZip as PaymentIntentCreateParamsPaymentMethodDataZip,
@@ -1667,6 +1677,8 @@ if TYPE_CHECKING:
         PaymentIntentCreateParamsPaymentMethodOptionsSofort as PaymentIntentCreateParamsPaymentMethodOptionsSofort,
         PaymentIntentCreateParamsPaymentMethodOptionsSwish as PaymentIntentCreateParamsPaymentMethodOptionsSwish,
         PaymentIntentCreateParamsPaymentMethodOptionsTwint as PaymentIntentCreateParamsPaymentMethodOptionsTwint,
+        PaymentIntentCreateParamsPaymentMethodOptionsUpi as PaymentIntentCreateParamsPaymentMethodOptionsUpi,
+        PaymentIntentCreateParamsPaymentMethodOptionsUpiMandateOptions as PaymentIntentCreateParamsPaymentMethodOptionsUpiMandateOptions,
         PaymentIntentCreateParamsPaymentMethodOptionsUsBankAccount as PaymentIntentCreateParamsPaymentMethodOptionsUsBankAccount,
         PaymentIntentCreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections as PaymentIntentCreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections,
         PaymentIntentCreateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters as PaymentIntentCreateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters,
@@ -1772,6 +1784,8 @@ if TYPE_CHECKING:
         PaymentIntentModifyParamsPaymentMethodDataSofort as PaymentIntentModifyParamsPaymentMethodDataSofort,
         PaymentIntentModifyParamsPaymentMethodDataSwish as PaymentIntentModifyParamsPaymentMethodDataSwish,
         PaymentIntentModifyParamsPaymentMethodDataTwint as PaymentIntentModifyParamsPaymentMethodDataTwint,
+        PaymentIntentModifyParamsPaymentMethodDataUpi as PaymentIntentModifyParamsPaymentMethodDataUpi,
+        PaymentIntentModifyParamsPaymentMethodDataUpiMandateOptions as PaymentIntentModifyParamsPaymentMethodDataUpiMandateOptions,
         PaymentIntentModifyParamsPaymentMethodDataUsBankAccount as PaymentIntentModifyParamsPaymentMethodDataUsBankAccount,
         PaymentIntentModifyParamsPaymentMethodDataWechatPay as PaymentIntentModifyParamsPaymentMethodDataWechatPay,
         PaymentIntentModifyParamsPaymentMethodDataZip as PaymentIntentModifyParamsPaymentMethodDataZip,
@@ -1841,6 +1855,8 @@ if TYPE_CHECKING:
         PaymentIntentModifyParamsPaymentMethodOptionsSofort as PaymentIntentModifyParamsPaymentMethodOptionsSofort,
         PaymentIntentModifyParamsPaymentMethodOptionsSwish as PaymentIntentModifyParamsPaymentMethodOptionsSwish,
         PaymentIntentModifyParamsPaymentMethodOptionsTwint as PaymentIntentModifyParamsPaymentMethodOptionsTwint,
+        PaymentIntentModifyParamsPaymentMethodOptionsUpi as PaymentIntentModifyParamsPaymentMethodOptionsUpi,
+        PaymentIntentModifyParamsPaymentMethodOptionsUpiMandateOptions as PaymentIntentModifyParamsPaymentMethodOptionsUpiMandateOptions,
         PaymentIntentModifyParamsPaymentMethodOptionsUsBankAccount as PaymentIntentModifyParamsPaymentMethodOptionsUsBankAccount,
         PaymentIntentModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnections as PaymentIntentModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnections,
         PaymentIntentModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters as PaymentIntentModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters,
@@ -1926,6 +1942,8 @@ if TYPE_CHECKING:
         PaymentIntentUpdateParamsPaymentMethodDataSofort as PaymentIntentUpdateParamsPaymentMethodDataSofort,
         PaymentIntentUpdateParamsPaymentMethodDataSwish as PaymentIntentUpdateParamsPaymentMethodDataSwish,
         PaymentIntentUpdateParamsPaymentMethodDataTwint as PaymentIntentUpdateParamsPaymentMethodDataTwint,
+        PaymentIntentUpdateParamsPaymentMethodDataUpi as PaymentIntentUpdateParamsPaymentMethodDataUpi,
+        PaymentIntentUpdateParamsPaymentMethodDataUpiMandateOptions as PaymentIntentUpdateParamsPaymentMethodDataUpiMandateOptions,
         PaymentIntentUpdateParamsPaymentMethodDataUsBankAccount as PaymentIntentUpdateParamsPaymentMethodDataUsBankAccount,
         PaymentIntentUpdateParamsPaymentMethodDataWechatPay as PaymentIntentUpdateParamsPaymentMethodDataWechatPay,
         PaymentIntentUpdateParamsPaymentMethodDataZip as PaymentIntentUpdateParamsPaymentMethodDataZip,
@@ -1995,6 +2013,8 @@ if TYPE_CHECKING:
         PaymentIntentUpdateParamsPaymentMethodOptionsSofort as PaymentIntentUpdateParamsPaymentMethodOptionsSofort,
         PaymentIntentUpdateParamsPaymentMethodOptionsSwish as PaymentIntentUpdateParamsPaymentMethodOptionsSwish,
         PaymentIntentUpdateParamsPaymentMethodOptionsTwint as PaymentIntentUpdateParamsPaymentMethodOptionsTwint,
+        PaymentIntentUpdateParamsPaymentMethodOptionsUpi as PaymentIntentUpdateParamsPaymentMethodOptionsUpi,
+        PaymentIntentUpdateParamsPaymentMethodOptionsUpiMandateOptions as PaymentIntentUpdateParamsPaymentMethodOptionsUpiMandateOptions,
         PaymentIntentUpdateParamsPaymentMethodOptionsUsBankAccount as PaymentIntentUpdateParamsPaymentMethodOptionsUsBankAccount,
         PaymentIntentUpdateParamsPaymentMethodOptionsUsBankAccountFinancialConnections as PaymentIntentUpdateParamsPaymentMethodOptionsUsBankAccountFinancialConnections,
         PaymentIntentUpdateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters as PaymentIntentUpdateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters,
@@ -2265,6 +2285,8 @@ if TYPE_CHECKING:
         PaymentMethodConfigurationCreateParamsSwishDisplayPreference as PaymentMethodConfigurationCreateParamsSwishDisplayPreference,
         PaymentMethodConfigurationCreateParamsTwint as PaymentMethodConfigurationCreateParamsTwint,
         PaymentMethodConfigurationCreateParamsTwintDisplayPreference as PaymentMethodConfigurationCreateParamsTwintDisplayPreference,
+        PaymentMethodConfigurationCreateParamsUpi as PaymentMethodConfigurationCreateParamsUpi,
+        PaymentMethodConfigurationCreateParamsUpiDisplayPreference as PaymentMethodConfigurationCreateParamsUpiDisplayPreference,
         PaymentMethodConfigurationCreateParamsUsBankAccount as PaymentMethodConfigurationCreateParamsUsBankAccount,
         PaymentMethodConfigurationCreateParamsUsBankAccountDisplayPreference as PaymentMethodConfigurationCreateParamsUsBankAccountDisplayPreference,
         PaymentMethodConfigurationCreateParamsWechatPay as PaymentMethodConfigurationCreateParamsWechatPay,
@@ -2383,6 +2405,8 @@ if TYPE_CHECKING:
         PaymentMethodConfigurationModifyParamsSwishDisplayPreference as PaymentMethodConfigurationModifyParamsSwishDisplayPreference,
         PaymentMethodConfigurationModifyParamsTwint as PaymentMethodConfigurationModifyParamsTwint,
         PaymentMethodConfigurationModifyParamsTwintDisplayPreference as PaymentMethodConfigurationModifyParamsTwintDisplayPreference,
+        PaymentMethodConfigurationModifyParamsUpi as PaymentMethodConfigurationModifyParamsUpi,
+        PaymentMethodConfigurationModifyParamsUpiDisplayPreference as PaymentMethodConfigurationModifyParamsUpiDisplayPreference,
         PaymentMethodConfigurationModifyParamsUsBankAccount as PaymentMethodConfigurationModifyParamsUsBankAccount,
         PaymentMethodConfigurationModifyParamsUsBankAccountDisplayPreference as PaymentMethodConfigurationModifyParamsUsBankAccountDisplayPreference,
         PaymentMethodConfigurationModifyParamsWechatPay as PaymentMethodConfigurationModifyParamsWechatPay,
@@ -2501,6 +2525,8 @@ if TYPE_CHECKING:
         PaymentMethodConfigurationUpdateParamsSwishDisplayPreference as PaymentMethodConfigurationUpdateParamsSwishDisplayPreference,
         PaymentMethodConfigurationUpdateParamsTwint as PaymentMethodConfigurationUpdateParamsTwint,
         PaymentMethodConfigurationUpdateParamsTwintDisplayPreference as PaymentMethodConfigurationUpdateParamsTwintDisplayPreference,
+        PaymentMethodConfigurationUpdateParamsUpi as PaymentMethodConfigurationUpdateParamsUpi,
+        PaymentMethodConfigurationUpdateParamsUpiDisplayPreference as PaymentMethodConfigurationUpdateParamsUpiDisplayPreference,
         PaymentMethodConfigurationUpdateParamsUsBankAccount as PaymentMethodConfigurationUpdateParamsUsBankAccount,
         PaymentMethodConfigurationUpdateParamsUsBankAccountDisplayPreference as PaymentMethodConfigurationUpdateParamsUsBankAccountDisplayPreference,
         PaymentMethodConfigurationUpdateParamsWechatPay as PaymentMethodConfigurationUpdateParamsWechatPay,
@@ -2564,6 +2590,8 @@ if TYPE_CHECKING:
         PaymentMethodCreateParamsSofort as PaymentMethodCreateParamsSofort,
         PaymentMethodCreateParamsSwish as PaymentMethodCreateParamsSwish,
         PaymentMethodCreateParamsTwint as PaymentMethodCreateParamsTwint,
+        PaymentMethodCreateParamsUpi as PaymentMethodCreateParamsUpi,
+        PaymentMethodCreateParamsUpiMandateOptions as PaymentMethodCreateParamsUpiMandateOptions,
         PaymentMethodCreateParamsUsBankAccount as PaymentMethodCreateParamsUsBankAccount,
         PaymentMethodCreateParamsWechatPay as PaymentMethodCreateParamsWechatPay,
         PaymentMethodCreateParamsZip as PaymentMethodCreateParamsZip,
@@ -2996,6 +3024,8 @@ if TYPE_CHECKING:
         SetupIntentConfirmParamsPaymentMethodDataSofort as SetupIntentConfirmParamsPaymentMethodDataSofort,
         SetupIntentConfirmParamsPaymentMethodDataSwish as SetupIntentConfirmParamsPaymentMethodDataSwish,
         SetupIntentConfirmParamsPaymentMethodDataTwint as SetupIntentConfirmParamsPaymentMethodDataTwint,
+        SetupIntentConfirmParamsPaymentMethodDataUpi as SetupIntentConfirmParamsPaymentMethodDataUpi,
+        SetupIntentConfirmParamsPaymentMethodDataUpiMandateOptions as SetupIntentConfirmParamsPaymentMethodDataUpiMandateOptions,
         SetupIntentConfirmParamsPaymentMethodDataUsBankAccount as SetupIntentConfirmParamsPaymentMethodDataUsBankAccount,
         SetupIntentConfirmParamsPaymentMethodDataWechatPay as SetupIntentConfirmParamsPaymentMethodDataWechatPay,
         SetupIntentConfirmParamsPaymentMethodDataZip as SetupIntentConfirmParamsPaymentMethodDataZip,
@@ -3021,6 +3051,8 @@ if TYPE_CHECKING:
         SetupIntentConfirmParamsPaymentMethodOptionsPaytoMandateOptions as SetupIntentConfirmParamsPaymentMethodOptionsPaytoMandateOptions,
         SetupIntentConfirmParamsPaymentMethodOptionsSepaDebit as SetupIntentConfirmParamsPaymentMethodOptionsSepaDebit,
         SetupIntentConfirmParamsPaymentMethodOptionsSepaDebitMandateOptions as SetupIntentConfirmParamsPaymentMethodOptionsSepaDebitMandateOptions,
+        SetupIntentConfirmParamsPaymentMethodOptionsUpi as SetupIntentConfirmParamsPaymentMethodOptionsUpi,
+        SetupIntentConfirmParamsPaymentMethodOptionsUpiMandateOptions as SetupIntentConfirmParamsPaymentMethodOptionsUpiMandateOptions,
         SetupIntentConfirmParamsPaymentMethodOptionsUsBankAccount as SetupIntentConfirmParamsPaymentMethodOptionsUsBankAccount,
         SetupIntentConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections as SetupIntentConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections,
         SetupIntentConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters as SetupIntentConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters,
@@ -3086,6 +3118,8 @@ if TYPE_CHECKING:
         SetupIntentCreateParamsPaymentMethodDataSofort as SetupIntentCreateParamsPaymentMethodDataSofort,
         SetupIntentCreateParamsPaymentMethodDataSwish as SetupIntentCreateParamsPaymentMethodDataSwish,
         SetupIntentCreateParamsPaymentMethodDataTwint as SetupIntentCreateParamsPaymentMethodDataTwint,
+        SetupIntentCreateParamsPaymentMethodDataUpi as SetupIntentCreateParamsPaymentMethodDataUpi,
+        SetupIntentCreateParamsPaymentMethodDataUpiMandateOptions as SetupIntentCreateParamsPaymentMethodDataUpiMandateOptions,
         SetupIntentCreateParamsPaymentMethodDataUsBankAccount as SetupIntentCreateParamsPaymentMethodDataUsBankAccount,
         SetupIntentCreateParamsPaymentMethodDataWechatPay as SetupIntentCreateParamsPaymentMethodDataWechatPay,
         SetupIntentCreateParamsPaymentMethodDataZip as SetupIntentCreateParamsPaymentMethodDataZip,
@@ -3111,6 +3145,8 @@ if TYPE_CHECKING:
         SetupIntentCreateParamsPaymentMethodOptionsPaytoMandateOptions as SetupIntentCreateParamsPaymentMethodOptionsPaytoMandateOptions,
         SetupIntentCreateParamsPaymentMethodOptionsSepaDebit as SetupIntentCreateParamsPaymentMethodOptionsSepaDebit,
         SetupIntentCreateParamsPaymentMethodOptionsSepaDebitMandateOptions as SetupIntentCreateParamsPaymentMethodOptionsSepaDebitMandateOptions,
+        SetupIntentCreateParamsPaymentMethodOptionsUpi as SetupIntentCreateParamsPaymentMethodOptionsUpi,
+        SetupIntentCreateParamsPaymentMethodOptionsUpiMandateOptions as SetupIntentCreateParamsPaymentMethodOptionsUpiMandateOptions,
         SetupIntentCreateParamsPaymentMethodOptionsUsBankAccount as SetupIntentCreateParamsPaymentMethodOptionsUsBankAccount,
         SetupIntentCreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections as SetupIntentCreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections,
         SetupIntentCreateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters as SetupIntentCreateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters,
@@ -3176,6 +3212,8 @@ if TYPE_CHECKING:
         SetupIntentModifyParamsPaymentMethodDataSofort as SetupIntentModifyParamsPaymentMethodDataSofort,
         SetupIntentModifyParamsPaymentMethodDataSwish as SetupIntentModifyParamsPaymentMethodDataSwish,
         SetupIntentModifyParamsPaymentMethodDataTwint as SetupIntentModifyParamsPaymentMethodDataTwint,
+        SetupIntentModifyParamsPaymentMethodDataUpi as SetupIntentModifyParamsPaymentMethodDataUpi,
+        SetupIntentModifyParamsPaymentMethodDataUpiMandateOptions as SetupIntentModifyParamsPaymentMethodDataUpiMandateOptions,
         SetupIntentModifyParamsPaymentMethodDataUsBankAccount as SetupIntentModifyParamsPaymentMethodDataUsBankAccount,
         SetupIntentModifyParamsPaymentMethodDataWechatPay as SetupIntentModifyParamsPaymentMethodDataWechatPay,
         SetupIntentModifyParamsPaymentMethodDataZip as SetupIntentModifyParamsPaymentMethodDataZip,
@@ -3201,6 +3239,8 @@ if TYPE_CHECKING:
         SetupIntentModifyParamsPaymentMethodOptionsPaytoMandateOptions as SetupIntentModifyParamsPaymentMethodOptionsPaytoMandateOptions,
         SetupIntentModifyParamsPaymentMethodOptionsSepaDebit as SetupIntentModifyParamsPaymentMethodOptionsSepaDebit,
         SetupIntentModifyParamsPaymentMethodOptionsSepaDebitMandateOptions as SetupIntentModifyParamsPaymentMethodOptionsSepaDebitMandateOptions,
+        SetupIntentModifyParamsPaymentMethodOptionsUpi as SetupIntentModifyParamsPaymentMethodOptionsUpi,
+        SetupIntentModifyParamsPaymentMethodOptionsUpiMandateOptions as SetupIntentModifyParamsPaymentMethodOptionsUpiMandateOptions,
         SetupIntentModifyParamsPaymentMethodOptionsUsBankAccount as SetupIntentModifyParamsPaymentMethodOptionsUsBankAccount,
         SetupIntentModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnections as SetupIntentModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnections,
         SetupIntentModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters as SetupIntentModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters,
@@ -3264,6 +3304,8 @@ if TYPE_CHECKING:
         SetupIntentUpdateParamsPaymentMethodDataSofort as SetupIntentUpdateParamsPaymentMethodDataSofort,
         SetupIntentUpdateParamsPaymentMethodDataSwish as SetupIntentUpdateParamsPaymentMethodDataSwish,
         SetupIntentUpdateParamsPaymentMethodDataTwint as SetupIntentUpdateParamsPaymentMethodDataTwint,
+        SetupIntentUpdateParamsPaymentMethodDataUpi as SetupIntentUpdateParamsPaymentMethodDataUpi,
+        SetupIntentUpdateParamsPaymentMethodDataUpiMandateOptions as SetupIntentUpdateParamsPaymentMethodDataUpiMandateOptions,
         SetupIntentUpdateParamsPaymentMethodDataUsBankAccount as SetupIntentUpdateParamsPaymentMethodDataUsBankAccount,
         SetupIntentUpdateParamsPaymentMethodDataWechatPay as SetupIntentUpdateParamsPaymentMethodDataWechatPay,
         SetupIntentUpdateParamsPaymentMethodDataZip as SetupIntentUpdateParamsPaymentMethodDataZip,
@@ -3289,6 +3331,8 @@ if TYPE_CHECKING:
         SetupIntentUpdateParamsPaymentMethodOptionsPaytoMandateOptions as SetupIntentUpdateParamsPaymentMethodOptionsPaytoMandateOptions,
         SetupIntentUpdateParamsPaymentMethodOptionsSepaDebit as SetupIntentUpdateParamsPaymentMethodOptionsSepaDebit,
         SetupIntentUpdateParamsPaymentMethodOptionsSepaDebitMandateOptions as SetupIntentUpdateParamsPaymentMethodOptionsSepaDebitMandateOptions,
+        SetupIntentUpdateParamsPaymentMethodOptionsUpi as SetupIntentUpdateParamsPaymentMethodOptionsUpi,
+        SetupIntentUpdateParamsPaymentMethodOptionsUpiMandateOptions as SetupIntentUpdateParamsPaymentMethodOptionsUpiMandateOptions,
         SetupIntentUpdateParamsPaymentMethodOptionsUsBankAccount as SetupIntentUpdateParamsPaymentMethodOptionsUsBankAccount,
         SetupIntentUpdateParamsPaymentMethodOptionsUsBankAccountFinancialConnections as SetupIntentUpdateParamsPaymentMethodOptionsUsBankAccountFinancialConnections,
         SetupIntentUpdateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters as SetupIntentUpdateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters,
@@ -4146,6 +4190,10 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsCapabilitiesTwintPayments": (
+        "stripe.params._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsCapabilitiesUpiPayments": (
         "stripe.params._account_create_params",
         False,
     ),
@@ -5225,6 +5273,10 @@ _import_map = {
         "stripe.params._account_update_params",
         False,
     ),
+    "AccountUpdateParamsCapabilitiesUpiPayments": (
+        "stripe.params._account_update_params",
+        False,
+    ),
     "AccountUpdateParamsCapabilitiesUsBankAccountAchPayments": (
         "stripe.params._account_update_params",
         False,
@@ -5829,6 +5881,14 @@ _import_map = {
         False,
     ),
     "ConfirmationTokenCreateParamsPaymentMethodDataTwint": (
+        "stripe.params._confirmation_token_create_params",
+        False,
+    ),
+    "ConfirmationTokenCreateParamsPaymentMethodDataUpi": (
+        "stripe.params._confirmation_token_create_params",
+        False,
+    ),
+    "ConfirmationTokenCreateParamsPaymentMethodDataUpiMandateOptions": (
         "stripe.params._confirmation_token_create_params",
         False,
     ),
@@ -7758,6 +7818,14 @@ _import_map = {
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
+    "PaymentIntentConfirmParamsPaymentMethodDataUpi": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentMethodDataUpiMandateOptions": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
     "PaymentIntentConfirmParamsPaymentMethodDataUsBankAccount": (
         "stripe.params._payment_intent_confirm_params",
         False,
@@ -8031,6 +8099,14 @@ _import_map = {
         False,
     ),
     "PaymentIntentConfirmParamsPaymentMethodOptionsTwint": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsUpi": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsUpiMandateOptions": (
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
@@ -8362,6 +8438,14 @@ _import_map = {
         "stripe.params._payment_intent_create_params",
         False,
     ),
+    "PaymentIntentCreateParamsPaymentMethodDataUpi": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentMethodDataUpiMandateOptions": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
     "PaymentIntentCreateParamsPaymentMethodDataUsBankAccount": (
         "stripe.params._payment_intent_create_params",
         False,
@@ -8635,6 +8719,14 @@ _import_map = {
         False,
     ),
     "PaymentIntentCreateParamsPaymentMethodOptionsTwint": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsUpi": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsUpiMandateOptions": (
         "stripe.params._payment_intent_create_params",
         False,
     ),
@@ -9026,6 +9118,14 @@ _import_map = {
         "stripe.params._payment_intent_modify_params",
         False,
     ),
+    "PaymentIntentModifyParamsPaymentMethodDataUpi": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentMethodDataUpiMandateOptions": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
     "PaymentIntentModifyParamsPaymentMethodDataUsBankAccount": (
         "stripe.params._payment_intent_modify_params",
         False,
@@ -9299,6 +9399,14 @@ _import_map = {
         False,
     ),
     "PaymentIntentModifyParamsPaymentMethodOptionsTwint": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsUpi": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsUpiMandateOptions": (
         "stripe.params._payment_intent_modify_params",
         False,
     ),
@@ -9618,6 +9726,14 @@ _import_map = {
         "stripe.params._payment_intent_update_params",
         False,
     ),
+    "PaymentIntentUpdateParamsPaymentMethodDataUpi": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentMethodDataUpiMandateOptions": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
     "PaymentIntentUpdateParamsPaymentMethodDataUsBankAccount": (
         "stripe.params._payment_intent_update_params",
         False,
@@ -9891,6 +10007,14 @@ _import_map = {
         False,
     ),
     "PaymentIntentUpdateParamsPaymentMethodOptionsTwint": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsUpi": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsUpiMandateOptions": (
         "stripe.params._payment_intent_update_params",
         False,
     ),
@@ -10894,6 +11018,14 @@ _import_map = {
         "stripe.params._payment_method_configuration_create_params",
         False,
     ),
+    "PaymentMethodConfigurationCreateParamsUpi": (
+        "stripe.params._payment_method_configuration_create_params",
+        False,
+    ),
+    "PaymentMethodConfigurationCreateParamsUpiDisplayPreference": (
+        "stripe.params._payment_method_configuration_create_params",
+        False,
+    ),
     "PaymentMethodConfigurationCreateParamsUsBankAccount": (
         "stripe.params._payment_method_configuration_create_params",
         False,
@@ -11347,6 +11479,14 @@ _import_map = {
         False,
     ),
     "PaymentMethodConfigurationModifyParamsTwintDisplayPreference": (
+        "stripe.params._payment_method_configuration_modify_params",
+        False,
+    ),
+    "PaymentMethodConfigurationModifyParamsUpi": (
+        "stripe.params._payment_method_configuration_modify_params",
+        False,
+    ),
+    "PaymentMethodConfigurationModifyParamsUpiDisplayPreference": (
         "stripe.params._payment_method_configuration_modify_params",
         False,
     ),
@@ -11806,6 +11946,14 @@ _import_map = {
         "stripe.params._payment_method_configuration_update_params",
         False,
     ),
+    "PaymentMethodConfigurationUpdateParamsUpi": (
+        "stripe.params._payment_method_configuration_update_params",
+        False,
+    ),
+    "PaymentMethodConfigurationUpdateParamsUpiDisplayPreference": (
+        "stripe.params._payment_method_configuration_update_params",
+        False,
+    ),
     "PaymentMethodConfigurationUpdateParamsUsBankAccount": (
         "stripe.params._payment_method_configuration_update_params",
         False,
@@ -12047,6 +12195,14 @@ _import_map = {
         False,
     ),
     "PaymentMethodCreateParamsTwint": (
+        "stripe.params._payment_method_create_params",
+        False,
+    ),
+    "PaymentMethodCreateParamsUpi": (
+        "stripe.params._payment_method_create_params",
+        False,
+    ),
+    "PaymentMethodCreateParamsUpiMandateOptions": (
         "stripe.params._payment_method_create_params",
         False,
     ),
@@ -12926,6 +13082,14 @@ _import_map = {
         "stripe.params._setup_intent_confirm_params",
         False,
     ),
+    "SetupIntentConfirmParamsPaymentMethodDataUpi": (
+        "stripe.params._setup_intent_confirm_params",
+        False,
+    ),
+    "SetupIntentConfirmParamsPaymentMethodDataUpiMandateOptions": (
+        "stripe.params._setup_intent_confirm_params",
+        False,
+    ),
     "SetupIntentConfirmParamsPaymentMethodDataUsBankAccount": (
         "stripe.params._setup_intent_confirm_params",
         False,
@@ -13023,6 +13187,14 @@ _import_map = {
         False,
     ),
     "SetupIntentConfirmParamsPaymentMethodOptionsSepaDebitMandateOptions": (
+        "stripe.params._setup_intent_confirm_params",
+        False,
+    ),
+    "SetupIntentConfirmParamsPaymentMethodOptionsUpi": (
+        "stripe.params._setup_intent_confirm_params",
+        False,
+    ),
+    "SetupIntentConfirmParamsPaymentMethodOptionsUpiMandateOptions": (
         "stripe.params._setup_intent_confirm_params",
         False,
     ),
@@ -13278,6 +13450,14 @@ _import_map = {
         "stripe.params._setup_intent_create_params",
         False,
     ),
+    "SetupIntentCreateParamsPaymentMethodDataUpi": (
+        "stripe.params._setup_intent_create_params",
+        False,
+    ),
+    "SetupIntentCreateParamsPaymentMethodDataUpiMandateOptions": (
+        "stripe.params._setup_intent_create_params",
+        False,
+    ),
     "SetupIntentCreateParamsPaymentMethodDataUsBankAccount": (
         "stripe.params._setup_intent_create_params",
         False,
@@ -13375,6 +13555,14 @@ _import_map = {
         False,
     ),
     "SetupIntentCreateParamsPaymentMethodOptionsSepaDebitMandateOptions": (
+        "stripe.params._setup_intent_create_params",
+        False,
+    ),
+    "SetupIntentCreateParamsPaymentMethodOptionsUpi": (
+        "stripe.params._setup_intent_create_params",
+        False,
+    ),
+    "SetupIntentCreateParamsPaymentMethodOptionsUpiMandateOptions": (
         "stripe.params._setup_intent_create_params",
         False,
     ),
@@ -13622,6 +13810,14 @@ _import_map = {
         "stripe.params._setup_intent_modify_params",
         False,
     ),
+    "SetupIntentModifyParamsPaymentMethodDataUpi": (
+        "stripe.params._setup_intent_modify_params",
+        False,
+    ),
+    "SetupIntentModifyParamsPaymentMethodDataUpiMandateOptions": (
+        "stripe.params._setup_intent_modify_params",
+        False,
+    ),
     "SetupIntentModifyParamsPaymentMethodDataUsBankAccount": (
         "stripe.params._setup_intent_modify_params",
         False,
@@ -13719,6 +13915,14 @@ _import_map = {
         False,
     ),
     "SetupIntentModifyParamsPaymentMethodOptionsSepaDebitMandateOptions": (
+        "stripe.params._setup_intent_modify_params",
+        False,
+    ),
+    "SetupIntentModifyParamsPaymentMethodOptionsUpi": (
+        "stripe.params._setup_intent_modify_params",
+        False,
+    ),
+    "SetupIntentModifyParamsPaymentMethodOptionsUpiMandateOptions": (
         "stripe.params._setup_intent_modify_params",
         False,
     ),
@@ -13958,6 +14162,14 @@ _import_map = {
         "stripe.params._setup_intent_update_params",
         False,
     ),
+    "SetupIntentUpdateParamsPaymentMethodDataUpi": (
+        "stripe.params._setup_intent_update_params",
+        False,
+    ),
+    "SetupIntentUpdateParamsPaymentMethodDataUpiMandateOptions": (
+        "stripe.params._setup_intent_update_params",
+        False,
+    ),
     "SetupIntentUpdateParamsPaymentMethodDataUsBankAccount": (
         "stripe.params._setup_intent_update_params",
         False,
@@ -14055,6 +14267,14 @@ _import_map = {
         False,
     ),
     "SetupIntentUpdateParamsPaymentMethodOptionsSepaDebitMandateOptions": (
+        "stripe.params._setup_intent_update_params",
+        False,
+    ),
+    "SetupIntentUpdateParamsPaymentMethodOptionsUpi": (
+        "stripe.params._setup_intent_update_params",
+        False,
+    ),
+    "SetupIntentUpdateParamsPaymentMethodOptionsUpiMandateOptions": (
         "stripe.params._setup_intent_update_params",
         False,
     ),

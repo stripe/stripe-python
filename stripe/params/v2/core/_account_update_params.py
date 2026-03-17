@@ -1682,11 +1682,11 @@ class AccountUpdateParamsIdentityBusinessDetailsAnnualRevenue(TypedDict):
 
 
 class AccountUpdateParamsIdentityBusinessDetailsAnnualRevenueAmount(TypedDict):
-    value: NotRequired[int]
+    value: int
     """
     A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
     """
-    currency: NotRequired[str]
+    currency: str
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
@@ -2043,11 +2043,11 @@ class AccountUpdateParamsIdentityBusinessDetailsMonthlyEstimatedRevenue(
 class AccountUpdateParamsIdentityBusinessDetailsMonthlyEstimatedRevenueAmount(
     TypedDict,
 ):
-    value: NotRequired[int]
+    value: int
     """
     A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
     """
-    currency: NotRequired[str]
+    currency: str
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """

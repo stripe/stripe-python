@@ -248,6 +248,10 @@ class PaymentMethodConfigurationModifyParams(RequestOptions):
     """
     Twint is a payment method popular in Switzerland. It allows customers to pay using their mobile phone. Check this [page](https://docs.stripe.com/payments/twint) for more details.
     """
+    upi: NotRequired["PaymentMethodConfigurationModifyParamsUpi"]
+    """
+    Unified Payment Interface (UPI) is India's leading payment method with exponential growth since it launched in 2016.
+    """
     us_bank_account: NotRequired[
         "PaymentMethodConfigurationModifyParamsUsBankAccount"
     ]
@@ -1160,6 +1164,22 @@ class PaymentMethodConfigurationModifyParamsTwint(TypedDict):
 
 
 class PaymentMethodConfigurationModifyParamsTwintDisplayPreference(TypedDict):
+    preference: NotRequired[Literal["none", "off", "on"]]
+    """
+    The account's preference for whether or not to display this payment method.
+    """
+
+
+class PaymentMethodConfigurationModifyParamsUpi(TypedDict):
+    display_preference: NotRequired[
+        "PaymentMethodConfigurationModifyParamsUpiDisplayPreference"
+    ]
+    """
+    Whether or not the payment method should be displayed.
+    """
+
+
+class PaymentMethodConfigurationModifyParamsUpiDisplayPreference(TypedDict):
     preference: NotRequired[Literal["none", "off", "on"]]
     """
     The account's preference for whether or not to display this payment method.

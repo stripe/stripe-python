@@ -383,12 +383,17 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
         "sofort",
         "swish",
         "twint",
+        "upi",
         "us_bank_account",
         "wechat_pay",
         "zip",
     ]
     """
     The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
+    """
+    upi: NotRequired["SetupIntentConfirmParamsPaymentMethodDataUpi"]
+    """
+    If this is a `upi` PaymentMethod, this hash contains details about the UPI payment method.
     """
     us_bank_account: NotRequired[
         "SetupIntentConfirmParamsPaymentMethodDataUsBankAccount"
@@ -865,6 +870,34 @@ class SetupIntentConfirmParamsPaymentMethodDataTwint(TypedDict):
     pass
 
 
+class SetupIntentConfirmParamsPaymentMethodDataUpi(TypedDict):
+    mandate_options: NotRequired[
+        "SetupIntentConfirmParamsPaymentMethodDataUpiMandateOptions"
+    ]
+    """
+    Configuration options for setting up an eMandate
+    """
+
+
+class SetupIntentConfirmParamsPaymentMethodDataUpiMandateOptions(TypedDict):
+    amount: NotRequired[int]
+    """
+    Amount to be charged for future payments.
+    """
+    amount_type: NotRequired[Literal["fixed", "maximum"]]
+    """
+    One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+    """
+    description: NotRequired[str]
+    """
+    A description of the mandate or subscription that is meant to be displayed to the customer.
+    """
+    end_date: NotRequired[int]
+    """
+    End date of the mandate or subscription.
+    """
+
+
 class SetupIntentConfirmParamsPaymentMethodDataUsBankAccount(TypedDict):
     account_holder_type: NotRequired[Literal["company", "individual"]]
     """
@@ -947,6 +980,10 @@ class SetupIntentConfirmParamsPaymentMethodOptions(TypedDict):
     """
     If this is a `sepa_debit` SetupIntent, this sub-hash contains details about the SEPA Debit payment method options.
     """
+    upi: NotRequired["SetupIntentConfirmParamsPaymentMethodOptionsUpi"]
+    """
+    If this is a `upi` SetupIntent, this sub-hash contains details about the UPI payment method options.
+    """
     us_bank_account: NotRequired[
         "SetupIntentConfirmParamsPaymentMethodOptionsUsBankAccount"
     ]
@@ -970,7 +1007,7 @@ class SetupIntentConfirmParamsPaymentMethodOptionsAcssDebit(TypedDict):
         Literal["automatic", "instant", "microdeposits"]
     ]
     """
-    Bank account verification method.
+    Bank account verification method. The default value is `automatic`.
     """
 
 
@@ -1076,7 +1113,7 @@ class SetupIntentConfirmParamsPaymentMethodOptionsCardMandateOptions(
 ):
     amount: int
     """
-    Amount to be charged for future payments.
+    Amount to be charged for future payments, specified in the presentment currency.
     """
     amount_type: Literal["fixed", "maximum"]
     """
@@ -1408,6 +1445,37 @@ class SetupIntentConfirmParamsPaymentMethodOptionsSepaDebitMandateOptions(
     """
 
 
+class SetupIntentConfirmParamsPaymentMethodOptionsUpi(TypedDict):
+    mandate_options: NotRequired[
+        "SetupIntentConfirmParamsPaymentMethodOptionsUpiMandateOptions"
+    ]
+    """
+    Configuration options for setting up an eMandate
+    """
+    setup_future_usage: NotRequired[
+        "Literal['']|Literal['none', 'off_session', 'on_session']"
+    ]
+
+
+class SetupIntentConfirmParamsPaymentMethodOptionsUpiMandateOptions(TypedDict):
+    amount: NotRequired[int]
+    """
+    Amount to be charged for future payments.
+    """
+    amount_type: NotRequired[Literal["fixed", "maximum"]]
+    """
+    One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+    """
+    description: NotRequired[str]
+    """
+    A description of the mandate or subscription that is meant to be displayed to the customer.
+    """
+    end_date: NotRequired[int]
+    """
+    End date of the mandate or subscription.
+    """
+
+
 class SetupIntentConfirmParamsPaymentMethodOptionsUsBankAccount(TypedDict):
     financial_connections: NotRequired[
         "SetupIntentConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections"
@@ -1431,7 +1499,7 @@ class SetupIntentConfirmParamsPaymentMethodOptionsUsBankAccount(TypedDict):
         Literal["automatic", "instant", "microdeposits"]
     ]
     """
-    Bank account verification method.
+    Bank account verification method. The default value is `automatic`.
     """
 
 

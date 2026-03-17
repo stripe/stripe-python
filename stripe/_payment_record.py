@@ -499,6 +499,24 @@ class PaymentRecord(APIResource["PaymentRecord"]):
                 """
                 For authenticated transactions: Indicates how the issuing bank authenticated the customer.
                 """
+                cryptogram: Optional[str]
+                """
+                The 3D Secure cryptogram, also known as the "authentication value" (AAV, CAVV or AEVV).
+                """
+                electronic_commerce_indicator: Optional[
+                    Literal["01", "02", "03", "04", "05", "06", "07"]
+                ]
+                """
+                The Electronic Commerce Indicator (ECI). A protocol-level field indicating what degree of authentication was performed.
+                """
+                exemption_indicator: Optional[Literal["low_risk", "none"]]
+                """
+                The exemption requested via 3DS and accepted by the issuer at authentication time.
+                """
+                exemption_indicator_applied: Optional[bool]
+                """
+                Whether Stripe requested the value of `exemption_indicator` in the transaction. This will depend on the outcome of Stripe's internal risk assessment.
+                """
                 result: Optional[
                     Literal[
                         "attempt_acknowledged",
@@ -560,19 +578,21 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             """
             The authorization code of the payment.
             """
-            brand: Literal[
-                "amex",
-                "cartes_bancaires",
-                "diners",
-                "discover",
-                "eftpos_au",
-                "interac",
-                "jcb",
-                "link",
-                "mastercard",
-                "unionpay",
-                "unknown",
-                "visa",
+            brand: Optional[
+                Literal[
+                    "amex",
+                    "cartes_bancaires",
+                    "diners",
+                    "discover",
+                    "eftpos_au",
+                    "interac",
+                    "jcb",
+                    "link",
+                    "mastercard",
+                    "unionpay",
+                    "unknown",
+                    "visa",
+                ]
             ]
             """
             Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
@@ -593,11 +613,11 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             """
             A high-level description of the type of cards issued in this range.
             """
-            exp_month: int
+            exp_month: Optional[int]
             """
             Two-digit number representing the card's expiration month.
             """
-            exp_year: int
+            exp_year: Optional[int]
             """
             Four-digit number representing the card's expiration year.
             """
@@ -607,7 +627,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
 
             *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
             """
-            funding: Literal["credit", "debit", "prepaid", "unknown"]
+            funding: Optional[Literal["credit", "debit", "prepaid", "unknown"]]
             """
             Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
             """
@@ -623,7 +643,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             """
             The name of the card's issuing bank.
             """
-            last4: str
+            last4: Optional[str]
             """
             The last four digits of the card.
             """
@@ -887,7 +907,9 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             """
             The wallet address of the customer.
             """
-            network: Optional[Literal["base", "ethereum", "polygon", "solana"]]
+            network: Optional[
+                Literal["base", "ethereum", "polygon", "solana", "tempo"]
+            ]
             """
             The blockchain network that the transaction was sent on.
             """
@@ -1091,8 +1113,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             """
             verified_name: Optional[str]
             """
-            Owner's verified full name. Values are verified or provided by iDEAL directly
-            (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+            Owner's verified full name. Values are verified or provided by iDEAL directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
             """
 
         class InteracPresent(StripeObject):
@@ -1701,13 +1722,11 @@ class PaymentRecord(APIResource["PaymentRecord"]):
                 Literal["de", "en", "es", "fr", "it", "nl", "pl"]
             ]
             """
-            Preferred language of the SOFORT authorization page that the customer is redirected to.
-            Can be one of `de`, `en`, `es`, `fr`, `it`, `nl`, or `pl`
+            Preferred language of the SOFORT authorization page that the customer is redirected to. Can be one of `de`, `en`, `es`, `fr`, `it`, `nl`, or `pl`
             """
             verified_name: Optional[str]
             """
-            Owner's verified full name. Values are verified or provided by SOFORT directly
-            (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+            Owner's verified full name. Values are verified or provided by SOFORT directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
             """
 
         class StripeAccount(StripeObject):
@@ -1729,6 +1748,12 @@ class PaymentRecord(APIResource["PaymentRecord"]):
 
         class Twint(StripeObject):
             pass
+
+        class Upi(StripeObject):
+            vpa: Optional[str]
+            """
+            Customer's unique Virtual Payment Address.
+            """
 
         class UsBankAccount(StripeObject):
             account_holder_type: Optional[Literal["company", "individual"]]
@@ -1868,6 +1893,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
         An additional hash is included on `payment_method_details` with a name matching this value.
         It contains information specific to the payment method.
         """
+        upi: Optional[Upi]
         us_bank_account: Optional[UsBankAccount]
         wechat: Optional[Wechat]
         wechat_pay: Optional[WechatPay]
@@ -1928,6 +1954,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             "stripe_account": StripeAccount,
             "swish": Swish,
             "twint": Twint,
+            "upi": Upi,
             "us_bank_account": UsBankAccount,
             "wechat": Wechat,
             "wechat_pay": WechatPay,
@@ -2052,7 +2079,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
     """
     livemode: bool
     """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
     metadata: Dict[str, str]
     """

@@ -59,7 +59,7 @@ class Topup(
     """
     failure_code: Optional[str]
     """
-    Error code explaining reason for top-up failure if available (see [the errors section](https://docs.stripe.com/api#errors) for a list of codes).
+    Error code explaining reason for top-up failure if available (see [the errors section](https://docs.stripe.com/api/errors) for a list of codes).
     """
     failure_message: Optional[str]
     """
@@ -71,7 +71,7 @@ class Topup(
     """
     livemode: bool
     """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
     metadata: Dict[str, str]
     """

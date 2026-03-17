@@ -402,6 +402,9 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             (if supported) at the time of authorization or settlement. They cannot be set or mutated.
             """
 
+        class Upi(StripeObject):
+            pass
+
         class UsBankAccount(StripeObject):
             pass
 
@@ -430,6 +433,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         """
         The type of the payment method used in the SetupIntent (e.g., `card`). An additional hash is included on `payment_method_details` with a name matching this value. It contains confirmation-specific information for the payment method.
         """
+        upi: Optional[Upi]
         us_bank_account: Optional[UsBankAccount]
         _inner_class_types = {
             "acss_debit": AcssDebit,
@@ -453,6 +457,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             "revolut_pay": RevolutPay,
             "sepa_debit": SepaDebit,
             "sofort": Sofort,
+            "upi": Upi,
             "us_bank_account": UsBankAccount,
         }
 
@@ -619,6 +624,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 "routing_number_invalid",
                 "secret_key_required",
                 "sepa_unsupported_account",
+                "service_period_coupon_with_metered_tiered_item_unsupported",
                 "setup_attempt_failed",
                 "setup_intent_authentication_failure",
                 "setup_intent_invalid_parameter",
@@ -782,7 +788,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
     """
     livemode: bool
     """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
     object: Literal["setup_attempt"]
     """

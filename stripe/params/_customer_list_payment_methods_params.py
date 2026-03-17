@@ -76,6 +76,7 @@ class CustomerListPaymentMethodsParams(RequestOptions):
             "sofort",
             "swish",
             "twint",
+            "upi",
             "us_bank_account",
             "wechat_pay",
             "zip",
