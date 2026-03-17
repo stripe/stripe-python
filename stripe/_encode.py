@@ -2,7 +2,7 @@ import calendar
 import datetime
 import time
 from collections import OrderedDict
-from typing import Generator, Tuple, Any
+from typing import Generator, Mapping, Tuple, Any
 
 
 def _encode_datetime(dttime: datetime.datetime):
@@ -16,7 +16,8 @@ def _encode_datetime(dttime: datetime.datetime):
 
 def _encode_nested_dict(key, data, fmt="%s[%s]"):
     d = OrderedDict()
-    for subkey, subvalue in data.items():
+    items = data._data.items() if hasattr(data, "_data") else data.items()
+    for subkey, subvalue in items:
         d[fmt % (key, subkey)] = subvalue
     return d
 
@@ -27,8 +28,12 @@ def _json_encode_date_callback(value):
     return value
 
 
-def _api_encode(data) -> Generator[Tuple[str, Any], None, None]:
-    for key, value in data.items():
+def _api_encode(
+    data: Mapping[str, Any],
+) -> Generator[Tuple[str, Any], None, None]:
+    items = data.items()
+
+    for key, value in items:
         if value is None:
             continue
         elif hasattr(value, "id"):
@@ -37,13 +42,13 @@ def _api_encode(data) -> Generator[Tuple[str, Any], None, None]:
             for i, sv in enumerate(value):
                 # Always use indexed format for arrays
                 encoded_key = "%s[%d]" % (key, i)
-                if isinstance(sv, dict):
+                if isinstance(sv, dict) or hasattr(sv, "_data"):
                     subdict = _encode_nested_dict(encoded_key, sv)
                     for k, v in _api_encode(subdict):
                         yield (k, v)
                 else:
                     yield (encoded_key, sv)
-        elif isinstance(value, dict):
+        elif isinstance(value, dict) or hasattr(value, "_data"):
             subdict = _encode_nested_dict(key, value)
             for subkey, subvalue in _api_encode(subdict):
                 yield (subkey, subvalue)

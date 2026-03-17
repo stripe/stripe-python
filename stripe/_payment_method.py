@@ -1653,7 +1653,7 @@ class PaymentMethod(
             self._request(
                 "post",
                 "/v1/payment_methods/{payment_method}/attach".format(
-                    payment_method=sanitize_id(self.get("id"))
+                    payment_method=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1756,7 +1756,7 @@ class PaymentMethod(
             await self._request_async(
                 "post",
                 "/v1/payment_methods/{payment_method}/attach".format(
-                    payment_method=sanitize_id(self.get("id"))
+                    payment_method=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1847,7 +1847,7 @@ class PaymentMethod(
             self._request(
                 "post",
                 "/v1/payment_methods/{payment_method}/detach".format(
-                    payment_method=sanitize_id(self.get("id"))
+                    payment_method=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1902,7 +1902,7 @@ class PaymentMethod(
             await self._request_async(
                 "post",
                 "/v1/payment_methods/{payment_method}/detach".format(
-                    payment_method=sanitize_id(self.get("id"))
+                    payment_method=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
