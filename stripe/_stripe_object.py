@@ -141,6 +141,12 @@ class StripeObject:
     def last_response(self) -> Optional[StripeResponse]:
         return self._last_response
 
+    def update(self, update_dict: Mapping[str, Any]) -> None:
+        for k in update_dict:
+            self._unsaved_values.add(k)
+
+        self._data.update(update_dict)
+
     if not TYPE_CHECKING:
 
         def __setattr__(self, k, v):
