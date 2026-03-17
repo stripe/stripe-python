@@ -663,6 +663,48 @@ class TestStripeObject(object):
             so["payment_intent"]
         assert not is_good_error(e.value)
 
+    def test_eq_same_data(self):
+        a = StripeObject.construct_from({"id": "x", "name": "a"}, "key")
+        b = StripeObject.construct_from({"id": "x", "name": "a"}, "key")
+        assert a == b
+
+    def test_eq_different_data(self):
+        a = StripeObject.construct_from({"id": "x", "name": "a"}, "key")
+        b = StripeObject.construct_from({"id": "x", "name": "b"}, "key")
+        assert a != b
+
+    def test_eq_different_types_not_equal(self):
+        data = {"id": "x", "name": "a"}
+        invoice = stripe.Invoice.construct_from(
+            {**data, "object": "invoice"}, "key"
+        )
+        customer = stripe.Customer.construct_from(
+            {**data, "object": "customer"}, "key"
+        )
+        assert invoice != customer
+
+    def test_eq_same_resource_type(self):
+        a = stripe.Customer.construct_from(
+            {"id": "cus_1", "object": "customer", "name": "alice"}, "key"
+        )
+        b = stripe.Customer.construct_from(
+            {"id": "cus_1", "object": "customer", "name": "alice"}, "key"
+        )
+        assert a == b
+
+    def test_eq_diff_resource_type_same_data(self):
+        a = stripe.Customer.construct_from(
+            {"id": "cus_1", "object": "customer", "name": "alice"}, "key"
+        )
+        b = stripe.Invoice.construct_from(
+            {"id": "cus_1", "object": "customer", "name": "alice"}, "key"
+        )
+        assert a != b
+
+    def test_eq_not_equal_to_dict(self):
+        obj = StripeObject.construct_from({"id": "x"}, "key")
+        assert obj != {"id": "x"}
+
     def test_is_not_dict(self):
         obj = StripeObject("id", "key")
         assert not isinstance(obj, dict)

@@ -236,7 +236,7 @@ class StripeObject:
 
     def __eq__(self, other: object) -> bool:
         if isinstance(other, StripeObject):
-            return self._data == other._data
+            return type(self) is type(other) and self._data == other._data
         return NotImplemented
 
     # Custom unpickling method that updates _data directly
