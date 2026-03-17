@@ -11,6 +11,9 @@ if TYPE_CHECKING:
     )
     from stripe.test_helpers._customer_service import CustomerService
     from stripe.test_helpers._issuing_service import IssuingService
+    from stripe.test_helpers._payment_intent_service import (
+        PaymentIntentService,
+    )
     from stripe.test_helpers._refund_service import RefundService
     from stripe.test_helpers._shared_payment_service import (
         SharedPaymentService,
@@ -27,6 +30,10 @@ _subservices = {
     ],
     "customers": ["stripe.test_helpers._customer_service", "CustomerService"],
     "issuing": ["stripe.test_helpers._issuing_service", "IssuingService"],
+    "payment_intents": [
+        "stripe.test_helpers._payment_intent_service",
+        "PaymentIntentService",
+    ],
     "refunds": ["stripe.test_helpers._refund_service", "RefundService"],
     "shared_payment": [
         "stripe.test_helpers._shared_payment_service",
@@ -46,6 +53,7 @@ class TestHelpersService(StripeService):
     confirmation_tokens: "ConfirmationTokenService"
     customers: "CustomerService"
     issuing: "IssuingService"
+    payment_intents: "PaymentIntentService"
     refunds: "RefundService"
     shared_payment: "SharedPaymentService"
     terminal: "TerminalService"

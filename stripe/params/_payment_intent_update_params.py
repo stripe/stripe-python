@@ -4187,6 +4187,25 @@ class PaymentIntentUpdateParamsPaymentMethodOptionsCrypto(TypedDict):
 
     If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
     """
+    deposit_options: NotRequired[
+        "PaymentIntentUpdateParamsPaymentMethodOptionsCryptoDepositOptions"
+    ]
+    """
+    Specific configuration for this PaymentIntent when the mode is `deposit`.
+    """
+    mode: NotRequired[Literal["default", "deposit"]]
+    """
+    The mode of the crypto payment.
+    """
+
+
+class PaymentIntentUpdateParamsPaymentMethodOptionsCryptoDepositOptions(
+    TypedDict,
+):
+    networks: List[Literal["base", "solana", "tempo"]]
+    """
+    The blockchain networks to support for deposits. Learn more about [supported networks and tokens](https://docs.stripe.com/payments/deposit-mode-stablecoin-payments#token-and-network-support).
+    """
 
 
 class PaymentIntentUpdateParamsPaymentMethodOptionsCustomerBalance(TypedDict):

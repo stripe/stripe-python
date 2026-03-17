@@ -2460,6 +2460,7 @@ if TYPE_CHECKING:
         PaymentIntentConfirmParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires as PaymentIntentConfirmParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires,
         PaymentIntentConfirmParamsPaymentMethodOptionsCashapp as PaymentIntentConfirmParamsPaymentMethodOptionsCashapp,
         PaymentIntentConfirmParamsPaymentMethodOptionsCrypto as PaymentIntentConfirmParamsPaymentMethodOptionsCrypto,
+        PaymentIntentConfirmParamsPaymentMethodOptionsCryptoDepositOptions as PaymentIntentConfirmParamsPaymentMethodOptionsCryptoDepositOptions,
         PaymentIntentConfirmParamsPaymentMethodOptionsCustomerBalance as PaymentIntentConfirmParamsPaymentMethodOptionsCustomerBalance,
         PaymentIntentConfirmParamsPaymentMethodOptionsCustomerBalanceBankTransfer as PaymentIntentConfirmParamsPaymentMethodOptionsCustomerBalanceBankTransfer,
         PaymentIntentConfirmParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as PaymentIntentConfirmParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
@@ -2741,6 +2742,7 @@ if TYPE_CHECKING:
         PaymentIntentCreateParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires as PaymentIntentCreateParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires,
         PaymentIntentCreateParamsPaymentMethodOptionsCashapp as PaymentIntentCreateParamsPaymentMethodOptionsCashapp,
         PaymentIntentCreateParamsPaymentMethodOptionsCrypto as PaymentIntentCreateParamsPaymentMethodOptionsCrypto,
+        PaymentIntentCreateParamsPaymentMethodOptionsCryptoDepositOptions as PaymentIntentCreateParamsPaymentMethodOptionsCryptoDepositOptions,
         PaymentIntentCreateParamsPaymentMethodOptionsCustomerBalance as PaymentIntentCreateParamsPaymentMethodOptionsCustomerBalance,
         PaymentIntentCreateParamsPaymentMethodOptionsCustomerBalanceBankTransfer as PaymentIntentCreateParamsPaymentMethodOptionsCustomerBalanceBankTransfer,
         PaymentIntentCreateParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as PaymentIntentCreateParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
@@ -3056,6 +3058,7 @@ if TYPE_CHECKING:
         PaymentIntentModifyParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires as PaymentIntentModifyParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires,
         PaymentIntentModifyParamsPaymentMethodOptionsCashapp as PaymentIntentModifyParamsPaymentMethodOptionsCashapp,
         PaymentIntentModifyParamsPaymentMethodOptionsCrypto as PaymentIntentModifyParamsPaymentMethodOptionsCrypto,
+        PaymentIntentModifyParamsPaymentMethodOptionsCryptoDepositOptions as PaymentIntentModifyParamsPaymentMethodOptionsCryptoDepositOptions,
         PaymentIntentModifyParamsPaymentMethodOptionsCustomerBalance as PaymentIntentModifyParamsPaymentMethodOptionsCustomerBalance,
         PaymentIntentModifyParamsPaymentMethodOptionsCustomerBalanceBankTransfer as PaymentIntentModifyParamsPaymentMethodOptionsCustomerBalanceBankTransfer,
         PaymentIntentModifyParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as PaymentIntentModifyParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
@@ -3162,6 +3165,9 @@ if TYPE_CHECKING:
     )
     from stripe.params._payment_intent_search_params import (
         PaymentIntentSearchParams as PaymentIntentSearchParams,
+    )
+    from stripe.params._payment_intent_simulate_crypto_deposit_params import (
+        PaymentIntentSimulateCryptoDepositParams as PaymentIntentSimulateCryptoDepositParams,
     )
     from stripe.params._payment_intent_trigger_action_params import (
         PaymentIntentTriggerActionParams as PaymentIntentTriggerActionParams,
@@ -3348,6 +3354,7 @@ if TYPE_CHECKING:
         PaymentIntentUpdateParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires as PaymentIntentUpdateParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires,
         PaymentIntentUpdateParamsPaymentMethodOptionsCashapp as PaymentIntentUpdateParamsPaymentMethodOptionsCashapp,
         PaymentIntentUpdateParamsPaymentMethodOptionsCrypto as PaymentIntentUpdateParamsPaymentMethodOptionsCrypto,
+        PaymentIntentUpdateParamsPaymentMethodOptionsCryptoDepositOptions as PaymentIntentUpdateParamsPaymentMethodOptionsCryptoDepositOptions,
         PaymentIntentUpdateParamsPaymentMethodOptionsCustomerBalance as PaymentIntentUpdateParamsPaymentMethodOptionsCustomerBalance,
         PaymentIntentUpdateParamsPaymentMethodOptionsCustomerBalanceBankTransfer as PaymentIntentUpdateParamsPaymentMethodOptionsCustomerBalanceBankTransfer,
         PaymentIntentUpdateParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as PaymentIntentUpdateParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
@@ -13430,6 +13437,10 @@ _import_map = {
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsCryptoDepositOptions": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
     "PaymentIntentConfirmParamsPaymentMethodOptionsCustomerBalance": (
         "stripe.params._payment_intent_confirm_params",
         False,
@@ -14543,6 +14554,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentCreateParamsPaymentMethodOptionsCrypto": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsCryptoDepositOptions": (
         "stripe.params._payment_intent_create_params",
         False,
     ),
@@ -15766,6 +15781,10 @@ _import_map = {
         "stripe.params._payment_intent_modify_params",
         False,
     ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsCryptoDepositOptions": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
     "PaymentIntentModifyParamsPaymentMethodOptionsCustomerBalance": (
         "stripe.params._payment_intent_modify_params",
         False,
@@ -16164,6 +16183,10 @@ _import_map = {
     ),
     "PaymentIntentSearchParams": (
         "stripe.params._payment_intent_search_params",
+        False,
+    ),
+    "PaymentIntentSimulateCryptoDepositParams": (
+        "stripe.params._payment_intent_simulate_crypto_deposit_params",
         False,
     ),
     "PaymentIntentTriggerActionParams": (
@@ -16891,6 +16914,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentUpdateParamsPaymentMethodOptionsCrypto": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsCryptoDepositOptions": (
         "stripe.params._payment_intent_update_params",
         False,
     ),
