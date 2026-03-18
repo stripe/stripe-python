@@ -27,6 +27,7 @@ from stripe._stripe_response import (
     StripeStreamResponseAsync,
 )
 from stripe._encode import _encode_datetime  # pyright: ignore
+from stripe._encode import _coerce_int64_string  # pyright: ignore
 from stripe._request_options import (
     PERSISTENT_OPTIONS_KEYS,
     extract_options_from_dict,
@@ -355,6 +356,8 @@ class StripeObject(Dict[str, Any]):
         self._transient_values = self._transient_values - set(values)
 
         for k, v in values.items():
+            # Apply field encoding coercion (e.g. int64_string: str → int)
+            v = self._coerce_field_value(k, v)
             inner_class = self._get_inner_class_type(k)
             is_dict = self._get_inner_class_is_beneath_dict(k)
             if is_dict:
@@ -620,6 +623,7 @@ class StripeObject(Dict[str, Any]):
 
     _inner_class_types: ClassVar[Dict[str, Type["StripeObject"]]] = {}
     _inner_class_dicts: ClassVar[List[str]] = []
+    _field_encodings: ClassVar[Dict[str, str]] = {}
 
     def _get_inner_class_type(
         self, field_name: str
@@ -628,3 +632,19 @@ class StripeObject(Dict[str, Any]):
 
     def _get_inner_class_is_beneath_dict(self, field_name: str):
         return field_name in self._inner_class_dicts
+
+    def _coerce_field_value(self, field_name: str, value: Any) -> Any:
+        """
+        Apply field encoding coercion based on _field_encodings metadata.
+
+        For int64_string fields, converts string values from the API response
+        to native Python ints.
+        """
+        encoding = self._field_encodings.get(field_name)
+        if encoding is None or value is None:
+            return value
+
+        if encoding == "int64_string":
+            return _coerce_int64_string(value, encode=False)
+
+        return value
