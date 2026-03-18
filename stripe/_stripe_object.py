@@ -2,7 +2,7 @@
 import datetime
 import json
 from copy import deepcopy
-from typing_extensions import TYPE_CHECKING, Type, Literal, Self
+from typing_extensions import TYPE_CHECKING, Type, Literal, Self, deprecated
 from typing import (
     Any,
     Dict,
@@ -391,9 +391,7 @@ class StripeObject(Dict[str, Any]):
 
         self._previous = values
 
-    @_util.deprecated(
-        "This will be removed in a future version of stripe-python."
-    )
+    @deprecated("This will be removed in a future version of stripe-python.")
     def request(
         self,
         method: Literal["get", "post", "delete"],
@@ -521,7 +519,7 @@ class StripeObject(Dict[str, Any]):
             cls=self._ReprJSONEncoder,
         )
 
-    @_util.deprecated(
+    @deprecated(
         "Deprecated. The public interface will be removed in a future version."
     )
     def to_dict(self) -> Dict[str, Any]:
@@ -545,14 +543,14 @@ class StripeObject(Dict[str, Any]):
             for key, value in dict(self).items()
         }
 
-    @_util.deprecated(
+    @deprecated(
         "For internal stripe-python use only. The public interface will be removed in a future version."
     )
     def to_dict_recursive(self) -> Dict[str, Any]:
         return self._to_dict_recursive()
 
     @property
-    @_util.deprecated(
+    @deprecated(
         "For internal stripe-python use only. The public interface will be removed in a future version."
     )
     def stripe_id(self) -> Optional[str]:
