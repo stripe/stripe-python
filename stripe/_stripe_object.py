@@ -2,7 +2,7 @@
 import datetime
 import json
 from copy import deepcopy
-from typing_extensions import TYPE_CHECKING, Type, Literal, Self
+from typing_extensions import TYPE_CHECKING, Type, Literal, Self, deprecated
 from typing import (
     Any,
     Dict,
@@ -402,9 +402,7 @@ class StripeObject:
 
         self._previous = values
 
-    @_util.deprecated(
-        "This will be removed in a future version of stripe-python."
-    )
+    @deprecated("This will be removed in a future version of stripe-python.")
     def request(
         self,
         method: Literal["get", "post", "delete"],

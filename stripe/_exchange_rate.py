@@ -2,9 +2,8 @@
 # File generated from our OpenAPI spec
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._util import deprecated
 from typing import ClassVar, Dict
-from typing_extensions import Literal, Unpack, TYPE_CHECKING
+from typing_extensions import Literal, Unpack, deprecated, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.params._exchange_rate_list_params import ExchangeRateListParams

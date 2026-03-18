@@ -1,5 +1,5 @@
 # pyright: strict
-from typing_extensions import Self, Unpack
+from typing_extensions import Self, Unpack, deprecated
 from typing import (
     Generic,
     List,
@@ -16,7 +16,6 @@ from stripe._api_requestor import (
     _APIRequestor,  # pyright: ignore[reportPrivateUsage]
 )
 from stripe._stripe_object import StripeObject
-from stripe import _util
 import warnings
 from stripe._request_options import RequestOptions, extract_options_from_dict
 from stripe._any_iterator import AnyIterator
@@ -45,7 +44,7 @@ class SearchResultObject(StripeObject, Generic[T]):
             )
         return url
 
-    @_util.deprecated(
+    @deprecated(
         "This will be removed in a future version of stripe-python. Please call the `search` method on the corresponding resource directly, instead of the generic search on SearchResultObject."
     )
     def search(self, **params: Mapping[str, Any]) -> Self:
