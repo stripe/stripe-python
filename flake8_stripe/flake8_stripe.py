@@ -15,7 +15,7 @@ class TypingImportsChecker:
     # in 4.1.1. In typing_extensions 4.7.0, `typing_extensions` started re-exporting
     # EVERYTHING from `typing` but this is not the case in v4.1.1.
 
-    # now that we're into modern typing_extensions versions, we should probably prefer that over built-in typing _unless_ all of our `typing `needs are present in all supported Python versions. In that case, we could drop `typing_extensions`.
+    # now that we're into modern typing_extensions versions, we should probably prefer that over built-in typing _unless_ all of our `typing `needs are present in all supported Python versions. In that case, we could drop `typing_extensions`. See: https://go/j/DEVSDK-3046
     allowed_typing_extensions_imports = [
         "Literal",
         "NoReturn",
