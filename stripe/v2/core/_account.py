@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
+from stripe.v2._amount import Amount
 from typing import ClassVar, Dict, List, Optional
 from typing_extensions import Literal
 
@@ -2878,16 +2879,6 @@ class Account(StripeObject):
                 """
 
             class AnnualRevenue(StripeObject):
-                class Amount(StripeObject):
-                    currency: str
-                    """
-                    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-                    """
-                    value: int
-                    """
-                    A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-                    """
-
                 amount: Optional[Amount]
                 """
                 Annual revenue amount in minor currency units (for example, '123' for 1.23 USD).
@@ -2896,7 +2887,6 @@ class Account(StripeObject):
                 """
                 The close-out date of the preceding fiscal year in ISO 8601 format. E.g. 2023-12-31 for the 31st of December, 2023.
                 """
-                _inner_class_types = {"amount": Amount}
 
             class Documents(StripeObject):
                 class BankAccountOwnershipVerification(StripeObject):
@@ -3198,21 +3188,10 @@ class Account(StripeObject):
                 """
 
             class MonthlyEstimatedRevenue(StripeObject):
-                class Amount(StripeObject):
-                    currency: str
-                    """
-                    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-                    """
-                    value: int
-                    """
-                    A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-                    """
-
                 amount: Optional[Amount]
                 """
                 Estimated monthly revenue amount in minor currency units (for example, '123' for 1.23 USD).
                 """
-                _inner_class_types = {"amount": Amount}
 
             class RegistrationDate(StripeObject):
                 day: int
