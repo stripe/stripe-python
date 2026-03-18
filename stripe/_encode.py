@@ -70,8 +70,13 @@ def _coerce_int64_string(value: Any, *, encode: bool) -> Any:
     to_type = str if encode else int
 
     if isinstance(value, list):
-        return [to_type(v) if isinstance(v, from_type) else v for v in value]
-    if isinstance(value, from_type):
+        return [
+            to_type(v)
+            if isinstance(v, from_type) and not isinstance(v, bool)
+            else v
+            for v in value
+        ]
+    if isinstance(value, from_type) and not isinstance(value, bool):
         return to_type(value)
     return value
 
