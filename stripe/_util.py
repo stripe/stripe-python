@@ -240,7 +240,7 @@ def _convert_to_stripe_object(
             )
             for i in resp
         ]
-    elif isinstance(resp, dict) and not isinstance(resp, StripeObject):
+    elif isinstance(resp, dict):
         resp = resp.copy()
         klass_name = resp.get("object")
         if isinstance(klass_name, str):
@@ -302,11 +302,12 @@ def convert_to_dict(obj):
 
     :returns: The StripeObject as a dict.
     """
+    from stripe._stripe_object import StripeObject
+
     if isinstance(obj, list):
         return [convert_to_dict(i) for i in obj]
-    # This works by virtue of the fact that StripeObjects _are_ dicts. The dict
-    # comprehension returns a regular dict and recursively applies the
-    # conversion to each value.
+    elif isinstance(obj, StripeObject):
+        return {k: convert_to_dict(v) for k, v in obj._data.items()}
     elif isinstance(obj, dict):
         return {k: convert_to_dict(v) for k, v in obj.items()}
     else:

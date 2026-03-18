@@ -54,7 +54,7 @@ class APIResource(StripeObject, Generic[T]):
         return "/v1/%ss" % (base,)
 
     def instance_url(self) -> str:
-        id = self.get("id")
+        id = self._data.get("id")
 
         if not isinstance(id, str):
             raise InvalidRequestError(

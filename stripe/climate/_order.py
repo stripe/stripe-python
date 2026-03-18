@@ -232,7 +232,7 @@ class Order(
             self._request(
                 "post",
                 "/v1/climate/orders/{order}/cancel".format(
-                    order=sanitize_id(self.get("id"))
+                    order=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -299,7 +299,7 @@ class Order(
             await self._request_async(
                 "post",
                 "/v1/climate/orders/{order}/cancel".format(
-                    order=sanitize_id(self.get("id"))
+                    order=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),

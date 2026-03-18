@@ -2546,7 +2546,7 @@ class Session(
             self._request(
                 "post",
                 "/v1/checkout/sessions/{session}/expire".format(
-                    session=sanitize_id(self.get("id"))
+                    session=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2609,7 +2609,7 @@ class Session(
             await self._request_async(
                 "post",
                 "/v1/checkout/sessions/{session}/expire".format(
-                    session=sanitize_id(self.get("id"))
+                    session=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2704,7 +2704,7 @@ class Session(
             self._request(
                 "get",
                 "/v1/checkout/sessions/{session}/line_items".format(
-                    session=sanitize_id(self.get("id"))
+                    session=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2759,7 +2759,7 @@ class Session(
             await self._request_async(
                 "get",
                 "/v1/checkout/sessions/{session}/line_items".format(
-                    session=sanitize_id(self.get("id"))
+                    session=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
