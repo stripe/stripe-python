@@ -530,7 +530,14 @@ class StripeObject:
             cls=self._ReprJSONEncoder,
         )
 
-    def to_dict(self) -> Dict[str, Any]:
+    def to_dict(self, recursive: bool = True) -> Dict[str, Any]:
+        """
+        Dump the object's backing data. Recurses by default, but you can opt-out of that behavior by passing `recursive=False`
+        """
+        if recursive:
+            return self._to_dict_recursive()
+
+        # shallow copy, so nested objects will be shared
         return self._data.copy()
 
     def _to_dict_recursive(self) -> Dict[str, Any]:

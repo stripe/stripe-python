@@ -729,3 +729,58 @@ class TestStripeObject(object):
         assert d == {"id": "foo", "name": "bar"}
         assert isinstance(d, dict)
         assert not isinstance(d, StripeObject)
+
+    def test_to_dict_recursive_by_default(self):
+        inner = StripeObject.construct_from({"nested": "val"}, "key")
+        obj = StripeObject.construct_from({"id": "x", "child": inner}, "key")
+        d = obj.to_dict()
+        assert d == {"id": "x", "child": {"nested": "val"}}
+        assert isinstance(d["child"], dict)
+        assert not isinstance(d["child"], StripeObject)
+
+    def test_to_dict_non_recursive(self):
+        inner = StripeObject.construct_from({"nested": "val"}, "key")
+        obj = StripeObject.construct_from({"id": "x", "child": inner}, "key")
+        d = obj.to_dict(recursive=False)
+        assert d["id"] == "x"
+        # non-recursive preserves nested StripeObjects
+        assert isinstance(d["child"], StripeObject)
+
+    def test_to_dict_is_a_copy(self):
+        obj = StripeObject.construct_from({"id": "x", "name": "a"}, "key")
+        d = obj.to_dict()
+        d["name"] = "mutated"
+        assert obj.name == "a"
+
+    def test_to_dict_with_list_of_nested_objects(self):
+        obj = StripeObject.construct_from(
+            {"id": "x", "items": [{"a": 1}, {"b": 2}]}, "key"
+        )
+        d = obj.to_dict()
+        assert d == {"id": "x", "items": [{"a": 1}, {"b": 2}]}
+        assert not isinstance(d["items"][0], StripeObject)
+
+    def test_update_sets_values(self):
+        obj = StripeObject.construct_from({"id": "x", "name": "a"}, "key")
+        obj.update({"name": "b", "email": "b@example.com"})
+        assert obj.name == "b"
+        assert obj.email == "b@example.com"
+
+    def test_update_marks_keys_unsaved(self):
+        obj = StripeObject.construct_from({"id": "x", "name": "a"}, "key")
+        obj.update({"name": "b", "email": "b@example.com"})
+        assert "name" in obj._unsaved_values
+        assert "email" in obj._unsaved_values
+
+    def test_update_shows_in_serialize(self):
+        obj = StripeObject.construct_from({"id": "x", "name": "a"}, "key")
+        obj.update({"name": "b"})
+        assert obj.serialize(None) == {"name": "b"}
+
+    def test_update_multiple_calls(self):
+        obj = StripeObject.construct_from({"id": "x"}, "key")
+        obj.update({"a": 1})
+        obj.update({"b": 2})
+        assert obj.a == 1
+        assert obj.b == 2
+        assert obj.serialize(None) == {"a": 1, "b": 2}
