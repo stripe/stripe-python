@@ -234,7 +234,7 @@ class CreditGrant(
             self._request(
                 "post",
                 "/v1/billing/credit_grants/{id}/expire".format(
-                    id=sanitize_id(self.get("id"))
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -289,7 +289,7 @@ class CreditGrant(
             await self._request_async(
                 "post",
                 "/v1/billing/credit_grants/{id}/expire".format(
-                    id=sanitize_id(self.get("id"))
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -440,7 +440,7 @@ class CreditGrant(
             self._request(
                 "post",
                 "/v1/billing/credit_grants/{id}/void".format(
-                    id=sanitize_id(self.get("id"))
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -495,7 +495,7 @@ class CreditGrant(
             await self._request_async(
                 "post",
                 "/v1/billing/credit_grants/{id}/void".format(
-                    id=sanitize_id(self.get("id"))
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),

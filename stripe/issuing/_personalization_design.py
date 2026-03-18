@@ -346,7 +346,7 @@ class PersonalizationDesign(
                     "post",
                     "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/activate".format(
                         personalization_design=sanitize_id(
-                            self.resource.get("id")
+                            self.resource._data.get("id")
                         )
                     ),
                     params=params,
@@ -408,7 +408,7 @@ class PersonalizationDesign(
                     "post",
                     "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/activate".format(
                         personalization_design=sanitize_id(
-                            self.resource.get("id")
+                            self.resource._data.get("id")
                         )
                     ),
                     params=params,
@@ -470,7 +470,7 @@ class PersonalizationDesign(
                     "post",
                     "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/deactivate".format(
                         personalization_design=sanitize_id(
-                            self.resource.get("id")
+                            self.resource._data.get("id")
                         )
                     ),
                     params=params,
@@ -532,7 +532,7 @@ class PersonalizationDesign(
                     "post",
                     "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/deactivate".format(
                         personalization_design=sanitize_id(
-                            self.resource.get("id")
+                            self.resource._data.get("id")
                         )
                     ),
                     params=params,
@@ -594,7 +594,7 @@ class PersonalizationDesign(
                     "post",
                     "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/reject".format(
                         personalization_design=sanitize_id(
-                            self.resource.get("id")
+                            self.resource._data.get("id")
                         )
                     ),
                     params=params,
@@ -656,7 +656,7 @@ class PersonalizationDesign(
                     "post",
                     "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/reject".format(
                         personalization_design=sanitize_id(
-                            self.resource.get("id")
+                            self.resource._data.get("id")
                         )
                     ),
                     params=params,

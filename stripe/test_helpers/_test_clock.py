@@ -139,7 +139,7 @@ class TestClock(
             self._request(
                 "post",
                 "/v1/test_helpers/test_clocks/{test_clock}/advance".format(
-                    test_clock=sanitize_id(self.get("id"))
+                    test_clock=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -194,7 +194,7 @@ class TestClock(
             await self._request_async(
                 "post",
                 "/v1/test_helpers/test_clocks/{test_clock}/advance".format(
-                    test_clock=sanitize_id(self.get("id"))
+                    test_clock=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),

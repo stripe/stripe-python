@@ -321,7 +321,7 @@ class Account(ListableAPIResource["Account"]):
             self._request(
                 "post",
                 "/v1/financial_connections/accounts/{account}/disconnect".format(
-                    account=sanitize_id(self.get("id"))
+                    account=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -376,7 +376,7 @@ class Account(ListableAPIResource["Account"]):
             await self._request_async(
                 "post",
                 "/v1/financial_connections/accounts/{account}/disconnect".format(
-                    account=sanitize_id(self.get("id"))
+                    account=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -471,7 +471,7 @@ class Account(ListableAPIResource["Account"]):
             self._request(
                 "get",
                 "/v1/financial_connections/accounts/{account}/owners".format(
-                    account=sanitize_id(self.get("id"))
+                    account=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -526,7 +526,7 @@ class Account(ListableAPIResource["Account"]):
             await self._request_async(
                 "get",
                 "/v1/financial_connections/accounts/{account}/owners".format(
-                    account=sanitize_id(self.get("id"))
+                    account=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -581,7 +581,7 @@ class Account(ListableAPIResource["Account"]):
             self._request(
                 "post",
                 "/v1/financial_connections/accounts/{account}/refresh".format(
-                    account=sanitize_id(self.get("id"))
+                    account=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -636,7 +636,7 @@ class Account(ListableAPIResource["Account"]):
             await self._request_async(
                 "post",
                 "/v1/financial_connections/accounts/{account}/refresh".format(
-                    account=sanitize_id(self.get("id"))
+                    account=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -713,7 +713,7 @@ class Account(ListableAPIResource["Account"]):
             self._request(
                 "post",
                 "/v1/financial_connections/accounts/{account}/subscribe".format(
-                    account=sanitize_id(self.get("id"))
+                    account=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -768,7 +768,7 @@ class Account(ListableAPIResource["Account"]):
             await self._request_async(
                 "post",
                 "/v1/financial_connections/accounts/{account}/subscribe".format(
-                    account=sanitize_id(self.get("id"))
+                    account=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -823,7 +823,7 @@ class Account(ListableAPIResource["Account"]):
             self._request(
                 "post",
                 "/v1/financial_connections/accounts/{account}/unsubscribe".format(
-                    account=sanitize_id(self.get("id"))
+                    account=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -878,7 +878,7 @@ class Account(ListableAPIResource["Account"]):
             await self._request_async(
                 "post",
                 "/v1/financial_connections/accounts/{account}/unsubscribe".format(
-                    account=sanitize_id(self.get("id"))
+                    account=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),

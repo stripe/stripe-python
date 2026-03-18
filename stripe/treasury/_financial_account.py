@@ -293,7 +293,7 @@ class FinancialAccount(
             self._request(
                 "post",
                 "/v1/treasury/financial_accounts/{financial_account}/close".format(
-                    financial_account=sanitize_id(self.get("id"))
+                    financial_account=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -350,7 +350,7 @@ class FinancialAccount(
             await self._request_async(
                 "post",
                 "/v1/treasury/financial_accounts/{financial_account}/close".format(
-                    financial_account=sanitize_id(self.get("id"))
+                    financial_account=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -536,7 +536,7 @@ class FinancialAccount(
             self._request(
                 "get",
                 "/v1/treasury/financial_accounts/{financial_account}/features".format(
-                    financial_account=sanitize_id(self.get("id"))
+                    financial_account=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -594,7 +594,7 @@ class FinancialAccount(
             await self._request_async(
                 "get",
                 "/v1/treasury/financial_accounts/{financial_account}/features".format(
-                    financial_account=sanitize_id(self.get("id"))
+                    financial_account=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -652,7 +652,7 @@ class FinancialAccount(
             self._request(
                 "post",
                 "/v1/treasury/financial_accounts/{financial_account}/features".format(
-                    financial_account=sanitize_id(self.get("id"))
+                    financial_account=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -710,7 +710,7 @@ class FinancialAccount(
             await self._request_async(
                 "post",
                 "/v1/treasury/financial_accounts/{financial_account}/features".format(
-                    financial_account=sanitize_id(self.get("id"))
+                    financial_account=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),

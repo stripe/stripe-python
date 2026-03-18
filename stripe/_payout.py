@@ -211,7 +211,7 @@ class Payout(
             self._request(
                 "post",
                 "/v1/payouts/{payout}/cancel".format(
-                    payout=sanitize_id(self.get("id"))
+                    payout=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -266,7 +266,7 @@ class Payout(
             await self._request_async(
                 "post",
                 "/v1/payouts/{payout}/cancel".format(
-                    payout=sanitize_id(self.get("id"))
+                    payout=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -461,7 +461,7 @@ class Payout(
             self._request(
                 "post",
                 "/v1/payouts/{payout}/reverse".format(
-                    payout=sanitize_id(self.get("id"))
+                    payout=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -524,7 +524,7 @@ class Payout(
             await self._request_async(
                 "post",
                 "/v1/payouts/{payout}/reverse".format(
-                    payout=sanitize_id(self.get("id"))
+                    payout=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),

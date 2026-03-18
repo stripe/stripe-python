@@ -674,7 +674,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
             self._request(
                 "get",
                 "/v1/sources/{source}/source_transactions".format(
-                    source=sanitize_id(self.get("id"))
+                    source=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -731,7 +731,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
             await self._request_async(
                 "get",
                 "/v1/sources/{source}/source_transactions".format(
-                    source=sanitize_id(self.get("id"))
+                    source=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -844,7 +844,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
             self._request(
                 "post",
                 "/v1/sources/{source}/verify".format(
-                    source=sanitize_id(self.get("id"))
+                    source=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -899,7 +899,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
             await self._request_async(
                 "post",
                 "/v1/sources/{source}/verify".format(
-                    source=sanitize_id(self.get("id"))
+                    source=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),

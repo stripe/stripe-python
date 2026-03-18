@@ -510,7 +510,7 @@ class Customer(
             self._request(
                 "post",
                 "/v1/customers/{customer}/funding_instructions".format(
-                    customer=sanitize_id(self.get("id"))
+                    customer=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -576,7 +576,7 @@ class Customer(
             await self._request_async(
                 "post",
                 "/v1/customers/{customer}/funding_instructions".format(
-                    customer=sanitize_id(self.get("id"))
+                    customer=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -727,7 +727,7 @@ class Customer(
             self._request(
                 "delete",
                 "/v1/customers/{customer}/discount".format(
-                    customer=sanitize_id(self.get("id"))
+                    customer=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -782,7 +782,7 @@ class Customer(
             await self._request_async(
                 "delete",
                 "/v1/customers/{customer}/discount".format(
-                    customer=sanitize_id(self.get("id"))
+                    customer=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -879,7 +879,7 @@ class Customer(
             self._request(
                 "get",
                 "/v1/customers/{customer}/payment_methods".format(
-                    customer=sanitize_id(self.get("id"))
+                    customer=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -936,7 +936,7 @@ class Customer(
             await self._request_async(
                 "get",
                 "/v1/customers/{customer}/payment_methods".format(
-                    customer=sanitize_id(self.get("id"))
+                    customer=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1061,7 +1061,7 @@ class Customer(
             self._request(
                 "get",
                 "/v1/customers/{customer}/payment_methods/{payment_method}".format(
-                    customer=sanitize_id(self.get("id")),
+                    customer=sanitize_id(self._data.get("id")),
                     payment_method=sanitize_id(payment_method),
                 ),
                 params=params,
@@ -1127,7 +1127,7 @@ class Customer(
             await self._request_async(
                 "get",
                 "/v1/customers/{customer}/payment_methods/{payment_method}".format(
-                    customer=sanitize_id(self.get("id")),
+                    customer=sanitize_id(self._data.get("id")),
                     payment_method=sanitize_id(payment_method),
                 ),
                 params=params,
@@ -1916,7 +1916,7 @@ class Customer(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/customers/{customer}/fund_cash_balance".format(
-                        customer=sanitize_id(self.resource.get("id"))
+                        customer=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -1973,7 +1973,7 @@ class Customer(
                 await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/customers/{customer}/fund_cash_balance".format(
-                        customer=sanitize_id(self.resource.get("id"))
+                        customer=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),

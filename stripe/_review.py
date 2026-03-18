@@ -181,7 +181,7 @@ class Review(ListableAPIResource["Review"]):
             self._request(
                 "post",
                 "/v1/reviews/{review}/approve".format(
-                    review=sanitize_id(self.get("id"))
+                    review=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -236,7 +236,7 @@ class Review(ListableAPIResource["Review"]):
             await self._request_async(
                 "post",
                 "/v1/reviews/{review}/approve".format(
-                    review=sanitize_id(self.get("id"))
+                    review=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
