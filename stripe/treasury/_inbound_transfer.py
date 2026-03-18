@@ -300,7 +300,7 @@ class InboundTransfer(
             self._request(
                 "post",
                 "/v1/treasury/inbound_transfers/{inbound_transfer}/cancel".format(
-                    inbound_transfer=sanitize_id(self.get("id"))
+                    inbound_transfer=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -357,7 +357,7 @@ class InboundTransfer(
             await self._request_async(
                 "post",
                 "/v1/treasury/inbound_transfers/{inbound_transfer}/cancel".format(
-                    inbound_transfer=sanitize_id(self.get("id"))
+                    inbound_transfer=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -509,7 +509,7 @@ class InboundTransfer(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/treasury/inbound_transfers/{id}/fail".format(
-                        id=sanitize_id(self.resource.get("id"))
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -564,7 +564,7 @@ class InboundTransfer(
                 await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/treasury/inbound_transfers/{id}/fail".format(
-                        id=sanitize_id(self.resource.get("id"))
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -624,7 +624,7 @@ class InboundTransfer(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/treasury/inbound_transfers/{id}/return".format(
-                        id=sanitize_id(self.resource.get("id"))
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -684,7 +684,7 @@ class InboundTransfer(
                 await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/treasury/inbound_transfers/{id}/return".format(
-                        id=sanitize_id(self.resource.get("id"))
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -739,7 +739,7 @@ class InboundTransfer(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/treasury/inbound_transfers/{id}/succeed".format(
-                        id=sanitize_id(self.resource.get("id"))
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -794,7 +794,7 @@ class InboundTransfer(
                 await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/treasury/inbound_transfers/{id}/succeed".format(
-                        id=sanitize_id(self.resource.get("id"))
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),

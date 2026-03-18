@@ -38,7 +38,7 @@ class SearchResultObject(StripeObject, Generic[T]):
             )
 
     def _get_url_for_search(self) -> str:
-        url = self.get("url")
+        url = self._data.get("url")
         if not isinstance(url, str):
             raise ValueError(
                 'Cannot call .list on a list object without a string "url" property'
@@ -72,7 +72,7 @@ class SearchResultObject(StripeObject, Generic[T]):
 
     def __getitem__(self, k: str) -> T:
         if isinstance(k, str):  # pyright: ignore
-            return super(SearchResultObject, self).__getitem__(k)
+            return super().__getitem__(k)
         else:
             raise KeyError(
                 "You tried to access the %s index, but SearchResultObject types "
@@ -81,10 +81,7 @@ class SearchResultObject(StripeObject, Generic[T]):
                 "call .data[%s])" % (repr(k), repr(k))
             )
 
-    #  Pyright doesn't like this because SearchResultObject inherits from StripeObject inherits from Dict[str, Any]
-    #  and so it wants the type of __iter__ to agree with __iter__ from Dict[str, Any]
-    #  But we are iterating through "data", which is a List[T].
-    def __iter__(self) -> Iterator[T]:  # pyright: ignore
+    def __iter__(self) -> Iterator[T]:
         return getattr(self, "data", []).__iter__()
 
     def __len__(self) -> int:

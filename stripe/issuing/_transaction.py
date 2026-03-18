@@ -648,7 +648,7 @@ class Transaction(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/issuing/transactions/{transaction}/refund".format(
-                        transaction=sanitize_id(self.resource.get("id"))
+                        transaction=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -703,7 +703,7 @@ class Transaction(
                 await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/issuing/transactions/{transaction}/refund".format(
-                        transaction=sanitize_id(self.resource.get("id"))
+                        transaction=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),

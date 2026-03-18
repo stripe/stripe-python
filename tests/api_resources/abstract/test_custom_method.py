@@ -44,7 +44,7 @@ class TestCustomMethod(object):
             return self._request(
                 "post",
                 "/v1/myresources/{id}/do_the_thing".format(
-                    id=sanitize_id(self.get("id"))
+                    id=sanitize_id(self.id)
                 ),
                 params=params,
             )
