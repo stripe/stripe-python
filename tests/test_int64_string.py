@@ -7,8 +7,35 @@ native Python ints. These tests verify both directions:
 - Response hydration: JSON string → int
 """
 
-from stripe._encode import _coerce_v2_params
+from unittest.mock import MagicMock
+
+from stripe._encode import _coerce_int64_string, _coerce_v2_params
 from stripe._stripe_object import StripeObject
+from stripe._stripe_service import StripeService
+
+
+class TestCoerceInt64String:
+    """Tests for the shared bidirectional coercion helper."""
+
+    def test_encode_int_to_str(self):
+        assert _coerce_int64_string(42, encode=True) == "42"
+
+    def test_decode_str_to_int(self):
+        assert _coerce_int64_string("42", encode=False) == 42
+
+    def test_encode_list(self):
+        assert _coerce_int64_string([1, 2, 3], encode=True) == ["1", "2", "3"]
+
+    def test_decode_list(self):
+        assert _coerce_int64_string(["1", "2", "3"], encode=False) == [1, 2, 3]
+
+    def test_none_passthrough(self):
+        assert _coerce_int64_string(None, encode=True) is None
+        assert _coerce_int64_string(None, encode=False) is None
+
+    def test_wrong_type_passthrough(self):
+        assert _coerce_int64_string("already_str", encode=True) == "already_str"
+        assert _coerce_int64_string(42, encode=False) == 42
 
 
 class TestCoerceV2Params:
@@ -206,6 +233,44 @@ class TestResponseFieldCoercion:
             api_mode="V2",
         )
         assert obj["amount"] == -100
+
+
+class TestServiceParamEncodings:
+    """Tests that StripeService._request wires up _coerce_v2_params."""
+
+    def test_request_coerces_params_with_encodings(self):
+        mock_requestor = MagicMock()
+        mock_requestor.request.return_value = StripeObject()
+        service = StripeService(mock_requestor)
+
+        service._request(
+            "post",
+            "/v2/test",
+            params={"amount": 100, "name": "test"},
+            base_address="api",
+            _param_encodings={"amount": "int64_string"},
+        )
+
+        call_args = mock_requestor.request.call_args
+        coerced_params = call_args[0][2]
+        assert coerced_params == {"amount": "100", "name": "test"}
+
+    def test_request_skips_coercion_without_encodings(self):
+        mock_requestor = MagicMock()
+        mock_requestor.request.return_value = StripeObject()
+        service = StripeService(mock_requestor)
+
+        original_params = {"amount": 100, "name": "test"}
+        service._request(
+            "post",
+            "/v2/test",
+            params=original_params,
+            base_address="api",
+        )
+
+        call_args = mock_requestor.request.call_args
+        passed_params = call_args[0][2]
+        assert passed_params is original_params
 
 
 class TestV1Unchanged:

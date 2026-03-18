@@ -56,18 +56,33 @@ def _coerce_v2_params(
     return result
 
 
+def _coerce_int64_string(value: Any, *, encode: bool) -> Any:
+    """
+    Coerce an int64_string value in either direction.
+
+    encode=True:  int → str (request serialization)
+    encode=False: str → int (response hydration)
+    """
+    if value is None:
+        return None
+
+    from_type = int if encode else str
+    to_type = str if encode else int
+
+    if isinstance(value, list):
+        return [to_type(v) if isinstance(v, from_type) else v for v in value]
+    if isinstance(value, from_type):
+        return to_type(value)
+    return value
+
+
 def _coerce_value(value: Any, schema: _SchemaNode) -> Any:
     """Coerce a single value according to its schema node."""
     if value is None:
         return None
 
     if schema == "int64_string":
-        # Scalar or array of int64_string
-        if isinstance(value, list):
-            return [str(v) if isinstance(v, int) else v for v in value]
-        if isinstance(value, int):
-            return str(value)
-        return value
+        return _coerce_int64_string(value, encode=True)
 
     if isinstance(schema, dict):
         # Nested object schema

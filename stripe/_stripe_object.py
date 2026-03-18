@@ -27,6 +27,7 @@ from stripe._stripe_response import (
     StripeStreamResponseAsync,
 )
 from stripe._encode import _encode_datetime  # pyright: ignore
+from stripe._encode import _coerce_int64_string  # pyright: ignore
 from stripe._request_options import (
     PERSISTENT_OPTIONS_KEYS,
     extract_options_from_dict,
@@ -644,10 +645,6 @@ class StripeObject(Dict[str, Any]):
             return value
 
         if encoding == "int64_string":
-            if isinstance(value, str):
-                return int(value)
-            if isinstance(value, list):
-                items: List[Any] = value
-                return [int(v) if isinstance(v, str) else v for v in items]
+            return _coerce_int64_string(value, encode=False)
 
         return value
