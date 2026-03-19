@@ -259,7 +259,7 @@ class Form(ListableAPIResource["Form"]):
             self._request_stream(
                 "get",
                 "/v1/tax/forms/{id}/pdf".format(
-                    id=sanitize_id(self.get("id"))
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
                 base_address="files",
@@ -310,7 +310,7 @@ class Form(ListableAPIResource["Form"]):
             await self._request_stream_async(
                 "get",
                 "/v1/tax/forms/{id}/pdf".format(
-                    id=sanitize_id(self.get("id"))
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
                 base_address="files",
