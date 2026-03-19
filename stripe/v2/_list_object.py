@@ -22,7 +22,7 @@ class ListObject(StripeObject, Generic[T]):
 
     def __getitem__(self, k):
         if isinstance(k, str):  # type: ignore
-            return super(ListObject, self).__getitem__(k)
+            return super().__getitem__(k)
         else:
             raise KeyError(
                 "You tried to access the %s index, but ListObjectV2 types only "

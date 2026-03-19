@@ -296,7 +296,7 @@ class TestAPIRequestor(object):
             http_client_mock.assert_requested(meth, post_data=post_data)
             assert isinstance(resp, StripeObject)
 
-            assert resp == {}
+            assert resp.to_dict() == {}
 
     @pytest.mark.anyio
     async def test_empty_methods_async(self, requestor, http_client_mock):
@@ -320,7 +320,7 @@ class TestAPIRequestor(object):
             http_client_mock.assert_requested(meth, post_data=post_data)
             assert isinstance(resp, StripeObject)
 
-            assert resp == {}
+            assert resp.to_dict() == {}
 
     @pytest.mark.anyio
     async def test_empty_methods_streaming_response_async(
@@ -415,7 +415,7 @@ class TestAPIRequestor(object):
             )
             assert isinstance(resp, StripeObject)
 
-            assert resp == {"foo": "bar", "baz": 6}
+            assert resp.to_dict() == {"foo": "bar", "baz": 6}
 
             if method == "post":
                 http_client_mock.assert_requested(
@@ -756,6 +756,7 @@ class TestAPIRequestor(object):
 
         mocker.patch("platform.platform", side_effect=fail)
 
+        stripe.enable_telemetry = True
         requestor.request("get", self.v1_path, {}, {}, base_address="api")
 
         last_call = http_client_mock.get_last_call()
@@ -765,6 +766,26 @@ class TestAPIRequestor(object):
                 "platform"
             ]
             == "(disabled)"
+        )
+
+    def test_platform_only_used_with_telemetry(
+        self, requestor, mocker, http_client_mock
+    ):
+        http_client_mock.stub_request(
+            "get", path=self.v1_path, rbody="{}", rcode=200
+        )
+
+        def fail():
+            raise RuntimeError
+
+        mocker.patch("platform.platform", side_effect=fail)
+
+        requestor.request("get", self.v1_path, {}, {}, base_address="api")
+
+        last_call = http_client_mock.get_last_call()
+        last_call.assert_method("get")
+        assert "platform" not in json.loads(
+            last_call.get_raw_header("X-Stripe-Client-User-Agent")
         )
 
     def test_uses_given_idempotency_key(self, requestor, http_client_mock):
