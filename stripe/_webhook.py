@@ -33,6 +33,10 @@ class Webhook(object):
             api_mode="V1",
         )
 
+        if event.object == "v2.core.event":  # type: ignore
+            raise ValueError(
+                "You passed an event notification to Webhook.construct_event, which expects a webhook payload. Use StripeClient.parse_event_notification instead."
+            )
         return event
 
 
