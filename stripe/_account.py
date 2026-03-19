@@ -1986,7 +1986,7 @@ class Account(
             self._request(
                 "get",
                 "/v1/accounts/{account}/persons".format(
-                    account=sanitize_id(self.get("id"))
+                    account=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2041,7 +2041,7 @@ class Account(
             await self._request_async(
                 "get",
                 "/v1/accounts/{account}/persons".format(
-                    account=sanitize_id(self.get("id"))
+                    account=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2102,7 +2102,7 @@ class Account(
             self._request(
                 "post",
                 "/v1/accounts/{account}/reject".format(
-                    account=sanitize_id(self.get("id"))
+                    account=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2165,7 +2165,7 @@ class Account(
             await self._request_async(
                 "post",
                 "/v1/accounts/{account}/reject".format(
-                    account=sanitize_id(self.get("id"))
+                    account=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2205,7 +2205,7 @@ class Account(
         return "%s/%s" % (base, extn)
 
     def instance_url(self):
-        return self._build_instance_url(self.get("id"))
+        return self._build_instance_url(self._data.get("id"))
 
     def deauthorize(self, **params):
         params["stripe_user_id"] = self.id
@@ -2215,7 +2215,7 @@ class Account(
         params = super(Account, self).serialize(previous)
         previous = previous or self._previous or {}
 
-        for k, v in iter(self.items()):
+        for k, v in iter(self._data.items()):
             if k == "individual" and isinstance(v, Person) and k not in params:
                 params[k] = v.serialize(previous.get(k, None))
 

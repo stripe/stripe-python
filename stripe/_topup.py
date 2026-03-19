@@ -141,7 +141,7 @@ class Topup(
             self._request(
                 "post",
                 "/v1/topups/{topup}/cancel".format(
-                    topup=sanitize_id(self.get("id"))
+                    topup=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -194,7 +194,7 @@ class Topup(
             await self._request_async(
                 "post",
                 "/v1/topups/{topup}/cancel".format(
-                    topup=sanitize_id(self.get("id"))
+                    topup=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),

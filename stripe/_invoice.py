@@ -1779,7 +1779,7 @@ class Invoice(
             self._request(
                 "post",
                 "/v1/invoices/{invoice}/add_lines".format(
-                    invoice=sanitize_id(self.get("id"))
+                    invoice=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1834,7 +1834,7 @@ class Invoice(
             await self._request_async(
                 "post",
                 "/v1/invoices/{invoice}/add_lines".format(
-                    invoice=sanitize_id(self.get("id"))
+                    invoice=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1925,7 +1925,7 @@ class Invoice(
             self._request(
                 "post",
                 "/v1/invoices/{invoice}/attach_payment".format(
-                    invoice=sanitize_id(self.get("id"))
+                    invoice=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2016,7 +2016,7 @@ class Invoice(
             await self._request_async(
                 "post",
                 "/v1/invoices/{invoice}/attach_payment".format(
-                    invoice=sanitize_id(self.get("id"))
+                    invoice=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2243,7 +2243,7 @@ class Invoice(
             self._request(
                 "post",
                 "/v1/invoices/{invoice}/detach_payment".format(
-                    invoice=sanitize_id(self.get("id"))
+                    invoice=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2298,7 +2298,7 @@ class Invoice(
             await self._request_async(
                 "post",
                 "/v1/invoices/{invoice}/detach_payment".format(
-                    invoice=sanitize_id(self.get("id"))
+                    invoice=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2353,7 +2353,7 @@ class Invoice(
             self._request(
                 "post",
                 "/v1/invoices/{invoice}/finalize".format(
-                    invoice=sanitize_id(self.get("id"))
+                    invoice=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2408,7 +2408,7 @@ class Invoice(
             await self._request_async(
                 "post",
                 "/v1/invoices/{invoice}/finalize".format(
-                    invoice=sanitize_id(self.get("id"))
+                    invoice=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2503,7 +2503,7 @@ class Invoice(
             self._request(
                 "post",
                 "/v1/invoices/{invoice}/mark_uncollectible".format(
-                    invoice=sanitize_id(self.get("id"))
+                    invoice=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2558,7 +2558,7 @@ class Invoice(
             await self._request_async(
                 "post",
                 "/v1/invoices/{invoice}/mark_uncollectible".format(
-                    invoice=sanitize_id(self.get("id"))
+                    invoice=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2653,7 +2653,7 @@ class Invoice(
             self._request(
                 "post",
                 "/v1/invoices/{invoice}/pay".format(
-                    invoice=sanitize_id(self.get("id"))
+                    invoice=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2708,7 +2708,7 @@ class Invoice(
             await self._request_async(
                 "post",
                 "/v1/invoices/{invoice}/pay".format(
-                    invoice=sanitize_id(self.get("id"))
+                    invoice=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2763,7 +2763,7 @@ class Invoice(
             self._request(
                 "post",
                 "/v1/invoices/{invoice}/remove_lines".format(
-                    invoice=sanitize_id(self.get("id"))
+                    invoice=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2818,7 +2818,7 @@ class Invoice(
             await self._request_async(
                 "post",
                 "/v1/invoices/{invoice}/remove_lines".format(
-                    invoice=sanitize_id(self.get("id"))
+                    invoice=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2903,7 +2903,7 @@ class Invoice(
             self._request(
                 "post",
                 "/v1/invoices/{invoice}/send".format(
-                    invoice=sanitize_id(self.get("id"))
+                    invoice=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2966,7 +2966,7 @@ class Invoice(
             await self._request_async(
                 "post",
                 "/v1/invoices/{invoice}/send".format(
-                    invoice=sanitize_id(self.get("id"))
+                    invoice=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -3021,7 +3021,7 @@ class Invoice(
             self._request(
                 "post",
                 "/v1/invoices/{invoice}/update_lines".format(
-                    invoice=sanitize_id(self.get("id"))
+                    invoice=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -3076,7 +3076,7 @@ class Invoice(
             await self._request_async(
                 "post",
                 "/v1/invoices/{invoice}/update_lines".format(
-                    invoice=sanitize_id(self.get("id"))
+                    invoice=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -3139,7 +3139,7 @@ class Invoice(
             self._request(
                 "post",
                 "/v1/invoices/{invoice}/void".format(
-                    invoice=sanitize_id(self.get("id"))
+                    invoice=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -3202,7 +3202,7 @@ class Invoice(
             await self._request_async(
                 "post",
                 "/v1/invoices/{invoice}/void".format(
-                    invoice=sanitize_id(self.get("id"))
+                    invoice=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),

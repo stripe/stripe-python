@@ -1367,7 +1367,7 @@ class Quote(
             self._request(
                 "post",
                 "/v1/quotes/{quote}/accept".format(
-                    quote=sanitize_id(self.get("id"))
+                    quote=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1420,7 +1420,7 @@ class Quote(
             await self._request_async(
                 "post",
                 "/v1/quotes/{quote}/accept".format(
-                    quote=sanitize_id(self.get("id"))
+                    quote=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1469,7 +1469,7 @@ class Quote(
             self._request(
                 "post",
                 "/v1/quotes/{quote}/cancel".format(
-                    quote=sanitize_id(self.get("id"))
+                    quote=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1522,7 +1522,7 @@ class Quote(
             await self._request_async(
                 "post",
                 "/v1/quotes/{quote}/cancel".format(
-                    quote=sanitize_id(self.get("id"))
+                    quote=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1605,7 +1605,7 @@ class Quote(
             self._request(
                 "post",
                 "/v1/quotes/{quote}/finalize".format(
-                    quote=sanitize_id(self.get("id"))
+                    quote=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1658,7 +1658,7 @@ class Quote(
             await self._request_async(
                 "post",
                 "/v1/quotes/{quote}/finalize".format(
-                    quote=sanitize_id(self.get("id"))
+                    quote=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1753,7 +1753,7 @@ class Quote(
             self._request(
                 "get",
                 "/v1/quotes/{quote}/computed_upfront_line_items".format(
-                    quote=sanitize_id(self.get("id"))
+                    quote=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1810,7 +1810,7 @@ class Quote(
             await self._request_async(
                 "get",
                 "/v1/quotes/{quote}/computed_upfront_line_items".format(
-                    quote=sanitize_id(self.get("id"))
+                    quote=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1865,7 +1865,7 @@ class Quote(
             self._request(
                 "get",
                 "/v1/quotes/{quote}/line_items".format(
-                    quote=sanitize_id(self.get("id"))
+                    quote=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1920,7 +1920,7 @@ class Quote(
             await self._request_async(
                 "get",
                 "/v1/quotes/{quote}/line_items".format(
-                    quote=sanitize_id(self.get("id"))
+                    quote=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1973,7 +1973,7 @@ class Quote(
             self._request(
                 "get",
                 "/v1/quotes/{quote}/lines".format(
-                    quote=sanitize_id(self.get("id"))
+                    quote=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2026,7 +2026,7 @@ class Quote(
             await self._request_async(
                 "get",
                 "/v1/quotes/{quote}/lines".format(
-                    quote=sanitize_id(self.get("id"))
+                    quote=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2091,7 +2091,7 @@ class Quote(
             self._request(
                 "get",
                 "/v1/quotes/{quote}/preview_invoices/{preview_invoice}/lines".format(
-                    quote=sanitize_id(self.get("id")),
+                    quote=sanitize_id(self._data.get("id")),
                     preview_invoice=sanitize_id(preview_invoice),
                 ),
                 params=params,
@@ -2157,7 +2157,7 @@ class Quote(
             await self._request_async(
                 "get",
                 "/v1/quotes/{quote}/preview_invoices/{preview_invoice}/lines".format(
-                    quote=sanitize_id(self.get("id")),
+                    quote=sanitize_id(self._data.get("id")),
                     preview_invoice=sanitize_id(preview_invoice),
                 ),
                 params=params,
@@ -2211,7 +2211,7 @@ class Quote(
             self._request(
                 "post",
                 "/v1/quotes/{quote}/mark_draft".format(
-                    quote=sanitize_id(self.get("id"))
+                    quote=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2266,7 +2266,7 @@ class Quote(
             await self._request_async(
                 "post",
                 "/v1/quotes/{quote}/mark_draft".format(
-                    quote=sanitize_id(self.get("id"))
+                    quote=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2319,7 +2319,7 @@ class Quote(
             self._request(
                 "post",
                 "/v1/quotes/{quote}/mark_stale".format(
-                    quote=sanitize_id(self.get("id"))
+                    quote=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2374,7 +2374,7 @@ class Quote(
             await self._request_async(
                 "post",
                 "/v1/quotes/{quote}/mark_stale".format(
-                    quote=sanitize_id(self.get("id"))
+                    quote=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2454,7 +2454,7 @@ class Quote(
             self._request_stream(
                 "get",
                 "/v1/quotes/{quote}/pdf".format(
-                    quote=sanitize_id(self.get("id"))
+                    quote=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
                 base_address="files",
@@ -2505,7 +2505,7 @@ class Quote(
             await self._request_stream_async(
                 "get",
                 "/v1/quotes/{quote}/pdf".format(
-                    quote=sanitize_id(self.get("id"))
+                    quote=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
                 base_address="files",
@@ -2559,7 +2559,7 @@ class Quote(
             self._request(
                 "post",
                 "/v1/quotes/{quote}/reestimate".format(
-                    quote=sanitize_id(self.get("id"))
+                    quote=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2614,7 +2614,7 @@ class Quote(
             await self._request_async(
                 "post",
                 "/v1/quotes/{quote}/reestimate".format(
-                    quote=sanitize_id(self.get("id"))
+                    quote=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),

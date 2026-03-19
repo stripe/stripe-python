@@ -1041,7 +1041,7 @@ class PaymentLink(
             self._request(
                 "get",
                 "/v1/payment_links/{payment_link}/line_items".format(
-                    payment_link=sanitize_id(self.get("id"))
+                    payment_link=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1098,7 +1098,7 @@ class PaymentLink(
             await self._request_async(
                 "get",
                 "/v1/payment_links/{payment_link}/line_items".format(
-                    payment_link=sanitize_id(self.get("id"))
+                    payment_link=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),

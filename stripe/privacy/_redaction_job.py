@@ -190,7 +190,7 @@ class RedactionJob(
             self._request(
                 "post",
                 "/v1/privacy/redaction_jobs/{job}/cancel".format(
-                    job=sanitize_id(self.get("id"))
+                    job=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -253,7 +253,7 @@ class RedactionJob(
             await self._request_async(
                 "post",
                 "/v1/privacy/redaction_jobs/{job}/cancel".format(
-                    job=sanitize_id(self.get("id"))
+                    job=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -454,7 +454,7 @@ class RedactionJob(
             self._request(
                 "post",
                 "/v1/privacy/redaction_jobs/{job}/run".format(
-                    job=sanitize_id(self.get("id"))
+                    job=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -525,7 +525,7 @@ class RedactionJob(
             await self._request_async(
                 "post",
                 "/v1/privacy/redaction_jobs/{job}/run".format(
-                    job=sanitize_id(self.get("id"))
+                    job=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -596,7 +596,7 @@ class RedactionJob(
             self._request(
                 "post",
                 "/v1/privacy/redaction_jobs/{job}/validate".format(
-                    job=sanitize_id(self.get("id"))
+                    job=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -667,7 +667,7 @@ class RedactionJob(
             await self._request_async(
                 "post",
                 "/v1/privacy/redaction_jobs/{job}/validate".format(
-                    job=sanitize_id(self.get("id"))
+                    job=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),

@@ -973,7 +973,7 @@ class SubscriptionSchedule(
             self._request(
                 "post",
                 "/v1/subscription_schedules/{schedule}/amend".format(
-                    schedule=sanitize_id(self.get("id"))
+                    schedule=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1028,7 +1028,7 @@ class SubscriptionSchedule(
             await self._request_async(
                 "post",
                 "/v1/subscription_schedules/{schedule}/amend".format(
-                    schedule=sanitize_id(self.get("id"))
+                    schedule=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1085,7 +1085,7 @@ class SubscriptionSchedule(
             self._request(
                 "post",
                 "/v1/subscription_schedules/{schedule}/cancel".format(
-                    schedule=sanitize_id(self.get("id"))
+                    schedule=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1142,7 +1142,7 @@ class SubscriptionSchedule(
             await self._request_async(
                 "post",
                 "/v1/subscription_schedules/{schedule}/cancel".format(
-                    schedule=sanitize_id(self.get("id"))
+                    schedule=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1305,7 +1305,7 @@ class SubscriptionSchedule(
             self._request(
                 "post",
                 "/v1/subscription_schedules/{schedule}/release".format(
-                    schedule=sanitize_id(self.get("id"))
+                    schedule=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1362,7 +1362,7 @@ class SubscriptionSchedule(
             await self._request_async(
                 "post",
                 "/v1/subscription_schedules/{schedule}/release".format(
-                    schedule=sanitize_id(self.get("id"))
+                    schedule=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),

@@ -335,7 +335,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
             self._request(
                 "post",
                 "/v1/billing/alerts/{id}/activate".format(
-                    id=sanitize_id(self.get("id"))
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -388,7 +388,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
             await self._request_async(
                 "post",
                 "/v1/billing/alerts/{id}/activate".format(
-                    id=sanitize_id(self.get("id"))
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -437,7 +437,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
             self._request(
                 "post",
                 "/v1/billing/alerts/{id}/archive".format(
-                    id=sanitize_id(self.get("id"))
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -490,7 +490,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
             await self._request_async(
                 "post",
                 "/v1/billing/alerts/{id}/archive".format(
-                    id=sanitize_id(self.get("id"))
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -573,7 +573,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
             self._request(
                 "post",
                 "/v1/billing/alerts/{id}/deactivate".format(
-                    id=sanitize_id(self.get("id"))
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -628,7 +628,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
             await self._request_async(
                 "post",
                 "/v1/billing/alerts/{id}/deactivate".format(
-                    id=sanitize_id(self.get("id"))
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),

@@ -367,7 +367,7 @@ class OutboundTransfer(
             self._request(
                 "post",
                 "/v1/treasury/outbound_transfers/{outbound_transfer}/cancel".format(
-                    outbound_transfer=sanitize_id(self.get("id"))
+                    outbound_transfer=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -425,7 +425,7 @@ class OutboundTransfer(
             await self._request_async(
                 "post",
                 "/v1/treasury/outbound_transfers/{outbound_transfer}/cancel".format(
-                    outbound_transfer=sanitize_id(self.get("id"))
+                    outbound_transfer=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -580,7 +580,9 @@ class OutboundTransfer(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/fail".format(
-                        outbound_transfer=sanitize_id(self.resource.get("id"))
+                        outbound_transfer=sanitize_id(
+                            self.resource._data.get("id")
+                        )
                     ),
                     params=params,
                 ),
@@ -638,7 +640,9 @@ class OutboundTransfer(
                 await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/fail".format(
-                        outbound_transfer=sanitize_id(self.resource.get("id"))
+                        outbound_transfer=sanitize_id(
+                            self.resource._data.get("id")
+                        )
                     ),
                     params=params,
                 ),
@@ -696,7 +700,9 @@ class OutboundTransfer(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/post".format(
-                        outbound_transfer=sanitize_id(self.resource.get("id"))
+                        outbound_transfer=sanitize_id(
+                            self.resource._data.get("id")
+                        )
                     ),
                     params=params,
                 ),
@@ -754,7 +760,9 @@ class OutboundTransfer(
                 await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/post".format(
-                        outbound_transfer=sanitize_id(self.resource.get("id"))
+                        outbound_transfer=sanitize_id(
+                            self.resource._data.get("id")
+                        )
                     ),
                     params=params,
                 ),
@@ -814,7 +822,9 @@ class OutboundTransfer(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/return".format(
-                        outbound_transfer=sanitize_id(self.resource.get("id"))
+                        outbound_transfer=sanitize_id(
+                            self.resource._data.get("id")
+                        )
                     ),
                     params=params,
                 ),
@@ -874,7 +884,9 @@ class OutboundTransfer(
                 await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/return".format(
-                        outbound_transfer=sanitize_id(self.resource.get("id"))
+                        outbound_transfer=sanitize_id(
+                            self.resource._data.get("id")
+                        )
                     ),
                     params=params,
                 ),
@@ -932,7 +944,9 @@ class OutboundTransfer(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}".format(
-                        outbound_transfer=sanitize_id(self.resource.get("id"))
+                        outbound_transfer=sanitize_id(
+                            self.resource._data.get("id")
+                        )
                     ),
                     params=params,
                 ),
@@ -990,7 +1004,9 @@ class OutboundTransfer(
                 await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}".format(
-                        outbound_transfer=sanitize_id(self.resource.get("id"))
+                        outbound_transfer=sanitize_id(
+                            self.resource._data.get("id")
+                        )
                     ),
                     params=params,
                 ),

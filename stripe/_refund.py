@@ -529,7 +529,7 @@ class Refund(
             self._request(
                 "post",
                 "/v1/refunds/{refund}/cancel".format(
-                    refund=sanitize_id(self.get("id"))
+                    refund=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -592,7 +592,7 @@ class Refund(
             await self._request_async(
                 "post",
                 "/v1/refunds/{refund}/cancel".format(
-                    refund=sanitize_id(self.get("id"))
+                    refund=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -798,7 +798,7 @@ class Refund(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/refunds/{refund}/expire".format(
-                        refund=sanitize_id(self.resource.get("id"))
+                        refund=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -853,7 +853,7 @@ class Refund(
                 await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/refunds/{refund}/expire".format(
-                        refund=sanitize_id(self.resource.get("id"))
+                        refund=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),

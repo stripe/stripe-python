@@ -258,7 +258,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
             self._request(
                 "post",
                 "/v1/application_fees/{id}/refunds".format(
-                    id=sanitize_id(self.get("id"))
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -343,7 +343,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
             await self._request_async(
                 "post",
                 "/v1/application_fees/{id}/refunds".format(
-                    id=sanitize_id(self.get("id"))
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),

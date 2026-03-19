@@ -33,7 +33,7 @@ class ListObject(StripeObject, Generic[T]):
     url: str
 
     def _get_url_for_list(self) -> str:
-        url = self.get("url")
+        url = self._data.get("url")
         if not isinstance(url, str):
             raise ValueError(
                 'Cannot call .list on a list object without a string "url" property'
@@ -63,7 +63,7 @@ class ListObject(StripeObject, Generic[T]):
         )
 
     def create(self, **params: Mapping[str, Any]) -> T:
-        url = self.get("url")
+        url = self._data.get("url")
         if not isinstance(url, str):
             raise ValueError(
                 'Cannot call .create on a list object for the collection of an object without a string "url" property'
@@ -79,13 +79,13 @@ class ListObject(StripeObject, Generic[T]):
         )
 
     def retrieve(self, id: str, **params: Mapping[str, Any]):
-        url = self.get("url")
+        url = self._data.get("url")
         if not isinstance(url, str):
             raise ValueError(
                 'Cannot call .retrieve on a list object for the collection of an object without a string "url" property'
             )
 
-        url = "%s/%s" % (self.get("url"), quote_plus(id))
+        url = "%s/%s" % (url, quote_plus(id))
         return cast(
             T,
             self._request(
@@ -98,7 +98,7 @@ class ListObject(StripeObject, Generic[T]):
 
     def __getitem__(self, k: str) -> T:
         if isinstance(k, str):  # pyright: ignore
-            return super(ListObject, self).__getitem__(k)
+            return super().__getitem__(k)
         else:
             raise KeyError(
                 "You tried to access the %s index, but ListObject types only "
@@ -107,18 +107,13 @@ class ListObject(StripeObject, Generic[T]):
                 ".data[%s])" % (repr(k), repr(k))
             )
 
-    #  Pyright doesn't like this because ListObject inherits from StripeObject inherits from Dict[str, Any]
-    #  and so it wants the type of __iter__ to agree with __iter__ from Dict[str, Any]
-    #  But we are iterating through "data", which is a List[T].
-    def __iter__(  # pyright: ignore
-        self,
-    ) -> Iterator[T]:
+    def __iter__(self) -> Iterator[T]:
         return getattr(self, "data", []).__iter__()
 
     def __len__(self) -> int:
         return getattr(self, "data", []).__len__()
 
-    def __reversed__(self) -> Iterator[T]:  # pyright: ignore (see above)
+    def __reversed__(self) -> Iterator[T]:
         return getattr(self, "data", []).__reversed__()
 
     def auto_paging_iter(self) -> AnyIterator[T]:

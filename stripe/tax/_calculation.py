@@ -600,7 +600,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
             self._request(
                 "get",
                 "/v1/tax/calculations/{calculation}/line_items".format(
-                    calculation=sanitize_id(self.get("id"))
+                    calculation=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -657,7 +657,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
             await self._request_async(
                 "get",
                 "/v1/tax/calculations/{calculation}/line_items".format(
-                    calculation=sanitize_id(self.get("id"))
+                    calculation=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),

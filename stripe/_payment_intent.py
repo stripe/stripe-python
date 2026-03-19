@@ -4828,7 +4828,7 @@ class PaymentIntent(
             self._request(
                 "post",
                 "/v1/payment_intents/{intent}/apply_customer_balance".format(
-                    intent=sanitize_id(self.get("id"))
+                    intent=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -4886,7 +4886,7 @@ class PaymentIntent(
             await self._request_async(
                 "post",
                 "/v1/payment_intents/{intent}/apply_customer_balance".format(
-                    intent=sanitize_id(self.get("id"))
+                    intent=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -4957,7 +4957,7 @@ class PaymentIntent(
             self._request(
                 "post",
                 "/v1/payment_intents/{intent}/cancel".format(
-                    intent=sanitize_id(self.get("id"))
+                    intent=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -5028,7 +5028,7 @@ class PaymentIntent(
             await self._request_async(
                 "post",
                 "/v1/payment_intents/{intent}/cancel".format(
-                    intent=sanitize_id(self.get("id"))
+                    intent=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -5099,7 +5099,7 @@ class PaymentIntent(
             self._request(
                 "post",
                 "/v1/payment_intents/{intent}/capture".format(
-                    intent=sanitize_id(self.get("id"))
+                    intent=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -5170,7 +5170,7 @@ class PaymentIntent(
             await self._request_async(
                 "post",
                 "/v1/payment_intents/{intent}/capture".format(
-                    intent=sanitize_id(self.get("id"))
+                    intent=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -5341,7 +5341,7 @@ class PaymentIntent(
             self._request(
                 "post",
                 "/v1/payment_intents/{intent}/confirm".format(
-                    intent=sanitize_id(self.get("id"))
+                    intent=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -5512,7 +5512,7 @@ class PaymentIntent(
             await self._request_async(
                 "post",
                 "/v1/payment_intents/{intent}/confirm".format(
-                    intent=sanitize_id(self.get("id"))
+                    intent=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -5680,7 +5680,7 @@ class PaymentIntent(
             self._request(
                 "post",
                 "/v1/payment_intents/{intent}/decrement_authorization".format(
-                    intent=sanitize_id(self.get("id"))
+                    intent=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -5798,7 +5798,7 @@ class PaymentIntent(
             await self._request_async(
                 "post",
                 "/v1/payment_intents/{intent}/decrement_authorization".format(
-                    intent=sanitize_id(self.get("id"))
+                    intent=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -5948,7 +5948,7 @@ class PaymentIntent(
             self._request(
                 "post",
                 "/v1/payment_intents/{intent}/increment_authorization".format(
-                    intent=sanitize_id(self.get("id"))
+                    intent=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -6098,7 +6098,7 @@ class PaymentIntent(
             await self._request_async(
                 "post",
                 "/v1/payment_intents/{intent}/increment_authorization".format(
-                    intent=sanitize_id(self.get("id"))
+                    intent=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -6267,7 +6267,7 @@ class PaymentIntent(
             self._request(
                 "post",
                 "/v1/payment_intents/{intent}/reauthorize".format(
-                    intent=sanitize_id(self.get("id"))
+                    intent=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -6350,7 +6350,7 @@ class PaymentIntent(
             await self._request_async(
                 "post",
                 "/v1/payment_intents/{intent}/reauthorize".format(
-                    intent=sanitize_id(self.get("id"))
+                    intent=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -6435,7 +6435,7 @@ class PaymentIntent(
             self._request(
                 "post",
                 "/v1/test/payment_intents/{intent}/trigger_action".format(
-                    intent=sanitize_id(self.get("id"))
+                    intent=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -6490,7 +6490,7 @@ class PaymentIntent(
             await self._request_async(
                 "post",
                 "/v1/test/payment_intents/{intent}/trigger_action".format(
-                    intent=sanitize_id(self.get("id"))
+                    intent=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -6547,7 +6547,7 @@ class PaymentIntent(
             self._request(
                 "post",
                 "/v1/payment_intents/{intent}/verify_microdeposits".format(
-                    intent=sanitize_id(self.get("id"))
+                    intent=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -6604,7 +6604,7 @@ class PaymentIntent(
             await self._request_async(
                 "post",
                 "/v1/payment_intents/{intent}/verify_microdeposits".format(
-                    intent=sanitize_id(self.get("id"))
+                    intent=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -6745,7 +6745,7 @@ class PaymentIntent(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/payment_intents/{intent}/simulate_crypto_deposit".format(
-                        intent=sanitize_id(self.resource.get("id"))
+                        intent=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -6803,7 +6803,7 @@ class PaymentIntent(
                 await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/payment_intents/{intent}/simulate_crypto_deposit".format(
-                        intent=sanitize_id(self.resource.get("id"))
+                        intent=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
