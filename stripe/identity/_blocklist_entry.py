@@ -201,7 +201,7 @@ class BlocklistEntry(
             self._request(
                 "post",
                 "/v1/identity/blocklist_entries/{id}/disable".format(
-                    id=sanitize_id(self.get("id"))
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -280,7 +280,7 @@ class BlocklistEntry(
             await self._request_async(
                 "post",
                 "/v1/identity/blocklist_entries/{id}/disable".format(
-                    id=sanitize_id(self.get("id"))
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),

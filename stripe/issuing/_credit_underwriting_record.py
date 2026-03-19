@@ -485,7 +485,9 @@ class CreditUnderwritingRecord(
             self._request(
                 "post",
                 "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/correct".format(
-                    credit_underwriting_record=sanitize_id(self.get("id"))
+                    credit_underwriting_record=sanitize_id(
+                        self._data.get("id")
+                    )
                 ),
                 params=params,
             ),
@@ -545,7 +547,9 @@ class CreditUnderwritingRecord(
             await self._request_async(
                 "post",
                 "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/correct".format(
-                    credit_underwriting_record=sanitize_id(self.get("id"))
+                    credit_underwriting_record=sanitize_id(
+                        self._data.get("id")
+                    )
                 ),
                 params=params,
             ),
@@ -721,7 +725,9 @@ class CreditUnderwritingRecord(
             self._request(
                 "post",
                 "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/report_decision".format(
-                    credit_underwriting_record=sanitize_id(self.get("id"))
+                    credit_underwriting_record=sanitize_id(
+                        self._data.get("id")
+                    )
                 ),
                 params=params,
             ),
@@ -781,7 +787,9 @@ class CreditUnderwritingRecord(
             await self._request_async(
                 "post",
                 "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/report_decision".format(
-                    credit_underwriting_record=sanitize_id(self.get("id"))
+                    credit_underwriting_record=sanitize_id(
+                        self._data.get("id")
+                    )
                 ),
                 params=params,
             ),

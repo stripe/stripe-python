@@ -666,7 +666,7 @@ class RequestedSession(
             self._request(
                 "post",
                 "/v1/delegated_checkout/requested_sessions/{requested_session}/confirm".format(
-                    requested_session=sanitize_id(self.get("id"))
+                    requested_session=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -724,7 +724,7 @@ class RequestedSession(
             await self._request_async(
                 "post",
                 "/v1/delegated_checkout/requested_sessions/{requested_session}/confirm".format(
-                    requested_session=sanitize_id(self.get("id"))
+                    requested_session=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -814,7 +814,7 @@ class RequestedSession(
             self._request(
                 "post",
                 "/v1/delegated_checkout/requested_sessions/{requested_session}/expire".format(
-                    requested_session=sanitize_id(self.get("id"))
+                    requested_session=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -872,7 +872,7 @@ class RequestedSession(
             await self._request_async(
                 "post",
                 "/v1/delegated_checkout/requested_sessions/{requested_session}/expire".format(
-                    requested_session=sanitize_id(self.get("id"))
+                    requested_session=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
