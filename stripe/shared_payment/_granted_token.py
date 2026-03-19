@@ -209,7 +209,7 @@ class GrantedToken(APIResource["GrantedToken"]):
                     "post",
                     "/v1/test_helpers/shared_payment/granted_tokens/{shared_payment_granted_token}/revoke".format(
                         shared_payment_granted_token=sanitize_id(
-                            self.resource.get("id")
+                            self.resource._data.get("id")
                         )
                     ),
                     params=params,
@@ -271,7 +271,7 @@ class GrantedToken(APIResource["GrantedToken"]):
                     "post",
                     "/v1/test_helpers/shared_payment/granted_tokens/{shared_payment_granted_token}/revoke".format(
                         shared_payment_granted_token=sanitize_id(
-                            self.resource.get("id")
+                            self.resource._data.get("id")
                         )
                     ),
                     params=params,
