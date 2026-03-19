@@ -1313,6 +1313,12 @@ class PaymentMethod(
     class Twint(StripeObject):
         pass
 
+    class Upi(StripeObject):
+        vpa: Optional[str]
+        """
+        Customer's unique Virtual Payment Address
+        """
+
     class UsBankAccount(StripeObject):
         class Networks(StripeObject):
             preferred: Optional[str]
@@ -1459,7 +1465,7 @@ class PaymentMethod(
     link: Optional[Link]
     livemode: bool
     """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
     mb_way: Optional[MbWay]
     metadata: Optional[Dict[str, str]]
@@ -1545,6 +1551,7 @@ class PaymentMethod(
         "sofort",
         "swish",
         "twint",
+        "upi",
         "us_bank_account",
         "wechat_pay",
         "zip",
@@ -1552,6 +1559,7 @@ class PaymentMethod(
     """
     The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
     """
+    upi: Optional[Upi]
     us_bank_account: Optional[UsBankAccount]
     wechat_pay: Optional[WechatPay]
     zip: Optional[Zip]
@@ -2057,6 +2065,7 @@ class PaymentMethod(
         "sofort": Sofort,
         "swish": Swish,
         "twint": Twint,
+        "upi": Upi,
         "us_bank_account": UsBankAccount,
         "wechat_pay": WechatPay,
         "zip": Zip,

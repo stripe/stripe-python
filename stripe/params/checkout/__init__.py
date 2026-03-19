@@ -67,6 +67,7 @@ if TYPE_CHECKING:
         SessionCreateParamsPaymentMethodOptionsCardInstallments as SessionCreateParamsPaymentMethodOptionsCardInstallments,
         SessionCreateParamsPaymentMethodOptionsCardRestrictions as SessionCreateParamsPaymentMethodOptionsCardRestrictions,
         SessionCreateParamsPaymentMethodOptionsCashapp as SessionCreateParamsPaymentMethodOptionsCashapp,
+        SessionCreateParamsPaymentMethodOptionsCrypto as SessionCreateParamsPaymentMethodOptionsCrypto,
         SessionCreateParamsPaymentMethodOptionsCustomerBalance as SessionCreateParamsPaymentMethodOptionsCustomerBalance,
         SessionCreateParamsPaymentMethodOptionsCustomerBalanceBankTransfer as SessionCreateParamsPaymentMethodOptionsCustomerBalanceBankTransfer,
         SessionCreateParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as SessionCreateParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
@@ -103,6 +104,8 @@ if TYPE_CHECKING:
         SessionCreateParamsPaymentMethodOptionsSofort as SessionCreateParamsPaymentMethodOptionsSofort,
         SessionCreateParamsPaymentMethodOptionsSwish as SessionCreateParamsPaymentMethodOptionsSwish,
         SessionCreateParamsPaymentMethodOptionsTwint as SessionCreateParamsPaymentMethodOptionsTwint,
+        SessionCreateParamsPaymentMethodOptionsUpi as SessionCreateParamsPaymentMethodOptionsUpi,
+        SessionCreateParamsPaymentMethodOptionsUpiMandateOptions as SessionCreateParamsPaymentMethodOptionsUpiMandateOptions,
         SessionCreateParamsPaymentMethodOptionsUsBankAccount as SessionCreateParamsPaymentMethodOptionsUsBankAccount,
         SessionCreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections as SessionCreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections,
         SessionCreateParamsPaymentMethodOptionsWechatPay as SessionCreateParamsPaymentMethodOptionsWechatPay,
@@ -123,6 +126,7 @@ if TYPE_CHECKING:
         SessionCreateParamsSubscriptionDataBillingModeFlexible as SessionCreateParamsSubscriptionDataBillingModeFlexible,
         SessionCreateParamsSubscriptionDataInvoiceSettings as SessionCreateParamsSubscriptionDataInvoiceSettings,
         SessionCreateParamsSubscriptionDataInvoiceSettingsIssuer as SessionCreateParamsSubscriptionDataInvoiceSettingsIssuer,
+        SessionCreateParamsSubscriptionDataPendingInvoiceItemInterval as SessionCreateParamsSubscriptionDataPendingInvoiceItemInterval,
         SessionCreateParamsSubscriptionDataTransferData as SessionCreateParamsSubscriptionDataTransferData,
         SessionCreateParamsSubscriptionDataTrialSettings as SessionCreateParamsSubscriptionDataTrialSettings,
         SessionCreateParamsSubscriptionDataTrialSettingsEndBehavior as SessionCreateParamsSubscriptionDataTrialSettingsEndBehavior,
@@ -434,6 +438,10 @@ _import_map = {
         "stripe.params.checkout._session_create_params",
         False,
     ),
+    "SessionCreateParamsPaymentMethodOptionsCrypto": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
     "SessionCreateParamsPaymentMethodOptionsCustomerBalance": (
         "stripe.params.checkout._session_create_params",
         False,
@@ -578,6 +586,14 @@ _import_map = {
         "stripe.params.checkout._session_create_params",
         False,
     ),
+    "SessionCreateParamsPaymentMethodOptionsUpi": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsUpiMandateOptions": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
     "SessionCreateParamsPaymentMethodOptionsUsBankAccount": (
         "stripe.params.checkout._session_create_params",
         False,
@@ -655,6 +671,10 @@ _import_map = {
         False,
     ),
     "SessionCreateParamsSubscriptionDataInvoiceSettingsIssuer": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsSubscriptionDataPendingInvoiceItemInterval": (
         "stripe.params.checkout._session_create_params",
         False,
     ),

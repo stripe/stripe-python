@@ -75,6 +75,7 @@ class CustomerPaymentMethodListParams(TypedDict):
             "sofort",
             "swish",
             "twint",
+            "upi",
             "us_bank_account",
             "wechat_pay",
             "zip",

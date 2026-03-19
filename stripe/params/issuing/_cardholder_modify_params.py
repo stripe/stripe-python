@@ -127,11 +127,11 @@ class CardholderModifyParamsIndividualCardIssuingUserTermsAcceptance(
 ):
     date: NotRequired[int]
     """
-    The Unix timestamp marking when the cardholder accepted the Authorized User Terms. Required for Celtic Spend Card users.
+    The Unix timestamp marking when the cardholder accepted the Authorized User Terms.
     """
     ip: NotRequired[str]
     """
-    The IP address from which the cardholder accepted the Authorized User Terms. Required for Celtic Spend Card users.
+    The IP address from which the cardholder accepted the Authorized User Terms.
     """
     user_agent: NotRequired["Literal['']|str"]
     """

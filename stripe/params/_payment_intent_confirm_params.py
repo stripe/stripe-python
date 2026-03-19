@@ -29,7 +29,7 @@ class PaymentIntentConfirmParams(RequestOptions):
     Set to `true` to fail the payment attempt if the PaymentIntent transitions into `requires_action`. This parameter is intended for simpler integrations that do not handle customer actions, like [saving cards without authentication](https://docs.stripe.com/payments/save-card-without-authentication).
     """
     excluded_payment_method_types: NotRequired[
-        "Literal['']|List[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'samsung_pay', 'satispay', 'sepa_debit', 'sofort', 'swish', 'twint', 'us_bank_account', 'wechat_pay', 'zip']]"
+        "Literal['']|List[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'samsung_pay', 'satispay', 'sepa_debit', 'sofort', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay', 'zip']]"
     ]
     """
     The list of payment method types to exclude from use with this payment.
@@ -695,12 +695,17 @@ class PaymentIntentConfirmParamsPaymentMethodData(TypedDict):
         "sofort",
         "swish",
         "twint",
+        "upi",
         "us_bank_account",
         "wechat_pay",
         "zip",
     ]
     """
     The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
+    """
+    upi: NotRequired["PaymentIntentConfirmParamsPaymentMethodDataUpi"]
+    """
+    If this is a `upi` PaymentMethod, this hash contains details about the UPI payment method.
     """
     us_bank_account: NotRequired[
         "PaymentIntentConfirmParamsPaymentMethodDataUsBankAccount"
@@ -1177,6 +1182,34 @@ class PaymentIntentConfirmParamsPaymentMethodDataTwint(TypedDict):
     pass
 
 
+class PaymentIntentConfirmParamsPaymentMethodDataUpi(TypedDict):
+    mandate_options: NotRequired[
+        "PaymentIntentConfirmParamsPaymentMethodDataUpiMandateOptions"
+    ]
+    """
+    Configuration options for setting up an eMandate
+    """
+
+
+class PaymentIntentConfirmParamsPaymentMethodDataUpiMandateOptions(TypedDict):
+    amount: NotRequired[int]
+    """
+    Amount to be charged for future payments.
+    """
+    amount_type: NotRequired[Literal["fixed", "maximum"]]
+    """
+    One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+    """
+    description: NotRequired[str]
+    """
+    A description of the mandate or subscription that is meant to be displayed to the customer.
+    """
+    end_date: NotRequired[int]
+    """
+    End date of the mandate or subscription.
+    """
+
+
 class PaymentIntentConfirmParamsPaymentMethodDataUsBankAccount(TypedDict):
     account_holder_type: NotRequired[Literal["company", "individual"]]
     """
@@ -1503,6 +1536,12 @@ class PaymentIntentConfirmParamsPaymentMethodOptions(TypedDict):
     """
     If this is a `twint` PaymentMethod, this sub-hash contains details about the TWINT payment method options.
     """
+    upi: NotRequired[
+        "Literal['']|PaymentIntentConfirmParamsPaymentMethodOptionsUpi"
+    ]
+    """
+    If this is a `upi` PaymentIntent, this sub-hash contains details about the UPI payment method options.
+    """
     us_bank_account: NotRequired[
         "Literal['']|PaymentIntentConfirmParamsPaymentMethodOptionsUsBankAccount"
     ]
@@ -1552,7 +1591,7 @@ class PaymentIntentConfirmParamsPaymentMethodOptionsAcssDebit(TypedDict):
         Literal["automatic", "instant", "microdeposits"]
     ]
     """
-    Bank account verification method.
+    Bank account verification method. The default value is `automatic`.
     """
 
 
@@ -1971,7 +2010,7 @@ class PaymentIntentConfirmParamsPaymentMethodOptionsCardMandateOptions(
 ):
     amount: int
     """
-    Amount to be charged for future payments.
+    Amount to be charged for future payments, specified in the presentment currency.
     """
     amount_type: Literal["fixed", "maximum"]
     """
@@ -3029,6 +3068,39 @@ class PaymentIntentConfirmParamsPaymentMethodOptionsTwint(TypedDict):
     """
 
 
+class PaymentIntentConfirmParamsPaymentMethodOptionsUpi(TypedDict):
+    mandate_options: NotRequired[
+        "PaymentIntentConfirmParamsPaymentMethodOptionsUpiMandateOptions"
+    ]
+    """
+    Configuration options for setting up an eMandate
+    """
+    setup_future_usage: NotRequired[
+        "Literal['']|Literal['none', 'off_session', 'on_session']"
+    ]
+
+
+class PaymentIntentConfirmParamsPaymentMethodOptionsUpiMandateOptions(
+    TypedDict,
+):
+    amount: NotRequired[int]
+    """
+    Amount to be charged for future payments.
+    """
+    amount_type: NotRequired[Literal["fixed", "maximum"]]
+    """
+    One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+    """
+    description: NotRequired[str]
+    """
+    A description of the mandate or subscription that is meant to be displayed to the customer.
+    """
+    end_date: NotRequired[int]
+    """
+    End date of the mandate or subscription.
+    """
+
+
 class PaymentIntentConfirmParamsPaymentMethodOptionsUsBankAccount(TypedDict):
     financial_connections: NotRequired[
         "PaymentIntentConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections"
@@ -3076,13 +3148,7 @@ class PaymentIntentConfirmParamsPaymentMethodOptionsUsBankAccount(TypedDict):
         Literal["automatic", "instant", "microdeposits"]
     ]
     """
-    Bank account verification method.
-    """
-    preferred_settlement_speed: NotRequired[
-        "Literal['']|Literal['fastest', 'standard']"
-    ]
-    """
-    Preferred transaction settlement speed
+    Bank account verification method. The default value is `automatic`.
     """
 
 

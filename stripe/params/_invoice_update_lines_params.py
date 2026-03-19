@@ -61,7 +61,11 @@ class InvoiceUpdateLinesParamsLine(TypedDict):
     """
     quantity: NotRequired[int]
     """
-    Non-negative integer. The quantity of units for the line item.
+    Non-negative integer. The quantity of units for the line item. Use `quantity_decimal` instead to provide decimal precision. This field will be deprecated in favor of `quantity_decimal` in a future version.
+    """
+    quantity_decimal: NotRequired[str]
+    """
+    Non-negative decimal with at most 12 decimal places. The quantity of units for the line item.
     """
     tax_amounts: NotRequired[
         "Literal['']|List[InvoiceUpdateLinesParamsLineTaxAmount]"

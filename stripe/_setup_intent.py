@@ -248,6 +248,7 @@ class SetupIntent(
                 "routing_number_invalid",
                 "secret_key_required",
                 "sepa_unsupported_account",
+                "service_period_coupon_with_metered_tiered_item_unsupported",
                 "setup_attempt_failed",
                 "setup_intent_authentication_failure",
                 "setup_intent_invalid_parameter",
@@ -414,6 +415,28 @@ class SetupIntent(
             The URL you must redirect your customer to in order to authenticate.
             """
 
+        class UpiHandleRedirectOrDisplayQrCode(StripeObject):
+            class QrCode(StripeObject):
+                expires_at: int
+                """
+                The date (unix timestamp) when the QR code expires.
+                """
+                image_url_png: str
+                """
+                The image_url_png string used to render QR code
+                """
+                image_url_svg: str
+                """
+                The image_url_svg string used to render QR code
+                """
+
+            hosted_instructions_url: str
+            """
+            The URL to the hosted UPI instructions page, which allows customers to view the QR code.
+            """
+            qr_code: QrCode
+            _inner_class_types = {"qr_code": QrCode}
+
         class VerifyWithMicrodeposits(StripeObject):
             arrival_date: int
             """
@@ -436,6 +459,9 @@ class SetupIntent(
         """
         Type of the next action to perform. Refer to the other child attributes under `next_action` for available values. Examples include: `redirect_to_url`, `use_stripe_sdk`, `alipay_handle_redirect`, `oxxo_display_details`, or `verify_with_microdeposits`.
         """
+        upi_handle_redirect_or_display_qr_code: Optional[
+            UpiHandleRedirectOrDisplayQrCode
+        ]
         use_stripe_sdk: Optional[Dict[str, Any]]
         """
         When confirming a SetupIntent with Stripe.js, Stripe.js depends on the contents of this dictionary to invoke authentication flows. The shape of the contents is subject to change and is only intended to be used by Stripe.js.
@@ -444,6 +470,7 @@ class SetupIntent(
         _inner_class_types = {
             "cashapp_handle_redirect_or_display_qr_code": CashappHandleRedirectOrDisplayQrCode,
             "redirect_to_url": RedirectToUrl,
+            "upi_handle_redirect_or_display_qr_code": UpiHandleRedirectOrDisplayQrCode,
             "verify_with_microdeposits": VerifyWithMicrodeposits,
         }
 
@@ -492,7 +519,7 @@ class SetupIntent(
                 Literal["automatic", "instant", "microdeposits"]
             ]
             """
-            Bank account verification method.
+            Bank account verification method. The default value is `automatic`.
             """
             _inner_class_types = {"mandate_options": MandateOptions}
 
@@ -513,7 +540,7 @@ class SetupIntent(
             class MandateOptions(StripeObject):
                 amount: int
                 """
-                Amount to be charged for future payments.
+                Amount to be charged for future payments, specified in the presentment currency.
                 """
                 amount_type: Literal["fixed", "maximum"]
                 """
@@ -678,6 +705,28 @@ class SetupIntent(
             mandate_options: Optional[MandateOptions]
             _inner_class_types = {"mandate_options": MandateOptions}
 
+        class Upi(StripeObject):
+            class MandateOptions(StripeObject):
+                amount: Optional[int]
+                """
+                Amount to be charged for future payments.
+                """
+                amount_type: Optional[Literal["fixed", "maximum"]]
+                """
+                One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+                """
+                description: Optional[str]
+                """
+                A description of the mandate or subscription that is meant to be displayed to the customer.
+                """
+                end_date: Optional[int]
+                """
+                End date of the mandate or subscription.
+                """
+
+            mandate_options: Optional[MandateOptions]
+            _inner_class_types = {"mandate_options": MandateOptions}
+
         class UsBankAccount(StripeObject):
             class FinancialConnections(StripeObject):
                 class Filters(StripeObject):
@@ -726,7 +775,7 @@ class SetupIntent(
                 Literal["automatic", "instant", "microdeposits"]
             ]
             """
-            Bank account verification method.
+            Bank account verification method. The default value is `automatic`.
             """
             _inner_class_types = {
                 "financial_connections": FinancialConnections,
@@ -743,6 +792,7 @@ class SetupIntent(
         paypal: Optional[Paypal]
         payto: Optional[Payto]
         sepa_debit: Optional[SepaDebit]
+        upi: Optional[Upi]
         us_bank_account: Optional[UsBankAccount]
         _inner_class_types = {
             "acss_debit": AcssDebit,
@@ -755,6 +805,7 @@ class SetupIntent(
             "paypal": Paypal,
             "payto": Payto,
             "sepa_debit": SepaDebit,
+            "upi": Upi,
             "us_bank_account": UsBankAccount,
         }
 
@@ -853,6 +904,7 @@ class SetupIntent(
                 "sofort",
                 "swish",
                 "twint",
+                "upi",
                 "us_bank_account",
                 "wechat_pay",
                 "zip",
@@ -882,7 +934,7 @@ class SetupIntent(
     """
     livemode: bool
     """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
     mandate: Optional[ExpandableField["Mandate"]]
     """

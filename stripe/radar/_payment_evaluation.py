@@ -177,27 +177,6 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
             "user_intervention_resolved": UserInterventionResolved,
         }
 
-    class Insights(StripeObject):
-        class FraudulentDispute(StripeObject):
-            recommended_action: Literal["block", "continue"]
-            """
-            Recommended action based on the risk score. Possible values are `block` and `continue`.
-            """
-            risk_score: int
-            """
-            Stripe Radar's evaluation of the risk level of the payment. Possible values for evaluated payments are between 0 and 100, with higher scores indicating higher risk.
-            """
-
-        evaluated_at: int
-        """
-        The timestamp when the evaluation was performed.
-        """
-        fraudulent_dispute: FraudulentDispute
-        """
-        Scores, insights and recommended action for one scorer for this PaymentEvaluation.
-        """
-        _inner_class_types = {"fraudulent_dispute": FraudulentDispute}
-
     class Outcome(StripeObject):
         class MerchantBlocked(StripeObject):
             reason: Literal[
@@ -466,6 +445,27 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
             "shipping_details": ShippingDetails,
         }
 
+    class Signals(StripeObject):
+        class FraudulentPayment(StripeObject):
+            evaluated_at: int
+            """
+            The time when this signal was evaluated.
+            """
+            risk_level: Literal["elevated", "highest", "normal"]
+            """
+            Risk level of this signal, based on the score.
+            """
+            score: float
+            """
+            Score for this insight. Possible values for evaluated payments are -1 and any value between 0 and 100. The value is returned with two decimal places. A score of -1 indicates a test integration and higher scores indicate a higher likelihood of the signal being true.
+            """
+
+        fraudulent_payment: FraudulentPayment
+        """
+        A payment evaluation signal with evaluated_at, risk_level, and score fields.
+        """
+        _inner_class_types = {"fraudulent_payment": FraudulentPayment}
+
     client_device_metadata_details: Optional[ClientDeviceMetadataDetails]
     """
     Client device metadata attached to this payment evaluation.
@@ -486,13 +486,9 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
     """
     Unique identifier for the object.
     """
-    insights: Insights
-    """
-    Collection of scores and insights for this payment evaluation.
-    """
     livemode: bool
     """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
     metadata: Optional[Dict[str, str]]
     """
@@ -509,6 +505,14 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
     payment_details: Optional[PaymentDetails]
     """
     Payment details attached to this payment evaluation.
+    """
+    recommended_action: Literal["block", "continue"]
+    """
+    Recommended action based on the score of the fraudulent_payment signal. Possible values are `block` and `continue`.
+    """
+    signals: Signals
+    """
+    Collection of signals for this payment evaluation.
     """
 
     @classmethod
@@ -547,7 +551,7 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
         "client_device_metadata_details": ClientDeviceMetadataDetails,
         "customer_details": CustomerDetails,
         "events": Event,
-        "insights": Insights,
         "outcome": Outcome,
         "payment_details": PaymentDetails,
+        "signals": Signals,
     }

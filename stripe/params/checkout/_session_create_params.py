@@ -151,6 +151,7 @@ class SessionCreateParams(RequestOptions):
                 "sofort",
                 "swish",
                 "twint",
+                "upi",
                 "us_bank_account",
                 "wechat_pay",
                 "zip",
@@ -167,6 +168,10 @@ class SessionCreateParams(RequestOptions):
     expires_at: NotRequired[int]
     """
     The Epoch time in seconds at which the Checkout Session will expire. It can be anywhere from 30 minutes to 24 hours after Checkout Session creation. By default, this value is 24 hours from creation.
+    """
+    integration_identifier: NotRequired[str]
+    """
+    The integration identifier for this Checkout Session. Multiple Checkout Sessions can have the same integration identifier.
     """
     invoice_creation: NotRequired["SessionCreateParamsInvoiceCreation"]
     """
@@ -339,6 +344,7 @@ class SessionCreateParams(RequestOptions):
                 "sofort",
                 "swish",
                 "twint",
+                "upi",
                 "us_bank_account",
                 "wechat_pay",
                 "zip",
@@ -431,7 +437,17 @@ class SessionCreateParams(RequestOptions):
     """
     Controls tax ID collection during checkout.
     """
-    ui_mode: NotRequired[Literal["custom", "embedded", "hosted"]]
+    ui_mode: NotRequired[
+        Literal[
+            "custom",
+            "elements",
+            "embedded",
+            "embedded_page",
+            "form",
+            "hosted",
+            "hosted_page",
+        ]
+    ]
     """
     The UI mode of the Session. Defaults to `hosted`.
     """
@@ -1236,6 +1252,10 @@ class SessionCreateParamsPaymentMethodOptions(TypedDict):
     """
     contains details about the Cashapp Pay payment method options.
     """
+    crypto: NotRequired["SessionCreateParamsPaymentMethodOptionsCrypto"]
+    """
+    contains details about the Crypto payment method options.
+    """
     customer_balance: NotRequired[
         "SessionCreateParamsPaymentMethodOptionsCustomerBalance"
     ]
@@ -1365,6 +1385,10 @@ class SessionCreateParamsPaymentMethodOptions(TypedDict):
     twint: NotRequired["SessionCreateParamsPaymentMethodOptionsTwint"]
     """
     contains details about the TWINT payment method options.
+    """
+    upi: NotRequired["SessionCreateParamsPaymentMethodOptionsUpi"]
+    """
+    contains details about the UPI payment method options.
     """
     us_bank_account: NotRequired[
         "SessionCreateParamsPaymentMethodOptionsUsBankAccount"
@@ -1696,6 +1720,19 @@ class SessionCreateParamsPaymentMethodOptionsCashapp(TypedDict):
     setup_future_usage: NotRequired[
         Literal["none", "off_session", "on_session"]
     ]
+    """
+    Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+    If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+    If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+    When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+    """
+
+
+class SessionCreateParamsPaymentMethodOptionsCrypto(TypedDict):
+    setup_future_usage: NotRequired[Literal["none"]]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -2314,6 +2351,37 @@ class SessionCreateParamsPaymentMethodOptionsTwint(TypedDict):
     """
 
 
+class SessionCreateParamsPaymentMethodOptionsUpi(TypedDict):
+    mandate_options: NotRequired[
+        "SessionCreateParamsPaymentMethodOptionsUpiMandateOptions"
+    ]
+    """
+    Additional fields for Mandate creation
+    """
+    setup_future_usage: NotRequired[
+        "Literal['']|Literal['none', 'off_session', 'on_session']"
+    ]
+
+
+class SessionCreateParamsPaymentMethodOptionsUpiMandateOptions(TypedDict):
+    amount: NotRequired[int]
+    """
+    Amount to be charged for future payments.
+    """
+    amount_type: NotRequired[Literal["fixed", "maximum"]]
+    """
+    One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+    """
+    description: NotRequired[str]
+    """
+    A description of the mandate or subscription that is meant to be displayed to the customer.
+    """
+    end_date: NotRequired[int]
+    """
+    End date of the mandate or subscription.
+    """
+
+
 class SessionCreateParamsPaymentMethodOptionsUsBankAccount(TypedDict):
     financial_connections: NotRequired[
         "SessionCreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections"
@@ -2847,6 +2915,12 @@ class SessionCreateParamsSubscriptionData(TypedDict):
     """
     The account on behalf of which to charge, for each of the subscription's invoices.
     """
+    pending_invoice_item_interval: NotRequired[
+        "SessionCreateParamsSubscriptionDataPendingInvoiceItemInterval"
+    ]
+    """
+    Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://docs.stripe.com/api#create_invoice) for the given subscription at the specified interval.
+    """
     proration_behavior: NotRequired[Literal["create_prorations", "none"]]
     """
     Determines how to handle prorations resulting from the `billing_cycle_anchor`. If no value is passed, the default is `create_prorations`.
@@ -2910,6 +2984,17 @@ class SessionCreateParamsSubscriptionDataInvoiceSettingsIssuer(TypedDict):
     type: Literal["account", "self"]
     """
     Type of the account referenced in the request.
+    """
+
+
+class SessionCreateParamsSubscriptionDataPendingInvoiceItemInterval(TypedDict):
+    interval: Literal["day", "month", "week", "year"]
+    """
+    Specifies invoicing frequency. Either `day`, `week`, `month` or `year`.
+    """
+    interval_count: NotRequired[int]
+    """
+    The number of intervals between invoices. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
     """
 
 
