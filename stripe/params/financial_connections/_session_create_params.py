@@ -18,6 +18,10 @@ class SessionCreateParams(RequestOptions):
     """
     Filters to restrict the kinds of accounts to collect.
     """
+    hosted: NotRequired["SessionCreateParamsHosted"]
+    """
+    Settings for hosted Sessions. Required if `ui_mode` is `hosted`.
+    """
     limits: NotRequired["SessionCreateParamsLimits"]
     """
     Settings for configuring Session-specific limits.
@@ -51,6 +55,10 @@ class SessionCreateParams(RequestOptions):
     return_url: NotRequired[str]
     """
     For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
+    """
+    ui_mode: NotRequired[Literal["hosted", "modal"]]
+    """
+    The UI mode of the Session. Defaults to `modal`.
     """
 
 
@@ -95,6 +103,13 @@ class SessionCreateParamsFilters(TypedDict):
     institution: NotRequired[str]
     """
     Stripe ID of the institution with which the customer should be directed to log in.
+    """
+
+
+class SessionCreateParamsHosted(TypedDict):
+    delivery_method: NotRequired[Literal["email", "url"]]
+    """
+    How the user should enter the hosted flow. The values `email` and `url` can only be used if `relink_options` is provided.
     """
 
 

@@ -135,6 +135,26 @@ class PaymentIntent(
             If a physical good is being shipped, the postal code of where it is being shipped to. At most 10 alphanumeric characters long, hyphens are allowed.
             """
 
+        class Surcharge(StripeObject):
+            amount: Optional[int]
+            """
+            Portion of the amount that corresponds to a surcharge.
+            """
+            enforce_validation: Optional[
+                Literal["automatic", "disabled", "enabled"]
+            ]
+            """
+            Indicate whether to enforce validations on the surcharge amount.
+            """
+            maximum_amount: Optional[int]
+            """
+            The maximum amount allowed for the surcharge.
+            """
+            status: Optional[str]
+            """
+            The status of the surcharge.
+            """
+
         class Tax(StripeObject):
             total_tax_amount: Optional[int]
             """
@@ -161,11 +181,13 @@ class PaymentIntent(
         A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 200 line items.
         """
         shipping: Optional[Shipping]
+        surcharge: Optional[Surcharge]
         tax: Optional[Tax]
         tip: Optional[Tip]
         _inner_class_types = {
             "error": Error,
             "shipping": Shipping,
+            "surcharge": Surcharge,
             "tax": Tax,
             "tip": Tip,
         }
@@ -375,6 +397,7 @@ class PaymentIntent(
                 "secret_key_required",
                 "sensitive_data_access_expired",
                 "sepa_unsupported_account",
+                "service_period_coupon_with_metered_tiered_item_unsupported",
                 "setup_attempt_failed",
                 "setup_intent_authentication_failure",
                 "setup_intent_invalid_parameter",
@@ -1350,6 +1373,28 @@ class PaymentIntent(
             qr_code: QrCode
             _inner_class_types = {"qr_code": QrCode}
 
+        class UpiHandleRedirectOrDisplayQrCode(StripeObject):
+            class QrCode(StripeObject):
+                expires_at: int
+                """
+                The date (unix timestamp) when the QR code expires.
+                """
+                image_url_png: str
+                """
+                The image_url_png string used to render QR code
+                """
+                image_url_svg: str
+                """
+                The image_url_svg string used to render QR code
+                """
+
+            hosted_instructions_url: str
+            """
+            The URL to the hosted UPI instructions page, which allows customers to view the QR code.
+            """
+            qr_code: QrCode
+            _inner_class_types = {"qr_code": QrCode}
+
         class VerifyWithMicrodeposits(StripeObject):
             arrival_date: int
             """
@@ -1445,6 +1490,9 @@ class PaymentIntent(
         """
         Type of the next action to perform. Refer to the other child attributes under `next_action` for available values. Examples include: `redirect_to_url`, `use_stripe_sdk`, `alipay_handle_redirect`, `oxxo_display_details`, or `verify_with_microdeposits`.
         """
+        upi_handle_redirect_or_display_qr_code: Optional[
+            UpiHandleRedirectOrDisplayQrCode
+        ]
         use_stripe_sdk: Optional[Dict[str, Any]]
         """
         When confirming a PaymentIntent with Stripe.js, Stripe.js depends on the contents of this dictionary to invoke authentication flows. The shape of the contents is subject to change and is only intended to be used by Stripe.js.
@@ -1469,6 +1517,7 @@ class PaymentIntent(
             "promptpay_display_qr_code": PromptpayDisplayQrCode,
             "redirect_to_url": RedirectToUrl,
             "swish_handle_redirect_or_display_qr_code": SwishHandleRedirectOrDisplayQrCode,
+            "upi_handle_redirect_or_display_qr_code": UpiHandleRedirectOrDisplayQrCode,
             "verify_with_microdeposits": VerifyWithMicrodeposits,
             "wechat_pay_display_qr_code": WechatPayDisplayQrCode,
             "wechat_pay_redirect_to_android_app": WechatPayRedirectToAndroidApp,
@@ -2800,7 +2849,7 @@ class PaymentIntent(
                 Literal["automatic", "instant", "microdeposits"]
             ]
             """
-            Bank account verification method.
+            Bank account verification method. The default value is `automatic`.
             """
             _inner_class_types = {"mandate_options": MandateOptions}
 
@@ -3027,7 +3076,7 @@ class PaymentIntent(
             class MandateOptions(StripeObject):
                 amount: int
                 """
-                Amount to be charged for future payments.
+                Amount to be charged for future payments, specified in the presentment currency.
                 """
                 amount_type: Literal["fixed", "maximum"]
                 """
@@ -3999,6 +4048,18 @@ class PaymentIntent(
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
             """
 
+        class Upi(StripeObject):
+            setup_future_usage: Optional[Literal["off_session", "on_session"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+            """
+
         class UsBankAccount(StripeObject):
             class FinancialConnections(StripeObject):
                 class Filters(StripeObject):
@@ -4064,12 +4125,6 @@ class PaymentIntent(
 
             financial_connections: Optional[FinancialConnections]
             mandate_options: Optional[MandateOptions]
-            preferred_settlement_speed: Optional[
-                Literal["fastest", "standard"]
-            ]
-            """
-            Preferred transaction settlement speed
-            """
             setup_future_usage: Optional[
                 Literal["none", "off_session", "on_session"]
             ]
@@ -4096,7 +4151,7 @@ class PaymentIntent(
                 Literal["automatic", "instant", "microdeposits"]
             ]
             """
-            Bank account verification method.
+            Bank account verification method. The default value is `automatic`.
             """
             _inner_class_types = {
                 "financial_connections": FinancialConnections,
@@ -4191,6 +4246,7 @@ class PaymentIntent(
         stripe_balance: Optional[StripeBalance]
         swish: Optional[Swish]
         twint: Optional[Twint]
+        upi: Optional[Upi]
         us_bank_account: Optional[UsBankAccount]
         wechat_pay: Optional[WechatPay]
         zip: Optional[Zip]
@@ -4251,6 +4307,7 @@ class PaymentIntent(
             "stripe_balance": StripeBalance,
             "swish": Swish,
             "twint": Twint,
+            "upi": Upi,
             "us_bank_account": UsBankAccount,
             "wechat_pay": WechatPay,
             "zip": Zip,
@@ -4493,6 +4550,7 @@ class PaymentIntent(
                 "stripe_balance",
                 "swish",
                 "twint",
+                "upi",
                 "us_bank_account",
                 "wechat_pay",
                 "zip",
@@ -4521,7 +4579,7 @@ class PaymentIntent(
     """
     livemode: bool
     """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
     managed_payments: Optional[ManagedPayments]
     """
@@ -4758,7 +4816,7 @@ class PaymentIntent(
 
         After it's canceled, no additional charges are made by the PaymentIntent and any operations on the PaymentIntent fail with an error. For PaymentIntents with a status of requires_capture, the remaining amount_capturable is automatically refunded.
 
-        You can't cancel the PaymentIntent for a Checkout Session. [Expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire) instead.
+        You can directly cancel the PaymentIntent for a Checkout Session only when the PaymentIntent has a status of requires_capture. Otherwise, you must [expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire).
         """
         return cast(
             "PaymentIntent",
@@ -4781,7 +4839,7 @@ class PaymentIntent(
 
         After it's canceled, no additional charges are made by the PaymentIntent and any operations on the PaymentIntent fail with an error. For PaymentIntents with a status of requires_capture, the remaining amount_capturable is automatically refunded.
 
-        You can't cancel the PaymentIntent for a Checkout Session. [Expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire) instead.
+        You can directly cancel the PaymentIntent for a Checkout Session only when the PaymentIntent has a status of requires_capture. Otherwise, you must [expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire).
         """
         ...
 
@@ -4794,7 +4852,7 @@ class PaymentIntent(
 
         After it's canceled, no additional charges are made by the PaymentIntent and any operations on the PaymentIntent fail with an error. For PaymentIntents with a status of requires_capture, the remaining amount_capturable is automatically refunded.
 
-        You can't cancel the PaymentIntent for a Checkout Session. [Expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire) instead.
+        You can directly cancel the PaymentIntent for a Checkout Session only when the PaymentIntent has a status of requires_capture. Otherwise, you must [expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire).
         """
         ...
 
@@ -4807,7 +4865,7 @@ class PaymentIntent(
 
         After it's canceled, no additional charges are made by the PaymentIntent and any operations on the PaymentIntent fail with an error. For PaymentIntents with a status of requires_capture, the remaining amount_capturable is automatically refunded.
 
-        You can't cancel the PaymentIntent for a Checkout Session. [Expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire) instead.
+        You can directly cancel the PaymentIntent for a Checkout Session only when the PaymentIntent has a status of requires_capture. Otherwise, you must [expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire).
         """
         return cast(
             "PaymentIntent",
@@ -4829,7 +4887,7 @@ class PaymentIntent(
 
         After it's canceled, no additional charges are made by the PaymentIntent and any operations on the PaymentIntent fail with an error. For PaymentIntents with a status of requires_capture, the remaining amount_capturable is automatically refunded.
 
-        You can't cancel the PaymentIntent for a Checkout Session. [Expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire) instead.
+        You can directly cancel the PaymentIntent for a Checkout Session only when the PaymentIntent has a status of requires_capture. Otherwise, you must [expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire).
         """
         return cast(
             "PaymentIntent",
@@ -4852,7 +4910,7 @@ class PaymentIntent(
 
         After it's canceled, no additional charges are made by the PaymentIntent and any operations on the PaymentIntent fail with an error. For PaymentIntents with a status of requires_capture, the remaining amount_capturable is automatically refunded.
 
-        You can't cancel the PaymentIntent for a Checkout Session. [Expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire) instead.
+        You can directly cancel the PaymentIntent for a Checkout Session only when the PaymentIntent has a status of requires_capture. Otherwise, you must [expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire).
         """
         ...
 
@@ -4865,7 +4923,7 @@ class PaymentIntent(
 
         After it's canceled, no additional charges are made by the PaymentIntent and any operations on the PaymentIntent fail with an error. For PaymentIntents with a status of requires_capture, the remaining amount_capturable is automatically refunded.
 
-        You can't cancel the PaymentIntent for a Checkout Session. [Expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire) instead.
+        You can directly cancel the PaymentIntent for a Checkout Session only when the PaymentIntent has a status of requires_capture. Otherwise, you must [expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire).
         """
         ...
 
@@ -4878,7 +4936,7 @@ class PaymentIntent(
 
         After it's canceled, no additional charges are made by the PaymentIntent and any operations on the PaymentIntent fail with an error. For PaymentIntents with a status of requires_capture, the remaining amount_capturable is automatically refunded.
 
-        You can't cancel the PaymentIntent for a Checkout Session. [Expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire) instead.
+        You can directly cancel the PaymentIntent for a Checkout Session only when the PaymentIntent has a status of requires_capture. Otherwise, you must [expire the Checkout Session](https://docs.stripe.com/docs/api/checkout/sessions/expire).
         """
         return cast(
             "PaymentIntent",

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
+from stripe.v2._amount import Amount
 from typing import ClassVar, Dict, List, Optional
 from typing_extensions import Literal
 
@@ -2428,6 +2429,7 @@ class Account(StripeObject):
                     "ag_bank_account",
                     "al_bank_account",
                     "am_bank_account",
+                    "ar_bank_account",
                     "at_bank_account",
                     "au_bank_account",
                     "ba_bank_account",
@@ -2443,6 +2445,7 @@ class Account(StripeObject):
                     "ca_bank_account",
                     "ch_bank_account",
                     "ci_bank_account",
+                    "co_bank_account",
                     "crypto_wallet",
                     "cr_bank_account",
                     "cy_bank_account",
@@ -2453,6 +2456,7 @@ class Account(StripeObject):
                     "dz_bank_account",
                     "ec_bank_account",
                     "ee_bank_account",
+                    "eg_bank_account",
                     "es_bank_account",
                     "et_bank_account",
                     "fi_bank_account",
@@ -3163,6 +3167,10 @@ class Account(StripeObject):
         """
         Default responsibilities held by either Stripe or the platform.
         """
+        timezone: Optional[str]
+        """
+        The Account's local timezone. A list of possible time zone values is maintained at the [IANA Time Zone Database](https://www.iana.org/time-zones).
+        """
         _inner_class_types = {
             "profile": Profile,
             "responsibilities": Responsibilities,
@@ -3632,16 +3640,6 @@ class Account(StripeObject):
                 """
 
             class AnnualRevenue(StripeObject):
-                class Amount(StripeObject):
-                    currency: str
-                    """
-                    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-                    """
-                    value: int
-                    """
-                    A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-                    """
-
                 amount: Optional[Amount]
                 """
                 Annual revenue amount in minor currency units (for example, '123' for 1.23 USD).
@@ -3650,7 +3648,6 @@ class Account(StripeObject):
                 """
                 The close-out date of the preceding fiscal year in ISO 8601 format. E.g. 2023-12-31 for the 31st of December, 2023.
                 """
-                _inner_class_types = {"amount": Amount}
 
             class Documents(StripeObject):
                 class BankAccountOwnershipVerification(StripeObject):
@@ -3952,21 +3949,10 @@ class Account(StripeObject):
                 """
 
             class MonthlyEstimatedRevenue(StripeObject):
-                class Amount(StripeObject):
-                    currency: str
-                    """
-                    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-                    """
-                    value: int
-                    """
-                    A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-                    """
-
                 amount: Optional[Amount]
                 """
                 Estimated monthly revenue amount in minor currency units (for example, '123' for 1.23 USD).
                 """
-                _inner_class_types = {"amount": Amount}
 
             class RegistrationDate(StripeObject):
                 day: int

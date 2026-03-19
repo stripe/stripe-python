@@ -84,6 +84,12 @@ class PaymentIntentCaptureParamsAmountDetails(TypedDict):
     """
     Contains information about the shipping portion of the amount.
     """
+    surcharge: NotRequired[
+        "Literal['']|PaymentIntentCaptureParamsAmountDetailsSurcharge"
+    ]
+    """
+    Contains information about the surcharge portion of the amount.
+    """
     tax: NotRequired["Literal['']|PaymentIntentCaptureParamsAmountDetailsTax"]
     """
     Contains information about the tax portion of the amount.
@@ -239,6 +245,19 @@ class PaymentIntentCaptureParamsAmountDetailsShipping(TypedDict):
     to_postal_code: NotRequired["Literal['']|str"]
     """
     If a physical good is being shipped, the postal code of where it is being shipped to. At most 10 alphanumeric characters long, hyphens are allowed.
+    """
+
+
+class PaymentIntentCaptureParamsAmountDetailsSurcharge(TypedDict):
+    amount: NotRequired["Literal['']|int"]
+    """
+    Portion of the amount that corresponds to a surcharge.
+    """
+    enforce_validation: NotRequired[
+        "Literal['']|Literal['automatic', 'disabled', 'enabled']"
+    ]
+    """
+    Indicate whether to enforce validations on the surcharge amount.
     """
 
 

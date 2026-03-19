@@ -39,19 +39,27 @@ class CalculationLineItem(StripeObject):
             The tax rate percentage as a string. For example, 8.5% is represented as "8.5".
             """
             tax_type: Literal[
+                "admissions_tax",
                 "amusement_tax",
+                "attendance_tax",
                 "communications_tax",
+                "entertainment_tax",
+                "gross_receipts_tax",
                 "gst",
+                "hospitality_tax",
                 "hst",
                 "igst",
                 "jct",
                 "lease_tax",
+                "luxury_tax",
                 "pst",
                 "qst",
+                "resort_tax",
                 "retail_delivery_fee",
                 "rst",
                 "sales_tax",
                 "service_tax",
+                "tourism_tax",
                 "vat",
             ]
             """
@@ -60,10 +68,10 @@ class CalculationLineItem(StripeObject):
 
         amount: int
         """
-        The amount of tax, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+        The amount of tax, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
         """
         jurisdiction: Jurisdiction
-        sourcing: Literal["destination", "origin"]
+        sourcing: Literal["destination", "origin", "performance"]
         """
         Indicates whether the jurisdiction was determined by the origin (merchant's address) or destination (customer's address).
         """
@@ -93,7 +101,7 @@ class CalculationLineItem(StripeObject):
         """
         taxable_amount: int
         """
-        The amount on which tax is calculated, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+        The amount on which tax is calculated, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
         """
         _inner_class_types = {
             "jurisdiction": Jurisdiction,
@@ -102,11 +110,11 @@ class CalculationLineItem(StripeObject):
 
     amount: int
     """
-    The line item amount in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes were calculated on top of this amount.
+    The line item amount in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units). If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes were calculated on top of this amount.
     """
     amount_tax: int
     """
-    The amount of tax calculated for this line item, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+    The amount of tax calculated for this line item, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
     """
     id: str
     """
@@ -114,7 +122,7 @@ class CalculationLineItem(StripeObject):
     """
     livemode: bool
     """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
     metadata: Optional[Dict[str, str]]
     """
@@ -123,6 +131,10 @@ class CalculationLineItem(StripeObject):
     object: Literal["tax.calculation_line_item"]
     """
     String representing the object's type. Objects of the same type share the same value.
+    """
+    performance_location: Optional[str]
+    """
+    Indicates the line item represents a performance where the venue location might determine the tax, not the customer address. Leave empty if the tax code doesn't require a tax location. If you provide this value for tax codes with an `optional` location requirement, it overrides the customer address.
     """
     product: Optional[str]
     """

@@ -122,7 +122,6 @@ if TYPE_CHECKING:
         AccountCreateParamsIdentityBusinessDetails as AccountCreateParamsIdentityBusinessDetails,
         AccountCreateParamsIdentityBusinessDetailsAddress as AccountCreateParamsIdentityBusinessDetailsAddress,
         AccountCreateParamsIdentityBusinessDetailsAnnualRevenue as AccountCreateParamsIdentityBusinessDetailsAnnualRevenue,
-        AccountCreateParamsIdentityBusinessDetailsAnnualRevenueAmount as AccountCreateParamsIdentityBusinessDetailsAnnualRevenueAmount,
         AccountCreateParamsIdentityBusinessDetailsDocuments as AccountCreateParamsIdentityBusinessDetailsDocuments,
         AccountCreateParamsIdentityBusinessDetailsDocumentsBankAccountOwnershipVerification as AccountCreateParamsIdentityBusinessDetailsDocumentsBankAccountOwnershipVerification,
         AccountCreateParamsIdentityBusinessDetailsDocumentsCompanyLicense as AccountCreateParamsIdentityBusinessDetailsDocumentsCompanyLicense,
@@ -137,7 +136,6 @@ if TYPE_CHECKING:
         AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnership as AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnership,
         AccountCreateParamsIdentityBusinessDetailsIdNumber as AccountCreateParamsIdentityBusinessDetailsIdNumber,
         AccountCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenue as AccountCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenue,
-        AccountCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenueAmount as AccountCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenueAmount,
         AccountCreateParamsIdentityBusinessDetailsRegistrationDate as AccountCreateParamsIdentityBusinessDetailsRegistrationDate,
         AccountCreateParamsIdentityBusinessDetailsScriptAddresses as AccountCreateParamsIdentityBusinessDetailsScriptAddresses,
         AccountCreateParamsIdentityBusinessDetailsScriptAddressesKana as AccountCreateParamsIdentityBusinessDetailsScriptAddressesKana,
@@ -195,7 +193,6 @@ if TYPE_CHECKING:
         AccountTokenCreateParamsIdentityBusinessDetails as AccountTokenCreateParamsIdentityBusinessDetails,
         AccountTokenCreateParamsIdentityBusinessDetailsAddress as AccountTokenCreateParamsIdentityBusinessDetailsAddress,
         AccountTokenCreateParamsIdentityBusinessDetailsAnnualRevenue as AccountTokenCreateParamsIdentityBusinessDetailsAnnualRevenue,
-        AccountTokenCreateParamsIdentityBusinessDetailsAnnualRevenueAmount as AccountTokenCreateParamsIdentityBusinessDetailsAnnualRevenueAmount,
         AccountTokenCreateParamsIdentityBusinessDetailsDocuments as AccountTokenCreateParamsIdentityBusinessDetailsDocuments,
         AccountTokenCreateParamsIdentityBusinessDetailsDocumentsBankAccountOwnershipVerification as AccountTokenCreateParamsIdentityBusinessDetailsDocumentsBankAccountOwnershipVerification,
         AccountTokenCreateParamsIdentityBusinessDetailsDocumentsCompanyLicense as AccountTokenCreateParamsIdentityBusinessDetailsDocumentsCompanyLicense,
@@ -210,7 +207,6 @@ if TYPE_CHECKING:
         AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnership as AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnership,
         AccountTokenCreateParamsIdentityBusinessDetailsIdNumber as AccountTokenCreateParamsIdentityBusinessDetailsIdNumber,
         AccountTokenCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenue as AccountTokenCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenue,
-        AccountTokenCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenueAmount as AccountTokenCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenueAmount,
         AccountTokenCreateParamsIdentityBusinessDetailsRegistrationDate as AccountTokenCreateParamsIdentityBusinessDetailsRegistrationDate,
         AccountTokenCreateParamsIdentityBusinessDetailsScriptAddresses as AccountTokenCreateParamsIdentityBusinessDetailsScriptAddresses,
         AccountTokenCreateParamsIdentityBusinessDetailsScriptAddressesKana as AccountTokenCreateParamsIdentityBusinessDetailsScriptAddressesKana,
@@ -358,7 +354,6 @@ if TYPE_CHECKING:
         AccountUpdateParamsIdentityBusinessDetails as AccountUpdateParamsIdentityBusinessDetails,
         AccountUpdateParamsIdentityBusinessDetailsAddress as AccountUpdateParamsIdentityBusinessDetailsAddress,
         AccountUpdateParamsIdentityBusinessDetailsAnnualRevenue as AccountUpdateParamsIdentityBusinessDetailsAnnualRevenue,
-        AccountUpdateParamsIdentityBusinessDetailsAnnualRevenueAmount as AccountUpdateParamsIdentityBusinessDetailsAnnualRevenueAmount,
         AccountUpdateParamsIdentityBusinessDetailsDocuments as AccountUpdateParamsIdentityBusinessDetailsDocuments,
         AccountUpdateParamsIdentityBusinessDetailsDocumentsBankAccountOwnershipVerification as AccountUpdateParamsIdentityBusinessDetailsDocumentsBankAccountOwnershipVerification,
         AccountUpdateParamsIdentityBusinessDetailsDocumentsCompanyLicense as AccountUpdateParamsIdentityBusinessDetailsDocumentsCompanyLicense,
@@ -373,7 +368,6 @@ if TYPE_CHECKING:
         AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnership as AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnership,
         AccountUpdateParamsIdentityBusinessDetailsIdNumber as AccountUpdateParamsIdentityBusinessDetailsIdNumber,
         AccountUpdateParamsIdentityBusinessDetailsMonthlyEstimatedRevenue as AccountUpdateParamsIdentityBusinessDetailsMonthlyEstimatedRevenue,
-        AccountUpdateParamsIdentityBusinessDetailsMonthlyEstimatedRevenueAmount as AccountUpdateParamsIdentityBusinessDetailsMonthlyEstimatedRevenueAmount,
         AccountUpdateParamsIdentityBusinessDetailsRegistrationDate as AccountUpdateParamsIdentityBusinessDetailsRegistrationDate,
         AccountUpdateParamsIdentityBusinessDetailsScriptAddresses as AccountUpdateParamsIdentityBusinessDetailsScriptAddresses,
         AccountUpdateParamsIdentityBusinessDetailsScriptAddressesKana as AccountUpdateParamsIdentityBusinessDetailsScriptAddressesKana,
@@ -403,9 +397,21 @@ if TYPE_CHECKING:
         AccountUpdateParamsIdentityIndividualScriptNamesKana as AccountUpdateParamsIdentityIndividualScriptNamesKana,
         AccountUpdateParamsIdentityIndividualScriptNamesKanji as AccountUpdateParamsIdentityIndividualScriptNamesKanji,
     )
+    from stripe.params.v2.core._batch_job_cancel_params import (
+        BatchJobCancelParams as BatchJobCancelParams,
+    )
+    from stripe.params.v2.core._batch_job_create_params import (
+        BatchJobCreateParams as BatchJobCreateParams,
+        BatchJobCreateParamsEndpoint as BatchJobCreateParamsEndpoint,
+        BatchJobCreateParamsNotificationSuppression as BatchJobCreateParamsNotificationSuppression,
+    )
+    from stripe.params.v2.core._batch_job_retrieve_params import (
+        BatchJobRetrieveParams as BatchJobRetrieveParams,
+    )
     from stripe.params.v2.core._event_destination_create_params import (
         EventDestinationCreateParams as EventDestinationCreateParams,
         EventDestinationCreateParamsAmazonEventbridge as EventDestinationCreateParamsAmazonEventbridge,
+        EventDestinationCreateParamsAzureEventGrid as EventDestinationCreateParamsAzureEventGrid,
         EventDestinationCreateParamsWebhookEndpoint as EventDestinationCreateParamsWebhookEndpoint,
     )
     from stripe.params.v2.core._event_destination_delete_params import (
@@ -898,10 +904,6 @@ _import_map = {
         "stripe.params.v2.core._account_create_params",
         False,
     ),
-    "AccountCreateParamsIdentityBusinessDetailsAnnualRevenueAmount": (
-        "stripe.params.v2.core._account_create_params",
-        False,
-    ),
     "AccountCreateParamsIdentityBusinessDetailsDocuments": (
         "stripe.params.v2.core._account_create_params",
         False,
@@ -955,10 +957,6 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenue": (
-        "stripe.params.v2.core._account_create_params",
-        False,
-    ),
-    "AccountCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenueAmount": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
@@ -1155,10 +1153,6 @@ _import_map = {
         "stripe.params.v2.core._account_token_create_params",
         False,
     ),
-    "AccountTokenCreateParamsIdentityBusinessDetailsAnnualRevenueAmount": (
-        "stripe.params.v2.core._account_token_create_params",
-        False,
-    ),
     "AccountTokenCreateParamsIdentityBusinessDetailsDocuments": (
         "stripe.params.v2.core._account_token_create_params",
         False,
@@ -1212,10 +1206,6 @@ _import_map = {
         False,
     ),
     "AccountTokenCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenue": (
-        "stripe.params.v2.core._account_token_create_params",
-        False,
-    ),
-    "AccountTokenCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenueAmount": (
         "stripe.params.v2.core._account_token_create_params",
         False,
     ),
@@ -1791,10 +1781,6 @@ _import_map = {
         "stripe.params.v2.core._account_update_params",
         False,
     ),
-    "AccountUpdateParamsIdentityBusinessDetailsAnnualRevenueAmount": (
-        "stripe.params.v2.core._account_update_params",
-        False,
-    ),
     "AccountUpdateParamsIdentityBusinessDetailsDocuments": (
         "stripe.params.v2.core._account_update_params",
         False,
@@ -1848,10 +1834,6 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsIdentityBusinessDetailsMonthlyEstimatedRevenue": (
-        "stripe.params.v2.core._account_update_params",
-        False,
-    ),
-    "AccountUpdateParamsIdentityBusinessDetailsMonthlyEstimatedRevenueAmount": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),
@@ -1967,11 +1949,35 @@ _import_map = {
         "stripe.params.v2.core._account_update_params",
         False,
     ),
+    "BatchJobCancelParams": (
+        "stripe.params.v2.core._batch_job_cancel_params",
+        False,
+    ),
+    "BatchJobCreateParams": (
+        "stripe.params.v2.core._batch_job_create_params",
+        False,
+    ),
+    "BatchJobCreateParamsEndpoint": (
+        "stripe.params.v2.core._batch_job_create_params",
+        False,
+    ),
+    "BatchJobCreateParamsNotificationSuppression": (
+        "stripe.params.v2.core._batch_job_create_params",
+        False,
+    ),
+    "BatchJobRetrieveParams": (
+        "stripe.params.v2.core._batch_job_retrieve_params",
+        False,
+    ),
     "EventDestinationCreateParams": (
         "stripe.params.v2.core._event_destination_create_params",
         False,
     ),
     "EventDestinationCreateParamsAmazonEventbridge": (
+        "stripe.params.v2.core._event_destination_create_params",
+        False,
+    ),
+    "EventDestinationCreateParamsAzureEventGrid": (
         "stripe.params.v2.core._event_destination_create_params",
         False,
     ),

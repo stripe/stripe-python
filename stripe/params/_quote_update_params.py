@@ -467,6 +467,10 @@ class QuoteUpdateParamsLineActionAddItem(TypedDict):
     """
     Options that configure the trial on the subscription item.
     """
+    trial_offer: NotRequired[str]
+    """
+    The ID of the trial offer to apply to the configuration item.
+    """
 
 
 class QuoteUpdateParamsLineActionAddItemDiscount(TypedDict):
@@ -590,6 +594,10 @@ class QuoteUpdateParamsLineActionSetItem(TypedDict):
     trial: NotRequired["QuoteUpdateParamsLineActionSetItemTrial"]
     """
     If an item with the `price` already exists, passing this will override the `trial` configuration on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `trial`.
+    """
+    trial_offer: NotRequired[str]
+    """
+    The ID of the trial offer to apply to the configuration item.
     """
 
 
@@ -742,7 +750,7 @@ class QuoteUpdateParamsLineSetPauseCollection(TypedDict):
 class QuoteUpdateParamsLineSetPauseCollectionSet(TypedDict):
     behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
     """
-    The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+    The payment collection behavior for this subscription while paused.
     """
 
 

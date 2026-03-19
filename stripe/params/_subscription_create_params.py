@@ -155,7 +155,7 @@ class SubscriptionCreateParams(RequestOptions):
         "Literal['']|SubscriptionCreateParamsPendingInvoiceItemInterval"
     ]
     """
-    Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://docs.stripe.com/api#create_invoice) for the given subscription at the specified interval.
+    Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://docs.stripe.com/api/invoices/create) for the given subscription at the specified interval.
     """
     prebilling: NotRequired["SubscriptionCreateParamsPrebilling"]
     """
@@ -535,6 +535,10 @@ class SubscriptionCreateParamsItem(TypedDict):
     """
     Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
     """
+    current_trial: NotRequired["SubscriptionCreateParamsItemCurrentTrial"]
+    """
+    The trial offer to apply to this subscription item.
+    """
     discounts: NotRequired[
         "Literal['']|List[SubscriptionCreateParamsItemDiscount]"
     ]
@@ -575,6 +579,17 @@ class SubscriptionCreateParamsItemBillingThresholds(TypedDict):
     usage_gte: int
     """
     Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://docs.stripe.com/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
+    """
+
+
+class SubscriptionCreateParamsItemCurrentTrial(TypedDict):
+    trial_end: NotRequired[int]
+    """
+    Unix timestamp representing the end of the trial offer period. Required when the trial offer has `duration.type=timestamp`. Cannot be specified when `duration.type=relative`.
+    """
+    trial_offer: str
+    """
+    The ID of the trial offer to apply to the subscription item.
     """
 
 
@@ -841,7 +856,7 @@ class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCardMandateOpti
 ):
     amount: NotRequired[int]
     """
-    Amount to be charged for future payments.
+    Amount to be charged for future payments, specified in the presentment currency.
     """
     amount_type: NotRequired[Literal["fixed", "maximum"]]
     """
@@ -945,6 +960,10 @@ class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOpt
 class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsPix(
     TypedDict
 ):
+    expires_after_seconds: NotRequired[int]
+    """
+    The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
+    """
     mandate_options: NotRequired[
         "SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsPixMandateOptions"
     ]
@@ -972,7 +991,7 @@ class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsPixMandateOptio
         Literal["halfyearly", "monthly", "quarterly", "weekly", "yearly"]
     ]
     """
-    Schedule at which the future payments will be charged. Defaults to `weekly`.
+    Schedule at which the future payments will be charged. Defaults to `monthly`.
     """
 
 
@@ -1114,6 +1133,10 @@ class SubscriptionCreateParamsTrialSettings(TypedDict):
 
 
 class SubscriptionCreateParamsTrialSettingsEndBehavior(TypedDict):
+    billing_cycle_anchor: NotRequired[Literal["now", "unchanged"]]
+    """
+    Indicates how the subscription's billing cycle anchor is reset when a trial ends. Defaults to `now`.
+    """
     missing_payment_method: Literal["cancel", "create_invoice", "pause"]
     """
     Indicates how the subscription should change when the trial ends if the user did not provide a payment method.

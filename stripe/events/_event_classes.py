@@ -70,6 +70,36 @@ if TYPE_CHECKING:
     from stripe.events._v2_core_account_updated_event import (
         V2CoreAccountUpdatedEventNotification,
     )
+    from stripe.events._v2_core_batch_job_batch_failed_event import (
+        V2CoreBatchJobBatchFailedEventNotification,
+    )
+    from stripe.events._v2_core_batch_job_canceled_event import (
+        V2CoreBatchJobCanceledEventNotification,
+    )
+    from stripe.events._v2_core_batch_job_completed_event import (
+        V2CoreBatchJobCompletedEventNotification,
+    )
+    from stripe.events._v2_core_batch_job_created_event import (
+        V2CoreBatchJobCreatedEventNotification,
+    )
+    from stripe.events._v2_core_batch_job_ready_for_upload_event import (
+        V2CoreBatchJobReadyForUploadEventNotification,
+    )
+    from stripe.events._v2_core_batch_job_timeout_event import (
+        V2CoreBatchJobTimeoutEventNotification,
+    )
+    from stripe.events._v2_core_batch_job_updated_event import (
+        V2CoreBatchJobUpdatedEventNotification,
+    )
+    from stripe.events._v2_core_batch_job_upload_timeout_event import (
+        V2CoreBatchJobUploadTimeoutEventNotification,
+    )
+    from stripe.events._v2_core_batch_job_validating_event import (
+        V2CoreBatchJobValidatingEventNotification,
+    )
+    from stripe.events._v2_core_batch_job_validation_failed_event import (
+        V2CoreBatchJobValidationFailedEventNotification,
+    )
     from stripe.events._v2_core_event_destination_ping_event import (
         V2CoreEventDestinationPingEventNotification,
     )
@@ -270,6 +300,46 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v2.core.account.updated": (
         "stripe.events._v2_core_account_updated_event",
         "V2CoreAccountUpdatedEvent",
+    ),
+    "v2.core.batch_job.batch_failed": (
+        "stripe.events._v2_core_batch_job_batch_failed_event",
+        "V2CoreBatchJobBatchFailedEvent",
+    ),
+    "v2.core.batch_job.canceled": (
+        "stripe.events._v2_core_batch_job_canceled_event",
+        "V2CoreBatchJobCanceledEvent",
+    ),
+    "v2.core.batch_job.completed": (
+        "stripe.events._v2_core_batch_job_completed_event",
+        "V2CoreBatchJobCompletedEvent",
+    ),
+    "v2.core.batch_job.created": (
+        "stripe.events._v2_core_batch_job_created_event",
+        "V2CoreBatchJobCreatedEvent",
+    ),
+    "v2.core.batch_job.ready_for_upload": (
+        "stripe.events._v2_core_batch_job_ready_for_upload_event",
+        "V2CoreBatchJobReadyForUploadEvent",
+    ),
+    "v2.core.batch_job.timeout": (
+        "stripe.events._v2_core_batch_job_timeout_event",
+        "V2CoreBatchJobTimeoutEvent",
+    ),
+    "v2.core.batch_job.updated": (
+        "stripe.events._v2_core_batch_job_updated_event",
+        "V2CoreBatchJobUpdatedEvent",
+    ),
+    "v2.core.batch_job.upload_timeout": (
+        "stripe.events._v2_core_batch_job_upload_timeout_event",
+        "V2CoreBatchJobUploadTimeoutEvent",
+    ),
+    "v2.core.batch_job.validating": (
+        "stripe.events._v2_core_batch_job_validating_event",
+        "V2CoreBatchJobValidatingEvent",
+    ),
+    "v2.core.batch_job.validation_failed": (
+        "stripe.events._v2_core_batch_job_validation_failed_event",
+        "V2CoreBatchJobValidationFailedEvent",
     ),
     "v2.core.event_destination.ping": (
         "stripe.events._v2_core_event_destination_ping_event",
@@ -522,6 +592,46 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_core_account_updated_event",
         "V2CoreAccountUpdatedEventNotification",
     ),
+    "v2.core.batch_job.batch_failed": (
+        "stripe.events._v2_core_batch_job_batch_failed_event",
+        "V2CoreBatchJobBatchFailedEventNotification",
+    ),
+    "v2.core.batch_job.canceled": (
+        "stripe.events._v2_core_batch_job_canceled_event",
+        "V2CoreBatchJobCanceledEventNotification",
+    ),
+    "v2.core.batch_job.completed": (
+        "stripe.events._v2_core_batch_job_completed_event",
+        "V2CoreBatchJobCompletedEventNotification",
+    ),
+    "v2.core.batch_job.created": (
+        "stripe.events._v2_core_batch_job_created_event",
+        "V2CoreBatchJobCreatedEventNotification",
+    ),
+    "v2.core.batch_job.ready_for_upload": (
+        "stripe.events._v2_core_batch_job_ready_for_upload_event",
+        "V2CoreBatchJobReadyForUploadEventNotification",
+    ),
+    "v2.core.batch_job.timeout": (
+        "stripe.events._v2_core_batch_job_timeout_event",
+        "V2CoreBatchJobTimeoutEventNotification",
+    ),
+    "v2.core.batch_job.updated": (
+        "stripe.events._v2_core_batch_job_updated_event",
+        "V2CoreBatchJobUpdatedEventNotification",
+    ),
+    "v2.core.batch_job.upload_timeout": (
+        "stripe.events._v2_core_batch_job_upload_timeout_event",
+        "V2CoreBatchJobUploadTimeoutEventNotification",
+    ),
+    "v2.core.batch_job.validating": (
+        "stripe.events._v2_core_batch_job_validating_event",
+        "V2CoreBatchJobValidatingEventNotification",
+    ),
+    "v2.core.batch_job.validation_failed": (
+        "stripe.events._v2_core_batch_job_validation_failed_event",
+        "V2CoreBatchJobValidationFailedEventNotification",
+    ),
     "v2.core.event_destination.ping": (
         "stripe.events._v2_core_event_destination_ping_event",
         "V2CoreEventDestinationPingEventNotification",
@@ -710,6 +820,16 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2CoreAccountPersonDeletedEventNotification",
     "V2CoreAccountPersonUpdatedEventNotification",
     "V2CoreAccountUpdatedEventNotification",
+    "V2CoreBatchJobBatchFailedEventNotification",
+    "V2CoreBatchJobCanceledEventNotification",
+    "V2CoreBatchJobCompletedEventNotification",
+    "V2CoreBatchJobCreatedEventNotification",
+    "V2CoreBatchJobReadyForUploadEventNotification",
+    "V2CoreBatchJobTimeoutEventNotification",
+    "V2CoreBatchJobUpdatedEventNotification",
+    "V2CoreBatchJobUploadTimeoutEventNotification",
+    "V2CoreBatchJobValidatingEventNotification",
+    "V2CoreBatchJobValidationFailedEventNotification",
     "V2CoreEventDestinationPingEventNotification",
     "V2CoreHealthEventGenerationFailureResolvedEventNotification",
     "V2MoneyManagementAdjustmentCreatedEventNotification",

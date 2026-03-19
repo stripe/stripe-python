@@ -96,6 +96,10 @@ class PayoutMethod(StripeObject):
         """
         The last 4 digits of the card number.
         """
+        supported_currencies: List[str]
+        """
+        The list of currencies supported by this bank account.
+        """
 
     class UsageStatus(StripeObject):
         payments: Literal["eligible", "invalid", "requires_action"]
@@ -142,6 +146,11 @@ class PayoutMethod(StripeObject):
     object: Literal["v2.money_management.payout_method"]
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
+    """
+    restricted: bool
+    """
+    Whether the Payout Method is currently unusable for money movement, despite potentially being correctly set up.
+    Please reach out to Stripe Support for more information.
     """
     type: Literal["bank_account", "card", "crypto_wallet"]
     """

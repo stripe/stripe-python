@@ -65,7 +65,11 @@ class InvoiceUpdateLinesParamsLine(TypedDict):
     """
     quantity: NotRequired[int]
     """
-    Non-negative integer. The quantity of units for the line item.
+    Non-negative integer. The quantity of units for the line item. Use `quantity_decimal` instead to provide decimal precision. This field will be deprecated in favor of `quantity_decimal` in a future version.
+    """
+    quantity_decimal: NotRequired[str]
+    """
+    Non-negative decimal with at most 12 decimal places. The quantity of units for the line item.
     """
     tax_amounts: NotRequired[
         "Literal['']|List[InvoiceUpdateLinesParamsLineTaxAmount]"
@@ -189,9 +193,26 @@ class InvoiceUpdateLinesParamsLinePriceDataProductData(TypedDict):
     """
     A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
     """
+    tax_details: NotRequired[
+        "InvoiceUpdateLinesParamsLinePriceDataProductDataTaxDetails"
+    ]
+    """
+    Tax details for this product, including the [tax code](https://docs.stripe.com/tax/tax-codes) and an optional performance location.
+    """
     unit_label: NotRequired[str]
     """
     A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
+    """
+
+
+class InvoiceUpdateLinesParamsLinePriceDataProductDataTaxDetails(TypedDict):
+    performance_location: NotRequired[str]
+    """
+    A tax location ID. Depending on the [tax code](https://docs.stripe.com/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+    """
+    tax_code: str
+    """
+    A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
     """
 
 

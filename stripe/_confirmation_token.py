@@ -1386,16 +1386,18 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             """
             The connected account ID whose Stripe balance to use as the source of payment
             """
-            source_type: Optional[Literal["bank_account", "card", "fpx"]]
-            """
-            The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
-            """
 
         class Swish(StripeObject):
             pass
 
         class Twint(StripeObject):
             pass
+
+        class Upi(StripeObject):
+            vpa: Optional[str]
+            """
+            Customer's unique Virtual Payment Address
+            """
 
         class UsBankAccount(StripeObject):
             class Networks(StripeObject):
@@ -1622,6 +1624,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "stripe_balance",
             "swish",
             "twint",
+            "upi",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -1629,6 +1632,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         """
         The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
         """
+        upi: Optional[Upi]
         us_bank_account: Optional[UsBankAccount]
         wechat_pay: Optional[WechatPay]
         zip: Optional[Zip]
@@ -1690,6 +1694,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "stripe_balance": StripeBalance,
             "swish": Swish,
             "twint": Twint,
+            "upi": Upi,
             "us_bank_account": UsBankAccount,
             "wechat_pay": WechatPay,
             "zip": Zip,
@@ -1747,7 +1752,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
     """
     livemode: bool
     """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
     mandate_data: Optional[MandateData]
     """

@@ -535,6 +535,10 @@ class InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsPix(TypedDict):
     """
     Determines if the amount includes the IOF tax. Defaults to `never`.
     """
+    expires_after_seconds: NotRequired[int]
+    """
+    The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
+    """
 
 
 class InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsSepaDebit(

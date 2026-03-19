@@ -415,7 +415,11 @@ class InvoiceCreatePreviewParamsInvoiceItem(TypedDict):
     """
     quantity: NotRequired[int]
     """
-    Non-negative integer. The quantity of units for the invoice item.
+    Non-negative integer. The quantity of units for the invoice item. Use `quantity_decimal` instead to provide decimal precision. This field will be deprecated in favor of `quantity_decimal` in a future version.
+    """
+    quantity_decimal: NotRequired[str]
+    """
+    Non-negative decimal with at most 12 decimal places. The quantity of units for the invoice item.
     """
     tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
     """
@@ -901,6 +905,10 @@ class InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionAdd(
     """
     Options that configure the trial on the subscription item.
     """
+    trial_offer: NotRequired[str]
+    """
+    The ID of the trial offer to apply to the configuration item.
+    """
 
 
 class InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionAddDiscount(
@@ -1013,6 +1021,10 @@ class InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionSet(
     """
     If an item with the `price` already exists, passing this will override the `trial` configuration on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `trial`.
     """
+    trial_offer: NotRequired[str]
+    """
+    The ID of the trial offer to apply to the configuration item.
+    """
 
 
 class InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionSetDiscount(
@@ -1124,7 +1136,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsAmendmentSetPauseCollectionSet(
 ):
     behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
     """
-    The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+    The payment collection behavior for this subscription while paused.
     """
 
 
@@ -1631,6 +1643,10 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhaseItem(TypedDict):
     """
     Options that configure the trial on the subscription item.
     """
+    trial_offer: NotRequired[str]
+    """
+    The ID of the trial offer to apply to the configuration item.
+    """
 
 
 class InvoiceCreatePreviewParamsScheduleDetailsPhaseItemBillingThresholds(
@@ -1751,7 +1767,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhaseItemTrial(TypedDict):
 class InvoiceCreatePreviewParamsScheduleDetailsPhasePauseCollection(TypedDict):
     behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
     """
-    The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+    The payment collection behavior for this subscription while paused.
     """
 
 
@@ -2012,6 +2028,12 @@ class InvoiceCreatePreviewParamsSubscriptionDetailsItem(TypedDict):
     """
     Delete all usage for a given subscription item. You must pass this when deleting a usage records subscription item. `clear_usage` has no effect if the plan has a billing meter attached.
     """
+    current_trial: NotRequired[
+        "InvoiceCreatePreviewParamsSubscriptionDetailsItemCurrentTrial"
+    ]
+    """
+    The trial offer to apply to this subscription item.
+    """
     deleted: NotRequired[bool]
     """
     A flag that, if set to `true`, will delete the specified item.
@@ -2060,6 +2082,17 @@ class InvoiceCreatePreviewParamsSubscriptionDetailsItemBillingThresholds(
     usage_gte: int
     """
     Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://docs.stripe.com/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
+    """
+
+
+class InvoiceCreatePreviewParamsSubscriptionDetailsItemCurrentTrial(TypedDict):
+    trial_end: NotRequired[int]
+    """
+    Unix timestamp representing the end of the trial offer period. Required when the trial offer has `duration.type=timestamp`. Cannot be specified when `duration.type=relative`.
+    """
+    trial_offer: str
+    """
+    The ID of the trial offer to apply to the subscription item.
     """
 
 

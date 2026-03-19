@@ -12,6 +12,10 @@ class UsBankAccountCreateParams(TypedDict):
     """
     Closed Enum. The type of the bank account (checking or savings).
     """
+    currency: str
+    """
+    The currency of the bank account.
+    """
     fedwire_routing_number: NotRequired[str]
     """
     The fedwire routing number of the bank account. Note that certain banks have the same ACH and wire routing number.

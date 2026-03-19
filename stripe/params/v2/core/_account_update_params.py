@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe.v2._amount import AmountParam
 from typing import Dict, List, Optional
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -1632,6 +1633,10 @@ class AccountUpdateParamsDefaults(TypedDict):
     """
     Default responsibilities held by either Stripe or the platform.
     """
+    timezone: NotRequired[str]
+    """
+    The Account's local timezone. A list of possible time zone values is maintained at the [IANA Time Zone Database](https://www.iana.org/time-zones).
+    """
 
 
 class AccountUpdateParamsDefaultsProfile(TypedDict):
@@ -1988,26 +1993,13 @@ class AccountUpdateParamsIdentityBusinessDetailsAddress(TypedDict):
 
 
 class AccountUpdateParamsIdentityBusinessDetailsAnnualRevenue(TypedDict):
-    amount: NotRequired[
-        "AccountUpdateParamsIdentityBusinessDetailsAnnualRevenueAmount"
-    ]
+    amount: NotRequired[AmountParam]
     """
     A non-negative integer representing the amount in the smallest currency unit.
     """
     fiscal_year_end: NotRequired[str]
     """
     The close-out date of the preceding fiscal year in ISO 8601 format. E.g. 2023-12-31 for the 31st of December, 2023.
-    """
-
-
-class AccountUpdateParamsIdentityBusinessDetailsAnnualRevenueAmount(TypedDict):
-    value: int
-    """
-    A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-    """
-    currency: str
-    """
-    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
 
 
@@ -2351,24 +2343,9 @@ class AccountUpdateParamsIdentityBusinessDetailsIdNumber(TypedDict):
 class AccountUpdateParamsIdentityBusinessDetailsMonthlyEstimatedRevenue(
     TypedDict,
 ):
-    amount: NotRequired[
-        "AccountUpdateParamsIdentityBusinessDetailsMonthlyEstimatedRevenueAmount"
-    ]
+    amount: NotRequired[AmountParam]
     """
     A non-negative integer representing the amount in the smallest currency unit.
-    """
-
-
-class AccountUpdateParamsIdentityBusinessDetailsMonthlyEstimatedRevenueAmount(
-    TypedDict,
-):
-    value: int
-    """
-    A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-    """
-    currency: str
-    """
-    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
 
 
