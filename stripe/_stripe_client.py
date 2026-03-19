@@ -22,13 +22,13 @@ from stripe._http_client import (
 from stripe._api_version import _ApiVersion
 from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
-from stripe._util import _convert_to_stripe_object, get_api_mode, deprecated  # noqa: F401
+from stripe._util import _convert_to_stripe_object, get_api_mode
 from stripe._webhook import Webhook, WebhookSignature
 from stripe._event import Event
 from stripe.v2.core._event import EventNotification
 
 from typing import Any, Dict, Optional, Union, cast
-from typing_extensions import TYPE_CHECKING
+from typing_extensions import TYPE_CHECKING, deprecated
 
 if TYPE_CHECKING:
     from stripe._stripe_context import StripeContext

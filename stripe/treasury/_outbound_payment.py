@@ -366,7 +366,7 @@ class OutboundPayment(
             self._request(
                 "post",
                 "/v1/treasury/outbound_payments/{id}/cancel".format(
-                    id=sanitize_id(self.get("id"))
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -421,7 +421,7 @@ class OutboundPayment(
             await self._request_async(
                 "post",
                 "/v1/treasury/outbound_payments/{id}/cancel".format(
-                    id=sanitize_id(self.get("id"))
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -573,7 +573,7 @@ class OutboundPayment(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/treasury/outbound_payments/{id}/fail".format(
-                        id=sanitize_id(self.resource.get("id"))
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -628,7 +628,7 @@ class OutboundPayment(
                 await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/treasury/outbound_payments/{id}/fail".format(
-                        id=sanitize_id(self.resource.get("id"))
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -683,7 +683,7 @@ class OutboundPayment(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/treasury/outbound_payments/{id}/post".format(
-                        id=sanitize_id(self.resource.get("id"))
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -738,7 +738,7 @@ class OutboundPayment(
                 await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/treasury/outbound_payments/{id}/post".format(
-                        id=sanitize_id(self.resource.get("id"))
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -798,7 +798,7 @@ class OutboundPayment(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/treasury/outbound_payments/{id}/return".format(
-                        id=sanitize_id(self.resource.get("id"))
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -858,7 +858,7 @@ class OutboundPayment(
                 await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/treasury/outbound_payments/{id}/return".format(
-                        id=sanitize_id(self.resource.get("id"))
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -913,7 +913,7 @@ class OutboundPayment(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/treasury/outbound_payments/{id}".format(
-                        id=sanitize_id(self.resource.get("id"))
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -968,7 +968,7 @@ class OutboundPayment(
                 await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/treasury/outbound_payments/{id}".format(
-                        id=sanitize_id(self.resource.get("id"))
+                        id=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),

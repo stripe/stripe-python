@@ -2339,7 +2339,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             self._request(
                 "post",
                 "/v1/payment_records/{id}/report_payment_attempt".format(
-                    id=sanitize_id(self.get("id"))
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2400,7 +2400,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             await self._request_async(
                 "post",
                 "/v1/payment_records/{id}/report_payment_attempt".format(
-                    id=sanitize_id(self.get("id"))
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2464,7 +2464,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             self._request(
                 "post",
                 "/v1/payment_records/{id}/report_payment_attempt_canceled".format(
-                    id=sanitize_id(self.get("id"))
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2528,7 +2528,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             await self._request_async(
                 "post",
                 "/v1/payment_records/{id}/report_payment_attempt_canceled".format(
-                    id=sanitize_id(self.get("id"))
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2590,7 +2590,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             self._request(
                 "post",
                 "/v1/payment_records/{id}/report_payment_attempt_failed".format(
-                    id=sanitize_id(self.get("id"))
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2652,7 +2652,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             await self._request_async(
                 "post",
                 "/v1/payment_records/{id}/report_payment_attempt_failed".format(
-                    id=sanitize_id(self.get("id"))
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2716,7 +2716,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             self._request(
                 "post",
                 "/v1/payment_records/{id}/report_payment_attempt_guaranteed".format(
-                    id=sanitize_id(self.get("id"))
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2780,7 +2780,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             await self._request_async(
                 "post",
                 "/v1/payment_records/{id}/report_payment_attempt_guaranteed".format(
-                    id=sanitize_id(self.get("id"))
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2848,7 +2848,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             self._request(
                 "post",
                 "/v1/payment_records/{id}/report_payment_attempt_informational".format(
-                    id=sanitize_id(self.get("id"))
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2916,7 +2916,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             await self._request_async(
                 "post",
                 "/v1/payment_records/{id}/report_payment_attempt_informational".format(
-                    id=sanitize_id(self.get("id"))
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2975,7 +2975,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             self._request(
                 "post",
                 "/v1/payment_records/{id}/report_refund".format(
-                    id=sanitize_id(self.get("id"))
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -3034,7 +3034,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             await self._request_async(
                 "post",
                 "/v1/payment_records/{id}/report_refund".format(
-                    id=sanitize_id(self.get("id"))
+                    id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),

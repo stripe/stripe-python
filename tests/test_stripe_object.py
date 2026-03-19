@@ -94,23 +94,32 @@ class TestStripeObject(object):
             obj.myattr
         with pytest.raises(KeyError):
             obj["myattr"]
-        assert obj.get("myattr", "def") == "def"
-        assert obj.get("myattr") is None
+        assert getattr(obj, "myattr", "def") == "def"
+        assert "myattr" not in obj
 
         # Setters
         obj.myattr = "myval"
         obj["myitem"] = "itval"
-        assert obj.setdefault("mydef", "sdef") == "sdef"
+        obj.mydef = getattr(obj, "mydef", "sdef")
+        assert obj.mydef == "sdef"
 
         # Getters
-        assert obj.setdefault("myattr", "sdef") == "myval"
         assert obj.myattr == "myval"
         assert obj["myattr"] == "myval"
-        assert obj.get("myattr") == "myval"
 
-        assert sorted(obj.keys()) == ["id", "myattr", "mydef", "myitem"]
+        assert sorted(obj.to_dict().keys()) == [
+            "id",
+            "myattr",
+            "mydef",
+            "myitem",
+        ]
 
-        assert sorted(obj.values()) == ["itval", "myid", "myval", "sdef"]
+        assert sorted(obj.to_dict().values()) == [
+            "itval",
+            "myid",
+            "myval",
+            "sdef",
+        ]
 
         # Illegal operations
         with pytest.raises(ValueError):
@@ -351,7 +360,7 @@ class TestStripeObject(object):
             {"empty": "", "value": "foobar", "nested": [foo, bar]}, "mykey"
         )
 
-        d = obj.to_dict_recursive()
+        d = obj._to_dict_recursive()
         assert d == {
             "empty": "",
             "value": "foobar",
@@ -371,6 +380,192 @@ class TestStripeObject(object):
         obj = StripeObject.construct_from({"nested": nested}, "mykey")
 
         assert obj.serialize(None) == {"nested": ""}
+
+    def test_serialize_empty_when_nothing_changed(self):
+        obj = StripeObject.construct_from({"id": "x", "name": "alice"}, "key")
+        assert obj.serialize(None) == {}
+
+    def test_serialize_includes_unsaved_values(self):
+        obj = StripeObject.construct_from({"id": "x", "name": "alice"}, "key")
+        obj.name = "bob"
+        assert obj.serialize(None) == {"name": "bob"}
+
+    def test_serialize_multiple_unsaved_values(self):
+        obj = StripeObject.construct_from(
+            {"id": "x", "name": "alice", "email": "a@example.com"}, "key"
+        )
+        obj.name = "bob"
+        obj.email = "b@example.com"
+        result = obj.serialize(None)
+        assert result == {"name": "bob", "email": "b@example.com"}
+
+    def test_serialize_setting_same_value_still_serializes(self):
+        obj = StripeObject.construct_from({"id": "x", "name": "alice"}, "key")
+        obj.name = "alice"
+        assert obj.serialize(None) == {"name": "alice"}
+
+    def test_serialize_skips_id(self):
+        obj = StripeObject.construct_from({"id": "x"}, "key")
+        obj._unsaved_values.add("id")
+        assert obj.serialize(None) == {}
+
+    def test_serialize_skips_underscore_prefixed_keys(self):
+        obj = StripeObject.construct_from({"id": "x", "_secret": "s"}, "key")
+        obj._unsaved_values.add("_secret")
+        assert obj.serialize(None) == {}
+
+    def test_serialize_skips_api_resources(self):
+        inner = stripe.Customer.construct_from(
+            {"id": "cus_123", "object": "customer"}, "key"
+        )
+        obj = StripeObject.construct_from(
+            {"id": "x", "customer": inner}, "key"
+        )
+        obj._unsaved_values.add("customer")
+        assert obj.serialize(None) == {}
+
+    def test_serialize_nested_changed_object(self):
+        obj = StripeObject.construct_from(
+            {"id": "x", "metadata": {"key1": "val1"}}, "key"
+        )
+        obj.metadata["key1"] = "val2"
+        result = obj.serialize(None)
+        assert result == {"metadata": {"key1": "val2"}}
+
+    def test_serialize_nested_unchanged_excluded(self):
+        obj = StripeObject.construct_from(
+            {"id": "x", "metadata": {"key1": "val1"}}, "key"
+        )
+        assert obj.serialize(None) == {}
+
+    def test_serialize_nested_new_key(self):
+        obj = StripeObject.construct_from(
+            {"id": "x", "metadata": {"key1": "val1"}}, "key"
+        )
+        obj.metadata["key2"] = "val2"
+        result = obj.serialize(None)
+        assert result == {"metadata": {"key2": "val2"}}
+
+    def test_serialize_deeply_nested(self):
+        obj = StripeObject.construct_from(
+            {
+                "id": "x",
+                "level1": {
+                    "level2": {"deep": "original"},
+                },
+            },
+            "key",
+        )
+        obj.level1.level2.deep = "changed"
+        result = obj.serialize(None)
+        assert result == {"level1": {"level2": {"deep": "changed"}}}
+
+    def test_serialize_diff_removed_key_becomes_empty_string(self):
+        obj = StripeObject.construct_from(
+            {"id": "x", "metadata": {"key1": "v1", "key2": "v2"}}, "key"
+        )
+        obj.metadata = {"key1": "v1"}
+        result = obj.serialize(None)
+        assert result == {"metadata": {"key1": "v1", "key2": ""}}
+
+    def test_serialize_unsaved_none_becomes_empty_string(self):
+        obj = StripeObject.construct_from({"id": "x", "name": "alice"}, "key")
+        obj.name = None
+        assert obj.serialize(None) == {"name": ""}
+
+    def test_serialize_unsaved_empty_string(self):
+        # __setitem__ rejects empty strings, so construct with it
+        # already empty and mark it as unsaved
+        obj = StripeObject.construct_from({"id": "x", "name": ""}, "key")
+        obj._unsaved_values.add("name")
+        assert obj.serialize(None) == {"name": ""}
+
+    def test_serialize_explicit_previous_used_for_diff(self):
+        obj = StripeObject.construct_from({"id": "x", "metadata": {}}, "key")
+        obj.metadata = {"key1": "new"}
+        previous = {"metadata": {"key1": "old", "removed_key": "gone"}}
+        result = obj.serialize(previous)
+        assert result == {"metadata": {"key1": "new", "removed_key": ""}}
+
+    def test_serialize_previous_none_uses_internal_previous(self):
+        obj = StripeObject.construct_from(
+            {"id": "x", "metadata": {"key1": "v1", "key2": "v2"}}, "key"
+        )
+        obj.metadata = {"key1": "v1"}
+        result = obj.serialize(None)
+        assert result == {"metadata": {"key1": "v1", "key2": ""}}
+
+    def test_serialize_additional_owners(self):
+        obj = StripeObject.construct_from(
+            {
+                "id": "x",
+                "additional_owners": [
+                    {"first_name": "alice"},
+                    {"first_name": "bob"},
+                ],
+            },
+            "key",
+        )
+        result = obj.serialize(None)
+        # additional_owners is always serialized when non-None;
+        # child objects have no unsaved values so they serialize to {}
+        assert "additional_owners" in result
+        assert result["additional_owners"]["0"] == {}
+        assert result["additional_owners"]["1"] == {}
+
+    def test_serialize_additional_owners_none_excluded(self):
+        obj = StripeObject.construct_from(
+            {"id": "x", "additional_owners": None}, "key"
+        )
+        assert obj.serialize(None) == {}
+
+    def test_serialize_after_construct_and_modify(self):
+        obj = StripeObject.construct_from(
+            {
+                "id": "obj_123",
+                "name": "original",
+                "metadata": {"env": "test"},
+            },
+            "key",
+        )
+        obj.name = "updated"
+        obj.metadata["env"] = "prod"
+        result = obj.serialize(None)
+        assert result == {
+            "name": "updated",
+            "metadata": {"env": "prod"},
+        }
+
+    def test_serialize_after_refresh_resets_unsaved(self):
+        obj = StripeObject.construct_from(
+            {"id": "x", "name": "original"}, "key"
+        )
+        obj.name = "changed"
+        assert obj.serialize(None) == {"name": "changed"}
+
+        obj.refresh_from({"id": "x", "name": "from_api"}, "key")
+        assert obj.serialize(None) == {}
+
+    def test_serialize_after_refresh_then_modify(self):
+        obj = StripeObject.construct_from(
+            {"id": "x", "name": "v1", "email": "a@example.com"}, "key"
+        )
+        obj.refresh_from(
+            {"id": "x", "name": "v2", "email": "a@example.com"}, "key"
+        )
+        obj.email = "new@example.com"
+        result = obj.serialize(None)
+        assert result == {"email": "new@example.com"}
+
+    def test_serialize_new_key(self):
+        obj = StripeObject.construct_from({"id": "x"}, "key")
+        obj["new_field"] = "value"
+        assert obj.serialize(None) == {"new_field": "value"}
+
+    def test_serialize_new_key_via_attribute(self):
+        obj = StripeObject.construct_from({"id": "x"}, "key")
+        obj.new_field = "value"
+        assert obj.serialize(None) == {"new_field": "value"}
 
     def test_field_name_remapping(self):
         class Foo(StripeObject):
@@ -428,7 +623,7 @@ class TestStripeObject(object):
         obj.api_key = "key2"
         obj._request("get", "/foo", base_address="api")
 
-        assert "api_key" not in obj.items()
+        assert "api_key" not in obj.to_dict()
 
         http_client_mock.assert_requested(
             api_key="key2",
@@ -467,3 +662,125 @@ class TestStripeObject(object):
         with pytest.raises(KeyError) as e:
             so["payment_intent"]
         assert not is_good_error(e.value)
+
+    def test_eq_same_data(self):
+        a = StripeObject.construct_from({"id": "x", "name": "a"}, "key")
+        b = StripeObject.construct_from({"id": "x", "name": "a"}, "key")
+        assert a == b
+
+    def test_eq_different_data(self):
+        a = StripeObject.construct_from({"id": "x", "name": "a"}, "key")
+        b = StripeObject.construct_from({"id": "x", "name": "b"}, "key")
+        assert a != b
+
+    def test_eq_different_types_not_equal(self):
+        data = {"id": "x", "name": "a"}
+        invoice = stripe.Invoice.construct_from(
+            {**data, "object": "invoice"}, "key"
+        )
+        customer = stripe.Customer.construct_from(
+            {**data, "object": "customer"}, "key"
+        )
+        assert invoice != customer
+
+    def test_eq_same_resource_type(self):
+        a = stripe.Customer.construct_from(
+            {"id": "cus_1", "object": "customer", "name": "alice"}, "key"
+        )
+        b = stripe.Customer.construct_from(
+            {"id": "cus_1", "object": "customer", "name": "alice"}, "key"
+        )
+        assert a == b
+
+    def test_eq_diff_resource_type_same_data(self):
+        a = stripe.Customer.construct_from(
+            {"id": "cus_1", "object": "customer", "name": "alice"}, "key"
+        )
+        b = stripe.Invoice.construct_from(
+            {"id": "cus_1", "object": "customer", "name": "alice"}, "key"
+        )
+        assert a != b
+
+    def test_eq_not_equal_to_dict(self):
+        obj = StripeObject.construct_from({"id": "x"}, "key")
+        assert obj != {"id": "x"}
+
+    def test_is_not_dict(self):
+        obj = StripeObject("id", "key")
+        assert not isinstance(obj, dict)
+
+    def test_items_field_not_shadowed_by_dict_items(self):
+        obj = StripeObject.construct_from(
+            {
+                "id": "sub_123",
+                "object": "subscription",
+                "items": {"object": "list", "data": [{"id": "si_123"}]},
+            },
+            "key",
+        )
+        assert isinstance(obj.items, stripe.ListObject)
+
+    def test_to_dict(self):
+        obj = StripeObject.construct_from(
+            {"id": "foo", "name": "bar"},
+            "key",
+        )
+        d = obj.to_dict()
+        assert d == {"id": "foo", "name": "bar"}
+        assert isinstance(d, dict)
+        assert not isinstance(d, StripeObject)
+
+    def test_to_dict_recursive_by_default(self):
+        inner = StripeObject.construct_from({"nested": "val"}, "key")
+        obj = StripeObject.construct_from({"id": "x", "child": inner}, "key")
+        d = obj.to_dict()
+        assert d == {"id": "x", "child": {"nested": "val"}}
+        assert isinstance(d["child"], dict)
+        assert not isinstance(d["child"], StripeObject)
+
+    def test_to_dict_non_recursive(self):
+        inner = StripeObject.construct_from({"nested": "val"}, "key")
+        obj = StripeObject.construct_from({"id": "x", "child": inner}, "key")
+        d = obj.to_dict(recursive=False)
+        assert d["id"] == "x"
+        # non-recursive preserves nested StripeObjects
+        assert isinstance(d["child"], StripeObject)
+
+    def test_to_dict_is_a_copy(self):
+        obj = StripeObject.construct_from({"id": "x", "name": "a"}, "key")
+        d = obj.to_dict()
+        d["name"] = "mutated"
+        assert obj.name == "a"
+
+    def test_to_dict_with_list_of_nested_objects(self):
+        obj = StripeObject.construct_from(
+            {"id": "x", "items": [{"a": 1}, {"b": 2}]}, "key"
+        )
+        d = obj.to_dict()
+        assert d == {"id": "x", "items": [{"a": 1}, {"b": 2}]}
+        assert not isinstance(d["items"][0], StripeObject)
+
+    def test_update_sets_values(self):
+        obj = StripeObject.construct_from({"id": "x", "name": "a"}, "key")
+        obj.update({"name": "b", "email": "b@example.com"})
+        assert obj.name == "b"
+        assert obj.email == "b@example.com"
+
+    def test_update_marks_keys_unsaved(self):
+        obj = StripeObject.construct_from({"id": "x", "name": "a"}, "key")
+        obj.update({"name": "b", "email": "b@example.com"})
+        assert "name" in obj._unsaved_values
+        assert "email" in obj._unsaved_values
+
+    def test_update_shows_in_serialize(self):
+        obj = StripeObject.construct_from({"id": "x", "name": "a"}, "key")
+        obj.update({"name": "b"})
+        assert obj.serialize(None) == {"name": "b"}
+
+    def test_update_multiple_calls(self):
+        obj = StripeObject.construct_from({"id": "x"}, "key")
+        obj.update({"a": 1})
+        obj.update({"b": 2})
+        assert obj.a == 1
+        assert obj.b == 2
+        assert obj.serialize(None) == {"a": 1, "b": 2}

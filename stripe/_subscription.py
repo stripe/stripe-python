@@ -1177,7 +1177,7 @@ class Subscription(
             self._request(
                 "delete",
                 "/v1/subscriptions/{subscription_exposed_id}".format(
-                    subscription_exposed_id=sanitize_id(self.get("id"))
+                    subscription_exposed_id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1253,7 +1253,7 @@ class Subscription(
             await self._request_async(
                 "delete",
                 "/v1/subscriptions/{subscription_exposed_id}".format(
-                    subscription_exposed_id=sanitize_id(self.get("id"))
+                    subscription_exposed_id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1357,7 +1357,7 @@ class Subscription(
             self._request(
                 "delete",
                 "/v1/subscriptions/{subscription_exposed_id}/discount".format(
-                    subscription_exposed_id=sanitize_id(self.get("id"))
+                    subscription_exposed_id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1417,7 +1417,7 @@ class Subscription(
             await self._request_async(
                 "delete",
                 "/v1/subscriptions/{subscription_exposed_id}/discount".format(
-                    subscription_exposed_id=sanitize_id(self.get("id"))
+                    subscription_exposed_id=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1512,7 +1512,7 @@ class Subscription(
             self._request(
                 "post",
                 "/v1/subscriptions/{subscription}/migrate".format(
-                    subscription=sanitize_id(self.get("id"))
+                    subscription=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1567,7 +1567,7 @@ class Subscription(
             await self._request_async(
                 "post",
                 "/v1/subscriptions/{subscription}/migrate".format(
-                    subscription=sanitize_id(self.get("id"))
+                    subscription=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1806,7 +1806,7 @@ class Subscription(
             self._request(
                 "post",
                 "/v1/subscriptions/{subscription}/resume".format(
-                    subscription=sanitize_id(self.get("id"))
+                    subscription=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1861,7 +1861,7 @@ class Subscription(
             await self._request_async(
                 "post",
                 "/v1/subscriptions/{subscription}/resume".format(
-                    subscription=sanitize_id(self.get("id"))
+                    subscription=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),

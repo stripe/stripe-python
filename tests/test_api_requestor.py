@@ -296,7 +296,7 @@ class TestAPIRequestor(object):
             http_client_mock.assert_requested(meth, post_data=post_data)
             assert isinstance(resp, StripeObject)
 
-            assert resp == {}
+            assert resp.to_dict() == {}
 
     @pytest.mark.anyio
     async def test_empty_methods_async(self, requestor, http_client_mock):
@@ -320,7 +320,7 @@ class TestAPIRequestor(object):
             http_client_mock.assert_requested(meth, post_data=post_data)
             assert isinstance(resp, StripeObject)
 
-            assert resp == {}
+            assert resp.to_dict() == {}
 
     @pytest.mark.anyio
     async def test_empty_methods_streaming_response_async(
@@ -415,7 +415,7 @@ class TestAPIRequestor(object):
             )
             assert isinstance(resp, StripeObject)
 
-            assert resp == {"foo": "bar", "baz": 6}
+            assert resp.to_dict() == {"foo": "bar", "baz": 6}
 
             if method == "post":
                 http_client_mock.assert_requested(

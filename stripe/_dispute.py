@@ -575,7 +575,7 @@ class Dispute(
             self._request(
                 "post",
                 "/v1/disputes/{dispute}/close".format(
-                    dispute=sanitize_id(self.get("id"))
+                    dispute=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -638,7 +638,7 @@ class Dispute(
             await self._request_async(
                 "post",
                 "/v1/disputes/{dispute}/close".format(
-                    dispute=sanitize_id(self.get("id"))
+                    dispute=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),

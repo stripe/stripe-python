@@ -547,7 +547,7 @@ class Transaction(APIResource["Transaction"]):
             self._request(
                 "get",
                 "/v1/tax/transactions/{transaction}/line_items".format(
-                    transaction=sanitize_id(self.get("id"))
+                    transaction=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -604,7 +604,7 @@ class Transaction(APIResource["Transaction"]):
             await self._request_async(
                 "get",
                 "/v1/tax/transactions/{transaction}/line_items".format(
-                    transaction=sanitize_id(self.get("id"))
+                    transaction=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
