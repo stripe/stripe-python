@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
+from stripe.v2._amount import Amount
 from typing import ClassVar, Dict, List, Optional
 from typing_extensions import Literal
 
@@ -25,58 +26,18 @@ class FinancialAccount(StripeObject):
         """
 
     class Balance(StripeObject):
-        class Available(StripeObject):
-            currency: str
-            """
-            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            """
-            value: int
-            """
-            A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            """
-
-        class InboundPending(StripeObject):
-            currency: str
-            """
-            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            """
-            value: int
-            """
-            A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            """
-
-        class OutboundPending(StripeObject):
-            currency: str
-            """
-            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            """
-            value: int
-            """
-            A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            """
-
-        available: Dict[str, Available]
+        available: Dict[str, Amount]
         """
         Balance that can be used for money movement.
         """
-        inbound_pending: Dict[str, InboundPending]
+        inbound_pending: Dict[str, Amount]
         """
         Balance of inbound funds that will later transition to the `available` balance.
         """
-        outbound_pending: Dict[str, OutboundPending]
+        outbound_pending: Dict[str, Amount]
         """
         Balance of funds that are being used for a pending outbound money movement.
         """
-        _inner_class_types = {
-            "available": Available,
-            "inbound_pending": InboundPending,
-            "outbound_pending": OutboundPending,
-        }
-        _inner_class_dicts = [
-            "available",
-            "inbound_pending",
-            "outbound_pending",
-        ]
 
     class ManagedBy(StripeObject):
         type: Literal["multiprocessor_settlement"]
@@ -92,26 +53,14 @@ class FinancialAccount(StripeObject):
 
     class Payments(StripeObject):
         class StartingBalance(StripeObject):
-            class Available(StripeObject):
-                currency: str
-                """
-                Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-                """
-                value: int
-                """
-                A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-                """
-
             at: str
             """
             When the balance was projected.
             """
-            available: Dict[str, Available]
+            available: Dict[str, Amount]
             """
             The available balance at the time when the balance was projected.
             """
-            _inner_class_types = {"available": Available}
-            _inner_class_dicts = ["available"]
 
         default_currency: str
         """

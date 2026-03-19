@@ -6451,12 +6451,6 @@ class PaymentIntentConfirmParamsPaymentMethodOptionsUsBankAccount(TypedDict):
     """
     Bank account verification method.
     """
-    preferred_settlement_speed: NotRequired[
-        "Literal['']|Literal['fastest', 'standard']"
-    ]
-    """
-    Preferred transaction settlement speed
-    """
 
 
 class PaymentIntentConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections(

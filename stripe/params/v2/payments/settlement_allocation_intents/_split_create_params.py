@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe.v2._amount import AmountParam
 from typing import Dict
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -9,7 +10,7 @@ class SplitCreateParams(TypedDict):
     """
     The target account for settling the SettlementAllocationIntentSplit.
     """
-    amount: "SplitCreateParamsAmount"
+    amount: AmountParam
     """
     The amount and currency of the SettlementAllocationIntentSplit.
     """
@@ -20,15 +21,4 @@ class SplitCreateParams(TypedDict):
     type: Literal["credit", "debit"]
     """
     The type of the fund transfer.
-    """
-
-
-class SplitCreateParamsAmount(TypedDict):
-    value: int
-    """
-    A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-    """
-    currency: str
-    """
-    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
