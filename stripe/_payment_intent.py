@@ -5537,7 +5537,7 @@ class PaymentIntent(
             self._request(
                 "post",
                 "/v1/payment_intents/{intent}/decrement_authorization".format(
-                    intent=sanitize_id(self.get("id"))
+                    intent=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -5655,7 +5655,7 @@ class PaymentIntent(
             await self._request_async(
                 "post",
                 "/v1/payment_intents/{intent}/decrement_authorization".format(
-                    intent=sanitize_id(self.get("id"))
+                    intent=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -6126,7 +6126,7 @@ class PaymentIntent(
             self._request(
                 "post",
                 "/v1/test/payment_intents/{intent}/trigger_action".format(
-                    intent=sanitize_id(self.get("id"))
+                    intent=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -6181,7 +6181,7 @@ class PaymentIntent(
             await self._request_async(
                 "post",
                 "/v1/test/payment_intents/{intent}/trigger_action".format(
-                    intent=sanitize_id(self.get("id"))
+                    intent=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),

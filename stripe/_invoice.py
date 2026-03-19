@@ -2212,7 +2212,7 @@ class Invoice(
             self._request(
                 "post",
                 "/v1/invoices/{invoice}/detach_payment".format(
-                    invoice=sanitize_id(self.get("id"))
+                    invoice=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -2267,7 +2267,7 @@ class Invoice(
             await self._request_async(
                 "post",
                 "/v1/invoices/{invoice}/detach_payment".format(
-                    invoice=sanitize_id(self.get("id"))
+                    invoice=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
