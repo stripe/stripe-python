@@ -44,6 +44,7 @@ class BatchJob(StripeObject):
                 The total size of the file in bytes.
                 """
                 _inner_class_types = {"download_url": DownloadUrl}
+                _field_encodings = {"size": "int64_string"}
 
             failure_count: int
             """
@@ -58,6 +59,10 @@ class BatchJob(StripeObject):
             The total number of records that were successfully processed.
             """
             _inner_class_types = {"output_file": OutputFile}
+            _field_encodings = {
+                "failure_count": "int64_string",
+                "success_count": "int64_string",
+            }
 
         class Complete(StripeObject):
             class OutputFile(StripeObject):
@@ -84,6 +89,7 @@ class BatchJob(StripeObject):
                 The total size of the file in bytes.
                 """
                 _inner_class_types = {"download_url": DownloadUrl}
+                _field_encodings = {"size": "int64_string"}
 
             failure_count: int
             """
@@ -98,6 +104,10 @@ class BatchJob(StripeObject):
             The total number of records that were successfully processed.
             """
             _inner_class_types = {"output_file": OutputFile}
+            _field_encodings = {
+                "failure_count": "int64_string",
+                "success_count": "int64_string",
+            }
 
         class InProgress(StripeObject):
             failure_count: int
@@ -108,6 +118,10 @@ class BatchJob(StripeObject):
             """
             The number of records that were successfully processed so far.
             """
+            _field_encodings = {
+                "failure_count": "int64_string",
+                "success_count": "int64_string",
+            }
 
         class ReadyForUpload(StripeObject):
             class UploadUrl(StripeObject):
@@ -151,6 +165,7 @@ class BatchJob(StripeObject):
                 The total size of the file in bytes.
                 """
                 _inner_class_types = {"download_url": DownloadUrl}
+                _field_encodings = {"size": "int64_string"}
 
             failure_count: int
             """
@@ -165,6 +180,10 @@ class BatchJob(StripeObject):
             The total number of records that were successfully processed.
             """
             _inner_class_types = {"output_file": OutputFile}
+            _field_encodings = {
+                "failure_count": "int64_string",
+                "success_count": "int64_string",
+            }
 
         class Validating(StripeObject):
             validated_count: int
@@ -172,6 +191,7 @@ class BatchJob(StripeObject):
             The number of records that were validated. Note that there is no failure counter here;
             once we have any validation failures we give up.
             """
+            _field_encodings = {"validated_count": "int64_string"}
 
         class ValidationFailed(StripeObject):
             class OutputFile(StripeObject):
@@ -198,6 +218,7 @@ class BatchJob(StripeObject):
                 The total size of the file in bytes.
                 """
                 _inner_class_types = {"download_url": DownloadUrl}
+                _field_encodings = {"size": "int64_string"}
 
             failure_count: int
             """
@@ -212,6 +233,10 @@ class BatchJob(StripeObject):
             The total number of records that were successfully processed.
             """
             _inner_class_types = {"output_file": OutputFile}
+            _field_encodings = {
+                "failure_count": "int64_string",
+                "success_count": "int64_string",
+            }
 
         batch_failed: Optional[BatchFailed]
         """
