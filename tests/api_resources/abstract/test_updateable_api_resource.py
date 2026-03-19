@@ -283,7 +283,9 @@ class TestUpdateableAPIResource(object):
     def test_save_update_metadata(self, http_client_mock, obj):
         obj.baz = "updated"
         obj.other = "newval"
-        obj.metadata.update({"size": "m", "info": "a2", "score": 4})
+        obj.metadata["size"] = "m"
+        obj.metadata["info"] = "a2"
+        obj.metadata["score"] = 4
 
         self.checkSave(obj)
 

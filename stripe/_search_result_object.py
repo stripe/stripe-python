@@ -1,5 +1,5 @@
 # pyright: strict
-from typing_extensions import Self, Unpack
+from typing_extensions import Self, Unpack, deprecated
 from typing import (
     Generic,
     List,
@@ -16,7 +16,6 @@ from stripe._api_requestor import (
     _APIRequestor,  # pyright: ignore[reportPrivateUsage]
 )
 from stripe._stripe_object import StripeObject
-from stripe import _util
 import warnings
 from stripe._request_options import RequestOptions, extract_options_from_dict
 from stripe._any_iterator import AnyIterator
@@ -38,14 +37,14 @@ class SearchResultObject(StripeObject, Generic[T]):
             )
 
     def _get_url_for_search(self) -> str:
-        url = self.get("url")
+        url = self._data.get("url")
         if not isinstance(url, str):
             raise ValueError(
                 'Cannot call .list on a list object without a string "url" property'
             )
         return url
 
-    @_util.deprecated(
+    @deprecated(
         "This will be removed in a future version of stripe-python. Please call the `search` method on the corresponding resource directly, instead of the generic search on SearchResultObject."
     )
     def search(self, **params: Mapping[str, Any]) -> Self:
@@ -72,7 +71,7 @@ class SearchResultObject(StripeObject, Generic[T]):
 
     def __getitem__(self, k: str) -> T:
         if isinstance(k, str):  # pyright: ignore
-            return super(SearchResultObject, self).__getitem__(k)
+            return super().__getitem__(k)
         else:
             raise KeyError(
                 "You tried to access the %s index, but SearchResultObject types "
@@ -81,10 +80,7 @@ class SearchResultObject(StripeObject, Generic[T]):
                 "call .data[%s])" % (repr(k), repr(k))
             )
 
-    #  Pyright doesn't like this because SearchResultObject inherits from StripeObject inherits from Dict[str, Any]
-    #  and so it wants the type of __iter__ to agree with __iter__ from Dict[str, Any]
-    #  But we are iterating through "data", which is a List[T].
-    def __iter__(self) -> Iterator[T]:  # pyright: ignore
+    def __iter__(self) -> Iterator[T]:
         return getattr(self, "data", []).__iter__()
 
     def __len__(self) -> int:

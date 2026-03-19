@@ -1477,7 +1477,7 @@ class Card(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/issuing/cards/{card}/shipping/deliver".format(
-                        card=sanitize_id(self.resource.get("id"))
+                        card=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -1532,7 +1532,7 @@ class Card(
                 await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/issuing/cards/{card}/shipping/deliver".format(
-                        card=sanitize_id(self.resource.get("id"))
+                        card=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -1585,7 +1585,7 @@ class Card(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/issuing/cards/{card}/shipping/fail".format(
-                        card=sanitize_id(self.resource.get("id"))
+                        card=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -1640,7 +1640,7 @@ class Card(
                 await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/issuing/cards/{card}/shipping/fail".format(
-                        card=sanitize_id(self.resource.get("id"))
+                        card=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -1695,7 +1695,7 @@ class Card(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/issuing/cards/{card}/shipping/return".format(
-                        card=sanitize_id(self.resource.get("id"))
+                        card=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -1750,7 +1750,7 @@ class Card(
                 await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/issuing/cards/{card}/shipping/return".format(
-                        card=sanitize_id(self.resource.get("id"))
+                        card=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -1803,7 +1803,7 @@ class Card(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/issuing/cards/{card}/shipping/ship".format(
-                        card=sanitize_id(self.resource.get("id"))
+                        card=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -1858,7 +1858,7 @@ class Card(
                 await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/issuing/cards/{card}/shipping/ship".format(
-                        card=sanitize_id(self.resource.get("id"))
+                        card=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -1913,7 +1913,7 @@ class Card(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/issuing/cards/{card}/shipping/submit".format(
-                        card=sanitize_id(self.resource.get("id"))
+                        card=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -1968,7 +1968,7 @@ class Card(
                 await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/issuing/cards/{card}/shipping/submit".format(
-                        card=sanitize_id(self.resource.get("id"))
+                        card=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),

@@ -646,7 +646,7 @@ class Reader(
             self._request(
                 "post",
                 "/v1/terminal/readers/{reader}/cancel_action".format(
-                    reader=sanitize_id(self.get("id"))
+                    reader=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -701,7 +701,7 @@ class Reader(
             await self._request_async(
                 "post",
                 "/v1/terminal/readers/{reader}/cancel_action".format(
-                    reader=sanitize_id(self.get("id"))
+                    reader=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -756,7 +756,7 @@ class Reader(
             self._request(
                 "post",
                 "/v1/terminal/readers/{reader}/collect_inputs".format(
-                    reader=sanitize_id(self.get("id"))
+                    reader=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -811,7 +811,7 @@ class Reader(
             await self._request_async(
                 "post",
                 "/v1/terminal/readers/{reader}/collect_inputs".format(
-                    reader=sanitize_id(self.get("id"))
+                    reader=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -866,7 +866,7 @@ class Reader(
             self._request(
                 "post",
                 "/v1/terminal/readers/{reader}/collect_payment_method".format(
-                    reader=sanitize_id(self.get("id"))
+                    reader=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -921,7 +921,7 @@ class Reader(
             await self._request_async(
                 "post",
                 "/v1/terminal/readers/{reader}/collect_payment_method".format(
-                    reader=sanitize_id(self.get("id"))
+                    reader=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -976,7 +976,7 @@ class Reader(
             self._request(
                 "post",
                 "/v1/terminal/readers/{reader}/confirm_payment_intent".format(
-                    reader=sanitize_id(self.get("id"))
+                    reader=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1031,7 +1031,7 @@ class Reader(
             await self._request_async(
                 "post",
                 "/v1/terminal/readers/{reader}/confirm_payment_intent".format(
-                    reader=sanitize_id(self.get("id"))
+                    reader=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1284,7 +1284,7 @@ class Reader(
             self._request(
                 "post",
                 "/v1/terminal/readers/{reader}/process_payment_intent".format(
-                    reader=sanitize_id(self.get("id"))
+                    reader=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1339,7 +1339,7 @@ class Reader(
             await self._request_async(
                 "post",
                 "/v1/terminal/readers/{reader}/process_payment_intent".format(
-                    reader=sanitize_id(self.get("id"))
+                    reader=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1394,7 +1394,7 @@ class Reader(
             self._request(
                 "post",
                 "/v1/terminal/readers/{reader}/process_setup_intent".format(
-                    reader=sanitize_id(self.get("id"))
+                    reader=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1449,7 +1449,7 @@ class Reader(
             await self._request_async(
                 "post",
                 "/v1/terminal/readers/{reader}/process_setup_intent".format(
-                    reader=sanitize_id(self.get("id"))
+                    reader=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1504,7 +1504,7 @@ class Reader(
             self._request(
                 "post",
                 "/v1/terminal/readers/{reader}/refund_payment".format(
-                    reader=sanitize_id(self.get("id"))
+                    reader=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1559,7 +1559,7 @@ class Reader(
             await self._request_async(
                 "post",
                 "/v1/terminal/readers/{reader}/refund_payment".format(
-                    reader=sanitize_id(self.get("id"))
+                    reader=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1636,7 +1636,7 @@ class Reader(
             self._request(
                 "post",
                 "/v1/terminal/readers/{reader}/set_reader_display".format(
-                    reader=sanitize_id(self.get("id"))
+                    reader=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1691,7 +1691,7 @@ class Reader(
             await self._request_async(
                 "post",
                 "/v1/terminal/readers/{reader}/set_reader_display".format(
-                    reader=sanitize_id(self.get("id"))
+                    reader=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
             ),
@@ -1751,7 +1751,7 @@ class Reader(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/terminal/readers/{reader}/present_payment_method".format(
-                        reader=sanitize_id(self.resource.get("id"))
+                        reader=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -1808,7 +1808,7 @@ class Reader(
                 await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/terminal/readers/{reader}/present_payment_method".format(
-                        reader=sanitize_id(self.resource.get("id"))
+                        reader=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -1865,7 +1865,7 @@ class Reader(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/terminal/readers/{reader}/succeed_input_collection".format(
-                        reader=sanitize_id(self.resource.get("id"))
+                        reader=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -1922,7 +1922,7 @@ class Reader(
                 await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/terminal/readers/{reader}/succeed_input_collection".format(
-                        reader=sanitize_id(self.resource.get("id"))
+                        reader=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -1979,7 +1979,7 @@ class Reader(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/terminal/readers/{reader}/timeout_input_collection".format(
-                        reader=sanitize_id(self.resource.get("id"))
+                        reader=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
@@ -2036,7 +2036,7 @@ class Reader(
                 await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/terminal/readers/{reader}/timeout_input_collection".format(
-                        reader=sanitize_id(self.resource.get("id"))
+                        reader=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,
                 ),
