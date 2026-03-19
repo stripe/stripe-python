@@ -1,4 +1,4 @@
-from typing_extensions import Literal, Self
+from typing_extensions import Literal, Self, deprecated
 
 from stripe._error import InvalidRequestError
 from stripe._stripe_object import StripeObject
@@ -6,7 +6,6 @@ from stripe._request_options import extract_options_from_dict
 from stripe._api_mode import ApiMode
 from stripe._base_address import BaseAddress
 from stripe._api_requestor import _APIRequestor
-from stripe import _util
 from urllib.parse import quote_plus
 from typing import (
     Any,
@@ -26,7 +25,7 @@ class APIResource(StripeObject, Generic[T]):
     OBJECT_NAME: ClassVar[str]
 
     @classmethod
-    @_util.deprecated(
+    @deprecated(
         "This method is deprecated and will be removed in a future version of stripe-python. Child classes of APIResource should define their own `retrieve` and use APIResource._request directly."
     )
     def retrieve(cls, id, **params) -> T:
@@ -55,7 +54,7 @@ class APIResource(StripeObject, Generic[T]):
         return "/v1/%ss" % (base,)
 
     def instance_url(self) -> str:
-        id = self.get("id")
+        id = self._data.get("id")
 
         if not isinstance(id, str):
             raise InvalidRequestError(

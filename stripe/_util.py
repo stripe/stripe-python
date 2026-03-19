@@ -4,14 +4,12 @@ import logging
 import sys
 import os
 import re
-import warnings
 
 from stripe._api_mode import ApiMode
 from urllib.parse import quote_plus
 
 from typing_extensions import Type, TYPE_CHECKING
 from typing import (
-    Callable,
     TypeVar,
     Union,
     overload,
@@ -22,7 +20,6 @@ from typing import (
     Optional,
     Mapping,
 )
-import typing_extensions
 
 
 # Used for global variables
@@ -36,65 +33,6 @@ if TYPE_CHECKING:
 STRIPE_LOG = os.environ.get("STRIPE_LOG")
 
 logger: logging.Logger = logging.getLogger("stripe")
-
-if TYPE_CHECKING:
-    deprecated = typing_extensions.deprecated
-else:
-    _T = TypeVar("_T")
-
-    # Copied from python/typing_extensions, as this was added in typing_extensions 4.5.0 which is incompatible with
-    # python 3.6. We still need `deprecated = typing_extensions.deprecated` in addition to this fallback, as
-    # IDEs (pylance) specially detect references to symbols defined in `typing_extensions`
-    #
-    # https://github.com/python/typing_extensions/blob/5d20e9eed31de88667542ba5a6f66e6dc439b681/src/typing_extensions.py#L2289-L2370
-    def deprecated(
-        __msg: str,
-        *,
-        category: Optional[Type[Warning]] = DeprecationWarning,
-        stacklevel: int = 1,
-    ) -> Callable[[_T], _T]:
-        def decorator(__arg: _T) -> _T:
-            if category is None:
-                __arg.__deprecated__ = __msg
-                return __arg
-            elif isinstance(__arg, type):
-                original_new = __arg.__new__
-                has_init = __arg.__init__ is not object.__init__
-
-                @functools.wraps(original_new)
-                def __new__(cls, *args, **kwargs):
-                    warnings.warn(
-                        __msg, category=category, stacklevel=stacklevel + 1
-                    )
-                    if original_new is not object.__new__:
-                        return original_new(cls, *args, **kwargs)
-                    # Mirrors a similar check in object.__new__.
-                    elif not has_init and (args or kwargs):
-                        raise TypeError(f"{cls.__name__}() takes no arguments")
-                    else:
-                        return original_new(cls)
-
-                __arg.__new__ = staticmethod(__new__)
-                __arg.__deprecated__ = __new__.__deprecated__ = __msg
-                return __arg
-            elif callable(__arg):
-
-                @functools.wraps(__arg)
-                def wrapper(*args, **kwargs):
-                    warnings.warn(
-                        __msg, category=category, stacklevel=stacklevel + 1
-                    )
-                    return __arg(*args, **kwargs)
-
-                __arg.__deprecated__ = wrapper.__deprecated__ = __msg
-                return wrapper
-            else:
-                raise TypeError(
-                    "@deprecated decorator with non-None category must be applied to "
-                    f"a class or callable, not {__arg!r}"
-                )
-
-        return decorator
 
 
 def is_appengine_dev():
@@ -301,7 +239,7 @@ def _convert_to_stripe_object(
             )
             for i in resp
         ]
-    elif isinstance(resp, dict) and not isinstance(resp, StripeObject):
+    elif isinstance(resp, dict):
         resp = resp.copy()
         klass_name = resp.get("object")
         if isinstance(klass_name, str):
@@ -363,11 +301,12 @@ def convert_to_dict(obj):
 
     :returns: The StripeObject as a dict.
     """
+    from stripe._stripe_object import StripeObject
+
     if isinstance(obj, list):
         return [convert_to_dict(i) for i in obj]
-    # This works by virtue of the fact that StripeObjects _are_ dicts. The dict
-    # comprehension returns a regular dict and recursively applies the
-    # conversion to each value.
+    elif isinstance(obj, StripeObject):
+        return {k: convert_to_dict(v) for k, v in obj._data.items()}
     elif isinstance(obj, dict):
         return {k: convert_to_dict(v) for k, v in obj.items()}
     else:
