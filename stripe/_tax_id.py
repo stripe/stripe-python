@@ -33,6 +33,7 @@ class TaxId(
     """
 
     OBJECT_NAME: ClassVar[Literal["tax_id"]] = "tax_id"
+    _has_deleted_version = True
 
     class Owner(StripeObject):
         account: Optional[ExpandableField["Account"]]

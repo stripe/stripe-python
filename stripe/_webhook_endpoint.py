@@ -44,6 +44,7 @@ class WebhookEndpoint(
     """
 
     OBJECT_NAME: ClassVar[Literal["webhook_endpoint"]] = "webhook_endpoint"
+    _has_deleted_version = True
     api_version: Optional[str]
     """
     The API version events are rendered as for this webhook endpoint.

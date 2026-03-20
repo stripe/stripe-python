@@ -26,6 +26,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     """
 
     OBJECT_NAME: ClassVar[Literal["card"]] = "card"
+    _has_deleted_version = True
 
     class Networks(StripeObject):
         preferred: Optional[str]

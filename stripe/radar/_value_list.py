@@ -39,6 +39,7 @@ class ValueList(
     """
 
     OBJECT_NAME: ClassVar[Literal["radar.value_list"]] = "radar.value_list"
+    _has_deleted_version = True
     alias: str
     """
     The name of the value list for use in rules.

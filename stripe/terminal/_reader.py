@@ -74,6 +74,7 @@ class Reader(
     """
 
     OBJECT_NAME: ClassVar[Literal["terminal.reader"]] = "terminal.reader"
+    _has_deleted_version = True
 
     class Action(StripeObject):
         class CollectInputs(StripeObject):

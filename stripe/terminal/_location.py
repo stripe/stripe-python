@@ -39,6 +39,7 @@ class Location(
     """
 
     OBJECT_NAME: ClassVar[Literal["terminal.location"]] = "terminal.location"
+    _has_deleted_version = True
 
     class Address(StripeObject):
         city: Optional[str]

@@ -41,6 +41,7 @@ class TestClock(
     OBJECT_NAME: ClassVar[Literal["test_helpers.test_clock"]] = (
         "test_helpers.test_clock"
     )
+    _has_deleted_version = True
 
     class StatusDetails(StripeObject):
         class Advancing(StripeObject):

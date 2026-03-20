@@ -67,6 +67,7 @@ class Product(
     """
 
     OBJECT_NAME: ClassVar[Literal["product"]] = "product"
+    _has_deleted_version = True
 
     class MarketingFeature(StripeObject):
         name: Optional[str]

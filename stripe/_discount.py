@@ -20,6 +20,7 @@ class Discount(StripeObject):
     """
 
     OBJECT_NAME: ClassVar[Literal["discount"]] = "discount"
+    _has_deleted_version = True
 
     class Source(StripeObject):
         coupon: Optional[ExpandableField["Coupon"]]

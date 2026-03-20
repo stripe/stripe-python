@@ -22,6 +22,7 @@ class Person(UpdateableAPIResource["Person"]):
     """
 
     OBJECT_NAME: ClassVar[Literal["person"]] = "person"
+    _has_deleted_version = True
 
     class AdditionalTosAcceptances(StripeObject):
         class Account(StripeObject):

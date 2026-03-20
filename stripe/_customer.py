@@ -132,6 +132,7 @@ class Customer(
     """
 
     OBJECT_NAME: ClassVar[Literal["customer"]] = "customer"
+    _has_deleted_version = True
 
     class Address(StripeObject):
         city: Optional[str]

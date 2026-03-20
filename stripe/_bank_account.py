@@ -35,6 +35,7 @@ class BankAccount(
     """
 
     OBJECT_NAME: ClassVar[Literal["bank_account"]] = "bank_account"
+    _has_deleted_version = True
 
     class FutureRequirements(StripeObject):
         class Error(StripeObject):

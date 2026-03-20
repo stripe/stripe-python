@@ -31,6 +31,7 @@ class Coupon(
     """
 
     OBJECT_NAME: ClassVar[Literal["coupon"]] = "coupon"
+    _has_deleted_version = True
 
     class AppliesTo(StripeObject):
         products: List[str]

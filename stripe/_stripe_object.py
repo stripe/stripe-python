@@ -90,6 +90,8 @@ class StripeObject:
 
     _retrieve_params: Mapping[str, Any]
     _previous: Optional[Mapping[str, Any]]
+    # overridden on a per-resource basis in codegen
+    _has_deleted_version = False
 
     def __init__(
         self,
@@ -143,10 +145,8 @@ class StripeObject:
         return self._last_response
 
     def update(self, update_dict: Mapping[str, Any]) -> None:
-        for k in update_dict:
-            self._unsaved_values.add(k)
-
-        self._data.update(update_dict)
+        for k, v in update_dict.items():
+            self[k] = v
 
     if not TYPE_CHECKING:
 
@@ -213,6 +213,11 @@ class StripeObject:
                     "available on this object are: %s"
                     % (k, k, ", ".join(list(self._data.keys())))
                 )
+            elif k == "deleted" and self._has_deleted_version:
+                # certain objects have a `deleted` property that's None or true.
+                # Because of the way missing property access works, you couldn't write `if customer.deleted` because that was either true or an error.
+                # so to support this check specifically, we return the default value rather than erroring
+                return None
             else:
                 from stripe._invoice import Invoice
 

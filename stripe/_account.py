@@ -98,6 +98,7 @@ class Account(
     """
 
     OBJECT_NAME: ClassVar[Literal["account"]] = "account"
+    _has_deleted_version = True
 
     class BusinessProfile(StripeObject):
         class AnnualRevenue(StripeObject):

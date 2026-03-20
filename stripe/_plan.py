@@ -38,6 +38,7 @@ class Plan(
     """
 
     OBJECT_NAME: ClassVar[Literal["plan"]] = "plan"
+    _has_deleted_version = True
 
     class Tier(StripeObject):
         flat_amount: Optional[int]

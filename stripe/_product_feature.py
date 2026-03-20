@@ -15,6 +15,7 @@ class ProductFeature(StripeObject):
     """
 
     OBJECT_NAME: ClassVar[Literal["product_feature"]] = "product_feature"
+    _has_deleted_version = True
     deleted: Optional[Literal[True]]
     """
     Always true for a deleted object

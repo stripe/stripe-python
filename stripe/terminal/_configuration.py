@@ -44,6 +44,7 @@ class Configuration(
     OBJECT_NAME: ClassVar[Literal["terminal.configuration"]] = (
         "terminal.configuration"
     )
+    _has_deleted_version = True
 
     class BbposWisepad3(StripeObject):
         splashscreen: Optional[ExpandableField["File"]]

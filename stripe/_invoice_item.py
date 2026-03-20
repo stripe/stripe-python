@@ -51,6 +51,7 @@ class InvoiceItem(
     """
 
     OBJECT_NAME: ClassVar[Literal["invoiceitem"]] = "invoiceitem"
+    _has_deleted_version = True
 
     class Parent(StripeObject):
         class SubscriptionDetails(StripeObject):

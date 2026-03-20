@@ -30,6 +30,7 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
     """
 
     OBJECT_NAME: ClassVar[Literal["apps.secret"]] = "apps.secret"
+    _has_deleted_version = True
 
     class Scope(StripeObject):
         type: Literal["account", "user"]

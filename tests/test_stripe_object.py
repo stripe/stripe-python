@@ -6,8 +6,10 @@ from copy import copy, deepcopy
 import pytest
 
 import stripe
+from stripe._customer import Customer
 from stripe._invoice import Invoice
 from stripe._stripe_object import StripeObject
+from stripe.billing._alert import Alert
 
 # We use this because it has a map, "restriction.currency_options" from string -> CurrencyOptions nested class.
 SAMPLE_PROMOTION_CODE = json.loads(
@@ -312,6 +314,33 @@ class TestStripeObject(object):
         del obj.metadata["key"]
         with pytest.raises(KeyError):
             obj.metadata["key"]
+
+    def test_non_deleted_deletable_resource(self):
+        """
+        if it's possible for an object to be deleted, you should be able to read th
+        """
+        customer = Customer()
+        assert customer.deleted is None
+        assert hasattr(customer, "deleted")
+        # this is a little confusing. since we're faking that this property exist, checks that access the underlying data disagree with property access
+        assert "deleted" not in customer
+
+    def test_deleted_property_reads(self):
+        """
+        certain objects have a `deleted` property that's None or true. Because of the way missing property access works, you couldn't write `if customer.deleted` because that was either true or an error.
+
+        Instead, we now initialize that property on objects that can be `deleted`, so the check works as expected
+        """
+        customer = Customer.construct_from({"deleted": True}, None)
+        assert customer.deleted
+        assert hasattr(customer, "deleted")
+        assert "deleted" in customer
+
+    def test_no_deleted_property_fails(self):
+        # an alert can never be `deleted`, so this should always error
+        alert = Alert()
+        with pytest.raises(AttributeError):
+            alert.deleted
 
     def test_copy(self):
         nested = StripeObject.construct_from({"value": "bar"}, "mykey")

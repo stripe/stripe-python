@@ -29,6 +29,7 @@ class ApplePayDomain(
     ListableAPIResource["ApplePayDomain"],
 ):
     OBJECT_NAME: ClassVar[Literal["apple_pay_domain"]] = "apple_pay_domain"
+    _has_deleted_version = True
     created: int
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.

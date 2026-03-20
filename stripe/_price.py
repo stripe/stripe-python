@@ -45,6 +45,7 @@ class Price(
     """
 
     OBJECT_NAME: ClassVar[Literal["price"]] = "price"
+    _has_deleted_version = True
 
     class CurrencyOptions(StripeObject):
         class CustomUnitAmount(StripeObject):

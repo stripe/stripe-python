@@ -37,6 +37,7 @@ class ValueListItem(
     OBJECT_NAME: ClassVar[Literal["radar.value_list_item"]] = (
         "radar.value_list_item"
     )
+    _has_deleted_version = True
     created: int
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.

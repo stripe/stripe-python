@@ -45,6 +45,7 @@ class SubscriptionItem(
     """
 
     OBJECT_NAME: ClassVar[Literal["subscription_item"]] = "subscription_item"
+    _has_deleted_version = True
 
     class BillingThresholds(StripeObject):
         usage_gte: Optional[int]

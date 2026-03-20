@@ -7,6 +7,7 @@ from typing_extensions import Literal
 
 class Application(StripeObject):
     OBJECT_NAME: ClassVar[Literal["application"]] = "application"
+    _has_deleted_version = True
     deleted: Optional[Literal[True]]
     """
     Always true for a deleted object

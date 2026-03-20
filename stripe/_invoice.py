@@ -124,6 +124,7 @@ class Invoice(
     """
 
     OBJECT_NAME: ClassVar[Literal["invoice"]] = "invoice"
+    _has_deleted_version = True
 
     class AutomaticTax(StripeObject):
         class Liability(StripeObject):
