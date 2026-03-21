@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from decimal import Decimal
 from typing import Dict, List
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -47,7 +48,7 @@ class InvoiceLineItemUpdateParams(TypedDict):
     """
     Non-negative integer. The quantity of units for the line item. Use `quantity_decimal` instead to provide decimal precision. This field will be deprecated in favor of `quantity_decimal` in a future version.
     """
-    quantity_decimal: NotRequired[str]
+    quantity_decimal: NotRequired[Decimal]
     """
     Non-negative decimal with at most 12 decimal places. The quantity of units for the line item.
     """
@@ -112,7 +113,7 @@ class InvoiceLineItemUpdateParamsPriceData(TypedDict):
     """
     A non-negative integer in cents (or local equivalent) representing how much to charge. One of `unit_amount` or `unit_amount_decimal` is required.
     """
-    unit_amount_decimal: NotRequired[str]
+    unit_amount_decimal: NotRequired[Decimal]
     """
     Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
     """

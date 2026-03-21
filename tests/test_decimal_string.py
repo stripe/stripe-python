@@ -110,7 +110,9 @@ class TestCoerceV2ParamsDecimalString:
         assert result == {"prices": ["1.0", "2.0", "3.0"]}
 
     def test_array_of_objects_with_decimal_string(self):
-        params = {"items": [{"price": Decimal("1.00")}, {"price": Decimal("2.00")}]}
+        params = {
+            "items": [{"price": Decimal("1.00")}, {"price": Decimal("2.00")}]
+        }
         schema = {"items": {"price": "decimal_string"}}
         result = _coerce_v2_params(params, schema)
         assert result == {"items": [{"price": "1.00"}, {"price": "2.00"}]}
@@ -174,7 +176,11 @@ class TestResponseFieldCoercion:
             key="sk_test",
             api_mode="V2",
         )
-        assert obj["prices"] == [Decimal("1.0"), Decimal("2.0"), Decimal("3.0")]
+        assert obj["prices"] == [
+            Decimal("1.0"),
+            Decimal("2.0"),
+            Decimal("3.0"),
+        ]
         assert all(isinstance(v, Decimal) for v in obj["prices"])
 
     def test_unrelated_fields_unchanged_response(self):

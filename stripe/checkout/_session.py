@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from decimal import Decimal
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
@@ -286,7 +287,7 @@ class Session(
         """
         Total of all items in source currency after discounts and taxes are applied.
         """
-        fx_rate: str
+        fx_rate: Decimal
         """
         Exchange rate used to convert source currency amounts to customer currency amounts
         """
@@ -294,6 +295,7 @@ class Session(
         """
         Creation currency of the CheckoutSession before localization
         """
+        _field_encodings = {"fx_rate": "decimal_string"}
 
     class CustomField(StripeObject):
         class Dropdown(StripeObject):

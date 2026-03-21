@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from decimal import Decimal
 from stripe._stripe_object import StripeObject
 from typing import ClassVar, Dict, List, Optional
 from typing_extensions import Literal
@@ -337,7 +338,7 @@ class AccountPerson(StripeObject):
         """
         Whether the individual is an owner of the Account's identity.
         """
-        percent_ownership: Optional[str]
+        percent_ownership: Optional[Decimal]
         """
         The percentage of the Account's identity that the individual owns.
         """
@@ -349,6 +350,7 @@ class AccountPerson(StripeObject):
         """
         The individual's title (e.g., CEO, Support Engineer).
         """
+        _field_encodings = {"percent_ownership": "decimal_string"}
 
     class ScriptAddresses(StripeObject):
         class Kana(StripeObject):
