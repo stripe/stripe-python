@@ -452,15 +452,7 @@ class SessionCreateParams(RequestOptions):
     Controls tax ID collection during checkout.
     """
     ui_mode: NotRequired[
-        Literal[
-            "custom",
-            "elements",
-            "embedded",
-            "embedded_page",
-            "form",
-            "hosted",
-            "hosted_page",
-        ]
+        Literal["elements", "embedded_page", "form", "hosted_page"]
     ]
     """
     The UI mode of the Session. Defaults to `hosted`.
@@ -1023,7 +1015,7 @@ class SessionCreateParamsLineItemPriceDataProductDataTaxDetails(TypedDict):
     """
     A tax location ID. Depending on the [tax code](https://docs.stripe.com/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
     """
-    tax_code: str
+    tax_code: NotRequired["Literal['']|str"]
     """
     A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
     """

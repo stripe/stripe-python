@@ -725,6 +725,12 @@ class Subscription(
         Whether to cancel or preserve `prebilling` if the subscription is updated during the prebilled period.
         """
 
+    class PresentmentDetails(StripeObject):
+        presentment_currency: str
+        """
+        Currency used for customer payments.
+        """
+
     class TransferData(StripeObject):
         amount_percent: Optional[float]
         """
@@ -916,6 +922,7 @@ class Subscription(
     """
     Time period and invoice for a Subscription billed in advance.
     """
+    presentment_details: Optional[PresentmentDetails]
     schedule: Optional[ExpandableField["SubscriptionSchedule"]]
     """
     The schedule attached to the subscription
@@ -1695,6 +1702,7 @@ class Subscription(
         "pending_invoice_item_interval": PendingInvoiceItemInterval,
         "pending_update": PendingUpdate,
         "prebilling": Prebilling,
+        "presentment_details": PresentmentDetails,
         "transfer_data": TransferData,
         "trial_settings": TrialSettings,
     }

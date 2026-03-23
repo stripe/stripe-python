@@ -1077,6 +1077,12 @@ class SetupIntentConfirmParamsPaymentMethodOptions(TypedDict):
     """
     If this is a `sepa_debit` SetupIntent, this sub-hash contains details about the SEPA Debit payment method options.
     """
+    stripe_balance: NotRequired[
+        "SetupIntentConfirmParamsPaymentMethodOptionsStripeBalance"
+    ]
+    """
+    If this is a `stripe_balance` PaymentMethod, this sub-hash contains details about the Stripe Balance payment method options.
+    """
     upi: NotRequired["SetupIntentConfirmParamsPaymentMethodOptionsUpi"]
     """
     If this is a `upi` SetupIntent, this sub-hash contains details about the UPI payment method options.
@@ -1591,6 +1597,10 @@ class SetupIntentConfirmParamsPaymentMethodOptionsSepaDebitMandateOptions(
     """
     Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'STRIPE'.
     """
+
+
+class SetupIntentConfirmParamsPaymentMethodOptionsStripeBalance(TypedDict):
+    pass
 
 
 class SetupIntentConfirmParamsPaymentMethodOptionsUpi(TypedDict):

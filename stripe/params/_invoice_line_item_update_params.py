@@ -192,7 +192,7 @@ class InvoiceLineItemUpdateParamsPriceDataProductDataTaxDetails(TypedDict):
     """
     A tax location ID. Depending on the [tax code](https://docs.stripe.com/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
     """
-    tax_code: str
+    tax_code: NotRequired["Literal['']|str"]
     """
     A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
     """
