@@ -2488,18 +2488,10 @@ class Session(
     Tax and discount details for the computed total amount.
     """
     ui_mode: Optional[
-        Literal[
-            "custom",
-            "elements",
-            "embedded",
-            "embedded_page",
-            "form",
-            "hosted",
-            "hosted_page",
-        ]
+        Literal["elements", "embedded_page", "form", "hosted_page"]
     ]
     """
-    The UI mode of the Session. Defaults to `hosted`.
+    The UI mode of the Session. Defaults to `hosted_page`.
     """
     url: Optional[str]
     """
