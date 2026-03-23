@@ -175,7 +175,7 @@ class EventNotification:
         parsed_body = json.loads(payload)
         if parsed_body.get("object") == "event":
             raise ValueError(
-                "You passed a webhook payload to StripeClient.parse_event_notification, which expects an event notification. Use StripeClient.construct_event instead."
+                "You passed a webhook payload to StripeClient.parse_event_notification, which expects a thin event notification. Use StripeClient.construct_event instead."
             )
 
         # circular import busting

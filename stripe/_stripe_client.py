@@ -258,7 +258,7 @@ class StripeClient(object):
         )
         if event.object == "v2.core.event":  # type: ignore
             raise ValueError(
-                "You passed an event notification to StripeClient.construct_event, which expects a webhook payload. Use StripeClient.parse_event_notification instead."
+                "You passed a thin event notification to StripeClient.construct_event, which expects a webhook payload. Use StripeClient.parse_event_notification instead."
             )
 
         return event
