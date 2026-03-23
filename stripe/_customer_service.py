@@ -1,13 +1,19 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+import json
+from stripe._api_version import _ApiVersion
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
+from uuid import uuid4
 from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe._customer import Customer
+    from stripe._customer import (
+        Customer,
+        CustomerUpdateParams as CustomerUpdateParamsResource,
+    )
     from stripe._customer_balance_transaction_service import (
         CustomerBalanceTransactionService,
     )
@@ -39,7 +45,9 @@ if TYPE_CHECKING:
     from stripe.params._customer_list_params import CustomerListParams
     from stripe.params._customer_retrieve_params import CustomerRetrieveParams
     from stripe.params._customer_search_params import CustomerSearchParams
-    from stripe.params._customer_update_params import CustomerUpdateParams
+    from stripe.params._customer_update_params import (
+        CustomerUpdateParams as ParamsCustomerUpdateParamsResource,
+    )
 
 _subservices = {
     "balance_transactions": [
@@ -397,3 +405,27 @@ class CustomerService(StripeService):
                 options=options,
             ),
         )
+
+    def serialize_batch_update(
+        self,
+        customer: str,
+        params: Optional["CustomerUpdateParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> str:
+        """
+        Serializes a Customer update request into a batch job JSONL line.
+        """
+        item_id = str(uuid4())
+        stripe_version = (
+            options.get("stripe_version") if options else None
+        ) or _ApiVersion.CURRENT
+        context = options.get("stripe_context") if options else None
+        item = {
+            "id": item_id,
+            "path_params": {"customer": customer},
+            "params": params,
+            "stripe_version": stripe_version,
+        }
+        if context is not None:
+            item["context"] = context
+        return json.dumps(item)

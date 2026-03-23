@@ -35,7 +35,20 @@ class BatchJobCreateParamsEndpoint(TypedDict):
     """
     The HTTP method to use when calling the endpoint.
     """
-    path: str
+    path: Literal[
+        "/v1/accounts/:account",
+        "/v1/credit_notes",
+        "/v1/customers/:customer",
+        "/v1/invoices/:invoice",
+        "/v1/invoices/:invoice/pay",
+        "/v1/promotion_codes",
+        "/v1/promotion_codes/:promotion_code",
+        "/v1/subscriptions/:subscription_exposed_id",
+        "/v1/subscriptions/:subscription/migrate",
+        "/v1/subscription_schedules",
+        "/v1/subscription_schedules/:schedule",
+        "/v1/subscription_schedules/:schedule/cancel",
+    ]
     """
     The path of the endpoint to run this batch job against.
     In the form used in the documentation. For instance, for

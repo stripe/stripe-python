@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+import json
+from stripe._api_version import _ApiVersion
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
+from uuid import uuid4
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -10,7 +13,11 @@ if TYPE_CHECKING:
     from stripe._list_object import ListObject
     from stripe._request_options import RequestOptions
     from stripe._search_result_object import SearchResultObject
-    from stripe._subscription import Subscription
+    from stripe._subscription import (
+        Subscription,
+        SubscriptionMigrateParams as SubscriptionMigrateParamsResource,
+        SubscriptionUpdateParams as SubscriptionUpdateParamsResource,
+    )
     from stripe.params._subscription_cancel_params import (
         SubscriptionCancelParams,
     )
@@ -22,7 +29,7 @@ if TYPE_CHECKING:
     )
     from stripe.params._subscription_list_params import SubscriptionListParams
     from stripe.params._subscription_migrate_params import (
-        SubscriptionMigrateParams,
+        SubscriptionMigrateParams as ParamsSubscriptionMigrateParamsResource,
     )
     from stripe.params._subscription_resume_params import (
         SubscriptionResumeParams,
@@ -34,7 +41,7 @@ if TYPE_CHECKING:
         SubscriptionSearchParams,
     )
     from stripe.params._subscription_update_params import (
-        SubscriptionUpdateParams,
+        SubscriptionUpdateParams as ParamsSubscriptionUpdateParamsResource,
     )
 
 
@@ -498,3 +505,53 @@ class SubscriptionService(StripeService):
                 options=options,
             ),
         )
+
+    def serialize_batch_update(
+        self,
+        subscription_exposed_id: str,
+        params: Optional["SubscriptionUpdateParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> str:
+        """
+        Serializes a Subscription update request into a batch job JSONL line.
+        """
+        item_id = str(uuid4())
+        stripe_version = (
+            options.get("stripe_version") if options else None
+        ) or _ApiVersion.CURRENT
+        context = options.get("stripe_context") if options else None
+        item = {
+            "id": item_id,
+            "path_params": {
+                "subscription_exposed_id": subscription_exposed_id
+            },
+            "params": params,
+            "stripe_version": stripe_version,
+        }
+        if context is not None:
+            item["context"] = context
+        return json.dumps(item)
+
+    def serialize_batch_migrate(
+        self,
+        subscription: str,
+        params: Optional["SubscriptionMigrateParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> str:
+        """
+        Serializes a Subscription migrate request into a batch job JSONL line.
+        """
+        item_id = str(uuid4())
+        stripe_version = (
+            options.get("stripe_version") if options else None
+        ) or _ApiVersion.CURRENT
+        context = options.get("stripe_context") if options else None
+        item = {
+            "id": item_id,
+            "path_params": {"subscription": subscription},
+            "params": params,
+            "stripe_version": stripe_version,
+        }
+        if context is not None:
+            item["context"] = context
+        return json.dumps(item)

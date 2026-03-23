@@ -1,13 +1,20 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+import json
+from stripe._api_version import _ApiVersion
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
+from uuid import uuid4
 from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe._invoice import Invoice
+    from stripe._invoice import (
+        Invoice,
+        InvoicePayParams as InvoicePayParamsResource,
+        InvoiceUpdateParams as InvoiceUpdateParamsResource,
+    )
     from stripe._invoice_line_item_service import InvoiceLineItemService
     from stripe._list_object import ListObject
     from stripe._request_options import RequestOptions
@@ -31,7 +38,9 @@ if TYPE_CHECKING:
     from stripe.params._invoice_mark_uncollectible_params import (
         InvoiceMarkUncollectibleParams,
     )
-    from stripe.params._invoice_pay_params import InvoicePayParams
+    from stripe.params._invoice_pay_params import (
+        InvoicePayParams as ParamsInvoicePayParamsResource,
+    )
     from stripe.params._invoice_remove_lines_params import (
         InvoiceRemoveLinesParams,
     )
@@ -43,7 +52,9 @@ if TYPE_CHECKING:
     from stripe.params._invoice_update_lines_params import (
         InvoiceUpdateLinesParams,
     )
-    from stripe.params._invoice_update_params import InvoiceUpdateParams
+    from stripe.params._invoice_update_params import (
+        InvoiceUpdateParams as ParamsInvoiceUpdateParamsResource,
+    )
     from stripe.params._invoice_void_invoice_params import (
         InvoiceVoidInvoiceParams,
     )
@@ -847,3 +858,51 @@ class InvoiceService(StripeService):
                 options=options,
             ),
         )
+
+    def serialize_batch_update(
+        self,
+        invoice: str,
+        params: Optional["InvoiceUpdateParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> str:
+        """
+        Serializes a Invoice update request into a batch job JSONL line.
+        """
+        item_id = str(uuid4())
+        stripe_version = (
+            options.get("stripe_version") if options else None
+        ) or _ApiVersion.CURRENT
+        context = options.get("stripe_context") if options else None
+        item = {
+            "id": item_id,
+            "path_params": {"invoice": invoice},
+            "params": params,
+            "stripe_version": stripe_version,
+        }
+        if context is not None:
+            item["context"] = context
+        return json.dumps(item)
+
+    def serialize_batch_pay(
+        self,
+        invoice: str,
+        params: Optional["InvoicePayParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> str:
+        """
+        Serializes a Invoice pay request into a batch job JSONL line.
+        """
+        item_id = str(uuid4())
+        stripe_version = (
+            options.get("stripe_version") if options else None
+        ) or _ApiVersion.CURRENT
+        context = options.get("stripe_context") if options else None
+        item = {
+            "id": item_id,
+            "path_params": {"invoice": invoice},
+            "params": params,
+            "stripe_version": stripe_version,
+        }
+        if context is not None:
+            item["context"] = context
+        return json.dumps(item)

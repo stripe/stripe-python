@@ -1,22 +1,30 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+import json
+from stripe._api_version import _ApiVersion
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
+from uuid import uuid4
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
     from stripe._request_options import RequestOptions
-    from stripe._subscription_schedule import SubscriptionSchedule
+    from stripe._subscription_schedule import (
+        SubscriptionSchedule,
+        SubscriptionScheduleCancelParams as SubscriptionScheduleCancelParamsResource,
+        SubscriptionScheduleCreateParams as SubscriptionScheduleCreateParamsResource,
+        SubscriptionScheduleUpdateParams as SubscriptionScheduleUpdateParamsResource,
+    )
     from stripe.params._subscription_schedule_amend_params import (
         SubscriptionScheduleAmendParams,
     )
     from stripe.params._subscription_schedule_cancel_params import (
-        SubscriptionScheduleCancelParams,
+        SubscriptionScheduleCancelParams as ParamsSubscriptionScheduleCancelParamsResource,
     )
     from stripe.params._subscription_schedule_create_params import (
-        SubscriptionScheduleCreateParams,
+        SubscriptionScheduleCreateParams as ParamsSubscriptionScheduleCreateParamsResource,
     )
     from stripe.params._subscription_schedule_list_params import (
         SubscriptionScheduleListParams,
@@ -28,7 +36,7 @@ if TYPE_CHECKING:
         SubscriptionScheduleRetrieveParams,
     )
     from stripe.params._subscription_schedule_update_params import (
-        SubscriptionScheduleUpdateParams,
+        SubscriptionScheduleUpdateParams as ParamsSubscriptionScheduleUpdateParamsResource,
     )
 
 
@@ -328,3 +336,73 @@ class SubscriptionScheduleService(StripeService):
                 options=options,
             ),
         )
+
+    def serialize_batch_create(
+        self,
+        params: Optional["SubscriptionScheduleCreateParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> str:
+        """
+        Serializes a SubscriptionSchedule create request into a batch job JSONL line.
+        """
+        item_id = str(uuid4())
+        stripe_version = (
+            options.get("stripe_version") if options else None
+        ) or _ApiVersion.CURRENT
+        context = options.get("stripe_context") if options else None
+        item = {
+            "id": item_id,
+            "params": params,
+            "stripe_version": stripe_version,
+        }
+        if context is not None:
+            item["context"] = context
+        return json.dumps(item)
+
+    def serialize_batch_update(
+        self,
+        schedule: str,
+        params: Optional["SubscriptionScheduleUpdateParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> str:
+        """
+        Serializes a SubscriptionSchedule update request into a batch job JSONL line.
+        """
+        item_id = str(uuid4())
+        stripe_version = (
+            options.get("stripe_version") if options else None
+        ) or _ApiVersion.CURRENT
+        context = options.get("stripe_context") if options else None
+        item = {
+            "id": item_id,
+            "path_params": {"schedule": schedule},
+            "params": params,
+            "stripe_version": stripe_version,
+        }
+        if context is not None:
+            item["context"] = context
+        return json.dumps(item)
+
+    def serialize_batch_cancel(
+        self,
+        schedule: str,
+        params: Optional["SubscriptionScheduleCancelParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> str:
+        """
+        Serializes a SubscriptionSchedule cancel request into a batch job JSONL line.
+        """
+        item_id = str(uuid4())
+        stripe_version = (
+            options.get("stripe_version") if options else None
+        ) or _ApiVersion.CURRENT
+        context = options.get("stripe_context") if options else None
+        item = {
+            "id": item_id,
+            "path_params": {"schedule": schedule},
+            "params": params,
+            "stripe_version": stripe_version,
+        }
+        if context is not None:
+            item["context"] = context
+        return json.dumps(item)
