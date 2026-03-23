@@ -528,6 +528,12 @@ class Subscription(
         Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `trial_end` is not allowed. See [Using trial periods on subscriptions](https://docs.stripe.com/billing/subscriptions/trials) to learn more.
         """
 
+    class PresentmentDetails(StripeObject):
+        presentment_currency: str
+        """
+        Currency used for customer payments.
+        """
+
     class TransferData(StripeObject):
         amount_percent: Optional[float]
         """
@@ -699,6 +705,7 @@ class Subscription(
     """
     If specified, [pending updates](https://docs.stripe.com/billing/subscriptions/pending-updates) that will be applied to the subscription once the `latest_invoice` has been paid.
     """
+    presentment_details: Optional[PresentmentDetails]
     schedule: Optional[ExpandableField["SubscriptionSchedule"]]
     """
     The schedule attached to the subscription
@@ -1474,6 +1481,7 @@ class Subscription(
         "payment_settings": PaymentSettings,
         "pending_invoice_item_interval": PendingInvoiceItemInterval,
         "pending_update": PendingUpdate,
+        "presentment_details": PresentmentDetails,
         "transfer_data": TransferData,
         "trial_settings": TrialSettings,
     }
