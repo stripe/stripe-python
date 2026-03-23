@@ -63,6 +63,10 @@ class ProductCreateParams(RequestOptions):
     """
     A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
     """
+    tax_details: NotRequired["ProductCreateParamsTaxDetails"]
+    """
+    Tax details for this product, including the [tax code](https://docs.stripe.com/tax/tax-codes) and an optional performance location.
+    """
     type: NotRequired[Literal["good", "service"]]
     """
     The type of the product. Defaults to `service` if not explicitly specified, enabling use of this product with Subscriptions and Plans. Set this parameter to `good` to use this product with Orders and SKUs. On API versions before `2018-02-05`, this field defaults to `good` for compatibility reasons.
@@ -240,4 +244,15 @@ class ProductCreateParamsPackageDimensions(TypedDict):
     width: float
     """
     Width, in inches. Maximum precision is 2 decimal places.
+    """
+
+
+class ProductCreateParamsTaxDetails(TypedDict):
+    performance_location: NotRequired[str]
+    """
+    A tax location ID. Depending on the [tax code](https://docs.stripe.com/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+    """
+    tax_code: NotRequired["Literal['']|str"]
+    """
+    A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
     """

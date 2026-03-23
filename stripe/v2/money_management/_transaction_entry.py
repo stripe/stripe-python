@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
+from stripe.v2._amount import Amount
 from typing import ClassVar, Optional
 from typing_extensions import Literal
 
@@ -15,53 +16,18 @@ class TransactionEntry(StripeObject):
     )
 
     class BalanceImpact(StripeObject):
-        class Available(StripeObject):
-            currency: str
-            """
-            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            """
-            value: int
-            """
-            A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            """
-
-        class InboundPending(StripeObject):
-            currency: str
-            """
-            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            """
-            value: int
-            """
-            A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            """
-
-        class OutboundPending(StripeObject):
-            currency: str
-            """
-            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            """
-            value: int
-            """
-            A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            """
-
-        available: Available
+        available: Amount
         """
         Impact to the available balance.
         """
-        inbound_pending: InboundPending
+        inbound_pending: Amount
         """
         Impact to the inbound_pending balance.
         """
-        outbound_pending: OutboundPending
+        outbound_pending: Amount
         """
         Impact to the outbound_pending balance.
         """
-        _inner_class_types = {
-            "available": Available,
-            "inbound_pending": InboundPending,
-            "outbound_pending": OutboundPending,
-        }
 
     class TransactionDetails(StripeObject):
         class Flow(StripeObject):

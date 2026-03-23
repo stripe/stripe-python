@@ -61,6 +61,10 @@ class ProductModifyParams(RequestOptions):
     """
     A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
     """
+    tax_details: NotRequired["Literal['']|ProductModifyParamsTaxDetails"]
+    """
+    Tax details for this product, including the [tax code](https://docs.stripe.com/tax/tax-codes) and an optional performance location.
+    """
     unit_label: NotRequired["Literal['']|str"]
     """
     A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal. May only be set if `type=service`.
@@ -94,4 +98,15 @@ class ProductModifyParamsPackageDimensions(TypedDict):
     width: float
     """
     Width, in inches. Maximum precision is 2 decimal places.
+    """
+
+
+class ProductModifyParamsTaxDetails(TypedDict):
+    performance_location: NotRequired[str]
+    """
+    A tax location ID. Depending on the [tax code](https://docs.stripe.com/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+    """
+    tax_code: NotRequired["Literal['']|str"]
+    """
+    A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
     """

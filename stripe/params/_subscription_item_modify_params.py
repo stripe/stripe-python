@@ -12,6 +12,10 @@ class SubscriptionItemModifyParams(RequestOptions):
     """
     Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. Pass an empty string to remove previously-defined thresholds.
     """
+    current_trial: NotRequired["SubscriptionItemModifyParamsCurrentTrial"]
+    """
+    The trial offer to apply to this subscription item.
+    """
     discounts: NotRequired[
         "Literal['']|List[SubscriptionItemModifyParamsDiscount]"
     ]
@@ -67,7 +71,7 @@ class SubscriptionItemModifyParams(RequestOptions):
     """
     proration_date: NotRequired[int]
     """
-    If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply the same proration that was previewed with the [upcoming invoice](https://api.stripe.com#retrieve_customer_invoice) endpoint.
+    If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply the same proration that was previewed with the [upcoming invoice](https://docs.stripe.com/api/invoices/create_preview) endpoint.
     """
     quantity: NotRequired[int]
     """
@@ -83,6 +87,17 @@ class SubscriptionItemModifyParamsBillingThresholds(TypedDict):
     usage_gte: int
     """
     Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://docs.stripe.com/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
+    """
+
+
+class SubscriptionItemModifyParamsCurrentTrial(TypedDict):
+    trial_end: NotRequired[int]
+    """
+    Unix timestamp representing the end of the trial offer period. Required when the trial offer has `duration.type=timestamp`. Cannot be specified when `duration.type=relative`.
+    """
+    trial_offer: str
+    """
+    The ID of the trial offer to apply to the subscription item.
     """
 
 

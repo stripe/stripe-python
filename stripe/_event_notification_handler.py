@@ -73,6 +73,36 @@ if TYPE_CHECKING:
     from stripe.events._v2_core_account_updated_event import (
         V2CoreAccountUpdatedEventNotification,
     )
+    from stripe.events._v2_core_batch_job_batch_failed_event import (
+        V2CoreBatchJobBatchFailedEventNotification,
+    )
+    from stripe.events._v2_core_batch_job_canceled_event import (
+        V2CoreBatchJobCanceledEventNotification,
+    )
+    from stripe.events._v2_core_batch_job_completed_event import (
+        V2CoreBatchJobCompletedEventNotification,
+    )
+    from stripe.events._v2_core_batch_job_created_event import (
+        V2CoreBatchJobCreatedEventNotification,
+    )
+    from stripe.events._v2_core_batch_job_ready_for_upload_event import (
+        V2CoreBatchJobReadyForUploadEventNotification,
+    )
+    from stripe.events._v2_core_batch_job_timeout_event import (
+        V2CoreBatchJobTimeoutEventNotification,
+    )
+    from stripe.events._v2_core_batch_job_updated_event import (
+        V2CoreBatchJobUpdatedEventNotification,
+    )
+    from stripe.events._v2_core_batch_job_upload_timeout_event import (
+        V2CoreBatchJobUploadTimeoutEventNotification,
+    )
+    from stripe.events._v2_core_batch_job_validating_event import (
+        V2CoreBatchJobValidatingEventNotification,
+    )
+    from stripe.events._v2_core_batch_job_validation_failed_event import (
+        V2CoreBatchJobValidationFailedEventNotification,
+    )
     from stripe.events._v2_core_event_destination_ping_event import (
         V2CoreEventDestinationPingEventNotification,
     )
@@ -552,6 +582,136 @@ class StripeEventNotificationHandler:
         """
         self._register(
             "v2.core.account.updated",
+            func,
+        )
+        return func
+
+    def on_v2_core_batch_job_batch_failed(
+        self,
+        func: "Callable[[V2CoreBatchJobBatchFailedEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2CoreBatchJobBatchFailedEvent` (`v2.core.batch_job.batch_failed`) event notification.
+        """
+        self._register(
+            "v2.core.batch_job.batch_failed",
+            func,
+        )
+        return func
+
+    def on_v2_core_batch_job_canceled(
+        self,
+        func: "Callable[[V2CoreBatchJobCanceledEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2CoreBatchJobCanceledEvent` (`v2.core.batch_job.canceled`) event notification.
+        """
+        self._register(
+            "v2.core.batch_job.canceled",
+            func,
+        )
+        return func
+
+    def on_v2_core_batch_job_completed(
+        self,
+        func: "Callable[[V2CoreBatchJobCompletedEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2CoreBatchJobCompletedEvent` (`v2.core.batch_job.completed`) event notification.
+        """
+        self._register(
+            "v2.core.batch_job.completed",
+            func,
+        )
+        return func
+
+    def on_v2_core_batch_job_created(
+        self,
+        func: "Callable[[V2CoreBatchJobCreatedEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2CoreBatchJobCreatedEvent` (`v2.core.batch_job.created`) event notification.
+        """
+        self._register(
+            "v2.core.batch_job.created",
+            func,
+        )
+        return func
+
+    def on_v2_core_batch_job_ready_for_upload(
+        self,
+        func: "Callable[[V2CoreBatchJobReadyForUploadEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2CoreBatchJobReadyForUploadEvent` (`v2.core.batch_job.ready_for_upload`) event notification.
+        """
+        self._register(
+            "v2.core.batch_job.ready_for_upload",
+            func,
+        )
+        return func
+
+    def on_v2_core_batch_job_timeout(
+        self,
+        func: "Callable[[V2CoreBatchJobTimeoutEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2CoreBatchJobTimeoutEvent` (`v2.core.batch_job.timeout`) event notification.
+        """
+        self._register(
+            "v2.core.batch_job.timeout",
+            func,
+        )
+        return func
+
+    def on_v2_core_batch_job_updated(
+        self,
+        func: "Callable[[V2CoreBatchJobUpdatedEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2CoreBatchJobUpdatedEvent` (`v2.core.batch_job.updated`) event notification.
+        """
+        self._register(
+            "v2.core.batch_job.updated",
+            func,
+        )
+        return func
+
+    def on_v2_core_batch_job_upload_timeout(
+        self,
+        func: "Callable[[V2CoreBatchJobUploadTimeoutEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2CoreBatchJobUploadTimeoutEvent` (`v2.core.batch_job.upload_timeout`) event notification.
+        """
+        self._register(
+            "v2.core.batch_job.upload_timeout",
+            func,
+        )
+        return func
+
+    def on_v2_core_batch_job_validating(
+        self,
+        func: "Callable[[V2CoreBatchJobValidatingEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2CoreBatchJobValidatingEvent` (`v2.core.batch_job.validating`) event notification.
+        """
+        self._register(
+            "v2.core.batch_job.validating",
+            func,
+        )
+        return func
+
+    def on_v2_core_batch_job_validation_failed(
+        self,
+        func: "Callable[[V2CoreBatchJobValidationFailedEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2CoreBatchJobValidationFailedEvent` (`v2.core.batch_job.validation_failed`) event notification.
+        """
+        self._register(
+            "v2.core.batch_job.validation_failed",
             func,
         )
         return func

@@ -69,6 +69,16 @@ class Session(CreateableAPIResource["Session"]):
         Stripe ID of the institution with which the customer should be directed to log in.
         """
 
+    class Hosted(StripeObject):
+        delivery_method: Optional[Literal["email", "url"]]
+        """
+        How the user enters the hosted flow. You can only use the values `email` and `url` if you provide `relink_options`.
+        """
+        return_url: Optional[str]
+        """
+        The URL to redirect your customer back to after they link their accounts or cancel this Session. This parameter is required if `ui_mode` is `hosted`.
+        """
+
     class Limits(StripeObject):
         accounts: int
         """
@@ -127,6 +137,10 @@ class Session(CreateableAPIResource["Session"]):
     A value that will be passed to the client to launch the authentication flow.
     """
     filters: Optional[Filters]
+    hosted: Optional[Hosted]
+    """
+    Settings for the Hosted UI mode.
+    """
     id: str
     """
     Unique identifier for the object.
@@ -134,7 +148,7 @@ class Session(CreateableAPIResource["Session"]):
     limits: Optional[Limits]
     livemode: bool
     """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
     manual_entry: Optional[ManualEntry]
     object: Literal["financial_connections.session"]
@@ -168,6 +182,14 @@ class Session(CreateableAPIResource["Session"]):
     The current state of the session.
     """
     status_details: Optional[StatusDetails]
+    ui_mode: Optional[Literal["hosted", "modal"]]
+    """
+    The UI mode for this session.
+    """
+    url: Optional[str]
+    """
+    The hosted URL for this Session. Redirect customers to this URL to take them to the hosted authentication flow. This value is only present when the Session is active and the `ui_mode` is `hosted`.
+    """
 
     @classmethod
     def create(cls, **params: Unpack["SessionCreateParams"]) -> "Session":
@@ -224,6 +246,7 @@ class Session(CreateableAPIResource["Session"]):
     _inner_class_types = {
         "account_holder": AccountHolder,
         "filters": Filters,
+        "hosted": Hosted,
         "limits": Limits,
         "manual_entry": ManualEntry,
         "relink_options": RelinkOptions,

@@ -139,7 +139,7 @@ class SubscriptionModifyParams(RequestOptions):
         "Literal['']|SubscriptionModifyParamsPendingInvoiceItemInterval"
     ]
     """
-    Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://docs.stripe.com/api#create_invoice) for the given subscription at the specified interval.
+    Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://docs.stripe.com/api/invoices/create) for the given subscription at the specified interval.
     """
     prebilling: NotRequired["SubscriptionModifyParamsPrebilling"]
     """
@@ -497,6 +497,10 @@ class SubscriptionModifyParamsItem(TypedDict):
     """
     Delete all usage for a given subscription item. You must pass this when deleting a usage records subscription item. `clear_usage` has no effect if the plan has a billing meter attached.
     """
+    current_trial: NotRequired["SubscriptionModifyParamsItemCurrentTrial"]
+    """
+    The trial offer to apply to this subscription item.
+    """
     deleted: NotRequired[bool]
     """
     A flag that, if set to `true`, will delete the specified item.
@@ -541,6 +545,17 @@ class SubscriptionModifyParamsItemBillingThresholds(TypedDict):
     usage_gte: int
     """
     Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://docs.stripe.com/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
+    """
+
+
+class SubscriptionModifyParamsItemCurrentTrial(TypedDict):
+    trial_end: NotRequired[int]
+    """
+    Unix timestamp representing the end of the trial offer period. Required when the trial offer has `duration.type=timestamp`. Cannot be specified when `duration.type=relative`.
+    """
+    trial_offer: str
+    """
+    The ID of the trial offer to apply to the subscription item.
     """
 
 
@@ -634,7 +649,7 @@ class SubscriptionModifyParamsItemPriceDataRecurring(TypedDict):
 class SubscriptionModifyParamsPauseCollection(TypedDict):
     behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
     """
-    The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+    The payment collection behavior for this subscription while paused.
     """
     resumes_at: NotRequired[int]
     """
@@ -807,7 +822,7 @@ class SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCardMandateOpti
 ):
     amount: NotRequired[int]
     """
-    Amount to be charged for future payments.
+    Amount to be charged for future payments, specified in the presentment currency.
     """
     amount_type: NotRequired[Literal["fixed", "maximum"]]
     """
@@ -911,6 +926,10 @@ class SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOpt
 class SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsPix(
     TypedDict
 ):
+    expires_after_seconds: NotRequired[int]
+    """
+    The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
+    """
     mandate_options: NotRequired[
         "SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsPixMandateOptions"
     ]
@@ -938,7 +957,7 @@ class SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsPixMandateOptio
         Literal["halfyearly", "monthly", "quarterly", "weekly", "yearly"]
     ]
     """
-    Schedule at which the future payments will be charged. Defaults to `weekly`.
+    Schedule at which the future payments will be charged. Defaults to `monthly`.
     """
 
 
@@ -1080,6 +1099,10 @@ class SubscriptionModifyParamsTrialSettings(TypedDict):
 
 
 class SubscriptionModifyParamsTrialSettingsEndBehavior(TypedDict):
+    billing_cycle_anchor: NotRequired[Literal["now", "unchanged"]]
+    """
+    Indicates how the subscription's billing cycle anchor is reset when a trial ends. Defaults to `now`.
+    """
     missing_payment_method: Literal["cancel", "create_invoice", "pause"]
     """
     Indicates how the subscription should change when the trial ends if the user did not provide a payment method.

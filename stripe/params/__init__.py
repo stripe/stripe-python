@@ -17,6 +17,7 @@ if TYPE_CHECKING:
         identity as identity,
         issuing as issuing,
         privacy as privacy,
+        product_catalog as product_catalog,
         radar as radar,
         reporting as reporting,
         reserve as reserve,
@@ -123,6 +124,7 @@ if TYPE_CHECKING:
         AccountCreateParamsCapabilitiesTreasuryFifthThird as AccountCreateParamsCapabilitiesTreasuryFifthThird,
         AccountCreateParamsCapabilitiesTreasuryGoldmanSachs as AccountCreateParamsCapabilitiesTreasuryGoldmanSachs,
         AccountCreateParamsCapabilitiesTwintPayments as AccountCreateParamsCapabilitiesTwintPayments,
+        AccountCreateParamsCapabilitiesUpiPayments as AccountCreateParamsCapabilitiesUpiPayments,
         AccountCreateParamsCapabilitiesUsBankAccountAchPayments as AccountCreateParamsCapabilitiesUsBankAccountAchPayments,
         AccountCreateParamsCapabilitiesUsBankTransferPayments as AccountCreateParamsCapabilitiesUsBankTransferPayments,
         AccountCreateParamsCapabilitiesZipPayments as AccountCreateParamsCapabilitiesZipPayments,
@@ -528,6 +530,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsCapabilitiesTreasuryFifthThird as AccountUpdateParamsCapabilitiesTreasuryFifthThird,
         AccountUpdateParamsCapabilitiesTreasuryGoldmanSachs as AccountUpdateParamsCapabilitiesTreasuryGoldmanSachs,
         AccountUpdateParamsCapabilitiesTwintPayments as AccountUpdateParamsCapabilitiesTwintPayments,
+        AccountUpdateParamsCapabilitiesUpiPayments as AccountUpdateParamsCapabilitiesUpiPayments,
         AccountUpdateParamsCapabilitiesUsBankAccountAchPayments as AccountUpdateParamsCapabilitiesUsBankAccountAchPayments,
         AccountUpdateParamsCapabilitiesUsBankTransferPayments as AccountUpdateParamsCapabilitiesUsBankTransferPayments,
         AccountUpdateParamsCapabilitiesZipPayments as AccountUpdateParamsCapabilitiesZipPayments,
@@ -982,6 +985,8 @@ if TYPE_CHECKING:
         ConfirmationTokenCreateParamsPaymentMethodDataStripeBalance as ConfirmationTokenCreateParamsPaymentMethodDataStripeBalance,
         ConfirmationTokenCreateParamsPaymentMethodDataSwish as ConfirmationTokenCreateParamsPaymentMethodDataSwish,
         ConfirmationTokenCreateParamsPaymentMethodDataTwint as ConfirmationTokenCreateParamsPaymentMethodDataTwint,
+        ConfirmationTokenCreateParamsPaymentMethodDataUpi as ConfirmationTokenCreateParamsPaymentMethodDataUpi,
+        ConfirmationTokenCreateParamsPaymentMethodDataUpiMandateOptions as ConfirmationTokenCreateParamsPaymentMethodDataUpiMandateOptions,
         ConfirmationTokenCreateParamsPaymentMethodDataUsBankAccount as ConfirmationTokenCreateParamsPaymentMethodDataUsBankAccount,
         ConfirmationTokenCreateParamsPaymentMethodDataWechatPay as ConfirmationTokenCreateParamsPaymentMethodDataWechatPay,
         ConfirmationTokenCreateParamsPaymentMethodDataZip as ConfirmationTokenCreateParamsPaymentMethodDataZip,
@@ -1403,6 +1408,7 @@ if TYPE_CHECKING:
         InvoiceAddLinesParamsLinePeriod as InvoiceAddLinesParamsLinePeriod,
         InvoiceAddLinesParamsLinePriceData as InvoiceAddLinesParamsLinePriceData,
         InvoiceAddLinesParamsLinePriceDataProductData as InvoiceAddLinesParamsLinePriceDataProductData,
+        InvoiceAddLinesParamsLinePriceDataProductDataTaxDetails as InvoiceAddLinesParamsLinePriceDataProductDataTaxDetails,
         InvoiceAddLinesParamsLinePricing as InvoiceAddLinesParamsLinePricing,
         InvoiceAddLinesParamsLineTaxAmount as InvoiceAddLinesParamsLineTaxAmount,
         InvoiceAddLinesParamsLineTaxAmountTaxRateData as InvoiceAddLinesParamsLineTaxAmountTaxRateData,
@@ -1552,6 +1558,7 @@ if TYPE_CHECKING:
         InvoiceCreatePreviewParamsSubscriptionDetailsBillingScheduleBillUntilDuration as InvoiceCreatePreviewParamsSubscriptionDetailsBillingScheduleBillUntilDuration,
         InvoiceCreatePreviewParamsSubscriptionDetailsItem as InvoiceCreatePreviewParamsSubscriptionDetailsItem,
         InvoiceCreatePreviewParamsSubscriptionDetailsItemBillingThresholds as InvoiceCreatePreviewParamsSubscriptionDetailsItemBillingThresholds,
+        InvoiceCreatePreviewParamsSubscriptionDetailsItemCurrentTrial as InvoiceCreatePreviewParamsSubscriptionDetailsItemCurrentTrial,
         InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscount as InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscount,
         InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscountDiscountEnd as InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscountDiscountEnd,
         InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscountDiscountEndDuration as InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscountDiscountEndDuration,
@@ -1616,6 +1623,7 @@ if TYPE_CHECKING:
         InvoiceLineItemUpdateParamsPeriod as InvoiceLineItemUpdateParamsPeriod,
         InvoiceLineItemUpdateParamsPriceData as InvoiceLineItemUpdateParamsPriceData,
         InvoiceLineItemUpdateParamsPriceDataProductData as InvoiceLineItemUpdateParamsPriceDataProductData,
+        InvoiceLineItemUpdateParamsPriceDataProductDataTaxDetails as InvoiceLineItemUpdateParamsPriceDataProductDataTaxDetails,
         InvoiceLineItemUpdateParamsPricing as InvoiceLineItemUpdateParamsPricing,
         InvoiceLineItemUpdateParamsTaxAmount as InvoiceLineItemUpdateParamsTaxAmount,
         InvoiceLineItemUpdateParamsTaxAmountTaxRateData as InvoiceLineItemUpdateParamsTaxAmountTaxRateData,
@@ -1721,6 +1729,7 @@ if TYPE_CHECKING:
         InvoiceUpdateLinesParamsLinePeriod as InvoiceUpdateLinesParamsLinePeriod,
         InvoiceUpdateLinesParamsLinePriceData as InvoiceUpdateLinesParamsLinePriceData,
         InvoiceUpdateLinesParamsLinePriceDataProductData as InvoiceUpdateLinesParamsLinePriceDataProductData,
+        InvoiceUpdateLinesParamsLinePriceDataProductDataTaxDetails as InvoiceUpdateLinesParamsLinePriceDataProductDataTaxDetails,
         InvoiceUpdateLinesParamsLinePricing as InvoiceUpdateLinesParamsLinePricing,
         InvoiceUpdateLinesParamsLineTaxAmount as InvoiceUpdateLinesParamsLineTaxAmount,
         InvoiceUpdateLinesParamsLineTaxAmountTaxRateData as InvoiceUpdateLinesParamsLineTaxAmountTaxRateData,
@@ -2090,6 +2099,7 @@ if TYPE_CHECKING:
         PaymentIntentCaptureParamsAmountDetailsLineItemPaymentMethodOptionsPaypal as PaymentIntentCaptureParamsAmountDetailsLineItemPaymentMethodOptionsPaypal,
         PaymentIntentCaptureParamsAmountDetailsLineItemTax as PaymentIntentCaptureParamsAmountDetailsLineItemTax,
         PaymentIntentCaptureParamsAmountDetailsShipping as PaymentIntentCaptureParamsAmountDetailsShipping,
+        PaymentIntentCaptureParamsAmountDetailsSurcharge as PaymentIntentCaptureParamsAmountDetailsSurcharge,
         PaymentIntentCaptureParamsAmountDetailsTax as PaymentIntentCaptureParamsAmountDetailsTax,
         PaymentIntentCaptureParamsHooks as PaymentIntentCaptureParamsHooks,
         PaymentIntentCaptureParamsHooksInputs as PaymentIntentCaptureParamsHooksInputs,
@@ -2176,6 +2186,7 @@ if TYPE_CHECKING:
         PaymentIntentConfirmParamsAmountDetailsLineItemPaymentMethodOptionsPaypal as PaymentIntentConfirmParamsAmountDetailsLineItemPaymentMethodOptionsPaypal,
         PaymentIntentConfirmParamsAmountDetailsLineItemTax as PaymentIntentConfirmParamsAmountDetailsLineItemTax,
         PaymentIntentConfirmParamsAmountDetailsShipping as PaymentIntentConfirmParamsAmountDetailsShipping,
+        PaymentIntentConfirmParamsAmountDetailsSurcharge as PaymentIntentConfirmParamsAmountDetailsSurcharge,
         PaymentIntentConfirmParamsAmountDetailsTax as PaymentIntentConfirmParamsAmountDetailsTax,
         PaymentIntentConfirmParamsHooks as PaymentIntentConfirmParamsHooks,
         PaymentIntentConfirmParamsHooksInputs as PaymentIntentConfirmParamsHooksInputs,
@@ -2313,6 +2324,8 @@ if TYPE_CHECKING:
         PaymentIntentConfirmParamsPaymentMethodDataStripeBalance as PaymentIntentConfirmParamsPaymentMethodDataStripeBalance,
         PaymentIntentConfirmParamsPaymentMethodDataSwish as PaymentIntentConfirmParamsPaymentMethodDataSwish,
         PaymentIntentConfirmParamsPaymentMethodDataTwint as PaymentIntentConfirmParamsPaymentMethodDataTwint,
+        PaymentIntentConfirmParamsPaymentMethodDataUpi as PaymentIntentConfirmParamsPaymentMethodDataUpi,
+        PaymentIntentConfirmParamsPaymentMethodDataUpiMandateOptions as PaymentIntentConfirmParamsPaymentMethodDataUpiMandateOptions,
         PaymentIntentConfirmParamsPaymentMethodDataUsBankAccount as PaymentIntentConfirmParamsPaymentMethodDataUsBankAccount,
         PaymentIntentConfirmParamsPaymentMethodDataWechatPay as PaymentIntentConfirmParamsPaymentMethodDataWechatPay,
         PaymentIntentConfirmParamsPaymentMethodDataZip as PaymentIntentConfirmParamsPaymentMethodDataZip,
@@ -2430,6 +2443,8 @@ if TYPE_CHECKING:
         PaymentIntentConfirmParamsPaymentMethodOptionsStripeBalance as PaymentIntentConfirmParamsPaymentMethodOptionsStripeBalance,
         PaymentIntentConfirmParamsPaymentMethodOptionsSwish as PaymentIntentConfirmParamsPaymentMethodOptionsSwish,
         PaymentIntentConfirmParamsPaymentMethodOptionsTwint as PaymentIntentConfirmParamsPaymentMethodOptionsTwint,
+        PaymentIntentConfirmParamsPaymentMethodOptionsUpi as PaymentIntentConfirmParamsPaymentMethodOptionsUpi,
+        PaymentIntentConfirmParamsPaymentMethodOptionsUpiMandateOptions as PaymentIntentConfirmParamsPaymentMethodOptionsUpiMandateOptions,
         PaymentIntentConfirmParamsPaymentMethodOptionsUsBankAccount as PaymentIntentConfirmParamsPaymentMethodOptionsUsBankAccount,
         PaymentIntentConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections as PaymentIntentConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections,
         PaymentIntentConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters as PaymentIntentConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters,
@@ -2453,6 +2468,7 @@ if TYPE_CHECKING:
         PaymentIntentCreateParamsAmountDetailsLineItemPaymentMethodOptionsPaypal as PaymentIntentCreateParamsAmountDetailsLineItemPaymentMethodOptionsPaypal,
         PaymentIntentCreateParamsAmountDetailsLineItemTax as PaymentIntentCreateParamsAmountDetailsLineItemTax,
         PaymentIntentCreateParamsAmountDetailsShipping as PaymentIntentCreateParamsAmountDetailsShipping,
+        PaymentIntentCreateParamsAmountDetailsSurcharge as PaymentIntentCreateParamsAmountDetailsSurcharge,
         PaymentIntentCreateParamsAmountDetailsTax as PaymentIntentCreateParamsAmountDetailsTax,
         PaymentIntentCreateParamsAutomaticPaymentMethods as PaymentIntentCreateParamsAutomaticPaymentMethods,
         PaymentIntentCreateParamsHooks as PaymentIntentCreateParamsHooks,
@@ -2591,6 +2607,8 @@ if TYPE_CHECKING:
         PaymentIntentCreateParamsPaymentMethodDataStripeBalance as PaymentIntentCreateParamsPaymentMethodDataStripeBalance,
         PaymentIntentCreateParamsPaymentMethodDataSwish as PaymentIntentCreateParamsPaymentMethodDataSwish,
         PaymentIntentCreateParamsPaymentMethodDataTwint as PaymentIntentCreateParamsPaymentMethodDataTwint,
+        PaymentIntentCreateParamsPaymentMethodDataUpi as PaymentIntentCreateParamsPaymentMethodDataUpi,
+        PaymentIntentCreateParamsPaymentMethodDataUpiMandateOptions as PaymentIntentCreateParamsPaymentMethodDataUpiMandateOptions,
         PaymentIntentCreateParamsPaymentMethodDataUsBankAccount as PaymentIntentCreateParamsPaymentMethodDataUsBankAccount,
         PaymentIntentCreateParamsPaymentMethodDataWechatPay as PaymentIntentCreateParamsPaymentMethodDataWechatPay,
         PaymentIntentCreateParamsPaymentMethodDataZip as PaymentIntentCreateParamsPaymentMethodDataZip,
@@ -2708,6 +2726,8 @@ if TYPE_CHECKING:
         PaymentIntentCreateParamsPaymentMethodOptionsStripeBalance as PaymentIntentCreateParamsPaymentMethodOptionsStripeBalance,
         PaymentIntentCreateParamsPaymentMethodOptionsSwish as PaymentIntentCreateParamsPaymentMethodOptionsSwish,
         PaymentIntentCreateParamsPaymentMethodOptionsTwint as PaymentIntentCreateParamsPaymentMethodOptionsTwint,
+        PaymentIntentCreateParamsPaymentMethodOptionsUpi as PaymentIntentCreateParamsPaymentMethodOptionsUpi,
+        PaymentIntentCreateParamsPaymentMethodOptionsUpiMandateOptions as PaymentIntentCreateParamsPaymentMethodOptionsUpiMandateOptions,
         PaymentIntentCreateParamsPaymentMethodOptionsUsBankAccount as PaymentIntentCreateParamsPaymentMethodOptionsUsBankAccount,
         PaymentIntentCreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections as PaymentIntentCreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections,
         PaymentIntentCreateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters as PaymentIntentCreateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters,
@@ -2723,9 +2743,21 @@ if TYPE_CHECKING:
     )
     from stripe.params._payment_intent_decrement_authorization_params import (
         PaymentIntentDecrementAuthorizationParams as PaymentIntentDecrementAuthorizationParams,
+        PaymentIntentDecrementAuthorizationParamsAmountDetails as PaymentIntentDecrementAuthorizationParamsAmountDetails,
+        PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItem as PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItem,
+        PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptions as PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptions,
+        PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsCard as PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsCard,
+        PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsCardPresent as PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsCardPresent,
+        PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsKlarna as PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsKlarna,
+        PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsPaypal as PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsPaypal,
+        PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItemTax as PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItemTax,
+        PaymentIntentDecrementAuthorizationParamsAmountDetailsShipping as PaymentIntentDecrementAuthorizationParamsAmountDetailsShipping,
+        PaymentIntentDecrementAuthorizationParamsAmountDetailsSurcharge as PaymentIntentDecrementAuthorizationParamsAmountDetailsSurcharge,
+        PaymentIntentDecrementAuthorizationParamsAmountDetailsTax as PaymentIntentDecrementAuthorizationParamsAmountDetailsTax,
         PaymentIntentDecrementAuthorizationParamsHooks as PaymentIntentDecrementAuthorizationParamsHooks,
         PaymentIntentDecrementAuthorizationParamsHooksInputs as PaymentIntentDecrementAuthorizationParamsHooksInputs,
         PaymentIntentDecrementAuthorizationParamsHooksInputsTax as PaymentIntentDecrementAuthorizationParamsHooksInputsTax,
+        PaymentIntentDecrementAuthorizationParamsPaymentDetails as PaymentIntentDecrementAuthorizationParamsPaymentDetails,
         PaymentIntentDecrementAuthorizationParamsTransferData as PaymentIntentDecrementAuthorizationParamsTransferData,
     )
     from stripe.params._payment_intent_increment_authorization_params import (
@@ -2739,6 +2771,7 @@ if TYPE_CHECKING:
         PaymentIntentIncrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsPaypal as PaymentIntentIncrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsPaypal,
         PaymentIntentIncrementAuthorizationParamsAmountDetailsLineItemTax as PaymentIntentIncrementAuthorizationParamsAmountDetailsLineItemTax,
         PaymentIntentIncrementAuthorizationParamsAmountDetailsShipping as PaymentIntentIncrementAuthorizationParamsAmountDetailsShipping,
+        PaymentIntentIncrementAuthorizationParamsAmountDetailsSurcharge as PaymentIntentIncrementAuthorizationParamsAmountDetailsSurcharge,
         PaymentIntentIncrementAuthorizationParamsAmountDetailsTax as PaymentIntentIncrementAuthorizationParamsAmountDetailsTax,
         PaymentIntentIncrementAuthorizationParamsHooks as PaymentIntentIncrementAuthorizationParamsHooks,
         PaymentIntentIncrementAuthorizationParamsHooksInputs as PaymentIntentIncrementAuthorizationParamsHooksInputs,
@@ -2766,6 +2799,7 @@ if TYPE_CHECKING:
         PaymentIntentModifyParamsAmountDetailsLineItemPaymentMethodOptionsPaypal as PaymentIntentModifyParamsAmountDetailsLineItemPaymentMethodOptionsPaypal,
         PaymentIntentModifyParamsAmountDetailsLineItemTax as PaymentIntentModifyParamsAmountDetailsLineItemTax,
         PaymentIntentModifyParamsAmountDetailsShipping as PaymentIntentModifyParamsAmountDetailsShipping,
+        PaymentIntentModifyParamsAmountDetailsSurcharge as PaymentIntentModifyParamsAmountDetailsSurcharge,
         PaymentIntentModifyParamsAmountDetailsTax as PaymentIntentModifyParamsAmountDetailsTax,
         PaymentIntentModifyParamsHooks as PaymentIntentModifyParamsHooks,
         PaymentIntentModifyParamsHooksInputs as PaymentIntentModifyParamsHooksInputs,
@@ -2902,6 +2936,8 @@ if TYPE_CHECKING:
         PaymentIntentModifyParamsPaymentMethodDataStripeBalance as PaymentIntentModifyParamsPaymentMethodDataStripeBalance,
         PaymentIntentModifyParamsPaymentMethodDataSwish as PaymentIntentModifyParamsPaymentMethodDataSwish,
         PaymentIntentModifyParamsPaymentMethodDataTwint as PaymentIntentModifyParamsPaymentMethodDataTwint,
+        PaymentIntentModifyParamsPaymentMethodDataUpi as PaymentIntentModifyParamsPaymentMethodDataUpi,
+        PaymentIntentModifyParamsPaymentMethodDataUpiMandateOptions as PaymentIntentModifyParamsPaymentMethodDataUpiMandateOptions,
         PaymentIntentModifyParamsPaymentMethodDataUsBankAccount as PaymentIntentModifyParamsPaymentMethodDataUsBankAccount,
         PaymentIntentModifyParamsPaymentMethodDataWechatPay as PaymentIntentModifyParamsPaymentMethodDataWechatPay,
         PaymentIntentModifyParamsPaymentMethodDataZip as PaymentIntentModifyParamsPaymentMethodDataZip,
@@ -3019,6 +3055,8 @@ if TYPE_CHECKING:
         PaymentIntentModifyParamsPaymentMethodOptionsStripeBalance as PaymentIntentModifyParamsPaymentMethodOptionsStripeBalance,
         PaymentIntentModifyParamsPaymentMethodOptionsSwish as PaymentIntentModifyParamsPaymentMethodOptionsSwish,
         PaymentIntentModifyParamsPaymentMethodOptionsTwint as PaymentIntentModifyParamsPaymentMethodOptionsTwint,
+        PaymentIntentModifyParamsPaymentMethodOptionsUpi as PaymentIntentModifyParamsPaymentMethodOptionsUpi,
+        PaymentIntentModifyParamsPaymentMethodOptionsUpiMandateOptions as PaymentIntentModifyParamsPaymentMethodOptionsUpiMandateOptions,
         PaymentIntentModifyParamsPaymentMethodOptionsUsBankAccount as PaymentIntentModifyParamsPaymentMethodOptionsUsBankAccount,
         PaymentIntentModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnections as PaymentIntentModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnections,
         PaymentIntentModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters as PaymentIntentModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters,
@@ -3052,6 +3090,7 @@ if TYPE_CHECKING:
         PaymentIntentUpdateParamsAmountDetailsLineItemPaymentMethodOptionsPaypal as PaymentIntentUpdateParamsAmountDetailsLineItemPaymentMethodOptionsPaypal,
         PaymentIntentUpdateParamsAmountDetailsLineItemTax as PaymentIntentUpdateParamsAmountDetailsLineItemTax,
         PaymentIntentUpdateParamsAmountDetailsShipping as PaymentIntentUpdateParamsAmountDetailsShipping,
+        PaymentIntentUpdateParamsAmountDetailsSurcharge as PaymentIntentUpdateParamsAmountDetailsSurcharge,
         PaymentIntentUpdateParamsAmountDetailsTax as PaymentIntentUpdateParamsAmountDetailsTax,
         PaymentIntentUpdateParamsHooks as PaymentIntentUpdateParamsHooks,
         PaymentIntentUpdateParamsHooksInputs as PaymentIntentUpdateParamsHooksInputs,
@@ -3188,6 +3227,8 @@ if TYPE_CHECKING:
         PaymentIntentUpdateParamsPaymentMethodDataStripeBalance as PaymentIntentUpdateParamsPaymentMethodDataStripeBalance,
         PaymentIntentUpdateParamsPaymentMethodDataSwish as PaymentIntentUpdateParamsPaymentMethodDataSwish,
         PaymentIntentUpdateParamsPaymentMethodDataTwint as PaymentIntentUpdateParamsPaymentMethodDataTwint,
+        PaymentIntentUpdateParamsPaymentMethodDataUpi as PaymentIntentUpdateParamsPaymentMethodDataUpi,
+        PaymentIntentUpdateParamsPaymentMethodDataUpiMandateOptions as PaymentIntentUpdateParamsPaymentMethodDataUpiMandateOptions,
         PaymentIntentUpdateParamsPaymentMethodDataUsBankAccount as PaymentIntentUpdateParamsPaymentMethodDataUsBankAccount,
         PaymentIntentUpdateParamsPaymentMethodDataWechatPay as PaymentIntentUpdateParamsPaymentMethodDataWechatPay,
         PaymentIntentUpdateParamsPaymentMethodDataZip as PaymentIntentUpdateParamsPaymentMethodDataZip,
@@ -3305,6 +3346,8 @@ if TYPE_CHECKING:
         PaymentIntentUpdateParamsPaymentMethodOptionsStripeBalance as PaymentIntentUpdateParamsPaymentMethodOptionsStripeBalance,
         PaymentIntentUpdateParamsPaymentMethodOptionsSwish as PaymentIntentUpdateParamsPaymentMethodOptionsSwish,
         PaymentIntentUpdateParamsPaymentMethodOptionsTwint as PaymentIntentUpdateParamsPaymentMethodOptionsTwint,
+        PaymentIntentUpdateParamsPaymentMethodOptionsUpi as PaymentIntentUpdateParamsPaymentMethodOptionsUpi,
+        PaymentIntentUpdateParamsPaymentMethodOptionsUpiMandateOptions as PaymentIntentUpdateParamsPaymentMethodOptionsUpiMandateOptions,
         PaymentIntentUpdateParamsPaymentMethodOptionsUsBankAccount as PaymentIntentUpdateParamsPaymentMethodOptionsUsBankAccount,
         PaymentIntentUpdateParamsPaymentMethodOptionsUsBankAccountFinancialConnections as PaymentIntentUpdateParamsPaymentMethodOptionsUsBankAccountFinancialConnections,
         PaymentIntentUpdateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters as PaymentIntentUpdateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters,
@@ -3349,7 +3392,9 @@ if TYPE_CHECKING:
         PaymentLinkCreateParamsLineItemAdjustableQuantity as PaymentLinkCreateParamsLineItemAdjustableQuantity,
         PaymentLinkCreateParamsLineItemPriceData as PaymentLinkCreateParamsLineItemPriceData,
         PaymentLinkCreateParamsLineItemPriceDataProductData as PaymentLinkCreateParamsLineItemPriceDataProductData,
+        PaymentLinkCreateParamsLineItemPriceDataProductDataTaxDetails as PaymentLinkCreateParamsLineItemPriceDataProductDataTaxDetails,
         PaymentLinkCreateParamsLineItemPriceDataRecurring as PaymentLinkCreateParamsLineItemPriceDataRecurring,
+        PaymentLinkCreateParamsManagedPayments as PaymentLinkCreateParamsManagedPayments,
         PaymentLinkCreateParamsNameCollection as PaymentLinkCreateParamsNameCollection,
         PaymentLinkCreateParamsNameCollectionBusiness as PaymentLinkCreateParamsNameCollectionBusiness,
         PaymentLinkCreateParamsNameCollectionIndividual as PaymentLinkCreateParamsNameCollectionIndividual,
@@ -3586,6 +3631,8 @@ if TYPE_CHECKING:
         PaymentMethodConfigurationCreateParamsSwishDisplayPreference as PaymentMethodConfigurationCreateParamsSwishDisplayPreference,
         PaymentMethodConfigurationCreateParamsTwint as PaymentMethodConfigurationCreateParamsTwint,
         PaymentMethodConfigurationCreateParamsTwintDisplayPreference as PaymentMethodConfigurationCreateParamsTwintDisplayPreference,
+        PaymentMethodConfigurationCreateParamsUpi as PaymentMethodConfigurationCreateParamsUpi,
+        PaymentMethodConfigurationCreateParamsUpiDisplayPreference as PaymentMethodConfigurationCreateParamsUpiDisplayPreference,
         PaymentMethodConfigurationCreateParamsUsBankAccount as PaymentMethodConfigurationCreateParamsUsBankAccount,
         PaymentMethodConfigurationCreateParamsUsBankAccountDisplayPreference as PaymentMethodConfigurationCreateParamsUsBankAccountDisplayPreference,
         PaymentMethodConfigurationCreateParamsWechatPay as PaymentMethodConfigurationCreateParamsWechatPay,
@@ -3714,6 +3761,8 @@ if TYPE_CHECKING:
         PaymentMethodConfigurationModifyParamsSwishDisplayPreference as PaymentMethodConfigurationModifyParamsSwishDisplayPreference,
         PaymentMethodConfigurationModifyParamsTwint as PaymentMethodConfigurationModifyParamsTwint,
         PaymentMethodConfigurationModifyParamsTwintDisplayPreference as PaymentMethodConfigurationModifyParamsTwintDisplayPreference,
+        PaymentMethodConfigurationModifyParamsUpi as PaymentMethodConfigurationModifyParamsUpi,
+        PaymentMethodConfigurationModifyParamsUpiDisplayPreference as PaymentMethodConfigurationModifyParamsUpiDisplayPreference,
         PaymentMethodConfigurationModifyParamsUsBankAccount as PaymentMethodConfigurationModifyParamsUsBankAccount,
         PaymentMethodConfigurationModifyParamsUsBankAccountDisplayPreference as PaymentMethodConfigurationModifyParamsUsBankAccountDisplayPreference,
         PaymentMethodConfigurationModifyParamsWechatPay as PaymentMethodConfigurationModifyParamsWechatPay,
@@ -3842,6 +3891,8 @@ if TYPE_CHECKING:
         PaymentMethodConfigurationUpdateParamsSwishDisplayPreference as PaymentMethodConfigurationUpdateParamsSwishDisplayPreference,
         PaymentMethodConfigurationUpdateParamsTwint as PaymentMethodConfigurationUpdateParamsTwint,
         PaymentMethodConfigurationUpdateParamsTwintDisplayPreference as PaymentMethodConfigurationUpdateParamsTwintDisplayPreference,
+        PaymentMethodConfigurationUpdateParamsUpi as PaymentMethodConfigurationUpdateParamsUpi,
+        PaymentMethodConfigurationUpdateParamsUpiDisplayPreference as PaymentMethodConfigurationUpdateParamsUpiDisplayPreference,
         PaymentMethodConfigurationUpdateParamsUsBankAccount as PaymentMethodConfigurationUpdateParamsUsBankAccount,
         PaymentMethodConfigurationUpdateParamsUsBankAccountDisplayPreference as PaymentMethodConfigurationUpdateParamsUsBankAccountDisplayPreference,
         PaymentMethodConfigurationUpdateParamsWechatPay as PaymentMethodConfigurationUpdateParamsWechatPay,
@@ -3913,6 +3964,8 @@ if TYPE_CHECKING:
         PaymentMethodCreateParamsStripeBalance as PaymentMethodCreateParamsStripeBalance,
         PaymentMethodCreateParamsSwish as PaymentMethodCreateParamsSwish,
         PaymentMethodCreateParamsTwint as PaymentMethodCreateParamsTwint,
+        PaymentMethodCreateParamsUpi as PaymentMethodCreateParamsUpi,
+        PaymentMethodCreateParamsUpiMandateOptions as PaymentMethodCreateParamsUpiMandateOptions,
         PaymentMethodCreateParamsUsBankAccount as PaymentMethodCreateParamsUsBankAccount,
         PaymentMethodCreateParamsWechatPay as PaymentMethodCreateParamsWechatPay,
         PaymentMethodCreateParamsZip as PaymentMethodCreateParamsZip,
@@ -4039,6 +4092,7 @@ if TYPE_CHECKING:
     from stripe.params._plan_create_params import (
         PlanCreateParams as PlanCreateParams,
         PlanCreateParamsProduct as PlanCreateParamsProduct,
+        PlanCreateParamsProductTaxDetails as PlanCreateParamsProductTaxDetails,
         PlanCreateParamsTier as PlanCreateParamsTier,
         PlanCreateParamsTransformUsage as PlanCreateParamsTransformUsage,
     )
@@ -4065,6 +4119,7 @@ if TYPE_CHECKING:
         PriceCreateParamsCurrencyOptionsTier as PriceCreateParamsCurrencyOptionsTier,
         PriceCreateParamsCustomUnitAmount as PriceCreateParamsCustomUnitAmount,
         PriceCreateParamsProductData as PriceCreateParamsProductData,
+        PriceCreateParamsProductDataTaxDetails as PriceCreateParamsProductDataTaxDetails,
         PriceCreateParamsRecurring as PriceCreateParamsRecurring,
         PriceCreateParamsTier as PriceCreateParamsTier,
         PriceCreateParamsTransformQuantity as PriceCreateParamsTransformQuantity,
@@ -4107,6 +4162,7 @@ if TYPE_CHECKING:
         ProductCreateParamsDefaultPriceDataRecurring as ProductCreateParamsDefaultPriceDataRecurring,
         ProductCreateParamsMarketingFeature as ProductCreateParamsMarketingFeature,
         ProductCreateParamsPackageDimensions as ProductCreateParamsPackageDimensions,
+        ProductCreateParamsTaxDetails as ProductCreateParamsTaxDetails,
     )
     from stripe.params._product_delete_feature_params import (
         ProductDeleteFeatureParams as ProductDeleteFeatureParams,
@@ -4137,6 +4193,7 @@ if TYPE_CHECKING:
         ProductModifyParams as ProductModifyParams,
         ProductModifyParamsMarketingFeature as ProductModifyParamsMarketingFeature,
         ProductModifyParamsPackageDimensions as ProductModifyParamsPackageDimensions,
+        ProductModifyParamsTaxDetails as ProductModifyParamsTaxDetails,
     )
     from stripe.params._product_retrieve_feature_params import (
         ProductRetrieveFeatureParams as ProductRetrieveFeatureParams,
@@ -4151,6 +4208,7 @@ if TYPE_CHECKING:
         ProductUpdateParams as ProductUpdateParams,
         ProductUpdateParamsMarketingFeature as ProductUpdateParamsMarketingFeature,
         ProductUpdateParamsPackageDimensions as ProductUpdateParamsPackageDimensions,
+        ProductUpdateParamsTaxDetails as ProductUpdateParamsTaxDetails,
     )
     from stripe.params._promotion_code_create_params import (
         PromotionCodeCreateParams as PromotionCodeCreateParams,
@@ -4529,6 +4587,8 @@ if TYPE_CHECKING:
         SetupIntentConfirmParamsPaymentMethodDataStripeBalance as SetupIntentConfirmParamsPaymentMethodDataStripeBalance,
         SetupIntentConfirmParamsPaymentMethodDataSwish as SetupIntentConfirmParamsPaymentMethodDataSwish,
         SetupIntentConfirmParamsPaymentMethodDataTwint as SetupIntentConfirmParamsPaymentMethodDataTwint,
+        SetupIntentConfirmParamsPaymentMethodDataUpi as SetupIntentConfirmParamsPaymentMethodDataUpi,
+        SetupIntentConfirmParamsPaymentMethodDataUpiMandateOptions as SetupIntentConfirmParamsPaymentMethodDataUpiMandateOptions,
         SetupIntentConfirmParamsPaymentMethodDataUsBankAccount as SetupIntentConfirmParamsPaymentMethodDataUsBankAccount,
         SetupIntentConfirmParamsPaymentMethodDataWechatPay as SetupIntentConfirmParamsPaymentMethodDataWechatPay,
         SetupIntentConfirmParamsPaymentMethodDataZip as SetupIntentConfirmParamsPaymentMethodDataZip,
@@ -4556,6 +4616,9 @@ if TYPE_CHECKING:
         SetupIntentConfirmParamsPaymentMethodOptionsPixMandateOptions as SetupIntentConfirmParamsPaymentMethodOptionsPixMandateOptions,
         SetupIntentConfirmParamsPaymentMethodOptionsSepaDebit as SetupIntentConfirmParamsPaymentMethodOptionsSepaDebit,
         SetupIntentConfirmParamsPaymentMethodOptionsSepaDebitMandateOptions as SetupIntentConfirmParamsPaymentMethodOptionsSepaDebitMandateOptions,
+        SetupIntentConfirmParamsPaymentMethodOptionsStripeBalance as SetupIntentConfirmParamsPaymentMethodOptionsStripeBalance,
+        SetupIntentConfirmParamsPaymentMethodOptionsUpi as SetupIntentConfirmParamsPaymentMethodOptionsUpi,
+        SetupIntentConfirmParamsPaymentMethodOptionsUpiMandateOptions as SetupIntentConfirmParamsPaymentMethodOptionsUpiMandateOptions,
         SetupIntentConfirmParamsPaymentMethodOptionsUsBankAccount as SetupIntentConfirmParamsPaymentMethodOptionsUsBankAccount,
         SetupIntentConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections as SetupIntentConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections,
         SetupIntentConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters as SetupIntentConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters,
@@ -4630,6 +4693,8 @@ if TYPE_CHECKING:
         SetupIntentCreateParamsPaymentMethodDataStripeBalance as SetupIntentCreateParamsPaymentMethodDataStripeBalance,
         SetupIntentCreateParamsPaymentMethodDataSwish as SetupIntentCreateParamsPaymentMethodDataSwish,
         SetupIntentCreateParamsPaymentMethodDataTwint as SetupIntentCreateParamsPaymentMethodDataTwint,
+        SetupIntentCreateParamsPaymentMethodDataUpi as SetupIntentCreateParamsPaymentMethodDataUpi,
+        SetupIntentCreateParamsPaymentMethodDataUpiMandateOptions as SetupIntentCreateParamsPaymentMethodDataUpiMandateOptions,
         SetupIntentCreateParamsPaymentMethodDataUsBankAccount as SetupIntentCreateParamsPaymentMethodDataUsBankAccount,
         SetupIntentCreateParamsPaymentMethodDataWechatPay as SetupIntentCreateParamsPaymentMethodDataWechatPay,
         SetupIntentCreateParamsPaymentMethodDataZip as SetupIntentCreateParamsPaymentMethodDataZip,
@@ -4657,6 +4722,9 @@ if TYPE_CHECKING:
         SetupIntentCreateParamsPaymentMethodOptionsPixMandateOptions as SetupIntentCreateParamsPaymentMethodOptionsPixMandateOptions,
         SetupIntentCreateParamsPaymentMethodOptionsSepaDebit as SetupIntentCreateParamsPaymentMethodOptionsSepaDebit,
         SetupIntentCreateParamsPaymentMethodOptionsSepaDebitMandateOptions as SetupIntentCreateParamsPaymentMethodOptionsSepaDebitMandateOptions,
+        SetupIntentCreateParamsPaymentMethodOptionsStripeBalance as SetupIntentCreateParamsPaymentMethodOptionsStripeBalance,
+        SetupIntentCreateParamsPaymentMethodOptionsUpi as SetupIntentCreateParamsPaymentMethodOptionsUpi,
+        SetupIntentCreateParamsPaymentMethodOptionsUpiMandateOptions as SetupIntentCreateParamsPaymentMethodOptionsUpiMandateOptions,
         SetupIntentCreateParamsPaymentMethodOptionsUsBankAccount as SetupIntentCreateParamsPaymentMethodOptionsUsBankAccount,
         SetupIntentCreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections as SetupIntentCreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections,
         SetupIntentCreateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters as SetupIntentCreateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters,
@@ -4731,6 +4799,8 @@ if TYPE_CHECKING:
         SetupIntentModifyParamsPaymentMethodDataStripeBalance as SetupIntentModifyParamsPaymentMethodDataStripeBalance,
         SetupIntentModifyParamsPaymentMethodDataSwish as SetupIntentModifyParamsPaymentMethodDataSwish,
         SetupIntentModifyParamsPaymentMethodDataTwint as SetupIntentModifyParamsPaymentMethodDataTwint,
+        SetupIntentModifyParamsPaymentMethodDataUpi as SetupIntentModifyParamsPaymentMethodDataUpi,
+        SetupIntentModifyParamsPaymentMethodDataUpiMandateOptions as SetupIntentModifyParamsPaymentMethodDataUpiMandateOptions,
         SetupIntentModifyParamsPaymentMethodDataUsBankAccount as SetupIntentModifyParamsPaymentMethodDataUsBankAccount,
         SetupIntentModifyParamsPaymentMethodDataWechatPay as SetupIntentModifyParamsPaymentMethodDataWechatPay,
         SetupIntentModifyParamsPaymentMethodDataZip as SetupIntentModifyParamsPaymentMethodDataZip,
@@ -4758,6 +4828,9 @@ if TYPE_CHECKING:
         SetupIntentModifyParamsPaymentMethodOptionsPixMandateOptions as SetupIntentModifyParamsPaymentMethodOptionsPixMandateOptions,
         SetupIntentModifyParamsPaymentMethodOptionsSepaDebit as SetupIntentModifyParamsPaymentMethodOptionsSepaDebit,
         SetupIntentModifyParamsPaymentMethodOptionsSepaDebitMandateOptions as SetupIntentModifyParamsPaymentMethodOptionsSepaDebitMandateOptions,
+        SetupIntentModifyParamsPaymentMethodOptionsStripeBalance as SetupIntentModifyParamsPaymentMethodOptionsStripeBalance,
+        SetupIntentModifyParamsPaymentMethodOptionsUpi as SetupIntentModifyParamsPaymentMethodOptionsUpi,
+        SetupIntentModifyParamsPaymentMethodOptionsUpiMandateOptions as SetupIntentModifyParamsPaymentMethodOptionsUpiMandateOptions,
         SetupIntentModifyParamsPaymentMethodOptionsUsBankAccount as SetupIntentModifyParamsPaymentMethodOptionsUsBankAccount,
         SetupIntentModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnections as SetupIntentModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnections,
         SetupIntentModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters as SetupIntentModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters,
@@ -4830,6 +4903,8 @@ if TYPE_CHECKING:
         SetupIntentUpdateParamsPaymentMethodDataStripeBalance as SetupIntentUpdateParamsPaymentMethodDataStripeBalance,
         SetupIntentUpdateParamsPaymentMethodDataSwish as SetupIntentUpdateParamsPaymentMethodDataSwish,
         SetupIntentUpdateParamsPaymentMethodDataTwint as SetupIntentUpdateParamsPaymentMethodDataTwint,
+        SetupIntentUpdateParamsPaymentMethodDataUpi as SetupIntentUpdateParamsPaymentMethodDataUpi,
+        SetupIntentUpdateParamsPaymentMethodDataUpiMandateOptions as SetupIntentUpdateParamsPaymentMethodDataUpiMandateOptions,
         SetupIntentUpdateParamsPaymentMethodDataUsBankAccount as SetupIntentUpdateParamsPaymentMethodDataUsBankAccount,
         SetupIntentUpdateParamsPaymentMethodDataWechatPay as SetupIntentUpdateParamsPaymentMethodDataWechatPay,
         SetupIntentUpdateParamsPaymentMethodDataZip as SetupIntentUpdateParamsPaymentMethodDataZip,
@@ -4857,6 +4932,9 @@ if TYPE_CHECKING:
         SetupIntentUpdateParamsPaymentMethodOptionsPixMandateOptions as SetupIntentUpdateParamsPaymentMethodOptionsPixMandateOptions,
         SetupIntentUpdateParamsPaymentMethodOptionsSepaDebit as SetupIntentUpdateParamsPaymentMethodOptionsSepaDebit,
         SetupIntentUpdateParamsPaymentMethodOptionsSepaDebitMandateOptions as SetupIntentUpdateParamsPaymentMethodOptionsSepaDebitMandateOptions,
+        SetupIntentUpdateParamsPaymentMethodOptionsStripeBalance as SetupIntentUpdateParamsPaymentMethodOptionsStripeBalance,
+        SetupIntentUpdateParamsPaymentMethodOptionsUpi as SetupIntentUpdateParamsPaymentMethodOptionsUpi,
+        SetupIntentUpdateParamsPaymentMethodOptionsUpiMandateOptions as SetupIntentUpdateParamsPaymentMethodOptionsUpiMandateOptions,
         SetupIntentUpdateParamsPaymentMethodOptionsUsBankAccount as SetupIntentUpdateParamsPaymentMethodOptionsUsBankAccount,
         SetupIntentUpdateParamsPaymentMethodOptionsUsBankAccountFinancialConnections as SetupIntentUpdateParamsPaymentMethodOptionsUsBankAccountFinancialConnections,
         SetupIntentUpdateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters as SetupIntentUpdateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters,
@@ -4979,6 +5057,7 @@ if TYPE_CHECKING:
         SubscriptionCreateParamsInvoiceSettingsIssuer as SubscriptionCreateParamsInvoiceSettingsIssuer,
         SubscriptionCreateParamsItem as SubscriptionCreateParamsItem,
         SubscriptionCreateParamsItemBillingThresholds as SubscriptionCreateParamsItemBillingThresholds,
+        SubscriptionCreateParamsItemCurrentTrial as SubscriptionCreateParamsItemCurrentTrial,
         SubscriptionCreateParamsItemDiscount as SubscriptionCreateParamsItemDiscount,
         SubscriptionCreateParamsItemDiscountDiscountEnd as SubscriptionCreateParamsItemDiscountDiscountEnd,
         SubscriptionCreateParamsItemDiscountDiscountEndDuration as SubscriptionCreateParamsItemDiscountDiscountEndDuration,
@@ -5019,6 +5098,7 @@ if TYPE_CHECKING:
     from stripe.params._subscription_item_create_params import (
         SubscriptionItemCreateParams as SubscriptionItemCreateParams,
         SubscriptionItemCreateParamsBillingThresholds as SubscriptionItemCreateParamsBillingThresholds,
+        SubscriptionItemCreateParamsCurrentTrial as SubscriptionItemCreateParamsCurrentTrial,
         SubscriptionItemCreateParamsDiscount as SubscriptionItemCreateParamsDiscount,
         SubscriptionItemCreateParamsDiscountDiscountEnd as SubscriptionItemCreateParamsDiscountDiscountEnd,
         SubscriptionItemCreateParamsDiscountDiscountEndDuration as SubscriptionItemCreateParamsDiscountDiscountEndDuration,
@@ -5035,6 +5115,7 @@ if TYPE_CHECKING:
     from stripe.params._subscription_item_modify_params import (
         SubscriptionItemModifyParams as SubscriptionItemModifyParams,
         SubscriptionItemModifyParamsBillingThresholds as SubscriptionItemModifyParamsBillingThresholds,
+        SubscriptionItemModifyParamsCurrentTrial as SubscriptionItemModifyParamsCurrentTrial,
         SubscriptionItemModifyParamsDiscount as SubscriptionItemModifyParamsDiscount,
         SubscriptionItemModifyParamsDiscountDiscountEnd as SubscriptionItemModifyParamsDiscountDiscountEnd,
         SubscriptionItemModifyParamsDiscountDiscountEndDuration as SubscriptionItemModifyParamsDiscountDiscountEndDuration,
@@ -5047,6 +5128,7 @@ if TYPE_CHECKING:
     from stripe.params._subscription_item_update_params import (
         SubscriptionItemUpdateParams as SubscriptionItemUpdateParams,
         SubscriptionItemUpdateParamsBillingThresholds as SubscriptionItemUpdateParamsBillingThresholds,
+        SubscriptionItemUpdateParamsCurrentTrial as SubscriptionItemUpdateParamsCurrentTrial,
         SubscriptionItemUpdateParamsDiscount as SubscriptionItemUpdateParamsDiscount,
         SubscriptionItemUpdateParamsDiscountDiscountEnd as SubscriptionItemUpdateParamsDiscountDiscountEnd,
         SubscriptionItemUpdateParamsDiscountDiscountEndDuration as SubscriptionItemUpdateParamsDiscountDiscountEndDuration,
@@ -5090,6 +5172,7 @@ if TYPE_CHECKING:
         SubscriptionModifyParamsInvoiceSettingsIssuer as SubscriptionModifyParamsInvoiceSettingsIssuer,
         SubscriptionModifyParamsItem as SubscriptionModifyParamsItem,
         SubscriptionModifyParamsItemBillingThresholds as SubscriptionModifyParamsItemBillingThresholds,
+        SubscriptionModifyParamsItemCurrentTrial as SubscriptionModifyParamsItemCurrentTrial,
         SubscriptionModifyParamsItemDiscount as SubscriptionModifyParamsItemDiscount,
         SubscriptionModifyParamsItemDiscountDiscountEnd as SubscriptionModifyParamsItemDiscountDiscountEnd,
         SubscriptionModifyParamsItemDiscountDiscountEndDuration as SubscriptionModifyParamsItemDiscountDiscountEndDuration,
@@ -5338,6 +5421,7 @@ if TYPE_CHECKING:
         SubscriptionUpdateParamsInvoiceSettingsIssuer as SubscriptionUpdateParamsInvoiceSettingsIssuer,
         SubscriptionUpdateParamsItem as SubscriptionUpdateParamsItem,
         SubscriptionUpdateParamsItemBillingThresholds as SubscriptionUpdateParamsItemBillingThresholds,
+        SubscriptionUpdateParamsItemCurrentTrial as SubscriptionUpdateParamsItemCurrentTrial,
         SubscriptionUpdateParamsItemDiscount as SubscriptionUpdateParamsItemDiscount,
         SubscriptionUpdateParamsItemDiscountDiscountEnd as SubscriptionUpdateParamsItemDiscountDiscountEnd,
         SubscriptionUpdateParamsItemDiscountDiscountEndDuration as SubscriptionUpdateParamsItemDiscountDiscountEndDuration,
@@ -5552,6 +5636,7 @@ _import_map = {
     "identity": ("stripe.params.identity", True),
     "issuing": ("stripe.params.issuing", True),
     "privacy": ("stripe.params.privacy", True),
+    "product_catalog": ("stripe.params.product_catalog", True),
     "radar": ("stripe.params.radar", True),
     "reporting": ("stripe.params.reporting", True),
     "reserve": ("stripe.params.reserve", True),
@@ -5898,6 +5983,10 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsCapabilitiesTwintPayments": (
+        "stripe.params._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsCapabilitiesUpiPayments": (
         "stripe.params._account_create_params",
         False,
     ),
@@ -7206,6 +7295,10 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsCapabilitiesTwintPayments": (
+        "stripe.params._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsCapabilitiesUpiPayments": (
         "stripe.params._account_update_params",
         False,
     ),
@@ -8728,6 +8821,14 @@ _import_map = {
         "stripe.params._confirmation_token_create_params",
         False,
     ),
+    "ConfirmationTokenCreateParamsPaymentMethodDataUpi": (
+        "stripe.params._confirmation_token_create_params",
+        False,
+    ),
+    "ConfirmationTokenCreateParamsPaymentMethodDataUpiMandateOptions": (
+        "stripe.params._confirmation_token_create_params",
+        False,
+    ),
     "ConfirmationTokenCreateParamsPaymentMethodDataUsBankAccount": (
         "stripe.params._confirmation_token_create_params",
         False,
@@ -9518,6 +9619,10 @@ _import_map = {
         "stripe.params._invoice_add_lines_params",
         False,
     ),
+    "InvoiceAddLinesParamsLinePriceDataProductDataTaxDetails": (
+        "stripe.params._invoice_add_lines_params",
+        False,
+    ),
     "InvoiceAddLinesParamsLinePricing": (
         "stripe.params._invoice_add_lines_params",
         False,
@@ -10087,6 +10192,10 @@ _import_map = {
         "stripe.params._invoice_create_preview_params",
         False,
     ),
+    "InvoiceCreatePreviewParamsSubscriptionDetailsItemCurrentTrial": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
     "InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscount": (
         "stripe.params._invoice_create_preview_params",
         False,
@@ -10249,6 +10358,10 @@ _import_map = {
         False,
     ),
     "InvoiceLineItemUpdateParamsPriceDataProductData": (
+        "stripe.params._invoice_line_item_update_params",
+        False,
+    ),
+    "InvoiceLineItemUpdateParamsPriceDataProductDataTaxDetails": (
         "stripe.params._invoice_line_item_update_params",
         False,
     ),
@@ -10520,6 +10633,10 @@ _import_map = {
         False,
     ),
     "InvoiceUpdateLinesParamsLinePriceDataProductData": (
+        "stripe.params._invoice_update_lines_params",
+        False,
+    ),
+    "InvoiceUpdateLinesParamsLinePriceDataProductDataTaxDetails": (
         "stripe.params._invoice_update_lines_params",
         False,
     ),
@@ -11762,6 +11879,10 @@ _import_map = {
         "stripe.params._payment_intent_capture_params",
         False,
     ),
+    "PaymentIntentCaptureParamsAmountDetailsSurcharge": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
     "PaymentIntentCaptureParamsAmountDetailsTax": (
         "stripe.params._payment_intent_capture_params",
         False,
@@ -12095,6 +12216,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentConfirmParamsAmountDetailsShipping": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsAmountDetailsSurcharge": (
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
@@ -12646,6 +12771,14 @@ _import_map = {
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
+    "PaymentIntentConfirmParamsPaymentMethodDataUpi": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentMethodDataUpiMandateOptions": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
     "PaymentIntentConfirmParamsPaymentMethodDataUsBankAccount": (
         "stripe.params._payment_intent_confirm_params",
         False,
@@ -13114,6 +13247,14 @@ _import_map = {
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsUpi": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsUpiMandateOptions": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
     "PaymentIntentConfirmParamsPaymentMethodOptionsUsBankAccount": (
         "stripe.params._payment_intent_confirm_params",
         False,
@@ -13195,6 +13336,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentCreateParamsAmountDetailsShipping": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsAmountDetailsSurcharge": (
         "stripe.params._payment_intent_create_params",
         False,
     ),
@@ -13750,6 +13895,14 @@ _import_map = {
         "stripe.params._payment_intent_create_params",
         False,
     ),
+    "PaymentIntentCreateParamsPaymentMethodDataUpi": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentMethodDataUpiMandateOptions": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
     "PaymentIntentCreateParamsPaymentMethodDataUsBankAccount": (
         "stripe.params._payment_intent_create_params",
         False,
@@ -14218,6 +14371,14 @@ _import_map = {
         "stripe.params._payment_intent_create_params",
         False,
     ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsUpi": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsUpiMandateOptions": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
     "PaymentIntentCreateParamsPaymentMethodOptionsUsBankAccount": (
         "stripe.params._payment_intent_create_params",
         False,
@@ -14270,6 +14431,50 @@ _import_map = {
         "stripe.params._payment_intent_decrement_authorization_params",
         False,
     ),
+    "PaymentIntentDecrementAuthorizationParamsAmountDetails": (
+        "stripe.params._payment_intent_decrement_authorization_params",
+        False,
+    ),
+    "PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItem": (
+        "stripe.params._payment_intent_decrement_authorization_params",
+        False,
+    ),
+    "PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptions": (
+        "stripe.params._payment_intent_decrement_authorization_params",
+        False,
+    ),
+    "PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsCard": (
+        "stripe.params._payment_intent_decrement_authorization_params",
+        False,
+    ),
+    "PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsCardPresent": (
+        "stripe.params._payment_intent_decrement_authorization_params",
+        False,
+    ),
+    "PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsKlarna": (
+        "stripe.params._payment_intent_decrement_authorization_params",
+        False,
+    ),
+    "PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsPaypal": (
+        "stripe.params._payment_intent_decrement_authorization_params",
+        False,
+    ),
+    "PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItemTax": (
+        "stripe.params._payment_intent_decrement_authorization_params",
+        False,
+    ),
+    "PaymentIntentDecrementAuthorizationParamsAmountDetailsShipping": (
+        "stripe.params._payment_intent_decrement_authorization_params",
+        False,
+    ),
+    "PaymentIntentDecrementAuthorizationParamsAmountDetailsSurcharge": (
+        "stripe.params._payment_intent_decrement_authorization_params",
+        False,
+    ),
+    "PaymentIntentDecrementAuthorizationParamsAmountDetailsTax": (
+        "stripe.params._payment_intent_decrement_authorization_params",
+        False,
+    ),
     "PaymentIntentDecrementAuthorizationParamsHooks": (
         "stripe.params._payment_intent_decrement_authorization_params",
         False,
@@ -14279,6 +14484,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentDecrementAuthorizationParamsHooksInputsTax": (
+        "stripe.params._payment_intent_decrement_authorization_params",
+        False,
+    ),
+    "PaymentIntentDecrementAuthorizationParamsPaymentDetails": (
         "stripe.params._payment_intent_decrement_authorization_params",
         False,
     ),
@@ -14323,6 +14532,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentIncrementAuthorizationParamsAmountDetailsShipping": (
+        "stripe.params._payment_intent_increment_authorization_params",
+        False,
+    ),
+    "PaymentIntentIncrementAuthorizationParamsAmountDetailsSurcharge": (
         "stripe.params._payment_intent_increment_authorization_params",
         False,
     ),
@@ -14407,6 +14620,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentModifyParamsAmountDetailsShipping": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsAmountDetailsSurcharge": (
         "stripe.params._payment_intent_modify_params",
         False,
     ),
@@ -14954,6 +15171,14 @@ _import_map = {
         "stripe.params._payment_intent_modify_params",
         False,
     ),
+    "PaymentIntentModifyParamsPaymentMethodDataUpi": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentMethodDataUpiMandateOptions": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
     "PaymentIntentModifyParamsPaymentMethodDataUsBankAccount": (
         "stripe.params._payment_intent_modify_params",
         False,
@@ -15422,6 +15647,14 @@ _import_map = {
         "stripe.params._payment_intent_modify_params",
         False,
     ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsUpi": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsUpiMandateOptions": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
     "PaymentIntentModifyParamsPaymentMethodOptionsUsBankAccount": (
         "stripe.params._payment_intent_modify_params",
         False,
@@ -15519,6 +15752,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentUpdateParamsAmountDetailsShipping": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsAmountDetailsSurcharge": (
         "stripe.params._payment_intent_update_params",
         False,
     ),
@@ -16066,6 +16303,14 @@ _import_map = {
         "stripe.params._payment_intent_update_params",
         False,
     ),
+    "PaymentIntentUpdateParamsPaymentMethodDataUpi": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentMethodDataUpiMandateOptions": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
     "PaymentIntentUpdateParamsPaymentMethodDataUsBankAccount": (
         "stripe.params._payment_intent_update_params",
         False,
@@ -16534,6 +16779,14 @@ _import_map = {
         "stripe.params._payment_intent_update_params",
         False,
     ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsUpi": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsUpiMandateOptions": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
     "PaymentIntentUpdateParamsPaymentMethodOptionsUsBankAccount": (
         "stripe.params._payment_intent_update_params",
         False,
@@ -16694,7 +16947,15 @@ _import_map = {
         "stripe.params._payment_link_create_params",
         False,
     ),
+    "PaymentLinkCreateParamsLineItemPriceDataProductDataTaxDetails": (
+        "stripe.params._payment_link_create_params",
+        False,
+    ),
     "PaymentLinkCreateParamsLineItemPriceDataRecurring": (
+        "stripe.params._payment_link_create_params",
+        False,
+    ),
+    "PaymentLinkCreateParamsManagedPayments": (
         "stripe.params._payment_link_create_params",
         False,
     ),
@@ -17578,6 +17839,14 @@ _import_map = {
         "stripe.params._payment_method_configuration_create_params",
         False,
     ),
+    "PaymentMethodConfigurationCreateParamsUpi": (
+        "stripe.params._payment_method_configuration_create_params",
+        False,
+    ),
+    "PaymentMethodConfigurationCreateParamsUpiDisplayPreference": (
+        "stripe.params._payment_method_configuration_create_params",
+        False,
+    ),
     "PaymentMethodConfigurationCreateParamsUsBankAccount": (
         "stripe.params._payment_method_configuration_create_params",
         False,
@@ -18071,6 +18340,14 @@ _import_map = {
         False,
     ),
     "PaymentMethodConfigurationModifyParamsTwintDisplayPreference": (
+        "stripe.params._payment_method_configuration_modify_params",
+        False,
+    ),
+    "PaymentMethodConfigurationModifyParamsUpi": (
+        "stripe.params._payment_method_configuration_modify_params",
+        False,
+    ),
+    "PaymentMethodConfigurationModifyParamsUpiDisplayPreference": (
         "stripe.params._payment_method_configuration_modify_params",
         False,
     ),
@@ -18570,6 +18847,14 @@ _import_map = {
         "stripe.params._payment_method_configuration_update_params",
         False,
     ),
+    "PaymentMethodConfigurationUpdateParamsUpi": (
+        "stripe.params._payment_method_configuration_update_params",
+        False,
+    ),
+    "PaymentMethodConfigurationUpdateParamsUpiDisplayPreference": (
+        "stripe.params._payment_method_configuration_update_params",
+        False,
+    ),
     "PaymentMethodConfigurationUpdateParamsUsBankAccount": (
         "stripe.params._payment_method_configuration_update_params",
         False,
@@ -18846,6 +19131,14 @@ _import_map = {
         "stripe.params._payment_method_create_params",
         False,
     ),
+    "PaymentMethodCreateParamsUpi": (
+        "stripe.params._payment_method_create_params",
+        False,
+    ),
+    "PaymentMethodCreateParamsUpiMandateOptions": (
+        "stripe.params._payment_method_create_params",
+        False,
+    ),
     "PaymentMethodCreateParamsUsBankAccount": (
         "stripe.params._payment_method_create_params",
         False,
@@ -19104,6 +19397,10 @@ _import_map = {
     "PayoutUpdateParams": ("stripe.params._payout_update_params", False),
     "PlanCreateParams": ("stripe.params._plan_create_params", False),
     "PlanCreateParamsProduct": ("stripe.params._plan_create_params", False),
+    "PlanCreateParamsProductTaxDetails": (
+        "stripe.params._plan_create_params",
+        False,
+    ),
     "PlanCreateParamsTier": ("stripe.params._plan_create_params", False),
     "PlanCreateParamsTransformUsage": (
         "stripe.params._plan_create_params",
@@ -19133,6 +19430,10 @@ _import_map = {
         False,
     ),
     "PriceCreateParamsProductData": (
+        "stripe.params._price_create_params",
+        False,
+    ),
+    "PriceCreateParamsProductDataTaxDetails": (
         "stripe.params._price_create_params",
         False,
     ),
@@ -19221,6 +19522,10 @@ _import_map = {
         "stripe.params._product_create_params",
         False,
     ),
+    "ProductCreateParamsTaxDetails": (
+        "stripe.params._product_create_params",
+        False,
+    ),
     "ProductDeleteFeatureParams": (
         "stripe.params._product_delete_feature_params",
         False,
@@ -19257,6 +19562,10 @@ _import_map = {
         "stripe.params._product_modify_params",
         False,
     ),
+    "ProductModifyParamsTaxDetails": (
+        "stripe.params._product_modify_params",
+        False,
+    ),
     "ProductRetrieveFeatureParams": (
         "stripe.params._product_retrieve_feature_params",
         False,
@@ -19269,6 +19578,10 @@ _import_map = {
         False,
     ),
     "ProductUpdateParamsPackageDimensions": (
+        "stripe.params._product_update_params",
+        False,
+    ),
+    "ProductUpdateParamsTaxDetails": (
         "stripe.params._product_update_params",
         False,
     ),
@@ -20354,6 +20667,14 @@ _import_map = {
         "stripe.params._setup_intent_confirm_params",
         False,
     ),
+    "SetupIntentConfirmParamsPaymentMethodDataUpi": (
+        "stripe.params._setup_intent_confirm_params",
+        False,
+    ),
+    "SetupIntentConfirmParamsPaymentMethodDataUpiMandateOptions": (
+        "stripe.params._setup_intent_confirm_params",
+        False,
+    ),
     "SetupIntentConfirmParamsPaymentMethodDataUsBankAccount": (
         "stripe.params._setup_intent_confirm_params",
         False,
@@ -20459,6 +20780,18 @@ _import_map = {
         False,
     ),
     "SetupIntentConfirmParamsPaymentMethodOptionsSepaDebitMandateOptions": (
+        "stripe.params._setup_intent_confirm_params",
+        False,
+    ),
+    "SetupIntentConfirmParamsPaymentMethodOptionsStripeBalance": (
+        "stripe.params._setup_intent_confirm_params",
+        False,
+    ),
+    "SetupIntentConfirmParamsPaymentMethodOptionsUpi": (
+        "stripe.params._setup_intent_confirm_params",
+        False,
+    ),
+    "SetupIntentConfirmParamsPaymentMethodOptionsUpiMandateOptions": (
         "stripe.params._setup_intent_confirm_params",
         False,
     ),
@@ -20750,6 +21083,14 @@ _import_map = {
         "stripe.params._setup_intent_create_params",
         False,
     ),
+    "SetupIntentCreateParamsPaymentMethodDataUpi": (
+        "stripe.params._setup_intent_create_params",
+        False,
+    ),
+    "SetupIntentCreateParamsPaymentMethodDataUpiMandateOptions": (
+        "stripe.params._setup_intent_create_params",
+        False,
+    ),
     "SetupIntentCreateParamsPaymentMethodDataUsBankAccount": (
         "stripe.params._setup_intent_create_params",
         False,
@@ -20855,6 +21196,18 @@ _import_map = {
         False,
     ),
     "SetupIntentCreateParamsPaymentMethodOptionsSepaDebitMandateOptions": (
+        "stripe.params._setup_intent_create_params",
+        False,
+    ),
+    "SetupIntentCreateParamsPaymentMethodOptionsStripeBalance": (
+        "stripe.params._setup_intent_create_params",
+        False,
+    ),
+    "SetupIntentCreateParamsPaymentMethodOptionsUpi": (
+        "stripe.params._setup_intent_create_params",
+        False,
+    ),
+    "SetupIntentCreateParamsPaymentMethodOptionsUpiMandateOptions": (
         "stripe.params._setup_intent_create_params",
         False,
     ),
@@ -21138,6 +21491,14 @@ _import_map = {
         "stripe.params._setup_intent_modify_params",
         False,
     ),
+    "SetupIntentModifyParamsPaymentMethodDataUpi": (
+        "stripe.params._setup_intent_modify_params",
+        False,
+    ),
+    "SetupIntentModifyParamsPaymentMethodDataUpiMandateOptions": (
+        "stripe.params._setup_intent_modify_params",
+        False,
+    ),
     "SetupIntentModifyParamsPaymentMethodDataUsBankAccount": (
         "stripe.params._setup_intent_modify_params",
         False,
@@ -21243,6 +21604,18 @@ _import_map = {
         False,
     ),
     "SetupIntentModifyParamsPaymentMethodOptionsSepaDebitMandateOptions": (
+        "stripe.params._setup_intent_modify_params",
+        False,
+    ),
+    "SetupIntentModifyParamsPaymentMethodOptionsStripeBalance": (
+        "stripe.params._setup_intent_modify_params",
+        False,
+    ),
+    "SetupIntentModifyParamsPaymentMethodOptionsUpi": (
+        "stripe.params._setup_intent_modify_params",
+        False,
+    ),
+    "SetupIntentModifyParamsPaymentMethodOptionsUpiMandateOptions": (
         "stripe.params._setup_intent_modify_params",
         False,
     ),
@@ -21518,6 +21891,14 @@ _import_map = {
         "stripe.params._setup_intent_update_params",
         False,
     ),
+    "SetupIntentUpdateParamsPaymentMethodDataUpi": (
+        "stripe.params._setup_intent_update_params",
+        False,
+    ),
+    "SetupIntentUpdateParamsPaymentMethodDataUpiMandateOptions": (
+        "stripe.params._setup_intent_update_params",
+        False,
+    ),
     "SetupIntentUpdateParamsPaymentMethodDataUsBankAccount": (
         "stripe.params._setup_intent_update_params",
         False,
@@ -21623,6 +22004,18 @@ _import_map = {
         False,
     ),
     "SetupIntentUpdateParamsPaymentMethodOptionsSepaDebitMandateOptions": (
+        "stripe.params._setup_intent_update_params",
+        False,
+    ),
+    "SetupIntentUpdateParamsPaymentMethodOptionsStripeBalance": (
+        "stripe.params._setup_intent_update_params",
+        False,
+    ),
+    "SetupIntentUpdateParamsPaymentMethodOptionsUpi": (
+        "stripe.params._setup_intent_update_params",
+        False,
+    ),
+    "SetupIntentUpdateParamsPaymentMethodOptionsUpiMandateOptions": (
         "stripe.params._setup_intent_update_params",
         False,
     ),
@@ -21959,6 +22352,10 @@ _import_map = {
         "stripe.params._subscription_create_params",
         False,
     ),
+    "SubscriptionCreateParamsItemCurrentTrial": (
+        "stripe.params._subscription_create_params",
+        False,
+    ),
     "SubscriptionCreateParamsItemDiscount": (
         "stripe.params._subscription_create_params",
         False,
@@ -22103,6 +22500,10 @@ _import_map = {
         "stripe.params._subscription_item_create_params",
         False,
     ),
+    "SubscriptionItemCreateParamsCurrentTrial": (
+        "stripe.params._subscription_item_create_params",
+        False,
+    ),
     "SubscriptionItemCreateParamsDiscount": (
         "stripe.params._subscription_item_create_params",
         False,
@@ -22143,6 +22544,10 @@ _import_map = {
         "stripe.params._subscription_item_modify_params",
         False,
     ),
+    "SubscriptionItemModifyParamsCurrentTrial": (
+        "stripe.params._subscription_item_modify_params",
+        False,
+    ),
     "SubscriptionItemModifyParamsDiscount": (
         "stripe.params._subscription_item_modify_params",
         False,
@@ -22172,6 +22577,10 @@ _import_map = {
         False,
     ),
     "SubscriptionItemUpdateParamsBillingThresholds": (
+        "stripe.params._subscription_item_update_params",
+        False,
+    ),
+    "SubscriptionItemUpdateParamsCurrentTrial": (
         "stripe.params._subscription_item_update_params",
         False,
     ),
@@ -22320,6 +22729,10 @@ _import_map = {
         False,
     ),
     "SubscriptionModifyParamsItemBillingThresholds": (
+        "stripe.params._subscription_modify_params",
+        False,
+    ),
+    "SubscriptionModifyParamsItemCurrentTrial": (
         "stripe.params._subscription_modify_params",
         False,
     ),
@@ -23216,6 +23629,10 @@ _import_map = {
         False,
     ),
     "SubscriptionUpdateParamsItemBillingThresholds": (
+        "stripe.params._subscription_update_params",
+        False,
+    ),
+    "SubscriptionUpdateParamsItemCurrentTrial": (
         "stripe.params._subscription_update_params",
         False,
     ),

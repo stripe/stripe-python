@@ -151,7 +151,7 @@ class Order(
                         Literal["automatic", "instant", "microdeposits"]
                     ]
                     """
-                    Bank account verification method.
+                    Bank account verification method. The default value is `automatic`.
                     """
                     _inner_class_types = {"mandate_options": MandateOptions}
 
@@ -1034,7 +1034,7 @@ class Order(
     """
     livemode: bool
     """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
     metadata: Optional[Dict[str, str]]
     """

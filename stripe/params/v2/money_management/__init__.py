@@ -38,7 +38,6 @@ if TYPE_CHECKING:
     )
     from stripe.params.v2.money_management._inbound_transfer_create_params import (
         InboundTransferCreateParams as InboundTransferCreateParams,
-        InboundTransferCreateParamsAmount as InboundTransferCreateParamsAmount,
         InboundTransferCreateParamsFrom as InboundTransferCreateParamsFrom,
         InboundTransferCreateParamsTo as InboundTransferCreateParamsTo,
     )
@@ -53,7 +52,6 @@ if TYPE_CHECKING:
     )
     from stripe.params.v2.money_management._outbound_payment_create_params import (
         OutboundPaymentCreateParams as OutboundPaymentCreateParams,
-        OutboundPaymentCreateParamsAmount as OutboundPaymentCreateParamsAmount,
         OutboundPaymentCreateParamsDeliveryOptions as OutboundPaymentCreateParamsDeliveryOptions,
         OutboundPaymentCreateParamsFrom as OutboundPaymentCreateParamsFrom,
         OutboundPaymentCreateParamsRecipientNotification as OutboundPaymentCreateParamsRecipientNotification,
@@ -64,7 +62,6 @@ if TYPE_CHECKING:
     )
     from stripe.params.v2.money_management._outbound_payment_quote_create_params import (
         OutboundPaymentQuoteCreateParams as OutboundPaymentQuoteCreateParams,
-        OutboundPaymentQuoteCreateParamsAmount as OutboundPaymentQuoteCreateParamsAmount,
         OutboundPaymentQuoteCreateParamsDeliveryOptions as OutboundPaymentQuoteCreateParamsDeliveryOptions,
         OutboundPaymentQuoteCreateParamsFrom as OutboundPaymentQuoteCreateParamsFrom,
         OutboundPaymentQuoteCreateParamsTo as OutboundPaymentQuoteCreateParamsTo,
@@ -101,7 +98,6 @@ if TYPE_CHECKING:
     )
     from stripe.params.v2.money_management._outbound_transfer_create_params import (
         OutboundTransferCreateParams as OutboundTransferCreateParams,
-        OutboundTransferCreateParamsAmount as OutboundTransferCreateParamsAmount,
         OutboundTransferCreateParamsDeliveryOptions as OutboundTransferCreateParamsDeliveryOptions,
         OutboundTransferCreateParamsFrom as OutboundTransferCreateParamsFrom,
         OutboundTransferCreateParamsTo as OutboundTransferCreateParamsTo,
@@ -207,10 +203,6 @@ _import_map = {
         "stripe.params.v2.money_management._inbound_transfer_create_params",
         False,
     ),
-    "InboundTransferCreateParamsAmount": (
-        "stripe.params.v2.money_management._inbound_transfer_create_params",
-        False,
-    ),
     "InboundTransferCreateParamsFrom": (
         "stripe.params.v2.money_management._inbound_transfer_create_params",
         False,
@@ -235,10 +227,6 @@ _import_map = {
         "stripe.params.v2.money_management._outbound_payment_create_params",
         False,
     ),
-    "OutboundPaymentCreateParamsAmount": (
-        "stripe.params.v2.money_management._outbound_payment_create_params",
-        False,
-    ),
     "OutboundPaymentCreateParamsDeliveryOptions": (
         "stripe.params.v2.money_management._outbound_payment_create_params",
         False,
@@ -260,10 +248,6 @@ _import_map = {
         False,
     ),
     "OutboundPaymentQuoteCreateParams": (
-        "stripe.params.v2.money_management._outbound_payment_quote_create_params",
-        False,
-    ),
-    "OutboundPaymentQuoteCreateParamsAmount": (
         "stripe.params.v2.money_management._outbound_payment_quote_create_params",
         False,
     ),
@@ -336,10 +320,6 @@ _import_map = {
         False,
     ),
     "OutboundTransferCreateParams": (
-        "stripe.params.v2.money_management._outbound_transfer_create_params",
-        False,
-    ),
-    "OutboundTransferCreateParamsAmount": (
         "stripe.params.v2.money_management._outbound_transfer_create_params",
         False,
     ),

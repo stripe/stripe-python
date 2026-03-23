@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
+from stripe.v2._amount import Amount
 from typing import ClassVar, Optional
 from typing_extensions import Literal
 
@@ -14,64 +15,25 @@ class Transaction(StripeObject):
         "v2.money_management.transaction"
     )
 
-    class Amount(StripeObject):
-        currency: str
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        value: int
-        """
-        A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-        """
-
     class BalanceImpact(StripeObject):
-        class Available(StripeObject):
-            currency: str
-            """
-            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            """
-            value: int
-            """
-            A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            """
-
-        class InboundPending(StripeObject):
-            currency: str
-            """
-            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            """
-            value: int
-            """
-            A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            """
-
-        class OutboundPending(StripeObject):
-            currency: str
-            """
-            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            """
-            value: int
-            """
-            A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            """
-
-        available: Available
+        available: Amount
         """
         Impact to the available balance.
         """
-        inbound_pending: InboundPending
+        inbound_pending: Amount
         """
         Impact to the inbound_pending balance.
         """
-        outbound_pending: OutboundPending
+        outbound_pending: Amount
         """
         Impact to the outbound_pending balance.
         """
-        _inner_class_types = {
-            "available": Available,
-            "inbound_pending": InboundPending,
-            "outbound_pending": OutboundPending,
-        }
+
+    class Counterparty(StripeObject):
+        name: Optional[str]
+        """
+        Name of the counterparty.
+        """
 
     class Flow(StripeObject):
         adjustment: Optional[str]
@@ -153,9 +115,18 @@ class Transaction(StripeObject):
     """
     Open Enum. A descriptive category used to classify the Transaction.
     """
+    counterparty: Optional[Counterparty]
+    """
+    Counterparty to this Transaction.
+    """
     created: str
     """
     Time at which the object was created. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+    """
+    description: Optional[str]
+    """
+    Description of this Transaction. When applicable, the description is copied from the Flow object at the time
+    of transaction creation.
     """
     financial_account: str
     """
@@ -190,8 +161,8 @@ class Transaction(StripeObject):
     Timestamps for when the Transaction transitioned to a particular status.
     """
     _inner_class_types = {
-        "amount": Amount,
         "balance_impact": BalanceImpact,
+        "counterparty": Counterparty,
         "flow": Flow,
         "status_transitions": StatusTransitions,
     }

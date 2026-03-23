@@ -8,6 +8,7 @@ if TYPE_CHECKING:
     from stripe.v2.core._account_link_service import AccountLinkService
     from stripe.v2.core._account_service import AccountService
     from stripe.v2.core._account_token_service import AccountTokenService
+    from stripe.v2.core._batch_job_service import BatchJobService
     from stripe.v2.core._event_destination_service import (
         EventDestinationService,
     )
@@ -24,6 +25,7 @@ _subservices = {
         "stripe.v2.core._account_token_service",
         "AccountTokenService",
     ],
+    "batch_jobs": ["stripe.v2.core._batch_job_service", "BatchJobService"],
     "events": ["stripe.v2.core._event_service", "EventService"],
     "event_destinations": [
         "stripe.v2.core._event_destination_service",
@@ -37,6 +39,7 @@ class CoreService(StripeService):
     accounts: "AccountService"
     account_links: "AccountLinkService"
     account_tokens: "AccountTokenService"
+    batch_jobs: "BatchJobService"
     events: "EventService"
     event_destinations: "EventDestinationService"
     vault: "VaultService"

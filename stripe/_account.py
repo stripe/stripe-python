@@ -81,6 +81,8 @@ class Account(
     UpdateableAPIResource["Account"],
 ):
     """
+    For new integrations, we recommend using the [Accounts v2 API](https://docs.stripe.com/api/v2/core/accounts), in place of /v1/accounts and /v1/customers to represent a user.
+
     This is an object representing a Stripe account. You can retrieve it to see
     properties on the account like its current requirements or if the account is
     enabled to make live charges or receive payouts.
@@ -539,6 +541,10 @@ class Account(
         twint_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the TWINT capability of the account, or whether the account can directly process TWINT charges.
+        """
+        upi_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the upi payments capability of the account, or whether the account can directly process upi charges.
         """
         us_bank_account_ach_payments: Optional[
             Literal["active", "inactive", "pending"]
@@ -1527,7 +1533,7 @@ class Account(
             """
             goods_type: Optional[Literal["digital_content", "other"]]
             """
-            Whether your business sells digital content or not.
+            The type of goods your business sells. Use `digital_content` if you sell digital content. Use `other` for all other types of goods or services.
             """
             site: Optional[Site]
             _inner_class_types = {"site": Site}

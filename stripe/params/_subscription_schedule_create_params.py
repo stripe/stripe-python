@@ -650,6 +650,10 @@ class SubscriptionScheduleCreateParamsPhaseItem(TypedDict):
     """
     Options that configure the trial on the subscription item.
     """
+    trial_offer: NotRequired[str]
+    """
+    The ID of the trial offer to apply to the configuration item.
+    """
 
 
 class SubscriptionScheduleCreateParamsPhaseItemBillingThresholds(TypedDict):
@@ -762,7 +766,7 @@ class SubscriptionScheduleCreateParamsPhaseItemTrial(TypedDict):
 class SubscriptionScheduleCreateParamsPhasePauseCollection(TypedDict):
     behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
     """
-    The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+    The payment collection behavior for this subscription while paused.
     """
 
 

@@ -82,6 +82,8 @@ if TYPE_CHECKING:
     )
     from stripe.params.issuing._card_create_params import (
         CardCreateParams as CardCreateParams,
+        CardCreateParamsLifecycleControls as CardCreateParamsLifecycleControls,
+        CardCreateParamsLifecycleControlsCancelAfter as CardCreateParamsLifecycleControlsCancelAfter,
         CardCreateParamsPin as CardCreateParamsPin,
         CardCreateParamsShipping as CardCreateParamsShipping,
         CardCreateParamsShippingAddress as CardCreateParamsShippingAddress,
@@ -582,6 +584,14 @@ _import_map = {
         False,
     ),
     "CardCreateParams": ("stripe.params.issuing._card_create_params", False),
+    "CardCreateParamsLifecycleControls": (
+        "stripe.params.issuing._card_create_params",
+        False,
+    ),
+    "CardCreateParamsLifecycleControlsCancelAfter": (
+        "stripe.params.issuing._card_create_params",
+        False,
+    ),
     "CardCreateParamsPin": (
         "stripe.params.issuing._card_create_params",
         False,

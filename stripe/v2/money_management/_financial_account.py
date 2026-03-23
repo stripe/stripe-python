@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
+from stripe.v2._amount import Amount
 from typing import ClassVar, Dict, List, Optional
 from typing_extensions import Literal
 
@@ -15,58 +16,18 @@ class FinancialAccount(StripeObject):
     )
 
     class Balance(StripeObject):
-        class Available(StripeObject):
-            currency: str
-            """
-            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            """
-            value: int
-            """
-            A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            """
-
-        class InboundPending(StripeObject):
-            currency: str
-            """
-            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            """
-            value: int
-            """
-            A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            """
-
-        class OutboundPending(StripeObject):
-            currency: str
-            """
-            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            """
-            value: int
-            """
-            A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            """
-
-        available: Dict[str, Available]
+        available: Dict[str, Amount]
         """
         Balance that can be used for money movement.
         """
-        inbound_pending: Dict[str, InboundPending]
+        inbound_pending: Dict[str, Amount]
         """
         Balance of inbound funds that will later transition to the `available` balance.
         """
-        outbound_pending: Dict[str, OutboundPending]
+        outbound_pending: Dict[str, Amount]
         """
         Balance of funds that are being used for a pending outbound money movement.
         """
-        _inner_class_types = {
-            "available": Available,
-            "inbound_pending": InboundPending,
-            "outbound_pending": OutboundPending,
-        }
-        _inner_class_dicts = [
-            "available",
-            "inbound_pending",
-            "outbound_pending",
-        ]
 
     class Other(StripeObject):
         type: str
@@ -87,10 +48,19 @@ class FinancialAccount(StripeObject):
                 """
 
             forwarding_settings: Optional[ForwardingSettings]
+            """
+            The forwarding settings for the closed FinancialAccount.
+            """
             reason: Literal["account_closed", "closed_by_platform", "other"]
+            """
+            The reason the FinancialAccount was closed.
+            """
             _inner_class_types = {"forwarding_settings": ForwardingSettings}
 
         closed: Optional[Closed]
+        """
+        Details related to the closed state of the FinancialAccount.
+        """
         _inner_class_types = {"closed": Closed}
 
     class Storage(StripeObject):
@@ -140,6 +110,9 @@ class FinancialAccount(StripeObject):
     Closed Enum. An enum representing the status of the FinancialAccount. This indicates whether or not the FinancialAccount can be used for any money movement flows.
     """
     status_details: Optional[StatusDetails]
+    """
+    Additional details related to the status of the FinancialAccount.
+    """
     storage: Optional[Storage]
     """
     If this is a `storage` FinancialAccount, this hash includes details specific to `storage` FinancialAccounts.

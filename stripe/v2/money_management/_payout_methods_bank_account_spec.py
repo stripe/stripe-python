@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Dict, List
+from typing import ClassVar, Dict, List, Optional
 from typing_extensions import Literal
 
 
@@ -26,6 +26,10 @@ class PayoutMethodsBankAccountSpec(StripeObject):
                 A unique key representing the instance of this localizable string.
                 """
 
+            currencies: Optional[List[str]]
+            """
+            The currencies supported by the corresponding credentials for bank accounts in the specified country.
+            """
             local_name: str
             """
             The local name of the field.

@@ -29,6 +29,10 @@ if TYPE_CHECKING:
     from stripe.v2.core._account_token_service import (
         AccountTokenService as AccountTokenService,
     )
+    from stripe.v2.core._batch_job import BatchJob as BatchJob
+    from stripe.v2.core._batch_job_service import (
+        BatchJobService as BatchJobService,
+    )
     from stripe.v2.core._event import Event as Event
     from stripe.v2.core._event_destination import (
         EventDestination as EventDestination,
@@ -51,6 +55,8 @@ _import_map = {
     "AccountService": ("stripe.v2.core._account_service", False),
     "AccountToken": ("stripe.v2.core._account_token", False),
     "AccountTokenService": ("stripe.v2.core._account_token_service", False),
+    "BatchJob": ("stripe.v2.core._batch_job", False),
+    "BatchJobService": ("stripe.v2.core._batch_job_service", False),
     "Event": ("stripe.v2.core._event", False),
     "EventDestination": ("stripe.v2.core._event_destination", False),
     "EventDestinationService": (

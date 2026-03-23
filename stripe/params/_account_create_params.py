@@ -608,6 +608,10 @@ class AccountCreateParamsCapabilities(TypedDict):
     """
     The twint_payments capability.
     """
+    upi_payments: NotRequired["AccountCreateParamsCapabilitiesUpiPayments"]
+    """
+    The upi_payments capability.
+    """
     us_bank_account_ach_payments: NotRequired[
         "AccountCreateParamsCapabilitiesUsBankAccountAchPayments"
     ]
@@ -1117,6 +1121,13 @@ class AccountCreateParamsCapabilitiesTreasuryGoldmanSachs(TypedDict):
 
 
 class AccountCreateParamsCapabilitiesTwintPayments(TypedDict):
+    requested: NotRequired[bool]
+    """
+    Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+    """
+
+
+class AccountCreateParamsCapabilitiesUpiPayments(TypedDict):
     requested: NotRequired[bool]
     """
     Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -2261,7 +2272,7 @@ class AccountCreateParamsSettingsPaypayPayments(TypedDict):
     """
     goods_type: NotRequired[Literal["digital_content", "other"]]
     """
-    Whether your business sells digital content or not.
+    The type of goods your business sells. Use `digital_content` if you sell digital content. Use `other` for all other types of goods or services.
     """
     site: NotRequired["AccountCreateParamsSettingsPaypayPaymentsSite"]
     """

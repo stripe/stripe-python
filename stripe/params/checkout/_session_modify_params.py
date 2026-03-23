@@ -290,9 +290,26 @@ class SessionModifyParamsLineItemPriceDataProductData(TypedDict):
     """
     A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
     """
+    tax_details: NotRequired[
+        "SessionModifyParamsLineItemPriceDataProductDataTaxDetails"
+    ]
+    """
+    Tax details for this product, including the [tax code](https://docs.stripe.com/tax/tax-codes) and an optional performance location.
+    """
     unit_label: NotRequired[str]
     """
     A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
+    """
+
+
+class SessionModifyParamsLineItemPriceDataProductDataTaxDetails(TypedDict):
+    performance_location: NotRequired[str]
+    """
+    A tax location ID. Depending on the [tax code](https://docs.stripe.com/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+    """
+    tax_code: NotRequired["Literal['']|str"]
+    """
+    A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
     """
 
 
@@ -438,6 +455,12 @@ class SessionModifyParamsSubscriptionData(TypedDict):
     """
     All invoices will be billed using the specified settings.
     """
+    pending_invoice_item_interval: NotRequired[
+        "Literal['']|SessionModifyParamsSubscriptionDataPendingInvoiceItemInterval"
+    ]
+    """
+    Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://docs.stripe.com/api#create_invoice) for the given subscription at the specified interval.
+    """
     trial_end: NotRequired[int]
     """
     Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. Has to be at least 48 hours in the future.
@@ -465,4 +488,15 @@ class SessionModifyParamsSubscriptionDataInvoiceSettingsIssuer(TypedDict):
     type: Literal["account", "self"]
     """
     Type of the account referenced in the request.
+    """
+
+
+class SessionModifyParamsSubscriptionDataPendingInvoiceItemInterval(TypedDict):
+    interval: Literal["day", "month", "week", "year"]
+    """
+    Specifies invoicing frequency. Either `day`, `week`, `month` or `year`.
+    """
+    interval_count: NotRequired[int]
+    """
+    The number of intervals between invoices. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
     """

@@ -97,6 +97,46 @@ if TYPE_CHECKING:
         V2CoreAccountUpdatedEvent as V2CoreAccountUpdatedEvent,
         V2CoreAccountUpdatedEventNotification as V2CoreAccountUpdatedEventNotification,
     )
+    from stripe.events._v2_core_batch_job_batch_failed_event import (
+        V2CoreBatchJobBatchFailedEvent as V2CoreBatchJobBatchFailedEvent,
+        V2CoreBatchJobBatchFailedEventNotification as V2CoreBatchJobBatchFailedEventNotification,
+    )
+    from stripe.events._v2_core_batch_job_canceled_event import (
+        V2CoreBatchJobCanceledEvent as V2CoreBatchJobCanceledEvent,
+        V2CoreBatchJobCanceledEventNotification as V2CoreBatchJobCanceledEventNotification,
+    )
+    from stripe.events._v2_core_batch_job_completed_event import (
+        V2CoreBatchJobCompletedEvent as V2CoreBatchJobCompletedEvent,
+        V2CoreBatchJobCompletedEventNotification as V2CoreBatchJobCompletedEventNotification,
+    )
+    from stripe.events._v2_core_batch_job_created_event import (
+        V2CoreBatchJobCreatedEvent as V2CoreBatchJobCreatedEvent,
+        V2CoreBatchJobCreatedEventNotification as V2CoreBatchJobCreatedEventNotification,
+    )
+    from stripe.events._v2_core_batch_job_ready_for_upload_event import (
+        V2CoreBatchJobReadyForUploadEvent as V2CoreBatchJobReadyForUploadEvent,
+        V2CoreBatchJobReadyForUploadEventNotification as V2CoreBatchJobReadyForUploadEventNotification,
+    )
+    from stripe.events._v2_core_batch_job_timeout_event import (
+        V2CoreBatchJobTimeoutEvent as V2CoreBatchJobTimeoutEvent,
+        V2CoreBatchJobTimeoutEventNotification as V2CoreBatchJobTimeoutEventNotification,
+    )
+    from stripe.events._v2_core_batch_job_updated_event import (
+        V2CoreBatchJobUpdatedEvent as V2CoreBatchJobUpdatedEvent,
+        V2CoreBatchJobUpdatedEventNotification as V2CoreBatchJobUpdatedEventNotification,
+    )
+    from stripe.events._v2_core_batch_job_upload_timeout_event import (
+        V2CoreBatchJobUploadTimeoutEvent as V2CoreBatchJobUploadTimeoutEvent,
+        V2CoreBatchJobUploadTimeoutEventNotification as V2CoreBatchJobUploadTimeoutEventNotification,
+    )
+    from stripe.events._v2_core_batch_job_validating_event import (
+        V2CoreBatchJobValidatingEvent as V2CoreBatchJobValidatingEvent,
+        V2CoreBatchJobValidatingEventNotification as V2CoreBatchJobValidatingEventNotification,
+    )
+    from stripe.events._v2_core_batch_job_validation_failed_event import (
+        V2CoreBatchJobValidationFailedEvent as V2CoreBatchJobValidationFailedEvent,
+        V2CoreBatchJobValidationFailedEventNotification as V2CoreBatchJobValidationFailedEventNotification,
+    )
     from stripe.events._v2_core_event_destination_ping_event import (
         V2CoreEventDestinationPingEvent as V2CoreEventDestinationPingEvent,
         V2CoreEventDestinationPingEventNotification as V2CoreEventDestinationPingEventNotification,
@@ -419,6 +459,86 @@ _import_map = {
     ),
     "V2CoreAccountUpdatedEventNotification": (
         "stripe.events._v2_core_account_updated_event",
+        False,
+    ),
+    "V2CoreBatchJobBatchFailedEvent": (
+        "stripe.events._v2_core_batch_job_batch_failed_event",
+        False,
+    ),
+    "V2CoreBatchJobBatchFailedEventNotification": (
+        "stripe.events._v2_core_batch_job_batch_failed_event",
+        False,
+    ),
+    "V2CoreBatchJobCanceledEvent": (
+        "stripe.events._v2_core_batch_job_canceled_event",
+        False,
+    ),
+    "V2CoreBatchJobCanceledEventNotification": (
+        "stripe.events._v2_core_batch_job_canceled_event",
+        False,
+    ),
+    "V2CoreBatchJobCompletedEvent": (
+        "stripe.events._v2_core_batch_job_completed_event",
+        False,
+    ),
+    "V2CoreBatchJobCompletedEventNotification": (
+        "stripe.events._v2_core_batch_job_completed_event",
+        False,
+    ),
+    "V2CoreBatchJobCreatedEvent": (
+        "stripe.events._v2_core_batch_job_created_event",
+        False,
+    ),
+    "V2CoreBatchJobCreatedEventNotification": (
+        "stripe.events._v2_core_batch_job_created_event",
+        False,
+    ),
+    "V2CoreBatchJobReadyForUploadEvent": (
+        "stripe.events._v2_core_batch_job_ready_for_upload_event",
+        False,
+    ),
+    "V2CoreBatchJobReadyForUploadEventNotification": (
+        "stripe.events._v2_core_batch_job_ready_for_upload_event",
+        False,
+    ),
+    "V2CoreBatchJobTimeoutEvent": (
+        "stripe.events._v2_core_batch_job_timeout_event",
+        False,
+    ),
+    "V2CoreBatchJobTimeoutEventNotification": (
+        "stripe.events._v2_core_batch_job_timeout_event",
+        False,
+    ),
+    "V2CoreBatchJobUpdatedEvent": (
+        "stripe.events._v2_core_batch_job_updated_event",
+        False,
+    ),
+    "V2CoreBatchJobUpdatedEventNotification": (
+        "stripe.events._v2_core_batch_job_updated_event",
+        False,
+    ),
+    "V2CoreBatchJobUploadTimeoutEvent": (
+        "stripe.events._v2_core_batch_job_upload_timeout_event",
+        False,
+    ),
+    "V2CoreBatchJobUploadTimeoutEventNotification": (
+        "stripe.events._v2_core_batch_job_upload_timeout_event",
+        False,
+    ),
+    "V2CoreBatchJobValidatingEvent": (
+        "stripe.events._v2_core_batch_job_validating_event",
+        False,
+    ),
+    "V2CoreBatchJobValidatingEventNotification": (
+        "stripe.events._v2_core_batch_job_validating_event",
+        False,
+    ),
+    "V2CoreBatchJobValidationFailedEvent": (
+        "stripe.events._v2_core_batch_job_validation_failed_event",
+        False,
+    ),
+    "V2CoreBatchJobValidationFailedEventNotification": (
+        "stripe.events._v2_core_batch_job_validation_failed_event",
         False,
     ),
     "V2CoreEventDestinationPingEvent": (

@@ -17,9 +17,13 @@ class EventDestinationCreateParams(TypedDict):
     """
     Payload type of events being subscribed to.
     """
-    events_from: NotRequired[List[Literal["other_accounts", "self"]]]
+    events_from: NotRequired[List[str]]
     """
-    Where events should be routed from.
+    Specifies which accounts' events route to this destination.
+    `@self`: Receive events from the account that owns the event destination.
+    `@accounts`: Receive events emitted from other accounts you manage which includes your v1 and v2 accounts.
+    `@organization_members`: Receive events from accounts directly linked to the organization.
+    `@organization_members/@accounts`: Receive events from all accounts connected to any platform accounts in the organization.
     """
     include: NotRequired[
         List[
@@ -41,7 +45,7 @@ class EventDestinationCreateParams(TypedDict):
     """
     If using the snapshot event payload, the API version events are rendered as.
     """
-    type: Literal["amazon_eventbridge", "webhook_endpoint"]
+    type: Literal["amazon_eventbridge", "azure_event_grid", "webhook_endpoint"]
     """
     Event destination type.
     """
@@ -50,6 +54,10 @@ class EventDestinationCreateParams(TypedDict):
     ]
     """
     Amazon EventBridge configuration.
+    """
+    azure_event_grid: NotRequired["EventDestinationCreateParamsAzureEventGrid"]
+    """
+    Azure Event Grid configuration.
     """
     webhook_endpoint: NotRequired[
         "EventDestinationCreateParamsWebhookEndpoint"
@@ -67,6 +75,21 @@ class EventDestinationCreateParamsAmazonEventbridge(TypedDict):
     aws_region: str
     """
     The region of the AWS event source.
+    """
+
+
+class EventDestinationCreateParamsAzureEventGrid(TypedDict):
+    azure_region: str
+    """
+    The Azure region.
+    """
+    azure_resource_group_name: str
+    """
+    The name of the Azure resource group.
+    """
+    azure_subscription_id: str
+    """
+    The Azure subscription ID.
     """
 
 
