@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from decimal import Decimal
 from stripe._request_options import RequestOptions
 from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
@@ -61,7 +62,7 @@ class PriceModifyParamsCurrencyOptions(TypedDict):
     """
     A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
     """
-    unit_amount_decimal: NotRequired[str]
+    unit_amount_decimal: NotRequired[Decimal]
     """
     Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
     """
@@ -91,7 +92,7 @@ class PriceModifyParamsCurrencyOptionsTier(TypedDict):
     """
     The flat billing amount for an entire tier, regardless of the number of units in the tier.
     """
-    flat_amount_decimal: NotRequired[str]
+    flat_amount_decimal: NotRequired[Decimal]
     """
     Same as `flat_amount`, but accepts a decimal value representing an integer in the minor units of the currency. Only one of `flat_amount` and `flat_amount_decimal` can be set.
     """
@@ -99,7 +100,7 @@ class PriceModifyParamsCurrencyOptionsTier(TypedDict):
     """
     The per unit billing amount for each individual unit for which this tier applies.
     """
-    unit_amount_decimal: NotRequired[str]
+    unit_amount_decimal: NotRequired[Decimal]
     """
     Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
     """
