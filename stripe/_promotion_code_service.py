@@ -10,14 +10,10 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
-    from stripe._promotion_code import (
-        PromotionCode,
-        PromotionCodeCreateParams as PromotionCodeCreateParamsResource,
-        PromotionCodeUpdateParams as PromotionCodeUpdateParamsResource,
-    )
+    from stripe._promotion_code import PromotionCode
     from stripe._request_options import RequestOptions
     from stripe.params._promotion_code_create_params import (
-        PromotionCodeCreateParams as ParamsPromotionCodeCreateParamsResource,
+        PromotionCodeCreateParams,
     )
     from stripe.params._promotion_code_list_params import (
         PromotionCodeListParams,
@@ -26,7 +22,7 @@ if TYPE_CHECKING:
         PromotionCodeRetrieveParams,
     )
     from stripe.params._promotion_code_update_params import (
-        PromotionCodeUpdateParams as ParamsPromotionCodeUpdateParamsResource,
+        PromotionCodeUpdateParams,
     )
 
 

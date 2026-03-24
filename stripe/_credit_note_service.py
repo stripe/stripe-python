@@ -10,19 +10,14 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe._credit_note import (
-        CreditNote,
-        CreditNoteCreateParams as CreditNoteCreateParamsResource,
-    )
+    from stripe._credit_note import CreditNote
     from stripe._credit_note_line_item_service import CreditNoteLineItemService
     from stripe._credit_note_preview_lines_service import (
         CreditNotePreviewLinesService,
     )
     from stripe._list_object import ListObject
     from stripe._request_options import RequestOptions
-    from stripe.params._credit_note_create_params import (
-        CreditNoteCreateParams as ParamsCreditNoteCreateParamsResource,
-    )
+    from stripe.params._credit_note_create_params import CreditNoteCreateParams
     from stripe.params._credit_note_list_params import CreditNoteListParams
     from stripe.params._credit_note_preview_params import (
         CreditNotePreviewParams,

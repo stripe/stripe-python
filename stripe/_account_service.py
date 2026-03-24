@@ -10,10 +10,7 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe._account import (
-        Account,
-        AccountUpdateParams as AccountUpdateParamsResource,
-    )
+    from stripe._account import Account
     from stripe._account_capability_service import AccountCapabilityService
     from stripe._account_external_account_service import (
         AccountExternalAccountService,
@@ -30,9 +27,7 @@ if TYPE_CHECKING:
         AccountRetrieveCurrentParams,
     )
     from stripe.params._account_retrieve_params import AccountRetrieveParams
-    from stripe.params._account_update_params import (
-        AccountUpdateParams as ParamsAccountUpdateParamsResource,
-    )
+    from stripe.params._account_update_params import AccountUpdateParams
 
 _subservices = {
     "capabilities": [

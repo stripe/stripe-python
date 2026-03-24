@@ -10,10 +10,7 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe._customer import (
-        Customer,
-        CustomerUpdateParams as CustomerUpdateParamsResource,
-    )
+    from stripe._customer import Customer
     from stripe._customer_balance_transaction_service import (
         CustomerBalanceTransactionService,
     )
@@ -45,9 +42,7 @@ if TYPE_CHECKING:
     from stripe.params._customer_list_params import CustomerListParams
     from stripe.params._customer_retrieve_params import CustomerRetrieveParams
     from stripe.params._customer_search_params import CustomerSearchParams
-    from stripe.params._customer_update_params import (
-        CustomerUpdateParams as ParamsCustomerUpdateParamsResource,
-    )
+    from stripe.params._customer_update_params import CustomerUpdateParams
 
 _subservices = {
     "balance_transactions": [

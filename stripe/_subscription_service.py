@@ -13,11 +13,7 @@ if TYPE_CHECKING:
     from stripe._list_object import ListObject
     from stripe._request_options import RequestOptions
     from stripe._search_result_object import SearchResultObject
-    from stripe._subscription import (
-        Subscription,
-        SubscriptionMigrateParams as SubscriptionMigrateParamsResource,
-        SubscriptionUpdateParams as SubscriptionUpdateParamsResource,
-    )
+    from stripe._subscription import Subscription
     from stripe.params._subscription_cancel_params import (
         SubscriptionCancelParams,
     )
@@ -29,7 +25,7 @@ if TYPE_CHECKING:
     )
     from stripe.params._subscription_list_params import SubscriptionListParams
     from stripe.params._subscription_migrate_params import (
-        SubscriptionMigrateParams as ParamsSubscriptionMigrateParamsResource,
+        SubscriptionMigrateParams,
     )
     from stripe.params._subscription_resume_params import (
         SubscriptionResumeParams,
@@ -41,7 +37,7 @@ if TYPE_CHECKING:
         SubscriptionSearchParams,
     )
     from stripe.params._subscription_update_params import (
-        SubscriptionUpdateParams as ParamsSubscriptionUpdateParamsResource,
+        SubscriptionUpdateParams,
     )
 
 

@@ -10,11 +10,7 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe._invoice import (
-        Invoice,
-        InvoicePayParams as InvoicePayParamsResource,
-        InvoiceUpdateParams as InvoiceUpdateParamsResource,
-    )
+    from stripe._invoice import Invoice
     from stripe._invoice_line_item_service import InvoiceLineItemService
     from stripe._list_object import ListObject
     from stripe._request_options import RequestOptions
@@ -38,9 +34,7 @@ if TYPE_CHECKING:
     from stripe.params._invoice_mark_uncollectible_params import (
         InvoiceMarkUncollectibleParams,
     )
-    from stripe.params._invoice_pay_params import (
-        InvoicePayParams as ParamsInvoicePayParamsResource,
-    )
+    from stripe.params._invoice_pay_params import InvoicePayParams
     from stripe.params._invoice_remove_lines_params import (
         InvoiceRemoveLinesParams,
     )
@@ -52,9 +46,7 @@ if TYPE_CHECKING:
     from stripe.params._invoice_update_lines_params import (
         InvoiceUpdateLinesParams,
     )
-    from stripe.params._invoice_update_params import (
-        InvoiceUpdateParams as ParamsInvoiceUpdateParamsResource,
-    )
+    from stripe.params._invoice_update_params import InvoiceUpdateParams
     from stripe.params._invoice_void_invoice_params import (
         InvoiceVoidInvoiceParams,
     )

@@ -11,20 +11,15 @@ from typing_extensions import TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
     from stripe._request_options import RequestOptions
-    from stripe._subscription_schedule import (
-        SubscriptionSchedule,
-        SubscriptionScheduleCancelParams as SubscriptionScheduleCancelParamsResource,
-        SubscriptionScheduleCreateParams as SubscriptionScheduleCreateParamsResource,
-        SubscriptionScheduleUpdateParams as SubscriptionScheduleUpdateParamsResource,
-    )
+    from stripe._subscription_schedule import SubscriptionSchedule
     from stripe.params._subscription_schedule_amend_params import (
         SubscriptionScheduleAmendParams,
     )
     from stripe.params._subscription_schedule_cancel_params import (
-        SubscriptionScheduleCancelParams as ParamsSubscriptionScheduleCancelParamsResource,
+        SubscriptionScheduleCancelParams,
     )
     from stripe.params._subscription_schedule_create_params import (
-        SubscriptionScheduleCreateParams as ParamsSubscriptionScheduleCreateParamsResource,
+        SubscriptionScheduleCreateParams,
     )
     from stripe.params._subscription_schedule_list_params import (
         SubscriptionScheduleListParams,
@@ -36,7 +31,7 @@ if TYPE_CHECKING:
         SubscriptionScheduleRetrieveParams,
     )
     from stripe.params._subscription_schedule_update_params import (
-        SubscriptionScheduleUpdateParams as ParamsSubscriptionScheduleUpdateParamsResource,
+        SubscriptionScheduleUpdateParams,
     )
 
 
