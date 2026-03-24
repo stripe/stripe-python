@@ -269,6 +269,10 @@ class StripeClient(object):
             requestor=self._requestor,
             api_mode="V1",
         )
+        if event.object == "v2.core.event":  # type: ignore
+            raise ValueError(
+                "You passed a thin event notification to StripeClient.construct_event, which expects a webhook payload. Use StripeClient.parse_event_notification instead."
+            )
 
         return event
 
