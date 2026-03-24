@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from decimal import Decimal
 from stripe._api_mode import ApiMode
 from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
@@ -42,10 +43,13 @@ class V2CoreHealthSepaDebitDelayedResolvedEvent(Event):
             """
             The number of impacted payments.
             """
-            impacted_payments_percentage: str
+            impacted_payments_percentage: Decimal
             """
             The percentage of impacted payments.
             """
+            _field_encodings = {
+                "impacted_payments_percentage": "decimal_string",
+            }
 
         grouping_key: str
         """

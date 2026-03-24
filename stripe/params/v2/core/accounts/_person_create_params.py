@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from decimal import Decimal
 from typing import Dict, List
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -425,7 +426,7 @@ class PersonCreateParamsRelationship(TypedDict):
     """
     Indicates whether the person is an owner of the associated legal entity.
     """
-    percent_ownership: NotRequired[str]
+    percent_ownership: NotRequired[Decimal]
     """
     The percentage of ownership the person has in the associated legal entity.
     """

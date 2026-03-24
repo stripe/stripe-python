@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from decimal import Decimal
 from stripe._stripe_object import StripeObject
 from typing import ClassVar, List, Optional
 from typing_extensions import Literal
@@ -26,7 +27,7 @@ class LicenseFeeVersion(StripeObject):
         Per-unit price for units included in this tier, represented as a decimal string in minor currency units with at
         most 12 decimal places.
         """
-        up_to_decimal: Optional[str]
+        up_to_decimal: Optional[Decimal]
         """
         Up to and including this quantity will be contained in the tier. Only one of `up_to_decimal` and `up_to_inf` may
         be set.
@@ -35,6 +36,7 @@ class LicenseFeeVersion(StripeObject):
         """
         No upper bound to this tier. Only one of `up_to_decimal` and `up_to_inf` may be set.
         """
+        _field_encodings = {"up_to_decimal": "decimal_string"}
 
     class TransformQuantity(StripeObject):
         divide_by: int

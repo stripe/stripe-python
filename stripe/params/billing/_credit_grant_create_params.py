@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from decimal import Decimal
 from stripe._request_options import RequestOptions
 from typing import Dict, List
 from typing_extensions import Literal, NotRequired, TypedDict
@@ -74,7 +75,7 @@ class CreditGrantCreateParamsAmountCustomPricingUnit(TypedDict):
     """
     The ID of the custom pricing unit.
     """
-    value: str
+    value: Decimal
     """
     A positive integer representing the amount of the credit grant.
     """

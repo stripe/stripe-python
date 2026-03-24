@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from decimal import Decimal
 from typing import Dict, List
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -135,7 +136,7 @@ class IntentCreateParamsActionApplyInvoiceDiscountRulePercentOff(TypedDict):
     """
     The maximum number of times this discount can be applied for this cadence.
     """
-    percent_off: str
+    percent_off: Decimal
     """
     Percent that will be taken off of the amount. For example, percent_off of 50.0 will make $100 amount $50 instead.
     """

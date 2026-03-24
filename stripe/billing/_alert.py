@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from decimal import Decimal
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
@@ -77,13 +78,14 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
                 """
                 Unique identifier for the object.
                 """
-                value: str
+                value: Decimal
                 """
                 A positive decimal string representing the amount.
                 """
                 _inner_class_types = {
                     "custom_pricing_unit_details": CustomPricingUnitDetails,
                 }
+                _field_encodings = {"value": "decimal_string"}
 
             class Monetary(StripeObject):
                 currency: str
@@ -184,13 +186,14 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
                 """
                 Unique identifier for the object.
                 """
-                value: str
+                value: Decimal
                 """
                 A positive decimal string representing the amount.
                 """
                 _inner_class_types = {
                     "custom_pricing_unit_details": CustomPricingUnitDetails,
                 }
+                _field_encodings = {"value": "decimal_string"}
 
             amount: Optional[Amount]
             """

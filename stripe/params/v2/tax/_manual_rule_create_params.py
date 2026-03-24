@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from decimal import Decimal
 from typing import List
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -77,7 +78,7 @@ class ManualRuleCreateParamsScheduledTaxRateRate(TypedDict):
     """
     Jurisdiction of the tax rate should apply as it will be shown on the invoice.
     """
-    percentage: str
+    percentage: Decimal
     """
     Percentage of the tax rate. Must be positive and maximum of 4 decimal points.
     """

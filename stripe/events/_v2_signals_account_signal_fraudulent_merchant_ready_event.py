@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from decimal import Decimal
 from stripe._api_mode import ApiMode
 from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
@@ -73,7 +74,7 @@ class V2SignalsAccountSignalFraudulentMerchantReadyEvent(Event):
             """
             Array of objects representing individual factors that contributed to the calculated probability. Maximum of 3.
             """
-            probability: Optional[str]
+            probability: Optional[Decimal]
             """
             The probability of the merchant being fraudulent. Can be between 0.00 and 100.00. May be empty if the risk_level is UNKNOWN or NOT_ASSESSED.
             """
@@ -89,6 +90,7 @@ class V2SignalsAccountSignalFraudulentMerchantReadyEvent(Event):
             Categorical assessment of the fraudulent merchant risk based on probability.
             """
             _inner_class_types = {"indicators": Indicator}
+            _field_encodings = {"probability": "decimal_string"}
 
         account: str
         """

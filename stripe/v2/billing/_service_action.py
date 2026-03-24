@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from decimal import Decimal
 from stripe._stripe_object import StripeObject
 from stripe.v2._amount import Amount as V2AmountResource
 from typing import ClassVar, List, Optional
@@ -33,10 +34,11 @@ class ServiceAction(StripeObject):
                 """
                 The id of the custom pricing unit.
                 """
-                value: str
+                value: Decimal
                 """
                 The value of the credit grant, decimal value represented as a string.
                 """
+                _field_encodings = {"value": "decimal_string"}
 
             custom_pricing_unit: Optional[CustomPricingUnit]
             """
@@ -118,10 +120,11 @@ class ServiceAction(StripeObject):
                 """
                 The id of the custom pricing unit.
                 """
-                value: str
+                value: Decimal
                 """
                 The value of the credit grant, decimal value represented as a string.
                 """
+                _field_encodings = {"value": "decimal_string"}
 
             custom_pricing_unit: Optional[CustomPricingUnit]
             """

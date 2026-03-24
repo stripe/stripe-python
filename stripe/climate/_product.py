@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from decimal import Decimal
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject
@@ -58,7 +59,7 @@ class Product(ListableAPIResource["Product"]):
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
-    metric_tons_available: str
+    metric_tons_available: Decimal
     """
     The quantity of metric tons available for reservation.
     """
@@ -140,3 +141,4 @@ class Product(ListableAPIResource["Product"]):
     _inner_class_types = {
         "current_prices_per_metric_ton": CurrentPricesPerMetricTon,
     }
+    _field_encodings = {"metric_tons_available": "decimal_string"}
