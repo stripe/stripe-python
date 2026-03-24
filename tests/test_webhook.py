@@ -12,6 +12,14 @@ DUMMY_WEBHOOK_PAYLOAD = """{
   "data": { "object": { "id": "rdr_123", "object": "terminal.reader" } }
 }"""
 
+DUMMY_V2_WEBHOOK_PAYLOAD = """{
+  "id": "evt_234",
+  "object": "v2.core.event",
+  "type": "v1.billing.meter.error_report_triggered",
+  "livemode": true,
+  "created": "2022-02-15T00:27:45.330Z"
+}"""
+
 DUMMY_WEBHOOK_SECRET = "whsec_test_secret"
 
 
@@ -68,6 +76,14 @@ class TestWebhook(object):
             payload, header, DUMMY_WEBHOOK_SECRET
         )
         assert isinstance(event, stripe.Event)
+
+    def test_raise_on_v2_payload(self):
+        header = generate_header(payload=DUMMY_V2_WEBHOOK_PAYLOAD)
+        with pytest.raises(ValueError) as e:
+            stripe.Webhook.construct_event(
+                DUMMY_V2_WEBHOOK_PAYLOAD, header, DUMMY_WEBHOOK_SECRET
+            )
+        assert "StripeClient.parse_event_notification" in str(e.value)
 
 
 class TestWebhookSignature(object):
@@ -171,6 +187,14 @@ class TestStripeClientConstructEvent(object):
             payload, header, DUMMY_WEBHOOK_SECRET
         )
         assert isinstance(event, stripe.Event)
+
+    def test_raise_on_v2_payload(self, stripe_mock_stripe_client):
+        header = generate_header(payload=DUMMY_V2_WEBHOOK_PAYLOAD)
+        with pytest.raises(ValueError) as e:
+            stripe_mock_stripe_client.construct_event(
+                DUMMY_V2_WEBHOOK_PAYLOAD, header, DUMMY_WEBHOOK_SECRET
+            )
+        assert "parse_event_notification" in str(e.value)
 
     def test_construct_event_inherits_requestor(self, http_client_mock):
         http_client_mock.stub_request("delete", "/v1/terminal/readers/rdr_123")
