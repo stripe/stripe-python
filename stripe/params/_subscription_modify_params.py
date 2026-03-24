@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from decimal import Decimal
 from stripe._request_options import RequestOptions
 from typing import Dict, List
 from typing_extensions import Literal, NotRequired, TypedDict
@@ -309,7 +310,7 @@ class SubscriptionModifyParamsAddInvoiceItemPriceData(TypedDict):
     """
     A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge or a negative integer representing the amount to credit to the customer.
     """
-    unit_amount_decimal: NotRequired[str]
+    unit_amount_decimal: NotRequired[Decimal]
     """
     Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
     """
@@ -629,7 +630,7 @@ class SubscriptionModifyParamsItemPriceData(TypedDict):
     """
     A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
     """
-    unit_amount_decimal: NotRequired[str]
+    unit_amount_decimal: NotRequired[Decimal]
     """
     Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
     """

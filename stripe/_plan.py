@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from decimal import Decimal
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._expandable_field import ExpandableField
@@ -44,7 +45,7 @@ class Plan(
         """
         Price for the entire tier.
         """
-        flat_amount_decimal: Optional[str]
+        flat_amount_decimal: Optional[Decimal]
         """
         Same as `flat_amount`, but contains a decimal value with at most 12 decimal places.
         """
@@ -52,7 +53,7 @@ class Plan(
         """
         Per unit price for units relevant to the tier.
         """
-        unit_amount_decimal: Optional[str]
+        unit_amount_decimal: Optional[Decimal]
         """
         Same as `unit_amount`, but contains a decimal value with at most 12 decimal places.
         """
@@ -60,6 +61,10 @@ class Plan(
         """
         Up to and including to this quantity will be contained in the tier.
         """
+        _field_encodings = {
+            "flat_amount_decimal": "decimal_string",
+            "unit_amount_decimal": "decimal_string",
+        }
 
     class TransformUsage(StripeObject):
         divide_by: int
@@ -79,7 +84,7 @@ class Plan(
     """
     The unit amount in cents (or local equivalent) to be charged, represented as a whole integer if possible. Only set if `billing_scheme=per_unit`.
     """
-    amount_decimal: Optional[str]
+    amount_decimal: Optional[Decimal]
     """
     The unit amount in cents (or local equivalent) to be charged, represented as a decimal string with at most 12 decimal places. Only set if `billing_scheme=per_unit`.
     """
@@ -373,3 +378,4 @@ class Plan(
         return instance
 
     _inner_class_types = {"tiers": Tier, "transform_usage": TransformUsage}
+    _field_encodings = {"amount_decimal": "decimal_string"}

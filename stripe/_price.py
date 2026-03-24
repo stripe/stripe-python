@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from decimal import Decimal
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
@@ -66,7 +67,7 @@ class Price(
             """
             Price for the entire tier.
             """
-            flat_amount_decimal: Optional[str]
+            flat_amount_decimal: Optional[Decimal]
             """
             Same as `flat_amount`, but contains a decimal value with at most 12 decimal places.
             """
@@ -74,7 +75,7 @@ class Price(
             """
             Per unit price for units relevant to the tier.
             """
-            unit_amount_decimal: Optional[str]
+            unit_amount_decimal: Optional[Decimal]
             """
             Same as `unit_amount`, but contains a decimal value with at most 12 decimal places.
             """
@@ -82,6 +83,10 @@ class Price(
             """
             Up to and including to this quantity will be contained in the tier.
             """
+            _field_encodings = {
+                "flat_amount_decimal": "decimal_string",
+                "unit_amount_decimal": "decimal_string",
+            }
 
         custom_unit_amount: Optional[CustomUnitAmount]
         """
@@ -101,7 +106,7 @@ class Price(
         """
         The unit amount in cents (or local equivalent) to be charged, represented as a whole integer if possible. Only set if `billing_scheme=per_unit`.
         """
-        unit_amount_decimal: Optional[str]
+        unit_amount_decimal: Optional[Decimal]
         """
         The unit amount in cents (or local equivalent) to be charged, represented as a decimal string with at most 12 decimal places. Only set if `billing_scheme=per_unit`.
         """
@@ -109,6 +114,7 @@ class Price(
             "custom_unit_amount": CustomUnitAmount,
             "tiers": Tier,
         }
+        _field_encodings = {"unit_amount_decimal": "decimal_string"}
 
     class CustomUnitAmount(StripeObject):
         maximum: Optional[int]
@@ -165,7 +171,7 @@ class Price(
         """
         Price for the entire tier.
         """
-        flat_amount_decimal: Optional[str]
+        flat_amount_decimal: Optional[Decimal]
         """
         Same as `flat_amount`, but contains a decimal value with at most 12 decimal places.
         """
@@ -173,7 +179,7 @@ class Price(
         """
         Per unit price for units relevant to the tier.
         """
-        unit_amount_decimal: Optional[str]
+        unit_amount_decimal: Optional[Decimal]
         """
         Same as `unit_amount`, but contains a decimal value with at most 12 decimal places.
         """
@@ -181,6 +187,10 @@ class Price(
         """
         Up to and including to this quantity will be contained in the tier.
         """
+        _field_encodings = {
+            "flat_amount_decimal": "decimal_string",
+            "unit_amount_decimal": "decimal_string",
+        }
 
     class TransformQuantity(StripeObject):
         divide_by: int
@@ -280,7 +290,7 @@ class Price(
     """
     The unit amount in cents (or local equivalent) to be charged, represented as a whole integer if possible. Only set if `billing_scheme=per_unit`.
     """
-    unit_amount_decimal: Optional[str]
+    unit_amount_decimal: Optional[Decimal]
     """
     The unit amount in cents (or local equivalent) to be charged, represented as a decimal string with at most 12 decimal places. Only set if `billing_scheme=per_unit`.
     """
@@ -453,3 +463,4 @@ class Price(
         "tiers": Tier,
         "transform_quantity": TransformQuantity,
     }
+    _field_encodings = {"unit_amount_decimal": "decimal_string"}
