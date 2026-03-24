@@ -95,23 +95,18 @@ def _coerce_decimal_string(value: Any, *, encode: bool) -> Any:
     if value is None:
         return None
 
+    if isinstance(value, list):
+        return [
+            _coerce_decimal_string(v, encode=encode) for v in value
+        ]
+
     if encode:
-        if isinstance(value, list):
-            return [
-                str(v)
-                if isinstance(v, (Decimal, int, float))
-                and not isinstance(v, bool)
-                else v
-                for v in value
-            ]
         if isinstance(value, (Decimal, int, float)) and not isinstance(
             value, bool
         ):
             return str(value)
         return value
     else:
-        if isinstance(value, list):
-            return [Decimal(v) if isinstance(v, str) else v for v in value]
         if isinstance(value, str):
             return Decimal(value)
         return value
