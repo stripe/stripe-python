@@ -439,15 +439,7 @@ class SessionCreateParams(RequestOptions):
     Controls tax ID collection during checkout.
     """
     ui_mode: NotRequired[
-        Literal[
-            "custom",
-            "elements",
-            "embedded",
-            "embedded_page",
-            "form",
-            "hosted",
-            "hosted_page",
-        ]
+        Literal["elements", "embedded_page", "form", "hosted_page"]
     ]
     """
     The UI mode of the Session. Defaults to `hosted`.
