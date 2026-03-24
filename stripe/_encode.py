@@ -26,6 +26,8 @@ def _encode_nested_dict(key, data, fmt="%s[%s]"):
 def _json_encode_date_callback(value):
     if isinstance(value, datetime.datetime):
         return _encode_datetime(value)
+    if isinstance(value, Decimal):
+        return str(value)
     return value
 
 
