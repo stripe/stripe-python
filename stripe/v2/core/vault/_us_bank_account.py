@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional
+from typing import ClassVar, List, Optional
 from typing_extensions import Literal
 
 
@@ -105,6 +105,10 @@ class UsBankAccount(StripeObject):
     routing_number: Optional[str]
     """
     The ACH routing number of the bank account.
+    """
+    supported_currencies: List[str]
+    """
+    The list of currencies supported by this bank account.
     """
     verification: Verification
     """

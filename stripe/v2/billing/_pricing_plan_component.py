@@ -23,7 +23,7 @@ class PricingPlanComponent(StripeObject):
         """
         version: Optional[str]
         """
-        The version of the LicenseFee. Defaults to 'latest', if not specified.
+        The ID of the License Fee Version. If not specified, defaults to 'latest'.
         """
 
     class RateCard(StripeObject):
@@ -33,7 +33,7 @@ class PricingPlanComponent(StripeObject):
         """
         version: Optional[str]
         """
-        The version of the RateCard. Defaults to 'latest', if not specified.
+        The ID of the Rate Card Version. If not specified, defaults to 'latest'.
         """
 
     class ServiceAction(StripeObject):

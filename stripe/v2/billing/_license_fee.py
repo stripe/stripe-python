@@ -19,6 +19,17 @@ class LicenseFee(StripeObject):
         "v2.billing.license_fee"
     )
 
+    class ServiceCycle(StripeObject):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        The interval for assessing service.
+        """
+        interval_count: int
+        """
+        The length of the interval for assessing service. For example, set this to 3 and `interval` to `"month"` in
+        order to specify quarterly service.
+        """
+
     class Tier(StripeObject):
         flat_amount: Optional[str]
         """
@@ -48,6 +59,7 @@ class LicenseFee(StripeObject):
         """
         After division, round the result up or down.
         """
+        _field_encodings = {"divide_by": "int64_string"}
 
     active: bool
     """
@@ -70,10 +82,6 @@ class LicenseFee(StripeObject):
     id: str
     """
     Unique identifier for the object.
-    """
-    latest_version: str
-    """
-    The ID of the license fee's most recently created version.
     """
     licensed_item: "LicensedItem"
     """
@@ -100,14 +108,9 @@ class LicenseFee(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
     """
-    service_interval: Literal["day", "month", "week", "year"]
+    service_cycle: ServiceCycle
     """
-    The interval for assessing service.
-    """
-    service_interval_count: int
-    """
-    The length of the interval for assessing service. For example, set this to 3 and `service_interval` to `"month"` in
-    order to specify quarterly service.
+    The service cycle configuration for this License Fee.
     """
     tax_behavior: Literal["exclusive", "inclusive"]
     """
@@ -133,6 +136,7 @@ class LicenseFee(StripeObject):
     places. Cannot be set if `tiers` is provided.
     """
     _inner_class_types = {
+        "service_cycle": ServiceCycle,
         "tiers": Tier,
         "transform_quantity": TransformQuantity,
     }

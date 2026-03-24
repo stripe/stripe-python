@@ -33,6 +33,10 @@ class OutboundTransferCreateParams(_OutboundTransferCreateParamsBase):
     """
     The recipient verification id for this OutboundTransfer. Only required for countries with regulatory mandates to verify recipient names before OutboundTransfer creation.
     """
+    statement_descriptor: NotRequired[str]
+    """
+    The description that appears on the receiving end for an OutboundTransfer (for example, on a bank statement). Must be between 3 and 22 characters long, and not contain profanity.
+    """
     to: "OutboundTransferCreateParamsTo"
     """
     To which payout method to send the OutboundTransfer.

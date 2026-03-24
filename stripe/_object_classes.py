@@ -480,10 +480,6 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "LicensedItem",
     ),
     "v2.billing.license_fee": ("stripe.v2.billing._license_fee", "LicenseFee"),
-    "v2.billing.license_fee_subscription": (
-        "stripe.v2.billing._license_fee_subscription",
-        "LicenseFeeSubscription",
-    ),
     "v2.billing.license_fee_version": (
         "stripe.v2.billing._license_fee_version",
         "LicenseFeeVersion",
@@ -517,10 +513,6 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.v2.billing._pricing_plan_subscription",
         "PricingPlanSubscription",
     ),
-    "v2.billing.pricing_plan_subscription_components": (
-        "stripe.v2.billing._pricing_plan_subscription_components",
-        "PricingPlanSubscriptionComponents",
-    ),
     "v2.billing.pricing_plan_version": (
         "stripe.v2.billing._pricing_plan_version",
         "PricingPlanVersion",
@@ -548,6 +540,10 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "ServiceAction",
     ),
     "v2.core.account": ("stripe.v2.core._account", "Account"),
+    "v2.core.account_evaluation": (
+        "stripe.v2.core._account_evaluation",
+        "AccountEvaluation",
+    ),
     "v2.core.account_link": ("stripe.v2.core._account_link", "AccountLink"),
     "v2.core.account_person": (
         "stripe.v2.core._account_person",
@@ -558,6 +554,7 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "AccountPersonToken",
     ),
     "v2.core.account_token": ("stripe.v2.core._account_token", "AccountToken"),
+    "v2.core.batch_job": ("stripe.v2.core._batch_job", "BatchJob"),
     "v2.core.claimable_sandbox": (
         "stripe.v2.core._claimable_sandbox",
         "ClaimableSandbox",

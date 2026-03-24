@@ -15,9 +15,6 @@ if TYPE_CHECKING:
     )
     from stripe.v2.billing._intent_service import IntentService
     from stripe.v2.billing._license_fee_service import LicenseFeeService
-    from stripe.v2.billing._license_fee_subscription_service import (
-        LicenseFeeSubscriptionService,
-    )
     from stripe.v2.billing._licensed_item_service import LicensedItemService
     from stripe.v2.billing._meter_event_adjustment_service import (
         MeterEventAdjustmentService,
@@ -60,10 +57,6 @@ _subservices = {
     "license_fees": [
         "stripe.v2.billing._license_fee_service",
         "LicenseFeeService",
-    ],
-    "license_fee_subscriptions": [
-        "stripe.v2.billing._license_fee_subscription_service",
-        "LicenseFeeSubscriptionService",
     ],
     "licensed_items": [
         "stripe.v2.billing._licensed_item_service",
@@ -121,7 +114,6 @@ class BillingService(StripeService):
     custom_pricing_units: "CustomPricingUnitService"
     intents: "IntentService"
     license_fees: "LicenseFeeService"
-    license_fee_subscriptions: "LicenseFeeSubscriptionService"
     licensed_items: "LicensedItemService"
     meter_events: "MeterEventService"
     meter_event_adjustments: "MeterEventAdjustmentService"

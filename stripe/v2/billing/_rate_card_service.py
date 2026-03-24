@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe._encode import _coerce_v2_params
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
@@ -14,6 +15,9 @@ if TYPE_CHECKING:
     from stripe.params.v2.billing._rate_card_list_params import (
         RateCardListParams,
     )
+    from stripe.params.v2.billing._rate_card_modify_rates_params import (
+        RateCardModifyRatesParams,
+    )
     from stripe.params.v2.billing._rate_card_retrieve_params import (
         RateCardRetrieveParams,
     )
@@ -22,6 +26,7 @@ if TYPE_CHECKING:
     )
     from stripe.v2._list_object import ListObject
     from stripe.v2.billing._rate_card import RateCard
+    from stripe.v2.billing._rate_card_version import RateCardVersion
     from stripe.v2.billing.rate_cards._custom_pricing_unit_overage_rate_service import (
         CustomPricingUnitOverageRateService,
     )
@@ -217,6 +222,68 @@ class RateCardService(StripeService):
                 "/v2/billing/rate_cards/{id}".format(id=sanitize_id(id)),
                 base_address="api",
                 params=params,
+                options=options,
+            ),
+        )
+
+    def modify_rates(
+        self,
+        id: str,
+        params: "RateCardModifyRatesParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "RateCardVersion":
+        """
+        Creates, updates, and/or deletes multiple Rates on a Rate Card atomically.
+        """
+        return cast(
+            "RateCardVersion",
+            self._request(
+                "post",
+                "/v2/billing/rate_cards/{id}/modify_rates".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=_coerce_v2_params(
+                    params,
+                    {
+                        "rates_to_create": {
+                            "transform_quantity": {
+                                "divide_by": "int64_string"
+                            },
+                        },
+                    },
+                ),
+                options=options,
+            ),
+        )
+
+    async def modify_rates_async(
+        self,
+        id: str,
+        params: "RateCardModifyRatesParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "RateCardVersion":
+        """
+        Creates, updates, and/or deletes multiple Rates on a Rate Card atomically.
+        """
+        return cast(
+            "RateCardVersion",
+            await self._request_async(
+                "post",
+                "/v2/billing/rate_cards/{id}/modify_rates".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=_coerce_v2_params(
+                    params,
+                    {
+                        "rates_to_create": {
+                            "transform_quantity": {
+                                "divide_by": "int64_string"
+                            },
+                        },
+                    },
+                ),
                 options=options,
             ),
         )

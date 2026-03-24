@@ -5,9 +5,13 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.v2.core._account_evaluation_service import (
+        AccountEvaluationService,
+    )
     from stripe.v2.core._account_link_service import AccountLinkService
     from stripe.v2.core._account_service import AccountService
     from stripe.v2.core._account_token_service import AccountTokenService
+    from stripe.v2.core._batch_job_service import BatchJobService
     from stripe.v2.core._claimable_sandbox_service import (
         ClaimableSandboxService,
     )
@@ -22,6 +26,10 @@ if TYPE_CHECKING:
 
 _subservices = {
     "accounts": ["stripe.v2.core._account_service", "AccountService"],
+    "account_evaluations": [
+        "stripe.v2.core._account_evaluation_service",
+        "AccountEvaluationService",
+    ],
     "account_links": [
         "stripe.v2.core._account_link_service",
         "AccountLinkService",
@@ -30,6 +38,7 @@ _subservices = {
         "stripe.v2.core._account_token_service",
         "AccountTokenService",
     ],
+    "batch_jobs": ["stripe.v2.core._batch_job_service", "BatchJobService"],
     "claimable_sandboxes": [
         "stripe.v2.core._claimable_sandbox_service",
         "ClaimableSandboxService",
@@ -49,8 +58,10 @@ _subservices = {
 
 class CoreService(StripeService):
     accounts: "AccountService"
+    account_evaluations: "AccountEvaluationService"
     account_links: "AccountLinkService"
     account_tokens: "AccountTokenService"
+    batch_jobs: "BatchJobService"
     claimable_sandboxes: "ClaimableSandboxService"
     connection_sessions: "ConnectionSessionService"
     events: "EventService"

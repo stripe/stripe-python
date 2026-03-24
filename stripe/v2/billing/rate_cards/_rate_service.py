@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe._encode import _coerce_v2_params
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
@@ -32,7 +33,7 @@ class RateService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[RateCardRate]":
         """
-        List all Rates associated with a Rate Card for a specific version (defaults to latest). Rates remain active for all subsequent versions until a new rate is created for the same Metered Item.
+        List all Rates associated with a Rate Card for a specific version. Defaults to latest. Rates remain active for all subsequent versions until a new rate is created for the same Metered Item.
         """
         return cast(
             "ListObject[RateCardRate]",
@@ -54,7 +55,7 @@ class RateService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[RateCardRate]":
         """
-        List all Rates associated with a Rate Card for a specific version (defaults to latest). Rates remain active for all subsequent versions until a new rate is created for the same Metered Item.
+        List all Rates associated with a Rate Card for a specific version. Defaults to latest. Rates remain active for all subsequent versions until a new rate is created for the same Metered Item.
         """
         return cast(
             "ListObject[RateCardRate]",
@@ -87,7 +88,10 @@ class RateService(StripeService):
                     rate_card_id=sanitize_id(rate_card_id),
                 ),
                 base_address="api",
-                params=params,
+                params=_coerce_v2_params(
+                    params,
+                    {"transform_quantity": {"divide_by": "int64_string"}},
+                ),
                 options=options,
             ),
         )
@@ -110,7 +114,10 @@ class RateService(StripeService):
                     rate_card_id=sanitize_id(rate_card_id),
                 ),
                 base_address="api",
-                params=params,
+                params=_coerce_v2_params(
+                    params,
+                    {"transform_quantity": {"divide_by": "int64_string"}},
+                ),
                 options=options,
             ),
         )

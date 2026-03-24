@@ -4,7 +4,7 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class GbBankAccountCreateParams(TypedDict):
-    account_number: str
+    account_number: NotRequired[str]
     """
     The Account Number of the bank account.
     """
@@ -20,7 +20,15 @@ class GbBankAccountCreateParams(TypedDict):
     against what was provided by the bank. Doing so is required for all bank accounts not owned
     by you before making domestic UK OutboundPayments.
     """
-    sort_code: str
+    currency: str
+    """
+    The currency of the bank account.
+    """
+    iban: NotRequired[str]
+    """
+    The IBAN of the bank account.
+    """
+    sort_code: NotRequired[str]
     """
     The Sort Code of the bank account.
     """

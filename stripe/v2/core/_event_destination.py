@@ -30,9 +30,37 @@ class EventDestination(StripeObject):
         The state of the AWS event source.
         """
 
+    class AzureEventGrid(StripeObject):
+        azure_partner_topic_name: str
+        """
+        The name of the Azure partner topic.
+        """
+        azure_partner_topic_status: Literal[
+            "activated", "deleted", "never_activated", "unknown"
+        ]
+        """
+        The status of the Azure partner topic.
+        """
+        azure_region: str
+        """
+        The Azure region.
+        """
+        azure_resource_group_name: str
+        """
+        The name of the Azure resource group.
+        """
+        azure_subscription_id: str
+        """
+        The Azure subscription ID.
+        """
+
     class StatusDetails(StripeObject):
         class Disabled(StripeObject):
-            reason: Literal["no_aws_event_source_exists", "user"]
+            reason: Literal[
+                "no_aws_event_source_exists",
+                "no_azure_partner_topic_exists",
+                "user",
+            ]
             """
             Reason event destination has been disabled.
             """
@@ -57,6 +85,10 @@ class EventDestination(StripeObject):
     """
     Amazon EventBridge configuration.
     """
+    azure_event_grid: Optional[AzureEventGrid]
+    """
+    Azure Event Grid configuration.
+    """
     created: str
     """
     Time at which the object was created.
@@ -73,9 +105,13 @@ class EventDestination(StripeObject):
     """
     Payload type of events being subscribed to.
     """
-    events_from: Optional[List[Literal["other_accounts", "self"]]]
+    events_from: Optional[List[str]]
     """
-    Where events should be routed from.
+    Specifies which accounts' events route to this destination.
+    `@self`: Receive events from the account that owns the event destination.
+    `@accounts`: Receive events emitted from other accounts you manage which includes your v1 and v2 accounts.
+    `@organization_members`: Receive events from accounts directly linked to the organization.
+    `@organization_members/@accounts`: Receive events from all accounts connected to any platform accounts in the organization.
     """
     id: str
     """
@@ -109,7 +145,7 @@ class EventDestination(StripeObject):
     """
     Additional information about event destination status.
     """
-    type: Literal["amazon_eventbridge", "webhook_endpoint"]
+    type: Literal["amazon_eventbridge", "azure_event_grid", "webhook_endpoint"]
     """
     Event destination type.
     """
@@ -123,6 +159,7 @@ class EventDestination(StripeObject):
     """
     _inner_class_types = {
         "amazon_eventbridge": AmazonEventbridge,
+        "azure_event_grid": AzureEventGrid,
         "status_details": StatusDetails,
         "webhook_endpoint": WebhookEndpoint,
     }

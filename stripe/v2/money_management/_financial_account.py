@@ -52,6 +52,48 @@ class FinancialAccount(StripeObject):
         """
 
     class Payments(StripeObject):
+        class BalanceByFundsType(StripeObject):
+            class PaymentProcessing(StripeObject):
+                available: Dict[str, Amount]
+                """
+                Balance that can be used for money movement.
+                """
+                inbound_pending: Dict[str, Amount]
+                """
+                Balance of inbound funds that will later transition to the `available` balance.
+                """
+                outbound_pending: Dict[str, Amount]
+                """
+                Balance of funds that are being used for a pending outbound money movement.
+                """
+
+            class StoredValue(StripeObject):
+                available: Dict[str, Amount]
+                """
+                Balance that can be used for money movement.
+                """
+                inbound_pending: Dict[str, Amount]
+                """
+                Balance of inbound funds that will later transition to the `available` balance.
+                """
+                outbound_pending: Dict[str, Amount]
+                """
+                Balance of funds that are being used for a pending outbound money movement.
+                """
+
+            payment_processing: PaymentProcessing
+            """
+            Payment processing funds are those that are received for goods or services and may only be used for payouts to self. These funds may be converted to stored value funds.
+            """
+            stored_value: StoredValue
+            """
+            Stored value funds may be used for either payouts to self or payments to others.
+            """
+            _inner_class_types = {
+                "payment_processing": PaymentProcessing,
+                "stored_value": StoredValue,
+            }
+
         class StartingBalance(StripeObject):
             at: str
             """
@@ -62,6 +104,11 @@ class FinancialAccount(StripeObject):
             The available balance at the time when the balance was projected.
             """
 
+        balance_by_funds_type: Optional[BalanceByFundsType]
+        """
+        The balance of the `payments` FinancialAccount is a mix of payment processing and stored value funds, and this field
+        describes the breakdown between the two. The sum will match the balance of the FinancialAccount.
+        """
         default_currency: str
         """
         The currency that non-settlement currency payments will be converted to.
@@ -74,7 +121,10 @@ class FinancialAccount(StripeObject):
         """
         Describes the available balance when it was projected.
         """
-        _inner_class_types = {"starting_balance": StartingBalance}
+        _inner_class_types = {
+            "balance_by_funds_type": BalanceByFundsType,
+            "starting_balance": StartingBalance,
+        }
 
     class StatusDetails(StripeObject):
         class Closed(StripeObject):
@@ -89,10 +139,19 @@ class FinancialAccount(StripeObject):
                 """
 
             forwarding_settings: Optional[ForwardingSettings]
+            """
+            The forwarding settings for the closed FinancialAccount.
+            """
             reason: Literal["account_closed", "closed_by_platform", "other"]
+            """
+            The reason the FinancialAccount was closed.
+            """
             _inner_class_types = {"forwarding_settings": ForwardingSettings}
 
         closed: Optional[Closed]
+        """
+        Details related to the closed state of the FinancialAccount.
+        """
         _inner_class_types = {"closed": Closed}
 
     class Storage(StripeObject):
@@ -159,6 +218,9 @@ class FinancialAccount(StripeObject):
     Closed Enum. An enum representing the status of the FinancialAccount. This indicates whether or not the FinancialAccount can be used for any money movement flows.
     """
     status_details: Optional[StatusDetails]
+    """
+    Additional details related to the status of the FinancialAccount.
+    """
     storage: Optional[Storage]
     """
     If this is a `storage` FinancialAccount, this hash includes details specific to `storage` FinancialAccounts.

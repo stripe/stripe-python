@@ -10,7 +10,6 @@ if TYPE_CHECKING:
         collection_settings as collection_settings,
         intents as intents,
         license_fees as license_fees,
-        pricing_plan_subscriptions as pricing_plan_subscriptions,
         pricing_plans as pricing_plans,
         rate_cards as rate_cards,
     )
@@ -51,12 +50,6 @@ if TYPE_CHECKING:
     from stripe.v2.billing._license_fee import LicenseFee as LicenseFee
     from stripe.v2.billing._license_fee_service import (
         LicenseFeeService as LicenseFeeService,
-    )
-    from stripe.v2.billing._license_fee_subscription import (
-        LicenseFeeSubscription as LicenseFeeSubscription,
-    )
-    from stripe.v2.billing._license_fee_subscription_service import (
-        LicenseFeeSubscriptionService as LicenseFeeSubscriptionService,
     )
     from stripe.v2.billing._license_fee_version import (
         LicenseFeeVersion as LicenseFeeVersion,
@@ -102,9 +95,6 @@ if TYPE_CHECKING:
     from stripe.v2.billing._pricing_plan_subscription import (
         PricingPlanSubscription as PricingPlanSubscription,
     )
-    from stripe.v2.billing._pricing_plan_subscription_components import (
-        PricingPlanSubscriptionComponents as PricingPlanSubscriptionComponents,
-    )
     from stripe.v2.billing._pricing_plan_subscription_service import (
         PricingPlanSubscriptionService as PricingPlanSubscriptionService,
     )
@@ -146,10 +136,6 @@ _import_map = {
     "collection_settings": ("stripe.v2.billing.collection_settings", True),
     "intents": ("stripe.v2.billing.intents", True),
     "license_fees": ("stripe.v2.billing.license_fees", True),
-    "pricing_plan_subscriptions": (
-        "stripe.v2.billing.pricing_plan_subscriptions",
-        True,
-    ),
     "pricing_plans": ("stripe.v2.billing.pricing_plans", True),
     "rate_cards": ("stripe.v2.billing.rate_cards", True),
     "BillSetting": ("stripe.v2.billing._bill_setting", False),
@@ -180,14 +166,6 @@ _import_map = {
     "IntentService": ("stripe.v2.billing._intent_service", False),
     "LicenseFee": ("stripe.v2.billing._license_fee", False),
     "LicenseFeeService": ("stripe.v2.billing._license_fee_service", False),
-    "LicenseFeeSubscription": (
-        "stripe.v2.billing._license_fee_subscription",
-        False,
-    ),
-    "LicenseFeeSubscriptionService": (
-        "stripe.v2.billing._license_fee_subscription_service",
-        False,
-    ),
     "LicenseFeeVersion": ("stripe.v2.billing._license_fee_version", False),
     "LicensedItem": ("stripe.v2.billing._licensed_item", False),
     "LicensedItemService": ("stripe.v2.billing._licensed_item_service", False),
@@ -222,10 +200,6 @@ _import_map = {
     "PricingPlanService": ("stripe.v2.billing._pricing_plan_service", False),
     "PricingPlanSubscription": (
         "stripe.v2.billing._pricing_plan_subscription",
-        False,
-    ),
-    "PricingPlanSubscriptionComponents": (
-        "stripe.v2.billing._pricing_plan_subscription_components",
         False,
     ),
     "PricingPlanSubscriptionService": (

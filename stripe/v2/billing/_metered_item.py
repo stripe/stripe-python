@@ -54,7 +54,7 @@ class MeteredItem(StripeObject):
     """
     lookup_key: Optional[str]
     """
-    An internal key you can use to search for a particular billable item.
+    An internal key you can use to search for a particular metered item.
     Maximum length of 200 characters.
     """
     metadata: Optional[Dict[str, str]]

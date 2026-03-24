@@ -98,7 +98,10 @@ class OffSessionPayment(StripeObject):
     """
     failure_reason: Optional[
         Literal[
-            "authorization_expired", "rejected_by_partner", "retries_exhausted"
+            "authorization_expired",
+            "no_valid_payment_method",
+            "rejected_by_partner",
+            "retries_exhausted",
         ]
     ]
     """

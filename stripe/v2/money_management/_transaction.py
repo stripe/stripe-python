@@ -29,6 +29,12 @@ class Transaction(StripeObject):
         Impact to the outbound_pending balance.
         """
 
+    class Counterparty(StripeObject):
+        name: Optional[str]
+        """
+        Name of the counterparty.
+        """
+
     class Flow(StripeObject):
         adjustment: Optional[str]
         """
@@ -106,6 +112,38 @@ class Transaction(StripeObject):
         """
         If applicable, the ID of the Transfer Reversal that created this Transaction.
         """
+        treasury_credit_reversal: Optional[str]
+        """
+        If applicable, the ID of the Treasury CreditReversal that created this Transaction.
+        """
+        treasury_debit_reversal: Optional[str]
+        """
+        If applicable, the ID of the Treasury DebitReversal that created this Transaction.
+        """
+        treasury_inbound_transfer: Optional[str]
+        """
+        If applicable, the ID of the Treasury InboundTransfer that created this Transaction.
+        """
+        treasury_issuing_authorization: Optional[str]
+        """
+        If applicable, the ID of the Treasury IssuingAuthorization that created this Transaction.
+        """
+        treasury_outbound_payment: Optional[str]
+        """
+        If applicable, the ID of the Treasury OutboundPayment that created this Transaction.
+        """
+        treasury_outbound_transfer: Optional[str]
+        """
+        If applicable, the ID of the Treasury OutboundTransfer that created this Transaction.
+        """
+        treasury_received_credit: Optional[str]
+        """
+        If applicable, the ID of the Treasury ReceivedCredit that created this Transaction.
+        """
+        treasury_received_debit: Optional[str]
+        """
+        If applicable, the ID of the Treasury ReceivedDebit that created this Transaction.
+        """
         type: Literal[
             "adjustment",
             "application_fee",
@@ -126,6 +164,15 @@ class Transaction(StripeObject):
             "topup",
             "transfer",
             "transfer_reversal",
+            "treasury_credit_reversal",
+            "treasury_debit_reversal",
+            "treasury_inbound_transfer",
+            "treasury_issuing_authorization",
+            "treasury_other",
+            "treasury_outbound_payment",
+            "treasury_outbound_transfer",
+            "treasury_received_credit",
+            "treasury_received_debit",
         ]
         """
         Open Enum. Type of the flow that created the Transaction. The field matching this value will contain the ID of the flow.
@@ -206,9 +253,18 @@ class Transaction(StripeObject):
     """
     Open Enum. A descriptive category used to classify the Transaction.
     """
+    counterparty: Optional[Counterparty]
+    """
+    Counterparty to this Transaction.
+    """
     created: str
     """
     Time at which the object was created. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+    """
+    description: Optional[str]
+    """
+    Description of this Transaction. When applicable, the description is copied from the Flow object at the time
+    of transaction creation.
     """
     financial_account: str
     """
@@ -242,8 +298,13 @@ class Transaction(StripeObject):
     """
     Timestamps for when the Transaction transitioned to a particular status.
     """
+    treasury_transaction: Optional[str]
+    """
+    The v1 Treasury transaction associated with this transaction.
+    """
     _inner_class_types = {
         "balance_impact": BalanceImpact,
+        "counterparty": Counterparty,
         "flow": Flow,
         "status_transitions": StatusTransitions,
     }

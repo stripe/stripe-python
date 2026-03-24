@@ -255,6 +255,14 @@ if TYPE_CHECKING:
         AccountCreateParamsIdentityIndividualScriptNamesKana as AccountCreateParamsIdentityIndividualScriptNamesKana,
         AccountCreateParamsIdentityIndividualScriptNamesKanji as AccountCreateParamsIdentityIndividualScriptNamesKanji,
     )
+    from stripe.params.v2.core._account_evaluation_create_params import (
+        AccountEvaluationCreateParams as AccountEvaluationCreateParams,
+        AccountEvaluationCreateParamsAccountData as AccountEvaluationCreateParamsAccountData,
+        AccountEvaluationCreateParamsAccountDataDefaults as AccountEvaluationCreateParamsAccountDataDefaults,
+        AccountEvaluationCreateParamsAccountDataDefaultsProfile as AccountEvaluationCreateParamsAccountDataDefaultsProfile,
+        AccountEvaluationCreateParamsAccountDataIdentity as AccountEvaluationCreateParamsAccountDataIdentity,
+        AccountEvaluationCreateParamsAccountDataIdentityBusinessDetails as AccountEvaluationCreateParamsAccountDataIdentityBusinessDetails,
+    )
     from stripe.params.v2.core._account_link_create_params import (
         AccountLinkCreateParams as AccountLinkCreateParams,
         AccountLinkCreateParamsUseCase as AccountLinkCreateParamsUseCase,
@@ -602,6 +610,17 @@ if TYPE_CHECKING:
         AccountUpdateParamsIdentityIndividualScriptNamesKana as AccountUpdateParamsIdentityIndividualScriptNamesKana,
         AccountUpdateParamsIdentityIndividualScriptNamesKanji as AccountUpdateParamsIdentityIndividualScriptNamesKanji,
     )
+    from stripe.params.v2.core._batch_job_cancel_params import (
+        BatchJobCancelParams as BatchJobCancelParams,
+    )
+    from stripe.params.v2.core._batch_job_create_params import (
+        BatchJobCreateParams as BatchJobCreateParams,
+        BatchJobCreateParamsEndpoint as BatchJobCreateParamsEndpoint,
+        BatchJobCreateParamsNotificationSuppression as BatchJobCreateParamsNotificationSuppression,
+    )
+    from stripe.params.v2.core._batch_job_retrieve_params import (
+        BatchJobRetrieveParams as BatchJobRetrieveParams,
+    )
     from stripe.params.v2.core._claimable_sandbox_create_params import (
         ClaimableSandboxCreateParams as ClaimableSandboxCreateParams,
         ClaimableSandboxCreateParamsPrefill as ClaimableSandboxCreateParamsPrefill,
@@ -618,6 +637,7 @@ if TYPE_CHECKING:
     from stripe.params.v2.core._event_destination_create_params import (
         EventDestinationCreateParams as EventDestinationCreateParams,
         EventDestinationCreateParamsAmazonEventbridge as EventDestinationCreateParamsAmazonEventbridge,
+        EventDestinationCreateParamsAzureEventGrid as EventDestinationCreateParamsAzureEventGrid,
         EventDestinationCreateParamsWebhookEndpoint as EventDestinationCreateParamsWebhookEndpoint,
     )
     from stripe.params.v2.core._event_destination_delete_params import (
@@ -1636,6 +1656,30 @@ _import_map = {
     ),
     "AccountCreateParamsIdentityIndividualScriptNamesKanji": (
         "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountEvaluationCreateParams": (
+        "stripe.params.v2.core._account_evaluation_create_params",
+        False,
+    ),
+    "AccountEvaluationCreateParamsAccountData": (
+        "stripe.params.v2.core._account_evaluation_create_params",
+        False,
+    ),
+    "AccountEvaluationCreateParamsAccountDataDefaults": (
+        "stripe.params.v2.core._account_evaluation_create_params",
+        False,
+    ),
+    "AccountEvaluationCreateParamsAccountDataDefaultsProfile": (
+        "stripe.params.v2.core._account_evaluation_create_params",
+        False,
+    ),
+    "AccountEvaluationCreateParamsAccountDataIdentity": (
+        "stripe.params.v2.core._account_evaluation_create_params",
+        False,
+    ),
+    "AccountEvaluationCreateParamsAccountDataIdentityBusinessDetails": (
+        "stripe.params.v2.core._account_evaluation_create_params",
         False,
     ),
     "AccountLinkCreateParams": (
@@ -2975,6 +3019,26 @@ _import_map = {
         "stripe.params.v2.core._account_update_params",
         False,
     ),
+    "BatchJobCancelParams": (
+        "stripe.params.v2.core._batch_job_cancel_params",
+        False,
+    ),
+    "BatchJobCreateParams": (
+        "stripe.params.v2.core._batch_job_create_params",
+        False,
+    ),
+    "BatchJobCreateParamsEndpoint": (
+        "stripe.params.v2.core._batch_job_create_params",
+        False,
+    ),
+    "BatchJobCreateParamsNotificationSuppression": (
+        "stripe.params.v2.core._batch_job_create_params",
+        False,
+    ),
+    "BatchJobRetrieveParams": (
+        "stripe.params.v2.core._batch_job_retrieve_params",
+        False,
+    ),
     "ClaimableSandboxCreateParams": (
         "stripe.params.v2.core._claimable_sandbox_create_params",
         False,
@@ -3000,6 +3064,10 @@ _import_map = {
         False,
     ),
     "EventDestinationCreateParamsAmazonEventbridge": (
+        "stripe.params.v2.core._event_destination_create_params",
+        False,
+    ),
+    "EventDestinationCreateParamsAzureEventGrid": (
         "stripe.params.v2.core._event_destination_create_params",
         False,
     ),

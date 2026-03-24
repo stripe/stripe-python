@@ -2181,6 +2181,10 @@ class AccountUpdateParamsDefaults(TypedDict):
     """
     Default responsibilities held by either Stripe or the platform.
     """
+    timezone: NotRequired[str]
+    """
+    The Account's local timezone. A list of possible time zone values is maintained at the [IANA Time Zone Database](https://www.iana.org/time-zones).
+    """
 
 
 class AccountUpdateParamsDefaultsProfile(TypedDict):

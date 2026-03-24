@@ -107,6 +107,38 @@ class TransactionEntry(StripeObject):
             """
             If applicable, the ID of the Transfer Reversal that created this Transaction.
             """
+            treasury_credit_reversal: Optional[str]
+            """
+            If applicable, the ID of the Treasury CreditReversal that created this Transaction.
+            """
+            treasury_debit_reversal: Optional[str]
+            """
+            If applicable, the ID of the Treasury DebitReversal that created this Transaction.
+            """
+            treasury_inbound_transfer: Optional[str]
+            """
+            If applicable, the ID of the Treasury InboundTransfer that created this Transaction.
+            """
+            treasury_issuing_authorization: Optional[str]
+            """
+            If applicable, the ID of the Treasury IssuingAuthorization that created this Transaction.
+            """
+            treasury_outbound_payment: Optional[str]
+            """
+            If applicable, the ID of the Treasury OutboundPayment that created this Transaction.
+            """
+            treasury_outbound_transfer: Optional[str]
+            """
+            If applicable, the ID of the Treasury OutboundTransfer that created this Transaction.
+            """
+            treasury_received_credit: Optional[str]
+            """
+            If applicable, the ID of the Treasury ReceivedCredit that created this Transaction.
+            """
+            treasury_received_debit: Optional[str]
+            """
+            If applicable, the ID of the Treasury ReceivedDebit that created this Transaction.
+            """
             type: Literal[
                 "adjustment",
                 "application_fee",
@@ -127,6 +159,15 @@ class TransactionEntry(StripeObject):
                 "topup",
                 "transfer",
                 "transfer_reversal",
+                "treasury_credit_reversal",
+                "treasury_debit_reversal",
+                "treasury_inbound_transfer",
+                "treasury_issuing_authorization",
+                "treasury_other",
+                "treasury_outbound_payment",
+                "treasury_outbound_transfer",
+                "treasury_received_credit",
+                "treasury_received_debit",
             ]
             """
             Open Enum. Type of the flow that created the Transaction. The field matching this value will contain the ID of the flow.
@@ -229,6 +270,10 @@ class TransactionEntry(StripeObject):
     transaction_details: TransactionDetails
     """
     Details copied from the transaction that this TransactionEntry belongs to.
+    """
+    treasury_transaction_entry: Optional[str]
+    """
+    The v1 Treasury transaction entry associated with this transaction entry.
     """
     _inner_class_types = {
         "balance_impact": BalanceImpact,

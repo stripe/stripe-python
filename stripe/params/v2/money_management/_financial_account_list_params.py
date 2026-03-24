@@ -5,6 +5,10 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class FinancialAccountListParams(TypedDict):
+    include: NotRequired[List[Literal["payments.balance_by_funds_type"]]]
+    """
+    Additional fields to include in the response.
+    """
     limit: NotRequired[int]
     """
     The page limit.

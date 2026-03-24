@@ -45,6 +45,7 @@ class LicenseFeeVersion(StripeObject):
         """
         After division, round the result up or down.
         """
+        _field_encodings = {"divide_by": "int64_string"}
 
     created: str
     """

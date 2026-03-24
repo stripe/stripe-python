@@ -3174,6 +3174,7 @@ class Account(StripeObject):
                     "dz_bank_account",
                     "ec_bank_account",
                     "ee_bank_account",
+                    "eg_bank_account",
                     "es_bank_account",
                     "et_bank_account",
                     "fi_bank_account",
@@ -4226,6 +4227,10 @@ class Account(StripeObject):
         """
         Default responsibilities held by either Stripe or the platform.
         """
+        timezone: Optional[str]
+        """
+        The Account's local timezone. A list of possible time zone values is maintained at the [IANA Time Zone Database](https://www.iana.org/time-zones).
+        """
         _inner_class_types = {
             "profile": Profile,
             "responsibilities": Responsibilities,
@@ -4383,7 +4388,7 @@ class Account(StripeObject):
                         "consumer.cross_river_bank.prepaid_card",
                         "consumer.holds_currencies.usd",
                         "consumer.lead.prepaid_card",
-                        "crypto",
+                        "crypto_wallets",
                         "eps_payments",
                         "financial_addresses.bank_accounts",
                         "fpx_payments",
@@ -6940,7 +6945,7 @@ class Account(StripeObject):
                         "consumer.cross_river_bank.prepaid_card",
                         "consumer.holds_currencies.usd",
                         "consumer.lead.prepaid_card",
-                        "crypto",
+                        "crypto_wallets",
                         "eps_payments",
                         "financial_addresses.bank_accounts",
                         "fpx_payments",
