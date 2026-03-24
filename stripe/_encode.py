@@ -96,9 +96,7 @@ def _coerce_decimal_string(value: Any, *, encode: bool) -> Any:
         return None
 
     if isinstance(value, list):
-        return [
-            _coerce_decimal_string(v, encode=encode) for v in value
-        ]
+        return [_coerce_decimal_string(v, encode=encode) for v in value]
 
     if encode:
         if isinstance(value, (Decimal, int, float)) and not isinstance(
