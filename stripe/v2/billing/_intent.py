@@ -15,17 +15,9 @@ class Intent(StripeObject):
     OBJECT_NAME: ClassVar[Literal["v2.billing.intent"]] = "v2.billing.intent"
 
     class AmountDetails(StripeObject):
-        amount_due: str
-        """
-        The outstanding amount after discount, tax, and customer balance application.
-        """
         currency: str
         """
         Three-letter ISO currency code, in lowercase. Must be a supported currency.
-        """
-        customer_balance_applied: str
-        """
-        The customer's account balance applied to the amount.
         """
         discount: str
         """
@@ -278,12 +270,6 @@ class Intent(StripeObject):
             "settings": Settings,
         }
 
-    class InvoiceResources(StripeObject):
-        preview_invoice: Optional[str]
-        """
-        ID of a preview invoice showing the breakdown of line items. Null if the billing intent will not create an invoice. Only present when "invoice_resources.preview_invoice" is included.
-        """
-
     class StatusTransitions(StripeObject):
         canceled_at: Optional[str]
         """
@@ -330,10 +316,6 @@ class Intent(StripeObject):
     """
     Unique identifier for the object.
     """
-    invoice_resources: Optional[InvoiceResources]
-    """
-    Invoice resources associated with this Billing Intent. Populated when include parameters are specified.
-    """
     livemode: bool
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
@@ -353,6 +335,5 @@ class Intent(StripeObject):
     _inner_class_types = {
         "amount_details": AmountDetails,
         "cadence_data": CadenceData,
-        "invoice_resources": InvoiceResources,
         "status_transitions": StatusTransitions,
     }

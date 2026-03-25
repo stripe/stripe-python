@@ -14,10 +14,6 @@ class IntentCreateParams(TypedDict):
     """
     Three-letter ISO currency code, in lowercase. Must be a supported currency.
     """
-    include: NotRequired[List[Literal["invoice_resources.preview_invoice"]]]
-    """
-    Select additional fields to include in the response.
-    """
     cadence: NotRequired[str]
     """
     ID of an existing Cadence to use.
@@ -435,6 +431,12 @@ class IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverridesParti
     """
     Overrides the behavior for license fee components when the action takes effect during the service period.
     """
+    recurring_credit_grant: NotRequired[
+        "IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorRecurringCreditGrant"
+    ]
+    """
+    Overrides the behavior for recurring credit grant components when the action takes effect during the service period.
+    """
 
 
 class IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorLicenseFee(
@@ -447,6 +449,15 @@ class IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverridesParti
     debit_proration_behavior: Literal["none", "prorated"]
     """
     The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user modifies the subscription. If not specified, defaults to prorated.
+    """
+
+
+class IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorRecurringCreditGrant(
+    TypedDict,
+):
+    create_behavior: Literal["full_credits", "none"]
+    """
+    Controls credit grant creation behavior during partial periods. If not specified, defaults to full_credits.
     """
 
 
@@ -588,6 +599,12 @@ class IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverridesPa
     """
     Overrides the behavior for license fee components when the action takes effect during the service period.
     """
+    recurring_credit_grant: NotRequired[
+        "IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorRecurringCreditGrant"
+    ]
+    """
+    Overrides the behavior for recurring credit grant components when the action takes effect during the service period.
+    """
 
 
 class IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorLicenseFee(
@@ -596,6 +613,15 @@ class IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverridesPa
     debit_proration_behavior: Literal["none", "prorated"]
     """
     The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is subscribing. If not specified, defaults to prorated.
+    """
+
+
+class IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorRecurringCreditGrant(
+    TypedDict,
+):
+    create_behavior: Literal["full_credits", "none"]
+    """
+    Controls credit grant creation behavior during partial periods. If not specified, defaults to full_credits.
     """
 
 

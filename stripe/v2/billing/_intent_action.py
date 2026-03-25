@@ -324,15 +324,28 @@ class IntentAction(StripeObject):
                         The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user modifies the subscription. If not specified, defaults to prorated.
                         """
 
+                    class RecurringCreditGrant(StripeObject):
+                        create_behavior: Literal["full_credits", "none"]
+                        """
+                        Controls credit grant creation behavior during partial periods. If not specified, defaults to full_credits.
+                        """
+
                     license_fee: Optional[LicenseFee]
                     """
                     Overrides the behavior for license fee components when the action takes effect during the service period.
+                    """
+                    recurring_credit_grant: Optional[RecurringCreditGrant]
+                    """
+                    Overrides the behavior for recurring credit grant components when the action takes effect during the service period.
                     """
                     type: Literal["license_fee", "recurring_credit_grant"]
                     """
                     The type of behavior to override.
                     """
-                    _inner_class_types = {"license_fee": LicenseFee}
+                    _inner_class_types = {
+                        "license_fee": LicenseFee,
+                        "recurring_credit_grant": RecurringCreditGrant,
+                    }
 
                 partial_period_behaviors: List[PartialPeriodBehavior]
                 """
@@ -453,15 +466,28 @@ class IntentAction(StripeObject):
                         The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is subscribing. If not specified, defaults to prorated.
                         """
 
+                    class RecurringCreditGrant(StripeObject):
+                        create_behavior: Literal["full_credits", "none"]
+                        """
+                        Controls credit grant creation behavior during partial periods. If not specified, defaults to full_credits.
+                        """
+
                     license_fee: Optional[LicenseFee]
                     """
                     Overrides the behavior for license fee components when the action takes effect during the service period.
+                    """
+                    recurring_credit_grant: Optional[RecurringCreditGrant]
+                    """
+                    Overrides the behavior for recurring credit grant components when the action takes effect during the service period.
                     """
                     type: Literal["license_fee", "recurring_credit_grant"]
                     """
                     The type of behavior to override.
                     """
-                    _inner_class_types = {"license_fee": LicenseFee}
+                    _inner_class_types = {
+                        "license_fee": LicenseFee,
+                        "recurring_credit_grant": RecurringCreditGrant,
+                    }
 
                 partial_period_behaviors: List[PartialPeriodBehavior]
                 """

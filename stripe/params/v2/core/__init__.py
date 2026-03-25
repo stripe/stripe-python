@@ -207,6 +207,8 @@ if TYPE_CHECKING:
         AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadPrepaidCardBankTerms as AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadPrepaidCardBankTerms,
         AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadPrepaidCardFinancingDisclosures as AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadPrepaidCardFinancingDisclosures,
         AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadPrepaidCardPlatform as AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadPrepaidCardPlatform,
+        AccountCreateParamsIdentityAttestationsTermsOfServiceConsumerPrivacyDisclosures as AccountCreateParamsIdentityAttestationsTermsOfServiceConsumerPrivacyDisclosures,
+        AccountCreateParamsIdentityAttestationsTermsOfServiceConsumerStorer as AccountCreateParamsIdentityAttestationsTermsOfServiceConsumerStorer,
         AccountCreateParamsIdentityAttestationsTermsOfServiceCryptoStorer as AccountCreateParamsIdentityAttestationsTermsOfServiceCryptoStorer,
         AccountCreateParamsIdentityAttestationsTermsOfServiceStorer as AccountCreateParamsIdentityAttestationsTermsOfServiceStorer,
         AccountCreateParamsIdentityBusinessDetails as AccountCreateParamsIdentityBusinessDetails,
@@ -562,6 +564,8 @@ if TYPE_CHECKING:
         AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadPrepaidCardBankTerms as AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadPrepaidCardBankTerms,
         AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadPrepaidCardFinancingDisclosures as AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadPrepaidCardFinancingDisclosures,
         AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadPrepaidCardPlatform as AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadPrepaidCardPlatform,
+        AccountUpdateParamsIdentityAttestationsTermsOfServiceConsumerPrivacyDisclosures as AccountUpdateParamsIdentityAttestationsTermsOfServiceConsumerPrivacyDisclosures,
+        AccountUpdateParamsIdentityAttestationsTermsOfServiceConsumerStorer as AccountUpdateParamsIdentityAttestationsTermsOfServiceConsumerStorer,
         AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoStorer as AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoStorer,
         AccountUpdateParamsIdentityAttestationsTermsOfServiceStorer as AccountUpdateParamsIdentityAttestationsTermsOfServiceStorer,
         AccountUpdateParamsIdentityBusinessDetails as AccountUpdateParamsIdentityBusinessDetails,
@@ -1467,6 +1471,14 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadPrepaidCardPlatform": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsIdentityAttestationsTermsOfServiceConsumerPrivacyDisclosures": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsIdentityAttestationsTermsOfServiceConsumerStorer": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
@@ -2828,6 +2840,14 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadPrepaidCardPlatform": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsIdentityAttestationsTermsOfServiceConsumerPrivacyDisclosures": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsIdentityAttestationsTermsOfServiceConsumerStorer": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),
