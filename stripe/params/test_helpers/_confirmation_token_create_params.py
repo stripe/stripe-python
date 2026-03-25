@@ -388,12 +388,17 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
         "stripe_balance",
         "swish",
         "twint",
+        "upi",
         "us_bank_account",
         "wechat_pay",
         "zip",
     ]
     """
     The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
+    """
+    upi: NotRequired["ConfirmationTokenCreateParamsPaymentMethodDataUpi"]
+    """
+    If this is a `upi` PaymentMethod, this hash contains details about the UPI payment method.
     """
     us_bank_account: NotRequired[
         "ConfirmationTokenCreateParamsPaymentMethodDataUsBankAccount"
@@ -914,10 +919,6 @@ class ConfirmationTokenCreateParamsPaymentMethodDataStripeBalance(TypedDict):
     """
     The connected account ID whose Stripe balance to use as the source of payment
     """
-    source_type: NotRequired[Literal["bank_account", "card", "fpx"]]
-    """
-    The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
-    """
 
 
 class ConfirmationTokenCreateParamsPaymentMethodDataSwish(TypedDict):
@@ -926,6 +927,36 @@ class ConfirmationTokenCreateParamsPaymentMethodDataSwish(TypedDict):
 
 class ConfirmationTokenCreateParamsPaymentMethodDataTwint(TypedDict):
     pass
+
+
+class ConfirmationTokenCreateParamsPaymentMethodDataUpi(TypedDict):
+    mandate_options: NotRequired[
+        "ConfirmationTokenCreateParamsPaymentMethodDataUpiMandateOptions"
+    ]
+    """
+    Configuration options for setting up an eMandate
+    """
+
+
+class ConfirmationTokenCreateParamsPaymentMethodDataUpiMandateOptions(
+    TypedDict,
+):
+    amount: NotRequired[int]
+    """
+    Amount to be charged for future payments.
+    """
+    amount_type: NotRequired[Literal["fixed", "maximum"]]
+    """
+    One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+    """
+    description: NotRequired[str]
+    """
+    A description of the mandate or subscription that is meant to be displayed to the customer.
+    """
+    end_date: NotRequired[int]
+    """
+    End date of the mandate or subscription.
+    """
 
 
 class ConfirmationTokenCreateParamsPaymentMethodDataUsBankAccount(TypedDict):

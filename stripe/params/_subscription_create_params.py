@@ -160,7 +160,7 @@ class SubscriptionCreateParams(RequestOptions):
         "Literal['']|SubscriptionCreateParamsPendingInvoiceItemInterval"
     ]
     """
-    Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://docs.stripe.com/api#create_invoice) for the given subscription at the specified interval.
+    Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://docs.stripe.com/api/invoices/create) for the given subscription at the specified interval.
     """
     prebilling: NotRequired["SubscriptionCreateParamsPrebilling"]
     """
@@ -350,7 +350,7 @@ class SubscriptionCreateParamsAutomaticTaxLiability(TypedDict):
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "self"]
+    type: Literal["account", "application", "self"]
     """
     Type of the account referenced in the request.
     """
@@ -586,7 +586,7 @@ class SubscriptionCreateParamsInvoiceSettingsIssuer(TypedDict):
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "self"]
+    type: Literal["account", "application", "self"]
     """
     Type of the account referenced in the request.
     """
@@ -979,7 +979,7 @@ class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCardMandateOpti
 ):
     amount: NotRequired[int]
     """
-    Amount to be charged for future payments.
+    Amount to be charged for future payments, specified in the presentment currency.
     """
     amount_type: NotRequired[Literal["fixed", "maximum"]]
     """
@@ -1083,6 +1083,10 @@ class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOpt
 class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsPix(
     TypedDict
 ):
+    expires_after_seconds: NotRequired[int]
+    """
+    The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
+    """
     mandate_options: NotRequired[
         "SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsPixMandateOptions"
     ]
@@ -1110,7 +1114,7 @@ class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsPixMandateOptio
         Literal["halfyearly", "monthly", "quarterly", "weekly", "yearly"]
     ]
     """
-    Schedule at which the future payments will be charged. Defaults to `weekly`.
+    Schedule at which the future payments will be charged. Defaults to `monthly`.
     """
 
 

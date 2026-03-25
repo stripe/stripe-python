@@ -304,7 +304,7 @@ class Transaction(APIResource["Transaction"]):
 
             amount: int
             """
-            The amount of tax, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+            The amount of tax, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
             """
             jurisdiction: Jurisdiction
             sourcing: Literal["destination", "origin", "performance"]
@@ -337,7 +337,7 @@ class Transaction(APIResource["Transaction"]):
             """
             taxable_amount: int
             """
-            The amount on which tax is calculated, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+            The amount on which tax is calculated, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
             """
             _inner_class_types = {
                 "jurisdiction": Jurisdiction,
@@ -346,11 +346,11 @@ class Transaction(APIResource["Transaction"]):
 
         amount: int
         """
-        The shipping amount in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes were calculated on top of this amount.
+        The shipping amount in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units). If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes were calculated on top of this amount.
         """
         amount_tax: int
         """
-        The amount of tax calculated for shipping, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+        The amount of tax calculated for shipping, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
         """
         shipping_rate: Optional[str]
         """
@@ -393,7 +393,7 @@ class Transaction(APIResource["Transaction"]):
     """
     livemode: bool
     """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
     metadata: Optional[Dict[str, str]]
     """

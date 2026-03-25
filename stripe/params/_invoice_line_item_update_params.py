@@ -34,7 +34,7 @@ class InvoiceLineItemUpdateParams(TypedDict):
     """
     metadata: NotRequired["Literal['']|Dict[str, str]"]
     """
-    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. For [type=subscription](https://docs.stripe.com/api/invoices/line_item#invoice_line_item_object-type) line items, the incoming metadata specified on the request is directly used to set this value, in contrast to [type=invoiceitem](api/invoices/line_item#invoice_line_item_object-type) line items, where any existing metadata on the invoice line is merged with the incoming data.
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. For [type=subscription](https://docs.stripe.com/api/invoices/line_item) line items, the incoming metadata specified on the request is directly used to set this value, in contrast to [type=invoiceitem](https://docs.stripe.com/api/invoices/line_item) line items, where any existing metadata on the invoice line is merged with the incoming data.
     """
     period: NotRequired["InvoiceLineItemUpdateParamsPeriod"]
     """
@@ -50,7 +50,11 @@ class InvoiceLineItemUpdateParams(TypedDict):
     """
     quantity: NotRequired[int]
     """
-    Non-negative integer. The quantity of units for the line item.
+    Non-negative integer. The quantity of units for the line item. Use `quantity_decimal` instead to provide decimal precision. This field will be deprecated in favor of `quantity_decimal` in a future version.
+    """
+    quantity_decimal: NotRequired[Decimal]
+    """
+    Non-negative decimal with at most 12 decimal places. The quantity of units for the line item.
     """
     tax_amounts: NotRequired[
         "Literal['']|List[InvoiceLineItemUpdateParamsTaxAmount]"
@@ -189,7 +193,7 @@ class InvoiceLineItemUpdateParamsPriceDataProductDataTaxDetails(TypedDict):
     """
     A tax location ID. Depending on the [tax code](https://docs.stripe.com/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
     """
-    tax_code: str
+    tax_code: NotRequired["Literal['']|str"]
     """
     A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
     """

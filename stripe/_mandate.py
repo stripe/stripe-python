@@ -259,6 +259,24 @@ class Mandate(ListableAPIResource["Mandate"]):
             The URL of the mandate. This URL generally contains sensitive information about the customer and should be shared with them exclusively.
             """
 
+        class Upi(StripeObject):
+            amount: Optional[int]
+            """
+            Amount to be charged for future payments.
+            """
+            amount_type: Optional[Literal["fixed", "maximum"]]
+            """
+            One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+            """
+            description: Optional[str]
+            """
+            A description of the mandate or subscription that is meant to be displayed to the customer.
+            """
+            end_date: Optional[int]
+            """
+            End date of the mandate or subscription.
+            """
+
         class UsBankAccount(StripeObject):
             collection_method: Optional[Literal["paper"]]
             """
@@ -286,6 +304,7 @@ class Mandate(ListableAPIResource["Mandate"]):
         """
         This mandate corresponds with a specific payment method type. The `payment_method_details` includes an additional hash with the same name and contains mandate information that's specific to that payment method.
         """
+        upi: Optional[Upi]
         us_bank_account: Optional[UsBankAccount]
         _inner_class_types = {
             "acss_debit": AcssDebit,
@@ -305,6 +324,7 @@ class Mandate(ListableAPIResource["Mandate"]):
             "pix": Pix,
             "revolut_pay": RevolutPay,
             "sepa_debit": SepaDebit,
+            "upi": Upi,
             "us_bank_account": UsBankAccount,
         }
 
@@ -325,7 +345,7 @@ class Mandate(ListableAPIResource["Mandate"]):
     """
     livemode: bool
     """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
     multi_use: Optional[MultiUse]
     object: Literal["mandate"]

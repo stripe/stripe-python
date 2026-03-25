@@ -72,7 +72,7 @@ class SessionUpdateParamsAutomaticTaxLiability(TypedDict):
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "self"]
+    type: Literal["account", "application", "self"]
     """
     Type of the account referenced in the request.
     """
@@ -184,7 +184,7 @@ class SessionUpdateParamsInvoiceCreationInvoiceDataIssuer(TypedDict):
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "self"]
+    type: Literal["account", "application", "self"]
     """
     Type of the account referenced in the request.
     """
@@ -309,7 +309,7 @@ class SessionUpdateParamsLineItemPriceDataProductDataTaxDetails(TypedDict):
     """
     A tax location ID. Depending on the [tax code](https://docs.stripe.com/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
     """
-    tax_code: str
+    tax_code: NotRequired["Literal['']|str"]
     """
     A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
     """
@@ -457,6 +457,12 @@ class SessionUpdateParamsSubscriptionData(TypedDict):
     """
     All invoices will be billed using the specified settings.
     """
+    pending_invoice_item_interval: NotRequired[
+        "Literal['']|SessionUpdateParamsSubscriptionDataPendingInvoiceItemInterval"
+    ]
+    """
+    Specifies an interval for how often to bill for any pending invoice items. It is analogous to calling [Create an invoice](https://docs.stripe.com/api#create_invoice) for the given subscription at the specified interval.
+    """
     trial_end: NotRequired[int]
     """
     Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. Has to be at least 48 hours in the future.
@@ -481,7 +487,18 @@ class SessionUpdateParamsSubscriptionDataInvoiceSettingsIssuer(TypedDict):
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "self"]
+    type: Literal["account", "application", "self"]
     """
     Type of the account referenced in the request.
+    """
+
+
+class SessionUpdateParamsSubscriptionDataPendingInvoiceItemInterval(TypedDict):
+    interval: Literal["day", "month", "week", "year"]
+    """
+    Specifies invoicing frequency. Either `day`, `week`, `month` or `year`.
+    """
+    interval_count: NotRequired[int]
+    """
+    The number of intervals between invoices. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
     """

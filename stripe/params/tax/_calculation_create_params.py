@@ -219,7 +219,7 @@ class CalculationCreateParamsCustomerDetailsTaxId(TypedDict):
 class CalculationCreateParamsLineItem(TypedDict):
     amount: int
     """
-    A positive integer representing the line item's total price in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+    A positive integer representing the line item's total price in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
     If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes are calculated on top of this amount.
     """
     metadata: NotRequired[Dict[str, str]]
@@ -289,7 +289,7 @@ class CalculationCreateParamsShipFromDetailsAddress(TypedDict):
 class CalculationCreateParamsShippingCost(TypedDict):
     amount: NotRequired[int]
     """
-    A positive integer in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) representing the shipping charge. If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes are calculated on top of this amount.
+    A positive integer in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units) representing the shipping charge. If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes are calculated on top of this amount.
     """
     shipping_rate: NotRequired[str]
     """

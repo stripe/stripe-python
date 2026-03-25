@@ -12,7 +12,7 @@ class TransactionCreateReversalParams(RequestOptions):
     """
     flat_amount: NotRequired[int]
     """
-    A flat amount to reverse across the entire transaction, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) in negative. This value represents the total amount to refund from the transaction, including taxes.
+    A flat amount to reverse across the entire transaction, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units) in negative. This value represents the total amount to refund from the transaction, including taxes.
     """
     line_items: NotRequired[List["TransactionCreateReversalParamsLineItem"]]
     """
@@ -43,11 +43,11 @@ class TransactionCreateReversalParams(RequestOptions):
 class TransactionCreateReversalParamsLineItem(TypedDict):
     amount: int
     """
-    The amount to reverse, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) in negative.
+    The amount to reverse, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units) in negative.
     """
     amount_tax: int
     """
-    The amount of tax to reverse, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) in negative.
+    The amount of tax to reverse, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units) in negative.
     """
     metadata: NotRequired[Dict[str, str]]
     """
@@ -70,9 +70,9 @@ class TransactionCreateReversalParamsLineItem(TypedDict):
 class TransactionCreateReversalParamsShippingCost(TypedDict):
     amount: int
     """
-    The amount to reverse, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) in negative.
+    The amount to reverse, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units) in negative.
     """
     amount_tax: int
     """
-    The amount of tax to reverse, in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal) in negative.
+    The amount of tax to reverse, in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units) in negative.
     """

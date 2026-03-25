@@ -20,6 +20,7 @@ class ValueListCreateParams(RequestOptions):
             "card_fingerprint",
             "case_sensitive_string",
             "country",
+            "crypto_fingerprint",
             "customer_id",
             "email",
             "ip_address",
@@ -29,7 +30,7 @@ class ValueListCreateParams(RequestOptions):
         ]
     ]
     """
-    Type of the items in the value list. One of `card_fingerprint`, `card_bin`, `email`, `ip_address`, `country`, `string`, `case_sensitive_string`, `customer_id`, `sepa_debit_fingerprint`, or `us_bank_account_fingerprint`. Use `string` if the item type is unknown or mixed.
+    Type of the items in the value list. One of `card_fingerprint`, `card_bin`, `crypto_fingerprint`, `email`, `ip_address`, `country`, `string`, `case_sensitive_string`, `customer_id`, `sepa_debit_fingerprint`, or `us_bank_account_fingerprint`. Use `string` if the item type is unknown or mixed.
     """
     metadata: NotRequired[Dict[str, str]]
     """

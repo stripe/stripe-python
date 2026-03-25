@@ -192,7 +192,7 @@ class SubscriptionScheduleModifyParamsDefaultSettingsAutomaticTaxLiability(
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "self"]
+    type: Literal["account", "application", "self"]
     """
     Type of the account referenced in the request.
     """
@@ -237,7 +237,7 @@ class SubscriptionScheduleModifyParamsDefaultSettingsInvoiceSettingsIssuer(
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "self"]
+    type: Literal["account", "application", "self"]
     """
     Type of the account referenced in the request.
     """
@@ -547,7 +547,7 @@ class SubscriptionScheduleModifyParamsPhaseAutomaticTaxLiability(TypedDict):
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "self"]
+    type: Literal["account", "application", "self"]
     """
     Type of the account referenced in the request.
     """
@@ -709,7 +709,7 @@ class SubscriptionScheduleModifyParamsPhaseInvoiceSettingsIssuer(TypedDict):
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "self"]
+    type: Literal["account", "application", "self"]
     """
     Type of the account referenced in the request.
     """
@@ -935,7 +935,7 @@ class SubscriptionScheduleModifyParamsPhaseItemTrial(TypedDict):
 class SubscriptionScheduleModifyParamsPhasePauseCollection(TypedDict):
     behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
     """
-    The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+    The payment collection behavior for this subscription while paused.
     """
 
 

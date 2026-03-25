@@ -165,7 +165,7 @@ class InvoiceModifyParamsAutomaticTaxLiability(TypedDict):
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "self"]
+    type: Literal["account", "application", "self"]
     """
     Type of the account referenced in the request.
     """
@@ -232,7 +232,7 @@ class InvoiceModifyParamsIssuer(TypedDict):
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "self"]
+    type: Literal["account", "application", "self"]
     """
     Type of the account referenced in the request.
     """
@@ -501,6 +501,10 @@ class InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsPix(TypedDict):
     amount_includes_iof: NotRequired[Literal["always", "never"]]
     """
     Determines if the amount includes the IOF tax. Defaults to `never`.
+    """
+    expires_after_seconds: NotRequired[int]
+    """
+    The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
     """
 
 

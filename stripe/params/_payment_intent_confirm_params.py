@@ -37,7 +37,7 @@ class PaymentIntentConfirmParams(RequestOptions):
     Set to `true` to fail the payment attempt if the PaymentIntent transitions into `requires_action`. This parameter is intended for simpler integrations that do not handle customer actions, like [saving cards without authentication](https://docs.stripe.com/payments/save-card-without-authentication).
     """
     excluded_payment_method_types: NotRequired[
-        "Literal['']|List[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'gopay', 'grabpay', 'id_bank_transfer', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'qris', 'rechnung', 'revolut_pay', 'samsung_pay', 'satispay', 'sepa_debit', 'shopeepay', 'sofort', 'stripe_balance', 'swish', 'twint', 'us_bank_account', 'wechat_pay', 'zip']]"
+        "Literal['']|List[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'gopay', 'grabpay', 'id_bank_transfer', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'qris', 'rechnung', 'revolut_pay', 'samsung_pay', 'satispay', 'sepa_debit', 'shopeepay', 'sofort', 'stripe_balance', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay', 'zip']]"
     ]
     """
     The list of payment method types to exclude from use with this payment.
@@ -169,6 +169,12 @@ class PaymentIntentConfirmParamsAmountDetails(TypedDict):
     ]
     """
     Contains information about the shipping portion of the amount.
+    """
+    surcharge: NotRequired[
+        "Literal['']|PaymentIntentConfirmParamsAmountDetailsSurcharge"
+    ]
+    """
+    Contains information about the surcharge portion of the amount.
     """
     tax: NotRequired["Literal['']|PaymentIntentConfirmParamsAmountDetailsTax"]
     """
@@ -328,6 +334,19 @@ class PaymentIntentConfirmParamsAmountDetailsShipping(TypedDict):
     """
 
 
+class PaymentIntentConfirmParamsAmountDetailsSurcharge(TypedDict):
+    amount: NotRequired["Literal['']|int"]
+    """
+    Portion of the amount that corresponds to a surcharge.
+    """
+    enforce_validation: NotRequired[
+        "Literal['']|Literal['automatic', 'disabled', 'enabled']"
+    ]
+    """
+    Indicate whether to enforce validations on the surcharge amount.
+    """
+
+
 class PaymentIntentConfirmParamsAmountDetailsTax(TypedDict):
     total_tax_amount: int
     """
@@ -459,8 +478,6 @@ class PaymentIntentConfirmParamsPaymentDetails(TypedDict):
     order_reference: NotRequired["Literal['']|str"]
     """
     A unique value assigned by the business to identify the transaction. Required for L2 and L3 rates.
-
-    Required when the Payment Method Types array contains `card`, including when [automatic_payment_methods.enabled](https://docs.stripe.com/api/payment_intents/create#create_payment_intent-automatic_payment_methods-enabled) is set to `true`.
 
     For Cards, this field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks. For Klarna, this field is truncated to 255 characters and is visible to customers when they view the order in the Klarna app.
     """
@@ -2582,12 +2599,17 @@ class PaymentIntentConfirmParamsPaymentMethodData(TypedDict):
         "stripe_balance",
         "swish",
         "twint",
+        "upi",
         "us_bank_account",
         "wechat_pay",
         "zip",
     ]
     """
     The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
+    """
+    upi: NotRequired["PaymentIntentConfirmParamsPaymentMethodDataUpi"]
+    """
+    If this is a `upi` PaymentMethod, this hash contains details about the UPI payment method.
     """
     us_bank_account: NotRequired[
         "PaymentIntentConfirmParamsPaymentMethodDataUsBankAccount"
@@ -3106,10 +3128,6 @@ class PaymentIntentConfirmParamsPaymentMethodDataStripeBalance(TypedDict):
     """
     The connected account ID whose Stripe balance to use as the source of payment
     """
-    source_type: NotRequired[Literal["bank_account", "card", "fpx"]]
-    """
-    The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
-    """
 
 
 class PaymentIntentConfirmParamsPaymentMethodDataSwish(TypedDict):
@@ -3118,6 +3136,34 @@ class PaymentIntentConfirmParamsPaymentMethodDataSwish(TypedDict):
 
 class PaymentIntentConfirmParamsPaymentMethodDataTwint(TypedDict):
     pass
+
+
+class PaymentIntentConfirmParamsPaymentMethodDataUpi(TypedDict):
+    mandate_options: NotRequired[
+        "PaymentIntentConfirmParamsPaymentMethodDataUpiMandateOptions"
+    ]
+    """
+    Configuration options for setting up an eMandate
+    """
+
+
+class PaymentIntentConfirmParamsPaymentMethodDataUpiMandateOptions(TypedDict):
+    amount: NotRequired[int]
+    """
+    Amount to be charged for future payments.
+    """
+    amount_type: NotRequired[Literal["fixed", "maximum"]]
+    """
+    One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+    """
+    description: NotRequired[str]
+    """
+    A description of the mandate or subscription that is meant to be displayed to the customer.
+    """
+    end_date: NotRequired[int]
+    """
+    End date of the mandate or subscription.
+    """
 
 
 class PaymentIntentConfirmParamsPaymentMethodDataUsBankAccount(TypedDict):
@@ -3488,6 +3534,12 @@ class PaymentIntentConfirmParamsPaymentMethodOptions(TypedDict):
     """
     If this is a `twint` PaymentMethod, this sub-hash contains details about the TWINT payment method options.
     """
+    upi: NotRequired[
+        "Literal['']|PaymentIntentConfirmParamsPaymentMethodOptionsUpi"
+    ]
+    """
+    If this is a `upi` PaymentIntent, this sub-hash contains details about the UPI payment method options.
+    """
     us_bank_account: NotRequired[
         "Literal['']|PaymentIntentConfirmParamsPaymentMethodOptionsUsBankAccount"
     ]
@@ -3537,7 +3589,7 @@ class PaymentIntentConfirmParamsPaymentMethodOptionsAcssDebit(TypedDict):
         Literal["automatic", "instant", "microdeposits"]
     ]
     """
-    Bank account verification method.
+    Bank account verification method. The default value is `automatic`.
     """
 
 
@@ -3886,6 +3938,10 @@ class PaymentIntentConfirmParamsPaymentMethodOptionsCard(TypedDict):
     """
     Request partial authorization on this PaymentIntent.
     """
+    request_reauthorization: NotRequired[Literal["if_available", "never"]]
+    """
+    Request ability to [reauthorize](https://docs.stripe.com/payments/reauthorization) for this PaymentIntent.
+    """
     request_three_d_secure: NotRequired[
         Literal["any", "automatic", "challenge"]
     ]
@@ -3931,10 +3987,6 @@ class PaymentIntentConfirmParamsPaymentMethodOptionsCard(TypedDict):
     If 3D Secure authentication was performed with a third-party provider,
     the authentication details to use for this payment.
     """
-    request_reauthorization: NotRequired[Literal["if_available", "never"]]
-    """
-    Request ability to [reauthorize](https://docs.stripe.com/payments/reauthorization) for this PaymentIntent.
-    """
 
 
 class PaymentIntentConfirmParamsPaymentMethodOptionsCardInstallments(
@@ -3978,7 +4030,7 @@ class PaymentIntentConfirmParamsPaymentMethodOptionsCardMandateOptions(
 ):
     amount: int
     """
-    Amount to be charged for future payments.
+    Amount to be charged for future payments, specified in the presentment currency.
     """
     amount_type: Literal["fixed", "maximum"]
     """
@@ -4158,15 +4210,15 @@ class PaymentIntentConfirmParamsPaymentMethodOptionsCardPresent(TypedDict):
     """
     Request ability to [increment](https://docs.stripe.com/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://docs.stripe.com/api/payment_intents/confirm) response to verify support.
     """
+    request_reauthorization: NotRequired[Literal["if_available", "never"]]
+    """
+    Request ability to [reauthorize](https://docs.stripe.com/payments/reauthorization) for this PaymentIntent.
+    """
     routing: NotRequired[
         "PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentRouting"
     ]
     """
     Network routing priority on co-branded EMV cards supporting domestic debit and international card schemes.
-    """
-    request_reauthorization: NotRequired[Literal["if_available", "never"]]
-    """
-    Request ability to [reauthorize](https://docs.stripe.com/payments/reauthorization) for this PaymentIntent.
     """
 
 
@@ -4205,6 +4257,16 @@ class PaymentIntentConfirmParamsPaymentMethodOptionsCashapp(TypedDict):
 
 
 class PaymentIntentConfirmParamsPaymentMethodOptionsCrypto(TypedDict):
+    deposit_options: NotRequired[
+        "PaymentIntentConfirmParamsPaymentMethodOptionsCryptoDepositOptions"
+    ]
+    """
+    Specific configuration for this PaymentIntent when the mode is `deposit`.
+    """
+    mode: NotRequired[Literal["default", "deposit"]]
+    """
+    The mode of the crypto payment.
+    """
     setup_future_usage: NotRequired[Literal["none"]]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -4216,16 +4278,6 @@ class PaymentIntentConfirmParamsPaymentMethodOptionsCrypto(TypedDict):
     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
 
     If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-    """
-    deposit_options: NotRequired[
-        "PaymentIntentConfirmParamsPaymentMethodOptionsCryptoDepositOptions"
-    ]
-    """
-    Specific configuration for this PaymentIntent when the mode is `deposit`.
-    """
-    mode: NotRequired[Literal["default", "deposit"]]
-    """
-    The mode of the crypto payment.
     """
 
 
@@ -6186,7 +6238,7 @@ class PaymentIntentConfirmParamsPaymentMethodOptionsPixMandateOptions(
         Literal["halfyearly", "monthly", "quarterly", "weekly", "yearly"]
     ]
     """
-    Schedule at which the future payments will be charged. Defaults to `weekly`.
+    Schedule at which the future payments will be charged. Defaults to `monthly`.
     """
     reference: NotRequired[str]
     """
@@ -6366,6 +6418,21 @@ class PaymentIntentConfirmParamsPaymentMethodOptionsStripeBalance(TypedDict):
 
     If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
     """
+    mandate_options: NotRequired[
+        "PaymentIntentConfirmParamsPaymentMethodOptionsStripeBalanceMandateOptions"
+    ]
+    """
+    Additional fields for mandate creation.
+    """
+
+
+class PaymentIntentConfirmParamsPaymentMethodOptionsStripeBalanceMandateOptions(
+    TypedDict,
+):
+    stripe_balance_debit_agreement: NotRequired[str]
+    """
+    The ID of the Stripe Balance Debit Agreement used for this mandate.
+    """
 
 
 class PaymentIntentConfirmParamsPaymentMethodOptionsSwish(TypedDict):
@@ -6399,6 +6466,39 @@ class PaymentIntentConfirmParamsPaymentMethodOptionsTwint(TypedDict):
     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
 
     If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
+    """
+
+
+class PaymentIntentConfirmParamsPaymentMethodOptionsUpi(TypedDict):
+    mandate_options: NotRequired[
+        "PaymentIntentConfirmParamsPaymentMethodOptionsUpiMandateOptions"
+    ]
+    """
+    Configuration options for setting up an eMandate
+    """
+    setup_future_usage: NotRequired[
+        "Literal['']|Literal['none', 'off_session', 'on_session']"
+    ]
+
+
+class PaymentIntentConfirmParamsPaymentMethodOptionsUpiMandateOptions(
+    TypedDict,
+):
+    amount: NotRequired[int]
+    """
+    Amount to be charged for future payments.
+    """
+    amount_type: NotRequired[Literal["fixed", "maximum"]]
+    """
+    One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+    """
+    description: NotRequired[str]
+    """
+    A description of the mandate or subscription that is meant to be displayed to the customer.
+    """
+    end_date: NotRequired[int]
+    """
+    End date of the mandate or subscription.
     """
 
 
@@ -6449,7 +6549,7 @@ class PaymentIntentConfirmParamsPaymentMethodOptionsUsBankAccount(TypedDict):
         Literal["automatic", "instant", "microdeposits"]
     ]
     """
-    Bank account verification method.
+    Bank account verification method. The default value is `automatic`.
     """
 
 

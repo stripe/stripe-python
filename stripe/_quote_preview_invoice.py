@@ -124,7 +124,7 @@ class QuotePreviewInvoice(StripeObject):
             """
             The connected account being referenced when `type` is `account`.
             """
-            type: Literal["account", "self"]
+            type: Literal["account", "application", "self"]
             """
             Type of the account referenced.
             """
@@ -389,7 +389,7 @@ class QuotePreviewInvoice(StripeObject):
         """
         The connected account being referenced when `type` is `account`.
         """
-        type: Literal["account", "self"]
+        type: Literal["account", "application", "self"]
         """
         Type of the account referenced.
         """
@@ -559,6 +559,7 @@ class QuotePreviewInvoice(StripeObject):
                 "secret_key_required",
                 "sensitive_data_access_expired",
                 "sepa_unsupported_account",
+                "service_period_coupon_with_metered_tiered_item_unsupported",
                 "setup_attempt_failed",
                 "setup_intent_authentication_failure",
                 "setup_intent_invalid_parameter",
@@ -720,7 +721,7 @@ class QuotePreviewInvoice(StripeObject):
                     Literal["keep_as_draft", "mark_uncollectible", "void"]
                 ]
                 """
-                The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+                The payment collection behavior for this subscription while paused.
                 """
                 resumes_at: Optional[int]
                 """
@@ -792,7 +793,7 @@ class QuotePreviewInvoice(StripeObject):
                     Literal["automatic", "instant", "microdeposits"]
                 ]
                 """
-                Bank account verification method.
+                Bank account verification method. The default value is `automatic`.
                 """
                 _inner_class_types = {"mandate_options": MandateOptions}
 
@@ -883,6 +884,10 @@ class QuotePreviewInvoice(StripeObject):
                 """
                 Determines if the amount includes the IOF tax.
                 """
+                expires_after_seconds: Optional[int]
+                """
+                The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
+                """
 
             class SepaDebit(StripeObject):
                 pass
@@ -957,7 +962,7 @@ class QuotePreviewInvoice(StripeObject):
                     Literal["automatic", "instant", "microdeposits"]
                 ]
                 """
-                Bank account verification method.
+                Bank account verification method. The default value is `automatic`.
                 """
                 _inner_class_types = {
                     "financial_connections": FinancialConnections,
@@ -1548,7 +1553,7 @@ class QuotePreviewInvoice(StripeObject):
     """
     livemode: bool
     """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
     metadata: Optional[Dict[str, str]]
     """

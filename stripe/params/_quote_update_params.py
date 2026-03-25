@@ -116,7 +116,7 @@ class QuoteUpdateParamsAutomaticTaxLiability(TypedDict):
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "self"]
+    type: Literal["account", "application", "self"]
     """
     Type of the account referenced in the request.
     """
@@ -183,7 +183,7 @@ class QuoteUpdateParamsInvoiceSettingsIssuer(TypedDict):
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "self"]
+    type: Literal["account", "application", "self"]
     """
     Type of the account referenced in the request.
     """
@@ -991,7 +991,7 @@ class QuoteUpdateParamsLineSetPauseCollection(TypedDict):
 class QuoteUpdateParamsLineSetPauseCollectionSet(TypedDict):
     behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
     """
-    The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+    The payment collection behavior for this subscription while paused.
     """
 
 
