@@ -4,6 +4,7 @@ from __future__ import absolute_import, division, print_function
 import stripe
 
 from tests.http_client_mock import HTTPClientMock
+from decimal import Decimal
 import io
 from stripe import StripeClient, _error
 import pytest
@@ -34060,14 +34061,14 @@ class TestGeneratedExamples(object):
                     "fuel": {
                         "type": "diesel",
                         "unit": "liter",
-                        "unit_cost_decimal": "3.5",
-                        "quantity_decimal": "10",
+                        "unit_cost_decimal": Decimal("3.5"),
+                        "quantity_decimal": Decimal("10"),
                     },
                     "lodging": {"check_in_at": 1633651200, "nights": 2},
                     "receipt": [
                         {
                             "description": "Room charge",
-                            "quantity": "1",
+                            "quantity": Decimal("1"),
                             "total": 200,
                             "unit_cost": 200,
                         },
@@ -34111,14 +34112,14 @@ class TestGeneratedExamples(object):
                 "fuel": {
                     "type": "diesel",
                     "unit": "liter",
-                    "unit_cost_decimal": "3.5",
-                    "quantity_decimal": "10",
+                    "unit_cost_decimal": Decimal("3.5"),
+                    "quantity_decimal": Decimal("10"),
                 },
                 "lodging": {"check_in_at": 1633651200, "nights": 2},
                 "receipt": [
                     {
                         "description": "Room charge",
-                        "quantity": "1",
+                        "quantity": Decimal("1"),
                         "total": 200,
                         "unit_cost": 200,
                     },
@@ -34170,14 +34171,14 @@ class TestGeneratedExamples(object):
                     "fuel": {
                         "type": "diesel",
                         "unit": "liter",
-                        "unit_cost_decimal": "3.5",
-                        "quantity_decimal": "10",
+                        "unit_cost_decimal": Decimal("3.5"),
+                        "quantity_decimal": Decimal("10"),
                     },
                     "lodging": {"check_in_at": 1633651200, "nights": 2},
                     "receipt": [
                         {
                             "description": "Room charge",
-                            "quantity": "1",
+                            "quantity": Decimal("1"),
                             "total": 200,
                             "unit_cost": 200,
                         },
@@ -34222,14 +34223,14 @@ class TestGeneratedExamples(object):
                 "fuel": {
                     "type": "diesel",
                     "unit": "liter",
-                    "unit_cost_decimal": "3.5",
-                    "quantity_decimal": "10",
+                    "unit_cost_decimal": Decimal("3.5"),
+                    "quantity_decimal": Decimal("10"),
                 },
                 "lodging": {"check_in_at": 1633651200, "nights": 2},
                 "receipt": [
                     {
                         "description": "Room charge",
-                        "quantity": "1",
+                        "quantity": Decimal("1"),
                         "total": 200,
                         "unit_cost": 200,
                     },
@@ -34282,14 +34283,14 @@ class TestGeneratedExamples(object):
                     "fuel": {
                         "type": "diesel",
                         "unit": "liter",
-                        "unit_cost_decimal": "3.5",
-                        "quantity_decimal": "10",
+                        "unit_cost_decimal": Decimal("3.5"),
+                        "quantity_decimal": Decimal("10"),
                     },
                     "lodging": {"check_in_at": 1633651200, "nights": 2},
                     "receipt": [
                         {
                             "description": "Room charge",
-                            "quantity": "1",
+                            "quantity": Decimal("1"),
                             "total": 200,
                             "unit_cost": 200,
                         },
@@ -35483,14 +35484,14 @@ class TestGeneratedExamples(object):
                     "fuel": {
                         "type": "diesel",
                         "unit": "liter",
-                        "unit_cost_decimal": "3.5",
-                        "quantity_decimal": "10",
+                        "unit_cost_decimal": Decimal("3.5"),
+                        "quantity_decimal": Decimal("10"),
                     },
                     "lodging": {"check_in_at": 1533651200, "nights": 2},
                     "receipt": [
                         {
                             "description": "Room charge",
-                            "quantity": "1",
+                            "quantity": Decimal("1"),
                             "total": 200,
                             "unit_cost": 200,
                         },
@@ -35544,14 +35545,14 @@ class TestGeneratedExamples(object):
                 "fuel": {
                     "type": "diesel",
                     "unit": "liter",
-                    "unit_cost_decimal": "3.5",
-                    "quantity_decimal": "10",
+                    "unit_cost_decimal": Decimal("3.5"),
+                    "quantity_decimal": Decimal("10"),
                 },
                 "lodging": {"check_in_at": 1533651200, "nights": 2},
                 "receipt": [
                     {
                         "description": "Room charge",
-                        "quantity": "1",
+                        "quantity": Decimal("1"),
                         "total": 200,
                         "unit_cost": 200,
                     },
@@ -35613,14 +35614,14 @@ class TestGeneratedExamples(object):
                     "fuel": {
                         "type": "diesel",
                         "unit": "liter",
-                        "unit_cost_decimal": "3.5",
-                        "quantity_decimal": "10",
+                        "unit_cost_decimal": Decimal("3.5"),
+                        "quantity_decimal": Decimal("10"),
                     },
                     "lodging": {"check_in_at": 1533651200, "nights": 2},
                     "receipt": [
                         {
                             "description": "Room charge",
-                            "quantity": "1",
+                            "quantity": Decimal("1"),
                             "total": 200,
                             "unit_cost": 200,
                         },
@@ -35676,14 +35677,14 @@ class TestGeneratedExamples(object):
                     "fuel": {
                         "type": "diesel",
                         "unit": "liter",
-                        "unit_cost_decimal": "3.5",
-                        "quantity_decimal": "10",
+                        "unit_cost_decimal": Decimal("3.5"),
+                        "quantity_decimal": Decimal("10"),
                     },
                     "lodging": {"check_in_at": 1533651200, "nights": 2},
                     "receipt": [
                         {
                             "description": "Room charge",
-                            "quantity": "1",
+                            "quantity": Decimal("1"),
                             "total": 200,
                             "unit_cost": 200,
                         },
@@ -35747,14 +35748,14 @@ class TestGeneratedExamples(object):
                     "fuel": {
                         "type": "diesel",
                         "unit": "liter",
-                        "unit_cost_decimal": "3.5",
-                        "quantity_decimal": "10",
+                        "unit_cost_decimal": Decimal("3.5"),
+                        "quantity_decimal": Decimal("10"),
                     },
                     "lodging": {"check_in_at": 1533651200, "nights": 2},
                     "receipt": [
                         {
                             "description": "Room charge",
-                            "quantity": "1",
+                            "quantity": Decimal("1"),
                             "total": 200,
                             "unit_cost": 200,
                         },
@@ -35818,14 +35819,14 @@ class TestGeneratedExamples(object):
                     "fuel": {
                         "type": "diesel",
                         "unit": "liter",
-                        "unit_cost_decimal": "3.5",
-                        "quantity_decimal": "10",
+                        "unit_cost_decimal": Decimal("3.5"),
+                        "quantity_decimal": Decimal("10"),
                     },
                     "lodging": {"check_in_at": 1533651200, "nights": 2},
                     "receipt": [
                         {
                             "description": "Room charge",
-                            "quantity": "1",
+                            "quantity": Decimal("1"),
                             "total": 200,
                             "unit_cost": 200,
                         },
@@ -35879,14 +35880,14 @@ class TestGeneratedExamples(object):
                 "fuel": {
                     "type": "diesel",
                     "unit": "liter",
-                    "unit_cost_decimal": "3.5",
-                    "quantity_decimal": "10",
+                    "unit_cost_decimal": Decimal("3.5"),
+                    "quantity_decimal": Decimal("10"),
                 },
                 "lodging": {"check_in_at": 1533651200, "nights": 2},
                 "receipt": [
                     {
                         "description": "Room charge",
-                        "quantity": "1",
+                        "quantity": Decimal("1"),
                         "total": 200,
                         "unit_cost": 200,
                     },
@@ -35948,14 +35949,14 @@ class TestGeneratedExamples(object):
                     "fuel": {
                         "type": "diesel",
                         "unit": "liter",
-                        "unit_cost_decimal": "3.5",
-                        "quantity_decimal": "10",
+                        "unit_cost_decimal": Decimal("3.5"),
+                        "quantity_decimal": Decimal("10"),
                     },
                     "lodging": {"check_in_at": 1533651200, "nights": 2},
                     "receipt": [
                         {
                             "description": "Room charge",
-                            "quantity": "1",
+                            "quantity": Decimal("1"),
                             "total": 200,
                             "unit_cost": 200,
                         },
@@ -36010,14 +36011,14 @@ class TestGeneratedExamples(object):
                 "fuel": {
                     "type": "diesel",
                     "unit": "liter",
-                    "unit_cost_decimal": "3.5",
-                    "quantity_decimal": "10",
+                    "unit_cost_decimal": Decimal("3.5"),
+                    "quantity_decimal": Decimal("10"),
                 },
                 "lodging": {"check_in_at": 1533651200, "nights": 2},
                 "receipt": [
                     {
                         "description": "Room charge",
-                        "quantity": "1",
+                        "quantity": Decimal("1"),
                         "total": 200,
                         "unit_cost": 200,
                     },
@@ -36080,14 +36081,14 @@ class TestGeneratedExamples(object):
                     "fuel": {
                         "type": "diesel",
                         "unit": "liter",
-                        "unit_cost_decimal": "3.5",
-                        "quantity_decimal": "10",
+                        "unit_cost_decimal": Decimal("3.5"),
+                        "quantity_decimal": Decimal("10"),
                     },
                     "lodging": {"check_in_at": 1533651200, "nights": 2},
                     "receipt": [
                         {
                             "description": "Room charge",
-                            "quantity": "1",
+                            "quantity": Decimal("1"),
                             "total": 200,
                             "unit_cost": 200,
                         },
@@ -44054,7 +44055,9 @@ class TestGeneratedExamples(object):
                                     "maximum_applications": {
                                         "type": "indefinite"
                                     },
-                                    "percent_off": "991934883.3333334",
+                                    "percent_off": Decimal(
+                                        "991934883.3333334"
+                                    ),
                                 },
                             },
                             "spend_modifier_rule": {
@@ -45398,7 +45401,7 @@ class TestGeneratedExamples(object):
                             {
                                 "flat_amount": "flat_amount",
                                 "unit_amount": "unit_amount",
-                                "up_to_decimal": "1387931359.3333333",
+                                "up_to_decimal": Decimal("1387931359.3333333"),
                                 "up_to_inf": "inf",
                             },
                         ],
@@ -48544,7 +48547,7 @@ class TestGeneratedExamples(object):
                                 "description": "description",
                                 "display_name": "display_name",
                                 "jurisdiction": "jurisdiction",
-                                "percentage": "614555204",
+                                "percentage": Decimal("614555204"),
                                 "state": "state",
                             },
                         ],
@@ -48605,7 +48608,7 @@ class TestGeneratedExamples(object):
                                 "description": "description",
                                 "display_name": "display_name",
                                 "jurisdiction": "jurisdiction",
-                                "percentage": "614555204",
+                                "percentage": Decimal("614555204"),
                                 "state": "state",
                             },
                         ],
