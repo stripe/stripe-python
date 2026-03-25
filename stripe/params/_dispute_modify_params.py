@@ -6,6 +6,10 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class DisputeModifyParams(RequestOptions):
+    amount_to_counter: NotRequired[int]
+    """
+    If not countering the full disputed amount, specify an alternate amount, less than or equal to the disputed amount.
+    """
     evidence: NotRequired["DisputeModifyParamsEvidence"]
     """
     Evidence to upload, to respond to a dispute. Updating any field in the hash will submit all fields in the hash for review. The combined character count of all fields is limited to 150,000.
@@ -32,10 +36,6 @@ class DisputeModifyParams(RequestOptions):
     submit: NotRequired[bool]
     """
     Whether to immediately submit evidence to the bank. If `false`, evidence is staged on the dispute. Staged evidence is visible in the API and Dashboard, and can be submitted to the bank by making another request with this attribute set to `true` (the default).
-    """
-    amount_to_counter: NotRequired[int]
-    """
-    If not countering the full disputed amount, specify an alternate amount, less than or equal to the disputed amount.
     """
 
 

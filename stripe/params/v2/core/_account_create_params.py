@@ -2328,6 +2328,18 @@ class AccountCreateParamsIdentityAttestationsTermsOfService(TypedDict):
     """
     Details on the Account's acceptance of Issuing-specific terms of service.
     """
+    consumer_privacy_disclosures: NotRequired[
+        "AccountCreateParamsIdentityAttestationsTermsOfServiceConsumerPrivacyDisclosures"
+    ]
+    """
+    Details on the Account's acceptance of Consumer-privacy-disclosures-specific terms of service.
+    """
+    consumer_storer: NotRequired[
+        "AccountCreateParamsIdentityAttestationsTermsOfServiceConsumerStorer"
+    ]
+    """
+    Details on the Account's acceptance of Consumer-storer-specific terms of service.
+    """
     crypto_storer: NotRequired[
         "AccountCreateParamsIdentityAttestationsTermsOfServiceCryptoStorer"
     ]
@@ -3360,6 +3372,40 @@ class AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLe
 
 
 class AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadPrepaidCardPlatform(
+    TypedDict,
+):
+    date: str
+    """
+    The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+    """
+    ip: str
+    """
+    The IP address from which the Account's representative accepted the terms of service.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser from which the Account's representative accepted the terms of service.
+    """
+
+
+class AccountCreateParamsIdentityAttestationsTermsOfServiceConsumerPrivacyDisclosures(
+    TypedDict,
+):
+    date: str
+    """
+    The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+    """
+    ip: str
+    """
+    The IP address from which the Account's representative accepted the terms of service.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser from which the Account's representative accepted the terms of service.
+    """
+
+
+class AccountCreateParamsIdentityAttestationsTermsOfServiceConsumerStorer(
     TypedDict,
 ):
     date: str

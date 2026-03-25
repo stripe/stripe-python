@@ -64,6 +64,7 @@ class ValueList(
         "card_fingerprint",
         "case_sensitive_string",
         "country",
+        "crypto_fingerprint",
         "customer_id",
         "email",
         "ip_address",
@@ -72,7 +73,7 @@ class ValueList(
         "us_bank_account_fingerprint",
     ]
     """
-    The type of items in the value list. One of `card_fingerprint`, `card_bin`, `email`, `ip_address`, `country`, `string`, `case_sensitive_string`, `customer_id`, `sepa_debit_fingerprint`, or `us_bank_account_fingerprint`.
+    The type of items in the value list. One of `card_fingerprint`, `card_bin`, `crypto_fingerprint`, `email`, `ip_address`, `country`, `string`, `case_sensitive_string`, `customer_id`, `sepa_debit_fingerprint`, or `us_bank_account_fingerprint`.
     """
     list_items: ListObject["ValueListItem"]
     """
@@ -80,7 +81,7 @@ class ValueList(
     """
     livemode: bool
     """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
     metadata: Dict[str, str]
     """

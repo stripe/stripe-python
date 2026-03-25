@@ -5596,6 +5596,34 @@ class Account(StripeObject):
                         "consumer": Consumer,
                     }
 
+                class ConsumerPrivacyDisclosures(StripeObject):
+                    date: Optional[str]
+                    """
+                    The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                    """
+                    ip: Optional[str]
+                    """
+                    The IP address from which the Account's representative accepted the terms of service.
+                    """
+                    user_agent: Optional[str]
+                    """
+                    The user agent of the browser from which the Account's representative accepted the terms of service.
+                    """
+
+                class ConsumerStorer(StripeObject):
+                    date: Optional[str]
+                    """
+                    The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+                    """
+                    ip: Optional[str]
+                    """
+                    The IP address from which the Account's representative accepted the terms of service.
+                    """
+                    user_agent: Optional[str]
+                    """
+                    The user agent of the browser from which the Account's representative accepted the terms of service.
+                    """
+
                 class CryptoStorer(StripeObject):
                     date: Optional[str]
                     """
@@ -5632,6 +5660,16 @@ class Account(StripeObject):
                 """
                 Details on the Account's acceptance of Issuing-specific terms of service.
                 """
+                consumer_privacy_disclosures: Optional[
+                    ConsumerPrivacyDisclosures
+                ]
+                """
+                Details on the Account's acceptance of Consumer-privacy-disclosures-specific terms of service.
+                """
+                consumer_storer: Optional[ConsumerStorer]
+                """
+                Details on the Account's acceptance of Consumer-storer-specific terms of service.
+                """
                 crypto_storer: Optional[CryptoStorer]
                 """
                 Details on the Account's acceptance of Crypto-storer-specific terms of service.
@@ -5643,6 +5681,8 @@ class Account(StripeObject):
                 _inner_class_types = {
                     "account": Account,
                     "card_creator": CardCreator,
+                    "consumer_privacy_disclosures": ConsumerPrivacyDisclosures,
+                    "consumer_storer": ConsumerStorer,
                     "crypto_storer": CryptoStorer,
                     "storer": Storer,
                 }

@@ -30,6 +30,10 @@ class CardCreateParams(RequestOptions):
     """
     The new financial account ID the card will be associated with. This field allows a card to be reassigned to a different financial account.
     """
+    lifecycle_controls: NotRequired["CardCreateParamsLifecycleControls"]
+    """
+    Rules that control the lifecycle of this card, such as automatic cancellation. Refer to our [documentation](https://docs.stripe.com/issuing/controls/lifecycle-controls) for more details.
+    """
     metadata: NotRequired[Dict[str, str]]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -71,6 +75,20 @@ class CardCreateParams(RequestOptions):
     type: Literal["physical", "virtual"]
     """
     The type of card to issue. Possible values are `physical` or `virtual`.
+    """
+
+
+class CardCreateParamsLifecycleControls(TypedDict):
+    cancel_after: "CardCreateParamsLifecycleControlsCancelAfter"
+    """
+    Cancels the card after the specified conditions are met.
+    """
+
+
+class CardCreateParamsLifecycleControlsCancelAfter(TypedDict):
+    payment_count: int
+    """
+    The card is automatically cancelled when it makes this number of non-zero payment authorizations and transactions. The count includes penny authorizations, but doesn't include non-payment actions, such as authorization advice.
     """
 
 

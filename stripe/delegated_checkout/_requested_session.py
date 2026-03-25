@@ -146,6 +146,10 @@ class RequestedSession(
                     """
                     The key of the digital fulfillment option.
                     """
+                    line_item_keys: Optional[List[str]]
+                    """
+                    The line item keys associated with this digital fulfillment option.
+                    """
 
                 digital_options: Optional[List[DigitalOption]]
                 """
@@ -174,6 +178,10 @@ class RequestedSession(
                     latest_delivery_time: Optional[int]
                     """
                     The latest delivery time of the shipping option.
+                    """
+                    line_item_keys: Optional[List[str]]
+                    """
+                    The line item keys associated with this shipping option.
                     """
                     shipping_amount: int
                     """
@@ -227,6 +235,37 @@ class RequestedSession(
             """
             _inner_class_types = {"digital": Digital, "shipping": Shipping}
 
+        class SelectedFulfillmentOptionOverride(StripeObject):
+            class Digital(StripeObject):
+                digital_option: Optional[str]
+                """
+                The digital option.
+                """
+
+            class Shipping(StripeObject):
+                shipping_option: Optional[str]
+                """
+                The shipping option.
+                """
+
+            digital: Optional[Digital]
+            """
+            The digital fulfillment option.
+            """
+            line_item_keys: Optional[List[str]]
+            """
+            The line items this fulfillment option applies to.
+            """
+            shipping: Optional[Shipping]
+            """
+            The shipping option.
+            """
+            type: str
+            """
+            The type of the selected fulfillment option.
+            """
+            _inner_class_types = {"digital": Digital, "shipping": Shipping}
+
         address: Optional[Address]
         """
         The fulfillment address.
@@ -249,12 +288,19 @@ class RequestedSession(
         """
         selected_fulfillment_option: Optional[SelectedFulfillmentOption]
         """
-        The fulfillment option.
+        The selected fulfillment option.
+        """
+        selected_fulfillment_option_overrides: Optional[
+            List[SelectedFulfillmentOptionOverride]
+        ]
+        """
+        Per-item fulfillment option overrides.
         """
         _inner_class_types = {
             "address": Address,
             "fulfillment_options": FulfillmentOption,
             "selected_fulfillment_option": SelectedFulfillmentOption,
+            "selected_fulfillment_option_overrides": SelectedFulfillmentOptionOverride,
         }
 
     class LineItemDetail(StripeObject):

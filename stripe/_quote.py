@@ -82,7 +82,7 @@ class Quote(
             """
             The connected account being referenced when `type` is `account`.
             """
-            type: Literal["account", "self"]
+            type: Literal["account", "application", "self"]
             """
             Type of the account referenced.
             """
@@ -360,7 +360,7 @@ class Quote(
             """
             The connected account being referenced when `type` is `account`.
             """
-            type: Literal["account", "self"]
+            type: Literal["account", "application", "self"]
             """
             Type of the account referenced.
             """
@@ -1266,7 +1266,7 @@ class Quote(
     """
     livemode: bool
     """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
     metadata: Dict[str, str]
     """

@@ -51,13 +51,17 @@ class GrantedToken(APIResource["GrantedToken"]):
         """
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         """
-        expires_at: int
+        expires_at: Optional[int]
         """
         Time at which this SharedPaymentToken expires and can no longer be used to confirm a PaymentIntent.
         """
         max_amount: int
         """
         Max amount that can be captured using this SharedPaymentToken.
+        """
+        recurring_interval: Optional[Literal["month", "week", "year"]]
+        """
+        The recurring interval at which the shared payment token's amount usage restrictions reset.
         """
 
     created: int
@@ -68,7 +72,9 @@ class GrantedToken(APIResource["GrantedToken"]):
     """
     Time at which this SharedPaymentGrantedToken expires and can no longer be used to confirm a PaymentIntent.
     """
-    deactivated_reason: Optional[Literal["consumed", "expired", "revoked"]]
+    deactivated_reason: Optional[
+        Literal["consumed", "expired", "resolved", "revoked"]
+    ]
     """
     The reason why the SharedPaymentGrantedToken has been deactivated.
     """

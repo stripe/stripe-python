@@ -80,6 +80,7 @@ if TYPE_CHECKING:
         SessionCreateParamsPaymentMethodOptionsCardInstallments as SessionCreateParamsPaymentMethodOptionsCardInstallments,
         SessionCreateParamsPaymentMethodOptionsCardRestrictions as SessionCreateParamsPaymentMethodOptionsCardRestrictions,
         SessionCreateParamsPaymentMethodOptionsCashapp as SessionCreateParamsPaymentMethodOptionsCashapp,
+        SessionCreateParamsPaymentMethodOptionsCrypto as SessionCreateParamsPaymentMethodOptionsCrypto,
         SessionCreateParamsPaymentMethodOptionsCustomerBalance as SessionCreateParamsPaymentMethodOptionsCustomerBalance,
         SessionCreateParamsPaymentMethodOptionsCustomerBalanceBankTransfer as SessionCreateParamsPaymentMethodOptionsCustomerBalanceBankTransfer,
         SessionCreateParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as SessionCreateParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
@@ -117,6 +118,8 @@ if TYPE_CHECKING:
         SessionCreateParamsPaymentMethodOptionsSofort as SessionCreateParamsPaymentMethodOptionsSofort,
         SessionCreateParamsPaymentMethodOptionsSwish as SessionCreateParamsPaymentMethodOptionsSwish,
         SessionCreateParamsPaymentMethodOptionsTwint as SessionCreateParamsPaymentMethodOptionsTwint,
+        SessionCreateParamsPaymentMethodOptionsUpi as SessionCreateParamsPaymentMethodOptionsUpi,
+        SessionCreateParamsPaymentMethodOptionsUpiMandateOptions as SessionCreateParamsPaymentMethodOptionsUpiMandateOptions,
         SessionCreateParamsPaymentMethodOptionsUsBankAccount as SessionCreateParamsPaymentMethodOptionsUsBankAccount,
         SessionCreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections as SessionCreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections,
         SessionCreateParamsPaymentMethodOptionsWechatPay as SessionCreateParamsPaymentMethodOptionsWechatPay,
@@ -138,6 +141,7 @@ if TYPE_CHECKING:
         SessionCreateParamsSubscriptionDataBillingModeFlexible as SessionCreateParamsSubscriptionDataBillingModeFlexible,
         SessionCreateParamsSubscriptionDataInvoiceSettings as SessionCreateParamsSubscriptionDataInvoiceSettings,
         SessionCreateParamsSubscriptionDataInvoiceSettingsIssuer as SessionCreateParamsSubscriptionDataInvoiceSettingsIssuer,
+        SessionCreateParamsSubscriptionDataPendingInvoiceItemInterval as SessionCreateParamsSubscriptionDataPendingInvoiceItemInterval,
         SessionCreateParamsSubscriptionDataTransferData as SessionCreateParamsSubscriptionDataTransferData,
         SessionCreateParamsSubscriptionDataTrialSettings as SessionCreateParamsSubscriptionDataTrialSettings,
         SessionCreateParamsSubscriptionDataTrialSettingsEndBehavior as SessionCreateParamsSubscriptionDataTrialSettingsEndBehavior,
@@ -187,6 +191,7 @@ if TYPE_CHECKING:
         SessionModifyParamsSubscriptionData as SessionModifyParamsSubscriptionData,
         SessionModifyParamsSubscriptionDataInvoiceSettings as SessionModifyParamsSubscriptionDataInvoiceSettings,
         SessionModifyParamsSubscriptionDataInvoiceSettingsIssuer as SessionModifyParamsSubscriptionDataInvoiceSettingsIssuer,
+        SessionModifyParamsSubscriptionDataPendingInvoiceItemInterval as SessionModifyParamsSubscriptionDataPendingInvoiceItemInterval,
     )
     from stripe.params.checkout._session_retrieve_params import (
         SessionRetrieveParams as SessionRetrieveParams,
@@ -219,6 +224,7 @@ if TYPE_CHECKING:
         SessionUpdateParamsSubscriptionData as SessionUpdateParamsSubscriptionData,
         SessionUpdateParamsSubscriptionDataInvoiceSettings as SessionUpdateParamsSubscriptionDataInvoiceSettings,
         SessionUpdateParamsSubscriptionDataInvoiceSettingsIssuer as SessionUpdateParamsSubscriptionDataInvoiceSettingsIssuer,
+        SessionUpdateParamsSubscriptionDataPendingInvoiceItemInterval as SessionUpdateParamsSubscriptionDataPendingInvoiceItemInterval,
     )
 
 # name -> (import_target, is_submodule)
@@ -515,6 +521,10 @@ _import_map = {
         "stripe.params.checkout._session_create_params",
         False,
     ),
+    "SessionCreateParamsPaymentMethodOptionsCrypto": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
     "SessionCreateParamsPaymentMethodOptionsCustomerBalance": (
         "stripe.params.checkout._session_create_params",
         False,
@@ -663,6 +673,14 @@ _import_map = {
         "stripe.params.checkout._session_create_params",
         False,
     ),
+    "SessionCreateParamsPaymentMethodOptionsUpi": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsUpiMandateOptions": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
     "SessionCreateParamsPaymentMethodOptionsUsBankAccount": (
         "stripe.params.checkout._session_create_params",
         False,
@@ -744,6 +762,10 @@ _import_map = {
         False,
     ),
     "SessionCreateParamsSubscriptionDataInvoiceSettingsIssuer": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsSubscriptionDataPendingInvoiceItemInterval": (
         "stripe.params.checkout._session_create_params",
         False,
     ),
@@ -903,6 +925,10 @@ _import_map = {
         "stripe.params.checkout._session_modify_params",
         False,
     ),
+    "SessionModifyParamsSubscriptionDataPendingInvoiceItemInterval": (
+        "stripe.params.checkout._session_modify_params",
+        False,
+    ),
     "SessionRetrieveParams": (
         "stripe.params.checkout._session_retrieve_params",
         False,
@@ -1012,6 +1038,10 @@ _import_map = {
         False,
     ),
     "SessionUpdateParamsSubscriptionDataInvoiceSettingsIssuer": (
+        "stripe.params.checkout._session_update_params",
+        False,
+    ),
+    "SessionUpdateParamsSubscriptionDataPendingInvoiceItemInterval": (
         "stripe.params.checkout._session_update_params",
         False,
     ),

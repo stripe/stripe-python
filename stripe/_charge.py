@@ -1180,7 +1180,9 @@ class Charge(
             """
             The wallet address of the customer.
             """
-            network: Optional[Literal["base", "ethereum", "polygon", "solana"]]
+            network: Optional[
+                Literal["base", "ethereum", "polygon", "solana", "tempo"]
+            ]
             """
             The blockchain network that the transaction was sent on.
             """
@@ -2129,10 +2131,6 @@ class Charge(
             """
             The connected account ID whose Stripe balance to use as the source of payment
             """
-            source_type: Optional[Literal["bank_account", "card", "fpx"]]
-            """
-            The [source_type](https://docs.stripe.com/api/balance/balance_object#balance_object-available-source_types) of the balance
-            """
 
         class Swish(StripeObject):
             fingerprint: Optional[str]
@@ -2150,6 +2148,12 @@ class Charge(
 
         class Twint(StripeObject):
             pass
+
+        class Upi(StripeObject):
+            vpa: Optional[str]
+            """
+            Customer's unique Virtual Payment Address.
+            """
 
         class UsBankAccount(StripeObject):
             account_holder_type: Optional[Literal["company", "individual"]]
@@ -2279,6 +2283,7 @@ class Charge(
         An additional hash is included on `payment_method_details` with a name matching this value.
         It contains information specific to the payment method.
         """
+        upi: Optional[Upi]
         us_bank_account: Optional[UsBankAccount]
         wechat: Optional[Wechat]
         wechat_pay: Optional[WechatPay]
@@ -2344,6 +2349,7 @@ class Charge(
             "stripe_balance": StripeBalance,
             "swish": Swish,
             "twint": Twint,
+            "upi": Upi,
             "us_bank_account": UsBankAccount,
             "wechat": Wechat,
             "wechat_pay": WechatPay,
@@ -2512,7 +2518,7 @@ class Charge(
     level3: Optional[Level3]
     livemode: bool
     """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
     metadata: Dict[str, str]
     """

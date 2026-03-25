@@ -110,7 +110,7 @@ class Session(
             """
             The connected account being referenced when `type` is `account`.
             """
-            type: Literal["account", "self"]
+            type: Literal["account", "application", "self"]
             """
             Type of the account referenced.
             """
@@ -515,6 +515,24 @@ class Session(
             _inner_class_types = {"address": Address}
 
         class PaymentMethodDetails(StripeObject):
+            class AuBecsDebit(StripeObject):
+                fingerprint: Optional[str]
+                """
+                Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
+                """
+
+            class BacsDebit(StripeObject):
+                fingerprint: Optional[str]
+                """
+                Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
+                """
+
+            class Boleto(StripeObject):
+                fingerprint: Optional[str]
+                """
+                Uniquely identifies this particular boleto payment method. You can use this attribute to check whether two boleto payment methods are the same.
+                """
+
             class Card(StripeObject):
                 class Wallet(StripeObject):
                     type: Literal[
@@ -594,16 +612,48 @@ class Session(
                 """
                 _inner_class_types = {"wallet": Wallet}
 
+            class Link(StripeObject):
+                fingerprint: Optional[str]
+                """
+                Unique, encrypted bank account identifier.
+                """
+
+            class SepaDebit(StripeObject):
+                fingerprint: Optional[str]
+                """
+                Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
+                """
+
+            class UsBankAccount(StripeObject):
+                fingerprint: Optional[str]
+                """
+                Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
+                """
+
             allow_redisplay: Literal["always", "limited", "unspecified"]
             """
             Indicates whether this payment method can be shown again to its customer in a checkout flow.
             """
+            au_becs_debit: Optional[AuBecsDebit]
+            bacs_debit: Optional[BacsDebit]
+            boleto: Optional[Boleto]
             card: Optional[Card]
+            link: Optional[Link]
+            sepa_debit: Optional[SepaDebit]
             type: str
             """
             The type of payment method the customer is attempting to pay with. An additional hash is included in the payment method details with a name matching this value. It contains additional information specific to the payment method type.
             """
-            _inner_class_types = {"card": Card}
+            us_bank_account: Optional[UsBankAccount]
+            _inner_class_types = {
+                "au_becs_debit": AuBecsDebit,
+                "bacs_debit": BacsDebit,
+                "boleto": Boleto,
+                "card": Card,
+                "link": Link,
+                "sepa_debit": SepaDebit,
+                "us_bank_account": UsBankAccount,
+            }
 
         class ShippingDetails(StripeObject):
             class Address(StripeObject):
@@ -653,7 +703,7 @@ class Session(
         """
         payment_method_details: Optional[PaymentMethodDetails]
         """
-        Information about the payment method the customer is attempting to pay with.
+        Information about the payment method the customer is attempting to pay with. Relevant payment method information is provided when available. Some payment details are only available after the payment has completed and can't be returned in the manual approval flow.
         """
         phone: Optional[str]
         """
@@ -1025,7 +1075,7 @@ class Session(
                 """
                 The connected account being referenced when `type` is `account`.
                 """
-                type: Literal["account", "self"]
+                type: Literal["account", "application", "self"]
                 """
                 Type of the account referenced.
                 """
@@ -1193,7 +1243,7 @@ class Session(
                 Literal["automatic", "instant", "microdeposits"]
             ]
             """
-            Bank account verification method.
+            Bank account verification method. The default value is `automatic`.
             """
             _inner_class_types = {"mandate_options": MandateOptions}
 
@@ -1975,6 +2025,40 @@ class Session(
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
             """
 
+        class Upi(StripeObject):
+            class MandateOptions(StripeObject):
+                amount: Optional[int]
+                """
+                Amount to be charged for future payments.
+                """
+                amount_type: Optional[Literal["fixed", "maximum"]]
+                """
+                One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+                """
+                description: Optional[str]
+                """
+                A description of the mandate or subscription that is meant to be displayed to the customer.
+                """
+                end_date: Optional[int]
+                """
+                End date of the mandate or subscription.
+                """
+
+            mandate_options: Optional[MandateOptions]
+            setup_future_usage: Optional[
+                Literal["none", "off_session", "on_session"]
+            ]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+            """
+            _inner_class_types = {"mandate_options": MandateOptions}
+
         class UsBankAccount(StripeObject):
             class FinancialConnections(StripeObject):
                 class Filters(StripeObject):
@@ -2051,7 +2135,7 @@ class Session(
             """
             verification_method: Optional[Literal["automatic", "instant"]]
             """
-            Bank account verification method.
+            Bank account verification method. The default value is `automatic`.
             """
             _inner_class_types = {
                 "financial_connections": FinancialConnections
@@ -2098,6 +2182,7 @@ class Session(
         sofort: Optional[Sofort]
         swish: Optional[Swish]
         twint: Optional[Twint]
+        upi: Optional[Upi]
         us_bank_account: Optional[UsBankAccount]
         _inner_class_types = {
             "acss_debit": AcssDebit,
@@ -2141,6 +2226,7 @@ class Session(
             "sofort": Sofort,
             "swish": Swish,
             "twint": Twint,
+            "upi": Upi,
             "us_bank_account": UsBankAccount,
         }
 
@@ -2763,6 +2849,10 @@ class Session(
     """
     Unique identifier for the object.
     """
+    integration_identifier: Optional[str]
+    """
+    The integration identifier for this Checkout Session. Multiple Checkout Sessions can have the same integration identifier.
+    """
     invoice: Optional[ExpandableField["Invoice"]]
     """
     ID of the invoice created by the Checkout Session, if it exists.
@@ -2777,7 +2867,7 @@ class Session(
     """
     livemode: bool
     """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
     locale: Optional[
         Literal[
@@ -2950,9 +3040,11 @@ class Session(
     """
     Tax and discount details for the computed total amount.
     """
-    ui_mode: Optional[Literal["custom", "embedded", "hosted"]]
+    ui_mode: Optional[
+        Literal["elements", "embedded_page", "form", "hosted_page"]
+    ]
     """
-    The UI mode of the Session. Defaults to `hosted`.
+    The UI mode of the Session. Defaults to `hosted_page`.
     """
     url: Optional[str]
     """

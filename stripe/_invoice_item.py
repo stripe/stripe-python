@@ -286,7 +286,7 @@ class InvoiceItem(
     """
     livemode: bool
     """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
     margins: Optional[List[ExpandableField["Margin"]]]
     """
@@ -320,7 +320,11 @@ class InvoiceItem(
     proration_details: Optional[ProrationDetails]
     quantity: int
     """
-    Quantity of units for the invoice item. If the invoice item is a proration, the quantity of the subscription that the proration was computed for.
+    Quantity of units for the invoice item in integer format, with any decimal precision truncated. For the item's full-precision decimal quantity, use `quantity_decimal`. This field will be deprecated in favor of `quantity_decimal` in a future version. If the invoice item is a proration, the quantity of the subscription that the proration was computed for.
+    """
+    quantity_decimal: Decimal
+    """
+    Non-negative decimal with at most 12 decimal places. The quantity of units for the invoice item.
     """
     tax_rates: Optional[List["TaxRate"]]
     """
@@ -563,3 +567,4 @@ class InvoiceItem(
         "pricing": Pricing,
         "proration_details": ProrationDetails,
     }
+    _field_encodings = {"quantity_decimal": "decimal_string"}

@@ -76,7 +76,7 @@ class PaymentLink(
             """
             The connected account being referenced when `type` is `account`.
             """
-            type: Literal["account", "self"]
+            type: Literal["account", "application", "self"]
             """
             Type of the account referenced.
             """
@@ -264,7 +264,7 @@ class PaymentLink(
                 """
                 The connected account being referenced when `type` is `account`.
                 """
-                type: Literal["account", "self"]
+                type: Literal["account", "application", "self"]
                 """
                 Type of the account referenced.
                 """
@@ -322,6 +322,12 @@ class PaymentLink(
         Configuration for the invoice. Default invoice values will be used if unspecified.
         """
         _inner_class_types = {"invoice_data": InvoiceData}
+
+    class ManagedPayments(StripeObject):
+        enabled: bool
+        """
+        Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution, for this session.
+        """
 
     class NameCollection(StripeObject):
         class Business(StripeObject):
@@ -684,7 +690,7 @@ class PaymentLink(
                 """
                 The connected account being referenced when `type` is `account`.
                 """
-                type: Literal["account", "self"]
+                type: Literal["account", "application", "self"]
                 """
                 Type of the account referenced.
                 """
@@ -807,7 +813,11 @@ class PaymentLink(
     """
     livemode: bool
     """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
+    """
+    managed_payments: Optional[ManagedPayments]
+    """
+    Settings for Managed Payments for this Payment Link and resulting [CheckoutSessions](https://docs.stripe.com/api/checkout/sessions/object), [PaymentIntents](https://docs.stripe.com/api/payment_intents/object), [Invoices](https://docs.stripe.com/api/invoices/object), and [Subscriptions](https://docs.stripe.com/api/subscriptions/object).
     """
     metadata: Dict[str, str]
     """
@@ -878,6 +888,7 @@ class PaymentLink(
                 "sofort",
                 "swish",
                 "twint",
+                "upi",
                 "us_bank_account",
                 "wechat_pay",
                 "zip",
@@ -1167,6 +1178,7 @@ class PaymentLink(
         "custom_fields": CustomField,
         "custom_text": CustomText,
         "invoice_creation": InvoiceCreation,
+        "managed_payments": ManagedPayments,
         "name_collection": NameCollection,
         "optional_items": OptionalItem,
         "payment_intent_data": PaymentIntentData,

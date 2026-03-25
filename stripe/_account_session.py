@@ -209,6 +209,17 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             features: Features
             _inner_class_types = {"features": Features}
 
+        class FinancialAccountRewards(StripeObject):
+            class Features(StripeObject):
+                pass
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
         class FinancialAccountTransactions(StripeObject):
             class Features(StripeObject):
                 card_spend_dispute_management: bool
@@ -293,6 +304,17 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
                 """
                 Whether to allow spend control management features.
                 """
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
+        class NestingDemo(StripeObject):
+            class Features(StripeObject):
+                pass
 
             enabled: bool
             """
@@ -517,10 +539,18 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         disputes_list: DisputesList
         documents: Documents
         financial_account: FinancialAccount
+        financial_account_rewards: Optional[FinancialAccountRewards]
+        """
+        Configuration for the [financial account rewards](https://docs.stripe.com/connect/supported-embedded-components/financial-account-rewards/) embedded component.
+        """
         financial_account_transactions: FinancialAccountTransactions
         instant_payouts_promotion: InstantPayoutsPromotion
         issuing_card: IssuingCard
         issuing_cards_list: IssuingCardsList
+        nesting_demo: Optional[NestingDemo]
+        """
+        Configuration for the [Nestingdemo](https://docs.stripe.com/connect/supported-embedded-components/nesting-demo/) embedded component.
+        """
         network_cost_passthrough_report: Optional[NetworkCostPassthroughReport]
         """
         Configuration for the [network cost passthrough report](https://docs.stripe.com/connect/supported-embedded-components/network-cost-passthrough-report/) embedded component.
@@ -554,10 +584,12 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "disputes_list": DisputesList,
             "documents": Documents,
             "financial_account": FinancialAccount,
+            "financial_account_rewards": FinancialAccountRewards,
             "financial_account_transactions": FinancialAccountTransactions,
             "instant_payouts_promotion": InstantPayoutsPromotion,
             "issuing_card": IssuingCard,
             "issuing_cards_list": IssuingCardsList,
+            "nesting_demo": NestingDemo,
             "network_cost_passthrough_report": NetworkCostPassthroughReport,
             "notification_banner": NotificationBanner,
             "payment_details": PaymentDetails,
@@ -591,7 +623,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
     """
     livemode: bool
     """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
     object: Literal["account_session"]
     """

@@ -71,7 +71,7 @@ class SubscriptionItemUpdateParams(TypedDict):
     """
     proration_date: NotRequired[int]
     """
-    If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply the same proration that was previewed with the [upcoming invoice](https://api.stripe.com#retrieve_customer_invoice) endpoint.
+    If set, the proration will be calculated as though the subscription was updated at the given time. This can be used to apply the same proration that was previewed with the [upcoming invoice](https://docs.stripe.com/api/invoices/create_preview) endpoint.
     """
     quantity: NotRequired[int]
     """

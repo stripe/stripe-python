@@ -38,6 +38,7 @@ class AccountSignals(StripeObject):
                 "payment_volume",
                 "payouts",
                 "refunds",
+                "related_accounts",
                 "tenure",
                 "transfers",
             ]
@@ -69,6 +70,58 @@ class AccountSignals(StripeObject):
         """
         _inner_class_types = {"indicators": Indicator}
 
+    class FraudIntent(StripeObject):
+        class Indicator(StripeObject):
+            description: str
+            """
+            A brief explanation of how this indicator contributed to the delinquency probability.
+            """
+            impact: Literal[
+                "decrease", "neutral", "slight_increase", "strong_increase"
+            ]
+            """
+            The effect this indicator had on the overall risk level.
+            """
+            indicator: Literal[
+                "bank_account",
+                "business_information_and_account_activity",
+                "disputes",
+                "failures",
+                "geo_location",
+                "other",
+                "other_related_accounts",
+                "other_transaction_activity",
+                "owner_email",
+                "web_presence",
+            ]
+            """
+            The name of the specific indicator used in the risk assessment.
+            """
+
+        evaluated_at: Optional[int]
+        """
+        Time at which the signal was evaluated, measured in seconds since the Unix epoch.
+        """
+        indicators: Optional[List[Indicator]]
+        """
+        Array of objects representing individual factors that contributed to the calculated probability of fraud intent.
+        """
+        probability: Optional[float]
+        """
+        The probability of fraud intent. Can be between 0.00 and 100.00
+        """
+        risk_level: Literal[
+            "elevated", "highest", "low", "normal", "not_assessed", "unknown"
+        ]
+        """
+        Categorical assessment of the fraud intent risk based on probability.
+        """
+        signal_id: Optional[str]
+        """
+        Unique identifier for the fraud intent signal.
+        """
+        _inner_class_types = {"indicators": Indicator}
+
     account: str
     """
     The account for which the signals belong to.
@@ -76,6 +129,10 @@ class AccountSignals(StripeObject):
     delinquency: Optional[Delinquency]
     """
     The delinquency signal of the account.
+    """
+    fraud_intent: Optional[FraudIntent]
+    """
+    The fraud intent signal of the account.
     """
     livemode: bool
     """
@@ -85,4 +142,7 @@ class AccountSignals(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    _inner_class_types = {"delinquency": Delinquency}
+    _inner_class_types = {
+        "delinquency": Delinquency,
+        "fraud_intent": FraudIntent,
+    }

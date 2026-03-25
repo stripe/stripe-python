@@ -33,9 +33,11 @@ class CardholderUpdateParams(TypedDict):
     """
     The cardholder's phone number. This is required for all cardholders who will be creating EU cards. See the [3D Secure documentation](https://docs.stripe.com/issuing/3d-secure) for more details.
     """
-    preferred_locales: NotRequired[List[Literal["de", "en", "es", "fr", "it"]]]
+    preferred_locales: NotRequired[
+        List[Literal["da", "de", "en", "es", "fr", "it", "pl", "sv"]]
+    ]
     """
-    The cardholder's preferred locales (languages), ordered by preference. Locales can be `de`, `en`, `es`, `fr`, or `it`.
+    The cardholder's preferred locales (languages), ordered by preference. Locales can be `da`, `de`, `en`, `es`, `fr`, `it`, `pl`, or `sv`.
      This changes the language of the [3D Secure flow](https://docs.stripe.com/issuing/3d-secure) and one-time password messages sent to the cardholder.
     """
     spending_controls: NotRequired["CardholderUpdateParamsSpendingControls"]
@@ -126,11 +128,11 @@ class CardholderUpdateParamsIndividualCardIssuingUserTermsAcceptance(
 ):
     date: NotRequired[int]
     """
-    The Unix timestamp marking when the cardholder accepted the Authorized User Terms. Required for Celtic Spend Card users.
+    The Unix timestamp marking when the cardholder accepted the Authorized User Terms.
     """
     ip: NotRequired[str]
     """
-    The IP address from which the cardholder accepted the Authorized User Terms. Required for Celtic Spend Card users.
+    The IP address from which the cardholder accepted the Authorized User Terms.
     """
     user_agent: NotRequired["Literal['']|str"]
     """

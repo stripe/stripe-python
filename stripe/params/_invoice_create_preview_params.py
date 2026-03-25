@@ -93,7 +93,7 @@ class InvoiceCreatePreviewParamsAutomaticTaxLiability(TypedDict):
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "self"]
+    type: Literal["account", "application", "self"]
     """
     Type of the account referenced in the request.
     """
@@ -479,7 +479,11 @@ class InvoiceCreatePreviewParamsInvoiceItem(TypedDict):
     """
     quantity: NotRequired[int]
     """
-    Non-negative integer. The quantity of units for the invoice item.
+    Non-negative integer. The quantity of units for the invoice item. Use `quantity_decimal` instead to provide decimal precision. This field will be deprecated in favor of `quantity_decimal` in a future version.
+    """
+    quantity_decimal: NotRequired[Decimal]
+    """
+    Non-negative decimal with at most 12 decimal places. The quantity of units for the invoice item.
     """
     tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
     """
@@ -593,7 +597,7 @@ class InvoiceCreatePreviewParamsIssuer(TypedDict):
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "self"]
+    type: Literal["account", "application", "self"]
     """
     Type of the account referenced in the request.
     """
@@ -1512,7 +1516,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsAmendmentSetPauseCollectionSet(
 ):
     behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
     """
-    The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+    The payment collection behavior for this subscription while paused.
     """
 
 
@@ -1940,7 +1944,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhaseAutomaticTaxLiability(
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "self"]
+    type: Literal["account", "application", "self"]
     """
     Type of the account referenced in the request.
     """
@@ -2110,7 +2114,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhaseInvoiceSettingsIssuer(
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "self"]
+    type: Literal["account", "application", "self"]
     """
     Type of the account referenced in the request.
     """
@@ -2348,7 +2352,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhaseItemTrial(TypedDict):
 class InvoiceCreatePreviewParamsScheduleDetailsPhasePauseCollection(TypedDict):
     behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
     """
-    The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+    The payment collection behavior for this subscription while paused.
     """
 
 

@@ -444,7 +444,7 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
     """
     livemode: bool
     """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
     margin_amounts: Optional[List[MarginAmount]]
     """
@@ -477,7 +477,11 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
     """
     quantity: Optional[int]
     """
-    The quantity of the subscription, if the line item is a subscription or a proration.
+    Quantity of units for the invoice line item in integer format, with any decimal precision truncated. For the line item's full-precision decimal quantity, use `quantity_decimal`. This field will be deprecated in favor of `quantity_decimal` in a future version. If the line item is a proration or subscription, the quantity of the subscription that the proration was computed for.
+    """
+    quantity_decimal: Optional[Decimal]
+    """
+    Non-negative decimal with at most 12 decimal places. The quantity of units for the line item.
     """
     subscription: Optional[ExpandableField["Subscription"]]
     subtotal: int
@@ -549,3 +553,4 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         "tax_calculation_reference": TaxCalculationReference,
         "taxes": Tax,
     }
+    _field_encodings = {"quantity_decimal": "decimal_string"}

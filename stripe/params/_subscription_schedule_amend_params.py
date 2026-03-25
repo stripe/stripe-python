@@ -845,7 +845,7 @@ class SubscriptionScheduleAmendParamsAmendmentSetPauseCollection(TypedDict):
 class SubscriptionScheduleAmendParamsAmendmentSetPauseCollectionSet(TypedDict):
     behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
     """
-    The payment collection behavior for this subscription while paused. One of `keep_as_draft`, `mark_uncollectible`, or `void`.
+    The payment collection behavior for this subscription while paused.
     """
 
 

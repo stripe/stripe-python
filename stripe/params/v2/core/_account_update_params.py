@@ -2360,6 +2360,18 @@ class AccountUpdateParamsIdentityAttestationsTermsOfService(TypedDict):
     """
     Details on the Account's acceptance of Issuing-specific terms of service.
     """
+    consumer_privacy_disclosures: NotRequired[
+        "AccountUpdateParamsIdentityAttestationsTermsOfServiceConsumerPrivacyDisclosures"
+    ]
+    """
+    Details on the Account's acceptance of Consumer-privacy-disclosures-specific terms of service.
+    """
+    consumer_storer: NotRequired[
+        "AccountUpdateParamsIdentityAttestationsTermsOfServiceConsumerStorer"
+    ]
+    """
+    Details on the Account's acceptance of Consumer-storer-specific terms of service.
+    """
     crypto_storer: NotRequired[
         "AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoStorer"
     ]
@@ -3392,6 +3404,40 @@ class AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLe
 
 
 class AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadPrepaidCardPlatform(
+    TypedDict,
+):
+    date: NotRequired[str]
+    """
+    The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+    """
+    ip: NotRequired[str]
+    """
+    The IP address from which the Account's representative accepted the terms of service.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser from which the Account's representative accepted the terms of service.
+    """
+
+
+class AccountUpdateParamsIdentityAttestationsTermsOfServiceConsumerPrivacyDisclosures(
+    TypedDict,
+):
+    date: NotRequired[str]
+    """
+    The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+    """
+    ip: NotRequired[str]
+    """
+    The IP address from which the Account's representative accepted the terms of service.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser from which the Account's representative accepted the terms of service.
+    """
+
+
+class AccountUpdateParamsIdentityAttestationsTermsOfServiceConsumerStorer(
     TypedDict,
 ):
     date: NotRequired[str]

@@ -152,6 +152,7 @@ if TYPE_CHECKING:
         IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverrides as IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverrides,
         IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverridesPartialPeriodBehavior as IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverridesPartialPeriodBehavior,
         IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorLicenseFee as IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorLicenseFee,
+        IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorRecurringCreditGrant as IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorRecurringCreditGrant,
         IntentCreateParamsActionRemove as IntentCreateParamsActionRemove,
         IntentCreateParamsActionRemoveEffectiveAt as IntentCreateParamsActionRemoveEffectiveAt,
         IntentCreateParamsActionSubscribe as IntentCreateParamsActionSubscribe,
@@ -161,6 +162,7 @@ if TYPE_CHECKING:
         IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverrides as IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverrides,
         IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverridesPartialPeriodBehavior as IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverridesPartialPeriodBehavior,
         IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorLicenseFee as IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorLicenseFee,
+        IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorRecurringCreditGrant as IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorRecurringCreditGrant,
         IntentCreateParamsActionSubscribeV1SubscriptionDetails as IntentCreateParamsActionSubscribeV1SubscriptionDetails,
         IntentCreateParamsActionSubscribeV1SubscriptionDetailsItem as IntentCreateParamsActionSubscribeV1SubscriptionDetailsItem,
         IntentCreateParamsCadenceData as IntentCreateParamsCadenceData,
@@ -778,6 +780,10 @@ _import_map = {
         "stripe.params.v2.billing._intent_create_params",
         False,
     ),
+    "IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorRecurringCreditGrant": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
     "IntentCreateParamsActionRemove": (
         "stripe.params.v2.billing._intent_create_params",
         False,
@@ -811,6 +817,10 @@ _import_map = {
         False,
     ),
     "IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorLicenseFee": (
+        "stripe.params.v2.billing._intent_create_params",
+        False,
+    ),
+    "IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorRecurringCreditGrant": (
         "stripe.params.v2.billing._intent_create_params",
         False,
     ),
