@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from decimal import Decimal
 from typing import List
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -132,7 +133,7 @@ class AuthorizationCaptureParamsPurchaseDetailsFleetReportedBreakdown(
 class AuthorizationCaptureParamsPurchaseDetailsFleetReportedBreakdownFuel(
     TypedDict,
 ):
-    gross_amount_decimal: NotRequired[str]
+    gross_amount_decimal: NotRequired[Decimal]
     """
     Gross fuel amount that should equal Fuel Volume multipled by Fuel Unit Cost, inclusive of taxes.
     """
@@ -141,7 +142,7 @@ class AuthorizationCaptureParamsPurchaseDetailsFleetReportedBreakdownFuel(
 class AuthorizationCaptureParamsPurchaseDetailsFleetReportedBreakdownNonFuel(
     TypedDict,
 ):
-    gross_amount_decimal: NotRequired[str]
+    gross_amount_decimal: NotRequired[Decimal]
     """
     Gross non-fuel amount that should equal the sum of the line items, inclusive of taxes.
     """
@@ -150,11 +151,11 @@ class AuthorizationCaptureParamsPurchaseDetailsFleetReportedBreakdownNonFuel(
 class AuthorizationCaptureParamsPurchaseDetailsFleetReportedBreakdownTax(
     TypedDict,
 ):
-    local_amount_decimal: NotRequired[str]
+    local_amount_decimal: NotRequired[Decimal]
     """
     Amount of state or provincial Sales Tax included in the transaction amount. Null if not reported by merchant or not subject to tax.
     """
-    national_amount_decimal: NotRequired[str]
+    national_amount_decimal: NotRequired[Decimal]
     """
     Amount of national Sales Tax or VAT included in the transaction amount. Null if not reported by merchant or not subject to tax.
     """
@@ -217,7 +218,7 @@ class AuthorizationCaptureParamsPurchaseDetailsFuel(TypedDict):
     """
     [Conexxus Payment System Product Code](https://www.conexxus.org/conexxus-payment-system-product-codes) identifying the primary fuel product purchased.
     """
-    quantity_decimal: NotRequired[str]
+    quantity_decimal: NotRequired[Decimal]
     """
     The quantity of `unit`s of fuel that was dispensed, represented as a decimal string with at most 12 decimal places.
     """
@@ -248,7 +249,7 @@ class AuthorizationCaptureParamsPurchaseDetailsFuel(TypedDict):
     """
     The units for `quantity_decimal`. One of `charging_minute`, `imperial_gallon`, `kilogram`, `kilowatt_hour`, `liter`, `pound`, `us_gallon`, or `other`.
     """
-    unit_cost_decimal: NotRequired[str]
+    unit_cost_decimal: NotRequired[Decimal]
     """
     The cost in cents per each unit of fuel, represented as a decimal string with at most 12 decimal places.
     """
@@ -267,6 +268,6 @@ class AuthorizationCaptureParamsPurchaseDetailsLodging(TypedDict):
 
 class AuthorizationCaptureParamsPurchaseDetailsReceipt(TypedDict):
     description: NotRequired[str]
-    quantity: NotRequired[str]
+    quantity: NotRequired[Decimal]
     total: NotRequired[int]
     unit_cost: NotRequired[int]

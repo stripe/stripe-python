@@ -794,16 +794,6 @@ class SetupIntent(
             mandate_options: Optional[MandateOptions]
             _inner_class_types = {"mandate_options": MandateOptions}
 
-        class StripeBalance(StripeObject):
-            class MandateOptions(StripeObject):
-                stripe_balance_debit_agreement: Optional[str]
-                """
-                The ID of the Stripe Balance Debit Agreement used for this mandate.
-                """
-
-            mandate_options: Optional[MandateOptions]
-            _inner_class_types = {"mandate_options": MandateOptions}
-
         class Upi(StripeObject):
             class MandateOptions(StripeObject):
                 amount: Optional[int]
@@ -913,7 +903,6 @@ class SetupIntent(
         payto: Optional[Payto]
         pix: Optional[Pix]
         sepa_debit: Optional[SepaDebit]
-        stripe_balance: Optional[StripeBalance]
         upi: Optional[Upi]
         us_bank_account: Optional[UsBankAccount]
         _inner_class_types = {
@@ -928,7 +917,6 @@ class SetupIntent(
             "payto": Payto,
             "pix": Pix,
             "sepa_debit": SepaDebit,
-            "stripe_balance": StripeBalance,
             "upi": Upi,
             "us_bank_account": UsBankAccount,
         }

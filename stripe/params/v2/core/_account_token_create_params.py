@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from decimal import Decimal
 from stripe.v2._amount import AmountParam
 from typing import Dict, List, Optional
 from typing_extensions import Literal, NotRequired, TypedDict
@@ -1191,7 +1192,7 @@ class AccountTokenCreateParamsIdentityIndividualRelationship(TypedDict):
     """
     Whether the person is an owner of the account's identity.
     """
-    percent_ownership: NotRequired[str]
+    percent_ownership: NotRequired[Decimal]
     """
     The percent owned by the person of the account's legal entity.
     """

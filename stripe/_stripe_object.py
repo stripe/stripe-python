@@ -27,7 +27,7 @@ from stripe._stripe_response import (
     StripeStreamResponseAsync,
 )
 from stripe._encode import _encode_datetime  # pyright: ignore
-from stripe._encode import _coerce_int64_string  # pyright: ignore
+from stripe._encode import _coerce_int64_string, _coerce_decimal_string  # pyright: ignore
 from stripe._request_options import (
     PERSISTENT_OPTIONS_KEYS,
     extract_options_from_dict,
@@ -646,7 +646,8 @@ class StripeObject:
         Apply field encoding coercion based on _field_encodings metadata.
 
         For int64_string fields, converts string values from the API response
-        to native Python ints.
+        to native Python ints. For decimal_string fields, converts string
+        values to decimal.Decimal.
         """
         encoding = self._field_encodings.get(field_name)
         if encoding is None or value is None:
@@ -654,5 +655,8 @@ class StripeObject:
 
         if encoding == "int64_string":
             return _coerce_int64_string(value, encode=False)
+
+        if encoding == "decimal_string":
+            return _coerce_decimal_string(value, encode=False)
 
         return value

@@ -141,6 +141,20 @@ class TestV2Event(object):
         assert type(event) is UnknownEventNotification
         assert event.related_object
 
+    def test_raise_on_v1_payload(self, parse_event_notif: EventParser):
+        v1_payload = json.dumps(
+            {
+                "id": "evt_test_webhook",
+                "object": "event",
+                "data": {
+                    "object": {"id": "rdr_123", "object": "terminal.reader"}
+                },
+            }
+        )
+        with pytest.raises(ValueError) as e:
+            parse_event_notif(v1_payload)
+        assert "StripeClient.construct_event" in str(e.value)
+
     def test_validates_signature(
         self, stripe_client: StripeClient, v2_payload_no_data
     ):
