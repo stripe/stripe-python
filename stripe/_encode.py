@@ -2,6 +2,7 @@ import calendar
 import datetime
 import time
 from collections import OrderedDict
+from decimal import Decimal
 from typing import Any, Dict, Generator, Mapping, Optional, Tuple, Union
 
 
@@ -25,6 +26,8 @@ def _encode_nested_dict(key, data, fmt="%s[%s]"):
 def _json_encode_date_callback(value):
     if isinstance(value, datetime.datetime):
         return _encode_datetime(value)
+    if isinstance(value, Decimal):
+        return str(value)
     return value
 
 
@@ -82,6 +85,31 @@ def _coerce_int64_string(value: Any, *, encode: bool) -> Any:
     return value
 
 
+def _coerce_decimal_string(value: Any, *, encode: bool) -> Any:
+    """
+    Coerce a decimal_string value in either direction.
+
+    encode=True:  Decimal/int/float → str (request serialization)
+    encode=False: str → Decimal (response hydration)
+    """
+    if value is None:
+        return None
+
+    if isinstance(value, list):
+        return [_coerce_decimal_string(v, encode=encode) for v in value]
+
+    if encode:
+        if isinstance(value, (Decimal, int, float)) and not isinstance(
+            value, bool
+        ):
+            return str(value)
+        return value
+    else:
+        if isinstance(value, str):
+            return Decimal(value)
+        return value
+
+
 def _coerce_value(value: Any, schema: _SchemaNode) -> Any:
     """Coerce a single value according to its schema node."""
     if value is None:
@@ -89,6 +117,9 @@ def _coerce_value(value: Any, schema: _SchemaNode) -> Any:
 
     if schema == "int64_string":
         return _coerce_int64_string(value, encode=True)
+
+    if schema == "decimal_string":
+        return _coerce_decimal_string(value, encode=True)
 
     if isinstance(schema, dict):
         # Nested object schema
