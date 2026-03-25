@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from decimal import Decimal
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
@@ -152,7 +153,7 @@ class Order(
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
-    metric_tons: str
+    metric_tons: Decimal
     """
     Quantity of carbon removal that is included in this order.
     """
@@ -435,3 +436,4 @@ class Order(
         "beneficiary": Beneficiary,
         "delivery_details": DeliveryDetail,
     }
+    _field_encodings = {"metric_tons": "decimal_string"}

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from decimal import Decimal
 from stripe._request_options import RequestOptions
 from typing import Dict, List
 from typing_extensions import Literal, NotRequired, TypedDict
@@ -46,7 +47,7 @@ class InvoiceItemModifyParams(RequestOptions):
     """
     Non-negative integer. The quantity of units for the invoice item. Use `quantity_decimal` instead to provide decimal precision. This field will be deprecated in favor of `quantity_decimal` in a future version.
     """
-    quantity_decimal: NotRequired[str]
+    quantity_decimal: NotRequired[Decimal]
     """
     Non-negative decimal with at most 12 decimal places. The quantity of units for the line item.
     """
@@ -62,7 +63,7 @@ class InvoiceItemModifyParams(RequestOptions):
     """
     The tax rates which apply to the invoice item. When set, the `default_tax_rates` on the invoice do not apply to this invoice item. Pass an empty string to remove previously-defined tax rates.
     """
-    unit_amount_decimal: NotRequired[str]
+    unit_amount_decimal: NotRequired[Decimal]
     """
     The decimal unit amount in cents (or local equivalent) of the charge to be applied to the upcoming invoice. This `unit_amount_decimal` will be multiplied by the quantity to get the full amount. Passing in a negative `unit_amount_decimal` will reduce the `amount_due` on the invoice. Accepts at most 12 decimal places.
     """
@@ -111,7 +112,7 @@ class InvoiceItemModifyParamsPriceData(TypedDict):
     """
     A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
     """
-    unit_amount_decimal: NotRequired[str]
+    unit_amount_decimal: NotRequired[Decimal]
     """
     Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
     """

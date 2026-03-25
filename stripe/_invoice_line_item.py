@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from decimal import Decimal
 from stripe._expandable_field import ExpandableField
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
@@ -175,11 +176,12 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         """
         The type of the pricing details.
         """
-        unit_amount_decimal: Optional[str]
+        unit_amount_decimal: Optional[Decimal]
         """
         The unit amount (in the `currency` specified) of the item which contains a decimal value with at most 12 decimal places.
         """
         _inner_class_types = {"price_details": PriceDetails}
+        _field_encodings = {"unit_amount_decimal": "decimal_string"}
 
     class Tax(StripeObject):
         class TaxRateDetails(StripeObject):
@@ -292,7 +294,7 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
     """
     Quantity of units for the invoice line item in integer format, with any decimal precision truncated. For the line item's full-precision decimal quantity, use `quantity_decimal`. This field will be deprecated in favor of `quantity_decimal` in a future version. If the line item is a proration or subscription, the quantity of the subscription that the proration was computed for.
     """
-    quantity_decimal: Optional[str]
+    quantity_decimal: Optional[Decimal]
     """
     Non-negative decimal with at most 12 decimal places. The quantity of units for the line item.
     """
@@ -360,3 +362,4 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         "pricing": Pricing,
         "taxes": Tax,
     }
+    _field_encodings = {"quantity_decimal": "decimal_string"}

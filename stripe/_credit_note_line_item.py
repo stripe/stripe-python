@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from decimal import Decimal
 from stripe._expandable_field import ExpandableField
 from stripe._stripe_object import StripeObject
 from typing import ClassVar, Dict, List, Optional
@@ -162,7 +163,7 @@ class CreditNoteLineItem(StripeObject):
     """
     The cost of each unit of product being credited.
     """
-    unit_amount_decimal: Optional[str]
+    unit_amount_decimal: Optional[Decimal]
     """
     Same as `unit_amount`, but contains a decimal value with at most 12 decimal places.
     """
@@ -171,3 +172,4 @@ class CreditNoteLineItem(StripeObject):
         "pretax_credit_amounts": PretaxCreditAmount,
         "taxes": Tax,
     }
+    _field_encodings = {"unit_amount_decimal": "decimal_string"}

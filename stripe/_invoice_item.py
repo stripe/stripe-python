@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from decimal import Decimal
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._expandable_field import ExpandableField
@@ -99,11 +100,12 @@ class InvoiceItem(
         """
         The type of the pricing details.
         """
-        unit_amount_decimal: Optional[str]
+        unit_amount_decimal: Optional[Decimal]
         """
         The unit amount (in the `currency` specified) of the item which contains a decimal value with at most 12 decimal places.
         """
         _inner_class_types = {"price_details": PriceDetails}
+        _field_encodings = {"unit_amount_decimal": "decimal_string"}
 
     class ProrationDetails(StripeObject):
         class DiscountAmount(StripeObject):
@@ -200,7 +202,7 @@ class InvoiceItem(
     """
     Quantity of units for the invoice item in integer format, with any decimal precision truncated. For the item's full-precision decimal quantity, use `quantity_decimal`. This field will be deprecated in favor of `quantity_decimal` in a future version. If the invoice item is a proration, the quantity of the subscription that the proration was computed for.
     """
-    quantity_decimal: str
+    quantity_decimal: Decimal
     """
     Non-negative decimal with at most 12 decimal places. The quantity of units for the invoice item.
     """
@@ -445,3 +447,4 @@ class InvoiceItem(
         "pricing": Pricing,
         "proration_details": ProrationDetails,
     }
+    _field_encodings = {"quantity_decimal": "decimal_string"}
