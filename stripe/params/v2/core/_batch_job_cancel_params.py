@@ -3,5 +3,5 @@
 from typing_extensions import TypedDict
 
 
-class ComponentRetrieveParams(TypedDict):
+class BatchJobCancelParams(TypedDict):
     pass

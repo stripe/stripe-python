@@ -40,10 +40,6 @@ class PricingPlan(StripeObject):
     """
     Unique identifier for the object.
     """
-    latest_version: str
-    """
-    The ID of the latest version of the PricingPlan.
-    """
     live_version: Optional[str]
     """
     The ID of the live version of the PricingPlan.

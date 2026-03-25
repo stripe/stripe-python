@@ -4,6 +4,7 @@ from __future__ import absolute_import, division, print_function
 import stripe
 
 from tests.http_client_mock import HTTPClientMock
+from decimal import Decimal
 import io
 from stripe import StripeClient, _error
 import pytest
@@ -34060,14 +34061,14 @@ class TestGeneratedExamples(object):
                     "fuel": {
                         "type": "diesel",
                         "unit": "liter",
-                        "unit_cost_decimal": "3.5",
-                        "quantity_decimal": "10",
+                        "unit_cost_decimal": Decimal("3.5"),
+                        "quantity_decimal": Decimal("10"),
                     },
                     "lodging": {"check_in_at": 1633651200, "nights": 2},
                     "receipt": [
                         {
                             "description": "Room charge",
-                            "quantity": "1",
+                            "quantity": Decimal("1"),
                             "total": 200,
                             "unit_cost": 200,
                         },
@@ -34111,14 +34112,14 @@ class TestGeneratedExamples(object):
                 "fuel": {
                     "type": "diesel",
                     "unit": "liter",
-                    "unit_cost_decimal": "3.5",
-                    "quantity_decimal": "10",
+                    "unit_cost_decimal": Decimal("3.5"),
+                    "quantity_decimal": Decimal("10"),
                 },
                 "lodging": {"check_in_at": 1633651200, "nights": 2},
                 "receipt": [
                     {
                         "description": "Room charge",
-                        "quantity": "1",
+                        "quantity": Decimal("1"),
                         "total": 200,
                         "unit_cost": 200,
                     },
@@ -34170,14 +34171,14 @@ class TestGeneratedExamples(object):
                     "fuel": {
                         "type": "diesel",
                         "unit": "liter",
-                        "unit_cost_decimal": "3.5",
-                        "quantity_decimal": "10",
+                        "unit_cost_decimal": Decimal("3.5"),
+                        "quantity_decimal": Decimal("10"),
                     },
                     "lodging": {"check_in_at": 1633651200, "nights": 2},
                     "receipt": [
                         {
                             "description": "Room charge",
-                            "quantity": "1",
+                            "quantity": Decimal("1"),
                             "total": 200,
                             "unit_cost": 200,
                         },
@@ -34222,14 +34223,14 @@ class TestGeneratedExamples(object):
                 "fuel": {
                     "type": "diesel",
                     "unit": "liter",
-                    "unit_cost_decimal": "3.5",
-                    "quantity_decimal": "10",
+                    "unit_cost_decimal": Decimal("3.5"),
+                    "quantity_decimal": Decimal("10"),
                 },
                 "lodging": {"check_in_at": 1633651200, "nights": 2},
                 "receipt": [
                     {
                         "description": "Room charge",
-                        "quantity": "1",
+                        "quantity": Decimal("1"),
                         "total": 200,
                         "unit_cost": 200,
                     },
@@ -34282,14 +34283,14 @@ class TestGeneratedExamples(object):
                     "fuel": {
                         "type": "diesel",
                         "unit": "liter",
-                        "unit_cost_decimal": "3.5",
-                        "quantity_decimal": "10",
+                        "unit_cost_decimal": Decimal("3.5"),
+                        "quantity_decimal": Decimal("10"),
                     },
                     "lodging": {"check_in_at": 1633651200, "nights": 2},
                     "receipt": [
                         {
                             "description": "Room charge",
-                            "quantity": "1",
+                            "quantity": Decimal("1"),
                             "total": 200,
                             "unit_cost": 200,
                         },
@@ -35483,14 +35484,14 @@ class TestGeneratedExamples(object):
                     "fuel": {
                         "type": "diesel",
                         "unit": "liter",
-                        "unit_cost_decimal": "3.5",
-                        "quantity_decimal": "10",
+                        "unit_cost_decimal": Decimal("3.5"),
+                        "quantity_decimal": Decimal("10"),
                     },
                     "lodging": {"check_in_at": 1533651200, "nights": 2},
                     "receipt": [
                         {
                             "description": "Room charge",
-                            "quantity": "1",
+                            "quantity": Decimal("1"),
                             "total": 200,
                             "unit_cost": 200,
                         },
@@ -35544,14 +35545,14 @@ class TestGeneratedExamples(object):
                 "fuel": {
                     "type": "diesel",
                     "unit": "liter",
-                    "unit_cost_decimal": "3.5",
-                    "quantity_decimal": "10",
+                    "unit_cost_decimal": Decimal("3.5"),
+                    "quantity_decimal": Decimal("10"),
                 },
                 "lodging": {"check_in_at": 1533651200, "nights": 2},
                 "receipt": [
                     {
                         "description": "Room charge",
-                        "quantity": "1",
+                        "quantity": Decimal("1"),
                         "total": 200,
                         "unit_cost": 200,
                     },
@@ -35613,14 +35614,14 @@ class TestGeneratedExamples(object):
                     "fuel": {
                         "type": "diesel",
                         "unit": "liter",
-                        "unit_cost_decimal": "3.5",
-                        "quantity_decimal": "10",
+                        "unit_cost_decimal": Decimal("3.5"),
+                        "quantity_decimal": Decimal("10"),
                     },
                     "lodging": {"check_in_at": 1533651200, "nights": 2},
                     "receipt": [
                         {
                             "description": "Room charge",
-                            "quantity": "1",
+                            "quantity": Decimal("1"),
                             "total": 200,
                             "unit_cost": 200,
                         },
@@ -35676,14 +35677,14 @@ class TestGeneratedExamples(object):
                     "fuel": {
                         "type": "diesel",
                         "unit": "liter",
-                        "unit_cost_decimal": "3.5",
-                        "quantity_decimal": "10",
+                        "unit_cost_decimal": Decimal("3.5"),
+                        "quantity_decimal": Decimal("10"),
                     },
                     "lodging": {"check_in_at": 1533651200, "nights": 2},
                     "receipt": [
                         {
                             "description": "Room charge",
-                            "quantity": "1",
+                            "quantity": Decimal("1"),
                             "total": 200,
                             "unit_cost": 200,
                         },
@@ -35747,14 +35748,14 @@ class TestGeneratedExamples(object):
                     "fuel": {
                         "type": "diesel",
                         "unit": "liter",
-                        "unit_cost_decimal": "3.5",
-                        "quantity_decimal": "10",
+                        "unit_cost_decimal": Decimal("3.5"),
+                        "quantity_decimal": Decimal("10"),
                     },
                     "lodging": {"check_in_at": 1533651200, "nights": 2},
                     "receipt": [
                         {
                             "description": "Room charge",
-                            "quantity": "1",
+                            "quantity": Decimal("1"),
                             "total": 200,
                             "unit_cost": 200,
                         },
@@ -35818,14 +35819,14 @@ class TestGeneratedExamples(object):
                     "fuel": {
                         "type": "diesel",
                         "unit": "liter",
-                        "unit_cost_decimal": "3.5",
-                        "quantity_decimal": "10",
+                        "unit_cost_decimal": Decimal("3.5"),
+                        "quantity_decimal": Decimal("10"),
                     },
                     "lodging": {"check_in_at": 1533651200, "nights": 2},
                     "receipt": [
                         {
                             "description": "Room charge",
-                            "quantity": "1",
+                            "quantity": Decimal("1"),
                             "total": 200,
                             "unit_cost": 200,
                         },
@@ -35879,14 +35880,14 @@ class TestGeneratedExamples(object):
                 "fuel": {
                     "type": "diesel",
                     "unit": "liter",
-                    "unit_cost_decimal": "3.5",
-                    "quantity_decimal": "10",
+                    "unit_cost_decimal": Decimal("3.5"),
+                    "quantity_decimal": Decimal("10"),
                 },
                 "lodging": {"check_in_at": 1533651200, "nights": 2},
                 "receipt": [
                     {
                         "description": "Room charge",
-                        "quantity": "1",
+                        "quantity": Decimal("1"),
                         "total": 200,
                         "unit_cost": 200,
                     },
@@ -35948,14 +35949,14 @@ class TestGeneratedExamples(object):
                     "fuel": {
                         "type": "diesel",
                         "unit": "liter",
-                        "unit_cost_decimal": "3.5",
-                        "quantity_decimal": "10",
+                        "unit_cost_decimal": Decimal("3.5"),
+                        "quantity_decimal": Decimal("10"),
                     },
                     "lodging": {"check_in_at": 1533651200, "nights": 2},
                     "receipt": [
                         {
                             "description": "Room charge",
-                            "quantity": "1",
+                            "quantity": Decimal("1"),
                             "total": 200,
                             "unit_cost": 200,
                         },
@@ -36010,14 +36011,14 @@ class TestGeneratedExamples(object):
                 "fuel": {
                     "type": "diesel",
                     "unit": "liter",
-                    "unit_cost_decimal": "3.5",
-                    "quantity_decimal": "10",
+                    "unit_cost_decimal": Decimal("3.5"),
+                    "quantity_decimal": Decimal("10"),
                 },
                 "lodging": {"check_in_at": 1533651200, "nights": 2},
                 "receipt": [
                     {
                         "description": "Room charge",
-                        "quantity": "1",
+                        "quantity": Decimal("1"),
                         "total": 200,
                         "unit_cost": 200,
                     },
@@ -36080,14 +36081,14 @@ class TestGeneratedExamples(object):
                     "fuel": {
                         "type": "diesel",
                         "unit": "liter",
-                        "unit_cost_decimal": "3.5",
-                        "quantity_decimal": "10",
+                        "unit_cost_decimal": Decimal("3.5"),
+                        "quantity_decimal": Decimal("10"),
                     },
                     "lodging": {"check_in_at": 1533651200, "nights": 2},
                     "receipt": [
                         {
                             "description": "Room charge",
-                            "quantity": "1",
+                            "quantity": Decimal("1"),
                             "total": 200,
                             "unit_cost": 200,
                         },
@@ -44038,9 +44039,15 @@ class TestGeneratedExamples(object):
                         "type": "apply",
                         "apply": {
                             "effective_at": {
-                                "type": "current_billing_period_end"
+                                "timestamp": "1970-01-01T15:18:46.294Z",
+                                "type": "current_billing_period_end",
                             },
-                            "type": "invoice_discount_rule",
+                            "type": "discount",
+                            "discount": {
+                                "coupon": "coupon",
+                                "promotion_code": "promotion_code",
+                                "type": "coupon",
+                            },
                             "invoice_discount_rule": {
                                 "applies_to": "cadence",
                                 "type": "percent_off",
@@ -44048,7 +44055,9 @@ class TestGeneratedExamples(object):
                                     "maximum_applications": {
                                         "type": "indefinite"
                                     },
-                                    "percent_off": "percent_off",
+                                    "percent_off": Decimal(
+                                        "991934883.3333334"
+                                    ),
                                 },
                             },
                             "spend_modifier_rule": {
@@ -44182,7 +44191,7 @@ class TestGeneratedExamples(object):
             path="/v2/billing/intents",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"actions":[{"type":"apply","apply":{"effective_at":{"type":"current_billing_period_end"},"type":"invoice_discount_rule","invoice_discount_rule":{"applies_to":"cadence","type":"percent_off","percent_off":{"maximum_applications":{"type":"indefinite"},"percent_off":"percent_off"}},"spend_modifier_rule":{"applies_to":"cadence","type":"max_billing_period_spend","max_billing_period_spend":{"amount":{"type":"custom_pricing_unit","custom_pricing_unit":{"value":"value"}},"custom_pricing_unit_overage_rate":{"id":"obj_123"}}}},"deactivate":{"cancellation_details":{"comment":"comment","feedback":"other"},"collect_at":"next_billing_date","effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"on_reserve"},"pricing_plan_subscription_details":{"overrides":{"partial_period_behaviors":[{"type":"license_fee","license_fee":{"credit_proration_behavior":"prorated"}}]},"pricing_plan_subscription":"pricing_plan_subscription"},"type":"pricing_plan_subscription_details"},"modify":{"collect_at":"next_billing_date","effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"current_billing_period_start"},"pricing_plan_subscription_details":{"component_configurations":[{"quantity":1285004149,"lookup_key":"lookup_key","pricing_plan_component":"pricing_plan_component"}],"new_pricing_plan":"new_pricing_plan","new_pricing_plan_version":"new_pricing_plan_version","overrides":{"partial_period_behaviors":[{"type":"license_fee","license_fee":{"credit_proration_behavior":"prorated","debit_proration_behavior":"none"}}]},"pricing_plan_subscription":"pricing_plan_subscription"},"type":"pricing_plan_subscription_details"},"remove":{"effective_at":{"type":"current_billing_period_end"},"type":"invoice_discount_rule","invoice_discount_rule":"invoice_discount_rule","spend_modifier_rule":"spend_modifier_rule"},"subscribe":{"collect_at":"next_billing_date","effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"current_billing_period_start"},"type":"pricing_plan_subscription_details","pricing_plan_subscription_details":{"component_configurations":[{"quantity":1285004149,"lookup_key":"lookup_key","pricing_plan_component":"pricing_plan_component"}],"metadata":{"key":"metadata"},"overrides":{"partial_period_behaviors":[{"type":"license_fee","license_fee":{"debit_proration_behavior":"none"}}]},"pricing_plan":"pricing_plan","pricing_plan_version":"pricing_plan_version"},"v1_subscription_details":{"description":"description","items":[{"metadata":{"key":"metadata"},"price":"price","quantity":1285004149}],"metadata":{"key":"metadata"}}}}],"currency":"usd"}',
+            post_data='{"actions":[{"type":"apply","apply":{"effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"current_billing_period_end"},"type":"discount","discount":{"coupon":"coupon","promotion_code":"promotion_code","type":"coupon"},"invoice_discount_rule":{"applies_to":"cadence","type":"percent_off","percent_off":{"maximum_applications":{"type":"indefinite"},"percent_off":"991934883.3333334"}},"spend_modifier_rule":{"applies_to":"cadence","type":"max_billing_period_spend","max_billing_period_spend":{"amount":{"type":"custom_pricing_unit","custom_pricing_unit":{"value":"value"}},"custom_pricing_unit_overage_rate":{"id":"obj_123"}}}},"deactivate":{"cancellation_details":{"comment":"comment","feedback":"other"},"collect_at":"next_billing_date","effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"on_reserve"},"pricing_plan_subscription_details":{"overrides":{"partial_period_behaviors":[{"type":"license_fee","license_fee":{"credit_proration_behavior":"prorated"}}]},"pricing_plan_subscription":"pricing_plan_subscription"},"type":"pricing_plan_subscription_details"},"modify":{"collect_at":"next_billing_date","effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"current_billing_period_start"},"pricing_plan_subscription_details":{"component_configurations":[{"quantity":1285004149,"lookup_key":"lookup_key","pricing_plan_component":"pricing_plan_component"}],"new_pricing_plan":"new_pricing_plan","new_pricing_plan_version":"new_pricing_plan_version","overrides":{"partial_period_behaviors":[{"type":"license_fee","license_fee":{"credit_proration_behavior":"prorated","debit_proration_behavior":"none"}}]},"pricing_plan_subscription":"pricing_plan_subscription"},"type":"pricing_plan_subscription_details"},"remove":{"effective_at":{"type":"current_billing_period_end"},"type":"invoice_discount_rule","invoice_discount_rule":"invoice_discount_rule","spend_modifier_rule":"spend_modifier_rule"},"subscribe":{"collect_at":"next_billing_date","effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"current_billing_period_start"},"type":"pricing_plan_subscription_details","pricing_plan_subscription_details":{"component_configurations":[{"quantity":1285004149,"lookup_key":"lookup_key","pricing_plan_component":"pricing_plan_component"}],"metadata":{"key":"metadata"},"overrides":{"partial_period_behaviors":[{"type":"license_fee","license_fee":{"debit_proration_behavior":"none"}}]},"pricing_plan":"pricing_plan","pricing_plan_version":"pricing_plan_version"},"v1_subscription_details":{"description":"description","items":[{"metadata":{"key":"metadata"},"price":"price","quantity":1285004149}],"metadata":{"key":"metadata"}}}}],"currency":"usd"}',
             is_json=True,
         )
 
@@ -44470,26 +44479,6 @@ class TestGeneratedExamples(object):
         http_client_mock.assert_requested(
             "get",
             path="/v2/billing/license_fees/license_fee_id_123/versions/id_123",
-            query_string="",
-            api_base="https://api.stripe.com",
-        )
-
-    def test_v2_billing_license_fee_subscription_get_service(
-        self, http_client_mock: HTTPClientMock
-    ) -> None:
-        http_client_mock.stub_request(
-            "get",
-            "/v2/billing/license_fee_subscriptions/id_123",
-        )
-        client = StripeClient(
-            "sk_test_123",
-            http_client=http_client_mock.get_mock_http_client(),
-        )
-
-        client.v2.billing.license_fee_subscriptions.retrieve("id_123")
-        http_client_mock.assert_requested(
-            "get",
-            path="/v2/billing/license_fee_subscriptions/id_123",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -45180,26 +45169,26 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
-    def test_v2_billing_pricing_plan_subscriptions_component_get_service(
+    def test_v2_billing_pricing_plan_subscription_post_2_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
         http_client_mock.stub_request(
-            "get",
-            "/v2/billing/pricing_plan_subscriptions/id_123/components",
+            "post",
+            "/v2/billing/pricing_plan_subscriptions/id_123/remove_discounts",
         )
         client = StripeClient(
             "sk_test_123",
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.v2.billing.pricing_plan_subscriptions.components.retrieve(
-            "id_123",
-        )
+        client.v2.billing.pricing_plan_subscriptions.remove_discounts("id_123")
         http_client_mock.assert_requested(
-            "get",
-            path="/v2/billing/pricing_plan_subscriptions/id_123/components",
+            "post",
+            path="/v2/billing/pricing_plan_subscriptions/id_123/remove_discounts",
             query_string="",
             api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
         )
 
     def test_v2_billing_profile_get_service(
@@ -45376,6 +45365,62 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_billing_rate_card_post_3_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/billing/rate_cards/id_123/modify_rates",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.billing.rate_cards.modify_rates(
+            "id_123",
+            {
+                "rates_to_create": [
+                    {
+                        "metadata": {"key": "metadata"},
+                        "metered_item": "metered_item",
+                        "metered_item_data": {
+                            "display_name": "display_name",
+                            "lookup_key": "lookup_key",
+                            "meter": "meter",
+                            "meter_segment_conditions": [
+                                {"dimension": "dimension", "value": "value"},
+                            ],
+                            "unit_label": "unit_label",
+                        },
+                        "tiering_mode": "graduated",
+                        "tiers": [
+                            {
+                                "flat_amount": "flat_amount",
+                                "unit_amount": "unit_amount",
+                                "up_to_decimal": Decimal("1387931359.3333333"),
+                                "up_to_inf": "inf",
+                            },
+                        ],
+                        "transform_quantity": {
+                            "divide_by": 1592560163,
+                            "round": "down",
+                        },
+                        "unit_amount": "unit_amount",
+                    },
+                ],
+                "rates_to_delete": [{"id": "obj_123"}],
+            },
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/billing/rate_cards/id_123/modify_rates",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"rates_to_create":[{"metadata":{"key":"metadata"},"metered_item":"metered_item","metered_item_data":{"display_name":"display_name","lookup_key":"lookup_key","meter":"meter","meter_segment_conditions":[{"dimension":"dimension","value":"value"}],"unit_label":"unit_label"},"tiering_mode":"graduated","tiers":[{"flat_amount":"flat_amount","unit_amount":"unit_amount","up_to_decimal":"1387931359.3333333","up_to_inf":"inf"}],"transform_quantity":{"divide_by":"1592560163","round":"down"},"unit_amount":"unit_amount"}],"rates_to_delete":[{"id":"obj_123"}]}',
             is_json=True,
         )
 
@@ -46055,6 +46100,32 @@ class TestGeneratedExamples(object):
             api_base="https://api.stripe.com",
         )
 
+    def test_v2_core_account_evaluation_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/account_evaluations",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.account_evaluations.create(
+            {
+                "signals": ["fraudulent_website"],
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/account_evaluations",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"signals":["fraudulent_website"]}',
+            is_json=True,
+        )
+
     def test_v2_core_account_link_post_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -46160,6 +46231,79 @@ class TestGeneratedExamples(object):
             path="/v2/core/account_tokens/id_123",
             query_string="",
             api_base="https://api.stripe.com",
+        )
+
+    def test_v2_core_batch_job_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/batch_jobs",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.batch_jobs.create(
+            {
+                "endpoint": {
+                    "http_method": "post",
+                    "path": "/v1/subscription_schedules",
+                },
+                "metadata": {"key": "metadata"},
+                "skip_validation": True,
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/batch_jobs",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"endpoint":{"http_method":"post","path":"/v1/subscription_schedules"},"metadata":{"key":"metadata"},"skip_validation":true}',
+            is_json=True,
+        )
+
+    def test_v2_core_batch_job_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/core/batch_jobs/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.batch_jobs.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/core/batch_jobs/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_core_batch_job_post_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/batch_jobs/id_123/cancel",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.batch_jobs.cancel("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/batch_jobs/id_123/cancel",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
         )
 
     def test_v2_core_claimable_sandbox_post_service(
@@ -46504,18 +46648,13 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.v2.core.vault.gb_bank_accounts.create(
-            {
-                "account_number": "account_number",
-                "sort_code": "sort_code",
-            }
-        )
+        client.v2.core.vault.gb_bank_accounts.create({"currency": "usd"})
         http_client_mock.assert_requested(
             "post",
             path="/v2/core/vault/gb_bank_accounts",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"account_number":"account_number","sort_code":"sort_code"}',
+            post_data='{"currency":"usd"}',
             is_json=True,
         )
 
@@ -46644,6 +46783,7 @@ class TestGeneratedExamples(object):
         client.v2.core.vault.us_bank_accounts.create(
             {
                 "account_number": "account_number",
+                "currency": "usd",
             }
         )
         http_client_mock.assert_requested(
@@ -46651,7 +46791,7 @@ class TestGeneratedExamples(object):
             path="/v2/core/vault/us_bank_accounts",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"account_number":"account_number"}',
+            post_data='{"account_number":"account_number","currency":"usd"}',
             is_json=True,
         )
 
@@ -46967,11 +47107,11 @@ class TestGeneratedExamples(object):
             {
                 "financial_account": "financial_account",
                 "from": {
-                    "amount": {"value": 111972721, "currency": "usd"},
+                    "amount": {"currency": "USD", "value": 96},
                     "currency": "usd",
                 },
                 "to": {
-                    "amount": {"value": 111972721, "currency": "usd"},
+                    "amount": {"currency": "USD", "value": 96},
                     "currency": "usd",
                 },
             }
@@ -46981,7 +47121,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/currency_conversions",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"financial_account":"financial_account","from":{"amount":{"value":111972721,"currency":"usd"},"currency":"usd"},"to":{"amount":{"value":111972721,"currency":"usd"},"currency":"usd"}}',
+            post_data='{"financial_account":"financial_account","from":{"amount":{"currency":"USD","value":96},"currency":"usd"},"to":{"amount":{"currency":"USD","value":96},"currency":"usd"}}',
             is_json=True,
         )
 
@@ -47216,7 +47356,7 @@ class TestGeneratedExamples(object):
 
         client.v2.money_management.inbound_transfers.create(
             {
-                "amount": {"value": 111972721, "currency": "usd"},
+                "amount": {"currency": "USD", "value": 96},
                 "from": {
                     "currency": "usd",
                     "payment_method": "payment_method",
@@ -47232,7 +47372,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/inbound_transfers",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"amount":{"value":111972721,"currency":"usd"},"from":{"currency":"usd","payment_method":"payment_method"},"to":{"currency":"usd","financial_account":"financial_account"}}',
+            post_data='{"amount":{"currency":"USD","value":96},"from":{"currency":"usd","payment_method":"payment_method"},"to":{"currency":"usd","financial_account":"financial_account"}}',
             is_json=True,
         )
 
@@ -47290,7 +47430,7 @@ class TestGeneratedExamples(object):
 
         client.v2.money_management.outbound_payments.create(
             {
-                "amount": {"value": 111972721, "currency": "usd"},
+                "amount": {"currency": "USD", "value": 96},
                 "from": {
                     "currency": "usd",
                     "financial_account": "financial_account",
@@ -47307,7 +47447,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/outbound_payments",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"amount":{"value":111972721,"currency":"usd"},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"currency":"usd","payout_method":"payout_method","recipient":"recipient"}}',
+            post_data='{"amount":{"currency":"USD","value":96},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"currency":"usd","payout_method":"payout_method","recipient":"recipient"}}',
             is_json=True,
         )
 
@@ -47367,7 +47507,7 @@ class TestGeneratedExamples(object):
 
         client.v2.money_management.outbound_payment_quotes.create(
             {
-                "amount": {"value": 111972721, "currency": "usd"},
+                "amount": {"currency": "USD", "value": 96},
                 "from": {
                     "currency": "usd",
                     "financial_account": "financial_account",
@@ -47384,7 +47524,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/outbound_payment_quotes",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"amount":{"value":111972721,"currency":"usd"},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"currency":"usd","payout_method":"payout_method","recipient":"recipient"}}',
+            post_data='{"amount":{"currency":"USD","value":96},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"currency":"usd","payout_method":"payout_method","recipient":"recipient"}}',
             is_json=True,
         )
 
@@ -47548,7 +47688,7 @@ class TestGeneratedExamples(object):
 
         client.v2.money_management.outbound_transfers.create(
             {
-                "amount": {"value": 111972721, "currency": "usd"},
+                "amount": {"currency": "USD", "value": 96},
                 "from": {
                     "currency": "usd",
                     "financial_account": "financial_account",
@@ -47561,7 +47701,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/outbound_transfers",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"amount":{"value":111972721,"currency":"usd"},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"currency":"usd","payout_method":"payout_method"}}',
+            post_data='{"amount":{"currency":"USD","value":96},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"currency":"usd","payout_method":"payout_method"}}',
             is_json=True,
         )
 
@@ -47975,7 +48115,7 @@ class TestGeneratedExamples(object):
 
         client.v2.payments.off_session_payments.create(
             {
-                "amount": {"value": 111972721, "currency": "usd"},
+                "amount": {"currency": "USD", "value": 96},
                 "cadence": "unscheduled",
                 "customer": "customer",
                 "metadata": {"key": "metadata"},
@@ -47986,7 +48126,7 @@ class TestGeneratedExamples(object):
             path="/v2/payments/off_session_payments",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"amount":{"value":111972721,"currency":"usd"},"cadence":"unscheduled","customer":"customer","metadata":{"key":"metadata"}}',
+            post_data='{"amount":{"currency":"USD","value":96},"cadence":"unscheduled","customer":"customer","metadata":{"key":"metadata"}}',
             is_json=True,
         )
 
@@ -48091,7 +48231,7 @@ class TestGeneratedExamples(object):
 
         client.v2.payments.settlement_allocation_intents.create(
             {
-                "amount": {"value": 111972721, "currency": "usd"},
+                "amount": {"currency": "USD", "value": 96},
                 "expected_settlement_date": "1970-01-22T14:14:13.629Z",
                 "financial_account": "financial_account",
                 "reference": "reference",
@@ -48102,7 +48242,7 @@ class TestGeneratedExamples(object):
             path="/v2/payments/settlement_allocation_intents",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"amount":{"value":111972721,"currency":"usd"},"expected_settlement_date":"1970-01-22T14:14:13.629Z","financial_account":"financial_account","reference":"reference"}',
+            post_data='{"amount":{"currency":"USD","value":96},"expected_settlement_date":"1970-01-22T14:14:13.629Z","financial_account":"financial_account","reference":"reference"}',
             is_json=True,
         )
 
@@ -48230,7 +48370,7 @@ class TestGeneratedExamples(object):
             "settlement_allocation_intent_id_123",
             {
                 "account": "account",
-                "amount": {"value": 111972721, "currency": "usd"},
+                "amount": {"currency": "USD", "value": 96},
                 "type": "credit",
             },
         )
@@ -48239,7 +48379,7 @@ class TestGeneratedExamples(object):
             path="/v2/payments/settlement_allocation_intents/settlement_allocation_intent_id_123/splits",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"account":"account","amount":{"value":111972721,"currency":"usd"},"type":"credit"}',
+            post_data='{"account":"account","amount":{"currency":"USD","value":96},"type":"credit"}',
             is_json=True,
         )
 
@@ -48410,7 +48550,7 @@ class TestGeneratedExamples(object):
                                 "description": "description",
                                 "display_name": "display_name",
                                 "jurisdiction": "jurisdiction",
-                                "percentage": "percentage",
+                                "percentage": Decimal("614555204"),
                                 "state": "state",
                             },
                         ],
@@ -48424,7 +48564,7 @@ class TestGeneratedExamples(object):
             path="/v2/tax/manual_rules",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"scheduled_tax_rates":[{"rates":[{"country":"country","description":"description","display_name":"display_name","jurisdiction":"jurisdiction","percentage":"percentage","state":"state"}],"starts_at":"1970-01-25T15:13:01.215Z"}]}',
+            post_data='{"scheduled_tax_rates":[{"rates":[{"country":"country","description":"description","display_name":"display_name","jurisdiction":"jurisdiction","percentage":"614555204","state":"state"}],"starts_at":"1970-01-25T15:13:01.215Z"}]}',
             is_json=True,
         )
 
@@ -48471,7 +48611,7 @@ class TestGeneratedExamples(object):
                                 "description": "description",
                                 "display_name": "display_name",
                                 "jurisdiction": "jurisdiction",
-                                "percentage": "percentage",
+                                "percentage": Decimal("614555204"),
                                 "state": "state",
                             },
                         ],
@@ -48485,7 +48625,7 @@ class TestGeneratedExamples(object):
             path="/v2/tax/manual_rules/id_123",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"scheduled_tax_rates":[{"rates":[{"country":"country","description":"description","display_name":"display_name","jurisdiction":"jurisdiction","percentage":"percentage","state":"state"}],"starts_at":"1970-01-25T15:13:01.215Z"}]}',
+            post_data='{"scheduled_tax_rates":[{"rates":[{"country":"country","description":"description","display_name":"display_name","jurisdiction":"jurisdiction","percentage":"614555204","state":"state"}],"starts_at":"1970-01-25T15:13:01.215Z"}]}',
             is_json=True,
         )
 
@@ -48525,17 +48665,14 @@ class TestGeneratedExamples(object):
 
         client.v2.test_helpers.financial_addresses.credit(
             "id_123",
-            {
-                "amount": {"value": 111972721, "currency": "usd"},
-                "network": "ach",
-            },
+            {"amount": {"currency": "USD", "value": 96}, "network": "ach"},
         )
         http_client_mock.assert_requested(
             "post",
             path="/v2/test_helpers/financial_addresses/id_123/credit",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"amount":{"value":111972721,"currency":"usd"},"network":"ach"}',
+            post_data='{"amount":{"currency":"USD","value":96},"network":"ach"}',
             is_json=True,
         )
 
@@ -48666,6 +48803,7 @@ class TestGeneratedExamples(object):
             client.v2.core.vault.us_bank_accounts.create(
                 {
                     "account_number": "account_number",
+                    "currency": "usd",
                 }
             )
         except _error.BlockedByStripeError:
@@ -48675,7 +48813,7 @@ class TestGeneratedExamples(object):
             path="/v2/core/vault/us_bank_accounts",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"account_number":"account_number"}',
+            post_data='{"account_number":"account_number","currency":"usd"}',
             is_json=True,
         )
 
@@ -48815,7 +48953,7 @@ class TestGeneratedExamples(object):
         try:
             client.v2.money_management.outbound_payments.create(
                 {
-                    "amount": {"value": 111972721, "currency": "usd"},
+                    "amount": {"currency": "USD", "value": 96},
                     "from": {
                         "currency": "usd",
                         "financial_account": "financial_account",
@@ -48830,7 +48968,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/outbound_payments",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"amount":{"value":111972721,"currency":"usd"},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"recipient":"recipient"}}',
+            post_data='{"amount":{"currency":"USD","value":96},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"recipient":"recipient"}}',
             is_json=True,
         )
 
@@ -48852,6 +48990,7 @@ class TestGeneratedExamples(object):
             client.v2.core.vault.us_bank_accounts.create(
                 {
                     "account_number": "account_number",
+                    "currency": "usd",
                 }
             )
         except _error.InvalidPaymentMethodError:
@@ -48861,7 +49000,7 @@ class TestGeneratedExamples(object):
             path="/v2/core/vault/us_bank_accounts",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"account_number":"account_number"}',
+            post_data='{"account_number":"account_number","currency":"usd"}',
             is_json=True,
         )
 
@@ -48964,6 +49103,7 @@ class TestGeneratedExamples(object):
             client.v2.core.vault.us_bank_accounts.create(
                 {
                     "account_number": "account_number",
+                    "currency": "usd",
                 }
             )
         except _error.QuotaExceededError:
@@ -48973,7 +49113,7 @@ class TestGeneratedExamples(object):
             path="/v2/core/vault/us_bank_accounts",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"account_number":"account_number"}',
+            post_data='{"account_number":"account_number","currency":"usd"}',
             is_json=True,
         )
 
@@ -49019,7 +49159,7 @@ class TestGeneratedExamples(object):
         try:
             client.v2.money_management.outbound_payments.create(
                 {
-                    "amount": {"value": 111972721, "currency": "usd"},
+                    "amount": {"currency": "USD", "value": 96},
                     "from": {
                         "currency": "usd",
                         "financial_account": "financial_account",
@@ -49034,7 +49174,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/outbound_payments",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"amount":{"value":111972721,"currency":"usd"},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"recipient":"recipient"}}',
+            post_data='{"amount":{"currency":"USD","value":96},"from":{"currency":"usd","financial_account":"financial_account"},"to":{"recipient":"recipient"}}',
             is_json=True,
         )
 

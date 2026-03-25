@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from decimal import Decimal
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
@@ -109,26 +110,32 @@ class Authorization(
 
         class ReportedBreakdown(StripeObject):
             class Fuel(StripeObject):
-                gross_amount_decimal: Optional[str]
+                gross_amount_decimal: Optional[Decimal]
                 """
                 Gross fuel amount that should equal Fuel Quantity multiplied by Fuel Unit Cost, inclusive of taxes.
                 """
+                _field_encodings = {"gross_amount_decimal": "decimal_string"}
 
             class NonFuel(StripeObject):
-                gross_amount_decimal: Optional[str]
+                gross_amount_decimal: Optional[Decimal]
                 """
                 Gross non-fuel amount that should equal the sum of the line items, inclusive of taxes.
                 """
+                _field_encodings = {"gross_amount_decimal": "decimal_string"}
 
             class Tax(StripeObject):
-                local_amount_decimal: Optional[str]
+                local_amount_decimal: Optional[Decimal]
                 """
                 Amount of state or provincial Sales Tax included in the transaction amount. `null` if not reported by merchant or not subject to tax.
                 """
-                national_amount_decimal: Optional[str]
+                national_amount_decimal: Optional[Decimal]
                 """
                 Amount of national Sales Tax or VAT included in the transaction amount. `null` if not reported by merchant or not subject to tax.
                 """
+                _field_encodings = {
+                    "local_amount_decimal": "decimal_string",
+                    "national_amount_decimal": "decimal_string",
+                }
 
             fuel: Optional[Fuel]
             """
@@ -200,7 +207,7 @@ class Authorization(
         """
         [Conexxus Payment System Product Code](https://www.conexxus.org/conexxus-payment-system-product-codes) identifying the primary fuel product purchased.
         """
-        quantity_decimal: Optional[str]
+        quantity_decimal: Optional[Decimal]
         """
         The quantity of `unit`s of fuel that was dispensed, represented as a decimal string with at most 12 decimal places.
         """
@@ -231,10 +238,14 @@ class Authorization(
         """
         The units for `quantity_decimal`.
         """
-        unit_cost_decimal: Optional[str]
+        unit_cost_decimal: Optional[Decimal]
         """
         The cost in cents per each unit of fuel, represented as a decimal string with at most 12 decimal places.
         """
+        _field_encodings = {
+            "quantity_decimal": "decimal_string",
+            "unit_cost_decimal": "decimal_string",
+        }
 
     class MerchantData(StripeObject):
         category: str

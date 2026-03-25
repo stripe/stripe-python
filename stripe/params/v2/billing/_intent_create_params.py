@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from decimal import Decimal
 from typing import Dict, List
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -12,6 +13,10 @@ class IntentCreateParams(TypedDict):
     currency: str
     """
     Three-letter ISO currency code, in lowercase. Must be a supported currency.
+    """
+    include: NotRequired[List[Literal["invoice_resources.preview_invoice"]]]
+    """
+    Select additional fields to include in the response.
     """
     cadence: NotRequired[str]
     """
@@ -53,11 +58,15 @@ class IntentCreateParamsAction(TypedDict):
 class IntentCreateParamsActionApply(TypedDict):
     effective_at: NotRequired["IntentCreateParamsActionApplyEffectiveAt"]
     """
-    When the apply action will take effect. Defaults to on_reserve if not specified.
+    When the apply action will take effect. If not specified, defaults to on_reserve.
     """
-    type: Literal["invoice_discount_rule", "spend_modifier_rule"]
+    type: Literal["discount", "invoice_discount_rule", "spend_modifier_rule"]
     """
     Type of the apply action details.
+    """
+    discount: NotRequired["IntentCreateParamsActionApplyDiscount"]
+    """
+    Details for applying a discount.
     """
     invoice_discount_rule: NotRequired[
         "IntentCreateParamsActionApplyInvoiceDiscountRule"
@@ -74,11 +83,34 @@ class IntentCreateParamsActionApply(TypedDict):
 
 
 class IntentCreateParamsActionApplyEffectiveAt(TypedDict):
+    timestamp: NotRequired[str]
+    """
+    The timestamp at which the apply action will take effect. Only present if type is timestamp. Only allowed for discount actions.
+    """
     type: Literal[
-        "current_billing_period_end", "next_billing_period_start", "on_reserve"
+        "current_billing_period_end",
+        "current_billing_period_start",
+        "next_billing_period_start",
+        "on_reserve",
+        "timestamp",
     ]
     """
     When the apply action will take effect.
+    """
+
+
+class IntentCreateParamsActionApplyDiscount(TypedDict):
+    coupon: NotRequired[str]
+    """
+    The ID of the Coupon to apply.
+    """
+    promotion_code: NotRequired[str]
+    """
+    The ID of the PromotionCode to apply.
+    """
+    type: Literal["coupon", "promotion_code"]
+    """
+    Type of the discount.
     """
 
 
@@ -104,7 +136,7 @@ class IntentCreateParamsActionApplyInvoiceDiscountRulePercentOff(TypedDict):
     """
     The maximum number of times this discount can be applied for this cadence.
     """
-    percent_off: str
+    percent_off: Decimal
     """
     Percent that will be taken off of the amount. For example, percent_off of 50.0 will make $100 amount $50 instead.
     """
@@ -145,7 +177,7 @@ class IntentCreateParamsActionApplySpendModifierRuleMaxBillingPeriodSpend(
     """
     custom_pricing_unit_overage_rate: "IntentCreateParamsActionApplySpendModifierRuleMaxBillingPeriodSpendCustomPricingUnitOverageRate"
     """
-    The configration for the overage rate for the custom pricing unit.
+    The configuration for the overage rate for the custom pricing unit.
     """
 
 
@@ -278,7 +310,7 @@ class IntentCreateParamsActionDeactivatePricingPlanSubscriptionDetailsOverrides(
 class IntentCreateParamsActionDeactivatePricingPlanSubscriptionDetailsOverridesPartialPeriodBehavior(
     TypedDict,
 ):
-    type: Literal["license_fee"]
+    type: Literal["license_fee", "recurring_credit_grant"]
     """
     The type of behavior to override.
     """
@@ -393,7 +425,7 @@ class IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverrides(
 class IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverridesPartialPeriodBehavior(
     TypedDict,
 ):
-    type: Literal["license_fee"]
+    type: Literal["license_fee", "recurring_credit_grant"]
     """
     The type of behavior to override.
     """
@@ -421,7 +453,7 @@ class IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverridesParti
 class IntentCreateParamsActionRemove(TypedDict):
     effective_at: NotRequired["IntentCreateParamsActionRemoveEffectiveAt"]
     """
-    When the remove action will take effect. Defaults to on_reserve if not specified.
+    When the remove action will take effect. If not specified, defaults to on_reserve.
     """
     type: Literal["invoice_discount_rule", "spend_modifier_rule"]
     """
@@ -546,7 +578,7 @@ class IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverrides(
 class IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverridesPartialPeriodBehavior(
     TypedDict,
 ):
-    type: Literal["license_fee"]
+    type: Literal["license_fee", "recurring_credit_grant"]
     """
     The type of behavior to override.
     """
@@ -594,7 +626,7 @@ class IntentCreateParamsActionSubscribeV1SubscriptionDetailsItem(TypedDict):
     """
     quantity: NotRequired[int]
     """
-    Quantity for this item. If not provided, will default to 1.
+    Quantity for this item. If not provided, defaults to 1.
     """
 
 

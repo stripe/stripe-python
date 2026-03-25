@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from decimal import Decimal
 from stripe._request_options import RequestOptions
 from typing import List
 from typing_extensions import Literal, NotRequired, TypedDict
@@ -145,7 +146,7 @@ class AlertCreateParamsCreditBalanceThresholdLteCustomPricingUnit(TypedDict):
     """
     The ID of the custom pricing unit.
     """
-    value: str
+    value: Decimal
     """
     A positive decimal string representing the amount of the custom pricing unit threshold.
     """
@@ -233,7 +234,7 @@ class AlertCreateParamsSpendThresholdGteCustomPricingUnit(TypedDict):
     """
     The ID of the custom pricing unit.
     """
-    value: str
+    value: Decimal
     """
     A positive decimal string representing the amount of the custom pricing unit threshold.
     """

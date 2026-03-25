@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
+from stripe.v2._amount import Amount
 from typing import ClassVar, Dict, List, Optional
 from typing_extensions import Literal
 
@@ -14,16 +15,6 @@ class OutboundPaymentQuote(StripeObject):
         Literal["v2.money_management.outbound_payment_quote"]
     ] = "v2.money_management.outbound_payment_quote"
 
-    class Amount(StripeObject):
-        currency: str
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        value: int
-        """
-        A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-        """
-
     class DeliveryOptions(StripeObject):
         bank_account: Optional[Literal["automatic", "local", "wire"]]
         """
@@ -35,16 +26,6 @@ class OutboundPaymentQuote(StripeObject):
         """
 
     class EstimatedFee(StripeObject):
-        class Amount(StripeObject):
-            currency: str
-            """
-            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            """
-            value: int
-            """
-            A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            """
-
         amount: Amount
         """
         The fee amount for corresponding fee type.
@@ -53,6 +34,7 @@ class OutboundPaymentQuote(StripeObject):
             "cross_border_payout_fee",
             "foreign_exchange_fee",
             "instant_payout_fee",
+            "next_day_payout_fee",
             "real_time_payout_fee",
             "standard_payout_fee",
             "wire_payout_fee",
@@ -60,20 +42,9 @@ class OutboundPaymentQuote(StripeObject):
         """
         The fee type.
         """
-        _inner_class_types = {"amount": Amount}
 
     class From(StripeObject):
-        class Debited(StripeObject):
-            currency: str
-            """
-            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            """
-            value: int
-            """
-            A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            """
-
-        debited: Debited
+        debited: Amount
         """
         The monetary amount debited from the sender, only set on responses.
         """
@@ -81,7 +52,6 @@ class OutboundPaymentQuote(StripeObject):
         """
         The FinancialAccount that funds were pulled from.
         """
-        _inner_class_types = {"debited": Debited}
 
     class FxQuote(StripeObject):
         class Rates(StripeObject):
@@ -114,17 +84,7 @@ class OutboundPaymentQuote(StripeObject):
         _inner_class_dicts = ["rates"]
 
     class To(StripeObject):
-        class Credited(StripeObject):
-            currency: str
-            """
-            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            """
-            value: int
-            """
-            A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            """
-
-        credited: Credited
+        credited: Amount
         """
         The monetary amount being credited to the destination.
         """
@@ -136,7 +96,6 @@ class OutboundPaymentQuote(StripeObject):
         """
         To which account the OutboundPayment is sent.
         """
-        _inner_class_types = {"credited": Credited}
 
     amount: Amount
     """
@@ -180,7 +139,6 @@ class OutboundPaymentQuote(StripeObject):
     Details about the recipient of an OutboundPaymentQuote.
     """
     _inner_class_types = {
-        "amount": Amount,
         "delivery_options": DeliveryOptions,
         "estimated_fees": EstimatedFee,
         "from": From,

@@ -71,6 +71,7 @@ class CollectionSetting(StripeObject):
                 """
                 A description of the mandate that is meant to be displayed to the customer.
                 """
+                _field_encodings = {"amount": "int64_string"}
 
             mandate_options: Optional[MandateOptions]
             """

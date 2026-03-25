@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from decimal import Decimal
 from stripe._stripe_object import StripeObject
 from typing import ClassVar, Optional
 from typing_extensions import Literal, TYPE_CHECKING
@@ -44,7 +45,8 @@ class AlertRecovered(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    value: str
+    value: Decimal
     """
     The value at which the alert recovered
     """
+    _field_encodings = {"value": "decimal_string"}

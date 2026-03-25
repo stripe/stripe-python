@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from decimal import Decimal
 from stripe._stripe_object import StripeObject
 from typing import ClassVar, List, Optional
 from typing_extensions import Literal
@@ -58,7 +59,7 @@ class ManualRule(StripeObject):
             """
             Jurisdiction of the tax rate should apply as it will be shown on the invoice.
             """
-            percentage: str
+            percentage: Decimal
             """
             Percentage of the tax rate. Must be positive and maximum of 4 decimal points.
             """
@@ -66,6 +67,7 @@ class ManualRule(StripeObject):
             """
             State of the tax rate.
             """
+            _field_encodings = {"percentage": "decimal_string"}
 
         rates: List[Rate]
         """

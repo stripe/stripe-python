@@ -7,6 +7,9 @@ from stripe.v2.core._event import UnknownEventNotification
 from stripe._stripe_object import StripeObject
 
 if TYPE_CHECKING:
+    from stripe.events._v1_account_signals_including_delinquency_created_event import (
+        V1AccountSignalsIncludingDelinquencyCreatedEventNotification,
+    )
     from stripe.events._v1_billing_meter_error_report_triggered_event import (
         V1BillingMeterErrorReportTriggeredEventNotification,
     )
@@ -187,8 +190,41 @@ if TYPE_CHECKING:
     from stripe.events._v2_core_account_person_updated_event import (
         V2CoreAccountPersonUpdatedEventNotification,
     )
+    from stripe.events._v2_core_account_signals_fraudulent_website_ready_event import (
+        V2CoreAccountSignalsFraudulentWebsiteReadyEventNotification,
+    )
     from stripe.events._v2_core_account_updated_event import (
         V2CoreAccountUpdatedEventNotification,
+    )
+    from stripe.events._v2_core_batch_job_batch_failed_event import (
+        V2CoreBatchJobBatchFailedEventNotification,
+    )
+    from stripe.events._v2_core_batch_job_canceled_event import (
+        V2CoreBatchJobCanceledEventNotification,
+    )
+    from stripe.events._v2_core_batch_job_completed_event import (
+        V2CoreBatchJobCompletedEventNotification,
+    )
+    from stripe.events._v2_core_batch_job_created_event import (
+        V2CoreBatchJobCreatedEventNotification,
+    )
+    from stripe.events._v2_core_batch_job_ready_for_upload_event import (
+        V2CoreBatchJobReadyForUploadEventNotification,
+    )
+    from stripe.events._v2_core_batch_job_timeout_event import (
+        V2CoreBatchJobTimeoutEventNotification,
+    )
+    from stripe.events._v2_core_batch_job_updated_event import (
+        V2CoreBatchJobUpdatedEventNotification,
+    )
+    from stripe.events._v2_core_batch_job_upload_timeout_event import (
+        V2CoreBatchJobUploadTimeoutEventNotification,
+    )
+    from stripe.events._v2_core_batch_job_validating_event import (
+        V2CoreBatchJobValidatingEventNotification,
+    )
+    from stripe.events._v2_core_batch_job_validation_failed_event import (
+        V2CoreBatchJobValidationFailedEventNotification,
     )
     from stripe.events._v2_core_claimable_sandbox_claimed_event import (
         V2CoreClaimableSandboxClaimedEventNotification,
@@ -490,9 +526,16 @@ if TYPE_CHECKING:
     from stripe.events._v2_reporting_report_run_updated_event import (
         V2ReportingReportRunUpdatedEventNotification,
     )
+    from stripe.events._v2_signals_account_signal_fraudulent_merchant_ready_event import (
+        V2SignalsAccountSignalFraudulentMerchantReadyEventNotification,
+    )
 
 
 _V2_EVENT_CLASS_LOOKUP = {
+    "v1.account_signals[delinquency].created": (
+        "stripe.events._v1_account_signals_including_delinquency_created_event",
+        "V1AccountSignalsIncludingDelinquencyCreatedEvent",
+    ),
     "v1.billing.meter.error_report_triggered": (
         "stripe.events._v1_billing_meter_error_report_triggered_event",
         "V1BillingMeterErrorReportTriggeredEvent",
@@ -733,9 +776,53 @@ _V2_EVENT_CLASS_LOOKUP = {
         "stripe.events._v2_core_account_person_updated_event",
         "V2CoreAccountPersonUpdatedEvent",
     ),
+    "v2.core.account_signals.fraudulent_website_ready": (
+        "stripe.events._v2_core_account_signals_fraudulent_website_ready_event",
+        "V2CoreAccountSignalsFraudulentWebsiteReadyEvent",
+    ),
     "v2.core.account.updated": (
         "stripe.events._v2_core_account_updated_event",
         "V2CoreAccountUpdatedEvent",
+    ),
+    "v2.core.batch_job.batch_failed": (
+        "stripe.events._v2_core_batch_job_batch_failed_event",
+        "V2CoreBatchJobBatchFailedEvent",
+    ),
+    "v2.core.batch_job.canceled": (
+        "stripe.events._v2_core_batch_job_canceled_event",
+        "V2CoreBatchJobCanceledEvent",
+    ),
+    "v2.core.batch_job.completed": (
+        "stripe.events._v2_core_batch_job_completed_event",
+        "V2CoreBatchJobCompletedEvent",
+    ),
+    "v2.core.batch_job.created": (
+        "stripe.events._v2_core_batch_job_created_event",
+        "V2CoreBatchJobCreatedEvent",
+    ),
+    "v2.core.batch_job.ready_for_upload": (
+        "stripe.events._v2_core_batch_job_ready_for_upload_event",
+        "V2CoreBatchJobReadyForUploadEvent",
+    ),
+    "v2.core.batch_job.timeout": (
+        "stripe.events._v2_core_batch_job_timeout_event",
+        "V2CoreBatchJobTimeoutEvent",
+    ),
+    "v2.core.batch_job.updated": (
+        "stripe.events._v2_core_batch_job_updated_event",
+        "V2CoreBatchJobUpdatedEvent",
+    ),
+    "v2.core.batch_job.upload_timeout": (
+        "stripe.events._v2_core_batch_job_upload_timeout_event",
+        "V2CoreBatchJobUploadTimeoutEvent",
+    ),
+    "v2.core.batch_job.validating": (
+        "stripe.events._v2_core_batch_job_validating_event",
+        "V2CoreBatchJobValidatingEvent",
+    ),
+    "v2.core.batch_job.validation_failed": (
+        "stripe.events._v2_core_batch_job_validation_failed_event",
+        "V2CoreBatchJobValidationFailedEvent",
     ),
     "v2.core.claimable_sandbox.claimed": (
         "stripe.events._v2_core_claimable_sandbox_claimed_event",
@@ -1137,6 +1224,10 @@ _V2_EVENT_CLASS_LOOKUP = {
         "stripe.events._v2_reporting_report_run_updated_event",
         "V2ReportingReportRunUpdatedEvent",
     ),
+    "v2.signals.account_signal.fraudulent_merchant_ready": (
+        "stripe.events._v2_signals_account_signal_fraudulent_merchant_ready_event",
+        "V2SignalsAccountSignalFraudulentMerchantReadyEvent",
+    ),
 }
 
 
@@ -1152,6 +1243,10 @@ def get_v2_event_class(type_: str):
 
 
 _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
+    "v1.account_signals[delinquency].created": (
+        "stripe.events._v1_account_signals_including_delinquency_created_event",
+        "V1AccountSignalsIncludingDelinquencyCreatedEventNotification",
+    ),
     "v1.billing.meter.error_report_triggered": (
         "stripe.events._v1_billing_meter_error_report_triggered_event",
         "V1BillingMeterErrorReportTriggeredEventNotification",
@@ -1392,9 +1487,53 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_core_account_person_updated_event",
         "V2CoreAccountPersonUpdatedEventNotification",
     ),
+    "v2.core.account_signals.fraudulent_website_ready": (
+        "stripe.events._v2_core_account_signals_fraudulent_website_ready_event",
+        "V2CoreAccountSignalsFraudulentWebsiteReadyEventNotification",
+    ),
     "v2.core.account.updated": (
         "stripe.events._v2_core_account_updated_event",
         "V2CoreAccountUpdatedEventNotification",
+    ),
+    "v2.core.batch_job.batch_failed": (
+        "stripe.events._v2_core_batch_job_batch_failed_event",
+        "V2CoreBatchJobBatchFailedEventNotification",
+    ),
+    "v2.core.batch_job.canceled": (
+        "stripe.events._v2_core_batch_job_canceled_event",
+        "V2CoreBatchJobCanceledEventNotification",
+    ),
+    "v2.core.batch_job.completed": (
+        "stripe.events._v2_core_batch_job_completed_event",
+        "V2CoreBatchJobCompletedEventNotification",
+    ),
+    "v2.core.batch_job.created": (
+        "stripe.events._v2_core_batch_job_created_event",
+        "V2CoreBatchJobCreatedEventNotification",
+    ),
+    "v2.core.batch_job.ready_for_upload": (
+        "stripe.events._v2_core_batch_job_ready_for_upload_event",
+        "V2CoreBatchJobReadyForUploadEventNotification",
+    ),
+    "v2.core.batch_job.timeout": (
+        "stripe.events._v2_core_batch_job_timeout_event",
+        "V2CoreBatchJobTimeoutEventNotification",
+    ),
+    "v2.core.batch_job.updated": (
+        "stripe.events._v2_core_batch_job_updated_event",
+        "V2CoreBatchJobUpdatedEventNotification",
+    ),
+    "v2.core.batch_job.upload_timeout": (
+        "stripe.events._v2_core_batch_job_upload_timeout_event",
+        "V2CoreBatchJobUploadTimeoutEventNotification",
+    ),
+    "v2.core.batch_job.validating": (
+        "stripe.events._v2_core_batch_job_validating_event",
+        "V2CoreBatchJobValidatingEventNotification",
+    ),
+    "v2.core.batch_job.validation_failed": (
+        "stripe.events._v2_core_batch_job_validation_failed_event",
+        "V2CoreBatchJobValidationFailedEventNotification",
     ),
     "v2.core.claimable_sandbox.claimed": (
         "stripe.events._v2_core_claimable_sandbox_claimed_event",
@@ -1796,6 +1935,10 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_reporting_report_run_updated_event",
         "V2ReportingReportRunUpdatedEventNotification",
     ),
+    "v2.signals.account_signal.fraudulent_merchant_ready": (
+        "stripe.events._v2_signals_account_signal_fraudulent_merchant_ready_event",
+        "V2SignalsAccountSignalFraudulentMerchantReadyEventNotification",
+    ),
 }
 
 
@@ -1811,6 +1954,7 @@ def get_v2_event_notification_class(type_: str):
 
 
 ALL_EVENT_NOTIFICATIONS = Union[
+    "V1AccountSignalsIncludingDelinquencyCreatedEventNotification",
     "V1BillingMeterErrorReportTriggeredEventNotification",
     "V1BillingMeterNoMeterFoundEventNotification",
     "V2BillingCadenceBilledEventNotification",
@@ -1871,7 +2015,18 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2CoreAccountPersonCreatedEventNotification",
     "V2CoreAccountPersonDeletedEventNotification",
     "V2CoreAccountPersonUpdatedEventNotification",
+    "V2CoreAccountSignalsFraudulentWebsiteReadyEventNotification",
     "V2CoreAccountUpdatedEventNotification",
+    "V2CoreBatchJobBatchFailedEventNotification",
+    "V2CoreBatchJobCanceledEventNotification",
+    "V2CoreBatchJobCompletedEventNotification",
+    "V2CoreBatchJobCreatedEventNotification",
+    "V2CoreBatchJobReadyForUploadEventNotification",
+    "V2CoreBatchJobTimeoutEventNotification",
+    "V2CoreBatchJobUpdatedEventNotification",
+    "V2CoreBatchJobUploadTimeoutEventNotification",
+    "V2CoreBatchJobValidatingEventNotification",
+    "V2CoreBatchJobValidationFailedEventNotification",
     "V2CoreClaimableSandboxClaimedEventNotification",
     "V2CoreClaimableSandboxCreatedEventNotification",
     "V2CoreClaimableSandboxExpiredEventNotification",
@@ -1972,4 +2127,5 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2ReportingReportRunFailedEventNotification",
     "V2ReportingReportRunSucceededEventNotification",
     "V2ReportingReportRunUpdatedEventNotification",
+    "V2SignalsAccountSignalFraudulentMerchantReadyEventNotification",
 ]

@@ -12,7 +12,7 @@ class LicensedItemUpdateParams(TypedDict):
     """
     lookup_key: NotRequired[str]
     """
-    An internal key you can use to search for a particular billable item.
+    An internal key you can use to search for a particular licensed item.
     Maximum length of 200 characters.
     To remove the lookup_key from the object, set it to null in the request.
     """

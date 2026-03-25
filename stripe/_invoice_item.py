@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from decimal import Decimal
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._expandable_field import ExpandableField
@@ -206,7 +207,7 @@ class InvoiceItem(
         """
         The type of the pricing details.
         """
-        unit_amount_decimal: Optional[str]
+        unit_amount_decimal: Optional[Decimal]
         """
         The unit amount (in the `currency` specified) of the item which contains a decimal value with at most 12 decimal places.
         """
@@ -216,6 +217,7 @@ class InvoiceItem(
             "rate_card_custom_pricing_unit_overage_rate_details": RateCardCustomPricingUnitOverageRateDetails,
             "rate_card_rate_details": RateCardRateDetails,
         }
+        _field_encodings = {"unit_amount_decimal": "decimal_string"}
 
     class ProrationDetails(StripeObject):
         class DiscountAmount(StripeObject):

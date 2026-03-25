@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from decimal import Decimal
 from stripe._stripe_object import StripeObject
+from stripe.v2._amount import Amount
 from typing import ClassVar, Dict, List, Optional
 from typing_extensions import Literal
 
@@ -3173,6 +3175,7 @@ class Account(StripeObject):
                     "dz_bank_account",
                     "ec_bank_account",
                     "ee_bank_account",
+                    "eg_bank_account",
                     "es_bank_account",
                     "et_bank_account",
                     "fi_bank_account",
@@ -4225,6 +4228,10 @@ class Account(StripeObject):
         """
         Default responsibilities held by either Stripe or the platform.
         """
+        timezone: Optional[str]
+        """
+        The Account's local timezone. A list of possible time zone values is maintained at the [IANA Time Zone Database](https://www.iana.org/time-zones).
+        """
         _inner_class_types = {
             "profile": Profile,
             "responsibilities": Responsibilities,
@@ -4382,7 +4389,7 @@ class Account(StripeObject):
                         "consumer.cross_river_bank.prepaid_card",
                         "consumer.holds_currencies.usd",
                         "consumer.lead.prepaid_card",
-                        "crypto",
+                        "crypto_wallets",
                         "eps_payments",
                         "financial_addresses.bank_accounts",
                         "fpx_payments",
@@ -5700,16 +5707,6 @@ class Account(StripeObject):
                 """
 
             class AnnualRevenue(StripeObject):
-                class Amount(StripeObject):
-                    currency: str
-                    """
-                    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-                    """
-                    value: int
-                    """
-                    A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-                    """
-
                 amount: Optional[Amount]
                 """
                 Annual revenue amount in minor currency units (for example, '123' for 1.23 USD).
@@ -5718,7 +5715,6 @@ class Account(StripeObject):
                 """
                 The close-out date of the preceding fiscal year in ISO 8601 format. E.g. 2023-12-31 for the 31st of December, 2023.
                 """
-                _inner_class_types = {"amount": Amount}
 
             class Documents(StripeObject):
                 class BankAccountOwnershipVerification(StripeObject):
@@ -6020,21 +6016,10 @@ class Account(StripeObject):
                 """
 
             class MonthlyEstimatedRevenue(StripeObject):
-                class Amount(StripeObject):
-                    currency: str
-                    """
-                    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-                    """
-                    value: int
-                    """
-                    A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-                    """
-
                 amount: Optional[Amount]
                 """
                 Estimated monthly revenue amount in minor currency units (for example, '123' for 1.23 USD).
                 """
-                _inner_class_types = {"amount": Amount}
 
             class RegistrationDate(StripeObject):
                 day: int
@@ -6561,7 +6546,7 @@ class Account(StripeObject):
                 """
                 Whether the individual is an owner of the Account's identity.
                 """
-                percent_ownership: Optional[str]
+                percent_ownership: Optional[Decimal]
                 """
                 The percentage of the Account's identity that the individual owns.
                 """
@@ -6573,6 +6558,7 @@ class Account(StripeObject):
                 """
                 The individual's title (e.g., CEO, Support Engineer).
                 """
+                _field_encodings = {"percent_ownership": "decimal_string"}
 
             class ScriptAddresses(StripeObject):
                 class Kana(StripeObject):
@@ -6961,7 +6947,7 @@ class Account(StripeObject):
                         "consumer.cross_river_bank.prepaid_card",
                         "consumer.holds_currencies.usd",
                         "consumer.lead.prepaid_card",
-                        "crypto",
+                        "crypto_wallets",
                         "eps_payments",
                         "financial_addresses.bank_accounts",
                         "fpx_payments",

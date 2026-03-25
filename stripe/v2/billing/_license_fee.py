@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from decimal import Decimal
 from stripe._stripe_object import StripeObject
 from typing import ClassVar, Dict, List, Optional
 from typing_extensions import Literal, TYPE_CHECKING
@@ -19,6 +20,17 @@ class LicenseFee(StripeObject):
         "v2.billing.license_fee"
     )
 
+    class ServiceCycle(StripeObject):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        The interval for assessing service.
+        """
+        interval_count: int
+        """
+        The length of the interval for assessing service. For example, set this to 3 and `interval` to `"month"` in
+        order to specify quarterly service.
+        """
+
     class Tier(StripeObject):
         flat_amount: Optional[str]
         """
@@ -29,7 +41,7 @@ class LicenseFee(StripeObject):
         Per-unit price for units included in this tier, represented as a decimal string in minor currency units with at
         most 12 decimal places.
         """
-        up_to_decimal: Optional[str]
+        up_to_decimal: Optional[Decimal]
         """
         Up to and including this quantity will be contained in the tier. Only one of `up_to_decimal` and `up_to_inf` may
         be set.
@@ -38,6 +50,7 @@ class LicenseFee(StripeObject):
         """
         No upper bound to this tier. Only one of `up_to_decimal` and `up_to_inf` may be set.
         """
+        _field_encodings = {"up_to_decimal": "decimal_string"}
 
     class TransformQuantity(StripeObject):
         divide_by: int
@@ -48,6 +61,7 @@ class LicenseFee(StripeObject):
         """
         After division, round the result up or down.
         """
+        _field_encodings = {"divide_by": "int64_string"}
 
     active: bool
     """
@@ -70,10 +84,6 @@ class LicenseFee(StripeObject):
     id: str
     """
     Unique identifier for the object.
-    """
-    latest_version: str
-    """
-    The ID of the license fee's most recently created version.
     """
     licensed_item: "LicensedItem"
     """
@@ -100,14 +110,9 @@ class LicenseFee(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
     """
-    service_interval: Literal["day", "month", "week", "year"]
+    service_cycle: ServiceCycle
     """
-    The interval for assessing service.
-    """
-    service_interval_count: int
-    """
-    The length of the interval for assessing service. For example, set this to 3 and `service_interval` to `"month"` in
-    order to specify quarterly service.
+    The service cycle configuration for this License Fee.
     """
     tax_behavior: Literal["exclusive", "inclusive"]
     """
@@ -133,6 +138,7 @@ class LicenseFee(StripeObject):
     places. Cannot be set if `tiers` is provided.
     """
     _inner_class_types = {
+        "service_cycle": ServiceCycle,
         "tiers": Tier,
         "transform_quantity": TransformQuantity,
     }

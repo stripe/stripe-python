@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from typing import List
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -7,6 +8,12 @@ class PricingPlanSubscriptionListParams(TypedDict):
     billing_cadence: NotRequired[str]
     """
     Filter by Billing Cadence ID. Mutually exclusive with `payer`, `pricing_plan`, and `pricing_plan_version`.
+    """
+    include: NotRequired[
+        List[Literal["discount_details", "pricing_plan_component_details"]]
+    ]
+    """
+    Expand to include additional data such as discount_details, billing_cadence_details, or pricing_plan_component_details.
     """
     limit: NotRequired[int]
     """
@@ -18,11 +25,11 @@ class PricingPlanSubscriptionListParams(TypedDict):
     """
     pricing_plan: NotRequired[str]
     """
-    Filter by PricingPlan ID. Mutually exlcusive with `billing_cadence`, `payer`, and `pricing_plan_version`.
+    Filter by PricingPlan ID. Mutually exclusive with `billing_cadence`, `payer`, and `pricing_plan_version`.
     """
     pricing_plan_version: NotRequired[str]
     """
-    Filter by Pricing Plan Version ID. Mutually exlcusive with `billing_cadence`, `payer`, and `pricing_plan`.
+    Filter by Pricing Plan Version ID. Mutually exclusive with `billing_cadence`, `payer`, and `pricing_plan`.
     """
     servicing_status: NotRequired[
         Literal["active", "canceled", "paused", "pending"]

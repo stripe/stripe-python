@@ -16,8 +16,8 @@ class MeteredItemCreateParams(TypedDict):
     """
     lookup_key: NotRequired[str]
     """
-    An internal key you can use to search for a particular billable item.
-    Must be unique among billable items.
+    An internal key you can use to search for a particular metered item.
+    Must be unique among metered items.
     Maximum length of 200 characters.
     """
     metadata: NotRequired[Dict[str, str]]

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
+from stripe.v2._amount import Amount
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Literal
 
@@ -15,27 +16,7 @@ class InboundTransfer(StripeObject):
         "v2.money_management.inbound_transfer"
     )
 
-    class Amount(StripeObject):
-        currency: str
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        value: int
-        """
-        A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-        """
-
     class From(StripeObject):
-        class Debited(StripeObject):
-            currency: str
-            """
-            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            """
-            value: int
-            """
-            A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            """
-
         class PaymentMethod(StripeObject):
             type: str
             """
@@ -46,7 +27,7 @@ class InboundTransfer(StripeObject):
             The destination US bank account identifier. eg "usba_***".
             """
 
-        debited: Debited
+        debited: Amount
         """
         The amount in specified currency that was debited from the Payment Method.
         """
@@ -54,23 +35,10 @@ class InboundTransfer(StripeObject):
         """
         The Payment Method object used to create the InboundTransfer.
         """
-        _inner_class_types = {
-            "debited": Debited,
-            "payment_method": PaymentMethod,
-        }
+        _inner_class_types = {"payment_method": PaymentMethod}
 
     class To(StripeObject):
-        class Credited(StripeObject):
-            currency: str
-            """
-            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            """
-            value: int
-            """
-            A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            """
-
-        credited: Credited
+        credited: Amount
         """
         The amount by which the FinancialAccount balance is credited.
         """
@@ -78,7 +46,6 @@ class InboundTransfer(StripeObject):
         """
         The FinancialAccount that funds will land in.
         """
-        _inner_class_types = {"credited": Credited}
 
     class TransferHistory(StripeObject):
         class BankDebitFailed(StripeObject):
@@ -197,7 +164,6 @@ class InboundTransfer(StripeObject):
     A list of history objects, representing changes in the state of the InboundTransfer.
     """
     _inner_class_types = {
-        "amount": Amount,
         "from": From,
         "to": To,
         "transfer_history": TransferHistory,

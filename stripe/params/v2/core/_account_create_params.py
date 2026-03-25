@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from decimal import Decimal
+from stripe.v2._amount import AmountParam
 from typing import Dict, List
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -2148,6 +2150,10 @@ class AccountCreateParamsDefaults(TypedDict):
     """
     Default responsibilities held by either Stripe or the platform.
     """
+    timezone: NotRequired[str]
+    """
+    The Account's local timezone. A list of possible time zone values is maintained at the [IANA Time Zone Database](https://www.iana.org/time-zones).
+    """
 
 
 class AccountCreateParamsDefaultsProfile(TypedDict):
@@ -3533,26 +3539,13 @@ class AccountCreateParamsIdentityBusinessDetailsAddress(TypedDict):
 
 
 class AccountCreateParamsIdentityBusinessDetailsAnnualRevenue(TypedDict):
-    amount: NotRequired[
-        "AccountCreateParamsIdentityBusinessDetailsAnnualRevenueAmount"
-    ]
+    amount: NotRequired[AmountParam]
     """
     A non-negative integer representing the amount in the smallest currency unit.
     """
     fiscal_year_end: NotRequired[str]
     """
     The close-out date of the preceding fiscal year in ISO 8601 format. E.g. 2023-12-31 for the 31st of December, 2023.
-    """
-
-
-class AccountCreateParamsIdentityBusinessDetailsAnnualRevenueAmount(TypedDict):
-    value: int
-    """
-    A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-    """
-    currency: str
-    """
-    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
 
 
@@ -3896,24 +3889,9 @@ class AccountCreateParamsIdentityBusinessDetailsIdNumber(TypedDict):
 class AccountCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenue(
     TypedDict,
 ):
-    amount: NotRequired[
-        "AccountCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenueAmount"
-    ]
+    amount: NotRequired[AmountParam]
     """
     A non-negative integer representing the amount in the smallest currency unit.
-    """
-
-
-class AccountCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenueAmount(
-    TypedDict,
-):
-    value: int
-    """
-    A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-    """
-    currency: str
-    """
-    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
 
 
@@ -4445,7 +4423,7 @@ class AccountCreateParamsIdentityIndividualRelationship(TypedDict):
     """
     Whether the person is an owner of the account's identity.
     """
-    percent_ownership: NotRequired[str]
+    percent_ownership: NotRequired[Decimal]
     """
     The percent owned by the person of the account's legal entity.
     """

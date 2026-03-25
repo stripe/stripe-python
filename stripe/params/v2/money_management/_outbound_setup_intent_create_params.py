@@ -63,6 +63,10 @@ class OutboundSetupIntentCreateParamsPayoutMethodDataBankAccount(TypedDict):
     """
     The country code of the bank account.
     """
+    currency: str
+    """
+    The currency of the bank account.
+    """
     routing_number: NotRequired[str]
     """
     The routing number of the bank account, if present.
@@ -74,6 +78,10 @@ class OutboundSetupIntentCreateParamsPayoutMethodDataBankAccount(TypedDict):
 
 
 class OutboundSetupIntentCreateParamsPayoutMethodDataCard(TypedDict):
+    currency: str
+    """
+    The currency of the card.
+    """
     exp_month: str
     """
     The expiration month of the card.

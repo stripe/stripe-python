@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from decimal import Decimal
 from stripe._api_mode import ApiMode
 from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
@@ -54,7 +55,7 @@ class V2CoreHealthAuthorizationRateDropFiringEvent(Event):
             """
             The type of the charge.
             """
-            current_percentage: str
+            current_percentage: Decimal
             """
             The current authorization rate percentage.
             """
@@ -136,11 +137,15 @@ class V2CoreHealthAuthorizationRateDropFiringEvent(Event):
             """
             The type of the payment method.
             """
-            previous_percentage: str
+            previous_percentage: Decimal
             """
             The previous authorization rate percentage.
             """
             _inner_class_types = {"dimensions": Dimension}
+            _field_encodings = {
+                "current_percentage": "decimal_string",
+                "previous_percentage": "decimal_string",
+            }
 
         alert_id: str
         """

@@ -3,5 +3,5 @@
 from typing_extensions import TypedDict
 
 
-class LicenseFeeSubscriptionRetrieveParams(TypedDict):
+class BatchJobRetrieveParams(TypedDict):
     pass

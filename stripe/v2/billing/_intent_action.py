@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from decimal import Decimal
 from stripe._stripe_object import StripeObject
 from typing import ClassVar, Dict, List, Optional
 from typing_extensions import Literal
@@ -17,11 +18,35 @@ class IntentAction(StripeObject):
     )
 
     class Apply(StripeObject):
+        class Discount(StripeObject):
+            coupon: Optional[str]
+            """
+            The ID of the Coupon applied.
+            """
+            discount: Optional[str]
+            """
+            The ID of the created Discount.
+            """
+            promotion_code: Optional[str]
+            """
+            The ID of the PromotionCode applied.
+            """
+            type: Literal["coupon", "promotion_code"]
+            """
+            Type of the discount.
+            """
+
         class EffectiveAt(StripeObject):
+            timestamp: Optional[str]
+            """
+            The timestamp at which the apply action will take effect. Only present if type is timestamp. Only allowed for discount actions.
+            """
             type: Literal[
                 "current_billing_period_end",
+                "current_billing_period_start",
                 "next_billing_period_start",
                 "on_reserve",
+                "timestamp",
             ]
             """
             When the apply action will take effect.
@@ -39,13 +64,14 @@ class IntentAction(StripeObject):
                 """
                 The maximum number of times this discount can be applied for this Billing Cadence.
                 """
-                percent_off: str
+                percent_off: Decimal
                 """
                 Percent that will be taken off of the amount. For example, percent_off of 50.0 will make $100 amount $50 instead.
                 """
                 _inner_class_types = {
                     "maximum_applications": MaximumApplications,
                 }
+                _field_encodings = {"percent_off": "decimal_string"}
 
             applies_to: Literal["cadence"]
             """
@@ -98,7 +124,7 @@ class IntentAction(StripeObject):
                 """
                 custom_pricing_unit_overage_rate: CustomPricingUnitOverageRate
                 """
-                The configration for the overage rate for the custom pricing unit.
+                The configuration for the overage rate for the custom pricing unit.
                 """
                 _inner_class_types = {
                     "amount": Amount,
@@ -125,9 +151,13 @@ class IntentAction(StripeObject):
                 "max_billing_period_spend": MaxBillingPeriodSpend,
             }
 
+        discount: Optional[Discount]
+        """
+        Details for applying a discount.
+        """
         effective_at: Optional[EffectiveAt]
         """
-        When the apply action will take effect. Defaults to on_reserve if not specified.
+        When the apply action will take effect. If not specified, defaults to on_reserve.
         """
         invoice_discount_rule: Optional[InvoiceDiscountRule]
         """
@@ -137,11 +167,14 @@ class IntentAction(StripeObject):
         """
         Details for applying a spend modifier rule. Only present if type is spend_modifier_rule.
         """
-        type: Literal["invoice_discount_rule", "spend_modifier_rule"]
+        type: Literal[
+            "discount", "invoice_discount_rule", "spend_modifier_rule"
+        ]
         """
         Type of the apply action details.
         """
         _inner_class_types = {
+            "discount": Discount,
             "effective_at": EffectiveAt,
             "invoice_discount_rule": InvoiceDiscountRule,
             "spend_modifier_rule": SpendModifierRule,
@@ -197,7 +230,7 @@ class IntentAction(StripeObject):
                     """
                     Overrides the behavior for license fee components when the action takes effect during the service period.
                     """
-                    type: Literal["license_fee"]
+                    type: Literal["license_fee", "recurring_credit_grant"]
                     """
                     The type of behavior to override.
                     """
@@ -295,7 +328,7 @@ class IntentAction(StripeObject):
                     """
                     Overrides the behavior for license fee components when the action takes effect during the service period.
                     """
-                    type: Literal["license_fee"]
+                    type: Literal["license_fee", "recurring_credit_grant"]
                     """
                     The type of behavior to override.
                     """
@@ -368,7 +401,7 @@ class IntentAction(StripeObject):
 
         effective_at: Optional[EffectiveAt]
         """
-        When the remove action will take effect. Defaults to on_reserve if not specified.
+        When the remove action will take effect. If not specified, defaults to on_reserve.
         """
         invoice_discount_rule: Optional[str]
         """
@@ -424,7 +457,7 @@ class IntentAction(StripeObject):
                     """
                     Overrides the behavior for license fee components when the action takes effect during the service period.
                     """
-                    type: Literal["license_fee"]
+                    type: Literal["license_fee", "recurring_credit_grant"]
                     """
                     The type of behavior to override.
                     """
@@ -479,7 +512,7 @@ class IntentAction(StripeObject):
                 """
                 quantity: Optional[int]
                 """
-                Quantity for this item. If not provided, will default to 1.
+                Quantity for this item. If not provided, defaults to 1.
                 """
 
             description: Optional[str]

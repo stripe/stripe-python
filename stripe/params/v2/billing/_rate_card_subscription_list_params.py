@@ -10,7 +10,7 @@ class RateCardSubscriptionListParams(TypedDict):
     """
     limit: NotRequired[int]
     """
-    The page size limit, if not provided the default is 20.
+    The page size limit. Defaults to 20.
     """
     payer: NotRequired["RateCardSubscriptionListParamsPayer"]
     """

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from decimal import Decimal
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
@@ -67,13 +68,14 @@ class CreditBalanceTransaction(
                 """
                 Unique identifier for the object.
                 """
-                value: str
+                value: Decimal
                 """
                 A positive integer representing the amount.
                 """
                 _inner_class_types = {
                     "custom_pricing_unit_details": CustomPricingUnitDetails,
                 }
+                _field_encodings = {"value": "decimal_string"}
 
             class Monetary(StripeObject):
                 currency: str
@@ -165,13 +167,14 @@ class CreditBalanceTransaction(
                 """
                 Unique identifier for the object.
                 """
-                value: str
+                value: Decimal
                 """
                 A positive integer representing the amount.
                 """
                 _inner_class_types = {
                     "custom_pricing_unit_details": CustomPricingUnitDetails,
                 }
+                _field_encodings = {"value": "decimal_string"}
 
             class Monetary(StripeObject):
                 currency: str

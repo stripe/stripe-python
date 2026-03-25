@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
+from stripe.v2._amount import Amount
 from typing import ClassVar, Optional
 from typing_extensions import Literal
 
@@ -15,53 +16,18 @@ class TransactionEntry(StripeObject):
     )
 
     class BalanceImpact(StripeObject):
-        class Available(StripeObject):
-            currency: str
-            """
-            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            """
-            value: int
-            """
-            A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            """
-
-        class InboundPending(StripeObject):
-            currency: str
-            """
-            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            """
-            value: int
-            """
-            A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            """
-
-        class OutboundPending(StripeObject):
-            currency: str
-            """
-            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            """
-            value: int
-            """
-            A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-            """
-
-        available: Available
+        available: Amount
         """
         Impact to the available balance.
         """
-        inbound_pending: InboundPending
+        inbound_pending: Amount
         """
         Impact to the inbound_pending balance.
         """
-        outbound_pending: OutboundPending
+        outbound_pending: Amount
         """
         Impact to the outbound_pending balance.
         """
-        _inner_class_types = {
-            "available": Available,
-            "inbound_pending": InboundPending,
-            "outbound_pending": OutboundPending,
-        }
 
     class TransactionDetails(StripeObject):
         class Flow(StripeObject):
@@ -141,6 +107,38 @@ class TransactionEntry(StripeObject):
             """
             If applicable, the ID of the Transfer Reversal that created this Transaction.
             """
+            treasury_credit_reversal: Optional[str]
+            """
+            If applicable, the ID of the Treasury CreditReversal that created this Transaction.
+            """
+            treasury_debit_reversal: Optional[str]
+            """
+            If applicable, the ID of the Treasury DebitReversal that created this Transaction.
+            """
+            treasury_inbound_transfer: Optional[str]
+            """
+            If applicable, the ID of the Treasury InboundTransfer that created this Transaction.
+            """
+            treasury_issuing_authorization: Optional[str]
+            """
+            If applicable, the ID of the Treasury IssuingAuthorization that created this Transaction.
+            """
+            treasury_outbound_payment: Optional[str]
+            """
+            If applicable, the ID of the Treasury OutboundPayment that created this Transaction.
+            """
+            treasury_outbound_transfer: Optional[str]
+            """
+            If applicable, the ID of the Treasury OutboundTransfer that created this Transaction.
+            """
+            treasury_received_credit: Optional[str]
+            """
+            If applicable, the ID of the Treasury ReceivedCredit that created this Transaction.
+            """
+            treasury_received_debit: Optional[str]
+            """
+            If applicable, the ID of the Treasury ReceivedDebit that created this Transaction.
+            """
             type: Literal[
                 "adjustment",
                 "application_fee",
@@ -161,6 +159,15 @@ class TransactionEntry(StripeObject):
                 "topup",
                 "transfer",
                 "transfer_reversal",
+                "treasury_credit_reversal",
+                "treasury_debit_reversal",
+                "treasury_inbound_transfer",
+                "treasury_issuing_authorization",
+                "treasury_other",
+                "treasury_outbound_payment",
+                "treasury_outbound_transfer",
+                "treasury_received_credit",
+                "treasury_received_debit",
             ]
             """
             Open Enum. Type of the flow that created the Transaction. The field matching this value will contain the ID of the flow.
@@ -263,6 +270,10 @@ class TransactionEntry(StripeObject):
     transaction_details: TransactionDetails
     """
     Details copied from the transaction that this TransactionEntry belongs to.
+    """
+    treasury_transaction_entry: Optional[str]
+    """
+    The v1 Treasury transaction entry associated with this transaction entry.
     """
     _inner_class_types = {
         "balance_impact": BalanceImpact,

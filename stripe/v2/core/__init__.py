@@ -14,6 +14,12 @@ from importlib import import_module
 if TYPE_CHECKING:
     from stripe.v2.core import accounts as accounts, vault as vault
     from stripe.v2.core._account import Account as Account
+    from stripe.v2.core._account_evaluation import (
+        AccountEvaluation as AccountEvaluation,
+    )
+    from stripe.v2.core._account_evaluation_service import (
+        AccountEvaluationService as AccountEvaluationService,
+    )
     from stripe.v2.core._account_link import AccountLink as AccountLink
     from stripe.v2.core._account_link_service import (
         AccountLinkService as AccountLinkService,
@@ -28,6 +34,10 @@ if TYPE_CHECKING:
     from stripe.v2.core._account_token import AccountToken as AccountToken
     from stripe.v2.core._account_token_service import (
         AccountTokenService as AccountTokenService,
+    )
+    from stripe.v2.core._batch_job import BatchJob as BatchJob
+    from stripe.v2.core._batch_job_service import (
+        BatchJobService as BatchJobService,
     )
     from stripe.v2.core._claimable_sandbox import (
         ClaimableSandbox as ClaimableSandbox,
@@ -56,6 +66,11 @@ _import_map = {
     "accounts": ("stripe.v2.core.accounts", True),
     "vault": ("stripe.v2.core.vault", True),
     "Account": ("stripe.v2.core._account", False),
+    "AccountEvaluation": ("stripe.v2.core._account_evaluation", False),
+    "AccountEvaluationService": (
+        "stripe.v2.core._account_evaluation_service",
+        False,
+    ),
     "AccountLink": ("stripe.v2.core._account_link", False),
     "AccountLinkService": ("stripe.v2.core._account_link_service", False),
     "AccountPerson": ("stripe.v2.core._account_person", False),
@@ -63,6 +78,8 @@ _import_map = {
     "AccountService": ("stripe.v2.core._account_service", False),
     "AccountToken": ("stripe.v2.core._account_token", False),
     "AccountTokenService": ("stripe.v2.core._account_token_service", False),
+    "BatchJob": ("stripe.v2.core._batch_job", False),
+    "BatchJobService": ("stripe.v2.core._batch_job_service", False),
     "ClaimableSandbox": ("stripe.v2.core._claimable_sandbox", False),
     "ClaimableSandboxService": (
         "stripe.v2.core._claimable_sandbox_service",

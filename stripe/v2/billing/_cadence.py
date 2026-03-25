@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from decimal import Decimal
 from stripe._stripe_object import StripeObject
 from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import Literal
@@ -182,11 +183,12 @@ class Cadence(StripeObject):
             """
             The maximum applications configuration for this discount.
             """
-            percent_off: str
+            percent_off: Decimal
             """
             Percent that will be taken off of the amount. For example, percent_off of 50.0 will make $100 amount $50 instead.
             """
             _inner_class_types = {"maximum_applications": MaximumApplications}
+            _field_encodings = {"percent_off": "decimal_string"}
 
         id: str
         """
@@ -359,6 +361,7 @@ class Cadence(StripeObject):
                         """
                         A description of the mandate that is meant to be displayed to the customer.
                         """
+                        _field_encodings = {"amount": "int64_string"}
 
                     mandate_options: Optional[MandateOptions]
                     """

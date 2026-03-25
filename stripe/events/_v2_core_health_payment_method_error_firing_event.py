@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from decimal import Decimal
 from stripe._api_mode import ApiMode
 from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
@@ -47,10 +48,13 @@ class V2CoreHealthPaymentMethodErrorFiringEvent(Event):
                 """
                 The number of impacted requests.
                 """
-                impacted_requests_percentage: Optional[str]
+                impacted_requests_percentage: Optional[Decimal]
                 """
                 The percentage of impacted requests.
                 """
+                _field_encodings = {
+                    "impacted_requests_percentage": "decimal_string",
+                }
 
             error_code: Optional[str]
             """
@@ -60,7 +64,7 @@ class V2CoreHealthPaymentMethodErrorFiringEvent(Event):
             """
             The number of impacted requests.
             """
-            impacted_requests_percentage: Optional[str]
+            impacted_requests_percentage: Optional[Decimal]
             """
             The percentage of impacted requests.
             """
@@ -143,6 +147,9 @@ class V2CoreHealthPaymentMethodErrorFiringEvent(Event):
             The top impacted connected accounts (only for platforms).
             """
             _inner_class_types = {"top_impacted_accounts": TopImpactedAccount}
+            _field_encodings = {
+                "impacted_requests_percentage": "decimal_string",
+            }
 
         alert_id: str
         """

@@ -3,6 +3,7 @@
 from stripe._api_mode import ApiMode
 from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
+from stripe.v2._amount import Amount
 from stripe.v2.core._event import Event, EventNotification
 from typing import Any, Dict, Optional, cast
 from typing_extensions import Literal, TYPE_CHECKING, override
@@ -36,16 +37,6 @@ class V2CoreHealthFraudRateIncreasedEvent(Event):
 
     class V2CoreHealthFraudRateIncreasedEventData(StripeObject):
         class Impact(StripeObject):
-            class RealizedFraudAmount(StripeObject):
-                currency: str
-                """
-                Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-                """
-                value: int
-                """
-                A non-negative integer representing how much to charge in the [smallest currency unit](https://docs.stripe.com/currencies#minor-units).
-                """
-
             attack_type: Literal["spike", "sustained_attack"]
             """
             Fraud attack type.
@@ -54,11 +45,10 @@ class V2CoreHealthFraudRateIncreasedEvent(Event):
             """
             The number of impacted requests which are detected.
             """
-            realized_fraud_amount: RealizedFraudAmount
+            realized_fraud_amount: Amount
             """
             Estimated aggregated amount for the impacted requests.
             """
-            _inner_class_types = {"realized_fraud_amount": RealizedFraudAmount}
 
         alert_id: str
         """
