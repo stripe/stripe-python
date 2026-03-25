@@ -34,3 +34,6 @@ class RedactionJobListParams(RequestOptions):
             "validating",
         ]
     ]
+    """
+    If provided, only RedactionJob objects with the given status will be returned.
+    """

@@ -4616,7 +4616,6 @@ if TYPE_CHECKING:
         SetupIntentConfirmParamsPaymentMethodOptionsPixMandateOptions as SetupIntentConfirmParamsPaymentMethodOptionsPixMandateOptions,
         SetupIntentConfirmParamsPaymentMethodOptionsSepaDebit as SetupIntentConfirmParamsPaymentMethodOptionsSepaDebit,
         SetupIntentConfirmParamsPaymentMethodOptionsSepaDebitMandateOptions as SetupIntentConfirmParamsPaymentMethodOptionsSepaDebitMandateOptions,
-        SetupIntentConfirmParamsPaymentMethodOptionsStripeBalance as SetupIntentConfirmParamsPaymentMethodOptionsStripeBalance,
         SetupIntentConfirmParamsPaymentMethodOptionsUpi as SetupIntentConfirmParamsPaymentMethodOptionsUpi,
         SetupIntentConfirmParamsPaymentMethodOptionsUpiMandateOptions as SetupIntentConfirmParamsPaymentMethodOptionsUpiMandateOptions,
         SetupIntentConfirmParamsPaymentMethodOptionsUsBankAccount as SetupIntentConfirmParamsPaymentMethodOptionsUsBankAccount,
@@ -4722,7 +4721,6 @@ if TYPE_CHECKING:
         SetupIntentCreateParamsPaymentMethodOptionsPixMandateOptions as SetupIntentCreateParamsPaymentMethodOptionsPixMandateOptions,
         SetupIntentCreateParamsPaymentMethodOptionsSepaDebit as SetupIntentCreateParamsPaymentMethodOptionsSepaDebit,
         SetupIntentCreateParamsPaymentMethodOptionsSepaDebitMandateOptions as SetupIntentCreateParamsPaymentMethodOptionsSepaDebitMandateOptions,
-        SetupIntentCreateParamsPaymentMethodOptionsStripeBalance as SetupIntentCreateParamsPaymentMethodOptionsStripeBalance,
         SetupIntentCreateParamsPaymentMethodOptionsUpi as SetupIntentCreateParamsPaymentMethodOptionsUpi,
         SetupIntentCreateParamsPaymentMethodOptionsUpiMandateOptions as SetupIntentCreateParamsPaymentMethodOptionsUpiMandateOptions,
         SetupIntentCreateParamsPaymentMethodOptionsUsBankAccount as SetupIntentCreateParamsPaymentMethodOptionsUsBankAccount,
@@ -4828,7 +4826,6 @@ if TYPE_CHECKING:
         SetupIntentModifyParamsPaymentMethodOptionsPixMandateOptions as SetupIntentModifyParamsPaymentMethodOptionsPixMandateOptions,
         SetupIntentModifyParamsPaymentMethodOptionsSepaDebit as SetupIntentModifyParamsPaymentMethodOptionsSepaDebit,
         SetupIntentModifyParamsPaymentMethodOptionsSepaDebitMandateOptions as SetupIntentModifyParamsPaymentMethodOptionsSepaDebitMandateOptions,
-        SetupIntentModifyParamsPaymentMethodOptionsStripeBalance as SetupIntentModifyParamsPaymentMethodOptionsStripeBalance,
         SetupIntentModifyParamsPaymentMethodOptionsUpi as SetupIntentModifyParamsPaymentMethodOptionsUpi,
         SetupIntentModifyParamsPaymentMethodOptionsUpiMandateOptions as SetupIntentModifyParamsPaymentMethodOptionsUpiMandateOptions,
         SetupIntentModifyParamsPaymentMethodOptionsUsBankAccount as SetupIntentModifyParamsPaymentMethodOptionsUsBankAccount,
@@ -4932,7 +4929,6 @@ if TYPE_CHECKING:
         SetupIntentUpdateParamsPaymentMethodOptionsPixMandateOptions as SetupIntentUpdateParamsPaymentMethodOptionsPixMandateOptions,
         SetupIntentUpdateParamsPaymentMethodOptionsSepaDebit as SetupIntentUpdateParamsPaymentMethodOptionsSepaDebit,
         SetupIntentUpdateParamsPaymentMethodOptionsSepaDebitMandateOptions as SetupIntentUpdateParamsPaymentMethodOptionsSepaDebitMandateOptions,
-        SetupIntentUpdateParamsPaymentMethodOptionsStripeBalance as SetupIntentUpdateParamsPaymentMethodOptionsStripeBalance,
         SetupIntentUpdateParamsPaymentMethodOptionsUpi as SetupIntentUpdateParamsPaymentMethodOptionsUpi,
         SetupIntentUpdateParamsPaymentMethodOptionsUpiMandateOptions as SetupIntentUpdateParamsPaymentMethodOptionsUpiMandateOptions,
         SetupIntentUpdateParamsPaymentMethodOptionsUsBankAccount as SetupIntentUpdateParamsPaymentMethodOptionsUsBankAccount,
@@ -20783,10 +20779,6 @@ _import_map = {
         "stripe.params._setup_intent_confirm_params",
         False,
     ),
-    "SetupIntentConfirmParamsPaymentMethodOptionsStripeBalance": (
-        "stripe.params._setup_intent_confirm_params",
-        False,
-    ),
     "SetupIntentConfirmParamsPaymentMethodOptionsUpi": (
         "stripe.params._setup_intent_confirm_params",
         False,
@@ -21199,10 +21191,6 @@ _import_map = {
         "stripe.params._setup_intent_create_params",
         False,
     ),
-    "SetupIntentCreateParamsPaymentMethodOptionsStripeBalance": (
-        "stripe.params._setup_intent_create_params",
-        False,
-    ),
     "SetupIntentCreateParamsPaymentMethodOptionsUpi": (
         "stripe.params._setup_intent_create_params",
         False,
@@ -21607,10 +21595,6 @@ _import_map = {
         "stripe.params._setup_intent_modify_params",
         False,
     ),
-    "SetupIntentModifyParamsPaymentMethodOptionsStripeBalance": (
-        "stripe.params._setup_intent_modify_params",
-        False,
-    ),
     "SetupIntentModifyParamsPaymentMethodOptionsUpi": (
         "stripe.params._setup_intent_modify_params",
         False,
@@ -22004,10 +21988,6 @@ _import_map = {
         False,
     ),
     "SetupIntentUpdateParamsPaymentMethodOptionsSepaDebitMandateOptions": (
-        "stripe.params._setup_intent_update_params",
-        False,
-    ),
-    "SetupIntentUpdateParamsPaymentMethodOptionsStripeBalance": (
         "stripe.params._setup_intent_update_params",
         False,
     ),
