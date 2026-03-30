@@ -88,7 +88,7 @@ class StripeObject:
             if isinstance(o, datetime.datetime):
                 return _encode_datetime(o)
             if isinstance(o, Decimal):
-                return str(o)
+                return _coerce_decimal_string(o, encode=True)
             return super(StripeObject._ReprJSONEncoder, self).default(o)
 
     _retrieve_params: Mapping[str, Any]
