@@ -1,5 +1,6 @@
 # pyright: strict
 import datetime
+from decimal import Decimal
 import json
 from copy import deepcopy
 from typing_extensions import TYPE_CHECKING, Type, Literal, Self, deprecated
@@ -86,6 +87,8 @@ class StripeObject:
         def default(self, o: Any) -> Any:
             if isinstance(o, datetime.datetime):
                 return _encode_datetime(o)
+            if isinstance(o, Decimal):
+                return str(o)
             return super(StripeObject._ReprJSONEncoder, self).default(o)
 
     _retrieve_params: Mapping[str, Any]

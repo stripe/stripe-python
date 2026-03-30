@@ -1,4 +1,5 @@
 import datetime
+from decimal import Decimal
 import json
 import pickle
 from copy import copy, deepcopy
@@ -257,12 +258,14 @@ class TestStripeObject(object):
 
         obj["object"] = "\u4e00boo\u1f00"
         obj.date = datetime.datetime.fromtimestamp(1511136000)
+        obj.dec = Decimal("1.23")
 
         res = repr(obj)
 
         assert "<StripeObject \u4e00boo\u1f00" in res
         assert "id=foo" in res
         assert '"date": 1511136000' in res
+        assert '"dec": "1.23"' in res
 
     def test_pickling(self):
         obj = StripeObject("foo", "bar", myparam=5)
