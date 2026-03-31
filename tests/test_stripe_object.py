@@ -763,6 +763,34 @@ class TestStripeObject(object):
         assert d == {"id": "x", "items": [{"a": 1}, {"b": 2}]}
         assert not isinstance(d["items"][0], StripeObject)
 
+    def test_to_dict_json_serializable_converts_decimal(self):
+        obj = StripeObject.construct_from(
+            {"amount": Decimal("9.99"), "name": "foo"}, "key"
+        )
+        d = obj.to_dict(for_json=True)
+        assert d == {"amount": "9.99", "name": "foo"}
+        assert isinstance(d["amount"], str)
+
+    def test_to_dict_json_serializable_converts_datetime(self):
+        dt = datetime.datetime(
+            2024, 1, 15, 12, 0, 0, tzinfo=datetime.timezone.utc
+        )
+        obj = StripeObject.construct_from({"created": dt, "id": "x"}, "key")
+        d = obj.to_dict(for_json=True)
+        assert isinstance(d["created"], int)
+
+    def test_to_dict_json_serializable_nested(self):
+        inner = StripeObject.construct_from({"amount": Decimal("1.23")}, "key")
+        obj = StripeObject.construct_from({"child": inner, "id": "x"}, "key")
+        d = obj.to_dict(for_json=True)
+        assert d["child"] == {"amount": "1.23"}
+        assert isinstance(d["child"]["amount"], str)
+
+    def test_to_dict_json_serializable_false_preserves_decimal(self):
+        obj = StripeObject.construct_from({"amount": Decimal("9.99")}, "key")
+        d = obj.to_dict()
+        assert isinstance(d["amount"], Decimal)
+
     def test_update_sets_values(self):
         obj = StripeObject.construct_from({"id": "x", "name": "a"}, "key")
         obj.update({"name": "b", "email": "b@example.com"})

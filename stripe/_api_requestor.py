@@ -38,7 +38,7 @@ import stripe._error as error
 import stripe.oauth_error as oauth_error
 from stripe._multipart_data_generator import MultipartDataGenerator
 from urllib.parse import urlencode
-from stripe._encode import _api_encode, _json_encode_date_callback
+from stripe._encode import _api_encode, _make_suitable_for_json
 from stripe._stripe_response import (
     StripeResponse,
     StripeStreamResponse,
@@ -642,7 +642,7 @@ class _APIRequestor(object):
 
         if api_mode == "V2":
             encoded_body = json.dumps(
-                params or {}, default=_json_encode_date_callback
+                params or {}, default=_make_suitable_for_json
             )
         else:
             encoded_body = encoded_params
