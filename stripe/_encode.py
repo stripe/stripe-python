@@ -15,6 +15,10 @@ def _encode_datetime(dttime: datetime.datetime):
     return int(utc_timestamp)
 
 
+def _encode_decimal(dec) -> str:
+    return str(dec)
+
+
 def _encode_nested_dict(key, data, fmt="%s[%s]"):
     d = OrderedDict()
     items = data._data.items() if hasattr(data, "_data") else data.items()
@@ -23,11 +27,16 @@ def _encode_nested_dict(key, data, fmt="%s[%s]"):
     return d
 
 
-def _json_encode_date_callback(value):
+def _make_suitable_for_json(value: Any) -> Any:
+    """
+    Handles taking arbitrary values and making sure they're JSON encodable.
+
+    Only cares about types that can appear on StripeObject that but are not serializable by default (like Decimal).
+    """
     if isinstance(value, datetime.datetime):
         return _encode_datetime(value)
     if isinstance(value, Decimal):
-        return str(value)
+        return _encode_decimal(value)
     return value
 
 
@@ -102,7 +111,7 @@ def _coerce_decimal_string(value: Any, *, encode: bool) -> Any:
         if isinstance(value, (Decimal, int, float)) and not isinstance(
             value, bool
         ):
-            return str(value)
+            return _encode_decimal(value)
         return value
     else:
         if isinstance(value, str):
