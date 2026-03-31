@@ -532,7 +532,7 @@ class StripeObject:
     ) -> Dict[str, Any]:
         """
         Dump the object's backing data. Recurses by default, but you can opt-out of that behavior by passing `recursive=False`.
-        Pass `plain=True` to convert non-JSON-serializable values (e.g. Decimal -> str)
+        Pass `for_json=True` to convert non-JSON-serializable values (e.g. Decimal -> str)
         """
         if recursive:
             return self._to_dict_recursive(for_json=for_json)
