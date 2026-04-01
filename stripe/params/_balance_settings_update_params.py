@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe._stripe_object import UntypedStripeObject
 from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -34,7 +35,7 @@ class BalanceSettingsUpdateParamsPayments(TypedDict):
 
 class BalanceSettingsUpdateParamsPaymentsPayouts(TypedDict):
     minimum_balance_by_currency: NotRequired[
-        "Literal['']|Dict[str, Union[Literal[''], int]]"
+        "Literal['']|Dict[str, Union[Literal[''], int]]|UntypedStripeObject[Union[Literal[''], int]]"
     ]
     """
     The minimum balance amount to retain per currency after automatic payouts. Only funds that exceed these amounts are paid out. Learn more about the [minimum balances for automatic payouts](https://docs.stripe.com/payouts/minimum-balances-for-automatic-payouts).

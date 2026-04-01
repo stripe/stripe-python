@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._expandable_field import ExpandableField
-from stripe._stripe_object import StripeObject
-from typing import ClassVar, Dict, List, Optional
+from stripe._stripe_object import StripeObject, UntypedStripeObject
+from typing import ClassVar, List, Optional
 from typing_extensions import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -94,7 +94,7 @@ class QuoteLine(StripeObject):
             """
             The discounts applied to the subscription item. Subscription item discounts are applied before subscription discounts. Use `expand[]=discounts` to expand each discount.
             """
-            metadata: Optional[Dict[str, str]]
+            metadata: Optional[UntypedStripeObject[str]]
             """
             Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an item. Metadata on this item will update the underlying subscription item's `metadata` when the phase is entered.
             """
@@ -228,7 +228,7 @@ class QuoteLine(StripeObject):
             """
             The discounts applied to the subscription item. Subscription item discounts are applied before subscription discounts. Use `expand[]=discounts` to expand each discount.
             """
-            metadata: Optional[Dict[str, str]]
+            metadata: Optional[UntypedStripeObject[str]]
             """
             Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an item. Metadata on this item will update the underlying subscription item's `metadata` when the phase is entered.
             """
@@ -262,7 +262,7 @@ class QuoteLine(StripeObject):
         """
         Details for the `add_item` type.
         """
-        add_metadata: Optional[Dict[str, str]]
+        add_metadata: Optional[UntypedStripeObject[str]]
         """
         Details for the `add_metadata` type: specify a hash of key-value pairs.
         """
@@ -286,7 +286,7 @@ class QuoteLine(StripeObject):
         """
         Details for the `set_items` type.
         """
-        set_metadata: Optional[Dict[str, str]]
+        set_metadata: Optional[UntypedStripeObject[str]]
         """
         Details for the `set_metadata` type: specify an array of key-value pairs.
         """

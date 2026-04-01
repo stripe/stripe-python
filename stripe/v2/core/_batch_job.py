@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._stripe_object import StripeObject
-from typing import ClassVar, Dict, Optional
+from stripe._stripe_object import StripeObject, UntypedStripeObject
+from typing import ClassVar, Optional
 from typing_extensions import Literal
 
 
@@ -297,7 +297,7 @@ class BatchJob(StripeObject):
     """
     The maximum rps defined for the `BatchJob`.
     """
-    metadata: Dict[str, str]
+    metadata: UntypedStripeObject[str]
     """
     The metadata of the `BatchJob` object.
     """

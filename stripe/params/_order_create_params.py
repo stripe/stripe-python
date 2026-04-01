@@ -2,6 +2,7 @@
 # File generated from our OpenAPI spec
 from decimal import Decimal
 from stripe._request_options import RequestOptions
+from stripe._stripe_object import UntypedStripeObject
 from typing import Dict, List
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -43,7 +44,7 @@ class OrderCreateParams(RequestOptions):
     """
     A list of line items the customer is ordering. Each line item includes information about the product, the quantity, and the resulting cost.
     """
-    metadata: NotRequired[Dict[str, str]]
+    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
@@ -235,7 +236,9 @@ class OrderCreateParamsLineItemProductData(TypedDict):
     """
     A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
     """
-    metadata: NotRequired["Literal['']|Dict[str, str]"]
+    metadata: NotRequired[
+        "Literal['']|Dict[str, str]|UntypedStripeObject[str]"
+    ]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
@@ -2231,7 +2234,7 @@ class OrderCreateParamsShippingCostShippingRateData(TypedDict):
     """
     Describes a fixed amount to charge for shipping. Must be present if type is `fixed_amount`.
     """
-    metadata: NotRequired[Dict[str, str]]
+    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
@@ -2300,10 +2303,7 @@ class OrderCreateParamsShippingCostShippingRateDataFixedAmount(TypedDict):
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
     currency_options: NotRequired[
-        Dict[
-            str,
-            "OrderCreateParamsShippingCostShippingRateDataFixedAmountCurrencyOptions",
-        ]
+        "Dict[str, OrderCreateParamsShippingCostShippingRateDataFixedAmountCurrencyOptions]|UntypedStripeObject[OrderCreateParamsShippingCostShippingRateDataFixedAmountCurrencyOptions]"
     ]
     """
     Shipping rates defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).

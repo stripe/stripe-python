@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
+from stripe._stripe_object import UntypedStripeObject
 from typing import Dict, List
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -36,7 +37,7 @@ class PromotionCodeCreateParams(RequestOptions):
     """
     A positive integer specifying the number of times the promotion code can be redeemed. If the coupon has specified a `max_redemptions`, then this value cannot be greater than the coupon's `max_redemptions`.
     """
-    metadata: NotRequired[Dict[str, str]]
+    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
@@ -63,7 +64,7 @@ class PromotionCodeCreateParamsPromotion(TypedDict):
 
 class PromotionCodeCreateParamsRestrictions(TypedDict):
     currency_options: NotRequired[
-        Dict[str, "PromotionCodeCreateParamsRestrictionsCurrencyOptions"]
+        "Dict[str, PromotionCodeCreateParamsRestrictionsCurrencyOptions]|UntypedStripeObject[PromotionCodeCreateParamsRestrictionsCurrencyOptions]"
     ]
     """
     Promotion codes defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).

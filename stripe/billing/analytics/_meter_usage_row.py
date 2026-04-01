@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._stripe_object import StripeObject
-from typing import ClassVar, Dict, Optional
+from stripe._stripe_object import StripeObject, UntypedStripeObject
+from typing import ClassVar, Optional
 from typing_extensions import Literal
 
 
@@ -9,7 +9,7 @@ class MeterUsageRow(StripeObject):
     OBJECT_NAME: ClassVar[Literal["billing.analytics.meter_usage_row"]] = (
         "billing.analytics.meter_usage_row"
     )
-    dimensions: Optional[Dict[str, str]]
+    dimensions: Optional[UntypedStripeObject[str]]
     """
     A set of key-value pairs representing the dimensions of the meter usage.
     """
