@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe._stripe_object import DictLikeObject
 from typing import Dict, List
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -33,7 +34,7 @@ class EventDestinationCreateParams(TypedDict):
     """
     Additional fields to include in the response.
     """
-    metadata: NotRequired[Dict[str, str]]
+    metadata: NotRequired["Dict[str, str]|DictLikeObject[str]"]
     """
     Metadata.
     """

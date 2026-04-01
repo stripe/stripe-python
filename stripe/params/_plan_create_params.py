@@ -2,6 +2,7 @@
 # File generated from our OpenAPI spec
 from decimal import Decimal
 from stripe._request_options import RequestOptions
+from stripe._stripe_object import DictLikeObject
 from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -43,7 +44,7 @@ class PlanCreateParams(RequestOptions):
     """
     The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
     """
-    metadata: NotRequired["Literal['']|Dict[str, str]"]
+    metadata: NotRequired["Literal['']|Dict[str, str]|DictLikeObject[str]"]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
@@ -87,7 +88,7 @@ class PlanCreateParamsProduct(TypedDict):
     """
     The identifier for the product. Must be unique. If not provided, an identifier will be randomly generated.
     """
-    metadata: NotRequired[Dict[str, str]]
+    metadata: NotRequired["Dict[str, str]|DictLikeObject[str]"]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """

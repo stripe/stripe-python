@@ -3,8 +3,8 @@
 from decimal import Decimal
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._stripe_object import StripeObject
-from typing import ClassVar, Dict, List, Optional
+from stripe._stripe_object import DictLikeObject, StripeObject
+from typing import ClassVar, List, Optional
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -41,7 +41,7 @@ class Product(ListableAPIResource["Product"]):
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
     """
-    current_prices_per_metric_ton: Dict[str, CurrentPricesPerMetricTon]
+    current_prices_per_metric_ton: DictLikeObject[CurrentPricesPerMetricTon]
     """
     Current prices for a metric ton of carbon removal in a currency's smallest unit.
     """

@@ -2,10 +2,10 @@
 # File generated from our OpenAPI spec
 from decimal import Decimal
 from stripe._expandable_field import ExpandableField
-from stripe._stripe_object import StripeObject
+from stripe._stripe_object import DictLikeObject, StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import sanitize_id
-from typing import ClassVar, Dict, List, Optional, cast
+from typing import ClassVar, List, Optional, cast
 from typing_extensions import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -269,7 +269,7 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
     """
     If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
-    metadata: Dict[str, str]
+    metadata: DictLikeObject[str]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Note that for line items with `type=subscription`, `metadata` reflects the current metadata from the subscription associated with the line item, unless the invoice line was directly updated with different metadata after creation.
     """

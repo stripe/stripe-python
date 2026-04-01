@@ -3,10 +3,10 @@
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._stripe_object import StripeObject
+from stripe._stripe_object import DictLikeObject, StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, Dict, List, Optional, cast, overload
+from typing import ClassVar, List, Optional, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -51,15 +51,15 @@ class FinancialAccount(
     )
 
     class Balance(StripeObject):
-        cash: Dict[str, int]
+        cash: DictLikeObject[int]
         """
         Funds the user can spend right now.
         """
-        inbound_pending: Dict[str, int]
+        inbound_pending: DictLikeObject[int]
         """
         Funds not spendable yet, but will become available at a later time.
         """
-        outbound_pending: Dict[str, int]
+        outbound_pending: DictLikeObject[int]
         """
         Funds in the account, but not spendable because they are being held for pending outbound flows.
         """
@@ -176,7 +176,7 @@ class FinancialAccount(
     """
     If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
-    metadata: Optional[Dict[str, str]]
+    metadata: Optional[DictLikeObject[str]]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """

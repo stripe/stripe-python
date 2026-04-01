@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._createable_api_resource import CreateableAPIResource
-from typing import ClassVar, Dict, cast
+from stripe._stripe_object import DictLikeObject
+from typing import ClassVar, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -38,7 +39,7 @@ class MeterEvent(CreateableAPIResource["MeterEvent"]):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    payload: Dict[str, str]
+    payload: DictLikeObject[str]
     """
     The payload of the event. This contains the fields corresponding to a meter's `customer_mapping.event_payload_key` (default is `stripe_customer_id`) and `value_settings.event_payload_key` (default is `value`). Read more about the [payload](https://docs.stripe.com/billing/subscriptions/usage-based/meters/configure#meter-configuration-attributes).
     """

@@ -2,6 +2,7 @@
 # File generated from our OpenAPI spec
 from decimal import Decimal
 from stripe._request_options import RequestOptions
+from stripe._stripe_object import DictLikeObject
 from typing import Dict, List
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -366,7 +367,7 @@ class InvoiceCreatePreviewParamsInvoiceItem(TypedDict):
     """
     The ID of the invoice item to update in preview. If not specified, a new invoice item will be added to the preview of the upcoming invoice.
     """
-    metadata: NotRequired["Literal['']|Dict[str, str]"]
+    metadata: NotRequired["Literal['']|Dict[str, str]|DictLikeObject[str]"]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
@@ -590,7 +591,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhase(TypedDict):
     """
     List of configuration items, each with an attached price, to apply during this phase of the subscription schedule.
     """
-    metadata: NotRequired[Dict[str, str]]
+    metadata: NotRequired["Dict[str, str]|DictLikeObject[str]"]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to a phase. Metadata on a schedule's phase will update the underlying subscription's `metadata` when the phase is entered, adding new keys and replacing existing keys in the subscription's `metadata`. Individual keys in the subscription's `metadata` can be unset by posting an empty value to them in the phase's `metadata`. To unset all keys in the subscription's `metadata`, update the subscription directly or unset every key individually from the phase's `metadata`.
     """
@@ -633,7 +634,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhaseAddInvoiceItem(TypedDict):
     """
     The coupons to redeem into discounts for the item.
     """
-    metadata: NotRequired[Dict[str, str]]
+    metadata: NotRequired["Dict[str, str]|DictLikeObject[str]"]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
@@ -854,7 +855,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhaseItem(TypedDict):
     """
     The coupons to redeem into discounts for the subscription item.
     """
-    metadata: NotRequired[Dict[str, str]]
+    metadata: NotRequired["Dict[str, str]|DictLikeObject[str]"]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to a configuration item. Metadata on a configuration item will update the underlying subscription item's `metadata` when the phase is entered, adding new keys and replacing existing keys. Individual keys in the subscription item's `metadata` can be unset by posting an empty value to them in the configuration item's `metadata`. To unset all keys in the subscription item's `metadata`, update the subscription item directly or unset every key individually from the configuration item's `metadata`.
     """
@@ -1065,7 +1066,7 @@ class InvoiceCreatePreviewParamsSubscriptionDetailsItem(TypedDict):
     """
     Subscription item to update.
     """
-    metadata: NotRequired["Literal['']|Dict[str, str]"]
+    metadata: NotRequired["Literal['']|Dict[str, str]|DictLikeObject[str]"]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """

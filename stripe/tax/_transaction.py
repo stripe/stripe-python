@@ -2,9 +2,9 @@
 # File generated from our OpenAPI spec
 from stripe._api_resource import APIResource
 from stripe._list_object import ListObject
-from stripe._stripe_object import StripeObject
+from stripe._stripe_object import DictLikeObject, StripeObject
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, Dict, List, Optional, cast, overload
+from typing import ClassVar, List, Optional, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -387,7 +387,7 @@ class Transaction(APIResource["Transaction"]):
     """
     If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
-    metadata: Optional[Dict[str, str]]
+    metadata: Optional[DictLikeObject[str]]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """

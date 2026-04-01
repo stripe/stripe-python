@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe._stripe_object import DictLikeObject
 from typing import Dict, List
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -13,7 +14,7 @@ class CreditGrantUpdateParams(TypedDict):
     """
     The time when the billing credits created by this credit grant expire. If set to empty, the billing credits never expire.
     """
-    metadata: NotRequired[Dict[str, str]]
+    metadata: NotRequired["Dict[str, str]|DictLikeObject[str]"]
     """
     Set of key-value pairs you can attach to an object. You can use this to store additional information about the object (for example, cost basis) in a structured format.
     """

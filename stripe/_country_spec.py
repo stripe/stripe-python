@@ -2,8 +2,8 @@
 # File generated from our OpenAPI spec
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._stripe_object import StripeObject
-from typing import ClassVar, Dict, List
+from stripe._stripe_object import DictLikeObject, StripeObject
+from typing import ClassVar, List
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -62,7 +62,7 @@ class CountrySpec(ListableAPIResource["CountrySpec"]):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    supported_bank_account_currencies: Dict[str, List[str]]
+    supported_bank_account_currencies: DictLikeObject[List[str]]
     """
     Currencies that can be accepted in the specific country (for transfers).
     """

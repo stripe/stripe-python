@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
+from stripe._stripe_object import DictLikeObject
 from typing import Dict, List
 from typing_extensions import NotRequired
 
@@ -14,7 +15,7 @@ class FeatureCreateParams(RequestOptions):
     """
     A unique key you provide as your own system identifier. This may be up to 80 characters.
     """
-    metadata: NotRequired[Dict[str, str]]
+    metadata: NotRequired["Dict[str, str]|DictLikeObject[str]"]
     """
     Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """

@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._singleton_api_resource import SingletonAPIResource
-from stripe._stripe_object import StripeObject
+from stripe._stripe_object import DictLikeObject, StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
-from typing import ClassVar, Dict, List, Optional, cast
+from typing import ClassVar, List, Optional, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -53,7 +53,7 @@ class BalanceSettings(
                 The days of the week when available funds are paid out, specified as an array, for example, [`monday`, `tuesday`]. Only shown if `interval` is weekly.
                 """
 
-            minimum_balance_by_currency: Optional[Dict[str, int]]
+            minimum_balance_by_currency: Optional[DictLikeObject[int]]
             """
             The minimum balance amount to retain per currency after automatic payouts. Only funds that exceed these amounts are paid out. Learn more about the [minimum balances for automatic payouts](https://docs.stripe.com/payouts/minimum-balances-for-automatic-payouts).
             """

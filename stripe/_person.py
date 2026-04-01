@@ -2,10 +2,10 @@
 # File generated from our OpenAPI spec
 import stripe
 from stripe._expandable_field import ExpandableField
-from stripe._stripe_object import StripeObject
+from stripe._stripe_object import DictLikeObject, StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import sanitize_id
-from typing import ClassVar, Dict, List, Optional
+from typing import ClassVar, List, Optional
 from typing_extensions import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -719,7 +719,7 @@ class Person(UpdateableAPIResource["Person"]):
     """
     The person's maiden name.
     """
-    metadata: Optional[Dict[str, str]]
+    metadata: Optional[DictLikeObject[str]]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
