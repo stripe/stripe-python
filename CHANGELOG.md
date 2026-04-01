@@ -1,5 +1,8 @@
 # Changelog
 
+## 15.1.0b2 - 2026-04-01
+* Please refer to the changelog for [v15.0.1](https://github.com/stripe/stripe-python/blob/v15.0.1/CHANGELOG.md#1501---2026-04-01)
+
 ## 15.1.0b1 - 2026-03-25
 
 This release changes the pinned API version to `2026-03-25.preview`. It is built on top of SDK version 15.0.0 which contains breaking changes. Please review the [changelog for 15.0.0](https://github.com/stripe/stripe-python/blob/master/CHANGELOG.md#1500---2026-03-25) if upgrading from older SDK versions.
