@@ -5,10 +5,10 @@ from stripe._customer import Customer
 from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._error import InvalidRequestError
 from stripe._expandable_field import ExpandableField
-from stripe._stripe_object import StripeObject
+from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, Dict, List, Optional, Union, cast, overload
+from typing import ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -144,7 +144,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     """
     The last four digits of the card.
     """
-    metadata: Optional[Dict[str, str]]
+    metadata: Optional[UntypedStripeObject[str]]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """

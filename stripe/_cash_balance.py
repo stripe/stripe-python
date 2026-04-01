@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._customer import Customer
-from stripe._stripe_object import StripeObject
+from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._util import sanitize_id
-from typing import ClassVar, Dict, Optional
+from typing import ClassVar, Optional
 from typing_extensions import Literal
 
 
@@ -24,7 +24,7 @@ class CashBalance(StripeObject):
         A flag to indicate if reconciliation mode returned is the user's default or is specific to this customer cash balance
         """
 
-    available: Optional[Dict[str, int]]
+    available: Optional[UntypedStripeObject[int]]
     """
     A hash of all cash balances available to this customer. You cannot delete a customer with any cash balances, even if the balance is 0. Amounts are represented in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
     """
