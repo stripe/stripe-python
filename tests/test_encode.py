@@ -108,9 +108,7 @@ class TestApiEncode:
     def test_encode_mixed_nested_list_value(self):
         """Test that lists with mixed element types (dicts and nested lists) encode correctly."""
         result = list(
-            _api_encode(
-                {"items": [{"foo": "bar", "baz": "qux"}, [3, 4]]}
-            )
+            _api_encode({"items": [{"foo": "bar", "baz": "qux"}, [3, 4]]})
         )
         assert result == [
             ("items[0][foo]", "bar"),
