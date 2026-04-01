@@ -115,12 +115,66 @@ class PaymentRecordReportPaymentParamsFailed(TypedDict):
     """
     The failure code for this payment attempt. Must be one of `payment_method_customer_decline` or `payment_method_provider_unknown_outcome`.
     """
+    processor_details: NotRequired[
+        "PaymentRecordReportPaymentParamsFailedProcessorDetails"
+    ]
+    """
+    Processor information for this payment.
+    """
+
+
+class PaymentRecordReportPaymentParamsFailedProcessorDetails(TypedDict):
+    custom: NotRequired[
+        "PaymentRecordReportPaymentParamsFailedProcessorDetailsCustom"
+    ]
+    """
+    Information about the custom processor used to make this payment.
+    """
+    type: Literal["custom"]
+    """
+    The type of the processor details. An additional hash is included on processor_details with a name matching this value. It contains additional information specific to the processor.
+    """
+
+
+class PaymentRecordReportPaymentParamsFailedProcessorDetailsCustom(TypedDict):
+    payment_reference: str
+    """
+    An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
+    """
 
 
 class PaymentRecordReportPaymentParamsGuaranteed(TypedDict):
     guaranteed_at: int
     """
     When the reported payment was guaranteed. Measured in seconds since the Unix epoch.
+    """
+    processor_details: NotRequired[
+        "PaymentRecordReportPaymentParamsGuaranteedProcessorDetails"
+    ]
+    """
+    Processor information for this payment.
+    """
+
+
+class PaymentRecordReportPaymentParamsGuaranteedProcessorDetails(TypedDict):
+    custom: NotRequired[
+        "PaymentRecordReportPaymentParamsGuaranteedProcessorDetailsCustom"
+    ]
+    """
+    Information about the custom processor used to make this payment.
+    """
+    type: Literal["custom"]
+    """
+    The type of the processor details. An additional hash is included on processor_details with a name matching this value. It contains additional information specific to the processor.
+    """
+
+
+class PaymentRecordReportPaymentParamsGuaranteedProcessorDetailsCustom(
+    TypedDict,
+):
+    payment_reference: str
+    """
+    An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
     """
 
 

@@ -95,20 +95,6 @@ class SubscriptionSchedule(
             Controls which subscription items the billing schedule applies to.
             """
 
-        class BillFrom(StripeObject):
-            computed_timestamp: int
-            """
-            The time the billing schedule applies from.
-            """
-            timestamp: Optional[int]
-            """
-            Use a precise Unix timestamp for prebilling to start. Must be earlier than `bill_until`.
-            """
-            type: Literal["timestamp"]
-            """
-            Describes how the billing schedule determines the start date. Possible values are `timestamp`.
-            """
-
         class BillUntil(StripeObject):
             class Duration(StripeObject):
                 interval: Literal["day", "month", "week", "year"]
@@ -142,10 +128,6 @@ class SubscriptionSchedule(
         """
         Specifies which subscription items the billing schedule applies to.
         """
-        bill_from: Optional[BillFrom]
-        """
-        Specifies the start of the billing period.
-        """
         bill_until: BillUntil
         """
         Specifies the end of billing period.
@@ -154,11 +136,7 @@ class SubscriptionSchedule(
         """
         Unique identifier for the billing schedule.
         """
-        _inner_class_types = {
-            "applies_to": AppliesTo,
-            "bill_from": BillFrom,
-            "bill_until": BillUntil,
-        }
+        _inner_class_types = {"applies_to": AppliesTo, "bill_until": BillUntil}
 
     class CurrentPhase(StripeObject):
         end_date: int

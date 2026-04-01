@@ -166,20 +166,6 @@ class Subscription(
             Controls which subscription items the billing schedule applies to.
             """
 
-        class BillFrom(StripeObject):
-            computed_timestamp: int
-            """
-            The time the billing schedule applies from.
-            """
-            timestamp: Optional[int]
-            """
-            Use a precise Unix timestamp for prebilling to start. Must be earlier than `bill_until`.
-            """
-            type: Literal["timestamp"]
-            """
-            Describes how the billing schedule determines the start date. Possible values are `timestamp`.
-            """
-
         class BillUntil(StripeObject):
             class Duration(StripeObject):
                 interval: Literal["day", "month", "week", "year"]
@@ -213,10 +199,6 @@ class Subscription(
         """
         Specifies which subscription items the billing schedule applies to.
         """
-        bill_from: Optional[BillFrom]
-        """
-        Specifies the start of the billing period.
-        """
         bill_until: BillUntil
         """
         Specifies the end of billing period.
@@ -225,11 +207,7 @@ class Subscription(
         """
         Unique identifier for the billing schedule.
         """
-        _inner_class_types = {
-            "applies_to": AppliesTo,
-            "bill_from": BillFrom,
-            "bill_until": BillUntil,
-        }
+        _inner_class_types = {"applies_to": AppliesTo, "bill_until": BillUntil}
 
     class BillingThresholds(StripeObject):
         amount_gte: Optional[int]
@@ -399,6 +377,20 @@ class Subscription(
                 We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
                 """
                 _inner_class_types = {"mandate_options": MandateOptions}
+
+            class CheckScan(StripeObject):
+                class CheckDepositAddress(StripeObject):
+                    city: Optional[str]
+                    country: Optional[str]
+                    line1: Optional[str]
+                    line2: Optional[str]
+                    postal_code: Optional[str]
+                    state: Optional[str]
+
+                check_deposit_address: Optional[CheckDepositAddress]
+                _inner_class_types = {
+                    "check_deposit_address": CheckDepositAddress,
+                }
 
             class CustomerBalance(StripeObject):
                 class BankTransfer(StripeObject):
@@ -585,6 +577,10 @@ class Subscription(
             """
             This sub-hash contains details about the Card payment method options to pass to invoices created by the subscription.
             """
+            check_scan: Optional[CheckScan]
+            """
+            This sub-hash contains details about the Check Scan payment method options to pass to invoices created by the subscription.
+            """
             customer_balance: Optional[CustomerBalance]
             """
             This sub-hash contains details about the Bank transfer payment method options to pass to invoices created by the subscription.
@@ -621,6 +617,7 @@ class Subscription(
                 "acss_debit": AcssDebit,
                 "bancontact": Bancontact,
                 "card": Card,
+                "check_scan": CheckScan,
                 "customer_balance": CustomerBalance,
                 "id_bank_transfer": IdBankTransfer,
                 "konbini": Konbini,
@@ -649,6 +646,7 @@ class Subscription(
                     "boleto",
                     "card",
                     "cashapp",
+                    "check_scan",
                     "crypto",
                     "custom",
                     "customer_balance",

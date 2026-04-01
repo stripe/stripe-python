@@ -636,6 +636,12 @@ class PaymentIntentCreateParamsPaymentDetails(TypedDict):
     """
     Subscription details for this PaymentIntent
     """
+    money_services: NotRequired[
+        "Literal['']|PaymentIntentCreateParamsPaymentDetailsMoneyServices"
+    ]
+    """
+    Money services details for this PaymentIntent.
+    """
 
 
 class PaymentIntentCreateParamsPaymentDetailsBenefit(TypedDict):
@@ -2397,6 +2403,25 @@ class PaymentIntentCreateParamsPaymentDetailsSubscriptionBillingInterval(
     """
 
 
+class PaymentIntentCreateParamsPaymentDetailsMoneyServices(TypedDict):
+    account_funding: NotRequired[
+        "Literal['']|PaymentIntentCreateParamsPaymentDetailsMoneyServicesAccountFunding"
+    ]
+    """
+    Account funding transaction details including sender and beneficiary information.
+    """
+    transaction_type: NotRequired[Literal["account_funding"]]
+    """
+    The type of money services transaction.
+    """
+
+
+class PaymentIntentCreateParamsPaymentDetailsMoneyServicesAccountFunding(
+    TypedDict,
+):
+    pass
+
+
 class PaymentIntentCreateParamsPaymentMethodData(TypedDict):
     acss_debit: NotRequired[
         "PaymentIntentCreateParamsPaymentMethodDataAcssDebit"
@@ -4116,6 +4141,12 @@ class PaymentIntentCreateParamsPaymentMethodOptionsCard(TypedDict):
     If 3D Secure authentication was performed with a third-party provider,
     the authentication details to use for this payment.
     """
+    payment_details: NotRequired[
+        "PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetails"
+    ]
+    """
+    Payment details for payment method specific funding fields.
+    """
 
 
 class PaymentIntentCreateParamsPaymentMethodOptionsCardInstallments(TypedDict):
@@ -4318,6 +4349,34 @@ class PaymentIntentCreateParamsPaymentMethodOptionsCardThreeDSecureNetworkOption
     """
 
 
+class PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetails(
+    TypedDict,
+):
+    money_services: NotRequired[
+        "PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices"
+    ]
+    """
+    Money services details for payment method specific funding fields.
+    """
+
+
+class PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices(
+    TypedDict,
+):
+    account_funding: NotRequired[
+        "PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding"
+    ]
+    """
+    Payment method specific account funding transaction details.
+    """
+
+
+class PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding(
+    TypedDict,
+):
+    pass
+
+
 class PaymentIntentCreateParamsPaymentMethodOptionsCardPresent(TypedDict):
     capture_method: NotRequired[Literal["manual", "manual_preferred"]]
     """
@@ -4345,6 +4404,12 @@ class PaymentIntentCreateParamsPaymentMethodOptionsCardPresent(TypedDict):
     """
     Network routing priority on co-branded EMV cards supporting domestic debit and international card schemes.
     """
+    payment_details: NotRequired[
+        "PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetails"
+    ]
+    """
+    Payment details for payment method specific funding transaction fields.
+    """
 
 
 class PaymentIntentCreateParamsPaymentMethodOptionsCardPresentRouting(
@@ -4354,6 +4419,34 @@ class PaymentIntentCreateParamsPaymentMethodOptionsCardPresentRouting(
     """
     Routing requested priority
     """
+
+
+class PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetails(
+    TypedDict,
+):
+    money_services: NotRequired[
+        "PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices"
+    ]
+    """
+    Money services details for payment method specific funding fields.
+    """
+
+
+class PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices(
+    TypedDict,
+):
+    account_funding: NotRequired[
+        "PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding"
+    ]
+    """
+    Payment method specific account funding transaction details.
+    """
+
+
+class PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding(
+    TypedDict,
+):
+    pass
 
 
 class PaymentIntentCreateParamsPaymentMethodOptionsCashapp(TypedDict):
@@ -6529,6 +6622,12 @@ class PaymentIntentCreateParamsPaymentMethodOptionsSofort(TypedDict):
 
 
 class PaymentIntentCreateParamsPaymentMethodOptionsStripeBalance(TypedDict):
+    mandate_options: NotRequired[
+        "PaymentIntentCreateParamsPaymentMethodOptionsStripeBalanceMandateOptions"
+    ]
+    """
+    Additional fields for mandate creation.
+    """
     setup_future_usage: NotRequired[
         "Literal['']|Literal['none', 'off_session']"
     ]
@@ -6542,12 +6641,6 @@ class PaymentIntentCreateParamsPaymentMethodOptionsStripeBalance(TypedDict):
     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
 
     If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
-    """
-    mandate_options: NotRequired[
-        "PaymentIntentCreateParamsPaymentMethodOptionsStripeBalanceMandateOptions"
-    ]
-    """
-    Additional fields for mandate creation.
     """
 
 

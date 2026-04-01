@@ -334,6 +334,10 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.shared_payment._granted_token",
         "GrantedToken",
     ),
+    "shared_payment.issued_token": (
+        "stripe.shared_payment._issued_token",
+        "IssuedToken",
+    ),
     "shipping_rate": ("stripe._shipping_rate", "ShippingRate"),
     "scheduled_query_run": (
         "stripe.sigma._scheduled_query_run",

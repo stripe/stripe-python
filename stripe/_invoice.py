@@ -863,6 +863,20 @@ class Invoice(
                 """
                 _inner_class_types = {"installments": Installments}
 
+            class CheckScan(StripeObject):
+                class CheckDepositAddress(StripeObject):
+                    city: Optional[str]
+                    country: Optional[str]
+                    line1: Optional[str]
+                    line2: Optional[str]
+                    postal_code: Optional[str]
+                    state: Optional[str]
+
+                check_deposit_address: Optional[CheckDepositAddress]
+                _inner_class_types = {
+                    "check_deposit_address": CheckDepositAddress,
+                }
+
             class CustomerBalance(StripeObject):
                 class BankTransfer(StripeObject):
                     class EuBankTransfer(StripeObject):
@@ -1024,6 +1038,10 @@ class Invoice(
             """
             If paying by `card`, this sub-hash contains details about the Card payment method options to pass to the invoice's PaymentIntent.
             """
+            check_scan: Optional[CheckScan]
+            """
+            If paying by `check_scan`, this sub-hash contains details about the Check Scan payment method options to pass to the invoice's PaymentIntent.
+            """
             customer_balance: Optional[CustomerBalance]
             """
             If paying by `customer_balance`, this sub-hash contains details about the Bank transfer payment method options to pass to the invoice's PaymentIntent.
@@ -1060,6 +1078,7 @@ class Invoice(
                 "acss_debit": AcssDebit,
                 "bancontact": Bancontact,
                 "card": Card,
+                "check_scan": CheckScan,
                 "customer_balance": CustomerBalance,
                 "id_bank_transfer": IdBankTransfer,
                 "konbini": Konbini,
@@ -1092,6 +1111,7 @@ class Invoice(
                     "boleto",
                     "card",
                     "cashapp",
+                    "check_scan",
                     "crypto",
                     "custom",
                     "customer_balance",

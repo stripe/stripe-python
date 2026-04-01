@@ -8,10 +8,6 @@ if TYPE_CHECKING:
         RequestedSessionConfirmParams as RequestedSessionConfirmParams,
         RequestedSessionConfirmParamsAffiliateAttribution as RequestedSessionConfirmParamsAffiliateAttribution,
         RequestedSessionConfirmParamsAffiliateAttributionSource as RequestedSessionConfirmParamsAffiliateAttributionSource,
-        RequestedSessionConfirmParamsPaymentMethodData as RequestedSessionConfirmParamsPaymentMethodData,
-        RequestedSessionConfirmParamsPaymentMethodDataBillingDetails as RequestedSessionConfirmParamsPaymentMethodDataBillingDetails,
-        RequestedSessionConfirmParamsPaymentMethodDataBillingDetailsAddress as RequestedSessionConfirmParamsPaymentMethodDataBillingDetailsAddress,
-        RequestedSessionConfirmParamsPaymentMethodDataCard as RequestedSessionConfirmParamsPaymentMethodDataCard,
         RequestedSessionConfirmParamsRiskDetails as RequestedSessionConfirmParamsRiskDetails,
         RequestedSessionConfirmParamsRiskDetailsClientDeviceMetadataDetails as RequestedSessionConfirmParamsRiskDetailsClientDeviceMetadataDetails,
     )
@@ -22,10 +18,8 @@ if TYPE_CHECKING:
         RequestedSessionCreateParamsFulfillmentDetails as RequestedSessionCreateParamsFulfillmentDetails,
         RequestedSessionCreateParamsFulfillmentDetailsAddress as RequestedSessionCreateParamsFulfillmentDetailsAddress,
         RequestedSessionCreateParamsLineItemDetail as RequestedSessionCreateParamsLineItemDetail,
-        RequestedSessionCreateParamsPaymentMethodData as RequestedSessionCreateParamsPaymentMethodData,
-        RequestedSessionCreateParamsPaymentMethodDataBillingDetails as RequestedSessionCreateParamsPaymentMethodDataBillingDetails,
-        RequestedSessionCreateParamsPaymentMethodDataBillingDetailsAddress as RequestedSessionCreateParamsPaymentMethodDataBillingDetailsAddress,
-        RequestedSessionCreateParamsPaymentMethodDataCard as RequestedSessionCreateParamsPaymentMethodDataCard,
+        RequestedSessionCreateParamsPaymentMethodOptions as RequestedSessionCreateParamsPaymentMethodOptions,
+        RequestedSessionCreateParamsPaymentMethodOptionsCard as RequestedSessionCreateParamsPaymentMethodOptionsCard,
         RequestedSessionCreateParamsSellerDetails as RequestedSessionCreateParamsSellerDetails,
     )
     from stripe.params.delegated_checkout._requested_session_expire_params import (
@@ -42,10 +36,8 @@ if TYPE_CHECKING:
         RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOptionOverrideShipping as RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOptionOverrideShipping,
         RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOptionShipping as RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOptionShipping,
         RequestedSessionModifyParamsLineItemDetail as RequestedSessionModifyParamsLineItemDetail,
-        RequestedSessionModifyParamsPaymentMethodData as RequestedSessionModifyParamsPaymentMethodData,
-        RequestedSessionModifyParamsPaymentMethodDataBillingDetails as RequestedSessionModifyParamsPaymentMethodDataBillingDetails,
-        RequestedSessionModifyParamsPaymentMethodDataBillingDetailsAddress as RequestedSessionModifyParamsPaymentMethodDataBillingDetailsAddress,
-        RequestedSessionModifyParamsPaymentMethodDataCard as RequestedSessionModifyParamsPaymentMethodDataCard,
+        RequestedSessionModifyParamsPaymentMethodOptions as RequestedSessionModifyParamsPaymentMethodOptions,
+        RequestedSessionModifyParamsPaymentMethodOptionsCard as RequestedSessionModifyParamsPaymentMethodOptionsCard,
     )
     from stripe.params.delegated_checkout._requested_session_retrieve_params import (
         RequestedSessionRetrieveParams as RequestedSessionRetrieveParams,
@@ -61,10 +53,8 @@ if TYPE_CHECKING:
         RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOptionOverrideShipping as RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOptionOverrideShipping,
         RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOptionShipping as RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOptionShipping,
         RequestedSessionUpdateParamsLineItemDetail as RequestedSessionUpdateParamsLineItemDetail,
-        RequestedSessionUpdateParamsPaymentMethodData as RequestedSessionUpdateParamsPaymentMethodData,
-        RequestedSessionUpdateParamsPaymentMethodDataBillingDetails as RequestedSessionUpdateParamsPaymentMethodDataBillingDetails,
-        RequestedSessionUpdateParamsPaymentMethodDataBillingDetailsAddress as RequestedSessionUpdateParamsPaymentMethodDataBillingDetailsAddress,
-        RequestedSessionUpdateParamsPaymentMethodDataCard as RequestedSessionUpdateParamsPaymentMethodDataCard,
+        RequestedSessionUpdateParamsPaymentMethodOptions as RequestedSessionUpdateParamsPaymentMethodOptions,
+        RequestedSessionUpdateParamsPaymentMethodOptionsCard as RequestedSessionUpdateParamsPaymentMethodOptionsCard,
     )
 
 # name -> (import_target, is_submodule)
@@ -78,22 +68,6 @@ _import_map = {
         False,
     ),
     "RequestedSessionConfirmParamsAffiliateAttributionSource": (
-        "stripe.params.delegated_checkout._requested_session_confirm_params",
-        False,
-    ),
-    "RequestedSessionConfirmParamsPaymentMethodData": (
-        "stripe.params.delegated_checkout._requested_session_confirm_params",
-        False,
-    ),
-    "RequestedSessionConfirmParamsPaymentMethodDataBillingDetails": (
-        "stripe.params.delegated_checkout._requested_session_confirm_params",
-        False,
-    ),
-    "RequestedSessionConfirmParamsPaymentMethodDataBillingDetailsAddress": (
-        "stripe.params.delegated_checkout._requested_session_confirm_params",
-        False,
-    ),
-    "RequestedSessionConfirmParamsPaymentMethodDataCard": (
         "stripe.params.delegated_checkout._requested_session_confirm_params",
         False,
     ),
@@ -129,19 +103,11 @@ _import_map = {
         "stripe.params.delegated_checkout._requested_session_create_params",
         False,
     ),
-    "RequestedSessionCreateParamsPaymentMethodData": (
+    "RequestedSessionCreateParamsPaymentMethodOptions": (
         "stripe.params.delegated_checkout._requested_session_create_params",
         False,
     ),
-    "RequestedSessionCreateParamsPaymentMethodDataBillingDetails": (
-        "stripe.params.delegated_checkout._requested_session_create_params",
-        False,
-    ),
-    "RequestedSessionCreateParamsPaymentMethodDataBillingDetailsAddress": (
-        "stripe.params.delegated_checkout._requested_session_create_params",
-        False,
-    ),
-    "RequestedSessionCreateParamsPaymentMethodDataCard": (
+    "RequestedSessionCreateParamsPaymentMethodOptionsCard": (
         "stripe.params.delegated_checkout._requested_session_create_params",
         False,
     ),
@@ -193,19 +159,11 @@ _import_map = {
         "stripe.params.delegated_checkout._requested_session_modify_params",
         False,
     ),
-    "RequestedSessionModifyParamsPaymentMethodData": (
+    "RequestedSessionModifyParamsPaymentMethodOptions": (
         "stripe.params.delegated_checkout._requested_session_modify_params",
         False,
     ),
-    "RequestedSessionModifyParamsPaymentMethodDataBillingDetails": (
-        "stripe.params.delegated_checkout._requested_session_modify_params",
-        False,
-    ),
-    "RequestedSessionModifyParamsPaymentMethodDataBillingDetailsAddress": (
-        "stripe.params.delegated_checkout._requested_session_modify_params",
-        False,
-    ),
-    "RequestedSessionModifyParamsPaymentMethodDataCard": (
+    "RequestedSessionModifyParamsPaymentMethodOptionsCard": (
         "stripe.params.delegated_checkout._requested_session_modify_params",
         False,
     ),
@@ -253,19 +211,11 @@ _import_map = {
         "stripe.params.delegated_checkout._requested_session_update_params",
         False,
     ),
-    "RequestedSessionUpdateParamsPaymentMethodData": (
+    "RequestedSessionUpdateParamsPaymentMethodOptions": (
         "stripe.params.delegated_checkout._requested_session_update_params",
         False,
     ),
-    "RequestedSessionUpdateParamsPaymentMethodDataBillingDetails": (
-        "stripe.params.delegated_checkout._requested_session_update_params",
-        False,
-    ),
-    "RequestedSessionUpdateParamsPaymentMethodDataBillingDetailsAddress": (
-        "stripe.params.delegated_checkout._requested_session_update_params",
-        False,
-    ),
-    "RequestedSessionUpdateParamsPaymentMethodDataCard": (
+    "RequestedSessionUpdateParamsPaymentMethodOptionsCard": (
         "stripe.params.delegated_checkout._requested_session_update_params",
         False,
     ),

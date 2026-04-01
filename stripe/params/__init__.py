@@ -779,6 +779,8 @@ if TYPE_CHECKING:
         ChargeCaptureParamsPaymentDetailsLodgingDelivery as ChargeCaptureParamsPaymentDetailsLodgingDelivery,
         ChargeCaptureParamsPaymentDetailsLodgingDeliveryRecipient as ChargeCaptureParamsPaymentDetailsLodgingDeliveryRecipient,
         ChargeCaptureParamsPaymentDetailsLodgingPassenger as ChargeCaptureParamsPaymentDetailsLodgingPassenger,
+        ChargeCaptureParamsPaymentDetailsMoneyServices as ChargeCaptureParamsPaymentDetailsMoneyServices,
+        ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFunding as ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFunding,
         ChargeCaptureParamsPaymentDetailsSubscription as ChargeCaptureParamsPaymentDetailsSubscription,
         ChargeCaptureParamsPaymentDetailsSubscriptionAffiliate as ChargeCaptureParamsPaymentDetailsSubscriptionAffiliate,
         ChargeCaptureParamsPaymentDetailsSubscriptionBillingInterval as ChargeCaptureParamsPaymentDetailsSubscriptionBillingInterval,
@@ -868,6 +870,8 @@ if TYPE_CHECKING:
         ChargeModifyParamsPaymentDetailsLodgingDelivery as ChargeModifyParamsPaymentDetailsLodgingDelivery,
         ChargeModifyParamsPaymentDetailsLodgingDeliveryRecipient as ChargeModifyParamsPaymentDetailsLodgingDeliveryRecipient,
         ChargeModifyParamsPaymentDetailsLodgingPassenger as ChargeModifyParamsPaymentDetailsLodgingPassenger,
+        ChargeModifyParamsPaymentDetailsMoneyServices as ChargeModifyParamsPaymentDetailsMoneyServices,
+        ChargeModifyParamsPaymentDetailsMoneyServicesAccountFunding as ChargeModifyParamsPaymentDetailsMoneyServicesAccountFunding,
         ChargeModifyParamsPaymentDetailsSubscription as ChargeModifyParamsPaymentDetailsSubscription,
         ChargeModifyParamsPaymentDetailsSubscriptionAffiliate as ChargeModifyParamsPaymentDetailsSubscriptionAffiliate,
         ChargeModifyParamsPaymentDetailsSubscriptionBillingInterval as ChargeModifyParamsPaymentDetailsSubscriptionBillingInterval,
@@ -952,6 +956,8 @@ if TYPE_CHECKING:
         ChargeUpdateParamsPaymentDetailsLodgingDelivery as ChargeUpdateParamsPaymentDetailsLodgingDelivery,
         ChargeUpdateParamsPaymentDetailsLodgingDeliveryRecipient as ChargeUpdateParamsPaymentDetailsLodgingDeliveryRecipient,
         ChargeUpdateParamsPaymentDetailsLodgingPassenger as ChargeUpdateParamsPaymentDetailsLodgingPassenger,
+        ChargeUpdateParamsPaymentDetailsMoneyServices as ChargeUpdateParamsPaymentDetailsMoneyServices,
+        ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFunding as ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFunding,
         ChargeUpdateParamsPaymentDetailsSubscription as ChargeUpdateParamsPaymentDetailsSubscription,
         ChargeUpdateParamsPaymentDetailsSubscriptionAffiliate as ChargeUpdateParamsPaymentDetailsSubscriptionAffiliate,
         ChargeUpdateParamsPaymentDetailsSubscriptionBillingInterval as ChargeUpdateParamsPaymentDetailsSubscriptionBillingInterval,
@@ -1488,6 +1494,8 @@ if TYPE_CHECKING:
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCard as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCard,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCardInstallments as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCardInstallments,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCardInstallmentsPlan as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCardInstallmentsPlan,
+        InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCheckScan as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCheckScan,
+        InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
@@ -1740,6 +1748,8 @@ if TYPE_CHECKING:
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCard as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCard,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCardInstallments as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCardInstallments,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCardInstallmentsPlan as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCardInstallmentsPlan,
+        InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCheckScan as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCheckScan,
+        InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalance as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalance,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
@@ -1835,6 +1845,8 @@ if TYPE_CHECKING:
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCard as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCard,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCardInstallments as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCardInstallments,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCardInstallmentsPlan as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCardInstallmentsPlan,
+        InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCheckScan as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCheckScan,
+        InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
@@ -2167,9 +2179,13 @@ if TYPE_CHECKING:
     )
     from stripe.params._payment_attempt_record_report_failed_params import (
         PaymentAttemptRecordReportFailedParams as PaymentAttemptRecordReportFailedParams,
+        PaymentAttemptRecordReportFailedParamsProcessorDetails as PaymentAttemptRecordReportFailedParamsProcessorDetails,
+        PaymentAttemptRecordReportFailedParamsProcessorDetailsCustom as PaymentAttemptRecordReportFailedParamsProcessorDetailsCustom,
     )
     from stripe.params._payment_attempt_record_report_guaranteed_params import (
         PaymentAttemptRecordReportGuaranteedParams as PaymentAttemptRecordReportGuaranteedParams,
+        PaymentAttemptRecordReportGuaranteedParamsProcessorDetails as PaymentAttemptRecordReportGuaranteedParamsProcessorDetails,
+        PaymentAttemptRecordReportGuaranteedParamsProcessorDetailsCustom as PaymentAttemptRecordReportGuaranteedParamsProcessorDetailsCustom,
     )
     from stripe.params._payment_attempt_record_report_informational_params import (
         PaymentAttemptRecordReportInformationalParams as PaymentAttemptRecordReportInformationalParams,
@@ -2278,6 +2294,8 @@ if TYPE_CHECKING:
         PaymentIntentCaptureParamsPaymentDetailsLodgingDelivery as PaymentIntentCaptureParamsPaymentDetailsLodgingDelivery,
         PaymentIntentCaptureParamsPaymentDetailsLodgingDeliveryRecipient as PaymentIntentCaptureParamsPaymentDetailsLodgingDeliveryRecipient,
         PaymentIntentCaptureParamsPaymentDetailsLodgingPassenger as PaymentIntentCaptureParamsPaymentDetailsLodgingPassenger,
+        PaymentIntentCaptureParamsPaymentDetailsMoneyServices as PaymentIntentCaptureParamsPaymentDetailsMoneyServices,
+        PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFunding as PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFunding,
         PaymentIntentCaptureParamsPaymentDetailsSubscription as PaymentIntentCaptureParamsPaymentDetailsSubscription,
         PaymentIntentCaptureParamsPaymentDetailsSubscriptionAffiliate as PaymentIntentCaptureParamsPaymentDetailsSubscriptionAffiliate,
         PaymentIntentCaptureParamsPaymentDetailsSubscriptionBillingInterval as PaymentIntentCaptureParamsPaymentDetailsSubscriptionBillingInterval,
@@ -2372,6 +2390,8 @@ if TYPE_CHECKING:
         PaymentIntentConfirmParamsPaymentDetailsLodgingDelivery as PaymentIntentConfirmParamsPaymentDetailsLodgingDelivery,
         PaymentIntentConfirmParamsPaymentDetailsLodgingDeliveryRecipient as PaymentIntentConfirmParamsPaymentDetailsLodgingDeliveryRecipient,
         PaymentIntentConfirmParamsPaymentDetailsLodgingPassenger as PaymentIntentConfirmParamsPaymentDetailsLodgingPassenger,
+        PaymentIntentConfirmParamsPaymentDetailsMoneyServices as PaymentIntentConfirmParamsPaymentDetailsMoneyServices,
+        PaymentIntentConfirmParamsPaymentDetailsMoneyServicesAccountFunding as PaymentIntentConfirmParamsPaymentDetailsMoneyServicesAccountFunding,
         PaymentIntentConfirmParamsPaymentDetailsSubscription as PaymentIntentConfirmParamsPaymentDetailsSubscription,
         PaymentIntentConfirmParamsPaymentDetailsSubscriptionAffiliate as PaymentIntentConfirmParamsPaymentDetailsSubscriptionAffiliate,
         PaymentIntentConfirmParamsPaymentDetailsSubscriptionBillingInterval as PaymentIntentConfirmParamsPaymentDetailsSubscriptionBillingInterval,
@@ -2459,7 +2479,13 @@ if TYPE_CHECKING:
         PaymentIntentConfirmParamsPaymentMethodOptionsCardInstallments as PaymentIntentConfirmParamsPaymentMethodOptionsCardInstallments,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardInstallmentsPlan as PaymentIntentConfirmParamsPaymentMethodOptionsCardInstallmentsPlan,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardMandateOptions as PaymentIntentConfirmParamsPaymentMethodOptionsCardMandateOptions,
+        PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetails as PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetails,
+        PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices as PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices,
+        PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding as PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardPresent as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresent,
+        PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetails as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetails,
+        PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices,
+        PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentRouting as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentRouting,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardStatementDetails as PaymentIntentConfirmParamsPaymentMethodOptionsCardStatementDetails,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardStatementDetailsAddress as PaymentIntentConfirmParamsPaymentMethodOptionsCardStatementDetailsAddress,
@@ -2660,6 +2686,8 @@ if TYPE_CHECKING:
         PaymentIntentCreateParamsPaymentDetailsLodgingDelivery as PaymentIntentCreateParamsPaymentDetailsLodgingDelivery,
         PaymentIntentCreateParamsPaymentDetailsLodgingDeliveryRecipient as PaymentIntentCreateParamsPaymentDetailsLodgingDeliveryRecipient,
         PaymentIntentCreateParamsPaymentDetailsLodgingPassenger as PaymentIntentCreateParamsPaymentDetailsLodgingPassenger,
+        PaymentIntentCreateParamsPaymentDetailsMoneyServices as PaymentIntentCreateParamsPaymentDetailsMoneyServices,
+        PaymentIntentCreateParamsPaymentDetailsMoneyServicesAccountFunding as PaymentIntentCreateParamsPaymentDetailsMoneyServicesAccountFunding,
         PaymentIntentCreateParamsPaymentDetailsSubscription as PaymentIntentCreateParamsPaymentDetailsSubscription,
         PaymentIntentCreateParamsPaymentDetailsSubscriptionAffiliate as PaymentIntentCreateParamsPaymentDetailsSubscriptionAffiliate,
         PaymentIntentCreateParamsPaymentDetailsSubscriptionBillingInterval as PaymentIntentCreateParamsPaymentDetailsSubscriptionBillingInterval,
@@ -2747,7 +2775,13 @@ if TYPE_CHECKING:
         PaymentIntentCreateParamsPaymentMethodOptionsCardInstallments as PaymentIntentCreateParamsPaymentMethodOptionsCardInstallments,
         PaymentIntentCreateParamsPaymentMethodOptionsCardInstallmentsPlan as PaymentIntentCreateParamsPaymentMethodOptionsCardInstallmentsPlan,
         PaymentIntentCreateParamsPaymentMethodOptionsCardMandateOptions as PaymentIntentCreateParamsPaymentMethodOptionsCardMandateOptions,
+        PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetails as PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetails,
+        PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices as PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices,
+        PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding as PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding,
         PaymentIntentCreateParamsPaymentMethodOptionsCardPresent as PaymentIntentCreateParamsPaymentMethodOptionsCardPresent,
+        PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetails as PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetails,
+        PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices as PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices,
+        PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding as PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding,
         PaymentIntentCreateParamsPaymentMethodOptionsCardPresentRouting as PaymentIntentCreateParamsPaymentMethodOptionsCardPresentRouting,
         PaymentIntentCreateParamsPaymentMethodOptionsCardStatementDetails as PaymentIntentCreateParamsPaymentMethodOptionsCardStatementDetails,
         PaymentIntentCreateParamsPaymentMethodOptionsCardStatementDetailsAddress as PaymentIntentCreateParamsPaymentMethodOptionsCardStatementDetailsAddress,
@@ -2995,6 +3029,8 @@ if TYPE_CHECKING:
         PaymentIntentModifyParamsPaymentDetailsLodgingDelivery as PaymentIntentModifyParamsPaymentDetailsLodgingDelivery,
         PaymentIntentModifyParamsPaymentDetailsLodgingDeliveryRecipient as PaymentIntentModifyParamsPaymentDetailsLodgingDeliveryRecipient,
         PaymentIntentModifyParamsPaymentDetailsLodgingPassenger as PaymentIntentModifyParamsPaymentDetailsLodgingPassenger,
+        PaymentIntentModifyParamsPaymentDetailsMoneyServices as PaymentIntentModifyParamsPaymentDetailsMoneyServices,
+        PaymentIntentModifyParamsPaymentDetailsMoneyServicesAccountFunding as PaymentIntentModifyParamsPaymentDetailsMoneyServicesAccountFunding,
         PaymentIntentModifyParamsPaymentDetailsSubscription as PaymentIntentModifyParamsPaymentDetailsSubscription,
         PaymentIntentModifyParamsPaymentDetailsSubscriptionAffiliate as PaymentIntentModifyParamsPaymentDetailsSubscriptionAffiliate,
         PaymentIntentModifyParamsPaymentDetailsSubscriptionBillingInterval as PaymentIntentModifyParamsPaymentDetailsSubscriptionBillingInterval,
@@ -3082,7 +3118,13 @@ if TYPE_CHECKING:
         PaymentIntentModifyParamsPaymentMethodOptionsCardInstallments as PaymentIntentModifyParamsPaymentMethodOptionsCardInstallments,
         PaymentIntentModifyParamsPaymentMethodOptionsCardInstallmentsPlan as PaymentIntentModifyParamsPaymentMethodOptionsCardInstallmentsPlan,
         PaymentIntentModifyParamsPaymentMethodOptionsCardMandateOptions as PaymentIntentModifyParamsPaymentMethodOptionsCardMandateOptions,
+        PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetails as PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetails,
+        PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices as PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices,
+        PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding as PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding,
         PaymentIntentModifyParamsPaymentMethodOptionsCardPresent as PaymentIntentModifyParamsPaymentMethodOptionsCardPresent,
+        PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetails as PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetails,
+        PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices as PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices,
+        PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding as PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding,
         PaymentIntentModifyParamsPaymentMethodOptionsCardPresentRouting as PaymentIntentModifyParamsPaymentMethodOptionsCardPresentRouting,
         PaymentIntentModifyParamsPaymentMethodOptionsCardStatementDetails as PaymentIntentModifyParamsPaymentMethodOptionsCardStatementDetails,
         PaymentIntentModifyParamsPaymentMethodOptionsCardStatementDetailsAddress as PaymentIntentModifyParamsPaymentMethodOptionsCardStatementDetailsAddress,
@@ -3297,6 +3339,8 @@ if TYPE_CHECKING:
         PaymentIntentUpdateParamsPaymentDetailsLodgingDelivery as PaymentIntentUpdateParamsPaymentDetailsLodgingDelivery,
         PaymentIntentUpdateParamsPaymentDetailsLodgingDeliveryRecipient as PaymentIntentUpdateParamsPaymentDetailsLodgingDeliveryRecipient,
         PaymentIntentUpdateParamsPaymentDetailsLodgingPassenger as PaymentIntentUpdateParamsPaymentDetailsLodgingPassenger,
+        PaymentIntentUpdateParamsPaymentDetailsMoneyServices as PaymentIntentUpdateParamsPaymentDetailsMoneyServices,
+        PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFunding as PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFunding,
         PaymentIntentUpdateParamsPaymentDetailsSubscription as PaymentIntentUpdateParamsPaymentDetailsSubscription,
         PaymentIntentUpdateParamsPaymentDetailsSubscriptionAffiliate as PaymentIntentUpdateParamsPaymentDetailsSubscriptionAffiliate,
         PaymentIntentUpdateParamsPaymentDetailsSubscriptionBillingInterval as PaymentIntentUpdateParamsPaymentDetailsSubscriptionBillingInterval,
@@ -3384,7 +3428,13 @@ if TYPE_CHECKING:
         PaymentIntentUpdateParamsPaymentMethodOptionsCardInstallments as PaymentIntentUpdateParamsPaymentMethodOptionsCardInstallments,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardInstallmentsPlan as PaymentIntentUpdateParamsPaymentMethodOptionsCardInstallmentsPlan,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardMandateOptions as PaymentIntentUpdateParamsPaymentMethodOptionsCardMandateOptions,
+        PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetails as PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetails,
+        PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices as PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices,
+        PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding as PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardPresent as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresent,
+        PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetails as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetails,
+        PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices,
+        PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentRouting as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentRouting,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardStatementDetails as PaymentIntentUpdateParamsPaymentMethodOptionsCardStatementDetails,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardStatementDetailsAddress as PaymentIntentUpdateParamsPaymentMethodOptionsCardStatementDetailsAddress,
@@ -4160,9 +4210,13 @@ if TYPE_CHECKING:
     )
     from stripe.params._payment_record_report_payment_attempt_failed_params import (
         PaymentRecordReportPaymentAttemptFailedParams as PaymentRecordReportPaymentAttemptFailedParams,
+        PaymentRecordReportPaymentAttemptFailedParamsProcessorDetails as PaymentRecordReportPaymentAttemptFailedParamsProcessorDetails,
+        PaymentRecordReportPaymentAttemptFailedParamsProcessorDetailsCustom as PaymentRecordReportPaymentAttemptFailedParamsProcessorDetailsCustom,
     )
     from stripe.params._payment_record_report_payment_attempt_guaranteed_params import (
         PaymentRecordReportPaymentAttemptGuaranteedParams as PaymentRecordReportPaymentAttemptGuaranteedParams,
+        PaymentRecordReportPaymentAttemptGuaranteedParamsProcessorDetails as PaymentRecordReportPaymentAttemptGuaranteedParamsProcessorDetails,
+        PaymentRecordReportPaymentAttemptGuaranteedParamsProcessorDetailsCustom as PaymentRecordReportPaymentAttemptGuaranteedParamsProcessorDetailsCustom,
     )
     from stripe.params._payment_record_report_payment_attempt_informational_params import (
         PaymentRecordReportPaymentAttemptInformationalParams as PaymentRecordReportPaymentAttemptInformationalParams,
@@ -4173,7 +4227,11 @@ if TYPE_CHECKING:
     from stripe.params._payment_record_report_payment_attempt_params import (
         PaymentRecordReportPaymentAttemptParams as PaymentRecordReportPaymentAttemptParams,
         PaymentRecordReportPaymentAttemptParamsFailed as PaymentRecordReportPaymentAttemptParamsFailed,
+        PaymentRecordReportPaymentAttemptParamsFailedProcessorDetails as PaymentRecordReportPaymentAttemptParamsFailedProcessorDetails,
+        PaymentRecordReportPaymentAttemptParamsFailedProcessorDetailsCustom as PaymentRecordReportPaymentAttemptParamsFailedProcessorDetailsCustom,
         PaymentRecordReportPaymentAttemptParamsGuaranteed as PaymentRecordReportPaymentAttemptParamsGuaranteed,
+        PaymentRecordReportPaymentAttemptParamsGuaranteedProcessorDetails as PaymentRecordReportPaymentAttemptParamsGuaranteedProcessorDetails,
+        PaymentRecordReportPaymentAttemptParamsGuaranteedProcessorDetailsCustom as PaymentRecordReportPaymentAttemptParamsGuaranteedProcessorDetailsCustom,
         PaymentRecordReportPaymentAttemptParamsPaymentMethodDetails as PaymentRecordReportPaymentAttemptParamsPaymentMethodDetails,
         PaymentRecordReportPaymentAttemptParamsPaymentMethodDetailsBillingDetails as PaymentRecordReportPaymentAttemptParamsPaymentMethodDetailsBillingDetails,
         PaymentRecordReportPaymentAttemptParamsPaymentMethodDetailsBillingDetailsAddress as PaymentRecordReportPaymentAttemptParamsPaymentMethodDetailsBillingDetailsAddress,
@@ -4186,7 +4244,11 @@ if TYPE_CHECKING:
         PaymentRecordReportPaymentParamsAmountRequested as PaymentRecordReportPaymentParamsAmountRequested,
         PaymentRecordReportPaymentParamsCustomerDetails as PaymentRecordReportPaymentParamsCustomerDetails,
         PaymentRecordReportPaymentParamsFailed as PaymentRecordReportPaymentParamsFailed,
+        PaymentRecordReportPaymentParamsFailedProcessorDetails as PaymentRecordReportPaymentParamsFailedProcessorDetails,
+        PaymentRecordReportPaymentParamsFailedProcessorDetailsCustom as PaymentRecordReportPaymentParamsFailedProcessorDetailsCustom,
         PaymentRecordReportPaymentParamsGuaranteed as PaymentRecordReportPaymentParamsGuaranteed,
+        PaymentRecordReportPaymentParamsGuaranteedProcessorDetails as PaymentRecordReportPaymentParamsGuaranteedProcessorDetails,
+        PaymentRecordReportPaymentParamsGuaranteedProcessorDetailsCustom as PaymentRecordReportPaymentParamsGuaranteedProcessorDetailsCustom,
         PaymentRecordReportPaymentParamsPaymentMethodDetails as PaymentRecordReportPaymentParamsPaymentMethodDetails,
         PaymentRecordReportPaymentParamsPaymentMethodDetailsBillingDetails as PaymentRecordReportPaymentParamsPaymentMethodDetailsBillingDetails,
         PaymentRecordReportPaymentParamsPaymentMethodDetailsBillingDetailsAddress as PaymentRecordReportPaymentParamsPaymentMethodDetailsBillingDetailsAddress,
@@ -5314,6 +5376,8 @@ if TYPE_CHECKING:
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBancontact as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBancontact,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCard as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCard,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCardMandateOptions as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCardMandateOptions,
+        SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCheckScan as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCheckScan,
+        SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
@@ -5444,6 +5508,8 @@ if TYPE_CHECKING:
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBancontact as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBancontact,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCard as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCard,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCardMandateOptions as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCardMandateOptions,
+        SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCheckScan as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCheckScan,
+        SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalance as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalance,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
@@ -5749,6 +5815,8 @@ if TYPE_CHECKING:
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBancontact as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBancontact,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCard as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCard,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCardMandateOptions as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCardMandateOptions,
+        SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCheckScan as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCheckScan,
+        SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
@@ -8375,6 +8443,14 @@ _import_map = {
         "stripe.params._charge_capture_params",
         False,
     ),
+    "ChargeCaptureParamsPaymentDetailsMoneyServices": (
+        "stripe.params._charge_capture_params",
+        False,
+    ),
+    "ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFunding": (
+        "stripe.params._charge_capture_params",
+        False,
+    ),
     "ChargeCaptureParamsPaymentDetailsSubscription": (
         "stripe.params._charge_capture_params",
         False,
@@ -8687,6 +8763,14 @@ _import_map = {
         "stripe.params._charge_modify_params",
         False,
     ),
+    "ChargeModifyParamsPaymentDetailsMoneyServices": (
+        "stripe.params._charge_modify_params",
+        False,
+    ),
+    "ChargeModifyParamsPaymentDetailsMoneyServicesAccountFunding": (
+        "stripe.params._charge_modify_params",
+        False,
+    ),
     "ChargeModifyParamsPaymentDetailsSubscription": (
         "stripe.params._charge_modify_params",
         False,
@@ -8979,6 +9063,14 @@ _import_map = {
         False,
     ),
     "ChargeUpdateParamsPaymentDetailsLodgingPassenger": (
+        "stripe.params._charge_update_params",
+        False,
+    ),
+    "ChargeUpdateParamsPaymentDetailsMoneyServices": (
+        "stripe.params._charge_update_params",
+        False,
+    ),
+    "ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFunding": (
         "stripe.params._charge_update_params",
         False,
     ),
@@ -10165,6 +10257,14 @@ _import_map = {
         "stripe.params._invoice_create_params",
         False,
     ),
+    "InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCheckScan": (
+        "stripe.params._invoice_create_params",
+        False,
+    ),
+    "InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress": (
+        "stripe.params._invoice_create_params",
+        False,
+    ),
     "InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance": (
         "stripe.params._invoice_create_params",
         False,
@@ -11030,6 +11130,14 @@ _import_map = {
         "stripe.params._invoice_modify_params",
         False,
     ),
+    "InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCheckScan": (
+        "stripe.params._invoice_modify_params",
+        False,
+    ),
+    "InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress": (
+        "stripe.params._invoice_modify_params",
+        False,
+    ),
     "InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalance": (
         "stripe.params._invoice_modify_params",
         False,
@@ -11291,6 +11399,14 @@ _import_map = {
         False,
     ),
     "InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCardInstallmentsPlan": (
+        "stripe.params._invoice_update_params",
+        False,
+    ),
+    "InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCheckScan": (
+        "stripe.params._invoice_update_params",
+        False,
+    ),
+    "InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress": (
         "stripe.params._invoice_update_params",
         False,
     ),
@@ -12412,7 +12528,23 @@ _import_map = {
         "stripe.params._payment_attempt_record_report_failed_params",
         False,
     ),
+    "PaymentAttemptRecordReportFailedParamsProcessorDetails": (
+        "stripe.params._payment_attempt_record_report_failed_params",
+        False,
+    ),
+    "PaymentAttemptRecordReportFailedParamsProcessorDetailsCustom": (
+        "stripe.params._payment_attempt_record_report_failed_params",
+        False,
+    ),
     "PaymentAttemptRecordReportGuaranteedParams": (
+        "stripe.params._payment_attempt_record_report_guaranteed_params",
+        False,
+    ),
+    "PaymentAttemptRecordReportGuaranteedParamsProcessorDetails": (
+        "stripe.params._payment_attempt_record_report_guaranteed_params",
+        False,
+    ),
+    "PaymentAttemptRecordReportGuaranteedParamsProcessorDetailsCustom": (
         "stripe.params._payment_attempt_record_report_guaranteed_params",
         False,
     ),
@@ -12792,6 +12924,14 @@ _import_map = {
         "stripe.params._payment_intent_capture_params",
         False,
     ),
+    "PaymentIntentCaptureParamsPaymentDetailsMoneyServices": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
+    "PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFunding": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
     "PaymentIntentCaptureParamsPaymentDetailsSubscription": (
         "stripe.params._payment_intent_capture_params",
         False,
@@ -13160,6 +13300,14 @@ _import_map = {
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
+    "PaymentIntentConfirmParamsPaymentDetailsMoneyServices": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentDetailsMoneyServicesAccountFunding": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
     "PaymentIntentConfirmParamsPaymentDetailsSubscription": (
         "stripe.params._payment_intent_confirm_params",
         False,
@@ -13508,7 +13656,31 @@ _import_map = {
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetails": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
     "PaymentIntentConfirmParamsPaymentMethodOptionsCardPresent": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetails": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding": (
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
@@ -14304,6 +14476,14 @@ _import_map = {
         "stripe.params._payment_intent_create_params",
         False,
     ),
+    "PaymentIntentCreateParamsPaymentDetailsMoneyServices": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentDetailsMoneyServicesAccountFunding": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
     "PaymentIntentCreateParamsPaymentDetailsSubscription": (
         "stripe.params._payment_intent_create_params",
         False,
@@ -14652,7 +14832,31 @@ _import_map = {
         "stripe.params._payment_intent_create_params",
         False,
     ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetails": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
     "PaymentIntentCreateParamsPaymentMethodOptionsCardPresent": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetails": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding": (
         "stripe.params._payment_intent_create_params",
         False,
     ),
@@ -15604,6 +15808,14 @@ _import_map = {
         "stripe.params._payment_intent_modify_params",
         False,
     ),
+    "PaymentIntentModifyParamsPaymentDetailsMoneyServices": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentDetailsMoneyServicesAccountFunding": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
     "PaymentIntentModifyParamsPaymentDetailsSubscription": (
         "stripe.params._payment_intent_modify_params",
         False,
@@ -15952,7 +16164,31 @@ _import_map = {
         "stripe.params._payment_intent_modify_params",
         False,
     ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetails": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
     "PaymentIntentModifyParamsPaymentMethodOptionsCardPresent": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetails": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding": (
         "stripe.params._payment_intent_modify_params",
         False,
     ),
@@ -16764,6 +17000,14 @@ _import_map = {
         "stripe.params._payment_intent_update_params",
         False,
     ),
+    "PaymentIntentUpdateParamsPaymentDetailsMoneyServices": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFunding": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
     "PaymentIntentUpdateParamsPaymentDetailsSubscription": (
         "stripe.params._payment_intent_update_params",
         False,
@@ -17112,7 +17356,31 @@ _import_map = {
         "stripe.params._payment_intent_update_params",
         False,
     ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetails": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
     "PaymentIntentUpdateParamsPaymentMethodOptionsCardPresent": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetails": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding": (
         "stripe.params._payment_intent_update_params",
         False,
     ),
@@ -19984,7 +20252,23 @@ _import_map = {
         "stripe.params._payment_record_report_payment_attempt_failed_params",
         False,
     ),
+    "PaymentRecordReportPaymentAttemptFailedParamsProcessorDetails": (
+        "stripe.params._payment_record_report_payment_attempt_failed_params",
+        False,
+    ),
+    "PaymentRecordReportPaymentAttemptFailedParamsProcessorDetailsCustom": (
+        "stripe.params._payment_record_report_payment_attempt_failed_params",
+        False,
+    ),
     "PaymentRecordReportPaymentAttemptGuaranteedParams": (
+        "stripe.params._payment_record_report_payment_attempt_guaranteed_params",
+        False,
+    ),
+    "PaymentRecordReportPaymentAttemptGuaranteedParamsProcessorDetails": (
+        "stripe.params._payment_record_report_payment_attempt_guaranteed_params",
+        False,
+    ),
+    "PaymentRecordReportPaymentAttemptGuaranteedParamsProcessorDetailsCustom": (
         "stripe.params._payment_record_report_payment_attempt_guaranteed_params",
         False,
     ),
@@ -20012,7 +20296,23 @@ _import_map = {
         "stripe.params._payment_record_report_payment_attempt_params",
         False,
     ),
+    "PaymentRecordReportPaymentAttemptParamsFailedProcessorDetails": (
+        "stripe.params._payment_record_report_payment_attempt_params",
+        False,
+    ),
+    "PaymentRecordReportPaymentAttemptParamsFailedProcessorDetailsCustom": (
+        "stripe.params._payment_record_report_payment_attempt_params",
+        False,
+    ),
     "PaymentRecordReportPaymentAttemptParamsGuaranteed": (
+        "stripe.params._payment_record_report_payment_attempt_params",
+        False,
+    ),
+    "PaymentRecordReportPaymentAttemptParamsGuaranteedProcessorDetails": (
+        "stripe.params._payment_record_report_payment_attempt_params",
+        False,
+    ),
+    "PaymentRecordReportPaymentAttemptParamsGuaranteedProcessorDetailsCustom": (
         "stripe.params._payment_record_report_payment_attempt_params",
         False,
     ),
@@ -20056,7 +20356,23 @@ _import_map = {
         "stripe.params._payment_record_report_payment_params",
         False,
     ),
+    "PaymentRecordReportPaymentParamsFailedProcessorDetails": (
+        "stripe.params._payment_record_report_payment_params",
+        False,
+    ),
+    "PaymentRecordReportPaymentParamsFailedProcessorDetailsCustom": (
+        "stripe.params._payment_record_report_payment_params",
+        False,
+    ),
     "PaymentRecordReportPaymentParamsGuaranteed": (
+        "stripe.params._payment_record_report_payment_params",
+        False,
+    ),
+    "PaymentRecordReportPaymentParamsGuaranteedProcessorDetails": (
+        "stripe.params._payment_record_report_payment_params",
+        False,
+    ),
+    "PaymentRecordReportPaymentParamsGuaranteedProcessorDetailsCustom": (
         "stripe.params._payment_record_report_payment_params",
         False,
     ),
@@ -23545,6 +23861,14 @@ _import_map = {
         "stripe.params._subscription_create_params",
         False,
     ),
+    "SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCheckScan": (
+        "stripe.params._subscription_create_params",
+        False,
+    ),
+    "SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress": (
+        "stripe.params._subscription_create_params",
+        False,
+    ),
     "SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance": (
         "stripe.params._subscription_create_params",
         False,
@@ -23982,6 +24306,14 @@ _import_map = {
         False,
     ),
     "SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCardMandateOptions": (
+        "stripe.params._subscription_modify_params",
+        False,
+    ),
+    "SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCheckScan": (
+        "stripe.params._subscription_modify_params",
+        False,
+    ),
+    "SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress": (
         "stripe.params._subscription_modify_params",
         False,
     ),
@@ -25098,6 +25430,14 @@ _import_map = {
         False,
     ),
     "SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCardMandateOptions": (
+        "stripe.params._subscription_update_params",
+        False,
+    ),
+    "SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCheckScan": (
+        "stripe.params._subscription_update_params",
+        False,
+    ),
+    "SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress": (
         "stripe.params._subscription_update_params",
         False,
     ),
