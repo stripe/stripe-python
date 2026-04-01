@@ -61,10 +61,22 @@ class Coupon(
     class ServicePeriod(StripeObject):
         class Iterations(StripeObject):
             count: Optional[int]
+            """
+            The number of iterations the service period will repeat for. Only used when type is `count`.
+            """
             type: Literal["count", "forever"]
+            """
+            The type of iterations.
+            """
 
         interval: str
+        """
+        Specifies coupon frequency. Either `day`, `week`, `month` or `year`.
+        """
         interval_count: int
+        """
+        The number of intervals for which the coupon will be applied.
+        """
         iterations: Iterations
         _inner_class_types = {"iterations": Iterations}
 

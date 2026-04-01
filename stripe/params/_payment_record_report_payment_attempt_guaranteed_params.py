@@ -3,7 +3,7 @@
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
 from typing import Dict, List
-from typing_extensions import Literal, NotRequired
+from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class PaymentRecordReportPaymentAttemptGuaranteedParams(RequestOptions):
@@ -20,4 +20,34 @@ class PaymentRecordReportPaymentAttemptGuaranteedParams(RequestOptions):
     ]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    """
+    processor_details: NotRequired[
+        "PaymentRecordReportPaymentAttemptGuaranteedParamsProcessorDetails"
+    ]
+    """
+    Processor information for this payment.
+    """
+
+
+class PaymentRecordReportPaymentAttemptGuaranteedParamsProcessorDetails(
+    TypedDict,
+):
+    custom: NotRequired[
+        "PaymentRecordReportPaymentAttemptGuaranteedParamsProcessorDetailsCustom"
+    ]
+    """
+    Information about the custom processor used to make this payment.
+    """
+    type: Literal["custom"]
+    """
+    The type of the processor details. An additional hash is included on processor_details with a name matching this value. It contains additional information specific to the processor.
+    """
+
+
+class PaymentRecordReportPaymentAttemptGuaranteedParamsProcessorDetailsCustom(
+    TypedDict,
+):
+    payment_reference: str
+    """
+    An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
     """

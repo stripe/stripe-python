@@ -25,6 +25,7 @@ if TYPE_CHECKING:
     from stripe.params.delegated_checkout._requested_session_retrieve_params import (
         RequestedSessionRetrieveParams,
     )
+    from stripe.shared_payment._issued_token import IssuedToken
 
 
 class RequestedSession(
@@ -395,6 +396,39 @@ class RequestedSession(
         The URL to the order status.
         """
 
+    class PaymentMethodOptions(StripeObject):
+        class Card(StripeObject):
+            brands_blocked: Optional[
+                List[Literal["american_express", "mastercard", "visa"]]
+            ]
+            """
+            The card brands blocked by the agent.
+            """
+
+        card: Optional[Card]
+        """
+        Card-specific payment method options.
+        """
+        displayable_card_brands: Optional[
+            List[Literal["american_express", "mastercard", "visa"]]
+        ]
+        """
+        The computed displayable card brands.
+        """
+        displayable_payment_method_types: Optional[
+            List[Literal["affirm", "card", "klarna"]]
+        ]
+        """
+        The computed displayable payment method types.
+        """
+        excluded_payment_method_types: Optional[
+            List[Literal["affirm", "card", "klarna"]]
+        ]
+        """
+        The payment method types excluded by the agent.
+        """
+        _inner_class_types = {"card": Card}
+
     class PaymentMethodPreview(StripeObject):
         class BillingDetails(StripeObject):
             class Address(StripeObject):
@@ -504,6 +538,12 @@ class RequestedSession(
         class MarketplaceSellerDetails(StripeObject):
             pass
 
+        card_brands: Optional[
+            List[Literal["american_express", "mastercard", "visa"]]
+        ]
+        """
+        The card brands supported by the seller.
+        """
         marketplace_seller_details: Optional[MarketplaceSellerDetails]
         """
         The marketplace seller details.
@@ -511,6 +551,12 @@ class RequestedSession(
         network_profile: ExpandableField["Profile"]
         """
         The network profile of the seller.
+        """
+        payment_method_types: Optional[
+            List[Literal["affirm", "card", "klarna"]]
+        ]
+        """
+        The payment method types supported by the seller.
         """
         privacy_notice_url: Optional[str]
         """
@@ -629,6 +675,10 @@ class RequestedSession(
     """
     The payment method used for the requested session.
     """
+    payment_method_options: Optional[PaymentMethodOptions]
+    """
+    The payment method options for this requested session.
+    """
     payment_method_preview: Optional[PaymentMethodPreview]
     """
     The preview of the payment method to be created when the requested session is confirmed.
@@ -646,7 +696,7 @@ class RequestedSession(
     """
     The metadata shared with the seller.
     """
-    shared_payment_issued_token: Optional[str]
+    shared_payment_issued_token: Optional[ExpandableField["IssuedToken"]]
     """
     The SPT used for payment.
     """
@@ -985,6 +1035,7 @@ class RequestedSession(
         "fulfillment_details": FulfillmentDetails,
         "line_item_details": LineItemDetail,
         "order_details": OrderDetails,
+        "payment_method_options": PaymentMethodOptions,
         "payment_method_preview": PaymentMethodPreview,
         "risk_details": RiskDetails,
         "seller_details": SellerDetails,

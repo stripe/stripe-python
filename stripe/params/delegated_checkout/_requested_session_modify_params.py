@@ -33,17 +33,17 @@ class RequestedSessionModifyParams(RequestOptions):
     """
     The payment method for this requested session.
     """
-    payment_method_data: NotRequired[
-        "Literal['']|RequestedSessionModifyParamsPaymentMethodData"
-    ]
-    """
-    The payment method data for this requested session.
-    """
     shared_metadata: NotRequired[
         "Literal['']|Dict[str, str]|UntypedStripeObject[str]"
     ]
     """
     The shared metadata for this requested session.
+    """
+    payment_method_options: NotRequired[
+        "RequestedSessionModifyParamsPaymentMethodOptions"
+    ]
+    """
+    The payment method options for this requested session.
     """
 
 
@@ -202,87 +202,23 @@ class RequestedSessionModifyParamsLineItemDetail(TypedDict):
     """
 
 
-class RequestedSessionModifyParamsPaymentMethodData(TypedDict):
-    billing_details: NotRequired[
-        "RequestedSessionModifyParamsPaymentMethodDataBillingDetails"
+class RequestedSessionModifyParamsPaymentMethodOptions(TypedDict):
+    card: NotRequired["RequestedSessionModifyParamsPaymentMethodOptionsCard"]
+    """
+    Card-specific payment method options.
+    """
+    excluded_payment_method_types: NotRequired[
+        List[Literal["affirm", "card", "klarna"]]
     ]
     """
-    The billing details for the payment method data.
-    """
-    card: NotRequired["RequestedSessionModifyParamsPaymentMethodDataCard"]
-    """
-    The card for the payment method data.
-    """
-    type: NotRequired[Literal["card"]]
-    """
-    The type of the payment method data.
+    The payment method types to exclude from the session.
     """
 
 
-class RequestedSessionModifyParamsPaymentMethodDataBillingDetails(TypedDict):
-    address: NotRequired[
-        "RequestedSessionModifyParamsPaymentMethodDataBillingDetailsAddress"
+class RequestedSessionModifyParamsPaymentMethodOptionsCard(TypedDict):
+    brands_blocked: NotRequired[
+        List[Literal["american_express", "mastercard", "visa"]]
     ]
     """
-    The address for the billing details.
-    """
-    email: NotRequired[str]
-    """
-    The email for the billing details.
-    """
-    name: NotRequired[str]
-    """
-    The name for the billing details.
-    """
-    phone: NotRequired[str]
-    """
-    The phone for the billing details.
-    """
-
-
-class RequestedSessionModifyParamsPaymentMethodDataBillingDetailsAddress(
-    TypedDict,
-):
-    city: str
-    """
-    City, district, suburb, town, or village.
-    """
-    country: str
-    """
-    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-    """
-    line1: NotRequired[str]
-    """
-    Address line 1, such as the street, PO Box, or company name.
-    """
-    line2: NotRequired[str]
-    """
-    Address line 2, such as the apartment, suite, unit, or building.
-    """
-    postal_code: str
-    """
-    ZIP or postal code.
-    """
-    state: str
-    """
-    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
-    """
-
-
-class RequestedSessionModifyParamsPaymentMethodDataCard(TypedDict):
-    cvc: NotRequired[str]
-    """
-    The CVC of the card.
-    """
-    exp_month: int
-    """
-    The expiration month of the card.
-    """
-    exp_year: int
-    """
-    The expiration year of the card.
-    """
-    number: str
-    """
-    The number of the card.
+    The card brands to exclude from the session.
     """

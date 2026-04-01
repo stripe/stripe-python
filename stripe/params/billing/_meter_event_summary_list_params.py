@@ -42,6 +42,18 @@ class MeterEventSummaryListParams(TypedDict):
     """
     A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
     """
+    tenant_keys: NotRequired[List[str]]
+    """
+    List of tenant payload keys to filter on. Must be used together with tenant_operator and tenant_values. Cannot be used with tenant_filters.
+    """
+    tenant_operator: NotRequired[Literal["excludes", "includes"]]
+    """
+    The operator to apply when filtering by tenant values. Must be used together with tenant_keys and tenant_values. Cannot be used with tenant_filters.
+    """
+    tenant_values: NotRequired[List[List[str]]]
+    """
+    List of value lists corresponding to each key in tenant_keys. Each element contains the values to filter on for the corresponding tenant key. Must be used together with tenant_operator and tenant_keys. Cannot be used with tenant_filters.
+    """
     value_grouping_window: NotRequired[Literal["day", "hour"]]
     """
     Specifies what granularity to use when generating event summaries. If not specified, a single event summary would be returned for the specified time range. For hourly granularity, start and end times must align with hour boundaries (e.g., 00:00, 01:00, ..., 23:00). For daily granularity, start and end times must align with UTC day boundaries (00:00 UTC).

@@ -101,6 +101,12 @@ class ChargeCaptureParamsPaymentDetails(TypedDict):
     """
     Subscription details for this PaymentIntent
     """
+    money_services: NotRequired[
+        "Literal['']|ChargeCaptureParamsPaymentDetailsMoneyServices"
+    ]
+    """
+    Money services details for this PaymentIntent.
+    """
 
 
 class ChargeCaptureParamsPaymentDetailsCarRental(TypedDict):
@@ -1770,6 +1776,23 @@ class ChargeCaptureParamsPaymentDetailsSubscriptionBillingInterval(TypedDict):
     """
     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
     """
+
+
+class ChargeCaptureParamsPaymentDetailsMoneyServices(TypedDict):
+    account_funding: NotRequired[
+        "Literal['']|ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFunding"
+    ]
+    """
+    Account funding transaction details including sender and beneficiary information.
+    """
+    transaction_type: NotRequired[Literal["account_funding"]]
+    """
+    The type of money services transaction.
+    """
+
+
+class ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFunding(TypedDict):
+    pass
 
 
 class ChargeCaptureParamsTransferData(TypedDict):
