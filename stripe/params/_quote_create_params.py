@@ -82,7 +82,7 @@ class QuoteCreateParams(RequestOptions):
     """
     A list of [quote lines](https://docs.stripe.com/api/quote_lines) on the quote. These lines describe changes, in the order provided, that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
     """
-    metadata: NotRequired[Dict[str, str]]
+    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
@@ -378,7 +378,7 @@ class QuoteCreateParamsLineAction(TypedDict):
     """
     Details for the `add_item` type.
     """
-    add_metadata: NotRequired[Dict[str, str]]
+    add_metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     Details for the `add_metadata` type: specify a hash of key-value pairs.
     """
@@ -402,7 +402,9 @@ class QuoteCreateParamsLineAction(TypedDict):
     """
     Details for the `set_items` type.
     """
-    set_metadata: NotRequired["Literal['']|Dict[str, str]"]
+    set_metadata: NotRequired[
+        "Literal['']|Dict[str, str]|UntypedStripeObject[str]"
+    ]
     """
     Details for the `set_metadata` type: specify an array of key-value pairs.
     """
@@ -461,7 +463,7 @@ class QuoteCreateParamsLineActionAddItem(TypedDict):
     """
     The discounts applied to the item. Subscription item discounts are applied before subscription discounts.
     """
-    metadata: NotRequired[Dict[str, str]]
+    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
@@ -589,7 +591,7 @@ class QuoteCreateParamsLineActionSetItem(TypedDict):
     """
     If an item with the `price` already exists, passing this will override the `discounts` array on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `discounts`.
     """
-    metadata: NotRequired[Dict[str, str]]
+    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     If an item with the `price` already exists, passing this will override the `metadata` on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `metadata`.
     """

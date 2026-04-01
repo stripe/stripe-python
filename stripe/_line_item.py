@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._expandable_field import ExpandableField
-from stripe._stripe_object import StripeObject
-from typing import ClassVar, Dict, List, Optional
+from stripe._stripe_object import StripeObject, UntypedStripeObject
+from typing import ClassVar, List, Optional
 from typing_extensions import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:

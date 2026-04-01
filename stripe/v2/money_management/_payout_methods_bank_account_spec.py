@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._stripe_object import StripeObject
-from typing import ClassVar, Dict, List, Optional
+from stripe._stripe_object import StripeObject, UntypedStripeObject
+from typing import ClassVar, List, Optional
 from typing_extensions import Literal
 
 
@@ -66,7 +66,7 @@ class PayoutMethodsBankAccountSpec(StripeObject):
         """
         _inner_class_types = {"fields": Field}
 
-    countries: Dict[str, Countries]
+    countries: UntypedStripeObject[Countries]
     """
     The list of specs by country.
     """

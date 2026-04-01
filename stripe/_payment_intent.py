@@ -4582,7 +4582,7 @@ class PaymentIntent(
     """
     Settings for Managed Payments.
     """
-    metadata: Dict[str, str]
+    metadata: UntypedStripeObject[str]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Learn more about [storing information in metadata](https://docs.stripe.com/payments/payment-intents/creating-payment-intents#storing-information-in-metadata).
     """

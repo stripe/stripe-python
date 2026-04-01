@@ -3,8 +3,8 @@
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._stripe_object import StripeObject
-from typing import ClassVar, Dict, Optional
+from stripe._stripe_object import StripeObject, UntypedStripeObject
+from typing import ClassVar, Optional
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:

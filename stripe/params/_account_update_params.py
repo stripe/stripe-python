@@ -2036,11 +2036,13 @@ class AccountUpdateParamsSettingsBranding(TypedDict):
 
 
 class AccountUpdateParamsSettingsCapital(TypedDict):
-    payout_destination: NotRequired[Dict[str, str]]
+    payout_destination: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     Per-currency mapping of user-selected destination accounts used to pay out loans.
     """
-    payout_destination_selector: NotRequired[Dict[str, List[str]]]
+    payout_destination_selector: NotRequired[
+        "Dict[str, List[str]]|UntypedStripeObject[List[str]]"
+    ]
     """
     Per-currency mapping of all destination accounts eligible to receive Capital financing payouts.
     """

@@ -887,7 +887,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionAdd(
     """
     The discounts applied to the item. Subscription item discounts are applied before subscription discounts.
     """
-    metadata: NotRequired[Dict[str, str]]
+    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
@@ -1003,7 +1003,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionSet(
     """
     If an item with the `price` already exists, passing this will override the `discounts` array on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `discounts`.
     """
-    metadata: NotRequired[Dict[str, str]]
+    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     If an item with the `price` already exists, passing this will override the `metadata` on the subscription item that matches that price. Otherwise, the `items` array is cleared and a single new item is added with the supplied `metadata`.
     """
@@ -1102,7 +1102,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsAmendmentItemActionSetTrial(
 class InvoiceCreatePreviewParamsScheduleDetailsAmendmentMetadataAction(
     TypedDict,
 ):
-    add: NotRequired[Dict[str, str]]
+    add: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     Key-value pairs to add to schedule phase metadata. These values will merge with existing schedule phase metadata.
     """
@@ -1110,7 +1110,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsAmendmentMetadataAction(
     """
     Keys to remove from schedule phase metadata.
     """
-    set: NotRequired["Literal['']|Dict[str, str]"]
+    set: NotRequired["Literal['']|Dict[str, str]|UntypedStripeObject[str]"]
     """
     Key-value pairs to set as schedule phase metadata. Existing schedule phase metadata will be overwritten.
     """

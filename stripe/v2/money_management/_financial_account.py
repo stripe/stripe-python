@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._stripe_object import StripeObject
+from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe.v2._amount import Amount
-from typing import ClassVar, Dict, List, Optional
+from typing import ClassVar, List, Optional
 from typing_extensions import Literal
 
 
@@ -16,15 +16,15 @@ class FinancialAccount(StripeObject):
     )
 
     class Balance(StripeObject):
-        available: Dict[str, Amount]
+        available: UntypedStripeObject[Amount]
         """
         Balance that can be used for money movement.
         """
-        inbound_pending: Dict[str, Amount]
+        inbound_pending: UntypedStripeObject[Amount]
         """
         Balance of inbound funds that will later transition to the `available` balance.
         """
-        outbound_pending: Dict[str, Amount]
+        outbound_pending: UntypedStripeObject[Amount]
         """
         Balance of funds that are being used for a pending outbound money movement.
         """
@@ -93,7 +93,7 @@ class FinancialAccount(StripeObject):
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
-    metadata: Optional[Dict[str, str]]
+    metadata: Optional[UntypedStripeObject[str]]
     """
     Metadata associated with the FinancialAccount.
     """

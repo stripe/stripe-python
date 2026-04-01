@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
+from stripe._stripe_object import UntypedStripeObject
 from typing import Any, Dict, List
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -83,7 +84,7 @@ class CouponCreateParamsCurrencyOptions(TypedDict):
 
 
 class CouponCreateParamsScript(TypedDict):
-    configuration: Dict[str, Any]
+    configuration: UntypedStripeObject[Any]
     """
     The configuration values of the script. The keys and values are specific to the script implementation.
     """

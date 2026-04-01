@@ -756,7 +756,7 @@ class Invoice(
                 The time after which the subscription will resume collecting payments.
                 """
 
-            metadata: Optional[Dict[str, str]]
+            metadata: Optional[UntypedStripeObject[str]]
             """
             Set of [key-value pairs](https://docs.stripe.com/api/metadata) defined as subscription metadata when an invoice is created. Becomes an immutable snapshot of the subscription metadata at the time of invoice finalization.
              *Note: This attribute is populated only for invoices created on or after June 29, 2023.*

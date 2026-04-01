@@ -48,7 +48,7 @@ class Event(ListableAPIResource["Event"]):
     class Reason(StripeObject):
         class AutomationAction(StripeObject):
             class StripeSendWebhookCustomEvent(StripeObject):
-                custom_data: Optional[Dict[str, str]]
+                custom_data: Optional[UntypedStripeObject[str]]
                 """
                 Set of key-value pairs attached to the action when creating an Automation.
                 """

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
+from stripe._stripe_object import UntypedStripeObject
 from typing import Dict, List
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -639,7 +640,9 @@ class MeterUsageRetrieveParams(RequestOptions):
 
 
 class MeterUsageRetrieveParamsMeter(TypedDict):
-    dimension_filters: NotRequired[Dict[str, List[str]]]
+    dimension_filters: NotRequired[
+        "Dict[str, List[str]]|UntypedStripeObject[List[str]]"
+    ]
     """
     Key-value pairs used to filter usage events by meter dimension values. Each value is an array that can include multiple values for the key. If specified, usage is filtered for matching usage events.
     """
@@ -651,7 +654,9 @@ class MeterUsageRetrieveParamsMeter(TypedDict):
     """
     Meter id to query usage for.
     """
-    tenant_filters: NotRequired[Dict[str, List[str]]]
+    tenant_filters: NotRequired[
+        "Dict[str, List[str]]|UntypedStripeObject[List[str]]"
+    ]
     """
     Key-value pairs used to filter usage events by high cardinality tenant dimension values. Each value is an array that can include multiple values for the key. If specified, usage is filtered for matching usage events.
     """
