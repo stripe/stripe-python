@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe._stripe_object import UntypedStripeObject
 from stripe.v2._amount import AmountParam
 from typing import Dict
 from typing_extensions import NotRequired, TypedDict
@@ -18,7 +19,7 @@ class SettlementAllocationIntentCreateParams(TypedDict):
     """
     Financial Account Id where the funds are expected for this SettlementAllocationIntent.
     """
-    metadata: NotRequired[Dict[str, str]]
+    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     Metadata associated with the SettlementAllocationIntent.
     """

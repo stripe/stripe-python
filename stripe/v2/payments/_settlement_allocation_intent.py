@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._stripe_object import StripeObject
+from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe.v2._amount import Amount
-from typing import ClassVar, Dict, List, Optional
+from typing import ClassVar, List, Optional
 from typing_extensions import Literal
 
 
@@ -64,7 +64,7 @@ class SettlementAllocationIntent(StripeObject):
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
-    metadata: Optional[Dict[str, str]]
+    metadata: Optional[UntypedStripeObject[str]]
     """
     Metadata associated with the SettlementAllocationIntent.
     """

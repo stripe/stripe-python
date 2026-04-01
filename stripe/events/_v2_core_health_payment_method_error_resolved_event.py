@@ -153,6 +153,10 @@ class V2CoreHealthPaymentMethodErrorResolvedEvent(Event):
                 "impacted_requests_percentage": "decimal_string",
             }
 
+        alert_id: str
+        """
+        The alert ID.
+        """
         grouping_key: str
         """
         The grouping key for the alert.

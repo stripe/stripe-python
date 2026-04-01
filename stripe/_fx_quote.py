@@ -3,8 +3,8 @@
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._stripe_object import StripeObject
-from typing import ClassVar, Dict, Optional, cast
+from stripe._stripe_object import StripeObject, UntypedStripeObject
+from typing import ClassVar, Optional, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -124,7 +124,7 @@ class FxQuote(
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    rates: Dict[str, Rates]
+    rates: UntypedStripeObject[Rates]
     """
     Information about the rates.
     """

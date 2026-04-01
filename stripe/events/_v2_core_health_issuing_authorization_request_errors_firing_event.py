@@ -62,6 +62,10 @@ class V2CoreHealthIssuingAuthorizationRequestErrorsFiringEvent(Event):
             The number of declined requests which are impacted.
             """
 
+        alert_id: str
+        """
+        The alert ID.
+        """
         grouping_key: str
         """
         The grouping key for the alert.

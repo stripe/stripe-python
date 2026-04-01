@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe._stripe_object import UntypedStripeObject
 from typing import Dict
 from typing_extensions import NotRequired, TypedDict
 
@@ -9,7 +10,7 @@ class RateCardSubscriptionCreateParams(TypedDict):
     """
     The ID of the Billing Cadence.
     """
-    metadata: NotRequired[Dict[str, str]]
+    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     Set of [key-value pairs](https://docs.stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """

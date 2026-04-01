@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe._stripe_object import UntypedStripeObject
 from typing import Dict, List
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -17,7 +18,9 @@ class GrantedTokenCreateParams(TypedDict):
     """
     The PaymentMethod that is going to be shared by the SharedPaymentGrantedToken.
     """
-    shared_metadata: NotRequired["Literal['']|Dict[str, str]"]
+    shared_metadata: NotRequired[
+        "Literal['']|Dict[str, str]|UntypedStripeObject[str]"
+    ]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to the SharedPaymentGrantedToken.
     """

@@ -2,8 +2,8 @@
 # File generated from our OpenAPI spec
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._stripe_object import StripeObject
-from typing import Any, ClassVar, Dict, Optional
+from stripe._stripe_object import StripeObject, UntypedStripeObject
+from typing import Any, ClassVar, Optional
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -36,11 +36,11 @@ class Event(ListableAPIResource["Event"]):
     OBJECT_NAME: ClassVar[Literal["event"]] = "event"
 
     class Data(StripeObject):
-        object: Dict[str, Any]
+        object: UntypedStripeObject[Any]
         """
         Object containing the API resource relevant to the event. For example, an `invoice.created` event will have a full [invoice object](https://api.stripe.com#invoice_object) as the value of the object key.
         """
-        previous_attributes: Optional[Dict[str, Any]]
+        previous_attributes: Optional[UntypedStripeObject[Any]]
         """
         Object containing the names of the updated attributes and their values prior to the event (only included in events of type `*.updated`). If an array attribute has any updated elements, this object contains the entire array. In Stripe API versions 2017-04-06 or earlier, an updated array attribute in this object includes only the updated array elements.
         """
@@ -48,7 +48,7 @@ class Event(ListableAPIResource["Event"]):
     class Reason(StripeObject):
         class AutomationAction(StripeObject):
             class StripeSendWebhookCustomEvent(StripeObject):
-                custom_data: Optional[Dict[str, str]]
+                custom_data: Optional[UntypedStripeObject[str]]
                 """
                 Set of key-value pairs attached to the action when creating an Automation.
                 """

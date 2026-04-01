@@ -44067,7 +44067,8 @@ class TestGeneratedExamples(object):
                                     "amount": {
                                         "type": "custom_pricing_unit",
                                         "custom_pricing_unit": {
-                                            "value": "value"
+                                            "id": "obj_123",
+                                            "value": "value",
                                         },
                                     },
                                     "custom_pricing_unit_overage_rate": {
@@ -44197,7 +44198,7 @@ class TestGeneratedExamples(object):
             path="/v2/billing/intents",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"actions":[{"type":"apply","apply":{"effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"current_billing_period_end"},"type":"discount","discount":{"coupon":"coupon","promotion_code":"promotion_code","type":"coupon"},"invoice_discount_rule":{"applies_to":"cadence","type":"percent_off","percent_off":{"maximum_applications":{"type":"indefinite"},"percent_off":"991934883.3333334"}},"spend_modifier_rule":{"applies_to":"cadence","type":"max_billing_period_spend","max_billing_period_spend":{"amount":{"type":"custom_pricing_unit","custom_pricing_unit":{"value":"value"}},"custom_pricing_unit_overage_rate":{"id":"obj_123"}}}},"deactivate":{"cancellation_details":{"comment":"comment","feedback":"other"},"collect_at":"next_billing_date","effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"on_reserve"},"pricing_plan_subscription_details":{"overrides":{"partial_period_behaviors":[{"type":"license_fee","license_fee":{"credit_proration_behavior":"prorated"}}]},"pricing_plan_subscription":"pricing_plan_subscription"},"type":"pricing_plan_subscription_details"},"modify":{"collect_at":"next_billing_date","effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"current_billing_period_start"},"pricing_plan_subscription_details":{"component_configurations":[{"quantity":1285004149,"lookup_key":"lookup_key","pricing_plan_component":"pricing_plan_component"}],"new_pricing_plan":"new_pricing_plan","new_pricing_plan_version":"new_pricing_plan_version","overrides":{"partial_period_behaviors":[{"type":"license_fee","license_fee":{"credit_proration_behavior":"prorated","debit_proration_behavior":"none"},"recurring_credit_grant":{"create_behavior":"none"}}]},"pricing_plan_subscription":"pricing_plan_subscription"},"type":"pricing_plan_subscription_details"},"remove":{"effective_at":{"type":"current_billing_period_end"},"type":"invoice_discount_rule","invoice_discount_rule":"invoice_discount_rule","spend_modifier_rule":"spend_modifier_rule"},"subscribe":{"collect_at":"next_billing_date","effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"current_billing_period_start"},"type":"pricing_plan_subscription_details","pricing_plan_subscription_details":{"component_configurations":[{"quantity":1285004149,"lookup_key":"lookup_key","pricing_plan_component":"pricing_plan_component"}],"metadata":{"key":"metadata"},"overrides":{"partial_period_behaviors":[{"type":"license_fee","license_fee":{"debit_proration_behavior":"none"},"recurring_credit_grant":{"create_behavior":"none"}}]},"pricing_plan":"pricing_plan","pricing_plan_version":"pricing_plan_version"},"v1_subscription_details":{"description":"description","items":[{"metadata":{"key":"metadata"},"price":"price","quantity":1285004149}],"metadata":{"key":"metadata"}}}}],"currency":"usd"}',
+            post_data='{"actions":[{"type":"apply","apply":{"effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"current_billing_period_end"},"type":"discount","discount":{"coupon":"coupon","promotion_code":"promotion_code","type":"coupon"},"invoice_discount_rule":{"applies_to":"cadence","type":"percent_off","percent_off":{"maximum_applications":{"type":"indefinite"},"percent_off":"991934883.3333334"}},"spend_modifier_rule":{"applies_to":"cadence","type":"max_billing_period_spend","max_billing_period_spend":{"amount":{"type":"custom_pricing_unit","custom_pricing_unit":{"id":"obj_123","value":"value"}},"custom_pricing_unit_overage_rate":{"id":"obj_123"}}}},"deactivate":{"cancellation_details":{"comment":"comment","feedback":"other"},"collect_at":"next_billing_date","effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"on_reserve"},"pricing_plan_subscription_details":{"overrides":{"partial_period_behaviors":[{"type":"license_fee","license_fee":{"credit_proration_behavior":"prorated"}}]},"pricing_plan_subscription":"pricing_plan_subscription"},"type":"pricing_plan_subscription_details"},"modify":{"collect_at":"next_billing_date","effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"current_billing_period_start"},"pricing_plan_subscription_details":{"component_configurations":[{"quantity":1285004149,"lookup_key":"lookup_key","pricing_plan_component":"pricing_plan_component"}],"new_pricing_plan":"new_pricing_plan","new_pricing_plan_version":"new_pricing_plan_version","overrides":{"partial_period_behaviors":[{"type":"license_fee","license_fee":{"credit_proration_behavior":"prorated","debit_proration_behavior":"none"},"recurring_credit_grant":{"create_behavior":"none"}}]},"pricing_plan_subscription":"pricing_plan_subscription"},"type":"pricing_plan_subscription_details"},"remove":{"effective_at":{"type":"current_billing_period_end"},"type":"invoice_discount_rule","invoice_discount_rule":"invoice_discount_rule","spend_modifier_rule":"spend_modifier_rule"},"subscribe":{"collect_at":"next_billing_date","effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"current_billing_period_start"},"type":"pricing_plan_subscription_details","pricing_plan_subscription_details":{"component_configurations":[{"quantity":1285004149,"lookup_key":"lookup_key","pricing_plan_component":"pricing_plan_component"}],"metadata":{"key":"metadata"},"overrides":{"partial_period_behaviors":[{"type":"license_fee","license_fee":{"debit_proration_behavior":"none"},"recurring_credit_grant":{"create_behavior":"none"}}]},"pricing_plan":"pricing_plan","pricing_plan_version":"pricing_plan_version"},"v1_subscription_details":{"description":"description","items":[{"metadata":{"key":"metadata"},"price":"price","quantity":1285004149}],"metadata":{"key":"metadata"}}}}],"currency":"usd"}',
             is_json=True,
         )
 
@@ -46909,6 +46910,48 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
+    def test_v2_data_reporting_query_run_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/data/reporting/query_runs",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.data.reporting.query_runs.create({"sql": "sql"})
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/data/reporting/query_runs",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"sql":"sql"}',
+            is_json=True,
+        )
+
+    def test_v2_data_reporting_query_run_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/data/reporting/query_runs/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.data.reporting.query_runs.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/data/reporting/query_runs/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
     def test_v2_iam_api_key_get_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -48200,6 +48243,50 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data='{"metadata":{"key":"metadata"}}',
+            is_json=True,
+        )
+
+    def test_v2_payments_off_session_payment_post_4_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/payments/off_session_payments/id_123/pause",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.payments.off_session_payments.pause("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/payments/off_session_payments/id_123/pause",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_payments_off_session_payment_post_5_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/payments/off_session_payments/id_123/resume",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.payments.off_session_payments.resume("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/payments/off_session_payments/id_123/resume",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
             is_json=True,
         )
 

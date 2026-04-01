@@ -5,7 +5,7 @@ from typing import Any, ClassVar, Dict, Optional, cast
 
 from typing_extensions import Literal, TYPE_CHECKING
 
-from stripe._stripe_object import StripeObject
+from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._util import get_api_mode
 from stripe._stripe_context import StripeContext
 
@@ -44,6 +44,9 @@ class Event(StripeObject):
                     The machine identifier of the user.
                     """
 
+                class StripeAction(StripeObject):
+                    pass
+
                 api_key: Optional[ApiKey]
                 """
                 API key that triggered the event.
@@ -52,7 +55,7 @@ class Event(StripeObject):
                 """
                 Dashboard user that triggered the event.
                 """
-                stripe_action: Optional[Dict[str, Any]]
+                stripe_action: Optional[StripeAction]
                 """
                 Stripe action that triggered the event.
                 """
@@ -63,6 +66,7 @@ class Event(StripeObject):
                 _inner_class_types = {
                     "api_key": ApiKey,
                     "dashboard_user": DashboardUser,
+                    "stripe_action": StripeAction,
                 }
 
             client: Optional[Client]
@@ -89,7 +93,7 @@ class Event(StripeObject):
         """
         _inner_class_types = {"request": Request}
 
-    changes: Optional[Dict[str, Any]]
+    changes: Optional[UntypedStripeObject[Any]]
     """
     Before and after changes for the primary related object.
     """

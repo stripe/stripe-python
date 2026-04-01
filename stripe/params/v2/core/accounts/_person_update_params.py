@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from decimal import Decimal
+from stripe._stripe_object import UntypedStripeObject
 from typing import Dict, List, Optional
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -50,7 +51,9 @@ class PersonUpdateParams(TypedDict):
     """
     The person's gender (International regulations require either "male" or "female").
     """
-    metadata: NotRequired[Dict[str, Optional[str]]]
+    metadata: NotRequired[
+        "Dict[str, Optional[str]]|UntypedStripeObject[Optional[str]]"
+    ]
     """
     Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
@@ -329,8 +332,11 @@ class PersonUpdateParamsIdNumber(TypedDict):
         "bd_nid",
         "be_nrn",
         "bg_ucn",
+        "bm_pp",
         "bn_nric",
+        "bo_ci",
         "br_cpf",
+        "bt_cid",
         "ca_sin",
         "ch_oasi",
         "cl_rut",
@@ -348,26 +354,37 @@ class PersonUpdateParamsIdNumber(TypedDict):
         "do_rcn",
         "ec_ci",
         "ee_ik",
+        "eg_tin",
         "es_nif",
         "fi_hetu",
         "fr_nir",
         "gb_nino",
+        "gh_pin",
         "gr_afm",
         "gt_nit",
+        "gy_tin",
         "hk_id",
+        "hn_rtn",
         "hr_oib",
         "hu_ad",
         "id_nik",
         "ie_ppsn",
         "is_kt",
         "it_cf",
+        "jm_trn",
+        "jo_pin",
         "jp_inc",
         "ke_pin",
+        "ky_pp",
         "kz_iin",
         "li_peid",
+        "lk_nic",
         "lt_ak",
         "lu_nif",
         "lv_pk",
+        "mo_bir",
+        "mt_nic",
+        "mv_tin",
         "mx_rfc",
         "my_nric",
         "mz_nuit",
@@ -375,17 +392,22 @@ class PersonUpdateParamsIdNumber(TypedDict):
         "nl_bsn",
         "no_nin",
         "nz_ird",
+        "pa_ruc",
         "pe_dni",
+        "ph_tin",
         "pk_cnic",
         "pk_snic",
         "pl_pesel",
         "pt_nif",
+        "py_ruc",
         "ro_cnp",
         "sa_tin",
         "se_pin",
         "sg_fin",
         "sg_nric",
+        "si_pin",
         "sk_dic",
+        "sv_nit",
         "th_lc",
         "th_pin",
         "tr_tin",
@@ -394,6 +416,7 @@ class PersonUpdateParamsIdNumber(TypedDict):
         "us_ssn",
         "us_ssn_last_4",
         "uy_dni",
+        "vg_pp",
         "za_id",
     ]
     """

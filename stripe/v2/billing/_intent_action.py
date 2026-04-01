@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from decimal import Decimal
-from stripe._stripe_object import StripeObject
-from typing import ClassVar, Dict, List, Optional
+from stripe._stripe_object import StripeObject, UntypedStripeObject
+from typing import ClassVar, List, Optional
 from typing_extensions import Literal
 
 
@@ -95,6 +95,10 @@ class IntentAction(StripeObject):
             class MaxBillingPeriodSpend(StripeObject):
                 class Amount(StripeObject):
                     class CustomPricingUnit(StripeObject):
+                        id: Optional[str]
+                        """
+                        The id of the custom pricing unit.
+                        """
                         value: str
                         """
                         The value of the custom pricing unit.
@@ -501,7 +505,7 @@ class IntentAction(StripeObject):
             """
             Configurations for the components of the Pricing Plan.
             """
-            metadata: Optional[Dict[str, str]]
+            metadata: Optional[UntypedStripeObject[str]]
             """
             Set of [key-value pairs](https://docs.stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
             """
@@ -528,7 +532,7 @@ class IntentAction(StripeObject):
 
         class V1SubscriptionDetails(StripeObject):
             class Item(StripeObject):
-                metadata: Optional[Dict[str, str]]
+                metadata: Optional[UntypedStripeObject[str]]
                 """
                 Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
                 """
@@ -550,7 +554,7 @@ class IntentAction(StripeObject):
             """
             A list of up to 20 subscription items, each with an attached price.
             """
-            metadata: Optional[Dict[str, str]]
+            metadata: Optional[UntypedStripeObject[str]]
             """
             Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
             """

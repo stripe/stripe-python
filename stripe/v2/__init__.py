@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     from stripe.v2 import (
         billing as billing,
         core as core,
+        data as data,
         iam as iam,
         money_management as money_management,
         payments as payments,
@@ -19,6 +20,7 @@ if TYPE_CHECKING:
     )
     from stripe.v2._billing_service import BillingService as BillingService
     from stripe.v2._core_service import CoreService as CoreService
+    from stripe.v2._datum_service import DatumService as DatumService
     from stripe.v2._deleted_object import DeletedObject as DeletedObject
     from stripe.v2._financial_address_credit_simulation import (
         FinancialAddressCreditSimulation as FinancialAddressCreditSimulation,
@@ -43,6 +45,7 @@ if TYPE_CHECKING:
 _import_map = {
     "billing": ("stripe.v2.billing", True),
     "core": ("stripe.v2.core", True),
+    "data": ("stripe.v2.data", True),
     "iam": ("stripe.v2.iam", True),
     "money_management": ("stripe.v2.money_management", True),
     "payments": ("stripe.v2.payments", True),
@@ -51,6 +54,7 @@ _import_map = {
     "test_helpers": ("stripe.v2.test_helpers", True),
     "BillingService": ("stripe.v2._billing_service", False),
     "CoreService": ("stripe.v2._core_service", False),
+    "DatumService": ("stripe.v2._datum_service", False),
     "DeletedObject": ("stripe.v2._deleted_object", False),
     "FinancialAddressCreditSimulation": (
         "stripe.v2._financial_address_credit_simulation",

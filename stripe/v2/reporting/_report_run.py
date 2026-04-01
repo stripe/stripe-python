@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._stripe_object import StripeObject
-from typing import Any, ClassVar, Dict, Optional
+from stripe._stripe_object import StripeObject, UntypedStripeObject
+from typing import Any, ClassVar, Optional
 from typing_extensions import Literal
 
 
@@ -43,22 +43,22 @@ class ReportRun(StripeObject):
             _inner_class_types = {"download_url": DownloadUrl}
             _field_encodings = {"size": "int64_string"}
 
-        file: File
+        file: Optional[File]
         """
-        Contains metadata about the file produced by the `ReportRun`, including
+        Contains metadata about the file produced by the `ReportRun` or `QueryRun`, including
         its content type, size, and a URL to download its contents.
         """
         type: Literal["file"]
         """
-        The type of the `ReportRun` result.
+        The type of the `ReportRun` or `QueryRun` result.
         """
         _inner_class_types = {"file": File}
 
     class ResultOptions(StripeObject):
         compress_file: Optional[bool]
         """
-        If set, the generated report file will be compressed into a ZIP folder.
-        This is useful for reducing file size and download time for large reports.
+        If set, the generated results file will be compressed into a ZIP folder.
+        This is useful for reducing file size and download time for large results.
         """
 
     class StatusDetails(StripeObject):
@@ -97,7 +97,7 @@ class ReportRun(StripeObject):
     """
     The human-readable name of the `Report` which was run.
     """
-    report_parameters: Dict[str, Any]
+    report_parameters: UntypedStripeObject[Any]
     """
     The parameters used to customize the generation of the report.
     """
@@ -113,7 +113,7 @@ class ReportRun(StripeObject):
     """
     The current status of the `ReportRun`.
     """
-    status_details: Dict[str, StatusDetails]
+    status_details: UntypedStripeObject[StatusDetails]
     """
     Additional details about the current state of the `ReportRun`. The field is currently only populated when a `ReportRun`
     is in the `failed` state, providing more information about why the report failed to generate successfully.

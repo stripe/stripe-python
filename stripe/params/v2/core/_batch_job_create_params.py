@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe._stripe_object import UntypedStripeObject
 from typing import Dict
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -14,9 +15,9 @@ class BatchJobCreateParams(TypedDict):
     Optional field that allows the user to control how fast they want this batch job to run.
     Gives them a control over the number of webhooks they receive.
     """
-    metadata: Dict[str, str]
+    metadata: "Dict[str, str]|UntypedStripeObject[str]"
     """
-    The metadata of the `BatchJob` object.
+    The metadata of the `batch_job`.
     """
     notification_suppression: NotRequired[
         "BatchJobCreateParamsNotificationSuppression"

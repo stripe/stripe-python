@@ -409,6 +409,22 @@ if TYPE_CHECKING:
         V2CoreHealthWebhookLatencyResolvedEvent as V2CoreHealthWebhookLatencyResolvedEvent,
         V2CoreHealthWebhookLatencyResolvedEventNotification as V2CoreHealthWebhookLatencyResolvedEventNotification,
     )
+    from stripe.events._v2_data_reporting_query_run_created_event import (
+        V2DataReportingQueryRunCreatedEvent as V2DataReportingQueryRunCreatedEvent,
+        V2DataReportingQueryRunCreatedEventNotification as V2DataReportingQueryRunCreatedEventNotification,
+    )
+    from stripe.events._v2_data_reporting_query_run_failed_event import (
+        V2DataReportingQueryRunFailedEvent as V2DataReportingQueryRunFailedEvent,
+        V2DataReportingQueryRunFailedEventNotification as V2DataReportingQueryRunFailedEventNotification,
+    )
+    from stripe.events._v2_data_reporting_query_run_succeeded_event import (
+        V2DataReportingQueryRunSucceededEvent as V2DataReportingQueryRunSucceededEvent,
+        V2DataReportingQueryRunSucceededEventNotification as V2DataReportingQueryRunSucceededEventNotification,
+    )
+    from stripe.events._v2_data_reporting_query_run_updated_event import (
+        V2DataReportingQueryRunUpdatedEvent as V2DataReportingQueryRunUpdatedEvent,
+        V2DataReportingQueryRunUpdatedEventNotification as V2DataReportingQueryRunUpdatedEventNotification,
+    )
     from stripe.events._v2_iam_api_key_created_event import (
         V2IamApiKeyCreatedEvent as V2IamApiKeyCreatedEvent,
         V2IamApiKeyCreatedEventNotification as V2IamApiKeyCreatedEventNotification,
@@ -637,9 +653,17 @@ if TYPE_CHECKING:
         V2PaymentsOffSessionPaymentFailedEvent as V2PaymentsOffSessionPaymentFailedEvent,
         V2PaymentsOffSessionPaymentFailedEventNotification as V2PaymentsOffSessionPaymentFailedEventNotification,
     )
+    from stripe.events._v2_payments_off_session_payment_paused_event import (
+        V2PaymentsOffSessionPaymentPausedEvent as V2PaymentsOffSessionPaymentPausedEvent,
+        V2PaymentsOffSessionPaymentPausedEventNotification as V2PaymentsOffSessionPaymentPausedEventNotification,
+    )
     from stripe.events._v2_payments_off_session_payment_requires_capture_event import (
         V2PaymentsOffSessionPaymentRequiresCaptureEvent as V2PaymentsOffSessionPaymentRequiresCaptureEvent,
         V2PaymentsOffSessionPaymentRequiresCaptureEventNotification as V2PaymentsOffSessionPaymentRequiresCaptureEventNotification,
+    )
+    from stripe.events._v2_payments_off_session_payment_resumed_event import (
+        V2PaymentsOffSessionPaymentResumedEvent as V2PaymentsOffSessionPaymentResumedEvent,
+        V2PaymentsOffSessionPaymentResumedEventNotification as V2PaymentsOffSessionPaymentResumedEventNotification,
     )
     from stripe.events._v2_payments_off_session_payment_succeeded_event import (
         V2PaymentsOffSessionPaymentSucceededEvent as V2PaymentsOffSessionPaymentSucceededEvent,
@@ -1505,6 +1529,38 @@ _import_map = {
         "stripe.events._v2_core_health_webhook_latency_resolved_event",
         False,
     ),
+    "V2DataReportingQueryRunCreatedEvent": (
+        "stripe.events._v2_data_reporting_query_run_created_event",
+        False,
+    ),
+    "V2DataReportingQueryRunCreatedEventNotification": (
+        "stripe.events._v2_data_reporting_query_run_created_event",
+        False,
+    ),
+    "V2DataReportingQueryRunFailedEvent": (
+        "stripe.events._v2_data_reporting_query_run_failed_event",
+        False,
+    ),
+    "V2DataReportingQueryRunFailedEventNotification": (
+        "stripe.events._v2_data_reporting_query_run_failed_event",
+        False,
+    ),
+    "V2DataReportingQueryRunSucceededEvent": (
+        "stripe.events._v2_data_reporting_query_run_succeeded_event",
+        False,
+    ),
+    "V2DataReportingQueryRunSucceededEventNotification": (
+        "stripe.events._v2_data_reporting_query_run_succeeded_event",
+        False,
+    ),
+    "V2DataReportingQueryRunUpdatedEvent": (
+        "stripe.events._v2_data_reporting_query_run_updated_event",
+        False,
+    ),
+    "V2DataReportingQueryRunUpdatedEventNotification": (
+        "stripe.events._v2_data_reporting_query_run_updated_event",
+        False,
+    ),
     "V2IamApiKeyCreatedEvent": (
         "stripe.events._v2_iam_api_key_created_event",
         False,
@@ -1961,12 +2017,28 @@ _import_map = {
         "stripe.events._v2_payments_off_session_payment_failed_event",
         False,
     ),
+    "V2PaymentsOffSessionPaymentPausedEvent": (
+        "stripe.events._v2_payments_off_session_payment_paused_event",
+        False,
+    ),
+    "V2PaymentsOffSessionPaymentPausedEventNotification": (
+        "stripe.events._v2_payments_off_session_payment_paused_event",
+        False,
+    ),
     "V2PaymentsOffSessionPaymentRequiresCaptureEvent": (
         "stripe.events._v2_payments_off_session_payment_requires_capture_event",
         False,
     ),
     "V2PaymentsOffSessionPaymentRequiresCaptureEventNotification": (
         "stripe.events._v2_payments_off_session_payment_requires_capture_event",
+        False,
+    ),
+    "V2PaymentsOffSessionPaymentResumedEvent": (
+        "stripe.events._v2_payments_off_session_payment_resumed_event",
+        False,
+    ),
+    "V2PaymentsOffSessionPaymentResumedEventNotification": (
+        "stripe.events._v2_payments_off_session_payment_resumed_event",
         False,
     ),
     "V2PaymentsOffSessionPaymentSucceededEvent": (

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._stripe_object import StripeObject
+from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe.v2._amount import Amount
-from typing import ClassVar, Dict, Optional
+from typing import ClassVar, Optional
 from typing_extensions import Literal
 
 
@@ -34,6 +34,7 @@ class OutboundTransfer(StripeObject):
     class StatusDetails(StripeObject):
         class Failed(StripeObject):
             reason: Literal[
+                "payout_method_amount_limit_exceeded",
                 "payout_method_declined",
                 "payout_method_does_not_exist",
                 "payout_method_expired",
@@ -156,7 +157,7 @@ class OutboundTransfer(StripeObject):
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
-    metadata: Optional[Dict[str, str]]
+    metadata: Optional[UntypedStripeObject[str]]
     """
     Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """

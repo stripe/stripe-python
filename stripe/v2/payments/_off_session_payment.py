@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._stripe_object import StripeObject
+from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe.v2._amount import Amount
-from typing import ClassVar, Dict, Optional
+from typing import ClassVar, Optional
 from typing_extensions import Literal
 
 
@@ -49,6 +49,10 @@ class OffSessionPayment(StripeObject):
         """
         Indicates the strategy for how you want Stripe to retry the payment.
         """
+        retry_until: Optional[str]
+        """
+        The timestamp when this payment is no longer eligible to be retried. When this timestamp is reached, the payment will be marked as failed.
+        """
 
     class TransferData(StripeObject):
         amount: Optional[int]
@@ -75,6 +79,10 @@ class OffSessionPayment(StripeObject):
     """
     The “presentment amount” to be collected from the customer.
     """
+    application_fee_amount_requested: Optional[Amount]
+    """
+    The amount of the application fee requested to be applied to the payment.
+    """
     cadence: Literal["recurring", "unscheduled"]
     """
     The frequency of the underlying payment.
@@ -82,10 +90,6 @@ class OffSessionPayment(StripeObject):
     capture: Optional[Capture]
     """
     Details about the capture configuration for the OffSessionPayment.
-    """
-    compartment_id: str
-    """
-    ID of the owning compartment.
     """
     created: str
     """
@@ -99,6 +103,7 @@ class OffSessionPayment(StripeObject):
     failure_reason: Optional[
         Literal[
             "authorization_expired",
+            "exceeded_retry_window",
             "no_valid_payment_method",
             "rejected_by_partner",
             "retries_exhausted",
@@ -123,7 +128,7 @@ class OffSessionPayment(StripeObject):
     """
     Has the value true if the object exists in live mode or the value false if the object exists in test mode.
     """
-    metadata: Dict[str, str]
+    metadata: UntypedStripeObject[str]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can
     attach to an object. This can be useful for storing additional information about
@@ -170,6 +175,7 @@ class OffSessionPayment(StripeObject):
     status: Literal[
         "canceled",
         "failed",
+        "paused",
         "pending",
         "pending_retry",
         "processing",

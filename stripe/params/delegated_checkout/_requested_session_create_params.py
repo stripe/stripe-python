@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
+from stripe._stripe_object import UntypedStripeObject
 from typing import Dict, List
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -34,7 +35,7 @@ class RequestedSessionCreateParams(RequestOptions):
     """
     The details of the line items.
     """
-    metadata: NotRequired[Dict[str, str]]
+    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     The metadata for this requested session.
     """
@@ -56,7 +57,7 @@ class RequestedSessionCreateParams(RequestOptions):
     """
     The setup future usage for this requested session.
     """
-    shared_metadata: NotRequired[Dict[str, str]]
+    shared_metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     The shared metadata for this requested session.
     """
@@ -91,7 +92,7 @@ class RequestedSessionCreateParamsAffiliateAttribution(TypedDict):
     """
     Agent-scoped affiliate/publisher identifier.
     """
-    shared_metadata: NotRequired[Dict[str, str]]
+    shared_metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     Freeform key/value pairs for additional non-sensitive per-agent data.
     """

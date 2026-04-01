@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from decimal import Decimal
-from stripe._stripe_object import StripeObject
-from typing import Any, ClassVar, Dict, List, Optional
+from stripe._stripe_object import StripeObject, UntypedStripeObject
+from typing import ClassVar, List, Optional
 from typing_extensions import Literal
 
 
@@ -422,6 +422,12 @@ class Cadence(StripeObject):
                     """
                     _inner_class_types = {"bank_transfer": BankTransfer}
 
+                class Konbini(StripeObject):
+                    pass
+
+                class SepaDebit(StripeObject):
+                    pass
+
                 class UsBankAccount(StripeObject):
                     class FinancialConnections(StripeObject):
                         class Filters(StripeObject):
@@ -485,11 +491,11 @@ class Cadence(StripeObject):
                 """
                 This sub-hash contains details about the Bank transfer payment method options.
                 """
-                konbini: Optional[Dict[str, Any]]
+                konbini: Optional[Konbini]
                 """
                 This sub-hash contains details about the Konbini payment method options.
                 """
-                sepa_debit: Optional[Dict[str, Any]]
+                sepa_debit: Optional[SepaDebit]
                 """
                 This sub-hash contains details about the SEPA Direct Debit payment method options.
                 """
@@ -502,6 +508,8 @@ class Cadence(StripeObject):
                     "bancontact": Bancontact,
                     "card": Card,
                     "customer_balance": CustomerBalance,
+                    "konbini": Konbini,
+                    "sepa_debit": SepaDebit,
                     "us_bank_account": UsBankAccount,
                 }
 
@@ -563,7 +571,7 @@ class Cadence(StripeObject):
     """
     A lookup key used to retrieve cadences dynamically from a static string. Maximum length of 200 characters.
     """
-    metadata: Optional[Dict[str, str]]
+    metadata: Optional[UntypedStripeObject[str]]
     """
     Set of [key-value pairs](https://docs.stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """

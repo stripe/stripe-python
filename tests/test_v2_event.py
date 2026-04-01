@@ -1,6 +1,6 @@
 import json
-import sys
 from typing import Callable
+from typing_extensions import assert_type
 
 import pytest
 from stripe.billing._meter import Meter
@@ -240,17 +240,14 @@ class TestV2Event(object):
         event = event_notif.fetch_event()
         meter = event_notif.fetch_related_object()
 
-        if sys.version_info >= (3, 7):
-            from typing_extensions import assert_type  # noqa: SPY103 - this is only available on 3.6 pythons because of typing_extensions version restrictions
+        # these are purely type-level checks to ensure our narrowing works for users
+        assert_type(
+            event_notif,
+            V1BillingMeterErrorReportTriggeredEventNotification,
+        )
 
-            # these are purely type-level checks to ensure our narrowing works for users
-            assert_type(
-                event_notif,
-                V1BillingMeterErrorReportTriggeredEventNotification,
-            )
-
-            assert_type(event, V1BillingMeterErrorReportTriggeredEvent)
-            assert_type(meter, Meter)
+        assert_type(event, V1BillingMeterErrorReportTriggeredEvent)
+        assert_type(meter, Meter)
 
         assert isinstance(event, V1BillingMeterErrorReportTriggeredEvent)
 

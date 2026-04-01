@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from typing import Any, Dict, List
+from typing import List
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -81,11 +81,15 @@ class CollectionSettingCreateParamsPaymentMethodOptions(TypedDict):
     """
     This sub-hash contains details about the Bank transfer payment method options.
     """
-    konbini: NotRequired[Dict[str, Any]]
+    konbini: NotRequired[
+        "CollectionSettingCreateParamsPaymentMethodOptionsKonbini"
+    ]
     """
     This sub-hash contains details about the Konbini payment method options.
     """
-    sepa_debit: NotRequired[Dict[str, Any]]
+    sepa_debit: NotRequired[
+        "CollectionSettingCreateParamsPaymentMethodOptionsSepaDebit"
+    ]
     """
     This sub-hash contains details about the SEPA Direct Debit payment method options.
     """
@@ -212,6 +216,14 @@ class CollectionSettingCreateParamsPaymentMethodOptionsCustomerBalanceBankTransf
     """
     The desired country code of the bank account information.
     """
+
+
+class CollectionSettingCreateParamsPaymentMethodOptionsKonbini(TypedDict):
+    pass
+
+
+class CollectionSettingCreateParamsPaymentMethodOptionsSepaDebit(TypedDict):
+    pass
 
 
 class CollectionSettingCreateParamsPaymentMethodOptionsUsBankAccount(

@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._api_resource import APIResource
-from stripe._stripe_object import StripeObject
+from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._test_helpers import APIResourceTestHelpers
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, Dict, Optional, cast, overload
+from typing import ClassVar, Optional, cast, overload
 from typing_extensions import Literal, Type, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -90,7 +90,7 @@ class GrantedToken(APIResource["GrantedToken"]):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    shared_metadata: Optional[Dict[str, str]]
+    shared_metadata: Optional[UntypedStripeObject[str]]
     """
     Metadata about the SharedPaymentGrantedToken.
     """

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._stripe_object import StripeObject
-from typing import ClassVar, Dict, List, Optional
+from stripe._stripe_object import StripeObject, UntypedStripeObject
+from typing import ClassVar, List, Optional
 from typing_extensions import Literal
 
 
@@ -94,7 +94,7 @@ class Report(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
     """
-    parameters: Dict[str, Parameters]
+    parameters: UntypedStripeObject[Parameters]
     """
     Specification of the parameters that the `Report` accepts. It details each parameter's
     name, description, whether it is required, and any validations performed.

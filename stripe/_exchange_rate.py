@@ -2,7 +2,8 @@
 # File generated from our OpenAPI spec
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from typing import ClassVar, Dict
+from stripe._stripe_object import UntypedStripeObject
+from typing import ClassVar
 from typing_extensions import Literal, Unpack, deprecated, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -53,7 +54,7 @@ class ExchangeRate(ListableAPIResource["ExchangeRate"]):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    rates: Dict[str, float]
+    rates: UntypedStripeObject[float]
     """
     Hash where the keys are supported currencies and the values are the exchange rate at which the base id currency converts to the key currency.
     """

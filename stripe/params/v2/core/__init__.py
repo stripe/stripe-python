@@ -114,6 +114,7 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsWire as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsWire,
         AccountCreateParamsConfigurationRecipientCapabilitiesCards as AccountCreateParamsConfigurationRecipientCapabilitiesCards,
         AccountCreateParamsConfigurationRecipientCapabilitiesCryptoWallets as AccountCreateParamsConfigurationRecipientCapabilitiesCryptoWallets,
+        AccountCreateParamsConfigurationRecipientCapabilitiesPaperChecks as AccountCreateParamsConfigurationRecipientCapabilitiesPaperChecks,
         AccountCreateParamsConfigurationRecipientCapabilitiesStripeBalance as AccountCreateParamsConfigurationRecipientCapabilitiesStripeBalance,
         AccountCreateParamsConfigurationRecipientCapabilitiesStripeBalanceStripeTransfers as AccountCreateParamsConfigurationRecipientCapabilitiesStripeBalanceStripeTransfers,
         AccountCreateParamsConfigurationStorer as AccountCreateParamsConfigurationStorer,
@@ -136,6 +137,7 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsCards as AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsCards,
         AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsCryptoWallets as AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsCryptoWallets,
         AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsFinancialAccounts as AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsFinancialAccounts,
+        AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsPaperChecks as AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsPaperChecks,
         AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfers as AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfers,
         AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersBankAccounts as AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersBankAccounts,
         AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersCryptoWallets as AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersCryptoWallets,
@@ -471,6 +473,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsWire as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccountsWire,
         AccountUpdateParamsConfigurationRecipientCapabilitiesCards as AccountUpdateParamsConfigurationRecipientCapabilitiesCards,
         AccountUpdateParamsConfigurationRecipientCapabilitiesCryptoWallets as AccountUpdateParamsConfigurationRecipientCapabilitiesCryptoWallets,
+        AccountUpdateParamsConfigurationRecipientCapabilitiesPaperChecks as AccountUpdateParamsConfigurationRecipientCapabilitiesPaperChecks,
         AccountUpdateParamsConfigurationRecipientCapabilitiesStripeBalance as AccountUpdateParamsConfigurationRecipientCapabilitiesStripeBalance,
         AccountUpdateParamsConfigurationRecipientCapabilitiesStripeBalanceStripeTransfers as AccountUpdateParamsConfigurationRecipientCapabilitiesStripeBalanceStripeTransfers,
         AccountUpdateParamsConfigurationStorer as AccountUpdateParamsConfigurationStorer,
@@ -493,6 +496,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsCards as AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsCards,
         AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsCryptoWallets as AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsCryptoWallets,
         AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsFinancialAccounts as AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsFinancialAccounts,
+        AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsPaperChecks as AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsPaperChecks,
         AccountUpdateParamsConfigurationStorerCapabilitiesOutboundTransfers as AccountUpdateParamsConfigurationStorerCapabilitiesOutboundTransfers,
         AccountUpdateParamsConfigurationStorerCapabilitiesOutboundTransfersBankAccounts as AccountUpdateParamsConfigurationStorerCapabilitiesOutboundTransfersBankAccounts,
         AccountUpdateParamsConfigurationStorerCapabilitiesOutboundTransfersCryptoWallets as AccountUpdateParamsConfigurationStorerCapabilitiesOutboundTransfersCryptoWallets,
@@ -1102,6 +1106,10 @@ _import_map = {
         "stripe.params.v2.core._account_create_params",
         False,
     ),
+    "AccountCreateParamsConfigurationRecipientCapabilitiesPaperChecks": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
     "AccountCreateParamsConfigurationRecipientCapabilitiesStripeBalance": (
         "stripe.params.v2.core._account_create_params",
         False,
@@ -1187,6 +1195,10 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsFinancialAccounts": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsPaperChecks": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
@@ -2471,6 +2483,10 @@ _import_map = {
         "stripe.params.v2.core._account_update_params",
         False,
     ),
+    "AccountUpdateParamsConfigurationRecipientCapabilitiesPaperChecks": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
     "AccountUpdateParamsConfigurationRecipientCapabilitiesStripeBalance": (
         "stripe.params.v2.core._account_update_params",
         False,
@@ -2556,6 +2572,10 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsFinancialAccounts": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsPaperChecks": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),

@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._stripe_object import StripeObject
-from typing import ClassVar, Dict, Optional
+from stripe._stripe_object import StripeObject, UntypedStripeObject
+from typing import ClassVar, Optional
 from typing_extensions import Literal
 
 
 class BatchJob(StripeObject):
     """
-    BatchJob resource.
+    A batch job allows you to perform an API operation on a large set of records asynchronously.
     """
 
     OBJECT_NAME: ClassVar[Literal["v2.core.batch_job"]] = "v2.core.batch_job"
@@ -16,7 +16,7 @@ class BatchJob(StripeObject):
         class BatchFailed(StripeObject):
             error: str
             """
-            Details about the `BatchJob` failure.
+            Details about the `batch_job` failure.
             """
 
         class Canceled(StripeObject):
@@ -52,7 +52,7 @@ class BatchJob(StripeObject):
             """
             output_file: OutputFile
             """
-            The output file details. If BatchJob is cancelled it's provided only if there is already output at this point.
+            The output file details. If the `batch_job` is canceled, this is provided only if there is already output at this point.
             """
             success_count: int
             """
@@ -97,7 +97,7 @@ class BatchJob(StripeObject):
             """
             output_file: OutputFile
             """
-            The output file details. If BatchJob is cancelled it's provided only if there is already output at this point.
+            The output file details. If the `batch_job` is canceled, this is provided only if there is already output at this point.
             """
             success_count: int
             """
@@ -173,7 +173,7 @@ class BatchJob(StripeObject):
             """
             output_file: OutputFile
             """
-            The output file details. If BatchJob is cancelled it's provided only if there is already output at this point.
+            The output file details. If the `batch_job` is canceled, this is provided only if there is already output at this point.
             """
             success_count: int
             """
@@ -226,7 +226,7 @@ class BatchJob(StripeObject):
             """
             output_file: OutputFile
             """
-            The output file details. If BatchJob is cancelled it's provided only if there is already output at this point.
+            The output file details. If the `batch_job` is canceled, this is provided only if there is already output at this point.
             """
             success_count: int
             """
@@ -240,35 +240,35 @@ class BatchJob(StripeObject):
 
         batch_failed: Optional[BatchFailed]
         """
-        Additional details for the `BATCH_FAILED` status of the `BatchJob`.
+        Additional details for the `BATCH_FAILED` status of the `batch_job`.
         """
         canceled: Optional[Canceled]
         """
-        Additional details for the `CANCELED` status of the `BatchJob`.
+        Additional details for the `CANCELED` status of the `batch_job`.
         """
         complete: Optional[Complete]
         """
-        Additional details for the `COMPLETE` status of the `BatchJob`.
+        Additional details for the `COMPLETE` status of the `batch_job`.
         """
         in_progress: Optional[InProgress]
         """
-        Additional details for the `IN_PROGRESS` status of the `BatchJob`.
+        Additional details for the `IN_PROGRESS` status of the `batch_job`.
         """
         ready_for_upload: Optional[ReadyForUpload]
         """
-        Additional details for the `READY_FOR_UPLOAD` status of the `BatchJob`.
+        Additional details for the `READY_FOR_UPLOAD` status of the `batch_job`.
         """
         timeout: Optional[Timeout]
         """
-        Additional details for the `TIMEOUT` status of the `BatchJob`.
+        Additional details for the `TIMEOUT` status of the `batch_job`.
         """
         validating: Optional[Validating]
         """
-        Additional details for the `VALIDATING` status of the `BatchJob`.
+        Additional details for the `VALIDATING` status of the `batch_job`.
         """
         validation_failed: Optional[ValidationFailed]
         """
-        Additional details for the `VALIDATION_FAILED` status of the `BatchJob`.
+        Additional details for the `VALIDATION_FAILED` status of the `batch_job`.
         """
         _inner_class_types = {
             "batch_failed": BatchFailed,
@@ -283,11 +283,11 @@ class BatchJob(StripeObject):
 
     created: str
     """
-    Timestamp at which BatchJob was created.
+    Timestamp at which the `batch_job` was created.
     """
     id: str
     """
-    Unique identifier for the BatchJob.
+    Unique identifier for the `batch_job`.
     """
     livemode: bool
     """
@@ -295,11 +295,11 @@ class BatchJob(StripeObject):
     """
     maximum_rps: int
     """
-    The maximum rps defined for the `BatchJob`.
+    The maximum requests per second defined for the `batch_job`.
     """
-    metadata: Dict[str, str]
+    metadata: UntypedStripeObject[str]
     """
-    The metadata of the `BatchJob` object.
+    The metadata of the `batch_job`.
     """
     object: Literal["v2.core.batch_job"]
     """
@@ -307,7 +307,7 @@ class BatchJob(StripeObject):
     """
     skip_validation: bool
     """
-    If the validation will be run previous to the execution of the `BatchJob`.
+    Whether validation runs before executing the `batch_job`.
     """
     status: Literal[
         "batch_failed",
@@ -322,10 +322,10 @@ class BatchJob(StripeObject):
         "validation_failed",
     ]
     """
-    The current status of the `BatchJob`.
+    The current status of the `batch_job`.
     """
     status_details: Optional[StatusDetails]
     """
-    Additional details about the current state of the `BatchJob`.
+    Additional details about the current state of the `batch_job`.
     """
     _inner_class_types = {"status_details": StatusDetails}

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from decimal import Decimal
+from stripe._stripe_object import UntypedStripeObject
 from typing import Dict, List
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -195,6 +196,10 @@ class IntentCreateParamsActionApplySpendModifierRuleMaxBillingPeriodSpendAmount(
 class IntentCreateParamsActionApplySpendModifierRuleMaxBillingPeriodSpendAmountCustomPricingUnit(
     TypedDict,
 ):
+    id: NotRequired[str]
+    """
+    The id of the custom pricing unit.
+    """
     value: str
     """
     The value of the custom pricing unit.
@@ -538,7 +543,7 @@ class IntentCreateParamsActionSubscribePricingPlanSubscriptionDetails(
     """
     Configurations for the components of the pricing plan.
     """
-    metadata: NotRequired[Dict[str, str]]
+    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     Set of [key-value pairs](https://docs.stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
@@ -635,14 +640,14 @@ class IntentCreateParamsActionSubscribeV1SubscriptionDetails(TypedDict):
     """
     A list of up to 20 subscription items, each with an attached price.
     """
-    metadata: NotRequired[Dict[str, str]]
+    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
 
 
 class IntentCreateParamsActionSubscribeV1SubscriptionDetailsItem(TypedDict):
-    metadata: NotRequired[Dict[str, str]]
+    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """

@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe._stripe_object import UntypedStripeObject
 from typing import Dict, List
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -9,7 +10,7 @@ class MeterEventSummaryListParams(TypedDict):
     """
     The customer for which to fetch event summaries.
     """
-    dimension_filters: NotRequired[Dict[str, str]]
+    dimension_filters: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     Key-value pairs used to filter meter events by dimension values. If specified, event summaries will be generated with only matching meter events.
     """
