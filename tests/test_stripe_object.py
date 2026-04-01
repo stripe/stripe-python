@@ -9,7 +9,6 @@ import pytest
 import stripe
 from stripe._invoice import Invoice
 from stripe._stripe_object import StripeObject
-from stripe._subscription import Subscription
 
 # We use this because it has a map, "restriction.currency_options" from string -> CurrencyOptions nested class.
 SAMPLE_PROMOTION_CODE = json.loads(
