@@ -7,14 +7,13 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._nested_resource_class_methods import nested_resource_class_methods
 from stripe._search_result_object import SearchResultObject
 from stripe._searchable_api_resource import SearchableAPIResource
-from stripe._stripe_object import StripeObject
+from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
 from typing import (
     Any,
     AsyncIterator,
     ClassVar,
-    Dict,
     Iterator,
     List,
     Optional,
@@ -1493,7 +1492,7 @@ class PaymentIntent(
         upi_handle_redirect_or_display_qr_code: Optional[
             UpiHandleRedirectOrDisplayQrCode
         ]
-        use_stripe_sdk: Optional[Dict[str, Any]]
+        use_stripe_sdk: Optional[UntypedStripeObject[Any]]
         """
         When confirming a PaymentIntent with Stripe.js, Stripe.js depends on the contents of this dictionary to invoke authentication flows. The shape of the contents is subject to change and is only intended to be used by Stripe.js.
         """

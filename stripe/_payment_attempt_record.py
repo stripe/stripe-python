@@ -3,8 +3,8 @@
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._stripe_object import StripeObject
-from typing import ClassVar, Dict, List, Optional
+from stripe._stripe_object import StripeObject, UntypedStripeObject
+from typing import ClassVar, List, Optional
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -2211,7 +2211,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
     """
     If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
-    metadata: Dict[str, str]
+    metadata: UntypedStripeObject[str]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
