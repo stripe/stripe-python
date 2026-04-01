@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from decimal import Decimal
+from stripe._stripe_object import UntypedStripeObject
 from typing import Dict, List
 from typing_extensions import Literal, NotRequired, TypedDict
 

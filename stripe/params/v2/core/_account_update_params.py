@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from decimal import Decimal
+from stripe._stripe_object import UntypedStripeObject
 from stripe.v2._amount import AmountParam
 from typing import Dict, List, Optional
 from typing_extensions import Literal, NotRequired, TypedDict
@@ -57,7 +58,9 @@ class AccountUpdateParams(TypedDict):
     """
     Additional fields to include in the response.
     """
-    metadata: NotRequired[Dict[str, Optional[str]]]
+    metadata: NotRequired[
+        "Dict[str, Optional[str]]|UntypedStripeObject[Optional[str]]"
+    ]
     """
     Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
@@ -4141,7 +4144,9 @@ class AccountUpdateParamsIdentityIndividual(TypedDict):
     """
     The individual's gender (International regulations require either "male" or "female").
     """
-    metadata: NotRequired[Dict[str, Optional[str]]]
+    metadata: NotRequired[
+        "Dict[str, Optional[str]]|UntypedStripeObject[Optional[str]]"
+    ]
     """
     Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """

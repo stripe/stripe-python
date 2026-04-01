@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from decimal import Decimal
-from stripe._stripe_object import StripeObject
+from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe.v2._amount import Amount
-from typing import ClassVar, Dict, List, Optional
+from typing import ClassVar, List, Optional
 from typing_extensions import Literal
 
 
@@ -6754,7 +6754,7 @@ class Account(StripeObject):
             """
             The individual's gender (International regulations require either "male” or "female").
             """
-            metadata: Optional[Dict[str, str]]
+            metadata: Optional[UntypedStripeObject[str]]
             """
             Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
             """
@@ -7202,7 +7202,7 @@ class Account(StripeObject):
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
-    metadata: Optional[Dict[str, str]]
+    metadata: Optional[UntypedStripeObject[str]]
     """
     Set of key-value pairs that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """

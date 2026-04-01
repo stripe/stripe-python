@@ -5,12 +5,14 @@ from typing_extensions import TYPE_CHECKING, Type, Literal, Self, deprecated
 from typing import (
     Any,
     Dict,
+    Generic,
     List,
     Optional,
     Mapping,
     Set,
     Tuple,
     ClassVar,
+    TypeVar,
     Union,
     cast,
     overload,
@@ -663,3 +665,26 @@ class StripeObject:
             return _coerce_decimal_string(value, encode=False)
 
         return value
+
+
+T = TypeVar("T")
+
+
+class UntypedStripeObject(StripeObject, Generic[T]):
+    """
+    A normal StripeObject, but it exposes `__getattr__`/`__setattr__` instead of hiding them, effectively removing type information.
+
+    Because metadata & similar are supposed to be an untyped `dict`, we don't want to show type errors for arbitrary key access.
+
+    Is generic on its value type
+    """
+
+    def __init__(*args, **kwargs: Any):
+        raise ValueError("this is not for runtime use, just typing")
+
+    # This class is never actually used at runtime, it's just here for typechecking reasons
+    def __setattr__(self, k: str, v: T): ...
+
+    def __getattr__(self, k: str) -> T: ...
+
+    def __delattr__(self, k: str): ...

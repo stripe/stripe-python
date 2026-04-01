@@ -15,7 +15,6 @@ from typing import (
     Any,
     AsyncIterator,
     ClassVar,
-    Dict,
     Iterator,
     List,
     Optional,
@@ -1584,7 +1583,7 @@ class PaymentIntent(
         upi_handle_redirect_or_display_qr_code: Optional[
             UpiHandleRedirectOrDisplayQrCode
         ]
-        use_stripe_sdk: Optional[Dict[str, Any]]
+        use_stripe_sdk: Optional[UntypedStripeObject[Any]]
         """
         When confirming a PaymentIntent with Stripe.js, Stripe.js depends on the contents of this dictionary to invoke authentication flows. The shape of the contents is subject to change and is only intended to be used by Stripe.js.
         """

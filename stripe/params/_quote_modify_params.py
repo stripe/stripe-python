@@ -2,6 +2,7 @@
 # File generated from our OpenAPI spec
 from decimal import Decimal
 from stripe._request_options import RequestOptions
+from stripe._stripe_object import UntypedStripeObject
 from typing import Dict, List
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -1092,7 +1093,7 @@ class QuoteModifyParamsSubscriptionData(TypedDict):
     """
     Behavior of the subscription schedule and underlying subscription when it ends.
     """
-    metadata: NotRequired[Dict[str, str]]
+    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is accepted. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
     """

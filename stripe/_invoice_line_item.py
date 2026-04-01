@@ -2,10 +2,10 @@
 # File generated from our OpenAPI spec
 from decimal import Decimal
 from stripe._expandable_field import ExpandableField
-from stripe._stripe_object import StripeObject
+from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import sanitize_id
-from typing import ClassVar, Dict, List, Optional, cast
+from typing import ClassVar, List, Optional, cast
 from typing_extensions import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
