@@ -679,11 +679,12 @@ class UntypedStripeObject(StripeObject, Generic[T]):
     Is generic on its value type
     """
 
-    def __setattr__(self, k: str, v: T):
-        super().__setattr__(k, v)
+    def __init__(*args, **kwargs: Any):
+        raise ValueError("this is not for runtime use, just typing")
 
-    def __getattr__(self, k: str) -> T:
-        return super().__getattr__(k)  # type: ignore
+    # This class is never actually used at runtime, it's just here for typechecking reasons
+    def __setattr__(self, k: str, v: T): ...
 
-    def __delattr__(self, k: str):
-        return super().__delattr__(k)
+    def __getattr__(self, k: str) -> T: ...
+
+    def __delattr__(self, k: str): ...

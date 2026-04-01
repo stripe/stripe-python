@@ -1,6 +1,7 @@
 # this file is typechecked since it's mostly here to cover type errors
 # as a result, the actual assertions are pretty basic
 
+import pytest
 from typing_extensions import assert_type
 
 from stripe._stripe_object import UntypedStripeObject, StripeObject
@@ -31,3 +32,9 @@ def test_metadata_typing():
 
     # put this last so it doesn't affect typechecking in this test
     assert isinstance(obj.metadata, StripeObject)
+    # it's a type-only class without runtime impact
+    assert not isinstance(obj.metadata, UntypedStripeObject)
+
+    # and will error if ever used
+    with pytest.raises(ValueError):
+        UntypedStripeObject()
