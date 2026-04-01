@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import UntypedStripeObject
-from typing import Any, List
+from typing import Any, Dict, List
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -82,11 +82,11 @@ class CollectionSettingCreateParamsPaymentMethodOptions(TypedDict):
     """
     This sub-hash contains details about the Bank transfer payment method options.
     """
-    konbini: NotRequired[UntypedStripeObject[Any]]
+    konbini: NotRequired["Dict[str, Any]|UntypedStripeObject[Any]"]
     """
     This sub-hash contains details about the Konbini payment method options.
     """
-    sepa_debit: NotRequired[UntypedStripeObject[Any]]
+    sepa_debit: NotRequired["Dict[str, Any]|UntypedStripeObject[Any]"]
     """
     This sub-hash contains details about the SEPA Direct Debit payment method options.
     """

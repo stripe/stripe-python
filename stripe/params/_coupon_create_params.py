@@ -84,7 +84,7 @@ class CouponCreateParamsCurrencyOptions(TypedDict):
 
 
 class CouponCreateParamsScript(TypedDict):
-    configuration: UntypedStripeObject[Any]
+    configuration: "Dict[str, Any]|UntypedStripeObject[Any]"
     """
     The configuration values of the script. The keys and values are specific to the script implementation.
     """
