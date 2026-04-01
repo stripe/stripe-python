@@ -32,6 +32,7 @@ class TypingImportsChecker:
         "Never",
         "override",
         "deprecated",
+        "assert_type",
     ]
 
     allowed_typing_imports = [

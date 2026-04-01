@@ -2,6 +2,7 @@
 # File generated from our OpenAPI spec
 from decimal import Decimal
 from stripe._request_options import RequestOptions
+from stripe._stripe_object import UntypedStripeObject
 from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -20,7 +21,7 @@ class PriceCreateParams(RequestOptions):
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
     currency_options: NotRequired[
-        Dict[str, "PriceCreateParamsCurrencyOptions"]
+        "Dict[str, PriceCreateParamsCurrencyOptions]|UntypedStripeObject[PriceCreateParamsCurrencyOptions]"
     ]
     """
     Prices defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
@@ -37,7 +38,7 @@ class PriceCreateParams(RequestOptions):
     """
     A lookup key used to retrieve prices dynamically from a static string. This may be up to 200 characters.
     """
-    metadata: NotRequired[Dict[str, str]]
+    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
@@ -182,7 +183,7 @@ class PriceCreateParamsProductData(TypedDict):
     """
     The identifier for the product. Must be unique. If not provided, an identifier will be randomly generated.
     """
-    metadata: NotRequired[Dict[str, str]]
+    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
