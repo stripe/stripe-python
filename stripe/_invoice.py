@@ -8,7 +8,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._nested_resource_class_methods import nested_resource_class_methods
 from stripe._search_result_object import SearchResultObject
 from stripe._searchable_api_resource import SearchableAPIResource
-from stripe._stripe_object import DictLikeObject, StripeObject
+from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
 from typing import (
@@ -701,7 +701,7 @@ class Invoice(
             """
 
         class SubscriptionDetails(StripeObject):
-            metadata: Optional[DictLikeObject[str]]
+            metadata: Optional[UntypedStripeObject[str]]
             """
             Set of [key-value pairs](https://docs.stripe.com/api/metadata) defined as subscription metadata when an invoice is created. Becomes an immutable snapshot of the subscription metadata at the time of invoice finalization.
              *Note: This attribute is populated only for invoices created on or after June 29, 2023.*
@@ -1440,7 +1440,7 @@ class Invoice(
     """
     If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
-    metadata: Optional[DictLikeObject[str]]
+    metadata: Optional[UntypedStripeObject[str]]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """

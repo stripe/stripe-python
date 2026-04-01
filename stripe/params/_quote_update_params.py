@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from decimal import Decimal
-from stripe._stripe_object import DictLikeObject
+from stripe._stripe_object import UntypedStripeObject
 from typing import Dict, List
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -69,7 +69,7 @@ class QuoteUpdateParams(TypedDict):
     """
     A list of line items the customer is being quoted for. Each line item includes information about the product, the quantity, and the resulting cost.
     """
-    metadata: NotRequired["Dict[str, str]|DictLikeObject[str]"]
+    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
@@ -239,7 +239,7 @@ class QuoteUpdateParamsSubscriptionData(TypedDict):
     """
     When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. The `effective_date` is ignored if it is in the past when the quote is accepted.
     """
-    metadata: NotRequired["Dict[str, str]|DictLikeObject[str]"]
+    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is accepted. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
     """

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
-from stripe._stripe_object import DictLikeObject
+from stripe._stripe_object import UntypedStripeObject
 from typing import Dict, List
 from typing_extensions import Literal, NotRequired
 
@@ -15,7 +15,7 @@ class CreditGrantModifyParams(RequestOptions):
     """
     The time when the billing credits created by this credit grant expire. If set to empty, the billing credits never expire.
     """
-    metadata: NotRequired["Dict[str, str]|DictLikeObject[str]"]
+    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     Set of key-value pairs you can attach to an object. You can use this to store additional information about the object (for example, cost basis) in a structured format.
     """

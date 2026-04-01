@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
-from stripe._stripe_object import DictLikeObject
+from stripe._stripe_object import UntypedStripeObject
 from typing import Dict, List
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -33,7 +33,7 @@ class SourceCreateParams(RequestOptions):
     """
     Information about a mandate possibility attached to a source object (generally for bank debits) as well as its acceptance status.
     """
-    metadata: NotRequired["Dict[str, str]|DictLikeObject[str]"]
+    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     original_source: NotRequired[str]
     """
     The source to share.

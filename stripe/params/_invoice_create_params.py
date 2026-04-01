@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
-from stripe._stripe_object import DictLikeObject
+from stripe._stripe_object import UntypedStripeObject
 from typing import Dict, List
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -99,7 +99,9 @@ class InvoiceCreateParams(RequestOptions):
     """
     The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
     """
-    metadata: NotRequired["Literal['']|Dict[str, str]|DictLikeObject[str]"]
+    metadata: NotRequired[
+        "Literal['']|Dict[str, str]|UntypedStripeObject[str]"
+    ]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
@@ -567,7 +569,7 @@ class InvoiceCreateParamsShippingCostShippingRateData(TypedDict):
     """
     Describes a fixed amount to charge for shipping. Must be present if type is `fixed_amount`.
     """
-    metadata: NotRequired["Dict[str, str]|DictLikeObject[str]"]
+    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
@@ -638,7 +640,7 @@ class InvoiceCreateParamsShippingCostShippingRateDataFixedAmount(TypedDict):
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
     currency_options: NotRequired[
-        "Dict[str, InvoiceCreateParamsShippingCostShippingRateDataFixedAmountCurrencyOptions]|DictLikeObject[InvoiceCreateParamsShippingCostShippingRateDataFixedAmountCurrencyOptions]"
+        "Dict[str, InvoiceCreateParamsShippingCostShippingRateDataFixedAmountCurrencyOptions]|UntypedStripeObject[InvoiceCreateParamsShippingCostShippingRateDataFixedAmountCurrencyOptions]"
     ]
     """
     Shipping rates defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).

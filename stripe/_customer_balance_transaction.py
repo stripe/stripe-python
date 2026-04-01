@@ -3,7 +3,7 @@
 from stripe._api_resource import APIResource
 from stripe._customer import Customer
 from stripe._expandable_field import ExpandableField
-from stripe._stripe_object import DictLikeObject
+from stripe._stripe_object import UntypedStripeObject
 from stripe._util import sanitize_id
 from typing import ClassVar, Optional
 from typing_extensions import Literal, TYPE_CHECKING
@@ -75,7 +75,7 @@ class CustomerBalanceTransaction(APIResource["CustomerBalanceTransaction"]):
     """
     If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
-    metadata: Optional[DictLikeObject[str]]
+    metadata: Optional[UntypedStripeObject[str]]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """

@@ -3,7 +3,7 @@
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from stripe._stripe_object import DictLikeObject, StripeObject
+from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, List, Optional, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
@@ -82,7 +82,7 @@ class Account(ListableAPIResource["Account"]):
 
     class Balance(StripeObject):
         class Cash(StripeObject):
-            available: Optional[DictLikeObject[int]]
+            available: Optional[UntypedStripeObject[int]]
             """
             The funds available to the account holder. Typically this is the current balance after subtracting any outbound pending transactions and adding any inbound pending transactions.
 
@@ -92,7 +92,7 @@ class Account(ListableAPIResource["Account"]):
             """
 
         class Credit(StripeObject):
-            used: Optional[DictLikeObject[int]]
+            used: Optional[UntypedStripeObject[int]]
             """
             The credit that has been used by the account holder.
 
@@ -107,7 +107,7 @@ class Account(ListableAPIResource["Account"]):
         """
         cash: Optional[Cash]
         credit: Optional[Credit]
-        current: DictLikeObject[int]
+        current: UntypedStripeObject[int]
         """
         The balances owed to (or by) the account holder, before subtracting any outbound pending transactions or adding any inbound pending transactions.
 

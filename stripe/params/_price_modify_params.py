@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from decimal import Decimal
 from stripe._request_options import RequestOptions
-from stripe._stripe_object import DictLikeObject
+from stripe._stripe_object import UntypedStripeObject
 from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -13,7 +13,7 @@ class PriceModifyParams(RequestOptions):
     Whether the price can be used for new purchases. Defaults to `true`.
     """
     currency_options: NotRequired[
-        "Literal['']|Dict[str, PriceModifyParamsCurrencyOptions]|DictLikeObject[PriceModifyParamsCurrencyOptions]"
+        "Literal['']|Dict[str, PriceModifyParamsCurrencyOptions]|UntypedStripeObject[PriceModifyParamsCurrencyOptions]"
     ]
     """
     Prices defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
@@ -26,7 +26,9 @@ class PriceModifyParams(RequestOptions):
     """
     A lookup key used to retrieve prices dynamically from a static string. This may be up to 200 characters.
     """
-    metadata: NotRequired["Literal['']|Dict[str, str]|DictLikeObject[str]"]
+    metadata: NotRequired[
+        "Literal['']|Dict[str, str]|UntypedStripeObject[str]"
+    ]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """

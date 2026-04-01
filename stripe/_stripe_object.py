@@ -670,7 +670,7 @@ class StripeObject:
 T = TypeVar("T")
 
 
-class DictLikeObject(StripeObject, Generic[T]):
+class UntypedStripeObject(StripeObject, Generic[T]):
     """
     A normal StripeObject, but it exposes `__getattr__`/`__setattr__` instead of hiding them, effectively removing type information.
 

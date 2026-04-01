@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._stripe_object import DictLikeObject
+from stripe._stripe_object import UntypedStripeObject
 from typing import Dict, List
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -30,7 +30,9 @@ class ConfigurationUpdateParams(TypedDict):
     """
     The hosted login page for this configuration. Learn more about the portal login page in our [integration docs](https://stripe.com/docs/billing/subscriptions/integrating-customer-portal#share).
     """
-    metadata: NotRequired["Literal['']|Dict[str, str]|DictLikeObject[str]"]
+    metadata: NotRequired[
+        "Literal['']|Dict[str, str]|UntypedStripeObject[str]"
+    ]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """

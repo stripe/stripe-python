@@ -3,7 +3,7 @@
 
 from typing_extensions import assert_type
 
-from stripe._stripe_object import DictLikeObject, StripeObject
+from stripe._stripe_object import UntypedStripeObject, StripeObject
 from stripe._subscription import Subscription
 
 
@@ -12,7 +12,7 @@ def test_metadata_typing():
     obj = Subscription.construct_from({"metadata": {"some": "value"}}, "mykey")
 
     # metadata has special type handling
-    assert_type(obj.metadata, DictLikeObject[str])
+    assert_type(obj.metadata, UntypedStripeObject[str])
 
     # but it's just a stripeobject at runtime
     assert obj.metadata.to_dict() == {"some": "value"}

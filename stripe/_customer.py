@@ -8,7 +8,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._nested_resource_class_methods import nested_resource_class_methods
 from stripe._search_result_object import SearchResultObject
 from stripe._searchable_api_resource import SearchableAPIResource
-from stripe._stripe_object import DictLikeObject, StripeObject
+from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._test_helpers import APIResourceTestHelpers
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
@@ -354,7 +354,7 @@ class Customer(
     """
     The customer's individual name.
     """
-    invoice_credit_balance: Optional[DictLikeObject[int]]
+    invoice_credit_balance: Optional[UntypedStripeObject[int]]
     """
     The current multi-currency balances, if any, that's stored on the customer. If positive in a currency, the customer has a credit to apply to their next invoice denominated in that currency. If negative, the customer has an amount owed that's added to their next invoice denominated in that currency. These balances don't apply to unpaid invoices. They solely track amounts that Stripe hasn't successfully applied to any invoice. Stripe only applies a balance in a specific currency to an invoice after that invoice (which is in the same currency) finalizes.
     """
@@ -367,7 +367,7 @@ class Customer(
     """
     If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
-    metadata: Optional[DictLikeObject[str]]
+    metadata: Optional[UntypedStripeObject[str]]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """

@@ -4,7 +4,7 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._customer import Customer
 from stripe._error import InvalidRequestError
 from stripe._list_object import ListObject
-from stripe._stripe_object import DictLikeObject, StripeObject
+from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, List, Optional, cast, overload
@@ -534,7 +534,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     """
     If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
-    metadata: Optional[DictLikeObject[str]]
+    metadata: Optional[UntypedStripeObject[str]]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """

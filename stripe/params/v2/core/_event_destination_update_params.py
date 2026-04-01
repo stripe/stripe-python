@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._stripe_object import DictLikeObject
+from stripe._stripe_object import UntypedStripeObject
 from typing import Dict, List, Optional
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -19,7 +19,7 @@ class EventDestinationUpdateParams(TypedDict):
     Additional fields to include in the response. Currently supports `webhook_endpoint.url`.
     """
     metadata: NotRequired[
-        "Dict[str, Optional[str]]|DictLikeObject[Optional[str]]"
+        "Dict[str, Optional[str]]|UntypedStripeObject[Optional[str]]"
     ]
     """
     Metadata.

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._stripe_object import DictLikeObject, StripeObject
+from stripe._stripe_object import StripeObject, UntypedStripeObject
 from typing import ClassVar, List, Optional
 from typing_extensions import Literal
 
@@ -89,7 +89,7 @@ class EventDestination(StripeObject):
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
-    metadata: Optional[DictLikeObject[str]]
+    metadata: Optional[UntypedStripeObject[str]]
     """
     Metadata.
     """

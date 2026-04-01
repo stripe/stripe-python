@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._stripe_object import DictLikeObject
+from stripe._stripe_object import UntypedStripeObject
 from typing import Dict
 from typing_extensions import NotRequired, TypedDict
 
@@ -16,7 +16,7 @@ class MeterEventCreateParams(TypedDict):
     We recommend using a globally unique identifier for this. We'll enforce
     uniqueness within a rolling 24 hour period.
     """
-    payload: "Dict[str, str]|DictLikeObject[str]"
+    payload: "Dict[str, str]|UntypedStripeObject[str]"
     """
     The payload of the event. This must contain the fields corresponding to a meter's
     `customer_mapping.event_payload_key` (default is `stripe_customer_id`) and
