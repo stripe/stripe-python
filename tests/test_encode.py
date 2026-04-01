@@ -94,3 +94,13 @@ class TestApiEncode:
             ("items[1]", "item2"),
             ("items[2]", "item3"),
         ]
+
+    def test_encode_nested_list_value(self):
+        """Test that nested lists (2D arrays) are encoded with double indices."""
+        result = list(_api_encode({"items": [[1, 2], [3, 4]]}))
+        assert result == [
+            ("items[0][0]", 1),
+            ("items[0][1]", 2),
+            ("items[1][0]", 3),
+            ("items[1][1]", 4),
+        ]
