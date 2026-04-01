@@ -30,6 +30,12 @@ if TYPE_CHECKING:
     from stripe.params.v2.payments._off_session_payment_list_params import (
         OffSessionPaymentListParams as OffSessionPaymentListParams,
     )
+    from stripe.params.v2.payments._off_session_payment_pause_params import (
+        OffSessionPaymentPauseParams as OffSessionPaymentPauseParams,
+    )
+    from stripe.params.v2.payments._off_session_payment_resume_params import (
+        OffSessionPaymentResumeParams as OffSessionPaymentResumeParams,
+    )
     from stripe.params.v2.payments._off_session_payment_retrieve_params import (
         OffSessionPaymentRetrieveParams as OffSessionPaymentRetrieveParams,
     )
@@ -116,6 +122,14 @@ _import_map = {
     ),
     "OffSessionPaymentListParams": (
         "stripe.params.v2.payments._off_session_payment_list_params",
+        False,
+    ),
+    "OffSessionPaymentPauseParams": (
+        "stripe.params.v2.payments._off_session_payment_pause_params",
+        False,
+    ),
+    "OffSessionPaymentResumeParams": (
+        "stripe.params.v2.payments._off_session_payment_resume_params",
         False,
     ),
     "OffSessionPaymentRetrieveParams": (

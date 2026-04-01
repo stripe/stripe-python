@@ -43,6 +43,10 @@ class V2CoreHealthWebhookLatencyResolvedEvent(Event):
             The number of impacted requests.
             """
 
+        alert_id: str
+        """
+        The alert ID.
+        """
         grouping_key: str
         """
         The grouping key for the alert.

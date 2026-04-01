@@ -304,6 +304,18 @@ if TYPE_CHECKING:
     from stripe.events._v2_core_health_webhook_latency_resolved_event import (
         V2CoreHealthWebhookLatencyResolvedEventNotification,
     )
+    from stripe.events._v2_data_reporting_query_run_created_event import (
+        V2DataReportingQueryRunCreatedEventNotification,
+    )
+    from stripe.events._v2_data_reporting_query_run_failed_event import (
+        V2DataReportingQueryRunFailedEventNotification,
+    )
+    from stripe.events._v2_data_reporting_query_run_succeeded_event import (
+        V2DataReportingQueryRunSucceededEventNotification,
+    )
+    from stripe.events._v2_data_reporting_query_run_updated_event import (
+        V2DataReportingQueryRunUpdatedEventNotification,
+    )
     from stripe.events._v2_iam_api_key_created_event import (
         V2IamApiKeyCreatedEventNotification,
     )
@@ -475,8 +487,14 @@ if TYPE_CHECKING:
     from stripe.events._v2_payments_off_session_payment_failed_event import (
         V2PaymentsOffSessionPaymentFailedEventNotification,
     )
+    from stripe.events._v2_payments_off_session_payment_paused_event import (
+        V2PaymentsOffSessionPaymentPausedEventNotification,
+    )
     from stripe.events._v2_payments_off_session_payment_requires_capture_event import (
         V2PaymentsOffSessionPaymentRequiresCaptureEventNotification,
+    )
+    from stripe.events._v2_payments_off_session_payment_resumed_event import (
+        V2PaymentsOffSessionPaymentResumedEventNotification,
     )
     from stripe.events._v2_payments_off_session_payment_succeeded_event import (
         V2PaymentsOffSessionPaymentSucceededEventNotification,
@@ -928,6 +946,22 @@ _V2_EVENT_CLASS_LOOKUP = {
         "stripe.events._v2_core_health_webhook_latency_resolved_event",
         "V2CoreHealthWebhookLatencyResolvedEvent",
     ),
+    "v2.data.reporting.query_run.created": (
+        "stripe.events._v2_data_reporting_query_run_created_event",
+        "V2DataReportingQueryRunCreatedEvent",
+    ),
+    "v2.data.reporting.query_run.failed": (
+        "stripe.events._v2_data_reporting_query_run_failed_event",
+        "V2DataReportingQueryRunFailedEvent",
+    ),
+    "v2.data.reporting.query_run.succeeded": (
+        "stripe.events._v2_data_reporting_query_run_succeeded_event",
+        "V2DataReportingQueryRunSucceededEvent",
+    ),
+    "v2.data.reporting.query_run.updated": (
+        "stripe.events._v2_data_reporting_query_run_updated_event",
+        "V2DataReportingQueryRunUpdatedEvent",
+    ),
     "v2.iam.api_key.created": (
         "stripe.events._v2_iam_api_key_created_event",
         "V2IamApiKeyCreatedEvent",
@@ -1156,9 +1190,17 @@ _V2_EVENT_CLASS_LOOKUP = {
         "stripe.events._v2_payments_off_session_payment_failed_event",
         "V2PaymentsOffSessionPaymentFailedEvent",
     ),
+    "v2.payments.off_session_payment.paused": (
+        "stripe.events._v2_payments_off_session_payment_paused_event",
+        "V2PaymentsOffSessionPaymentPausedEvent",
+    ),
     "v2.payments.off_session_payment.requires_capture": (
         "stripe.events._v2_payments_off_session_payment_requires_capture_event",
         "V2PaymentsOffSessionPaymentRequiresCaptureEvent",
+    ),
+    "v2.payments.off_session_payment.resumed": (
+        "stripe.events._v2_payments_off_session_payment_resumed_event",
+        "V2PaymentsOffSessionPaymentResumedEvent",
     ),
     "v2.payments.off_session_payment.succeeded": (
         "stripe.events._v2_payments_off_session_payment_succeeded_event",
@@ -1639,6 +1681,22 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_core_health_webhook_latency_resolved_event",
         "V2CoreHealthWebhookLatencyResolvedEventNotification",
     ),
+    "v2.data.reporting.query_run.created": (
+        "stripe.events._v2_data_reporting_query_run_created_event",
+        "V2DataReportingQueryRunCreatedEventNotification",
+    ),
+    "v2.data.reporting.query_run.failed": (
+        "stripe.events._v2_data_reporting_query_run_failed_event",
+        "V2DataReportingQueryRunFailedEventNotification",
+    ),
+    "v2.data.reporting.query_run.succeeded": (
+        "stripe.events._v2_data_reporting_query_run_succeeded_event",
+        "V2DataReportingQueryRunSucceededEventNotification",
+    ),
+    "v2.data.reporting.query_run.updated": (
+        "stripe.events._v2_data_reporting_query_run_updated_event",
+        "V2DataReportingQueryRunUpdatedEventNotification",
+    ),
     "v2.iam.api_key.created": (
         "stripe.events._v2_iam_api_key_created_event",
         "V2IamApiKeyCreatedEventNotification",
@@ -1867,9 +1925,17 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_payments_off_session_payment_failed_event",
         "V2PaymentsOffSessionPaymentFailedEventNotification",
     ),
+    "v2.payments.off_session_payment.paused": (
+        "stripe.events._v2_payments_off_session_payment_paused_event",
+        "V2PaymentsOffSessionPaymentPausedEventNotification",
+    ),
     "v2.payments.off_session_payment.requires_capture": (
         "stripe.events._v2_payments_off_session_payment_requires_capture_event",
         "V2PaymentsOffSessionPaymentRequiresCaptureEventNotification",
+    ),
+    "v2.payments.off_session_payment.resumed": (
+        "stripe.events._v2_payments_off_session_payment_resumed_event",
+        "V2PaymentsOffSessionPaymentResumedEventNotification",
     ),
     "v2.payments.off_session_payment.succeeded": (
         "stripe.events._v2_payments_off_session_payment_succeeded_event",
@@ -2053,6 +2119,10 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2CoreHealthTrafficVolumeDropResolvedEventNotification",
     "V2CoreHealthWebhookLatencyFiringEventNotification",
     "V2CoreHealthWebhookLatencyResolvedEventNotification",
+    "V2DataReportingQueryRunCreatedEventNotification",
+    "V2DataReportingQueryRunFailedEventNotification",
+    "V2DataReportingQueryRunSucceededEventNotification",
+    "V2DataReportingQueryRunUpdatedEventNotification",
     "V2IamApiKeyCreatedEventNotification",
     "V2IamApiKeyDefaultSecretRevealedEventNotification",
     "V2IamApiKeyExpiredEventNotification",
@@ -2110,7 +2180,9 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2PaymentsOffSessionPaymentCanceledEventNotification",
     "V2PaymentsOffSessionPaymentCreatedEventNotification",
     "V2PaymentsOffSessionPaymentFailedEventNotification",
+    "V2PaymentsOffSessionPaymentPausedEventNotification",
     "V2PaymentsOffSessionPaymentRequiresCaptureEventNotification",
+    "V2PaymentsOffSessionPaymentResumedEventNotification",
     "V2PaymentsOffSessionPaymentSucceededEventNotification",
     "V2PaymentsSettlementAllocationIntentCanceledEventNotification",
     "V2PaymentsSettlementAllocationIntentCreatedEventNotification",

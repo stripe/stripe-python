@@ -79,6 +79,8 @@ if TYPE_CHECKING:
         CollectionSettingCreateParamsPaymentMethodOptionsCustomerBalance as CollectionSettingCreateParamsPaymentMethodOptionsCustomerBalance,
         CollectionSettingCreateParamsPaymentMethodOptionsCustomerBalanceBankTransfer as CollectionSettingCreateParamsPaymentMethodOptionsCustomerBalanceBankTransfer,
         CollectionSettingCreateParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as CollectionSettingCreateParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
+        CollectionSettingCreateParamsPaymentMethodOptionsKonbini as CollectionSettingCreateParamsPaymentMethodOptionsKonbini,
+        CollectionSettingCreateParamsPaymentMethodOptionsSepaDebit as CollectionSettingCreateParamsPaymentMethodOptionsSepaDebit,
         CollectionSettingCreateParamsPaymentMethodOptionsUsBankAccount as CollectionSettingCreateParamsPaymentMethodOptionsUsBankAccount,
         CollectionSettingCreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections as CollectionSettingCreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections,
         CollectionSettingCreateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters as CollectionSettingCreateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters,
@@ -102,6 +104,8 @@ if TYPE_CHECKING:
         CollectionSettingUpdateParamsPaymentMethodOptionsCustomerBalance as CollectionSettingUpdateParamsPaymentMethodOptionsCustomerBalance,
         CollectionSettingUpdateParamsPaymentMethodOptionsCustomerBalanceBankTransfer as CollectionSettingUpdateParamsPaymentMethodOptionsCustomerBalanceBankTransfer,
         CollectionSettingUpdateParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as CollectionSettingUpdateParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
+        CollectionSettingUpdateParamsPaymentMethodOptionsKonbini as CollectionSettingUpdateParamsPaymentMethodOptionsKonbini,
+        CollectionSettingUpdateParamsPaymentMethodOptionsSepaDebit as CollectionSettingUpdateParamsPaymentMethodOptionsSepaDebit,
         CollectionSettingUpdateParamsPaymentMethodOptionsUsBankAccount as CollectionSettingUpdateParamsPaymentMethodOptionsUsBankAccount,
         CollectionSettingUpdateParamsPaymentMethodOptionsUsBankAccountFinancialConnections as CollectionSettingUpdateParamsPaymentMethodOptionsUsBankAccountFinancialConnections,
         CollectionSettingUpdateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters as CollectionSettingUpdateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters,
@@ -568,6 +572,14 @@ _import_map = {
         "stripe.params.v2.billing._collection_setting_create_params",
         False,
     ),
+    "CollectionSettingCreateParamsPaymentMethodOptionsKonbini": (
+        "stripe.params.v2.billing._collection_setting_create_params",
+        False,
+    ),
+    "CollectionSettingCreateParamsPaymentMethodOptionsSepaDebit": (
+        "stripe.params.v2.billing._collection_setting_create_params",
+        False,
+    ),
     "CollectionSettingCreateParamsPaymentMethodOptionsUsBankAccount": (
         "stripe.params.v2.billing._collection_setting_create_params",
         False,
@@ -633,6 +645,14 @@ _import_map = {
         False,
     ),
     "CollectionSettingUpdateParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer": (
+        "stripe.params.v2.billing._collection_setting_update_params",
+        False,
+    ),
+    "CollectionSettingUpdateParamsPaymentMethodOptionsKonbini": (
+        "stripe.params.v2.billing._collection_setting_update_params",
+        False,
+    ),
+    "CollectionSettingUpdateParamsPaymentMethodOptionsSepaDebit": (
         "stripe.params.v2.billing._collection_setting_update_params",
         False,
     ),

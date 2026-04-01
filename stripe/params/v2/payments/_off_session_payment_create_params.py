@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe._stripe_object import UntypedStripeObject
 from stripe.v2._amount import AmountParam
 from typing import Dict
 from typing_extensions import Literal, NotRequired, TypedDict
@@ -9,6 +10,11 @@ class OffSessionPaymentCreateParams(TypedDict):
     amount: AmountParam
     """
     The “presentment amount” to be collected from the customer.
+    """
+    application_fee_amount: NotRequired[AmountParam]
+    """
+    The amount of the application fee (if any) that will be requested to be applied to the
+    payment and transferred to the application owner's Stripe account.
     """
     cadence: Literal["recurring", "unscheduled"]
     """
@@ -22,7 +28,7 @@ class OffSessionPaymentCreateParams(TypedDict):
     """
     ID of the Customer to which this OffSessionPayment belongs.
     """
-    metadata: Dict[str, str]
+    metadata: "Dict[str, str]|UntypedStripeObject[str]"
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can
     attach to an object. This can be useful for storing additional information about

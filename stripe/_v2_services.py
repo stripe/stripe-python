@@ -7,6 +7,7 @@ from typing_extensions import TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe.v2._billing_service import BillingService
     from stripe.v2._core_service import CoreService
+    from stripe.v2._datum_service import DatumService
     from stripe.v2._iam_service import IamService
     from stripe.v2._money_management_service import MoneyManagementService
     from stripe.v2._payment_service import PaymentService
@@ -17,6 +18,7 @@ if TYPE_CHECKING:
 _subservices = {
     "billing": ["stripe.v2._billing_service", "BillingService"],
     "core": ["stripe.v2._core_service", "CoreService"],
+    "data": ["stripe.v2._datum_service", "DatumService"],
     "iam": ["stripe.v2._iam_service", "IamService"],
     "money_management": [
         "stripe.v2._money_management_service",
@@ -32,6 +34,7 @@ _subservices = {
 class V2Services(StripeService):
     billing: "BillingService"
     core: "CoreService"
+    data: "DatumService"
     iam: "IamService"
     money_management: "MoneyManagementService"
     payments: "PaymentService"

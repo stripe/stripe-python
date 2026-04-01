@@ -19,6 +19,12 @@ if TYPE_CHECKING:
     from stripe.params.v2.payments._off_session_payment_list_params import (
         OffSessionPaymentListParams,
     )
+    from stripe.params.v2.payments._off_session_payment_pause_params import (
+        OffSessionPaymentPauseParams,
+    )
+    from stripe.params.v2.payments._off_session_payment_resume_params import (
+        OffSessionPaymentResumeParams,
+    )
     from stripe.params.v2.payments._off_session_payment_retrieve_params import (
         OffSessionPaymentRetrieveParams,
     )
@@ -227,6 +233,94 @@ class OffSessionPaymentService(StripeService):
             await self._request_async(
                 "post",
                 "/v2/payments/off_session_payments/{id}/capture".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def pause(
+        self,
+        id: str,
+        params: Optional["OffSessionPaymentPauseParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "OffSessionPayment":
+        """
+        Pauses an OffSessionPayment that has previously been created.
+        """
+        return cast(
+            "OffSessionPayment",
+            self._request(
+                "post",
+                "/v2/payments/off_session_payments/{id}/pause".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def pause_async(
+        self,
+        id: str,
+        params: Optional["OffSessionPaymentPauseParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "OffSessionPayment":
+        """
+        Pauses an OffSessionPayment that has previously been created.
+        """
+        return cast(
+            "OffSessionPayment",
+            await self._request_async(
+                "post",
+                "/v2/payments/off_session_payments/{id}/pause".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def resume(
+        self,
+        id: str,
+        params: Optional["OffSessionPaymentResumeParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "OffSessionPayment":
+        """
+        Resumes an OffSessionPayment that has previously been paused.
+        """
+        return cast(
+            "OffSessionPayment",
+            self._request(
+                "post",
+                "/v2/payments/off_session_payments/{id}/resume".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def resume_async(
+        self,
+        id: str,
+        params: Optional["OffSessionPaymentResumeParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "OffSessionPayment":
+        """
+        Resumes an OffSessionPayment that has previously been paused.
+        """
+        return cast(
+            "OffSessionPayment",
+            await self._request_async(
+                "post",
+                "/v2/payments/off_session_payments/{id}/resume".format(
                     id=sanitize_id(id),
                 ),
                 base_address="api",

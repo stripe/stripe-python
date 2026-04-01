@@ -3031,6 +3031,39 @@ class Account(StripeObject):
                     """
                     _inner_class_types = {"status_details": StatusDetail}
 
+                class PaperChecks(StripeObject):
+                    class StatusDetail(StripeObject):
+                        code: Literal[
+                            "determining_status",
+                            "requirements_past_due",
+                            "requirements_pending_verification",
+                            "restricted_other",
+                            "unsupported_business",
+                            "unsupported_country",
+                            "unsupported_entity_type",
+                        ]
+                        """
+                        Machine-readable code explaining the reason for the Capability to be in its current status.
+                        """
+                        resolution: Literal[
+                            "contact_stripe", "no_resolution", "provide_info"
+                        ]
+                        """
+                        Machine-readable code explaining how to make the Capability active.
+                        """
+
+                    status: Literal[
+                        "active", "pending", "restricted", "unsupported"
+                    ]
+                    """
+                    The status of the Capability.
+                    """
+                    status_details: List[StatusDetail]
+                    """
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
+                    """
+                    _inner_class_types = {"status_details": StatusDetail}
+
                 class StripeBalance(StripeObject):
                     class Payouts(StripeObject):
                         class StatusDetail(StripeObject):
@@ -3127,6 +3160,10 @@ class Account(StripeObject):
                 """
                 Enables this Account to receive OutboundPayments to a linked crypto wallet.
                 """
+                paper_checks: Optional[PaperChecks]
+                """
+                Capabilities that enable OutboundPayments via paper check.
+                """
                 stripe_balance: Optional[StripeBalance]
                 """
                 Capabilities that enable the recipient to manage their Stripe Balance (/v1/balance).
@@ -3135,6 +3172,7 @@ class Account(StripeObject):
                     "bank_accounts": BankAccounts,
                     "cards": Cards,
                     "crypto_wallets": CryptoWallets,
+                    "paper_checks": PaperChecks,
                     "stripe_balance": StripeBalance,
                 }
 
@@ -3757,6 +3795,41 @@ class Account(StripeObject):
                         """
                         _inner_class_types = {"status_details": StatusDetail}
 
+                    class PaperChecks(StripeObject):
+                        class StatusDetail(StripeObject):
+                            code: Literal[
+                                "determining_status",
+                                "requirements_past_due",
+                                "requirements_pending_verification",
+                                "restricted_other",
+                                "unsupported_business",
+                                "unsupported_country",
+                                "unsupported_entity_type",
+                            ]
+                            """
+                            Machine-readable code explaining the reason for the Capability to be in its current status.
+                            """
+                            resolution: Literal[
+                                "contact_stripe",
+                                "no_resolution",
+                                "provide_info",
+                            ]
+                            """
+                            Machine-readable code explaining how to make the Capability active.
+                            """
+
+                        status: Literal[
+                            "active", "pending", "restricted", "unsupported"
+                        ]
+                        """
+                        The status of the Capability.
+                        """
+                        status_details: List[StatusDetail]
+                        """
+                        Additional details about the capability's status. This value is empty when `status` is `active`.
+                        """
+                        _inner_class_types = {"status_details": StatusDetail}
+
                     bank_accounts: Optional[BankAccounts]
                     """
                     Can send funds from a FinancialAccount to a bank account owned by a different entity.
@@ -3773,11 +3846,16 @@ class Account(StripeObject):
                     """
                     Can send funds from a FinancialAccount to a FinancialAccount owned by a different entity.
                     """
+                    paper_checks: Optional[PaperChecks]
+                    """
+                    Can send funds from a FinancialAccount to someone else via paper check.
+                    """
                     _inner_class_types = {
                         "bank_accounts": BankAccounts,
                         "cards": Cards,
                         "crypto_wallets": CryptoWallets,
                         "financial_accounts": FinancialAccounts,
+                        "paper_checks": PaperChecks,
                     }
 
                 class OutboundTransfers(StripeObject):
@@ -4414,10 +4492,12 @@ class Account(StripeObject):
                         "outbound_payments.bank_accounts",
                         "outbound_payments.cards",
                         "outbound_payments.financial_accounts",
+                        "outbound_payments.paper_checks",
                         "outbound_transfers.bank_accounts",
                         "outbound_transfers.financial_accounts",
                         "oxxo_payments",
                         "p24_payments",
+                        "paper_checks",
                         "payco_payments",
                         "paynow_payments",
                         "pay_by_bank_payments",
@@ -5951,7 +6031,10 @@ class Account(StripeObject):
                     "be_vat",
                     "bg_uic",
                     "bg_vat",
+                    "bm_crn",
+                    "bo_tin",
                     "br_cnpj",
+                    "bt_tpn",
                     "ca_cn",
                     "ca_crarr",
                     "ca_gst_hst",
@@ -5959,6 +6042,7 @@ class Account(StripeObject):
                     "ca_rid",
                     "ch_chid",
                     "ch_uid",
+                    "co_nit",
                     "cr_cpj",
                     "cr_nite",
                     "cy_he",
@@ -5972,8 +6056,10 @@ class Account(StripeObject):
                     "dk_cvr",
                     "dk_vat",
                     "do_rcn",
+                    "ec_ruc",
                     "ee_rk",
                     "ee_vat",
+                    "eg_tin",
                     "es_cif",
                     "es_vat",
                     "fi_vat",
@@ -5983,13 +6069,16 @@ class Account(StripeObject):
                     "fr_vat",
                     "gb_crn",
                     "gb_vat",
+                    "gh_tin",
                     "gi_crn",
                     "gr_afm",
                     "gr_gemi",
                     "gr_vat",
                     "gt_nit",
+                    "gy_tin",
                     "hk_br",
                     "hk_cr",
+                    "hn_rtn",
                     "hr_mbs",
                     "hr_oib",
                     "hr_vat",
@@ -6001,9 +6090,14 @@ class Account(StripeObject):
                     "ie_vat",
                     "it_rea",
                     "it_vat",
+                    "jm_trn",
+                    "jo_crn",
                     "jp_cn",
+                    "ke_pin",
+                    "ky_crn",
                     "kz_bin",
                     "li_uid",
+                    "lk_tin",
                     "lt_ccrn",
                     "lt_vat",
                     "lu_nif",
@@ -6011,27 +6105,33 @@ class Account(StripeObject):
                     "lu_vat",
                     "lv_urn",
                     "lv_vat",
+                    "mo_tin",
                     "mt_crn",
                     "mt_tin",
                     "mt_vat",
+                    "mv_tin",
                     "mx_rfc",
                     "my_brn",
                     "my_coid",
                     "my_itn",
                     "my_sst",
                     "mz_nuit",
+                    "ng_tin",
                     "nl_kvk",
                     "nl_rsin",
                     "nl_vat",
                     "no_orgnr",
                     "nz_bn",
                     "nz_ird",
+                    "pa_ruc",
                     "pe_ruc",
+                    "ph_tin",
                     "pk_ntn",
                     "pl_nip",
                     "pl_regon",
                     "pl_vat",
                     "pt_vat",
+                    "py_ruc",
                     "ro_cui",
                     "ro_orc",
                     "ro_vat",
@@ -6046,10 +6146,15 @@ class Account(StripeObject):
                     "sk_dic",
                     "sk_ico",
                     "sk_vat",
+                    "sl_tin",
+                    "sv_nit",
                     "th_crn",
                     "th_prn",
                     "th_tin",
                     "us_ein",
+                    "uy_ruc",
+                    "vg_cn",
+                    "za_tin",
                 ]
                 """
                 Open Enum. The ID number type of a business entity.
@@ -6494,8 +6599,11 @@ class Account(StripeObject):
                     "bd_nid",
                     "be_nrn",
                     "bg_ucn",
+                    "bm_pp",
                     "bn_nric",
+                    "bo_ci",
                     "br_cpf",
+                    "bt_cid",
                     "ca_sin",
                     "ch_oasi",
                     "cl_rut",
@@ -6513,26 +6621,37 @@ class Account(StripeObject):
                     "do_rcn",
                     "ec_ci",
                     "ee_ik",
+                    "eg_tin",
                     "es_nif",
                     "fi_hetu",
                     "fr_nir",
                     "gb_nino",
+                    "gh_pin",
                     "gr_afm",
                     "gt_nit",
+                    "gy_tin",
                     "hk_id",
+                    "hn_rtn",
                     "hr_oib",
                     "hu_ad",
                     "id_nik",
                     "ie_ppsn",
                     "is_kt",
                     "it_cf",
+                    "jm_trn",
+                    "jo_pin",
                     "jp_inc",
                     "ke_pin",
+                    "ky_pp",
                     "kz_iin",
                     "li_peid",
+                    "lk_nic",
                     "lt_ak",
                     "lu_nif",
                     "lv_pk",
+                    "mo_bir",
+                    "mt_nic",
+                    "mv_tin",
                     "mx_rfc",
                     "my_nric",
                     "mz_nuit",
@@ -6540,17 +6659,22 @@ class Account(StripeObject):
                     "nl_bsn",
                     "no_nin",
                     "nz_ird",
+                    "pa_ruc",
                     "pe_dni",
+                    "ph_tin",
                     "pk_cnic",
                     "pk_snic",
                     "pl_pesel",
                     "pt_nif",
+                    "py_ruc",
                     "ro_cnp",
                     "sa_tin",
                     "se_pin",
                     "sg_fin",
                     "sg_nric",
+                    "si_pin",
                     "sk_dic",
+                    "sv_nit",
                     "th_lc",
                     "th_pin",
                     "tr_tin",
@@ -6559,6 +6683,7 @@ class Account(StripeObject):
                     "us_ssn",
                     "us_ssn_last_4",
                     "uy_dni",
+                    "vg_pp",
                     "za_id",
                 ]
                 """
@@ -7012,10 +7137,12 @@ class Account(StripeObject):
                         "outbound_payments.bank_accounts",
                         "outbound_payments.cards",
                         "outbound_payments.financial_accounts",
+                        "outbound_payments.paper_checks",
                         "outbound_transfers.bank_accounts",
                         "outbound_transfers.financial_accounts",
                         "oxxo_payments",
                         "p24_payments",
+                        "paper_checks",
                         "payco_payments",
                         "paynow_payments",
                         "pay_by_bank_payments",

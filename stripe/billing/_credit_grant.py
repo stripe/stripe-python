@@ -68,7 +68,7 @@ class CreditGrant(
                 """
                 A lookup key for the custom pricing unit.
                 """
-                metadata: Dict[str, str]
+                metadata: UntypedStripeObject[str]
                 """
                 Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
                 """

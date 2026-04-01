@@ -44,6 +44,9 @@ class Event(StripeObject):
                     The machine identifier of the user.
                     """
 
+                class StripeAction(StripeObject):
+                    pass
+
                 api_key: Optional[ApiKey]
                 """
                 API key that triggered the event.
@@ -52,7 +55,7 @@ class Event(StripeObject):
                 """
                 Dashboard user that triggered the event.
                 """
-                stripe_action: Optional[Dict[str, Any]]
+                stripe_action: Optional[StripeAction]
                 """
                 Stripe action that triggered the event.
                 """
@@ -63,6 +66,7 @@ class Event(StripeObject):
                 _inner_class_types = {
                     "api_key": ApiKey,
                     "dashboard_user": DashboardUser,
+                    "stripe_action": StripeAction,
                 }
 
             client: Optional[Client]

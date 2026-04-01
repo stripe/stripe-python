@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._stripe_object import StripeObject
-from typing import ClassVar, Dict
+from stripe._stripe_object import StripeObject, UntypedStripeObject
+from typing import ClassVar
 from typing_extensions import Literal
 
 
@@ -17,7 +17,7 @@ class AccountInferredBalance(StripeObject):
     """
     The time for which this balance was calculated, measured in seconds since the Unix epoch. If the balance was computed by Stripe and not provided directly by a financial institution, it will always be 23:59:59 UTC.
     """
-    current: Dict[str, int]
+    current: UntypedStripeObject[int]
     """
     The balances owed to (or by) the account holder, before subtracting any outbound pending transactions or adding any inbound pending transactions.
 

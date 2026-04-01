@@ -207,8 +207,10 @@ class Session(
                 }
 
             billing_cadence: Optional[str]
-            component_configurations: Dict[str, ComponentConfigurations]
-            metadata: Dict[str, str]
+            component_configurations: UntypedStripeObject[
+                ComponentConfigurations
+            ]
+            metadata: UntypedStripeObject[str]
             pricing_plan: str
             pricing_plan_subscription: Optional[str]
             pricing_plan_version: str
@@ -219,7 +221,7 @@ class Session(
 
         class RateCardSubscriptionItem(StripeObject):
             billing_cadence: Optional[str]
-            metadata: Dict[str, str]
+            metadata: UntypedStripeObject[str]
             rate_card: str
             rate_card_subscription: Optional[str]
             rate_card_version: str
@@ -2921,7 +2923,7 @@ class Session(
     """
     Settings for Managed Payments for this Checkout Session and resulting [PaymentIntents](https://docs.stripe.com/api/payment_intents/object), [Invoices](https://docs.stripe.com/api/invoices/object), and [Subscriptions](https://docs.stripe.com/api/subscriptions/object).
     """
-    metadata: Optional[Dict[str, str]]
+    metadata: Optional[UntypedStripeObject[str]]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """

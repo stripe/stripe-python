@@ -115,6 +115,7 @@ class V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEvent(
             "outbound_payments.cards",
             "outbound_payments.crypto_wallets",
             "outbound_payments.financial_accounts",
+            "outbound_payments.paper_checks",
             "outbound_transfers.bank_accounts",
             "outbound_transfers.crypto_wallets",
             "outbound_transfers.financial_accounts",

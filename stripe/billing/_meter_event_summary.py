@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._stripe_object import StripeObject
-from typing import ClassVar, Dict, Optional
+from stripe._stripe_object import StripeObject, UntypedStripeObject
+from typing import ClassVar, Optional
 from typing_extensions import Literal
 
 
@@ -20,7 +20,7 @@ class MeterEventSummary(StripeObject):
     """
     Aggregated value of all the events within `start_time` (inclusive) and `end_time` (inclusive). The aggregation strategy is defined on meter via `default_aggregation`.
     """
-    dimensions: Optional[Dict[str, str]]
+    dimensions: Optional[UntypedStripeObject[str]]
     """
     Key-value pairs of dimension values for event summaries with grouping on dimensions.
     """

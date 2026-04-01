@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe._stripe_object import UntypedStripeObject
 from typing import Dict, Optional
 from typing_extensions import NotRequired, TypedDict
 
@@ -9,7 +10,9 @@ class FinancialAccountUpdateParams(TypedDict):
     """
     A descriptive name for the FinancialAccount, up to 50 characters long. This name will be used in the Stripe Dashboard and embedded components.
     """
-    metadata: NotRequired[Dict[str, Optional[str]]]
+    metadata: NotRequired[
+        "Dict[str, Optional[str]]|UntypedStripeObject[Optional[str]]"
+    ]
     """
     Metadata associated with the FinancialAccount.
     """

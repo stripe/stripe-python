@@ -17,6 +17,10 @@ class CadenceSpendModifier(StripeObject):
     class MaxBillingPeriodSpend(StripeObject):
         class Amount(StripeObject):
             class CustomPricingUnit(StripeObject):
+                id: Optional[str]
+                """
+                The id of the custom pricing unit.
+                """
                 value: str
                 """
                 The decimal value of custom pricing units, represented as a string.

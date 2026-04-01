@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
+from stripe._stripe_object import UntypedStripeObject
 from typing import Dict, List
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -22,7 +23,9 @@ class RequestedSessionModifyParams(RequestOptions):
     """
     The details of the line items.
     """
-    metadata: NotRequired["Literal['']|Dict[str, str]"]
+    metadata: NotRequired[
+        "Literal['']|Dict[str, str]|UntypedStripeObject[str]"
+    ]
     """
     The metadata for this requested session.
     """
@@ -36,7 +39,9 @@ class RequestedSessionModifyParams(RequestOptions):
     """
     The payment method data for this requested session.
     """
-    shared_metadata: NotRequired["Literal['']|Dict[str, str]"]
+    shared_metadata: NotRequired[
+        "Literal['']|Dict[str, str]|UntypedStripeObject[str]"
+    ]
     """
     The shared metadata for this requested session.
     """

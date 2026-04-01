@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
+from stripe._stripe_object import UntypedStripeObject
 from typing import Dict, List
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -61,7 +62,7 @@ class RequestedSessionConfirmParamsAffiliateAttribution(TypedDict):
     """
     Agent-scoped affiliate/publisher identifier.
     """
-    shared_metadata: NotRequired[Dict[str, str]]
+    shared_metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     Freeform key/value pairs for additional non-sensitive per-agent data.
     """

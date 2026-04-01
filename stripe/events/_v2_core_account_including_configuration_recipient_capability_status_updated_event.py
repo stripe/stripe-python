@@ -104,6 +104,7 @@ class V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent(
             "bank_accounts.wire",
             "cards",
             "crypto_wallets_v2",
+            "paper_checks",
             "stripe_balance.payouts",
             "stripe_balance.stripe_transfers",
             "stripe.transfers",

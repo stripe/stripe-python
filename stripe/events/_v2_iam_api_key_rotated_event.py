@@ -35,6 +35,10 @@ class V2IamApiKeyRotatedEvent(Event):
     type: Literal["v2.iam.api_key.rotated"]
 
     class V2IamApiKeyRotatedEventData(StripeObject):
+        api_key: str
+        """
+        ID of the old key that was rotated.
+        """
         new_api_key: str
         """
         ID of the new key that was created due to rotation.

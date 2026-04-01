@@ -292,7 +292,7 @@ class InvoiceItem(
     """
     The margins which apply to the invoice item. When set, the `default_margins` on the invoice do not apply to this invoice item.
     """
-    metadata: Optional[Dict[str, str]]
+    metadata: Optional[UntypedStripeObject[str]]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """

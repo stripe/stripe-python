@@ -1555,6 +1555,12 @@ class AccountUpdateParamsConfigurationRecipientCapabilities(TypedDict):
     """
     Capabilities that enable OutboundPayments to a crypto wallet linked to this Account.
     """
+    paper_checks: NotRequired[
+        "AccountUpdateParamsConfigurationRecipientCapabilitiesPaperChecks"
+    ]
+    """
+    Capabilities that enable OutboundPayments via paper check.
+    """
     stripe_balance: NotRequired[
         "AccountUpdateParamsConfigurationRecipientCapabilitiesStripeBalance"
     ]
@@ -1621,6 +1627,15 @@ class AccountUpdateParamsConfigurationRecipientCapabilitiesCards(TypedDict):
 
 
 class AccountUpdateParamsConfigurationRecipientCapabilitiesCryptoWallets(
+    TypedDict,
+):
+    requested: NotRequired[bool]
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountUpdateParamsConfigurationRecipientCapabilitiesPaperChecks(
     TypedDict,
 ):
     requested: NotRequired[bool]
@@ -1970,6 +1985,12 @@ class AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPayments(
     """
     Can send funds from a FinancialAccount to another FinancialAccount owned by someone else.
     """
+    paper_checks: NotRequired[
+        "AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsPaperChecks"
+    ]
+    """
+    Can send funds from a FinancialAccount to someone else via paper check.
+    """
 
 
 class AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsBankAccounts(
@@ -2000,6 +2021,15 @@ class AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsCryptoWa
 
 
 class AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsFinancialAccounts(
+    TypedDict,
+):
+    requested: NotRequired[bool]
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsPaperChecks(
     TypedDict,
 ):
     requested: NotRequired[bool]
@@ -3858,7 +3888,10 @@ class AccountUpdateParamsIdentityBusinessDetailsIdNumber(TypedDict):
         "be_vat",
         "bg_uic",
         "bg_vat",
+        "bm_crn",
+        "bo_tin",
         "br_cnpj",
+        "bt_tpn",
         "ca_cn",
         "ca_crarr",
         "ca_gst_hst",
@@ -3866,6 +3899,7 @@ class AccountUpdateParamsIdentityBusinessDetailsIdNumber(TypedDict):
         "ca_rid",
         "ch_chid",
         "ch_uid",
+        "co_nit",
         "cr_cpj",
         "cr_nite",
         "cy_he",
@@ -3879,8 +3913,10 @@ class AccountUpdateParamsIdentityBusinessDetailsIdNumber(TypedDict):
         "dk_cvr",
         "dk_vat",
         "do_rcn",
+        "ec_ruc",
         "ee_rk",
         "ee_vat",
+        "eg_tin",
         "es_cif",
         "es_vat",
         "fi_vat",
@@ -3890,13 +3926,16 @@ class AccountUpdateParamsIdentityBusinessDetailsIdNumber(TypedDict):
         "fr_vat",
         "gb_crn",
         "gb_vat",
+        "gh_tin",
         "gi_crn",
         "gr_afm",
         "gr_gemi",
         "gr_vat",
         "gt_nit",
+        "gy_tin",
         "hk_br",
         "hk_cr",
+        "hn_rtn",
         "hr_mbs",
         "hr_oib",
         "hr_vat",
@@ -3908,9 +3947,14 @@ class AccountUpdateParamsIdentityBusinessDetailsIdNumber(TypedDict):
         "ie_vat",
         "it_rea",
         "it_vat",
+        "jm_trn",
+        "jo_crn",
         "jp_cn",
+        "ke_pin",
+        "ky_crn",
         "kz_bin",
         "li_uid",
+        "lk_tin",
         "lt_ccrn",
         "lt_vat",
         "lu_nif",
@@ -3918,27 +3962,33 @@ class AccountUpdateParamsIdentityBusinessDetailsIdNumber(TypedDict):
         "lu_vat",
         "lv_urn",
         "lv_vat",
+        "mo_tin",
         "mt_crn",
         "mt_tin",
         "mt_vat",
+        "mv_tin",
         "mx_rfc",
         "my_brn",
         "my_coid",
         "my_itn",
         "my_sst",
         "mz_nuit",
+        "ng_tin",
         "nl_kvk",
         "nl_rsin",
         "nl_vat",
         "no_orgnr",
         "nz_bn",
         "nz_ird",
+        "pa_ruc",
         "pe_ruc",
+        "ph_tin",
         "pk_ntn",
         "pl_nip",
         "pl_regon",
         "pl_vat",
         "pt_vat",
+        "py_ruc",
         "ro_cui",
         "ro_orc",
         "ro_vat",
@@ -3953,10 +4003,15 @@ class AccountUpdateParamsIdentityBusinessDetailsIdNumber(TypedDict):
         "sk_dic",
         "sk_ico",
         "sk_vat",
+        "sl_tin",
+        "sv_nit",
         "th_crn",
         "th_prn",
         "th_tin",
         "us_ein",
+        "uy_ruc",
+        "vg_cn",
+        "za_tin",
     ]
     """
     Open Enum. The ID number type of a business entity.
@@ -4417,8 +4472,11 @@ class AccountUpdateParamsIdentityIndividualIdNumber(TypedDict):
         "bd_nid",
         "be_nrn",
         "bg_ucn",
+        "bm_pp",
         "bn_nric",
+        "bo_ci",
         "br_cpf",
+        "bt_cid",
         "ca_sin",
         "ch_oasi",
         "cl_rut",
@@ -4436,26 +4494,37 @@ class AccountUpdateParamsIdentityIndividualIdNumber(TypedDict):
         "do_rcn",
         "ec_ci",
         "ee_ik",
+        "eg_tin",
         "es_nif",
         "fi_hetu",
         "fr_nir",
         "gb_nino",
+        "gh_pin",
         "gr_afm",
         "gt_nit",
+        "gy_tin",
         "hk_id",
+        "hn_rtn",
         "hr_oib",
         "hu_ad",
         "id_nik",
         "ie_ppsn",
         "is_kt",
         "it_cf",
+        "jm_trn",
+        "jo_pin",
         "jp_inc",
         "ke_pin",
+        "ky_pp",
         "kz_iin",
         "li_peid",
+        "lk_nic",
         "lt_ak",
         "lu_nif",
         "lv_pk",
+        "mo_bir",
+        "mt_nic",
+        "mv_tin",
         "mx_rfc",
         "my_nric",
         "mz_nuit",
@@ -4463,17 +4532,22 @@ class AccountUpdateParamsIdentityIndividualIdNumber(TypedDict):
         "nl_bsn",
         "no_nin",
         "nz_ird",
+        "pa_ruc",
         "pe_dni",
+        "ph_tin",
         "pk_cnic",
         "pk_snic",
         "pl_pesel",
         "pt_nif",
+        "py_ruc",
         "ro_cnp",
         "sa_tin",
         "se_pin",
         "sg_fin",
         "sg_nric",
+        "si_pin",
         "sk_dic",
+        "sv_nit",
         "th_lc",
         "th_pin",
         "tr_tin",
@@ -4482,6 +4556,7 @@ class AccountUpdateParamsIdentityIndividualIdNumber(TypedDict):
         "us_ssn",
         "us_ssn_last_4",
         "uy_dni",
+        "vg_pp",
         "za_id",
     ]
     """
