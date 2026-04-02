@@ -2280,6 +2280,78 @@ class PaymentIntent(
                 "delivery": Delivery,
             }
 
+        class FleetDatum(StripeObject):
+            class PrimaryFuelFields(StripeObject):
+                brand: Optional[str]
+                """
+                The fuel brand.
+                """
+
+            class Station(StripeObject):
+                class ServiceLocation(StripeObject):
+                    city: Optional[str]
+                    """
+                    City, district, suburb, town, or village.
+                    """
+                    country: Optional[str]
+                    """
+                    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                    """
+                    line1: Optional[str]
+                    """
+                    Address line 1, such as the street, PO Box, or company name.
+                    """
+                    line2: Optional[str]
+                    """
+                    Address line 2, such as the apartment, suite, unit, or building.
+                    """
+                    postal_code: Optional[str]
+                    """
+                    ZIP or postal code.
+                    """
+                    state: Optional[str]
+                    """
+                    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+                    """
+
+                additional_contact_info: Optional[str]
+                """
+                Additional contact information for the station.
+                """
+                customer_service_phone_number: Optional[str]
+                """
+                The customer service phone number of the station.
+                """
+                partner_id_code: Optional[str]
+                """
+                The partner ID code of the station.
+                """
+                phone_number: Optional[str]
+                """
+                The phone number of the station.
+                """
+                service_location: Optional[ServiceLocation]
+                url: Optional[str]
+                """
+                The URL of the station.
+                """
+                _inner_class_types = {"service_location": ServiceLocation}
+
+            class Vat(StripeObject):
+                iob_indicator: Optional[str]
+                """
+                Indicates the merchant's agreement for Invoice on Behalf (IOB) VAT processing.
+                """
+
+            primary_fuel_fields: Optional[PrimaryFuelFields]
+            station: Optional[Station]
+            vat: Optional[Vat]
+            _inner_class_types = {
+                "primary_fuel_fields": PrimaryFuelFields,
+                "station": Station,
+                "vat": Vat,
+            }
+
         class FlightDatum(StripeObject):
             class Affiliate(StripeObject):
                 code: Optional[str]
@@ -2878,6 +2950,10 @@ class PaymentIntent(
         This field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks.
         """
         event_details: Optional[EventDetails]
+        fleet_data: Optional[List[FleetDatum]]
+        """
+        Fleet data for this PaymentIntent.
+        """
         flight_data: Optional[List[FlightDatum]]
         lodging_data: Optional[List[LodgingDatum]]
         order_reference: Optional[str]
@@ -2892,6 +2968,7 @@ class PaymentIntent(
             "car_rental": CarRental,
             "car_rental_data": CarRentalDatum,
             "event_details": EventDetails,
+            "fleet_data": FleetDatum,
             "flight_data": FlightDatum,
             "lodging_data": LodgingDatum,
             "subscription": Subscription,

@@ -174,6 +174,74 @@ class PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItemPaymentMetho
     """
     Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, and so on.
     """
+    fleet_data: NotRequired[
+        "PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsCardFleetData"
+    ]
+    """
+    Fleet data for this line item.
+    """
+
+
+class PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsCardFleetData(
+    TypedDict,
+):
+    product_type: Literal[
+        "air_conditioning_service",
+        "alcohol",
+        "aviation_fuel_premium",
+        "aviation_fuel_regular",
+        "car_care_detailing",
+        "compressed_natural_gas",
+        "deli",
+        "food_service",
+        "green_gasoline_mid_plus",
+        "green_gasoline_premium_super",
+        "green_gasoline_regular",
+        "grocery",
+        "liquid_natural_gas",
+        "liquid_propane_gas",
+        "lodging",
+        "marine_diesel",
+        "marine_fuel",
+        "merchandise",
+        "mid_plus",
+        "mid_plus_ethanol",
+        "miscellaneous_aviation_products_services",
+        "miscellaneous_fuel",
+        "miscellaneous_marine_products_services",
+        "miscellaneous_vehicle_products_services",
+        "packaged_beverage",
+        "premium_diesel",
+        "premium_super",
+        "premium_super_ethanol",
+        "preventative_maintenance",
+        "regular",
+        "regular_diesel",
+        "regular_ethanol",
+        "repairs",
+        "self_service_car_wash",
+        "shower",
+        "store_service",
+        "tobacco",
+        "vehicle_accessories",
+        "vehicle_parking",
+        "vehicle_parts",
+        "wash_out",
+    ]
+    """
+    The type of product being purchased at this line item.
+    """
+    service_type: NotRequired[
+        Literal[
+            "full_service",
+            "high_speed_diesel",
+            "non_fuel_only",
+            "self_service",
+        ]
+    ]
+    """
+    The type of service received at the acceptor location.
+    """
 
 
 class PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsCardPresent(

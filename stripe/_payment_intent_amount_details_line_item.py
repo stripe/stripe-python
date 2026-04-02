@@ -12,7 +12,19 @@ class PaymentIntentAmountDetailsLineItem(StripeObject):
 
     class PaymentMethodOptions(StripeObject):
         class Card(StripeObject):
+            class FleetData(StripeObject):
+                product_type: Optional[str]
+                """
+                The type of product being purchased at this line item.
+                """
+                service_type: Optional[str]
+                """
+                The type of service received at the acceptor location.
+                """
+
             commodity_code: Optional[str]
+            fleet_data: Optional[FleetData]
+            _inner_class_types = {"fleet_data": FleetData}
 
         class CardPresent(StripeObject):
             commodity_code: Optional[str]

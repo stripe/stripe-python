@@ -260,6 +260,74 @@ class PaymentIntentConfirmParamsAmountDetailsLineItemPaymentMethodOptionsCard(
     """
     Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, and so on.
     """
+    fleet_data: NotRequired[
+        "PaymentIntentConfirmParamsAmountDetailsLineItemPaymentMethodOptionsCardFleetData"
+    ]
+    """
+    Fleet data for this line item.
+    """
+
+
+class PaymentIntentConfirmParamsAmountDetailsLineItemPaymentMethodOptionsCardFleetData(
+    TypedDict,
+):
+    product_type: Literal[
+        "air_conditioning_service",
+        "alcohol",
+        "aviation_fuel_premium",
+        "aviation_fuel_regular",
+        "car_care_detailing",
+        "compressed_natural_gas",
+        "deli",
+        "food_service",
+        "green_gasoline_mid_plus",
+        "green_gasoline_premium_super",
+        "green_gasoline_regular",
+        "grocery",
+        "liquid_natural_gas",
+        "liquid_propane_gas",
+        "lodging",
+        "marine_diesel",
+        "marine_fuel",
+        "merchandise",
+        "mid_plus",
+        "mid_plus_ethanol",
+        "miscellaneous_aviation_products_services",
+        "miscellaneous_fuel",
+        "miscellaneous_marine_products_services",
+        "miscellaneous_vehicle_products_services",
+        "packaged_beverage",
+        "premium_diesel",
+        "premium_super",
+        "premium_super_ethanol",
+        "preventative_maintenance",
+        "regular",
+        "regular_diesel",
+        "regular_ethanol",
+        "repairs",
+        "self_service_car_wash",
+        "shower",
+        "store_service",
+        "tobacco",
+        "vehicle_accessories",
+        "vehicle_parking",
+        "vehicle_parts",
+        "wash_out",
+    ]
+    """
+    The type of product being purchased at this line item.
+    """
+    service_type: NotRequired[
+        Literal[
+            "full_service",
+            "high_speed_diesel",
+            "non_fuel_only",
+            "self_service",
+        ]
+    ]
+    """
+    The type of service received at the acceptor location.
+    """
 
 
 class PaymentIntentConfirmParamsAmountDetailsLineItemPaymentMethodOptionsCardPresent(
@@ -487,6 +555,12 @@ class PaymentIntentConfirmParamsPaymentDetails(TypedDict):
     ]
     """
     Subscription details for this PaymentIntent
+    """
+    fleet_data: NotRequired[
+        "Literal['']|List[PaymentIntentConfirmParamsPaymentDetailsFleetDatum]"
+    ]
+    """
+    Fleet data for this PaymentIntent.
     """
     money_services: NotRequired[
         "Literal['']|PaymentIntentConfirmParamsPaymentDetailsMoneyServices"
@@ -2266,6 +2340,238 @@ class PaymentIntentConfirmParamsPaymentDetailsSubscriptionBillingInterval(
     interval: Literal["day", "month", "week", "year"]
     """
     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+    """
+
+
+class PaymentIntentConfirmParamsPaymentDetailsFleetDatum(TypedDict):
+    primary_fuel_fields: NotRequired[
+        "PaymentIntentConfirmParamsPaymentDetailsFleetDatumPrimaryFuelFields"
+    ]
+    """
+    Primary fuel fields for the transaction.
+    """
+    station: NotRequired[
+        "PaymentIntentConfirmParamsPaymentDetailsFleetDatumStation"
+    ]
+    """
+    Station and acceptor location details.
+    """
+    vat: NotRequired["PaymentIntentConfirmParamsPaymentDetailsFleetDatumVat"]
+    """
+    VAT and Invoice on Behalf (IOB) details.
+    """
+
+
+class PaymentIntentConfirmParamsPaymentDetailsFleetDatumPrimaryFuelFields(
+    TypedDict,
+):
+    brand: NotRequired[
+        Literal[
+            "aafes",
+            "amerada_hess",
+            "amoco_canada",
+            "amoco_petroleum_products",
+            "arco_products",
+            "asda",
+            "ashland_oil",
+            "bfl",
+            "bp_mobil",
+            "bp_oil",
+            "burrnah_major",
+            "butler_arndale",
+            "canadian_tire",
+            "canadian_turbo",
+            "caseys_general_store",
+            "cenex",
+            "chevron_canada",
+            "chevron_usa",
+            "circle_k_stores",
+            "citgo_petroleum",
+            "clark_brands",
+            "conoco_canada",
+            "conoco_inc",
+            "crown_central_petroleum",
+            "diamond_shamrock_inc",
+            "discount_tire",
+            "domo_gas",
+            "elf",
+            "erickson_oil",
+            "esso",
+            "esso_canada",
+            "exxon",
+            "exxonmobil",
+            "family_express",
+            "fas_gas_oil",
+            "federated_coop_sonic",
+            "fina",
+            "fina_inc",
+            "fkg_oil",
+            "flare",
+            "flying_j_inc",
+            "gas_america",
+            "gate_petroleum",
+            "getty_petroleum",
+            "giant_eagle",
+            "grow_mark_inc",
+            "gulf",
+            "gulf_canada",
+            "gulf_chevron",
+            "handy_way_food",
+            "heron",
+            "holiday_stores",
+            "home_depot",
+            "husky",
+            "hyvees",
+            "irving",
+            "irving_oil",
+            "j_sainsbury",
+            "jet_conoco",
+            "krogers",
+            "kuwait",
+            "kwik_trip_inc",
+            "lassus",
+            "loves_country_stores",
+            "mapco_express_inc",
+            "marathon_oil",
+            "martin_bailey_inc_dba_hucks",
+            "maxol",
+            "meineke",
+            "mfa",
+            "mohawk",
+            "mr_gas",
+            "murco",
+            "murphy_oil_canada",
+            "murphy_oil_usa_inc",
+            "nexcom",
+            "nordstrom_oil",
+            "olco",
+            "pdq_store",
+            "pennzoil_products_inc",
+            "petro",
+            "petro_canada",
+            "petro_t",
+            "phillips",
+            "pilot",
+            "pioneer",
+            "pure_oil",
+            "quaker_state",
+            "quarles_oil",
+            "quiktrip",
+            "racetrac_petroleum_inc",
+            "raceway_petroleum",
+            "repsol",
+            "rudy",
+            "safeway",
+            "seven_eleven",
+            "sheetz",
+            "shell",
+            "shell_canada",
+            "shell_oil",
+            "sinclair_oil",
+            "southland_oil",
+            "spar",
+            "speedway",
+            "sun_company_inc",
+            "suncor_sunoco_canada",
+            "tempo",
+            "tesco",
+            "tesoro_alaska",
+            "texaco",
+            "the_pantry_inc",
+            "thornton_oil",
+            "tosco",
+            "total",
+            "travel_centers_of_america",
+            "uk",
+            "ultramar_canada",
+            "unbranded_or_unassigned",
+            "unbranded_unassigned",
+            "union_76",
+            "united_dairy_farmer",
+            "united_refining_kwikfill",
+            "us_oil",
+            "usa_petroleum",
+            "valvoline",
+            "vg",
+            "w_morrison",
+            "warren_equities",
+            "wawa",
+            "western_energetix",
+            "wilco",
+            "zions",
+        ]
+    ]
+    """
+    The fuel brand.
+    """
+
+
+class PaymentIntentConfirmParamsPaymentDetailsFleetDatumStation(TypedDict):
+    additional_contact_info: NotRequired[str]
+    """
+    Additional contact information for the station.
+    """
+    customer_service_phone_number: NotRequired[str]
+    """
+    The customer service phone number of the station.
+    """
+    partner_id_code: NotRequired[str]
+    """
+    The partner ID code of the station.
+    """
+    phone_number: NotRequired[str]
+    """
+    The phone number of the station.
+    """
+    service_location: NotRequired[
+        "PaymentIntentConfirmParamsPaymentDetailsFleetDatumStationServiceLocation"
+    ]
+    """
+    The physical location of the station.
+    """
+    url: NotRequired[str]
+    """
+    The URL of the station.
+    """
+
+
+class PaymentIntentConfirmParamsPaymentDetailsFleetDatumStationServiceLocation(
+    TypedDict,
+):
+    city: NotRequired[str]
+    """
+    City, district, suburb, town, or village.
+    """
+    country: NotRequired[str]
+    """
+    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+    """
+    line1: str
+    """
+    Address line 1, such as the street, PO Box, or company name.
+    """
+    line2: NotRequired[str]
+    """
+    Address line 2, such as the apartment, suite, unit, or building.
+    """
+    postal_code: NotRequired[str]
+    """
+    ZIP or postal code.
+    """
+    state: NotRequired[str]
+    """
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+    """
+
+
+class PaymentIntentConfirmParamsPaymentDetailsFleetDatumVat(TypedDict):
+    iob_indicator: Literal[
+        "issuer_to_iob",
+        "issuer_to_iob_and_incremental_certification",
+        "merchant_does_not_agree_to_iob",
+    ]
+    """
+    Indicates the merchant's agreement for Invoice on Behalf (IOB) VAT processing.
     """
 
 

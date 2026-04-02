@@ -743,6 +743,11 @@ if TYPE_CHECKING:
         ChargeCaptureParamsPaymentDetailsEventDetailsAffiliate as ChargeCaptureParamsPaymentDetailsEventDetailsAffiliate,
         ChargeCaptureParamsPaymentDetailsEventDetailsDelivery as ChargeCaptureParamsPaymentDetailsEventDetailsDelivery,
         ChargeCaptureParamsPaymentDetailsEventDetailsDeliveryRecipient as ChargeCaptureParamsPaymentDetailsEventDetailsDeliveryRecipient,
+        ChargeCaptureParamsPaymentDetailsFleetDatum as ChargeCaptureParamsPaymentDetailsFleetDatum,
+        ChargeCaptureParamsPaymentDetailsFleetDatumPrimaryFuelFields as ChargeCaptureParamsPaymentDetailsFleetDatumPrimaryFuelFields,
+        ChargeCaptureParamsPaymentDetailsFleetDatumStation as ChargeCaptureParamsPaymentDetailsFleetDatumStation,
+        ChargeCaptureParamsPaymentDetailsFleetDatumStationServiceLocation as ChargeCaptureParamsPaymentDetailsFleetDatumStationServiceLocation,
+        ChargeCaptureParamsPaymentDetailsFleetDatumVat as ChargeCaptureParamsPaymentDetailsFleetDatumVat,
         ChargeCaptureParamsPaymentDetailsFlight as ChargeCaptureParamsPaymentDetailsFlight,
         ChargeCaptureParamsPaymentDetailsFlightAffiliate as ChargeCaptureParamsPaymentDetailsFlightAffiliate,
         ChargeCaptureParamsPaymentDetailsFlightDatum as ChargeCaptureParamsPaymentDetailsFlightDatum,
@@ -834,6 +839,11 @@ if TYPE_CHECKING:
         ChargeModifyParamsPaymentDetailsEventDetailsAffiliate as ChargeModifyParamsPaymentDetailsEventDetailsAffiliate,
         ChargeModifyParamsPaymentDetailsEventDetailsDelivery as ChargeModifyParamsPaymentDetailsEventDetailsDelivery,
         ChargeModifyParamsPaymentDetailsEventDetailsDeliveryRecipient as ChargeModifyParamsPaymentDetailsEventDetailsDeliveryRecipient,
+        ChargeModifyParamsPaymentDetailsFleetDatum as ChargeModifyParamsPaymentDetailsFleetDatum,
+        ChargeModifyParamsPaymentDetailsFleetDatumPrimaryFuelFields as ChargeModifyParamsPaymentDetailsFleetDatumPrimaryFuelFields,
+        ChargeModifyParamsPaymentDetailsFleetDatumStation as ChargeModifyParamsPaymentDetailsFleetDatumStation,
+        ChargeModifyParamsPaymentDetailsFleetDatumStationServiceLocation as ChargeModifyParamsPaymentDetailsFleetDatumStationServiceLocation,
+        ChargeModifyParamsPaymentDetailsFleetDatumVat as ChargeModifyParamsPaymentDetailsFleetDatumVat,
         ChargeModifyParamsPaymentDetailsFlight as ChargeModifyParamsPaymentDetailsFlight,
         ChargeModifyParamsPaymentDetailsFlightAffiliate as ChargeModifyParamsPaymentDetailsFlightAffiliate,
         ChargeModifyParamsPaymentDetailsFlightDatum as ChargeModifyParamsPaymentDetailsFlightDatum,
@@ -920,6 +930,11 @@ if TYPE_CHECKING:
         ChargeUpdateParamsPaymentDetailsEventDetailsAffiliate as ChargeUpdateParamsPaymentDetailsEventDetailsAffiliate,
         ChargeUpdateParamsPaymentDetailsEventDetailsDelivery as ChargeUpdateParamsPaymentDetailsEventDetailsDelivery,
         ChargeUpdateParamsPaymentDetailsEventDetailsDeliveryRecipient as ChargeUpdateParamsPaymentDetailsEventDetailsDeliveryRecipient,
+        ChargeUpdateParamsPaymentDetailsFleetDatum as ChargeUpdateParamsPaymentDetailsFleetDatum,
+        ChargeUpdateParamsPaymentDetailsFleetDatumPrimaryFuelFields as ChargeUpdateParamsPaymentDetailsFleetDatumPrimaryFuelFields,
+        ChargeUpdateParamsPaymentDetailsFleetDatumStation as ChargeUpdateParamsPaymentDetailsFleetDatumStation,
+        ChargeUpdateParamsPaymentDetailsFleetDatumStationServiceLocation as ChargeUpdateParamsPaymentDetailsFleetDatumStationServiceLocation,
+        ChargeUpdateParamsPaymentDetailsFleetDatumVat as ChargeUpdateParamsPaymentDetailsFleetDatumVat,
         ChargeUpdateParamsPaymentDetailsFlight as ChargeUpdateParamsPaymentDetailsFlight,
         ChargeUpdateParamsPaymentDetailsFlightAffiliate as ChargeUpdateParamsPaymentDetailsFlightAffiliate,
         ChargeUpdateParamsPaymentDetailsFlightDatum as ChargeUpdateParamsPaymentDetailsFlightDatum,
@@ -2218,6 +2233,7 @@ if TYPE_CHECKING:
         PaymentIntentCaptureParamsAmountDetailsLineItem as PaymentIntentCaptureParamsAmountDetailsLineItem,
         PaymentIntentCaptureParamsAmountDetailsLineItemPaymentMethodOptions as PaymentIntentCaptureParamsAmountDetailsLineItemPaymentMethodOptions,
         PaymentIntentCaptureParamsAmountDetailsLineItemPaymentMethodOptionsCard as PaymentIntentCaptureParamsAmountDetailsLineItemPaymentMethodOptionsCard,
+        PaymentIntentCaptureParamsAmountDetailsLineItemPaymentMethodOptionsCardFleetData as PaymentIntentCaptureParamsAmountDetailsLineItemPaymentMethodOptionsCardFleetData,
         PaymentIntentCaptureParamsAmountDetailsLineItemPaymentMethodOptionsCardPresent as PaymentIntentCaptureParamsAmountDetailsLineItemPaymentMethodOptionsCardPresent,
         PaymentIntentCaptureParamsAmountDetailsLineItemPaymentMethodOptionsKlarna as PaymentIntentCaptureParamsAmountDetailsLineItemPaymentMethodOptionsKlarna,
         PaymentIntentCaptureParamsAmountDetailsLineItemPaymentMethodOptionsPaypal as PaymentIntentCaptureParamsAmountDetailsLineItemPaymentMethodOptionsPaypal,
@@ -2258,6 +2274,11 @@ if TYPE_CHECKING:
         PaymentIntentCaptureParamsPaymentDetailsEventDetailsAffiliate as PaymentIntentCaptureParamsPaymentDetailsEventDetailsAffiliate,
         PaymentIntentCaptureParamsPaymentDetailsEventDetailsDelivery as PaymentIntentCaptureParamsPaymentDetailsEventDetailsDelivery,
         PaymentIntentCaptureParamsPaymentDetailsEventDetailsDeliveryRecipient as PaymentIntentCaptureParamsPaymentDetailsEventDetailsDeliveryRecipient,
+        PaymentIntentCaptureParamsPaymentDetailsFleetDatum as PaymentIntentCaptureParamsPaymentDetailsFleetDatum,
+        PaymentIntentCaptureParamsPaymentDetailsFleetDatumPrimaryFuelFields as PaymentIntentCaptureParamsPaymentDetailsFleetDatumPrimaryFuelFields,
+        PaymentIntentCaptureParamsPaymentDetailsFleetDatumStation as PaymentIntentCaptureParamsPaymentDetailsFleetDatumStation,
+        PaymentIntentCaptureParamsPaymentDetailsFleetDatumStationServiceLocation as PaymentIntentCaptureParamsPaymentDetailsFleetDatumStationServiceLocation,
+        PaymentIntentCaptureParamsPaymentDetailsFleetDatumVat as PaymentIntentCaptureParamsPaymentDetailsFleetDatumVat,
         PaymentIntentCaptureParamsPaymentDetailsFlight as PaymentIntentCaptureParamsPaymentDetailsFlight,
         PaymentIntentCaptureParamsPaymentDetailsFlightAffiliate as PaymentIntentCaptureParamsPaymentDetailsFlightAffiliate,
         PaymentIntentCaptureParamsPaymentDetailsFlightDatum as PaymentIntentCaptureParamsPaymentDetailsFlightDatum,
@@ -2308,6 +2329,7 @@ if TYPE_CHECKING:
         PaymentIntentConfirmParamsAmountDetailsLineItem as PaymentIntentConfirmParamsAmountDetailsLineItem,
         PaymentIntentConfirmParamsAmountDetailsLineItemPaymentMethodOptions as PaymentIntentConfirmParamsAmountDetailsLineItemPaymentMethodOptions,
         PaymentIntentConfirmParamsAmountDetailsLineItemPaymentMethodOptionsCard as PaymentIntentConfirmParamsAmountDetailsLineItemPaymentMethodOptionsCard,
+        PaymentIntentConfirmParamsAmountDetailsLineItemPaymentMethodOptionsCardFleetData as PaymentIntentConfirmParamsAmountDetailsLineItemPaymentMethodOptionsCardFleetData,
         PaymentIntentConfirmParamsAmountDetailsLineItemPaymentMethodOptionsCardPresent as PaymentIntentConfirmParamsAmountDetailsLineItemPaymentMethodOptionsCardPresent,
         PaymentIntentConfirmParamsAmountDetailsLineItemPaymentMethodOptionsKlarna as PaymentIntentConfirmParamsAmountDetailsLineItemPaymentMethodOptionsKlarna,
         PaymentIntentConfirmParamsAmountDetailsLineItemPaymentMethodOptionsPaypal as PaymentIntentConfirmParamsAmountDetailsLineItemPaymentMethodOptionsPaypal,
@@ -2354,6 +2376,11 @@ if TYPE_CHECKING:
         PaymentIntentConfirmParamsPaymentDetailsEventDetailsAffiliate as PaymentIntentConfirmParamsPaymentDetailsEventDetailsAffiliate,
         PaymentIntentConfirmParamsPaymentDetailsEventDetailsDelivery as PaymentIntentConfirmParamsPaymentDetailsEventDetailsDelivery,
         PaymentIntentConfirmParamsPaymentDetailsEventDetailsDeliveryRecipient as PaymentIntentConfirmParamsPaymentDetailsEventDetailsDeliveryRecipient,
+        PaymentIntentConfirmParamsPaymentDetailsFleetDatum as PaymentIntentConfirmParamsPaymentDetailsFleetDatum,
+        PaymentIntentConfirmParamsPaymentDetailsFleetDatumPrimaryFuelFields as PaymentIntentConfirmParamsPaymentDetailsFleetDatumPrimaryFuelFields,
+        PaymentIntentConfirmParamsPaymentDetailsFleetDatumStation as PaymentIntentConfirmParamsPaymentDetailsFleetDatumStation,
+        PaymentIntentConfirmParamsPaymentDetailsFleetDatumStationServiceLocation as PaymentIntentConfirmParamsPaymentDetailsFleetDatumStationServiceLocation,
+        PaymentIntentConfirmParamsPaymentDetailsFleetDatumVat as PaymentIntentConfirmParamsPaymentDetailsFleetDatumVat,
         PaymentIntentConfirmParamsPaymentDetailsFlight as PaymentIntentConfirmParamsPaymentDetailsFlight,
         PaymentIntentConfirmParamsPaymentDetailsFlightAffiliate as PaymentIntentConfirmParamsPaymentDetailsFlightAffiliate,
         PaymentIntentConfirmParamsPaymentDetailsFlightDatum as PaymentIntentConfirmParamsPaymentDetailsFlightDatum,
@@ -2603,6 +2630,7 @@ if TYPE_CHECKING:
         PaymentIntentCreateParamsAmountDetailsLineItem as PaymentIntentCreateParamsAmountDetailsLineItem,
         PaymentIntentCreateParamsAmountDetailsLineItemPaymentMethodOptions as PaymentIntentCreateParamsAmountDetailsLineItemPaymentMethodOptions,
         PaymentIntentCreateParamsAmountDetailsLineItemPaymentMethodOptionsCard as PaymentIntentCreateParamsAmountDetailsLineItemPaymentMethodOptionsCard,
+        PaymentIntentCreateParamsAmountDetailsLineItemPaymentMethodOptionsCardFleetData as PaymentIntentCreateParamsAmountDetailsLineItemPaymentMethodOptionsCardFleetData,
         PaymentIntentCreateParamsAmountDetailsLineItemPaymentMethodOptionsCardPresent as PaymentIntentCreateParamsAmountDetailsLineItemPaymentMethodOptionsCardPresent,
         PaymentIntentCreateParamsAmountDetailsLineItemPaymentMethodOptionsKlarna as PaymentIntentCreateParamsAmountDetailsLineItemPaymentMethodOptionsKlarna,
         PaymentIntentCreateParamsAmountDetailsLineItemPaymentMethodOptionsPaypal as PaymentIntentCreateParamsAmountDetailsLineItemPaymentMethodOptionsPaypal,
@@ -2650,6 +2678,11 @@ if TYPE_CHECKING:
         PaymentIntentCreateParamsPaymentDetailsEventDetailsAffiliate as PaymentIntentCreateParamsPaymentDetailsEventDetailsAffiliate,
         PaymentIntentCreateParamsPaymentDetailsEventDetailsDelivery as PaymentIntentCreateParamsPaymentDetailsEventDetailsDelivery,
         PaymentIntentCreateParamsPaymentDetailsEventDetailsDeliveryRecipient as PaymentIntentCreateParamsPaymentDetailsEventDetailsDeliveryRecipient,
+        PaymentIntentCreateParamsPaymentDetailsFleetDatum as PaymentIntentCreateParamsPaymentDetailsFleetDatum,
+        PaymentIntentCreateParamsPaymentDetailsFleetDatumPrimaryFuelFields as PaymentIntentCreateParamsPaymentDetailsFleetDatumPrimaryFuelFields,
+        PaymentIntentCreateParamsPaymentDetailsFleetDatumStation as PaymentIntentCreateParamsPaymentDetailsFleetDatumStation,
+        PaymentIntentCreateParamsPaymentDetailsFleetDatumStationServiceLocation as PaymentIntentCreateParamsPaymentDetailsFleetDatumStationServiceLocation,
+        PaymentIntentCreateParamsPaymentDetailsFleetDatumVat as PaymentIntentCreateParamsPaymentDetailsFleetDatumVat,
         PaymentIntentCreateParamsPaymentDetailsFlight as PaymentIntentCreateParamsPaymentDetailsFlight,
         PaymentIntentCreateParamsPaymentDetailsFlightAffiliate as PaymentIntentCreateParamsPaymentDetailsFlightAffiliate,
         PaymentIntentCreateParamsPaymentDetailsFlightDatum as PaymentIntentCreateParamsPaymentDetailsFlightDatum,
@@ -2900,6 +2933,7 @@ if TYPE_CHECKING:
         PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItem as PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItem,
         PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptions as PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptions,
         PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsCard as PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsCard,
+        PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsCardFleetData as PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsCardFleetData,
         PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsCardPresent as PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsCardPresent,
         PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsKlarna as PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsKlarna,
         PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsPaypal as PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsPaypal,
@@ -2919,6 +2953,7 @@ if TYPE_CHECKING:
         PaymentIntentIncrementAuthorizationParamsAmountDetailsLineItem as PaymentIntentIncrementAuthorizationParamsAmountDetailsLineItem,
         PaymentIntentIncrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptions as PaymentIntentIncrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptions,
         PaymentIntentIncrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsCard as PaymentIntentIncrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsCard,
+        PaymentIntentIncrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsCardFleetData as PaymentIntentIncrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsCardFleetData,
         PaymentIntentIncrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsCardPresent as PaymentIntentIncrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsCardPresent,
         PaymentIntentIncrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsKlarna as PaymentIntentIncrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsKlarna,
         PaymentIntentIncrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsPaypal as PaymentIntentIncrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsPaypal,
@@ -2948,6 +2983,7 @@ if TYPE_CHECKING:
         PaymentIntentModifyParamsAmountDetailsLineItem as PaymentIntentModifyParamsAmountDetailsLineItem,
         PaymentIntentModifyParamsAmountDetailsLineItemPaymentMethodOptions as PaymentIntentModifyParamsAmountDetailsLineItemPaymentMethodOptions,
         PaymentIntentModifyParamsAmountDetailsLineItemPaymentMethodOptionsCard as PaymentIntentModifyParamsAmountDetailsLineItemPaymentMethodOptionsCard,
+        PaymentIntentModifyParamsAmountDetailsLineItemPaymentMethodOptionsCardFleetData as PaymentIntentModifyParamsAmountDetailsLineItemPaymentMethodOptionsCardFleetData,
         PaymentIntentModifyParamsAmountDetailsLineItemPaymentMethodOptionsCardPresent as PaymentIntentModifyParamsAmountDetailsLineItemPaymentMethodOptionsCardPresent,
         PaymentIntentModifyParamsAmountDetailsLineItemPaymentMethodOptionsKlarna as PaymentIntentModifyParamsAmountDetailsLineItemPaymentMethodOptionsKlarna,
         PaymentIntentModifyParamsAmountDetailsLineItemPaymentMethodOptionsPaypal as PaymentIntentModifyParamsAmountDetailsLineItemPaymentMethodOptionsPaypal,
@@ -2993,6 +3029,11 @@ if TYPE_CHECKING:
         PaymentIntentModifyParamsPaymentDetailsEventDetailsAffiliate as PaymentIntentModifyParamsPaymentDetailsEventDetailsAffiliate,
         PaymentIntentModifyParamsPaymentDetailsEventDetailsDelivery as PaymentIntentModifyParamsPaymentDetailsEventDetailsDelivery,
         PaymentIntentModifyParamsPaymentDetailsEventDetailsDeliveryRecipient as PaymentIntentModifyParamsPaymentDetailsEventDetailsDeliveryRecipient,
+        PaymentIntentModifyParamsPaymentDetailsFleetDatum as PaymentIntentModifyParamsPaymentDetailsFleetDatum,
+        PaymentIntentModifyParamsPaymentDetailsFleetDatumPrimaryFuelFields as PaymentIntentModifyParamsPaymentDetailsFleetDatumPrimaryFuelFields,
+        PaymentIntentModifyParamsPaymentDetailsFleetDatumStation as PaymentIntentModifyParamsPaymentDetailsFleetDatumStation,
+        PaymentIntentModifyParamsPaymentDetailsFleetDatumStationServiceLocation as PaymentIntentModifyParamsPaymentDetailsFleetDatumStationServiceLocation,
+        PaymentIntentModifyParamsPaymentDetailsFleetDatumVat as PaymentIntentModifyParamsPaymentDetailsFleetDatumVat,
         PaymentIntentModifyParamsPaymentDetailsFlight as PaymentIntentModifyParamsPaymentDetailsFlight,
         PaymentIntentModifyParamsPaymentDetailsFlightAffiliate as PaymentIntentModifyParamsPaymentDetailsFlightAffiliate,
         PaymentIntentModifyParamsPaymentDetailsFlightDatum as PaymentIntentModifyParamsPaymentDetailsFlightDatum,
@@ -3258,6 +3299,7 @@ if TYPE_CHECKING:
         PaymentIntentUpdateParamsAmountDetailsLineItem as PaymentIntentUpdateParamsAmountDetailsLineItem,
         PaymentIntentUpdateParamsAmountDetailsLineItemPaymentMethodOptions as PaymentIntentUpdateParamsAmountDetailsLineItemPaymentMethodOptions,
         PaymentIntentUpdateParamsAmountDetailsLineItemPaymentMethodOptionsCard as PaymentIntentUpdateParamsAmountDetailsLineItemPaymentMethodOptionsCard,
+        PaymentIntentUpdateParamsAmountDetailsLineItemPaymentMethodOptionsCardFleetData as PaymentIntentUpdateParamsAmountDetailsLineItemPaymentMethodOptionsCardFleetData,
         PaymentIntentUpdateParamsAmountDetailsLineItemPaymentMethodOptionsCardPresent as PaymentIntentUpdateParamsAmountDetailsLineItemPaymentMethodOptionsCardPresent,
         PaymentIntentUpdateParamsAmountDetailsLineItemPaymentMethodOptionsKlarna as PaymentIntentUpdateParamsAmountDetailsLineItemPaymentMethodOptionsKlarna,
         PaymentIntentUpdateParamsAmountDetailsLineItemPaymentMethodOptionsPaypal as PaymentIntentUpdateParamsAmountDetailsLineItemPaymentMethodOptionsPaypal,
@@ -3303,6 +3345,11 @@ if TYPE_CHECKING:
         PaymentIntentUpdateParamsPaymentDetailsEventDetailsAffiliate as PaymentIntentUpdateParamsPaymentDetailsEventDetailsAffiliate,
         PaymentIntentUpdateParamsPaymentDetailsEventDetailsDelivery as PaymentIntentUpdateParamsPaymentDetailsEventDetailsDelivery,
         PaymentIntentUpdateParamsPaymentDetailsEventDetailsDeliveryRecipient as PaymentIntentUpdateParamsPaymentDetailsEventDetailsDeliveryRecipient,
+        PaymentIntentUpdateParamsPaymentDetailsFleetDatum as PaymentIntentUpdateParamsPaymentDetailsFleetDatum,
+        PaymentIntentUpdateParamsPaymentDetailsFleetDatumPrimaryFuelFields as PaymentIntentUpdateParamsPaymentDetailsFleetDatumPrimaryFuelFields,
+        PaymentIntentUpdateParamsPaymentDetailsFleetDatumStation as PaymentIntentUpdateParamsPaymentDetailsFleetDatumStation,
+        PaymentIntentUpdateParamsPaymentDetailsFleetDatumStationServiceLocation as PaymentIntentUpdateParamsPaymentDetailsFleetDatumStationServiceLocation,
+        PaymentIntentUpdateParamsPaymentDetailsFleetDatumVat as PaymentIntentUpdateParamsPaymentDetailsFleetDatumVat,
         PaymentIntentUpdateParamsPaymentDetailsFlight as PaymentIntentUpdateParamsPaymentDetailsFlight,
         PaymentIntentUpdateParamsPaymentDetailsFlightAffiliate as PaymentIntentUpdateParamsPaymentDetailsFlightAffiliate,
         PaymentIntentUpdateParamsPaymentDetailsFlightDatum as PaymentIntentUpdateParamsPaymentDetailsFlightDatum,
@@ -8299,6 +8346,26 @@ _import_map = {
         "stripe.params._charge_capture_params",
         False,
     ),
+    "ChargeCaptureParamsPaymentDetailsFleetDatum": (
+        "stripe.params._charge_capture_params",
+        False,
+    ),
+    "ChargeCaptureParamsPaymentDetailsFleetDatumPrimaryFuelFields": (
+        "stripe.params._charge_capture_params",
+        False,
+    ),
+    "ChargeCaptureParamsPaymentDetailsFleetDatumStation": (
+        "stripe.params._charge_capture_params",
+        False,
+    ),
+    "ChargeCaptureParamsPaymentDetailsFleetDatumStationServiceLocation": (
+        "stripe.params._charge_capture_params",
+        False,
+    ),
+    "ChargeCaptureParamsPaymentDetailsFleetDatumVat": (
+        "stripe.params._charge_capture_params",
+        False,
+    ),
     "ChargeCaptureParamsPaymentDetailsFlight": (
         "stripe.params._charge_capture_params",
         False,
@@ -8619,6 +8686,26 @@ _import_map = {
         "stripe.params._charge_modify_params",
         False,
     ),
+    "ChargeModifyParamsPaymentDetailsFleetDatum": (
+        "stripe.params._charge_modify_params",
+        False,
+    ),
+    "ChargeModifyParamsPaymentDetailsFleetDatumPrimaryFuelFields": (
+        "stripe.params._charge_modify_params",
+        False,
+    ),
+    "ChargeModifyParamsPaymentDetailsFleetDatumStation": (
+        "stripe.params._charge_modify_params",
+        False,
+    ),
+    "ChargeModifyParamsPaymentDetailsFleetDatumStationServiceLocation": (
+        "stripe.params._charge_modify_params",
+        False,
+    ),
+    "ChargeModifyParamsPaymentDetailsFleetDatumVat": (
+        "stripe.params._charge_modify_params",
+        False,
+    ),
     "ChargeModifyParamsPaymentDetailsFlight": (
         "stripe.params._charge_modify_params",
         False,
@@ -8919,6 +9006,26 @@ _import_map = {
         False,
     ),
     "ChargeUpdateParamsPaymentDetailsEventDetailsDeliveryRecipient": (
+        "stripe.params._charge_update_params",
+        False,
+    ),
+    "ChargeUpdateParamsPaymentDetailsFleetDatum": (
+        "stripe.params._charge_update_params",
+        False,
+    ),
+    "ChargeUpdateParamsPaymentDetailsFleetDatumPrimaryFuelFields": (
+        "stripe.params._charge_update_params",
+        False,
+    ),
+    "ChargeUpdateParamsPaymentDetailsFleetDatumStation": (
+        "stripe.params._charge_update_params",
+        False,
+    ),
+    "ChargeUpdateParamsPaymentDetailsFleetDatumStationServiceLocation": (
+        "stripe.params._charge_update_params",
+        False,
+    ),
+    "ChargeUpdateParamsPaymentDetailsFleetDatumVat": (
         "stripe.params._charge_update_params",
         False,
     ),
@@ -12620,6 +12727,10 @@ _import_map = {
         "stripe.params._payment_intent_capture_params",
         False,
     ),
+    "PaymentIntentCaptureParamsAmountDetailsLineItemPaymentMethodOptionsCardFleetData": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
     "PaymentIntentCaptureParamsAmountDetailsLineItemPaymentMethodOptionsCardPresent": (
         "stripe.params._payment_intent_capture_params",
         False,
@@ -12777,6 +12888,26 @@ _import_map = {
         False,
     ),
     "PaymentIntentCaptureParamsPaymentDetailsEventDetailsDeliveryRecipient": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
+    "PaymentIntentCaptureParamsPaymentDetailsFleetDatum": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
+    "PaymentIntentCaptureParamsPaymentDetailsFleetDatumPrimaryFuelFields": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
+    "PaymentIntentCaptureParamsPaymentDetailsFleetDatumStation": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
+    "PaymentIntentCaptureParamsPaymentDetailsFleetDatumStationServiceLocation": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
+    "PaymentIntentCaptureParamsPaymentDetailsFleetDatumVat": (
         "stripe.params._payment_intent_capture_params",
         False,
     ),
@@ -12972,6 +13103,10 @@ _import_map = {
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
+    "PaymentIntentConfirmParamsAmountDetailsLineItemPaymentMethodOptionsCardFleetData": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
     "PaymentIntentConfirmParamsAmountDetailsLineItemPaymentMethodOptionsCardPresent": (
         "stripe.params._payment_intent_confirm_params",
         False,
@@ -13153,6 +13288,26 @@ _import_map = {
         False,
     ),
     "PaymentIntentConfirmParamsPaymentDetailsEventDetailsDeliveryRecipient": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentDetailsFleetDatum": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentDetailsFleetDatumPrimaryFuelFields": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentDetailsFleetDatumStation": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentDetailsFleetDatumStationServiceLocation": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentDetailsFleetDatumVat": (
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
@@ -14144,6 +14299,10 @@ _import_map = {
         "stripe.params._payment_intent_create_params",
         False,
     ),
+    "PaymentIntentCreateParamsAmountDetailsLineItemPaymentMethodOptionsCardFleetData": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
     "PaymentIntentCreateParamsAmountDetailsLineItemPaymentMethodOptionsCardPresent": (
         "stripe.params._payment_intent_create_params",
         False,
@@ -14329,6 +14488,26 @@ _import_map = {
         False,
     ),
     "PaymentIntentCreateParamsPaymentDetailsEventDetailsDeliveryRecipient": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentDetailsFleetDatum": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentDetailsFleetDatumPrimaryFuelFields": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentDetailsFleetDatumStation": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentDetailsFleetDatumStationServiceLocation": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentDetailsFleetDatumVat": (
         "stripe.params._payment_intent_create_params",
         False,
     ),
@@ -15324,6 +15503,10 @@ _import_map = {
         "stripe.params._payment_intent_decrement_authorization_params",
         False,
     ),
+    "PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsCardFleetData": (
+        "stripe.params._payment_intent_decrement_authorization_params",
+        False,
+    ),
     "PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsCardPresent": (
         "stripe.params._payment_intent_decrement_authorization_params",
         False,
@@ -15389,6 +15572,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentIncrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsCard": (
+        "stripe.params._payment_intent_increment_authorization_params",
+        False,
+    ),
+    "PaymentIntentIncrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsCardFleetData": (
         "stripe.params._payment_intent_increment_authorization_params",
         False,
     ),
@@ -15481,6 +15668,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentModifyParamsAmountDetailsLineItemPaymentMethodOptionsCard": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsAmountDetailsLineItemPaymentMethodOptionsCardFleetData": (
         "stripe.params._payment_intent_modify_params",
         False,
     ),
@@ -15661,6 +15852,26 @@ _import_map = {
         False,
     ),
     "PaymentIntentModifyParamsPaymentDetailsEventDetailsDeliveryRecipient": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentDetailsFleetDatum": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentDetailsFleetDatumPrimaryFuelFields": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentDetailsFleetDatumStation": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentDetailsFleetDatumStationServiceLocation": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentDetailsFleetDatumVat": (
         "stripe.params._payment_intent_modify_params",
         False,
     ),
@@ -16676,6 +16887,10 @@ _import_map = {
         "stripe.params._payment_intent_update_params",
         False,
     ),
+    "PaymentIntentUpdateParamsAmountDetailsLineItemPaymentMethodOptionsCardFleetData": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
     "PaymentIntentUpdateParamsAmountDetailsLineItemPaymentMethodOptionsCardPresent": (
         "stripe.params._payment_intent_update_params",
         False,
@@ -16853,6 +17068,26 @@ _import_map = {
         False,
     ),
     "PaymentIntentUpdateParamsPaymentDetailsEventDetailsDeliveryRecipient": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentDetailsFleetDatum": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentDetailsFleetDatumPrimaryFuelFields": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentDetailsFleetDatumStation": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentDetailsFleetDatumStationServiceLocation": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentDetailsFleetDatumVat": (
         "stripe.params._payment_intent_update_params",
         False,
     ),
