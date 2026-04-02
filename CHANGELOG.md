@@ -1,6 +1,7 @@
 # Changelog
 
 ## 15.1.0a2 - 2026-04-01
+* See the changelog for [v15.0.1](https://github.com/stripe/stripe-python/blob/master/CHANGELOG.md#1501---2026-04-01) for additional changes
 * [#1778](https://github.com/stripe/stripe-python/pull/1778) Update generated code for private-preview
   * Add support for new resources `shared_payment.IssuedToken` and `v2.data.reporting.QueryRun`
   * Add support for `create` and `retrieve` methods on resource `v2.data.reporting.QueryRun`
