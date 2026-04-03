@@ -36,6 +36,35 @@ class PaymentEvaluationCreateParamsClientDeviceMetadataDetails(TypedDict):
     """
     ID for the Radar Session to associate with the payment evaluation. A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
     """
+    data: NotRequired[
+        "PaymentEvaluationCreateParamsClientDeviceMetadataDetailsData"
+    ]
+    """
+    Direct client device attributes such as IP address and user agent. Use this as an alternative to radar_session when a Radar Session isn't available.
+    """
+
+
+class PaymentEvaluationCreateParamsClientDeviceMetadataDetailsData(TypedDict):
+    ip: str
+    """
+    The IP address of the client device.
+    """
+    pasted_fields: NotRequired[List[Literal["cvc", "exp", "number", "zip"]]]
+    """
+    Pasted fields from the checkout flow.
+    """
+    referrer: NotRequired[str]
+    """
+    The referrer of the client device.
+    """
+    time_on_page_ms: NotRequired[int]
+    """
+    The time on page in milliseconds.
+    """
+    user_agent: str
+    """
+    The user agent of the client device.
+    """
 
 
 class PaymentEvaluationCreateParamsCustomerDetails(TypedDict):

@@ -64,6 +64,7 @@ if TYPE_CHECKING:
     from stripe.params.radar._payment_evaluation_create_params import (
         PaymentEvaluationCreateParams as PaymentEvaluationCreateParams,
         PaymentEvaluationCreateParamsClientDeviceMetadataDetails as PaymentEvaluationCreateParamsClientDeviceMetadataDetails,
+        PaymentEvaluationCreateParamsClientDeviceMetadataDetailsData as PaymentEvaluationCreateParamsClientDeviceMetadataDetailsData,
         PaymentEvaluationCreateParamsCustomerDetails as PaymentEvaluationCreateParamsCustomerDetails,
         PaymentEvaluationCreateParamsPaymentDetails as PaymentEvaluationCreateParamsPaymentDetails,
         PaymentEvaluationCreateParamsPaymentDetailsMoneyMovementDetails as PaymentEvaluationCreateParamsPaymentDetailsMoneyMovementDetails,
@@ -262,6 +263,10 @@ _import_map = {
         False,
     ),
     "PaymentEvaluationCreateParamsClientDeviceMetadataDetails": (
+        "stripe.params.radar._payment_evaluation_create_params",
+        False,
+    ),
+    "PaymentEvaluationCreateParamsClientDeviceMetadataDetailsData": (
         "stripe.params.radar._payment_evaluation_create_params",
         False,
     ),
