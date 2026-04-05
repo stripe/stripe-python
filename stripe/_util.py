@@ -268,12 +268,21 @@ def _convert_to_stripe_object(
         else:
             klass = StripeObject
 
-        obj = klass._construct_from(
-            values=resp,
-            last_response=stripe_response,
-            requestor=requestor,
-            api_mode=api_mode,
-        )
+        from stripe.v2._ref import Ref
+
+        if issubclass(klass, Ref):
+            obj = klass._construct_from(
+                values=resp,
+                requestor=requestor,
+                api_mode=api_mode,
+            )
+        else:
+            obj = klass._construct_from(
+                values=resp,
+                last_response=stripe_response,
+                requestor=requestor,
+                api_mode=api_mode,
+            )
 
         # We only need to update _retrieve_params when special params were
         # actually passed. Otherwise, leave it as is as the list / search result

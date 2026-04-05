@@ -14,7 +14,7 @@ class TestRef(object):
             "id": "mtr_123",
             "url": "/v1/billing/meters/mtr_123",
         }
-        ref: Ref[Meter] = Ref(parsed, client=None)
+        ref: Ref[Meter] = Ref(parsed, requestor=None)
 
         assert ref.type == "billing.meter"
         assert ref.id == "mtr_123"
@@ -26,29 +26,29 @@ class TestRef(object):
             "id": "mtr_123",
             "url": "/v1/billing/meters/mtr_123",
         }
-        ref: Ref[Meter] = Ref(parsed, client=None)
+        ref: Ref[Meter] = Ref(parsed, requestor=None)
         assert repr(ref) == "<Ref type=billing.meter id=mtr_123 url=/v1/billing/meters/mtr_123>"
 
-    def test_fetch_raises_without_client(self):
+    def test_fetch_raises_without_requestor(self):
         parsed = {
             "type": "billing.meter",
             "id": "mtr_123",
             "url": "/v1/billing/meters/mtr_123",
         }
-        ref: Ref[Meter] = Ref(parsed, client=None)
+        ref: Ref[Meter] = Ref(parsed, requestor=None)
 
-        with pytest.raises(RuntimeError, match="no associated StripeClient"):
+        with pytest.raises(RuntimeError, match="no associated requestor"):
             ref.fetch()
 
-    def test_fetch_async_raises_without_client(self):
+    def test_fetch_async_raises_without_requestor(self):
         parsed = {
             "type": "billing.meter",
             "id": "mtr_123",
             "url": "/v1/billing/meters/mtr_123",
         }
-        ref: Ref[Meter] = Ref(parsed, client=None)
+        ref: Ref[Meter] = Ref(parsed, requestor=None)
 
-        with pytest.raises(RuntimeError, match="no associated StripeClient"):
+        with pytest.raises(RuntimeError, match="no associated requestor"):
             import asyncio
             asyncio.get_event_loop().run_until_complete(ref.fetch_async())
 
@@ -78,7 +78,7 @@ class TestRef(object):
             "id": "mtr_123",
             "url": meter_path,
         }
-        ref: Ref[Meter] = Ref(parsed, client=client)
+        ref: Ref[Meter] = Ref(parsed, requestor=client._requestor)
         result = ref.fetch()
 
         http_client_mock.assert_requested(
@@ -121,7 +121,7 @@ class TestRef(object):
             "id": "evt_123",
             "url": event_path,
         }
-        ref: Ref[Event] = Ref(parsed, client=client)
+        ref: Ref[Event] = Ref(parsed, requestor=client._requestor)
         result = ref.fetch()
 
         http_client_mock.assert_requested(
