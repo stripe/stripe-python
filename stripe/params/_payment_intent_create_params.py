@@ -4680,7 +4680,88 @@ class PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServic
 class PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding(
     TypedDict,
 ):
-    pass
+    liquid_asset: NotRequired[
+        "Literal['']|PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAsset"
+    ]
+    """
+    Details for a liquid asset (crypto or security) funding transaction.
+    """
+    wallet: NotRequired[
+        "PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWallet"
+    ]
+    """
+    Details for a wallet funding transaction.
+    """
+
+
+class PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAsset(
+    TypedDict,
+):
+    crypto: NotRequired[
+        "PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto"
+    ]
+    """
+    Details for a cryptocurrency liquid asset funding transaction.
+    """
+    security: NotRequired[
+        "PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity"
+    ]
+    """
+    Details for a security liquid asset funding transaction.
+    """
+
+
+class PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto(
+    TypedDict,
+):
+    currency_code: NotRequired[str]
+    """
+    The cryptocurrency currency code (e.g. BTC, ETH).
+    """
+
+
+class PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity(
+    TypedDict,
+):
+    ticker_symbol: NotRequired[str]
+    """
+    The security's ticker symbol (e.g. AAPL).
+    """
+
+
+class PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWallet(
+    TypedDict,
+):
+    staged_purchase: NotRequired[
+        "Literal['']|PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase"
+    ]
+    """
+    Details for a staged purchase.
+    """
+
+
+class PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase(
+    TypedDict,
+):
+    merchant: NotRequired[
+        "PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant"
+    ]
+    """
+    The merchant where the staged wallet purchase is made.
+    """
+
+
+class PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant(
+    TypedDict,
+):
+    mcc: NotRequired[str]
+    """
+    The merchant category code of the merchant.
+    """
+    name: NotRequired[str]
+    """
+    The merchant's name.
+    """
 
 
 class PaymentIntentCreateParamsPaymentMethodOptionsCardPresent(TypedDict):
@@ -4752,7 +4833,88 @@ class PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMone
 class PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding(
     TypedDict,
 ):
-    pass
+    liquid_asset: NotRequired[
+        "Literal['']|PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAsset"
+    ]
+    """
+    Details for a liquid asset (crypto or security) funding transaction.
+    """
+    wallet: NotRequired[
+        "PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWallet"
+    ]
+    """
+    Details for a wallet funding transaction.
+    """
+
+
+class PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAsset(
+    TypedDict,
+):
+    crypto: NotRequired[
+        "PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto"
+    ]
+    """
+    Details for a cryptocurrency liquid asset funding transaction.
+    """
+    security: NotRequired[
+        "PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity"
+    ]
+    """
+    Details for a security liquid asset funding transaction.
+    """
+
+
+class PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto(
+    TypedDict,
+):
+    currency_code: NotRequired[str]
+    """
+    The cryptocurrency currency code (e.g. BTC, ETH).
+    """
+
+
+class PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity(
+    TypedDict,
+):
+    ticker_symbol: NotRequired[str]
+    """
+    The security's ticker symbol (e.g. AAPL).
+    """
+
+
+class PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWallet(
+    TypedDict,
+):
+    staged_purchase: NotRequired[
+        "Literal['']|PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase"
+    ]
+    """
+    Details for a staged purchase.
+    """
+
+
+class PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase(
+    TypedDict,
+):
+    merchant: NotRequired[
+        "PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant"
+    ]
+    """
+    The merchant where the staged wallet purchase is made.
+    """
+
+
+class PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant(
+    TypedDict,
+):
+    mcc: NotRequired[str]
+    """
+    The merchant category code of the merchant.
+    """
+    name: NotRequired[str]
+    """
+    The merchant's name.
+    """
 
 
 class PaymentIntentCreateParamsPaymentMethodOptionsCashapp(TypedDict):

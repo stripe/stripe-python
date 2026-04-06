@@ -2509,10 +2509,22 @@ if TYPE_CHECKING:
         PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetails as PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetails,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices as PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding as PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding,
+        PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAsset as PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAsset,
+        PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto as PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto,
+        PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity as PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity,
+        PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWallet as PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWallet,
+        PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase as PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase,
+        PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant as PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardPresent as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresent,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetails as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetails,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding,
+        PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAsset as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAsset,
+        PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto,
+        PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity,
+        PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWallet as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWallet,
+        PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase,
+        PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentRouting as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentRouting,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardStatementDetails as PaymentIntentConfirmParamsPaymentMethodOptionsCardStatementDetails,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardStatementDetailsAddress as PaymentIntentConfirmParamsPaymentMethodOptionsCardStatementDetailsAddress,
@@ -2811,10 +2823,22 @@ if TYPE_CHECKING:
         PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetails as PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetails,
         PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices as PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices,
         PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding as PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding,
+        PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAsset as PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAsset,
+        PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto as PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto,
+        PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity as PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity,
+        PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWallet as PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWallet,
+        PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase as PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase,
+        PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant as PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant,
         PaymentIntentCreateParamsPaymentMethodOptionsCardPresent as PaymentIntentCreateParamsPaymentMethodOptionsCardPresent,
         PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetails as PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetails,
         PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices as PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices,
         PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding as PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding,
+        PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAsset as PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAsset,
+        PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto as PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto,
+        PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity as PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity,
+        PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWallet as PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWallet,
+        PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase as PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase,
+        PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant as PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant,
         PaymentIntentCreateParamsPaymentMethodOptionsCardPresentRouting as PaymentIntentCreateParamsPaymentMethodOptionsCardPresentRouting,
         PaymentIntentCreateParamsPaymentMethodOptionsCardStatementDetails as PaymentIntentCreateParamsPaymentMethodOptionsCardStatementDetails,
         PaymentIntentCreateParamsPaymentMethodOptionsCardStatementDetailsAddress as PaymentIntentCreateParamsPaymentMethodOptionsCardStatementDetailsAddress,
@@ -3162,10 +3186,22 @@ if TYPE_CHECKING:
         PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetails as PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetails,
         PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices as PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices,
         PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding as PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding,
+        PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAsset as PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAsset,
+        PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto as PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto,
+        PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity as PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity,
+        PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWallet as PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWallet,
+        PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase as PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase,
+        PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant as PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant,
         PaymentIntentModifyParamsPaymentMethodOptionsCardPresent as PaymentIntentModifyParamsPaymentMethodOptionsCardPresent,
         PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetails as PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetails,
         PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices as PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices,
         PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding as PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding,
+        PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAsset as PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAsset,
+        PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto as PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto,
+        PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity as PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity,
+        PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWallet as PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWallet,
+        PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase as PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase,
+        PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant as PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant,
         PaymentIntentModifyParamsPaymentMethodOptionsCardPresentRouting as PaymentIntentModifyParamsPaymentMethodOptionsCardPresentRouting,
         PaymentIntentModifyParamsPaymentMethodOptionsCardStatementDetails as PaymentIntentModifyParamsPaymentMethodOptionsCardStatementDetails,
         PaymentIntentModifyParamsPaymentMethodOptionsCardStatementDetailsAddress as PaymentIntentModifyParamsPaymentMethodOptionsCardStatementDetailsAddress,
@@ -3478,10 +3514,22 @@ if TYPE_CHECKING:
         PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetails as PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetails,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices as PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding as PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding,
+        PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAsset as PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAsset,
+        PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto as PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto,
+        PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity as PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity,
+        PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWallet as PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWallet,
+        PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase as PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase,
+        PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant as PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardPresent as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresent,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetails as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetails,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding,
+        PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAsset as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAsset,
+        PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto,
+        PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity,
+        PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWallet as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWallet,
+        PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase,
+        PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentRouting as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentRouting,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardStatementDetails as PaymentIntentUpdateParamsPaymentMethodOptionsCardStatementDetails,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardStatementDetailsAddress as PaymentIntentUpdateParamsPaymentMethodOptionsCardStatementDetailsAddress,
@@ -13823,6 +13871,30 @@ _import_map = {
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAsset": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWallet": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
     "PaymentIntentConfirmParamsPaymentMethodOptionsCardPresent": (
         "stripe.params._payment_intent_confirm_params",
         False,
@@ -13836,6 +13908,30 @@ _import_map = {
         False,
     ),
     "PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAsset": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWallet": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant": (
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
@@ -15023,6 +15119,30 @@ _import_map = {
         "stripe.params._payment_intent_create_params",
         False,
     ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAsset": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWallet": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
     "PaymentIntentCreateParamsPaymentMethodOptionsCardPresent": (
         "stripe.params._payment_intent_create_params",
         False,
@@ -15036,6 +15156,30 @@ _import_map = {
         False,
     ),
     "PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAsset": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWallet": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant": (
         "stripe.params._payment_intent_create_params",
         False,
     ),
@@ -16387,6 +16531,30 @@ _import_map = {
         "stripe.params._payment_intent_modify_params",
         False,
     ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAsset": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWallet": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
     "PaymentIntentModifyParamsPaymentMethodOptionsCardPresent": (
         "stripe.params._payment_intent_modify_params",
         False,
@@ -16400,6 +16568,30 @@ _import_map = {
         False,
     ),
     "PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAsset": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWallet": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant": (
         "stripe.params._payment_intent_modify_params",
         False,
     ),
@@ -17603,6 +17795,30 @@ _import_map = {
         "stripe.params._payment_intent_update_params",
         False,
     ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAsset": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWallet": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
     "PaymentIntentUpdateParamsPaymentMethodOptionsCardPresent": (
         "stripe.params._payment_intent_update_params",
         False,
@@ -17616,6 +17832,30 @@ _import_map = {
         False,
     ),
     "PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAsset": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWallet": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant": (
         "stripe.params._payment_intent_update_params",
         False,
     ),
