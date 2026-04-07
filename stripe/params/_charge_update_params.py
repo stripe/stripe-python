@@ -2018,14 +2018,183 @@ class ChargeUpdateParamsPaymentDetailsMoneyServices(TypedDict):
     """
     Account funding transaction details including sender and beneficiary information.
     """
-    transaction_type: NotRequired[Literal["account_funding"]]
+    transaction_type: NotRequired["Literal['']|Literal['account_funding']"]
     """
     The type of money services transaction.
     """
 
 
 class ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFunding(TypedDict):
-    pass
+    beneficiary_account: NotRequired[str]
+    """
+    ID of the Account representing the beneficiary in this account funding transaction.
+    """
+    beneficiary_details: NotRequired[
+        "Literal['']|ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails"
+    ]
+    """
+    Inline identity details for the beneficiary of this account funding transaction.
+    """
+    sender_account: NotRequired[str]
+    """
+    ID of the Account representing the sender in this account funding transaction.
+    """
+    sender_details: NotRequired[
+        "Literal['']|ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails"
+    ]
+    """
+    Inline identity details for the sender of this account funding transaction.
+    """
+
+
+class ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails(
+    TypedDict,
+):
+    address: NotRequired[
+        "ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress"
+    ]
+    """
+    Address.
+    """
+    date_of_birth: NotRequired[
+        "ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth"
+    ]
+    """
+    Date of birth.
+    """
+    email: NotRequired[str]
+    """
+    Email address.
+    """
+    name: NotRequired[str]
+    """
+    Full name.
+    """
+    phone: NotRequired[str]
+    """
+    Phone number.
+    """
+
+
+class ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress(
+    TypedDict,
+):
+    city: NotRequired[str]
+    """
+    City, district, suburb, town, or village.
+    """
+    country: NotRequired[str]
+    """
+    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+    """
+    line1: NotRequired[str]
+    """
+    Address line 1, such as the street, PO Box, or company name.
+    """
+    line2: NotRequired[str]
+    """
+    Address line 2, such as the apartment, suite, unit, or building.
+    """
+    postal_code: NotRequired[str]
+    """
+    ZIP or postal code.
+    """
+    state: NotRequired[str]
+    """
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+    """
+
+
+class ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth(
+    TypedDict,
+):
+    day: int
+    """
+    Day of birth, between 1 and 31.
+    """
+    month: int
+    """
+    Month of birth, between 1 and 12.
+    """
+    year: int
+    """
+    Four-digit year of birth.
+    """
+
+
+class ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails(
+    TypedDict,
+):
+    address: NotRequired[
+        "ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsAddress"
+    ]
+    """
+    Address.
+    """
+    date_of_birth: NotRequired[
+        "ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsDateOfBirth"
+    ]
+    """
+    Date of birth.
+    """
+    email: NotRequired[str]
+    """
+    Email address.
+    """
+    name: NotRequired[str]
+    """
+    Full name.
+    """
+    phone: NotRequired[str]
+    """
+    Phone number.
+    """
+
+
+class ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsAddress(
+    TypedDict,
+):
+    city: NotRequired[str]
+    """
+    City, district, suburb, town, or village.
+    """
+    country: NotRequired[str]
+    """
+    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+    """
+    line1: NotRequired[str]
+    """
+    Address line 1, such as the street, PO Box, or company name.
+    """
+    line2: NotRequired[str]
+    """
+    Address line 2, such as the apartment, suite, unit, or building.
+    """
+    postal_code: NotRequired[str]
+    """
+    ZIP or postal code.
+    """
+    state: NotRequired[str]
+    """
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+    """
+
+
+class ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsDateOfBirth(
+    TypedDict,
+):
+    day: int
+    """
+    Day of birth, between 1 and 31.
+    """
+    month: int
+    """
+    Month of birth, between 1 and 12.
+    """
+    year: int
+    """
+    Four-digit year of birth.
+    """
 
 
 class ChargeUpdateParamsShipping(TypedDict):

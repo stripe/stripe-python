@@ -786,6 +786,12 @@ if TYPE_CHECKING:
         ChargeCaptureParamsPaymentDetailsLodgingPassenger as ChargeCaptureParamsPaymentDetailsLodgingPassenger,
         ChargeCaptureParamsPaymentDetailsMoneyServices as ChargeCaptureParamsPaymentDetailsMoneyServices,
         ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFunding as ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFunding,
+        ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails as ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails,
+        ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress as ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress,
+        ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth as ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth,
+        ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails as ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails,
+        ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsAddress as ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsAddress,
+        ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsDateOfBirth as ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsDateOfBirth,
         ChargeCaptureParamsPaymentDetailsSubscription as ChargeCaptureParamsPaymentDetailsSubscription,
         ChargeCaptureParamsPaymentDetailsSubscriptionAffiliate as ChargeCaptureParamsPaymentDetailsSubscriptionAffiliate,
         ChargeCaptureParamsPaymentDetailsSubscriptionBillingInterval as ChargeCaptureParamsPaymentDetailsSubscriptionBillingInterval,
@@ -882,6 +888,12 @@ if TYPE_CHECKING:
         ChargeModifyParamsPaymentDetailsLodgingPassenger as ChargeModifyParamsPaymentDetailsLodgingPassenger,
         ChargeModifyParamsPaymentDetailsMoneyServices as ChargeModifyParamsPaymentDetailsMoneyServices,
         ChargeModifyParamsPaymentDetailsMoneyServicesAccountFunding as ChargeModifyParamsPaymentDetailsMoneyServicesAccountFunding,
+        ChargeModifyParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails as ChargeModifyParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails,
+        ChargeModifyParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress as ChargeModifyParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress,
+        ChargeModifyParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth as ChargeModifyParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth,
+        ChargeModifyParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails as ChargeModifyParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails,
+        ChargeModifyParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsAddress as ChargeModifyParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsAddress,
+        ChargeModifyParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsDateOfBirth as ChargeModifyParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsDateOfBirth,
         ChargeModifyParamsPaymentDetailsSubscription as ChargeModifyParamsPaymentDetailsSubscription,
         ChargeModifyParamsPaymentDetailsSubscriptionAffiliate as ChargeModifyParamsPaymentDetailsSubscriptionAffiliate,
         ChargeModifyParamsPaymentDetailsSubscriptionBillingInterval as ChargeModifyParamsPaymentDetailsSubscriptionBillingInterval,
@@ -973,6 +985,12 @@ if TYPE_CHECKING:
         ChargeUpdateParamsPaymentDetailsLodgingPassenger as ChargeUpdateParamsPaymentDetailsLodgingPassenger,
         ChargeUpdateParamsPaymentDetailsMoneyServices as ChargeUpdateParamsPaymentDetailsMoneyServices,
         ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFunding as ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFunding,
+        ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails as ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails,
+        ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress as ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress,
+        ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth as ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth,
+        ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails as ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails,
+        ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsAddress as ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsAddress,
+        ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsDateOfBirth as ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsDateOfBirth,
         ChargeUpdateParamsPaymentDetailsSubscription as ChargeUpdateParamsPaymentDetailsSubscription,
         ChargeUpdateParamsPaymentDetailsSubscriptionAffiliate as ChargeUpdateParamsPaymentDetailsSubscriptionAffiliate,
         ChargeUpdateParamsPaymentDetailsSubscriptionBillingInterval as ChargeUpdateParamsPaymentDetailsSubscriptionBillingInterval,
@@ -2317,6 +2335,12 @@ if TYPE_CHECKING:
         PaymentIntentCaptureParamsPaymentDetailsLodgingPassenger as PaymentIntentCaptureParamsPaymentDetailsLodgingPassenger,
         PaymentIntentCaptureParamsPaymentDetailsMoneyServices as PaymentIntentCaptureParamsPaymentDetailsMoneyServices,
         PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFunding as PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFunding,
+        PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails as PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails,
+        PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress as PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress,
+        PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth as PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth,
+        PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails as PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails,
+        PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsAddress as PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsAddress,
+        PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsDateOfBirth as PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsDateOfBirth,
         PaymentIntentCaptureParamsPaymentDetailsSubscription as PaymentIntentCaptureParamsPaymentDetailsSubscription,
         PaymentIntentCaptureParamsPaymentDetailsSubscriptionAffiliate as PaymentIntentCaptureParamsPaymentDetailsSubscriptionAffiliate,
         PaymentIntentCaptureParamsPaymentDetailsSubscriptionBillingInterval as PaymentIntentCaptureParamsPaymentDetailsSubscriptionBillingInterval,
@@ -2419,6 +2443,12 @@ if TYPE_CHECKING:
         PaymentIntentConfirmParamsPaymentDetailsLodgingPassenger as PaymentIntentConfirmParamsPaymentDetailsLodgingPassenger,
         PaymentIntentConfirmParamsPaymentDetailsMoneyServices as PaymentIntentConfirmParamsPaymentDetailsMoneyServices,
         PaymentIntentConfirmParamsPaymentDetailsMoneyServicesAccountFunding as PaymentIntentConfirmParamsPaymentDetailsMoneyServicesAccountFunding,
+        PaymentIntentConfirmParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails as PaymentIntentConfirmParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails,
+        PaymentIntentConfirmParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress as PaymentIntentConfirmParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress,
+        PaymentIntentConfirmParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth as PaymentIntentConfirmParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth,
+        PaymentIntentConfirmParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails as PaymentIntentConfirmParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails,
+        PaymentIntentConfirmParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsAddress as PaymentIntentConfirmParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsAddress,
+        PaymentIntentConfirmParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsDateOfBirth as PaymentIntentConfirmParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsDateOfBirth,
         PaymentIntentConfirmParamsPaymentDetailsSubscription as PaymentIntentConfirmParamsPaymentDetailsSubscription,
         PaymentIntentConfirmParamsPaymentDetailsSubscriptionAffiliate as PaymentIntentConfirmParamsPaymentDetailsSubscriptionAffiliate,
         PaymentIntentConfirmParamsPaymentDetailsSubscriptionBillingInterval as PaymentIntentConfirmParamsPaymentDetailsSubscriptionBillingInterval,
@@ -2733,6 +2763,12 @@ if TYPE_CHECKING:
         PaymentIntentCreateParamsPaymentDetailsLodgingPassenger as PaymentIntentCreateParamsPaymentDetailsLodgingPassenger,
         PaymentIntentCreateParamsPaymentDetailsMoneyServices as PaymentIntentCreateParamsPaymentDetailsMoneyServices,
         PaymentIntentCreateParamsPaymentDetailsMoneyServicesAccountFunding as PaymentIntentCreateParamsPaymentDetailsMoneyServicesAccountFunding,
+        PaymentIntentCreateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails as PaymentIntentCreateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails,
+        PaymentIntentCreateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress as PaymentIntentCreateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress,
+        PaymentIntentCreateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth as PaymentIntentCreateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth,
+        PaymentIntentCreateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails as PaymentIntentCreateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails,
+        PaymentIntentCreateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsAddress as PaymentIntentCreateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsAddress,
+        PaymentIntentCreateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsDateOfBirth as PaymentIntentCreateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsDateOfBirth,
         PaymentIntentCreateParamsPaymentDetailsSubscription as PaymentIntentCreateParamsPaymentDetailsSubscription,
         PaymentIntentCreateParamsPaymentDetailsSubscriptionAffiliate as PaymentIntentCreateParamsPaymentDetailsSubscriptionAffiliate,
         PaymentIntentCreateParamsPaymentDetailsSubscriptionBillingInterval as PaymentIntentCreateParamsPaymentDetailsSubscriptionBillingInterval,
@@ -3096,6 +3132,12 @@ if TYPE_CHECKING:
         PaymentIntentModifyParamsPaymentDetailsLodgingPassenger as PaymentIntentModifyParamsPaymentDetailsLodgingPassenger,
         PaymentIntentModifyParamsPaymentDetailsMoneyServices as PaymentIntentModifyParamsPaymentDetailsMoneyServices,
         PaymentIntentModifyParamsPaymentDetailsMoneyServicesAccountFunding as PaymentIntentModifyParamsPaymentDetailsMoneyServicesAccountFunding,
+        PaymentIntentModifyParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails as PaymentIntentModifyParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails,
+        PaymentIntentModifyParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress as PaymentIntentModifyParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress,
+        PaymentIntentModifyParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth as PaymentIntentModifyParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth,
+        PaymentIntentModifyParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails as PaymentIntentModifyParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails,
+        PaymentIntentModifyParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsAddress as PaymentIntentModifyParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsAddress,
+        PaymentIntentModifyParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsDateOfBirth as PaymentIntentModifyParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsDateOfBirth,
         PaymentIntentModifyParamsPaymentDetailsSubscription as PaymentIntentModifyParamsPaymentDetailsSubscription,
         PaymentIntentModifyParamsPaymentDetailsSubscriptionAffiliate as PaymentIntentModifyParamsPaymentDetailsSubscriptionAffiliate,
         PaymentIntentModifyParamsPaymentDetailsSubscriptionBillingInterval as PaymentIntentModifyParamsPaymentDetailsSubscriptionBillingInterval,
@@ -3424,6 +3466,12 @@ if TYPE_CHECKING:
         PaymentIntentUpdateParamsPaymentDetailsLodgingPassenger as PaymentIntentUpdateParamsPaymentDetailsLodgingPassenger,
         PaymentIntentUpdateParamsPaymentDetailsMoneyServices as PaymentIntentUpdateParamsPaymentDetailsMoneyServices,
         PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFunding as PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFunding,
+        PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails as PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails,
+        PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress as PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress,
+        PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth as PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth,
+        PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails as PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails,
+        PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsAddress as PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsAddress,
+        PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsDateOfBirth as PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsDateOfBirth,
         PaymentIntentUpdateParamsPaymentDetailsSubscription as PaymentIntentUpdateParamsPaymentDetailsSubscription,
         PaymentIntentUpdateParamsPaymentDetailsSubscriptionAffiliate as PaymentIntentUpdateParamsPaymentDetailsSubscriptionAffiliate,
         PaymentIntentUpdateParamsPaymentDetailsSubscriptionBillingInterval as PaymentIntentUpdateParamsPaymentDetailsSubscriptionBillingInterval,
@@ -8566,6 +8614,30 @@ _import_map = {
         "stripe.params._charge_capture_params",
         False,
     ),
+    "ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails": (
+        "stripe.params._charge_capture_params",
+        False,
+    ),
+    "ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress": (
+        "stripe.params._charge_capture_params",
+        False,
+    ),
+    "ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth": (
+        "stripe.params._charge_capture_params",
+        False,
+    ),
+    "ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails": (
+        "stripe.params._charge_capture_params",
+        False,
+    ),
+    "ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsAddress": (
+        "stripe.params._charge_capture_params",
+        False,
+    ),
+    "ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsDateOfBirth": (
+        "stripe.params._charge_capture_params",
+        False,
+    ),
     "ChargeCaptureParamsPaymentDetailsSubscription": (
         "stripe.params._charge_capture_params",
         False,
@@ -8906,6 +8978,30 @@ _import_map = {
         "stripe.params._charge_modify_params",
         False,
     ),
+    "ChargeModifyParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails": (
+        "stripe.params._charge_modify_params",
+        False,
+    ),
+    "ChargeModifyParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress": (
+        "stripe.params._charge_modify_params",
+        False,
+    ),
+    "ChargeModifyParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth": (
+        "stripe.params._charge_modify_params",
+        False,
+    ),
+    "ChargeModifyParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails": (
+        "stripe.params._charge_modify_params",
+        False,
+    ),
+    "ChargeModifyParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsAddress": (
+        "stripe.params._charge_modify_params",
+        False,
+    ),
+    "ChargeModifyParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsDateOfBirth": (
+        "stripe.params._charge_modify_params",
+        False,
+    ),
     "ChargeModifyParamsPaymentDetailsSubscription": (
         "stripe.params._charge_modify_params",
         False,
@@ -9226,6 +9322,30 @@ _import_map = {
         False,
     ),
     "ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFunding": (
+        "stripe.params._charge_update_params",
+        False,
+    ),
+    "ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails": (
+        "stripe.params._charge_update_params",
+        False,
+    ),
+    "ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress": (
+        "stripe.params._charge_update_params",
+        False,
+    ),
+    "ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth": (
+        "stripe.params._charge_update_params",
+        False,
+    ),
+    "ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails": (
+        "stripe.params._charge_update_params",
+        False,
+    ),
+    "ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsAddress": (
+        "stripe.params._charge_update_params",
+        False,
+    ),
+    "ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsDateOfBirth": (
         "stripe.params._charge_update_params",
         False,
     ),
@@ -13111,6 +13231,30 @@ _import_map = {
         "stripe.params._payment_intent_capture_params",
         False,
     ),
+    "PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
+    "PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
+    "PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
+    "PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
+    "PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsAddress": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
+    "PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsDateOfBirth": (
+        "stripe.params._payment_intent_capture_params",
+        False,
+    ),
     "PaymentIntentCaptureParamsPaymentDetailsSubscription": (
         "stripe.params._payment_intent_capture_params",
         False,
@@ -13508,6 +13652,30 @@ _import_map = {
         False,
     ),
     "PaymentIntentConfirmParamsPaymentDetailsMoneyServicesAccountFunding": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsAddress": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsDateOfBirth": (
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
@@ -14756,6 +14924,30 @@ _import_map = {
         False,
     ),
     "PaymentIntentCreateParamsPaymentDetailsMoneyServicesAccountFunding": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsAddress": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsDateOfBirth": (
         "stripe.params._payment_intent_create_params",
         False,
     ),
@@ -16171,6 +16363,30 @@ _import_map = {
         "stripe.params._payment_intent_modify_params",
         False,
     ),
+    "PaymentIntentModifyParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsAddress": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsDateOfBirth": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
     "PaymentIntentModifyParamsPaymentDetailsSubscription": (
         "stripe.params._payment_intent_modify_params",
         False,
@@ -17432,6 +17648,30 @@ _import_map = {
         False,
     ),
     "PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFunding": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsAddress": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsDateOfBirth": (
         "stripe.params._payment_intent_update_params",
         False,
     ),

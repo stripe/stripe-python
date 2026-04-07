@@ -238,6 +238,10 @@ class PaymentIntentUpdateParamsAmountDetailsLineItem(TypedDict):
     """
     A unit of measure for the line item, such as gallons, feet, meters, etc.
     """
+    quantity_precision: NotRequired[int]
+    """
+    The number of decimal places implied in the quantity. For example, if quantity is 10000 and quantity_precision is 2, the actual quantity is 100.00. Defaults to 0 if not provided.
+    """
 
 
 class PaymentIntentUpdateParamsAmountDetailsLineItemPaymentMethodOptions(
@@ -2564,7 +2568,7 @@ class PaymentIntentUpdateParamsPaymentDetailsMoneyServices(TypedDict):
     """
     Account funding transaction details including sender and beneficiary information.
     """
-    transaction_type: NotRequired[Literal["account_funding"]]
+    transaction_type: NotRequired["Literal['']|Literal['account_funding']"]
     """
     The type of money services transaction.
     """
@@ -2573,7 +2577,176 @@ class PaymentIntentUpdateParamsPaymentDetailsMoneyServices(TypedDict):
 class PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFunding(
     TypedDict,
 ):
-    pass
+    beneficiary_account: NotRequired[str]
+    """
+    ID of the Account representing the beneficiary in this account funding transaction.
+    """
+    beneficiary_details: NotRequired[
+        "Literal['']|PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails"
+    ]
+    """
+    Inline identity details for the beneficiary of this account funding transaction.
+    """
+    sender_account: NotRequired[str]
+    """
+    ID of the Account representing the sender in this account funding transaction.
+    """
+    sender_details: NotRequired[
+        "Literal['']|PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails"
+    ]
+    """
+    Inline identity details for the sender of this account funding transaction.
+    """
+
+
+class PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails(
+    TypedDict,
+):
+    address: NotRequired[
+        "PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress"
+    ]
+    """
+    Address.
+    """
+    date_of_birth: NotRequired[
+        "PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth"
+    ]
+    """
+    Date of birth.
+    """
+    email: NotRequired[str]
+    """
+    Email address.
+    """
+    name: NotRequired[str]
+    """
+    Full name.
+    """
+    phone: NotRequired[str]
+    """
+    Phone number.
+    """
+
+
+class PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress(
+    TypedDict,
+):
+    city: NotRequired[str]
+    """
+    City, district, suburb, town, or village.
+    """
+    country: NotRequired[str]
+    """
+    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+    """
+    line1: NotRequired[str]
+    """
+    Address line 1, such as the street, PO Box, or company name.
+    """
+    line2: NotRequired[str]
+    """
+    Address line 2, such as the apartment, suite, unit, or building.
+    """
+    postal_code: NotRequired[str]
+    """
+    ZIP or postal code.
+    """
+    state: NotRequired[str]
+    """
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+    """
+
+
+class PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth(
+    TypedDict,
+):
+    day: int
+    """
+    Day of birth, between 1 and 31.
+    """
+    month: int
+    """
+    Month of birth, between 1 and 12.
+    """
+    year: int
+    """
+    Four-digit year of birth.
+    """
+
+
+class PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails(
+    TypedDict,
+):
+    address: NotRequired[
+        "PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsAddress"
+    ]
+    """
+    Address.
+    """
+    date_of_birth: NotRequired[
+        "PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsDateOfBirth"
+    ]
+    """
+    Date of birth.
+    """
+    email: NotRequired[str]
+    """
+    Email address.
+    """
+    name: NotRequired[str]
+    """
+    Full name.
+    """
+    phone: NotRequired[str]
+    """
+    Phone number.
+    """
+
+
+class PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsAddress(
+    TypedDict,
+):
+    city: NotRequired[str]
+    """
+    City, district, suburb, town, or village.
+    """
+    country: NotRequired[str]
+    """
+    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+    """
+    line1: NotRequired[str]
+    """
+    Address line 1, such as the street, PO Box, or company name.
+    """
+    line2: NotRequired[str]
+    """
+    Address line 2, such as the apartment, suite, unit, or building.
+    """
+    postal_code: NotRequired[str]
+    """
+    ZIP or postal code.
+    """
+    state: NotRequired[str]
+    """
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+    """
+
+
+class PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsDateOfBirth(
+    TypedDict,
+):
+    day: int
+    """
+    Day of birth, between 1 and 31.
+    """
+    month: int
+    """
+    Month of birth, between 1 and 12.
+    """
+    year: int
+    """
+    Four-digit year of birth.
+    """
 
 
 class PaymentIntentUpdateParamsPaymentMethodData(TypedDict):
