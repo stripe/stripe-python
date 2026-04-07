@@ -334,6 +334,20 @@ class Subscription(
                 Preferred language of the Bancontact authorization page that the customer is redirected to.
                 """
 
+            class Bizum(StripeObject):
+                class MandateOptions(StripeObject):
+                    amount: Optional[int]
+                    """
+                    Amount to be charged for future payments. Required when `amount_type=fixed`.
+                    """
+                    amount_type: Optional[Literal["fixed"]]
+                    """
+                    Indicates the mandate amount type.
+                    """
+
+                mandate_options: Optional[MandateOptions]
+                _inner_class_types = {"mandate_options": MandateOptions}
+
             class Card(StripeObject):
                 class MandateOptions(StripeObject):
                     amount: Optional[int]
@@ -573,6 +587,10 @@ class Subscription(
             """
             This sub-hash contains details about the Bancontact payment method options to pass to invoices created by the subscription.
             """
+            bizum: Optional[Bizum]
+            """
+            This sub-hash contains details about the Bizum payment method options to pass to invoices created by the subscription.
+            """
             card: Optional[Card]
             """
             This sub-hash contains details about the Card payment method options to pass to invoices created by the subscription.
@@ -616,6 +634,7 @@ class Subscription(
             _inner_class_types = {
                 "acss_debit": AcssDebit,
                 "bancontact": Bancontact,
+                "bizum": Bizum,
                 "card": Card,
                 "check_scan": CheckScan,
                 "customer_balance": CustomerBalance,
@@ -643,6 +662,7 @@ class Subscription(
                     "au_becs_debit",
                     "bacs_debit",
                     "bancontact",
+                    "bizum",
                     "boleto",
                     "card",
                     "cashapp",

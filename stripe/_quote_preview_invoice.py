@@ -803,6 +803,9 @@ class QuotePreviewInvoice(StripeObject):
                 Preferred language of the Bancontact authorization page that the customer is redirected to.
                 """
 
+            class Bizum(StripeObject):
+                pass
+
             class Card(StripeObject):
                 class Installments(StripeObject):
                     enabled: Optional[bool]
@@ -990,6 +993,10 @@ class QuotePreviewInvoice(StripeObject):
             """
             If paying by `bancontact`, this sub-hash contains details about the Bancontact payment method options to pass to the invoice's PaymentIntent.
             """
+            bizum: Optional[Bizum]
+            """
+            If paying by `bizum`, this sub-hash contains details about the Bizum payment method options to pass to the invoice's PaymentIntent.
+            """
             card: Optional[Card]
             """
             If paying by `card`, this sub-hash contains details about the Card payment method options to pass to the invoice's PaymentIntent.
@@ -1033,6 +1040,7 @@ class QuotePreviewInvoice(StripeObject):
             _inner_class_types = {
                 "acss_debit": AcssDebit,
                 "bancontact": Bancontact,
+                "bizum": Bizum,
                 "card": Card,
                 "check_scan": CheckScan,
                 "customer_balance": CustomerBalance,
@@ -1064,6 +1072,7 @@ class QuotePreviewInvoice(StripeObject):
                     "au_becs_debit",
                     "bacs_debit",
                     "bancontact",
+                    "bizum",
                     "boleto",
                     "card",
                     "cashapp",
