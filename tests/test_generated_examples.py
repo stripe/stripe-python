@@ -48910,6 +48910,33 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
+    def test_cannot_proceed_error_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/payout_methods/id_123/archive",
+            rbody='{"error":{"type":"cannot_proceed","code":"default_payout_method_cannot_be_archived"}}',
+            rcode=400,
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        try:
+            client.v2.money_management.payout_methods.archive("id_123")
+        except _error.CannotProceedError:
+            pass
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/payout_methods/id_123/archive",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
     def test_controlled_by_alternate_resource_error_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
