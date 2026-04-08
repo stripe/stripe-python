@@ -1605,6 +1605,10 @@ class PaymentMethod(
     samsung_pay: Optional[SamsungPay]
     satispay: Optional[Satispay]
     sepa_debit: Optional[SepaDebit]
+    shared_payment_granted_token: Optional[str]
+    """
+    ID of the shared payment granted token used in the creation of this PaymentMethod.
+    """
     shopeepay: Optional[Shopeepay]
     sofort: Optional[Sofort]
     stripe_balance: Optional[StripeBalance]

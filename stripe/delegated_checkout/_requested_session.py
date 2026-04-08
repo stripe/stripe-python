@@ -700,7 +700,7 @@ class RequestedSession(
     """
     The SPT used for payment.
     """
-    status: Literal["completed", "expired", "open"]
+    status: Literal["completed", "expired", "open", "requires_action"]
     """
     The status of the requested session.
     """

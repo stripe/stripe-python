@@ -23,10 +23,39 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
     )
 
     class ClientDeviceMetadataDetails(StripeObject):
+        class Data(StripeObject):
+            ip: str
+            """
+            The IP address of the client device.
+            """
+            pasted_fields: Optional[
+                List[Literal["cvc", "exp", "number", "other", "zip"]]
+            ]
+            """
+            Pasted fields from the checkout flow.
+            """
+            referrer: Optional[str]
+            """
+            The referrer of the client device.
+            """
+            time_on_page_ms: Optional[int]
+            """
+            The time on page in milliseconds.
+            """
+            user_agent: str
+            """
+            The user agent of the client device.
+            """
+
+        data: Optional[Data]
+        """
+        Direct client device attributes such as IP address and user agent. Use this as an alternative to radar_session when a Radar Session isn't available.
+        """
         radar_session: str
         """
         ID for the Radar Session associated with the payment evaluation. A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
         """
+        _inner_class_types = {"data": Data}
 
     class CustomerDetails(StripeObject):
         customer: Optional[str]

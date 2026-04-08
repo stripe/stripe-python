@@ -54,5 +54,5 @@ class CustomerEvaluationModifyParamsRegistrationFailed(TypedDict):
 class CustomerEvaluationModifyParamsRegistrationSuccess(TypedDict):
     customer: NotRequired[str]
     """
-    Stripe customer ID to attach to an entity-less registration evaluation.
+    The ID of a Customer to attach to an entity-less registration evaluation.
     """

@@ -136,6 +136,10 @@ class PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItem(
     """
     A unit of measure for the line item, such as gallons, feet, meters, etc.
     """
+    quantity_precision: NotRequired[int]
+    """
+    The number of decimal places implied in the quantity. For example, if quantity is 10000 and quantity_precision is 2, the actual quantity is 100.00. Defaults to 0 if not provided.
+    """
 
 
 class PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptions(
@@ -173,6 +177,74 @@ class PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItemPaymentMetho
     commodity_code: NotRequired[str]
     """
     Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, and so on.
+    """
+    fleet_data: NotRequired[
+        "PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsCardFleetData"
+    ]
+    """
+    Fleet data for this line item.
+    """
+
+
+class PaymentIntentDecrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsCardFleetData(
+    TypedDict,
+):
+    product_type: Literal[
+        "air_conditioning_service",
+        "alcohol",
+        "aviation_fuel_premium",
+        "aviation_fuel_regular",
+        "car_care_detailing",
+        "compressed_natural_gas",
+        "deli",
+        "food_service",
+        "green_gasoline_mid_plus",
+        "green_gasoline_premium_super",
+        "green_gasoline_regular",
+        "grocery",
+        "liquid_natural_gas",
+        "liquid_propane_gas",
+        "lodging",
+        "marine_diesel",
+        "marine_fuel",
+        "merchandise",
+        "mid_plus",
+        "mid_plus_ethanol",
+        "miscellaneous_aviation_products_services",
+        "miscellaneous_fuel",
+        "miscellaneous_marine_products_services",
+        "miscellaneous_vehicle_products_services",
+        "packaged_beverage",
+        "premium_diesel",
+        "premium_super",
+        "premium_super_ethanol",
+        "preventative_maintenance",
+        "regular",
+        "regular_diesel",
+        "regular_ethanol",
+        "repairs",
+        "self_service_car_wash",
+        "shower",
+        "store_service",
+        "tobacco",
+        "vehicle_accessories",
+        "vehicle_parking",
+        "vehicle_parts",
+        "wash_out",
+    ]
+    """
+    The type of product being purchased at this line item.
+    """
+    service_type: NotRequired[
+        Literal[
+            "full_service",
+            "high_speed_diesel",
+            "non_fuel_only",
+            "self_service",
+        ]
+    ]
+    """
+    The type of service received at the acceptor location.
     """
 
 

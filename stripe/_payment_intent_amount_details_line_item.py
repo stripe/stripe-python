@@ -12,7 +12,19 @@ class PaymentIntentAmountDetailsLineItem(StripeObject):
 
     class PaymentMethodOptions(StripeObject):
         class Card(StripeObject):
+            class FleetData(StripeObject):
+                product_type: Optional[str]
+                """
+                The type of product being purchased at this line item.
+                """
+                service_type: Optional[str]
+                """
+                The type of service received at the acceptor location.
+                """
+
             commodity_code: Optional[str]
+            fleet_data: Optional[FleetData]
+            _inner_class_types = {"fleet_data": FleetData}
 
         class CardPresent(StripeObject):
             commodity_code: Optional[str]
@@ -89,6 +101,10 @@ class PaymentIntentAmountDetailsLineItem(StripeObject):
     quantity: int
     """
     The quantity of items. Required for L3 rates. An integer greater than 0.
+    """
+    quantity_precision: Optional[int]
+    """
+    The number of decimal places implied in the quantity. For example, if quantity is 10000 and quantity_precision is 2, the actual quantity is 100.00. Defaults to 0 if not provided.
     """
     tax: Optional[Tax]
     """

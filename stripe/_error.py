@@ -200,6 +200,28 @@ class BlockedByStripeError(StripeError):
     pass
 
 
+class CannotProceedError(StripeError):
+    def __init__(
+        self,
+        message=None,
+        http_body=None,
+        http_status=None,
+        json_body=None,
+        headers=None,
+        code=None,
+        reason=None,
+    ):
+        super().__init__(
+            message,
+            http_body,
+            http_status,
+            json_body,
+            headers,
+            code,
+        )
+        self.reason = reason
+
+
 class ControlledByAlternateResourceError(StripeError):
     pass
 

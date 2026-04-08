@@ -159,6 +159,11 @@ This release changes the pinned API version to 2026-03-25.preview and contains a
   * Add support for event notifications `V1AccountSignalsIncludingDelinquencyCreatedEvent`, `V2CoreAccountSignalsFraudulentWebsiteReadyEvent`, and `V2SignalsAccountSignalFraudulentMerchantReadyEvent`
 * [#1766](https://github.com/stripe/stripe-python/pull/1766) Merge to private-preview
 
+## 15.0.1 - 2026-04-01
+* [#1786](https://github.com/stripe/stripe-python/pull/1786) Fix encoding two-dimensional array request params
+* [#1785](https://github.com/stripe/stripe-python/pull/1785) Improve types for `metadata` and other dict-like types
+* [#1780](https://github.com/stripe/stripe-python/pull/1780) Fix `str` / `repr` for `StripeObjects` with decimals & add support for plain dicts
+
 ## 15.0.0 - 2026-03-25
 
 This release changes the pinned API version to `2026-03-25.dahlia` and contains breaking changes (prefixed with ⚠️ below). There's also a [detailed migration guide](https://github.com/stripe/stripe-python/wiki/Migration-guide-for-v15) to simplify your upgrade process.

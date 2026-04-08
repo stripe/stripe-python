@@ -68,13 +68,22 @@ class CustomerEvaluation(
             """
             Time at which the signal was evaluated. Measured in seconds since the Unix epoch.
             """
-            risk_level: Optional[str]
+            risk_level: Optional[
+                Literal[
+                    "elevated",
+                    "highest",
+                    "low",
+                    "normal",
+                    "not_assessed",
+                    "unknown",
+                ]
+            ]
             """
             The risk level for this signal.
             """
             score: float
             """
-            Score for this signal (float between 0.0-100.0).
+            Score for this signal (between 0.0 and 100.0).
             """
 
         class MultiAccounting(StripeObject):
@@ -82,13 +91,22 @@ class CustomerEvaluation(
             """
             Time at which the signal was evaluated. Measured in seconds since the Unix epoch.
             """
-            risk_level: Optional[str]
+            risk_level: Optional[
+                Literal[
+                    "elevated",
+                    "highest",
+                    "low",
+                    "normal",
+                    "not_assessed",
+                    "unknown",
+                ]
+            ]
             """
             The risk level for this signal.
             """
             score: float
             """
-            Score for this signal (float between 0.0-100.0).
+            Score for this signal (between 0.0 and 100.0).
             """
 
         account_sharing: Optional[AccountSharing]
@@ -104,9 +122,9 @@ class CustomerEvaluation(
     """
     customer: Optional[str]
     """
-    The ID of the Stripe customer the customer evaluation is associated with.
+    The ID of the Customer to associate with this CustomerEvaluation.
     """
-    event_type: str
+    event_type: Literal["login", "registration"]
     """
     The type of evaluation event.
     """
@@ -128,7 +146,7 @@ class CustomerEvaluation(
     """
     signals: Optional[Signals]
     """
-    A hash of signal objects providing Radar's evaluation for the lifecycle event.
+    A hash of signal objects providing Radar's evaluation of the customer.
     """
 
     @classmethod

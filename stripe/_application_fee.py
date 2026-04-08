@@ -47,6 +47,10 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         """
         Charge ID that created this application fee.
         """
+        payment_record: Optional[str]
+        """
+        PaymentRecord ID that created this application fee.
+        """
         payout: Optional[str]
         """
         Payout ID that created this application fee.

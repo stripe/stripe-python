@@ -1098,6 +1098,9 @@ class GrantedToken(APIResource["GrantedToken"]):
             The connected account ID whose Stripe balance to use as the source of payment
             """
 
+        class Sunbit(StripeObject):
+            pass
+
         class Swish(StripeObject):
             pass
 
@@ -1269,6 +1272,7 @@ class GrantedToken(APIResource["GrantedToken"]):
         shopeepay: Optional[Shopeepay]
         sofort: Optional[Sofort]
         stripe_balance: Optional[StripeBalance]
+        sunbit: Optional[Sunbit]
         swish: Optional[Swish]
         twint: Optional[Twint]
         type: Literal[
@@ -1327,6 +1331,7 @@ class GrantedToken(APIResource["GrantedToken"]):
             "shopeepay",
             "sofort",
             "stripe_balance",
+            "sunbit",
             "swish",
             "twint",
             "upi",
@@ -1397,6 +1402,7 @@ class GrantedToken(APIResource["GrantedToken"]):
             "shopeepay": Shopeepay,
             "sofort": Sofort,
             "stripe_balance": StripeBalance,
+            "sunbit": Sunbit,
             "swish": Swish,
             "twint": Twint,
             "upi": Upi,

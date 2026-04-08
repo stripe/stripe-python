@@ -51,7 +51,7 @@ class CustomerEvaluationCreateParamsEvaluationContextCustomerDetails(
 ):
     customer: NotRequired[str]
     """
-    Stripe customer ID
+    The ID of an existing Customer.
     """
     customer_data: NotRequired[
         "CustomerEvaluationCreateParamsEvaluationContextCustomerDetailsCustomerData"
