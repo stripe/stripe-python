@@ -14,6 +14,7 @@ if TYPE_CHECKING:
         SessionCreateParamsAdaptivePricing as SessionCreateParamsAdaptivePricing,
         SessionCreateParamsAfterExpiration as SessionCreateParamsAfterExpiration,
         SessionCreateParamsAfterExpirationRecovery as SessionCreateParamsAfterExpirationRecovery,
+        SessionCreateParamsAutomaticSurcharge as SessionCreateParamsAutomaticSurcharge,
         SessionCreateParamsAutomaticTax as SessionCreateParamsAutomaticTax,
         SessionCreateParamsAutomaticTaxLiability as SessionCreateParamsAutomaticTaxLiability,
         SessionCreateParamsBrandingSettings as SessionCreateParamsBrandingSettings,
@@ -254,6 +255,10 @@ _import_map = {
         False,
     ),
     "SessionCreateParamsAfterExpirationRecovery": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsAutomaticSurcharge": (
         "stripe.params.checkout._session_create_params",
         False,
     ),

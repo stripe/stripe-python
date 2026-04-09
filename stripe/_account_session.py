@@ -102,6 +102,17 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             features: Features
             _inner_class_types = {"features": Features}
 
+        class Bills(StripeObject):
+            class Features(StripeObject):
+                pass
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
         class CapitalFinancing(StripeObject):
             class Features(StripeObject):
                 pass
@@ -529,6 +540,10 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         Configuration for the [agentic commerce settings](https://docs.stripe.com/connect/supported-embedded-components/agentic-commerce-settings/) embedded component.
         """
         balances: Balances
+        bills: Optional[Bills]
+        """
+        Configuration for the [Bills](https://docs.stripe.com/connect/supported-embedded-components/bills/) embedded component.
+        """
         capital_financing: Optional[CapitalFinancing]
         capital_financing_application: Optional[CapitalFinancingApplication]
         capital_financing_promotion: Optional[CapitalFinancingPromotion]
@@ -577,6 +592,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "account_onboarding": AccountOnboarding,
             "agentic_commerce_settings": AgenticCommerceSettings,
             "balances": Balances,
+            "bills": Bills,
             "capital_financing": CapitalFinancing,
             "capital_financing_application": CapitalFinancingApplication,
             "capital_financing_promotion": CapitalFinancingPromotion,

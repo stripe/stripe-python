@@ -15,6 +15,9 @@ if TYPE_CHECKING:
     from stripe.params._payment_attempt_record_report_authenticated_params import (
         PaymentAttemptRecordReportAuthenticatedParams,
     )
+    from stripe.params._payment_attempt_record_report_authorized_params import (
+        PaymentAttemptRecordReportAuthorizedParams,
+    )
     from stripe.params._payment_attempt_record_report_canceled_params import (
         PaymentAttemptRecordReportCanceledParams,
     )
@@ -154,6 +157,50 @@ class PaymentAttemptRecordService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/payment_attempt_records/{payment_attempt_record}/report_authenticated".format(
+                    payment_attempt_record=sanitize_id(payment_attempt_record),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def report_authorized(
+        self,
+        payment_attempt_record: str,
+        params: Optional["PaymentAttemptRecordReportAuthorizedParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record was authorized.
+        """
+        return cast(
+            "PaymentAttemptRecord",
+            self._request(
+                "post",
+                "/v1/payment_attempt_records/{payment_attempt_record}/report_authorized".format(
+                    payment_attempt_record=sanitize_id(payment_attempt_record),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def report_authorized_async(
+        self,
+        payment_attempt_record: str,
+        params: Optional["PaymentAttemptRecordReportAuthorizedParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record was authorized.
+        """
+        return cast(
+            "PaymentAttemptRecord",
+            await self._request_async(
+                "post",
+                "/v1/payment_attempt_records/{payment_attempt_record}/report_authorized".format(
                     payment_attempt_record=sanitize_id(payment_attempt_record),
                 ),
                 base_address="api",

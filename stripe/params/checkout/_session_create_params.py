@@ -471,6 +471,10 @@ class SessionCreateParams(RequestOptions):
     """
     Wallet-specific configuration.
     """
+    automatic_surcharge: NotRequired["SessionCreateParamsAutomaticSurcharge"]
+    """
+    Settings for automatic surcharge calculation for this session.
+    """
     checkout_items: NotRequired[List["SessionCreateParamsCheckoutItem"]]
 
 
@@ -3216,6 +3220,23 @@ class SessionCreateParamsWalletOptionsLink(TypedDict):
     display: NotRequired[Literal["auto", "never"]]
     """
     Specifies whether Checkout should display Link as a payment option. By default, Checkout will display all the supported wallets that the Checkout Session was created with. This is the `auto` behavior, and it is the default choice.
+    """
+
+
+class SessionCreateParamsAutomaticSurcharge(TypedDict):
+    calculation_basis: NotRequired[
+        Literal["total_after_tax", "total_before_tax"]
+    ]
+    """
+    Determines which amount is used as the basis for calculating the surcharge.
+    """
+    enabled: bool
+    """
+    Set to `true` to calculate surcharge automatically using the customer's card details and location.
+    """
+    tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
+    """
+    Specifies whether the surcharge is considered inclusive or exclusive of taxes.
     """
 
 

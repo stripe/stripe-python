@@ -194,6 +194,20 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
         }
 
     class Email(StripeObject):
+        class Details(StripeObject):
+            days_since_domain_creation: Optional[float]
+            """
+            Number of days from the time when the email domain was first observed to the time of verification.
+            """
+            days_since_ownership_started: Optional[float]
+            """
+            Number of days from the time when the email address was first observed to the time of verification.
+            """
+            domain_country: Optional[str]
+            """
+            Two-letter ISO 3166-1 alpha-2 country code of the email domain's country.
+            """
+
         class Error(StripeObject):
             code: Optional[
                 Literal[
@@ -208,6 +222,10 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
             A human-readable message giving the reason for the failure. These messages can be shown to your users.
             """
 
+        details: Optional[Details]
+        """
+        Additional email verification details
+        """
         email: Optional[str]
         """
         Email to be verified.
@@ -220,7 +238,7 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
         """
         Status of this `email` check.
         """
-        _inner_class_types = {"error": Error}
+        _inner_class_types = {"details": Details, "error": Error}
 
     class IdNumber(StripeObject):
         class Dob(StripeObject):

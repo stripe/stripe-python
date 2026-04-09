@@ -80,6 +80,10 @@ class InvoiceItem(
             """
             The subscription schedule that generated this invoice item
             """
+            subscription: Optional[str]
+            """
+            The subscription associated with this schedule
+            """
 
         class SubscriptionDetails(StripeObject):
             subscription: str
