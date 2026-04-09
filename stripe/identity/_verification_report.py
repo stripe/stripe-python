@@ -439,7 +439,7 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
     """
     Result from a selfie check
     """
-    type: Literal["document", "id_number", "verification_flow"]
+    type: Literal["document", "email", "id_number", "verification_flow"]
     """
     Type of report.
     """

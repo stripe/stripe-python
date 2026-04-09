@@ -45,7 +45,7 @@ class VerificationSessionCreateParams(RequestOptions):
     """
     The URL that the user will be redirected to upon completing the verification flow.
     """
-    type: NotRequired[Literal["document", "id_number"]]
+    type: NotRequired[Literal["document", "email", "id_number"]]
     """
     The type of [verification check](https://docs.stripe.com/identity/verification-checks) to be performed. You must provide a `type` if not passing `verification_flow`.
     """

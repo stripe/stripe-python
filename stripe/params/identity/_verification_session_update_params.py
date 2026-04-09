@@ -24,7 +24,7 @@ class VerificationSessionUpdateParams(TypedDict):
     """
     Details provided about the user being verified. These details may be shown to the user.
     """
-    type: NotRequired[Literal["document", "id_number"]]
+    type: NotRequired[Literal["document", "email", "id_number"]]
     """
     The type of [verification check](https://docs.stripe.com/identity/verification-checks) to be performed.
     """
