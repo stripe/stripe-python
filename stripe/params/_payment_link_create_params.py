@@ -1142,7 +1142,7 @@ class PaymentLinkCreateParamsAutomaticSurcharge(TypedDict):
         Literal["total_after_tax", "total_before_tax"]
     ]
     """
-    Determines which amount is used as the basis for calculating the surcharge.
+    Determines which amount serves as the basis for calculating the surcharge.
     """
     enabled: bool
     """
