@@ -28,6 +28,10 @@ class VerificationSessionUpdateParams(TypedDict):
     """
     The type of [verification check](https://docs.stripe.com/identity/verification-checks) to be performed.
     """
+    confirm: NotRequired[bool]
+    """
+    Confirm and submit the provided details for verification.
+    """
 
 
 class VerificationSessionUpdateParamsOptions(TypedDict):

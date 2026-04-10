@@ -31,6 +31,12 @@ class BalanceSettingsUpdateParamsPayments(TypedDict):
     """
     Settings related to the account's balance settlement timing.
     """
+    settlement_currencies: NotRequired[
+        "Dict[str, Literal['disabled', 'enabled']]|UntypedStripeObject[Literal['disabled', 'enabled']]"
+    ]
+    """
+    A hash of settlement currencies to update. Each key is an ISO 4217 currency code, and the value is either `enabled` or `disabled`.
+    """
 
 
 class BalanceSettingsUpdateParamsPaymentsPayouts(TypedDict):

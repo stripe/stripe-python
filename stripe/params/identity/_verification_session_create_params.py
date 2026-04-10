@@ -53,6 +53,10 @@ class VerificationSessionCreateParams(RequestOptions):
     """
     The ID of a verification flow from the Dashboard. See https://docs.stripe.com/identity/verification-flows.
     """
+    confirm: NotRequired[bool]
+    """
+    Confirm and submit the provided details for verification.
+    """
 
 
 class VerificationSessionCreateParamsOptions(TypedDict):
