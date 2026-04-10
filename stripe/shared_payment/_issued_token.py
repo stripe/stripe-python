@@ -40,7 +40,7 @@ class IssuedToken(StripeObject):
                 """
                 score: float
                 """
-                Risk score for this insight (float).
+                Risk score for this insight.
                 """
 
             class CardIssuerDecline(StripeObject):
@@ -50,7 +50,7 @@ class IssuedToken(StripeObject):
                 """
                 score: float
                 """
-                Risk score for this insight (float).
+                Risk score for this insight.
                 """
 
             class CardTesting(StripeObject):
@@ -60,7 +60,7 @@ class IssuedToken(StripeObject):
                 """
                 score: float
                 """
-                Risk score for this insight (float).
+                Risk score for this insight.
                 """
 
             class FraudulentDispute(StripeObject):
@@ -70,7 +70,7 @@ class IssuedToken(StripeObject):
                 """
                 score: int
                 """
-                Risk score for this insight (integer).
+                Risk score for this insight.
                 """
 
             class StolenCard(StripeObject):
@@ -80,28 +80,28 @@ class IssuedToken(StripeObject):
                 """
                 score: int
                 """
-                Risk score for this insight (integer).
+                Risk score for this insight.
                 """
 
             bot: Optional[Bot]
             """
-            Bot risk insight (score: Float, recommended_action).
+            Bot risk insight.
             """
             card_issuer_decline: Optional[CardIssuerDecline]
             """
-            Card issuer decline risk insight (score: Float, recommended_action).
+            Card issuer decline risk insight.
             """
             card_testing: Optional[CardTesting]
             """
-            Card testing risk insight (score: Float, recommended_action).
+            Card testing risk insight.
             """
             fraudulent_dispute: Optional[FraudulentDispute]
             """
-            Fraudulent dispute risk insight (score: Integer, recommended_action).
+            Fraudulent dispute risk insight.
             """
             stolen_card: Optional[StolenCard]
             """
-            Stolen card risk insight (score: Integer, recommended_action).
+            Stolen card risk insight.
             """
             _inner_class_types = {
                 "bot": Bot,
