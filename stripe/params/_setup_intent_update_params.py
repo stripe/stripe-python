@@ -432,6 +432,10 @@ class SetupIntentUpdateParamsPaymentMethodData(TypedDict):
     """
     If this is a `zip` PaymentMethod, this hash contains details about the Zip payment method.
     """
+    shared_payment_granted_token: NotRequired[str]
+    """
+    ID of the SharedPaymentGrantedToken used to confirm this PaymentIntent.
+    """
 
 
 class SetupIntentUpdateParamsPaymentMethodDataAcssDebit(TypedDict):

@@ -126,10 +126,6 @@ class IssuedToken(StripeObject):
         """
         The unique and logical string that identifies the seller platform that this SharedToken is being created for.
         """
-        network_id: Optional[str]
-        """
-        The unique and logical string that identifies the seller platform that this SharedToken is being created for.
-        """
 
     class UsageDetails(StripeObject):
         class AmountCaptured(StripeObject):
