@@ -123,10 +123,6 @@ class PaymentIntentConfirmParams(RequestOptions):
 
     If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
     """
-    shared_payment_granted_token: NotRequired[str]
-    """
-    ID of the SharedPaymentToken used to confirm this PaymentIntent.
-    """
     shipping: NotRequired["Literal['']|PaymentIntentConfirmParamsShipping"]
     """
     Shipping information for this PaymentIntent.

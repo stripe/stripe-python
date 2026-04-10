@@ -243,10 +243,6 @@ class PaymentIntentCreateParams(RequestOptions):
 
     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
     """
-    shared_payment_granted_token: NotRequired[str]
-    """
-    ID of the SharedPaymentToken used to confirm this PaymentIntent.
-    """
     shipping: NotRequired["PaymentIntentCreateParamsShipping"]
     """
     Shipping information for this PaymentIntent.
