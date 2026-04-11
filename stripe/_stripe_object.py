@@ -221,6 +221,24 @@ class StripeObject:
                         "The 'payment_intent' attribute is no longer available on Invoice objects. See the docs for more details: https://docs.stripe.com/changelog/basil/2025-03-31/add-support-for-multiple-partial-payments-on-invoices#why-is-this-a-breaking-change"
                     )
 
+                # backward compatibility: subscription_item moved to parent.subscription_item_details.subscription_item
+                if k == "subscription_item":
+                    from stripe._invoice_line_item import InvoiceLineItem
+
+                    if isinstance(self, InvoiceLineItem):
+                        parent = self._data.get("parent")
+                        if parent is not None and isinstance(
+                            parent, StripeObject
+                        ):
+                            details = parent._data.get(
+                                "subscription_item_details"
+                            )
+                            if details is not None and isinstance(
+                                details, StripeObject
+                            ):
+                                return details._data.get("subscription_item")
+                        return None
+
                 raise err
 
     def __delitem__(self, k: str) -> None:
