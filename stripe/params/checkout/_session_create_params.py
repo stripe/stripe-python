@@ -1480,6 +1480,10 @@ class SessionCreateParamsPaymentMethodOptions(TypedDict):
     """
     contains details about the WeChat Pay payment method options.
     """
+    bizum: NotRequired["SessionCreateParamsPaymentMethodOptionsBizum"]
+    """
+    contains details about the Bizum payment method options.
+    """
 
 
 class SessionCreateParamsPaymentMethodOptionsAcssDebit(TypedDict):
@@ -2590,6 +2594,19 @@ class SessionCreateParamsPaymentMethodOptionsWechatPay(TypedDict):
 
     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
     """
+
+
+class SessionCreateParamsPaymentMethodOptionsBizum(TypedDict):
+    mandate_options: NotRequired[
+        "SessionCreateParamsPaymentMethodOptionsBizumMandateOptions"
+    ]
+    """
+    Additional fields for mandate creation.
+    """
+
+
+class SessionCreateParamsPaymentMethodOptionsBizumMandateOptions(TypedDict):
+    pass
 
 
 class SessionCreateParamsPermissions(TypedDict):

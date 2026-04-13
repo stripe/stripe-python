@@ -1401,6 +1401,13 @@ class Session(
             Controls when the funds will be captured from the customer's account.
             """
 
+        class Bizum(StripeObject):
+            class MandateOptions(StripeObject):
+                pass
+
+            mandate_options: Optional[MandateOptions]
+            _inner_class_types = {"mandate_options": MandateOptions}
+
         class Boleto(StripeObject):
             expires_after_days: int
             """
@@ -2179,6 +2186,7 @@ class Session(
         bacs_debit: Optional[BacsDebit]
         bancontact: Optional[Bancontact]
         billie: Optional[Billie]
+        bizum: Optional[Bizum]
         boleto: Optional[Boleto]
         card: Optional[Card]
         cashapp: Optional[Cashapp]
@@ -2223,6 +2231,7 @@ class Session(
             "bacs_debit": BacsDebit,
             "bancontact": Bancontact,
             "billie": Billie,
+            "bizum": Bizum,
             "boleto": Boleto,
             "card": Card,
             "cashapp": Cashapp,
