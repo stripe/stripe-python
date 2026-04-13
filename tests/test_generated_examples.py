@@ -43856,7 +43856,6 @@ class TestGeneratedExamples(object):
             {
                 "account": "account",
                 "use_case": {
-                    "type": "account_onboarding",
                     "account_onboarding": {
                         "collection_options": {
                             "fields": "eventually_due",
@@ -43875,6 +43874,7 @@ class TestGeneratedExamples(object):
                         "refresh_url": "refresh_url",
                         "return_url": "return_url",
                     },
+                    "type": "account_onboarding",
                 },
             }
         )
@@ -43883,7 +43883,7 @@ class TestGeneratedExamples(object):
             path="/v2/core/account_links",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"account":"account","use_case":{"type":"account_onboarding","account_onboarding":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"configurations":["merchant"],"refresh_url":"refresh_url","return_url":"return_url"},"account_update":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"configurations":["merchant"],"refresh_url":"refresh_url","return_url":"return_url"}}}',
+            post_data='{"account":"account","use_case":{"account_onboarding":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"configurations":["merchant"],"refresh_url":"refresh_url","return_url":"return_url"},"account_update":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"configurations":["merchant"],"refresh_url":"refresh_url","return_url":"return_url"},"type":"account_onboarding"}}',
             is_json=True,
         )
 

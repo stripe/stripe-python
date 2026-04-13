@@ -6,6 +6,12 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class EventDestinationCreateParams(TypedDict):
+    amazon_eventbridge: NotRequired[
+        "EventDestinationCreateParamsAmazonEventbridge"
+    ]
+    """
+    Amazon EventBridge configuration.
+    """
     description: NotRequired[str]
     """
     An optional description of what the event destination is used for.
@@ -49,12 +55,6 @@ class EventDestinationCreateParams(TypedDict):
     type: Literal["amazon_eventbridge", "webhook_endpoint"]
     """
     Event destination type.
-    """
-    amazon_eventbridge: NotRequired[
-        "EventDestinationCreateParamsAmazonEventbridge"
-    ]
-    """
-    Amazon EventBridge configuration.
     """
     webhook_endpoint: NotRequired[
         "EventDestinationCreateParamsWebhookEndpoint"
