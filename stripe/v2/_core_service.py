@@ -23,6 +23,8 @@ if TYPE_CHECKING:
     )
     from stripe.v2.core._event_service import EventService
     from stripe.v2.core._vault_service import VaultService
+    from stripe.v2.core._workflow_run_service import WorkflowRunService
+    from stripe.v2.core._workflow_service import WorkflowService
 
 _subservices = {
     "accounts": ["stripe.v2.core._account_service", "AccountService"],
@@ -53,6 +55,11 @@ _subservices = {
         "EventDestinationService",
     ],
     "vault": ["stripe.v2.core._vault_service", "VaultService"],
+    "workflows": ["stripe.v2.core._workflow_service", "WorkflowService"],
+    "workflow_runs": [
+        "stripe.v2.core._workflow_run_service",
+        "WorkflowRunService",
+    ],
 }
 
 
@@ -67,6 +74,8 @@ class CoreService(StripeService):
     events: "EventService"
     event_destinations: "EventDestinationService"
     vault: "VaultService"
+    workflows: "WorkflowService"
+    workflow_runs: "WorkflowRunService"
 
     def __init__(self, requestor):
         super().__init__(requestor)

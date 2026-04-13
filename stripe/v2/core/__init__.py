@@ -60,6 +60,14 @@ if TYPE_CHECKING:
     )
     from stripe.v2.core._event_service import EventService as EventService
     from stripe.v2.core._vault_service import VaultService as VaultService
+    from stripe.v2.core._workflow import Workflow as Workflow
+    from stripe.v2.core._workflow_run import WorkflowRun as WorkflowRun
+    from stripe.v2.core._workflow_run_service import (
+        WorkflowRunService as WorkflowRunService,
+    )
+    from stripe.v2.core._workflow_service import (
+        WorkflowService as WorkflowService,
+    )
 
 # name -> (import_target, is_submodule)
 _import_map = {
@@ -98,6 +106,10 @@ _import_map = {
     ),
     "EventService": ("stripe.v2.core._event_service", False),
     "VaultService": ("stripe.v2.core._vault_service", False),
+    "Workflow": ("stripe.v2.core._workflow", False),
+    "WorkflowRun": ("stripe.v2.core._workflow_run", False),
+    "WorkflowRunService": ("stripe.v2.core._workflow_run_service", False),
+    "WorkflowService": ("stripe.v2.core._workflow_service", False),
 }
 if not TYPE_CHECKING:
 

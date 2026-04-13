@@ -581,6 +581,8 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.v2.core.vault._us_bank_account",
         "UsBankAccount",
     ),
+    "v2.core.workflow": ("stripe.v2.core._workflow", "Workflow"),
+    "v2.core.workflow_run": ("stripe.v2.core._workflow_run", "WorkflowRun"),
     "v2.data.reporting.query_run": (
         "stripe.v2.data.reporting._query_run",
         "QueryRun",
