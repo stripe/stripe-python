@@ -16,10 +16,6 @@ class AccountLinkCreateParams(TypedDict):
 
 
 class AccountLinkCreateParamsUseCase(TypedDict):
-    type: Literal["account_onboarding", "account_update"]
-    """
-    Open Enum. The type of Account Link the user is requesting.
-    """
     account_onboarding: NotRequired[
         "AccountLinkCreateParamsUseCaseAccountOnboarding"
     ]
@@ -29,6 +25,10 @@ class AccountLinkCreateParamsUseCase(TypedDict):
     account_update: NotRequired["AccountLinkCreateParamsUseCaseAccountUpdate"]
     """
     Hash containing configuration options for an Account Link that updates an existing account.
+    """
+    type: Literal["account_onboarding", "account_update"]
+    """
+    Open Enum. The type of Account Link the user is requesting.
     """
 
 

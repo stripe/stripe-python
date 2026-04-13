@@ -43805,8 +43805,6 @@ class TestGeneratedExamples(object):
         client.v2.billing.cadences.create(
             {
                 "billing_cycle": {
-                    "interval_count": 797691627,
-                    "type": "week",
                     "day": {
                         "time": {
                             "hour": 3208676,
@@ -43814,6 +43812,7 @@ class TestGeneratedExamples(object):
                             "second": 906279820,
                         },
                     },
+                    "interval_count": 797691627,
                     "month": {
                         "day_of_month": 1361669285,
                         "month_of_year": 82933018,
@@ -43823,6 +43822,7 @@ class TestGeneratedExamples(object):
                             "second": 906279820,
                         },
                     },
+                    "type": "week",
                     "week": {
                         "day_of_week": 43636807,
                         "time": {
@@ -43849,7 +43849,7 @@ class TestGeneratedExamples(object):
             path="/v2/billing/cadences",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"billing_cycle":{"interval_count":797691627,"type":"week","day":{"time":{"hour":3208676,"minute":1074026988,"second":906279820}},"month":{"day_of_month":1361669285,"month_of_year":82933018,"time":{"hour":3208676,"minute":1074026988,"second":906279820}},"week":{"day_of_week":43636807,"time":{"hour":3208676,"minute":1074026988,"second":906279820}},"year":{"day_of_month":1361669285,"month_of_year":82933018,"time":{"hour":3208676,"minute":1074026988,"second":906279820}}},"payer":{"billing_profile":"billing_profile"}}',
+            post_data='{"billing_cycle":{"day":{"time":{"hour":3208676,"minute":1074026988,"second":906279820}},"interval_count":797691627,"month":{"day_of_month":1361669285,"month_of_year":82933018,"time":{"hour":3208676,"minute":1074026988,"second":906279820}},"type":"week","week":{"day_of_week":43636807,"time":{"hour":3208676,"minute":1074026988,"second":906279820}},"year":{"day_of_month":1361669285,"month_of_year":82933018,"time":{"hour":3208676,"minute":1074026988,"second":906279820}}},"payer":{"billing_profile":"billing_profile"}}',
             is_json=True,
         )
 
@@ -44521,7 +44521,6 @@ class TestGeneratedExamples(object):
             {
                 "account": "account",
                 "use_case": {
-                    "type": "account_onboarding",
                     "account_onboarding": {
                         "collection_options": {
                             "fields": "eventually_due",
@@ -44540,6 +44539,7 @@ class TestGeneratedExamples(object):
                         "refresh_url": "refresh_url",
                         "return_url": "return_url",
                     },
+                    "type": "account_onboarding",
                 },
             }
         )
@@ -44548,7 +44548,7 @@ class TestGeneratedExamples(object):
             path="/v2/core/account_links",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"account":"account","use_case":{"type":"account_onboarding","account_onboarding":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"configurations":["storer"],"refresh_url":"refresh_url","return_url":"return_url"},"account_update":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"configurations":["storer"],"refresh_url":"refresh_url","return_url":"return_url"}}}',
+            post_data='{"account":"account","use_case":{"account_onboarding":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"configurations":["storer"],"refresh_url":"refresh_url","return_url":"return_url"},"account_update":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"configurations":["storer"],"refresh_url":"refresh_url","return_url":"return_url"},"type":"account_onboarding"}}',
             is_json=True,
         )
 

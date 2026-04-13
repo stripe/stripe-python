@@ -1688,15 +1688,15 @@ class AccountCreateParamsCard(TypedDict):
     address_zip: NotRequired[str]
     currency: NotRequired[str]
     cvc: NotRequired[str]
+    default_for_currency: NotRequired[bool]
     exp_month: int
     exp_year: int
-    name: NotRequired[str]
-    number: str
     metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
-    default_for_currency: NotRequired[bool]
+    name: NotRequired[str]
+    number: str
 
 
 class AccountCreateParamsCardToken(TypedDict):
