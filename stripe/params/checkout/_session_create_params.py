@@ -28,6 +28,10 @@ class SessionCreateParams(RequestOptions):
 
     When set to `manual`, you must approve the customer's attempt to pay by calling [approve](api/checkout/sessions/approve) from your server.
     """
+    automatic_surcharge: NotRequired["SessionCreateParamsAutomaticSurcharge"]
+    """
+    Settings for automatic surcharge calculation for this session.
+    """
     automatic_tax: NotRequired["SessionCreateParamsAutomaticTax"]
     """
     Settings for automatic tax lookup for this session and resulting payments, invoices, and subscriptions.
@@ -471,10 +475,6 @@ class SessionCreateParams(RequestOptions):
     """
     Wallet-specific configuration.
     """
-    automatic_surcharge: NotRequired["SessionCreateParamsAutomaticSurcharge"]
-    """
-    Settings for automatic surcharge calculation for this session.
-    """
     checkout_items: NotRequired[List["SessionCreateParamsCheckoutItem"]]
 
 
@@ -502,6 +502,23 @@ class SessionCreateParamsAfterExpirationRecovery(TypedDict):
     If `true`, a recovery URL will be generated to recover this Checkout Session if it
     expires before a successful transaction is completed. It will be attached to the
     Checkout Session object upon expiration.
+    """
+
+
+class SessionCreateParamsAutomaticSurcharge(TypedDict):
+    calculation_basis: NotRequired[
+        Literal["total_after_tax", "total_before_tax"]
+    ]
+    """
+    Determines which amount serves as the basis for calculating the surcharge.
+    """
+    enabled: bool
+    """
+    Set to `true` to calculate surcharge automatically using the customer's card details and location.
+    """
+    tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
+    """
+    Specifies whether the surcharge is considered inclusive or exclusive of taxes.
     """
 
 
@@ -1320,6 +1337,10 @@ class SessionCreateParamsPaymentMethodOptions(TypedDict):
     """
     contains details about the Billie payment method options.
     """
+    bizum: NotRequired["SessionCreateParamsPaymentMethodOptionsBizum"]
+    """
+    contains details about the Bizum payment method options.
+    """
     boleto: NotRequired["SessionCreateParamsPaymentMethodOptionsBoleto"]
     """
     contains details about the Boleto payment method options.
@@ -1479,10 +1500,6 @@ class SessionCreateParamsPaymentMethodOptions(TypedDict):
     wechat_pay: NotRequired["SessionCreateParamsPaymentMethodOptionsWechatPay"]
     """
     contains details about the WeChat Pay payment method options.
-    """
-    bizum: NotRequired["SessionCreateParamsPaymentMethodOptionsBizum"]
-    """
-    contains details about the Bizum payment method options.
     """
 
 
@@ -1688,6 +1705,19 @@ class SessionCreateParamsPaymentMethodOptionsBillie(TypedDict):
     """
     Controls when the funds will be captured from the customer's account.
     """
+
+
+class SessionCreateParamsPaymentMethodOptionsBizum(TypedDict):
+    mandate_options: NotRequired[
+        "SessionCreateParamsPaymentMethodOptionsBizumMandateOptions"
+    ]
+    """
+    Additional fields for mandate creation.
+    """
+
+
+class SessionCreateParamsPaymentMethodOptionsBizumMandateOptions(TypedDict):
+    pass
 
 
 class SessionCreateParamsPaymentMethodOptionsBoleto(TypedDict):
@@ -2596,19 +2626,6 @@ class SessionCreateParamsPaymentMethodOptionsWechatPay(TypedDict):
     """
 
 
-class SessionCreateParamsPaymentMethodOptionsBizum(TypedDict):
-    mandate_options: NotRequired[
-        "SessionCreateParamsPaymentMethodOptionsBizumMandateOptions"
-    ]
-    """
-    Additional fields for mandate creation.
-    """
-
-
-class SessionCreateParamsPaymentMethodOptionsBizumMandateOptions(TypedDict):
-    pass
-
-
 class SessionCreateParamsPermissions(TypedDict):
     update: NotRequired["SessionCreateParamsPermissionsUpdate"]
     """
@@ -3237,23 +3254,6 @@ class SessionCreateParamsWalletOptionsLink(TypedDict):
     display: NotRequired[Literal["auto", "never"]]
     """
     Specifies whether Checkout should display Link as a payment option. By default, Checkout will display all the supported wallets that the Checkout Session was created with. This is the `auto` behavior, and it is the default choice.
-    """
-
-
-class SessionCreateParamsAutomaticSurcharge(TypedDict):
-    calculation_basis: NotRequired[
-        Literal["total_after_tax", "total_before_tax"]
-    ]
-    """
-    Determines which amount serves as the basis for calculating the surcharge.
-    """
-    enabled: bool
-    """
-    Set to `true` to calculate surcharge automatically using the customer's card details and location.
-    """
-    tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
-    """
-    Specifies whether the surcharge is considered inclusive or exclusive of taxes.
     """
 
 

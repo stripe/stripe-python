@@ -24,6 +24,12 @@ class PaymentLinkCreateParams(RequestOptions):
     """
     A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. There must be at least 1 line item with a recurring price to use this field.
     """
+    automatic_surcharge: NotRequired[
+        "PaymentLinkCreateParamsAutomaticSurcharge"
+    ]
+    """
+    Configuration for automatic surcharge calculation.
+    """
     automatic_tax: NotRequired["PaymentLinkCreateParamsAutomaticTax"]
     """
     Configuration for automatic tax collection.
@@ -200,12 +206,6 @@ class PaymentLinkCreateParams(RequestOptions):
     """
     The account (if any) the payments will be attributed to for tax reporting, and where funds from each payment will be transferred to.
     """
-    automatic_surcharge: NotRequired[
-        "PaymentLinkCreateParamsAutomaticSurcharge"
-    ]
-    """
-    Configuration for automatic surcharge calculation.
-    """
 
 
 class PaymentLinkCreateParamsAfterCompletion(TypedDict):
@@ -236,6 +236,23 @@ class PaymentLinkCreateParamsAfterCompletionRedirect(TypedDict):
     url: str
     """
     The URL the customer will be redirected to after the purchase is complete. You can embed `{CHECKOUT_SESSION_ID}` into the URL to have the `id` of the completed [checkout session](https://docs.stripe.com/api/checkout/sessions/object#checkout_session_object-id) included.
+    """
+
+
+class PaymentLinkCreateParamsAutomaticSurcharge(TypedDict):
+    calculation_basis: NotRequired[
+        Literal["total_after_tax", "total_before_tax"]
+    ]
+    """
+    Determines which amount serves as the basis for calculating the surcharge.
+    """
+    enabled: bool
+    """
+    Set to `true` to calculate surcharge automatically using the customer's card details and location.
+    """
+    tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
+    """
+    Specifies whether the surcharge is considered inclusive or exclusive of taxes.
     """
 
 
@@ -1134,21 +1151,4 @@ class PaymentLinkCreateParamsTransferData(TypedDict):
     account for tax reporting, and the funds from charges will be transferred
     to the destination account. The ID of the resulting transfer will be
     returned on the successful charge's `transfer` field.
-    """
-
-
-class PaymentLinkCreateParamsAutomaticSurcharge(TypedDict):
-    calculation_basis: NotRequired[
-        Literal["total_after_tax", "total_before_tax"]
-    ]
-    """
-    Determines which amount serves as the basis for calculating the surcharge.
-    """
-    enabled: bool
-    """
-    Set to `true` to calculate surcharge automatically using the customer's card details and location.
-    """
-    tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
-    """
-    Specifies whether the surcharge is considered inclusive or exclusive of taxes.
     """

@@ -126,6 +126,10 @@ class PaymentIntentCaptureParamsAmountDetailsLineItem(TypedDict):
     """
     The quantity of items. Required for L3 rates. An integer greater than 0.
     """
+    quantity_precision: NotRequired[int]
+    """
+    The number of decimal places implied in the quantity. For example, if quantity is 10000 and quantity_precision is 2, the actual quantity is 100.00. Defaults to 0 if not provided.
+    """
     tax: NotRequired["PaymentIntentCaptureParamsAmountDetailsLineItemTax"]
     """
     Contains information about the tax on the item.
@@ -137,10 +141,6 @@ class PaymentIntentCaptureParamsAmountDetailsLineItem(TypedDict):
     unit_of_measure: NotRequired[str]
     """
     A unit of measure for the line item, such as gallons, feet, meters, etc.
-    """
-    quantity_precision: NotRequired[int]
-    """
-    The number of decimal places implied in the quantity. For example, if quantity is 10000 and quantity_precision is 2, the actual quantity is 100.00. Defaults to 0 if not provided.
     """
 
 
@@ -391,6 +391,12 @@ class PaymentIntentCaptureParamsPaymentDetails(TypedDict):
     """
     Event details for this PaymentIntent
     """
+    fleet_data: NotRequired[
+        "Literal['']|List[PaymentIntentCaptureParamsPaymentDetailsFleetDatum]"
+    ]
+    """
+    Fleet data for this PaymentIntent.
+    """
     flight: NotRequired["PaymentIntentCaptureParamsPaymentDetailsFlight"]
     """
     Flight reservation details for this PaymentIntent
@@ -411,6 +417,12 @@ class PaymentIntentCaptureParamsPaymentDetails(TypedDict):
     """
     Lodging data for this PaymentIntent.
     """
+    money_services: NotRequired[
+        "Literal['']|PaymentIntentCaptureParamsPaymentDetailsMoneyServices"
+    ]
+    """
+    Money services details for this PaymentIntent.
+    """
     order_reference: NotRequired["Literal['']|str"]
     """
     A unique value assigned by the business to identify the transaction. Required for L2 and L3 rates.
@@ -422,18 +434,6 @@ class PaymentIntentCaptureParamsPaymentDetails(TypedDict):
     ]
     """
     Subscription details for this PaymentIntent
-    """
-    fleet_data: NotRequired[
-        "Literal['']|List[PaymentIntentCaptureParamsPaymentDetailsFleetDatum]"
-    ]
-    """
-    Fleet data for this PaymentIntent.
-    """
-    money_services: NotRequired[
-        "Literal['']|PaymentIntentCaptureParamsPaymentDetailsMoneyServices"
-    ]
-    """
-    Money services details for this PaymentIntent.
     """
 
 
@@ -1220,6 +1220,238 @@ class PaymentIntentCaptureParamsPaymentDetailsEventDetailsDeliveryRecipient(
     phone: NotRequired[str]
     """
     The phone number of the recipient the ticket is delivered to.
+    """
+
+
+class PaymentIntentCaptureParamsPaymentDetailsFleetDatum(TypedDict):
+    primary_fuel_fields: NotRequired[
+        "PaymentIntentCaptureParamsPaymentDetailsFleetDatumPrimaryFuelFields"
+    ]
+    """
+    Primary fuel fields for the transaction.
+    """
+    station: NotRequired[
+        "PaymentIntentCaptureParamsPaymentDetailsFleetDatumStation"
+    ]
+    """
+    Station and acceptor location details.
+    """
+    vat: NotRequired["PaymentIntentCaptureParamsPaymentDetailsFleetDatumVat"]
+    """
+    VAT and Invoice on Behalf (IOB) details.
+    """
+
+
+class PaymentIntentCaptureParamsPaymentDetailsFleetDatumPrimaryFuelFields(
+    TypedDict,
+):
+    brand: NotRequired[
+        Literal[
+            "aafes",
+            "amerada_hess",
+            "amoco_canada",
+            "amoco_petroleum_products",
+            "arco_products",
+            "asda",
+            "ashland_oil",
+            "bfl",
+            "bp_mobil",
+            "bp_oil",
+            "burrnah_major",
+            "butler_arndale",
+            "canadian_tire",
+            "canadian_turbo",
+            "caseys_general_store",
+            "cenex",
+            "chevron_canada",
+            "chevron_usa",
+            "circle_k_stores",
+            "citgo_petroleum",
+            "clark_brands",
+            "conoco_canada",
+            "conoco_inc",
+            "crown_central_petroleum",
+            "diamond_shamrock_inc",
+            "discount_tire",
+            "domo_gas",
+            "elf",
+            "erickson_oil",
+            "esso",
+            "esso_canada",
+            "exxon",
+            "exxonmobil",
+            "family_express",
+            "fas_gas_oil",
+            "federated_coop_sonic",
+            "fina",
+            "fina_inc",
+            "fkg_oil",
+            "flare",
+            "flying_j_inc",
+            "gas_america",
+            "gate_petroleum",
+            "getty_petroleum",
+            "giant_eagle",
+            "grow_mark_inc",
+            "gulf",
+            "gulf_canada",
+            "gulf_chevron",
+            "handy_way_food",
+            "heron",
+            "holiday_stores",
+            "home_depot",
+            "husky",
+            "hyvees",
+            "irving",
+            "irving_oil",
+            "j_sainsbury",
+            "jet_conoco",
+            "krogers",
+            "kuwait",
+            "kwik_trip_inc",
+            "lassus",
+            "loves_country_stores",
+            "mapco_express_inc",
+            "marathon_oil",
+            "martin_bailey_inc_dba_hucks",
+            "maxol",
+            "meineke",
+            "mfa",
+            "mohawk",
+            "mr_gas",
+            "murco",
+            "murphy_oil_canada",
+            "murphy_oil_usa_inc",
+            "nexcom",
+            "nordstrom_oil",
+            "olco",
+            "pdq_store",
+            "pennzoil_products_inc",
+            "petro",
+            "petro_canada",
+            "petro_t",
+            "phillips",
+            "pilot",
+            "pioneer",
+            "pure_oil",
+            "quaker_state",
+            "quarles_oil",
+            "quiktrip",
+            "racetrac_petroleum_inc",
+            "raceway_petroleum",
+            "repsol",
+            "rudy",
+            "safeway",
+            "seven_eleven",
+            "sheetz",
+            "shell",
+            "shell_canada",
+            "shell_oil",
+            "sinclair_oil",
+            "southland_oil",
+            "spar",
+            "speedway",
+            "sun_company_inc",
+            "suncor_sunoco_canada",
+            "tempo",
+            "tesco",
+            "tesoro_alaska",
+            "texaco",
+            "the_pantry_inc",
+            "thornton_oil",
+            "tosco",
+            "total",
+            "travel_centers_of_america",
+            "uk",
+            "ultramar_canada",
+            "unbranded_or_unassigned",
+            "unbranded_unassigned",
+            "union_76",
+            "united_dairy_farmer",
+            "united_refining_kwikfill",
+            "us_oil",
+            "usa_petroleum",
+            "valvoline",
+            "vg",
+            "w_morrison",
+            "warren_equities",
+            "wawa",
+            "western_energetix",
+            "wilco",
+            "zions",
+        ]
+    ]
+    """
+    The fuel brand.
+    """
+
+
+class PaymentIntentCaptureParamsPaymentDetailsFleetDatumStation(TypedDict):
+    additional_contact_info: NotRequired[str]
+    """
+    Additional contact information for the station.
+    """
+    customer_service_phone_number: NotRequired[str]
+    """
+    The customer service phone number of the station.
+    """
+    partner_id_code: NotRequired[str]
+    """
+    The partner ID code of the station.
+    """
+    phone_number: NotRequired[str]
+    """
+    The phone number of the station.
+    """
+    service_location: NotRequired[
+        "PaymentIntentCaptureParamsPaymentDetailsFleetDatumStationServiceLocation"
+    ]
+    """
+    The physical location of the station.
+    """
+    url: NotRequired[str]
+    """
+    The URL of the station.
+    """
+
+
+class PaymentIntentCaptureParamsPaymentDetailsFleetDatumStationServiceLocation(
+    TypedDict,
+):
+    city: NotRequired[str]
+    """
+    City, district, suburb, town, or village.
+    """
+    country: NotRequired[str]
+    """
+    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+    """
+    line1: str
+    """
+    Address line 1, such as the street, PO Box, or company name.
+    """
+    line2: NotRequired[str]
+    """
+    Address line 2, such as the apartment, suite, unit, or building.
+    """
+    postal_code: NotRequired[str]
+    """
+    ZIP or postal code.
+    """
+    state: NotRequired[str]
+    """
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+    """
+
+
+class PaymentIntentCaptureParamsPaymentDetailsFleetDatumVat(TypedDict):
+    iob_indicator: Literal[
+        "issuer_to_iob",
+        "issuer_to_iob_and_incremental_certification",
+        "merchant_does_not_agree_to_iob",
+    ]
+    """
+    Indicates the merchant's agreement for Invoice on Behalf (IOB) VAT processing.
     """
 
 
@@ -2143,289 +2375,6 @@ class PaymentIntentCaptureParamsPaymentDetailsLodgingDatumTotalTaxTax(
     """
 
 
-class PaymentIntentCaptureParamsPaymentDetailsSubscription(TypedDict):
-    affiliate: NotRequired[
-        "PaymentIntentCaptureParamsPaymentDetailsSubscriptionAffiliate"
-    ]
-    """
-    Affiliate details for this purchase.
-    """
-    auto_renewal: NotRequired[bool]
-    """
-    Info whether the subscription will be auto renewed upon expiry.
-    """
-    billing_interval: NotRequired[
-        "PaymentIntentCaptureParamsPaymentDetailsSubscriptionBillingInterval"
-    ]
-    """
-    Subscription billing details for this purchase.
-    """
-    ends_at: NotRequired[int]
-    """
-    Subscription end time. Measured in seconds since the Unix epoch.
-    """
-    name: str
-    """
-    Name of the product on subscription. e.g. Apple Music Subscription
-    """
-    starts_at: NotRequired[int]
-    """
-    Subscription start time. Measured in seconds since the Unix epoch.
-    """
-
-
-class PaymentIntentCaptureParamsPaymentDetailsSubscriptionAffiliate(TypedDict):
-    name: str
-    """
-    The name of the affiliate that originated the purchase.
-    """
-
-
-class PaymentIntentCaptureParamsPaymentDetailsSubscriptionBillingInterval(
-    TypedDict,
-):
-    count: int
-    """
-    The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
-    """
-    interval: Literal["day", "month", "week", "year"]
-    """
-    Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
-    """
-
-
-class PaymentIntentCaptureParamsPaymentDetailsFleetDatum(TypedDict):
-    primary_fuel_fields: NotRequired[
-        "PaymentIntentCaptureParamsPaymentDetailsFleetDatumPrimaryFuelFields"
-    ]
-    """
-    Primary fuel fields for the transaction.
-    """
-    station: NotRequired[
-        "PaymentIntentCaptureParamsPaymentDetailsFleetDatumStation"
-    ]
-    """
-    Station and acceptor location details.
-    """
-    vat: NotRequired["PaymentIntentCaptureParamsPaymentDetailsFleetDatumVat"]
-    """
-    VAT and Invoice on Behalf (IOB) details.
-    """
-
-
-class PaymentIntentCaptureParamsPaymentDetailsFleetDatumPrimaryFuelFields(
-    TypedDict,
-):
-    brand: NotRequired[
-        Literal[
-            "aafes",
-            "amerada_hess",
-            "amoco_canada",
-            "amoco_petroleum_products",
-            "arco_products",
-            "asda",
-            "ashland_oil",
-            "bfl",
-            "bp_mobil",
-            "bp_oil",
-            "burrnah_major",
-            "butler_arndale",
-            "canadian_tire",
-            "canadian_turbo",
-            "caseys_general_store",
-            "cenex",
-            "chevron_canada",
-            "chevron_usa",
-            "circle_k_stores",
-            "citgo_petroleum",
-            "clark_brands",
-            "conoco_canada",
-            "conoco_inc",
-            "crown_central_petroleum",
-            "diamond_shamrock_inc",
-            "discount_tire",
-            "domo_gas",
-            "elf",
-            "erickson_oil",
-            "esso",
-            "esso_canada",
-            "exxon",
-            "exxonmobil",
-            "family_express",
-            "fas_gas_oil",
-            "federated_coop_sonic",
-            "fina",
-            "fina_inc",
-            "fkg_oil",
-            "flare",
-            "flying_j_inc",
-            "gas_america",
-            "gate_petroleum",
-            "getty_petroleum",
-            "giant_eagle",
-            "grow_mark_inc",
-            "gulf",
-            "gulf_canada",
-            "gulf_chevron",
-            "handy_way_food",
-            "heron",
-            "holiday_stores",
-            "home_depot",
-            "husky",
-            "hyvees",
-            "irving",
-            "irving_oil",
-            "j_sainsbury",
-            "jet_conoco",
-            "krogers",
-            "kuwait",
-            "kwik_trip_inc",
-            "lassus",
-            "loves_country_stores",
-            "mapco_express_inc",
-            "marathon_oil",
-            "martin_bailey_inc_dba_hucks",
-            "maxol",
-            "meineke",
-            "mfa",
-            "mohawk",
-            "mr_gas",
-            "murco",
-            "murphy_oil_canada",
-            "murphy_oil_usa_inc",
-            "nexcom",
-            "nordstrom_oil",
-            "olco",
-            "pdq_store",
-            "pennzoil_products_inc",
-            "petro",
-            "petro_canada",
-            "petro_t",
-            "phillips",
-            "pilot",
-            "pioneer",
-            "pure_oil",
-            "quaker_state",
-            "quarles_oil",
-            "quiktrip",
-            "racetrac_petroleum_inc",
-            "raceway_petroleum",
-            "repsol",
-            "rudy",
-            "safeway",
-            "seven_eleven",
-            "sheetz",
-            "shell",
-            "shell_canada",
-            "shell_oil",
-            "sinclair_oil",
-            "southland_oil",
-            "spar",
-            "speedway",
-            "sun_company_inc",
-            "suncor_sunoco_canada",
-            "tempo",
-            "tesco",
-            "tesoro_alaska",
-            "texaco",
-            "the_pantry_inc",
-            "thornton_oil",
-            "tosco",
-            "total",
-            "travel_centers_of_america",
-            "uk",
-            "ultramar_canada",
-            "unbranded_or_unassigned",
-            "unbranded_unassigned",
-            "union_76",
-            "united_dairy_farmer",
-            "united_refining_kwikfill",
-            "us_oil",
-            "usa_petroleum",
-            "valvoline",
-            "vg",
-            "w_morrison",
-            "warren_equities",
-            "wawa",
-            "western_energetix",
-            "wilco",
-            "zions",
-        ]
-    ]
-    """
-    The fuel brand.
-    """
-
-
-class PaymentIntentCaptureParamsPaymentDetailsFleetDatumStation(TypedDict):
-    additional_contact_info: NotRequired[str]
-    """
-    Additional contact information for the station.
-    """
-    customer_service_phone_number: NotRequired[str]
-    """
-    The customer service phone number of the station.
-    """
-    partner_id_code: NotRequired[str]
-    """
-    The partner ID code of the station.
-    """
-    phone_number: NotRequired[str]
-    """
-    The phone number of the station.
-    """
-    service_location: NotRequired[
-        "PaymentIntentCaptureParamsPaymentDetailsFleetDatumStationServiceLocation"
-    ]
-    """
-    The physical location of the station.
-    """
-    url: NotRequired[str]
-    """
-    The URL of the station.
-    """
-
-
-class PaymentIntentCaptureParamsPaymentDetailsFleetDatumStationServiceLocation(
-    TypedDict,
-):
-    city: NotRequired[str]
-    """
-    City, district, suburb, town, or village.
-    """
-    country: NotRequired[str]
-    """
-    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-    """
-    line1: str
-    """
-    Address line 1, such as the street, PO Box, or company name.
-    """
-    line2: NotRequired[str]
-    """
-    Address line 2, such as the apartment, suite, unit, or building.
-    """
-    postal_code: NotRequired[str]
-    """
-    ZIP or postal code.
-    """
-    state: NotRequired[str]
-    """
-    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
-    """
-
-
-class PaymentIntentCaptureParamsPaymentDetailsFleetDatumVat(TypedDict):
-    iob_indicator: Literal[
-        "issuer_to_iob",
-        "issuer_to_iob_and_incremental_certification",
-        "merchant_does_not_agree_to_iob",
-    ]
-    """
-    Indicates the merchant's agreement for Invoice on Behalf (IOB) VAT processing.
-    """
-
-
 class PaymentIntentCaptureParamsPaymentDetailsMoneyServices(TypedDict):
     account_funding: NotRequired[
         "Literal['']|PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFunding"
@@ -2611,6 +2560,57 @@ class PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFundingSenderD
     year: int
     """
     Four-digit year of birth.
+    """
+
+
+class PaymentIntentCaptureParamsPaymentDetailsSubscription(TypedDict):
+    affiliate: NotRequired[
+        "PaymentIntentCaptureParamsPaymentDetailsSubscriptionAffiliate"
+    ]
+    """
+    Affiliate details for this purchase.
+    """
+    auto_renewal: NotRequired[bool]
+    """
+    Info whether the subscription will be auto renewed upon expiry.
+    """
+    billing_interval: NotRequired[
+        "PaymentIntentCaptureParamsPaymentDetailsSubscriptionBillingInterval"
+    ]
+    """
+    Subscription billing details for this purchase.
+    """
+    ends_at: NotRequired[int]
+    """
+    Subscription end time. Measured in seconds since the Unix epoch.
+    """
+    name: str
+    """
+    Name of the product on subscription. e.g. Apple Music Subscription
+    """
+    starts_at: NotRequired[int]
+    """
+    Subscription start time. Measured in seconds since the Unix epoch.
+    """
+
+
+class PaymentIntentCaptureParamsPaymentDetailsSubscriptionAffiliate(TypedDict):
+    name: str
+    """
+    The name of the affiliate that originated the purchase.
+    """
+
+
+class PaymentIntentCaptureParamsPaymentDetailsSubscriptionBillingInterval(
+    TypedDict,
+):
+    count: int
+    """
+    The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+    """
+    interval: Literal["day", "month", "week", "year"]
+    """
+    Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
     """
 
 

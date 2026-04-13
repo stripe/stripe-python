@@ -7,6 +7,16 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class ServiceActionCreateParams(TypedDict):
+    credit_grant: NotRequired["ServiceActionCreateParamsCreditGrant"]
+    """
+    Details for the credit grant. Required if `type` is `credit_grant`.
+    """
+    credit_grant_per_tenant: NotRequired[
+        "ServiceActionCreateParamsCreditGrantPerTenant"
+    ]
+    """
+    Details for the credit grant per tenant. Required if `type` is `credit_grant_per_tenant`.
+    """
     lookup_key: NotRequired[str]
     """
     An internal key you can use to search for this service action. Maximum length of 200 characters.
@@ -22,16 +32,6 @@ class ServiceActionCreateParams(TypedDict):
     type: Literal["credit_grant", "credit_grant_per_tenant"]
     """
     The type of the service action.
-    """
-    credit_grant: NotRequired["ServiceActionCreateParamsCreditGrant"]
-    """
-    Details for the credit grant. Required if `type` is `credit_grant`.
-    """
-    credit_grant_per_tenant: NotRequired[
-        "ServiceActionCreateParamsCreditGrantPerTenant"
-    ]
-    """
-    Details for the credit grant per tenant. Required if `type` is `credit_grant_per_tenant`.
     """
 
 
@@ -65,10 +65,6 @@ class ServiceActionCreateParamsCreditGrant(TypedDict):
 
 
 class ServiceActionCreateParamsCreditGrantAmount(TypedDict):
-    type: Literal["custom_pricing_unit", "monetary"]
-    """
-    The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
-    """
     custom_pricing_unit: NotRequired[
         "ServiceActionCreateParamsCreditGrantAmountCustomPricingUnit"
     ]
@@ -78,6 +74,10 @@ class ServiceActionCreateParamsCreditGrantAmount(TypedDict):
     monetary: NotRequired[AmountParam]
     """
     The monetary amount of the credit grant. Required if `type` is `monetary`.
+    """
+    type: Literal["custom_pricing_unit", "monetary"]
+    """
+    The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
     """
 
 
@@ -153,10 +153,6 @@ class ServiceActionCreateParamsCreditGrantPerTenant(TypedDict):
 
 
 class ServiceActionCreateParamsCreditGrantPerTenantAmount(TypedDict):
-    type: Literal["custom_pricing_unit", "monetary"]
-    """
-    The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
-    """
     custom_pricing_unit: NotRequired[
         "ServiceActionCreateParamsCreditGrantPerTenantAmountCustomPricingUnit"
     ]
@@ -166,6 +162,10 @@ class ServiceActionCreateParamsCreditGrantPerTenantAmount(TypedDict):
     monetary: NotRequired[AmountParam]
     """
     The monetary amount of the credit grant. Required if `type` is `monetary`.
+    """
+    type: Literal["custom_pricing_unit", "monetary"]
+    """
+    The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
     """
 
 
@@ -214,15 +214,15 @@ class ServiceActionCreateParamsCreditGrantPerTenantExpiryConfig(TypedDict):
 
 
 class ServiceActionCreateParamsCreditGrantPerTenantGrantCondition(TypedDict):
-    type: Literal["meter_event_first_per_period"]
-    """
-    The type of the grant condition. We currently support `meter_event_first_per_period`.
-    """
     meter_event_first_per_period: NotRequired[
         "ServiceActionCreateParamsCreditGrantPerTenantGrantConditionMeterEventFirstPerPeriod"
     ]
     """
     The grant condition for the meter event first per period.
+    """
+    type: Literal["meter_event_first_per_period"]
+    """
+    The type of the grant condition. We currently support `meter_event_first_per_period`.
     """
 
 
@@ -240,15 +240,15 @@ class ServiceActionCreateParamsCreditGrantPerTenantGrantConditionMeterEventFirst
 class ServiceActionCreateParamsCreditGrantPerTenantGrantConditionMeterEventFirstPerPeriodMeterSegmentCondition(
     TypedDict,
 ):
-    type: Literal["dimension"]
-    """
-    The type of the meter segment condition. We currently support `dimension`.
-    """
     dimension: NotRequired[
         "ServiceActionCreateParamsCreditGrantPerTenantGrantConditionMeterEventFirstPerPeriodMeterSegmentConditionDimension"
     ]
     """
     Dimension-based meter segment condition.
+    """
+    type: Literal["dimension"]
+    """
+    The type of the meter segment condition. We currently support `dimension`.
     """
 
 

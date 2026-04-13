@@ -328,6 +328,10 @@ class SetupIntentUpdateParamsPaymentMethodData(TypedDict):
     """
     If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
     """
+    shared_payment_granted_token: NotRequired[str]
+    """
+    ID of the SharedPaymentGrantedToken used to confirm this PaymentIntent.
+    """
     shopeepay: NotRequired["SetupIntentUpdateParamsPaymentMethodDataShopeepay"]
     """
     If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
@@ -431,10 +435,6 @@ class SetupIntentUpdateParamsPaymentMethodData(TypedDict):
     zip: NotRequired["SetupIntentUpdateParamsPaymentMethodDataZip"]
     """
     If this is a `zip` PaymentMethod, this hash contains details about the Zip payment method.
-    """
-    shared_payment_granted_token: NotRequired[str]
-    """
-    ID of the SharedPaymentGrantedToken used to confirm this PaymentIntent.
     """
 
 

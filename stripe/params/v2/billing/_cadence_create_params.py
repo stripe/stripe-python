@@ -35,23 +35,23 @@ class CadenceCreateParams(TypedDict):
 
 
 class CadenceCreateParamsBillingCycle(TypedDict):
+    day: NotRequired["CadenceCreateParamsBillingCycleDay"]
+    """
+    Specific configuration for determining billing dates when type=day.
+    """
     interval_count: NotRequired[int]
     """
     The number of intervals (specified in the interval attribute) between
     cadence billings. For example, type=month and interval_count=3 bills every
     3 months. If this is not provided, it will default to 1.
     """
-    type: Literal["day", "month", "week", "year"]
-    """
-    The frequency at which a cadence bills.
-    """
-    day: NotRequired["CadenceCreateParamsBillingCycleDay"]
-    """
-    Specific configuration for determining billing dates when type=day.
-    """
     month: NotRequired["CadenceCreateParamsBillingCycleMonth"]
     """
     Specific configuration for determining billing dates when type=month.
+    """
+    type: Literal["day", "month", "week", "year"]
+    """
+    The frequency at which a cadence bills.
     """
     week: NotRequired["CadenceCreateParamsBillingCycleWeek"]
     """

@@ -32,10 +32,6 @@ class ManualRuleUpdateParamsLocation(TypedDict):
 
 
 class ManualRuleUpdateParamsProduct(TypedDict):
-    type: Literal["licensed_item", "metered_item", "tax_code"]
-    """
-    The type of the product.
-    """
     licensed_item: NotRequired[str]
     """
     The licensed item identifier.
@@ -47,6 +43,10 @@ class ManualRuleUpdateParamsProduct(TypedDict):
     tax_code: NotRequired[str]
     """
     The tax code for the product.
+    """
+    type: Literal["licensed_item", "metered_item", "tax_code"]
+    """
+    The type of the product.
     """
 
 

@@ -345,6 +345,10 @@ class PaymentIntentCreateParamsAmountDetailsLineItem(TypedDict):
     """
     The quantity of items. Required for L3 rates. An integer greater than 0.
     """
+    quantity_precision: NotRequired[int]
+    """
+    The number of decimal places implied in the quantity. For example, if quantity is 10000 and quantity_precision is 2, the actual quantity is 100.00. Defaults to 0 if not provided.
+    """
     tax: NotRequired["PaymentIntentCreateParamsAmountDetailsLineItemTax"]
     """
     Contains information about the tax on the item.
@@ -356,10 +360,6 @@ class PaymentIntentCreateParamsAmountDetailsLineItem(TypedDict):
     unit_of_measure: NotRequired[str]
     """
     A unit of measure for the line item, such as gallons, feet, meters, etc.
-    """
-    quantity_precision: NotRequired[int]
-    """
-    The number of decimal places implied in the quantity. For example, if quantity is 10000 and quantity_precision is 2, the actual quantity is 100.00. Defaults to 0 if not provided.
     """
 
 
@@ -672,6 +672,12 @@ class PaymentIntentCreateParamsPaymentDetails(TypedDict):
     """
     Event details for this PaymentIntent
     """
+    fleet_data: NotRequired[
+        "Literal['']|List[PaymentIntentCreateParamsPaymentDetailsFleetDatum]"
+    ]
+    """
+    Fleet data for this PaymentIntent.
+    """
     flight: NotRequired["PaymentIntentCreateParamsPaymentDetailsFlight"]
     """
     Flight reservation details for this PaymentIntent
@@ -692,6 +698,12 @@ class PaymentIntentCreateParamsPaymentDetails(TypedDict):
     """
     Lodging data for this PaymentIntent.
     """
+    money_services: NotRequired[
+        "Literal['']|PaymentIntentCreateParamsPaymentDetailsMoneyServices"
+    ]
+    """
+    Money services details for this PaymentIntent.
+    """
     order_reference: NotRequired["Literal['']|str"]
     """
     A unique value assigned by the business to identify the transaction. Required for L2 and L3 rates.
@@ -703,18 +715,6 @@ class PaymentIntentCreateParamsPaymentDetails(TypedDict):
     ]
     """
     Subscription details for this PaymentIntent
-    """
-    fleet_data: NotRequired[
-        "Literal['']|List[PaymentIntentCreateParamsPaymentDetailsFleetDatum]"
-    ]
-    """
-    Fleet data for this PaymentIntent.
-    """
-    money_services: NotRequired[
-        "Literal['']|PaymentIntentCreateParamsPaymentDetailsMoneyServices"
-    ]
-    """
-    Money services details for this PaymentIntent.
     """
 
 
@@ -1509,6 +1509,238 @@ class PaymentIntentCreateParamsPaymentDetailsEventDetailsDeliveryRecipient(
     phone: NotRequired[str]
     """
     The phone number of the recipient the ticket is delivered to.
+    """
+
+
+class PaymentIntentCreateParamsPaymentDetailsFleetDatum(TypedDict):
+    primary_fuel_fields: NotRequired[
+        "PaymentIntentCreateParamsPaymentDetailsFleetDatumPrimaryFuelFields"
+    ]
+    """
+    Primary fuel fields for the transaction.
+    """
+    station: NotRequired[
+        "PaymentIntentCreateParamsPaymentDetailsFleetDatumStation"
+    ]
+    """
+    Station and acceptor location details.
+    """
+    vat: NotRequired["PaymentIntentCreateParamsPaymentDetailsFleetDatumVat"]
+    """
+    VAT and Invoice on Behalf (IOB) details.
+    """
+
+
+class PaymentIntentCreateParamsPaymentDetailsFleetDatumPrimaryFuelFields(
+    TypedDict,
+):
+    brand: NotRequired[
+        Literal[
+            "aafes",
+            "amerada_hess",
+            "amoco_canada",
+            "amoco_petroleum_products",
+            "arco_products",
+            "asda",
+            "ashland_oil",
+            "bfl",
+            "bp_mobil",
+            "bp_oil",
+            "burrnah_major",
+            "butler_arndale",
+            "canadian_tire",
+            "canadian_turbo",
+            "caseys_general_store",
+            "cenex",
+            "chevron_canada",
+            "chevron_usa",
+            "circle_k_stores",
+            "citgo_petroleum",
+            "clark_brands",
+            "conoco_canada",
+            "conoco_inc",
+            "crown_central_petroleum",
+            "diamond_shamrock_inc",
+            "discount_tire",
+            "domo_gas",
+            "elf",
+            "erickson_oil",
+            "esso",
+            "esso_canada",
+            "exxon",
+            "exxonmobil",
+            "family_express",
+            "fas_gas_oil",
+            "federated_coop_sonic",
+            "fina",
+            "fina_inc",
+            "fkg_oil",
+            "flare",
+            "flying_j_inc",
+            "gas_america",
+            "gate_petroleum",
+            "getty_petroleum",
+            "giant_eagle",
+            "grow_mark_inc",
+            "gulf",
+            "gulf_canada",
+            "gulf_chevron",
+            "handy_way_food",
+            "heron",
+            "holiday_stores",
+            "home_depot",
+            "husky",
+            "hyvees",
+            "irving",
+            "irving_oil",
+            "j_sainsbury",
+            "jet_conoco",
+            "krogers",
+            "kuwait",
+            "kwik_trip_inc",
+            "lassus",
+            "loves_country_stores",
+            "mapco_express_inc",
+            "marathon_oil",
+            "martin_bailey_inc_dba_hucks",
+            "maxol",
+            "meineke",
+            "mfa",
+            "mohawk",
+            "mr_gas",
+            "murco",
+            "murphy_oil_canada",
+            "murphy_oil_usa_inc",
+            "nexcom",
+            "nordstrom_oil",
+            "olco",
+            "pdq_store",
+            "pennzoil_products_inc",
+            "petro",
+            "petro_canada",
+            "petro_t",
+            "phillips",
+            "pilot",
+            "pioneer",
+            "pure_oil",
+            "quaker_state",
+            "quarles_oil",
+            "quiktrip",
+            "racetrac_petroleum_inc",
+            "raceway_petroleum",
+            "repsol",
+            "rudy",
+            "safeway",
+            "seven_eleven",
+            "sheetz",
+            "shell",
+            "shell_canada",
+            "shell_oil",
+            "sinclair_oil",
+            "southland_oil",
+            "spar",
+            "speedway",
+            "sun_company_inc",
+            "suncor_sunoco_canada",
+            "tempo",
+            "tesco",
+            "tesoro_alaska",
+            "texaco",
+            "the_pantry_inc",
+            "thornton_oil",
+            "tosco",
+            "total",
+            "travel_centers_of_america",
+            "uk",
+            "ultramar_canada",
+            "unbranded_or_unassigned",
+            "unbranded_unassigned",
+            "union_76",
+            "united_dairy_farmer",
+            "united_refining_kwikfill",
+            "us_oil",
+            "usa_petroleum",
+            "valvoline",
+            "vg",
+            "w_morrison",
+            "warren_equities",
+            "wawa",
+            "western_energetix",
+            "wilco",
+            "zions",
+        ]
+    ]
+    """
+    The fuel brand.
+    """
+
+
+class PaymentIntentCreateParamsPaymentDetailsFleetDatumStation(TypedDict):
+    additional_contact_info: NotRequired[str]
+    """
+    Additional contact information for the station.
+    """
+    customer_service_phone_number: NotRequired[str]
+    """
+    The customer service phone number of the station.
+    """
+    partner_id_code: NotRequired[str]
+    """
+    The partner ID code of the station.
+    """
+    phone_number: NotRequired[str]
+    """
+    The phone number of the station.
+    """
+    service_location: NotRequired[
+        "PaymentIntentCreateParamsPaymentDetailsFleetDatumStationServiceLocation"
+    ]
+    """
+    The physical location of the station.
+    """
+    url: NotRequired[str]
+    """
+    The URL of the station.
+    """
+
+
+class PaymentIntentCreateParamsPaymentDetailsFleetDatumStationServiceLocation(
+    TypedDict,
+):
+    city: NotRequired[str]
+    """
+    City, district, suburb, town, or village.
+    """
+    country: NotRequired[str]
+    """
+    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+    """
+    line1: str
+    """
+    Address line 1, such as the street, PO Box, or company name.
+    """
+    line2: NotRequired[str]
+    """
+    Address line 2, such as the apartment, suite, unit, or building.
+    """
+    postal_code: NotRequired[str]
+    """
+    ZIP or postal code.
+    """
+    state: NotRequired[str]
+    """
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+    """
+
+
+class PaymentIntentCreateParamsPaymentDetailsFleetDatumVat(TypedDict):
+    iob_indicator: Literal[
+        "issuer_to_iob",
+        "issuer_to_iob_and_incremental_certification",
+        "merchant_does_not_agree_to_iob",
+    ]
+    """
+    Indicates the merchant's agreement for Invoice on Behalf (IOB) VAT processing.
     """
 
 
@@ -2426,289 +2658,6 @@ class PaymentIntentCreateParamsPaymentDetailsLodgingDatumTotalTaxTax(
     """
 
 
-class PaymentIntentCreateParamsPaymentDetailsSubscription(TypedDict):
-    affiliate: NotRequired[
-        "PaymentIntentCreateParamsPaymentDetailsSubscriptionAffiliate"
-    ]
-    """
-    Affiliate details for this purchase.
-    """
-    auto_renewal: NotRequired[bool]
-    """
-    Info whether the subscription will be auto renewed upon expiry.
-    """
-    billing_interval: NotRequired[
-        "PaymentIntentCreateParamsPaymentDetailsSubscriptionBillingInterval"
-    ]
-    """
-    Subscription billing details for this purchase.
-    """
-    ends_at: NotRequired[int]
-    """
-    Subscription end time. Measured in seconds since the Unix epoch.
-    """
-    name: str
-    """
-    Name of the product on subscription. e.g. Apple Music Subscription
-    """
-    starts_at: NotRequired[int]
-    """
-    Subscription start time. Measured in seconds since the Unix epoch.
-    """
-
-
-class PaymentIntentCreateParamsPaymentDetailsSubscriptionAffiliate(TypedDict):
-    name: str
-    """
-    The name of the affiliate that originated the purchase.
-    """
-
-
-class PaymentIntentCreateParamsPaymentDetailsSubscriptionBillingInterval(
-    TypedDict,
-):
-    count: int
-    """
-    The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
-    """
-    interval: Literal["day", "month", "week", "year"]
-    """
-    Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
-    """
-
-
-class PaymentIntentCreateParamsPaymentDetailsFleetDatum(TypedDict):
-    primary_fuel_fields: NotRequired[
-        "PaymentIntentCreateParamsPaymentDetailsFleetDatumPrimaryFuelFields"
-    ]
-    """
-    Primary fuel fields for the transaction.
-    """
-    station: NotRequired[
-        "PaymentIntentCreateParamsPaymentDetailsFleetDatumStation"
-    ]
-    """
-    Station and acceptor location details.
-    """
-    vat: NotRequired["PaymentIntentCreateParamsPaymentDetailsFleetDatumVat"]
-    """
-    VAT and Invoice on Behalf (IOB) details.
-    """
-
-
-class PaymentIntentCreateParamsPaymentDetailsFleetDatumPrimaryFuelFields(
-    TypedDict,
-):
-    brand: NotRequired[
-        Literal[
-            "aafes",
-            "amerada_hess",
-            "amoco_canada",
-            "amoco_petroleum_products",
-            "arco_products",
-            "asda",
-            "ashland_oil",
-            "bfl",
-            "bp_mobil",
-            "bp_oil",
-            "burrnah_major",
-            "butler_arndale",
-            "canadian_tire",
-            "canadian_turbo",
-            "caseys_general_store",
-            "cenex",
-            "chevron_canada",
-            "chevron_usa",
-            "circle_k_stores",
-            "citgo_petroleum",
-            "clark_brands",
-            "conoco_canada",
-            "conoco_inc",
-            "crown_central_petroleum",
-            "diamond_shamrock_inc",
-            "discount_tire",
-            "domo_gas",
-            "elf",
-            "erickson_oil",
-            "esso",
-            "esso_canada",
-            "exxon",
-            "exxonmobil",
-            "family_express",
-            "fas_gas_oil",
-            "federated_coop_sonic",
-            "fina",
-            "fina_inc",
-            "fkg_oil",
-            "flare",
-            "flying_j_inc",
-            "gas_america",
-            "gate_petroleum",
-            "getty_petroleum",
-            "giant_eagle",
-            "grow_mark_inc",
-            "gulf",
-            "gulf_canada",
-            "gulf_chevron",
-            "handy_way_food",
-            "heron",
-            "holiday_stores",
-            "home_depot",
-            "husky",
-            "hyvees",
-            "irving",
-            "irving_oil",
-            "j_sainsbury",
-            "jet_conoco",
-            "krogers",
-            "kuwait",
-            "kwik_trip_inc",
-            "lassus",
-            "loves_country_stores",
-            "mapco_express_inc",
-            "marathon_oil",
-            "martin_bailey_inc_dba_hucks",
-            "maxol",
-            "meineke",
-            "mfa",
-            "mohawk",
-            "mr_gas",
-            "murco",
-            "murphy_oil_canada",
-            "murphy_oil_usa_inc",
-            "nexcom",
-            "nordstrom_oil",
-            "olco",
-            "pdq_store",
-            "pennzoil_products_inc",
-            "petro",
-            "petro_canada",
-            "petro_t",
-            "phillips",
-            "pilot",
-            "pioneer",
-            "pure_oil",
-            "quaker_state",
-            "quarles_oil",
-            "quiktrip",
-            "racetrac_petroleum_inc",
-            "raceway_petroleum",
-            "repsol",
-            "rudy",
-            "safeway",
-            "seven_eleven",
-            "sheetz",
-            "shell",
-            "shell_canada",
-            "shell_oil",
-            "sinclair_oil",
-            "southland_oil",
-            "spar",
-            "speedway",
-            "sun_company_inc",
-            "suncor_sunoco_canada",
-            "tempo",
-            "tesco",
-            "tesoro_alaska",
-            "texaco",
-            "the_pantry_inc",
-            "thornton_oil",
-            "tosco",
-            "total",
-            "travel_centers_of_america",
-            "uk",
-            "ultramar_canada",
-            "unbranded_or_unassigned",
-            "unbranded_unassigned",
-            "union_76",
-            "united_dairy_farmer",
-            "united_refining_kwikfill",
-            "us_oil",
-            "usa_petroleum",
-            "valvoline",
-            "vg",
-            "w_morrison",
-            "warren_equities",
-            "wawa",
-            "western_energetix",
-            "wilco",
-            "zions",
-        ]
-    ]
-    """
-    The fuel brand.
-    """
-
-
-class PaymentIntentCreateParamsPaymentDetailsFleetDatumStation(TypedDict):
-    additional_contact_info: NotRequired[str]
-    """
-    Additional contact information for the station.
-    """
-    customer_service_phone_number: NotRequired[str]
-    """
-    The customer service phone number of the station.
-    """
-    partner_id_code: NotRequired[str]
-    """
-    The partner ID code of the station.
-    """
-    phone_number: NotRequired[str]
-    """
-    The phone number of the station.
-    """
-    service_location: NotRequired[
-        "PaymentIntentCreateParamsPaymentDetailsFleetDatumStationServiceLocation"
-    ]
-    """
-    The physical location of the station.
-    """
-    url: NotRequired[str]
-    """
-    The URL of the station.
-    """
-
-
-class PaymentIntentCreateParamsPaymentDetailsFleetDatumStationServiceLocation(
-    TypedDict,
-):
-    city: NotRequired[str]
-    """
-    City, district, suburb, town, or village.
-    """
-    country: NotRequired[str]
-    """
-    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-    """
-    line1: str
-    """
-    Address line 1, such as the street, PO Box, or company name.
-    """
-    line2: NotRequired[str]
-    """
-    Address line 2, such as the apartment, suite, unit, or building.
-    """
-    postal_code: NotRequired[str]
-    """
-    ZIP or postal code.
-    """
-    state: NotRequired[str]
-    """
-    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
-    """
-
-
-class PaymentIntentCreateParamsPaymentDetailsFleetDatumVat(TypedDict):
-    iob_indicator: Literal[
-        "issuer_to_iob",
-        "issuer_to_iob_and_incremental_certification",
-        "merchant_does_not_agree_to_iob",
-    ]
-    """
-    Indicates the merchant's agreement for Invoice on Behalf (IOB) VAT processing.
-    """
-
-
 class PaymentIntentCreateParamsPaymentDetailsMoneyServices(TypedDict):
     account_funding: NotRequired[
         "Literal['']|PaymentIntentCreateParamsPaymentDetailsMoneyServicesAccountFunding"
@@ -2894,6 +2843,57 @@ class PaymentIntentCreateParamsPaymentDetailsMoneyServicesAccountFundingSenderDe
     year: int
     """
     Four-digit year of birth.
+    """
+
+
+class PaymentIntentCreateParamsPaymentDetailsSubscription(TypedDict):
+    affiliate: NotRequired[
+        "PaymentIntentCreateParamsPaymentDetailsSubscriptionAffiliate"
+    ]
+    """
+    Affiliate details for this purchase.
+    """
+    auto_renewal: NotRequired[bool]
+    """
+    Info whether the subscription will be auto renewed upon expiry.
+    """
+    billing_interval: NotRequired[
+        "PaymentIntentCreateParamsPaymentDetailsSubscriptionBillingInterval"
+    ]
+    """
+    Subscription billing details for this purchase.
+    """
+    ends_at: NotRequired[int]
+    """
+    Subscription end time. Measured in seconds since the Unix epoch.
+    """
+    name: str
+    """
+    Name of the product on subscription. e.g. Apple Music Subscription
+    """
+    starts_at: NotRequired[int]
+    """
+    Subscription start time. Measured in seconds since the Unix epoch.
+    """
+
+
+class PaymentIntentCreateParamsPaymentDetailsSubscriptionAffiliate(TypedDict):
+    name: str
+    """
+    The name of the affiliate that originated the purchase.
+    """
+
+
+class PaymentIntentCreateParamsPaymentDetailsSubscriptionBillingInterval(
+    TypedDict,
+):
+    count: int
+    """
+    The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+    """
+    interval: Literal["day", "month", "week", "year"]
+    """
+    Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
     """
 
 
@@ -3152,6 +3152,10 @@ class PaymentIntentCreateParamsPaymentMethodData(TypedDict):
     """
     If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
     """
+    shared_payment_granted_token: NotRequired[str]
+    """
+    ID of the SharedPaymentGrantedToken used to confirm this PaymentIntent.
+    """
     shopeepay: NotRequired[
         "PaymentIntentCreateParamsPaymentMethodDataShopeepay"
     ]
@@ -3257,10 +3261,6 @@ class PaymentIntentCreateParamsPaymentMethodData(TypedDict):
     zip: NotRequired["PaymentIntentCreateParamsPaymentMethodDataZip"]
     """
     If this is a `zip` PaymentMethod, this hash contains details about the Zip payment method.
-    """
-    shared_payment_granted_token: NotRequired[str]
-    """
-    ID of the SharedPaymentGrantedToken used to confirm this PaymentIntent.
     """
 
 
@@ -4539,6 +4539,12 @@ class PaymentIntentCreateParamsPaymentMethodOptionsCard(TypedDict):
     """
     Selected network to process this PaymentIntent on. Depends on the available networks of the card attached to the PaymentIntent. Can be only set confirm-time.
     """
+    payment_details: NotRequired[
+        "PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetails"
+    ]
+    """
+    Payment details for payment method specific funding fields.
+    """
     request_decremental_authorization: NotRequired[
         Literal["if_available", "never"]
     ]
@@ -4620,12 +4626,6 @@ class PaymentIntentCreateParamsPaymentMethodOptionsCard(TypedDict):
     If 3D Secure authentication was performed with a third-party provider,
     the authentication details to use for this payment.
     """
-    payment_details: NotRequired[
-        "PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetails"
-    ]
-    """
-    Payment details for payment method specific funding fields.
-    """
 
 
 class PaymentIntentCreateParamsPaymentMethodOptionsCardInstallments(TypedDict):
@@ -4700,6 +4700,115 @@ class PaymentIntentCreateParamsPaymentMethodOptionsCardMandateOptions(
     supported_types: NotRequired[List[Literal["india"]]]
     """
     Specifies the type of mandates supported. Possible values are `india`.
+    """
+
+
+class PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetails(
+    TypedDict,
+):
+    money_services: NotRequired[
+        "PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices"
+    ]
+    """
+    Money services details for payment method specific funding fields.
+    """
+
+
+class PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices(
+    TypedDict,
+):
+    account_funding: NotRequired[
+        "PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding"
+    ]
+    """
+    Payment method specific account funding transaction details.
+    """
+
+
+class PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding(
+    TypedDict,
+):
+    liquid_asset: NotRequired[
+        "Literal['']|PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAsset"
+    ]
+    """
+    Details for a liquid asset (crypto or security) funding transaction.
+    """
+    wallet: NotRequired[
+        "PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWallet"
+    ]
+    """
+    Details for a wallet funding transaction.
+    """
+
+
+class PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAsset(
+    TypedDict,
+):
+    crypto: NotRequired[
+        "PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto"
+    ]
+    """
+    Details for a cryptocurrency liquid asset funding transaction.
+    """
+    security: NotRequired[
+        "PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity"
+    ]
+    """
+    Details for a security liquid asset funding transaction.
+    """
+
+
+class PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto(
+    TypedDict,
+):
+    currency_code: NotRequired[str]
+    """
+    The cryptocurrency currency code (e.g. BTC, ETH).
+    """
+
+
+class PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity(
+    TypedDict,
+):
+    ticker_symbol: NotRequired[str]
+    """
+    The security's ticker symbol (e.g. AAPL).
+    """
+
+
+class PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWallet(
+    TypedDict,
+):
+    staged_purchase: NotRequired[
+        "Literal['']|PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase"
+    ]
+    """
+    Details for a staged purchase.
+    """
+
+
+class PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase(
+    TypedDict,
+):
+    merchant: NotRequired[
+        "PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant"
+    ]
+    """
+    The merchant where the staged wallet purchase is made.
+    """
+
+
+class PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant(
+    TypedDict,
+):
+    mcc: NotRequired[str]
+    """
+    The merchant category code of the merchant.
+    """
+    name: NotRequired[str]
+    """
+    The merchant's name.
     """
 
 
@@ -4828,115 +4937,6 @@ class PaymentIntentCreateParamsPaymentMethodOptionsCardThreeDSecureNetworkOption
     """
 
 
-class PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetails(
-    TypedDict,
-):
-    money_services: NotRequired[
-        "PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices"
-    ]
-    """
-    Money services details for payment method specific funding fields.
-    """
-
-
-class PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices(
-    TypedDict,
-):
-    account_funding: NotRequired[
-        "PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding"
-    ]
-    """
-    Payment method specific account funding transaction details.
-    """
-
-
-class PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding(
-    TypedDict,
-):
-    liquid_asset: NotRequired[
-        "Literal['']|PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAsset"
-    ]
-    """
-    Details for a liquid asset (crypto or security) funding transaction.
-    """
-    wallet: NotRequired[
-        "PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWallet"
-    ]
-    """
-    Details for a wallet funding transaction.
-    """
-
-
-class PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAsset(
-    TypedDict,
-):
-    crypto: NotRequired[
-        "PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto"
-    ]
-    """
-    Details for a cryptocurrency liquid asset funding transaction.
-    """
-    security: NotRequired[
-        "PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity"
-    ]
-    """
-    Details for a security liquid asset funding transaction.
-    """
-
-
-class PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto(
-    TypedDict,
-):
-    currency_code: NotRequired[str]
-    """
-    The cryptocurrency currency code (e.g. BTC, ETH).
-    """
-
-
-class PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity(
-    TypedDict,
-):
-    ticker_symbol: NotRequired[str]
-    """
-    The security's ticker symbol (e.g. AAPL).
-    """
-
-
-class PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWallet(
-    TypedDict,
-):
-    staged_purchase: NotRequired[
-        "Literal['']|PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase"
-    ]
-    """
-    Details for a staged purchase.
-    """
-
-
-class PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase(
-    TypedDict,
-):
-    merchant: NotRequired[
-        "PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant"
-    ]
-    """
-    The merchant where the staged wallet purchase is made.
-    """
-
-
-class PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant(
-    TypedDict,
-):
-    mcc: NotRequired[str]
-    """
-    The merchant category code of the merchant.
-    """
-    name: NotRequired[str]
-    """
-    The merchant's name.
-    """
-
-
 class PaymentIntentCreateParamsPaymentMethodOptionsCardPresent(TypedDict):
     capture_method: NotRequired[Literal["manual", "manual_preferred"]]
     """
@@ -4945,6 +4945,12 @@ class PaymentIntentCreateParamsPaymentMethodOptionsCardPresent(TypedDict):
     If provided, this parameter overrides the behavior of the top-level [capture_method](https://docs.stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
 
     If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+    """
+    payment_details: NotRequired[
+        "PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetails"
+    ]
+    """
+    Payment details for payment method specific funding transaction fields.
     """
     request_extended_authorization: NotRequired[bool]
     """
@@ -4963,21 +4969,6 @@ class PaymentIntentCreateParamsPaymentMethodOptionsCardPresent(TypedDict):
     ]
     """
     Network routing priority on co-branded EMV cards supporting domestic debit and international card schemes.
-    """
-    payment_details: NotRequired[
-        "PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetails"
-    ]
-    """
-    Payment details for payment method specific funding transaction fields.
-    """
-
-
-class PaymentIntentCreateParamsPaymentMethodOptionsCardPresentRouting(
-    TypedDict,
-):
-    requested_priority: NotRequired[Literal["domestic", "international"]]
-    """
-    Routing requested priority
     """
 
 
@@ -5087,6 +5078,15 @@ class PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMone
     name: NotRequired[str]
     """
     The merchant's name.
+    """
+
+
+class PaymentIntentCreateParamsPaymentMethodOptionsCardPresentRouting(
+    TypedDict,
+):
+    requested_priority: NotRequired[Literal["domestic", "international"]]
+    """
+    Routing requested priority
     """
 
 

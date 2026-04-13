@@ -11,6 +11,10 @@ class VerificationSessionCreateParams(RequestOptions):
     """
     A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.
     """
+    confirm: NotRequired[bool]
+    """
+    Confirm and submit the provided details for verification.
+    """
     expand: NotRequired[List[str]]
     """
     Specifies which fields in the response should be expanded.
@@ -52,10 +56,6 @@ class VerificationSessionCreateParams(RequestOptions):
     verification_flow: NotRequired[str]
     """
     The ID of a verification flow from the Dashboard. See https://docs.stripe.com/identity/verification-flows.
-    """
-    confirm: NotRequired[bool]
-    """
-    Confirm and submit the provided details for verification.
     """
 
 
