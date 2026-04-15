@@ -11,10 +11,6 @@ class IntentCreateParams(TypedDict):
     """
     Actions to be performed by this Billing Intent.
     """
-    currency: str
-    """
-    Three-letter ISO currency code, in lowercase. Must be a supported currency.
-    """
     cadence: NotRequired[str]
     """
     ID of an existing Cadence to use.
@@ -23,13 +19,13 @@ class IntentCreateParams(TypedDict):
     """
     Data for creating a new Cadence.
     """
+    currency: str
+    """
+    Three-letter ISO currency code, in lowercase. Must be a supported currency.
+    """
 
 
 class IntentCreateParamsAction(TypedDict):
-    type: Literal["apply", "deactivate", "modify", "remove", "subscribe"]
-    """
-    Type of the Billing Intent action.
-    """
     apply: NotRequired["IntentCreateParamsActionApply"]
     """
     Details for an apply action.
@@ -50,20 +46,20 @@ class IntentCreateParamsAction(TypedDict):
     """
     Details for a subscribe action.
     """
+    type: Literal["apply", "deactivate", "modify", "remove", "subscribe"]
+    """
+    Type of the Billing Intent action.
+    """
 
 
 class IntentCreateParamsActionApply(TypedDict):
-    effective_at: NotRequired["IntentCreateParamsActionApplyEffectiveAt"]
-    """
-    When the apply action will take effect. If not specified, defaults to on_reserve.
-    """
-    type: Literal["discount", "invoice_discount_rule", "spend_modifier_rule"]
-    """
-    Type of the apply action details.
-    """
     discount: NotRequired["IntentCreateParamsActionApplyDiscount"]
     """
     Details for applying a discount.
+    """
+    effective_at: NotRequired["IntentCreateParamsActionApplyEffectiveAt"]
+    """
+    When the apply action will take effect. If not specified, defaults to on_reserve.
     """
     invoice_discount_rule: NotRequired[
         "IntentCreateParamsActionApplyInvoiceDiscountRule"
@@ -76,6 +72,25 @@ class IntentCreateParamsActionApply(TypedDict):
     ]
     """
     Details for applying a spend modifier rule. Only present if type is spend_modifier_rule.
+    """
+    type: Literal["discount", "invoice_discount_rule", "spend_modifier_rule"]
+    """
+    Type of the apply action details.
+    """
+
+
+class IntentCreateParamsActionApplyDiscount(TypedDict):
+    coupon: NotRequired[str]
+    """
+    The ID of the Coupon to apply.
+    """
+    promotion_code: NotRequired[str]
+    """
+    The ID of the PromotionCode to apply.
+    """
+    type: Literal["coupon", "promotion_code"]
+    """
+    Type of the discount.
     """
 
 
@@ -96,35 +111,20 @@ class IntentCreateParamsActionApplyEffectiveAt(TypedDict):
     """
 
 
-class IntentCreateParamsActionApplyDiscount(TypedDict):
-    coupon: NotRequired[str]
-    """
-    The ID of the Coupon to apply.
-    """
-    promotion_code: NotRequired[str]
-    """
-    The ID of the PromotionCode to apply.
-    """
-    type: Literal["coupon", "promotion_code"]
-    """
-    Type of the discount.
-    """
-
-
 class IntentCreateParamsActionApplyInvoiceDiscountRule(TypedDict):
     applies_to: Literal["cadence"]
     """
     The entity that the discount rule applies to, for example, the cadence.
-    """
-    type: Literal["percent_off"]
-    """
-    Type of the discount rule.
     """
     percent_off: NotRequired[
         "IntentCreateParamsActionApplyInvoiceDiscountRulePercentOff"
     ]
     """
     Configuration for percentage off discount.
+    """
+    type: Literal["percent_off"]
+    """
+    Type of the discount rule.
     """
 
 
@@ -153,15 +153,15 @@ class IntentCreateParamsActionApplySpendModifierRule(TypedDict):
     """
     What the spend modifier applies to.
     """
-    type: Literal["max_billing_period_spend"]
-    """
-    Type of the spend modifier.
-    """
     max_billing_period_spend: NotRequired[
         "IntentCreateParamsActionApplySpendModifierRuleMaxBillingPeriodSpend"
     ]
     """
     Details for max billing period spend modifier. Only present if type is max_billing_period_spend.
+    """
+    type: Literal["max_billing_period_spend"]
+    """
+    Type of the spend modifier.
     """
 
 
@@ -181,15 +181,15 @@ class IntentCreateParamsActionApplySpendModifierRuleMaxBillingPeriodSpend(
 class IntentCreateParamsActionApplySpendModifierRuleMaxBillingPeriodSpendAmount(
     TypedDict,
 ):
-    type: Literal["custom_pricing_unit"]
-    """
-    The type of the amount.
-    """
     custom_pricing_unit: NotRequired[
         "IntentCreateParamsActionApplySpendModifierRuleMaxBillingPeriodSpendAmountCustomPricingUnit"
     ]
     """
     The custom pricing unit amount.
+    """
+    type: Literal["custom_pricing_unit"]
+    """
+    The type of the amount.
     """
 
 
@@ -311,15 +311,15 @@ class IntentCreateParamsActionDeactivatePricingPlanSubscriptionDetailsOverrides(
 class IntentCreateParamsActionDeactivatePricingPlanSubscriptionDetailsOverridesPartialPeriodBehavior(
     TypedDict,
 ):
-    type: Literal["license_fee", "recurring_credit_grant"]
-    """
-    The type of behavior to override.
-    """
     license_fee: NotRequired[
         "IntentCreateParamsActionDeactivatePricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorLicenseFee"
     ]
     """
     Overrides the behavior for license fee components when the action takes effect during the service period.
+    """
+    type: Literal["license_fee", "recurring_credit_grant"]
+    """
+    The type of behavior to override.
     """
 
 
@@ -398,10 +398,6 @@ class IntentCreateParamsActionModifyPricingPlanSubscriptionDetails(TypedDict):
 class IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsComponentConfiguration(
     TypedDict,
 ):
-    quantity: NotRequired[int]
-    """
-    Quantity of the component to be used.
-    """
     lookup_key: NotRequired[str]
     """
     Lookup key for the pricing plan component.
@@ -409,6 +405,10 @@ class IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsComponentConfi
     pricing_plan_component: NotRequired[str]
     """
     ID of the pricing plan component.
+    """
+    quantity: NotRequired[int]
+    """
+    Quantity of the component to be used.
     """
 
 
@@ -426,10 +426,6 @@ class IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverrides(
 class IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverridesPartialPeriodBehavior(
     TypedDict,
 ):
-    type: Literal["license_fee", "recurring_credit_grant"]
-    """
-    The type of behavior to override.
-    """
     license_fee: NotRequired[
         "IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorLicenseFee"
     ]
@@ -441,6 +437,10 @@ class IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverridesParti
     ]
     """
     Overrides the behavior for recurring credit grant components when the action takes effect during the service period.
+    """
+    type: Literal["license_fee", "recurring_credit_grant"]
+    """
+    The type of behavior to override.
     """
 
 
@@ -471,10 +471,6 @@ class IntentCreateParamsActionRemove(TypedDict):
     """
     When the remove action will take effect. If not specified, defaults to on_reserve.
     """
-    type: Literal["invoice_discount_rule", "spend_modifier_rule"]
-    """
-    Type of the remove action.
-    """
     invoice_discount_rule: NotRequired[str]
     """
     The ID of the discount rule to remove for future invoices.
@@ -482,6 +478,10 @@ class IntentCreateParamsActionRemove(TypedDict):
     spend_modifier_rule: NotRequired[str]
     """
     The ID of the spend modifier rule to remove.
+    """
+    type: Literal["invoice_discount_rule", "spend_modifier_rule"]
+    """
+    Type of the remove action.
     """
 
 
@@ -501,17 +501,17 @@ class IntentCreateParamsActionSubscribe(TypedDict):
     """
     When the subscribe action will take effect. If not specified, the default behavior is on_reserve.
     """
-    type: Literal[
-        "pricing_plan_subscription_details", "v1_subscription_details"
-    ]
-    """
-    Type of the action details.
-    """
     pricing_plan_subscription_details: NotRequired[
         "IntentCreateParamsActionSubscribePricingPlanSubscriptionDetails"
     ]
     """
     Details for subscribing to a pricing plan.
+    """
+    type: Literal[
+        "pricing_plan_subscription_details", "v1_subscription_details"
+    ]
+    """
+    Type of the action details.
     """
     v1_subscription_details: NotRequired[
         "IntentCreateParamsActionSubscribeV1SubscriptionDetails"
@@ -566,10 +566,6 @@ class IntentCreateParamsActionSubscribePricingPlanSubscriptionDetails(
 class IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsComponentConfiguration(
     TypedDict,
 ):
-    quantity: NotRequired[int]
-    """
-    Quantity of the component to be used.
-    """
     lookup_key: NotRequired[str]
     """
     Lookup key for the pricing plan component.
@@ -577,6 +573,10 @@ class IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsComponentCo
     pricing_plan_component: NotRequired[str]
     """
     ID of the pricing plan component.
+    """
+    quantity: NotRequired[int]
+    """
+    Quantity of the component to be used.
     """
 
 
@@ -594,10 +594,6 @@ class IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverrides(
 class IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverridesPartialPeriodBehavior(
     TypedDict,
 ):
-    type: Literal["license_fee", "recurring_credit_grant"]
-    """
-    The type of behavior to override.
-    """
     license_fee: NotRequired[
         "IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorLicenseFee"
     ]
@@ -609,6 +605,10 @@ class IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverridesPa
     ]
     """
     Overrides the behavior for recurring credit grant components when the action takes effect during the service period.
+    """
+    type: Literal["license_fee", "recurring_credit_grant"]
+    """
+    The type of behavior to override.
     """
 
 
@@ -677,23 +677,23 @@ class IntentCreateParamsCadenceData(TypedDict):
 
 
 class IntentCreateParamsCadenceDataBillingCycle(TypedDict):
+    day: NotRequired["IntentCreateParamsCadenceDataBillingCycleDay"]
+    """
+    Specific configuration for determining billing dates when type=day.
+    """
     interval_count: NotRequired[int]
     """
     The number of intervals (specified in the interval attribute) between
     cadence billings. For example, type=month and interval_count=3 bills every
     3 months. If this is not provided, it will default to 1.
     """
-    type: Literal["day", "month", "week", "year"]
-    """
-    The frequency at which a cadence bills.
-    """
-    day: NotRequired["IntentCreateParamsCadenceDataBillingCycleDay"]
-    """
-    Specific configuration for determining billing dates when type=day.
-    """
     month: NotRequired["IntentCreateParamsCadenceDataBillingCycleMonth"]
     """
     Specific configuration for determining billing dates when type=month.
+    """
+    type: Literal["day", "month", "week", "year"]
+    """
+    The frequency at which a cadence bills.
     """
     week: NotRequired["IntentCreateParamsCadenceDataBillingCycleWeek"]
     """

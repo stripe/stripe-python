@@ -849,11 +849,23 @@ class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptions(TypedDict):
     """
     This sub-hash contains details about the Bancontact payment method options to pass to the invoice's PaymentIntent.
     """
+    bizum: NotRequired[
+        "Literal['']|SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBizum"
+    ]
+    """
+    This sub-hash contains details about the Bizum payment method options to pass to the invoice's PaymentIntent.
+    """
     card: NotRequired[
         "Literal['']|SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCard"
     ]
     """
     This sub-hash contains details about the Card payment method options to pass to the invoice's PaymentIntent.
+    """
+    check_scan: NotRequired[
+        "Literal['']|SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCheckScan"
+    ]
+    """
+    This sub-hash contains details about the Check Scan payment method options to pass to the invoice's PaymentIntent.
     """
     customer_balance: NotRequired[
         "Literal['']|SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance"
@@ -903,18 +915,6 @@ class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptions(TypedDict):
     """
     This sub-hash contains details about the ACH direct debit payment method options to pass to the invoice's PaymentIntent.
     """
-    bizum: NotRequired[
-        "Literal['']|SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBizum"
-    ]
-    """
-    This sub-hash contains details about the Bizum payment method options to pass to the invoice's PaymentIntent.
-    """
-    check_scan: NotRequired[
-        "Literal['']|SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCheckScan"
-    ]
-    """
-    This sub-hash contains details about the Check Scan payment method options to pass to the invoice's PaymentIntent.
-    """
 
 
 class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebit(
@@ -949,6 +949,30 @@ class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBancontact(
     preferred_language: NotRequired[Literal["de", "en", "fr", "nl"]]
     """
     Preferred language of the Bancontact authorization page that the customer is redirected to.
+    """
+
+
+class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBizum(
+    TypedDict,
+):
+    mandate_options: NotRequired[
+        "SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBizumMandateOptions"
+    ]
+    """
+    Configuration options for setting up a mandate
+    """
+
+
+class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBizumMandateOptions(
+    TypedDict,
+):
+    amount: int
+    """
+    Amount to be charged for future payments. Required when `amount_type=fixed`.
+    """
+    amount_type: Literal["fixed"]
+    """
+    Indicates the mandate amount type.
     """
 
 
@@ -1004,6 +1028,25 @@ class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCardMandateOpti
     """
     A description of the mandate or subscription that is meant to be displayed to the customer.
     """
+
+
+class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCheckScan(
+    TypedDict,
+):
+    check_deposit_address: NotRequired[
+        "SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress"
+    ]
+
+
+class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress(
+    TypedDict,
+):
+    city: NotRequired[str]
+    country: NotRequired[str]
+    line1: NotRequired[str]
+    line2: NotRequired[str]
+    postal_code: NotRequired[str]
+    state: NotRequired[str]
 
 
 class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance(
@@ -1228,49 +1271,6 @@ class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFi
     """
     ID of the institution to use to filter for selectable accounts.
     """
-
-
-class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBizum(
-    TypedDict,
-):
-    mandate_options: NotRequired[
-        "SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBizumMandateOptions"
-    ]
-    """
-    Configuration options for setting up a mandate
-    """
-
-
-class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBizumMandateOptions(
-    TypedDict,
-):
-    amount: int
-    """
-    Amount to be charged for future payments. Required when `amount_type=fixed`.
-    """
-    amount_type: Literal["fixed"]
-    """
-    Indicates the mandate amount type.
-    """
-
-
-class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCheckScan(
-    TypedDict,
-):
-    check_deposit_address: NotRequired[
-        "SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress"
-    ]
-
-
-class SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress(
-    TypedDict,
-):
-    city: NotRequired[str]
-    country: NotRequired[str]
-    line1: NotRequired[str]
-    line2: NotRequired[str]
-    postal_code: NotRequired[str]
-    state: NotRequired[str]
 
 
 class SubscriptionCreateParamsPendingInvoiceItemInterval(TypedDict):

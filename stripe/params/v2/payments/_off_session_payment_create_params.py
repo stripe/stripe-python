@@ -102,13 +102,13 @@ class OffSessionPaymentCreateParamsPaymentMethodData(TypedDict):
     """
     Billing information associated with the payment method.
     """
-    type: Literal["card"]
-    """
-    The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
-    """
     card: NotRequired["OffSessionPaymentCreateParamsPaymentMethodDataCard"]
     """
     Contains card details that can be used to create a card PaymentMethod for PCI compliant users.
+    """
+    type: Literal["card"]
+    """
+    The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
     """
 
 

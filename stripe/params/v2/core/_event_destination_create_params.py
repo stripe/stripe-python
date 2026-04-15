@@ -6,6 +6,16 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class EventDestinationCreateParams(TypedDict):
+    amazon_eventbridge: NotRequired[
+        "EventDestinationCreateParamsAmazonEventbridge"
+    ]
+    """
+    Amazon EventBridge configuration.
+    """
+    azure_event_grid: NotRequired["EventDestinationCreateParamsAzureEventGrid"]
+    """
+    Azure Event Grid configuration.
+    """
     description: NotRequired[str]
     """
     An optional description of what the event destination is used for.
@@ -49,16 +59,6 @@ class EventDestinationCreateParams(TypedDict):
     type: Literal["amazon_eventbridge", "azure_event_grid", "webhook_endpoint"]
     """
     Event destination type.
-    """
-    amazon_eventbridge: NotRequired[
-        "EventDestinationCreateParamsAmazonEventbridge"
-    ]
-    """
-    Amazon EventBridge configuration.
-    """
-    azure_event_grid: NotRequired["EventDestinationCreateParamsAzureEventGrid"]
-    """
-    Azure Event Grid configuration.
     """
     webhook_endpoint: NotRequired[
         "EventDestinationCreateParamsWebhookEndpoint"

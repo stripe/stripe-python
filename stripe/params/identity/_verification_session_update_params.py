@@ -6,6 +6,10 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class VerificationSessionUpdateParams(TypedDict):
+    confirm: NotRequired[bool]
+    """
+    Confirm and submit the provided details for verification.
+    """
     expand: NotRequired[List[str]]
     """
     Specifies which fields in the response should be expanded.
@@ -24,7 +28,7 @@ class VerificationSessionUpdateParams(TypedDict):
     """
     Details provided about the user being verified. These details may be shown to the user.
     """
-    type: NotRequired[Literal["document", "id_number"]]
+    type: NotRequired[Literal["document", "email", "id_number"]]
     """
     The type of [verification check](https://docs.stripe.com/identity/verification-checks) to be performed.
     """

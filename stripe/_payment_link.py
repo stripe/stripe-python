@@ -70,6 +70,28 @@ class PaymentLink(
             "redirect": Redirect,
         }
 
+    class AutomaticSurcharge(StripeObject):
+        calculation_basis: Optional[
+            Literal["total_after_tax", "total_before_tax"]
+        ]
+        """
+        Determines which amount serves as the basis for calculating the surcharge.
+        """
+        enabled: bool
+        """
+        Indicates whether automatic surcharge is enabled for the payment link.
+        """
+        provider: Optional[Literal["interpayments", "yeeld"]]
+        """
+        The surcharge provider used for this payment link.
+        """
+        tax_behavior: Optional[
+            Literal["exclusive", "inclusive", "unspecified"]
+        ]
+        """
+        Specifies whether the surcharge is considered inclusive or exclusive of taxes.
+        """
+
     class AutomaticTax(StripeObject):
         class Liability(StripeObject):
             account: Optional[ExpandableField["Account"]]
@@ -773,6 +795,7 @@ class PaymentLink(
     """
     This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account.
     """
+    automatic_surcharge: Optional[AutomaticSurcharge]
     automatic_tax: AutomaticTax
     billing_address_collection: Literal["auto", "required"]
     """
@@ -1173,6 +1196,7 @@ class PaymentLink(
 
     _inner_class_types = {
         "after_completion": AfterCompletion,
+        "automatic_surcharge": AutomaticSurcharge,
         "automatic_tax": AutomaticTax,
         "consent_collection": ConsentCollection,
         "custom_fields": CustomField,

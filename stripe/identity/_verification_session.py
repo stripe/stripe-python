@@ -320,7 +320,7 @@ class VerificationSession(
     """
     Status of this VerificationSession. [Learn more about the lifecycle of sessions](https://docs.stripe.com/identity/how-sessions-work).
     """
-    type: Literal["document", "id_number", "verification_flow"]
+    type: Literal["document", "email", "id_number", "verification_flow"]
     """
     The type of [verification check](https://docs.stripe.com/identity/verification-checks) to be performed.
     """

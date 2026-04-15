@@ -14,6 +14,23 @@ class IssuedToken(StripeObject):
         "shared_payment.issued_token"
     )
 
+    class NextAction(StripeObject):
+        class UseStripeSdk(StripeObject):
+            value: str
+            """
+            A base64-encoded string used by Stripe.js and the iOS and Android client SDKs to handle the next action. Its content is subject to change.
+            """
+
+        type: Literal["use_stripe_sdk"]
+        """
+        Specifies the type of next action required. Determines which child attribute contains action details.
+        """
+        use_stripe_sdk: Optional[UseStripeSdk]
+        """
+        Contains details for handling the next action using Stripe.js, iOS, or Android SDKs. Present when `next_action.type` is `use_stripe_sdk`.
+        """
+        _inner_class_types = {"use_stripe_sdk": UseStripeSdk}
+
     class RiskDetails(StripeObject):
         class Insights(StripeObject):
             class Bot(StripeObject):
@@ -23,7 +40,7 @@ class IssuedToken(StripeObject):
                 """
                 score: float
                 """
-                Risk score for this insight (float).
+                Risk score for this insight.
                 """
 
             class CardIssuerDecline(StripeObject):
@@ -33,7 +50,7 @@ class IssuedToken(StripeObject):
                 """
                 score: float
                 """
-                Risk score for this insight (float).
+                Risk score for this insight.
                 """
 
             class CardTesting(StripeObject):
@@ -43,7 +60,7 @@ class IssuedToken(StripeObject):
                 """
                 score: float
                 """
-                Risk score for this insight (float).
+                Risk score for this insight.
                 """
 
             class FraudulentDispute(StripeObject):
@@ -53,7 +70,7 @@ class IssuedToken(StripeObject):
                 """
                 score: int
                 """
-                Risk score for this insight (integer).
+                Risk score for this insight.
                 """
 
             class StolenCard(StripeObject):
@@ -63,28 +80,28 @@ class IssuedToken(StripeObject):
                 """
                 score: int
                 """
-                Risk score for this insight (integer).
+                Risk score for this insight.
                 """
 
             bot: Optional[Bot]
             """
-            Bot risk insight (score: Float, recommended_action).
+            Bot risk insight.
             """
             card_issuer_decline: Optional[CardIssuerDecline]
             """
-            Card issuer decline risk insight (score: Float, recommended_action).
+            Card issuer decline risk insight.
             """
             card_testing: Optional[CardTesting]
             """
-            Card testing risk insight (score: Float, recommended_action).
+            Card testing risk insight.
             """
             fraudulent_dispute: Optional[FraudulentDispute]
             """
-            Fraudulent dispute risk insight (score: Integer, recommended_action).
+            Fraudulent dispute risk insight.
             """
             stolen_card: Optional[StolenCard]
             """
-            Stolen card risk insight (score: Integer, recommended_action).
+            Stolen card risk insight.
             """
             _inner_class_types = {
                 "bot": Bot,
@@ -106,10 +123,6 @@ class IssuedToken(StripeObject):
         A unique id within a network that identifies a logical seller. This should usually be the merchant id on the seller platform.
         """
         network_business_profile: str
-        """
-        The unique and logical string that identifies the seller platform that this SharedToken is being created for.
-        """
-        network_id: Optional[str]
         """
         The unique and logical string that identifies the seller platform that this SharedToken is being created for.
         """
@@ -175,6 +188,10 @@ class IssuedToken(StripeObject):
     """
     If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
+    next_action: Optional[NextAction]
+    """
+    If present, describes the action required to make this `SharedPaymentIssuedToken` usable for payments. Present when the token is in `requires_action` state.
+    """
     object: Literal["shared_payment.issued_token"]
     """
     String representing the object's type. Objects of the same type share the same value.
@@ -203,6 +220,10 @@ class IssuedToken(StripeObject):
     """
     Metadata about the SharedPaymentIssuedToken.
     """
+    status: Optional[Literal["active", "deactivated", "requires_action"]]
+    """
+    Status of this SharedPaymentIssuedToken, one of `active`, `requires_action`, or `deactivated`.
+    """
     usage_details: Optional[UsageDetails]
     """
     Usage details of the SharedPaymentIssuedToken
@@ -212,6 +233,7 @@ class IssuedToken(StripeObject):
     Usage limits of the SharedPaymentIssuedToken.
     """
     _inner_class_types = {
+        "next_action": NextAction,
         "risk_details": RiskDetails,
         "seller_details": SellerDetails,
         "usage_details": UsageDetails,

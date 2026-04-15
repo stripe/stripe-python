@@ -24,10 +24,6 @@ class OutboundSetupIntentCreateParams(TypedDict):
 
 
 class OutboundSetupIntentCreateParamsPayoutMethodData(TypedDict):
-    type: Literal["bank_account", "card", "crypto_wallet"]
-    """
-    Closed Enum. The type of payout method to be created.
-    """
     bank_account: NotRequired[
         "OutboundSetupIntentCreateParamsPayoutMethodDataBankAccount"
     ]
@@ -43,6 +39,10 @@ class OutboundSetupIntentCreateParamsPayoutMethodData(TypedDict):
     ]
     """
     The type specific details of the crypto wallet payout method.
+    """
+    type: Literal["bank_account", "card", "crypto_wallet"]
+    """
+    Closed Enum. The type of payout method to be created.
     """
 
 

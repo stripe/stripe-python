@@ -85,9 +85,21 @@ class BalanceSettings(
         """
         A Boolean indicating if Stripe should try to reclaim negative balances from an attached bank account. See [Understanding Connect account balances](https://docs.stripe.com/connect/account-balances) for details. The default value is `false` when [controller.requirement_collection](https://docs.stripe.com/api/accounts/object#account_object-controller-requirement_collection) is `application`, which includes Custom accounts, otherwise `true`.
         """
+        default_settlement_currency: Optional[str]
+        """
+        The default settlement currency for the account.
+        """
         payouts: Optional[Payouts]
         """
         Settings specific to the account's payouts.
+        """
+        settlement_currencies: Optional[
+            UntypedStripeObject[
+                Literal["disabled", "enabled", "restricted_by_application"]
+            ]
+        ]
+        """
+        A hash of settlement currencies and their states. Each key is an ISO 4217 currency code, and the value is one of `enabled`, `disabled`, or `restricted_by_application`.
         """
         settlement_timing: SettlementTiming
         _inner_class_types = {

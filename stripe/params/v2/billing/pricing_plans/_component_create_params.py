@@ -6,6 +6,10 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class ComponentCreateParams(TypedDict):
+    license_fee: NotRequired["ComponentCreateParamsLicenseFee"]
+    """
+    Details if this component is a License Fee.
+    """
     lookup_key: NotRequired[str]
     """
     An identifier that can be used to find this component.
@@ -14,14 +18,6 @@ class ComponentCreateParams(TypedDict):
     """
     Set of [key-value pairs](https://docs.stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
-    type: Literal["license_fee", "rate_card", "service_action"]
-    """
-    The type of the PricingPlanComponent.
-    """
-    license_fee: NotRequired["ComponentCreateParamsLicenseFee"]
-    """
-    Details if this component is a License Fee.
-    """
     rate_card: NotRequired["ComponentCreateParamsRateCard"]
     """
     Details if this component is a Rate Card.
@@ -29,6 +25,10 @@ class ComponentCreateParams(TypedDict):
     service_action: NotRequired["ComponentCreateParamsServiceAction"]
     """
     Details if this component is a Service Action.
+    """
+    type: Literal["license_fee", "rate_card", "service_action"]
+    """
+    The type of the PricingPlanComponent.
     """
 
 

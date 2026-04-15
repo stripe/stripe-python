@@ -11,6 +11,10 @@ class VerificationSessionCreateParams(RequestOptions):
     """
     A string to reference this user. This can be a customer ID, a session ID, or similar, and can be used to reconcile this verification with your internal systems.
     """
+    confirm: NotRequired[bool]
+    """
+    Confirm and submit the provided details for verification.
+    """
     expand: NotRequired[List[str]]
     """
     Specifies which fields in the response should be expanded.
@@ -45,7 +49,7 @@ class VerificationSessionCreateParams(RequestOptions):
     """
     The URL that the user will be redirected to upon completing the verification flow.
     """
-    type: NotRequired[Literal["document", "id_number"]]
+    type: NotRequired[Literal["document", "email", "id_number"]]
     """
     The type of [verification check](https://docs.stripe.com/identity/verification-checks) to be performed. You must provide a `type` if not passing `verification_flow`.
     """

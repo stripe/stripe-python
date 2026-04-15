@@ -306,11 +306,23 @@ class InvoiceCreateParamsPaymentSettingsPaymentMethodOptions(TypedDict):
     """
     If paying by `bancontact`, this sub-hash contains details about the Bancontact payment method options to pass to the invoice's PaymentIntent.
     """
+    bizum: NotRequired[
+        "Literal['']|InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBizum"
+    ]
+    """
+    If paying by `bizum`, this sub-hash contains details about the Bizum payment method options to pass to the invoice's PaymentIntent.
+    """
     card: NotRequired[
         "Literal['']|InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCard"
     ]
     """
     If paying by `card`, this sub-hash contains details about the Card payment method options to pass to the invoice's PaymentIntent.
+    """
+    check_scan: NotRequired[
+        "Literal['']|InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCheckScan"
+    ]
+    """
+    If paying by `check_scan`, this sub-hash contains details about the Check Scan payment method options to pass to the invoice's PaymentIntent.
     """
     customer_balance: NotRequired[
         "Literal['']|InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance"
@@ -360,18 +372,6 @@ class InvoiceCreateParamsPaymentSettingsPaymentMethodOptions(TypedDict):
     """
     If paying by `us_bank_account`, this sub-hash contains details about the ACH direct debit payment method options to pass to the invoice's PaymentIntent.
     """
-    bizum: NotRequired[
-        "Literal['']|InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBizum"
-    ]
-    """
-    If paying by `bizum`, this sub-hash contains details about the Bizum payment method options to pass to the invoice's PaymentIntent.
-    """
-    check_scan: NotRequired[
-        "Literal['']|InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCheckScan"
-    ]
-    """
-    If paying by `check_scan`, this sub-hash contains details about the Check Scan payment method options to pass to the invoice's PaymentIntent.
-    """
 
 
 class InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebit(
@@ -407,6 +407,10 @@ class InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBancontact(
     """
     Preferred language of the Bancontact authorization page that the customer is redirected to.
     """
+
+
+class InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBizum(TypedDict):
+    pass
 
 
 class InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCard(TypedDict):
@@ -458,6 +462,25 @@ class InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCardInstallmentsPlan
     """
     Type of installment plan, one of `fixed_count`, `bonus`, or `revolving`.
     """
+
+
+class InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCheckScan(
+    TypedDict,
+):
+    check_deposit_address: NotRequired[
+        "InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress"
+    ]
+
+
+class InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress(
+    TypedDict,
+):
+    city: NotRequired[str]
+    country: NotRequired[str]
+    line1: NotRequired[str]
+    line2: NotRequired[str]
+    postal_code: NotRequired[str]
+    state: NotRequired[str]
 
 
 class InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance(
@@ -649,29 +672,6 @@ class InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinanci
     """
     ID of the institution to use to filter for selectable accounts.
     """
-
-
-class InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBizum(TypedDict):
-    pass
-
-
-class InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCheckScan(
-    TypedDict,
-):
-    check_deposit_address: NotRequired[
-        "InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress"
-    ]
-
-
-class InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress(
-    TypedDict,
-):
-    city: NotRequired[str]
-    country: NotRequired[str]
-    line1: NotRequired[str]
-    line2: NotRequired[str]
-    postal_code: NotRequired[str]
-    state: NotRequired[str]
 
 
 class InvoiceCreateParamsRendering(TypedDict):

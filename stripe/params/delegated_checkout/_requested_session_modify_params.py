@@ -33,17 +33,17 @@ class RequestedSessionModifyParams(RequestOptions):
     """
     The payment method for this requested session.
     """
-    shared_metadata: NotRequired[
-        "Literal['']|Dict[str, str]|UntypedStripeObject[str]"
-    ]
-    """
-    The shared metadata for this requested session.
-    """
     payment_method_options: NotRequired[
         "RequestedSessionModifyParamsPaymentMethodOptions"
     ]
     """
     The payment method options for this requested session.
+    """
+    shared_metadata: NotRequired[
+        "Literal['']|Dict[str, str]|UntypedStripeObject[str]"
+    ]
+    """
+    The shared metadata for this requested session.
     """
 
 

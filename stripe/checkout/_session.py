@@ -104,6 +104,32 @@ class Session(
         """
         _inner_class_types = {"recovery": Recovery}
 
+    class AutomaticSurcharge(StripeObject):
+        calculation_basis: Optional[
+            Literal["total_after_tax", "total_before_tax"]
+        ]
+        """
+        Determines which amount serves as the basis for calculating the surcharge.
+        """
+        enabled: bool
+        """
+        Indicates whether automatic surcharge is enabled for the session.
+        """
+        provider: Optional[Literal["interpayments", "yeeld"]]
+        """
+        The surcharge provider used for this session.
+        """
+        status: Optional[Literal["complete", "failed", "requires_input"]]
+        """
+        The status of the most recent surcharge calculation for this session.
+        """
+        tax_behavior: Optional[
+            Literal["exclusive", "inclusive", "unspecified"]
+        ]
+        """
+        Specifies whether the surcharge is considered inclusive or exclusive of taxes.
+        """
+
     class AutomaticTax(StripeObject):
         class Liability(StripeObject):
             account: Optional[ExpandableField["Account"]]
@@ -1375,6 +1401,13 @@ class Session(
             Controls when the funds will be captured from the customer's account.
             """
 
+        class Bizum(StripeObject):
+            class MandateOptions(StripeObject):
+                pass
+
+            mandate_options: Optional[MandateOptions]
+            _inner_class_types = {"mandate_options": MandateOptions}
+
         class Boleto(StripeObject):
             expires_after_days: int
             """
@@ -2153,6 +2186,7 @@ class Session(
         bacs_debit: Optional[BacsDebit]
         bancontact: Optional[Bancontact]
         billie: Optional[Billie]
+        bizum: Optional[Bizum]
         boleto: Optional[Boleto]
         card: Optional[Card]
         cashapp: Optional[Cashapp]
@@ -2197,6 +2231,7 @@ class Session(
             "bacs_debit": BacsDebit,
             "bancontact": Bancontact,
             "billie": Billie,
+            "bizum": Bizum,
             "boleto": Boleto,
             "card": Card,
             "cashapp": Cashapp,
@@ -2626,6 +2661,20 @@ class Session(
         The shipping rate.
         """
 
+    class SurchargeCost(StripeObject):
+        amount_subtotal: int
+        """
+        Total surcharge cost before taxes are applied.
+        """
+        amount_tax: int
+        """
+        Total tax amount applied due to surcharging. If no tax was applied, defaults to 0.
+        """
+        amount_total: int
+        """
+        Total surcharge cost after taxes are applied.
+        """
+
     class TaxIdCollection(StripeObject):
         enabled: bool
         """
@@ -2707,6 +2756,10 @@ class Session(
         """
         This is the sum of all the shipping amounts.
         """
+        amount_surcharge: Optional[int]
+        """
+        The surcharge amount that was applied to the Checkout Session.
+        """
         amount_tax: int
         """
         This is the sum of all the tax amounts.
@@ -2752,6 +2805,7 @@ class Session(
 
     When set to `manual`, you must approve the customer's attempt to pay by calling [approve](api/checkout/sessions/approve) from your server.
     """
+    automatic_surcharge: Optional[AutomaticSurcharge]
     automatic_tax: AutomaticTax
     billing_address_collection: Optional[Literal["auto", "required"]]
     """
@@ -3037,6 +3091,7 @@ class Session(
     The URL the customer will be directed to after the payment or
     subscription creation is successful.
     """
+    surcharge_cost: Optional[SurchargeCost]
     tax_id_collection: Optional[TaxIdCollection]
     total_details: Optional[TotalDetails]
     """
@@ -3533,6 +3588,7 @@ class Session(
     _inner_class_types = {
         "adaptive_pricing": AdaptivePricing,
         "after_expiration": AfterExpiration,
+        "automatic_surcharge": AutomaticSurcharge,
         "automatic_tax": AutomaticTax,
         "branding_settings": BrandingSettings,
         "checkout_items": CheckoutItem,
@@ -3558,6 +3614,7 @@ class Session(
         "shipping_address_collection": ShippingAddressCollection,
         "shipping_cost": ShippingCost,
         "shipping_options": ShippingOption,
+        "surcharge_cost": SurchargeCost,
         "tax_id_collection": TaxIdCollection,
         "total_details": TotalDetails,
         "wallet_options": WalletOptions,

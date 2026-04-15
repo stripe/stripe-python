@@ -43,6 +43,12 @@ class RequestedSessionCreateParams(RequestOptions):
     """
     The payment method for this requested session.
     """
+    payment_method_options: NotRequired[
+        "RequestedSessionCreateParamsPaymentMethodOptions"
+    ]
+    """
+    The payment method options for this requested session.
+    """
     seller_details: "RequestedSessionCreateParamsSellerDetails"
     """
     The details of the seller.
@@ -54,12 +60,6 @@ class RequestedSessionCreateParams(RequestOptions):
     shared_metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     The shared metadata for this requested session.
-    """
-    payment_method_options: NotRequired[
-        "RequestedSessionCreateParamsPaymentMethodOptions"
-    ]
-    """
-    The payment method options for this requested session.
     """
 
 
@@ -186,13 +186,6 @@ class RequestedSessionCreateParamsLineItemDetail(TypedDict):
     """
 
 
-class RequestedSessionCreateParamsSellerDetails(TypedDict):
-    network_profile: str
-    """
-    The network profile for the seller.
-    """
-
-
 class RequestedSessionCreateParamsPaymentMethodOptions(TypedDict):
     card: NotRequired["RequestedSessionCreateParamsPaymentMethodOptionsCard"]
     """
@@ -212,4 +205,11 @@ class RequestedSessionCreateParamsPaymentMethodOptionsCard(TypedDict):
     ]
     """
     The card brands to exclude from the session.
+    """
+
+
+class RequestedSessionCreateParamsSellerDetails(TypedDict):
+    network_profile: str
+    """
+    The network profile for the seller.
     """

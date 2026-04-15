@@ -43628,8 +43628,6 @@ class TestGeneratedExamples(object):
         client.v2.billing.cadences.create(
             {
                 "billing_cycle": {
-                    "interval_count": 797691627,
-                    "type": "week",
                     "day": {
                         "time": {
                             "hour": 3208676,
@@ -43637,6 +43635,7 @@ class TestGeneratedExamples(object):
                             "second": 906279820,
                         },
                     },
+                    "interval_count": 797691627,
                     "month": {
                         "day_of_month": 1361669285,
                         "month_of_year": 82933018,
@@ -43646,6 +43645,7 @@ class TestGeneratedExamples(object):
                             "second": 906279820,
                         },
                     },
+                    "type": "week",
                     "week": {
                         "day_of_week": 43636807,
                         "time": {
@@ -43672,7 +43672,7 @@ class TestGeneratedExamples(object):
             path="/v2/billing/cadences",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"billing_cycle":{"interval_count":797691627,"type":"week","day":{"time":{"hour":3208676,"minute":1074026988,"second":906279820}},"month":{"day_of_month":1361669285,"month_of_year":82933018,"time":{"hour":3208676,"minute":1074026988,"second":906279820}},"week":{"day_of_week":43636807,"time":{"hour":3208676,"minute":1074026988,"second":906279820}},"year":{"day_of_month":1361669285,"month_of_year":82933018,"time":{"hour":3208676,"minute":1074026988,"second":906279820}}},"payer":{"billing_profile":"billing_profile"}}',
+            post_data='{"billing_cycle":{"day":{"time":{"hour":3208676,"minute":1074026988,"second":906279820}},"interval_count":797691627,"month":{"day_of_month":1361669285,"month_of_year":82933018,"time":{"hour":3208676,"minute":1074026988,"second":906279820}},"type":"week","week":{"day_of_week":43636807,"time":{"hour":3208676,"minute":1074026988,"second":906279820}},"year":{"day_of_month":1361669285,"month_of_year":82933018,"time":{"hour":3208676,"minute":1074026988,"second":906279820}}},"payer":{"billing_profile":"billing_profile"}}',
             is_json=True,
         )
 
@@ -44036,21 +44036,18 @@ class TestGeneratedExamples(object):
             {
                 "actions": [
                     {
-                        "type": "apply",
                         "apply": {
-                            "effective_at": {
-                                "timestamp": "1970-01-01T15:18:46.294Z",
-                                "type": "current_billing_period_end",
-                            },
-                            "type": "discount",
                             "discount": {
                                 "coupon": "coupon",
                                 "promotion_code": "promotion_code",
                                 "type": "coupon",
                             },
+                            "effective_at": {
+                                "timestamp": "1970-01-01T15:18:46.294Z",
+                                "type": "current_billing_period_end",
+                            },
                             "invoice_discount_rule": {
                                 "applies_to": "cadence",
-                                "type": "percent_off",
                                 "percent_off": {
                                     "maximum_applications": {
                                         "type": "indefinite"
@@ -44059,23 +44056,25 @@ class TestGeneratedExamples(object):
                                         "991934883.3333334"
                                     ),
                                 },
+                                "type": "percent_off",
                             },
                             "spend_modifier_rule": {
                                 "applies_to": "cadence",
-                                "type": "max_billing_period_spend",
                                 "max_billing_period_spend": {
                                     "amount": {
-                                        "type": "custom_pricing_unit",
                                         "custom_pricing_unit": {
                                             "id": "obj_123",
                                             "value": "value",
                                         },
+                                        "type": "custom_pricing_unit",
                                     },
                                     "custom_pricing_unit_overage_rate": {
                                         "id": "obj_123",
                                     },
                                 },
+                                "type": "max_billing_period_spend",
                             },
+                            "type": "discount",
                         },
                         "deactivate": {
                             "cancellation_details": {
@@ -44091,10 +44090,10 @@ class TestGeneratedExamples(object):
                                 "overrides": {
                                     "partial_period_behaviors": [
                                         {
-                                            "type": "license_fee",
                                             "license_fee": {
                                                 "credit_proration_behavior": "prorated",
                                             },
+                                            "type": "license_fee",
                                         },
                                     ],
                                 },
@@ -44111,9 +44110,9 @@ class TestGeneratedExamples(object):
                             "pricing_plan_subscription_details": {
                                 "component_configurations": [
                                     {
-                                        "quantity": 1285004149,
                                         "lookup_key": "lookup_key",
                                         "pricing_plan_component": "pricing_plan_component",
+                                        "quantity": 1285004149,
                                     },
                                 ],
                                 "new_pricing_plan": "new_pricing_plan",
@@ -44121,7 +44120,6 @@ class TestGeneratedExamples(object):
                                 "overrides": {
                                     "partial_period_behaviors": [
                                         {
-                                            "type": "license_fee",
                                             "license_fee": {
                                                 "credit_proration_behavior": "prorated",
                                                 "debit_proration_behavior": "none",
@@ -44129,6 +44127,7 @@ class TestGeneratedExamples(object):
                                             "recurring_credit_grant": {
                                                 "create_behavior": "none",
                                             },
+                                            "type": "license_fee",
                                         },
                                     ],
                                 },
@@ -44140,9 +44139,9 @@ class TestGeneratedExamples(object):
                             "effective_at": {
                                 "type": "current_billing_period_end"
                             },
-                            "type": "invoice_discount_rule",
                             "invoice_discount_rule": "invoice_discount_rule",
                             "spend_modifier_rule": "spend_modifier_rule",
+                            "type": "invoice_discount_rule",
                         },
                         "subscribe": {
                             "collect_at": "next_billing_date",
@@ -44150,32 +44149,32 @@ class TestGeneratedExamples(object):
                                 "timestamp": "1970-01-01T15:18:46.294Z",
                                 "type": "current_billing_period_start",
                             },
-                            "type": "pricing_plan_subscription_details",
                             "pricing_plan_subscription_details": {
                                 "component_configurations": [
                                     {
-                                        "quantity": 1285004149,
                                         "lookup_key": "lookup_key",
                                         "pricing_plan_component": "pricing_plan_component",
+                                        "quantity": 1285004149,
                                     },
                                 ],
                                 "metadata": {"key": "metadata"},
                                 "overrides": {
                                     "partial_period_behaviors": [
                                         {
-                                            "type": "license_fee",
                                             "license_fee": {
                                                 "debit_proration_behavior": "none",
                                             },
                                             "recurring_credit_grant": {
                                                 "create_behavior": "none",
                                             },
+                                            "type": "license_fee",
                                         },
                                     ],
                                 },
                                 "pricing_plan": "pricing_plan",
                                 "pricing_plan_version": "pricing_plan_version",
                             },
+                            "type": "pricing_plan_subscription_details",
                             "v1_subscription_details": {
                                 "description": "description",
                                 "items": [
@@ -44188,6 +44187,7 @@ class TestGeneratedExamples(object):
                                 "metadata": {"key": "metadata"},
                             },
                         },
+                        "type": "apply",
                     },
                 ],
                 "currency": "usd",
@@ -44198,7 +44198,7 @@ class TestGeneratedExamples(object):
             path="/v2/billing/intents",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"actions":[{"type":"apply","apply":{"effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"current_billing_period_end"},"type":"discount","discount":{"coupon":"coupon","promotion_code":"promotion_code","type":"coupon"},"invoice_discount_rule":{"applies_to":"cadence","type":"percent_off","percent_off":{"maximum_applications":{"type":"indefinite"},"percent_off":"991934883.3333334"}},"spend_modifier_rule":{"applies_to":"cadence","type":"max_billing_period_spend","max_billing_period_spend":{"amount":{"type":"custom_pricing_unit","custom_pricing_unit":{"id":"obj_123","value":"value"}},"custom_pricing_unit_overage_rate":{"id":"obj_123"}}}},"deactivate":{"cancellation_details":{"comment":"comment","feedback":"other"},"collect_at":"next_billing_date","effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"on_reserve"},"pricing_plan_subscription_details":{"overrides":{"partial_period_behaviors":[{"type":"license_fee","license_fee":{"credit_proration_behavior":"prorated"}}]},"pricing_plan_subscription":"pricing_plan_subscription"},"type":"pricing_plan_subscription_details"},"modify":{"collect_at":"next_billing_date","effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"current_billing_period_start"},"pricing_plan_subscription_details":{"component_configurations":[{"quantity":1285004149,"lookup_key":"lookup_key","pricing_plan_component":"pricing_plan_component"}],"new_pricing_plan":"new_pricing_plan","new_pricing_plan_version":"new_pricing_plan_version","overrides":{"partial_period_behaviors":[{"type":"license_fee","license_fee":{"credit_proration_behavior":"prorated","debit_proration_behavior":"none"},"recurring_credit_grant":{"create_behavior":"none"}}]},"pricing_plan_subscription":"pricing_plan_subscription"},"type":"pricing_plan_subscription_details"},"remove":{"effective_at":{"type":"current_billing_period_end"},"type":"invoice_discount_rule","invoice_discount_rule":"invoice_discount_rule","spend_modifier_rule":"spend_modifier_rule"},"subscribe":{"collect_at":"next_billing_date","effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"current_billing_period_start"},"type":"pricing_plan_subscription_details","pricing_plan_subscription_details":{"component_configurations":[{"quantity":1285004149,"lookup_key":"lookup_key","pricing_plan_component":"pricing_plan_component"}],"metadata":{"key":"metadata"},"overrides":{"partial_period_behaviors":[{"type":"license_fee","license_fee":{"debit_proration_behavior":"none"},"recurring_credit_grant":{"create_behavior":"none"}}]},"pricing_plan":"pricing_plan","pricing_plan_version":"pricing_plan_version"},"v1_subscription_details":{"description":"description","items":[{"metadata":{"key":"metadata"},"price":"price","quantity":1285004149}],"metadata":{"key":"metadata"}}}}],"currency":"usd"}',
+            post_data='{"actions":[{"apply":{"discount":{"coupon":"coupon","promotion_code":"promotion_code","type":"coupon"},"effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"current_billing_period_end"},"invoice_discount_rule":{"applies_to":"cadence","percent_off":{"maximum_applications":{"type":"indefinite"},"percent_off":"991934883.3333334"},"type":"percent_off"},"spend_modifier_rule":{"applies_to":"cadence","max_billing_period_spend":{"amount":{"custom_pricing_unit":{"id":"obj_123","value":"value"},"type":"custom_pricing_unit"},"custom_pricing_unit_overage_rate":{"id":"obj_123"}},"type":"max_billing_period_spend"},"type":"discount"},"deactivate":{"cancellation_details":{"comment":"comment","feedback":"other"},"collect_at":"next_billing_date","effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"on_reserve"},"pricing_plan_subscription_details":{"overrides":{"partial_period_behaviors":[{"license_fee":{"credit_proration_behavior":"prorated"},"type":"license_fee"}]},"pricing_plan_subscription":"pricing_plan_subscription"},"type":"pricing_plan_subscription_details"},"modify":{"collect_at":"next_billing_date","effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"current_billing_period_start"},"pricing_plan_subscription_details":{"component_configurations":[{"lookup_key":"lookup_key","pricing_plan_component":"pricing_plan_component","quantity":1285004149}],"new_pricing_plan":"new_pricing_plan","new_pricing_plan_version":"new_pricing_plan_version","overrides":{"partial_period_behaviors":[{"license_fee":{"credit_proration_behavior":"prorated","debit_proration_behavior":"none"},"recurring_credit_grant":{"create_behavior":"none"},"type":"license_fee"}]},"pricing_plan_subscription":"pricing_plan_subscription"},"type":"pricing_plan_subscription_details"},"remove":{"effective_at":{"type":"current_billing_period_end"},"invoice_discount_rule":"invoice_discount_rule","spend_modifier_rule":"spend_modifier_rule","type":"invoice_discount_rule"},"subscribe":{"collect_at":"next_billing_date","effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"current_billing_period_start"},"pricing_plan_subscription_details":{"component_configurations":[{"lookup_key":"lookup_key","pricing_plan_component":"pricing_plan_component","quantity":1285004149}],"metadata":{"key":"metadata"},"overrides":{"partial_period_behaviors":[{"license_fee":{"debit_proration_behavior":"none"},"recurring_credit_grant":{"create_behavior":"none"},"type":"license_fee"}]},"pricing_plan":"pricing_plan","pricing_plan_version":"pricing_plan_version"},"type":"pricing_plan_subscription_details","v1_subscription_details":{"description":"description","items":[{"metadata":{"key":"metadata"},"price":"price","quantity":1285004149}],"metadata":{"key":"metadata"}}},"type":"apply"}],"currency":"usd"}',
             is_json=True,
         )
 
@@ -46149,7 +46149,6 @@ class TestGeneratedExamples(object):
             {
                 "account": "account",
                 "use_case": {
-                    "type": "recipient_onboarding",
                     "account_onboarding": {
                         "collection_options": {
                             "fields": "eventually_due",
@@ -46186,6 +46185,7 @@ class TestGeneratedExamples(object):
                         "refresh_url": "refresh_url",
                         "return_url": "return_url",
                     },
+                    "type": "recipient_onboarding",
                 },
             }
         )
@@ -46194,7 +46194,7 @@ class TestGeneratedExamples(object):
             path="/v2/core/account_links",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"account":"account","use_case":{"type":"recipient_onboarding","account_onboarding":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"configurations":["storer"],"refresh_url":"refresh_url","return_url":"return_url"},"account_update":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"configurations":["storer"],"refresh_url":"refresh_url","return_url":"return_url"},"recipient_onboarding":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"configurations":["recipient"],"refresh_url":"refresh_url","return_url":"return_url"},"recipient_update":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"configurations":["recipient"],"refresh_url":"refresh_url","return_url":"return_url"}}}',
+            post_data='{"account":"account","use_case":{"account_onboarding":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"configurations":["storer"],"refresh_url":"refresh_url","return_url":"return_url"},"account_update":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"configurations":["storer"],"refresh_url":"refresh_url","return_url":"return_url"},"recipient_onboarding":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"configurations":["recipient"],"refresh_url":"refresh_url","return_url":"return_url"},"recipient_update":{"collection_options":{"fields":"eventually_due","future_requirements":"include"},"configurations":["recipient"],"refresh_url":"refresh_url","return_url":"return_url"},"type":"recipient_onboarding"}}',
             is_json=True,
         )
 
@@ -46908,6 +46908,130 @@ class TestGeneratedExamples(object):
             api_base="https://api.stripe.com",
             post_data="{}",
             is_json=True,
+        )
+
+    def test_v2_core_workflow_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/core/workflows",
+            "status[0]=draft",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.workflows.list({"status": ["draft"]})
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/core/workflows",
+            query_string="status[0]=draft",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_core_workflow_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/core/workflows/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.workflows.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/core/workflows/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_core_workflow_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/core/workflows/id_123/invoke",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.workflows.invoke(
+            "id_123",
+            {
+                "input_parameters": {
+                    "int_key": 123,
+                    "string_key": "value",
+                    "boolean_key": True,
+                    "object_key": {
+                        "object_int_key": 123,
+                        "object_string_key": "value",
+                        "object_boolean_key": True,
+                    },
+                    "array_key": [1, 2, 3],
+                },
+            },
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/core/workflows/id_123/invoke",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"input_parameters":{"int_key":123,"string_key":"value","boolean_key":true,"object_key":{"object_int_key":123,"object_string_key":"value","object_boolean_key":true},"array_key":[1,2,3]}}',
+            is_json=True,
+        )
+
+    def test_v2_core_workflow_run_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/core/workflow_runs",
+            "status[0]=failed&workflow[0]=workflow",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.workflow_runs.list(
+            {
+                "status": ["failed"],
+                "workflow": ["workflow"],
+            }
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/core/workflow_runs",
+            query_string="status[0]=failed&workflow[0]=workflow",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_core_workflow_run_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/core/workflow_runs/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.workflow_runs.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/core/workflow_runs/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_v2_data_reporting_query_run_post_service(

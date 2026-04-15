@@ -2210,6 +2210,11 @@ if TYPE_CHECKING:
     from stripe.params._payment_attempt_record_report_authenticated_params import (
         PaymentAttemptRecordReportAuthenticatedParams as PaymentAttemptRecordReportAuthenticatedParams,
     )
+    from stripe.params._payment_attempt_record_report_authorized_params import (
+        PaymentAttemptRecordReportAuthorizedParams as PaymentAttemptRecordReportAuthorizedParams,
+        PaymentAttemptRecordReportAuthorizedParamsProcessorDetails as PaymentAttemptRecordReportAuthorizedParamsProcessorDetails,
+        PaymentAttemptRecordReportAuthorizedParamsProcessorDetailsCustom as PaymentAttemptRecordReportAuthorizedParamsProcessorDetailsCustom,
+    )
     from stripe.params._payment_attempt_record_report_canceled_params import (
         PaymentAttemptRecordReportCanceledParams as PaymentAttemptRecordReportCanceledParams,
     )
@@ -3699,6 +3704,7 @@ if TYPE_CHECKING:
         PaymentLinkCreateParamsAfterCompletion as PaymentLinkCreateParamsAfterCompletion,
         PaymentLinkCreateParamsAfterCompletionHostedConfirmation as PaymentLinkCreateParamsAfterCompletionHostedConfirmation,
         PaymentLinkCreateParamsAfterCompletionRedirect as PaymentLinkCreateParamsAfterCompletionRedirect,
+        PaymentLinkCreateParamsAutomaticSurcharge as PaymentLinkCreateParamsAutomaticSurcharge,
         PaymentLinkCreateParamsAutomaticTax as PaymentLinkCreateParamsAutomaticTax,
         PaymentLinkCreateParamsAutomaticTaxLiability as PaymentLinkCreateParamsAutomaticTaxLiability,
         PaymentLinkCreateParamsConsentCollection as PaymentLinkCreateParamsConsentCollection,
@@ -12816,6 +12822,18 @@ _import_map = {
         "stripe.params._payment_attempt_record_report_authenticated_params",
         False,
     ),
+    "PaymentAttemptRecordReportAuthorizedParams": (
+        "stripe.params._payment_attempt_record_report_authorized_params",
+        False,
+    ),
+    "PaymentAttemptRecordReportAuthorizedParamsProcessorDetails": (
+        "stripe.params._payment_attempt_record_report_authorized_params",
+        False,
+    ),
+    "PaymentAttemptRecordReportAuthorizedParamsProcessorDetailsCustom": (
+        "stripe.params._payment_attempt_record_report_authorized_params",
+        False,
+    ),
     "PaymentAttemptRecordReportCanceledParams": (
         "stripe.params._payment_attempt_record_report_canceled_params",
         False,
@@ -18573,6 +18591,10 @@ _import_map = {
         False,
     ),
     "PaymentLinkCreateParamsAfterCompletionRedirect": (
+        "stripe.params._payment_link_create_params",
+        False,
+    ),
+    "PaymentLinkCreateParamsAutomaticSurcharge": (
         "stripe.params._payment_link_create_params",
         False,
     ),

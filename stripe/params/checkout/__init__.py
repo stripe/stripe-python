@@ -14,6 +14,7 @@ if TYPE_CHECKING:
         SessionCreateParamsAdaptivePricing as SessionCreateParamsAdaptivePricing,
         SessionCreateParamsAfterExpiration as SessionCreateParamsAfterExpiration,
         SessionCreateParamsAfterExpirationRecovery as SessionCreateParamsAfterExpirationRecovery,
+        SessionCreateParamsAutomaticSurcharge as SessionCreateParamsAutomaticSurcharge,
         SessionCreateParamsAutomaticTax as SessionCreateParamsAutomaticTax,
         SessionCreateParamsAutomaticTaxLiability as SessionCreateParamsAutomaticTaxLiability,
         SessionCreateParamsBrandingSettings as SessionCreateParamsBrandingSettings,
@@ -75,6 +76,8 @@ if TYPE_CHECKING:
         SessionCreateParamsPaymentMethodOptionsBacsDebitMandateOptions as SessionCreateParamsPaymentMethodOptionsBacsDebitMandateOptions,
         SessionCreateParamsPaymentMethodOptionsBancontact as SessionCreateParamsPaymentMethodOptionsBancontact,
         SessionCreateParamsPaymentMethodOptionsBillie as SessionCreateParamsPaymentMethodOptionsBillie,
+        SessionCreateParamsPaymentMethodOptionsBizum as SessionCreateParamsPaymentMethodOptionsBizum,
+        SessionCreateParamsPaymentMethodOptionsBizumMandateOptions as SessionCreateParamsPaymentMethodOptionsBizumMandateOptions,
         SessionCreateParamsPaymentMethodOptionsBoleto as SessionCreateParamsPaymentMethodOptionsBoleto,
         SessionCreateParamsPaymentMethodOptionsCard as SessionCreateParamsPaymentMethodOptionsCard,
         SessionCreateParamsPaymentMethodOptionsCardInstallments as SessionCreateParamsPaymentMethodOptionsCardInstallments,
@@ -254,6 +257,10 @@ _import_map = {
         False,
     ),
     "SessionCreateParamsAfterExpirationRecovery": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsAutomaticSurcharge": (
         "stripe.params.checkout._session_create_params",
         False,
     ),
@@ -498,6 +505,14 @@ _import_map = {
         False,
     ),
     "SessionCreateParamsPaymentMethodOptionsBillie": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsBizum": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsBizumMandateOptions": (
         "stripe.params.checkout._session_create_params",
         False,
     ),

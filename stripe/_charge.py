@@ -474,6 +474,14 @@ class Charge(
             """
 
         class Card(StripeObject):
+            class AccountFunding(StripeObject):
+                processed_transaction_type: Optional[
+                    Literal["account_funding", "purchase"]
+                ]
+                """
+                The transaction type of the card transaction. One of `account_funding` or `purchase`.
+                """
+
             class Benefits(StripeObject):
                 issuer: Optional[str]
                 """
@@ -834,6 +842,7 @@ class Charge(
                     "visa_checkout": VisaCheckout,
                 }
 
+            account_funding: Optional[AccountFunding]
             amount_authorized: Optional[int]
             """
             The authorized amount.
@@ -950,6 +959,7 @@ class Charge(
             If this Card is part of a card wallet, this contains the details of the card wallet.
             """
             _inner_class_types = {
+                "account_funding": AccountFunding,
                 "benefits": Benefits,
                 "checks": Checks,
                 "decremental_authorization": DecrementalAuthorization,

@@ -2900,6 +2900,150 @@ class PaymentIntent(
                 "total": Total,
             }
 
+        class MoneyServices(StripeObject):
+            class AccountFunding(StripeObject):
+                class BeneficiaryDetails(StripeObject):
+                    class Address(StripeObject):
+                        city: Optional[str]
+                        """
+                        City, district, suburb, town, or village.
+                        """
+                        country: Optional[str]
+                        """
+                        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                        """
+                        line1: Optional[str]
+                        """
+                        Address line 1 (e.g., street, PO Box, or company name).
+                        """
+                        line2: Optional[str]
+                        """
+                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        """
+                        postal_code: Optional[str]
+                        """
+                        ZIP or postal code.
+                        """
+                        state: Optional[str]
+                        """
+                        State, county, province, or region.
+                        """
+
+                    class DateOfBirth(StripeObject):
+                        day: int
+                        """
+                        Day of birth, between 1 and 31.
+                        """
+                        month: int
+                        """
+                        Month of birth, between 1 and 12.
+                        """
+                        year: int
+                        """
+                        Four-digit year of birth.
+                        """
+
+                    address: Optional[Address]
+                    date_of_birth: Optional[DateOfBirth]
+                    email: Optional[str]
+                    """
+                    Email address.
+                    """
+                    name: Optional[str]
+                    """
+                    Full name.
+                    """
+                    phone: Optional[str]
+                    """
+                    Phone number.
+                    """
+                    _inner_class_types = {
+                        "address": Address,
+                        "date_of_birth": DateOfBirth,
+                    }
+
+                class SenderDetails(StripeObject):
+                    class Address(StripeObject):
+                        city: Optional[str]
+                        """
+                        City, district, suburb, town, or village.
+                        """
+                        country: Optional[str]
+                        """
+                        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                        """
+                        line1: Optional[str]
+                        """
+                        Address line 1 (e.g., street, PO Box, or company name).
+                        """
+                        line2: Optional[str]
+                        """
+                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        """
+                        postal_code: Optional[str]
+                        """
+                        ZIP or postal code.
+                        """
+                        state: Optional[str]
+                        """
+                        State, county, province, or region.
+                        """
+
+                    class DateOfBirth(StripeObject):
+                        day: int
+                        """
+                        Day of birth, between 1 and 31.
+                        """
+                        month: int
+                        """
+                        Month of birth, between 1 and 12.
+                        """
+                        year: int
+                        """
+                        Four-digit year of birth.
+                        """
+
+                    address: Optional[Address]
+                    date_of_birth: Optional[DateOfBirth]
+                    email: Optional[str]
+                    """
+                    Email address.
+                    """
+                    name: Optional[str]
+                    """
+                    Full name.
+                    """
+                    phone: Optional[str]
+                    """
+                    Phone number.
+                    """
+                    _inner_class_types = {
+                        "address": Address,
+                        "date_of_birth": DateOfBirth,
+                    }
+
+                beneficiary_account: Optional[str]
+                """
+                ID of the Account representing the beneficiary in this account funding transaction.
+                """
+                beneficiary_details: Optional[BeneficiaryDetails]
+                sender_account: Optional[str]
+                """
+                ID of the Account representing the sender in this account funding transaction.
+                """
+                sender_details: Optional[SenderDetails]
+                _inner_class_types = {
+                    "beneficiary_details": BeneficiaryDetails,
+                    "sender_details": SenderDetails,
+                }
+
+            account_funding: Optional[AccountFunding]
+            transaction_type: Optional[Literal["account_funding"]]
+            """
+            The type of money services transaction.
+            """
+            _inner_class_types = {"account_funding": AccountFunding}
+
         class Subscription(StripeObject):
             class Affiliate(StripeObject):
                 name: Optional[str]
@@ -2956,6 +3100,7 @@ class PaymentIntent(
         """
         flight_data: Optional[List[FlightDatum]]
         lodging_data: Optional[List[LodgingDatum]]
+        money_services: Optional[MoneyServices]
         order_reference: Optional[str]
         """
         A unique value assigned by the business to identify the transaction. Required for L2 and L3 rates.
@@ -2971,6 +3116,7 @@ class PaymentIntent(
             "fleet_data": FleetDatum,
             "flight_data": FlightDatum,
             "lodging_data": LodgingDatum,
+            "money_services": MoneyServices,
             "subscription": Subscription,
         }
 

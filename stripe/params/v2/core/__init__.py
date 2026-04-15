@@ -677,6 +677,21 @@ if TYPE_CHECKING:
     from stripe.params.v2.core._event_retrieve_params import (
         EventRetrieveParams as EventRetrieveParams,
     )
+    from stripe.params.v2.core._workflow_invoke_params import (
+        WorkflowInvokeParams as WorkflowInvokeParams,
+    )
+    from stripe.params.v2.core._workflow_list_params import (
+        WorkflowListParams as WorkflowListParams,
+    )
+    from stripe.params.v2.core._workflow_retrieve_params import (
+        WorkflowRetrieveParams as WorkflowRetrieveParams,
+    )
+    from stripe.params.v2.core._workflow_run_list_params import (
+        WorkflowRunListParams as WorkflowRunListParams,
+    )
+    from stripe.params.v2.core._workflow_run_retrieve_params import (
+        WorkflowRunRetrieveParams as WorkflowRunRetrieveParams,
+    )
 
 # name -> (import_target, is_submodule)
 _import_map = {
@@ -3154,6 +3169,26 @@ _import_map = {
     ),
     "EventRetrieveParams": (
         "stripe.params.v2.core._event_retrieve_params",
+        False,
+    ),
+    "WorkflowInvokeParams": (
+        "stripe.params.v2.core._workflow_invoke_params",
+        False,
+    ),
+    "WorkflowListParams": (
+        "stripe.params.v2.core._workflow_list_params",
+        False,
+    ),
+    "WorkflowRetrieveParams": (
+        "stripe.params.v2.core._workflow_retrieve_params",
+        False,
+    ),
+    "WorkflowRunListParams": (
+        "stripe.params.v2.core._workflow_run_list_params",
+        False,
+    ),
+    "WorkflowRunRetrieveParams": (
+        "stripe.params.v2.core._workflow_run_retrieve_params",
         False,
     ),
 }
