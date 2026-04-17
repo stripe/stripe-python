@@ -166,10 +166,6 @@ class IssuedToken(StripeObject):
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
     """
-    customer: Optional[str]
-    """
-    ID of an existing Customer.
-    """
     deactivated_at: Optional[int]
     """
     Time at which this SharedPaymentIssuedToken was deactivated.
@@ -196,7 +192,7 @@ class IssuedToken(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    payment_method: Optional[str]
+    payment_method: str
     """
     ID of an existing PaymentMethod.
     """

@@ -21,6 +21,10 @@ class RequestedSessionConfirmParams(RequestOptions):
     """
     The PaymentMethod to use with the requested session.
     """
+    return_url: NotRequired[str]
+    """
+    The URL to redirect your customer back to after they authenticate or complete a payment action. Required for redirect-based payment methods such as Affirm or Klarna.
+    """
     risk_details: NotRequired["RequestedSessionConfirmParamsRiskDetails"]
     """
     Risk details/signals associated with the requested session

@@ -20,6 +20,7 @@ if TYPE_CHECKING:
     from stripe._line_item import LineItem
     from stripe._payment_intent import PaymentIntent
     from stripe._payment_link import PaymentLink
+    from stripe._payment_record import PaymentRecord
     from stripe._promotion_code import PromotionCode
     from stripe._setup_intent import SetupIntent
     from stripe._shipping_rate import ShippingRate
@@ -2860,6 +2861,11 @@ class Session(
     """
     Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `custom`.
     """
+    custom_payment_method_types: Optional[List[str]]
+    """
+    A list of the types of [custom payment methods](https://docs.stripe.com/payments/payment-methods/custom-payment-methods) (e.g. cpmt_123) this Checkout
+    Session is allowed to accept.
+    """
     custom_text: CustomText
     customer: Optional[ExpandableField["Customer"]]
     """
@@ -3024,6 +3030,10 @@ class Session(
     """
     A list of the types of payment methods (e.g. card) this Checkout
     Session is allowed to accept.
+    """
+    payment_record: Optional[ExpandableField["PaymentRecord"]]
+    """
+    The [Payment Record](https://docs.stripe.com/api/payment-record) for this Checkout Session.
     """
     payment_status: Literal["no_payment_required", "paid", "unpaid"]
     """
