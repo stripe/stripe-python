@@ -38,15 +38,31 @@ class AccountEvaluation(
             The reason why this login failed.
             """
 
+        class LoginSucceeded(StripeObject):
+            qualification: Optional[str]
+            """
+            The qualification for a login success.
+            """
+
         class RegistrationFailed(StripeObject):
             reason: str
             """
             The reason why this registration failed.
             """
 
+        class RegistrationSucceeded(StripeObject):
+            qualification: Optional[str]
+            """
+            The qualification for a registration success.
+            """
+
         login_failed: Optional[LoginFailed]
         """
         Data about a failed login event.
+        """
+        login_succeeded: Optional[LoginSucceeded]
+        """
+        Data about a succeeded login event.
         """
         occurred_at: int
         """
@@ -56,13 +72,19 @@ class AccountEvaluation(
         """
         Data about a failed registration event.
         """
+        registration_succeeded: Optional[RegistrationSucceeded]
+        """
+        Data about a succeeded registration event.
+        """
         type: str
         """
         The type of event that occurred.
         """
         _inner_class_types = {
             "login_failed": LoginFailed,
+            "login_succeeded": LoginSucceeded,
             "registration_failed": RegistrationFailed,
+            "registration_succeeded": RegistrationSucceeded,
         }
 
     class Signals(StripeObject):

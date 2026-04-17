@@ -15,7 +15,9 @@ if TYPE_CHECKING:
     from stripe.params.radar._account_evaluation_modify_params import (
         AccountEvaluationModifyParams as AccountEvaluationModifyParams,
         AccountEvaluationModifyParamsLoginFailed as AccountEvaluationModifyParamsLoginFailed,
+        AccountEvaluationModifyParamsLoginSucceeded as AccountEvaluationModifyParamsLoginSucceeded,
         AccountEvaluationModifyParamsRegistrationFailed as AccountEvaluationModifyParamsRegistrationFailed,
+        AccountEvaluationModifyParamsRegistrationSucceeded as AccountEvaluationModifyParamsRegistrationSucceeded,
     )
     from stripe.params.radar._account_evaluation_retrieve_params import (
         AccountEvaluationRetrieveParams as AccountEvaluationRetrieveParams,
@@ -23,7 +25,9 @@ if TYPE_CHECKING:
     from stripe.params.radar._account_evaluation_update_params import (
         AccountEvaluationUpdateParams as AccountEvaluationUpdateParams,
         AccountEvaluationUpdateParamsLoginFailed as AccountEvaluationUpdateParamsLoginFailed,
+        AccountEvaluationUpdateParamsLoginSucceeded as AccountEvaluationUpdateParamsLoginSucceeded,
         AccountEvaluationUpdateParamsRegistrationFailed as AccountEvaluationUpdateParamsRegistrationFailed,
+        AccountEvaluationUpdateParamsRegistrationSucceeded as AccountEvaluationUpdateParamsRegistrationSucceeded,
     )
     from stripe.params.radar._customer_evaluation_create_params import (
         CustomerEvaluationCreateParams as CustomerEvaluationCreateParams,
@@ -142,7 +146,15 @@ _import_map = {
         "stripe.params.radar._account_evaluation_modify_params",
         False,
     ),
+    "AccountEvaluationModifyParamsLoginSucceeded": (
+        "stripe.params.radar._account_evaluation_modify_params",
+        False,
+    ),
     "AccountEvaluationModifyParamsRegistrationFailed": (
+        "stripe.params.radar._account_evaluation_modify_params",
+        False,
+    ),
+    "AccountEvaluationModifyParamsRegistrationSucceeded": (
         "stripe.params.radar._account_evaluation_modify_params",
         False,
     ),
@@ -158,7 +170,15 @@ _import_map = {
         "stripe.params.radar._account_evaluation_update_params",
         False,
     ),
+    "AccountEvaluationUpdateParamsLoginSucceeded": (
+        "stripe.params.radar._account_evaluation_update_params",
+        False,
+    ),
     "AccountEvaluationUpdateParamsRegistrationFailed": (
+        "stripe.params.radar._account_evaluation_update_params",
+        False,
+    ),
+    "AccountEvaluationUpdateParamsRegistrationSucceeded": (
         "stripe.params.radar._account_evaluation_update_params",
         False,
     ),
