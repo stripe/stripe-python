@@ -29,7 +29,7 @@ class SetupIntentUpdateParams(TypedDict):
     An arbitrary string attached to the object. Often useful for displaying to users.
     """
     excluded_payment_method_types: NotRequired[
-        "Literal['']|List[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'gopay', 'grabpay', 'id_bank_transfer', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'qris', 'rechnung', 'revolut_pay', 'samsung_pay', 'satispay', 'sepa_debit', 'shopeepay', 'sofort', 'stripe_balance', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay', 'zip']]"
+        "Literal['']|List[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'gopay', 'grabpay', 'id_bank_transfer', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'qris', 'rechnung', 'revolut_pay', 'samsung_pay', 'satispay', 'sepa_debit', 'shopeepay', 'sofort', 'stripe_balance', 'sunbit', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay', 'zip']]"
     ]
     """
     The list of payment method types to exclude from use with this SetupIntent.
@@ -324,6 +324,10 @@ class SetupIntentUpdateParamsPaymentMethodData(TypedDict):
     """
     If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
     """
+    shared_payment_granted_token: NotRequired[str]
+    """
+    ID of the SharedPaymentGrantedToken used to confirm this PaymentIntent.
+    """
     shopeepay: NotRequired["SetupIntentUpdateParamsPaymentMethodDataShopeepay"]
     """
     If this is a Shopeepay PaymentMethod, this hash contains details about the Shopeepay payment method.
@@ -337,6 +341,10 @@ class SetupIntentUpdateParamsPaymentMethodData(TypedDict):
     ]
     """
     This hash contains details about the Stripe balance payment method.
+    """
+    sunbit: NotRequired["SetupIntentUpdateParamsPaymentMethodDataSunbit"]
+    """
+    If this is a Sunbit PaymentMethod, this hash contains details about the Sunbit payment method.
     """
     swish: NotRequired["SetupIntentUpdateParamsPaymentMethodDataSwish"]
     """
@@ -398,6 +406,7 @@ class SetupIntentUpdateParamsPaymentMethodData(TypedDict):
         "shopeepay",
         "sofort",
         "stripe_balance",
+        "sunbit",
         "swish",
         "twint",
         "upi",
@@ -927,6 +936,10 @@ class SetupIntentUpdateParamsPaymentMethodDataStripeBalance(TypedDict):
     """
     The connected account ID whose Stripe balance to use as the source of payment
     """
+
+
+class SetupIntentUpdateParamsPaymentMethodDataSunbit(TypedDict):
+    pass
 
 
 class SetupIntentUpdateParamsPaymentMethodDataSwish(TypedDict):

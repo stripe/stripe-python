@@ -289,6 +289,14 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     "review": ("stripe._review", "Review"),
     "setup_attempt": ("stripe._setup_attempt", "SetupAttempt"),
     "setup_intent": ("stripe._setup_intent", "SetupIntent"),
+    "shared_payment.granted_token": (
+        "stripe.shared_payment._granted_token",
+        "GrantedToken",
+    ),
+    "shared_payment.issued_token": (
+        "stripe.shared_payment._issued_token",
+        "IssuedToken",
+    ),
     "shipping_rate": ("stripe._shipping_rate", "ShippingRate"),
     "scheduled_query_run": (
         "stripe.sigma._scheduled_query_run",

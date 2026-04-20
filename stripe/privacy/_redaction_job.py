@@ -132,6 +132,10 @@ class RedactionJob(
     """
     Validation behavior determines how a job validates objects for redaction eligibility. Default is `error`.
     """
+    validation_errors: Optional[ListObject["RedactionJobValidationError"]]
+    """
+    The first 10 validation errors for the current validation attempt. Use the validation errors list endpoint to paginate through the full list.
+    """
 
     @classmethod
     def _cls_cancel(

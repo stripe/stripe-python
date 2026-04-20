@@ -524,6 +524,10 @@ class Authorization(
     """
     You can [create physical or virtual cards](https://docs.stripe.com/issuing) that are issued to cardholders.
     """
+    card_presence: Optional[Literal["not_present", "present"]]
+    """
+    Whether the card was present at the point of sale for the authorization.
+    """
     cardholder: Optional[ExpandableField["Cardholder"]]
     """
     The cardholder to whom this authorization belongs.

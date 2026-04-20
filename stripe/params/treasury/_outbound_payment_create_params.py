@@ -55,6 +55,10 @@ class OutboundPaymentCreateParams(RequestOptions):
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
+    purpose: NotRequired[Literal["payroll"]]
+    """
+    The purpose of the OutboundPayment, if applicable. This list is not exhaustive, do not specify this parameter if your purpose does not match any that are provided.
+    """
     statement_descriptor: NotRequired[str]
     """
     The description that appears on the receiving end for this OutboundPayment (for example, bank statement for external bank transfer). Maximum 10 characters for `ach` payments, 140 characters for `us_domestic_wire` payments, or 500 characters for `stripe` network transfers. Can only include -#.$&*, spaces, and alphanumeric characters. The default value is "payment".

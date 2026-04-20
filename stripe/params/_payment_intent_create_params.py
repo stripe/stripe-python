@@ -127,6 +127,7 @@ class PaymentIntentCreateParams(RequestOptions):
                 "shopeepay",
                 "sofort",
                 "stripe_balance",
+                "sunbit",
                 "swish",
                 "twint",
                 "upi",
@@ -2611,6 +2612,10 @@ class PaymentIntentCreateParamsPaymentMethodData(TypedDict):
     """
     If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
     """
+    shared_payment_granted_token: NotRequired[str]
+    """
+    ID of the SharedPaymentGrantedToken used to confirm this PaymentIntent.
+    """
     shopeepay: NotRequired[
         "PaymentIntentCreateParamsPaymentMethodDataShopeepay"
     ]
@@ -2626,6 +2631,10 @@ class PaymentIntentCreateParamsPaymentMethodData(TypedDict):
     ]
     """
     This hash contains details about the Stripe balance payment method.
+    """
+    sunbit: NotRequired["PaymentIntentCreateParamsPaymentMethodDataSunbit"]
+    """
+    If this is a Sunbit PaymentMethod, this hash contains details about the Sunbit payment method.
     """
     swish: NotRequired["PaymentIntentCreateParamsPaymentMethodDataSwish"]
     """
@@ -2687,6 +2696,7 @@ class PaymentIntentCreateParamsPaymentMethodData(TypedDict):
         "shopeepay",
         "sofort",
         "stripe_balance",
+        "sunbit",
         "swish",
         "twint",
         "upi",
@@ -3218,6 +3228,10 @@ class PaymentIntentCreateParamsPaymentMethodDataStripeBalance(TypedDict):
     """
     The connected account ID whose Stripe balance to use as the source of payment
     """
+
+
+class PaymentIntentCreateParamsPaymentMethodDataSunbit(TypedDict):
+    pass
 
 
 class PaymentIntentCreateParamsPaymentMethodDataSwish(TypedDict):
@@ -6263,8 +6277,6 @@ class PaymentIntentCreateParamsPaymentMethodOptionsPix(TypedDict):
     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
-
-    If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
     """
 
 

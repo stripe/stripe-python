@@ -21,6 +21,7 @@ if TYPE_CHECKING:
         radar as radar,
         reporting as reporting,
         reserve as reserve,
+        shared_payment as shared_payment,
         sigma as sigma,
         tax as tax,
         terminal as terminal,
@@ -58,6 +59,7 @@ if TYPE_CHECKING:
         AccountCreateParamsCapabilitiesAfterpayClearpayPayments as AccountCreateParamsCapabilitiesAfterpayClearpayPayments,
         AccountCreateParamsCapabilitiesAlmaPayments as AccountCreateParamsCapabilitiesAlmaPayments,
         AccountCreateParamsCapabilitiesAmazonPayPayments as AccountCreateParamsCapabilitiesAmazonPayPayments,
+        AccountCreateParamsCapabilitiesAppDistribution as AccountCreateParamsCapabilitiesAppDistribution,
         AccountCreateParamsCapabilitiesAuBecsDebitPayments as AccountCreateParamsCapabilitiesAuBecsDebitPayments,
         AccountCreateParamsCapabilitiesAutomaticIndirectTax as AccountCreateParamsCapabilitiesAutomaticIndirectTax,
         AccountCreateParamsCapabilitiesBacsDebitPayments as AccountCreateParamsCapabilitiesBacsDebitPayments,
@@ -115,6 +117,7 @@ if TYPE_CHECKING:
         AccountCreateParamsCapabilitiesShopeepayPayments as AccountCreateParamsCapabilitiesShopeepayPayments,
         AccountCreateParamsCapabilitiesSofortPayments as AccountCreateParamsCapabilitiesSofortPayments,
         AccountCreateParamsCapabilitiesStripeBalancePayments as AccountCreateParamsCapabilitiesStripeBalancePayments,
+        AccountCreateParamsCapabilitiesSunbitPayments as AccountCreateParamsCapabilitiesSunbitPayments,
         AccountCreateParamsCapabilitiesSwishPayments as AccountCreateParamsCapabilitiesSwishPayments,
         AccountCreateParamsCapabilitiesTaxReportingUs1099K as AccountCreateParamsCapabilitiesTaxReportingUs1099K,
         AccountCreateParamsCapabilitiesTaxReportingUs1099Misc as AccountCreateParamsCapabilitiesTaxReportingUs1099Misc,
@@ -396,6 +399,8 @@ if TYPE_CHECKING:
         AccountSessionCreateParamsComponentsAppInstallFeatures as AccountSessionCreateParamsComponentsAppInstallFeatures,
         AccountSessionCreateParamsComponentsAppViewport as AccountSessionCreateParamsComponentsAppViewport,
         AccountSessionCreateParamsComponentsAppViewportFeatures as AccountSessionCreateParamsComponentsAppViewportFeatures,
+        AccountSessionCreateParamsComponentsBalanceReport as AccountSessionCreateParamsComponentsBalanceReport,
+        AccountSessionCreateParamsComponentsBalanceReportFeatures as AccountSessionCreateParamsComponentsBalanceReportFeatures,
         AccountSessionCreateParamsComponentsBalances as AccountSessionCreateParamsComponentsBalances,
         AccountSessionCreateParamsComponentsBalancesFeatures as AccountSessionCreateParamsComponentsBalancesFeatures,
         AccountSessionCreateParamsComponentsCapitalFinancing as AccountSessionCreateParamsComponentsCapitalFinancing,
@@ -434,6 +439,8 @@ if TYPE_CHECKING:
         AccountSessionCreateParamsComponentsPaymentsFeatures as AccountSessionCreateParamsComponentsPaymentsFeatures,
         AccountSessionCreateParamsComponentsPayoutDetails as AccountSessionCreateParamsComponentsPayoutDetails,
         AccountSessionCreateParamsComponentsPayoutDetailsFeatures as AccountSessionCreateParamsComponentsPayoutDetailsFeatures,
+        AccountSessionCreateParamsComponentsPayoutReconciliationReport as AccountSessionCreateParamsComponentsPayoutReconciliationReport,
+        AccountSessionCreateParamsComponentsPayoutReconciliationReportFeatures as AccountSessionCreateParamsComponentsPayoutReconciliationReportFeatures,
         AccountSessionCreateParamsComponentsPayouts as AccountSessionCreateParamsComponentsPayouts,
         AccountSessionCreateParamsComponentsPayoutsFeatures as AccountSessionCreateParamsComponentsPayoutsFeatures,
         AccountSessionCreateParamsComponentsPayoutsList as AccountSessionCreateParamsComponentsPayoutsList,
@@ -464,6 +471,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsCapabilitiesAfterpayClearpayPayments as AccountUpdateParamsCapabilitiesAfterpayClearpayPayments,
         AccountUpdateParamsCapabilitiesAlmaPayments as AccountUpdateParamsCapabilitiesAlmaPayments,
         AccountUpdateParamsCapabilitiesAmazonPayPayments as AccountUpdateParamsCapabilitiesAmazonPayPayments,
+        AccountUpdateParamsCapabilitiesAppDistribution as AccountUpdateParamsCapabilitiesAppDistribution,
         AccountUpdateParamsCapabilitiesAuBecsDebitPayments as AccountUpdateParamsCapabilitiesAuBecsDebitPayments,
         AccountUpdateParamsCapabilitiesAutomaticIndirectTax as AccountUpdateParamsCapabilitiesAutomaticIndirectTax,
         AccountUpdateParamsCapabilitiesBacsDebitPayments as AccountUpdateParamsCapabilitiesBacsDebitPayments,
@@ -521,6 +529,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsCapabilitiesShopeepayPayments as AccountUpdateParamsCapabilitiesShopeepayPayments,
         AccountUpdateParamsCapabilitiesSofortPayments as AccountUpdateParamsCapabilitiesSofortPayments,
         AccountUpdateParamsCapabilitiesStripeBalancePayments as AccountUpdateParamsCapabilitiesStripeBalancePayments,
+        AccountUpdateParamsCapabilitiesSunbitPayments as AccountUpdateParamsCapabilitiesSunbitPayments,
         AccountUpdateParamsCapabilitiesSwishPayments as AccountUpdateParamsCapabilitiesSwishPayments,
         AccountUpdateParamsCapabilitiesTaxReportingUs1099K as AccountUpdateParamsCapabilitiesTaxReportingUs1099K,
         AccountUpdateParamsCapabilitiesTaxReportingUs1099Misc as AccountUpdateParamsCapabilitiesTaxReportingUs1099Misc,
@@ -983,6 +992,7 @@ if TYPE_CHECKING:
         ConfirmationTokenCreateParamsPaymentMethodDataShopeepay as ConfirmationTokenCreateParamsPaymentMethodDataShopeepay,
         ConfirmationTokenCreateParamsPaymentMethodDataSofort as ConfirmationTokenCreateParamsPaymentMethodDataSofort,
         ConfirmationTokenCreateParamsPaymentMethodDataStripeBalance as ConfirmationTokenCreateParamsPaymentMethodDataStripeBalance,
+        ConfirmationTokenCreateParamsPaymentMethodDataSunbit as ConfirmationTokenCreateParamsPaymentMethodDataSunbit,
         ConfirmationTokenCreateParamsPaymentMethodDataSwish as ConfirmationTokenCreateParamsPaymentMethodDataSwish,
         ConfirmationTokenCreateParamsPaymentMethodDataTwint as ConfirmationTokenCreateParamsPaymentMethodDataTwint,
         ConfirmationTokenCreateParamsPaymentMethodDataUpi as ConfirmationTokenCreateParamsPaymentMethodDataUpi,
@@ -1433,6 +1443,7 @@ if TYPE_CHECKING:
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebit as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebit,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBancontact as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBancontact,
+        InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBlik as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBlik,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCard as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCard,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCardInstallments as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCardInstallments,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCardInstallmentsPlan as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCardInstallmentsPlan,
@@ -1654,6 +1665,7 @@ if TYPE_CHECKING:
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebit as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebit,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBancontact as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBancontact,
+        InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBlik as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBlik,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCard as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCard,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCardInstallments as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCardInstallments,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCardInstallmentsPlan as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCardInstallmentsPlan,
@@ -1749,6 +1761,7 @@ if TYPE_CHECKING:
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsAcssDebit as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsAcssDebit,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBancontact as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBancontact,
+        InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBlik as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBlik,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCard as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCard,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCardInstallments as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCardInstallments,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCardInstallmentsPlan as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCardInstallmentsPlan,
@@ -2322,6 +2335,7 @@ if TYPE_CHECKING:
         PaymentIntentConfirmParamsPaymentMethodDataShopeepay as PaymentIntentConfirmParamsPaymentMethodDataShopeepay,
         PaymentIntentConfirmParamsPaymentMethodDataSofort as PaymentIntentConfirmParamsPaymentMethodDataSofort,
         PaymentIntentConfirmParamsPaymentMethodDataStripeBalance as PaymentIntentConfirmParamsPaymentMethodDataStripeBalance,
+        PaymentIntentConfirmParamsPaymentMethodDataSunbit as PaymentIntentConfirmParamsPaymentMethodDataSunbit,
         PaymentIntentConfirmParamsPaymentMethodDataSwish as PaymentIntentConfirmParamsPaymentMethodDataSwish,
         PaymentIntentConfirmParamsPaymentMethodDataTwint as PaymentIntentConfirmParamsPaymentMethodDataTwint,
         PaymentIntentConfirmParamsPaymentMethodDataUpi as PaymentIntentConfirmParamsPaymentMethodDataUpi,
@@ -2605,6 +2619,7 @@ if TYPE_CHECKING:
         PaymentIntentCreateParamsPaymentMethodDataShopeepay as PaymentIntentCreateParamsPaymentMethodDataShopeepay,
         PaymentIntentCreateParamsPaymentMethodDataSofort as PaymentIntentCreateParamsPaymentMethodDataSofort,
         PaymentIntentCreateParamsPaymentMethodDataStripeBalance as PaymentIntentCreateParamsPaymentMethodDataStripeBalance,
+        PaymentIntentCreateParamsPaymentMethodDataSunbit as PaymentIntentCreateParamsPaymentMethodDataSunbit,
         PaymentIntentCreateParamsPaymentMethodDataSwish as PaymentIntentCreateParamsPaymentMethodDataSwish,
         PaymentIntentCreateParamsPaymentMethodDataTwint as PaymentIntentCreateParamsPaymentMethodDataTwint,
         PaymentIntentCreateParamsPaymentMethodDataUpi as PaymentIntentCreateParamsPaymentMethodDataUpi,
@@ -2934,6 +2949,7 @@ if TYPE_CHECKING:
         PaymentIntentModifyParamsPaymentMethodDataShopeepay as PaymentIntentModifyParamsPaymentMethodDataShopeepay,
         PaymentIntentModifyParamsPaymentMethodDataSofort as PaymentIntentModifyParamsPaymentMethodDataSofort,
         PaymentIntentModifyParamsPaymentMethodDataStripeBalance as PaymentIntentModifyParamsPaymentMethodDataStripeBalance,
+        PaymentIntentModifyParamsPaymentMethodDataSunbit as PaymentIntentModifyParamsPaymentMethodDataSunbit,
         PaymentIntentModifyParamsPaymentMethodDataSwish as PaymentIntentModifyParamsPaymentMethodDataSwish,
         PaymentIntentModifyParamsPaymentMethodDataTwint as PaymentIntentModifyParamsPaymentMethodDataTwint,
         PaymentIntentModifyParamsPaymentMethodDataUpi as PaymentIntentModifyParamsPaymentMethodDataUpi,
@@ -3225,6 +3241,7 @@ if TYPE_CHECKING:
         PaymentIntentUpdateParamsPaymentMethodDataShopeepay as PaymentIntentUpdateParamsPaymentMethodDataShopeepay,
         PaymentIntentUpdateParamsPaymentMethodDataSofort as PaymentIntentUpdateParamsPaymentMethodDataSofort,
         PaymentIntentUpdateParamsPaymentMethodDataStripeBalance as PaymentIntentUpdateParamsPaymentMethodDataStripeBalance,
+        PaymentIntentUpdateParamsPaymentMethodDataSunbit as PaymentIntentUpdateParamsPaymentMethodDataSunbit,
         PaymentIntentUpdateParamsPaymentMethodDataSwish as PaymentIntentUpdateParamsPaymentMethodDataSwish,
         PaymentIntentUpdateParamsPaymentMethodDataTwint as PaymentIntentUpdateParamsPaymentMethodDataTwint,
         PaymentIntentUpdateParamsPaymentMethodDataUpi as PaymentIntentUpdateParamsPaymentMethodDataUpi,
@@ -3627,6 +3644,8 @@ if TYPE_CHECKING:
         PaymentMethodConfigurationCreateParamsShopeepayDisplayPreference as PaymentMethodConfigurationCreateParamsShopeepayDisplayPreference,
         PaymentMethodConfigurationCreateParamsSofort as PaymentMethodConfigurationCreateParamsSofort,
         PaymentMethodConfigurationCreateParamsSofortDisplayPreference as PaymentMethodConfigurationCreateParamsSofortDisplayPreference,
+        PaymentMethodConfigurationCreateParamsSunbit as PaymentMethodConfigurationCreateParamsSunbit,
+        PaymentMethodConfigurationCreateParamsSunbitDisplayPreference as PaymentMethodConfigurationCreateParamsSunbitDisplayPreference,
         PaymentMethodConfigurationCreateParamsSwish as PaymentMethodConfigurationCreateParamsSwish,
         PaymentMethodConfigurationCreateParamsSwishDisplayPreference as PaymentMethodConfigurationCreateParamsSwishDisplayPreference,
         PaymentMethodConfigurationCreateParamsTwint as PaymentMethodConfigurationCreateParamsTwint,
@@ -3757,6 +3776,8 @@ if TYPE_CHECKING:
         PaymentMethodConfigurationModifyParamsShopeepayDisplayPreference as PaymentMethodConfigurationModifyParamsShopeepayDisplayPreference,
         PaymentMethodConfigurationModifyParamsSofort as PaymentMethodConfigurationModifyParamsSofort,
         PaymentMethodConfigurationModifyParamsSofortDisplayPreference as PaymentMethodConfigurationModifyParamsSofortDisplayPreference,
+        PaymentMethodConfigurationModifyParamsSunbit as PaymentMethodConfigurationModifyParamsSunbit,
+        PaymentMethodConfigurationModifyParamsSunbitDisplayPreference as PaymentMethodConfigurationModifyParamsSunbitDisplayPreference,
         PaymentMethodConfigurationModifyParamsSwish as PaymentMethodConfigurationModifyParamsSwish,
         PaymentMethodConfigurationModifyParamsSwishDisplayPreference as PaymentMethodConfigurationModifyParamsSwishDisplayPreference,
         PaymentMethodConfigurationModifyParamsTwint as PaymentMethodConfigurationModifyParamsTwint,
@@ -3887,6 +3908,8 @@ if TYPE_CHECKING:
         PaymentMethodConfigurationUpdateParamsShopeepayDisplayPreference as PaymentMethodConfigurationUpdateParamsShopeepayDisplayPreference,
         PaymentMethodConfigurationUpdateParamsSofort as PaymentMethodConfigurationUpdateParamsSofort,
         PaymentMethodConfigurationUpdateParamsSofortDisplayPreference as PaymentMethodConfigurationUpdateParamsSofortDisplayPreference,
+        PaymentMethodConfigurationUpdateParamsSunbit as PaymentMethodConfigurationUpdateParamsSunbit,
+        PaymentMethodConfigurationUpdateParamsSunbitDisplayPreference as PaymentMethodConfigurationUpdateParamsSunbitDisplayPreference,
         PaymentMethodConfigurationUpdateParamsSwish as PaymentMethodConfigurationUpdateParamsSwish,
         PaymentMethodConfigurationUpdateParamsSwishDisplayPreference as PaymentMethodConfigurationUpdateParamsSwishDisplayPreference,
         PaymentMethodConfigurationUpdateParamsTwint as PaymentMethodConfigurationUpdateParamsTwint,
@@ -3962,6 +3985,7 @@ if TYPE_CHECKING:
         PaymentMethodCreateParamsShopeepay as PaymentMethodCreateParamsShopeepay,
         PaymentMethodCreateParamsSofort as PaymentMethodCreateParamsSofort,
         PaymentMethodCreateParamsStripeBalance as PaymentMethodCreateParamsStripeBalance,
+        PaymentMethodCreateParamsSunbit as PaymentMethodCreateParamsSunbit,
         PaymentMethodCreateParamsSwish as PaymentMethodCreateParamsSwish,
         PaymentMethodCreateParamsTwint as PaymentMethodCreateParamsTwint,
         PaymentMethodCreateParamsUpi as PaymentMethodCreateParamsUpi,
@@ -4585,6 +4609,7 @@ if TYPE_CHECKING:
         SetupIntentConfirmParamsPaymentMethodDataShopeepay as SetupIntentConfirmParamsPaymentMethodDataShopeepay,
         SetupIntentConfirmParamsPaymentMethodDataSofort as SetupIntentConfirmParamsPaymentMethodDataSofort,
         SetupIntentConfirmParamsPaymentMethodDataStripeBalance as SetupIntentConfirmParamsPaymentMethodDataStripeBalance,
+        SetupIntentConfirmParamsPaymentMethodDataSunbit as SetupIntentConfirmParamsPaymentMethodDataSunbit,
         SetupIntentConfirmParamsPaymentMethodDataSwish as SetupIntentConfirmParamsPaymentMethodDataSwish,
         SetupIntentConfirmParamsPaymentMethodDataTwint as SetupIntentConfirmParamsPaymentMethodDataTwint,
         SetupIntentConfirmParamsPaymentMethodDataUpi as SetupIntentConfirmParamsPaymentMethodDataUpi,
@@ -4690,6 +4715,7 @@ if TYPE_CHECKING:
         SetupIntentCreateParamsPaymentMethodDataShopeepay as SetupIntentCreateParamsPaymentMethodDataShopeepay,
         SetupIntentCreateParamsPaymentMethodDataSofort as SetupIntentCreateParamsPaymentMethodDataSofort,
         SetupIntentCreateParamsPaymentMethodDataStripeBalance as SetupIntentCreateParamsPaymentMethodDataStripeBalance,
+        SetupIntentCreateParamsPaymentMethodDataSunbit as SetupIntentCreateParamsPaymentMethodDataSunbit,
         SetupIntentCreateParamsPaymentMethodDataSwish as SetupIntentCreateParamsPaymentMethodDataSwish,
         SetupIntentCreateParamsPaymentMethodDataTwint as SetupIntentCreateParamsPaymentMethodDataTwint,
         SetupIntentCreateParamsPaymentMethodDataUpi as SetupIntentCreateParamsPaymentMethodDataUpi,
@@ -4795,6 +4821,7 @@ if TYPE_CHECKING:
         SetupIntentModifyParamsPaymentMethodDataShopeepay as SetupIntentModifyParamsPaymentMethodDataShopeepay,
         SetupIntentModifyParamsPaymentMethodDataSofort as SetupIntentModifyParamsPaymentMethodDataSofort,
         SetupIntentModifyParamsPaymentMethodDataStripeBalance as SetupIntentModifyParamsPaymentMethodDataStripeBalance,
+        SetupIntentModifyParamsPaymentMethodDataSunbit as SetupIntentModifyParamsPaymentMethodDataSunbit,
         SetupIntentModifyParamsPaymentMethodDataSwish as SetupIntentModifyParamsPaymentMethodDataSwish,
         SetupIntentModifyParamsPaymentMethodDataTwint as SetupIntentModifyParamsPaymentMethodDataTwint,
         SetupIntentModifyParamsPaymentMethodDataUpi as SetupIntentModifyParamsPaymentMethodDataUpi,
@@ -4898,6 +4925,7 @@ if TYPE_CHECKING:
         SetupIntentUpdateParamsPaymentMethodDataShopeepay as SetupIntentUpdateParamsPaymentMethodDataShopeepay,
         SetupIntentUpdateParamsPaymentMethodDataSofort as SetupIntentUpdateParamsPaymentMethodDataSofort,
         SetupIntentUpdateParamsPaymentMethodDataStripeBalance as SetupIntentUpdateParamsPaymentMethodDataStripeBalance,
+        SetupIntentUpdateParamsPaymentMethodDataSunbit as SetupIntentUpdateParamsPaymentMethodDataSunbit,
         SetupIntentUpdateParamsPaymentMethodDataSwish as SetupIntentUpdateParamsPaymentMethodDataSwish,
         SetupIntentUpdateParamsPaymentMethodDataTwint as SetupIntentUpdateParamsPaymentMethodDataTwint,
         SetupIntentUpdateParamsPaymentMethodDataUpi as SetupIntentUpdateParamsPaymentMethodDataUpi,
@@ -5065,6 +5093,8 @@ if TYPE_CHECKING:
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebit as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebit,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBancontact as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBancontact,
+        SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBlik as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBlik,
+        SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBlikMandateOptions as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBlikMandateOptions,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCard as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCard,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCardMandateOptions as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCardMandateOptions,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance,
@@ -5180,6 +5210,8 @@ if TYPE_CHECKING:
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebit as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebit,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBancontact as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBancontact,
+        SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBlik as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBlik,
+        SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBlikMandateOptions as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBlikMandateOptions,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCard as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCard,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCardMandateOptions as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCardMandateOptions,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalance as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalance,
@@ -5429,6 +5461,8 @@ if TYPE_CHECKING:
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsAcssDebit as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsAcssDebit,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBancontact as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBancontact,
+        SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBlik as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBlik,
+        SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBlikMandateOptions as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBlikMandateOptions,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCard as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCard,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCardMandateOptions as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCardMandateOptions,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance,
@@ -5636,6 +5670,7 @@ _import_map = {
     "radar": ("stripe.params.radar", True),
     "reporting": ("stripe.params.reporting", True),
     "reserve": ("stripe.params.reserve", True),
+    "shared_payment": ("stripe.params.shared_payment", True),
     "sigma": ("stripe.params.sigma", True),
     "tax": ("stripe.params.tax", True),
     "terminal": ("stripe.params.terminal", True),
@@ -5715,6 +5750,10 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsCapabilitiesAmazonPayPayments": (
+        "stripe.params._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsCapabilitiesAppDistribution": (
         "stripe.params._account_create_params",
         False,
     ),
@@ -5943,6 +5982,10 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsCapabilitiesStripeBalancePayments": (
+        "stripe.params._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsCapabilitiesSunbitPayments": (
         "stripe.params._account_create_params",
         False,
     ),
@@ -6769,6 +6812,14 @@ _import_map = {
         "stripe.params._account_session_create_params",
         False,
     ),
+    "AccountSessionCreateParamsComponentsBalanceReport": (
+        "stripe.params._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsBalanceReportFeatures": (
+        "stripe.params._account_session_create_params",
+        False,
+    ),
     "AccountSessionCreateParamsComponentsBalances": (
         "stripe.params._account_session_create_params",
         False,
@@ -6921,6 +6972,14 @@ _import_map = {
         "stripe.params._account_session_create_params",
         False,
     ),
+    "AccountSessionCreateParamsComponentsPayoutReconciliationReport": (
+        "stripe.params._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsPayoutReconciliationReportFeatures": (
+        "stripe.params._account_session_create_params",
+        False,
+    ),
     "AccountSessionCreateParamsComponentsPayouts": (
         "stripe.params._account_session_create_params",
         False,
@@ -7027,6 +7086,10 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsCapabilitiesAmazonPayPayments": (
+        "stripe.params._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsCapabilitiesAppDistribution": (
         "stripe.params._account_update_params",
         False,
     ),
@@ -7255,6 +7318,10 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsCapabilitiesStripeBalancePayments": (
+        "stripe.params._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsCapabilitiesSunbitPayments": (
         "stripe.params._account_update_params",
         False,
     ),
@@ -8809,6 +8876,10 @@ _import_map = {
         "stripe.params._confirmation_token_create_params",
         False,
     ),
+    "ConfirmationTokenCreateParamsPaymentMethodDataSunbit": (
+        "stripe.params._confirmation_token_create_params",
+        False,
+    ),
     "ConfirmationTokenCreateParamsPaymentMethodDataSwish": (
         "stripe.params._confirmation_token_create_params",
         False,
@@ -9696,6 +9767,10 @@ _import_map = {
         "stripe.params._invoice_create_params",
         False,
     ),
+    "InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsBlik": (
+        "stripe.params._invoice_create_params",
+        False,
+    ),
     "InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCard": (
         "stripe.params._invoice_create_params",
         False,
@@ -10437,6 +10512,10 @@ _import_map = {
         "stripe.params._invoice_modify_params",
         False,
     ),
+    "InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsBlik": (
+        "stripe.params._invoice_modify_params",
+        False,
+    ),
     "InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCard": (
         "stripe.params._invoice_modify_params",
         False,
@@ -10698,6 +10777,10 @@ _import_map = {
         False,
     ),
     "InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBancontact": (
+        "stripe.params._invoice_update_params",
+        False,
+    ),
+    "InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBlik": (
         "stripe.params._invoice_update_params",
         False,
     ),
@@ -12759,6 +12842,10 @@ _import_map = {
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
+    "PaymentIntentConfirmParamsPaymentMethodDataSunbit": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
     "PaymentIntentConfirmParamsPaymentMethodDataSwish": (
         "stripe.params._payment_intent_confirm_params",
         False,
@@ -13880,6 +13967,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentCreateParamsPaymentMethodDataStripeBalance": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentMethodDataSunbit": (
         "stripe.params._payment_intent_create_params",
         False,
     ),
@@ -15159,6 +15250,10 @@ _import_map = {
         "stripe.params._payment_intent_modify_params",
         False,
     ),
+    "PaymentIntentModifyParamsPaymentMethodDataSunbit": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
     "PaymentIntentModifyParamsPaymentMethodDataSwish": (
         "stripe.params._payment_intent_modify_params",
         False,
@@ -16288,6 +16383,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentUpdateParamsPaymentMethodDataStripeBalance": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentMethodDataSunbit": (
         "stripe.params._payment_intent_update_params",
         False,
     ),
@@ -17819,6 +17918,14 @@ _import_map = {
         "stripe.params._payment_method_configuration_create_params",
         False,
     ),
+    "PaymentMethodConfigurationCreateParamsSunbit": (
+        "stripe.params._payment_method_configuration_create_params",
+        False,
+    ),
+    "PaymentMethodConfigurationCreateParamsSunbitDisplayPreference": (
+        "stripe.params._payment_method_configuration_create_params",
+        False,
+    ),
     "PaymentMethodConfigurationCreateParamsSwish": (
         "stripe.params._payment_method_configuration_create_params",
         False,
@@ -18320,6 +18427,14 @@ _import_map = {
         False,
     ),
     "PaymentMethodConfigurationModifyParamsSofortDisplayPreference": (
+        "stripe.params._payment_method_configuration_modify_params",
+        False,
+    ),
+    "PaymentMethodConfigurationModifyParamsSunbit": (
+        "stripe.params._payment_method_configuration_modify_params",
+        False,
+    ),
+    "PaymentMethodConfigurationModifyParamsSunbitDisplayPreference": (
         "stripe.params._payment_method_configuration_modify_params",
         False,
     ),
@@ -18827,6 +18942,14 @@ _import_map = {
         "stripe.params._payment_method_configuration_update_params",
         False,
     ),
+    "PaymentMethodConfigurationUpdateParamsSunbit": (
+        "stripe.params._payment_method_configuration_update_params",
+        False,
+    ),
+    "PaymentMethodConfigurationUpdateParamsSunbitDisplayPreference": (
+        "stripe.params._payment_method_configuration_update_params",
+        False,
+    ),
     "PaymentMethodConfigurationUpdateParamsSwish": (
         "stripe.params._payment_method_configuration_update_params",
         False,
@@ -19116,6 +19239,10 @@ _import_map = {
         False,
     ),
     "PaymentMethodCreateParamsStripeBalance": (
+        "stripe.params._payment_method_create_params",
+        False,
+    ),
+    "PaymentMethodCreateParamsSunbit": (
         "stripe.params._payment_method_create_params",
         False,
     ),
@@ -20655,6 +20782,10 @@ _import_map = {
         "stripe.params._setup_intent_confirm_params",
         False,
     ),
+    "SetupIntentConfirmParamsPaymentMethodDataSunbit": (
+        "stripe.params._setup_intent_confirm_params",
+        False,
+    ),
     "SetupIntentConfirmParamsPaymentMethodDataSwish": (
         "stripe.params._setup_intent_confirm_params",
         False,
@@ -21067,6 +21198,10 @@ _import_map = {
         "stripe.params._setup_intent_create_params",
         False,
     ),
+    "SetupIntentCreateParamsPaymentMethodDataSunbit": (
+        "stripe.params._setup_intent_create_params",
+        False,
+    ),
     "SetupIntentCreateParamsPaymentMethodDataSwish": (
         "stripe.params._setup_intent_create_params",
         False,
@@ -21471,6 +21606,10 @@ _import_map = {
         "stripe.params._setup_intent_modify_params",
         False,
     ),
+    "SetupIntentModifyParamsPaymentMethodDataSunbit": (
+        "stripe.params._setup_intent_modify_params",
+        False,
+    ),
     "SetupIntentModifyParamsPaymentMethodDataSwish": (
         "stripe.params._setup_intent_modify_params",
         False,
@@ -21864,6 +22003,10 @@ _import_map = {
         False,
     ),
     "SetupIntentUpdateParamsPaymentMethodDataStripeBalance": (
+        "stripe.params._setup_intent_update_params",
+        False,
+    ),
+    "SetupIntentUpdateParamsPaymentMethodDataSunbit": (
         "stripe.params._setup_intent_update_params",
         False,
     ),
@@ -22380,6 +22523,14 @@ _import_map = {
         "stripe.params._subscription_create_params",
         False,
     ),
+    "SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBlik": (
+        "stripe.params._subscription_create_params",
+        False,
+    ),
+    "SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsBlikMandateOptions": (
+        "stripe.params._subscription_create_params",
+        False,
+    ),
     "SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCard": (
         "stripe.params._subscription_create_params",
         False,
@@ -22757,6 +22908,14 @@ _import_map = {
         False,
     ),
     "SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBancontact": (
+        "stripe.params._subscription_modify_params",
+        False,
+    ),
+    "SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBlik": (
+        "stripe.params._subscription_modify_params",
+        False,
+    ),
+    "SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsBlikMandateOptions": (
         "stripe.params._subscription_modify_params",
         False,
     ),
@@ -23657,6 +23816,14 @@ _import_map = {
         False,
     ),
     "SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBancontact": (
+        "stripe.params._subscription_update_params",
+        False,
+    ),
+    "SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBlik": (
+        "stripe.params._subscription_update_params",
+        False,
+    ),
+    "SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBlikMandateOptions": (
         "stripe.params._subscription_update_params",
         False,
     ),

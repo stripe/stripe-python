@@ -328,6 +328,16 @@ class Subscription(
                 Preferred language of the Bancontact authorization page that the customer is redirected to.
                 """
 
+            class Blik(StripeObject):
+                class MandateOptions(StripeObject):
+                    expires_after: Optional[int]
+                    """
+                    Date when the mandate expires and no further payments will be charged. If not provided, the mandate will be set to be indefinite.
+                    """
+
+                mandate_options: Optional[MandateOptions]
+                _inner_class_types = {"mandate_options": MandateOptions}
+
             class Card(StripeObject):
                 class MandateOptions(StripeObject):
                     amount: Optional[int]
@@ -553,6 +563,10 @@ class Subscription(
             """
             This sub-hash contains details about the Bancontact payment method options to pass to invoices created by the subscription.
             """
+            blik: Optional[Blik]
+            """
+            This sub-hash contains details about the Blik payment method options to pass to invoices created by the subscription.
+            """
             card: Optional[Card]
             """
             This sub-hash contains details about the Card payment method options to pass to invoices created by the subscription.
@@ -592,6 +606,7 @@ class Subscription(
             _inner_class_types = {
                 "acss_debit": AcssDebit,
                 "bancontact": Bancontact,
+                "blik": Blik,
                 "card": Card,
                 "customer_balance": CustomerBalance,
                 "id_bank_transfer": IdBankTransfer,
@@ -618,6 +633,7 @@ class Subscription(
                     "au_becs_debit",
                     "bacs_debit",
                     "bancontact",
+                    "blik",
                     "boleto",
                     "card",
                     "cashapp",
@@ -1519,7 +1535,7 @@ class Subscription(
         cls, subscription: str, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
-        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice is not paid by the expiration date, it is voided and the subscription remains paused.
+        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice isn't paid by the expiration date, it is voided and the subscription remains paused. You can only resume subscriptions with collection_method set to charge_automatically. send_invoice subscriptions are not supported.
         """
         return cast(
             "Subscription",
@@ -1538,7 +1554,7 @@ class Subscription(
         subscription: str, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
-        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice is not paid by the expiration date, it is voided and the subscription remains paused.
+        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice isn't paid by the expiration date, it is voided and the subscription remains paused. You can only resume subscriptions with collection_method set to charge_automatically. send_invoice subscriptions are not supported.
         """
         ...
 
@@ -1547,7 +1563,7 @@ class Subscription(
         self, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
-        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice is not paid by the expiration date, it is voided and the subscription remains paused.
+        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice isn't paid by the expiration date, it is voided and the subscription remains paused. You can only resume subscriptions with collection_method set to charge_automatically. send_invoice subscriptions are not supported.
         """
         ...
 
@@ -1556,7 +1572,7 @@ class Subscription(
         self, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
-        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice is not paid by the expiration date, it is voided and the subscription remains paused.
+        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice isn't paid by the expiration date, it is voided and the subscription remains paused. You can only resume subscriptions with collection_method set to charge_automatically. send_invoice subscriptions are not supported.
         """
         return cast(
             "Subscription",
@@ -1574,7 +1590,7 @@ class Subscription(
         cls, subscription: str, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
-        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice is not paid by the expiration date, it is voided and the subscription remains paused.
+        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice isn't paid by the expiration date, it is voided and the subscription remains paused. You can only resume subscriptions with collection_method set to charge_automatically. send_invoice subscriptions are not supported.
         """
         return cast(
             "Subscription",
@@ -1593,7 +1609,7 @@ class Subscription(
         subscription: str, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
-        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice is not paid by the expiration date, it is voided and the subscription remains paused.
+        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice isn't paid by the expiration date, it is voided and the subscription remains paused. You can only resume subscriptions with collection_method set to charge_automatically. send_invoice subscriptions are not supported.
         """
         ...
 
@@ -1602,7 +1618,7 @@ class Subscription(
         self, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
-        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice is not paid by the expiration date, it is voided and the subscription remains paused.
+        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice isn't paid by the expiration date, it is voided and the subscription remains paused. You can only resume subscriptions with collection_method set to charge_automatically. send_invoice subscriptions are not supported.
         """
         ...
 
@@ -1611,7 +1627,7 @@ class Subscription(
         self, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
-        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice is not paid by the expiration date, it is voided and the subscription remains paused.
+        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice isn't paid by the expiration date, it is voided and the subscription remains paused. You can only resume subscriptions with collection_method set to charge_automatically. send_invoice subscriptions are not supported.
         """
         return cast(
             "Subscription",

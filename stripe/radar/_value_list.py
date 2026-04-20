@@ -61,6 +61,7 @@ class ValueList(
     Unique identifier for the object.
     """
     item_type: Literal[
+        "account",
         "card_bin",
         "card_fingerprint",
         "case_sensitive_string",
@@ -74,7 +75,7 @@ class ValueList(
         "us_bank_account_fingerprint",
     ]
     """
-    The type of items in the value list. One of `card_fingerprint`, `card_bin`, `crypto_fingerprint`, `email`, `ip_address`, `country`, `string`, `case_sensitive_string`, `customer_id`, `sepa_debit_fingerprint`, or `us_bank_account_fingerprint`.
+    The type of items in the value list. One of `card_fingerprint`, `card_bin`, `crypto_fingerprint`, `email`, `ip_address`, `country`, `string`, `case_sensitive_string`, `customer_id`, `account`, `sepa_debit_fingerprint`, or `us_bank_account_fingerprint`.
     """
     list_items: ListObject["ValueListItem"]
     """

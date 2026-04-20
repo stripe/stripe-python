@@ -250,11 +250,13 @@ class PaymentIntent(
                 "account_number_invalid",
                 "account_token_required_for_v2_account",
                 "acss_debit_session_incomplete",
+                "action_blocked",
                 "alipay_upgrade_required",
                 "amount_too_large",
                 "amount_too_small",
                 "api_key_expired",
                 "application_fees_not_allowed",
+                "approval_required",
                 "authentication_required",
                 "balance_insufficient",
                 "balance_invalid_parameter",
@@ -1170,6 +1172,24 @@ class PaymentIntent(
             """
             _inner_class_types = {"financial_addresses": FinancialAddress}
 
+        class KlarnaDisplayQrCode(StripeObject):
+            data: str
+            """
+            The data being used to generate QR code
+            """
+            expires_at: Optional[int]
+            """
+            The timestamp at which the QR code expires.
+            """
+            image_url_png: str
+            """
+            The image_url_png string used to render QR code
+            """
+            image_url_svg: str
+            """
+            The image_url_svg string used to render QR code
+            """
+
         class KonbiniDisplayDetails(StripeObject):
             class Stores(StripeObject):
                 class Familymart(StripeObject):
@@ -1475,6 +1495,7 @@ class PaymentIntent(
         display_bank_transfer_instructions: Optional[
             DisplayBankTransferInstructions
         ]
+        klarna_display_qr_code: Optional[KlarnaDisplayQrCode]
         konbini_display_details: Optional[KonbiniDisplayDetails]
         multibanco_display_details: Optional[MultibancoDisplayDetails]
         oxxo_display_details: Optional[OxxoDisplayDetails]
@@ -1508,6 +1529,7 @@ class PaymentIntent(
             "card_await_notification": CardAwaitNotification,
             "cashapp_handle_redirect_or_display_qr_code": CashappHandleRedirectOrDisplayQrCode,
             "display_bank_transfer_instructions": DisplayBankTransferInstructions,
+            "klarna_display_qr_code": KlarnaDisplayQrCode,
             "konbini_display_details": KonbiniDisplayDetails,
             "multibanco_display_details": MultibancoDisplayDetails,
             "oxxo_display_details": OxxoDisplayDetails,
@@ -4545,6 +4567,7 @@ class PaymentIntent(
                 "shopeepay",
                 "sofort",
                 "stripe_balance",
+                "sunbit",
                 "swish",
                 "twint",
                 "upi",

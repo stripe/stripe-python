@@ -6,6 +6,7 @@ from typing_extensions import TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe.test_helpers import (
         issuing as issuing,
+        shared_payment as shared_payment,
         terminal as terminal,
         treasury as treasury,
     )
@@ -21,6 +22,9 @@ if TYPE_CHECKING:
     from stripe.test_helpers._refund_service import (
         RefundService as RefundService,
     )
+    from stripe.test_helpers._shared_payment_service import (
+        SharedPaymentService as SharedPaymentService,
+    )
     from stripe.test_helpers._terminal_service import (
         TerminalService as TerminalService,
     )
@@ -35,6 +39,7 @@ if TYPE_CHECKING:
 # name -> (import_target, is_submodule)
 _import_map = {
     "issuing": ("stripe.test_helpers.issuing", True),
+    "shared_payment": ("stripe.test_helpers.shared_payment", True),
     "terminal": ("stripe.test_helpers.terminal", True),
     "treasury": ("stripe.test_helpers.treasury", True),
     "ConfirmationTokenService": (
@@ -44,6 +49,10 @@ _import_map = {
     "CustomerService": ("stripe.test_helpers._customer_service", False),
     "IssuingService": ("stripe.test_helpers._issuing_service", False),
     "RefundService": ("stripe.test_helpers._refund_service", False),
+    "SharedPaymentService": (
+        "stripe.test_helpers._shared_payment_service",
+        False,
+    ),
     "TerminalService": ("stripe.test_helpers._terminal_service", False),
     "TestClock": ("stripe.test_helpers._test_clock", False),
     "TestClockService": ("stripe.test_helpers._test_clock_service", False),

@@ -249,7 +249,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
 
         class Alma(StripeObject):
             class Installments(StripeObject):
-                count: int
+                count: Optional[int]
                 """
                 The number of installments.
                 """
@@ -917,7 +917,9 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             """
             The blockchain network that the transaction was sent on.
             """
-            token_currency: Optional[Literal["usdc", "usdg", "usdp"]]
+            token_currency: Optional[
+                Literal["phantom_cash", "usdc", "usdg", "usdp", "usdt"]
+            ]
             """
             The token currency that the transaction was sent with.
             """
@@ -973,13 +975,11 @@ class PaymentRecord(APIResource["PaymentRecord"]):
                 ]
             ]
             """
-            The customer's bank. Should be one of `arzte_und_apotheker_bank`, `austrian_anadi_bank_ag`, `bank_austria`, `bankhaus_carl_spangler`, `bankhaus_schelhammer_und_schattera_ag`, `bawag_psk_ag`, `bks_bank_ag`, `brull_kallmus_bank_ag`, `btv_vier_lander_bank`, `capital_bank_grawe_gruppe_ag`, `deutsche_bank_ag`, `dolomitenbank`, `easybank_ag`, `erste_bank_und_sparkassen`, `hypo_alpeadriabank_international_ag`, `hypo_noe_lb_fur_niederosterreich_u_wien`, `hypo_oberosterreich_salzburg_steiermark`, `hypo_tirol_bank_ag`, `hypo_vorarlberg_bank_ag`, `hypo_bank_burgenland_aktiengesellschaft`, `marchfelder_bank`, `oberbank_ag`, `raiffeisen_bankengruppe_osterreich`, `schoellerbank_ag`, `sparda_bank_wien`, `volksbank_gruppe`, `volkskreditbank_ag`, or `vr_bank_braunau`.
+            The customer's bank. Should be one of `arzte_und_apotheker_bank`, `austrian_anadi_bank_ag`, `bank_austria`, `bankhaus_carl_spangler`, `bankhaus_schelhammer_und_schattera_ag`, `bawag_psk_ag`, `bks_bank_ag`, `brull_kallmus_bank_ag`, `btv_vier_lander_bank`, `capital_bank_grawe_gruppe_ag`, `deutsche_bank_ag`, `dolomitenbank`, `easybank_ag`, `erste_bank_und_sparkassen`, `hypo_alpeadriabank_international_ag`, `hypo_noe_lb_fur_niederosterreich_u_wien`, `hypo_oberosterreich_salzburg_steiermark`, `hypo_tirol_bank_ag`, `hypo_vorarlberg_bank_ag`, `hypo_bank_burgenland_aktiengesellschaft`, `marchfelder_bank`, `oberbank_ag`, `raiffeisen_bankengruppe_osterreich`, `schoellerbank_ag`, `sparda_bank_wien`, `volksbank_gruppe`, `volkskreditbank_ag`, or `vr_bank_braunau`
             """
             verified_name: Optional[str]
             """
-            Owner's verified full name. Values are verified or provided by EPS directly
-            (if supported) at the time of authorization or settlement. They cannot be set or mutated.
-            EPS rarely provides this information so the attribute is usually empty.
+            Owner's verified full name. Values are verified or provided by EPS directly (if supported) at the time of authorization or settlement. They cannot be set or mutated. EPS rarely provides this information so the attribute is usually empty.
             """
 
         class Fpx(StripeObject):
@@ -1302,6 +1302,10 @@ class PaymentRecord(APIResource["PaymentRecord"]):
                 """
                 _inner_class_types = {"address": Address}
 
+            location: Optional[str]
+            """
+            ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
+            """
             payer_details: Optional[PayerDetails]
             """
             The payer details for this transaction.
@@ -1315,6 +1319,10 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             """
             Preferred language of the Klarna authorization page that the customer is redirected to.
             Can be one of `de-AT`, `en-AT`, `nl-BE`, `fr-BE`, `en-BE`, `de-DE`, `en-DE`, `da-DK`, `en-DK`, `es-ES`, `en-ES`, `fi-FI`, `sv-FI`, `en-FI`, `en-GB`, `en-IE`, `it-IT`, `en-IT`, `nl-NL`, `en-NL`, `nb-NO`, `en-NO`, `sv-SE`, `en-SE`, `en-US`, `es-US`, `fr-FR`, `en-FR`, `cs-CZ`, `en-CZ`, `ro-RO`, `en-RO`, `el-GR`, `en-GR`, `en-AU`, `en-NZ`, `en-CA`, `fr-CA`, `pl-PL`, `en-PL`, `pt-PT`, `en-PT`, `de-CH`, `fr-CH`, `it-CH`, or `en-CH`
+            """
+            reader: Optional[str]
+            """
+            ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
             """
             _inner_class_types = {"payer_details": PayerDetails}
 
@@ -1868,6 +1876,12 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             The connected account ID whose Stripe balance to use as the source of payment
             """
 
+        class Sunbit(StripeObject):
+            transaction_id: Optional[str]
+            """
+            The Sunbit transaction ID associated with this payment.
+            """
+
         class Swish(StripeObject):
             fingerprint: Optional[str]
             """
@@ -2028,6 +2042,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
         sofort: Optional[Sofort]
         stripe_account: Optional[StripeAccount]
         stripe_balance: Optional[StripeBalance]
+        sunbit: Optional[Sunbit]
         swish: Optional[Swish]
         twint: Optional[Twint]
         type: str
@@ -2102,6 +2117,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             "sofort": Sofort,
             "stripe_account": StripeAccount,
             "stripe_balance": StripeBalance,
+            "sunbit": Sunbit,
             "swish": Swish,
             "twint": Twint,
             "upi": Upi,

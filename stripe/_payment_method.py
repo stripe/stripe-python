@@ -1363,6 +1363,9 @@ class PaymentMethod(
         The connected account ID whose Stripe balance to use as the source of payment
         """
 
+    class Sunbit(StripeObject):
+        pass
+
     class Swish(StripeObject):
         pass
 
@@ -1566,9 +1569,14 @@ class PaymentMethod(
     samsung_pay: Optional[SamsungPay]
     satispay: Optional[Satispay]
     sepa_debit: Optional[SepaDebit]
+    shared_payment_granted_token: Optional[str]
+    """
+    ID of the shared payment granted token used in the creation of this PaymentMethod.
+    """
     shopeepay: Optional[Shopeepay]
     sofort: Optional[Sofort]
     stripe_balance: Optional[StripeBalance]
+    sunbit: Optional[Sunbit]
     swish: Optional[Swish]
     twint: Optional[Twint]
     type: Literal[
@@ -1627,6 +1635,7 @@ class PaymentMethod(
         "shopeepay",
         "sofort",
         "stripe_balance",
+        "sunbit",
         "swish",
         "twint",
         "upi",
@@ -2148,6 +2157,7 @@ class PaymentMethod(
         "shopeepay": Shopeepay,
         "sofort": Sofort,
         "stripe_balance": StripeBalance,
+        "sunbit": Sunbit,
         "swish": Swish,
         "twint": Twint,
         "upi": Upi,

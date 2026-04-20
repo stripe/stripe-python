@@ -65,6 +65,8 @@ if TYPE_CHECKING:
         SessionCreateParamsPaymentMethodOptionsBacsDebitMandateOptions as SessionCreateParamsPaymentMethodOptionsBacsDebitMandateOptions,
         SessionCreateParamsPaymentMethodOptionsBancontact as SessionCreateParamsPaymentMethodOptionsBancontact,
         SessionCreateParamsPaymentMethodOptionsBillie as SessionCreateParamsPaymentMethodOptionsBillie,
+        SessionCreateParamsPaymentMethodOptionsBlik as SessionCreateParamsPaymentMethodOptionsBlik,
+        SessionCreateParamsPaymentMethodOptionsBlikMandateOptions as SessionCreateParamsPaymentMethodOptionsBlikMandateOptions,
         SessionCreateParamsPaymentMethodOptionsBoleto as SessionCreateParamsPaymentMethodOptionsBoleto,
         SessionCreateParamsPaymentMethodOptionsCard as SessionCreateParamsPaymentMethodOptionsCard,
         SessionCreateParamsPaymentMethodOptionsCardInstallments as SessionCreateParamsPaymentMethodOptionsCardInstallments,
@@ -456,6 +458,14 @@ _import_map = {
         False,
     ),
     "SessionCreateParamsPaymentMethodOptionsBillie": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsBlik": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsBlikMandateOptions": (
         "stripe.params.checkout._session_create_params",
         False,
     ),
