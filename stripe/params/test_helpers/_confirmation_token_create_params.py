@@ -291,6 +291,10 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
     """
     If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
     """
+    sunbit: NotRequired["ConfirmationTokenCreateParamsPaymentMethodDataSunbit"]
+    """
+    If this is a Sunbit PaymentMethod, this hash contains details about the Sunbit payment method.
+    """
     swish: NotRequired["ConfirmationTokenCreateParamsPaymentMethodDataSwish"]
     """
     If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
@@ -344,6 +348,7 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
         "satispay",
         "sepa_debit",
         "sofort",
+        "sunbit",
         "swish",
         "twint",
         "upi",
@@ -825,6 +830,10 @@ class ConfirmationTokenCreateParamsPaymentMethodDataSofort(TypedDict):
     """
     Two-letter ISO code representing the country the bank account is located in.
     """
+
+
+class ConfirmationTokenCreateParamsPaymentMethodDataSunbit(TypedDict):
+    pass
 
 
 class ConfirmationTokenCreateParamsPaymentMethodDataSwish(TypedDict):

@@ -73,6 +73,7 @@ class CustomerPaymentMethodListParams(TypedDict):
             "satispay",
             "sepa_debit",
             "sofort",
+            "sunbit",
             "swish",
             "twint",
             "upi",

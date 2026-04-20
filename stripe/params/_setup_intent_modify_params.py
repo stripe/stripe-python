@@ -30,7 +30,7 @@ class SetupIntentModifyParams(RequestOptions):
     An arbitrary string attached to the object. Often useful for displaying to users.
     """
     excluded_payment_method_types: NotRequired[
-        "Literal['']|List[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'samsung_pay', 'satispay', 'sepa_debit', 'sofort', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay', 'zip']]"
+        "Literal['']|List[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'samsung_pay', 'satispay', 'sepa_debit', 'sofort', 'sunbit', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay', 'zip']]"
     ]
     """
     The list of payment method types to exclude from use with this SetupIntent.
@@ -307,6 +307,10 @@ class SetupIntentModifyParamsPaymentMethodData(TypedDict):
     """
     If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
     """
+    sunbit: NotRequired["SetupIntentModifyParamsPaymentMethodDataSunbit"]
+    """
+    If this is a Sunbit PaymentMethod, this hash contains details about the Sunbit payment method.
+    """
     swish: NotRequired["SetupIntentModifyParamsPaymentMethodDataSwish"]
     """
     If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
@@ -360,6 +364,7 @@ class SetupIntentModifyParamsPaymentMethodData(TypedDict):
         "satispay",
         "sepa_debit",
         "sofort",
+        "sunbit",
         "swish",
         "twint",
         "upi",
@@ -839,6 +844,10 @@ class SetupIntentModifyParamsPaymentMethodDataSofort(TypedDict):
     """
 
 
+class SetupIntentModifyParamsPaymentMethodDataSunbit(TypedDict):
+    pass
+
+
 class SetupIntentModifyParamsPaymentMethodDataSwish(TypedDict):
     pass
 
@@ -950,6 +959,10 @@ class SetupIntentModifyParamsPaymentMethodOptions(TypedDict):
     payto: NotRequired["SetupIntentModifyParamsPaymentMethodOptionsPayto"]
     """
     If this is a `payto` SetupIntent, this sub-hash contains details about the PayTo payment method options.
+    """
+    pix: NotRequired["SetupIntentModifyParamsPaymentMethodOptionsPix"]
+    """
+    If this is a `pix` SetupIntent, this sub-hash contains details about the Pix payment method options.
     """
     sepa_debit: NotRequired[
         "SetupIntentModifyParamsPaymentMethodOptionsSepaDebit"
@@ -1397,6 +1410,52 @@ class SetupIntentModifyParamsPaymentMethodOptionsPaytoMandateOptions(
     start_date: NotRequired["Literal['']|str"]
     """
     Date, in YYYY-MM-DD format, from which payments will be collected. Defaults to confirmation time.
+    """
+
+
+class SetupIntentModifyParamsPaymentMethodOptionsPix(TypedDict):
+    mandate_options: NotRequired[
+        "SetupIntentModifyParamsPaymentMethodOptionsPixMandateOptions"
+    ]
+    """
+    Additional fields for mandate creation.
+    """
+
+
+class SetupIntentModifyParamsPaymentMethodOptionsPixMandateOptions(TypedDict):
+    amount: NotRequired[int]
+    """
+    Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 40000.
+    """
+    amount_includes_iof: NotRequired[Literal["always", "never"]]
+    """
+    Determines if the amount includes the IOF tax. Defaults to `never`.
+    """
+    amount_type: NotRequired[Literal["fixed", "maximum"]]
+    """
+    Type of amount. Defaults to `maximum`.
+    """
+    currency: NotRequired[str]
+    """
+    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Only `brl` is supported currently.
+    """
+    end_date: NotRequired[str]
+    """
+    Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+    """
+    payment_schedule: NotRequired[
+        Literal["halfyearly", "monthly", "quarterly", "weekly", "yearly"]
+    ]
+    """
+    Schedule at which the future payments will be charged. Defaults to `monthly`.
+    """
+    reference: NotRequired[str]
+    """
+    Subscription name displayed to buyers in their bank app. Defaults to the displayable business name.
+    """
+    start_date: NotRequired[str]
+    """
+    Start date of the mandate, in `YYYY-MM-DD`. Start date should be at least 3 days in the future. Defaults to 3 days after the current date.
     """
 
 

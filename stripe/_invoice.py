@@ -303,8 +303,10 @@ class Invoice(
             "et_tin",
             "eu_oss_vat",
             "eu_vat",
+            "fo_vat",
             "gb_vat",
             "ge_vat",
+            "gi_tin",
             "gn_nif",
             "hk_br",
             "hr_oib",
@@ -313,6 +315,7 @@ class Invoice(
             "il_vat",
             "in_gst",
             "is_vat",
+            "it_cf",
             "jp_cn",
             "jp_rn",
             "jp_trn",
@@ -343,6 +346,7 @@ class Invoice(
             "pe_ruc",
             "ph_tin",
             "pl_nip",
+            "py_ruc",
             "ro_tin",
             "rs_pib",
             "ru_inn",
@@ -373,7 +377,7 @@ class Invoice(
             "zw_tin",
         ]
         """
-        The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, or `unknown`
+        The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `hr_oib`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `no_voec`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `pl_nip`, `it_cf`, `fo_vat`, `gi_tin`, `py_ruc`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `li_vat`, `lk_vat`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, `al_tin`, `bh_vat`, `kz_bin`, `ng_tin`, `om_vat`, `de_stn`, `ch_uid`, `tz_vat`, `uz_vat`, `uz_tin`, `md_vat`, `ma_vat`, `by_tin`, `ao_tin`, `bs_tin`, `bb_tin`, `cd_nif`, `mr_nif`, `me_pib`, `zw_tin`, `ba_tin`, `gn_nif`, `mk_vat`, `sr_fin`, `sn_ninea`, `am_tin`, `np_pan`, `tj_tin`, `ug_tin`, `zm_tin`, `kh_tin`, `aw_tin`, `az_tin`, `bd_bin`, `bj_ifu`, `et_tin`, `kg_tin`, `la_tin`, `cm_niu`, `cv_nif`, `bf_ifu`, or `unknown`
         """
         value: Optional[str]
         """
@@ -419,11 +423,13 @@ class Invoice(
                 "account_number_invalid",
                 "account_token_required_for_v2_account",
                 "acss_debit_session_incomplete",
+                "action_blocked",
                 "alipay_upgrade_required",
                 "amount_too_large",
                 "amount_too_small",
                 "api_key_expired",
                 "application_fees_not_allowed",
+                "approval_required",
                 "authentication_required",
                 "balance_insufficient",
                 "balance_invalid_parameter",
@@ -829,8 +835,40 @@ class Invoice(
                 mandate_options: Optional[MandateOptions]
                 _inner_class_types = {"mandate_options": MandateOptions}
 
+            class Pix(StripeObject):
+                amount_includes_iof: Optional[Literal["always", "never"]]
+                """
+                Determines if the amount includes the IOF tax.
+                """
+                expires_after_seconds: Optional[int]
+                """
+                The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
+                """
+
             class SepaDebit(StripeObject):
                 pass
+
+            class Upi(StripeObject):
+                class MandateOptions(StripeObject):
+                    amount: Optional[int]
+                    """
+                    Amount to be charged for future payments.
+                    """
+                    amount_type: Optional[Literal["fixed", "maximum"]]
+                    """
+                    One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+                    """
+                    description: Optional[str]
+                    """
+                    A description of the mandate or subscription that is meant to be displayed to the customer.
+                    """
+                    end_date: Optional[int]
+                    """
+                    End date of the mandate or subscription.
+                    """
+
+                mandate_options: Optional[MandateOptions]
+                _inner_class_types = {"mandate_options": MandateOptions}
 
             class UsBankAccount(StripeObject):
                 class FinancialConnections(StripeObject):
@@ -899,9 +937,17 @@ class Invoice(
             """
             If paying by `payto`, this sub-hash contains details about the PayTo payment method options to pass to the invoice's PaymentIntent.
             """
+            pix: Optional[Pix]
+            """
+            If paying by `pix`, this sub-hash contains details about the Pix payment method options to pass to the invoice's PaymentIntent.
+            """
             sepa_debit: Optional[SepaDebit]
             """
             If paying by `sepa_debit`, this sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice's PaymentIntent.
+            """
+            upi: Optional[Upi]
+            """
+            If paying by `upi`, this sub-hash contains details about the UPI payment method options to pass to the invoice's PaymentIntent.
             """
             us_bank_account: Optional[UsBankAccount]
             """
@@ -914,7 +960,9 @@ class Invoice(
                 "customer_balance": CustomerBalance,
                 "konbini": Konbini,
                 "payto": Payto,
+                "pix": Pix,
                 "sepa_debit": SepaDebit,
+                "upi": Upi,
                 "us_bank_account": UsBankAccount,
             }
 
@@ -963,12 +1011,14 @@ class Invoice(
                     "paynow",
                     "paypal",
                     "payto",
+                    "pix",
                     "promptpay",
                     "revolut_pay",
                     "sepa_credit_transfer",
                     "sepa_debit",
                     "sofort",
                     "swish",
+                    "upi",
                     "us_bank_account",
                     "wechat_pay",
                 ]
@@ -1182,7 +1232,7 @@ class Invoice(
 
     class TotalTax(StripeObject):
         class TaxRateDetails(StripeObject):
-            tax_rate: str
+            tax_rate: ExpandableField["TaxRate"]
             """
             ID of the tax rate
             """
@@ -1471,11 +1521,11 @@ class Invoice(
     """
     period_end: int
     """
-    End of the usage period during which invoice items were added to this invoice. This looks back one period for a subscription invoice. Use the [line item period](https://docs.stripe.com/api/invoices/line_item#invoice_line_item_object-period) to get the service period for each price.
+    The latest timestamp at which invoice items can be associated with this invoice. Use the [line item period](https://docs.stripe.com/api/invoices/line_item#invoice_line_item_object-period) to get the service period for each price.
     """
     period_start: int
     """
-    Start of the usage period during which invoice items were added to this invoice. This looks back one period for a subscription invoice. Use the [line item period](https://docs.stripe.com/api/invoices/line_item#invoice_line_item_object-period) to get the service period for each price.
+    The earliest timestamp at which invoice items can be associated with this invoice. Use the [line item period](https://docs.stripe.com/api/invoices/line_item#invoice_line_item_object-period) to get the service period for each price.
     """
     post_payment_credit_notes_amount: int
     """

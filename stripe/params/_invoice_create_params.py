@@ -229,7 +229,7 @@ class InvoiceCreateParamsPaymentSettings(TypedDict):
     Payment-method-specific configuration to provide to the invoice's PaymentIntent.
     """
     payment_method_types: NotRequired[
-        "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'payto', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'swish', 'us_bank_account', 'wechat_pay']]"
+        "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'swish', 'upi', 'us_bank_account', 'wechat_pay']]"
     ]
     """
     The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice).
@@ -273,11 +273,23 @@ class InvoiceCreateParamsPaymentSettingsPaymentMethodOptions(TypedDict):
     """
     If paying by `payto`, this sub-hash contains details about the PayTo payment method options to pass to the invoice's PaymentIntent.
     """
+    pix: NotRequired[
+        "Literal['']|InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsPix"
+    ]
+    """
+    If paying by `pix`, this sub-hash contains details about the Pix payment method options to pass to the invoice's PaymentIntent.
+    """
     sepa_debit: NotRequired[
         "Literal['']|InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsSepaDebit"
     ]
     """
     If paying by `sepa_debit`, this sub-hash contains details about the SEPA Direct Debit payment method options to pass to the invoice's PaymentIntent.
+    """
+    upi: NotRequired[
+        "Literal['']|InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsUpi"
+    ]
+    """
+    If paying by `upi`, this sub-hash contains details about the UPI payment method options to pass to the invoice's PaymentIntent.
     """
     us_bank_account: NotRequired[
         "Literal['']|InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccount"
@@ -452,10 +464,51 @@ class InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOptions(
     """
 
 
+class InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsPix(TypedDict):
+    amount_includes_iof: NotRequired[Literal["always", "never"]]
+    """
+    Determines if the amount includes the IOF tax. Defaults to `never`.
+    """
+    expires_after_seconds: NotRequired[int]
+    """
+    The number of seconds (between 10 and 1209600) after which Pix payment will expire. Defaults to 86400 seconds.
+    """
+
+
 class InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsSepaDebit(
     TypedDict,
 ):
     pass
+
+
+class InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsUpi(TypedDict):
+    mandate_options: NotRequired[
+        "InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsUpiMandateOptions"
+    ]
+    """
+    Configuration options for setting up an eMandate
+    """
+
+
+class InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsUpiMandateOptions(
+    TypedDict,
+):
+    amount: NotRequired[int]
+    """
+    Amount to be charged for future payments.
+    """
+    amount_type: NotRequired[Literal["fixed", "maximum"]]
+    """
+    One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+    """
+    description: NotRequired[str]
+    """
+    A description of the mandate or subscription that is meant to be displayed to the customer.
+    """
+    end_date: NotRequired[int]
+    """
+    End date of the mandate or subscription.
+    """
 
 
 class InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccount(

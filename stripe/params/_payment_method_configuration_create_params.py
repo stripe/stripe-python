@@ -240,6 +240,10 @@ class PaymentMethodConfigurationCreateParams(RequestOptions):
     """
     Stripe users in Europe and the United States can use the [Payment Intents API](https://stripe.com/docs/payments/payment-intents)—a single integration path for creating payments using any supported method—to accept [Sofort](https://www.sofort.com/) payments from customers. Check this [page](https://docs.stripe.com/payments/sofort) for more details.
     """
+    sunbit: NotRequired["PaymentMethodConfigurationCreateParamsSunbit"]
+    """
+    Sunbit is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method where customers choose to pay in 3, 6, or 12 installments. Customers are redirected from your website or app, authorize the payment with Sunbit, then return to your website or app. You get [immediate notification](https://docs.stripe.com/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
+    """
     swish: NotRequired["PaymentMethodConfigurationCreateParamsSwish"]
     """
     Swish is a [real-time](https://docs.stripe.com/payments/real-time) payment method popular in Sweden. It allows customers to [authenticate and approve](https://docs.stripe.com/payments/payment-methods#customer-actions) payments using the Swish mobile app and the Swedish BankID mobile app. Check this [page](https://docs.stripe.com/payments/swish) for more details.
@@ -1132,6 +1136,22 @@ class PaymentMethodConfigurationCreateParamsSofort(TypedDict):
 
 
 class PaymentMethodConfigurationCreateParamsSofortDisplayPreference(TypedDict):
+    preference: NotRequired[Literal["none", "off", "on"]]
+    """
+    The account's preference for whether or not to display this payment method.
+    """
+
+
+class PaymentMethodConfigurationCreateParamsSunbit(TypedDict):
+    display_preference: NotRequired[
+        "PaymentMethodConfigurationCreateParamsSunbitDisplayPreference"
+    ]
+    """
+    Whether or not the payment method should be displayed.
+    """
+
+
+class PaymentMethodConfigurationCreateParamsSunbitDisplayPreference(TypedDict):
     preference: NotRequired[Literal["none", "off", "on"]]
     """
     The account's preference for whether or not to display this payment method.

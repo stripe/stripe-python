@@ -232,6 +232,12 @@ class AccountUpdateParamsCapabilities(TypedDict):
     """
     The amazon_pay_payments capability.
     """
+    app_distribution: NotRequired[
+        "AccountUpdateParamsCapabilitiesAppDistribution"
+    ]
+    """
+    The app_distribution capability.
+    """
     au_becs_debit_payments: NotRequired[
         "AccountUpdateParamsCapabilitiesAuBecsDebitPayments"
     ]
@@ -488,6 +494,12 @@ class AccountUpdateParamsCapabilities(TypedDict):
     """
     The sofort_payments capability.
     """
+    sunbit_payments: NotRequired[
+        "AccountUpdateParamsCapabilitiesSunbitPayments"
+    ]
+    """
+    The sunbit_payments capability.
+    """
     swish_payments: NotRequired["AccountUpdateParamsCapabilitiesSwishPayments"]
     """
     The swish_payments capability.
@@ -567,6 +579,13 @@ class AccountUpdateParamsCapabilitiesAlmaPayments(TypedDict):
 
 
 class AccountUpdateParamsCapabilitiesAmazonPayPayments(TypedDict):
+    requested: NotRequired[bool]
+    """
+    Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+    """
+
+
+class AccountUpdateParamsCapabilitiesAppDistribution(TypedDict):
     requested: NotRequired[bool]
     """
     Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -896,6 +915,13 @@ class AccountUpdateParamsCapabilitiesSepaDebitPayments(TypedDict):
 
 
 class AccountUpdateParamsCapabilitiesSofortPayments(TypedDict):
+    requested: NotRequired[bool]
+    """
+    Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+    """
+
+
+class AccountUpdateParamsCapabilitiesSunbitPayments(TypedDict):
     requested: NotRequired[bool]
     """
     Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.

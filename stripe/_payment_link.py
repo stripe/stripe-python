@@ -323,6 +323,12 @@ class PaymentLink(
         """
         _inner_class_types = {"invoice_data": InvoiceData}
 
+    class ManagedPayments(StripeObject):
+        enabled: bool
+        """
+        Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution, for this session.
+        """
+
     class NameCollection(StripeObject):
         class Business(StripeObject):
             enabled: bool
@@ -809,6 +815,10 @@ class PaymentLink(
     """
     If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
+    managed_payments: Optional[ManagedPayments]
+    """
+    Settings for Managed Payments for this Payment Link and resulting [CheckoutSessions](https://docs.stripe.com/api/checkout/sessions/object), [PaymentIntents](https://docs.stripe.com/api/payment_intents/object), [Invoices](https://docs.stripe.com/api/invoices/object), and [Subscriptions](https://docs.stripe.com/api/subscriptions/object).
+    """
     metadata: UntypedStripeObject[str]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
@@ -871,6 +881,7 @@ class PaymentLink(
                 "satispay",
                 "sepa_debit",
                 "sofort",
+                "sunbit",
                 "swish",
                 "twint",
                 "upi",
@@ -1163,6 +1174,7 @@ class PaymentLink(
         "custom_fields": CustomField,
         "custom_text": CustomText,
         "invoice_creation": InvoiceCreation,
+        "managed_payments": ManagedPayments,
         "name_collection": NameCollection,
         "optional_items": OptionalItem,
         "payment_intent_data": PaymentIntentData,

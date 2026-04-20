@@ -27,7 +27,7 @@ class VerificationSessionCreateParams(RequestOptions):
         "VerificationSessionCreateParamsProvidedDetails"
     ]
     """
-    Details provided about the user being verified. These details may be shown to the user.
+    Details provided about the user being verified. These details might be shown to the user.
     """
     related_customer: NotRequired[str]
     """
@@ -39,7 +39,7 @@ class VerificationSessionCreateParams(RequestOptions):
     """
     related_person: NotRequired["VerificationSessionCreateParamsRelatedPerson"]
     """
-    Tokens referencing a Person resource and it's associated account.
+    Tokens referencing a Person resource and its associated account.
     """
     return_url: NotRequired[str]
     """
