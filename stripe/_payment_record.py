@@ -249,7 +249,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
 
         class Alma(StripeObject):
             class Installments(StripeObject):
-                count: Optional[int]
+                count: int
                 """
                 The number of installments.
                 """
