@@ -123,7 +123,7 @@ class RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOption(
     """
     The shipping fulfillment option.
     """
-    type: str
+    type: Literal["digital", "shipping"]
     """
     The type of fulfillment option.
     """
@@ -166,7 +166,7 @@ class RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOptionOve
     """
     The shipping fulfillment option.
     """
-    type: str
+    type: Literal["digital", "shipping"]
     """
     The type of fulfillment option.
     """

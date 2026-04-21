@@ -203,7 +203,7 @@ class RequestedSession(
             """
             The shipping option.
             """
-            type: str
+            type: Literal["digital", "shipping"]
             """
             The type of the fulfillment option.
             """
@@ -230,7 +230,7 @@ class RequestedSession(
             """
             The shipping option.
             """
-            type: str
+            type: Literal["digital", "shipping"]
             """
             The type of the selected fulfillment option.
             """
@@ -261,7 +261,7 @@ class RequestedSession(
             """
             The shipping option.
             """
-            type: str
+            type: Literal["digital", "shipping"]
             """
             The type of the selected fulfillment option.
             """
