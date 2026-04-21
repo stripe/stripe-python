@@ -233,7 +233,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
 
         class Alma(StripeObject):
             class Installments(StripeObject):
-                count: Optional[int]
+                count: int
                 """
                 The number of installments.
                 """
