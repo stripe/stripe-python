@@ -1232,7 +1232,7 @@ class Invoice(
 
     class TotalTax(StripeObject):
         class TaxRateDetails(StripeObject):
-            tax_rate: ExpandableField["TaxRate"]
+            tax_rate: str
             """
             ID of the tax rate
             """

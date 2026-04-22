@@ -12,7 +12,6 @@ if TYPE_CHECKING:
     from stripe._discount import Discount
     from stripe._price import Price
     from stripe._subscription import Subscription
-    from stripe._tax_rate import TaxRate
     from stripe.billing._credit_balance_transaction import (
         CreditBalanceTransaction,
     )
@@ -186,7 +185,7 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
 
     class Tax(StripeObject):
         class TaxRateDetails(StripeObject):
-            tax_rate: ExpandableField["TaxRate"]
+            tax_rate: str
             """
             ID of the tax rate
             """
