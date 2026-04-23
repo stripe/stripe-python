@@ -92,7 +92,7 @@ class AccountCreateParams(RequestOptions):
     """
     type: NotRequired[Literal["custom", "express", "standard"]]
     """
-    The type of Stripe account to create. May be one of `custom`, `express` or `standard`.
+    The `type` parameter is deprecated. Use [`controller`](https://docs.stripe.com/api/accounts/create#create_account-controller) instead to configure dashboard access, fee payer, loss liability, and requirement collection.
     """
 
 
@@ -244,6 +244,12 @@ class AccountCreateParamsCapabilities(TypedDict):
     ]
     """
     The amazon_pay_payments capability.
+    """
+    app_distribution: NotRequired[
+        "AccountCreateParamsCapabilitiesAppDistribution"
+    ]
+    """
+    The app_distribution capability.
     """
     au_becs_debit_payments: NotRequired[
         "AccountCreateParamsCapabilitiesAuBecsDebitPayments"
@@ -501,6 +507,12 @@ class AccountCreateParamsCapabilities(TypedDict):
     """
     The sofort_payments capability.
     """
+    sunbit_payments: NotRequired[
+        "AccountCreateParamsCapabilitiesSunbitPayments"
+    ]
+    """
+    The sunbit_payments capability.
+    """
     swish_payments: NotRequired["AccountCreateParamsCapabilitiesSwishPayments"]
     """
     The swish_payments capability.
@@ -580,6 +592,13 @@ class AccountCreateParamsCapabilitiesAlmaPayments(TypedDict):
 
 
 class AccountCreateParamsCapabilitiesAmazonPayPayments(TypedDict):
+    requested: NotRequired[bool]
+    """
+    Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+    """
+
+
+class AccountCreateParamsCapabilitiesAppDistribution(TypedDict):
     requested: NotRequired[bool]
     """
     Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -909,6 +928,13 @@ class AccountCreateParamsCapabilitiesSepaDebitPayments(TypedDict):
 
 
 class AccountCreateParamsCapabilitiesSofortPayments(TypedDict):
+    requested: NotRequired[bool]
+    """
+    Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+    """
+
+
+class AccountCreateParamsCapabilitiesSunbitPayments(TypedDict):
     requested: NotRequired[bool]
     """
     Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -1485,15 +1511,15 @@ class AccountCreateParamsCard(TypedDict):
     address_zip: NotRequired[str]
     currency: NotRequired[str]
     cvc: NotRequired[str]
+    default_for_currency: NotRequired[bool]
     exp_month: int
     exp_year: int
-    name: NotRequired[str]
-    number: str
     metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
-    default_for_currency: NotRequired[bool]
+    name: NotRequired[str]
+    number: str
 
 
 class AccountCreateParamsCardToken(TypedDict):

@@ -82,6 +82,7 @@ class PaymentMethodListParams(RequestOptions):
             "satispay",
             "sepa_debit",
             "sofort",
+            "sunbit",
             "swish",
             "twint",
             "upi",

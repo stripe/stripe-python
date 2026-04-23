@@ -39,6 +39,7 @@ if TYPE_CHECKING:
         SessionCreateParamsLineItemPriceData as SessionCreateParamsLineItemPriceData,
         SessionCreateParamsLineItemPriceDataProductData as SessionCreateParamsLineItemPriceDataProductData,
         SessionCreateParamsLineItemPriceDataRecurring as SessionCreateParamsLineItemPriceDataRecurring,
+        SessionCreateParamsManagedPayments as SessionCreateParamsManagedPayments,
         SessionCreateParamsNameCollection as SessionCreateParamsNameCollection,
         SessionCreateParamsNameCollectionBusiness as SessionCreateParamsNameCollectionBusiness,
         SessionCreateParamsNameCollectionIndividual as SessionCreateParamsNameCollectionIndividual,
@@ -96,6 +97,7 @@ if TYPE_CHECKING:
         SessionCreateParamsPaymentMethodOptionsPayto as SessionCreateParamsPaymentMethodOptionsPayto,
         SessionCreateParamsPaymentMethodOptionsPaytoMandateOptions as SessionCreateParamsPaymentMethodOptionsPaytoMandateOptions,
         SessionCreateParamsPaymentMethodOptionsPix as SessionCreateParamsPaymentMethodOptionsPix,
+        SessionCreateParamsPaymentMethodOptionsPixMandateOptions as SessionCreateParamsPaymentMethodOptionsPixMandateOptions,
         SessionCreateParamsPaymentMethodOptionsRevolutPay as SessionCreateParamsPaymentMethodOptionsRevolutPay,
         SessionCreateParamsPaymentMethodOptionsSamsungPay as SessionCreateParamsPaymentMethodOptionsSamsungPay,
         SessionCreateParamsPaymentMethodOptionsSatispay as SessionCreateParamsPaymentMethodOptionsSatispay,
@@ -326,6 +328,10 @@ _import_map = {
         "stripe.params.checkout._session_create_params",
         False,
     ),
+    "SessionCreateParamsManagedPayments": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
     "SessionCreateParamsNameCollection": (
         "stripe.params.checkout._session_create_params",
         False,
@@ -551,6 +557,10 @@ _import_map = {
         False,
     ),
     "SessionCreateParamsPaymentMethodOptionsPix": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsPixMandateOptions": (
         "stripe.params.checkout._session_create_params",
         False,
     ),

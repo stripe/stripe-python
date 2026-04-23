@@ -1332,6 +1332,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             Two-letter ISO code representing the country the bank account is located in.
             """
 
+        class Sunbit(StripeObject):
+            pass
+
         class Swish(StripeObject):
             pass
 
@@ -1498,6 +1501,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         satispay: Optional[Satispay]
         sepa_debit: Optional[SepaDebit]
         sofort: Optional[Sofort]
+        sunbit: Optional[Sunbit]
         swish: Optional[Swish]
         twint: Optional[Twint]
         type: Literal[
@@ -1549,6 +1553,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "satispay",
             "sepa_debit",
             "sofort",
+            "sunbit",
             "swish",
             "twint",
             "upi",
@@ -1612,6 +1617,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "satispay": Satispay,
             "sepa_debit": SepaDebit,
             "sofort": Sofort,
+            "sunbit": Sunbit,
             "swish": Swish,
             "twint": Twint,
             "upi": Upi,

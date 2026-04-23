@@ -33,6 +33,12 @@ class AccountSessionCreateParamsComponents(TypedDict):
     """
     Configuration for the [account onboarding](https://docs.stripe.com/connect/supported-embedded-components/account-onboarding/) embedded component.
     """
+    balance_report: NotRequired[
+        "AccountSessionCreateParamsComponentsBalanceReport"
+    ]
+    """
+    Configuration for the [balance report](https://docs.stripe.com/connect/supported-embedded-components/financial-reports#balance-report) embedded component.
+    """
     balances: NotRequired["AccountSessionCreateParamsComponentsBalances"]
     """
     Configuration for the [balances](https://docs.stripe.com/connect/supported-embedded-components/balances/) embedded component.
@@ -105,6 +111,12 @@ class AccountSessionCreateParamsComponents(TypedDict):
     """
     Configuration for the [payout details](https://docs.stripe.com/connect/supported-embedded-components/payout-details/) embedded component.
     """
+    payout_reconciliation_report: NotRequired[
+        "AccountSessionCreateParamsComponentsPayoutReconciliationReport"
+    ]
+    """
+    Configuration for the [payout reconciliation report](https://docs.stripe.com/connect/supported-embedded-components/financial-reports#payout-reconciliation-report) embedded component.
+    """
     payouts: NotRequired["AccountSessionCreateParamsComponentsPayouts"]
     """
     Configuration for the [payouts](https://docs.stripe.com/connect/supported-embedded-components/payouts/) embedded component.
@@ -175,6 +187,23 @@ class AccountSessionCreateParamsComponentsAccountOnboardingFeatures(TypedDict):
     """
     Whether external account collection is enabled. This feature can only be `false` for accounts where you're responsible for collecting updated information when requirements are due or change, like Custom accounts. The default value for this feature is `true`.
     """
+
+
+class AccountSessionCreateParamsComponentsBalanceReport(TypedDict):
+    enabled: bool
+    """
+    Whether the embedded component is enabled.
+    """
+    features: NotRequired[
+        "AccountSessionCreateParamsComponentsBalanceReportFeatures"
+    ]
+    """
+    An empty list, because this embedded component has no features.
+    """
+
+
+class AccountSessionCreateParamsComponentsBalanceReportFeatures(TypedDict):
+    pass
 
 
 class AccountSessionCreateParamsComponentsBalances(TypedDict):
@@ -548,6 +577,27 @@ class AccountSessionCreateParamsComponentsPayoutDetails(TypedDict):
 
 
 class AccountSessionCreateParamsComponentsPayoutDetailsFeatures(TypedDict):
+    pass
+
+
+class AccountSessionCreateParamsComponentsPayoutReconciliationReport(
+    TypedDict
+):
+    enabled: bool
+    """
+    Whether the embedded component is enabled.
+    """
+    features: NotRequired[
+        "AccountSessionCreateParamsComponentsPayoutReconciliationReportFeatures"
+    ]
+    """
+    An empty list, because this embedded component has no features.
+    """
+
+
+class AccountSessionCreateParamsComponentsPayoutReconciliationReportFeatures(
+    TypedDict,
+):
     pass
 
 

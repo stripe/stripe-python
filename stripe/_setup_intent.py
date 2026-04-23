@@ -104,11 +104,13 @@ class SetupIntent(
                 "account_number_invalid",
                 "account_token_required_for_v2_account",
                 "acss_debit_session_incomplete",
+                "action_blocked",
                 "alipay_upgrade_required",
                 "amount_too_large",
                 "amount_too_small",
                 "api_key_expired",
                 "application_fees_not_allowed",
+                "approval_required",
                 "authentication_required",
                 "balance_insufficient",
                 "balance_invalid_parameter",
@@ -378,6 +380,12 @@ class SetupIntent(
         The type of error returned. One of `api_error`, `card_error`, `idempotency_error`, or `invalid_request_error`
         """
 
+    class ManagedPayments(StripeObject):
+        enabled: bool
+        """
+        Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution, for this session.
+        """
+
     class NextAction(StripeObject):
         class CashappHandleRedirectOrDisplayQrCode(StripeObject):
             class QrCode(StripeObject):
@@ -404,6 +412,28 @@ class SetupIntent(
             """
             qr_code: QrCode
             _inner_class_types = {"qr_code": QrCode}
+
+        class PixDisplayQrCode(StripeObject):
+            data: str
+            """
+            The raw data string used to generate QR code, it should be used together with QR code library.
+            """
+            expires_at: int
+            """
+            The date (unix timestamp) when the PIX expires.
+            """
+            hosted_instructions_url: str
+            """
+            The URL to the hosted pix instructions page, which allows customers to view the pix QR code.
+            """
+            image_url_png: str
+            """
+            The image_url_png string used to render png QR code
+            """
+            image_url_svg: str
+            """
+            The image_url_svg string used to render svg QR code
+            """
 
         class RedirectToUrl(StripeObject):
             return_url: Optional[str]
@@ -454,6 +484,7 @@ class SetupIntent(
         cashapp_handle_redirect_or_display_qr_code: Optional[
             CashappHandleRedirectOrDisplayQrCode
         ]
+        pix_display_qr_code: Optional[PixDisplayQrCode]
         redirect_to_url: Optional[RedirectToUrl]
         type: str
         """
@@ -469,6 +500,7 @@ class SetupIntent(
         verify_with_microdeposits: Optional[VerifyWithMicrodeposits]
         _inner_class_types = {
             "cashapp_handle_redirect_or_display_qr_code": CashappHandleRedirectOrDisplayQrCode,
+            "pix_display_qr_code": PixDisplayQrCode,
             "redirect_to_url": RedirectToUrl,
             "upi_handle_redirect_or_display_qr_code": UpiHandleRedirectOrDisplayQrCode,
             "verify_with_microdeposits": VerifyWithMicrodeposits,
@@ -695,6 +727,52 @@ class SetupIntent(
             mandate_options: Optional[MandateOptions]
             _inner_class_types = {"mandate_options": MandateOptions}
 
+        class Pix(StripeObject):
+            class MandateOptions(StripeObject):
+                amount: Optional[int]
+                """
+                Amount to be charged for future payments.
+                """
+                amount_includes_iof: Optional[Literal["always", "never"]]
+                """
+                Determines if the amount includes the IOF tax.
+                """
+                amount_type: Optional[Literal["fixed", "maximum"]]
+                """
+                Type of amount.
+                """
+                currency: Optional[str]
+                """
+                Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
+                """
+                end_date: Optional[str]
+                """
+                Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`.
+                """
+                payment_schedule: Optional[
+                    Literal[
+                        "halfyearly",
+                        "monthly",
+                        "quarterly",
+                        "weekly",
+                        "yearly",
+                    ]
+                ]
+                """
+                Schedule at which the future payments will be charged.
+                """
+                reference: Optional[str]
+                """
+                Subscription name displayed to buyers in their bank app.
+                """
+                start_date: Optional[str]
+                """
+                Start date of the mandate, in `YYYY-MM-DD`.
+                """
+
+            mandate_options: Optional[MandateOptions]
+            _inner_class_types = {"mandate_options": MandateOptions}
+
         class SepaDebit(StripeObject):
             class MandateOptions(StripeObject):
                 reference_prefix: Optional[str]
@@ -791,6 +869,7 @@ class SetupIntent(
         link: Optional[Link]
         paypal: Optional[Paypal]
         payto: Optional[Payto]
+        pix: Optional[Pix]
         sepa_debit: Optional[SepaDebit]
         upi: Optional[Upi]
         us_bank_account: Optional[UsBankAccount]
@@ -804,6 +883,7 @@ class SetupIntent(
             "link": Link,
             "paypal": Paypal,
             "payto": Payto,
+            "pix": Pix,
             "sepa_debit": SepaDebit,
             "upi": Upi,
             "us_bank_account": UsBankAccount,
@@ -902,6 +982,7 @@ class SetupIntent(
                 "satispay",
                 "sepa_debit",
                 "sofort",
+                "sunbit",
                 "swish",
                 "twint",
                 "upi",
@@ -936,6 +1017,7 @@ class SetupIntent(
     """
     If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
+    managed_payments: Optional[ManagedPayments]
     mandate: Optional[ExpandableField["Mandate"]]
     """
     ID of the multi use Mandate generated by the SetupIntent.
@@ -1595,6 +1677,7 @@ class SetupIntent(
     _inner_class_types = {
         "automatic_payment_methods": AutomaticPaymentMethods,
         "last_setup_error": LastSetupError,
+        "managed_payments": ManagedPayments,
         "next_action": NextAction,
         "payment_method_configuration_details": PaymentMethodConfigurationDetails,
         "payment_method_options": PaymentMethodOptions,

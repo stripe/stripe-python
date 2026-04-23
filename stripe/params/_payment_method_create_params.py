@@ -223,6 +223,10 @@ class PaymentMethodCreateParams(RequestOptions):
     """
     If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
     """
+    sunbit: NotRequired["PaymentMethodCreateParamsSunbit"]
+    """
+    If this is a Sunbit PaymentMethod, this hash contains details about the Sunbit payment method.
+    """
     swish: NotRequired["PaymentMethodCreateParamsSwish"]
     """
     If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
@@ -279,6 +283,7 @@ class PaymentMethodCreateParams(RequestOptions):
             "satispay",
             "sepa_debit",
             "sofort",
+            "sunbit",
             "swish",
             "twint",
             "upi",
@@ -794,6 +799,10 @@ class PaymentMethodCreateParamsSofort(TypedDict):
     """
     Two-letter ISO code representing the country the bank account is located in.
     """
+
+
+class PaymentMethodCreateParamsSunbit(TypedDict):
+    pass
 
 
 class PaymentMethodCreateParamsSwish(TypedDict):

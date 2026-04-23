@@ -131,6 +131,7 @@ class WebhookEndpointCreateParams(RequestOptions):
             "2026-01-28.clover",
             "2026-02-25.clover",
             "2026-03-25.dahlia",
+            "2026-04-22.dahlia",
         ]
     ]
     """

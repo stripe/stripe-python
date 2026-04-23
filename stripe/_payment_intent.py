@@ -208,11 +208,13 @@ class PaymentIntent(
                 "account_number_invalid",
                 "account_token_required_for_v2_account",
                 "acss_debit_session_incomplete",
+                "action_blocked",
                 "alipay_upgrade_required",
                 "amount_too_large",
                 "amount_too_small",
                 "api_key_expired",
                 "application_fees_not_allowed",
+                "approval_required",
                 "authentication_required",
                 "balance_insufficient",
                 "balance_invalid_parameter",
@@ -480,6 +482,12 @@ class PaymentIntent(
         ]
         """
         The type of error returned. One of `api_error`, `card_error`, `idempotency_error`, or `invalid_request_error`
+        """
+
+    class ManagedPayments(StripeObject):
+        enabled: bool
+        """
+        Set to `true` to enable [Managed Payments](https://docs.stripe.com/payments/managed-payments), Stripe's merchant of record solution, for this session.
         """
 
     class NextAction(StripeObject):
@@ -1117,6 +1125,24 @@ class PaymentIntent(
             """
             _inner_class_types = {"financial_addresses": FinancialAddress}
 
+        class KlarnaDisplayQrCode(StripeObject):
+            data: str
+            """
+            The data being used to generate QR code
+            """
+            expires_at: Optional[int]
+            """
+            The timestamp at which the QR code expires.
+            """
+            image_url_png: str
+            """
+            The image_url_png string used to render QR code
+            """
+            image_url_svg: str
+            """
+            The image_url_svg string used to render QR code
+            """
+
         class KonbiniDisplayDetails(StripeObject):
             class Stores(StripeObject):
                 class Familymart(StripeObject):
@@ -1422,6 +1448,7 @@ class PaymentIntent(
         display_bank_transfer_instructions: Optional[
             DisplayBankTransferInstructions
         ]
+        klarna_display_qr_code: Optional[KlarnaDisplayQrCode]
         konbini_display_details: Optional[KonbiniDisplayDetails]
         multibanco_display_details: Optional[MultibancoDisplayDetails]
         oxxo_display_details: Optional[OxxoDisplayDetails]
@@ -1455,6 +1482,7 @@ class PaymentIntent(
             "card_await_notification": CardAwaitNotification,
             "cashapp_handle_redirect_or_display_qr_code": CashappHandleRedirectOrDisplayQrCode,
             "display_bank_transfer_instructions": DisplayBankTransferInstructions,
+            "klarna_display_qr_code": KlarnaDisplayQrCode,
             "konbini_display_details": KonbiniDisplayDetails,
             "multibanco_display_details": MultibancoDisplayDetails,
             "oxxo_display_details": OxxoDisplayDetails,
@@ -2378,6 +2406,48 @@ class PaymentIntent(
             _inner_class_types = {"mandate_options": MandateOptions}
 
         class Pix(StripeObject):
+            class MandateOptions(StripeObject):
+                amount: Optional[int]
+                """
+                Amount to be charged for future payments.
+                """
+                amount_includes_iof: Optional[Literal["always", "never"]]
+                """
+                Determines if the amount includes the IOF tax.
+                """
+                amount_type: Optional[Literal["fixed", "maximum"]]
+                """
+                Type of amount.
+                """
+                currency: Optional[str]
+                """
+                Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
+                """
+                end_date: Optional[str]
+                """
+                Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`.
+                """
+                payment_schedule: Optional[
+                    Literal[
+                        "halfyearly",
+                        "monthly",
+                        "quarterly",
+                        "weekly",
+                        "yearly",
+                    ]
+                ]
+                """
+                Schedule at which the future payments will be charged.
+                """
+                reference: Optional[str]
+                """
+                Subscription name displayed to buyers in their bank app.
+                """
+                start_date: Optional[str]
+                """
+                Start date of the mandate, in `YYYY-MM-DD`.
+                """
+
             amount_includes_iof: Optional[Literal["always", "never"]]
             """
             Determines if the amount includes the IOF tax.
@@ -2390,7 +2460,8 @@ class PaymentIntent(
             """
             The timestamp at which the Pix expires.
             """
-            setup_future_usage: Optional[Literal["none"]]
+            mandate_options: Optional[MandateOptions]
+            setup_future_usage: Optional[Literal["none", "off_session"]]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -2400,6 +2471,7 @@ class PaymentIntent(
 
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
             """
+            _inner_class_types = {"mandate_options": MandateOptions}
 
         class Promptpay(StripeObject):
             setup_future_usage: Optional[Literal["none"]]
@@ -2970,6 +3042,7 @@ class PaymentIntent(
                 "satispay",
                 "sepa_debit",
                 "sofort",
+                "sunbit",
                 "swish",
                 "twint",
                 "upi",
@@ -2998,6 +3071,10 @@ class PaymentIntent(
     livemode: bool
     """
     If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
+    """
+    managed_payments: Optional[ManagedPayments]
+    """
+    Settings for Managed Payments.
     """
     metadata: UntypedStripeObject[str]
     """
@@ -4508,6 +4585,7 @@ class PaymentIntent(
         "automatic_payment_methods": AutomaticPaymentMethods,
         "hooks": Hooks,
         "last_payment_error": LastPaymentError,
+        "managed_payments": ManagedPayments,
         "next_action": NextAction,
         "payment_details": PaymentDetails,
         "payment_method_configuration_details": PaymentMethodConfigurationDetails,

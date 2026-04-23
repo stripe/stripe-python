@@ -234,6 +234,10 @@ class Account(
         """
         The status of the AmazonPay capability of the account, or whether the account can directly process AmazonPay payments.
         """
+        app_distribution: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the `app_distribution` capability of the account, or whether the platform can distribute apps to other accounts.
+        """
         au_becs_debit_payments: Optional[
             Literal["active", "inactive", "pending"]
         ]
@@ -445,6 +449,10 @@ class Account(
         sofort_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the Sofort payments capability of the account, or whether the account can directly process Sofort charges.
+        """
+        sunbit_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the Sunbit capability of the account, or whether the account can directly process Sunbit payments.
         """
         swish_payments: Optional[Literal["active", "inactive", "pending"]]
         """

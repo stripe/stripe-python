@@ -329,6 +329,10 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
     """
     If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
     """
+    sunbit: NotRequired["SetupIntentConfirmParamsPaymentMethodDataSunbit"]
+    """
+    If this is a Sunbit PaymentMethod, this hash contains details about the Sunbit payment method.
+    """
     swish: NotRequired["SetupIntentConfirmParamsPaymentMethodDataSwish"]
     """
     If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
@@ -382,6 +386,7 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
         "satispay",
         "sepa_debit",
         "sofort",
+        "sunbit",
         "swish",
         "twint",
         "upi",
@@ -863,6 +868,10 @@ class SetupIntentConfirmParamsPaymentMethodDataSofort(TypedDict):
     """
 
 
+class SetupIntentConfirmParamsPaymentMethodDataSunbit(TypedDict):
+    pass
+
+
 class SetupIntentConfirmParamsPaymentMethodDataSwish(TypedDict):
     pass
 
@@ -974,6 +983,10 @@ class SetupIntentConfirmParamsPaymentMethodOptions(TypedDict):
     payto: NotRequired["SetupIntentConfirmParamsPaymentMethodOptionsPayto"]
     """
     If this is a `payto` SetupIntent, this sub-hash contains details about the PayTo payment method options.
+    """
+    pix: NotRequired["SetupIntentConfirmParamsPaymentMethodOptionsPix"]
+    """
+    If this is a `pix` SetupIntent, this sub-hash contains details about the Pix payment method options.
     """
     sepa_debit: NotRequired[
         "SetupIntentConfirmParamsPaymentMethodOptionsSepaDebit"
@@ -1425,6 +1438,52 @@ class SetupIntentConfirmParamsPaymentMethodOptionsPaytoMandateOptions(
     start_date: NotRequired["Literal['']|str"]
     """
     Date, in YYYY-MM-DD format, from which payments will be collected. Defaults to confirmation time.
+    """
+
+
+class SetupIntentConfirmParamsPaymentMethodOptionsPix(TypedDict):
+    mandate_options: NotRequired[
+        "SetupIntentConfirmParamsPaymentMethodOptionsPixMandateOptions"
+    ]
+    """
+    Additional fields for mandate creation.
+    """
+
+
+class SetupIntentConfirmParamsPaymentMethodOptionsPixMandateOptions(TypedDict):
+    amount: NotRequired[int]
+    """
+    Amount to be charged for future payments. Required when `amount_type=fixed`. If not provided for `amount_type=maximum`, defaults to 40000.
+    """
+    amount_includes_iof: NotRequired[Literal["always", "never"]]
+    """
+    Determines if the amount includes the IOF tax. Defaults to `never`.
+    """
+    amount_type: NotRequired[Literal["fixed", "maximum"]]
+    """
+    Type of amount. Defaults to `maximum`.
+    """
+    currency: NotRequired[str]
+    """
+    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Only `brl` is supported currently.
+    """
+    end_date: NotRequired[str]
+    """
+    Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+    """
+    payment_schedule: NotRequired[
+        Literal["halfyearly", "monthly", "quarterly", "weekly", "yearly"]
+    ]
+    """
+    Schedule at which the future payments will be charged. Defaults to `monthly`.
+    """
+    reference: NotRequired[str]
+    """
+    Subscription name displayed to buyers in their bank app. Defaults to the displayable business name.
+    """
+    start_date: NotRequired[str]
+    """
+    Start date of the mandate, in `YYYY-MM-DD`. Start date should be at least 3 days in the future. Defaults to 3 days after the current date.
     """
 
 
