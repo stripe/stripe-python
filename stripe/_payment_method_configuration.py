@@ -1238,6 +1238,28 @@ class PaymentMethodConfiguration(
         display_preference: DisplayPreference
         _inner_class_types = {"display_preference": DisplayPreference}
 
+    class Sunbit(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Literal["none", "off", "on"]
+            """
+            The account's display preference.
+            """
+            value: Literal["off", "on"]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
     class Swish(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
@@ -1456,6 +1478,7 @@ class PaymentMethodConfiguration(
     sepa_debit: Optional[SepaDebit]
     shopeepay: Optional[Shopeepay]
     sofort: Optional[Sofort]
+    sunbit: Optional[Sunbit]
     swish: Optional[Swish]
     twint: Optional[Twint]
     upi: Optional[Upi]
@@ -1654,6 +1677,7 @@ class PaymentMethodConfiguration(
         "sepa_debit": SepaDebit,
         "shopeepay": Shopeepay,
         "sofort": Sofort,
+        "sunbit": Sunbit,
         "swish": Swish,
         "twint": Twint,
         "upi": Upi,

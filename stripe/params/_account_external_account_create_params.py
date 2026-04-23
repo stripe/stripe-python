@@ -41,12 +41,12 @@ class AccountExternalAccountCreateParamsCard(TypedDict):
     cvc: NotRequired[str]
     exp_month: int
     exp_year: int
-    name: NotRequired[str]
-    number: str
     metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
+    name: NotRequired[str]
+    number: str
 
 
 class AccountExternalAccountCreateParamsBankAccount(TypedDict):

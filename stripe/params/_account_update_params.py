@@ -240,6 +240,12 @@ class AccountUpdateParamsCapabilities(TypedDict):
     """
     The amazon_pay_payments capability.
     """
+    app_distribution: NotRequired[
+        "AccountUpdateParamsCapabilitiesAppDistribution"
+    ]
+    """
+    The app_distribution capability.
+    """
     au_becs_debit_payments: NotRequired[
         "AccountUpdateParamsCapabilitiesAuBecsDebitPayments"
     ]
@@ -552,6 +558,12 @@ class AccountUpdateParamsCapabilities(TypedDict):
     """
     The stripe_balance_payments capability.
     """
+    sunbit_payments: NotRequired[
+        "AccountUpdateParamsCapabilitiesSunbitPayments"
+    ]
+    """
+    The sunbit_payments capability.
+    """
     swish_payments: NotRequired["AccountUpdateParamsCapabilitiesSwishPayments"]
     """
     The swish_payments capability.
@@ -649,6 +661,13 @@ class AccountUpdateParamsCapabilitiesAlmaPayments(TypedDict):
 
 
 class AccountUpdateParamsCapabilitiesAmazonPayPayments(TypedDict):
+    requested: NotRequired[bool]
+    """
+    Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+    """
+
+
+class AccountUpdateParamsCapabilitiesAppDistribution(TypedDict):
     requested: NotRequired[bool]
     """
     Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -1048,6 +1067,13 @@ class AccountUpdateParamsCapabilitiesSofortPayments(TypedDict):
 
 
 class AccountUpdateParamsCapabilitiesStripeBalancePayments(TypedDict):
+    requested: NotRequired[bool]
+    """
+    Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+    """
+
+
+class AccountUpdateParamsCapabilitiesSunbitPayments(TypedDict):
     requested: NotRequired[bool]
     """
     Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -1600,15 +1626,15 @@ class AccountUpdateParamsCard(TypedDict):
     address_zip: NotRequired[str]
     currency: NotRequired[str]
     cvc: NotRequired[str]
+    default_for_currency: NotRequired[bool]
     exp_month: int
     exp_year: int
-    name: NotRequired[str]
-    number: str
     metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
-    default_for_currency: NotRequired[bool]
+    name: NotRequired[str]
+    number: str
 
 
 class AccountUpdateParamsCardToken(TypedDict):

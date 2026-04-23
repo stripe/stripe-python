@@ -80,6 +80,7 @@ class CustomerPaymentMethodListParams(TypedDict):
             "shopeepay",
             "sofort",
             "stripe_balance",
+            "sunbit",
             "swish",
             "twint",
             "upi",

@@ -886,6 +886,7 @@ class PaymentLink(
                 "sepa_debit",
                 "shopeepay",
                 "sofort",
+                "sunbit",
                 "swish",
                 "twint",
                 "upi",

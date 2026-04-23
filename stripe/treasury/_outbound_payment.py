@@ -295,6 +295,10 @@ class OutboundPayment(
     """
     String representing the object's type. Objects of the same type share the same value.
     """
+    purpose: Optional[Literal["payroll"]]
+    """
+    The purpose of the OutboundPayment, if applicable.
+    """
     returned_details: Optional[ReturnedDetails]
     """
     Details about a returned OutboundPayment. Only set when the status is `returned`.

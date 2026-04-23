@@ -217,6 +217,10 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             """
             The last four digits of the card.
             """
+            moto: Optional[bool]
+            """
+            True if this payment was marked as MOTO and out of scope for SCA.
+            """
             network: Optional[str]
             """
             Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
@@ -510,11 +514,13 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 "account_number_invalid",
                 "account_token_required_for_v2_account",
                 "acss_debit_session_incomplete",
+                "action_blocked",
                 "alipay_upgrade_required",
                 "amount_too_large",
                 "amount_too_small",
                 "api_key_expired",
                 "application_fees_not_allowed",
+                "approval_required",
                 "authentication_required",
                 "balance_insufficient",
                 "balance_invalid_parameter",

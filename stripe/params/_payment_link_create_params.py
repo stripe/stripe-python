@@ -146,6 +146,7 @@ class PaymentLinkCreateParams(RequestOptions):
                 "sepa_debit",
                 "shopeepay",
                 "sofort",
+                "sunbit",
                 "swish",
                 "twint",
                 "upi",

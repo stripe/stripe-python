@@ -79,6 +79,7 @@ if TYPE_CHECKING:
     from stripe._review_service import ReviewService
     from stripe._setup_attempt_service import SetupAttemptService
     from stripe._setup_intent_service import SetupIntentService
+    from stripe._shared_payment_service import SharedPaymentService
     from stripe._shipping_rate_service import ShippingRateService
     from stripe._sigma_service import SigmaService
     from stripe._source_service import SourceService
@@ -227,6 +228,10 @@ _subservices = {
     "reviews": ["stripe._review_service", "ReviewService"],
     "setup_attempts": ["stripe._setup_attempt_service", "SetupAttemptService"],
     "setup_intents": ["stripe._setup_intent_service", "SetupIntentService"],
+    "shared_payment": [
+        "stripe._shared_payment_service",
+        "SharedPaymentService",
+    ],
     "shipping_rates": ["stripe._shipping_rate_service", "ShippingRateService"],
     "sigma": ["stripe._sigma_service", "SigmaService"],
     "sources": ["stripe._source_service", "SourceService"],
@@ -321,6 +326,7 @@ class V1Services(StripeService):
     reviews: "ReviewService"
     setup_attempts: "SetupAttemptService"
     setup_intents: "SetupIntentService"
+    shared_payment: "SharedPaymentService"
     shipping_rates: "ShippingRateService"
     sigma: "SigmaService"
     sources: "SourceService"

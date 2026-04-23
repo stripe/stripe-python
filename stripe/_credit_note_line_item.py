@@ -65,7 +65,7 @@ class CreditNoteLineItem(StripeObject):
 
     class Tax(StripeObject):
         class TaxRateDetails(StripeObject):
-            tax_rate: str
+            tax_rate: ExpandableField["TaxRate"]
             """
             ID of the tax rate
             """

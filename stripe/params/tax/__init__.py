@@ -199,10 +199,18 @@ if TYPE_CHECKING:
         RegistrationCreateParamsCountryOptionsUa as RegistrationCreateParamsCountryOptionsUa,
         RegistrationCreateParamsCountryOptionsUg as RegistrationCreateParamsCountryOptionsUg,
         RegistrationCreateParamsCountryOptionsUs as RegistrationCreateParamsCountryOptionsUs,
+        RegistrationCreateParamsCountryOptionsUsAdmissionsTax as RegistrationCreateParamsCountryOptionsUsAdmissionsTax,
+        RegistrationCreateParamsCountryOptionsUsAttendanceTax as RegistrationCreateParamsCountryOptionsUsAttendanceTax,
+        RegistrationCreateParamsCountryOptionsUsEntertainmentTax as RegistrationCreateParamsCountryOptionsUsEntertainmentTax,
+        RegistrationCreateParamsCountryOptionsUsGrossReceiptsTax as RegistrationCreateParamsCountryOptionsUsGrossReceiptsTax,
+        RegistrationCreateParamsCountryOptionsUsHospitalityTax as RegistrationCreateParamsCountryOptionsUsHospitalityTax,
         RegistrationCreateParamsCountryOptionsUsLocalAmusementTax as RegistrationCreateParamsCountryOptionsUsLocalAmusementTax,
         RegistrationCreateParamsCountryOptionsUsLocalLeaseTax as RegistrationCreateParamsCountryOptionsUsLocalLeaseTax,
+        RegistrationCreateParamsCountryOptionsUsLuxuryTax as RegistrationCreateParamsCountryOptionsUsLuxuryTax,
+        RegistrationCreateParamsCountryOptionsUsResortTax as RegistrationCreateParamsCountryOptionsUsResortTax,
         RegistrationCreateParamsCountryOptionsUsStateSalesTax as RegistrationCreateParamsCountryOptionsUsStateSalesTax,
         RegistrationCreateParamsCountryOptionsUsStateSalesTaxElection as RegistrationCreateParamsCountryOptionsUsStateSalesTaxElection,
+        RegistrationCreateParamsCountryOptionsUsTourismTax as RegistrationCreateParamsCountryOptionsUsTourismTax,
         RegistrationCreateParamsCountryOptionsUy as RegistrationCreateParamsCountryOptionsUy,
         RegistrationCreateParamsCountryOptionsUyStandard as RegistrationCreateParamsCountryOptionsUyStandard,
         RegistrationCreateParamsCountryOptionsUz as RegistrationCreateParamsCountryOptionsUz,
@@ -933,6 +941,26 @@ _import_map = {
         "stripe.params.tax._registration_create_params",
         False,
     ),
+    "RegistrationCreateParamsCountryOptionsUsAdmissionsTax": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsUsAttendanceTax": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsUsEntertainmentTax": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsUsGrossReceiptsTax": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsUsHospitalityTax": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
     "RegistrationCreateParamsCountryOptionsUsLocalAmusementTax": (
         "stripe.params.tax._registration_create_params",
         False,
@@ -941,11 +969,23 @@ _import_map = {
         "stripe.params.tax._registration_create_params",
         False,
     ),
+    "RegistrationCreateParamsCountryOptionsUsLuxuryTax": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsUsResortTax": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
     "RegistrationCreateParamsCountryOptionsUsStateSalesTax": (
         "stripe.params.tax._registration_create_params",
         False,
     ),
     "RegistrationCreateParamsCountryOptionsUsStateSalesTaxElection": (
+        "stripe.params.tax._registration_create_params",
+        False,
+    ),
+    "RegistrationCreateParamsCountryOptionsUsTourismTax": (
         "stripe.params.tax._registration_create_params",
         False,
     ),

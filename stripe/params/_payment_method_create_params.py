@@ -251,6 +251,10 @@ class PaymentMethodCreateParams(RequestOptions):
     """
     This hash contains details about the Stripe balance payment method.
     """
+    sunbit: NotRequired["PaymentMethodCreateParamsSunbit"]
+    """
+    If this is a Sunbit PaymentMethod, this hash contains details about the Sunbit payment method.
+    """
     swish: NotRequired["PaymentMethodCreateParamsSwish"]
     """
     If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
@@ -314,6 +318,7 @@ class PaymentMethodCreateParams(RequestOptions):
             "shopeepay",
             "sofort",
             "stripe_balance",
+            "sunbit",
             "swish",
             "twint",
             "upi",
@@ -881,6 +886,10 @@ class PaymentMethodCreateParamsStripeBalance(TypedDict):
     """
     The connected account ID whose Stripe balance to use as the source of payment
     """
+
+
+class PaymentMethodCreateParamsSunbit(TypedDict):
+    pass
 
 
 class PaymentMethodCreateParamsSwish(TypedDict):
