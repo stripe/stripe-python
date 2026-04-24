@@ -37,7 +37,7 @@ class CadenceCreateParamsBillingCycle(TypedDict):
     """
     The number of intervals (specified in the interval attribute) between
     cadence billings. For example, type=month and interval_count=3 bills every
-    3 months. If this is not provided, it will default to 1.
+    3 months. If not provided, this defaults to 1.
     """
     month: NotRequired["CadenceCreateParamsBillingCycleMonth"]
     """
@@ -61,7 +61,7 @@ class CadenceCreateParamsBillingCycleDay(TypedDict):
     time: NotRequired["CadenceCreateParamsBillingCycleDayTime"]
     """
     The time at which the billing cycle ends.
-    This field is optional, and if not provided, it will default to
+    This field is optional, and if not provided, it defaults to
     the time at which the cadence was created in UTC timezone.
     """
 
@@ -90,20 +90,20 @@ class CadenceCreateParamsBillingCycleMonth(TypedDict):
     """
     The day to anchor the billing on for a type="month" billing cycle from
     1-31. If this number is greater than the number of days in the month being
-    billed, this will anchor to the last day of the month. If not provided,
-    this will default to the day the cadence was created.
+    billed, this anchors to the last day of the month. If not provided,
+    this defaults to the day the cadence was created.
     """
     month_of_year: NotRequired[int]
     """
     The month to anchor the billing on for a type="month" billing cycle from
-    1-12. If not provided, this will default to the month the cadence was created.
+    1-12. If not provided, this defaults to the month the cadence was created.
     This setting can only be used for monthly billing cycles with `interval_count` of 2, 3, 4 or 6.
-    All occurrences will be calculated from month provided.
+    All occurrences are calculated from the month provided.
     """
     time: NotRequired["CadenceCreateParamsBillingCycleMonthTime"]
     """
     The time at which the billing cycle ends.
-    This field is optional, and if not provided, it will default to
+    This field is optional, and if not provided, it defaults to
     the time at which the cadence was created in UTC timezone.
     """
 
@@ -132,13 +132,13 @@ class CadenceCreateParamsBillingCycleWeek(TypedDict):
     """
     The day of the week to bill the type=week billing cycle on.
     Numbered from 1-7 for Monday to Sunday respectively, based on the ISO-8601
-    week day numbering. If not provided, this will default to the day the
+    week day numbering. If not provided, this defaults to the day the
     cadence was created.
     """
     time: NotRequired["CadenceCreateParamsBillingCycleWeekTime"]
     """
     The time at which the billing cycle ends.
-    This field is optional, and if not provided, it will default to
+    This field is optional, and if not provided, it defaults to
     the time at which the cadence was created in UTC timezone.
     """
 
@@ -167,18 +167,18 @@ class CadenceCreateParamsBillingCycleYear(TypedDict):
     """
     The day to anchor the billing on for a type="month" billing cycle from
     1-31. If this number is greater than the number of days in the month being
-    billed, this will anchor to the last day of the month. If not provided,
-    this will default to the day the cadence was created.
+    billed, this anchors to the last day of the month. If not provided,
+    this defaults to the day the cadence was created.
     """
     month_of_year: NotRequired[int]
     """
-    The month to bill on from 1-12. If not provided, this will default to the
+    The month to bill on from 1-12. If not provided, this defaults to the
     month the cadence was created.
     """
     time: NotRequired["CadenceCreateParamsBillingCycleYearTime"]
     """
     The time at which the billing cycle ends.
-    This field is optional, and if not provided, it will default to
+    This field is optional, and if not provided, it defaults to
     the time at which the cadence was created in UTC timezone.
     """
 
@@ -205,7 +205,7 @@ class CadenceCreateParamsBillingCycleYearTime(TypedDict):
 class CadenceCreateParamsPayer(TypedDict):
     billing_profile: str
     """
-    The ID of the Billing Profile object which determines how a bill will be paid.
+    The ID of the Billing Profile object which determines how a bill is paid.
     """
 
 
@@ -232,7 +232,7 @@ class CadenceCreateParamsSettingsBill(TypedDict):
     version: NotRequired[str]
     """
     An optional field to specify the version of the Settings to use.
-    If not provided, this will always default to the live version any time the settings are used.
+    If not provided, this defaults to the live version any time the settings are used.
     """
 
 
@@ -244,5 +244,5 @@ class CadenceCreateParamsSettingsCollection(TypedDict):
     version: NotRequired[str]
     """
     An optional field to specify the version of the Settings to use.
-    If not provided, this will always default to the live version any time the settings are used.
+    If not provided, this defaults to the live version any time the settings are used.
     """

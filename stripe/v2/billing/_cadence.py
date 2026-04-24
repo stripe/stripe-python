@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject, UntypedStripeObject
-from typing import Any, ClassVar, List, Optional
+from typing import ClassVar, List, Optional
 from typing_extensions import Literal
 
 
@@ -61,7 +61,7 @@ class Cadence(StripeObject):
             """
             The day to anchor the billing on for a type="month" billing cycle from 1-31.
             If this number is greater than the number of days in the month being billed,
-            this will anchor to the last day of the month.
+            this anchors to the last day of the month.
             """
             month_of_year: Optional[int]
             """
@@ -127,11 +127,11 @@ class Cadence(StripeObject):
             """
             The day to anchor the billing on for a type="month" billing cycle from 1-31.
             If this number is greater than the number of days in the month being billed,
-            this will anchor to the last day of the month.
+            this anchors to the last day of the month.
             """
             month_of_year: int
             """
-            The month to bill on from 1-12. If not provided, this will default to the month the cadence was created.
+            The month to bill on from 1-12. If not provided, this defaults to the month the cadence was created.
             """
             time: Time
             """
@@ -173,7 +173,7 @@ class Cadence(StripeObject):
     class Payer(StripeObject):
         billing_profile: str
         """
-        The ID of the Billing Profile object which determines how a bill will be paid.
+        The ID of the Billing Profile object which determines how a bill is paid.
         """
         customer: Optional[str]
         """
@@ -221,7 +221,7 @@ class Cadence(StripeObject):
                 class Tax(StripeObject):
                     type: Literal["automatic", "manual"]
                     """
-                    Determines if tax will be calculated automatically based on a PTC or manually based on rules defined by the merchant. Defaults to "manual".
+                    Determines if tax is calculated automatically based on a PTC or manually based on rules defined by the business. Defaults to "manual".
                     """
 
                 tax: Optional[Tax]
@@ -239,12 +239,12 @@ class Cadence(StripeObject):
                     interval_count: int
                     """
                     The number of interval units. For example, if interval=day and interval_count=30,
-                    the invoice will be due in 30 days.
+                    the invoice is due in 30 days.
                     """
 
                 time_until_due: Optional[TimeUntilDue]
                 """
-                The amount of time until the invoice will be overdue for payment.
+                The amount of time until the invoice is overdue for payment.
                 """
                 _inner_class_types = {"time_until_due": TimeUntilDue}
 
@@ -388,6 +388,12 @@ class Cadence(StripeObject):
                     """
                     _inner_class_types = {"bank_transfer": BankTransfer}
 
+                class Konbini(StripeObject):
+                    pass
+
+                class SepaDebit(StripeObject):
+                    pass
+
                 class UsBankAccount(StripeObject):
                     class FinancialConnections(StripeObject):
                         class Filters(StripeObject):
@@ -451,11 +457,11 @@ class Cadence(StripeObject):
                 """
                 This sub-hash contains details about the Bank transfer payment method options.
                 """
-                konbini: Optional[UntypedStripeObject[Any]]
+                konbini: Optional[Konbini]
                 """
                 This sub-hash contains details about the Konbini payment method options.
                 """
-                sepa_debit: Optional[UntypedStripeObject[Any]]
+                sepa_debit: Optional[SepaDebit]
                 """
                 This sub-hash contains details about the SEPA Direct Debit payment method options.
                 """
@@ -468,14 +474,16 @@ class Cadence(StripeObject):
                     "bancontact": Bancontact,
                     "card": Card,
                     "customer_balance": CustomerBalance,
+                    "konbini": Konbini,
+                    "sepa_debit": SepaDebit,
                     "us_bank_account": UsBankAccount,
                 }
 
             collection_method: Literal["automatic", "send_invoice"]
             """
-            Either automatic, or send_invoice. When charging automatically, Stripe will attempt to pay this
-            bill at the end of the period using the payment method attached to the payer profile. When sending an invoice,
-            Stripe will email your payer profile an invoice with payment instructions.
+            Either automatic, or send_invoice. When charging automatically, Stripe attempts to pay this
+            bill at the end of the period using the payment method attached to the billing profile. When sending an invoice,
+            Stripe emails your billing profile an invoice with payment instructions.
             Defaults to automatic.
             """
             email_delivery: EmailDelivery

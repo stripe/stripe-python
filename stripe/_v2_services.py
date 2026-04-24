@@ -6,16 +6,33 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.v2._billing_service import BillingService
+    from stripe.v2._commerce_service import CommerceService
     from stripe.v2._core_service import CoreService
+    from stripe.v2._datum_service import DatumService
+    from stripe.v2._extend_service import ExtendService
+    from stripe.v2._iam_service import IamService
     from stripe.v2._money_management_service import MoneyManagementService
+    from stripe.v2._network_service import NetworkService
+    from stripe.v2._orchestrated_commerce_service import (
+        OrchestratedCommerceService,
+    )
     from stripe.v2._test_helper_service import TestHelperService
 
 _subservices = {
     "billing": ["stripe.v2._billing_service", "BillingService"],
+    "commerce": ["stripe.v2._commerce_service", "CommerceService"],
     "core": ["stripe.v2._core_service", "CoreService"],
+    "data": ["stripe.v2._datum_service", "DatumService"],
+    "extend": ["stripe.v2._extend_service", "ExtendService"],
+    "iam": ["stripe.v2._iam_service", "IamService"],
     "money_management": [
         "stripe.v2._money_management_service",
         "MoneyManagementService",
+    ],
+    "network": ["stripe.v2._network_service", "NetworkService"],
+    "orchestrated_commerce": [
+        "stripe.v2._orchestrated_commerce_service",
+        "OrchestratedCommerceService",
     ],
     "test_helpers": ["stripe.v2._test_helper_service", "TestHelperService"],
 }
@@ -23,8 +40,14 @@ _subservices = {
 
 class V2Services(StripeService):
     billing: "BillingService"
+    commerce: "CommerceService"
     core: "CoreService"
+    data: "DatumService"
+    extend: "ExtendService"
+    iam: "IamService"
     money_management: "MoneyManagementService"
+    network: "NetworkService"
+    orchestrated_commerce: "OrchestratedCommerceService"
     test_helpers: "TestHelperService"
 
     def __init__(self, requestor):

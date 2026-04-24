@@ -435,6 +435,10 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "MeterEventSession",
     ),
     "v2.billing.profile": ("stripe.v2.billing._profile", "Profile"),
+    "v2.commerce.product_catalog_import": (
+        "stripe.v2.commerce._product_catalog_import",
+        "ProductCatalogImport",
+    ),
     "v2.core.account": ("stripe.v2.core._account", "Account"),
     "v2.core.account_link": ("stripe.v2.core._account_link", "AccountLink"),
     "v2.core.account_person": (
@@ -460,6 +464,15 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.v2.core.vault._us_bank_account",
         "UsBankAccount",
     ),
+    "v2.data.reporting.query_run": (
+        "stripe.v2.data.reporting._query_run",
+        "QueryRun",
+    ),
+    "v2.extend.workflow": ("stripe.v2.extend._workflow", "Workflow"),
+    "v2.extend.workflow_run": (
+        "stripe.v2.extend._workflow_run",
+        "WorkflowRun",
+    ),
     "financial_address_credit_simulation": (
         "stripe.v2._financial_address_credit_simulation",
         "FinancialAddressCreditSimulation",
@@ -468,6 +481,7 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.v2._financial_address_generated_microdeposits",
         "FinancialAddressGeneratedMicrodeposits",
     ),
+    "v2.iam.activity_log": ("stripe.v2.iam._activity_log", "ActivityLog"),
     "v2.money_management.adjustment": (
         "stripe.v2.money_management._adjustment",
         "Adjustment",
@@ -523,6 +537,14 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     "v2.money_management.transaction_entry": (
         "stripe.v2.money_management._transaction_entry",
         "TransactionEntry",
+    ),
+    "v2.network.business_profile": (
+        "stripe.v2.network._business_profile",
+        "BusinessProfile",
+    ),
+    "v2.orchestrated_commerce.agreement": (
+        "stripe.v2.orchestrated_commerce._agreement",
+        "Agreement",
     ),
     # V2 Object classes: The end of the section generated from our OpenAPI spec
 }

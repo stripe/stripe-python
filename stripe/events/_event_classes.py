@@ -13,6 +13,18 @@ if TYPE_CHECKING:
     from stripe.events._v1_billing_meter_no_meter_found_event import (
         V1BillingMeterNoMeterFoundEventNotification,
     )
+    from stripe.events._v2_commerce_product_catalog_imports_failed_event import (
+        V2CommerceProductCatalogImportsFailedEventNotification,
+    )
+    from stripe.events._v2_commerce_product_catalog_imports_processing_event import (
+        V2CommerceProductCatalogImportsProcessingEventNotification,
+    )
+    from stripe.events._v2_commerce_product_catalog_imports_succeeded_event import (
+        V2CommerceProductCatalogImportsSucceededEventNotification,
+    )
+    from stripe.events._v2_commerce_product_catalog_imports_succeeded_with_errors_event import (
+        V2CommerceProductCatalogImportsSucceededWithErrorsEventNotification,
+    )
     from stripe.events._v2_core_account_closed_event import (
         V2CoreAccountClosedEventNotification,
     )
@@ -105,6 +117,27 @@ if TYPE_CHECKING:
     )
     from stripe.events._v2_core_health_event_generation_failure_resolved_event import (
         V2CoreHealthEventGenerationFailureResolvedEventNotification,
+    )
+    from stripe.events._v2_data_reporting_query_run_created_event import (
+        V2DataReportingQueryRunCreatedEventNotification,
+    )
+    from stripe.events._v2_data_reporting_query_run_failed_event import (
+        V2DataReportingQueryRunFailedEventNotification,
+    )
+    from stripe.events._v2_data_reporting_query_run_succeeded_event import (
+        V2DataReportingQueryRunSucceededEventNotification,
+    )
+    from stripe.events._v2_data_reporting_query_run_updated_event import (
+        V2DataReportingQueryRunUpdatedEventNotification,
+    )
+    from stripe.events._v2_extend_workflow_run_failed_event import (
+        V2ExtendWorkflowRunFailedEventNotification,
+    )
+    from stripe.events._v2_extend_workflow_run_started_event import (
+        V2ExtendWorkflowRunStartedEventNotification,
+    )
+    from stripe.events._v2_extend_workflow_run_succeeded_event import (
+        V2ExtendWorkflowRunSucceededEventNotification,
     )
     from stripe.events._v2_money_management_adjustment_created_event import (
         V2MoneyManagementAdjustmentCreatedEventNotification,
@@ -214,6 +247,18 @@ if TYPE_CHECKING:
     from stripe.events._v2_money_management_transaction_updated_event import (
         V2MoneyManagementTransactionUpdatedEventNotification,
     )
+    from stripe.events._v2_orchestrated_commerce_agreement_confirmed_event import (
+        V2OrchestratedCommerceAgreementConfirmedEventNotification,
+    )
+    from stripe.events._v2_orchestrated_commerce_agreement_created_event import (
+        V2OrchestratedCommerceAgreementCreatedEventNotification,
+    )
+    from stripe.events._v2_orchestrated_commerce_agreement_partially_confirmed_event import (
+        V2OrchestratedCommerceAgreementPartiallyConfirmedEventNotification,
+    )
+    from stripe.events._v2_orchestrated_commerce_agreement_terminated_event import (
+        V2OrchestratedCommerceAgreementTerminatedEventNotification,
+    )
 
 
 _V2_EVENT_CLASS_LOOKUP = {
@@ -224,6 +269,22 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v1.billing.meter.no_meter_found": (
         "stripe.events._v1_billing_meter_no_meter_found_event",
         "V1BillingMeterNoMeterFoundEvent",
+    ),
+    "v2.commerce.product_catalog.imports.failed": (
+        "stripe.events._v2_commerce_product_catalog_imports_failed_event",
+        "V2CommerceProductCatalogImportsFailedEvent",
+    ),
+    "v2.commerce.product_catalog.imports.processing": (
+        "stripe.events._v2_commerce_product_catalog_imports_processing_event",
+        "V2CommerceProductCatalogImportsProcessingEvent",
+    ),
+    "v2.commerce.product_catalog.imports.succeeded": (
+        "stripe.events._v2_commerce_product_catalog_imports_succeeded_event",
+        "V2CommerceProductCatalogImportsSucceededEvent",
+    ),
+    "v2.commerce.product_catalog.imports.succeeded_with_errors": (
+        "stripe.events._v2_commerce_product_catalog_imports_succeeded_with_errors_event",
+        "V2CommerceProductCatalogImportsSucceededWithErrorsEvent",
     ),
     "v2.core.account.closed": (
         "stripe.events._v2_core_account_closed_event",
@@ -348,6 +409,34 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v2.core.health.event_generation_failure.resolved": (
         "stripe.events._v2_core_health_event_generation_failure_resolved_event",
         "V2CoreHealthEventGenerationFailureResolvedEvent",
+    ),
+    "v2.data.reporting.query_run.created": (
+        "stripe.events._v2_data_reporting_query_run_created_event",
+        "V2DataReportingQueryRunCreatedEvent",
+    ),
+    "v2.data.reporting.query_run.failed": (
+        "stripe.events._v2_data_reporting_query_run_failed_event",
+        "V2DataReportingQueryRunFailedEvent",
+    ),
+    "v2.data.reporting.query_run.succeeded": (
+        "stripe.events._v2_data_reporting_query_run_succeeded_event",
+        "V2DataReportingQueryRunSucceededEvent",
+    ),
+    "v2.data.reporting.query_run.updated": (
+        "stripe.events._v2_data_reporting_query_run_updated_event",
+        "V2DataReportingQueryRunUpdatedEvent",
+    ),
+    "v2.extend.workflow_run.failed": (
+        "stripe.events._v2_extend_workflow_run_failed_event",
+        "V2ExtendWorkflowRunFailedEvent",
+    ),
+    "v2.extend.workflow_run.started": (
+        "stripe.events._v2_extend_workflow_run_started_event",
+        "V2ExtendWorkflowRunStartedEvent",
+    ),
+    "v2.extend.workflow_run.succeeded": (
+        "stripe.events._v2_extend_workflow_run_succeeded_event",
+        "V2ExtendWorkflowRunSucceededEvent",
     ),
     "v2.money_management.adjustment.created": (
         "stripe.events._v2_money_management_adjustment_created_event",
@@ -493,6 +582,22 @@ _V2_EVENT_CLASS_LOOKUP = {
         "stripe.events._v2_money_management_transaction_updated_event",
         "V2MoneyManagementTransactionUpdatedEvent",
     ),
+    "v2.orchestrated_commerce.agreement.confirmed": (
+        "stripe.events._v2_orchestrated_commerce_agreement_confirmed_event",
+        "V2OrchestratedCommerceAgreementConfirmedEvent",
+    ),
+    "v2.orchestrated_commerce.agreement.created": (
+        "stripe.events._v2_orchestrated_commerce_agreement_created_event",
+        "V2OrchestratedCommerceAgreementCreatedEvent",
+    ),
+    "v2.orchestrated_commerce.agreement.partially_confirmed": (
+        "stripe.events._v2_orchestrated_commerce_agreement_partially_confirmed_event",
+        "V2OrchestratedCommerceAgreementPartiallyConfirmedEvent",
+    ),
+    "v2.orchestrated_commerce.agreement.terminated": (
+        "stripe.events._v2_orchestrated_commerce_agreement_terminated_event",
+        "V2OrchestratedCommerceAgreementTerminatedEvent",
+    ),
 }
 
 
@@ -515,6 +620,22 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
     "v1.billing.meter.no_meter_found": (
         "stripe.events._v1_billing_meter_no_meter_found_event",
         "V1BillingMeterNoMeterFoundEventNotification",
+    ),
+    "v2.commerce.product_catalog.imports.failed": (
+        "stripe.events._v2_commerce_product_catalog_imports_failed_event",
+        "V2CommerceProductCatalogImportsFailedEventNotification",
+    ),
+    "v2.commerce.product_catalog.imports.processing": (
+        "stripe.events._v2_commerce_product_catalog_imports_processing_event",
+        "V2CommerceProductCatalogImportsProcessingEventNotification",
+    ),
+    "v2.commerce.product_catalog.imports.succeeded": (
+        "stripe.events._v2_commerce_product_catalog_imports_succeeded_event",
+        "V2CommerceProductCatalogImportsSucceededEventNotification",
+    ),
+    "v2.commerce.product_catalog.imports.succeeded_with_errors": (
+        "stripe.events._v2_commerce_product_catalog_imports_succeeded_with_errors_event",
+        "V2CommerceProductCatalogImportsSucceededWithErrorsEventNotification",
     ),
     "v2.core.account.closed": (
         "stripe.events._v2_core_account_closed_event",
@@ -639,6 +760,34 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
     "v2.core.health.event_generation_failure.resolved": (
         "stripe.events._v2_core_health_event_generation_failure_resolved_event",
         "V2CoreHealthEventGenerationFailureResolvedEventNotification",
+    ),
+    "v2.data.reporting.query_run.created": (
+        "stripe.events._v2_data_reporting_query_run_created_event",
+        "V2DataReportingQueryRunCreatedEventNotification",
+    ),
+    "v2.data.reporting.query_run.failed": (
+        "stripe.events._v2_data_reporting_query_run_failed_event",
+        "V2DataReportingQueryRunFailedEventNotification",
+    ),
+    "v2.data.reporting.query_run.succeeded": (
+        "stripe.events._v2_data_reporting_query_run_succeeded_event",
+        "V2DataReportingQueryRunSucceededEventNotification",
+    ),
+    "v2.data.reporting.query_run.updated": (
+        "stripe.events._v2_data_reporting_query_run_updated_event",
+        "V2DataReportingQueryRunUpdatedEventNotification",
+    ),
+    "v2.extend.workflow_run.failed": (
+        "stripe.events._v2_extend_workflow_run_failed_event",
+        "V2ExtendWorkflowRunFailedEventNotification",
+    ),
+    "v2.extend.workflow_run.started": (
+        "stripe.events._v2_extend_workflow_run_started_event",
+        "V2ExtendWorkflowRunStartedEventNotification",
+    ),
+    "v2.extend.workflow_run.succeeded": (
+        "stripe.events._v2_extend_workflow_run_succeeded_event",
+        "V2ExtendWorkflowRunSucceededEventNotification",
     ),
     "v2.money_management.adjustment.created": (
         "stripe.events._v2_money_management_adjustment_created_event",
@@ -784,6 +933,22 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_money_management_transaction_updated_event",
         "V2MoneyManagementTransactionUpdatedEventNotification",
     ),
+    "v2.orchestrated_commerce.agreement.confirmed": (
+        "stripe.events._v2_orchestrated_commerce_agreement_confirmed_event",
+        "V2OrchestratedCommerceAgreementConfirmedEventNotification",
+    ),
+    "v2.orchestrated_commerce.agreement.created": (
+        "stripe.events._v2_orchestrated_commerce_agreement_created_event",
+        "V2OrchestratedCommerceAgreementCreatedEventNotification",
+    ),
+    "v2.orchestrated_commerce.agreement.partially_confirmed": (
+        "stripe.events._v2_orchestrated_commerce_agreement_partially_confirmed_event",
+        "V2OrchestratedCommerceAgreementPartiallyConfirmedEventNotification",
+    ),
+    "v2.orchestrated_commerce.agreement.terminated": (
+        "stripe.events._v2_orchestrated_commerce_agreement_terminated_event",
+        "V2OrchestratedCommerceAgreementTerminatedEventNotification",
+    ),
 }
 
 
@@ -801,6 +966,10 @@ def get_v2_event_notification_class(type_: str):
 ALL_EVENT_NOTIFICATIONS = Union[
     "V1BillingMeterErrorReportTriggeredEventNotification",
     "V1BillingMeterNoMeterFoundEventNotification",
+    "V2CommerceProductCatalogImportsFailedEventNotification",
+    "V2CommerceProductCatalogImportsProcessingEventNotification",
+    "V2CommerceProductCatalogImportsSucceededEventNotification",
+    "V2CommerceProductCatalogImportsSucceededWithErrorsEventNotification",
     "V2CoreAccountClosedEventNotification",
     "V2CoreAccountCreatedEventNotification",
     "V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEventNotification",
@@ -832,6 +1001,13 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2CoreBatchJobValidationFailedEventNotification",
     "V2CoreEventDestinationPingEventNotification",
     "V2CoreHealthEventGenerationFailureResolvedEventNotification",
+    "V2DataReportingQueryRunCreatedEventNotification",
+    "V2DataReportingQueryRunFailedEventNotification",
+    "V2DataReportingQueryRunSucceededEventNotification",
+    "V2DataReportingQueryRunUpdatedEventNotification",
+    "V2ExtendWorkflowRunFailedEventNotification",
+    "V2ExtendWorkflowRunStartedEventNotification",
+    "V2ExtendWorkflowRunSucceededEventNotification",
     "V2MoneyManagementAdjustmentCreatedEventNotification",
     "V2MoneyManagementFinancialAccountCreatedEventNotification",
     "V2MoneyManagementFinancialAccountUpdatedEventNotification",
@@ -868,4 +1044,8 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2MoneyManagementReceivedDebitUpdatedEventNotification",
     "V2MoneyManagementTransactionCreatedEventNotification",
     "V2MoneyManagementTransactionUpdatedEventNotification",
+    "V2OrchestratedCommerceAgreementConfirmedEventNotification",
+    "V2OrchestratedCommerceAgreementCreatedEventNotification",
+    "V2OrchestratedCommerceAgreementPartiallyConfirmedEventNotification",
+    "V2OrchestratedCommerceAgreementTerminatedEventNotification",
 ]

@@ -1,16 +1,15 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._stripe_object import UntypedStripeObject
-from typing import Any, Dict, List
+from typing import List
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class CollectionSettingUpdateParams(TypedDict):
     collection_method: NotRequired[Literal["automatic", "send_invoice"]]
     """
-    Either automatic, or send_invoice. When charging automatically, Stripe will attempt to pay this
-    bill at the end of the period using the payment method attached to the payer profile. When sending an invoice,
-    Stripe will email your payer profile an invoice with payment instructions.
+    Either automatic, or send_invoice. When charging automatically, Stripe attempts to pay this
+    bill at the end of the period using the payment method attached to the billing profile. When sending an invoice,
+    Stripe emails your billing profile an invoice with payment instructions.
     """
     display_name: NotRequired[str]
     """
@@ -25,7 +24,7 @@ class CollectionSettingUpdateParams(TypedDict):
     live_version: NotRequired[str]
     """
     Optionally change the live version of the CollectionSetting. Billing Cadences and other objects that refer to this
-    CollectionSetting will use this version when no overrides are set. Providing `live_version = "latest"` will set the
+    CollectionSetting uses this version when no overrides are set. Providing `live_version = "latest"` sets the
     CollectionSetting's `live_version` to its latest version.
     """
     lookup_key: NotRequired[str]
@@ -88,11 +87,15 @@ class CollectionSettingUpdateParamsPaymentMethodOptions(TypedDict):
     """
     This sub-hash contains details about the Bank transfer payment method options.
     """
-    konbini: NotRequired["Dict[str, Any]|UntypedStripeObject[Any]"]
+    konbini: NotRequired[
+        "CollectionSettingUpdateParamsPaymentMethodOptionsKonbini"
+    ]
     """
     This sub-hash contains details about the Konbini payment method options.
     """
-    sepa_debit: NotRequired["Dict[str, Any]|UntypedStripeObject[Any]"]
+    sepa_debit: NotRequired[
+        "CollectionSettingUpdateParamsPaymentMethodOptionsSepaDebit"
+    ]
     """
     This sub-hash contains details about the SEPA Direct Debit payment method options.
     """
@@ -219,6 +222,14 @@ class CollectionSettingUpdateParamsPaymentMethodOptionsCustomerBalanceBankTransf
     """
     The desired country code of the bank account information.
     """
+
+
+class CollectionSettingUpdateParamsPaymentMethodOptionsKonbini(TypedDict):
+    pass
+
+
+class CollectionSettingUpdateParamsPaymentMethodOptionsSepaDebit(TypedDict):
+    pass
 
 
 class CollectionSettingUpdateParamsPaymentMethodOptionsUsBankAccount(

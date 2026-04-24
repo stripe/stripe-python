@@ -44241,6 +44241,74 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
+    def test_v2_commerce_product_catalog_import_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/commerce/product_catalog/imports",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.commerce.product_catalog.imports.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/commerce/product_catalog/imports",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_commerce_product_catalog_import_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/commerce/product_catalog/imports",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.commerce.product_catalog.imports.create(
+            {
+                "feed_type": "pricing",
+                "metadata": {"key": "metadata"},
+                "mode": "upsert",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/commerce/product_catalog/imports",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"feed_type":"pricing","metadata":{"key":"metadata"},"mode":"upsert"}',
+            is_json=True,
+        )
+
+    def test_v2_commerce_product_catalog_import_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/commerce/product_catalog/imports/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.commerce.product_catalog.imports.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/commerce/product_catalog/imports/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
     def test_v2_core_account_get_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -44609,7 +44677,7 @@ class TestGeneratedExamples(object):
         client.v2.core.batch_jobs.create(
             {
                 "endpoint": {
-                    "http_method": "post",
+                    "http_method": "delete",
                     "path": "/v1/subscription_schedules",
                 },
                 "metadata": {"key": "metadata"},
@@ -44621,7 +44689,7 @@ class TestGeneratedExamples(object):
             path="/v2/core/batch_jobs",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"endpoint":{"http_method":"post","path":"/v1/subscription_schedules"},"metadata":{"key":"metadata"},"skip_validation":true}',
+            post_data='{"endpoint":{"http_method":"delete","path":"/v1/subscription_schedules"},"metadata":{"key":"metadata"},"skip_validation":true}',
             is_json=True,
         )
 
@@ -45169,6 +45237,185 @@ class TestGeneratedExamples(object):
             api_base="https://api.stripe.com",
             post_data="{}",
             is_json=True,
+        )
+
+    def test_v2_data_reporting_query_run_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/data/reporting/query_runs",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.data.reporting.query_runs.create({"sql": "sql"})
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/data/reporting/query_runs",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"sql":"sql"}',
+            is_json=True,
+        )
+
+    def test_v2_data_reporting_query_run_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/data/reporting/query_runs/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.data.reporting.query_runs.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/data/reporting/query_runs/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_extend_workflow_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/extend/workflows",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.extend.workflows.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/extend/workflows",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_extend_workflow_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/extend/workflows/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.extend.workflows.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/extend/workflows/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_extend_workflow_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/extend/workflows/id_123/invoke",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.extend.workflows.invoke(
+            "id_123",
+            {
+                "input_parameters": {
+                    "int_key": 123,
+                    "string_key": "value",
+                    "boolean_key": True,
+                    "object_key": {
+                        "object_int_key": 123,
+                        "object_string_key": "value",
+                        "object_boolean_key": True,
+                    },
+                    "array_key": [1, 2, 3],
+                },
+            },
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/extend/workflows/id_123/invoke",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"input_parameters":{"int_key":123,"string_key":"value","boolean_key":true,"object_key":{"object_int_key":123,"object_string_key":"value","object_boolean_key":true},"array_key":[1,2,3]}}',
+            is_json=True,
+        )
+
+    def test_v2_extend_workflow_run_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/extend/workflow_runs",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.extend.workflow_runs.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/extend/workflow_runs",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_extend_workflow_run_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/extend/workflow_runs/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.extend.workflow_runs.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/extend/workflow_runs/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_iam_activity_log_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/iam/activity_logs",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.iam.activity_logs.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/iam/activity_logs",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_v2_money_management_adjustment_get_service(
@@ -46077,6 +46324,156 @@ class TestGeneratedExamples(object):
             api_base="https://api.stripe.com",
         )
 
+    def test_v2_network_business_profile_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/network/business_profiles/me",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.network.business_profiles.me()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/network/business_profiles/me",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_network_business_profile_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/network/business_profiles/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.network.business_profiles.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/network/business_profiles/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_orchestrated_commerce_agreement_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/orchestrated_commerce/agreements",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.orchestrated_commerce.agreements.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/orchestrated_commerce/agreements",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_orchestrated_commerce_agreement_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/orchestrated_commerce/agreements",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.orchestrated_commerce.agreements.create(
+            {
+                "orchestrator": "orchestrator",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/orchestrated_commerce/agreements",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"orchestrator":"orchestrator"}',
+            is_json=True,
+        )
+
+    def test_v2_orchestrated_commerce_agreement_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/orchestrated_commerce/agreements/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.orchestrated_commerce.agreements.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/orchestrated_commerce/agreements/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_orchestrated_commerce_agreement_post_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/orchestrated_commerce/agreements/id_123/confirm",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.orchestrated_commerce.agreements.confirm("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/orchestrated_commerce/agreements/id_123/confirm",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
+    def test_v2_orchestrated_commerce_agreement_post_3_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/orchestrated_commerce/agreements/id_123/terminate",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.orchestrated_commerce.agreements.terminate("id_123")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/orchestrated_commerce/agreements/id_123/terminate",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data="{}",
+            is_json=True,
+        )
+
     def test_v2_test_helpers_financial_address_post_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -46213,6 +46610,48 @@ class TestGeneratedExamples(object):
             query_string="",
             api_base="https://api.stripe.com",
             post_data='{"account_number":"account_number","currency":"usd"}',
+            is_json=True,
+        )
+
+    def test_cannot_proceed_error_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/extend/workflows/id_123/invoke",
+            rbody='{"error":{"type":"cannot_proceed","code":"default_payout_method_cannot_be_archived"}}',
+            rcode=400,
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        try:
+            client.v2.extend.workflows.invoke(
+                "id_123",
+                {
+                    "input_parameters": {
+                        "int_key": 123,
+                        "string_key": "value",
+                        "boolean_key": True,
+                        "object_key": {
+                            "object_int_key": 123,
+                            "object_string_key": "value",
+                            "object_boolean_key": True,
+                        },
+                        "array_key": [1, 2, 3],
+                    },
+                },
+            )
+        except _error.CannotProceedError:
+            pass
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/extend/workflows/id_123/invoke",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"input_parameters":{"int_key":123,"string_key":"value","boolean_key":true,"object_key":{"object_int_key":123,"object_string_key":"value","object_boolean_key":true},"array_key":[1,2,3]}}',
             is_json=True,
         )
 

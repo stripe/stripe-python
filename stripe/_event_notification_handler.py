@@ -16,6 +16,18 @@ if TYPE_CHECKING:
     from stripe.events._v1_billing_meter_no_meter_found_event import (
         V1BillingMeterNoMeterFoundEventNotification,
     )
+    from stripe.events._v2_commerce_product_catalog_imports_failed_event import (
+        V2CommerceProductCatalogImportsFailedEventNotification,
+    )
+    from stripe.events._v2_commerce_product_catalog_imports_processing_event import (
+        V2CommerceProductCatalogImportsProcessingEventNotification,
+    )
+    from stripe.events._v2_commerce_product_catalog_imports_succeeded_event import (
+        V2CommerceProductCatalogImportsSucceededEventNotification,
+    )
+    from stripe.events._v2_commerce_product_catalog_imports_succeeded_with_errors_event import (
+        V2CommerceProductCatalogImportsSucceededWithErrorsEventNotification,
+    )
     from stripe.events._v2_core_account_closed_event import (
         V2CoreAccountClosedEventNotification,
     )
@@ -108,6 +120,27 @@ if TYPE_CHECKING:
     )
     from stripe.events._v2_core_health_event_generation_failure_resolved_event import (
         V2CoreHealthEventGenerationFailureResolvedEventNotification,
+    )
+    from stripe.events._v2_data_reporting_query_run_created_event import (
+        V2DataReportingQueryRunCreatedEventNotification,
+    )
+    from stripe.events._v2_data_reporting_query_run_failed_event import (
+        V2DataReportingQueryRunFailedEventNotification,
+    )
+    from stripe.events._v2_data_reporting_query_run_succeeded_event import (
+        V2DataReportingQueryRunSucceededEventNotification,
+    )
+    from stripe.events._v2_data_reporting_query_run_updated_event import (
+        V2DataReportingQueryRunUpdatedEventNotification,
+    )
+    from stripe.events._v2_extend_workflow_run_failed_event import (
+        V2ExtendWorkflowRunFailedEventNotification,
+    )
+    from stripe.events._v2_extend_workflow_run_started_event import (
+        V2ExtendWorkflowRunStartedEventNotification,
+    )
+    from stripe.events._v2_extend_workflow_run_succeeded_event import (
+        V2ExtendWorkflowRunSucceededEventNotification,
     )
     from stripe.events._v2_money_management_adjustment_created_event import (
         V2MoneyManagementAdjustmentCreatedEventNotification,
@@ -216,6 +249,18 @@ if TYPE_CHECKING:
     )
     from stripe.events._v2_money_management_transaction_updated_event import (
         V2MoneyManagementTransactionUpdatedEventNotification,
+    )
+    from stripe.events._v2_orchestrated_commerce_agreement_confirmed_event import (
+        V2OrchestratedCommerceAgreementConfirmedEventNotification,
+    )
+    from stripe.events._v2_orchestrated_commerce_agreement_created_event import (
+        V2OrchestratedCommerceAgreementCreatedEventNotification,
+    )
+    from stripe.events._v2_orchestrated_commerce_agreement_partially_confirmed_event import (
+        V2OrchestratedCommerceAgreementPartiallyConfirmedEventNotification,
+    )
+    from stripe.events._v2_orchestrated_commerce_agreement_terminated_event import (
+        V2OrchestratedCommerceAgreementTerminatedEventNotification,
     )
     # event-notification-types: The end of the section generated from our OpenAPI spec
 
@@ -335,6 +380,58 @@ class StripeEventNotificationHandler:
         """
         self._register(
             "v1.billing.meter.no_meter_found",
+            func,
+        )
+        return func
+
+    def on_v2_commerce_product_catalog_imports_failed(
+        self,
+        func: "Callable[[V2CommerceProductCatalogImportsFailedEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2CommerceProductCatalogImportsFailedEvent` (`v2.commerce.product_catalog.imports.failed`) event notification.
+        """
+        self._register(
+            "v2.commerce.product_catalog.imports.failed",
+            func,
+        )
+        return func
+
+    def on_v2_commerce_product_catalog_imports_processing(
+        self,
+        func: "Callable[[V2CommerceProductCatalogImportsProcessingEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2CommerceProductCatalogImportsProcessingEvent` (`v2.commerce.product_catalog.imports.processing`) event notification.
+        """
+        self._register(
+            "v2.commerce.product_catalog.imports.processing",
+            func,
+        )
+        return func
+
+    def on_v2_commerce_product_catalog_imports_succeeded(
+        self,
+        func: "Callable[[V2CommerceProductCatalogImportsSucceededEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2CommerceProductCatalogImportsSucceededEvent` (`v2.commerce.product_catalog.imports.succeeded`) event notification.
+        """
+        self._register(
+            "v2.commerce.product_catalog.imports.succeeded",
+            func,
+        )
+        return func
+
+    def on_v2_commerce_product_catalog_imports_succeeded_with_errors(
+        self,
+        func: "Callable[[V2CommerceProductCatalogImportsSucceededWithErrorsEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2CommerceProductCatalogImportsSucceededWithErrorsEvent` (`v2.commerce.product_catalog.imports.succeeded_with_errors`) event notification.
+        """
+        self._register(
+            "v2.commerce.product_catalog.imports.succeeded_with_errors",
             func,
         )
         return func
@@ -738,6 +835,97 @@ class StripeEventNotificationHandler:
         """
         self._register(
             "v2.core.health.event_generation_failure.resolved",
+            func,
+        )
+        return func
+
+    def on_v2_data_reporting_query_run_created(
+        self,
+        func: "Callable[[V2DataReportingQueryRunCreatedEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2DataReportingQueryRunCreatedEvent` (`v2.data.reporting.query_run.created`) event notification.
+        """
+        self._register(
+            "v2.data.reporting.query_run.created",
+            func,
+        )
+        return func
+
+    def on_v2_data_reporting_query_run_failed(
+        self,
+        func: "Callable[[V2DataReportingQueryRunFailedEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2DataReportingQueryRunFailedEvent` (`v2.data.reporting.query_run.failed`) event notification.
+        """
+        self._register(
+            "v2.data.reporting.query_run.failed",
+            func,
+        )
+        return func
+
+    def on_v2_data_reporting_query_run_succeeded(
+        self,
+        func: "Callable[[V2DataReportingQueryRunSucceededEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2DataReportingQueryRunSucceededEvent` (`v2.data.reporting.query_run.succeeded`) event notification.
+        """
+        self._register(
+            "v2.data.reporting.query_run.succeeded",
+            func,
+        )
+        return func
+
+    def on_v2_data_reporting_query_run_updated(
+        self,
+        func: "Callable[[V2DataReportingQueryRunUpdatedEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2DataReportingQueryRunUpdatedEvent` (`v2.data.reporting.query_run.updated`) event notification.
+        """
+        self._register(
+            "v2.data.reporting.query_run.updated",
+            func,
+        )
+        return func
+
+    def on_v2_extend_workflow_run_failed(
+        self,
+        func: "Callable[[V2ExtendWorkflowRunFailedEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2ExtendWorkflowRunFailedEvent` (`v2.extend.workflow_run.failed`) event notification.
+        """
+        self._register(
+            "v2.extend.workflow_run.failed",
+            func,
+        )
+        return func
+
+    def on_v2_extend_workflow_run_started(
+        self,
+        func: "Callable[[V2ExtendWorkflowRunStartedEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2ExtendWorkflowRunStartedEvent` (`v2.extend.workflow_run.started`) event notification.
+        """
+        self._register(
+            "v2.extend.workflow_run.started",
+            func,
+        )
+        return func
+
+    def on_v2_extend_workflow_run_succeeded(
+        self,
+        func: "Callable[[V2ExtendWorkflowRunSucceededEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2ExtendWorkflowRunSucceededEvent` (`v2.extend.workflow_run.succeeded`) event notification.
+        """
+        self._register(
+            "v2.extend.workflow_run.succeeded",
             func,
         )
         return func
@@ -1206,6 +1394,58 @@ class StripeEventNotificationHandler:
         """
         self._register(
             "v2.money_management.transaction.updated",
+            func,
+        )
+        return func
+
+    def on_v2_orchestrated_commerce_agreement_confirmed(
+        self,
+        func: "Callable[[V2OrchestratedCommerceAgreementConfirmedEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2OrchestratedCommerceAgreementConfirmedEvent` (`v2.orchestrated_commerce.agreement.confirmed`) event notification.
+        """
+        self._register(
+            "v2.orchestrated_commerce.agreement.confirmed",
+            func,
+        )
+        return func
+
+    def on_v2_orchestrated_commerce_agreement_created(
+        self,
+        func: "Callable[[V2OrchestratedCommerceAgreementCreatedEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2OrchestratedCommerceAgreementCreatedEvent` (`v2.orchestrated_commerce.agreement.created`) event notification.
+        """
+        self._register(
+            "v2.orchestrated_commerce.agreement.created",
+            func,
+        )
+        return func
+
+    def on_v2_orchestrated_commerce_agreement_partially_confirmed(
+        self,
+        func: "Callable[[V2OrchestratedCommerceAgreementPartiallyConfirmedEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2OrchestratedCommerceAgreementPartiallyConfirmedEvent` (`v2.orchestrated_commerce.agreement.partially_confirmed`) event notification.
+        """
+        self._register(
+            "v2.orchestrated_commerce.agreement.partially_confirmed",
+            func,
+        )
+        return func
+
+    def on_v2_orchestrated_commerce_agreement_terminated(
+        self,
+        func: "Callable[[V2OrchestratedCommerceAgreementTerminatedEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2OrchestratedCommerceAgreementTerminatedEvent` (`v2.orchestrated_commerce.agreement.terminated`) event notification.
+        """
+        self._register(
+            "v2.orchestrated_commerce.agreement.terminated",
             func,
         )
         return func
