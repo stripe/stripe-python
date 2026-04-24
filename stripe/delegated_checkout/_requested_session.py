@@ -101,6 +101,34 @@ class RequestedSession(
         """
         _inner_class_types = {"source": Source}
 
+    class BuyerConsents(StripeObject):
+        class Marketing(StripeObject):
+            class Option(StripeObject):
+                channel: Literal["email", "sms"]
+                """
+                The marketing channel type.
+                """
+                description: str
+                """
+                The description of the marketing consent option.
+                """
+                privacy_policy_url: str
+                """
+                The privacy policy URL for this marketing channel.
+                """
+
+            options: Optional[List[Option]]
+            """
+            The available marketing consent options.
+            """
+            _inner_class_types = {"options": Option}
+
+        marketing: Optional[Marketing]
+        """
+        The marketing consent options.
+        """
+        _inner_class_types = {"marketing": Marketing}
+
     class FulfillmentDetails(StripeObject):
         class Address(StripeObject):
             city: Optional[str]
@@ -627,6 +655,10 @@ class RequestedSession(
     """
     The total amount of the requested session.
     """
+    buyer_consents: Optional[BuyerConsents]
+    """
+    The buyer consent options for this requested session, including marketing preferences.
+    """
     created_at: int
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -1032,6 +1064,7 @@ class RequestedSession(
 
     _inner_class_types = {
         "affiliate_attributions": AffiliateAttribution,
+        "buyer_consents": BuyerConsents,
         "fulfillment_details": FulfillmentDetails,
         "line_item_details": LineItemDetail,
         "order_details": OrderDetails,

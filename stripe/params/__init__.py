@@ -1944,6 +1944,7 @@ if TYPE_CHECKING:
         OrderCreateParamsLineItemDiscount as OrderCreateParamsLineItemDiscount,
         OrderCreateParamsLineItemPriceData as OrderCreateParamsLineItemPriceData,
         OrderCreateParamsLineItemProductData as OrderCreateParamsLineItemProductData,
+        OrderCreateParamsLineItemProductDataIdentifiers as OrderCreateParamsLineItemProductDataIdentifiers,
         OrderCreateParamsLineItemProductDataPackageDimensions as OrderCreateParamsLineItemProductDataPackageDimensions,
         OrderCreateParamsPayment as OrderCreateParamsPayment,
         OrderCreateParamsPaymentSettings as OrderCreateParamsPaymentSettings,
@@ -2034,6 +2035,7 @@ if TYPE_CHECKING:
         OrderModifyParamsLineItemDiscount as OrderModifyParamsLineItemDiscount,
         OrderModifyParamsLineItemPriceData as OrderModifyParamsLineItemPriceData,
         OrderModifyParamsLineItemProductData as OrderModifyParamsLineItemProductData,
+        OrderModifyParamsLineItemProductDataIdentifiers as OrderModifyParamsLineItemProductDataIdentifiers,
         OrderModifyParamsLineItemProductDataPackageDimensions as OrderModifyParamsLineItemProductDataPackageDimensions,
         OrderModifyParamsPayment as OrderModifyParamsPayment,
         OrderModifyParamsPaymentSettings as OrderModifyParamsPaymentSettings,
@@ -2127,6 +2129,7 @@ if TYPE_CHECKING:
         OrderUpdateParamsLineItemDiscount as OrderUpdateParamsLineItemDiscount,
         OrderUpdateParamsLineItemPriceData as OrderUpdateParamsLineItemPriceData,
         OrderUpdateParamsLineItemProductData as OrderUpdateParamsLineItemProductData,
+        OrderUpdateParamsLineItemProductDataIdentifiers as OrderUpdateParamsLineItemProductDataIdentifiers,
         OrderUpdateParamsLineItemProductDataPackageDimensions as OrderUpdateParamsLineItemProductDataPackageDimensions,
         OrderUpdateParamsPayment as OrderUpdateParamsPayment,
         OrderUpdateParamsPaymentSettings as OrderUpdateParamsPaymentSettings,
@@ -4514,6 +4517,7 @@ if TYPE_CHECKING:
         ProductCreateParamsDefaultPriceDataCurrencyOptionsTier as ProductCreateParamsDefaultPriceDataCurrencyOptionsTier,
         ProductCreateParamsDefaultPriceDataCustomUnitAmount as ProductCreateParamsDefaultPriceDataCustomUnitAmount,
         ProductCreateParamsDefaultPriceDataRecurring as ProductCreateParamsDefaultPriceDataRecurring,
+        ProductCreateParamsIdentifiers as ProductCreateParamsIdentifiers,
         ProductCreateParamsMarketingFeature as ProductCreateParamsMarketingFeature,
         ProductCreateParamsPackageDimensions as ProductCreateParamsPackageDimensions,
         ProductCreateParamsTaxDetails as ProductCreateParamsTaxDetails,
@@ -4545,6 +4549,7 @@ if TYPE_CHECKING:
     )
     from stripe.params._product_modify_params import (
         ProductModifyParams as ProductModifyParams,
+        ProductModifyParamsIdentifiers as ProductModifyParamsIdentifiers,
         ProductModifyParamsMarketingFeature as ProductModifyParamsMarketingFeature,
         ProductModifyParamsPackageDimensions as ProductModifyParamsPackageDimensions,
         ProductModifyParamsTaxDetails as ProductModifyParamsTaxDetails,
@@ -4560,6 +4565,7 @@ if TYPE_CHECKING:
     )
     from stripe.params._product_update_params import (
         ProductUpdateParams as ProductUpdateParams,
+        ProductUpdateParamsIdentifiers as ProductUpdateParamsIdentifiers,
         ProductUpdateParamsMarketingFeature as ProductUpdateParamsMarketingFeature,
         ProductUpdateParamsPackageDimensions as ProductUpdateParamsPackageDimensions,
         ProductUpdateParamsTaxDetails as ProductUpdateParamsTaxDetails,
@@ -11854,6 +11860,10 @@ _import_map = {
         "stripe.params._order_create_params",
         False,
     ),
+    "OrderCreateParamsLineItemProductDataIdentifiers": (
+        "stripe.params._order_create_params",
+        False,
+    ),
     "OrderCreateParamsLineItemProductDataPackageDimensions": (
         "stripe.params._order_create_params",
         False,
@@ -12180,6 +12190,10 @@ _import_map = {
         False,
     ),
     "OrderModifyParamsLineItemProductData": (
+        "stripe.params._order_modify_params",
+        False,
+    ),
+    "OrderModifyParamsLineItemProductDataIdentifiers": (
         "stripe.params._order_modify_params",
         False,
     ),
@@ -12510,6 +12524,10 @@ _import_map = {
         False,
     ),
     "OrderUpdateParamsLineItemProductData": (
+        "stripe.params._order_update_params",
+        False,
+    ),
+    "OrderUpdateParamsLineItemProductDataIdentifiers": (
         "stripe.params._order_update_params",
         False,
     ),
@@ -21321,6 +21339,10 @@ _import_map = {
         "stripe.params._product_create_params",
         False,
     ),
+    "ProductCreateParamsIdentifiers": (
+        "stripe.params._product_create_params",
+        False,
+    ),
     "ProductCreateParamsMarketingFeature": (
         "stripe.params._product_create_params",
         False,
@@ -21361,6 +21383,10 @@ _import_map = {
     "ProductListParams": ("stripe.params._product_list_params", False),
     "ProductListParamsCreated": ("stripe.params._product_list_params", False),
     "ProductModifyParams": ("stripe.params._product_modify_params", False),
+    "ProductModifyParamsIdentifiers": (
+        "stripe.params._product_modify_params",
+        False,
+    ),
     "ProductModifyParamsMarketingFeature": (
         "stripe.params._product_modify_params",
         False,
@@ -21380,6 +21406,10 @@ _import_map = {
     "ProductRetrieveParams": ("stripe.params._product_retrieve_params", False),
     "ProductSearchParams": ("stripe.params._product_search_params", False),
     "ProductUpdateParams": ("stripe.params._product_update_params", False),
+    "ProductUpdateParamsIdentifiers": (
+        "stripe.params._product_update_params",
+        False,
+    ),
     "ProductUpdateParamsMarketingFeature": (
         "stripe.params._product_update_params",
         False,
