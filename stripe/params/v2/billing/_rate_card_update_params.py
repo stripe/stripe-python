@@ -18,7 +18,7 @@ class RateCardUpdateParams(TypedDict):
     """
     live_version: NotRequired[str]
     """
-    Changes the version that new RateCard activations will use. Providing `live_version = "latest"` will set the
+    Changes the version that new RateCard activations use. Providing `live_version = "latest"` sets the
     RateCard's `live_version` to its latest version.
     """
     lookup_key: NotRequired[str]

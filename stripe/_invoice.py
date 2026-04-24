@@ -1136,6 +1136,7 @@ class Invoice(
                     "konbini",
                     "kr_card",
                     "link",
+                    "momo",
                     "multibanco",
                     "naver_pay",
                     "nz_bank_account",

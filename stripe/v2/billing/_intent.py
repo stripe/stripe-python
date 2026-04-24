@@ -90,7 +90,7 @@ class Intent(StripeObject):
                 """
                 The day to anchor the billing on for a type="month" billing cycle from 1-31.
                 If this number is greater than the number of days in the month being billed,
-                this will anchor to the last day of the month.
+                this anchors to the last day of the month.
                 """
                 month_of_year: Optional[int]
                 """
@@ -156,11 +156,11 @@ class Intent(StripeObject):
                 """
                 The day to anchor the billing on for a type="month" billing cycle from 1-31.
                 If this number is greater than the number of days in the month being billed,
-                this will anchor to the last day of the month.
+                this anchors to the last day of the month.
                 """
                 month_of_year: int
                 """
-                The month to bill on from 1-12. If not provided, this will default to the month the cadence was created.
+                The month to bill on from 1-12. If not provided, this defaults to the month the cadence was created.
                 """
                 time: Time
                 """
@@ -208,12 +208,12 @@ class Intent(StripeObject):
                 default_payment_method: Optional[str]
                 """
                 The default payment method to use when billing this profile.
-                If none is provided, the customer `default_payment_method` will be used.
+                If none is provided, the customer `default_payment_method` is used.
                 """
 
             billing_profile: Optional[str]
             """
-            The ID of the Billing Profile object which determines how a bill will be paid.
+            The ID of the Billing Profile object which determines how a bill is paid.
             """
             billing_profile_data: Optional[BillingProfileData]
             """
@@ -285,7 +285,7 @@ class Intent(StripeObject):
         """
         expires_at: str
         """
-        Time at which the Billing Intent will expire.
+        Time at which the Billing Intent expires.
         """
         reserved_at: Optional[str]
         """

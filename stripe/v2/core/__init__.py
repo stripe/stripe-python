@@ -35,6 +35,12 @@ if TYPE_CHECKING:
     from stripe.v2.core._account_token_service import (
         AccountTokenService as AccountTokenService,
     )
+    from stripe.v2.core._approval_request import (
+        ApprovalRequest as ApprovalRequest,
+    )
+    from stripe.v2.core._approval_request_service import (
+        ApprovalRequestService as ApprovalRequestService,
+    )
     from stripe.v2.core._batch_job import BatchJob as BatchJob
     from stripe.v2.core._batch_job_service import (
         BatchJobService as BatchJobService,
@@ -60,14 +66,6 @@ if TYPE_CHECKING:
     )
     from stripe.v2.core._event_service import EventService as EventService
     from stripe.v2.core._vault_service import VaultService as VaultService
-    from stripe.v2.core._workflow import Workflow as Workflow
-    from stripe.v2.core._workflow_run import WorkflowRun as WorkflowRun
-    from stripe.v2.core._workflow_run_service import (
-        WorkflowRunService as WorkflowRunService,
-    )
-    from stripe.v2.core._workflow_service import (
-        WorkflowService as WorkflowService,
-    )
 
 # name -> (import_target, is_submodule)
 _import_map = {
@@ -86,6 +84,11 @@ _import_map = {
     "AccountService": ("stripe.v2.core._account_service", False),
     "AccountToken": ("stripe.v2.core._account_token", False),
     "AccountTokenService": ("stripe.v2.core._account_token_service", False),
+    "ApprovalRequest": ("stripe.v2.core._approval_request", False),
+    "ApprovalRequestService": (
+        "stripe.v2.core._approval_request_service",
+        False,
+    ),
     "BatchJob": ("stripe.v2.core._batch_job", False),
     "BatchJobService": ("stripe.v2.core._batch_job_service", False),
     "ClaimableSandbox": ("stripe.v2.core._claimable_sandbox", False),
@@ -106,10 +109,6 @@ _import_map = {
     ),
     "EventService": ("stripe.v2.core._event_service", False),
     "VaultService": ("stripe.v2.core._vault_service", False),
-    "Workflow": ("stripe.v2.core._workflow", False),
-    "WorkflowRun": ("stripe.v2.core._workflow_run", False),
-    "WorkflowRunService": ("stripe.v2.core._workflow_run_service", False),
-    "WorkflowService": ("stripe.v2.core._workflow_service", False),
 }
 if not TYPE_CHECKING:
 

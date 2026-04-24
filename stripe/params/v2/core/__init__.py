@@ -618,6 +618,21 @@ if TYPE_CHECKING:
         AccountUpdateParamsIdentityIndividualScriptNamesKana as AccountUpdateParamsIdentityIndividualScriptNamesKana,
         AccountUpdateParamsIdentityIndividualScriptNamesKanji as AccountUpdateParamsIdentityIndividualScriptNamesKanji,
     )
+    from stripe.params.v2.core._approval_request_cancel_params import (
+        ApprovalRequestCancelParams as ApprovalRequestCancelParams,
+    )
+    from stripe.params.v2.core._approval_request_execute_params import (
+        ApprovalRequestExecuteParams as ApprovalRequestExecuteParams,
+    )
+    from stripe.params.v2.core._approval_request_list_params import (
+        ApprovalRequestListParams as ApprovalRequestListParams,
+    )
+    from stripe.params.v2.core._approval_request_retrieve_params import (
+        ApprovalRequestRetrieveParams as ApprovalRequestRetrieveParams,
+    )
+    from stripe.params.v2.core._approval_request_submit_params import (
+        ApprovalRequestSubmitParams as ApprovalRequestSubmitParams,
+    )
     from stripe.params.v2.core._batch_job_cancel_params import (
         BatchJobCancelParams as BatchJobCancelParams,
     )
@@ -631,7 +646,12 @@ if TYPE_CHECKING:
     )
     from stripe.params.v2.core._claimable_sandbox_create_params import (
         ClaimableSandboxCreateParams as ClaimableSandboxCreateParams,
+        ClaimableSandboxCreateParamsOnboardingLinkDetails as ClaimableSandboxCreateParamsOnboardingLinkDetails,
         ClaimableSandboxCreateParamsPrefill as ClaimableSandboxCreateParamsPrefill,
+    )
+    from stripe.params.v2.core._claimable_sandbox_renew_onboarding_link_params import (
+        ClaimableSandboxRenewOnboardingLinkParams as ClaimableSandboxRenewOnboardingLinkParams,
+        ClaimableSandboxRenewOnboardingLinkParamsOnboardingLinkDetails as ClaimableSandboxRenewOnboardingLinkParamsOnboardingLinkDetails,
     )
     from stripe.params.v2.core._claimable_sandbox_retrieve_params import (
         ClaimableSandboxRetrieveParams as ClaimableSandboxRetrieveParams,
@@ -676,21 +696,6 @@ if TYPE_CHECKING:
     )
     from stripe.params.v2.core._event_retrieve_params import (
         EventRetrieveParams as EventRetrieveParams,
-    )
-    from stripe.params.v2.core._workflow_invoke_params import (
-        WorkflowInvokeParams as WorkflowInvokeParams,
-    )
-    from stripe.params.v2.core._workflow_list_params import (
-        WorkflowListParams as WorkflowListParams,
-    )
-    from stripe.params.v2.core._workflow_retrieve_params import (
-        WorkflowRetrieveParams as WorkflowRetrieveParams,
-    )
-    from stripe.params.v2.core._workflow_run_list_params import (
-        WorkflowRunListParams as WorkflowRunListParams,
-    )
-    from stripe.params.v2.core._workflow_run_retrieve_params import (
-        WorkflowRunRetrieveParams as WorkflowRunRetrieveParams,
     )
 
 # name -> (import_target, is_submodule)
@@ -3074,6 +3079,26 @@ _import_map = {
         "stripe.params.v2.core._account_update_params",
         False,
     ),
+    "ApprovalRequestCancelParams": (
+        "stripe.params.v2.core._approval_request_cancel_params",
+        False,
+    ),
+    "ApprovalRequestExecuteParams": (
+        "stripe.params.v2.core._approval_request_execute_params",
+        False,
+    ),
+    "ApprovalRequestListParams": (
+        "stripe.params.v2.core._approval_request_list_params",
+        False,
+    ),
+    "ApprovalRequestRetrieveParams": (
+        "stripe.params.v2.core._approval_request_retrieve_params",
+        False,
+    ),
+    "ApprovalRequestSubmitParams": (
+        "stripe.params.v2.core._approval_request_submit_params",
+        False,
+    ),
     "BatchJobCancelParams": (
         "stripe.params.v2.core._batch_job_cancel_params",
         False,
@@ -3098,8 +3123,20 @@ _import_map = {
         "stripe.params.v2.core._claimable_sandbox_create_params",
         False,
     ),
+    "ClaimableSandboxCreateParamsOnboardingLinkDetails": (
+        "stripe.params.v2.core._claimable_sandbox_create_params",
+        False,
+    ),
     "ClaimableSandboxCreateParamsPrefill": (
         "stripe.params.v2.core._claimable_sandbox_create_params",
+        False,
+    ),
+    "ClaimableSandboxRenewOnboardingLinkParams": (
+        "stripe.params.v2.core._claimable_sandbox_renew_onboarding_link_params",
+        False,
+    ),
+    "ClaimableSandboxRenewOnboardingLinkParamsOnboardingLinkDetails": (
+        "stripe.params.v2.core._claimable_sandbox_renew_onboarding_link_params",
         False,
     ),
     "ClaimableSandboxRetrieveParams": (
@@ -3169,26 +3206,6 @@ _import_map = {
     ),
     "EventRetrieveParams": (
         "stripe.params.v2.core._event_retrieve_params",
-        False,
-    ),
-    "WorkflowInvokeParams": (
-        "stripe.params.v2.core._workflow_invoke_params",
-        False,
-    ),
-    "WorkflowListParams": (
-        "stripe.params.v2.core._workflow_list_params",
-        False,
-    ),
-    "WorkflowRetrieveParams": (
-        "stripe.params.v2.core._workflow_retrieve_params",
-        False,
-    ),
-    "WorkflowRunListParams": (
-        "stripe.params.v2.core._workflow_run_list_params",
-        False,
-    ),
-    "WorkflowRunRetrieveParams": (
-        "stripe.params.v2.core._workflow_run_retrieve_params",
         False,
     ),
 }

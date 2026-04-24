@@ -20,6 +20,35 @@ class ClaimableSandbox(StripeObject):
         "v2.core.claimable_sandbox"
     )
 
+    class OnboardingLinkDetails(StripeObject):
+        expires_at: str
+        """
+        The timestamp the onboarding link expires.
+        """
+        refresh_url: str
+        """
+        The URL the user will be redirected to if the onboarding link is expired or invalid.
+        The URL specified should attempt to generate a new onboarding link,
+        and re-direct the user to this new onboarding link so that they can proceed with the onboarding flow.
+        """
+        url: str
+        """
+        URL that will redirect the user to either claim or onboard the claimable sandbox depending on its status.
+        """
+
+    class OwnerDetails(StripeObject):
+        account: Optional[str]
+        """
+        The ID of the livemode Stripe account that owns the sandbox.
+        This field is only set when owner_details.app_install_status is `installed`.
+        """
+        app_install_status: Literal[
+            "installed", "pending_install", "pending_onboarding"
+        ]
+        """
+        Indicates whether the platform app is installed on the sandbox's livemode owner account.
+        """
+
     class Prefill(StripeObject):
         country: str
         """
@@ -60,17 +89,11 @@ class ClaimableSandbox(StripeObject):
         """
         Keys that can be used to set up an integration for this sandbox and operate on the account. This will be present only in the create response, and will be null in subsequent retrieve responses.
         """
-        owner_account: Optional[str]
-        """
-        The livemode sandbox Stripe account ID. This field is only set if the user activates their sandbox
-        and chooses to install your platform's Stripe App in their live account.
-        """
         _inner_class_types = {"api_keys": ApiKeys}
 
-    claim_url: Optional[str]
+    app_channel: Literal["public", "testing"]
     """
-    URL for user to claim sandbox into their existing Stripe account.
-    The value will be null if the sandbox status is `claimed` or `expired`.
+    The app channel that will be used when pre-installing your app on the claimable sandbox.
     """
     claimed_at: Optional[str]
     """
@@ -96,6 +119,15 @@ class ClaimableSandbox(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
     """
+    onboarding_link_details: OnboardingLinkDetails
+    """
+    Details about the onboarding link.
+    """
+    owner_details: Optional[OwnerDetails]
+    """
+    Details about the livemode owner account of the sandbox.
+    This will be null until the sandbox is claimed.
+    """
     prefill: Prefill
     """
     Values prefilled during the creation of the sandbox. When a user claims the sandbox, they will be able to update these values.
@@ -104,11 +136,13 @@ class ClaimableSandbox(StripeObject):
     """
     Data about the Stripe sandbox object.
     """
-    status: Literal["claimed", "expired", "unclaimed"]
+    status: Literal["claimed", "expired", "live", "unclaimed"]
     """
-    Status of the sandbox. One of `unclaimed`, `expired`, `claimed`.
+    Status of the sandbox.
     """
     _inner_class_types = {
+        "onboarding_link_details": OnboardingLinkDetails,
+        "owner_details": OwnerDetails,
         "prefill": Prefill,
         "sandbox_details": SandboxDetails,
     }

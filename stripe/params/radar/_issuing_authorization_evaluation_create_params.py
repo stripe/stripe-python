@@ -96,7 +96,7 @@ class IssuingAuthorizationEvaluationCreateParamsAuthorizationDetails(
     """
     initiated_at: int
     """
-    The timestamp of the authorization initiated in seconds.
+    The time the authorization was initiated, as a Unix timestamp in seconds. Must not be in the future.
     """
     point_of_sale_condition: NotRequired[
         Literal[
@@ -140,7 +140,7 @@ class IssuingAuthorizationEvaluationCreateParamsCardDetails(TypedDict):
     """
     created_at: int
     """
-    The timestamp when the card was created.
+    The timestamp when the card was created, as a Unix timestamp in seconds.
     """
     last4: NotRequired[str]
     """

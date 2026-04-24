@@ -15,6 +15,33 @@ class FinancialAddress(StripeObject):
     )
 
     class Credentials(StripeObject):
+        class CaBankAccount(StripeObject):
+            account_holder_name: str
+            """
+            The account holder name to be used during bank transfers.
+            """
+            account_number: Optional[str]
+            """
+            The account number of the Canadian Bank Account.
+            """
+            bank_name: str
+            """
+            The name of the Bank.
+            """
+            institution_number: str
+            """
+            The institution number of the Canadian Bank Account.
+            """
+            last4: str
+            """
+            The last four digits of the Canadian Bank Account number. This will always be returned.
+            To view the full account number when retrieving or listing FinancialAddresses, use the `include` request parameter.
+            """
+            transit_number: str
+            """
+            The transit number of the Canadian Bank Account.
+            """
+
         class GbBankAccount(StripeObject):
             account_holder_name: str
             """
@@ -125,6 +152,10 @@ class FinancialAddress(StripeObject):
                 "account_holder_address": AccountHolderAddress,
             }
 
+        ca_bank_account: Optional[CaBankAccount]
+        """
+        The credentials of the Canadian Bank Account for the FinancialAddress. This contains unique banking details such as the account number, institution number, etc. of a Canadian bank account.
+        """
         gb_bank_account: Optional[GbBankAccount]
         """
         The credentials of the UK Bank Account for the FinancialAddress. This contains unique banking details such as the sort code, account number, etc. of a UK bank account.
@@ -134,7 +165,10 @@ class FinancialAddress(StripeObject):
         The credentials of the SEPA Bank Account for the FinancialAddress. This contains unique banking details such as the IBAN, BIC, etc. of a SEPA bank account.
         """
         type: Literal[
-            "gb_bank_account", "sepa_bank_account", "us_bank_account"
+            "ca_bank_account",
+            "gb_bank_account",
+            "sepa_bank_account",
+            "us_bank_account",
         ]
         """
         Open Enum. The type of Credentials that are provisioned for the FinancialAddress.
@@ -144,6 +178,7 @@ class FinancialAddress(StripeObject):
         The credentials of the US Bank Account for the FinancialAddress. This contains unique banking details such as the routing number, account number, etc. of a US bank account.
         """
         _inner_class_types = {
+            "ca_bank_account": CaBankAccount,
             "gb_bank_account": GbBankAccount,
             "sepa_bank_account": SepaBankAccount,
             "us_bank_account": UsBankAccount,

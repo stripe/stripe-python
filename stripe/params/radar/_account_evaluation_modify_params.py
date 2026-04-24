@@ -14,11 +14,21 @@ class AccountEvaluationModifyParams(RequestOptions):
     """
     Event payload for login_failed.
     """
+    login_succeeded: NotRequired["AccountEvaluationModifyParamsLoginSucceeded"]
+    """
+    Event payload for login_succeeded.
+    """
     registration_failed: NotRequired[
         "AccountEvaluationModifyParamsRegistrationFailed"
     ]
     """
     Event payload for registration_failed.
+    """
+    registration_succeeded: NotRequired[
+        "AccountEvaluationModifyParamsRegistrationSucceeded"
+    ]
+    """
+    Event payload for registration_succeeded.
     """
     type: Literal[
         "login_failed",
@@ -38,8 +48,22 @@ class AccountEvaluationModifyParamsLoginFailed(TypedDict):
     """
 
 
+class AccountEvaluationModifyParamsLoginSucceeded(TypedDict):
+    qualification: NotRequired[Literal["suspected_account_sharing"]]
+    """
+    An optional qualification for a login success.
+    """
+
+
 class AccountEvaluationModifyParamsRegistrationFailed(TypedDict):
     reason: Literal["other", "suspected_multi_accounting"]
     """
     The reason why this registration failed.
+    """
+
+
+class AccountEvaluationModifyParamsRegistrationSucceeded(TypedDict):
+    qualification: NotRequired[Literal["suspected_multi_accounting"]]
+    """
+    An optional qualification for a registration success.
     """

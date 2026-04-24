@@ -45,6 +45,12 @@ class FinancialAccount(StripeObject):
         Enum describing the Stripe product that is managing this FinancialAccount.
         """
 
+    class MultiprocessorSettlement(StripeObject):
+        settlement_currencies: List[str]
+        """
+        Settlement currencies enabled for this FinancialAccount.
+        """
+
     class Other(StripeObject):
         type: str
         """
@@ -201,6 +207,10 @@ class FinancialAccount(StripeObject):
     """
     Metadata associated with the FinancialAccount.
     """
+    multiprocessor_settlement: Optional[MultiprocessorSettlement]
+    """
+    If this is a `multiprocessor_settlement` FinancialAccount, this hash includes details specific to `multiprocessor_settlement` FinancialAccounts.
+    """
     object: Literal["v2.money_management.financial_account"]
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
@@ -225,7 +235,13 @@ class FinancialAccount(StripeObject):
     """
     If this is a `storage` FinancialAccount, this hash includes details specific to `storage` FinancialAccounts.
     """
-    type: Literal["accrued_fees", "other", "payments", "storage"]
+    type: Literal[
+        "accrued_fees",
+        "multiprocessor_settlement",
+        "other",
+        "payments",
+        "storage",
+    ]
     """
     Type of the FinancialAccount. An additional hash is included on the FinancialAccount with a name matching this value.
     It contains additional information specific to the FinancialAccount type.
@@ -234,6 +250,7 @@ class FinancialAccount(StripeObject):
         "accrued_fees": AccruedFees,
         "balance": Balance,
         "managed_by": ManagedBy,
+        "multiprocessor_settlement": MultiprocessorSettlement,
         "other": Other,
         "payments": Payments,
         "status_details": StatusDetails,

@@ -10,9 +10,13 @@ _CurrencyConversionCreateParamsBase = TypedDict(
 
 
 class CurrencyConversionCreateParams(_CurrencyConversionCreateParamsBase):
-    financial_account: str
+    financial_account: NotRequired[str]
     """
     The FinancialAccount id to create the CurrencyConversion on.
+    """
+    fx_quote: NotRequired[str]
+    """
+    The FX quote to use for the conversion.
     """
     to: "CurrencyConversionCreateParamsTo"
     """

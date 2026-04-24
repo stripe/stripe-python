@@ -310,6 +310,35 @@ class Reader(
             """
             _inner_class_types = {"confirm_config": ConfirmConfig}
 
+        class PrintContent(StripeObject):
+            class Image(StripeObject):
+                created_at: int
+                """
+                Creation time of the object (in seconds since the Unix epoch).
+                """
+                filename: str
+                """
+                The original name of the uploaded file (e.g. `receipt.png`).
+                """
+                size: int
+                """
+                The size (in bytes) of the uploaded file.
+                """
+                type: str
+                """
+                The format of the uploaded file.
+                """
+
+            image: Optional[Image]
+            """
+            Metadata of an uploaded file
+            """
+            type: Literal["image"]
+            """
+            The type of content to print. Currently supports `image`.
+            """
+            _inner_class_types = {"image": Image}
+
         class ProcessPaymentIntent(StripeObject):
             class ProcessConfig(StripeObject):
                 class Tipping(StripeObject):
@@ -486,6 +515,10 @@ class Reader(
         """
         Detailed failure message, only set if status is `failed`.
         """
+        print_content: Optional[PrintContent]
+        """
+        Represents a reader action to print content
+        """
         process_payment_intent: Optional[ProcessPaymentIntent]
         """
         Represents a reader action to process a payment intent
@@ -510,6 +543,7 @@ class Reader(
             "collect_inputs",
             "collect_payment_method",
             "confirm_payment_intent",
+            "print_content",
             "process_payment_intent",
             "process_setup_intent",
             "refund_payment",
@@ -522,6 +556,7 @@ class Reader(
             "collect_inputs": CollectInputs,
             "collect_payment_method": CollectPaymentMethod,
             "confirm_payment_intent": ConfirmPaymentIntent,
+            "print_content": PrintContent,
             "process_payment_intent": ProcessPaymentIntent,
             "process_setup_intent": ProcessSetupIntent,
             "refund_payment": RefundPayment,

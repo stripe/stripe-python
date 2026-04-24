@@ -112,8 +112,8 @@ class PricingPlanSubscription(StripeObject):
                 """
                 interval_count: int
                 """
-                The length of the interval for assessing service. For example, set this to 3 and `interval` to `"month"` in
-                order to specify quarterly service.
+                The length of the interval for assessing service. For example, set this to 3 and `interval` to `"month"`
+                to specify quarterly service.
                 """
 
             class Tier(StripeObject):
@@ -128,7 +128,7 @@ class PricingPlanSubscription(StripeObject):
                 """
                 up_to_decimal: Optional[Decimal]
                 """
-                Up to and including this quantity will be contained in the tier. Only one of `up_to_decimal` and `up_to_inf` may
+                Up to and including this quantity is contained in the tier. Only one of `up_to_decimal` and `up_to_inf` may
                 be set.
                 """
                 up_to_inf: Optional[Literal["inf"]]
@@ -174,7 +174,7 @@ class PricingPlanSubscription(StripeObject):
             """
             tiering_mode: Optional[Literal["graduated", "volume"]]
             """
-            Defines whether the tiering price should be graduated or volume-based.
+            Defines whether the tiering price is graduated or volume-based.
             """
             tiers: List[Tier]
             """
@@ -190,7 +190,7 @@ class PricingPlanSubscription(StripeObject):
             """
             unit_label: Optional[str]
             """
-            The unit label from the licensed item, used for display purposes (e.g. "seat", "environment").
+            The unit label from the licensed item, used for display purposes (for example, "seat", "environment").
             """
             _inner_class_types = {
                 "service_cycle": ServiceCycle,
@@ -206,8 +206,8 @@ class PricingPlanSubscription(StripeObject):
                 """
                 interval_count: int
                 """
-                The length of the interval for assessing service. For example, set this to 3 and `interval` to `"month"` in
-                order to specify quarterly service.
+                The length of the interval for assessing service. For example, set this to 3 and `interval` to `"month"`
+                to specify quarterly service.
                 """
 
             currency: str
@@ -280,7 +280,7 @@ class PricingPlanSubscription(StripeObject):
                         """
                         price_type: Optional[Literal["metered"]]
                         """
-                        The price type that credit grants can apply to. We currently only support the `metered` price type. This will apply to metered prices and rate cards. Cannot be used in combination with `billable_items`.
+                        The price type that credit grants can apply to. Stripe supports the `metered` price type, which applies to metered prices and rate cards. Cannot be used in combination with `billable_items`.
                         """
 
                     scope: Scope
@@ -356,7 +356,7 @@ class PricingPlanSubscription(StripeObject):
                         """
                         price_type: Optional[Literal["metered"]]
                         """
-                        The price type that credit grants can apply to. We currently only support the `metered` price type. This will apply to metered prices and rate cards. Cannot be used in combination with `billable_items`.
+                        The price type that credit grants can apply to. Stripe supports the `metered` price type, which applies to metered prices and rate cards. Cannot be used in combination with `billable_items`.
                         """
 
                     scope: Scope
@@ -396,8 +396,8 @@ class PricingPlanSubscription(StripeObject):
                 """
                 interval_count: int
                 """
-                The length of the interval for assessing service. For example, set this to 3 and `interval` to `"month"` in
-                order to specify quarterly service.
+                The length of the interval for assessing service. For example, set this to 3 and `interval` to `"month"`
+                to specify quarterly service.
                 """
 
             credit_grant_details: Optional[CreditGrantDetails]

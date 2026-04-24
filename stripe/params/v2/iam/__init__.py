@@ -4,6 +4,9 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.params.v2.iam._activity_log_list_params import (
+        ActivityLogListParams as ActivityLogListParams,
+    )
     from stripe.params.v2.iam._api_key_create_params import (
         ApiKeyCreateParams as ApiKeyCreateParams,
         ApiKeyCreateParamsPublicKey as ApiKeyCreateParamsPublicKey,
@@ -29,6 +32,10 @@ if TYPE_CHECKING:
 
 # name -> (import_target, is_submodule)
 _import_map = {
+    "ActivityLogListParams": (
+        "stripe.params.v2.iam._activity_log_list_params",
+        False,
+    ),
     "ApiKeyCreateParams": (
         "stripe.params.v2.iam._api_key_create_params",
         False,

@@ -42,6 +42,142 @@ class Dispute(
 
     OBJECT_NAME: ClassVar[Literal["issuing.dispute"]] = "issuing.dispute"
 
+    class CryptoTransaction(StripeObject):
+        class CryptoTransactionConfirmed(StripeObject):
+            class Fee(StripeObject):
+                amount: str
+                """
+                The fee amount.
+                """
+                currency: str
+                """
+                The fee currency.
+                """
+                type: str
+                """
+                The fee type.
+                """
+
+            amount: str
+            """
+            The crypto amount for the confirmed transaction.
+            """
+            amount_mcc_upcharged: Optional[str]
+            """
+            The upcharged MCC amount, if one was applied.
+            """
+            chain: str
+            """
+            The blockchain network for the confirmed transaction.
+            """
+            confirmed_at: int
+            """
+            When the transaction was confirmed onchain.
+            """
+            currency: str
+            """
+            The currency of the crypto transaction amount.
+            """
+            fees: List[Fee]
+            """
+            Fees associated with the transaction.
+            """
+            from_address: str
+            """
+            The source wallet address for the transaction.
+            """
+            memo: Optional[str]
+            """
+            Memo metadata attached to the transaction, if present.
+            """
+            to_address: str
+            """
+            The destination wallet address for the transaction.
+            """
+            transaction_hash: str
+            """
+            The blockchain transaction hash.
+            """
+            _inner_class_types = {"fees": Fee}
+
+        class CryptoTransactionFailed(StripeObject):
+            class Fee(StripeObject):
+                amount: str
+                """
+                The fee amount.
+                """
+                currency: str
+                """
+                The fee currency.
+                """
+                type: str
+                """
+                The fee type.
+                """
+
+            amount: str
+            """
+            The crypto amount for the failed transaction.
+            """
+            amount_mcc_upcharged: Optional[str]
+            """
+            The upcharged MCC amount, if one was applied.
+            """
+            chain: str
+            """
+            The blockchain network for the failed transaction.
+            """
+            currency: str
+            """
+            The currency of the crypto transaction amount.
+            """
+            failed_at: int
+            """
+            When the transaction failed.
+            """
+            failure_reason: str
+            """
+            The reason the transaction failed.
+            """
+            fees: List[Fee]
+            """
+            Fees associated with the transaction.
+            """
+            from_address: str
+            """
+            The source wallet address for the attempted transaction.
+            """
+            memo: Optional[str]
+            """
+            Memo metadata attached to the transaction, if present.
+            """
+            to_address: Optional[str]
+            """
+            The destination wallet address for the attempted transaction when one exists.
+            """
+            transaction_hash: Optional[str]
+            """
+            The blockchain transaction hash when one exists.
+            """
+            _inner_class_types = {"fees": Fee}
+
+        crypto_transaction_confirmed: Optional[CryptoTransactionConfirmed]
+        """
+        The confirmed crypto transaction details when `type` is `crypto_transaction_confirmed`; otherwise null.
+        """
+        crypto_transaction_failed: Optional[CryptoTransactionFailed]
+        """
+        The failed crypto transaction details when `type` is `crypto_transaction_failed`; otherwise null.
+        """
+        type: str
+        """
+        The crypto transaction variant for this array entry.
+        """
+        _inner_class_types = {
+            "crypto_transaction_confirmed": CryptoTransactionConfirmed,
+            "crypto_transaction_failed": CryptoTransactionFailed,
+        }
+
     class Evidence(StripeObject):
         class Canceled(StripeObject):
             additional_documentation: Optional[ExpandableField["File"]]
@@ -272,6 +408,10 @@ class Dispute(
     created: int
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
+    """
+    crypto_transactions: Optional[List[CryptoTransaction]]
+    """
+    Array of onchain crypto transactions linked to this resource.
     """
     currency: str
     """
@@ -568,4 +708,8 @@ class Dispute(
             ),
         )
 
-    _inner_class_types = {"evidence": Evidence, "treasury": Treasury}
+    _inner_class_types = {
+        "crypto_transactions": CryptoTransaction,
+        "evidence": Evidence,
+        "treasury": Treasury,
+    }

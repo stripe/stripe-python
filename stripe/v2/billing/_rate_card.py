@@ -23,8 +23,8 @@ class RateCard(StripeObject):
         """
         interval_count: int
         """
-        The length of the interval for assessing service. For example, set this to 3 and `interval` to `"month"` in
-        order to specify quarterly service.
+        The length of the interval for assessing service. For example, set this to 3 and `interval` to `"month"`
+        to specify quarterly service.
         """
 
     active: bool
@@ -55,7 +55,7 @@ class RateCard(StripeObject):
     """
     live_version: str
     """
-    The ID of the Rate Card Version that will be used by all subscriptions when no specific version is specified.
+    The ID of the Rate Card Version used by all subscriptions when no specific version is specified.
     """
     livemode: bool
     """
@@ -75,25 +75,25 @@ class RateCard(StripeObject):
     """
     service_cycle: ServiceCycle
     """
-    The service cycle configuration for this Rate Card. For example, a monthly Rate Card with a rate of $1 for the
-    first 10 "workloads" and $2 thereafter means "$1 per workload up to 10 workloads during a month of service."
+    The service cycle configuration for this Rate Card. For example, a monthly Rate Card with a rate of 1 USD for the
+    first 10 "workloads" and 2 USD thereafter means "1 USD per workload up to 10 workloads during a month of service."
     This is similar to but distinct from billing interval; the service interval deals with the rate at which the
     customer accumulates fees, while the billing interval in Cadence deals with the rate the customer is billed.
     """
     service_interval: Literal["day", "month", "week", "year"]
     """
-    The interval for assessing service. For example, a monthly Rate Card with a rate of $1 for the first 10 "workloads"
-    and $2 thereafter means "$1 per workload up to 10 workloads during a month of service." This is similar to but
+    The interval for assessing service. For example, a monthly Rate Card with a rate of 1 USD for the first 10 "workloads"
+    and 2 USD thereafter means "1 USD per workload up to 10 workloads during a month of service." This is similar to but
     distinct from billing interval; the service interval deals with the rate at which the customer accumulates fees,
     while the billing interval in Cadence deals with the rate the customer is billed.
     """
     service_interval_count: int
     """
-    The length of the interval for assessing service. For example, set this to 3 and `service_interval` to `"month"` in
-    order to specify quarterly service.
+    The length of the interval for assessing service. For example, set this to 3 and `service_interval` to `"month"`
+    to specify quarterly service.
     """
     tax_behavior: Literal["exclusive", "inclusive"]
     """
-    The Stripe Tax tax behavior - whether the rates are inclusive or exclusive of tax.
+    The tax behavior for Stripe Tax — whether the rate card price includes or excludes tax.
     """
     _inner_class_types = {"service_cycle": ServiceCycle}

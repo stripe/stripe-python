@@ -35,6 +35,7 @@ if TYPE_CHECKING:
         PaymentIntentAmountDetailsLineItem,
     )
     from stripe._payment_method import PaymentMethod
+    from stripe._profile import Profile
     from stripe._review import Review
     from stripe._setup_intent import SetupIntent
     from stripe._source import Source
@@ -110,6 +111,16 @@ class PaymentIntent(
     """
 
     OBJECT_NAME: ClassVar[Literal["payment_intent"]] = "payment_intent"
+
+    class AgentDetails(StripeObject):
+        name: str
+        """
+        The name of the agent that initiated the payment.
+        """
+        network_business_profile: ExpandableField["Profile"]
+        """
+        The Stripe profile associated with the agent that initiated the payment.
+        """
 
     class AllocatedFunds(StripeObject):
         enabled: Optional[bool]
@@ -4763,6 +4774,10 @@ class PaymentIntent(
         The account (if any) that the payment is attributed to for tax reporting, and where funds from the payment are transferred to after payment success.
         """
 
+    agent_details: Optional[AgentDetails]
+    """
+    Details about the agent that initiated the creation of this PaymentIntent.
+    """
     allocated_funds: Optional[AllocatedFunds]
     """
     Allocated Funds configuration for this PaymentIntent.
@@ -5013,10 +5028,6 @@ class PaymentIntent(
     If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
 
     When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
-    """
-    shared_payment_granted_token: Optional[str]
-    """
-    ID of the shared payment token granted to be used in this PaymentIntent
     """
     shipping: Optional[Shipping]
     """
@@ -7100,6 +7111,7 @@ class PaymentIntent(
         return self.TestHelpers(self)
 
     _inner_class_types = {
+        "agent_details": AgentDetails,
         "allocated_funds": AllocatedFunds,
         "amount_details": AmountDetails,
         "async_workflows": AsyncWorkflows,

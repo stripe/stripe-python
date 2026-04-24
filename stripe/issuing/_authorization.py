@@ -81,6 +81,142 @@ class Authorization(
         The amount of cash requested by the cardholder.
         """
 
+    class CryptoTransaction(StripeObject):
+        class CryptoTransactionConfirmed(StripeObject):
+            class Fee(StripeObject):
+                amount: str
+                """
+                The fee amount.
+                """
+                currency: str
+                """
+                The fee currency.
+                """
+                type: str
+                """
+                The fee type.
+                """
+
+            amount: str
+            """
+            The crypto amount for the confirmed transaction.
+            """
+            amount_mcc_upcharged: Optional[str]
+            """
+            The upcharged MCC amount, if one was applied.
+            """
+            chain: str
+            """
+            The blockchain network for the confirmed transaction.
+            """
+            confirmed_at: int
+            """
+            When the transaction was confirmed onchain.
+            """
+            currency: str
+            """
+            The currency of the crypto transaction amount.
+            """
+            fees: List[Fee]
+            """
+            Fees associated with the transaction.
+            """
+            from_address: str
+            """
+            The source wallet address for the transaction.
+            """
+            memo: Optional[str]
+            """
+            Memo metadata attached to the transaction, if present.
+            """
+            to_address: str
+            """
+            The destination wallet address for the transaction.
+            """
+            transaction_hash: str
+            """
+            The blockchain transaction hash.
+            """
+            _inner_class_types = {"fees": Fee}
+
+        class CryptoTransactionFailed(StripeObject):
+            class Fee(StripeObject):
+                amount: str
+                """
+                The fee amount.
+                """
+                currency: str
+                """
+                The fee currency.
+                """
+                type: str
+                """
+                The fee type.
+                """
+
+            amount: str
+            """
+            The crypto amount for the failed transaction.
+            """
+            amount_mcc_upcharged: Optional[str]
+            """
+            The upcharged MCC amount, if one was applied.
+            """
+            chain: str
+            """
+            The blockchain network for the failed transaction.
+            """
+            currency: str
+            """
+            The currency of the crypto transaction amount.
+            """
+            failed_at: int
+            """
+            When the transaction failed.
+            """
+            failure_reason: str
+            """
+            The reason the transaction failed.
+            """
+            fees: List[Fee]
+            """
+            Fees associated with the transaction.
+            """
+            from_address: str
+            """
+            The source wallet address for the attempted transaction.
+            """
+            memo: Optional[str]
+            """
+            Memo metadata attached to the transaction, if present.
+            """
+            to_address: Optional[str]
+            """
+            The destination wallet address for the attempted transaction when one exists.
+            """
+            transaction_hash: Optional[str]
+            """
+            The blockchain transaction hash when one exists.
+            """
+            _inner_class_types = {"fees": Fee}
+
+        crypto_transaction_confirmed: Optional[CryptoTransactionConfirmed]
+        """
+        The confirmed crypto transaction details when `type` is `crypto_transaction_confirmed`; otherwise null.
+        """
+        crypto_transaction_failed: Optional[CryptoTransactionFailed]
+        """
+        The failed crypto transaction details when `type` is `crypto_transaction_failed`; otherwise null.
+        """
+        type: str
+        """
+        The crypto transaction variant for this array entry.
+        """
+        _inner_class_types = {
+            "crypto_transaction_confirmed": CryptoTransactionConfirmed,
+            "crypto_transaction_failed": CryptoTransactionFailed,
+        }
+
     class Fleet(StripeObject):
         class CardholderPromptData(StripeObject):
             alphanumeric_id: Optional[str]
@@ -272,6 +408,10 @@ class Authorization(
         """
         Identifier assigned to the seller by the card network. Different card networks may assign different network_id fields to the same merchant.
         """
+        payment_facilitator_id: Optional[str]
+        """
+        The identifier of the payment facilitator (PayFac) that processed this authorization, as assigned by the card network. Null when the transaction was not processed through a PayFac.
+        """
         postal_code: Optional[str]
         """
         Postal code where the seller is located
@@ -279,6 +419,10 @@ class Authorization(
         state: Optional[str]
         """
         State where the seller is located
+        """
+        sub_merchant_id: Optional[str]
+        """
+        The identifier of the sub-merchant involved in this authorization, as assigned by the payment facilitator. Null when the transaction was not processed through a PayFac or when no sub-merchant ID was provided.
         """
         tax_id: Optional[str]
         """
@@ -854,6 +998,10 @@ class Authorization(
     created: int
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
+    """
+    crypto_transactions: Optional[List[CryptoTransaction]]
+    """
+    Array of onchain crypto transactions linked to this resource.
     """
     currency: str
     """
@@ -2020,6 +2168,7 @@ class Authorization(
 
     _inner_class_types = {
         "amount_details": AmountDetails,
+        "crypto_transactions": CryptoTransaction,
         "fleet": Fleet,
         "fraud_challenges": FraudChallenge,
         "fuel": Fuel,

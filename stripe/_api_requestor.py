@@ -402,6 +402,8 @@ class _APIRequestor(object):
             return error.FeatureNotEnabledError(**error_args)
         elif type == "financial_account_not_open":
             return error.FinancialAccountNotOpenError(**error_args)
+        elif type == "fx_quote_expired":
+            return error.FxQuoteExpiredError(**error_args)
         elif type == "insufficient_funds":
             return error.InsufficientFundsError(**error_args)
         elif type == "invalid_payment_method":

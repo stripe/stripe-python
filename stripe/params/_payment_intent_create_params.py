@@ -3152,10 +3152,6 @@ class PaymentIntentCreateParamsPaymentMethodData(TypedDict):
     """
     If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
     """
-    shared_payment_granted_token: NotRequired[str]
-    """
-    ID of the SharedPaymentGrantedToken used to confirm this PaymentIntent.
-    """
     shopeepay: NotRequired[
         "PaymentIntentCreateParamsPaymentMethodDataShopeepay"
     ]

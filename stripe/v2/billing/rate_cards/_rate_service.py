@@ -77,7 +77,7 @@ class RateService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "RateCardRate":
         """
-        Set the Rate for a Metered Item on the latest version of a Rate Card object. This will create a new Rate Card version
+        Set the Rate for a Metered Item on the latest version of a Rate Card object. This creates a new Rate Card version
         if the Metered Item already has a rate on the Rate Card.
         """
         return cast(
@@ -103,7 +103,7 @@ class RateService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "RateCardRate":
         """
-        Set the Rate for a Metered Item on the latest version of a Rate Card object. This will create a new Rate Card version
+        Set the Rate for a Metered Item on the latest version of a Rate Card object. This creates a new Rate Card version
         if the Metered Item already has a rate on the Rate Card.
         """
         return cast(
@@ -130,7 +130,7 @@ class RateService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "DeletedObject":
         """
-        Remove an existing Rate from a Rate Card. This will create a new Rate Card Version without that Rate.
+        Remove an existing Rate from a Rate Card. This creates a new Rate Card Version without that Rate.
         """
         return cast(
             "DeletedObject",
@@ -154,7 +154,7 @@ class RateService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "DeletedObject":
         """
-        Remove an existing Rate from a Rate Card. This will create a new Rate Card Version without that Rate.
+        Remove an existing Rate from a Rate Card. This creates a new Rate Card Version without that Rate.
         """
         return cast(
             "DeletedObject",

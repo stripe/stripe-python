@@ -29,8 +29,7 @@ class PricingPlan(StripeObject):
     """
     description: Optional[str]
     """
-    A description for pricing plan subscription.
-    Maximum length of 500 characters.
+    A description of the pricing plan. Maximum length of 500 characters.
     """
     display_name: str
     """
@@ -66,5 +65,5 @@ class PricingPlan(StripeObject):
     """
     tax_behavior: Literal["exclusive", "inclusive"]
     """
-    The Stripe Tax tax behavior - whether the PricingPlan is inclusive or exclusive of tax.
+    The tax behavior for Stripe Tax — whether the pricing plan price includes or excludes tax.
     """

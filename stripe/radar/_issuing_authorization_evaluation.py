@@ -59,7 +59,7 @@ class IssuingAuthorizationEvaluation(
         """
         initiated_at: int
         """
-        The timestamp of the authorization initiated in seconds.
+        The time the authorization was initiated, as a Unix timestamp in seconds.
         """
         point_of_sale_condition: Optional[
             Literal[
@@ -102,7 +102,7 @@ class IssuingAuthorizationEvaluation(
         """
         created_at: int
         """
-        The timestamp when the card was created.
+        The timestamp when the card was created, as a Unix timestamp in seconds.
         """
         last4: str
         """

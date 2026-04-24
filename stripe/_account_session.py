@@ -104,7 +104,14 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
 
         class Bills(StripeObject):
             class Features(StripeObject):
-                pass
+                bill_management: bool
+                """
+                Whether to enable the bill management feature that grants access to bill creation and payment.
+                """
+                send_money: bool
+                """
+                Whether to enable the send money feature that grants access to bill creation and payment.
+                """
 
             enabled: bool
             """

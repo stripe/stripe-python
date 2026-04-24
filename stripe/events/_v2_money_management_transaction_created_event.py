@@ -82,6 +82,10 @@ class V2MoneyManagementTransactionCreatedEvent(Event):
     type: Literal["v2.money_management.transaction.created"]
 
     class V2MoneyManagementTransactionCreatedEventData(StripeObject):
+        treasury_transaction: Optional[str]
+        """
+        Id of the v1 Treasury Transaction corresponding to this Transaction.
+        """
         v1_id: Optional[str]
         """
         Id of the v1 Transaction corresponding to this Transaction.

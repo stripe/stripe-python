@@ -38,14 +38,14 @@ class BillSettingCreateParamsCalculation(TypedDict):
 class BillSettingCreateParamsCalculationTax(TypedDict):
     type: Literal["automatic", "manual"]
     """
-    Determines if tax will be calculated automatically based on a PTC or manually based on rules defined by the merchant. Defaults to "manual".
+    Determines if tax is calculated automatically based on a PTC or manually based on rules defined by the business. Defaults to "manual".
     """
 
 
 class BillSettingCreateParamsInvoice(TypedDict):
     time_until_due: NotRequired["BillSettingCreateParamsInvoiceTimeUntilDue"]
     """
-    The amount of time until the invoice will be overdue for payment.
+    The amount of time until the invoice is overdue for payment.
     """
 
 
@@ -57,5 +57,5 @@ class BillSettingCreateParamsInvoiceTimeUntilDue(TypedDict):
     interval_count: int
     """
     The number of interval units. For example, if interval=day and interval_count=30,
-    the invoice will be due in 30 days.
+    the invoice is due in 30 days.
     """

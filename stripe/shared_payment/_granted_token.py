@@ -10,6 +10,7 @@ from typing_extensions import Literal, Type, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._charge import Charge
+    from stripe._payment_method import PaymentMethod
     from stripe._setup_attempt import SetupAttempt
     from stripe.params.shared_payment._granted_token_create_params import (
         GrantedTokenCreateParams,
@@ -1051,6 +1052,10 @@ class GrantedToken(APIResource["GrantedToken"]):
                 charge: Optional[ExpandableField["Charge"]]
                 """
                 The ID of the Charge that generated this PaymentMethod, if any.
+                """
+                payment_method: Optional[ExpandableField["PaymentMethod"]]
+                """
+                The ID of the PaymentMethod that generated this PaymentMethod, if any.
                 """
                 setup_attempt: Optional[ExpandableField["SetupAttempt"]]
                 """

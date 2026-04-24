@@ -22,6 +22,10 @@ class PriceModifyParams(RequestOptions):
     """
     Specifies which fields in the response should be expanded.
     """
+    external_reference: NotRequired["Literal['']|str"]
+    """
+    A custom identifier for this price, such as a SKU number or product code, that can be used to reference records from external systems.
+    """
     lookup_key: NotRequired[str]
     """
     A lookup key used to retrieve prices dynamically from a static string. This may be up to 200 characters.

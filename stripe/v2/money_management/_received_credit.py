@@ -44,6 +44,25 @@ class ReceivedCredit(StripeObject):
         """
 
     class BankTransfer(StripeObject):
+        class CaBankAccount(StripeObject):
+            account_holder_name: Optional[str]
+            """
+            The account holder name of the bank account the transfer was received from.
+            """
+            bank_name: Optional[str]
+            """
+            The bank name the transfer was received from.
+            """
+            last4: Optional[str]
+            """
+            The last 4 digits of the account number that originated the transfer.
+            Depending on the bank, this may instead be the last 4 digits of the return account number.
+            """
+            network: Literal["acss"]
+            """
+            Open Enum. The money transmission network used to send funds for this ReceivedCredit.
+            """
+
         class GbBankAccount(StripeObject):
             account_holder_name: Optional[str]
             """
@@ -110,6 +129,10 @@ class ReceivedCredit(StripeObject):
             The routing number of the account that originated the transfer.
             """
 
+        ca_bank_account: Optional[CaBankAccount]
+        """
+        Hash containing the transaction bank details. Present if `origin_type` field value is `ca_bank_account`.
+        """
         financial_address: str
         """
         Financial Address on which funds for ReceivedCredit were received.
@@ -119,7 +142,10 @@ class ReceivedCredit(StripeObject):
         Hash containing the transaction bank details. Present if `origin_type` field value is `gb_bank_account`.
         """
         origin_type: Literal[
-            "gb_bank_account", "sepa_bank_account", "us_bank_account"
+            "ca_bank_account",
+            "gb_bank_account",
+            "sepa_bank_account",
+            "us_bank_account",
         ]
         """
         Open Enum. Indicates the origin of source from which external funds originated from.
@@ -137,6 +163,7 @@ class ReceivedCredit(StripeObject):
         Hash containing the transaction bank details. Present if `origin_type` field value is `us_bank_account`.
         """
         _inner_class_types = {
+            "ca_bank_account": CaBankAccount,
             "gb_bank_account": GbBankAccount,
             "sepa_bank_account": SepaBankAccount,
             "us_bank_account": UsBankAccount,

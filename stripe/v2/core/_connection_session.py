@@ -7,7 +7,8 @@ from typing_extensions import Literal
 
 class ConnectionSession(StripeObject):
     """
-    The ConnectionSession resource.
+    A short-lived, single-use session used to launch client-side Link onboarding
+    that connects an Account to a Link consumer account.
     """
 
     OBJECT_NAME: ClassVar[Literal["v2.core.connection_session"]] = (

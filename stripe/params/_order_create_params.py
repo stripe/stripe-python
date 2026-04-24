@@ -232,6 +232,10 @@ class OrderCreateParamsLineItemProductData(TypedDict):
 
     `product_data` automatically creates a Product with this ID. If a Product with the same ID already exists, then `product_data` re-uses it to avoid duplicates. If any of the fields in the existing Product are different from the values in `product_data`, `product_data` updates the existing Product with the new information. So set `product_data[id]` to the same string every time you sell the same product, but don't re-use the same string for different products.
     """
+    identifiers: NotRequired["OrderCreateParamsLineItemProductDataIdentifiers"]
+    """
+    Other identifiers for this product.
+    """
     images: NotRequired["Literal['']|List[str]"]
     """
     A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
@@ -263,6 +267,37 @@ class OrderCreateParamsLineItemProductData(TypedDict):
     url: NotRequired["Literal['']|str"]
     """
     A URL of a publicly-accessible webpage for this product.
+    """
+
+
+class OrderCreateParamsLineItemProductDataIdentifiers(TypedDict):
+    ean: NotRequired["Literal['']|str"]
+    """
+    European Article Number (EAN) consisting of 8 or 13 digits and optional dashes. You may optionally provide a leading 0 for a total of 14 digits. The final digit is a validated check digit.
+    """
+    gtin: NotRequired["Literal['']|str"]
+    """
+    Global Trade Item Number (GTIN) consisting of 8, 12, 13, or 14 digits and optional dashes. The final digit is a validated check digit.
+    """
+    isbn: NotRequired["Literal['']|str"]
+    """
+    International Standard Book Number (ISBN) consisting of 10 or 13 digits and optional dashes. The final digit is a validated check digit. For ISBN-10, the final digit may be a `X`.
+    """
+    jan: NotRequired["Literal['']|str"]
+    """
+    Japanese Article Number (JAN) consisting of 13 digits and optional dashes. The first two digits must either be `45` or `49`. The final digit is a validated check digit.
+    """
+    mpn: NotRequired["Literal['']|str"]
+    """
+    Manufacturer Part Number (MPN). May include up to 70 alphanumeric characters and dashes.
+    """
+    nsn: NotRequired["Literal['']|str"]
+    """
+    National Stock Number (NSN) consisting of 13 digits and optional dashes. The seventh character may also be alphanumeric.
+    """
+    upc: NotRequired["Literal['']|str"]
+    """
+    Universal Product Code (UPC) consisting of 12 digits and optional dashes. The final digit is a validated check digit.
     """
 
 

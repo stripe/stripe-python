@@ -62,7 +62,7 @@ class Cadence(StripeObject):
             """
             The day to anchor the billing on for a type="month" billing cycle from 1-31.
             If this number is greater than the number of days in the month being billed,
-            this will anchor to the last day of the month.
+            this anchors to the last day of the month.
             """
             month_of_year: Optional[int]
             """
@@ -128,11 +128,11 @@ class Cadence(StripeObject):
             """
             The day to anchor the billing on for a type="month" billing cycle from 1-31.
             If this number is greater than the number of days in the month being billed,
-            this will anchor to the last day of the month.
+            this anchors to the last day of the month.
             """
             month_of_year: int
             """
-            The month to bill on from 1-12. If not provided, this will default to the month the cadence was created.
+            The month to bill on from 1-12. If not provided, this defaults to the month the cadence was created.
             """
             time: Time
             """
@@ -185,7 +185,7 @@ class Cadence(StripeObject):
             """
             percent_off: Decimal
             """
-            Percent that will be taken off of the amount. For example, percent_off of 50.0 will make $100 amount $50 instead.
+            Percent that is taken off the amount. For example, a percent_off of 50.0 reduces a 100 USD amount to 50 USD.
             """
             _inner_class_types = {"maximum_applications": MaximumApplications}
             _field_encodings = {"percent_off": "decimal_string"}
@@ -207,7 +207,7 @@ class Cadence(StripeObject):
     class Payer(StripeObject):
         billing_profile: str
         """
-        The ID of the Billing Profile object which determines how a bill will be paid.
+        The ID of the Billing Profile object which determines how a bill is paid.
         """
         customer: Optional[str]
         """
@@ -255,7 +255,7 @@ class Cadence(StripeObject):
                 class Tax(StripeObject):
                     type: Literal["automatic", "manual"]
                     """
-                    Determines if tax will be calculated automatically based on a PTC or manually based on rules defined by the merchant. Defaults to "manual".
+                    Determines if tax is calculated automatically based on a PTC or manually based on rules defined by the business. Defaults to "manual".
                     """
 
                 tax: Optional[Tax]
@@ -273,12 +273,12 @@ class Cadence(StripeObject):
                     interval_count: int
                     """
                     The number of interval units. For example, if interval=day and interval_count=30,
-                    the invoice will be due in 30 days.
+                    the invoice is due in 30 days.
                     """
 
                 time_until_due: Optional[TimeUntilDue]
                 """
-                The amount of time until the invoice will be overdue for payment.
+                The amount of time until the invoice is overdue for payment.
                 """
                 _inner_class_types = {"time_until_due": TimeUntilDue}
 
@@ -515,9 +515,9 @@ class Cadence(StripeObject):
 
             collection_method: Literal["automatic", "send_invoice"]
             """
-            Either automatic, or send_invoice. When charging automatically, Stripe will attempt to pay this
-            bill at the end of the period using the payment method attached to the payer profile. When sending an invoice,
-            Stripe will email your payer profile an invoice with payment instructions.
+            Either automatic, or send_invoice. When charging automatically, Stripe attempts to pay this
+            bill at the end of the period using the payment method attached to the billing profile. When sending an invoice,
+            Stripe emails your billing profile an invoice with payment instructions.
             Defaults to automatic.
             """
             email_delivery: EmailDelivery

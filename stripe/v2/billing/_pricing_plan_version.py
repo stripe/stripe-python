@@ -21,7 +21,7 @@ class PricingPlanVersion(StripeObject):
     """
     end_date: Optional[str]
     """
-    The timestamp when this version became inactive. Null if it's the latest version.
+    The timestamp when this version became inactive. null if it's the latest version.
     """
     id: str
     """

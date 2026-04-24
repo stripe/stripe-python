@@ -67,6 +67,36 @@ class Product(
 
     OBJECT_NAME: ClassVar[Literal["product"]] = "product"
 
+    class Identifiers(StripeObject):
+        ean: Optional[str]
+        """
+        European Article Number (EAN) consisting of 8 or 13 digits and optional dashes. You may optionally provide a leading 0 for a total of 14 digits. The final digit is a validated check digit.
+        """
+        gtin: Optional[str]
+        """
+        Global Trade Item Number (GTIN) consisting of 8, 12, 13, or 14 digits and optional dashes. The final digit is a validated check digit.
+        """
+        isbn: Optional[str]
+        """
+        International Standard Book Number (ISBN) consisting of 10 or 13 digits and optional dashes. The final digit is a validated check digit. For ISBN-10, the final digit may be a `X`.
+        """
+        jan: Optional[str]
+        """
+        Japanese Article Number (JAN) consisting of 13 digits and optional dashes. The first two digits must either be `45` or `49`. The final digit is a validated check digit.
+        """
+        mpn: Optional[str]
+        """
+        Manufacturer Part Number (MPN). May include up to 70 alphanumeric characters and dashes.
+        """
+        nsn: Optional[str]
+        """
+        National Stock Number (NSN) consisting of 13 digits and optional dashes. The seventh character may also be alphanumeric.
+        """
+        upc: Optional[str]
+        """
+        Universal Product Code (UPC) consisting of 12 digits and optional dashes. The final digit is a validated check digit.
+        """
+
     class MarketingFeature(StripeObject):
         name: Optional[str]
         """
@@ -115,6 +145,7 @@ class Product(
     """
     Unique identifier for the object.
     """
+    identifiers: Optional[Identifiers]
     images: List[str]
     """
     A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
@@ -587,6 +618,7 @@ class Product(
         )
 
     _inner_class_types = {
+        "identifiers": Identifiers,
         "marketing_features": MarketingFeature,
         "package_dimensions": PackageDimensions,
     }

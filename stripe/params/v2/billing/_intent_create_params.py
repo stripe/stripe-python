@@ -59,7 +59,7 @@ class IntentCreateParamsActionApply(TypedDict):
     """
     effective_at: NotRequired["IntentCreateParamsActionApplyEffectiveAt"]
     """
-    When the apply action will take effect. If not specified, defaults to on_reserve.
+    When the apply action takes effect. If not specified, defaults to on_reserve.
     """
     invoice_discount_rule: NotRequired[
         "IntentCreateParamsActionApplyInvoiceDiscountRule"
@@ -97,7 +97,7 @@ class IntentCreateParamsActionApplyDiscount(TypedDict):
 class IntentCreateParamsActionApplyEffectiveAt(TypedDict):
     timestamp: NotRequired[str]
     """
-    The timestamp at which the apply action will take effect. Only present if type is timestamp. Only allowed for discount actions.
+    The timestamp at which the apply action takes effect. Only present if type is timestamp. Only allowed for discount actions.
     """
     type: Literal[
         "current_billing_period_end",
@@ -107,7 +107,7 @@ class IntentCreateParamsActionApplyEffectiveAt(TypedDict):
         "timestamp",
     ]
     """
-    When the apply action will take effect.
+    When the apply action takes effect.
     """
 
 
@@ -135,7 +135,7 @@ class IntentCreateParamsActionApplyInvoiceDiscountRulePercentOff(TypedDict):
     """
     percent_off: Decimal
     """
-    Percent that will be taken off of the amount. For example, percent_off of 50.0 will make $100 amount $50 instead.
+    Percent that is taken off the amount. For example, a percent_off of 50.0 reduces a 100 USD amount to 50 USD.
     """
 
 
@@ -224,11 +224,11 @@ class IntentCreateParamsActionDeactivate(TypedDict):
     """
     collect_at: NotRequired[Literal["next_billing_date", "on_effective_at"]]
     """
-    When the invoice will be collected. If not specified, the default behavior is on_effective_at.
+    When the invoice is collected. If not specified, the default behavior is on_effective_at.
     """
     effective_at: NotRequired["IntentCreateParamsActionDeactivateEffectiveAt"]
     """
-    When the deactivate action will take effect. If not specified, the default behavior is on_reserve.
+    When the deactivate action takes effect. If not specified, the default behavior is on_reserve.
     """
     pricing_plan_subscription_details: (
         "IntentCreateParamsActionDeactivatePricingPlanSubscriptionDetails"
@@ -269,7 +269,7 @@ class IntentCreateParamsActionDeactivateCancellationDetails(TypedDict):
 class IntentCreateParamsActionDeactivateEffectiveAt(TypedDict):
     timestamp: NotRequired[str]
     """
-    The timestamp at which the deactivate action will take effect. Only present if type is timestamp.
+    The timestamp at which the deactivate action takes effect. Only present if type is timestamp.
     """
     type: Literal[
         "current_billing_period_end",
@@ -278,7 +278,7 @@ class IntentCreateParamsActionDeactivateEffectiveAt(TypedDict):
         "timestamp",
     ]
     """
-    When the deactivate action will take effect.
+    When the deactivate action takes effect.
     """
 
 
@@ -335,11 +335,11 @@ class IntentCreateParamsActionDeactivatePricingPlanSubscriptionDetailsOverridesP
 class IntentCreateParamsActionModify(TypedDict):
     collect_at: NotRequired[Literal["next_billing_date", "on_effective_at"]]
     """
-    When the invoice will be collected. If not specified, the default behavior is next_billing_date.
+    When the invoice is collected. If not specified, the default behavior is next_billing_date.
     """
     effective_at: NotRequired["IntentCreateParamsActionModifyEffectiveAt"]
     """
-    When the modify action will take effect. If not specified, the default behavior is on_reserve.
+    When the modify action takes effect. If not specified, the default behavior is on_reserve.
     """
     pricing_plan_subscription_details: (
         "IntentCreateParamsActionModifyPricingPlanSubscriptionDetails"
@@ -358,11 +358,11 @@ class IntentCreateParamsActionModify(TypedDict):
 class IntentCreateParamsActionModifyEffectiveAt(TypedDict):
     timestamp: NotRequired[str]
     """
-    The timestamp at which the modify action will take effect. Only present if type is timestamp.
+    The timestamp at which the modify action takes effect. Only present if type is timestamp.
     """
     type: Literal["current_billing_period_start", "on_reserve", "timestamp"]
     """
-    When the modify action will take effect.
+    When the modify action takes effect.
     """
 
 
@@ -469,7 +469,7 @@ class IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverridesParti
 class IntentCreateParamsActionRemove(TypedDict):
     effective_at: NotRequired["IntentCreateParamsActionRemoveEffectiveAt"]
     """
-    When the remove action will take effect. If not specified, defaults to on_reserve.
+    When the remove action takes effect. If not specified, defaults to on_reserve.
     """
     invoice_discount_rule: NotRequired[str]
     """
@@ -488,18 +488,18 @@ class IntentCreateParamsActionRemove(TypedDict):
 class IntentCreateParamsActionRemoveEffectiveAt(TypedDict):
     type: Literal["current_billing_period_end", "on_reserve"]
     """
-    When the remove action will take effect.
+    When the remove action takes effect.
     """
 
 
 class IntentCreateParamsActionSubscribe(TypedDict):
     collect_at: NotRequired[Literal["next_billing_date", "on_effective_at"]]
     """
-    When the invoice will be collected. If not specified, defaults to on_effective_at.
+    When the invoice is collected. If not specified, defaults to on_effective_at.
     """
     effective_at: NotRequired["IntentCreateParamsActionSubscribeEffectiveAt"]
     """
-    When the subscribe action will take effect. If not specified, the default behavior is on_reserve.
+    When the subscribe action takes effect. If not specified, the default behavior is on_reserve.
     """
     pricing_plan_subscription_details: NotRequired[
         "IntentCreateParamsActionSubscribePricingPlanSubscriptionDetails"
@@ -524,11 +524,11 @@ class IntentCreateParamsActionSubscribe(TypedDict):
 class IntentCreateParamsActionSubscribeEffectiveAt(TypedDict):
     timestamp: NotRequired[str]
     """
-    The timestamp at which the subscribe action will take effect. Only present if type is timestamp.
+    The timestamp at which the subscribe action takes effect. Only present if type is timestamp.
     """
     type: Literal["current_billing_period_start", "on_reserve", "timestamp"]
     """
-    When the subscribe action will take effect.
+    When the subscribe action takes effect.
     """
 
 
@@ -685,7 +685,7 @@ class IntentCreateParamsCadenceDataBillingCycle(TypedDict):
     """
     The number of intervals (specified in the interval attribute) between
     cadence billings. For example, type=month and interval_count=3 bills every
-    3 months. If this is not provided, it will default to 1.
+    3 months. If not provided, this defaults to 1.
     """
     month: NotRequired["IntentCreateParamsCadenceDataBillingCycleMonth"]
     """
@@ -709,7 +709,7 @@ class IntentCreateParamsCadenceDataBillingCycleDay(TypedDict):
     time: NotRequired["IntentCreateParamsCadenceDataBillingCycleDayTime"]
     """
     The time at which the billing cycle ends.
-    This field is optional, and if not provided, it will default to
+    This field is optional, and if not provided, it defaults to
     the time at which the cadence was created in UTC timezone.
     """
 
@@ -738,20 +738,20 @@ class IntentCreateParamsCadenceDataBillingCycleMonth(TypedDict):
     """
     The day to anchor the billing on for a type="month" billing cycle from
     1-31. If this number is greater than the number of days in the month being
-    billed, this will anchor to the last day of the month. If not provided,
-    this will default to the day the cadence was created.
+    billed, this anchors to the last day of the month. If not provided,
+    this defaults to the day the cadence was created.
     """
     month_of_year: NotRequired[int]
     """
     The month to anchor the billing on for a type="month" billing cycle from
-    1-12. If not provided, this will default to the month the cadence was created.
+    1-12. If not provided, this defaults to the month the cadence was created.
     This setting can only be used for monthly billing cycles with `interval_count` of 2, 3, 4 or 6.
-    All occurrences will be calculated from month provided.
+    All occurrences are calculated from the month provided.
     """
     time: NotRequired["IntentCreateParamsCadenceDataBillingCycleMonthTime"]
     """
     The time at which the billing cycle ends.
-    This field is optional, and if not provided, it will default to
+    This field is optional, and if not provided, it defaults to
     the time at which the cadence was created in UTC timezone.
     """
 
@@ -780,13 +780,13 @@ class IntentCreateParamsCadenceDataBillingCycleWeek(TypedDict):
     """
     The day of the week to bill the type=week billing cycle on.
     Numbered from 1-7 for Monday to Sunday respectively, based on the ISO-8601
-    week day numbering. If not provided, this will default to the day the
+    week day numbering. If not provided, this defaults to the day the
     cadence was created.
     """
     time: NotRequired["IntentCreateParamsCadenceDataBillingCycleWeekTime"]
     """
     The time at which the billing cycle ends.
-    This field is optional, and if not provided, it will default to
+    This field is optional, and if not provided, it defaults to
     the time at which the cadence was created in UTC timezone.
     """
 
@@ -815,18 +815,18 @@ class IntentCreateParamsCadenceDataBillingCycleYear(TypedDict):
     """
     The day to anchor the billing on for a type="month" billing cycle from
     1-31. If this number is greater than the number of days in the month being
-    billed, this will anchor to the last day of the month. If not provided,
-    this will default to the day the cadence was created.
+    billed, this anchors to the last day of the month. If not provided,
+    this defaults to the day the cadence was created.
     """
     month_of_year: NotRequired[int]
     """
-    The month to bill on from 1-12. If not provided, this will default to the
+    The month to bill on from 1-12. If not provided, this defaults to the
     month the cadence was created.
     """
     time: NotRequired["IntentCreateParamsCadenceDataBillingCycleYearTime"]
     """
     The time at which the billing cycle ends.
-    This field is optional, and if not provided, it will default to
+    This field is optional, and if not provided, it defaults to
     the time at which the cadence was created in UTC timezone.
     """
 
@@ -853,7 +853,7 @@ class IntentCreateParamsCadenceDataBillingCycleYearTime(TypedDict):
 class IntentCreateParamsCadenceDataPayer(TypedDict):
     billing_profile: NotRequired[str]
     """
-    The ID of the Billing Profile object which determines how a bill will be paid.
+    The ID of the Billing Profile object which determines how a bill is paid.
     """
     billing_profile_data: NotRequired[
         "IntentCreateParamsCadenceDataPayerBillingProfileData"
@@ -872,7 +872,7 @@ class IntentCreateParamsCadenceDataPayerBillingProfileData(TypedDict):
     """
     The default payment method to use when billing this profile.
     If left blank, the `PaymentMethod` from the `PaymentIntent` provided
-    on commit will be used to create the profile.
+    on commit is used to create the profile.
     """
 
 
@@ -899,7 +899,7 @@ class IntentCreateParamsCadenceDataSettingsBill(TypedDict):
     version: NotRequired[str]
     """
     An optional field to specify the version of the Settings to use.
-    If not provided, this will always default to the live version any time the settings are used.
+    If not provided, this defaults to the live version any time the settings are used.
     """
 
 
@@ -911,5 +911,5 @@ class IntentCreateParamsCadenceDataSettingsCollection(TypedDict):
     version: NotRequired[str]
     """
     An optional field to specify the version of the Settings to use.
-    If not provided, this will always default to the live version any time the settings are used.
+    If not provided, this defaults to the live version any time the settings are used.
     """

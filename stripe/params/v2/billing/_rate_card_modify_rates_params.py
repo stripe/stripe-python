@@ -34,7 +34,7 @@ class RateCardModifyRatesParamsRatesToCreate(TypedDict):
     """
     tiering_mode: NotRequired[Literal["graduated", "volume"]]
     """
-    Defines whether the tiered price should be graduated or volume-based. In volume-based tiering, the maximum
+    Defines whether the tiered price is graduated or volume-based. In volume-based tiering, the maximum
     quantity within a period determines the per-unit price. In graduated tiering, the pricing changes as the quantity
     grows into new tiers. Can only be set if `tiers` is set.
     """
@@ -58,7 +58,7 @@ class RateCardModifyRatesParamsRatesToCreate(TypedDict):
 class RateCardModifyRatesParamsRatesToCreateMeteredItemData(TypedDict):
     display_name: str
     """
-    Description that customers will see in the invoice line item.
+    Description that customers see in the invoice line item.
     Maximum length of 250 characters.
     """
     lookup_key: NotRequired[str]
@@ -111,7 +111,7 @@ class RateCardModifyRatesParamsRatesToCreateTier(TypedDict):
     """
     up_to_decimal: NotRequired[Decimal]
     """
-    Up to and including this quantity will be contained in the tier. Only one of `up_to_decimal` and `up_to_inf` may
+    Up to and including this quantity is contained in the tier. Only one of `up_to_decimal` and `up_to_inf` may
     be set.
     """
     up_to_inf: NotRequired[Literal["inf"]]

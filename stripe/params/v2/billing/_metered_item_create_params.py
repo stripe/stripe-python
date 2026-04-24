@@ -8,7 +8,7 @@ from typing_extensions import NotRequired, TypedDict
 class MeteredItemCreateParams(TypedDict):
     display_name: str
     """
-    Description that customers will see in the invoice line item.
+    Description that customers see in the invoice line item.
     Maximum length of 250 characters.
     """
     invoice_presentation_dimensions: NotRequired[List[str]]

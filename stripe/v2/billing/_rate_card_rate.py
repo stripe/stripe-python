@@ -47,7 +47,7 @@ class RateCardRate(StripeObject):
         """
         up_to_decimal: Optional[Decimal]
         """
-        Up to and including this quantity will be contained in the tier. Only one of `up_to_decimal` and `up_to_inf` may
+        Up to and including this quantity is contained in the tier. Only one of `up_to_decimal` and `up_to_inf` may
         be set.
         """
         up_to_inf: Optional[Literal["inf"]]
@@ -106,7 +106,7 @@ class RateCardRate(StripeObject):
     """
     tiering_mode: Optional[Literal["graduated", "volume"]]
     """
-    Defines whether the tiering price should be graduated or volume-based. In volume-based tiering, the maximum
+    Defines whether the tiering price is graduated or volume-based. In volume-based tiering, the maximum
     quantity within a period determines the per-unit price. In graduated tiering, the pricing changes as the quantity
     grows into new tiers. Can only be set if `tiers` is set.
     """

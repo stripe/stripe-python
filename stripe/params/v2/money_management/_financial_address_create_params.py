@@ -14,7 +14,12 @@ class FinancialAddressCreateParams(TypedDict):
     """
     Optional SEPA Bank account options, used to configure the type of SEPA Bank account to create, such as the originating country.
     """
-    type: Literal["gb_bank_account", "sepa_bank_account", "us_bank_account"]
+    type: Literal[
+        "ca_bank_account",
+        "gb_bank_account",
+        "sepa_bank_account",
+        "us_bank_account",
+    ]
     """
     The type of FinancialAddress details to provision.
     """

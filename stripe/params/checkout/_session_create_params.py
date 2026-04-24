@@ -66,6 +66,14 @@ class SessionCreateParams(RequestOptions):
     """
     Collect additional information from your customer using custom fields. Up to 3 fields are supported. You can't set this parameter if `ui_mode` is `custom`.
     """
+    custom_payment_method_types: NotRequired[List[str]]
+    """
+    A list of custom payment methods (e.g., `cpmt_123`) this Checkout Session can accept.
+
+    You can add custom payment methods to your account through the dashboard under Settings > Custom Payment Methods.
+
+    Read more about custom payment methods in checkout in our [custom payment method types guide](https://docs.stripe.com/payments/payment-methods/custom-payment-methods).
+    """
     custom_text: NotRequired["SessionCreateParamsCustomText"]
     """
     Display additional text for your customers using custom text. You can't set this parameter if `ui_mode` is `custom`.
