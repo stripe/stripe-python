@@ -107,6 +107,7 @@ class V1BillingMeterErrorReportTriggeredEvent(Event):
                     "meter_event_dimension_count_too_high",
                     "meter_event_invalid_value",
                     "meter_event_no_customer_defined",
+                    "meter_event_value_too_many_digits",
                     "missing_dimension_payload_keys",
                     "no_meter",
                     "timestamp_in_future",

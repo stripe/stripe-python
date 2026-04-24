@@ -91,7 +91,7 @@ class GbBankAccount(StripeObject):
     the /archive API, and they will not be automatically archived by Stripe. Archived bank account objects
     cannot be used as outbound destinations and will not appear in the outbound destination list.
     """
-    bank_account_type: Literal["checking", "savings"]
+    bank_account_type: Literal["checking", "futsu", "savings", "toza"]
     """
     Closed Enum. The type of the bank account (checking or savings).
     """

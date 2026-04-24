@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._stripe_object import StripeObject, UntypedStripeObject
+from stripe._stripe_object import StripeObject
 from stripe.v2._amount import Amount
-from typing import Any, ClassVar, List, Optional
+from typing import ClassVar, List, Optional
 from typing_extensions import Literal
 
 
@@ -60,6 +60,12 @@ class InboundTransfer(StripeObject):
             Open Enum. The return reason for the failed InboundTransfer.
             """
 
+        class BankDebitProcessing(StripeObject):
+            pass
+
+        class BankDebitQueued(StripeObject):
+            pass
+
         class BankDebitReturned(StripeObject):
             return_reason: Literal[
                 "bank_account_closed",
@@ -72,15 +78,18 @@ class InboundTransfer(StripeObject):
             Open Enum. The return reason for the returned InboundTransfer.
             """
 
+        class BankDebitSucceeded(StripeObject):
+            pass
+
         bank_debit_failed: Optional[BankDebitFailed]
         """
         The history entry for a failed InboundTransfer.
         """
-        bank_debit_processing: Optional[UntypedStripeObject[Any]]
+        bank_debit_processing: Optional[BankDebitProcessing]
         """
         The history entry for a processing InboundTransfer.
         """
-        bank_debit_queued: Optional[UntypedStripeObject[Any]]
+        bank_debit_queued: Optional[BankDebitQueued]
         """
         The history entry for a queued InboundTransfer.
         """
@@ -88,7 +97,7 @@ class InboundTransfer(StripeObject):
         """
         The history entry for a returned InboundTransfer.
         """
-        bank_debit_succeeded: Optional[UntypedStripeObject[Any]]
+        bank_debit_succeeded: Optional[BankDebitSucceeded]
         """
         The history entry for a succeeded InboundTransfer.
         """
@@ -120,7 +129,10 @@ class InboundTransfer(StripeObject):
         """
         _inner_class_types = {
             "bank_debit_failed": BankDebitFailed,
+            "bank_debit_processing": BankDebitProcessing,
+            "bank_debit_queued": BankDebitQueued,
             "bank_debit_returned": BankDebitReturned,
+            "bank_debit_succeeded": BankDebitSucceeded,
         }
 
     amount: Amount

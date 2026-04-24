@@ -389,6 +389,11 @@ class _APIRequestor(object):
             return error.AlreadyExistsError(**error_args)
         elif type == "blocked_by_stripe":
             return error.BlockedByStripeError(**error_args)
+        elif type == "cannot_proceed":
+            return error.CannotProceedError(
+                **error_args,
+                reason=error_data.get("reason"),
+            )
         elif type == "controlled_by_alternate_resource":
             return error.ControlledByAlternateResourceError(**error_args)
         elif type == "controlled_by_dashboard":

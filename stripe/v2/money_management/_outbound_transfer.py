@@ -34,6 +34,7 @@ class OutboundTransfer(StripeObject):
     class StatusDetails(StripeObject):
         class Failed(StripeObject):
             reason: Literal[
+                "payout_method_amount_limit_exceeded",
                 "payout_method_declined",
                 "payout_method_does_not_exist",
                 "payout_method_expired",

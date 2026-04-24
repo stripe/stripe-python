@@ -21,6 +21,22 @@ if TYPE_CHECKING:
         V1BillingMeterNoMeterFoundEvent as V1BillingMeterNoMeterFoundEvent,
         V1BillingMeterNoMeterFoundEventNotification as V1BillingMeterNoMeterFoundEventNotification,
     )
+    from stripe.events._v2_commerce_product_catalog_imports_failed_event import (
+        V2CommerceProductCatalogImportsFailedEvent as V2CommerceProductCatalogImportsFailedEvent,
+        V2CommerceProductCatalogImportsFailedEventNotification as V2CommerceProductCatalogImportsFailedEventNotification,
+    )
+    from stripe.events._v2_commerce_product_catalog_imports_processing_event import (
+        V2CommerceProductCatalogImportsProcessingEvent as V2CommerceProductCatalogImportsProcessingEvent,
+        V2CommerceProductCatalogImportsProcessingEventNotification as V2CommerceProductCatalogImportsProcessingEventNotification,
+    )
+    from stripe.events._v2_commerce_product_catalog_imports_succeeded_event import (
+        V2CommerceProductCatalogImportsSucceededEvent as V2CommerceProductCatalogImportsSucceededEvent,
+        V2CommerceProductCatalogImportsSucceededEventNotification as V2CommerceProductCatalogImportsSucceededEventNotification,
+    )
+    from stripe.events._v2_commerce_product_catalog_imports_succeeded_with_errors_event import (
+        V2CommerceProductCatalogImportsSucceededWithErrorsEvent as V2CommerceProductCatalogImportsSucceededWithErrorsEvent,
+        V2CommerceProductCatalogImportsSucceededWithErrorsEventNotification as V2CommerceProductCatalogImportsSucceededWithErrorsEventNotification,
+    )
     from stripe.events._v2_core_account_closed_event import (
         V2CoreAccountClosedEvent as V2CoreAccountClosedEvent,
         V2CoreAccountClosedEventNotification as V2CoreAccountClosedEventNotification,
@@ -144,6 +160,34 @@ if TYPE_CHECKING:
     from stripe.events._v2_core_health_event_generation_failure_resolved_event import (
         V2CoreHealthEventGenerationFailureResolvedEvent as V2CoreHealthEventGenerationFailureResolvedEvent,
         V2CoreHealthEventGenerationFailureResolvedEventNotification as V2CoreHealthEventGenerationFailureResolvedEventNotification,
+    )
+    from stripe.events._v2_data_reporting_query_run_created_event import (
+        V2DataReportingQueryRunCreatedEvent as V2DataReportingQueryRunCreatedEvent,
+        V2DataReportingQueryRunCreatedEventNotification as V2DataReportingQueryRunCreatedEventNotification,
+    )
+    from stripe.events._v2_data_reporting_query_run_failed_event import (
+        V2DataReportingQueryRunFailedEvent as V2DataReportingQueryRunFailedEvent,
+        V2DataReportingQueryRunFailedEventNotification as V2DataReportingQueryRunFailedEventNotification,
+    )
+    from stripe.events._v2_data_reporting_query_run_succeeded_event import (
+        V2DataReportingQueryRunSucceededEvent as V2DataReportingQueryRunSucceededEvent,
+        V2DataReportingQueryRunSucceededEventNotification as V2DataReportingQueryRunSucceededEventNotification,
+    )
+    from stripe.events._v2_data_reporting_query_run_updated_event import (
+        V2DataReportingQueryRunUpdatedEvent as V2DataReportingQueryRunUpdatedEvent,
+        V2DataReportingQueryRunUpdatedEventNotification as V2DataReportingQueryRunUpdatedEventNotification,
+    )
+    from stripe.events._v2_extend_workflow_run_failed_event import (
+        V2ExtendWorkflowRunFailedEvent as V2ExtendWorkflowRunFailedEvent,
+        V2ExtendWorkflowRunFailedEventNotification as V2ExtendWorkflowRunFailedEventNotification,
+    )
+    from stripe.events._v2_extend_workflow_run_started_event import (
+        V2ExtendWorkflowRunStartedEvent as V2ExtendWorkflowRunStartedEvent,
+        V2ExtendWorkflowRunStartedEventNotification as V2ExtendWorkflowRunStartedEventNotification,
+    )
+    from stripe.events._v2_extend_workflow_run_succeeded_event import (
+        V2ExtendWorkflowRunSucceededEvent as V2ExtendWorkflowRunSucceededEvent,
+        V2ExtendWorkflowRunSucceededEventNotification as V2ExtendWorkflowRunSucceededEventNotification,
     )
     from stripe.events._v2_money_management_adjustment_created_event import (
         V2MoneyManagementAdjustmentCreatedEvent as V2MoneyManagementAdjustmentCreatedEvent,
@@ -289,6 +333,22 @@ if TYPE_CHECKING:
         V2MoneyManagementTransactionUpdatedEvent as V2MoneyManagementTransactionUpdatedEvent,
         V2MoneyManagementTransactionUpdatedEventNotification as V2MoneyManagementTransactionUpdatedEventNotification,
     )
+    from stripe.events._v2_orchestrated_commerce_agreement_confirmed_event import (
+        V2OrchestratedCommerceAgreementConfirmedEvent as V2OrchestratedCommerceAgreementConfirmedEvent,
+        V2OrchestratedCommerceAgreementConfirmedEventNotification as V2OrchestratedCommerceAgreementConfirmedEventNotification,
+    )
+    from stripe.events._v2_orchestrated_commerce_agreement_created_event import (
+        V2OrchestratedCommerceAgreementCreatedEvent as V2OrchestratedCommerceAgreementCreatedEvent,
+        V2OrchestratedCommerceAgreementCreatedEventNotification as V2OrchestratedCommerceAgreementCreatedEventNotification,
+    )
+    from stripe.events._v2_orchestrated_commerce_agreement_partially_confirmed_event import (
+        V2OrchestratedCommerceAgreementPartiallyConfirmedEvent as V2OrchestratedCommerceAgreementPartiallyConfirmedEvent,
+        V2OrchestratedCommerceAgreementPartiallyConfirmedEventNotification as V2OrchestratedCommerceAgreementPartiallyConfirmedEventNotification,
+    )
+    from stripe.events._v2_orchestrated_commerce_agreement_terminated_event import (
+        V2OrchestratedCommerceAgreementTerminatedEvent as V2OrchestratedCommerceAgreementTerminatedEvent,
+        V2OrchestratedCommerceAgreementTerminatedEventNotification as V2OrchestratedCommerceAgreementTerminatedEventNotification,
+    )
 
 # name -> (import_target, is_submodule)
 _import_map = {
@@ -307,6 +367,38 @@ _import_map = {
     ),
     "V1BillingMeterNoMeterFoundEventNotification": (
         "stripe.events._v1_billing_meter_no_meter_found_event",
+        False,
+    ),
+    "V2CommerceProductCatalogImportsFailedEvent": (
+        "stripe.events._v2_commerce_product_catalog_imports_failed_event",
+        False,
+    ),
+    "V2CommerceProductCatalogImportsFailedEventNotification": (
+        "stripe.events._v2_commerce_product_catalog_imports_failed_event",
+        False,
+    ),
+    "V2CommerceProductCatalogImportsProcessingEvent": (
+        "stripe.events._v2_commerce_product_catalog_imports_processing_event",
+        False,
+    ),
+    "V2CommerceProductCatalogImportsProcessingEventNotification": (
+        "stripe.events._v2_commerce_product_catalog_imports_processing_event",
+        False,
+    ),
+    "V2CommerceProductCatalogImportsSucceededEvent": (
+        "stripe.events._v2_commerce_product_catalog_imports_succeeded_event",
+        False,
+    ),
+    "V2CommerceProductCatalogImportsSucceededEventNotification": (
+        "stripe.events._v2_commerce_product_catalog_imports_succeeded_event",
+        False,
+    ),
+    "V2CommerceProductCatalogImportsSucceededWithErrorsEvent": (
+        "stripe.events._v2_commerce_product_catalog_imports_succeeded_with_errors_event",
+        False,
+    ),
+    "V2CommerceProductCatalogImportsSucceededWithErrorsEventNotification": (
+        "stripe.events._v2_commerce_product_catalog_imports_succeeded_with_errors_event",
         False,
     ),
     "V2CoreAccountClosedEvent": (
@@ -555,6 +647,62 @@ _import_map = {
     ),
     "V2CoreHealthEventGenerationFailureResolvedEventNotification": (
         "stripe.events._v2_core_health_event_generation_failure_resolved_event",
+        False,
+    ),
+    "V2DataReportingQueryRunCreatedEvent": (
+        "stripe.events._v2_data_reporting_query_run_created_event",
+        False,
+    ),
+    "V2DataReportingQueryRunCreatedEventNotification": (
+        "stripe.events._v2_data_reporting_query_run_created_event",
+        False,
+    ),
+    "V2DataReportingQueryRunFailedEvent": (
+        "stripe.events._v2_data_reporting_query_run_failed_event",
+        False,
+    ),
+    "V2DataReportingQueryRunFailedEventNotification": (
+        "stripe.events._v2_data_reporting_query_run_failed_event",
+        False,
+    ),
+    "V2DataReportingQueryRunSucceededEvent": (
+        "stripe.events._v2_data_reporting_query_run_succeeded_event",
+        False,
+    ),
+    "V2DataReportingQueryRunSucceededEventNotification": (
+        "stripe.events._v2_data_reporting_query_run_succeeded_event",
+        False,
+    ),
+    "V2DataReportingQueryRunUpdatedEvent": (
+        "stripe.events._v2_data_reporting_query_run_updated_event",
+        False,
+    ),
+    "V2DataReportingQueryRunUpdatedEventNotification": (
+        "stripe.events._v2_data_reporting_query_run_updated_event",
+        False,
+    ),
+    "V2ExtendWorkflowRunFailedEvent": (
+        "stripe.events._v2_extend_workflow_run_failed_event",
+        False,
+    ),
+    "V2ExtendWorkflowRunFailedEventNotification": (
+        "stripe.events._v2_extend_workflow_run_failed_event",
+        False,
+    ),
+    "V2ExtendWorkflowRunStartedEvent": (
+        "stripe.events._v2_extend_workflow_run_started_event",
+        False,
+    ),
+    "V2ExtendWorkflowRunStartedEventNotification": (
+        "stripe.events._v2_extend_workflow_run_started_event",
+        False,
+    ),
+    "V2ExtendWorkflowRunSucceededEvent": (
+        "stripe.events._v2_extend_workflow_run_succeeded_event",
+        False,
+    ),
+    "V2ExtendWorkflowRunSucceededEventNotification": (
+        "stripe.events._v2_extend_workflow_run_succeeded_event",
         False,
     ),
     "V2MoneyManagementAdjustmentCreatedEvent": (
@@ -843,6 +991,38 @@ _import_map = {
     ),
     "V2MoneyManagementTransactionUpdatedEventNotification": (
         "stripe.events._v2_money_management_transaction_updated_event",
+        False,
+    ),
+    "V2OrchestratedCommerceAgreementConfirmedEvent": (
+        "stripe.events._v2_orchestrated_commerce_agreement_confirmed_event",
+        False,
+    ),
+    "V2OrchestratedCommerceAgreementConfirmedEventNotification": (
+        "stripe.events._v2_orchestrated_commerce_agreement_confirmed_event",
+        False,
+    ),
+    "V2OrchestratedCommerceAgreementCreatedEvent": (
+        "stripe.events._v2_orchestrated_commerce_agreement_created_event",
+        False,
+    ),
+    "V2OrchestratedCommerceAgreementCreatedEventNotification": (
+        "stripe.events._v2_orchestrated_commerce_agreement_created_event",
+        False,
+    ),
+    "V2OrchestratedCommerceAgreementPartiallyConfirmedEvent": (
+        "stripe.events._v2_orchestrated_commerce_agreement_partially_confirmed_event",
+        False,
+    ),
+    "V2OrchestratedCommerceAgreementPartiallyConfirmedEventNotification": (
+        "stripe.events._v2_orchestrated_commerce_agreement_partially_confirmed_event",
+        False,
+    ),
+    "V2OrchestratedCommerceAgreementTerminatedEvent": (
+        "stripe.events._v2_orchestrated_commerce_agreement_terminated_event",
+        False,
+    ),
+    "V2OrchestratedCommerceAgreementTerminatedEventNotification": (
+        "stripe.events._v2_orchestrated_commerce_agreement_terminated_event",
         False,
     ),
 }

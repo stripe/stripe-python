@@ -18,7 +18,7 @@ class BillSetting(StripeObject):
         class Tax(StripeObject):
             type: Literal["automatic", "manual"]
             """
-            Determines if tax will be calculated automatically based on a PTC or manually based on rules defined by the merchant. Defaults to "manual".
+            Determines if tax is calculated automatically based on a PTC or manually based on rules defined by the business. Defaults to "manual".
             """
 
         tax: Optional[Tax]
@@ -36,12 +36,12 @@ class BillSetting(StripeObject):
             interval_count: int
             """
             The number of interval units. For example, if interval=day and interval_count=30,
-            the invoice will be due in 30 days.
+            the invoice is due in 30 days.
             """
 
         time_until_due: Optional[TimeUntilDue]
         """
-        The amount of time until the invoice will be overdue for payment.
+        The amount of time until the invoice is overdue for payment.
         """
         _inner_class_types = {"time_until_due": TimeUntilDue}
 
@@ -71,8 +71,8 @@ class BillSetting(StripeObject):
     """
     latest_version: str
     """
-    The latest version of the current settings object. This will be
-    Updated every time an attribute of the settings is updated.
+    The latest version of the current settings object. This is
+    updated every time an attribute of the settings is updated.
     """
     live_version: str
     """
