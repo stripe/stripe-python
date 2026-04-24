@@ -32,7 +32,7 @@ class BatchJobCreateParams(TypedDict):
 
 
 class BatchJobCreateParamsEndpoint(TypedDict):
-    http_method: Literal["post"]
+    http_method: Literal["delete", "post"]
     """
     The HTTP method to use when calling the endpoint.
     """

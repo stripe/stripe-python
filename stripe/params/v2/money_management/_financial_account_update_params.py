@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, Optional
+from typing import Dict, List, Optional
 from typing_extensions import NotRequired, TypedDict
 
 
@@ -15,4 +15,17 @@ class FinancialAccountUpdateParams(TypedDict):
     ]
     """
     Metadata associated with the FinancialAccount.
+    """
+    storage: NotRequired["FinancialAccountUpdateParamsStorage"]
+    """
+    Parameters for updating storage-specific fields on the FinancialAccount.
+    """
+
+
+class FinancialAccountUpdateParamsStorage(TypedDict):
+    holds_currencies: NotRequired[List[str]]
+    """
+    The currencies that this storage FinancialAccount can hold a balance in. Three-letter ISO currency code, in lowercase.
+    Adding currencies requires the corresponding holds_currencies storer capabilities to be enabled.
+    Removing currencies is not supported as of March 2026.
     """

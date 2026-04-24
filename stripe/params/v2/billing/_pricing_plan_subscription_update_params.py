@@ -8,7 +8,7 @@ from typing_extensions import NotRequired, TypedDict
 class PricingPlanSubscriptionUpdateParams(TypedDict):
     clear_cancel_at: NotRequired[bool]
     """
-    When set to true, the `servicing_status_transition.will_cancel_at` field will be cleared.
+    When set to true, the `servicing_status_transition.will_cancel_at` field is cleared.
     """
     metadata: NotRequired[
         "Dict[str, Optional[str]]|UntypedStripeObject[Optional[str]]"

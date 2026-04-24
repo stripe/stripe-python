@@ -5,14 +5,20 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.v2.iam._activity_log_service import ActivityLogService
     from stripe.v2.iam._api_key_service import ApiKeyService
 
 _subservices = {
-    "api_keys": ["stripe.v2.iam._api_key_service", "ApiKeyService"]
+    "activity_logs": [
+        "stripe.v2.iam._activity_log_service",
+        "ActivityLogService",
+    ],
+    "api_keys": ["stripe.v2.iam._api_key_service", "ApiKeyService"],
 }
 
 
 class IamService(StripeService):
+    activity_logs: "ActivityLogService"
     api_keys: "ApiKeyService"
 
     def __init__(self, requestor):

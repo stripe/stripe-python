@@ -544,6 +544,10 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.v2.billing._service_action",
         "ServiceAction",
     ),
+    "v2.commerce.product_catalog_import": (
+        "stripe.v2.commerce._product_catalog_import",
+        "ProductCatalogImport",
+    ),
     "v2.core.account": ("stripe.v2.core._account", "Account"),
     "v2.core.account_evaluation": (
         "stripe.v2.core._account_evaluation",
@@ -559,6 +563,10 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "AccountPersonToken",
     ),
     "v2.core.account_token": ("stripe.v2.core._account_token", "AccountToken"),
+    "v2.core.approval_request": (
+        "stripe.v2.core._approval_request",
+        "ApprovalRequest",
+    ),
     "v2.core.batch_job": ("stripe.v2.core._batch_job", "BatchJob"),
     "v2.core.claimable_sandbox": (
         "stripe.v2.core._claimable_sandbox",
@@ -581,11 +589,14 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.v2.core.vault._us_bank_account",
         "UsBankAccount",
     ),
-    "v2.core.workflow": ("stripe.v2.core._workflow", "Workflow"),
-    "v2.core.workflow_run": ("stripe.v2.core._workflow_run", "WorkflowRun"),
     "v2.data.reporting.query_run": (
         "stripe.v2.data.reporting._query_run",
         "QueryRun",
+    ),
+    "v2.extend.workflow": ("stripe.v2.extend._workflow", "Workflow"),
+    "v2.extend.workflow_run": (
+        "stripe.v2.extend._workflow_run",
+        "WorkflowRun",
     ),
     "financial_address_credit_simulation": (
         "stripe.v2._financial_address_credit_simulation",
@@ -595,6 +606,7 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.v2._financial_address_generated_microdeposits",
         "FinancialAddressGeneratedMicrodeposits",
     ),
+    "v2.iam.activity_log": ("stripe.v2.iam._activity_log", "ActivityLog"),
     "v2.iam.api_key": ("stripe.v2.iam._api_key", "ApiKey"),
     "v2.money_management.adjustment": (
         "stripe.v2.money_management._adjustment",
@@ -659,6 +671,14 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     "v2.money_management.transaction_entry": (
         "stripe.v2.money_management._transaction_entry",
         "TransactionEntry",
+    ),
+    "v2.network.business_profile": (
+        "stripe.v2.network._business_profile",
+        "BusinessProfile",
+    ),
+    "v2.orchestrated_commerce.agreement": (
+        "stripe.v2.orchestrated_commerce._agreement",
+        "Agreement",
     ),
     "v2.payments.off_session_payment": (
         "stripe.v2.payments._off_session_payment",

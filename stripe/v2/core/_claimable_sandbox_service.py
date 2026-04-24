@@ -10,6 +10,9 @@ if TYPE_CHECKING:
     from stripe.params.v2.core._claimable_sandbox_create_params import (
         ClaimableSandboxCreateParams,
     )
+    from stripe.params.v2.core._claimable_sandbox_renew_onboarding_link_params import (
+        ClaimableSandboxRenewOnboardingLinkParams,
+    )
     from stripe.params.v2.core._claimable_sandbox_retrieve_params import (
         ClaimableSandboxRetrieveParams,
     )
@@ -95,6 +98,52 @@ class ClaimableSandboxService(StripeService):
             await self._request_async(
                 "get",
                 "/v2/core/claimable_sandboxes/{id}".format(id=sanitize_id(id)),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def renew_onboarding_link(
+        self,
+        id: str,
+        params: Optional["ClaimableSandboxRenewOnboardingLinkParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "ClaimableSandbox":
+        """
+        Renew the claimable sandbox onboarding link. This will invalidate any existing onboarding links.
+        The endpoint only works on a claimable sandbox with status `unclaimed` or `claimed`.
+        """
+        return cast(
+            "ClaimableSandbox",
+            self._request(
+                "post",
+                "/v2/core/claimable_sandboxes/{id}/renew_onboarding_link".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def renew_onboarding_link_async(
+        self,
+        id: str,
+        params: Optional["ClaimableSandboxRenewOnboardingLinkParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "ClaimableSandbox":
+        """
+        Renew the claimable sandbox onboarding link. This will invalidate any existing onboarding links.
+        The endpoint only works on a claimable sandbox with status `unclaimed` or `claimed`.
+        """
+        return cast(
+            "ClaimableSandbox",
+            await self._request_async(
+                "post",
+                "/v2/core/claimable_sandboxes/{id}/renew_onboarding_link".format(
+                    id=sanitize_id(id),
+                ),
                 base_address="api",
                 params=params,
                 options=options,

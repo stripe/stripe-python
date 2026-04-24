@@ -4,11 +4,17 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.v2.iam._activity_log import ActivityLog as ActivityLog
+    from stripe.v2.iam._activity_log_service import (
+        ActivityLogService as ActivityLogService,
+    )
     from stripe.v2.iam._api_key import ApiKey as ApiKey
     from stripe.v2.iam._api_key_service import ApiKeyService as ApiKeyService
 
 # name -> (import_target, is_submodule)
 _import_map = {
+    "ActivityLog": ("stripe.v2.iam._activity_log", False),
+    "ActivityLogService": ("stripe.v2.iam._activity_log_service", False),
     "ApiKey": ("stripe.v2.iam._api_key", False),
     "ApiKeyService": ("stripe.v2.iam._api_key_service", False),
 }

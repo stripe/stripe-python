@@ -39,7 +39,7 @@ class IntentAction(StripeObject):
         class EffectiveAt(StripeObject):
             timestamp: Optional[str]
             """
-            The timestamp at which the apply action will take effect. Only present if type is timestamp. Only allowed for discount actions.
+            The timestamp at which the apply action takes effect. Only present if type is timestamp. Only allowed for discount actions.
             """
             type: Literal[
                 "current_billing_period_end",
@@ -49,7 +49,7 @@ class IntentAction(StripeObject):
                 "timestamp",
             ]
             """
-            When the apply action will take effect.
+            When the apply action takes effect.
             """
 
         class InvoiceDiscountRule(StripeObject):
@@ -66,7 +66,7 @@ class IntentAction(StripeObject):
                 """
                 percent_off: Decimal
                 """
-                Percent that will be taken off of the amount. For example, percent_off of 50.0 will make $100 amount $50 instead.
+                Percent that is taken off the amount. For example, a percent_off of 50.0 reduces a 100 USD amount to 50 USD.
                 """
                 _inner_class_types = {
                     "maximum_applications": MaximumApplications,
@@ -161,7 +161,7 @@ class IntentAction(StripeObject):
         """
         effective_at: Optional[EffectiveAt]
         """
-        When the apply action will take effect. If not specified, defaults to on_reserve.
+        When the apply action takes effect. If not specified, defaults to on_reserve.
         """
         invoice_discount_rule: Optional[InvoiceDiscountRule]
         """
@@ -209,7 +209,7 @@ class IntentAction(StripeObject):
         class EffectiveAt(StripeObject):
             timestamp: Optional[str]
             """
-            The timestamp at which the deactivate action will take effect. Only present if type is timestamp.
+            The timestamp at which the deactivate action takes effect. Only present if type is timestamp.
             """
             type: Literal[
                 "current_billing_period_end",
@@ -218,7 +218,7 @@ class IntentAction(StripeObject):
                 "timestamp",
             ]
             """
-            When the deactivate action will take effect.
+            When the deactivate action takes effect.
             """
 
         class PricingPlanSubscriptionDetails(StripeObject):
@@ -268,7 +268,7 @@ class IntentAction(StripeObject):
         """
         effective_at: EffectiveAt
         """
-        When the deactivate action will take effect. If not specified, the default behavior is on_reserve.
+        When the deactivate action takes effect. If not specified, the default behavior is on_reserve.
         """
         pricing_plan_subscription_details: Optional[
             PricingPlanSubscriptionDetails
@@ -292,13 +292,13 @@ class IntentAction(StripeObject):
         class EffectiveAt(StripeObject):
             timestamp: Optional[str]
             """
-            The timestamp at which the modify action will take effect. Only present if type is timestamp.
+            The timestamp at which the modify action takes effect. Only present if type is timestamp.
             """
             type: Literal[
                 "current_billing_period_start", "on_reserve", "timestamp"
             ]
             """
-            When the modify action will take effect.
+            When the modify action takes effect.
             """
 
         class PricingPlanSubscriptionDetails(StripeObject):
@@ -390,7 +390,7 @@ class IntentAction(StripeObject):
         """
         effective_at: EffectiveAt
         """
-        When the modify action will take effect. If not specified, the default behavior is on_reserve.
+        When the modify action takes effect. If not specified, the default behavior is on_reserve.
         """
         pricing_plan_subscription_details: Optional[
             PricingPlanSubscriptionDetails
@@ -413,12 +413,12 @@ class IntentAction(StripeObject):
         class EffectiveAt(StripeObject):
             type: Literal["current_billing_period_end", "on_reserve"]
             """
-            When the remove action will take effect.
+            When the remove action takes effect.
             """
 
         effective_at: Optional[EffectiveAt]
         """
-        When the remove action will take effect. If not specified, defaults to on_reserve.
+        When the remove action takes effect. If not specified, defaults to on_reserve.
         """
         invoice_discount_rule: Optional[str]
         """
@@ -438,13 +438,13 @@ class IntentAction(StripeObject):
         class EffectiveAt(StripeObject):
             timestamp: Optional[str]
             """
-            The timestamp at which the subscribe action will take effect. Only present if type is timestamp.
+            The timestamp at which the subscribe action takes effect. Only present if type is timestamp.
             """
             type: Literal[
                 "current_billing_period_start", "on_reserve", "timestamp"
             ]
             """
-            When the subscribe action will take effect.
+            When the subscribe action takes effect.
             """
 
         class PricingPlanSubscriptionDetails(StripeObject):
@@ -566,7 +566,7 @@ class IntentAction(StripeObject):
         """
         effective_at: EffectiveAt
         """
-        When the subscribe action will take effect. If not specified, the default behavior is on_reserve.
+        When the subscribe action takes effect. If not specified, the default behavior is on_reserve.
         """
         pricing_plan_subscription_details: Optional[
             PricingPlanSubscriptionDetails

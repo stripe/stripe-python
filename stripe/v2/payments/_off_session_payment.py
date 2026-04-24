@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe.v2._amount import Amount
-from typing import ClassVar, Optional
+from typing import ClassVar, List, Optional
 from typing_extensions import Literal
 
 
@@ -20,6 +20,107 @@ class OffSessionPayment(StripeObject):
         "v2.payments.off_session_payment"
     )
 
+    class AmountDetails(StripeObject):
+        class Error(StripeObject):
+            code: Optional[
+                Literal[
+                    "amount_details_amount_mismatch",
+                    "amount_details_amount_greater_than_tax_shipping_discount",
+                ]
+            ]
+            """
+            The code of the error that occurred when validating the current amount details.
+            """
+            message: Optional[str]
+            """
+            A message providing more details about the error.
+            """
+
+        class LineItem(StripeObject):
+            class Tax(StripeObject):
+                total_tax_amount: Optional[int]
+                """
+                Total portion of the amount that is for tax.
+                """
+
+            discount_amount: Optional[int]
+            """
+            The amount an item was discounted for. Positive integer.
+            """
+            product_code: Optional[str]
+            """
+            Unique identifier of the product. At most 12 characters long.
+            """
+            product_name: str
+            """
+            Name of the product. At most 100 characters long.
+            """
+            quantity: int
+            """
+            Number of items of the product. Positive integer.
+            """
+            tax: Optional[Tax]
+            """
+            Contains information about the tax on the item.
+            """
+            unit_cost: int
+            """
+            Cost of the product. Non-negative integer.
+            """
+            unit_of_measure: Optional[str]
+            """
+            Unit of measure for the product. At most 12 characters long.
+            """
+            _inner_class_types = {"tax": Tax}
+
+        class Shipping(StripeObject):
+            amount: Optional[int]
+            """
+            Portion of the amount that is for shipping.
+            """
+            from_postal_code: Optional[str]
+            """
+            The postal code that represents the shipping source.
+            """
+            to_postal_code: Optional[str]
+            """
+            The postal code that represents the shipping destination.
+            """
+
+        class Tax(StripeObject):
+            total_tax_amount: Optional[int]
+            """
+            Total portion of the amount that is for tax.
+            """
+
+        discount_amount: Optional[int]
+        """
+        The amount the total transaction was discounted for.
+        """
+        error: Optional[Error]
+        """
+        Contains information about the error that occurred when validating the current amount details.
+        This field populates when the amount details has a validation error that wasn't enforced because the [enforce_arithmetic_validation](https://docs.corp.stripe.com/api/payment_intents/create#create_payment_intent-amount_details-enforce_arithmetic_validation) parameter was set to `false`.
+        """
+        line_items: List[LineItem]
+        """
+        A list of line items, each containing information about a product in the PaymentIntent. There is a maximum of 100 line items.
+        """
+        shipping: Optional[Shipping]
+        """
+        Contains information about the shipping portion of the amount.
+        """
+        tax: Optional[Tax]
+        """
+        Contains information about the tax portion of the amount.
+        """
+        _inner_class_types = {
+            "error": Error,
+            "line_items": LineItem,
+            "shipping": Shipping,
+            "tax": Tax,
+        }
+
     class Capture(StripeObject):
         capture_before: Optional[str]
         """
@@ -28,6 +129,17 @@ class OffSessionPayment(StripeObject):
         capture_method: Literal["automatic", "manual"]
         """
         The method to use to capture the payment.
+        """
+
+    class PaymentDetails(StripeObject):
+        customer_reference: Optional[str]
+        """
+        A unique value to identify the customer. This field is applicable only for card payments. For card payments, this field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks.
+        """
+        order_reference: Optional[str]
+        """
+        A unique value assigned by the business to identify the transaction. Required for L2 and L3 rates.
+        For Cards, this field is truncated to 25 alphanumeric characters, excluding spaces, before being sent to card networks.
         """
 
     class PaymentsOrchestration(StripeObject):
@@ -75,6 +187,10 @@ class OffSessionPayment(StripeObject):
     """
     The amount available to be captured.
     """
+    amount_details: Optional[AmountDetails]
+    """
+    Provides industry-specific information about the amount.
+    """
     amount_requested: Amount
     """
     The “presentment amount” to be collected from the customer.
@@ -99,6 +215,10 @@ class OffSessionPayment(StripeObject):
     customer: str
     """
     ID of the Customer to which this OffSessionPayment belongs.
+    """
+    description: Optional[str]
+    """
+    An arbitrary string attached to the object. Often useful for displaying to users.
     """
     failure_reason: Optional[
         Literal[
@@ -142,6 +262,10 @@ class OffSessionPayment(StripeObject):
     on_behalf_of: Optional[str]
     """
     The account (if any) for which the funds of the OffSessionPayment are intended.
+    """
+    payment_details: Optional[PaymentDetails]
+    """
+    Provides industry-specific information about the payment.
     """
     payment_method: str
     """
@@ -195,7 +319,9 @@ class OffSessionPayment(StripeObject):
     The data that automatically creates a Transfer after the payment finalizes. Learn more about the use case for [connected accounts](https://docs.stripe.com/payments/connected-accounts).
     """
     _inner_class_types = {
+        "amount_details": AmountDetails,
         "capture": Capture,
+        "payment_details": PaymentDetails,
         "payments_orchestration": PaymentsOrchestration,
         "retry_details": RetryDetails,
         "transfer_data": TransferData,

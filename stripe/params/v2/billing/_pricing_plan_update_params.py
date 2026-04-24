@@ -12,7 +12,7 @@ class PricingPlanUpdateParams(TypedDict):
     """
     description: NotRequired[str]
     """
-    Description of pricing plan subscription.
+    Description of the pricing plan. Maximum length of 500 characters.
     """
     display_name: NotRequired[str]
     """

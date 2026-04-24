@@ -51,7 +51,9 @@ class OutboundSetupIntentCreateParamsPayoutMethodDataBankAccount(TypedDict):
     """
     The account number or IBAN of the bank account.
     """
-    bank_account_type: NotRequired[Literal["checking", "savings"]]
+    bank_account_type: NotRequired[
+        Literal["checking", "futsu", "savings", "toza"]
+    ]
     """
     Closed Enum. The type of the bank account (checking or savings).
     """
@@ -114,6 +116,7 @@ class OutboundSetupIntentCreateParamsPayoutMethodDataCryptoWallet(TypedDict):
         "polygon",
         "solana",
         "stellar",
+        "tempo",
     ]
     """
     Which rail we should use to make an Outbound money movement to this wallet.

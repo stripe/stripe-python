@@ -11,6 +11,7 @@ if TYPE_CHECKING:
     from stripe.v2.core._account_link_service import AccountLinkService
     from stripe.v2.core._account_service import AccountService
     from stripe.v2.core._account_token_service import AccountTokenService
+    from stripe.v2.core._approval_request_service import ApprovalRequestService
     from stripe.v2.core._batch_job_service import BatchJobService
     from stripe.v2.core._claimable_sandbox_service import (
         ClaimableSandboxService,
@@ -23,8 +24,6 @@ if TYPE_CHECKING:
     )
     from stripe.v2.core._event_service import EventService
     from stripe.v2.core._vault_service import VaultService
-    from stripe.v2.core._workflow_run_service import WorkflowRunService
-    from stripe.v2.core._workflow_service import WorkflowService
 
 _subservices = {
     "accounts": ["stripe.v2.core._account_service", "AccountService"],
@@ -39,6 +38,10 @@ _subservices = {
     "account_tokens": [
         "stripe.v2.core._account_token_service",
         "AccountTokenService",
+    ],
+    "approval_requests": [
+        "stripe.v2.core._approval_request_service",
+        "ApprovalRequestService",
     ],
     "batch_jobs": ["stripe.v2.core._batch_job_service", "BatchJobService"],
     "claimable_sandboxes": [
@@ -55,11 +58,6 @@ _subservices = {
         "EventDestinationService",
     ],
     "vault": ["stripe.v2.core._vault_service", "VaultService"],
-    "workflows": ["stripe.v2.core._workflow_service", "WorkflowService"],
-    "workflow_runs": [
-        "stripe.v2.core._workflow_run_service",
-        "WorkflowRunService",
-    ],
 }
 
 
@@ -68,14 +66,13 @@ class CoreService(StripeService):
     account_evaluations: "AccountEvaluationService"
     account_links: "AccountLinkService"
     account_tokens: "AccountTokenService"
+    approval_requests: "ApprovalRequestService"
     batch_jobs: "BatchJobService"
     claimable_sandboxes: "ClaimableSandboxService"
     connection_sessions: "ConnectionSessionService"
     events: "EventService"
     event_destinations: "EventDestinationService"
     vault: "VaultService"
-    workflows: "WorkflowService"
-    workflow_runs: "WorkflowRunService"
 
     def __init__(self, requestor):
         super().__init__(requestor)

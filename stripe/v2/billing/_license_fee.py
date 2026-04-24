@@ -27,8 +27,8 @@ class LicenseFee(StripeObject):
         """
         interval_count: int
         """
-        The length of the interval for assessing service. For example, set this to 3 and `interval` to `"month"` in
-        order to specify quarterly service.
+        The length of the interval for assessing service. For example, set this to 3 and `interval` to `"month"`
+        to specify quarterly service.
         """
 
     class Tier(StripeObject):
@@ -43,7 +43,7 @@ class LicenseFee(StripeObject):
         """
         up_to_decimal: Optional[Decimal]
         """
-        Up to and including this quantity will be contained in the tier. Only one of `up_to_decimal` and `up_to_inf` may
+        Up to and including this quantity is contained in the tier. Only one of `up_to_decimal` and `up_to_inf` may
         be set.
         """
         up_to_inf: Optional[Literal["inf"]]
@@ -96,7 +96,7 @@ class LicenseFee(StripeObject):
     """
     live_version: str
     """
-    The ID of the License Fee Version that will be used by all subscriptions when no specific version is specified.
+    The ID of the License Fee Version used by all subscriptions when no specific version is specified.
     """
     livemode: bool
     """
@@ -124,16 +124,16 @@ class LicenseFee(StripeObject):
     """
     service_interval_count: int
     """
-    The length of the interval for assessing service. For example, set this to 3 and `service_interval` to `"month"` in
-    order to specify quarterly service.
+    The length of the interval for assessing service. For example, set this to 3 and `service_interval` to `"month"`
+    to specify quarterly service.
     """
     tax_behavior: Literal["exclusive", "inclusive"]
     """
-    The Stripe Tax tax behavior - whether the license fee is inclusive or exclusive of tax.
+    The tax behavior for Stripe Tax — whether the license fee price includes or excludes tax.
     """
     tiering_mode: Optional[Literal["graduated", "volume"]]
     """
-    Defines whether the tiering price should be graduated or volume-based. In volume-based tiering, the maximum
+    Defines whether the tiering price is graduated or volume-based. In volume-based tiering, the maximum
     quantity within a period determines the per-unit price. In graduated tiering, the pricing changes as the quantity
     grows into new tiers. Can only be set if `tiers` is set.
     """

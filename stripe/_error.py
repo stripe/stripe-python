@@ -238,6 +238,10 @@ class FinancialAccountNotOpenError(StripeError):
     pass
 
 
+class FxQuoteExpiredError(StripeError):
+    pass
+
+
 class InsufficientFundsError(StripeError):
     pass
 

@@ -8,6 +8,7 @@ class FinancialAddressRetrieveParams(TypedDict):
     include: NotRequired[
         List[
             Literal[
+                "credentials.ca_bank_account.account_number",
                 "credentials.gb_bank_account.account_number",
                 "credentials.sepa_bank_account.iban",
                 "credentials.us_bank_account.account_number",

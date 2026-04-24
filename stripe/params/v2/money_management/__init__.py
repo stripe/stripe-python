@@ -37,6 +37,7 @@ if TYPE_CHECKING:
     )
     from stripe.params.v2.money_management._financial_account_update_params import (
         FinancialAccountUpdateParams as FinancialAccountUpdateParams,
+        FinancialAccountUpdateParamsStorage as FinancialAccountUpdateParamsStorage,
     )
     from stripe.params.v2.money_management._financial_address_create_params import (
         FinancialAddressCreateParams as FinancialAddressCreateParams,
@@ -227,6 +228,10 @@ _import_map = {
         False,
     ),
     "FinancialAccountUpdateParams": (
+        "stripe.params.v2.money_management._financial_account_update_params",
+        False,
+    ),
+    "FinancialAccountUpdateParamsStorage": (
         "stripe.params.v2.money_management._financial_account_update_params",
         False,
     ),

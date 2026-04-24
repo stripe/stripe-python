@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
 from stripe.v2._amount import Amount
-from typing import ClassVar
+from typing import ClassVar, Optional
 from typing_extensions import Literal
 
 
@@ -35,7 +35,7 @@ class CurrencyConversion(StripeObject):
     """
     The exchange rate used when processing the CurrencyConversion.
     """
-    financial_account: str
+    financial_account: Optional[str]
     """
     The FinancialAccount the CurrencyConversion was performed on.
     """

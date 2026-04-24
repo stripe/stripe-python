@@ -121,6 +121,10 @@ class Event(StripeObject):
     """
     Reason for the event.
     """
+    snapshot_event: Optional[str]
+    """
+    For interop events, this is the snapshot event ID.
+    """
     type: str
     """
     The type of the event.

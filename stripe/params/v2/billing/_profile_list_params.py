@@ -28,5 +28,5 @@ class ProfileListParams(TypedDict):
     status: NotRequired[Literal["active", "inactive"]]
     """
     Filter billing profiles by status. Can be combined
-    with all other filters. If not provided, all billing profiles will be returned.
+    with all other filters. If not provided, all billing profiles are returned.
     """

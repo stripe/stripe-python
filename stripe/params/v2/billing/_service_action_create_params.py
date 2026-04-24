@@ -106,7 +106,7 @@ class ServiceActionCreateParamsCreditGrantApplicabilityConfigScope(TypedDict):
     """
     price_type: NotRequired[Literal["metered"]]
     """
-    The price type that credit grants can apply to. We currently only support the `metered` price type. This will apply to metered prices and rate cards. Cannot be used in combination with `billable_items`.
+    The price type that credit grants can apply to. Stripe supports the `metered` price type, which applies to metered prices and rate cards. Cannot be used in combination with `billable_items`.
     """
 
 
@@ -202,7 +202,7 @@ class ServiceActionCreateParamsCreditGrantPerTenantApplicabilityConfigScope(
     """
     price_type: NotRequired[Literal["metered"]]
     """
-    The price type that credit grants can apply to. We currently only support the `metered` price type. This will apply to metered prices and rate cards. Cannot be used in combination with `billable_items`.
+    The price type that credit grants can apply to. Stripe supports the `metered` price type, which applies to metered prices and rate cards. Cannot be used in combination with `billable_items`.
     """
 
 
