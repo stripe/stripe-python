@@ -1,4 +1,5 @@
 from io import BytesIO
+import atexit
 import textwrap
 import email
 import time
@@ -603,6 +604,7 @@ class RequestsClient(HTTPClient):
             _lib = requests
 
         self.requests = _lib
+        atexit.register(self.close)
 
     def request(
         self,
