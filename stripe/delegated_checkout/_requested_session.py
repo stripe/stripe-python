@@ -103,6 +103,16 @@ class RequestedSession(
 
     class BuyerConsents(StripeObject):
         class Marketing(StripeObject):
+            class Consent(StripeObject):
+                channel: Literal["email", "sms"]
+                """
+                The marketing consent channel.
+                """
+                status: Literal["granted", "none"]
+                """
+                The consent status. 'granted' means the buyer opted in, 'none' means they did not.
+                """
+
             class Option(StripeObject):
                 channel: Literal["email", "sms"]
                 """
@@ -117,11 +127,15 @@ class RequestedSession(
                 The privacy policy URL for this marketing channel.
                 """
 
+            consents: Optional[List[Consent]]
+            """
+            The buyer's marketing consent choices.
+            """
             options: Optional[List[Option]]
             """
             The available marketing consent options.
             """
-            _inner_class_types = {"options": Option}
+            _inner_class_types = {"consents": Consent, "options": Option}
 
         marketing: Optional[Marketing]
         """

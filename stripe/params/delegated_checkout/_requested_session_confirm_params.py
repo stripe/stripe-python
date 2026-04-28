@@ -13,6 +13,10 @@ class RequestedSessionConfirmParams(RequestOptions):
     """
     Affiliate attribution data associated with this requested session.
     """
+    buyer_consents: NotRequired["RequestedSessionConfirmParamsBuyerConsents"]
+    """
+    The buyer's consent choices for marketing communications.
+    """
     expand: NotRequired[List[str]]
     """
     Specifies which fields in the response should be expanded.
@@ -92,6 +96,35 @@ class RequestedSessionConfirmParamsAffiliateAttributionSource(TypedDict):
     url: NotRequired[str]
     """
     The URL where the attribution originated.
+    """
+
+
+class RequestedSessionConfirmParamsBuyerConsents(TypedDict):
+    marketing: NotRequired[
+        "RequestedSessionConfirmParamsBuyerConsentsMarketing"
+    ]
+    """
+    The marketing consent data for the buyer.
+    """
+
+
+class RequestedSessionConfirmParamsBuyerConsentsMarketing(TypedDict):
+    consents: NotRequired[
+        List["RequestedSessionConfirmParamsBuyerConsentsMarketingConsent"]
+    ]
+    """
+    The list of marketing consent entries.
+    """
+
+
+class RequestedSessionConfirmParamsBuyerConsentsMarketingConsent(TypedDict):
+    channel: Literal["email", "sms"]
+    """
+    The marketing consent channel.
+    """
+    status: Literal["granted", "none"]
+    """
+    The consent status. Use 'granted' to indicate the buyer has opted in.
     """
 
 

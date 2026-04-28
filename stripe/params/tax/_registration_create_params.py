@@ -1758,11 +1758,41 @@ class RegistrationCreateParamsCountryOptionsUg(TypedDict):
 
 
 class RegistrationCreateParamsCountryOptionsUs(TypedDict):
+    admissions_tax: NotRequired[
+        "RegistrationCreateParamsCountryOptionsUsAdmissionsTax"
+    ]
+    """
+    Options for the admission tax registration.
+    """
+    attendance_tax: NotRequired[
+        "RegistrationCreateParamsCountryOptionsUsAttendanceTax"
+    ]
+    """
+    Options for the attendance tax registration.
+    """
+    entertainment_tax: NotRequired[
+        "RegistrationCreateParamsCountryOptionsUsEntertainmentTax"
+    ]
+    """
+    Options for the entertainment tax registration.
+    """
+    gross_receipts_tax: NotRequired[
+        "RegistrationCreateParamsCountryOptionsUsGrossReceiptsTax"
+    ]
+    """
+    Options for the gross receipts tax registration.
+    """
     home_rule_tax: NotRequired[
         "RegistrationCreateParamsCountryOptionsUsHomeRuleTax"
     ]
     """
     Options for the home rule tax registration.
+    """
+    hospitality_tax: NotRequired[
+        "RegistrationCreateParamsCountryOptionsUsHospitalityTax"
+    ]
+    """
+    Options for the hospitality tax registration.
     """
     local_amusement_tax: NotRequired[
         "RegistrationCreateParamsCountryOptionsUsLocalAmusementTax"
@@ -1776,6 +1806,18 @@ class RegistrationCreateParamsCountryOptionsUs(TypedDict):
     """
     Options for the local lease tax registration.
     """
+    luxury_tax: NotRequired[
+        "RegistrationCreateParamsCountryOptionsUsLuxuryTax"
+    ]
+    """
+    Options for the luxury tax registration.
+    """
+    resort_tax: NotRequired[
+        "RegistrationCreateParamsCountryOptionsUsResortTax"
+    ]
+    """
+    Options for the resort tax registration.
+    """
     state: str
     """
     Two-letter US state code ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
@@ -1785,6 +1827,12 @@ class RegistrationCreateParamsCountryOptionsUs(TypedDict):
     ]
     """
     Options for the state sales tax registration.
+    """
+    tourism_tax: NotRequired[
+        "RegistrationCreateParamsCountryOptionsUsTourismTax"
+    ]
+    """
+    Options for the tourism tax registration.
     """
     type: Literal[
         "admissions_tax",
@@ -1807,6 +1855,34 @@ class RegistrationCreateParamsCountryOptionsUs(TypedDict):
     """
 
 
+class RegistrationCreateParamsCountryOptionsUsAdmissionsTax(TypedDict):
+    jurisdiction: str
+    """
+    A jurisdiction code representing the [local jurisdiction](https://docs.stripe.com/tax/registering?type=admissions_tax#registration-types).
+    """
+
+
+class RegistrationCreateParamsCountryOptionsUsAttendanceTax(TypedDict):
+    jurisdiction: str
+    """
+    A jurisdiction code representing the [local jurisdiction](https://docs.stripe.com/tax/registering?type=attendance_tax#registration-types).
+    """
+
+
+class RegistrationCreateParamsCountryOptionsUsEntertainmentTax(TypedDict):
+    jurisdiction: str
+    """
+    A jurisdiction code representing the [local jurisdiction](https://docs.stripe.com/tax/registering?type=entertainment_tax#registration-types).
+    """
+
+
+class RegistrationCreateParamsCountryOptionsUsGrossReceiptsTax(TypedDict):
+    jurisdiction: str
+    """
+    A jurisdiction code representing the [local jurisdiction](https://docs.stripe.com/tax/registering?type=gross_receipts_tax#registration-types).
+    """
+
+
 class RegistrationCreateParamsCountryOptionsUsHomeRuleTax(TypedDict):
     jurisdiction: str
     """
@@ -1814,10 +1890,17 @@ class RegistrationCreateParamsCountryOptionsUsHomeRuleTax(TypedDict):
     """
 
 
+class RegistrationCreateParamsCountryOptionsUsHospitalityTax(TypedDict):
+    jurisdiction: str
+    """
+    A jurisdiction code representing the [local jurisdiction](https://docs.stripe.com/tax/registering?type=hospitality_tax#registration-types).
+    """
+
+
 class RegistrationCreateParamsCountryOptionsUsLocalAmusementTax(TypedDict):
     jurisdiction: str
     """
-    A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction. Supported FIPS codes are: `02154` (Arlington Heights), `05248` (Bensenville), `06613` (Bloomington), `10906` (Campton Hills), `14000` (Chicago), `21696` (East Dundee), `24582` (Evanston), `45421` (Lynwood), `48892` (Midlothian), `64343` (River Grove), `64421` (Riverside), `65806` (Roselle), and `68081` (Schiller Park).
+    A jurisdiction code representing the [local jurisdiction](https://docs.stripe.com/tax/registering?type=amusement_tax#registration-types).
     """
 
 
@@ -1825,6 +1908,20 @@ class RegistrationCreateParamsCountryOptionsUsLocalLeaseTax(TypedDict):
     jurisdiction: str
     """
     A [FIPS code](https://www.census.gov/library/reference/code-lists/ansi.html) representing the local jurisdiction. Supported FIPS codes are: `14000` (Chicago).
+    """
+
+
+class RegistrationCreateParamsCountryOptionsUsLuxuryTax(TypedDict):
+    jurisdiction: str
+    """
+    A jurisdiction code representing the [local jurisdiction](https://docs.stripe.com/tax/registering?type=luxury_tax#registration-types).
+    """
+
+
+class RegistrationCreateParamsCountryOptionsUsResortTax(TypedDict):
+    jurisdiction: str
+    """
+    A jurisdiction code representing the [local jurisdiction](https://docs.stripe.com/tax/registering?type=resort_tax#registration-types).
     """
 
 
@@ -1847,6 +1944,13 @@ class RegistrationCreateParamsCountryOptionsUsStateSalesTaxElection(TypedDict):
     ]
     """
     The type of the election for the state sales tax registration.
+    """
+
+
+class RegistrationCreateParamsCountryOptionsUsTourismTax(TypedDict):
+    jurisdiction: str
+    """
+    A jurisdiction code representing the [local jurisdiction](https://docs.stripe.com/tax/registering?type=tourism_tax#registration-types).
     """
 
 

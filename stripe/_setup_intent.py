@@ -104,11 +104,13 @@ class SetupIntent(
                 "account_number_invalid",
                 "account_token_required_for_v2_account",
                 "acss_debit_session_incomplete",
+                "action_blocked",
                 "alipay_upgrade_required",
                 "amount_too_large",
                 "amount_too_small",
                 "api_key_expired",
                 "application_fees_not_allowed",
+                "approval_required",
                 "authentication_required",
                 "balance_insufficient",
                 "balance_invalid_parameter",
@@ -417,23 +419,23 @@ class SetupIntent(
             _inner_class_types = {"qr_code": QrCode}
 
         class PixDisplayQrCode(StripeObject):
-            data: Optional[str]
+            data: str
             """
             The raw data string used to generate QR code, it should be used together with QR code library.
             """
-            expires_at: Optional[int]
+            expires_at: int
             """
             The date (unix timestamp) when the PIX expires.
             """
-            hosted_instructions_url: Optional[str]
+            hosted_instructions_url: str
             """
             The URL to the hosted pix instructions page, which allows customers to view the pix QR code.
             """
-            image_url_png: Optional[str]
+            image_url_png: str
             """
             The image_url_png string used to render png QR code
             """
-            image_url_svg: Optional[str]
+            image_url_svg: str
             """
             The image_url_svg string used to render svg QR code
             """
@@ -1047,6 +1049,7 @@ class SetupIntent(
                 "shopeepay",
                 "sofort",
                 "stripe_balance",
+                "sunbit",
                 "swish",
                 "twint",
                 "upi",

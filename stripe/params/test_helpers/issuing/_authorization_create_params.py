@@ -545,6 +545,10 @@ class AuthorizationCreateParamsMerchantData(TypedDict):
     """
     Identifier assigned to the seller by the card network. Different card networks may assign different network_id fields to the same merchant.
     """
+    payment_facilitator_id: NotRequired[str]
+    """
+    The identifier of the payment facilitator (PayFac) that processed this authorization, as assigned by the card network.
+    """
     postal_code: NotRequired[str]
     """
     Postal code where the seller is located
@@ -552,6 +556,10 @@ class AuthorizationCreateParamsMerchantData(TypedDict):
     state: NotRequired[str]
     """
     State where the seller is located
+    """
+    sub_merchant_id: NotRequired[str]
+    """
+    The identifier of the sub-merchant involved in this authorization, as assigned by the payment facilitator.
     """
     terminal_id: NotRequired[str]
     """

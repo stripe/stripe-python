@@ -8,17 +8,23 @@ if TYPE_CHECKING:
     from stripe.shared_payment._granted_token_service import (
         GrantedTokenService,
     )
+    from stripe.shared_payment._issued_token_service import IssuedTokenService
 
 _subservices = {
     "granted_tokens": [
         "stripe.shared_payment._granted_token_service",
         "GrantedTokenService",
     ],
+    "issued_tokens": [
+        "stripe.shared_payment._issued_token_service",
+        "IssuedTokenService",
+    ],
 }
 
 
 class SharedPaymentService(StripeService):
     granted_tokens: "GrantedTokenService"
+    issued_tokens: "IssuedTokenService"
 
     def __init__(self, requestor):
         super().__init__(requestor)

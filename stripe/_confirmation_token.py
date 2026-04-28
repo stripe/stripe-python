@@ -1419,6 +1419,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             The connected account ID whose Stripe balance to use as the source of payment
             """
 
+        class Sunbit(StripeObject):
+            pass
+
         class Swish(StripeObject):
             pass
 
@@ -1596,6 +1599,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         shopeepay: Optional[Shopeepay]
         sofort: Optional[Sofort]
         stripe_balance: Optional[StripeBalance]
+        sunbit: Optional[Sunbit]
         swish: Optional[Swish]
         twint: Optional[Twint]
         type: Literal[
@@ -1654,6 +1658,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "shopeepay",
             "sofort",
             "stripe_balance",
+            "sunbit",
             "swish",
             "twint",
             "upi",
@@ -1724,6 +1729,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "shopeepay": Shopeepay,
             "sofort": Sofort,
             "stripe_balance": StripeBalance,
+            "sunbit": Sunbit,
             "swish": Swish,
             "twint": Twint,
             "upi": Upi,

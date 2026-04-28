@@ -51,7 +51,7 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
         """
         Direct client device attributes such as IP address and user agent. Use this as an alternative to radar_session when a Radar Session isn't available.
         """
-        radar_session: str
+        radar_session: Optional[str]
         """
         ID for the Radar Session associated with the payment evaluation. A [Radar Session](https://docs.stripe.com/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
         """
@@ -480,13 +480,20 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
             """
             The time when this signal was evaluated.
             """
-            risk_level: Literal["elevated", "highest", "normal"]
+            risk_level: Literal[
+                "elevated",
+                "highest",
+                "low",
+                "normal",
+                "not_assessed",
+                "unknown",
+            ]
             """
             Risk level of this signal, based on the score.
             """
             score: float
             """
-            Score for this insight. Possible values for evaluated payments are -1 and any value between 0 and 100. The value is returned with two decimal places. A score of -1 indicates a test integration and higher scores indicate a higher likelihood of the signal being true.
+            Score for this signal. Possible values for evaluated payments are between 0 and 100. The value is returned with two decimal places and higher scores indicate a higher likelihood of the signal being true. A score of -1 is returned when a model evaluation was not performed, such as requests from incomplete integrations.
             """
 
         fraudulent_payment: FraudulentPayment
@@ -537,7 +544,7 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
     """
     recommended_action: Literal["block", "continue"]
     """
-    Recommended action based on the score of the fraudulent_payment signal. Possible values are `block` and `continue`.
+    Recommended action based on the score of the `fraudulent_payment` signal. Possible values are `block` and `continue`.
     """
     signals: Signals
     """

@@ -14,6 +14,17 @@ if TYPE_CHECKING:
     from stripe.params.shared_payment._granted_token_revoke_params import (
         GrantedTokenRevokeParams as GrantedTokenRevokeParams,
     )
+    from stripe.params.shared_payment._issued_token_create_params import (
+        IssuedTokenCreateParams as IssuedTokenCreateParams,
+        IssuedTokenCreateParamsSellerDetails as IssuedTokenCreateParamsSellerDetails,
+        IssuedTokenCreateParamsUsageLimits as IssuedTokenCreateParamsUsageLimits,
+    )
+    from stripe.params.shared_payment._issued_token_retrieve_params import (
+        IssuedTokenRetrieveParams as IssuedTokenRetrieveParams,
+    )
+    from stripe.params.shared_payment._issued_token_revoke_params import (
+        IssuedTokenRevokeParams as IssuedTokenRevokeParams,
+    )
 
 # name -> (import_target, is_submodule)
 _import_map = {
@@ -31,6 +42,26 @@ _import_map = {
     ),
     "GrantedTokenRevokeParams": (
         "stripe.params.shared_payment._granted_token_revoke_params",
+        False,
+    ),
+    "IssuedTokenCreateParams": (
+        "stripe.params.shared_payment._issued_token_create_params",
+        False,
+    ),
+    "IssuedTokenCreateParamsSellerDetails": (
+        "stripe.params.shared_payment._issued_token_create_params",
+        False,
+    ),
+    "IssuedTokenCreateParamsUsageLimits": (
+        "stripe.params.shared_payment._issued_token_create_params",
+        False,
+    ),
+    "IssuedTokenRetrieveParams": (
+        "stripe.params.shared_payment._issued_token_retrieve_params",
+        False,
+    ),
+    "IssuedTokenRevokeParams": (
+        "stripe.params.shared_payment._issued_token_revoke_params",
         False,
     ),
 }
