@@ -19,7 +19,7 @@ class OffSessionPaymentCaptureParams(TypedDict):
     """
     The amount of the application fee for this capture.
     """
-    metadata: "Dict[str, str]|UntypedStripeObject[str]"
+    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can
     attach to an object. This can be useful for storing additional information about

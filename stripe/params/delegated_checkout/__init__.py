@@ -8,6 +8,9 @@ if TYPE_CHECKING:
         RequestedSessionConfirmParams as RequestedSessionConfirmParams,
         RequestedSessionConfirmParamsAffiliateAttribution as RequestedSessionConfirmParamsAffiliateAttribution,
         RequestedSessionConfirmParamsAffiliateAttributionSource as RequestedSessionConfirmParamsAffiliateAttributionSource,
+        RequestedSessionConfirmParamsBuyerConsents as RequestedSessionConfirmParamsBuyerConsents,
+        RequestedSessionConfirmParamsBuyerConsentsMarketing as RequestedSessionConfirmParamsBuyerConsentsMarketing,
+        RequestedSessionConfirmParamsBuyerConsentsMarketingConsent as RequestedSessionConfirmParamsBuyerConsentsMarketingConsent,
         RequestedSessionConfirmParamsRiskDetails as RequestedSessionConfirmParamsRiskDetails,
         RequestedSessionConfirmParamsRiskDetailsClientDeviceMetadataDetails as RequestedSessionConfirmParamsRiskDetailsClientDeviceMetadataDetails,
     )
@@ -68,6 +71,18 @@ _import_map = {
         False,
     ),
     "RequestedSessionConfirmParamsAffiliateAttributionSource": (
+        "stripe.params.delegated_checkout._requested_session_confirm_params",
+        False,
+    ),
+    "RequestedSessionConfirmParamsBuyerConsents": (
+        "stripe.params.delegated_checkout._requested_session_confirm_params",
+        False,
+    ),
+    "RequestedSessionConfirmParamsBuyerConsentsMarketing": (
+        "stripe.params.delegated_checkout._requested_session_confirm_params",
+        False,
+    ),
+    "RequestedSessionConfirmParamsBuyerConsentsMarketingConsent": (
         "stripe.params.delegated_checkout._requested_session_confirm_params",
         False,
     ),

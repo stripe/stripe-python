@@ -11,6 +11,9 @@ if TYPE_CHECKING:
         GrantedTokenService as GrantedTokenService,
     )
     from stripe.shared_payment._issued_token import IssuedToken as IssuedToken
+    from stripe.shared_payment._issued_token_service import (
+        IssuedTokenService as IssuedTokenService,
+    )
 
 # name -> (import_target, is_submodule)
 _import_map = {
@@ -20,6 +23,10 @@ _import_map = {
         False,
     ),
     "IssuedToken": ("stripe.shared_payment._issued_token", False),
+    "IssuedTokenService": (
+        "stripe.shared_payment._issued_token_service",
+        False,
+    ),
 }
 if not TYPE_CHECKING:
 

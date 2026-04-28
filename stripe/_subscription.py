@@ -348,6 +348,16 @@ class Subscription(
                 mandate_options: Optional[MandateOptions]
                 _inner_class_types = {"mandate_options": MandateOptions}
 
+            class Blik(StripeObject):
+                class MandateOptions(StripeObject):
+                    expires_after: Optional[int]
+                    """
+                    Date when the mandate expires and no further payments will be charged. If not provided, the mandate will be set to be indefinite.
+                    """
+
+                mandate_options: Optional[MandateOptions]
+                _inner_class_types = {"mandate_options": MandateOptions}
+
             class Card(StripeObject):
                 class MandateOptions(StripeObject):
                     amount: Optional[int]
@@ -591,6 +601,10 @@ class Subscription(
             """
             This sub-hash contains details about the Bizum payment method options to pass to invoices created by the subscription.
             """
+            blik: Optional[Blik]
+            """
+            This sub-hash contains details about the Blik payment method options to pass to invoices created by the subscription.
+            """
             card: Optional[Card]
             """
             This sub-hash contains details about the Card payment method options to pass to invoices created by the subscription.
@@ -635,6 +649,7 @@ class Subscription(
                 "acss_debit": AcssDebit,
                 "bancontact": Bancontact,
                 "bizum": Bizum,
+                "blik": Blik,
                 "card": Card,
                 "check_scan": CheckScan,
                 "customer_balance": CustomerBalance,
@@ -663,6 +678,7 @@ class Subscription(
                     "bacs_debit",
                     "bancontact",
                     "bizum",
+                    "blik",
                     "boleto",
                     "card",
                     "cashapp",
@@ -1794,7 +1810,7 @@ class Subscription(
         cls, subscription: str, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
-        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice is not paid by the expiration date, it is voided and the subscription remains paused.
+        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
         """
         return cast(
             "Subscription",
@@ -1813,7 +1829,7 @@ class Subscription(
         subscription: str, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
-        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice is not paid by the expiration date, it is voided and the subscription remains paused.
+        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
         """
         ...
 
@@ -1822,7 +1838,7 @@ class Subscription(
         self, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
-        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice is not paid by the expiration date, it is voided and the subscription remains paused.
+        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
         """
         ...
 
@@ -1831,7 +1847,7 @@ class Subscription(
         self, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
-        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice is not paid by the expiration date, it is voided and the subscription remains paused.
+        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
         """
         return cast(
             "Subscription",
@@ -1849,7 +1865,7 @@ class Subscription(
         cls, subscription: str, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
-        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice is not paid by the expiration date, it is voided and the subscription remains paused.
+        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
         """
         return cast(
             "Subscription",
@@ -1868,7 +1884,7 @@ class Subscription(
         subscription: str, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
-        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice is not paid by the expiration date, it is voided and the subscription remains paused.
+        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
         """
         ...
 
@@ -1877,7 +1893,7 @@ class Subscription(
         self, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
-        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice is not paid by the expiration date, it is voided and the subscription remains paused.
+        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
         """
         ...
 
@@ -1886,7 +1902,7 @@ class Subscription(
         self, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
-        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice is not paid by the expiration date, it is voided and the subscription remains paused.
+        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
         """
         return cast(
             "Subscription",

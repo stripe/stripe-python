@@ -200,7 +200,7 @@ class OffSessionPaymentService(StripeService):
     def capture(
         self,
         id: str,
-        params: "OffSessionPaymentCaptureParams",
+        params: Optional["OffSessionPaymentCaptureParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OffSessionPayment":
         """
@@ -222,7 +222,7 @@ class OffSessionPaymentService(StripeService):
     async def capture_async(
         self,
         id: str,
-        params: "OffSessionPaymentCaptureParams",
+        params: Optional["OffSessionPaymentCaptureParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "OffSessionPayment":
         """

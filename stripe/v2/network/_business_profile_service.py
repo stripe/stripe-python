@@ -23,7 +23,7 @@ class BusinessProfileService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "BusinessProfile":
         """
-        Retrieve the Stripe profile associated with the requesting merchant and livemode.
+        Retrieve the Stripe business profile associated with the requesting merchant and livemode.
         """
         return cast(
             "BusinessProfile",
@@ -42,7 +42,7 @@ class BusinessProfileService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "BusinessProfile":
         """
-        Retrieve the Stripe profile associated with the requesting merchant and livemode.
+        Retrieve the Stripe business profile associated with the requesting merchant and livemode.
         """
         return cast(
             "BusinessProfile",
@@ -62,7 +62,7 @@ class BusinessProfileService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "BusinessProfile":
         """
-        Retrieve a Stripe profile by its Network ID.
+        Retrieve a Stripe business profile by its Network ID.
         """
         return cast(
             "BusinessProfile",
@@ -84,7 +84,7 @@ class BusinessProfileService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "BusinessProfile":
         """
-        Retrieve a Stripe profile by its Network ID.
+        Retrieve a Stripe business profile by its Network ID.
         """
         return cast(
             "BusinessProfile",

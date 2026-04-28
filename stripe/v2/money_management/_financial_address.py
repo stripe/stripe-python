@@ -42,6 +42,30 @@ class FinancialAddress(StripeObject):
             The transit number of the Canadian Bank Account.
             """
 
+        class CryptoWallet(StripeObject):
+            address: str
+            """
+            The blockchain address of the crypto wallet.
+            """
+            memo: Optional[str]
+            """
+            Required if the network supports memos (e.g. Stellar).
+            """
+            network: Literal[
+                "arbitrum",
+                "avalanche_c_chain",
+                "base",
+                "ethereum",
+                "optimism",
+                "polygon",
+                "solana",
+                "stellar",
+                "tempo",
+            ]
+            """
+            The blockchain network of the crypto wallet.
+            """
+
         class GbBankAccount(StripeObject):
             account_holder_name: str
             """
@@ -59,6 +83,16 @@ class FinancialAddress(StripeObject):
             sort_code: str
             """
             The sort code of the UK Bank Account.
+            """
+
+        class MxBankAccount(StripeObject):
+            account_holder_name: str
+            """
+            The account holder name to be used during bank transfers.
+            """
+            clabe: str
+            """
+            The CLABE (Clave Bancaria Estandarizada) of the Mexican Bank Account.
             """
 
         class SepaBankAccount(StripeObject):
@@ -156,9 +190,17 @@ class FinancialAddress(StripeObject):
         """
         The credentials of the Canadian Bank Account for the FinancialAddress. This contains unique banking details such as the account number, institution number, etc. of a Canadian bank account.
         """
+        crypto_wallet: Optional[CryptoWallet]
+        """
+        The credentials of the crypto wallet for the Financial Address. This contains unique details such as the blockchain network, wallet address, and memo of a crypto wallet.
+        """
         gb_bank_account: Optional[GbBankAccount]
         """
         The credentials of the UK Bank Account for the FinancialAddress. This contains unique banking details such as the sort code, account number, etc. of a UK bank account.
+        """
+        mx_bank_account: Optional[MxBankAccount]
+        """
+        The credentials of the Mexican Bank Account for the FinancialAddress. This contains unique banking details such as the CLABE and account holder name of a Mexican bank account.
         """
         sepa_bank_account: Optional[SepaBankAccount]
         """
@@ -166,7 +208,9 @@ class FinancialAddress(StripeObject):
         """
         type: Literal[
             "ca_bank_account",
+            "crypto_wallet",
             "gb_bank_account",
+            "mx_bank_account",
             "sepa_bank_account",
             "us_bank_account",
         ]
@@ -179,7 +223,9 @@ class FinancialAddress(StripeObject):
         """
         _inner_class_types = {
             "ca_bank_account": CaBankAccount,
+            "crypto_wallet": CryptoWallet,
             "gb_bank_account": GbBankAccount,
+            "mx_bank_account": MxBankAccount,
             "sepa_bank_account": SepaBankAccount,
             "us_bank_account": UsBankAccount,
         }

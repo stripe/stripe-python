@@ -54,7 +54,7 @@ class MeterCreateParamsCustomerMapping(TypedDict):
 class MeterCreateParamsDefaultAggregation(TypedDict):
     formula: Literal["count", "last", "sum"]
     """
-    Specifies how events are aggregated. Allowed values are `count` to count the number of events, `sum` to sum each event's value and `last` to take the last event's value in the window.
+    Specifies how events are aggregated.
     """
 
 

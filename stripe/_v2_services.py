@@ -8,7 +8,7 @@ if TYPE_CHECKING:
     from stripe.v2._billing_service import BillingService
     from stripe.v2._commerce_service import CommerceService
     from stripe.v2._core_service import CoreService
-    from stripe.v2._datum_service import DatumService
+    from stripe.v2._data_service import DataService
     from stripe.v2._extend_service import ExtendService
     from stripe.v2._iam_service import IamService
     from stripe.v2._money_management_service import MoneyManagementService
@@ -25,7 +25,7 @@ _subservices = {
     "billing": ["stripe.v2._billing_service", "BillingService"],
     "commerce": ["stripe.v2._commerce_service", "CommerceService"],
     "core": ["stripe.v2._core_service", "CoreService"],
-    "data": ["stripe.v2._datum_service", "DatumService"],
+    "data": ["stripe.v2._data_service", "DataService"],
     "extend": ["stripe.v2._extend_service", "ExtendService"],
     "iam": ["stripe.v2._iam_service", "IamService"],
     "money_management": [
@@ -48,7 +48,7 @@ class V2Services(StripeService):
     billing: "BillingService"
     commerce: "CommerceService"
     core: "CoreService"
-    data: "DatumService"
+    data: "DataService"
     extend: "ExtendService"
     iam: "IamService"
     money_management: "MoneyManagementService"

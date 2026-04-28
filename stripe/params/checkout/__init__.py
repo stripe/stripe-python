@@ -78,6 +78,8 @@ if TYPE_CHECKING:
         SessionCreateParamsPaymentMethodOptionsBillie as SessionCreateParamsPaymentMethodOptionsBillie,
         SessionCreateParamsPaymentMethodOptionsBizum as SessionCreateParamsPaymentMethodOptionsBizum,
         SessionCreateParamsPaymentMethodOptionsBizumMandateOptions as SessionCreateParamsPaymentMethodOptionsBizumMandateOptions,
+        SessionCreateParamsPaymentMethodOptionsBlik as SessionCreateParamsPaymentMethodOptionsBlik,
+        SessionCreateParamsPaymentMethodOptionsBlikMandateOptions as SessionCreateParamsPaymentMethodOptionsBlikMandateOptions,
         SessionCreateParamsPaymentMethodOptionsBoleto as SessionCreateParamsPaymentMethodOptionsBoleto,
         SessionCreateParamsPaymentMethodOptionsCard as SessionCreateParamsPaymentMethodOptionsCard,
         SessionCreateParamsPaymentMethodOptionsCardInstallments as SessionCreateParamsPaymentMethodOptionsCardInstallments,
@@ -513,6 +515,14 @@ _import_map = {
         False,
     ),
     "SessionCreateParamsPaymentMethodOptionsBizumMandateOptions": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsBlik": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsPaymentMethodOptionsBlikMandateOptions": (
         "stripe.params.checkout._session_create_params",
         False,
     ),

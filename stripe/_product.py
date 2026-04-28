@@ -121,6 +121,16 @@ class Product(
         Width, in inches.
         """
 
+    class TaxDetails(StripeObject):
+        performance_location: Optional[str]
+        """
+        The performance location.
+        """
+        tax_code: Optional[str]
+        """
+        A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+        """
+
     active: bool
     """
     Whether the product is currently available for purchase.
@@ -185,6 +195,10 @@ class Product(
     tax_code: Optional[ExpandableField["TaxCode"]]
     """
     A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+    """
+    tax_details: Optional[TaxDetails]
+    """
+    Tax details for this product, including the [tax code](https://docs.stripe.com/tax/tax-codes) and an optional performance location.
     """
     type: Literal["good", "service"]
     """
@@ -621,4 +635,5 @@ class Product(
         "identifiers": Identifiers,
         "marketing_features": MarketingFeature,
         "package_dimensions": PackageDimensions,
+        "tax_details": TaxDetails,
     }

@@ -540,6 +540,12 @@ class Card(
             Interval (or event) to which the amount applies.
             """
 
+        allowed_card_presences: Optional[
+            List[Literal["not_present", "present"]]
+        ]
+        """
+        Array of card presence statuses from which authorizations will be allowed. Possible options are `present`, `not_present`. All other statuses will be blocked. Cannot be set with `blocked_card_presences`. Provide an empty value to unset this control.
+        """
         allowed_categories: Optional[
             List[
                 Literal[
@@ -847,6 +853,12 @@ class Card(
         allowed_merchant_countries: Optional[List[str]]
         """
         Array of strings containing representing countries from which authorizations will be allowed. Authorizations from merchants in all other countries will be declined. Country codes should be ISO 3166 alpha-2 country codes (e.g. `US`). Cannot be set with `blocked_merchant_countries`. Provide an empty value to unset this control.
+        """
+        blocked_card_presences: Optional[
+            List[Literal["not_present", "present"]]
+        ]
+        """
+        Array of card presence statuses from which authorizations will be declined. Possible options are `present`, `not_present`. Cannot be set with `allowed_card_presences`. Provide an empty value to unset this control.
         """
         blocked_categories: Optional[
             List[
@@ -1219,7 +1231,9 @@ class Card(
     """
     The brand of the card.
     """
-    cancellation_reason: Optional[Literal["design_rejected", "lost", "stolen"]]
+    cancellation_reason: Optional[
+        Literal["design_rejected", "fulfillment_error", "lost", "stolen"]
+    ]
     """
     The reason why the card was canceled.
     """
@@ -1298,7 +1312,7 @@ class Card(
     The card this card replaces, if any.
     """
     replacement_reason: Optional[
-        Literal["damaged", "expired", "lost", "stolen"]
+        Literal["damaged", "expired", "fulfillment_error", "lost", "stolen"]
     ]
     """
     The reason why the previous card needed to be replaced.

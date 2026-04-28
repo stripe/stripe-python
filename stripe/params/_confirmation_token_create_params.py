@@ -312,6 +312,10 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
     """
     If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
     """
+    shared_payment_granted_token: NotRequired[str]
+    """
+    ID of the SharedPaymentGrantedToken used to confirm this PaymentIntent.
+    """
     shopeepay: NotRequired[
         "ConfirmationTokenCreateParamsPaymentMethodDataShopeepay"
     ]
@@ -327,6 +331,10 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
     ]
     """
     This hash contains details about the Stripe balance payment method.
+    """
+    sunbit: NotRequired["ConfirmationTokenCreateParamsPaymentMethodDataSunbit"]
+    """
+    If this is a Sunbit PaymentMethod, this hash contains details about the Sunbit payment method.
     """
     swish: NotRequired["ConfirmationTokenCreateParamsPaymentMethodDataSwish"]
     """
@@ -388,6 +396,7 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
         "shopeepay",
         "sofort",
         "stripe_balance",
+        "sunbit",
         "swish",
         "twint",
         "upi",
@@ -921,6 +930,10 @@ class ConfirmationTokenCreateParamsPaymentMethodDataStripeBalance(TypedDict):
     """
     The connected account ID whose Stripe balance to use as the source of payment
     """
+
+
+class ConfirmationTokenCreateParamsPaymentMethodDataSunbit(TypedDict):
+    pass
 
 
 class ConfirmationTokenCreateParamsPaymentMethodDataSwish(TypedDict):

@@ -1,11 +1,24 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe._createable_api_resource import CreateableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
-from typing import ClassVar, Optional
-from typing_extensions import Literal
+from stripe._util import class_method_variant, sanitize_id
+from typing import ClassVar, Optional, cast, overload
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params.shared_payment._issued_token_create_params import (
+        IssuedTokenCreateParams,
+    )
+    from stripe.params.shared_payment._issued_token_retrieve_params import (
+        IssuedTokenRetrieveParams,
+    )
+    from stripe.params.shared_payment._issued_token_revoke_params import (
+        IssuedTokenRevokeParams,
+    )
 
 
-class IssuedToken(StripeObject):
+class IssuedToken(CreateableAPIResource["IssuedToken"]):
     """
     A SharedPaymentIssuedToken is a limited-use reference to a PaymentMethod that can be created with a secret key. When shared with another Stripe account (Seller), it enables that account to either process a payment on Stripe against a PaymentMethod that your Stripe account owns, or to forward a usable credential created against the originalPaymentMethod to then process the payment off-Stripe.
     """
@@ -228,6 +241,185 @@ class IssuedToken(StripeObject):
     """
     Usage limits of the SharedPaymentIssuedToken.
     """
+
+    @classmethod
+    def create(
+        cls, **params: Unpack["IssuedTokenCreateParams"]
+    ) -> "IssuedToken":
+        """
+        Creates a new SharedPaymentIssuedToken object
+        """
+        return cast(
+            "IssuedToken",
+            cls._static_request(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def create_async(
+        cls, **params: Unpack["IssuedTokenCreateParams"]
+    ) -> "IssuedToken":
+        """
+        Creates a new SharedPaymentIssuedToken object
+        """
+        return cast(
+            "IssuedToken",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def retrieve(
+        cls, id: str, **params: Unpack["IssuedTokenRetrieveParams"]
+    ) -> "IssuedToken":
+        """
+        Retrieves an existing SharedPaymentIssuedToken object
+        """
+        instance = cls(id, **params)
+        instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["IssuedTokenRetrieveParams"]
+    ) -> "IssuedToken":
+        """
+        Retrieves an existing SharedPaymentIssuedToken object
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
+        return instance
+
+    @classmethod
+    def _cls_revoke(
+        cls,
+        shared_payment_issued_token: str,
+        **params: Unpack["IssuedTokenRevokeParams"],
+    ) -> "IssuedToken":
+        """
+        Revokes a SharedPaymentIssuedToken
+        """
+        return cast(
+            "IssuedToken",
+            cls._static_request(
+                "post",
+                "/v1/shared_payment/issued_tokens/{shared_payment_issued_token}/revoke".format(
+                    shared_payment_issued_token=sanitize_id(
+                        shared_payment_issued_token
+                    )
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def revoke(
+        shared_payment_issued_token: str,
+        **params: Unpack["IssuedTokenRevokeParams"],
+    ) -> "IssuedToken":
+        """
+        Revokes a SharedPaymentIssuedToken
+        """
+        ...
+
+    @overload
+    def revoke(
+        self, **params: Unpack["IssuedTokenRevokeParams"]
+    ) -> "IssuedToken":
+        """
+        Revokes a SharedPaymentIssuedToken
+        """
+        ...
+
+    @class_method_variant("_cls_revoke")
+    def revoke(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["IssuedTokenRevokeParams"]
+    ) -> "IssuedToken":
+        """
+        Revokes a SharedPaymentIssuedToken
+        """
+        return cast(
+            "IssuedToken",
+            self._request(
+                "post",
+                "/v1/shared_payment/issued_tokens/{shared_payment_issued_token}/revoke".format(
+                    shared_payment_issued_token=sanitize_id(
+                        self._data.get("id")
+                    )
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_revoke_async(
+        cls,
+        shared_payment_issued_token: str,
+        **params: Unpack["IssuedTokenRevokeParams"],
+    ) -> "IssuedToken":
+        """
+        Revokes a SharedPaymentIssuedToken
+        """
+        return cast(
+            "IssuedToken",
+            await cls._static_request_async(
+                "post",
+                "/v1/shared_payment/issued_tokens/{shared_payment_issued_token}/revoke".format(
+                    shared_payment_issued_token=sanitize_id(
+                        shared_payment_issued_token
+                    )
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def revoke_async(
+        shared_payment_issued_token: str,
+        **params: Unpack["IssuedTokenRevokeParams"],
+    ) -> "IssuedToken":
+        """
+        Revokes a SharedPaymentIssuedToken
+        """
+        ...
+
+    @overload
+    async def revoke_async(
+        self, **params: Unpack["IssuedTokenRevokeParams"]
+    ) -> "IssuedToken":
+        """
+        Revokes a SharedPaymentIssuedToken
+        """
+        ...
+
+    @class_method_variant("_cls_revoke_async")
+    async def revoke_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["IssuedTokenRevokeParams"]
+    ) -> "IssuedToken":
+        """
+        Revokes a SharedPaymentIssuedToken
+        """
+        return cast(
+            "IssuedToken",
+            await self._request_async(
+                "post",
+                "/v1/shared_payment/issued_tokens/{shared_payment_issued_token}/revoke".format(
+                    shared_payment_issued_token=sanitize_id(
+                        self._data.get("id")
+                    )
+                ),
+                params=params,
+            ),
+        )
+
     _inner_class_types = {
         "next_action": NextAction,
         "risk_details": RiskDetails,

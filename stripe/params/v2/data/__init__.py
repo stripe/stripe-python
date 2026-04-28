@@ -4,10 +4,16 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.v2.data import reporting as reporting
+    from stripe.params.v2.data import (
+        analytics as analytics,
+        reporting as reporting,
+    )
 
 # name -> (import_target, is_submodule)
-_import_map = {"reporting": ("stripe.params.v2.data.reporting", True)}
+_import_map = {
+    "analytics": ("stripe.params.v2.data.analytics", True),
+    "reporting": ("stripe.params.v2.data.reporting", True),
+}
 if not TYPE_CHECKING:
 
     def __getattr__(name):

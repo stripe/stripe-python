@@ -81,6 +81,7 @@ class CustomerListPaymentMethodsParams(RequestOptions):
             "shopeepay",
             "sofort",
             "stripe_balance",
+            "sunbit",
             "swish",
             "twint",
             "upi",

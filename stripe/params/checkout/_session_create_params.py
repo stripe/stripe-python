@@ -176,6 +176,7 @@ class SessionCreateParams(RequestOptions):
                 "sepa_debit",
                 "shopeepay",
                 "sofort",
+                "sunbit",
                 "swish",
                 "twint",
                 "upi",
@@ -378,6 +379,7 @@ class SessionCreateParams(RequestOptions):
                 "sepa_debit",
                 "shopeepay",
                 "sofort",
+                "sunbit",
                 "swish",
                 "twint",
                 "upi",
@@ -1349,6 +1351,10 @@ class SessionCreateParamsPaymentMethodOptions(TypedDict):
     """
     contains details about the Bizum payment method options.
     """
+    blik: NotRequired["SessionCreateParamsPaymentMethodOptionsBlik"]
+    """
+    contains details about the BLIK payment method options.
+    """
     boleto: NotRequired["SessionCreateParamsPaymentMethodOptionsBoleto"]
     """
     contains details about the Boleto payment method options.
@@ -1726,6 +1732,25 @@ class SessionCreateParamsPaymentMethodOptionsBizum(TypedDict):
 
 class SessionCreateParamsPaymentMethodOptionsBizumMandateOptions(TypedDict):
     pass
+
+
+class SessionCreateParamsPaymentMethodOptionsBlik(TypedDict):
+    mandate_options: NotRequired[
+        "SessionCreateParamsPaymentMethodOptionsBlikMandateOptions"
+    ]
+    """
+    Additional fields for Mandate creation
+    """
+    setup_future_usage: NotRequired[
+        "Literal['']|Literal['none', 'off_session', 'on_session']"
+    ]
+
+
+class SessionCreateParamsPaymentMethodOptionsBlikMandateOptions(TypedDict):
+    expires_after: NotRequired[int]
+    """
+    Date when the mandate expires and no further payments will be charged. If not provided, the mandate will be set to be indefinite.
+    """
 
 
 class SessionCreateParamsPaymentMethodOptionsBoleto(TypedDict):

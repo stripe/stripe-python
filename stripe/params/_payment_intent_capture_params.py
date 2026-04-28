@@ -315,11 +315,11 @@ class PaymentIntentCaptureParamsAmountDetailsShipping(TypedDict):
     """
     from_postal_code: NotRequired["Literal['']|str"]
     """
-    If a physical good is being shipped, the postal code of where it is being shipped from. At most 10 alphanumeric characters long, hyphens are allowed.
+    If a physical good is being shipped, the postal code of where it is being shipped from. At most 10 alphanumeric characters long, hyphens and spaces are allowed.
     """
     to_postal_code: NotRequired["Literal['']|str"]
     """
-    If a physical good is being shipped, the postal code of where it is being shipped to. At most 10 alphanumeric characters long, hyphens are allowed.
+    If a physical good is being shipped, the postal code of where it is being shipped to. At most 10 alphanumeric characters long, hyphens and spaces are allowed.
     """
 
 

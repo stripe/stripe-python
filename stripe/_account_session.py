@@ -72,6 +72,17 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             features: Features
             _inner_class_types = {"features": Features}
 
+        class BalanceReport(StripeObject):
+            class Features(StripeObject):
+                pass
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
         class Balances(StripeObject):
             class Features(StripeObject):
                 disable_stripe_user_authentication: bool
@@ -455,6 +466,17 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             features: Features
             _inner_class_types = {"features": Features}
 
+        class PayoutReconciliationReport(StripeObject):
+            class Features(StripeObject):
+                pass
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
         class Payouts(StripeObject):
             class Features(StripeObject):
                 disable_stripe_user_authentication: bool
@@ -546,6 +568,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
         Configuration for the [agentic commerce settings](https://docs.stripe.com/connect/supported-embedded-components/agentic-commerce-settings/) embedded component.
         """
+        balance_report: BalanceReport
         balances: Balances
         bills: Optional[Bills]
         """
@@ -582,6 +605,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         payment_disputes: PaymentDisputes
         payments: Payments
         payout_details: PayoutDetails
+        payout_reconciliation_report: PayoutReconciliationReport
         payouts: Payouts
         payouts_list: PayoutsList
         tax_registrations: TaxRegistrations
@@ -598,6 +622,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "account_management": AccountManagement,
             "account_onboarding": AccountOnboarding,
             "agentic_commerce_settings": AgenticCommerceSettings,
+            "balance_report": BalanceReport,
             "balances": Balances,
             "bills": Bills,
             "capital_financing": CapitalFinancing,
@@ -619,6 +644,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "payment_disputes": PaymentDisputes,
             "payments": Payments,
             "payout_details": PayoutDetails,
+            "payout_reconciliation_report": PayoutReconciliationReport,
             "payouts": Payouts,
             "payouts_list": PayoutsList,
             "tax_registrations": TaxRegistrations,

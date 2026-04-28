@@ -792,7 +792,7 @@ class SubscriptionUpdateParamsPaymentSettings(TypedDict):
     Payment-method-specific configuration to provide to invoices created by the subscription.
     """
     payment_method_types: NotRequired[
-        "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'bizum', 'boleto', 'card', 'cashapp', 'check_scan', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'momo', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'upi', 'us_bank_account', 'wechat_pay']]"
+        "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'bizum', 'blik', 'boleto', 'card', 'cashapp', 'check_scan', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'momo', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'upi', 'us_bank_account', 'wechat_pay']]"
     ]
     """
     The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration
@@ -821,6 +821,12 @@ class SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptions(TypedDict):
     ]
     """
     This sub-hash contains details about the Bizum payment method options to pass to the invoice's PaymentIntent.
+    """
+    blik: NotRequired[
+        "Literal['']|SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBlik"
+    ]
+    """
+    This sub-hash contains details about the Blik payment method options to pass to the invoice's PaymentIntent.
     """
     card: NotRequired[
         "Literal['']|SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCard"
@@ -940,6 +946,26 @@ class SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBizumMandateOpt
     amount_type: Literal["fixed"]
     """
     Indicates the mandate amount type.
+    """
+
+
+class SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBlik(
+    TypedDict,
+):
+    mandate_options: NotRequired[
+        "SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBlikMandateOptions"
+    ]
+    """
+    Configuration options for setting up a mandate
+    """
+
+
+class SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsBlikMandateOptions(
+    TypedDict,
+):
+    expires_after: NotRequired[int]
+    """
+    Date when the mandate expires and no further payments will be charged. If not provided, the mandate will be set to be indefinite.
     """
 
 
@@ -1139,7 +1165,7 @@ class SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsPixMandateOptio
         Literal["halfyearly", "monthly", "quarterly", "weekly", "yearly"]
     ]
     """
-    Schedule at which the future payments will be charged. Defaults to `monthly`.
+    Schedule at which the future payments will be charged. Defaults to the subscription servicing interval.
     """
 
 

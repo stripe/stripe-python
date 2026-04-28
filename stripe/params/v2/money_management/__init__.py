@@ -41,6 +41,7 @@ if TYPE_CHECKING:
     )
     from stripe.params.v2.money_management._financial_address_create_params import (
         FinancialAddressCreateParams as FinancialAddressCreateParams,
+        FinancialAddressCreateParamsCryptoProperties as FinancialAddressCreateParamsCryptoProperties,
         FinancialAddressCreateParamsSepaBankAccount as FinancialAddressCreateParamsSepaBankAccount,
     )
     from stripe.params.v2.money_management._financial_address_list_params import (
@@ -236,6 +237,10 @@ _import_map = {
         False,
     ),
     "FinancialAddressCreateParams": (
+        "stripe.params.v2.money_management._financial_address_create_params",
+        False,
+    ),
+    "FinancialAddressCreateParamsCryptoProperties": (
         "stripe.params.v2.money_management._financial_address_create_params",
         False,
     ),

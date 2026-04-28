@@ -811,6 +811,12 @@ if TYPE_CHECKING:
     from stripe.events._v2_core_approval_request_canceled_event import (
         V2CoreApprovalRequestCanceledEventNotification,
     )
+    from stripe.events._v2_core_approval_request_created_event import (
+        V2CoreApprovalRequestCreatedEventNotification,
+    )
+    from stripe.events._v2_core_approval_request_expired_event import (
+        V2CoreApprovalRequestExpiredEventNotification,
+    )
     from stripe.events._v2_core_approval_request_failed_event import (
         V2CoreApprovalRequestFailedEventNotification,
     )
@@ -945,6 +951,9 @@ if TYPE_CHECKING:
     )
     from stripe.events._v2_data_reporting_query_run_updated_event import (
         V2DataReportingQueryRunUpdatedEventNotification,
+    )
+    from stripe.events._v2_extend_extension_run_failed_event import (
+        V2ExtendExtensionRunFailedEventNotification,
     )
     from stripe.events._v2_extend_workflow_run_failed_event import (
         V2ExtendWorkflowRunFailedEventNotification,
@@ -2273,6 +2282,14 @@ _V2_EVENT_CLASS_LOOKUP = {
         "stripe.events._v2_core_approval_request_canceled_event",
         "V2CoreApprovalRequestCanceledEvent",
     ),
+    "v2.core.approval_request.created": (
+        "stripe.events._v2_core_approval_request_created_event",
+        "V2CoreApprovalRequestCreatedEvent",
+    ),
+    "v2.core.approval_request.expired": (
+        "stripe.events._v2_core_approval_request_expired_event",
+        "V2CoreApprovalRequestExpiredEvent",
+    ),
     "v2.core.approval_request.failed": (
         "stripe.events._v2_core_approval_request_failed_event",
         "V2CoreApprovalRequestFailedEvent",
@@ -2452,6 +2469,10 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v2.data.reporting.query_run.updated": (
         "stripe.events._v2_data_reporting_query_run_updated_event",
         "V2DataReportingQueryRunUpdatedEvent",
+    ),
+    "v2.extend.extension_run.failed": (
+        "stripe.events._v2_extend_extension_run_failed_event",
+        "V2ExtendExtensionRunFailedEvent",
     ),
     "v2.extend.workflow_run.failed": (
         "stripe.events._v2_extend_workflow_run_failed_event",
@@ -3876,6 +3897,14 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_core_approval_request_canceled_event",
         "V2CoreApprovalRequestCanceledEventNotification",
     ),
+    "v2.core.approval_request.created": (
+        "stripe.events._v2_core_approval_request_created_event",
+        "V2CoreApprovalRequestCreatedEventNotification",
+    ),
+    "v2.core.approval_request.expired": (
+        "stripe.events._v2_core_approval_request_expired_event",
+        "V2CoreApprovalRequestExpiredEventNotification",
+    ),
     "v2.core.approval_request.failed": (
         "stripe.events._v2_core_approval_request_failed_event",
         "V2CoreApprovalRequestFailedEventNotification",
@@ -4055,6 +4084,10 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
     "v2.data.reporting.query_run.updated": (
         "stripe.events._v2_data_reporting_query_run_updated_event",
         "V2DataReportingQueryRunUpdatedEventNotification",
+    ),
+    "v2.extend.extension_run.failed": (
+        "stripe.events._v2_extend_extension_run_failed_event",
+        "V2ExtendExtensionRunFailedEventNotification",
     ),
     "v2.extend.workflow_run.failed": (
         "stripe.events._v2_extend_workflow_run_failed_event",
@@ -4675,6 +4708,8 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2CoreAccountUpdatedEventNotification",
     "V2CoreApprovalRequestApprovedEventNotification",
     "V2CoreApprovalRequestCanceledEventNotification",
+    "V2CoreApprovalRequestCreatedEventNotification",
+    "V2CoreApprovalRequestExpiredEventNotification",
     "V2CoreApprovalRequestFailedEventNotification",
     "V2CoreApprovalRequestRejectedEventNotification",
     "V2CoreApprovalRequestSucceededEventNotification",
@@ -4720,6 +4755,7 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2DataReportingQueryRunFailedEventNotification",
     "V2DataReportingQueryRunSucceededEventNotification",
     "V2DataReportingQueryRunUpdatedEventNotification",
+    "V2ExtendExtensionRunFailedEventNotification",
     "V2ExtendWorkflowRunFailedEventNotification",
     "V2ExtendWorkflowRunStartedEventNotification",
     "V2ExtendWorkflowRunSucceededEventNotification",

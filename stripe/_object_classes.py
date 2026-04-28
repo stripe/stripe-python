@@ -589,6 +589,10 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.v2.core.vault._us_bank_account",
         "UsBankAccount",
     ),
+    "v2.data.analytics.metric_query_result": (
+        "stripe.v2.data.analytics._metric_query_result",
+        "MetricQueryResult",
+    ),
     "v2.data.reporting.query_run": (
         "stripe.v2.data.reporting._query_run",
         "QueryRun",
