@@ -1085,6 +1085,14 @@ if TYPE_CHECKING:
         V2CoreApprovalRequestCanceledEvent as V2CoreApprovalRequestCanceledEvent,
         V2CoreApprovalRequestCanceledEventNotification as V2CoreApprovalRequestCanceledEventNotification,
     )
+    from stripe.events._v2_core_approval_request_created_event import (
+        V2CoreApprovalRequestCreatedEvent as V2CoreApprovalRequestCreatedEvent,
+        V2CoreApprovalRequestCreatedEventNotification as V2CoreApprovalRequestCreatedEventNotification,
+    )
+    from stripe.events._v2_core_approval_request_expired_event import (
+        V2CoreApprovalRequestExpiredEvent as V2CoreApprovalRequestExpiredEvent,
+        V2CoreApprovalRequestExpiredEventNotification as V2CoreApprovalRequestExpiredEventNotification,
+    )
     from stripe.events._v2_core_approval_request_failed_event import (
         V2CoreApprovalRequestFailedEvent as V2CoreApprovalRequestFailedEvent,
         V2CoreApprovalRequestFailedEventNotification as V2CoreApprovalRequestFailedEventNotification,
@@ -1264,6 +1272,10 @@ if TYPE_CHECKING:
     from stripe.events._v2_data_reporting_query_run_updated_event import (
         V2DataReportingQueryRunUpdatedEvent as V2DataReportingQueryRunUpdatedEvent,
         V2DataReportingQueryRunUpdatedEventNotification as V2DataReportingQueryRunUpdatedEventNotification,
+    )
+    from stripe.events._v2_extend_extension_run_failed_event import (
+        V2ExtendExtensionRunFailedEvent as V2ExtendExtensionRunFailedEvent,
+        V2ExtendExtensionRunFailedEventNotification as V2ExtendExtensionRunFailedEventNotification,
     )
     from stripe.events._v2_extend_workflow_run_failed_event import (
         V2ExtendWorkflowRunFailedEvent as V2ExtendWorkflowRunFailedEvent,
@@ -3638,6 +3650,22 @@ _import_map = {
         "stripe.events._v2_core_approval_request_canceled_event",
         False,
     ),
+    "V2CoreApprovalRequestCreatedEvent": (
+        "stripe.events._v2_core_approval_request_created_event",
+        False,
+    ),
+    "V2CoreApprovalRequestCreatedEventNotification": (
+        "stripe.events._v2_core_approval_request_created_event",
+        False,
+    ),
+    "V2CoreApprovalRequestExpiredEvent": (
+        "stripe.events._v2_core_approval_request_expired_event",
+        False,
+    ),
+    "V2CoreApprovalRequestExpiredEventNotification": (
+        "stripe.events._v2_core_approval_request_expired_event",
+        False,
+    ),
     "V2CoreApprovalRequestFailedEvent": (
         "stripe.events._v2_core_approval_request_failed_event",
         False,
@@ -3996,6 +4024,14 @@ _import_map = {
     ),
     "V2DataReportingQueryRunUpdatedEventNotification": (
         "stripe.events._v2_data_reporting_query_run_updated_event",
+        False,
+    ),
+    "V2ExtendExtensionRunFailedEvent": (
+        "stripe.events._v2_extend_extension_run_failed_event",
+        False,
+    ),
+    "V2ExtendExtensionRunFailedEventNotification": (
+        "stripe.events._v2_extend_extension_run_failed_event",
         False,
     ),
     "V2ExtendWorkflowRunFailedEvent": (

@@ -10,7 +10,7 @@ from typing_extensions import Literal, NotRequired, TypedDict
 class AccountTokenCreateParams(TypedDict):
     contact_email: NotRequired[str]
     """
-    The default contact email address for the Account. Required when configuring the account as a merchant or recipient.
+    The primary contact email address for the Account.
     """
     contact_phone: NotRequired[str]
     """
@@ -1142,7 +1142,7 @@ class AccountTokenCreateParamsIdentityIndividual(TypedDict):
     """
     email: NotRequired[str]
     """
-    The individual's email address.
+    The individual's email address. You can only set this field when the Account is configured as a `merchant` or `recipient`. Use `contact_email` as the primary contact email for this Account.
     """
     given_name: NotRequired[str]
     """

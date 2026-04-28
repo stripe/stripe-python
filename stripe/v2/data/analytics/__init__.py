@@ -4,15 +4,23 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.params.v2.data import (
-        analytics as analytics,
-        reporting as reporting,
+    from stripe.v2.data.analytics._metric_query_result import (
+        MetricQueryResult as MetricQueryResult,
+    )
+    from stripe.v2.data.analytics._metric_query_service import (
+        MetricQueryService as MetricQueryService,
     )
 
 # name -> (import_target, is_submodule)
 _import_map = {
-    "analytics": ("stripe.params.v2.data.analytics", True),
-    "reporting": ("stripe.params.v2.data.reporting", True),
+    "MetricQueryResult": (
+        "stripe.v2.data.analytics._metric_query_result",
+        False,
+    ),
+    "MetricQueryService": (
+        "stripe.v2.data.analytics._metric_query_service",
+        False,
+    ),
 }
 if not TYPE_CHECKING:
 

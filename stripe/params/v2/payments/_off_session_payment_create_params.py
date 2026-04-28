@@ -36,7 +36,7 @@ class OffSessionPaymentCreateParams(TypedDict):
     """
     An arbitrary string attached to the object. Often useful for displaying to users.
     """
-    metadata: "Dict[str, str]|UntypedStripeObject[str]"
+    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can
     attach to an object. This can be useful for storing additional information about

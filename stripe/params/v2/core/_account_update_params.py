@@ -18,7 +18,7 @@ class AccountUpdateParams(TypedDict):
     """
     contact_email: NotRequired[str]
     """
-    The default contact email address for the Account. Required when configuring the account as a merchant or recipient.
+    The primary contact email address for the Account.
     """
     contact_phone: NotRequired[str]
     """
@@ -455,7 +455,7 @@ class AccountUpdateParamsConfigurationCustomerAutomaticIndirectTax(TypedDict):
 class AccountUpdateParamsConfigurationCustomerBilling(TypedDict):
     default_payment_method: NotRequired[str]
     """
-    ID of a PaymentMethod attached to the customer account to use as the default for invoices and subscriptions.
+    The ID of a `PaymentMethod` attached to this Account's `customer` configuration, used as the default payment method for invoices and subscriptions.
     """
     invoice: NotRequired[
         "AccountUpdateParamsConfigurationCustomerBillingInvoice"
@@ -2266,7 +2266,7 @@ class AccountUpdateParamsIdentity(TypedDict):
         Literal["company", "government_entity", "individual", "non_profit"]
     ]
     """
-    The entity type.
+    The entity type represented by the Account. Ensure this field is accurate before adding configurations that rely on identity information, as it determines which identity fields apply and how the Account is validated.
     """
     individual: NotRequired["AccountUpdateParamsIdentityIndividual"]
     """
@@ -4183,7 +4183,7 @@ class AccountUpdateParamsIdentityIndividual(TypedDict):
     """
     email: NotRequired[str]
     """
-    The individual's email address.
+    The individual's email address. You can only set this field when the Account is configured as a `merchant` or `recipient`. Use `contact_email` as the primary contact email for this Account.
     """
     given_name: NotRequired[str]
     """

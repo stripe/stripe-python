@@ -47107,6 +47107,35 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
+    def test_v2_data_analytics_metric_query_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/data/analytics/metric_query",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.data.analytics.metric_query.create(
+            {
+                "ends_at": "1970-01-19T14:12:09.638Z",
+                "granularity": "week",
+                "metrics": [{"id": "obj_123", "name": "name"}],
+                "starts_at": "1970-01-25T15:13:01.215Z",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/data/analytics/metric_query",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"ends_at":"1970-01-19T14:12:09.638Z","granularity":"week","metrics":[{"id":"obj_123","name":"name"}],"starts_at":"1970-01-25T15:13:01.215Z"}',
+            is_json=True,
+        )
+
     def test_v2_data_reporting_query_run_post_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -47672,7 +47701,7 @@ class TestGeneratedExamples(object):
         client.v2.money_management.financial_addresses.create(
             {
                 "financial_account": "financial_account",
-                "type": "sepa_bank_account",
+                "type": "ca_bank_account",
             }
         )
         http_client_mock.assert_requested(
@@ -47680,7 +47709,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/financial_addresses",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"financial_account":"financial_account","type":"sepa_bank_account"}',
+            post_data='{"financial_account":"financial_account","type":"ca_bank_account"}',
             is_json=True,
         )
 
@@ -48650,7 +48679,6 @@ class TestGeneratedExamples(object):
                 "amount": {"currency": "USD", "value": 96},
                 "cadence": "unscheduled",
                 "customer": "customer",
-                "metadata": {"key": "metadata"},
             }
         )
         http_client_mock.assert_requested(
@@ -48658,7 +48686,7 @@ class TestGeneratedExamples(object):
             path="/v2/payments/off_session_payments",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"amount":{"currency":"USD","value":96},"cadence":"unscheduled","customer":"customer","metadata":{"key":"metadata"}}',
+            post_data='{"amount":{"currency":"USD","value":96},"cadence":"unscheduled","customer":"customer"}',
             is_json=True,
         )
 
@@ -48716,16 +48744,13 @@ class TestGeneratedExamples(object):
             http_client=http_client_mock.get_mock_http_client(),
         )
 
-        client.v2.payments.off_session_payments.capture(
-            "id_123",
-            {"metadata": {"key": "metadata"}},
-        )
+        client.v2.payments.off_session_payments.capture("id_123")
         http_client_mock.assert_requested(
             "post",
             path="/v2/payments/off_session_payments/id_123/capture",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"metadata":{"key":"metadata"}}',
+            post_data="{}",
             is_json=True,
         )
 
@@ -49539,7 +49564,7 @@ class TestGeneratedExamples(object):
             client.v2.money_management.financial_addresses.create(
                 {
                     "financial_account": "financial_account",
-                    "type": "sepa_bank_account",
+                    "type": "ca_bank_account",
                 }
             )
         except _error.FinancialAccountNotOpenError:
@@ -49549,7 +49574,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/financial_addresses",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"financial_account":"financial_account","type":"sepa_bank_account"}',
+            post_data='{"financial_account":"financial_account","type":"ca_bank_account"}',
             is_json=True,
         )
 
