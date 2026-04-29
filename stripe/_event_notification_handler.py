@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+# File copied from our code generator; changes here will be overwritten.
 from dataclasses import dataclass
 from typing_extensions import TYPE_CHECKING
 
