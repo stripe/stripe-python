@@ -1,5 +1,11 @@
 # Changelog
 
+## 15.2.0a3 - 2026-04-28
+* [#1802](https://github.com/stripe/stripe-python/pull/1802) Update generated code for private-preview
+  * Add support for `debit_card` on `V2.Core.Account.Configuration.CardCreator.Capability.Consumer.Lead`, `V2.Core.Account.Identity.Attestation.TermsOfService.CardCreator.Consumer.Lead`, `v2.core.AccountCreateParamsConfigurationCardCreatorCapabilityConsumerLead`, `v2.core.AccountCreateParamsIdentityAttestationTermsOfServiceCardCreatorConsumerLead`, `v2.core.AccountModifyParamsConfigurationCardCreatorCapabilityConsumerLead`, and `v2.core.AccountModifyParamsIdentityAttestationTermsOfServiceCardCreatorConsumerLead`
+  * ⚠️ Add support for new value `consumer.lead.debit_card` on enums `V2.Core.Account.FutureRequirement.Entry.Impact.RestrictsCapability.capability` and `V2.Core.Account.Requirement.Entry.Impact.RestrictsCapability.capability`
+  * ⚠️ Add support for new value `consumer.lead.debit_card` on enum `EventsV2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEvent.updated_capability`
+
 ## 15.2.0a2 - 2026-04-28
 * [#1800](https://github.com/stripe/stripe-python/pull/1800) Update generated code for private-preview
   * Add support for new resource `v2.data.analytics.MetricQueryResult`
