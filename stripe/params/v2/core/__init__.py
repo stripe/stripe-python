@@ -34,6 +34,7 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationCardCreatorCapabilitiesConsumerCrossRiverBank as AccountCreateParamsConfigurationCardCreatorCapabilitiesConsumerCrossRiverBank,
         AccountCreateParamsConfigurationCardCreatorCapabilitiesConsumerCrossRiverBankPrepaidCard as AccountCreateParamsConfigurationCardCreatorCapabilitiesConsumerCrossRiverBankPrepaidCard,
         AccountCreateParamsConfigurationCardCreatorCapabilitiesConsumerLead as AccountCreateParamsConfigurationCardCreatorCapabilitiesConsumerLead,
+        AccountCreateParamsConfigurationCardCreatorCapabilitiesConsumerLeadDebitCard as AccountCreateParamsConfigurationCardCreatorCapabilitiesConsumerLeadDebitCard,
         AccountCreateParamsConfigurationCardCreatorCapabilitiesConsumerLeadPrepaidCard as AccountCreateParamsConfigurationCardCreatorCapabilitiesConsumerLeadPrepaidCard,
         AccountCreateParamsConfigurationCustomer as AccountCreateParamsConfigurationCustomer,
         AccountCreateParamsConfigurationCustomerAutomaticIndirectTax as AccountCreateParamsConfigurationCustomerAutomaticIndirectTax,
@@ -205,6 +206,10 @@ if TYPE_CHECKING:
         AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerCrossRiverBankPrepaidCardPlatform as AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerCrossRiverBankPrepaidCardPlatform,
         AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerGlobalAccountHolder as AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerGlobalAccountHolder,
         AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLead as AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLead,
+        AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadDebitCard as AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadDebitCard,
+        AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadDebitCardBankTerms as AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadDebitCardBankTerms,
+        AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadDebitCardFinancingDisclosures as AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadDebitCardFinancingDisclosures,
+        AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadDebitCardPlatform as AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadDebitCardPlatform,
         AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadPrepaidCard as AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadPrepaidCard,
         AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadPrepaidCardBankTerms as AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadPrepaidCardBankTerms,
         AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadPrepaidCardFinancingDisclosures as AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadPrepaidCardFinancingDisclosures,
@@ -393,6 +398,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationCardCreatorCapabilitiesConsumerCrossRiverBank as AccountUpdateParamsConfigurationCardCreatorCapabilitiesConsumerCrossRiverBank,
         AccountUpdateParamsConfigurationCardCreatorCapabilitiesConsumerCrossRiverBankPrepaidCard as AccountUpdateParamsConfigurationCardCreatorCapabilitiesConsumerCrossRiverBankPrepaidCard,
         AccountUpdateParamsConfigurationCardCreatorCapabilitiesConsumerLead as AccountUpdateParamsConfigurationCardCreatorCapabilitiesConsumerLead,
+        AccountUpdateParamsConfigurationCardCreatorCapabilitiesConsumerLeadDebitCard as AccountUpdateParamsConfigurationCardCreatorCapabilitiesConsumerLeadDebitCard,
         AccountUpdateParamsConfigurationCardCreatorCapabilitiesConsumerLeadPrepaidCard as AccountUpdateParamsConfigurationCardCreatorCapabilitiesConsumerLeadPrepaidCard,
         AccountUpdateParamsConfigurationCustomer as AccountUpdateParamsConfigurationCustomer,
         AccountUpdateParamsConfigurationCustomerAutomaticIndirectTax as AccountUpdateParamsConfigurationCustomerAutomaticIndirectTax,
@@ -564,6 +570,10 @@ if TYPE_CHECKING:
         AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerGlobalAccountHolder as AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerGlobalAccountHolder,
         AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLead as AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLead,
         AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadApplePay as AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadApplePay,
+        AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadDebitCard as AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadDebitCard,
+        AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadDebitCardBankTerms as AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadDebitCardBankTerms,
+        AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadDebitCardFinancingDisclosures as AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadDebitCardFinancingDisclosures,
+        AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadDebitCardPlatform as AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadDebitCardPlatform,
         AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadPrepaidCard as AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadPrepaidCard,
         AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadPrepaidCardBankTerms as AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadPrepaidCardBankTerms,
         AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadPrepaidCardFinancingDisclosures as AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadPrepaidCardFinancingDisclosures,
@@ -803,6 +813,10 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsConfigurationCardCreatorCapabilitiesConsumerLead": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationCardCreatorCapabilitiesConsumerLeadDebitCard": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
@@ -1487,6 +1501,22 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLead": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadDebitCard": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadDebitCardBankTerms": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadDebitCardFinancingDisclosures": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadDebitCardPlatform": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
@@ -2183,6 +2213,10 @@ _import_map = {
         "stripe.params.v2.core._account_update_params",
         False,
     ),
+    "AccountUpdateParamsConfigurationCardCreatorCapabilitiesConsumerLeadDebitCard": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
     "AccountUpdateParamsConfigurationCardCreatorCapabilitiesConsumerLeadPrepaidCard": (
         "stripe.params.v2.core._account_update_params",
         False,
@@ -2864,6 +2898,22 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadApplePay": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadDebitCard": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadDebitCardBankTerms": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadDebitCardFinancingDisclosures": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadDebitCardPlatform": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),

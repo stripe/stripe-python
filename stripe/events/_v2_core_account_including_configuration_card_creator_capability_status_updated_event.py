@@ -110,6 +110,7 @@ class V2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEvent
             "commercial.stripe.prepaid_card",
             "consumer.celtic.revolving_credit_card",
             "consumer.cross_river_bank.prepaid_card",
+            "consumer.lead.debit_card",
             "consumer.lead.prepaid_card",
         ]
         """
