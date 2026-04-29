@@ -378,11 +378,26 @@ class AccountUpdateParamsConfigurationCardCreatorCapabilitiesConsumerCrossRiverB
 class AccountUpdateParamsConfigurationCardCreatorCapabilitiesConsumerLead(
     TypedDict,
 ):
+    debit_card: NotRequired[
+        "AccountUpdateParamsConfigurationCardCreatorCapabilitiesConsumerLeadDebitCard"
+    ]
+    """
+    Can create consumer issuing debit cards with Lead as BIN sponsor.
+    """
     prepaid_card: NotRequired[
         "AccountUpdateParamsConfigurationCardCreatorCapabilitiesConsumerLeadPrepaidCard"
     ]
     """
     Can create consumer issuing prepaid cards with Lead as BIN sponsor.
+    """
+
+
+class AccountUpdateParamsConfigurationCardCreatorCapabilitiesConsumerLeadDebitCard(
+    TypedDict,
+):
+    requested: NotRequired[bool]
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
     """
 
 
@@ -3354,6 +3369,12 @@ class AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLe
     """
     Terms of service acceptances for consumer issuing Apple Pay cards with Lead as BIN sponsor.
     """
+    debit_card: NotRequired[
+        "AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadDebitCard"
+    ]
+    """
+    Terms of service acceptances for consumer issuing debit cards with Lead as BIN sponsor.
+    """
     prepaid_card: NotRequired[
         "AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadPrepaidCard"
     ]
@@ -3363,6 +3384,80 @@ class AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLe
 
 
 class AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadApplePay(
+    TypedDict,
+):
+    date: NotRequired[str]
+    """
+    The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+    """
+    ip: NotRequired[str]
+    """
+    The IP address from which the Account's representative accepted the terms of service.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser from which the Account's representative accepted the terms of service.
+    """
+
+
+class AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadDebitCard(
+    TypedDict,
+):
+    bank_terms: NotRequired[
+        "AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadDebitCardBankTerms"
+    ]
+    """
+    Bank terms of service acceptance for consumer issuing debit cards with Lead as BIN sponsor.
+    """
+    financing_disclosures: NotRequired[
+        "AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadDebitCardFinancingDisclosures"
+    ]
+    """
+    Financial disclosures terms of service acceptance for consumer issuing debit cards with Lead as BIN sponsor.
+    """
+    platform: NotRequired[
+        "AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadDebitCardPlatform"
+    ]
+    """
+    Platform terms of service acceptance for consumer issuing debit cards with Lead as BIN sponsor.
+    """
+
+
+class AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadDebitCardBankTerms(
+    TypedDict,
+):
+    date: NotRequired[str]
+    """
+    The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+    """
+    ip: NotRequired[str]
+    """
+    The IP address from which the Account's representative accepted the terms of service.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser from which the Account's representative accepted the terms of service.
+    """
+
+
+class AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadDebitCardFinancingDisclosures(
+    TypedDict,
+):
+    date: NotRequired[str]
+    """
+    The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+    """
+    ip: NotRequired[str]
+    """
+    The IP address from which the Account's representative accepted the terms of service.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser from which the Account's representative accepted the terms of service.
+    """
+
+
+class AccountUpdateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLeadDebitCardPlatform(
     TypedDict,
 ):
     date: NotRequired[str]
