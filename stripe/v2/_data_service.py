@@ -12,7 +12,7 @@ _subservices = {
 }
 
 
-class DatumService(StripeService):
+class DataService(StripeService):
     reporting: "ReportingService"
 
     def __init__(self, requestor):
