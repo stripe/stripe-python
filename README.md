@@ -127,7 +127,7 @@ client = StripeClient("sk_test_...", http_client=stripe.UrllibClient())
 ```
 
 Without a configured client, by default the library will attempt to load
-libraries in the order above (i.e. `urlfetch` is preferred with `urllib2` used
+libraries in the order above (i.e. `urlfetch` is preferred with `urllib` used
 as a last resort). We usually recommend that people use `requests`.
 
 ### Configuring a Proxy
