@@ -72,6 +72,8 @@ if TYPE_CHECKING:
         AccountCreateParamsCapabilitiesBoletoPayments as AccountCreateParamsCapabilitiesBoletoPayments,
         AccountCreateParamsCapabilitiesCardIssuing as AccountCreateParamsCapabilitiesCardIssuing,
         AccountCreateParamsCapabilitiesCardPayments as AccountCreateParamsCapabilitiesCardPayments,
+        AccountCreateParamsCapabilitiesCardPaymentsProtections as AccountCreateParamsCapabilitiesCardPaymentsProtections,
+        AccountCreateParamsCapabilitiesCardPaymentsProtectionsPspMigration as AccountCreateParamsCapabilitiesCardPaymentsProtectionsPspMigration,
         AccountCreateParamsCapabilitiesCartesBancairesPayments as AccountCreateParamsCapabilitiesCartesBancairesPayments,
         AccountCreateParamsCapabilitiesCashappPayments as AccountCreateParamsCapabilitiesCashappPayments,
         AccountCreateParamsCapabilitiesCryptoPayments as AccountCreateParamsCapabilitiesCryptoPayments,
@@ -508,6 +510,8 @@ if TYPE_CHECKING:
         AccountUpdateParamsCapabilitiesBoletoPayments as AccountUpdateParamsCapabilitiesBoletoPayments,
         AccountUpdateParamsCapabilitiesCardIssuing as AccountUpdateParamsCapabilitiesCardIssuing,
         AccountUpdateParamsCapabilitiesCardPayments as AccountUpdateParamsCapabilitiesCardPayments,
+        AccountUpdateParamsCapabilitiesCardPaymentsProtections as AccountUpdateParamsCapabilitiesCardPaymentsProtections,
+        AccountUpdateParamsCapabilitiesCardPaymentsProtectionsPspMigration as AccountUpdateParamsCapabilitiesCardPaymentsProtectionsPspMigration,
         AccountUpdateParamsCapabilitiesCartesBancairesPayments as AccountUpdateParamsCapabilitiesCartesBancairesPayments,
         AccountUpdateParamsCapabilitiesCashappPayments as AccountUpdateParamsCapabilitiesCashappPayments,
         AccountUpdateParamsCapabilitiesCryptoPayments as AccountUpdateParamsCapabilitiesCryptoPayments,
@@ -1027,6 +1031,7 @@ if TYPE_CHECKING:
         ConfirmationTokenCreateParamsPaymentMethodDataCustomerBalance as ConfirmationTokenCreateParamsPaymentMethodDataCustomerBalance,
         ConfirmationTokenCreateParamsPaymentMethodDataEps as ConfirmationTokenCreateParamsPaymentMethodDataEps,
         ConfirmationTokenCreateParamsPaymentMethodDataFpx as ConfirmationTokenCreateParamsPaymentMethodDataFpx,
+        ConfirmationTokenCreateParamsPaymentMethodDataGiftCard as ConfirmationTokenCreateParamsPaymentMethodDataGiftCard,
         ConfirmationTokenCreateParamsPaymentMethodDataGiropay as ConfirmationTokenCreateParamsPaymentMethodDataGiropay,
         ConfirmationTokenCreateParamsPaymentMethodDataGopay as ConfirmationTokenCreateParamsPaymentMethodDataGopay,
         ConfirmationTokenCreateParamsPaymentMethodDataGrabpay as ConfirmationTokenCreateParamsPaymentMethodDataGrabpay,
@@ -2495,6 +2500,7 @@ if TYPE_CHECKING:
         PaymentIntentConfirmParamsPaymentMethodDataCustomerBalance as PaymentIntentConfirmParamsPaymentMethodDataCustomerBalance,
         PaymentIntentConfirmParamsPaymentMethodDataEps as PaymentIntentConfirmParamsPaymentMethodDataEps,
         PaymentIntentConfirmParamsPaymentMethodDataFpx as PaymentIntentConfirmParamsPaymentMethodDataFpx,
+        PaymentIntentConfirmParamsPaymentMethodDataGiftCard as PaymentIntentConfirmParamsPaymentMethodDataGiftCard,
         PaymentIntentConfirmParamsPaymentMethodDataGiropay as PaymentIntentConfirmParamsPaymentMethodDataGiropay,
         PaymentIntentConfirmParamsPaymentMethodDataGopay as PaymentIntentConfirmParamsPaymentMethodDataGopay,
         PaymentIntentConfirmParamsPaymentMethodDataGrabpay as PaymentIntentConfirmParamsPaymentMethodDataGrabpay,
@@ -2816,6 +2822,7 @@ if TYPE_CHECKING:
         PaymentIntentCreateParamsPaymentMethodDataCustomerBalance as PaymentIntentCreateParamsPaymentMethodDataCustomerBalance,
         PaymentIntentCreateParamsPaymentMethodDataEps as PaymentIntentCreateParamsPaymentMethodDataEps,
         PaymentIntentCreateParamsPaymentMethodDataFpx as PaymentIntentCreateParamsPaymentMethodDataFpx,
+        PaymentIntentCreateParamsPaymentMethodDataGiftCard as PaymentIntentCreateParamsPaymentMethodDataGiftCard,
         PaymentIntentCreateParamsPaymentMethodDataGiropay as PaymentIntentCreateParamsPaymentMethodDataGiropay,
         PaymentIntentCreateParamsPaymentMethodDataGopay as PaymentIntentCreateParamsPaymentMethodDataGopay,
         PaymentIntentCreateParamsPaymentMethodDataGrabpay as PaymentIntentCreateParamsPaymentMethodDataGrabpay,
@@ -3186,6 +3193,7 @@ if TYPE_CHECKING:
         PaymentIntentModifyParamsPaymentMethodDataCustomerBalance as PaymentIntentModifyParamsPaymentMethodDataCustomerBalance,
         PaymentIntentModifyParamsPaymentMethodDataEps as PaymentIntentModifyParamsPaymentMethodDataEps,
         PaymentIntentModifyParamsPaymentMethodDataFpx as PaymentIntentModifyParamsPaymentMethodDataFpx,
+        PaymentIntentModifyParamsPaymentMethodDataGiftCard as PaymentIntentModifyParamsPaymentMethodDataGiftCard,
         PaymentIntentModifyParamsPaymentMethodDataGiropay as PaymentIntentModifyParamsPaymentMethodDataGiropay,
         PaymentIntentModifyParamsPaymentMethodDataGopay as PaymentIntentModifyParamsPaymentMethodDataGopay,
         PaymentIntentModifyParamsPaymentMethodDataGrabpay as PaymentIntentModifyParamsPaymentMethodDataGrabpay,
@@ -3521,6 +3529,7 @@ if TYPE_CHECKING:
         PaymentIntentUpdateParamsPaymentMethodDataCustomerBalance as PaymentIntentUpdateParamsPaymentMethodDataCustomerBalance,
         PaymentIntentUpdateParamsPaymentMethodDataEps as PaymentIntentUpdateParamsPaymentMethodDataEps,
         PaymentIntentUpdateParamsPaymentMethodDataFpx as PaymentIntentUpdateParamsPaymentMethodDataFpx,
+        PaymentIntentUpdateParamsPaymentMethodDataGiftCard as PaymentIntentUpdateParamsPaymentMethodDataGiftCard,
         PaymentIntentUpdateParamsPaymentMethodDataGiropay as PaymentIntentUpdateParamsPaymentMethodDataGiropay,
         PaymentIntentUpdateParamsPaymentMethodDataGopay as PaymentIntentUpdateParamsPaymentMethodDataGopay,
         PaymentIntentUpdateParamsPaymentMethodDataGrabpay as PaymentIntentUpdateParamsPaymentMethodDataGrabpay,
@@ -3865,6 +3874,11 @@ if TYPE_CHECKING:
         PaymentLinkUpdateParamsSubscriptionDataTrialSettings as PaymentLinkUpdateParamsSubscriptionDataTrialSettings,
         PaymentLinkUpdateParamsSubscriptionDataTrialSettingsEndBehavior as PaymentLinkUpdateParamsSubscriptionDataTrialSettingsEndBehavior,
         PaymentLinkUpdateParamsTaxIdCollection as PaymentLinkUpdateParamsTaxIdCollection,
+    )
+    from stripe.params._payment_location_create_params import (
+        PaymentLocationCreateParams as PaymentLocationCreateParams,
+        PaymentLocationCreateParamsAddress as PaymentLocationCreateParamsAddress,
+        PaymentLocationCreateParamsBusinessRegistration as PaymentLocationCreateParamsBusinessRegistration,
     )
     from stripe.params._payment_method_attach_params import (
         PaymentMethodAttachParams as PaymentMethodAttachParams,
@@ -4289,6 +4303,7 @@ if TYPE_CHECKING:
         PaymentMethodCreateParamsCustomerBalance as PaymentMethodCreateParamsCustomerBalance,
         PaymentMethodCreateParamsEps as PaymentMethodCreateParamsEps,
         PaymentMethodCreateParamsFpx as PaymentMethodCreateParamsFpx,
+        PaymentMethodCreateParamsGiftCard as PaymentMethodCreateParamsGiftCard,
         PaymentMethodCreateParamsGiropay as PaymentMethodCreateParamsGiropay,
         PaymentMethodCreateParamsGopay as PaymentMethodCreateParamsGopay,
         PaymentMethodCreateParamsGrabpay as PaymentMethodCreateParamsGrabpay,
@@ -5008,6 +5023,7 @@ if TYPE_CHECKING:
         SetupIntentConfirmParamsPaymentMethodDataCustomerBalance as SetupIntentConfirmParamsPaymentMethodDataCustomerBalance,
         SetupIntentConfirmParamsPaymentMethodDataEps as SetupIntentConfirmParamsPaymentMethodDataEps,
         SetupIntentConfirmParamsPaymentMethodDataFpx as SetupIntentConfirmParamsPaymentMethodDataFpx,
+        SetupIntentConfirmParamsPaymentMethodDataGiftCard as SetupIntentConfirmParamsPaymentMethodDataGiftCard,
         SetupIntentConfirmParamsPaymentMethodDataGiropay as SetupIntentConfirmParamsPaymentMethodDataGiropay,
         SetupIntentConfirmParamsPaymentMethodDataGopay as SetupIntentConfirmParamsPaymentMethodDataGopay,
         SetupIntentConfirmParamsPaymentMethodDataGrabpay as SetupIntentConfirmParamsPaymentMethodDataGrabpay,
@@ -5119,6 +5135,7 @@ if TYPE_CHECKING:
         SetupIntentCreateParamsPaymentMethodDataCustomerBalance as SetupIntentCreateParamsPaymentMethodDataCustomerBalance,
         SetupIntentCreateParamsPaymentMethodDataEps as SetupIntentCreateParamsPaymentMethodDataEps,
         SetupIntentCreateParamsPaymentMethodDataFpx as SetupIntentCreateParamsPaymentMethodDataFpx,
+        SetupIntentCreateParamsPaymentMethodDataGiftCard as SetupIntentCreateParamsPaymentMethodDataGiftCard,
         SetupIntentCreateParamsPaymentMethodDataGiropay as SetupIntentCreateParamsPaymentMethodDataGiropay,
         SetupIntentCreateParamsPaymentMethodDataGopay as SetupIntentCreateParamsPaymentMethodDataGopay,
         SetupIntentCreateParamsPaymentMethodDataGrabpay as SetupIntentCreateParamsPaymentMethodDataGrabpay,
@@ -5230,6 +5247,7 @@ if TYPE_CHECKING:
         SetupIntentModifyParamsPaymentMethodDataCustomerBalance as SetupIntentModifyParamsPaymentMethodDataCustomerBalance,
         SetupIntentModifyParamsPaymentMethodDataEps as SetupIntentModifyParamsPaymentMethodDataEps,
         SetupIntentModifyParamsPaymentMethodDataFpx as SetupIntentModifyParamsPaymentMethodDataFpx,
+        SetupIntentModifyParamsPaymentMethodDataGiftCard as SetupIntentModifyParamsPaymentMethodDataGiftCard,
         SetupIntentModifyParamsPaymentMethodDataGiropay as SetupIntentModifyParamsPaymentMethodDataGiropay,
         SetupIntentModifyParamsPaymentMethodDataGopay as SetupIntentModifyParamsPaymentMethodDataGopay,
         SetupIntentModifyParamsPaymentMethodDataGrabpay as SetupIntentModifyParamsPaymentMethodDataGrabpay,
@@ -5339,6 +5357,7 @@ if TYPE_CHECKING:
         SetupIntentUpdateParamsPaymentMethodDataCustomerBalance as SetupIntentUpdateParamsPaymentMethodDataCustomerBalance,
         SetupIntentUpdateParamsPaymentMethodDataEps as SetupIntentUpdateParamsPaymentMethodDataEps,
         SetupIntentUpdateParamsPaymentMethodDataFpx as SetupIntentUpdateParamsPaymentMethodDataFpx,
+        SetupIntentUpdateParamsPaymentMethodDataGiftCard as SetupIntentUpdateParamsPaymentMethodDataGiftCard,
         SetupIntentUpdateParamsPaymentMethodDataGiropay as SetupIntentUpdateParamsPaymentMethodDataGiropay,
         SetupIntentUpdateParamsPaymentMethodDataGopay as SetupIntentUpdateParamsPaymentMethodDataGopay,
         SetupIntentUpdateParamsPaymentMethodDataGrabpay as SetupIntentUpdateParamsPaymentMethodDataGrabpay,
@@ -6349,6 +6368,14 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsCapabilitiesCardPayments": (
+        "stripe.params._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsCapabilitiesCardPaymentsProtections": (
+        "stripe.params._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsCapabilitiesCardPaymentsProtectionsPspMigration": (
         "stripe.params._account_create_params",
         False,
     ),
@@ -7765,6 +7792,14 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsCapabilitiesCardPayments": (
+        "stripe.params._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsCapabilitiesCardPaymentsProtections": (
+        "stripe.params._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsCapabilitiesCardPaymentsProtectionsPspMigration": (
         "stripe.params._account_update_params",
         False,
     ),
@@ -9536,6 +9571,10 @@ _import_map = {
         False,
     ),
     "ConfirmationTokenCreateParamsPaymentMethodDataFpx": (
+        "stripe.params._confirmation_token_create_params",
+        False,
+    ),
+    "ConfirmationTokenCreateParamsPaymentMethodDataGiftCard": (
         "stripe.params._confirmation_token_create_params",
         False,
     ),
@@ -13909,6 +13948,10 @@ _import_map = {
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
+    "PaymentIntentConfirmParamsPaymentMethodDataGiftCard": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
     "PaymentIntentConfirmParamsPaymentMethodDataGiropay": (
         "stripe.params._payment_intent_confirm_params",
         False,
@@ -15182,6 +15225,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentCreateParamsPaymentMethodDataFpx": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentMethodDataGiftCard": (
         "stripe.params._payment_intent_create_params",
         False,
     ),
@@ -16625,6 +16672,10 @@ _import_map = {
         "stripe.params._payment_intent_modify_params",
         False,
     ),
+    "PaymentIntentModifyParamsPaymentMethodDataGiftCard": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
     "PaymentIntentModifyParamsPaymentMethodDataGiropay": (
         "stripe.params._payment_intent_modify_params",
         False,
@@ -17914,6 +17965,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentUpdateParamsPaymentMethodDataFpx": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentMethodDataGiftCard": (
         "stripe.params._payment_intent_update_params",
         False,
     ),
@@ -19227,6 +19282,18 @@ _import_map = {
     ),
     "PaymentLinkUpdateParamsTaxIdCollection": (
         "stripe.params._payment_link_update_params",
+        False,
+    ),
+    "PaymentLocationCreateParams": (
+        "stripe.params._payment_location_create_params",
+        False,
+    ),
+    "PaymentLocationCreateParamsAddress": (
+        "stripe.params._payment_location_create_params",
+        False,
+    ),
+    "PaymentLocationCreateParamsBusinessRegistration": (
+        "stripe.params._payment_location_create_params",
         False,
     ),
     "PaymentMethodAttachParams": (
@@ -20858,6 +20925,10 @@ _import_map = {
         False,
     ),
     "PaymentMethodCreateParamsFpx": (
+        "stripe.params._payment_method_create_params",
+        False,
+    ),
+    "PaymentMethodCreateParamsGiftCard": (
         "stripe.params._payment_method_create_params",
         False,
     ),
@@ -22781,6 +22852,10 @@ _import_map = {
         "stripe.params._setup_intent_confirm_params",
         False,
     ),
+    "SetupIntentConfirmParamsPaymentMethodDataGiftCard": (
+        "stripe.params._setup_intent_confirm_params",
+        False,
+    ),
     "SetupIntentConfirmParamsPaymentMethodDataGiropay": (
         "stripe.params._setup_intent_confirm_params",
         False,
@@ -23217,6 +23292,10 @@ _import_map = {
         "stripe.params._setup_intent_create_params",
         False,
     ),
+    "SetupIntentCreateParamsPaymentMethodDataGiftCard": (
+        "stripe.params._setup_intent_create_params",
+        False,
+    ),
     "SetupIntentCreateParamsPaymentMethodDataGiropay": (
         "stripe.params._setup_intent_create_params",
         False,
@@ -23645,6 +23724,10 @@ _import_map = {
         "stripe.params._setup_intent_modify_params",
         False,
     ),
+    "SetupIntentModifyParamsPaymentMethodDataGiftCard": (
+        "stripe.params._setup_intent_modify_params",
+        False,
+    ),
     "SetupIntentModifyParamsPaymentMethodDataGiropay": (
         "stripe.params._setup_intent_modify_params",
         False,
@@ -24062,6 +24145,10 @@ _import_map = {
         False,
     ),
     "SetupIntentUpdateParamsPaymentMethodDataFpx": (
+        "stripe.params._setup_intent_update_params",
+        False,
+    ),
+    "SetupIntentUpdateParamsPaymentMethodDataGiftCard": (
         "stripe.params._setup_intent_update_params",
         False,
     ),

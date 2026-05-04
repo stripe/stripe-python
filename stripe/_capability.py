@@ -189,6 +189,24 @@ class Capability(UpdateableAPIResource["Capability"]):
         """
         _inner_class_types = {"alternatives": Alternative, "errors": Error}
 
+    class Protections(StripeObject):
+        class PspMigration(StripeObject):
+            expires_at: int
+            """
+            Time at which the protection expires. Measured in seconds since the Unix epoch.
+            """
+            requested_at: int
+            """
+            Time at which the protection was requested. Measured in seconds since the Unix epoch.
+            """
+            status: Literal["active", "disrupted", "expired", "inactive"]
+            """
+            The status of the capability protection.
+            """
+
+        psp_migration: Optional[PspMigration]
+        _inner_class_types = {"psp_migration": PspMigration}
+
     class Requirements(StripeObject):
         class Alternative(StripeObject):
             alternative_fields_due: List[str]
@@ -373,6 +391,7 @@ class Capability(UpdateableAPIResource["Capability"]):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
+    protections: Optional[Protections]
     requested: bool
     """
     Whether the capability has been requested.
@@ -413,5 +432,6 @@ class Capability(UpdateableAPIResource["Capability"]):
 
     _inner_class_types = {
         "future_requirements": FutureRequirements,
+        "protections": Protections,
         "requirements": Requirements,
     }

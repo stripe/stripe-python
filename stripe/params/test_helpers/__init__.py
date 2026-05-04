@@ -33,6 +33,7 @@ if TYPE_CHECKING:
         ConfirmationTokenCreateParamsPaymentMethodDataCustomerBalance as ConfirmationTokenCreateParamsPaymentMethodDataCustomerBalance,
         ConfirmationTokenCreateParamsPaymentMethodDataEps as ConfirmationTokenCreateParamsPaymentMethodDataEps,
         ConfirmationTokenCreateParamsPaymentMethodDataFpx as ConfirmationTokenCreateParamsPaymentMethodDataFpx,
+        ConfirmationTokenCreateParamsPaymentMethodDataGiftCard as ConfirmationTokenCreateParamsPaymentMethodDataGiftCard,
         ConfirmationTokenCreateParamsPaymentMethodDataGiropay as ConfirmationTokenCreateParamsPaymentMethodDataGiropay,
         ConfirmationTokenCreateParamsPaymentMethodDataGopay as ConfirmationTokenCreateParamsPaymentMethodDataGopay,
         ConfirmationTokenCreateParamsPaymentMethodDataGrabpay as ConfirmationTokenCreateParamsPaymentMethodDataGrabpay,
@@ -199,6 +200,10 @@ _import_map = {
         False,
     ),
     "ConfirmationTokenCreateParamsPaymentMethodDataFpx": (
+        "stripe.params.test_helpers._confirmation_token_create_params",
+        False,
+    ),
+    "ConfirmationTokenCreateParamsPaymentMethodDataGiftCard": (
         "stripe.params.test_helpers._confirmation_token_create_params",
         False,
     ),

@@ -469,6 +469,10 @@ if TYPE_CHECKING:
     from stripe._payment_link_service import (
         PaymentLinkService as PaymentLinkService,
     )
+    from stripe._payment_location import PaymentLocation as PaymentLocation
+    from stripe._payment_location_service import (
+        PaymentLocationService as PaymentLocationService,
+    )
     from stripe._payment_method import PaymentMethod as PaymentMethod
     from stripe._payment_method_balance import (
         PaymentMethodBalance as PaymentMethodBalance,
@@ -918,6 +922,8 @@ _import_map = {
         False,
     ),
     "PaymentLinkService": ("stripe._payment_link_service", False),
+    "PaymentLocation": ("stripe._payment_location", False),
+    "PaymentLocationService": ("stripe._payment_location_service", False),
     "PaymentMethod": ("stripe._payment_method", False),
     "PaymentMethodBalance": ("stripe._payment_method_balance", False),
     "PaymentMethodConfiguration": (

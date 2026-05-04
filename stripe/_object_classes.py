@@ -249,6 +249,7 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "PaymentIntentAmountDetailsLineItem",
     ),
     "payment_link": ("stripe._payment_link", "PaymentLink"),
+    "payment_location": ("stripe._payment_location", "PaymentLocation"),
     "payment_method": ("stripe._payment_method", "PaymentMethod"),
     "payment_method_balance": (
         "stripe._payment_method_balance",

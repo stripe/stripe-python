@@ -751,9 +751,33 @@ class AccountCreateParamsCapabilitiesCardIssuing(TypedDict):
 
 
 class AccountCreateParamsCapabilitiesCardPayments(TypedDict):
+    protections: NotRequired[
+        "AccountCreateParamsCapabilitiesCardPaymentsProtections"
+    ]
+    """
+    Protections to apply to this capability.
+    """
     requested: NotRequired[bool]
     """
     Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+    """
+
+
+class AccountCreateParamsCapabilitiesCardPaymentsProtections(TypedDict):
+    psp_migration: (
+        "AccountCreateParamsCapabilitiesCardPaymentsProtectionsPspMigration"
+    )
+    """
+    Protection for connected accounts migrating from another PSP.
+    """
+
+
+class AccountCreateParamsCapabilitiesCardPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    Passing true requests the protection.
     """
 
 

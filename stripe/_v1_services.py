@@ -62,6 +62,7 @@ if TYPE_CHECKING:
     )
     from stripe._payment_intent_service import PaymentIntentService
     from stripe._payment_link_service import PaymentLinkService
+    from stripe._payment_location_service import PaymentLocationService
     from stripe._payment_method_configuration_service import (
         PaymentMethodConfigurationService,
     )
@@ -210,6 +211,10 @@ _subservices = {
         "PaymentIntentService",
     ],
     "payment_links": ["stripe._payment_link_service", "PaymentLinkService"],
+    "payment_locations": [
+        "stripe._payment_location_service",
+        "PaymentLocationService",
+    ],
     "payment_methods": [
         "stripe._payment_method_service",
         "PaymentMethodService",
@@ -330,6 +335,7 @@ class V1Services(StripeService):
     payment_attempt_records: "PaymentAttemptRecordService"
     payment_intents: "PaymentIntentService"
     payment_links: "PaymentLinkService"
+    payment_locations: "PaymentLocationService"
     payment_methods: "PaymentMethodService"
     payment_method_configurations: "PaymentMethodConfigurationService"
     payment_method_domains: "PaymentMethodDomainService"

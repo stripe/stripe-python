@@ -193,6 +193,10 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
     """
     If this is an `fpx` PaymentMethod, this hash contains details about the FPX payment method.
     """
+    gift_card: NotRequired["SetupIntentConfirmParamsPaymentMethodDataGiftCard"]
+    """
+    If this is a `gift_card` PaymentMethod, this hash contains details about the gift card payment method.
+    """
     giropay: NotRequired["SetupIntentConfirmParamsPaymentMethodDataGiropay"]
     """
     If this is a `giropay` PaymentMethod, this hash contains details about the Giropay payment method.
@@ -401,6 +405,7 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
         "customer_balance",
         "eps",
         "fpx",
+        "gift_card",
         "giropay",
         "gopay",
         "grabpay",
@@ -679,6 +684,13 @@ class SetupIntentConfirmParamsPaymentMethodDataFpx(TypedDict):
     ]
     """
     The customer's bank.
+    """
+
+
+class SetupIntentConfirmParamsPaymentMethodDataGiftCard(TypedDict):
+    gift_card: str
+    """
+    The gift card ID to redeem
     """
 
 

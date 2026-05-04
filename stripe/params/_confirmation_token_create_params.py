@@ -138,6 +138,12 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
     """
     If this is an `fpx` PaymentMethod, this hash contains details about the FPX payment method.
     """
+    gift_card: NotRequired[
+        "ConfirmationTokenCreateParamsPaymentMethodDataGiftCard"
+    ]
+    """
+    If this is a `gift_card` PaymentMethod, this hash contains details about the gift card payment method.
+    """
     giropay: NotRequired[
         "ConfirmationTokenCreateParamsPaymentMethodDataGiropay"
     ]
@@ -362,6 +368,7 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
         "customer_balance",
         "eps",
         "fpx",
+        "gift_card",
         "giropay",
         "gopay",
         "grabpay",
@@ -642,6 +649,13 @@ class ConfirmationTokenCreateParamsPaymentMethodDataFpx(TypedDict):
     ]
     """
     The customer's bank.
+    """
+
+
+class ConfirmationTokenCreateParamsPaymentMethodDataGiftCard(TypedDict):
+    gift_card: str
+    """
+    The gift card ID to redeem
     """
 
 

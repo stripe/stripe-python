@@ -55,6 +55,7 @@ class PaymentMethodListParams(RequestOptions):
             "customer_balance",
             "eps",
             "fpx",
+            "gift_card",
             "giropay",
             "gopay",
             "grabpay",

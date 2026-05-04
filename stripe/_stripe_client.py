@@ -99,6 +99,7 @@ if TYPE_CHECKING:
     )
     from stripe._payment_intent_service import PaymentIntentService
     from stripe._payment_link_service import PaymentLinkService
+    from stripe._payment_location_service import PaymentLocationService
     from stripe._payment_method_service import PaymentMethodService
     from stripe._payment_method_configuration_service import (
         PaymentMethodConfigurationService,
@@ -880,6 +881,17 @@ class StripeClient(object):
     )
     def payment_links(self) -> "PaymentLinkService":
         return self.v1.payment_links
+
+    @property
+    @deprecated(
+        """
+        StripeClient.payment_locations is deprecated, use StripeClient.v1.payment_locations instead.
+          All functionality under it has been copied over to StripeClient.v1.payment_locations.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """,
+    )
+    def payment_locations(self) -> "PaymentLocationService":
+        return self.v1.payment_locations
 
     @property
     @deprecated(

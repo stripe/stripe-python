@@ -98,6 +98,7 @@ class PaymentIntentCreateParams(RequestOptions):
                 "customer_balance",
                 "eps",
                 "fpx",
+                "gift_card",
                 "giropay",
                 "gopay",
                 "grabpay",
@@ -2991,6 +2992,12 @@ class PaymentIntentCreateParamsPaymentMethodData(TypedDict):
     """
     If this is an `fpx` PaymentMethod, this hash contains details about the FPX payment method.
     """
+    gift_card: NotRequired[
+        "PaymentIntentCreateParamsPaymentMethodDataGiftCard"
+    ]
+    """
+    If this is a `gift_card` PaymentMethod, this hash contains details about the gift card payment method.
+    """
     giropay: NotRequired["PaymentIntentCreateParamsPaymentMethodDataGiropay"]
     """
     If this is a `giropay` PaymentMethod, this hash contains details about the Giropay payment method.
@@ -3203,6 +3210,7 @@ class PaymentIntentCreateParamsPaymentMethodData(TypedDict):
         "customer_balance",
         "eps",
         "fpx",
+        "gift_card",
         "giropay",
         "gopay",
         "grabpay",
@@ -3481,6 +3489,13 @@ class PaymentIntentCreateParamsPaymentMethodDataFpx(TypedDict):
     ]
     """
     The customer's bank.
+    """
+
+
+class PaymentIntentCreateParamsPaymentMethodDataGiftCard(TypedDict):
+    gift_card: str
+    """
+    The gift card ID to redeem
     """
 
 
