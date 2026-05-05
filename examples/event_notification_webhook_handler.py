@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+# File copied from our code generator; changes here will be overwritten.
 """
 event_notification_webhook_handler.py - receive and process event notifications (AKA thin events) like the v1.billing.meter.error_report_triggered and v1.billing.meter.no_meter_found events.
 

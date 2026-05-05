@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# File copied from our code generator; changes here will be overwritten.
+# -*- coding: utf-8 -*-
 
 import json
 from typing import Any, ClassVar, Dict, Optional, cast
@@ -245,7 +247,7 @@ class EventNotification:
     def __repr__(self) -> str:
         return f"<EventNotification id={self.id} type={self.type} created={self.created} context={self.context} reason={self.reason}>"
 
-    def fetch_event(self) -> Event:
+    def fetch_event(self) -> "Event":
         response = self._client.raw_request(
             "get",
             f"/v2/core/events/{self.id}",
@@ -253,9 +255,9 @@ class EventNotification:
             headers={"Stripe-Request-Trigger": f"event={self.id}"},
             usage=["pushed_event_pull"],
         )
-        return cast(Event, self._client.deserialize(response, api_mode="V2"))
+        return cast("Event", self._client.deserialize(response, api_mode="V2"))
 
-    async def fetch_event_async(self) -> Event:
+    async def fetch_event_async(self) -> "Event":
         response = await self._client.raw_request_async(
             "get",
             f"/v2/core/events/{self.id}",
@@ -263,7 +265,7 @@ class EventNotification:
             headers={"Stripe-Request-Trigger": f"event={self.id}"},
             usage=["pushed_event_pull", "pushed_event_pull_async"],
         )
-        return cast(Event, self._client.deserialize(response, api_mode="V2"))
+        return cast("Event", self._client.deserialize(response, api_mode="V2"))
 
 
 class UnknownEventNotification(EventNotification):
