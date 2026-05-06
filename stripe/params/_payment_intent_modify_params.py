@@ -56,7 +56,7 @@ class PaymentIntentModifyParams(RequestOptions):
     An arbitrary string attached to the object. Often useful for displaying to users.
     """
     excluded_payment_method_types: NotRequired[
-        "Literal['']|List[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'gopay', 'grabpay', 'id_bank_transfer', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'qris', 'rechnung', 'revolut_pay', 'samsung_pay', 'satispay', 'sepa_debit', 'shopeepay', 'sofort', 'stripe_balance', 'sunbit', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay', 'zip']]"
+        "Literal['']|List[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'gift_card', 'giropay', 'gopay', 'grabpay', 'id_bank_transfer', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'qris', 'rechnung', 'revolut_pay', 'samsung_pay', 'satispay', 'sepa_debit', 'shopeepay', 'sofort', 'stripe_balance', 'sunbit', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay', 'zip']]"
     ]
     """
     The list of payment method types to exclude from use with this payment.
@@ -2843,6 +2843,12 @@ class PaymentIntentModifyParamsPaymentMethodData(TypedDict):
     """
     If this is an `fpx` PaymentMethod, this hash contains details about the FPX payment method.
     """
+    gift_card: NotRequired[
+        "PaymentIntentModifyParamsPaymentMethodDataGiftCard"
+    ]
+    """
+    If this is a `gift_card` PaymentMethod, this hash contains details about the gift card payment method.
+    """
     giropay: NotRequired["PaymentIntentModifyParamsPaymentMethodDataGiropay"]
     """
     If this is a `giropay` PaymentMethod, this hash contains details about the Giropay payment method.
@@ -3055,6 +3061,7 @@ class PaymentIntentModifyParamsPaymentMethodData(TypedDict):
         "customer_balance",
         "eps",
         "fpx",
+        "gift_card",
         "giropay",
         "gopay",
         "grabpay",
@@ -3333,6 +3340,13 @@ class PaymentIntentModifyParamsPaymentMethodDataFpx(TypedDict):
     ]
     """
     The customer's bank.
+    """
+
+
+class PaymentIntentModifyParamsPaymentMethodDataGiftCard(TypedDict):
+    gift_card: str
+    """
+    The gift card ID to redeem
     """
 
 

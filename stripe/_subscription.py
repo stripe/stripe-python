@@ -793,6 +793,38 @@ class Subscription(
         Currency used for customer payments.
         """
 
+    class StatusDetails(StripeObject):
+        class Paused(StripeObject):
+            class Subscription(StripeObject):
+                type: Literal[
+                    "pause_requested",
+                    "system",
+                    "trial_end_without_payment_method",
+                ]
+                """
+                The reason that the subscription was paused.
+                """
+
+            subscription: Subscription
+            """
+            Information on the `type=subscription` pause.
+            """
+            transitioned_at: int
+            """
+            Unix timestamp in seconds of when the subscription status transitioned to `paused`.
+            """
+            type: Literal["subscription"]
+            """
+            The type of pause.
+            """
+            _inner_class_types = {"subscription": Subscription}
+
+        paused: Paused
+        """
+        Indicates when and why the subscription transitioned to the paused status.
+        """
+        _inner_class_types = {"paused": Paused}
+
     class TransferData(StripeObject):
         amount_percent: Optional[float]
         """
@@ -1019,6 +1051,10 @@ class Subscription(
     If subscription `collection_method=charge_automatically`, it becomes `past_due` when payment is required but cannot be paid (due to failed payment or awaiting additional user actions). Once Stripe has exhausted all payment retry attempts, the subscription will become `canceled` or `unpaid` (depending on your subscriptions settings).
 
     If subscription `collection_method=send_invoice` it becomes `past_due` when its invoice is not paid by the due date, and `canceled` or `unpaid` if it is still not paid by an additional deadline after that. Note that when a subscription has a status of `unpaid`, no subsequent invoices will be attempted (invoices will be created, but then immediately automatically closed). After receiving updated payment information from a customer, you may choose to reopen and pay their closed invoices.
+    """
+    status_details: Optional[StatusDetails]
+    """
+    Describes changes to the subscription's status.
     """
     test_clock: Optional[ExpandableField["TestClock"]]
     """
@@ -1993,6 +2029,7 @@ class Subscription(
         "pending_update": PendingUpdate,
         "prebilling": Prebilling,
         "presentment_details": PresentmentDetails,
+        "status_details": StatusDetails,
         "transfer_data": TransferData,
         "trial_settings": TrialSettings,
     }

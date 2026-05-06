@@ -99,6 +99,10 @@ class PaymentMethodCreateParams(RequestOptions):
     """
     If this is an `fpx` PaymentMethod, this hash contains details about the FPX payment method.
     """
+    gift_card: NotRequired["PaymentMethodCreateParamsGiftCard"]
+    """
+    If this is a `gift_card` PaymentMethod, this hash contains details about the gift card payment method.
+    """
     giropay: NotRequired["PaymentMethodCreateParamsGiropay"]
     """
     If this is a `giropay` PaymentMethod, this hash contains details about the Giropay payment method.
@@ -284,6 +288,7 @@ class PaymentMethodCreateParams(RequestOptions):
             "customer_balance",
             "eps",
             "fpx",
+            "gift_card",
             "giropay",
             "gopay",
             "grabpay",
@@ -598,6 +603,13 @@ class PaymentMethodCreateParamsFpx(TypedDict):
     ]
     """
     The customer's bank.
+    """
+
+
+class PaymentMethodCreateParamsGiftCard(TypedDict):
+    gift_card: str
+    """
+    The gift card ID to redeem
     """
 
 

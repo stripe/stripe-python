@@ -21,6 +21,12 @@ class RequestedSessionConfirmParams(RequestOptions):
     """
     Specifies which fields in the response should be expanded.
     """
+    metadata: NotRequired[
+        "Literal['']|Dict[str, str]|UntypedStripeObject[str]"
+    ]
+    """
+    The metadata for this requested session.
+    """
     payment_method: NotRequired[str]
     """
     The PaymentMethod to use with the requested session.

@@ -224,6 +224,28 @@ class InvoiceItem(
         _field_encodings = {"unit_amount_decimal": "decimal_string"}
 
     class ProrationDetails(StripeObject):
+        class CreditedItems(StripeObject):
+            class InvoiceLineItems(StripeObject):
+                invoice: str
+                """
+                The invoice id for the debited line item(s).
+                """
+                invoice_line_items: List[str]
+                """
+                IDs of the debited invoice line item(s) on the invoice that correspond to the credit proration.
+                """
+
+            invoice_item: Optional[str]
+            """
+            When `type` is `invoice_item`, the invoice item id for the debited invoice item corresponding to this credit proration.
+            """
+            invoice_line_items: Optional[InvoiceLineItems]
+            type: Literal["invoice_item", "invoice_line_items"]
+            """
+            Whether the credit references a pending invoice item or one or more invoice line items on an invoice.
+            """
+            _inner_class_types = {"invoice_line_items": InvoiceLineItems}
+
         class DiscountAmount(StripeObject):
             amount: int
             """
@@ -234,11 +256,15 @@ class InvoiceItem(
             The discount that was applied to get this discount amount.
             """
 
+        credited_items: Optional[CreditedItems]
         discount_amounts: List[DiscountAmount]
         """
         Discount amounts applied when the proration was created.
         """
-        _inner_class_types = {"discount_amounts": DiscountAmount}
+        _inner_class_types = {
+            "credited_items": CreditedItems,
+            "discount_amounts": DiscountAmount,
+        }
 
     amount: int
     """

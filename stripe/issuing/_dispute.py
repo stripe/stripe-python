@@ -387,6 +387,55 @@ class Dispute(
             "service_not_as_described": ServiceNotAsDescribed,
         }
 
+    class NetworkLifecycle(StripeObject):
+        class DisputeResponse(StripeObject):
+            error: Optional[str]
+            """
+            Error message if processing the acquiring merchant's initial dispute response failed.
+            """
+            merchant_evidence_files: Optional[List[str]]
+            """
+            Array of [File](https://docs.stripe.com/api/files) ids containing evidence the acquiring merchant provided in support of their initial dispute response.
+            """
+
+        class PreArbitrationResponse(StripeObject):
+            error: Optional[str]
+            """
+            Error message if processing the acquiring merchant's pre-arbitration response failed.
+            """
+            merchant_evidence_files: Optional[List[str]]
+            """
+            Array of [File](https://docs.stripe.com/api/files) ids containing evidence the acquiring merchant provided with their pre-arbitration response.
+            """
+
+        class PreArbitrationSubmission(StripeObject):
+            error: Optional[str]
+            """
+            Error message if processing the acquiring merchant's pre-arbitration submission failed.
+            """
+            merchant_evidence_files: Optional[List[str]]
+            """
+            Array of [File](https://docs.stripe.com/api/files) ids containing evidence the acquiring merchant provided with their pre-arbitration submission.
+            """
+
+        dispute_response: Optional[DisputeResponse]
+        """
+        Information related to the acquiring merchant's initial response to this dispute.
+        """
+        pre_arbitration_response: Optional[PreArbitrationResponse]
+        """
+        Information related to the acquiring merchant's pre-arbitration response for this dispute.
+        """
+        pre_arbitration_submission: Optional[PreArbitrationSubmission]
+        """
+        Information related to the acquiring merchant's pre-arbitration submission for this dispute.
+        """
+        _inner_class_types = {
+            "dispute_response": DisputeResponse,
+            "pre_arbitration_response": PreArbitrationResponse,
+            "pre_arbitration_submission": PreArbitrationSubmission,
+        }
+
     class Treasury(StripeObject):
         debit_reversal: Optional[str]
         """
@@ -456,6 +505,10 @@ class Dispute(
     metadata: UntypedStripeObject[str]
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    """
+    network_lifecycle: Optional[NetworkLifecycle]
+    """
+    Incoming information from the card network for this dispute. Includes the acquiring merchant's initial response, pre-arbitration submission, and pre-arbitration response to the dispute.
     """
     object: Literal["issuing.dispute"]
     """
@@ -711,5 +764,6 @@ class Dispute(
     _inner_class_types = {
         "crypto_transactions": CryptoTransaction,
         "evidence": Evidence,
+        "network_lifecycle": NetworkLifecycle,
         "treasury": Treasury,
     }
