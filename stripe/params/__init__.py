@@ -3880,6 +3880,22 @@ if TYPE_CHECKING:
         PaymentLocationCreateParamsAddress as PaymentLocationCreateParamsAddress,
         PaymentLocationCreateParamsBusinessRegistration as PaymentLocationCreateParamsBusinessRegistration,
     )
+    from stripe.params._payment_location_delete_params import (
+        PaymentLocationDeleteParams as PaymentLocationDeleteParams,
+    )
+    from stripe.params._payment_location_modify_params import (
+        PaymentLocationModifyParams as PaymentLocationModifyParams,
+        PaymentLocationModifyParamsAddress as PaymentLocationModifyParamsAddress,
+        PaymentLocationModifyParamsBusinessRegistration as PaymentLocationModifyParamsBusinessRegistration,
+    )
+    from stripe.params._payment_location_retrieve_params import (
+        PaymentLocationRetrieveParams as PaymentLocationRetrieveParams,
+    )
+    from stripe.params._payment_location_update_params import (
+        PaymentLocationUpdateParams as PaymentLocationUpdateParams,
+        PaymentLocationUpdateParamsAddress as PaymentLocationUpdateParamsAddress,
+        PaymentLocationUpdateParamsBusinessRegistration as PaymentLocationUpdateParamsBusinessRegistration,
+    )
     from stripe.params._payment_method_attach_params import (
         PaymentMethodAttachParams as PaymentMethodAttachParams,
     )
@@ -19294,6 +19310,38 @@ _import_map = {
     ),
     "PaymentLocationCreateParamsBusinessRegistration": (
         "stripe.params._payment_location_create_params",
+        False,
+    ),
+    "PaymentLocationDeleteParams": (
+        "stripe.params._payment_location_delete_params",
+        False,
+    ),
+    "PaymentLocationModifyParams": (
+        "stripe.params._payment_location_modify_params",
+        False,
+    ),
+    "PaymentLocationModifyParamsAddress": (
+        "stripe.params._payment_location_modify_params",
+        False,
+    ),
+    "PaymentLocationModifyParamsBusinessRegistration": (
+        "stripe.params._payment_location_modify_params",
+        False,
+    ),
+    "PaymentLocationRetrieveParams": (
+        "stripe.params._payment_location_retrieve_params",
+        False,
+    ),
+    "PaymentLocationUpdateParams": (
+        "stripe.params._payment_location_update_params",
+        False,
+    ),
+    "PaymentLocationUpdateParamsAddress": (
+        "stripe.params._payment_location_update_params",
+        False,
+    ),
+    "PaymentLocationUpdateParamsBusinessRegistration": (
+        "stripe.params._payment_location_update_params",
         False,
     ),
     "PaymentMethodAttachParams": (
