@@ -1,5 +1,22 @@
 # Changelog
 
+## 15.2.0a4 - 2026-05-06
+* [#1804](https://github.com/stripe/stripe-python/pull/1804) Update generated code for private-preview
+  * Add support for new resource `PaymentLocation`
+  * Add support for `create`, `delete`, `modify`, and `retrieve` methods on resource `PaymentLocation`
+  * Add support for `protections` on `AccountCreateParamsCapabilityCardPayment`, `AccountModifyParamsCapabilityCardPayment`, and `Capability`
+  * Add support for `gift_card` on `ConfirmationToken.PaymentMethodPreview`, `ConfirmationTokenCreateParamsPaymentMethodDatum`, `PaymentIntentConfirmParamsPaymentMethodDatum`, `PaymentIntentCreateParamsPaymentMethodDatum`, `PaymentIntentModifyParamsPaymentMethodDatum`, `PaymentMethodCreateParams`, `PaymentMethod`, `SetupIntentConfirmParamsPaymentMethodDatum`, `SetupIntentCreateParamsPaymentMethodDatum`, `SetupIntentModifyParamsPaymentMethodDatum`, and `SharedPayment.GrantedToken.PaymentMethodDetail`
+  * Add support for new value `gift_card` on enums `ConfirmationTokenCreateParamsPaymentMethodDatum.type`, `PaymentIntentConfirmParamsPaymentMethodDatum.type`, `PaymentIntentCreateParamsPaymentMethodDatum.type`, `PaymentIntentModifyParamsPaymentMethodDatum.type`, `SetupIntentConfirmParamsPaymentMethodDatum.type`, `SetupIntentCreateParamsPaymentMethodDatum.type`, and `SetupIntentModifyParamsPaymentMethodDatum.type`
+  * ⚠️ Add support for new value `gift_card` on enums `ConfirmationToken.PaymentMethodPreview.type`, `PaymentMethod.type`, and `SharedPayment.GrantedToken.PaymentMethodDetail.type`
+  * Add support for new value `gift_card` on enums `CustomerListPaymentMethodsParams.type`, `PaymentMethodCreateParams.type`, and `PaymentMethodListParams.type`
+  * Add support for `metadata` on `delegated_checkout.RequestedSessionConfirmParams`
+  * Add support for `credited_items` on `InvoiceItem.ProrationDetail`
+  * Add support for `network_lifecycle` on `Issuing.Dispute`
+  * Add support for new value `gift_card` on enums `PaymentIntentConfirmParams.excluded_payment_method_types`, `PaymentIntentCreateParams.excluded_payment_method_types`, `PaymentIntentModifyParams.excluded_payment_method_types`, `SetupIntentCreateParams.excluded_payment_method_types`, and `SetupIntentModifyParams.excluded_payment_method_types`
+  * ⚠️ Add support for new value `gift_card` on enums `PaymentIntent.excluded_payment_method_types` and `SetupIntent.excluded_payment_method_types`
+  * Add support for `status_details` on `Subscription`
+* [#1805](https://github.com/stripe/stripe-python/pull/1805) Add EventNotificationHandler (private preview)
+
 ## 15.2.0a3 - 2026-04-28
 * [#1802](https://github.com/stripe/stripe-python/pull/1802) Update generated code for private-preview
   * Add support for `debit_card` on `V2.Core.Account.Configuration.CardCreator.Capability.Consumer.Lead`, `V2.Core.Account.Identity.Attestation.TermsOfService.CardCreator.Consumer.Lead`, `v2.core.AccountCreateParamsConfigurationCardCreatorCapabilityConsumerLead`, `v2.core.AccountCreateParamsIdentityAttestationTermsOfServiceCardCreatorConsumerLead`, `v2.core.AccountModifyParamsConfigurationCardCreatorCapabilityConsumerLead`, and `v2.core.AccountModifyParamsIdentityAttestationTermsOfServiceCardCreatorConsumerLead`
