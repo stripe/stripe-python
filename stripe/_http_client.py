@@ -1393,6 +1393,13 @@ class HTTPXClient(HTTPClient):
     async def close_async(self):
         await self._client_async.aclose()
 
+    async def __aenter__(self):
+        return self
+
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        await self.close_async()
+        return False
+
 
 class AIOHTTPClient(HTTPClient):
     name = "aiohttp"
@@ -1526,6 +1533,13 @@ class AIOHTTPClient(HTTPClient):
     async def close_async(self):
         if self._internally_managed_session:
             await self._session.close()
+
+    async def __aenter__(self):
+        return self
+
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        await self.close_async()
+        return False
 
 
 class NoImportFoundAsyncClient(HTTPClient):
