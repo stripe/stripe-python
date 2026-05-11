@@ -18,6 +18,7 @@ if TYPE_CHECKING:
         RequestedSessionCreateParams as RequestedSessionCreateParams,
         RequestedSessionCreateParamsAffiliateAttribution as RequestedSessionCreateParamsAffiliateAttribution,
         RequestedSessionCreateParamsAffiliateAttributionSource as RequestedSessionCreateParamsAffiliateAttributionSource,
+        RequestedSessionCreateParamsDiscounts as RequestedSessionCreateParamsDiscounts,
         RequestedSessionCreateParamsFulfillmentDetails as RequestedSessionCreateParamsFulfillmentDetails,
         RequestedSessionCreateParamsFulfillmentDetailsAddress as RequestedSessionCreateParamsFulfillmentDetailsAddress,
         RequestedSessionCreateParamsLineItemDetail as RequestedSessionCreateParamsLineItemDetail,
@@ -30,6 +31,7 @@ if TYPE_CHECKING:
     )
     from stripe.params.delegated_checkout._requested_session_modify_params import (
         RequestedSessionModifyParams as RequestedSessionModifyParams,
+        RequestedSessionModifyParamsDiscounts as RequestedSessionModifyParamsDiscounts,
         RequestedSessionModifyParamsFulfillmentDetails as RequestedSessionModifyParamsFulfillmentDetails,
         RequestedSessionModifyParamsFulfillmentDetailsAddress as RequestedSessionModifyParamsFulfillmentDetailsAddress,
         RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOption as RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOption,
@@ -47,6 +49,7 @@ if TYPE_CHECKING:
     )
     from stripe.params.delegated_checkout._requested_session_update_params import (
         RequestedSessionUpdateParams as RequestedSessionUpdateParams,
+        RequestedSessionUpdateParamsDiscounts as RequestedSessionUpdateParamsDiscounts,
         RequestedSessionUpdateParamsFulfillmentDetails as RequestedSessionUpdateParamsFulfillmentDetails,
         RequestedSessionUpdateParamsFulfillmentDetailsAddress as RequestedSessionUpdateParamsFulfillmentDetailsAddress,
         RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOption as RequestedSessionUpdateParamsFulfillmentDetailsSelectedFulfillmentOption,
@@ -106,6 +109,10 @@ _import_map = {
         "stripe.params.delegated_checkout._requested_session_create_params",
         False,
     ),
+    "RequestedSessionCreateParamsDiscounts": (
+        "stripe.params.delegated_checkout._requested_session_create_params",
+        False,
+    ),
     "RequestedSessionCreateParamsFulfillmentDetails": (
         "stripe.params.delegated_checkout._requested_session_create_params",
         False,
@@ -135,6 +142,10 @@ _import_map = {
         False,
     ),
     "RequestedSessionModifyParams": (
+        "stripe.params.delegated_checkout._requested_session_modify_params",
+        False,
+    ),
+    "RequestedSessionModifyParamsDiscounts": (
         "stripe.params.delegated_checkout._requested_session_modify_params",
         False,
     ),
@@ -187,6 +198,10 @@ _import_map = {
         False,
     ),
     "RequestedSessionUpdateParams": (
+        "stripe.params.delegated_checkout._requested_session_update_params",
+        False,
+    ),
+    "RequestedSessionUpdateParamsDiscounts": (
         "stripe.params.delegated_checkout._requested_session_update_params",
         False,
     ),

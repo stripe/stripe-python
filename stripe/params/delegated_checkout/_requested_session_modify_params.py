@@ -7,6 +7,10 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class RequestedSessionModifyParams(RequestOptions):
+    discounts: NotRequired["RequestedSessionModifyParamsDiscounts"]
+    """
+    The discount codes to apply to this requested session.
+    """
     expand: NotRequired[List[str]]
     """
     Specifies which fields in the response should be expanded.
@@ -44,6 +48,17 @@ class RequestedSessionModifyParams(RequestOptions):
     ]
     """
     The shared metadata for this requested session.
+    """
+
+
+class RequestedSessionModifyParamsDiscounts(TypedDict):
+    codes: List[str]
+    """
+    Array of discount codes to apply.
+    """
+    enforce_strict_eligibility: NotRequired[bool]
+    """
+    Whether to enforce strict eligibility for discount codes. Defaults to true. When false, invalid codes are returned in the discounts.invalid array instead of raising an error.
     """
 
 

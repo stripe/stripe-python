@@ -6,6 +6,7 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
     from stripe._payment_location import PaymentLocation
     from stripe._request_options import RequestOptions
     from stripe.params._payment_location_create_params import (
@@ -13,6 +14,9 @@ if TYPE_CHECKING:
     )
     from stripe.params._payment_location_delete_params import (
         PaymentLocationDeleteParams,
+    )
+    from stripe.params._payment_location_list_params import (
+        PaymentLocationListParams,
     )
     from stripe.params._payment_location_retrieve_params import (
         PaymentLocationRetrieveParams,
@@ -137,6 +141,44 @@ class PaymentLocationService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/payment_locations/{id}".format(id=sanitize_id(id)),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def list(
+        self,
+        params: Optional["PaymentLocationListParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[PaymentLocation]":
+        """
+        List all Payment Locations.
+        """
+        return cast(
+            "ListObject[PaymentLocation]",
+            self._request(
+                "get",
+                "/v1/payment_locations",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def list_async(
+        self,
+        params: Optional["PaymentLocationListParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[PaymentLocation]":
+        """
+        List all Payment Locations.
+        """
+        return cast(
+            "ListObject[PaymentLocation]",
+            await self._request_async(
+                "get",
+                "/v1/payment_locations",
                 base_address="api",
                 params=params,
                 options=options,

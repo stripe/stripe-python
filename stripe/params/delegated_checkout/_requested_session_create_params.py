@@ -21,6 +21,10 @@ class RequestedSessionCreateParams(RequestOptions):
     """
     The customer for this requested session.
     """
+    discounts: NotRequired["RequestedSessionCreateParamsDiscounts"]
+    """
+    The discount codes to apply to this requested session.
+    """
     expand: NotRequired[List[str]]
     """
     Specifies which fields in the response should be expanded.
@@ -124,6 +128,17 @@ class RequestedSessionCreateParamsAffiliateAttributionSource(TypedDict):
     url: NotRequired[str]
     """
     The URL where the attribution originated.
+    """
+
+
+class RequestedSessionCreateParamsDiscounts(TypedDict):
+    codes: List[str]
+    """
+    Array of discount codes to apply.
+    """
+    enforce_strict_eligibility: NotRequired[bool]
+    """
+    Whether to enforce strict eligibility for discount codes. Defaults to true. When false, invalid codes are returned in the discounts.invalid array instead of raising an error.
     """
 
 

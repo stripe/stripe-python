@@ -403,18 +403,7 @@ class Subscription(
                 _inner_class_types = {"mandate_options": MandateOptions}
 
             class CheckScan(StripeObject):
-                class CheckDepositAddress(StripeObject):
-                    city: Optional[str]
-                    country: Optional[str]
-                    line1: Optional[str]
-                    line2: Optional[str]
-                    postal_code: Optional[str]
-                    state: Optional[str]
-
-                check_deposit_address: Optional[CheckDepositAddress]
-                _inner_class_types = {
-                    "check_deposit_address": CheckDepositAddress,
-                }
+                pass
 
             class CustomerBalance(StripeObject):
                 class BankTransfer(StripeObject):
