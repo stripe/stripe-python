@@ -23,6 +23,10 @@ class PaymentLocationUpdateParams(TypedDict):
     """
     Specifies which fields in the response should be expanded.
     """
+    onboarding_data_update_acknowledged: NotRequired[bool]
+    """
+    Pass true when updating location fields that will trigger onboarding review for any of the location's active location capabilities. If this parameter is not set to true, updates that would trigger onboarding review will fail. Only applicable for locations with active location capabilities.
+    """
 
 
 class PaymentLocationUpdateParamsAddress(TypedDict):

@@ -1758,6 +1758,10 @@ class SetupIntentUpdateParamsSetupDetails(TypedDict):
     """
     Benefit details for this SetupIntent
     """
+    location: NotRequired[str]
+    """
+    The ID of the Payment Location for this SetupIntent.
+    """
 
 
 class SetupIntentUpdateParamsSetupDetailsBenefit(TypedDict):
