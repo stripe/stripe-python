@@ -6,34 +6,44 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class CustomerEvaluationModifyParams(RequestOptions):
+    customer: NotRequired[str]
+    """
+    The ID of a Customer to attach to an entity-less registration evaluation.
+    """
     expand: NotRequired[List[str]]
     """
     Specifies which fields in the response should be expanded.
     """
     login_failed: NotRequired["CustomerEvaluationModifyParamsLoginFailed"]
     """
-    Event payload for login_failed.
+    Data for a failed login event.
     """
     registration_failed: NotRequired[
         "CustomerEvaluationModifyParamsRegistrationFailed"
     ]
     """
-    Event payload for registration_failed.
+    Data for a failed registration event.
     """
     registration_success: NotRequired[
         "CustomerEvaluationModifyParamsRegistrationSuccess"
     ]
     """
-    Event payload for registration_success.
+    Data for a successful registration event.
     """
-    type: Literal[
-        "login_failed",
-        "login_success",
-        "registration_failed",
-        "registration_success",
+    status: NotRequired[Literal["allowed", "blocked", "restricted"]]
+    """
+    The outcome status of the evaluation: allowed, restricted, or blocked.
+    """
+    type: NotRequired[
+        Literal[
+            "login_failed",
+            "login_success",
+            "registration_failed",
+            "registration_success",
+        ]
     ]
     """
-    The type of event to report.
+    The type of event to report on the customer evaluation.
     """
 
 
