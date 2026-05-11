@@ -10,6 +10,9 @@ if TYPE_CHECKING:
     from stripe.test_helpers.issuing._card_service import (
         CardService as CardService,
     )
+    from stripe.test_helpers.issuing._dispute_service import (
+        DisputeService as DisputeService,
+    )
     from stripe.test_helpers.issuing._personalization_design_service import (
         PersonalizationDesignService as PersonalizationDesignService,
     )
@@ -24,6 +27,7 @@ _import_map = {
         False,
     ),
     "CardService": ("stripe.test_helpers.issuing._card_service", False),
+    "DisputeService": ("stripe.test_helpers.issuing._dispute_service", False),
     "PersonalizationDesignService": (
         "stripe.test_helpers.issuing._personalization_design_service",
         False,

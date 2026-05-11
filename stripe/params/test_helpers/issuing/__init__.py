@@ -76,6 +76,10 @@ if TYPE_CHECKING:
     from stripe.params.test_helpers.issuing._card_submit_card_params import (
         CardSubmitCardParams as CardSubmitCardParams,
     )
+    from stripe.params.test_helpers.issuing._dispute_simulate_network_lifecycle_pre_arbitration_submission_params import (
+        DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParams as DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParams,
+        DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParamsMerchantEvidenceFiles as DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParamsMerchantEvidenceFiles,
+    )
     from stripe.params.test_helpers.issuing._personalization_design_activate_params import (
         PersonalizationDesignActivateParams as PersonalizationDesignActivateParams,
     )
@@ -314,6 +318,14 @@ _import_map = {
     ),
     "CardSubmitCardParams": (
         "stripe.params.test_helpers.issuing._card_submit_card_params",
+        False,
+    ),
+    "DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParams": (
+        "stripe.params.test_helpers.issuing._dispute_simulate_network_lifecycle_pre_arbitration_submission_params",
+        False,
+    ),
+    "DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParamsMerchantEvidenceFiles": (
+        "stripe.params.test_helpers.issuing._dispute_simulate_network_lifecycle_pre_arbitration_submission_params",
         False,
     ),
     "PersonalizationDesignActivateParams": (

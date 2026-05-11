@@ -262,6 +262,10 @@ if TYPE_CHECKING:
     from stripe.params.issuing._dispute_settlement_detail_retrieve_params import (
         DisputeSettlementDetailRetrieveParams as DisputeSettlementDetailRetrieveParams,
     )
+    from stripe.params.issuing._dispute_simulate_network_lifecycle_pre_arbitration_submission_params import (
+        DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParams as DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParams,
+        DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParamsMerchantEvidenceFiles as DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParamsMerchantEvidenceFiles,
+    )
     from stripe.params.issuing._dispute_submit_params import (
         DisputeSubmitParams as DisputeSubmitParams,
     )
@@ -1096,6 +1100,14 @@ _import_map = {
     ),
     "DisputeSettlementDetailRetrieveParams": (
         "stripe.params.issuing._dispute_settlement_detail_retrieve_params",
+        False,
+    ),
+    "DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParams": (
+        "stripe.params.issuing._dispute_simulate_network_lifecycle_pre_arbitration_submission_params",
+        False,
+    ),
+    "DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParamsMerchantEvidenceFiles": (
+        "stripe.params.issuing._dispute_simulate_network_lifecycle_pre_arbitration_submission_params",
         False,
     ),
     "DisputeSubmitParams": (

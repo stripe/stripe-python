@@ -5,10 +5,11 @@ from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
+from stripe._test_helpers import APIResourceTestHelpers
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, List, Optional, cast, overload
-from typing_extensions import Literal, Unpack, TYPE_CHECKING
+from typing_extensions import Literal, Type, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._balance_transaction import BalanceTransaction
@@ -23,6 +24,9 @@ if TYPE_CHECKING:
     )
     from stripe.params.issuing._dispute_retrieve_params import (
         DisputeRetrieveParams,
+    )
+    from stripe.params.issuing._dispute_simulate_network_lifecycle_pre_arbitration_submission_params import (
+        DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParams,
     )
     from stripe.params.issuing._dispute_submit_params import (
         DisputeSubmitParams,
@@ -761,9 +765,159 @@ class Dispute(
             ),
         )
 
+    class TestHelpers(APIResourceTestHelpers["Dispute"]):
+        _resource_cls: Type["Dispute"]
+
+        @classmethod
+        def _cls_simulate_network_lifecycle_pre_arbitration_submission(
+            cls,
+            dispute: str,
+            **params: Unpack[
+                "DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParams"
+            ],
+        ) -> "Dispute":
+            """
+            Test helper: populates network_lifecycle.pre_arbitration_submission on a test-mode Visa Issuing Dispute using placeholder file tokens. Only supported for Visa disputes.
+            """
+            return cast(
+                "Dispute",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/issuing/disputes/{dispute}/simulate_network_lifecycle_pre_arbitration_submission".format(
+                        dispute=sanitize_id(dispute)
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        def simulate_network_lifecycle_pre_arbitration_submission(
+            dispute: str,
+            **params: Unpack[
+                "DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParams"
+            ],
+        ) -> "Dispute":
+            """
+            Test helper: populates network_lifecycle.pre_arbitration_submission on a test-mode Visa Issuing Dispute using placeholder file tokens. Only supported for Visa disputes.
+            """
+            ...
+
+        @overload
+        def simulate_network_lifecycle_pre_arbitration_submission(
+            self,
+            **params: Unpack[
+                "DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParams"
+            ],
+        ) -> "Dispute":
+            """
+            Test helper: populates network_lifecycle.pre_arbitration_submission on a test-mode Visa Issuing Dispute using placeholder file tokens. Only supported for Visa disputes.
+            """
+            ...
+
+        @class_method_variant(
+            "_cls_simulate_network_lifecycle_pre_arbitration_submission",
+        )
+        def simulate_network_lifecycle_pre_arbitration_submission(  # pyright: ignore[reportGeneralTypeIssues]
+            self,
+            **params: Unpack[
+                "DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParams"
+            ],
+        ) -> "Dispute":
+            """
+            Test helper: populates network_lifecycle.pre_arbitration_submission on a test-mode Visa Issuing Dispute using placeholder file tokens. Only supported for Visa disputes.
+            """
+            return cast(
+                "Dispute",
+                self.resource._request(
+                    "post",
+                    "/v1/test_helpers/issuing/disputes/{dispute}/simulate_network_lifecycle_pre_arbitration_submission".format(
+                        dispute=sanitize_id(self.resource._data.get("id"))
+                    ),
+                    params=params,
+                ),
+            )
+
+        @classmethod
+        async def _cls_simulate_network_lifecycle_pre_arbitration_submission_async(
+            cls,
+            dispute: str,
+            **params: Unpack[
+                "DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParams"
+            ],
+        ) -> "Dispute":
+            """
+            Test helper: populates network_lifecycle.pre_arbitration_submission on a test-mode Visa Issuing Dispute using placeholder file tokens. Only supported for Visa disputes.
+            """
+            return cast(
+                "Dispute",
+                await cls._static_request_async(
+                    "post",
+                    "/v1/test_helpers/issuing/disputes/{dispute}/simulate_network_lifecycle_pre_arbitration_submission".format(
+                        dispute=sanitize_id(dispute)
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        async def simulate_network_lifecycle_pre_arbitration_submission_async(
+            dispute: str,
+            **params: Unpack[
+                "DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParams"
+            ],
+        ) -> "Dispute":
+            """
+            Test helper: populates network_lifecycle.pre_arbitration_submission on a test-mode Visa Issuing Dispute using placeholder file tokens. Only supported for Visa disputes.
+            """
+            ...
+
+        @overload
+        async def simulate_network_lifecycle_pre_arbitration_submission_async(
+            self,
+            **params: Unpack[
+                "DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParams"
+            ],
+        ) -> "Dispute":
+            """
+            Test helper: populates network_lifecycle.pre_arbitration_submission on a test-mode Visa Issuing Dispute using placeholder file tokens. Only supported for Visa disputes.
+            """
+            ...
+
+        @class_method_variant(
+            "_cls_simulate_network_lifecycle_pre_arbitration_submission_async",
+        )
+        async def simulate_network_lifecycle_pre_arbitration_submission_async(  # pyright: ignore[reportGeneralTypeIssues]
+            self,
+            **params: Unpack[
+                "DisputeSimulateNetworkLifecyclePreArbitrationSubmissionParams"
+            ],
+        ) -> "Dispute":
+            """
+            Test helper: populates network_lifecycle.pre_arbitration_submission on a test-mode Visa Issuing Dispute using placeholder file tokens. Only supported for Visa disputes.
+            """
+            return cast(
+                "Dispute",
+                await self.resource._request_async(
+                    "post",
+                    "/v1/test_helpers/issuing/disputes/{dispute}/simulate_network_lifecycle_pre_arbitration_submission".format(
+                        dispute=sanitize_id(self.resource._data.get("id"))
+                    ),
+                    params=params,
+                ),
+            )
+
+    @property
+    def test_helpers(self):
+        return self.TestHelpers(self)
+
     _inner_class_types = {
         "crypto_transactions": CryptoTransaction,
         "evidence": Evidence,
         "network_lifecycle": NetworkLifecycle,
         "treasury": Treasury,
     }
+
+
+Dispute.TestHelpers._resource_cls = Dispute
