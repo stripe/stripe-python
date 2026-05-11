@@ -35,6 +35,8 @@ dependencies = [
 [project.optional-dependencies]
 # `pip install stripe[async]` gets you everything + `httpx`, so our async stuff works out of the box
 async = ["httpx"]
+# `pip install stripe[request-signing]` enables request signing with ECDSA P-256 keys
+request-signing = ["cryptography >= 43.0"]
 
 [project.urls]
 homepage = "https://stripe.com/"

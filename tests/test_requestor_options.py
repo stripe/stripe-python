@@ -30,6 +30,7 @@ class TestRequestorOptions(object):
                 "files": "https://files.example.com",
             },
             "max_network_retries": 3,
+            "signing_keys": None,
         }
 
     def test_global_options_get_updated(

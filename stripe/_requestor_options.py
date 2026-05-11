@@ -6,6 +6,7 @@ from typing import Optional, Union
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._request_signing_authenticator import RequestSigningOptions
     from stripe._stripe_context import StripeContext
 
 
@@ -16,6 +17,7 @@ class RequestorOptions(object):
     stripe_version: Optional[str]
     base_addresses: BaseAddresses
     max_network_retries: Optional[int]
+    signing_keys: Optional["RequestSigningOptions"]
 
     def __init__(
         self,
@@ -25,12 +27,14 @@ class RequestorOptions(object):
         stripe_version: Optional[str] = None,
         base_addresses: Optional[BaseAddresses] = None,
         max_network_retries: Optional[int] = None,
+        signing_keys: Optional["RequestSigningOptions"] = None,
     ):
         self.api_key = api_key
         self.stripe_account = stripe_account
         self.stripe_context = stripe_context
         self.stripe_version = stripe_version
         self.base_addresses = {}
+        self.signing_keys = signing_keys
 
         if base_addresses:
             # Base addresses can be unset (for correct merging).
@@ -59,6 +63,7 @@ class RequestorOptions(object):
             "stripe_version": self.stripe_version,
             "base_addresses": self.base_addresses,
             "max_network_retries": self.max_network_retries,
+            "signing_keys": self.signing_keys,
         }
 
 
@@ -94,3 +99,7 @@ class _GlobalRequestorOptions(RequestorOptions):
     @property
     def max_network_retries(self):
         return stripe.max_network_retries
+
+    @property
+    def signing_keys(self):
+        return None
