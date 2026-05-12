@@ -6,6 +6,10 @@ from unittest.mock import patch
 
 import pytest
 
+pytest.importorskip(
+    "cryptography", reason="cryptography not available (PyPy <= 3.10)"
+)
+
 from cryptography.hazmat.primitives.asymmetric.ec import (
     ECDSA,
     SECP256R1,

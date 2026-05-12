@@ -98,7 +98,9 @@ class _APIRequestor(object):
                 RequestSigningAuthenticator,
             )
 
-            self._authenticator = RequestSigningAuthenticator(options.signing_keys)
+            self._authenticator = RequestSigningAuthenticator(
+                options.signing_keys
+            )
 
     # In the case of client=None, we should use the current value of stripe.default_http_client
     # or lazily initialize it. Since stripe.default_http_client can change throughout the lifetime of
