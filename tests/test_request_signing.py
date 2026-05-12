@@ -6,27 +6,29 @@ from unittest.mock import patch
 
 import pytest
 
+import stripe
+
 pytest.importorskip(
     "cryptography", reason="cryptography not available (PyPy <= 3.10)"
 )
 
-from cryptography.hazmat.primitives.asymmetric.ec import (
+
+from cryptography.hazmat.primitives.asymmetric.ec import (  # noqa: E402
     ECDSA,
     SECP256R1,
     generate_private_key,
 )
-from cryptography.hazmat.primitives.hashes import SHA256
-from cryptography.hazmat.primitives.serialization import (
+from cryptography.hazmat.primitives.hashes import SHA256  # noqa: E402
+from cryptography.hazmat.primitives.serialization import (  # noqa: E402
     Encoding,
     NoEncryption,
     PrivateFormat,
 )
-from cryptography.hazmat.primitives.asymmetric.utils import (
+from cryptography.hazmat.primitives.asymmetric.utils import (  # noqa: E402
     encode_dss_signature,
 )
 
-import stripe
-from stripe._request_signing_authenticator import (
+from stripe._request_signing_authenticator import (  # noqa: E402
     RequestSigningAuthenticator,
     RequestSigningOptions,
 )
