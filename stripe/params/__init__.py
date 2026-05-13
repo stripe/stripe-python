@@ -1544,7 +1544,6 @@ if TYPE_CHECKING:
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCardInstallments as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCardInstallments,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCardInstallmentsPlan as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCardInstallmentsPlan,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCheckScan as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCheckScan,
-        InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
@@ -1800,7 +1799,6 @@ if TYPE_CHECKING:
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCardInstallments as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCardInstallments,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCardInstallmentsPlan as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCardInstallmentsPlan,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCheckScan as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCheckScan,
-        InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalance as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalance,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
@@ -1899,7 +1897,6 @@ if TYPE_CHECKING:
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCardInstallments as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCardInstallments,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCardInstallmentsPlan as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCardInstallmentsPlan,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCheckScan as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCheckScan,
-        InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
@@ -3883,6 +3880,9 @@ if TYPE_CHECKING:
     from stripe.params._payment_location_delete_params import (
         PaymentLocationDeleteParams as PaymentLocationDeleteParams,
     )
+    from stripe.params._payment_location_list_params import (
+        PaymentLocationListParams as PaymentLocationListParams,
+    )
     from stripe.params._payment_location_modify_params import (
         PaymentLocationModifyParams as PaymentLocationModifyParams,
         PaymentLocationModifyParamsAddress as PaymentLocationModifyParamsAddress,
@@ -5601,7 +5601,6 @@ if TYPE_CHECKING:
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCard as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCard,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCardMandateOptions as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCardMandateOptions,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCheckScan as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCheckScan,
-        SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
@@ -5737,7 +5736,6 @@ if TYPE_CHECKING:
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCard as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCard,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCardMandateOptions as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCardMandateOptions,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCheckScan as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCheckScan,
-        SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalance as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalance,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
@@ -6048,7 +6046,6 @@ if TYPE_CHECKING:
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCard as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCard,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCardMandateOptions as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCardMandateOptions,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCheckScan as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCheckScan,
-        SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer,
@@ -10689,10 +10686,6 @@ _import_map = {
         "stripe.params._invoice_create_params",
         False,
     ),
-    "InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress": (
-        "stripe.params._invoice_create_params",
-        False,
-    ),
     "InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance": (
         "stripe.params._invoice_create_params",
         False,
@@ -11570,10 +11563,6 @@ _import_map = {
         "stripe.params._invoice_modify_params",
         False,
     ),
-    "InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress": (
-        "stripe.params._invoice_modify_params",
-        False,
-    ),
     "InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalance": (
         "stripe.params._invoice_modify_params",
         False,
@@ -11847,10 +11836,6 @@ _import_map = {
         False,
     ),
     "InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCheckScan": (
-        "stripe.params._invoice_update_params",
-        False,
-    ),
-    "InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress": (
         "stripe.params._invoice_update_params",
         False,
     ),
@@ -19316,6 +19301,10 @@ _import_map = {
         "stripe.params._payment_location_delete_params",
         False,
     ),
+    "PaymentLocationListParams": (
+        "stripe.params._payment_location_list_params",
+        False,
+    ),
     "PaymentLocationModifyParams": (
         "stripe.params._payment_location_modify_params",
         False,
@@ -24945,10 +24934,6 @@ _import_map = {
         "stripe.params._subscription_create_params",
         False,
     ),
-    "SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress": (
-        "stripe.params._subscription_create_params",
-        False,
-    ),
     "SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance": (
         "stripe.params._subscription_create_params",
         False,
@@ -25406,10 +25391,6 @@ _import_map = {
         False,
     ),
     "SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCheckScan": (
-        "stripe.params._subscription_modify_params",
-        False,
-    ),
-    "SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress": (
         "stripe.params._subscription_modify_params",
         False,
     ),
@@ -26546,10 +26527,6 @@ _import_map = {
         False,
     ),
     "SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCheckScan": (
-        "stripe.params._subscription_update_params",
-        False,
-    ),
-    "SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress": (
         "stripe.params._subscription_update_params",
         False,
     ),

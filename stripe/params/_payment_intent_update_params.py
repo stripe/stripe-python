@@ -540,6 +540,10 @@ class PaymentIntentUpdateParamsPaymentDetails(TypedDict):
     """
     Flight data for this PaymentIntent.
     """
+    location: NotRequired[str]
+    """
+    The ID of the Payment Location for this PaymentIntent.
+    """
     lodging: NotRequired["PaymentIntentUpdateParamsPaymentDetailsLodging"]
     """
     Lodging reservation details for this PaymentIntent

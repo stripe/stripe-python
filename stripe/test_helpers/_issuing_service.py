@@ -9,6 +9,7 @@ if TYPE_CHECKING:
         AuthorizationService,
     )
     from stripe.test_helpers.issuing._card_service import CardService
+    from stripe.test_helpers.issuing._dispute_service import DisputeService
     from stripe.test_helpers.issuing._personalization_design_service import (
         PersonalizationDesignService,
     )
@@ -22,6 +23,10 @@ _subservices = {
         "AuthorizationService",
     ],
     "cards": ["stripe.test_helpers.issuing._card_service", "CardService"],
+    "disputes": [
+        "stripe.test_helpers.issuing._dispute_service",
+        "DisputeService",
+    ],
     "personalization_designs": [
         "stripe.test_helpers.issuing._personalization_design_service",
         "PersonalizationDesignService",
@@ -36,6 +41,7 @@ _subservices = {
 class IssuingService(StripeService):
     authorizations: "AuthorizationService"
     cards: "CardService"
+    disputes: "DisputeService"
     personalization_designs: "PersonalizationDesignService"
     transactions: "TransactionService"
 

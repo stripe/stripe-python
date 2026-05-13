@@ -148,6 +148,10 @@ class PaymentRecordReportPaymentParamsGuaranteed(TypedDict):
     """
     When the reported payment was guaranteed. Measured in seconds since the Unix epoch.
     """
+    payment_evaluations: NotRequired[List[str]]
+    """
+    Payment evaluations associated with this reported payment.
+    """
     processor_details: NotRequired[
         "PaymentRecordReportPaymentParamsGuaranteedProcessorDetails"
     ]

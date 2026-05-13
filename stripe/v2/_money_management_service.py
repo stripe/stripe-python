@@ -11,6 +11,9 @@ if TYPE_CHECKING:
     from stripe.v2.money_management._currency_conversion_service import (
         CurrencyConversionService,
     )
+    from stripe.v2.money_management._debit_dispute_service import (
+        DebitDisputeService,
+    )
     from stripe.v2.money_management._financial_account_service import (
         FinancialAccountService,
     )
@@ -62,6 +65,10 @@ _subservices = {
     "currency_conversions": [
         "stripe.v2.money_management._currency_conversion_service",
         "CurrencyConversionService",
+    ],
+    "debit_disputes": [
+        "stripe.v2.money_management._debit_dispute_service",
+        "DebitDisputeService",
     ],
     "financial_accounts": [
         "stripe.v2.money_management._financial_account_service",
@@ -125,6 +132,7 @@ _subservices = {
 class MoneyManagementService(StripeService):
     adjustments: "AdjustmentService"
     currency_conversions: "CurrencyConversionService"
+    debit_disputes: "DebitDisputeService"
     financial_accounts: "FinancialAccountService"
     financial_addresses: "FinancialAddressService"
     inbound_transfers: "InboundTransferService"

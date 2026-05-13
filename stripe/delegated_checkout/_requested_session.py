@@ -143,6 +143,57 @@ class RequestedSession(
         """
         _inner_class_types = {"marketing": Marketing}
 
+    class Discounts(StripeObject):
+        class Applied(StripeObject):
+            amount_off: Optional[int]
+            """
+            The amount off provided by this discount.
+            """
+            code: str
+            """
+            The discount code.
+            """
+            currency: Optional[str]
+            """
+            The currency of the discount amount.
+            """
+            key: str
+            """
+            The unique key of the applied discount.
+            """
+            name: str
+            """
+            The display name of the discount.
+            """
+            percent_off: Optional[float]
+            """
+            The percentage off provided by this discount.
+            """
+            type: Literal["cart", "fulfillment"]
+            """
+            The type of discount.
+            """
+
+        class Invalid(StripeObject):
+            code: str
+            """
+            The discount code that was invalid.
+            """
+            reason: str
+            """
+            The reason the discount code is invalid.
+            """
+
+        applied: Optional[List[Applied]]
+        """
+        The list of successfully applied discounts.
+        """
+        invalid: Optional[List[Invalid]]
+        """
+        The list of discount codes that could not be applied.
+        """
+        _inner_class_types = {"applied": Applied, "invalid": Invalid}
+
     class FulfillmentDetails(StripeObject):
         class Address(StripeObject):
             city: Optional[str]
@@ -401,6 +452,10 @@ class RequestedSession(
         """
         The total discount for this line item. If no discount were applied, defaults to 0.
         """
+        amount_sale: Optional[int]
+        """
+        The sale amount for this line item.
+        """
         amount_subtotal: int
         """
         The total before any discounts or taxes are applied.
@@ -635,9 +690,30 @@ class RequestedSession(
             The display name of the applicable fee.
             """
 
+        class Breakdown(StripeObject):
+            class Discount(StripeObject):
+                amount: int
+                """
+                The amount this discount contributed to the total discount.
+                """
+                key: str
+                """
+                The key of the applied discount.
+                """
+
+            discounts: Optional[List[Discount]]
+            """
+            The breakdown of discounts applied to the session.
+            """
+            _inner_class_types = {"discounts": Discount}
+
         amount_cart_discount: Optional[int]
         """
         The amount of order-level discounts applied to the cart. The total discount amount for this session can be computed by summing the cart discount and the item discounts.
+        """
+        amount_discount: Optional[int]
+        """
+        The total discount amount from discount codes across the session.
         """
         amount_fulfillment: Optional[int]
         """
@@ -647,6 +723,10 @@ class RequestedSession(
         """
         The amount of item-level discounts applied to the cart. The total discount amount for this session can be computed by summing the cart discount and the item discounts.
         """
+        amount_sale: Optional[int]
+        """
+        The total sale amount across the session.
+        """
         amount_tax: Optional[int]
         """
         The amount tax of the total details.
@@ -655,7 +735,14 @@ class RequestedSession(
         """
         The applicable fees of the total details.
         """
-        _inner_class_types = {"applicable_fees": ApplicableFee}
+        breakdown: Optional[Breakdown]
+        """
+        The breakdown of discounts applied to the session.
+        """
+        _inner_class_types = {
+            "applicable_fees": ApplicableFee,
+            "breakdown": Breakdown,
+        }
 
     affiliate_attributions: Optional[List[AffiliateAttribution]]
     """
@@ -684,6 +771,10 @@ class RequestedSession(
     customer: Optional[str]
     """
     The customer for this requested session.
+    """
+    discounts: Optional[Discounts]
+    """
+    The discounts applied to and rejected from this requested session.
     """
     expires_at: int
     """
@@ -1079,6 +1170,7 @@ class RequestedSession(
     _inner_class_types = {
         "affiliate_attributions": AffiliateAttribution,
         "buyer_consents": BuyerConsents,
+        "discounts": Discounts,
         "fulfillment_details": FulfillmentDetails,
         "line_item_details": LineItemDetail,
         "order_details": OrderDetails,

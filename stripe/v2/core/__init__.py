@@ -67,6 +67,14 @@ if TYPE_CHECKING:
         EventDestinationService as EventDestinationService,
     )
     from stripe.v2.core._event_service import EventService as EventService
+    from stripe.v2.core._fee_batch import FeeBatch as FeeBatch
+    from stripe.v2.core._fee_batch_service import (
+        FeeBatchService as FeeBatchService,
+    )
+    from stripe.v2.core._fee_entry import FeeEntry as FeeEntry
+    from stripe.v2.core._fee_entry_service import (
+        FeeEntryService as FeeEntryService,
+    )
     from stripe.v2.core._vault_service import VaultService as VaultService
 
 # name -> (import_target, is_submodule)
@@ -110,6 +118,10 @@ _import_map = {
         False,
     ),
     "EventService": ("stripe.v2.core._event_service", False),
+    "FeeBatch": ("stripe.v2.core._fee_batch", False),
+    "FeeBatchService": ("stripe.v2.core._fee_batch_service", False),
+    "FeeEntry": ("stripe.v2.core._fee_entry", False),
+    "FeeEntryService": ("stripe.v2.core._fee_entry_service", False),
     "VaultService": ("stripe.v2.core._vault_service", False),
 }
 if not TYPE_CHECKING:

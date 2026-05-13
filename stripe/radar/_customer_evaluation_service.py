@@ -58,7 +58,7 @@ class CustomerEvaluationService(StripeService):
     def update(
         self,
         customer_evaluation: str,
-        params: "CustomerEvaluationUpdateParams",
+        params: Optional["CustomerEvaluationUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CustomerEvaluation":
         """
@@ -80,7 +80,7 @@ class CustomerEvaluationService(StripeService):
     async def update_async(
         self,
         customer_evaluation: str,
-        params: "CustomerEvaluationUpdateParams",
+        params: Optional["CustomerEvaluationUpdateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "CustomerEvaluation":
         """

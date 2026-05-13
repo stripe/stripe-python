@@ -24,6 +24,10 @@ class PaymentLocationModifyParams(RequestOptions):
     """
     Specifies which fields in the response should be expanded.
     """
+    onboarding_data_update_acknowledged: NotRequired[bool]
+    """
+    Pass true when updating location fields that will trigger onboarding review for any of the location's active location capabilities. If this parameter is not set to true, updates that would trigger onboarding review will fail. Only applicable for locations with active location capabilities.
+    """
 
 
 class PaymentLocationModifyParamsAddress(TypedDict):
@@ -31,7 +35,7 @@ class PaymentLocationModifyParamsAddress(TypedDict):
     """
     City, district, suburb, town, or village.
     """
-    country: str
+    country: NotRequired[str]
     """
     Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
     """

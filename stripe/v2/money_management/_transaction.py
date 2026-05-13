@@ -56,6 +56,10 @@ class Transaction(StripeObject):
         """
         In the future, this will be the ID of the currency conversion that created this Transaction. For now, this field is always null.
         """
+        debit_dispute: Optional[str]
+        """
+        If applicable, the ID of the DebitDispute that created this Transaction.
+        """
         dispute: Optional[str]
         """
         If applicable, the ID of the Dispute that created this Transaction.
@@ -150,6 +154,7 @@ class Transaction(StripeObject):
             "application_fee_refund",
             "charge",
             "currency_conversion",
+            "debit_dispute",
             "dispute",
             "fee_transaction",
             "inbound_transfer",
@@ -208,6 +213,7 @@ class Transaction(StripeObject):
         "connect_reserved_funds",
         "contribution",
         "currency_conversion",
+        "debit_dispute",
         "dispute",
         "dispute_reversal",
         "financing_paydown",

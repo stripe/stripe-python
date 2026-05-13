@@ -46820,6 +46820,86 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
+    def test_v2_core_fee_batch_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/core/fee_batches",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.fee_batches.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/core/fee_batches",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_core_fee_batch_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/core/fee_batches/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.fee_batches.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/core/fee_batches/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_core_fee_entry_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/core/fee_entries",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.fee_entries.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/core/fee_entries",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_core_fee_entry_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/core/fee_entries/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.core.fee_entries.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/core/fee_entries/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
     def test_v2_core_vault_gb_bank_account_get_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -47556,6 +47636,72 @@ class TestGeneratedExamples(object):
             api_base="https://api.stripe.com",
         )
 
+    def test_v2_money_management_debit_dispute_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/money_management/debit_disputes",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.debit_disputes.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/money_management/debit_disputes",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_money_management_debit_dispute_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/money_management/debit_disputes",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.debit_disputes.create(
+            {
+                "received_debit": "received_debit",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/money_management/debit_disputes",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"received_debit":"received_debit"}',
+            is_json=True,
+        )
+
+    def test_v2_money_management_debit_dispute_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/money_management/debit_disputes/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.debit_disputes.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/money_management/debit_disputes/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
     def test_v2_money_management_financial_account_get_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:
@@ -47664,6 +47810,51 @@ class TestGeneratedExamples(object):
             api_base="https://api.stripe.com",
             post_data="{}",
             is_json=True,
+        )
+
+    def test_v2_money_management_financial_accounts_statement_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/money_management/financial_accounts/financial_account_id_123/statements",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.financial_accounts.statements.list(
+            "financial_account_id_123",
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/money_management/financial_accounts/financial_account_id_123/statements",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_money_management_financial_accounts_statement_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/money_management/financial_accounts/financial_account_id_123/statements/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.money_management.financial_accounts.statements.retrieve(
+            "financial_account_id_123",
+            "id_123",
+        )
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/money_management/financial_accounts/financial_account_id_123/statements/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
         )
 
     def test_v2_money_management_financial_address_get_service(

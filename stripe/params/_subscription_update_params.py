@@ -1026,20 +1026,7 @@ class SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCardMandateOpti
 class SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCheckScan(
     TypedDict,
 ):
-    check_deposit_address: NotRequired[
-        "SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress"
-    ]
-
-
-class SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress(
-    TypedDict,
-):
-    city: NotRequired[str]
-    country: NotRequired[str]
-    line1: NotRequired[str]
-    line2: NotRequired[str]
-    postal_code: NotRequired[str]
-    state: NotRequired[str]
+    pass
 
 
 class SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance(

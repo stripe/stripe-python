@@ -148,6 +148,10 @@ class CustomerEvaluation(
     """
     A hash of signal objects providing Radar's evaluation of the customer.
     """
+    status: Optional[str]
+    """
+    The outcome status reported for this evaluation: allowed, restricted, or blocked.
+    """
 
     @classmethod
     def create(

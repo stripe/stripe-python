@@ -444,20 +444,7 @@ class InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCardInstallmentsPlan
 class InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCheckScan(
     TypedDict,
 ):
-    check_deposit_address: NotRequired[
-        "InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress"
-    ]
-
-
-class InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCheckScanCheckDepositAddress(
-    TypedDict,
-):
-    city: NotRequired[str]
-    country: NotRequired[str]
-    line1: NotRequired[str]
-    line2: NotRequired[str]
-    postal_code: NotRequired[str]
-    state: NotRequired[str]
+    pass
 
 
 class InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalance(

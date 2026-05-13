@@ -1347,6 +1347,14 @@ if TYPE_CHECKING:
         V2MoneyManagementFinancialAccountCreatedEvent as V2MoneyManagementFinancialAccountCreatedEvent,
         V2MoneyManagementFinancialAccountCreatedEventNotification as V2MoneyManagementFinancialAccountCreatedEventNotification,
     )
+    from stripe.events._v2_money_management_financial_account_statement_created_event import (
+        V2MoneyManagementFinancialAccountStatementCreatedEvent as V2MoneyManagementFinancialAccountStatementCreatedEvent,
+        V2MoneyManagementFinancialAccountStatementCreatedEventNotification as V2MoneyManagementFinancialAccountStatementCreatedEventNotification,
+    )
+    from stripe.events._v2_money_management_financial_account_statement_restated_event import (
+        V2MoneyManagementFinancialAccountStatementRestatedEvent as V2MoneyManagementFinancialAccountStatementRestatedEvent,
+        V2MoneyManagementFinancialAccountStatementRestatedEventNotification as V2MoneyManagementFinancialAccountStatementRestatedEventNotification,
+    )
     from stripe.events._v2_money_management_financial_account_updated_event import (
         V2MoneyManagementFinancialAccountUpdatedEvent as V2MoneyManagementFinancialAccountUpdatedEvent,
         V2MoneyManagementFinancialAccountUpdatedEventNotification as V2MoneyManagementFinancialAccountUpdatedEventNotification,
@@ -4170,6 +4178,22 @@ _import_map = {
     ),
     "V2MoneyManagementFinancialAccountCreatedEventNotification": (
         "stripe.events._v2_money_management_financial_account_created_event",
+        False,
+    ),
+    "V2MoneyManagementFinancialAccountStatementCreatedEvent": (
+        "stripe.events._v2_money_management_financial_account_statement_created_event",
+        False,
+    ),
+    "V2MoneyManagementFinancialAccountStatementCreatedEventNotification": (
+        "stripe.events._v2_money_management_financial_account_statement_created_event",
+        False,
+    ),
+    "V2MoneyManagementFinancialAccountStatementRestatedEvent": (
+        "stripe.events._v2_money_management_financial_account_statement_restated_event",
+        False,
+    ),
+    "V2MoneyManagementFinancialAccountStatementRestatedEventNotification": (
+        "stripe.events._v2_money_management_financial_account_statement_restated_event",
         False,
     ),
     "V2MoneyManagementFinancialAccountUpdatedEvent": (

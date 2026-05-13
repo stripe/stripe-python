@@ -1006,6 +1006,12 @@ if TYPE_CHECKING:
     from stripe.events._v2_money_management_financial_account_created_event import (
         V2MoneyManagementFinancialAccountCreatedEventNotification,
     )
+    from stripe.events._v2_money_management_financial_account_statement_created_event import (
+        V2MoneyManagementFinancialAccountStatementCreatedEventNotification,
+    )
+    from stripe.events._v2_money_management_financial_account_statement_restated_event import (
+        V2MoneyManagementFinancialAccountStatementRestatedEventNotification,
+    )
     from stripe.events._v2_money_management_financial_account_updated_event import (
         V2MoneyManagementFinancialAccountUpdatedEventNotification,
     )
@@ -2541,6 +2547,14 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v2.money_management.financial_account.created": (
         "stripe.events._v2_money_management_financial_account_created_event",
         "V2MoneyManagementFinancialAccountCreatedEvent",
+    ),
+    "v2.money_management.financial_account_statement.created": (
+        "stripe.events._v2_money_management_financial_account_statement_created_event",
+        "V2MoneyManagementFinancialAccountStatementCreatedEvent",
+    ),
+    "v2.money_management.financial_account_statement.restated": (
+        "stripe.events._v2_money_management_financial_account_statement_restated_event",
+        "V2MoneyManagementFinancialAccountStatementRestatedEvent",
     ),
     "v2.money_management.financial_account.updated": (
         "stripe.events._v2_money_management_financial_account_updated_event",
@@ -4157,6 +4171,14 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_money_management_financial_account_created_event",
         "V2MoneyManagementFinancialAccountCreatedEventNotification",
     ),
+    "v2.money_management.financial_account_statement.created": (
+        "stripe.events._v2_money_management_financial_account_statement_created_event",
+        "V2MoneyManagementFinancialAccountStatementCreatedEventNotification",
+    ),
+    "v2.money_management.financial_account_statement.restated": (
+        "stripe.events._v2_money_management_financial_account_statement_restated_event",
+        "V2MoneyManagementFinancialAccountStatementRestatedEventNotification",
+    ),
     "v2.money_management.financial_account.updated": (
         "stripe.events._v2_money_management_financial_account_updated_event",
         "V2MoneyManagementFinancialAccountUpdatedEventNotification",
@@ -4773,6 +4795,8 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2IamStripeAccessGrantUpdatedEventNotification",
     "V2MoneyManagementAdjustmentCreatedEventNotification",
     "V2MoneyManagementFinancialAccountCreatedEventNotification",
+    "V2MoneyManagementFinancialAccountStatementCreatedEventNotification",
+    "V2MoneyManagementFinancialAccountStatementRestatedEventNotification",
     "V2MoneyManagementFinancialAccountUpdatedEventNotification",
     "V2MoneyManagementFinancialAddressActivatedEventNotification",
     "V2MoneyManagementFinancialAddressFailedEventNotification",
