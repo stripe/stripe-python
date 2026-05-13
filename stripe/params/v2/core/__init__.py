@@ -707,6 +707,18 @@ if TYPE_CHECKING:
     from stripe.params.v2.core._event_retrieve_params import (
         EventRetrieveParams as EventRetrieveParams,
     )
+    from stripe.params.v2.core._fee_batch_list_params import (
+        FeeBatchListParams as FeeBatchListParams,
+    )
+    from stripe.params.v2.core._fee_batch_retrieve_params import (
+        FeeBatchRetrieveParams as FeeBatchRetrieveParams,
+    )
+    from stripe.params.v2.core._fee_entry_list_params import (
+        FeeEntryListParams as FeeEntryListParams,
+    )
+    from stripe.params.v2.core._fee_entry_retrieve_params import (
+        FeeEntryRetrieveParams as FeeEntryRetrieveParams,
+    )
 
 # name -> (import_target, is_submodule)
 _import_map = {
@@ -3256,6 +3268,22 @@ _import_map = {
     ),
     "EventRetrieveParams": (
         "stripe.params.v2.core._event_retrieve_params",
+        False,
+    ),
+    "FeeBatchListParams": (
+        "stripe.params.v2.core._fee_batch_list_params",
+        False,
+    ),
+    "FeeBatchRetrieveParams": (
+        "stripe.params.v2.core._fee_batch_retrieve_params",
+        False,
+    ),
+    "FeeEntryListParams": (
+        "stripe.params.v2.core._fee_entry_list_params",
+        False,
+    ),
+    "FeeEntryRetrieveParams": (
+        "stripe.params.v2.core._fee_entry_retrieve_params",
         False,
     ),
 }

@@ -11,12 +11,16 @@ from typing_extensions import Literal, TYPE_CHECKING, override
 if TYPE_CHECKING:
     from stripe._api_requestor import _APIRequestor
     from stripe._stripe_client import StripeClient
-    from stripe.v2.payments._off_session_payment import OffSessionPayment
+    from stripe.v2.money_management._financial_account_statement import (
+        FinancialAccountStatement,
+    )
 
 
-class V2PaymentsOffSessionPaymentFailedEventNotification(EventNotification):
-    LOOKUP_TYPE = "v2.payments.off_session_payment.failed"
-    type: Literal["v2.payments.off_session_payment.failed"]
+class V2MoneyManagementFinancialAccountStatementCreatedEventNotification(
+    EventNotification,
+):
+    LOOKUP_TYPE = "v2.money_management.financial_account_statement.created"
+    type: Literal["v2.money_management.financial_account_statement.created"]
     related_object: RelatedObject
 
     def __init__(
@@ -29,13 +33,15 @@ class V2PaymentsOffSessionPaymentFailedEventNotification(EventNotification):
         self.related_object = RelatedObject(parsed_body["related_object"])
 
     @override
-    def fetch_event(self) -> "V2PaymentsOffSessionPaymentFailedEvent":
+    def fetch_event(
+        self,
+    ) -> "V2MoneyManagementFinancialAccountStatementCreatedEvent":
         return cast(
-            "V2PaymentsOffSessionPaymentFailedEvent",
+            "V2MoneyManagementFinancialAccountStatementCreatedEvent",
             super().fetch_event(),
         )
 
-    def fetch_related_object(self) -> "OffSessionPayment":
+    def fetch_related_object(self) -> "FinancialAccountStatement":
         response = self._client.raw_request(
             "get",
             self.related_object.url,
@@ -44,7 +50,7 @@ class V2PaymentsOffSessionPaymentFailedEventNotification(EventNotification):
             usage=["fetch_related_object"],
         )
         return cast(
-            "OffSessionPayment",
+            "FinancialAccountStatement",
             self._client.deserialize(
                 response,
                 api_mode=get_api_mode(self.related_object.url),
@@ -54,13 +60,13 @@ class V2PaymentsOffSessionPaymentFailedEventNotification(EventNotification):
     @override
     async def fetch_event_async(
         self,
-    ) -> "V2PaymentsOffSessionPaymentFailedEvent":
+    ) -> "V2MoneyManagementFinancialAccountStatementCreatedEvent":
         return cast(
-            "V2PaymentsOffSessionPaymentFailedEvent",
+            "V2MoneyManagementFinancialAccountStatementCreatedEvent",
             await super().fetch_event_async(),
         )
 
-    async def fetch_related_object_async(self) -> "OffSessionPayment":
+    async def fetch_related_object_async(self) -> "FinancialAccountStatement":
         response = await self._client.raw_request_async(
             "get",
             self.related_object.url,
@@ -69,7 +75,7 @@ class V2PaymentsOffSessionPaymentFailedEventNotification(EventNotification):
             usage=["fetch_related_object"],
         )
         return cast(
-            "OffSessionPayment",
+            "FinancialAccountStatement",
             self._client.deserialize(
                 response,
                 api_mode=get_api_mode(self.related_object.url),
@@ -77,19 +83,21 @@ class V2PaymentsOffSessionPaymentFailedEventNotification(EventNotification):
         )
 
 
-class V2PaymentsOffSessionPaymentFailedEvent(Event):
-    LOOKUP_TYPE = "v2.payments.off_session_payment.failed"
-    type: Literal["v2.payments.off_session_payment.failed"]
+class V2MoneyManagementFinancialAccountStatementCreatedEvent(Event):
+    LOOKUP_TYPE = "v2.money_management.financial_account_statement.created"
+    type: Literal["v2.money_management.financial_account_statement.created"]
 
-    class V2PaymentsOffSessionPaymentFailedEventData(StripeObject):
-        payment_attempt_record: str
+    class V2MoneyManagementFinancialAccountStatementCreatedEventData(
+        StripeObject,
+    ):
+        financial_account: str
         """
-        The ID of the payment attempt record associated with this terminal failure. Equal to the `latest_payment_attempt_record` on the Off-Session Payment object.
+        The ID of the Financial Account this statement belongs to.
         """
 
-    data: V2PaymentsOffSessionPaymentFailedEventData
+    data: V2MoneyManagementFinancialAccountStatementCreatedEventData
     """
-    Data for the v2.payments.off_session_payment.failed event
+    Data for the v2.money_management.financial_account_statement.created event
     """
 
     @classmethod
@@ -100,7 +108,7 @@ class V2PaymentsOffSessionPaymentFailedEvent(Event):
         last_response: Optional[StripeResponse] = None,
         requestor: "_APIRequestor",
         api_mode: ApiMode,
-    ) -> "V2PaymentsOffSessionPaymentFailedEvent":
+    ) -> "V2MoneyManagementFinancialAccountStatementCreatedEvent":
         evt = super()._construct_from(
             values=values,
             last_response=last_response,
@@ -108,7 +116,7 @@ class V2PaymentsOffSessionPaymentFailedEvent(Event):
             api_mode=api_mode,
         )
         if hasattr(evt, "data"):
-            evt.data = V2PaymentsOffSessionPaymentFailedEvent.V2PaymentsOffSessionPaymentFailedEventData._construct_from(
+            evt.data = V2MoneyManagementFinancialAccountStatementCreatedEvent.V2MoneyManagementFinancialAccountStatementCreatedEventData._construct_from(
                 values=evt.data,
                 last_response=last_response,
                 requestor=requestor,
@@ -135,12 +143,12 @@ class V2PaymentsOffSessionPaymentFailedEvent(Event):
     Object containing the reference to API resource relevant to the event
     """
 
-    def fetch_related_object(self) -> "OffSessionPayment":
+    def fetch_related_object(self) -> "FinancialAccountStatement":
         """
         Retrieves the related object from the API. Makes an API request on every call.
         """
         return cast(
-            "OffSessionPayment",
+            "FinancialAccountStatement",
             self._requestor.request(
                 "get",
                 self.related_object.url,

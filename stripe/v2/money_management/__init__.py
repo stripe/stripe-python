@@ -4,6 +4,9 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.v2.money_management import (
+        financial_accounts as financial_accounts,
+    )
     from stripe.v2.money_management._adjustment import Adjustment as Adjustment
     from stripe.v2.money_management._adjustment_service import (
         AdjustmentService as AdjustmentService,
@@ -14,11 +17,20 @@ if TYPE_CHECKING:
     from stripe.v2.money_management._currency_conversion_service import (
         CurrencyConversionService as CurrencyConversionService,
     )
+    from stripe.v2.money_management._debit_dispute import (
+        DebitDispute as DebitDispute,
+    )
+    from stripe.v2.money_management._debit_dispute_service import (
+        DebitDisputeService as DebitDisputeService,
+    )
     from stripe.v2.money_management._financial_account import (
         FinancialAccount as FinancialAccount,
     )
     from stripe.v2.money_management._financial_account_service import (
         FinancialAccountService as FinancialAccountService,
+    )
+    from stripe.v2.money_management._financial_account_statement import (
+        FinancialAccountStatement as FinancialAccountStatement,
     )
     from stripe.v2.money_management._financial_address import (
         FinancialAddress as FinancialAddress,
@@ -101,6 +113,10 @@ if TYPE_CHECKING:
 
 # name -> (import_target, is_submodule)
 _import_map = {
+    "financial_accounts": (
+        "stripe.v2.money_management.financial_accounts",
+        True,
+    ),
     "Adjustment": ("stripe.v2.money_management._adjustment", False),
     "AdjustmentService": (
         "stripe.v2.money_management._adjustment_service",
@@ -114,12 +130,21 @@ _import_map = {
         "stripe.v2.money_management._currency_conversion_service",
         False,
     ),
+    "DebitDispute": ("stripe.v2.money_management._debit_dispute", False),
+    "DebitDisputeService": (
+        "stripe.v2.money_management._debit_dispute_service",
+        False,
+    ),
     "FinancialAccount": (
         "stripe.v2.money_management._financial_account",
         False,
     ),
     "FinancialAccountService": (
         "stripe.v2.money_management._financial_account_service",
+        False,
+    ),
+    "FinancialAccountStatement": (
+        "stripe.v2.money_management._financial_account_statement",
         False,
     ),
     "FinancialAddress": (

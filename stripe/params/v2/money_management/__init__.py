@@ -4,6 +4,9 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.params.v2.money_management import (
+        financial_accounts as financial_accounts,
+    )
     from stripe.params.v2.money_management._adjustment_list_params import (
         AdjustmentListParams as AdjustmentListParams,
     )
@@ -20,6 +23,16 @@ if TYPE_CHECKING:
     )
     from stripe.params.v2.money_management._currency_conversion_retrieve_params import (
         CurrencyConversionRetrieveParams as CurrencyConversionRetrieveParams,
+    )
+    from stripe.params.v2.money_management._debit_dispute_create_params import (
+        DebitDisputeCreateParams as DebitDisputeCreateParams,
+        DebitDisputeCreateParamsBankTransfer as DebitDisputeCreateParamsBankTransfer,
+    )
+    from stripe.params.v2.money_management._debit_dispute_list_params import (
+        DebitDisputeListParams as DebitDisputeListParams,
+    )
+    from stripe.params.v2.money_management._debit_dispute_retrieve_params import (
+        DebitDisputeRetrieveParams as DebitDisputeRetrieveParams,
     )
     from stripe.params.v2.money_management._financial_account_close_params import (
         FinancialAccountCloseParams as FinancialAccountCloseParams,
@@ -176,6 +189,10 @@ if TYPE_CHECKING:
 
 # name -> (import_target, is_submodule)
 _import_map = {
+    "financial_accounts": (
+        "stripe.params.v2.money_management.financial_accounts",
+        True,
+    ),
     "AdjustmentListParams": (
         "stripe.params.v2.money_management._adjustment_list_params",
         False,
@@ -202,6 +219,22 @@ _import_map = {
     ),
     "CurrencyConversionRetrieveParams": (
         "stripe.params.v2.money_management._currency_conversion_retrieve_params",
+        False,
+    ),
+    "DebitDisputeCreateParams": (
+        "stripe.params.v2.money_management._debit_dispute_create_params",
+        False,
+    ),
+    "DebitDisputeCreateParamsBankTransfer": (
+        "stripe.params.v2.money_management._debit_dispute_create_params",
+        False,
+    ),
+    "DebitDisputeListParams": (
+        "stripe.params.v2.money_management._debit_dispute_list_params",
+        False,
+    ),
+    "DebitDisputeRetrieveParams": (
+        "stripe.params.v2.money_management._debit_dispute_retrieve_params",
         False,
     ),
     "FinancialAccountCloseParams": (

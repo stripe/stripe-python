@@ -582,6 +582,8 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.v2.core._event_destination",
         "EventDestination",
     ),
+    "v2.core.fee_batch": ("stripe.v2.core._fee_batch", "FeeBatch"),
+    "v2.core.fee_entry": ("stripe.v2.core._fee_entry", "FeeEntry"),
     "v2.core.vault.gb_bank_account": (
         "stripe.v2.core.vault._gb_bank_account",
         "GbBankAccount",
@@ -621,9 +623,17 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.v2.money_management._currency_conversion",
         "CurrencyConversion",
     ),
+    "v2.money_management.debit_dispute": (
+        "stripe.v2.money_management._debit_dispute",
+        "DebitDispute",
+    ),
     "v2.money_management.financial_account": (
         "stripe.v2.money_management._financial_account",
         "FinancialAccount",
+    ),
+    "v2.money_management.financial_account_statement": (
+        "stripe.v2.money_management._financial_account_statement",
+        "FinancialAccountStatement",
     ),
     "v2.money_management.financial_address": (
         "stripe.v2.money_management._financial_address",

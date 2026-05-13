@@ -1011,6 +1011,12 @@ if TYPE_CHECKING:
     from stripe.events._v2_money_management_financial_account_created_event import (
         V2MoneyManagementFinancialAccountCreatedEventNotification,
     )
+    from stripe.events._v2_money_management_financial_account_statement_created_event import (
+        V2MoneyManagementFinancialAccountStatementCreatedEventNotification,
+    )
+    from stripe.events._v2_money_management_financial_account_statement_restated_event import (
+        V2MoneyManagementFinancialAccountStatementRestatedEventNotification,
+    )
     from stripe.events._v2_money_management_financial_account_updated_event import (
         V2MoneyManagementFinancialAccountUpdatedEventNotification,
     )
@@ -5633,6 +5639,32 @@ class StripeEventNotificationHandler:
         """
         self._register(
             "v2.money_management.financial_account.created",
+            func,
+        )
+        return func
+
+    def on_v2_money_management_financial_account_statement_created(
+        self,
+        func: "Callable[[V2MoneyManagementFinancialAccountStatementCreatedEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2MoneyManagementFinancialAccountStatementCreatedEvent` (`v2.money_management.financial_account_statement.created`) event notification.
+        """
+        self._register(
+            "v2.money_management.financial_account_statement.created",
+            func,
+        )
+        return func
+
+    def on_v2_money_management_financial_account_statement_restated(
+        self,
+        func: "Callable[[V2MoneyManagementFinancialAccountStatementRestatedEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2MoneyManagementFinancialAccountStatementRestatedEvent` (`v2.money_management.financial_account_statement.restated`) event notification.
+        """
+        self._register(
+            "v2.money_management.financial_account_statement.restated",
             func,
         )
         return func

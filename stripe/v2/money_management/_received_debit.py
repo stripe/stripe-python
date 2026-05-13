@@ -100,6 +100,16 @@ class ReceivedDebit(StripeObject):
             "card_transactions": CardTransaction,
         }
 
+    class DisputeDetails(StripeObject):
+        debit_dispute: Optional[str]
+        """
+        The ID of the debit dispute, if one has been created.
+        """
+        dispute_window_closes_at: Optional[str]
+        """
+        The time at which the dispute window closes.
+        """
+
     class StatusDetails(StripeObject):
         class Failed(StripeObject):
             reason: Literal[
@@ -170,6 +180,10 @@ class ReceivedDebit(StripeObject):
     """
     Freeform string sent by the originator of the ReceivedDebit.
     """
+    dispute_details: Optional[DisputeDetails]
+    """
+    The dispute details.
+    """
     external_amount: Optional[Amount]
     """
     The amount and currency of the original/external debit request.
@@ -224,6 +238,7 @@ class ReceivedDebit(StripeObject):
         "balance_transfer": BalanceTransfer,
         "bank_transfer": BankTransfer,
         "card_spend": CardSpend,
+        "dispute_details": DisputeDetails,
         "status_details": StatusDetails,
         "status_transitions": StatusTransitions,
         "stripe_balance_payment": StripeBalancePayment,

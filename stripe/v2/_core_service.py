@@ -23,6 +23,8 @@ if TYPE_CHECKING:
         EventDestinationService,
     )
     from stripe.v2.core._event_service import EventService
+    from stripe.v2.core._fee_batch_service import FeeBatchService
+    from stripe.v2.core._fee_entry_service import FeeEntryService
     from stripe.v2.core._vault_service import VaultService
 
 _subservices = {
@@ -57,6 +59,8 @@ _subservices = {
         "stripe.v2.core._event_destination_service",
         "EventDestinationService",
     ],
+    "fee_batches": ["stripe.v2.core._fee_batch_service", "FeeBatchService"],
+    "fee_entries": ["stripe.v2.core._fee_entry_service", "FeeEntryService"],
     "vault": ["stripe.v2.core._vault_service", "VaultService"],
 }
 
@@ -72,6 +76,8 @@ class CoreService(StripeService):
     connection_sessions: "ConnectionSessionService"
     events: "EventService"
     event_destinations: "EventDestinationService"
+    fee_batches: "FeeBatchService"
+    fee_entries: "FeeEntryService"
     vault: "VaultService"
 
     def __init__(self, requestor):
