@@ -76,6 +76,10 @@ if TYPE_CHECKING:
     from stripe.params.test_helpers.issuing._card_submit_card_params import (
         CardSubmitCardParams as CardSubmitCardParams,
     )
+    from stripe.params.test_helpers.issuing._dispute_simulate_network_lifecycle_dispute_response_params import (
+        DisputeSimulateNetworkLifecycleDisputeResponseParams as DisputeSimulateNetworkLifecycleDisputeResponseParams,
+        DisputeSimulateNetworkLifecycleDisputeResponseParamsMerchantEvidenceFiles as DisputeSimulateNetworkLifecycleDisputeResponseParamsMerchantEvidenceFiles,
+    )
     from stripe.params.test_helpers.issuing._dispute_simulate_network_lifecycle_pre_arbitration_response_params import (
         DisputeSimulateNetworkLifecyclePreArbitrationResponseParams as DisputeSimulateNetworkLifecyclePreArbitrationResponseParams,
         DisputeSimulateNetworkLifecyclePreArbitrationResponseParamsMerchantEvidenceFiles as DisputeSimulateNetworkLifecyclePreArbitrationResponseParamsMerchantEvidenceFiles,
@@ -322,6 +326,14 @@ _import_map = {
     ),
     "CardSubmitCardParams": (
         "stripe.params.test_helpers.issuing._card_submit_card_params",
+        False,
+    ),
+    "DisputeSimulateNetworkLifecycleDisputeResponseParams": (
+        "stripe.params.test_helpers.issuing._dispute_simulate_network_lifecycle_dispute_response_params",
+        False,
+    ),
+    "DisputeSimulateNetworkLifecycleDisputeResponseParamsMerchantEvidenceFiles": (
+        "stripe.params.test_helpers.issuing._dispute_simulate_network_lifecycle_dispute_response_params",
         False,
     ),
     "DisputeSimulateNetworkLifecyclePreArbitrationResponseParams": (

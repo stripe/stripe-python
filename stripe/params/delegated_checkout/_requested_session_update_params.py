@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class RequestedSessionUpdateParams(TypedDict):
     discounts: NotRequired["RequestedSessionUpdateParamsDiscounts"]
     """
-    The discount codes to apply to this requested session.
+    The discount codes to apply to this requested session. Pass an empty value to remove all applied discounts.
     """
     expand: NotRequired[List[str]]
     """
@@ -51,9 +51,9 @@ class RequestedSessionUpdateParams(TypedDict):
 
 
 class RequestedSessionUpdateParamsDiscounts(TypedDict):
-    codes: List[str]
+    codes: Union[Literal[""], List[str]]
     """
-    Array of discount codes to apply.
+    Array of discount codes to apply. Pass an empty value to remove all applied discounts.
     """
     enforce_strict_eligibility: NotRequired[bool]
     """

@@ -25,6 +25,9 @@ if TYPE_CHECKING:
     from stripe.params.issuing._dispute_retrieve_params import (
         DisputeRetrieveParams,
     )
+    from stripe.params.issuing._dispute_simulate_network_lifecycle_dispute_response_params import (
+        DisputeSimulateNetworkLifecycleDisputeResponseParams,
+    )
     from stripe.params.issuing._dispute_simulate_network_lifecycle_pre_arbitration_response_params import (
         DisputeSimulateNetworkLifecyclePreArbitrationResponseParams,
     )
@@ -770,6 +773,146 @@ class Dispute(
 
     class TestHelpers(APIResourceTestHelpers["Dispute"]):
         _resource_cls: Type["Dispute"]
+
+        @classmethod
+        def _cls_simulate_network_lifecycle_dispute_response(
+            cls,
+            dispute: str,
+            **params: Unpack[
+                "DisputeSimulateNetworkLifecycleDisputeResponseParams"
+            ],
+        ) -> "Dispute":
+            """
+            Test helper: populates network_lifecycle.dispute_response on a test-mode Visa Issuing Dispute using placeholder file tokens. Only supported for Visa disputes.
+            """
+            return cast(
+                "Dispute",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/issuing/disputes/{dispute}/simulate_network_lifecycle_dispute_response".format(
+                        dispute=sanitize_id(dispute)
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        def simulate_network_lifecycle_dispute_response(
+            dispute: str,
+            **params: Unpack[
+                "DisputeSimulateNetworkLifecycleDisputeResponseParams"
+            ],
+        ) -> "Dispute":
+            """
+            Test helper: populates network_lifecycle.dispute_response on a test-mode Visa Issuing Dispute using placeholder file tokens. Only supported for Visa disputes.
+            """
+            ...
+
+        @overload
+        def simulate_network_lifecycle_dispute_response(
+            self,
+            **params: Unpack[
+                "DisputeSimulateNetworkLifecycleDisputeResponseParams"
+            ],
+        ) -> "Dispute":
+            """
+            Test helper: populates network_lifecycle.dispute_response on a test-mode Visa Issuing Dispute using placeholder file tokens. Only supported for Visa disputes.
+            """
+            ...
+
+        @class_method_variant(
+            "_cls_simulate_network_lifecycle_dispute_response",
+        )
+        def simulate_network_lifecycle_dispute_response(  # pyright: ignore[reportGeneralTypeIssues]
+            self,
+            **params: Unpack[
+                "DisputeSimulateNetworkLifecycleDisputeResponseParams"
+            ],
+        ) -> "Dispute":
+            """
+            Test helper: populates network_lifecycle.dispute_response on a test-mode Visa Issuing Dispute using placeholder file tokens. Only supported for Visa disputes.
+            """
+            return cast(
+                "Dispute",
+                self.resource._request(
+                    "post",
+                    "/v1/test_helpers/issuing/disputes/{dispute}/simulate_network_lifecycle_dispute_response".format(
+                        dispute=sanitize_id(self.resource._data.get("id"))
+                    ),
+                    params=params,
+                ),
+            )
+
+        @classmethod
+        async def _cls_simulate_network_lifecycle_dispute_response_async(
+            cls,
+            dispute: str,
+            **params: Unpack[
+                "DisputeSimulateNetworkLifecycleDisputeResponseParams"
+            ],
+        ) -> "Dispute":
+            """
+            Test helper: populates network_lifecycle.dispute_response on a test-mode Visa Issuing Dispute using placeholder file tokens. Only supported for Visa disputes.
+            """
+            return cast(
+                "Dispute",
+                await cls._static_request_async(
+                    "post",
+                    "/v1/test_helpers/issuing/disputes/{dispute}/simulate_network_lifecycle_dispute_response".format(
+                        dispute=sanitize_id(dispute)
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        async def simulate_network_lifecycle_dispute_response_async(
+            dispute: str,
+            **params: Unpack[
+                "DisputeSimulateNetworkLifecycleDisputeResponseParams"
+            ],
+        ) -> "Dispute":
+            """
+            Test helper: populates network_lifecycle.dispute_response on a test-mode Visa Issuing Dispute using placeholder file tokens. Only supported for Visa disputes.
+            """
+            ...
+
+        @overload
+        async def simulate_network_lifecycle_dispute_response_async(
+            self,
+            **params: Unpack[
+                "DisputeSimulateNetworkLifecycleDisputeResponseParams"
+            ],
+        ) -> "Dispute":
+            """
+            Test helper: populates network_lifecycle.dispute_response on a test-mode Visa Issuing Dispute using placeholder file tokens. Only supported for Visa disputes.
+            """
+            ...
+
+        @class_method_variant(
+            "_cls_simulate_network_lifecycle_dispute_response_async",
+        )
+        async def simulate_network_lifecycle_dispute_response_async(  # pyright: ignore[reportGeneralTypeIssues]
+            self,
+            **params: Unpack[
+                "DisputeSimulateNetworkLifecycleDisputeResponseParams"
+            ],
+        ) -> "Dispute":
+            """
+            Test helper: populates network_lifecycle.dispute_response on a test-mode Visa Issuing Dispute using placeholder file tokens. Only supported for Visa disputes.
+            """
+            return cast(
+                "Dispute",
+                await self.resource._request_async(
+                    "post",
+                    "/v1/test_helpers/issuing/disputes/{dispute}/simulate_network_lifecycle_dispute_response".format(
+                        dispute=sanitize_id(self.resource._data.get("id"))
+                    ),
+                    params=params,
+                ),
+            )
 
         @classmethod
         def _cls_simulate_network_lifecycle_pre_arbitration_response(
