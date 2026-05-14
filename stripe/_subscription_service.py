@@ -511,7 +511,7 @@ class SubscriptionService(StripeService):
     def pause(
         self,
         subscription: str,
-        params: "SubscriptionPauseParams",
+        params: Optional["SubscriptionPauseParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Subscription":
         """
@@ -533,7 +533,7 @@ class SubscriptionService(StripeService):
     async def pause_async(
         self,
         subscription: str,
-        params: "SubscriptionPauseParams",
+        params: Optional["SubscriptionPauseParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> "Subscription":
         """
