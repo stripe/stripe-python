@@ -8,6 +8,9 @@ from typing_extensions import TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe._request_options import RequestOptions
     from stripe.issuing._dispute import Dispute
+    from stripe.params.test_helpers.issuing._dispute_close_params import (
+        DisputeCloseParams,
+    )
     from stripe.params.test_helpers.issuing._dispute_simulate_network_lifecycle_dispute_response_params import (
         DisputeSimulateNetworkLifecycleDisputeResponseParams,
     )
@@ -20,6 +23,50 @@ if TYPE_CHECKING:
 
 
 class DisputeService(StripeService):
+    def close(
+        self,
+        dispute: str,
+        params: "DisputeCloseParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "Dispute":
+        """
+        Test helper: closes a test-mode Issuing dispute as won or lost.
+        """
+        return cast(
+            "Dispute",
+            self._request(
+                "post",
+                "/v1/test_helpers/issuing/disputes/{dispute}/close".format(
+                    dispute=sanitize_id(dispute),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def close_async(
+        self,
+        dispute: str,
+        params: "DisputeCloseParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "Dispute":
+        """
+        Test helper: closes a test-mode Issuing dispute as won or lost.
+        """
+        return cast(
+            "Dispute",
+            await self._request_async(
+                "post",
+                "/v1/test_helpers/issuing/disputes/{dispute}/close".format(
+                    dispute=sanitize_id(dispute),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def simulate_network_lifecycle_dispute_response(
         self,
         dispute: str,

@@ -15,6 +15,7 @@ if TYPE_CHECKING:
     from stripe._balance_transaction import BalanceTransaction
     from stripe._file import File
     from stripe.issuing._transaction import Transaction
+    from stripe.params.issuing._dispute_close_params import DisputeCloseParams
     from stripe.params.issuing._dispute_create_params import (
         DisputeCreateParams,
     )
@@ -773,6 +774,114 @@ class Dispute(
 
     class TestHelpers(APIResourceTestHelpers["Dispute"]):
         _resource_cls: Type["Dispute"]
+
+        @classmethod
+        def _cls_close(
+            cls, dispute: str, **params: Unpack["DisputeCloseParams"]
+        ) -> "Dispute":
+            """
+            Test helper: closes a test-mode Issuing dispute as won or lost.
+            """
+            return cast(
+                "Dispute",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/issuing/disputes/{dispute}/close".format(
+                        dispute=sanitize_id(dispute)
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        def close(
+            dispute: str, **params: Unpack["DisputeCloseParams"]
+        ) -> "Dispute":
+            """
+            Test helper: closes a test-mode Issuing dispute as won or lost.
+            """
+            ...
+
+        @overload
+        def close(self, **params: Unpack["DisputeCloseParams"]) -> "Dispute":
+            """
+            Test helper: closes a test-mode Issuing dispute as won or lost.
+            """
+            ...
+
+        @class_method_variant("_cls_close")
+        def close(  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["DisputeCloseParams"]
+        ) -> "Dispute":
+            """
+            Test helper: closes a test-mode Issuing dispute as won or lost.
+            """
+            return cast(
+                "Dispute",
+                self.resource._request(
+                    "post",
+                    "/v1/test_helpers/issuing/disputes/{dispute}/close".format(
+                        dispute=sanitize_id(self.resource._data.get("id"))
+                    ),
+                    params=params,
+                ),
+            )
+
+        @classmethod
+        async def _cls_close_async(
+            cls, dispute: str, **params: Unpack["DisputeCloseParams"]
+        ) -> "Dispute":
+            """
+            Test helper: closes a test-mode Issuing dispute as won or lost.
+            """
+            return cast(
+                "Dispute",
+                await cls._static_request_async(
+                    "post",
+                    "/v1/test_helpers/issuing/disputes/{dispute}/close".format(
+                        dispute=sanitize_id(dispute)
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        async def close_async(
+            dispute: str, **params: Unpack["DisputeCloseParams"]
+        ) -> "Dispute":
+            """
+            Test helper: closes a test-mode Issuing dispute as won or lost.
+            """
+            ...
+
+        @overload
+        async def close_async(
+            self, **params: Unpack["DisputeCloseParams"]
+        ) -> "Dispute":
+            """
+            Test helper: closes a test-mode Issuing dispute as won or lost.
+            """
+            ...
+
+        @class_method_variant("_cls_close_async")
+        async def close_async(  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["DisputeCloseParams"]
+        ) -> "Dispute":
+            """
+            Test helper: closes a test-mode Issuing dispute as won or lost.
+            """
+            return cast(
+                "Dispute",
+                await self.resource._request_async(
+                    "post",
+                    "/v1/test_helpers/issuing/disputes/{dispute}/close".format(
+                        dispute=sanitize_id(self.resource._data.get("id"))
+                    ),
+                    params=params,
+                ),
+            )
 
         @classmethod
         def _cls_simulate_network_lifecycle_dispute_response(

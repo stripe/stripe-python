@@ -224,6 +224,9 @@ if TYPE_CHECKING:
     from stripe.params.issuing._credit_underwriting_record_retrieve_params import (
         CreditUnderwritingRecordRetrieveParams as CreditUnderwritingRecordRetrieveParams,
     )
+    from stripe.params.issuing._dispute_close_params import (
+        DisputeCloseParams as DisputeCloseParams,
+    )
     from stripe.params.issuing._dispute_create_params import (
         DisputeCreateParams as DisputeCreateParams,
         DisputeCreateParamsEvidence as DisputeCreateParamsEvidence,
@@ -1007,6 +1010,10 @@ _import_map = {
     ),
     "CreditUnderwritingRecordRetrieveParams": (
         "stripe.params.issuing._credit_underwriting_record_retrieve_params",
+        False,
+    ),
+    "DisputeCloseParams": (
+        "stripe.params.issuing._dispute_close_params",
         False,
     ),
     "DisputeCreateParams": (
