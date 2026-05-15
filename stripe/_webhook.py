@@ -68,13 +68,15 @@ class WebhookSignature(object):
         `WebhookSignature.verify_header`. Mirrors `generateTestHeaderString`
         from stripe-node.
 
-        :param payload: The webhook payload to sign, as a string.
-        :param secret: The webhook signing secret (`whsec_...`).
-        :param timestamp: Unix timestamp to embed in the header. Defaults to
-            the current time.
-        :param scheme: Signature scheme. Defaults to `WebhookSignature.EXPECTED_SCHEME`.
-        :param signature: Pre-computed signature to embed in the header. If
-            omitted, a signature is computed from `payload` and `secret`.
+        Args:
+            payload: The webhook payload to sign, as a string.
+            secret: The webhook signing secret (`whsec_...`).
+            timestamp: Unix timestamp to embed in the header. Defaults to
+                the current time.
+            scheme: Signature scheme. Defaults to
+                `WebhookSignature.EXPECTED_SCHEME`.
+            signature: Pre-computed signature to embed in the header. If
+                omitted, a signature is computed from `payload` and `secret`.
         """
         if timestamp is None:
             timestamp = int(time.time())
