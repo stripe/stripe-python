@@ -474,6 +474,12 @@ if TYPE_CHECKING:
         PaymentLinkService as PaymentLinkService,
     )
     from stripe._payment_location import PaymentLocation as PaymentLocation
+    from stripe._payment_location_capability import (
+        PaymentLocationCapability as PaymentLocationCapability,
+    )
+    from stripe._payment_location_capability_service import (
+        PaymentLocationCapabilityService as PaymentLocationCapabilityService,
+    )
     from stripe._payment_location_service import (
         PaymentLocationService as PaymentLocationService,
     )
@@ -935,6 +941,14 @@ _import_map = {
     ),
     "PaymentLinkService": ("stripe._payment_link_service", False),
     "PaymentLocation": ("stripe._payment_location", False),
+    "PaymentLocationCapability": (
+        "stripe._payment_location_capability",
+        False,
+    ),
+    "PaymentLocationCapabilityService": (
+        "stripe._payment_location_capability_service",
+        False,
+    ),
     "PaymentLocationService": ("stripe._payment_location_service", False),
     "PaymentMethod": ("stripe._payment_method", False),
     "PaymentMethodBalance": ("stripe._payment_method_balance", False),

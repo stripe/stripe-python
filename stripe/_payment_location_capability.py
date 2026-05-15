@@ -1,0 +1,128 @@
+# -*- coding: utf-8 -*-
+# File generated from our OpenAPI spec
+from stripe._stripe_object import StripeObject
+from stripe._updateable_api_resource import UpdateableAPIResource
+from stripe._util import sanitize_id
+from typing import ClassVar, List, Optional, cast
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.params._payment_location_capability_modify_params import (
+        PaymentLocationCapabilityModifyParams,
+    )
+
+
+class PaymentLocationCapability(
+    UpdateableAPIResource["PaymentLocationCapability"],
+):
+    """
+    A Payment Location Capability represents a capability for a Stripe account at a Payment Location.
+    """
+
+    OBJECT_NAME: ClassVar[Literal["payment_location_capability"]] = (
+        "payment_location_capability"
+    )
+
+    class Requirements(StripeObject):
+        class Error(StripeObject):
+            code: Literal["information_missing", "invalid_value_other"]
+            """
+            The code for the type of error.
+            """
+            reason: str
+            """
+            An informative message that indicates the error type and provides additional details about the error.
+            """
+            requirement: str
+            """
+            The specific user onboarding requirement field (in the requirements hash) that needs to be resolved.
+            """
+
+        currently_due: List[str]
+        """
+        Fields that need to be collected to keep the capability enabled.
+        """
+        disabled_reason: Optional[
+            Literal[
+                "account.capability_required",
+                "pending.onboarding",
+                "pending.review",
+                "rejected.other",
+                "rejected.unsupported_business",
+                "requirements.fields_needed",
+            ]
+        ]
+        """
+        Description of why the capability is disabled.
+        """
+        errors: List[Error]
+        """
+        Fields that are `currently_due` and need to be collected again because validation or verification failed.
+        """
+        _inner_class_types = {"errors": Error}
+
+    account: str
+    """
+    The account for which the capability enables functionality.
+    """
+    capability: Literal["fr_meal_vouchers_conecs_payments"]
+    """
+    The identifier for the capability.
+    """
+    location: str
+    """
+    The payment location for which the capability enables functionality.
+    """
+    object: Literal["payment_location_capability"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
+    requested: bool
+    """
+    Whether the capability has been requested.
+    """
+    requested_at: Optional[int]
+    """
+    Time at which the capability was requested. Measured in seconds since the Unix epoch.
+    """
+    requirements: Requirements
+    status: Literal["active", "inactive", "pending", "unrequested"]
+    """
+    The status of the capability.
+    """
+
+    @classmethod
+    def modify(
+        cls, id: str, **params: Unpack["PaymentLocationCapabilityModifyParams"]
+    ) -> "PaymentLocationCapability":
+        """
+        Updates a specified Payment Location Capability. Request or remove a payment location capability by updating its requested parameter.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "PaymentLocationCapability",
+            cls._static_request(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def modify_async(
+        cls, id: str, **params: Unpack["PaymentLocationCapabilityModifyParams"]
+    ) -> "PaymentLocationCapability":
+        """
+        Updates a specified Payment Location Capability. Request or remove a payment location capability by updating its requested parameter.
+        """
+        url = "%s/%s" % (cls.class_url(), sanitize_id(id))
+        return cast(
+            "PaymentLocationCapability",
+            await cls._static_request_async(
+                "post",
+                url,
+                params=params,
+            ),
+        )
+
+    _inner_class_types = {"requirements": Requirements}
