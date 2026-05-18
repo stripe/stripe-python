@@ -678,9 +678,7 @@ class RequestsClient(HTTPClient):
                 ).request(
                     method,
                     url,
-                    headers=cast(
-                        "MutableMapping[str, str | bytes] | None", headers
-                    ),  # https://jira.corp.stripe.com/browse/RUN_DEVSDK-2417
+                    headers=headers,
                     data=post_data,
                     timeout=self._timeout,
                     **kwargs,
