@@ -6,14 +6,103 @@ from typing import Optional, cast
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe._list_object import ListObject
     from stripe._payment_location_capability import PaymentLocationCapability
     from stripe._request_options import RequestOptions
+    from stripe.params._payment_location_capability_list_params import (
+        PaymentLocationCapabilityListParams,
+    )
+    from stripe.params._payment_location_capability_retrieve_params import (
+        PaymentLocationCapabilityRetrieveParams,
+    )
     from stripe.params._payment_location_capability_update_params import (
         PaymentLocationCapabilityUpdateParams,
     )
 
 
 class PaymentLocationCapabilityService(StripeService):
+    def list(
+        self,
+        params: "PaymentLocationCapabilityListParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[PaymentLocationCapability]":
+        """
+        Returns a list of PaymentLocationCapability objects associated with the location.
+        """
+        return cast(
+            "ListObject[PaymentLocationCapability]",
+            self._request(
+                "get",
+                "/v1/payment_location_capabilities",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def list_async(
+        self,
+        params: "PaymentLocationCapabilityListParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "ListObject[PaymentLocationCapability]":
+        """
+        Returns a list of PaymentLocationCapability objects associated with the location.
+        """
+        return cast(
+            "ListObject[PaymentLocationCapability]",
+            await self._request_async(
+                "get",
+                "/v1/payment_location_capabilities",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def retrieve(
+        self,
+        capability: str,
+        params: "PaymentLocationCapabilityRetrieveParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentLocationCapability":
+        """
+        Retrieves information about the specified Payment Location Capability.
+        """
+        return cast(
+            "PaymentLocationCapability",
+            self._request(
+                "get",
+                "/v1/payment_location_capabilities/{capability}".format(
+                    capability=sanitize_id(capability),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        capability: str,
+        params: "PaymentLocationCapabilityRetrieveParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentLocationCapability":
+        """
+        Retrieves information about the specified Payment Location Capability.
+        """
+        return cast(
+            "PaymentLocationCapability",
+            await self._request_async(
+                "get",
+                "/v1/payment_location_capabilities/{capability}".format(
+                    capability=sanitize_id(capability),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def update(
         self,
         capability: str,
