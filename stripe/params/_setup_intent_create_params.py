@@ -1935,6 +1935,10 @@ class SetupIntentCreateParamsSetupDetailsBenefit(TypedDict):
 
 
 class SetupIntentCreateParamsSetupDetailsBenefitFrMealVoucher(TypedDict):
+    enabled: NotRequired[Literal["if_payment_method_is_eligible", "never"]]
+    """
+    Whether to enable meal voucher benefit for this setup intent.
+    """
     siret: str
     """
     The 14-digit SIRET of the meal voucher acceptor.
