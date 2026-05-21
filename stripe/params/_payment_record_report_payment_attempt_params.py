@@ -67,6 +67,10 @@ class PaymentRecordReportPaymentAttemptParamsFailed(TypedDict):
     """
     The failure code for this payment attempt. Must be one of `payment_method_customer_decline` or `payment_method_provider_unknown_outcome`.
     """
+    payment_evaluations: NotRequired[List[str]]
+    """
+    Payment evaluations associated with this reported payment.
+    """
     processor_details: NotRequired[
         "PaymentRecordReportPaymentAttemptParamsFailedProcessorDetails"
     ]

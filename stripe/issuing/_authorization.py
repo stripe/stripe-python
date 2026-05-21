@@ -81,6 +81,22 @@ class Authorization(
         The amount of cash requested by the cardholder.
         """
 
+    class BalanceResponse(StripeObject):
+        account_type: Literal[
+            "checking", "credit", "default", "other", "savings", "universal"
+        ]
+        """
+        The cardholder account type affected by this authorization.
+        """
+        amount: int
+        """
+        The remaining balance in the cardholder's account after the authorization, in the smallest currency unit.
+        """
+        currency: str
+        """
+        The currency of the remaining balance in the cardholder's account after the authorization.
+        """
+
     class CryptoTransaction(StripeObject):
         class CryptoTransactionConfirmed(StripeObject):
             class Fee(StripeObject):
@@ -983,6 +999,7 @@ class Authorization(
     """
     How the card details were provided.
     """
+    balance_response: Optional[BalanceResponse]
     balance_transactions: List["BalanceTransaction"]
     """
     List of balance transactions associated with this authorization.
@@ -2172,6 +2189,7 @@ class Authorization(
 
     _inner_class_types = {
         "amount_details": AmountDetails,
+        "balance_response": BalanceResponse,
         "crypto_transactions": CryptoTransaction,
         "fleet": Fleet,
         "fraud_challenges": FraudChallenge,

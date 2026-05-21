@@ -224,6 +224,9 @@ if TYPE_CHECKING:
     from stripe.params.issuing._credit_underwriting_record_retrieve_params import (
         CreditUnderwritingRecordRetrieveParams as CreditUnderwritingRecordRetrieveParams,
     )
+    from stripe.params.issuing._dispute_close_params import (
+        DisputeCloseParams as DisputeCloseParams,
+    )
     from stripe.params.issuing._dispute_create_params import (
         DisputeCreateParams as DisputeCreateParams,
         DisputeCreateParamsEvidence as DisputeCreateParamsEvidence,
@@ -261,6 +264,10 @@ if TYPE_CHECKING:
     )
     from stripe.params.issuing._dispute_settlement_detail_retrieve_params import (
         DisputeSettlementDetailRetrieveParams as DisputeSettlementDetailRetrieveParams,
+    )
+    from stripe.params.issuing._dispute_simulate_network_lifecycle_dispute_response_params import (
+        DisputeSimulateNetworkLifecycleDisputeResponseParams as DisputeSimulateNetworkLifecycleDisputeResponseParams,
+        DisputeSimulateNetworkLifecycleDisputeResponseParamsMerchantEvidenceFiles as DisputeSimulateNetworkLifecycleDisputeResponseParamsMerchantEvidenceFiles,
     )
     from stripe.params.issuing._dispute_simulate_network_lifecycle_pre_arbitration_response_params import (
         DisputeSimulateNetworkLifecyclePreArbitrationResponseParams as DisputeSimulateNetworkLifecyclePreArbitrationResponseParams,
@@ -1005,6 +1012,10 @@ _import_map = {
         "stripe.params.issuing._credit_underwriting_record_retrieve_params",
         False,
     ),
+    "DisputeCloseParams": (
+        "stripe.params.issuing._dispute_close_params",
+        False,
+    ),
     "DisputeCreateParams": (
         "stripe.params.issuing._dispute_create_params",
         False,
@@ -1104,6 +1115,14 @@ _import_map = {
     ),
     "DisputeSettlementDetailRetrieveParams": (
         "stripe.params.issuing._dispute_settlement_detail_retrieve_params",
+        False,
+    ),
+    "DisputeSimulateNetworkLifecycleDisputeResponseParams": (
+        "stripe.params.issuing._dispute_simulate_network_lifecycle_dispute_response_params",
+        False,
+    ),
+    "DisputeSimulateNetworkLifecycleDisputeResponseParamsMerchantEvidenceFiles": (
+        "stripe.params.issuing._dispute_simulate_network_lifecycle_dispute_response_params",
         False,
     ),
     "DisputeSimulateNetworkLifecyclePreArbitrationResponseParams": (

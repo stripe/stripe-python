@@ -112,6 +112,62 @@ class PaymentIntent(
 
     OBJECT_NAME: ClassVar[Literal["payment_intent"]] = "payment_intent"
 
+    class AdvancedFeatureDetails(StripeObject):
+        class DecrementalAuthorization(StripeObject):
+            status: Literal["available", "unavailable"]
+            """
+            Indicates whether the feature is supported.
+            """
+
+        class IncrementalAuthorization(StripeObject):
+            status: Literal["available", "unavailable"]
+            """
+            Indicates whether the feature is supported.
+            """
+
+        class Multicapture(StripeObject):
+            status: Literal["available", "unavailable"]
+            """
+            Indicates whether the feature is supported.
+            """
+
+        class Overcapture(StripeObject):
+            maximum_amount_capturable: Optional[int]
+            """
+            The maximum amount that can be captured.
+            """
+            status: Literal["available", "unavailable"]
+            """
+            Indicates whether overcapture is supported.
+            """
+
+        class Reauthorization(StripeObject):
+            status: Literal["available", "unavailable"]
+            """
+            Indicates whether the feature is supported.
+            """
+
+        capture_before: Optional[int]
+        """
+        Timestamp at which the authorization will expire if not captured.
+        """
+        decremental_authorization: Optional[DecrementalAuthorization]
+        incremental_authorization: Optional[IncrementalAuthorization]
+        multicapture: Optional[Multicapture]
+        overcapture: Optional[Overcapture]
+        reauthorization: Optional[Reauthorization]
+        reauthorize_before: Optional[int]
+        """
+        Timestamp at which the reauthorization window closes.
+        """
+        _inner_class_types = {
+            "decremental_authorization": DecrementalAuthorization,
+            "incremental_authorization": IncrementalAuthorization,
+            "multicapture": Multicapture,
+            "overcapture": Overcapture,
+            "reauthorization": Reauthorization,
+        }
+
     class AgentDetails(StripeObject):
         name: str
         """
@@ -4796,6 +4852,7 @@ class PaymentIntent(
         The account (if any) that the payment is attributed to for tax reporting, and where funds from the payment are transferred to after payment success.
         """
 
+    advanced_feature_details: Optional[AdvancedFeatureDetails]
     agent_details: Optional[AgentDetails]
     """
     Details about the agent that initiated the creation of this PaymentIntent.
@@ -4803,6 +4860,10 @@ class PaymentIntent(
     allocated_funds: Optional[AllocatedFunds]
     """
     Allocated Funds configuration for this PaymentIntent.
+    """
+    allowed_payment_method_types: Optional[List[str]]
+    """
+    The list of payment method types allowed for use with this payment. Stripe automatically returns compatible payment methods from this list in the `payment_method_types` field of the response, based on the other PaymentIntent parameters, such as `currency`, `amount`, and `customer`.
     """
     amount: int
     """
@@ -7135,6 +7196,7 @@ class PaymentIntent(
         return self.TestHelpers(self)
 
     _inner_class_types = {
+        "advanced_feature_details": AdvancedFeatureDetails,
         "agent_details": AgentDetails,
         "allocated_funds": AllocatedFunds,
         "amount_details": AmountDetails,

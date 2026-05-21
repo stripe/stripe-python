@@ -3872,6 +3872,18 @@ if TYPE_CHECKING:
         PaymentLinkUpdateParamsSubscriptionDataTrialSettingsEndBehavior as PaymentLinkUpdateParamsSubscriptionDataTrialSettingsEndBehavior,
         PaymentLinkUpdateParamsTaxIdCollection as PaymentLinkUpdateParamsTaxIdCollection,
     )
+    from stripe.params._payment_location_capability_list_params import (
+        PaymentLocationCapabilityListParams as PaymentLocationCapabilityListParams,
+    )
+    from stripe.params._payment_location_capability_modify_params import (
+        PaymentLocationCapabilityModifyParams as PaymentLocationCapabilityModifyParams,
+    )
+    from stripe.params._payment_location_capability_retrieve_params import (
+        PaymentLocationCapabilityRetrieveParams as PaymentLocationCapabilityRetrieveParams,
+    )
+    from stripe.params._payment_location_capability_update_params import (
+        PaymentLocationCapabilityUpdateParams as PaymentLocationCapabilityUpdateParams,
+    )
     from stripe.params._payment_location_create_params import (
         PaymentLocationCreateParams as PaymentLocationCreateParams,
         PaymentLocationCreateParamsAddress as PaymentLocationCreateParamsAddress,
@@ -19283,6 +19295,22 @@ _import_map = {
     ),
     "PaymentLinkUpdateParamsTaxIdCollection": (
         "stripe.params._payment_link_update_params",
+        False,
+    ),
+    "PaymentLocationCapabilityListParams": (
+        "stripe.params._payment_location_capability_list_params",
+        False,
+    ),
+    "PaymentLocationCapabilityModifyParams": (
+        "stripe.params._payment_location_capability_modify_params",
+        False,
+    ),
+    "PaymentLocationCapabilityRetrieveParams": (
+        "stripe.params._payment_location_capability_retrieve_params",
+        False,
+    ),
+    "PaymentLocationCapabilityUpdateParams": (
+        "stripe.params._payment_location_capability_update_params",
         False,
     ),
     "PaymentLocationCreateParams": (

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from typing import List
-from typing_extensions import NotRequired, TypedDict
+from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class PaymentLocationUpdateParams(TypedDict):
@@ -30,7 +30,7 @@ class PaymentLocationUpdateParams(TypedDict):
 
 
 class PaymentLocationUpdateParamsAddress(TypedDict):
-    city: NotRequired[str]
+    city: NotRequired["Literal['']|str"]
     """
     City, district, suburb, town, or village.
     """
@@ -38,19 +38,19 @@ class PaymentLocationUpdateParamsAddress(TypedDict):
     """
     Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
     """
-    line1: NotRequired[str]
+    line1: NotRequired["Literal['']|str"]
     """
     Address line 1, such as the street, PO Box, or company name.
     """
-    line2: NotRequired[str]
+    line2: NotRequired["Literal['']|str"]
     """
     Address line 2, such as the apartment, suite, unit, or building.
     """
-    postal_code: NotRequired[str]
+    postal_code: NotRequired["Literal['']|str"]
     """
     ZIP or postal code.
     """
-    state: NotRequired[str]
+    state: NotRequired["Literal['']|str"]
     """
     State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """

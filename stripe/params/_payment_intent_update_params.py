@@ -584,6 +584,10 @@ class PaymentIntentUpdateParamsPaymentDetailsBenefit(TypedDict):
 
 
 class PaymentIntentUpdateParamsPaymentDetailsBenefitFrMealVoucher(TypedDict):
+    enabled: NotRequired[Literal["if_payment_method_is_eligible", "never"]]
+    """
+    Whether to enable meal voucher benefit for this payment.
+    """
     siret: str
     """
     The 14-digit SIRET of the meal voucher acceptor.
