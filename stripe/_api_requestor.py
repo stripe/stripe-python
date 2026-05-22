@@ -73,7 +73,8 @@ _default_proxy: Optional[str] = None
 
 
 def _maybe_emit_stripe_notice(rheaders: Mapping[str, str]) -> None:
-    if notice := rheaders.get("Stripe-Notice"):
+    notice = rheaders.get("Stripe-Notice")
+    if notice:
         import warnings
 
         warnings.warn(notice)
