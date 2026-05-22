@@ -1038,6 +1038,72 @@ class TestAPIRequestor(object):
                 "get", self.v1_path, {}, base_address="api"
             )
 
+    def test_stripe_notice_header_emits_warning(
+        self, requestor, http_client_mock
+    ):
+        http_client_mock.stub_request(
+            "get",
+            path=self.v1_path,
+            rbody="{}",
+            rcode=200,
+            rheaders={"Stripe-Notice": "test notice value"},
+        )
+
+        with pytest.warns(UserWarning, match="test notice value"):
+            requestor.request("get", self.v1_path, {}, base_address="api")
+
+    @pytest.mark.anyio
+    async def test_stripe_notice_header_emits_warning_async(
+        self, requestor, http_client_mock
+    ):
+        http_client_mock.stub_request(
+            "get",
+            path=self.v1_path,
+            rbody="{}",
+            rcode=200,
+            rheaders={"Stripe-Notice": "test notice value"},
+        )
+
+        with pytest.warns(UserWarning, match="test notice value"):
+            await requestor.request_async(
+                "get", self.v1_path, {}, base_address="api"
+            )
+
+    def test_no_stripe_notice_header_emits_no_warning(
+        self, requestor, http_client_mock
+    ):
+        import warnings
+
+        http_client_mock.stub_request(
+            "get",
+            path=self.v1_path,
+            rbody="{}",
+            rcode=200,
+        )
+
+        with warnings.catch_warnings():
+            warnings.simplefilter("error")
+            requestor.request("get", self.v1_path, {}, base_address="api")
+
+    @pytest.mark.anyio
+    async def test_no_stripe_notice_header_emits_no_warning_async(
+        self, requestor, http_client_mock
+    ):
+        import warnings
+
+        http_client_mock.stub_request(
+            "get",
+            path=self.v1_path,
+            rbody="{}",
+            rcode=200,
+        )
+
+        with warnings.catch_warnings():
+            warnings.simplefilter("error")
+            await requestor.request_async(
+                "get", self.v1_path, {}, base_address="api"
+            )
+
     def test_raw_request_with_file_param(self, requestor, http_client_mock):
         test_file = tempfile.NamedTemporaryFile()
         test_file.write("\u263a".encode("utf-16"))
