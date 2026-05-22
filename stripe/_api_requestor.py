@@ -72,6 +72,14 @@ HttpVerb = Literal["get", "post", "delete"]
 _default_proxy: Optional[str] = None
 
 
+def _maybe_emit_stripe_notice(rheaders: Mapping[str, str]) -> None:
+    notice = rheaders.get("Stripe-Notice")
+    if notice:
+        import warnings
+
+        warnings.warn(notice)
+
+
 def is_v2_delete_resp(method: str, api_mode: ApiMode) -> bool:
     return method == "delete" and api_mode == "V2"
 
@@ -209,6 +217,7 @@ class _APIRequestor(object):
             options=options,
             usage=usage,
         )
+        _maybe_emit_stripe_notice(rheaders)
         resp = requestor._interpret_response(rbody, rcode, rheaders, api_mode)
 
         obj = _convert_to_stripe_object(
@@ -243,6 +252,7 @@ class _APIRequestor(object):
             options=options,
             usage=usage,
         )
+        _maybe_emit_stripe_notice(rheaders)
         resp = requestor._interpret_response(rbody, rcode, rheaders, api_mode)
 
         obj = _convert_to_stripe_object(
