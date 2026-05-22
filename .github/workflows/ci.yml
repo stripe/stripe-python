@@ -46,7 +46,7 @@ jobs:
         run: |
           set -eox
 
-          for minor in {6..12}; do
+          for minor in {9..14}; do
             just --no-deps typecheck $minor
           done
 
