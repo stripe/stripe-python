@@ -106,6 +106,10 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
     """
     Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
     """
+    bizum: NotRequired["ConfirmationTokenCreateParamsPaymentMethodDataBizum"]
+    """
+    If this is a `bizum` PaymentMethod, this hash contains details about the Bizum payment method.
+    """
     blik: NotRequired["ConfirmationTokenCreateParamsPaymentMethodDataBlik"]
     """
     If this is a `blik` PaymentMethod, this hash contains details about the BLIK payment method.
@@ -194,7 +198,7 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
     """
     link: NotRequired["ConfirmationTokenCreateParamsPaymentMethodDataLink"]
     """
-    If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
+    If this is an `Link` PaymentMethod, this hash contains details about the Link payment method (Link is also known as Onelink in the UK).
     """
     mb_way: NotRequired["ConfirmationTokenCreateParamsPaymentMethodDataMbWay"]
     """
@@ -306,6 +310,12 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
     """
     If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
     """
+    scalapay: NotRequired[
+        "ConfirmationTokenCreateParamsPaymentMethodDataScalapay"
+    ]
+    """
+    If this is a Scalapay PaymentMethod, this hash contains details about the Scalapay payment method.
+    """
     sepa_debit: NotRequired[
         "ConfirmationTokenCreateParamsPaymentMethodDataSepaDebit"
     ]
@@ -355,6 +365,7 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
         "bacs_debit",
         "bancontact",
         "billie",
+        "bizum",
         "blik",
         "boleto",
         "cashapp",
@@ -392,6 +403,7 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
         "revolut_pay",
         "samsung_pay",
         "satispay",
+        "scalapay",
         "sepa_debit",
         "shopeepay",
         "sofort",
@@ -548,6 +560,10 @@ class ConfirmationTokenCreateParamsPaymentMethodDataBillingDetailsAddress(
     """
     State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """
+
+
+class ConfirmationTokenCreateParamsPaymentMethodDataBizum(TypedDict):
+    pass
 
 
 class ConfirmationTokenCreateParamsPaymentMethodDataBlik(TypedDict):
@@ -904,6 +920,10 @@ class ConfirmationTokenCreateParamsPaymentMethodDataSamsungPay(TypedDict):
 
 
 class ConfirmationTokenCreateParamsPaymentMethodDataSatispay(TypedDict):
+    pass
+
+
+class ConfirmationTokenCreateParamsPaymentMethodDataScalapay(TypedDict):
     pass
 
 

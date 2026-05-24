@@ -221,6 +221,7 @@ class SetupIntent(
                 "payment_method_invalid_parameter",
                 "payment_method_invalid_parameter_testmode",
                 "payment_method_microdeposit_failed",
+                "payment_method_microdeposit_processing_error",
                 "payment_method_microdeposit_verification_amounts_invalid",
                 "payment_method_microdeposit_verification_amounts_mismatch",
                 "payment_method_microdeposit_verification_attempts_exceeded",
@@ -262,6 +263,7 @@ class SetupIntent(
                 "setup_intent_unexpected_state",
                 "shipping_address_invalid",
                 "shipping_calculation_failed",
+                "siret_invalid",
                 "sku_inactive",
                 "state_unsupported",
                 "status_transition_invalid",
@@ -392,6 +394,9 @@ class SetupIntent(
         """
 
     class NextAction(StripeObject):
+        class BlikAuthorize(StripeObject):
+            pass
+
         class CashappHandleRedirectOrDisplayQrCode(StripeObject):
             class QrCode(StripeObject):
                 expires_at: int
@@ -486,6 +491,7 @@ class SetupIntent(
             The type of the microdeposit sent to the customer. Used to distinguish between different verification methods.
             """
 
+        blik_authorize: Optional[BlikAuthorize]
         cashapp_handle_redirect_or_display_qr_code: Optional[
             CashappHandleRedirectOrDisplayQrCode
         ]
@@ -504,6 +510,7 @@ class SetupIntent(
         """
         verify_with_microdeposits: Optional[VerifyWithMicrodeposits]
         _inner_class_types = {
+            "blik_authorize": BlikAuthorize,
             "cashapp_handle_redirect_or_display_qr_code": CashappHandleRedirectOrDisplayQrCode,
             "pix_display_qr_code": PixDisplayQrCode,
             "redirect_to_url": RedirectToUrl,
@@ -572,6 +579,9 @@ class SetupIntent(
 
             mandate_options: Optional[MandateOptions]
             _inner_class_types = {"mandate_options": MandateOptions}
+
+        class Bizum(StripeObject):
+            pass
 
         class Card(StripeObject):
             class MandateOptions(StripeObject):
@@ -897,6 +907,7 @@ class SetupIntent(
         acss_debit: Optional[AcssDebit]
         amazon_pay: Optional[AmazonPay]
         bacs_debit: Optional[BacsDebit]
+        bizum: Optional[Bizum]
         card: Optional[Card]
         card_present: Optional[CardPresent]
         klarna: Optional[Klarna]
@@ -911,6 +922,7 @@ class SetupIntent(
             "acss_debit": AcssDebit,
             "amazon_pay": AmazonPay,
             "bacs_debit": BacsDebit,
+            "bizum": Bizum,
             "card": Card,
             "card_present": CardPresent,
             "klarna": Klarna,
@@ -982,6 +994,7 @@ class SetupIntent(
                 "bacs_debit",
                 "bancontact",
                 "billie",
+                "bizum",
                 "blik",
                 "boleto",
                 "card",
@@ -1019,6 +1032,7 @@ class SetupIntent(
                 "revolut_pay",
                 "samsung_pay",
                 "satispay",
+                "scalapay",
                 "sepa_debit",
                 "shopeepay",
                 "sofort",

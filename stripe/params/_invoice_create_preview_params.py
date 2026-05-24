@@ -1314,6 +1314,10 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhase(TypedDict):
 
 
 class InvoiceCreatePreviewParamsScheduleDetailsPhaseAddInvoiceItem(TypedDict):
+    discountable: NotRequired[bool]
+    """
+    Controls whether discounts apply to this invoice item. Defaults to true if no value is provided.
+    """
     discounts: NotRequired[
         List[
             "InvoiceCreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemDiscount"
@@ -1884,7 +1888,7 @@ class InvoiceCreatePreviewParamsSubscriptionDetails(TypedDict):
     Sets the billing schedules for the subscription.
     """
     cancel_at: NotRequired[
-        "Literal['']|int|Literal['max_period_end', 'min_period_end']"
+        "Literal['']|int|Literal['max_billed_until', 'max_period_end', 'min_period_end']"
     ]
     """
     A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.

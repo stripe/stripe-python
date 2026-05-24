@@ -25,6 +25,7 @@ if TYPE_CHECKING:
         ConfirmationTokenCreateParamsPaymentMethodDataBillie as ConfirmationTokenCreateParamsPaymentMethodDataBillie,
         ConfirmationTokenCreateParamsPaymentMethodDataBillingDetails as ConfirmationTokenCreateParamsPaymentMethodDataBillingDetails,
         ConfirmationTokenCreateParamsPaymentMethodDataBillingDetailsAddress as ConfirmationTokenCreateParamsPaymentMethodDataBillingDetailsAddress,
+        ConfirmationTokenCreateParamsPaymentMethodDataBizum as ConfirmationTokenCreateParamsPaymentMethodDataBizum,
         ConfirmationTokenCreateParamsPaymentMethodDataBlik as ConfirmationTokenCreateParamsPaymentMethodDataBlik,
         ConfirmationTokenCreateParamsPaymentMethodDataBoleto as ConfirmationTokenCreateParamsPaymentMethodDataBoleto,
         ConfirmationTokenCreateParamsPaymentMethodDataCashapp as ConfirmationTokenCreateParamsPaymentMethodDataCashapp,
@@ -66,6 +67,7 @@ if TYPE_CHECKING:
         ConfirmationTokenCreateParamsPaymentMethodDataRevolutPay as ConfirmationTokenCreateParamsPaymentMethodDataRevolutPay,
         ConfirmationTokenCreateParamsPaymentMethodDataSamsungPay as ConfirmationTokenCreateParamsPaymentMethodDataSamsungPay,
         ConfirmationTokenCreateParamsPaymentMethodDataSatispay as ConfirmationTokenCreateParamsPaymentMethodDataSatispay,
+        ConfirmationTokenCreateParamsPaymentMethodDataScalapay as ConfirmationTokenCreateParamsPaymentMethodDataScalapay,
         ConfirmationTokenCreateParamsPaymentMethodDataSepaDebit as ConfirmationTokenCreateParamsPaymentMethodDataSepaDebit,
         ConfirmationTokenCreateParamsPaymentMethodDataShopeepay as ConfirmationTokenCreateParamsPaymentMethodDataShopeepay,
         ConfirmationTokenCreateParamsPaymentMethodDataSofort as ConfirmationTokenCreateParamsPaymentMethodDataSofort,
@@ -166,6 +168,10 @@ _import_map = {
         False,
     ),
     "ConfirmationTokenCreateParamsPaymentMethodDataBillingDetailsAddress": (
+        "stripe.params.test_helpers._confirmation_token_create_params",
+        False,
+    ),
+    "ConfirmationTokenCreateParamsPaymentMethodDataBizum": (
         "stripe.params.test_helpers._confirmation_token_create_params",
         False,
     ),
@@ -330,6 +336,10 @@ _import_map = {
         False,
     ),
     "ConfirmationTokenCreateParamsPaymentMethodDataSatispay": (
+        "stripe.params.test_helpers._confirmation_token_create_params",
+        False,
+    ),
+    "ConfirmationTokenCreateParamsPaymentMethodDataScalapay": (
         "stripe.params.test_helpers._confirmation_token_create_params",
         False,
     ),

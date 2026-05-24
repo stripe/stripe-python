@@ -44678,7 +44678,7 @@ class TestGeneratedExamples(object):
             {
                 "endpoint": {
                     "http_method": "delete",
-                    "path": "/v1/subscription_schedules",
+                    "path": "/v1/subscriptions/:subscription_exposed_id",
                 },
                 "metadata": {"key": "metadata"},
                 "skip_validation": True,
@@ -44689,7 +44689,7 @@ class TestGeneratedExamples(object):
             path="/v2/core/batch_jobs",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"endpoint":{"http_method":"delete","path":"/v1/subscription_schedules"},"metadata":{"key":"metadata"},"skip_validation":true}',
+            post_data='{"endpoint":{"http_method":"delete","path":"/v1/subscriptions/:subscription_exposed_id"},"metadata":{"key":"metadata"},"skip_validation":true}',
             is_json=True,
         )
 

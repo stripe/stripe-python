@@ -14,11 +14,19 @@ class ReaderListParams(RequestOptions):
             "mobile_phone_reader",
             "simulated_stripe_s700",
             "simulated_stripe_s710",
+            "simulated_verifone_m425",
+            "simulated_verifone_p630",
+            "simulated_verifone_ux700",
+            "simulated_verifone_v660p",
             "simulated_wisepos_e",
             "stripe_m2",
             "stripe_s700",
             "stripe_s710",
             "verifone_P400",
+            "verifone_m425",
+            "verifone_p630",
+            "verifone_ux700",
+            "verifone_v660p",
         ]
     ]
     """

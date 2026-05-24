@@ -290,6 +290,10 @@ class SubscriptionSchedule(
                 start: Start
                 _inner_class_types = {"end": End, "start": Start}
 
+            discountable: Optional[bool]
+            """
+            Controls whether discounts apply to this invoice item. Defaults to true if no value is provided.
+            """
             discounts: List[Discount]
             """
             The stackable discounts that will be applied to the item.

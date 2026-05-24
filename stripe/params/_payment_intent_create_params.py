@@ -86,6 +86,7 @@ class PaymentIntentCreateParams(RequestOptions):
                 "bacs_debit",
                 "bancontact",
                 "billie",
+                "bizum",
                 "blik",
                 "boleto",
                 "card",
@@ -123,6 +124,7 @@ class PaymentIntentCreateParams(RequestOptions):
                 "revolut_pay",
                 "samsung_pay",
                 "satispay",
+                "scalapay",
                 "sepa_debit",
                 "shopeepay",
                 "sofort",
@@ -168,7 +170,7 @@ class PaymentIntentCreateParams(RequestOptions):
     """
     off_session: NotRequired["bool|Literal['one_off', 'recurring']"]
     """
-    Set to `true` to indicate that the customer isn't in your checkout flow during this payment attempt and can't authenticate. Use this parameter in scenarios where you collect card details and [charge them later](https://docs.stripe.com/payments/cards/charging-saved-cards). This parameter can only be used with [`confirm=true`](https://docs.stripe.com/api/payment_intents/create#create_payment_intent-confirm).
+    Set to `true` to indicate that the customer isn't in your checkout flow during this payment attempt and can't authenticate. Use this parameter in scenarios where you collect payment method details and [charge them later](https://docs.stripe.com/payments/save-during-payment). This parameter can only be used with [`confirm=true`](https://docs.stripe.com/api/payment_intents/create#create_payment_intent-confirm).
     """
     on_behalf_of: NotRequired[str]
     """
@@ -446,11 +448,11 @@ class PaymentIntentCreateParamsAmountDetailsShipping(TypedDict):
     """
     from_postal_code: NotRequired["Literal['']|str"]
     """
-    If a physical good is being shipped, the postal code of where it is being shipped from. At most 10 alphanumeric characters long, hyphens are allowed.
+    If a physical good is being shipped, the postal code of where it is being shipped from. At most 10 alphanumeric characters long, hyphens and spaces are allowed.
     """
     to_postal_code: NotRequired["Literal['']|str"]
     """
-    If a physical good is being shipped, the postal code of where it is being shipped to. At most 10 alphanumeric characters long, hyphens are allowed.
+    If a physical good is being shipped, the postal code of where it is being shipped to. At most 10 alphanumeric characters long, hyphens and spaces are allowed.
     """
 
 
@@ -2420,6 +2422,10 @@ class PaymentIntentCreateParamsPaymentMethodData(TypedDict):
     """
     Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
     """
+    bizum: NotRequired["PaymentIntentCreateParamsPaymentMethodDataBizum"]
+    """
+    If this is a `bizum` PaymentMethod, this hash contains details about the Bizum payment method.
+    """
     blik: NotRequired["PaymentIntentCreateParamsPaymentMethodDataBlik"]
     """
     If this is a `blik` PaymentMethod, this hash contains details about the BLIK payment method.
@@ -2498,7 +2504,7 @@ class PaymentIntentCreateParamsPaymentMethodData(TypedDict):
     """
     link: NotRequired["PaymentIntentCreateParamsPaymentMethodDataLink"]
     """
-    If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
+    If this is an `Link` PaymentMethod, this hash contains details about the Link payment method (Link is also known as Onelink in the UK).
     """
     mb_way: NotRequired["PaymentIntentCreateParamsPaymentMethodDataMbWay"]
     """
@@ -2606,6 +2612,10 @@ class PaymentIntentCreateParamsPaymentMethodData(TypedDict):
     """
     If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
     """
+    scalapay: NotRequired["PaymentIntentCreateParamsPaymentMethodDataScalapay"]
+    """
+    If this is a Scalapay PaymentMethod, this hash contains details about the Scalapay payment method.
+    """
     sepa_debit: NotRequired[
         "PaymentIntentCreateParamsPaymentMethodDataSepaDebit"
     ]
@@ -2655,6 +2665,7 @@ class PaymentIntentCreateParamsPaymentMethodData(TypedDict):
         "bacs_debit",
         "bancontact",
         "billie",
+        "bizum",
         "blik",
         "boleto",
         "cashapp",
@@ -2692,6 +2703,7 @@ class PaymentIntentCreateParamsPaymentMethodData(TypedDict):
         "revolut_pay",
         "samsung_pay",
         "satispay",
+        "scalapay",
         "sepa_debit",
         "shopeepay",
         "sofort",
@@ -2846,6 +2858,10 @@ class PaymentIntentCreateParamsPaymentMethodDataBillingDetailsAddress(
     """
     State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """
+
+
+class PaymentIntentCreateParamsPaymentMethodDataBizum(TypedDict):
+    pass
 
 
 class PaymentIntentCreateParamsPaymentMethodDataBlik(TypedDict):
@@ -3205,6 +3221,10 @@ class PaymentIntentCreateParamsPaymentMethodDataSatispay(TypedDict):
     pass
 
 
+class PaymentIntentCreateParamsPaymentMethodDataScalapay(TypedDict):
+    pass
+
+
 class PaymentIntentCreateParamsPaymentMethodDataSepaDebit(TypedDict):
     iban: str
     """
@@ -3362,6 +3382,12 @@ class PaymentIntentCreateParamsPaymentMethodOptions(TypedDict):
     """
     If this is a `billie` PaymentMethod, this sub-hash contains details about the Billie payment method options.
     """
+    bizum: NotRequired[
+        "Literal['']|PaymentIntentCreateParamsPaymentMethodOptionsBizum"
+    ]
+    """
+    If this is a `bizum` PaymentMethod, this sub-hash contains details about the Bizum payment method options.
+    """
     blik: NotRequired[
         "Literal['']|PaymentIntentCreateParamsPaymentMethodOptionsBlik"
     ]
@@ -3480,7 +3506,7 @@ class PaymentIntentCreateParamsPaymentMethodOptions(TypedDict):
         "Literal['']|PaymentIntentCreateParamsPaymentMethodOptionsLink"
     ]
     """
-    If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
+    If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options (Link is also known as Onelink in the UK).
     """
     mb_way: NotRequired[
         "Literal['']|PaymentIntentCreateParamsPaymentMethodOptionsMbWay"
@@ -3601,6 +3627,12 @@ class PaymentIntentCreateParamsPaymentMethodOptions(TypedDict):
     ]
     """
     If this is a `satispay` PaymentMethod, this sub-hash contains details about the Satispay payment method options.
+    """
+    scalapay: NotRequired[
+        "Literal['']|PaymentIntentCreateParamsPaymentMethodOptionsScalapay"
+    ]
+    """
+    If this is a `scalapay` PaymentMethod, this sub-hash contains details about the ScalaPay payment method options.
     """
     sepa_debit: NotRequired[
         "Literal['']|PaymentIntentCreateParamsPaymentMethodOptionsSepaDebit"
@@ -3913,6 +3945,10 @@ class PaymentIntentCreateParamsPaymentMethodOptionsBillie(TypedDict):
 
     If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
     """
+
+
+class PaymentIntentCreateParamsPaymentMethodOptionsBizum(TypedDict):
+    pass
 
 
 class PaymentIntentCreateParamsPaymentMethodOptionsBlik(TypedDict):
@@ -6398,6 +6434,17 @@ class PaymentIntentCreateParamsPaymentMethodOptionsSatispay(TypedDict):
     """
 
 
+class PaymentIntentCreateParamsPaymentMethodOptionsScalapay(TypedDict):
+    capture_method: NotRequired["Literal['']|Literal['manual']"]
+    """
+    Controls when the funds are captured from the customer's account.
+
+    If provided, this parameter overrides the behavior of the top-level [capture_method](https://docs.stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+    If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+    """
+
+
 class PaymentIntentCreateParamsPaymentMethodOptionsSepaDebit(TypedDict):
     mandate_options: NotRequired[
         "PaymentIntentCreateParamsPaymentMethodOptionsSepaDebitMandateOptions"
@@ -6509,7 +6556,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsSwish(TypedDict):
 
 
 class PaymentIntentCreateParamsPaymentMethodOptionsTwint(TypedDict):
-    setup_future_usage: NotRequired[Literal["none"]]
+    setup_future_usage: NotRequired[Literal["none", "off_session"]]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -6792,10 +6839,39 @@ class PaymentIntentCreateParamsTransferData(TypedDict):
     [application_fee_amount](https://docs.stripe.com/api/payment_intents/create#create_payment_intent-application_fee_amount)
     might be a better fit for your integration.
     """
+    description: NotRequired[str]
+    """
+    An arbitrary string attached to the transfer. Often useful for displaying to users.
+    """
     destination: str
     """
     If specified, successful charges will be attributed to the destination
     account for tax reporting, and the funds from charges will be transferred
     to the destination account. The ID of the resulting transfer will be
     returned on the successful charge's `transfer` field.
+    """
+    metadata: NotRequired[
+        "Literal['']|Dict[str, str]|UntypedStripeObject[str]"
+    ]
+    """
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    """
+    payment_data: NotRequired[
+        "PaymentIntentCreateParamsTransferDataPaymentData"
+    ]
+    """
+    The data with which to populate the destination payment.
+    """
+
+
+class PaymentIntentCreateParamsTransferDataPaymentData(TypedDict):
+    description: NotRequired[str]
+    """
+    An arbitrary string attached to the destination payment. Often useful for displaying to users.
+    """
+    metadata: NotRequired[
+        "Literal['']|Dict[str, str]|UntypedStripeObject[str]"
+    ]
+    """
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """

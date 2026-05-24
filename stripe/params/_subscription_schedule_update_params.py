@@ -308,6 +308,10 @@ class SubscriptionScheduleUpdateParamsPhase(TypedDict):
 
 
 class SubscriptionScheduleUpdateParamsPhaseAddInvoiceItem(TypedDict):
+    discountable: NotRequired[bool]
+    """
+    Controls whether discounts apply to this invoice item. Defaults to true if no value is provided.
+    """
     discounts: NotRequired[
         List["SubscriptionScheduleUpdateParamsPhaseAddInvoiceItemDiscount"]
     ]
