@@ -851,6 +851,30 @@ class InvoiceService(StripeService):
             ),
         )
 
+    def serialize_batch_delete(
+        self,
+        invoice: str,
+        params: Optional["InvoiceDeleteParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> str:
+        """
+        Serializes an Invoice delete request into a batch job JSONL line.
+        """
+        item_id = str(uuid4())
+        stripe_version = (
+            options.get("stripe_version") if options else None
+        ) or _ApiVersion.CURRENT
+        context = options.get("stripe_context") if options else None
+        item = {
+            "id": item_id,
+            "path_params": {"invoice": invoice},
+            "params": params,
+            "stripe_version": stripe_version,
+        }
+        if context is not None:
+            item["context"] = context
+        return json.dumps(item)
+
     def serialize_batch_update(
         self,
         invoice: str,
@@ -859,6 +883,100 @@ class InvoiceService(StripeService):
     ) -> str:
         """
         Serializes an Invoice update request into a batch job JSONL line.
+        """
+        item_id = str(uuid4())
+        stripe_version = (
+            options.get("stripe_version") if options else None
+        ) or _ApiVersion.CURRENT
+        context = options.get("stripe_context") if options else None
+        item = {
+            "id": item_id,
+            "path_params": {"invoice": invoice},
+            "params": params,
+            "stripe_version": stripe_version,
+        }
+        if context is not None:
+            item["context"] = context
+        return json.dumps(item)
+
+    def serialize_batch_create(
+        self,
+        params: Optional["InvoiceCreateParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> str:
+        """
+        Serializes an Invoice create request into a batch job JSONL line.
+        """
+        item_id = str(uuid4())
+        stripe_version = (
+            options.get("stripe_version") if options else None
+        ) or _ApiVersion.CURRENT
+        context = options.get("stripe_context") if options else None
+        item = {
+            "id": item_id,
+            "params": params,
+            "stripe_version": stripe_version,
+        }
+        if context is not None:
+            item["context"] = context
+        return json.dumps(item)
+
+    def serialize_batch_add_lines(
+        self,
+        invoice: str,
+        params: Optional["InvoiceAddLinesParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> str:
+        """
+        Serializes an Invoice add_lines request into a batch job JSONL line.
+        """
+        item_id = str(uuid4())
+        stripe_version = (
+            options.get("stripe_version") if options else None
+        ) or _ApiVersion.CURRENT
+        context = options.get("stripe_context") if options else None
+        item = {
+            "id": item_id,
+            "path_params": {"invoice": invoice},
+            "params": params,
+            "stripe_version": stripe_version,
+        }
+        if context is not None:
+            item["context"] = context
+        return json.dumps(item)
+
+    def serialize_batch_finalize_invoice(
+        self,
+        invoice: str,
+        params: Optional["InvoiceFinalizeInvoiceParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> str:
+        """
+        Serializes an Invoice finalize_invoice request into a batch job JSONL line.
+        """
+        item_id = str(uuid4())
+        stripe_version = (
+            options.get("stripe_version") if options else None
+        ) or _ApiVersion.CURRENT
+        context = options.get("stripe_context") if options else None
+        item = {
+            "id": item_id,
+            "path_params": {"invoice": invoice},
+            "params": params,
+            "stripe_version": stripe_version,
+        }
+        if context is not None:
+            item["context"] = context
+        return json.dumps(item)
+
+    def serialize_batch_mark_uncollectible(
+        self,
+        invoice: str,
+        params: Optional["InvoiceMarkUncollectibleParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> str:
+        """
+        Serializes an Invoice mark_uncollectible request into a batch job JSONL line.
         """
         item_id = str(uuid4())
         stripe_version = (
@@ -892,6 +1010,124 @@ class InvoiceService(StripeService):
         item = {
             "id": item_id,
             "path_params": {"invoice": invoice},
+            "params": params,
+            "stripe_version": stripe_version,
+        }
+        if context is not None:
+            item["context"] = context
+        return json.dumps(item)
+
+    def serialize_batch_remove_lines(
+        self,
+        invoice: str,
+        params: Optional["InvoiceRemoveLinesParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> str:
+        """
+        Serializes an Invoice remove_lines request into a batch job JSONL line.
+        """
+        item_id = str(uuid4())
+        stripe_version = (
+            options.get("stripe_version") if options else None
+        ) or _ApiVersion.CURRENT
+        context = options.get("stripe_context") if options else None
+        item = {
+            "id": item_id,
+            "path_params": {"invoice": invoice},
+            "params": params,
+            "stripe_version": stripe_version,
+        }
+        if context is not None:
+            item["context"] = context
+        return json.dumps(item)
+
+    def serialize_batch_send_invoice(
+        self,
+        invoice: str,
+        params: Optional["InvoiceSendInvoiceParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> str:
+        """
+        Serializes an Invoice send_invoice request into a batch job JSONL line.
+        """
+        item_id = str(uuid4())
+        stripe_version = (
+            options.get("stripe_version") if options else None
+        ) or _ApiVersion.CURRENT
+        context = options.get("stripe_context") if options else None
+        item = {
+            "id": item_id,
+            "path_params": {"invoice": invoice},
+            "params": params,
+            "stripe_version": stripe_version,
+        }
+        if context is not None:
+            item["context"] = context
+        return json.dumps(item)
+
+    def serialize_batch_update_lines(
+        self,
+        invoice: str,
+        params: Optional["InvoiceUpdateLinesParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> str:
+        """
+        Serializes an Invoice update_lines request into a batch job JSONL line.
+        """
+        item_id = str(uuid4())
+        stripe_version = (
+            options.get("stripe_version") if options else None
+        ) or _ApiVersion.CURRENT
+        context = options.get("stripe_context") if options else None
+        item = {
+            "id": item_id,
+            "path_params": {"invoice": invoice},
+            "params": params,
+            "stripe_version": stripe_version,
+        }
+        if context is not None:
+            item["context"] = context
+        return json.dumps(item)
+
+    def serialize_batch_void_invoice(
+        self,
+        invoice: str,
+        params: Optional["InvoiceVoidInvoiceParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> str:
+        """
+        Serializes an Invoice void_invoice request into a batch job JSONL line.
+        """
+        item_id = str(uuid4())
+        stripe_version = (
+            options.get("stripe_version") if options else None
+        ) or _ApiVersion.CURRENT
+        context = options.get("stripe_context") if options else None
+        item = {
+            "id": item_id,
+            "path_params": {"invoice": invoice},
+            "params": params,
+            "stripe_version": stripe_version,
+        }
+        if context is not None:
+            item["context"] = context
+        return json.dumps(item)
+
+    def serialize_batch_create_preview(
+        self,
+        params: Optional["InvoiceCreatePreviewParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> str:
+        """
+        Serializes an Invoice create_preview request into a batch job JSONL line.
+        """
+        item_id = str(uuid4())
+        stripe_version = (
+            options.get("stripe_version") if options else None
+        ) or _ApiVersion.CURRENT
+        context = options.get("stripe_context") if options else None
+        item = {
+            "id": item_id,
             "params": params,
             "stripe_version": stripe_version,
         }

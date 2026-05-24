@@ -401,3 +401,27 @@ class SubscriptionScheduleService(StripeService):
         if context is not None:
             item["context"] = context
         return json.dumps(item)
+
+    def serialize_batch_release(
+        self,
+        schedule: str,
+        params: Optional["SubscriptionScheduleReleaseParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> str:
+        """
+        Serializes a SubscriptionSchedule release request into a batch job JSONL line.
+        """
+        item_id = str(uuid4())
+        stripe_version = (
+            options.get("stripe_version") if options else None
+        ) or _ApiVersion.CURRENT
+        context = options.get("stripe_context") if options else None
+        item = {
+            "id": item_id,
+            "path_params": {"schedule": schedule},
+            "params": params,
+            "stripe_version": stripe_version,
+        }
+        if context is not None:
+            item["context"] = context
+        return json.dumps(item)

@@ -596,6 +596,32 @@ class SubscriptionService(StripeService):
             ),
         )
 
+    def serialize_batch_cancel(
+        self,
+        subscription_exposed_id: str,
+        params: Optional["SubscriptionCancelParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> str:
+        """
+        Serializes a Subscription cancel request into a batch job JSONL line.
+        """
+        item_id = str(uuid4())
+        stripe_version = (
+            options.get("stripe_version") if options else None
+        ) or _ApiVersion.CURRENT
+        context = options.get("stripe_context") if options else None
+        item = {
+            "id": item_id,
+            "path_params": {
+                "subscription_exposed_id": subscription_exposed_id
+            },
+            "params": params,
+            "stripe_version": stripe_version,
+        }
+        if context is not None:
+            item["context"] = context
+        return json.dumps(item)
+
     def serialize_batch_update(
         self,
         subscription_exposed_id: str,
@@ -622,6 +648,28 @@ class SubscriptionService(StripeService):
             item["context"] = context
         return json.dumps(item)
 
+    def serialize_batch_create(
+        self,
+        params: Optional["SubscriptionCreateParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> str:
+        """
+        Serializes a Subscription create request into a batch job JSONL line.
+        """
+        item_id = str(uuid4())
+        stripe_version = (
+            options.get("stripe_version") if options else None
+        ) or _ApiVersion.CURRENT
+        context = options.get("stripe_context") if options else None
+        item = {
+            "id": item_id,
+            "params": params,
+            "stripe_version": stripe_version,
+        }
+        if context is not None:
+            item["context"] = context
+        return json.dumps(item)
+
     def serialize_batch_migrate(
         self,
         subscription: str,
@@ -630,6 +678,54 @@ class SubscriptionService(StripeService):
     ) -> str:
         """
         Serializes a Subscription migrate request into a batch job JSONL line.
+        """
+        item_id = str(uuid4())
+        stripe_version = (
+            options.get("stripe_version") if options else None
+        ) or _ApiVersion.CURRENT
+        context = options.get("stripe_context") if options else None
+        item = {
+            "id": item_id,
+            "path_params": {"subscription": subscription},
+            "params": params,
+            "stripe_version": stripe_version,
+        }
+        if context is not None:
+            item["context"] = context
+        return json.dumps(item)
+
+    def serialize_batch_pause(
+        self,
+        subscription: str,
+        params: Optional["SubscriptionPauseParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> str:
+        """
+        Serializes a Subscription pause request into a batch job JSONL line.
+        """
+        item_id = str(uuid4())
+        stripe_version = (
+            options.get("stripe_version") if options else None
+        ) or _ApiVersion.CURRENT
+        context = options.get("stripe_context") if options else None
+        item = {
+            "id": item_id,
+            "path_params": {"subscription": subscription},
+            "params": params,
+            "stripe_version": stripe_version,
+        }
+        if context is not None:
+            item["context"] = context
+        return json.dumps(item)
+
+    def serialize_batch_resume(
+        self,
+        subscription: str,
+        params: Optional["SubscriptionResumeParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> str:
+        """
+        Serializes a Subscription resume request into a batch job JSONL line.
         """
         item_id = str(uuid4())
         stripe_version = (
