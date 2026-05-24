@@ -35,7 +35,11 @@ if TYPE_CHECKING:
         ConfigurationCreateParamsTippingSek as ConfigurationCreateParamsTippingSek,
         ConfigurationCreateParamsTippingSgd as ConfigurationCreateParamsTippingSgd,
         ConfigurationCreateParamsTippingUsd as ConfigurationCreateParamsTippingUsd,
+        ConfigurationCreateParamsVerifoneM425 as ConfigurationCreateParamsVerifoneM425,
         ConfigurationCreateParamsVerifoneP400 as ConfigurationCreateParamsVerifoneP400,
+        ConfigurationCreateParamsVerifoneP630 as ConfigurationCreateParamsVerifoneP630,
+        ConfigurationCreateParamsVerifoneUx700 as ConfigurationCreateParamsVerifoneUx700,
+        ConfigurationCreateParamsVerifoneV660p as ConfigurationCreateParamsVerifoneV660p,
         ConfigurationCreateParamsWifi as ConfigurationCreateParamsWifi,
         ConfigurationCreateParamsWifiEnterpriseEapPeap as ConfigurationCreateParamsWifiEnterpriseEapPeap,
         ConfigurationCreateParamsWifiEnterpriseEapTls as ConfigurationCreateParamsWifiEnterpriseEapTls,
@@ -78,7 +82,11 @@ if TYPE_CHECKING:
         ConfigurationModifyParamsTippingSek as ConfigurationModifyParamsTippingSek,
         ConfigurationModifyParamsTippingSgd as ConfigurationModifyParamsTippingSgd,
         ConfigurationModifyParamsTippingUsd as ConfigurationModifyParamsTippingUsd,
+        ConfigurationModifyParamsVerifoneM425 as ConfigurationModifyParamsVerifoneM425,
         ConfigurationModifyParamsVerifoneP400 as ConfigurationModifyParamsVerifoneP400,
+        ConfigurationModifyParamsVerifoneP630 as ConfigurationModifyParamsVerifoneP630,
+        ConfigurationModifyParamsVerifoneUx700 as ConfigurationModifyParamsVerifoneUx700,
+        ConfigurationModifyParamsVerifoneV660p as ConfigurationModifyParamsVerifoneV660p,
         ConfigurationModifyParamsWifi as ConfigurationModifyParamsWifi,
         ConfigurationModifyParamsWifiEnterpriseEapPeap as ConfigurationModifyParamsWifiEnterpriseEapPeap,
         ConfigurationModifyParamsWifiEnterpriseEapTls as ConfigurationModifyParamsWifiEnterpriseEapTls,
@@ -118,7 +126,11 @@ if TYPE_CHECKING:
         ConfigurationUpdateParamsTippingSek as ConfigurationUpdateParamsTippingSek,
         ConfigurationUpdateParamsTippingSgd as ConfigurationUpdateParamsTippingSgd,
         ConfigurationUpdateParamsTippingUsd as ConfigurationUpdateParamsTippingUsd,
+        ConfigurationUpdateParamsVerifoneM425 as ConfigurationUpdateParamsVerifoneM425,
         ConfigurationUpdateParamsVerifoneP400 as ConfigurationUpdateParamsVerifoneP400,
+        ConfigurationUpdateParamsVerifoneP630 as ConfigurationUpdateParamsVerifoneP630,
+        ConfigurationUpdateParamsVerifoneUx700 as ConfigurationUpdateParamsVerifoneUx700,
+        ConfigurationUpdateParamsVerifoneV660p as ConfigurationUpdateParamsVerifoneV660p,
         ConfigurationUpdateParamsWifi as ConfigurationUpdateParamsWifi,
         ConfigurationUpdateParamsWifiEnterpriseEapPeap as ConfigurationUpdateParamsWifiEnterpriseEapPeap,
         ConfigurationUpdateParamsWifiEnterpriseEapTls as ConfigurationUpdateParamsWifiEnterpriseEapTls,
@@ -350,7 +362,23 @@ _import_map = {
         "stripe.params.terminal._configuration_create_params",
         False,
     ),
+    "ConfigurationCreateParamsVerifoneM425": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
     "ConfigurationCreateParamsVerifoneP400": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsVerifoneP630": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsVerifoneUx700": (
+        "stripe.params.terminal._configuration_create_params",
+        False,
+    ),
+    "ConfigurationCreateParamsVerifoneV660p": (
         "stripe.params.terminal._configuration_create_params",
         False,
     ),
@@ -498,7 +526,23 @@ _import_map = {
         "stripe.params.terminal._configuration_modify_params",
         False,
     ),
+    "ConfigurationModifyParamsVerifoneM425": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
     "ConfigurationModifyParamsVerifoneP400": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsVerifoneP630": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsVerifoneUx700": (
+        "stripe.params.terminal._configuration_modify_params",
+        False,
+    ),
+    "ConfigurationModifyParamsVerifoneV660p": (
         "stripe.params.terminal._configuration_modify_params",
         False,
     ),
@@ -642,7 +686,23 @@ _import_map = {
         "stripe.params.terminal._configuration_update_params",
         False,
     ),
+    "ConfigurationUpdateParamsVerifoneM425": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
     "ConfigurationUpdateParamsVerifoneP400": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsVerifoneP630": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsVerifoneUx700": (
+        "stripe.params.terminal._configuration_update_params",
+        False,
+    ),
+    "ConfigurationUpdateParamsVerifoneV660p": (
         "stripe.params.terminal._configuration_update_params",
         False,
     ),

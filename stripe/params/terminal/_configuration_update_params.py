@@ -51,11 +51,35 @@ class ConfigurationUpdateParams(TypedDict):
     """
     Tipping configurations for readers that support on-reader tips.
     """
+    verifone_m425: NotRequired[
+        "Literal['']|ConfigurationUpdateParamsVerifoneM425"
+    ]
+    """
+    An object containing device type specific settings for Verifone M425 readers.
+    """
     verifone_p400: NotRequired[
         "Literal['']|ConfigurationUpdateParamsVerifoneP400"
     ]
     """
     An object containing device type specific settings for Verifone P400 readers.
+    """
+    verifone_p630: NotRequired[
+        "Literal['']|ConfigurationUpdateParamsVerifoneP630"
+    ]
+    """
+    An object containing device type specific settings for Verifone P630 readers.
+    """
+    verifone_ux700: NotRequired[
+        "Literal['']|ConfigurationUpdateParamsVerifoneUx700"
+    ]
+    """
+    An object containing device type specific settings for Verifone UX700 readers.
+    """
+    verifone_v660p: NotRequired[
+        "Literal['']|ConfigurationUpdateParamsVerifoneV660p"
+    ]
+    """
+    An object containing device type specific settings for Verifone V660p readers.
     """
     wifi: NotRequired["Literal['']|ConfigurationUpdateParamsWifi"]
     """
@@ -518,7 +542,35 @@ class ConfigurationUpdateParamsTippingUsd(TypedDict):
     """
 
 
+class ConfigurationUpdateParamsVerifoneM425(TypedDict):
+    splashscreen: NotRequired["Literal['']|str"]
+    """
+    A File ID representing an image you want to display on the reader.
+    """
+
+
 class ConfigurationUpdateParamsVerifoneP400(TypedDict):
+    splashscreen: NotRequired["Literal['']|str"]
+    """
+    A File ID representing an image you want to display on the reader.
+    """
+
+
+class ConfigurationUpdateParamsVerifoneP630(TypedDict):
+    splashscreen: NotRequired["Literal['']|str"]
+    """
+    A File ID representing an image you want to display on the reader.
+    """
+
+
+class ConfigurationUpdateParamsVerifoneUx700(TypedDict):
+    splashscreen: NotRequired["Literal['']|str"]
+    """
+    A File ID representing an image you want to display on the reader.
+    """
+
+
+class ConfigurationUpdateParamsVerifoneV660p(TypedDict):
     splashscreen: NotRequired["Literal['']|str"]
     """
     A File ID representing an image you want to display on the reader.

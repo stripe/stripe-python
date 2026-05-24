@@ -34,7 +34,7 @@ class PaymentIntentConfirmParams(RequestOptions):
     Set to `true` to fail the payment attempt if the PaymentIntent transitions into `requires_action`. This parameter is intended for simpler integrations that do not handle customer actions, like [saving cards without authentication](https://docs.stripe.com/payments/save-card-without-authentication).
     """
     excluded_payment_method_types: NotRequired[
-        "Literal['']|List[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'samsung_pay', 'satispay', 'sepa_debit', 'sofort', 'sunbit', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay', 'zip']]"
+        "Literal['']|List[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'samsung_pay', 'satispay', 'scalapay', 'sepa_debit', 'sofort', 'sunbit', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay', 'zip']]"
     ]
     """
     The list of payment method types to exclude from use with this payment.
@@ -56,7 +56,7 @@ class PaymentIntentConfirmParams(RequestOptions):
     ]
     off_session: NotRequired["bool|Literal['one_off', 'recurring']"]
     """
-    Set to `true` to indicate that the customer isn't in your checkout flow during this payment attempt and can't authenticate. Use this parameter in scenarios where you collect card details and [charge them later](https://docs.stripe.com/payments/cards/charging-saved-cards).
+    Set to `true` to indicate that the customer isn't in your checkout flow during this payment attempt and can't authenticate. Use this parameter in scenarios where you collect payment method details and [charge them later](https://docs.stripe.com/payments/save-during-payment).
     """
     payment_details: NotRequired[
         "Literal['']|PaymentIntentConfirmParamsPaymentDetails"
@@ -302,11 +302,11 @@ class PaymentIntentConfirmParamsAmountDetailsShipping(TypedDict):
     """
     from_postal_code: NotRequired["Literal['']|str"]
     """
-    If a physical good is being shipped, the postal code of where it is being shipped from. At most 10 alphanumeric characters long, hyphens are allowed.
+    If a physical good is being shipped, the postal code of where it is being shipped from. At most 10 alphanumeric characters long, hyphens and spaces are allowed.
     """
     to_postal_code: NotRequired["Literal['']|str"]
     """
-    If a physical good is being shipped, the postal code of where it is being shipped to. At most 10 alphanumeric characters long, hyphens are allowed.
+    If a physical good is being shipped, the postal code of where it is being shipped to. At most 10 alphanumeric characters long, hyphens and spaces are allowed.
     """
 
 
@@ -467,6 +467,10 @@ class PaymentIntentConfirmParamsPaymentMethodData(TypedDict):
     """
     Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
     """
+    bizum: NotRequired["PaymentIntentConfirmParamsPaymentMethodDataBizum"]
+    """
+    If this is a `bizum` PaymentMethod, this hash contains details about the Bizum payment method.
+    """
     blik: NotRequired["PaymentIntentConfirmParamsPaymentMethodDataBlik"]
     """
     If this is a `blik` PaymentMethod, this hash contains details about the BLIK payment method.
@@ -535,7 +539,7 @@ class PaymentIntentConfirmParamsPaymentMethodData(TypedDict):
     """
     link: NotRequired["PaymentIntentConfirmParamsPaymentMethodDataLink"]
     """
-    If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
+    If this is an `Link` PaymentMethod, this hash contains details about the Link payment method (Link is also known as Onelink in the UK).
     """
     mb_way: NotRequired["PaymentIntentConfirmParamsPaymentMethodDataMbWay"]
     """
@@ -633,6 +637,12 @@ class PaymentIntentConfirmParamsPaymentMethodData(TypedDict):
     """
     If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
     """
+    scalapay: NotRequired[
+        "PaymentIntentConfirmParamsPaymentMethodDataScalapay"
+    ]
+    """
+    If this is a Scalapay PaymentMethod, this hash contains details about the Scalapay payment method.
+    """
     sepa_debit: NotRequired[
         "PaymentIntentConfirmParamsPaymentMethodDataSepaDebit"
     ]
@@ -666,6 +676,7 @@ class PaymentIntentConfirmParamsPaymentMethodData(TypedDict):
         "bacs_debit",
         "bancontact",
         "billie",
+        "bizum",
         "blik",
         "boleto",
         "cashapp",
@@ -698,6 +709,7 @@ class PaymentIntentConfirmParamsPaymentMethodData(TypedDict):
         "revolut_pay",
         "samsung_pay",
         "satispay",
+        "scalapay",
         "sepa_debit",
         "sofort",
         "sunbit",
@@ -850,6 +862,10 @@ class PaymentIntentConfirmParamsPaymentMethodDataBillingDetailsAddress(
     """
     State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """
+
+
+class PaymentIntentConfirmParamsPaymentMethodDataBizum(TypedDict):
+    pass
 
 
 class PaymentIntentConfirmParamsPaymentMethodDataBlik(TypedDict):
@@ -1168,6 +1184,10 @@ class PaymentIntentConfirmParamsPaymentMethodDataSatispay(TypedDict):
     pass
 
 
+class PaymentIntentConfirmParamsPaymentMethodDataScalapay(TypedDict):
+    pass
+
+
 class PaymentIntentConfirmParamsPaymentMethodDataSepaDebit(TypedDict):
     iban: str
     """
@@ -1314,6 +1334,12 @@ class PaymentIntentConfirmParamsPaymentMethodOptions(TypedDict):
     """
     If this is a `billie` PaymentMethod, this sub-hash contains details about the Billie payment method options.
     """
+    bizum: NotRequired[
+        "Literal['']|PaymentIntentConfirmParamsPaymentMethodOptionsBizum"
+    ]
+    """
+    If this is a `bizum` PaymentMethod, this sub-hash contains details about the Bizum payment method options.
+    """
     blik: NotRequired[
         "Literal['']|PaymentIntentConfirmParamsPaymentMethodOptionsBlik"
     ]
@@ -1420,7 +1446,7 @@ class PaymentIntentConfirmParamsPaymentMethodOptions(TypedDict):
         "Literal['']|PaymentIntentConfirmParamsPaymentMethodOptionsLink"
     ]
     """
-    If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
+    If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options (Link is also known as Onelink in the UK).
     """
     mb_way: NotRequired[
         "Literal['']|PaymentIntentConfirmParamsPaymentMethodOptionsMbWay"
@@ -1523,6 +1549,12 @@ class PaymentIntentConfirmParamsPaymentMethodOptions(TypedDict):
     ]
     """
     If this is a `satispay` PaymentMethod, this sub-hash contains details about the Satispay payment method options.
+    """
+    scalapay: NotRequired[
+        "Literal['']|PaymentIntentConfirmParamsPaymentMethodOptionsScalapay"
+    ]
+    """
+    If this is a `scalapay` PaymentMethod, this sub-hash contains details about the ScalaPay payment method options.
     """
     sepa_debit: NotRequired[
         "Literal['']|PaymentIntentConfirmParamsPaymentMethodOptionsSepaDebit"
@@ -1825,6 +1857,10 @@ class PaymentIntentConfirmParamsPaymentMethodOptionsBillie(TypedDict):
 
     If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
     """
+
+
+class PaymentIntentConfirmParamsPaymentMethodOptionsBizum(TypedDict):
+    pass
 
 
 class PaymentIntentConfirmParamsPaymentMethodOptionsBlik(TypedDict):
@@ -3030,6 +3066,17 @@ class PaymentIntentConfirmParamsPaymentMethodOptionsSatispay(TypedDict):
     """
 
 
+class PaymentIntentConfirmParamsPaymentMethodOptionsScalapay(TypedDict):
+    capture_method: NotRequired["Literal['']|Literal['manual']"]
+    """
+    Controls when the funds are captured from the customer's account.
+
+    If provided, this parameter overrides the behavior of the top-level [capture_method](https://docs.stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+    If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+    """
+
+
 class PaymentIntentConfirmParamsPaymentMethodOptionsSepaDebit(TypedDict):
     mandate_options: NotRequired[
         "PaymentIntentConfirmParamsPaymentMethodOptionsSepaDebitMandateOptions"
@@ -3109,7 +3156,7 @@ class PaymentIntentConfirmParamsPaymentMethodOptionsSwish(TypedDict):
 
 
 class PaymentIntentConfirmParamsPaymentMethodOptionsTwint(TypedDict):
-    setup_future_usage: NotRequired[Literal["none"]]
+    setup_future_usage: NotRequired[Literal["none", "off_session"]]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
 

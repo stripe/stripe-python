@@ -121,11 +121,11 @@ class PaymentIntent(
             """
             from_postal_code: Optional[str]
             """
-            If a physical good is being shipped, the postal code of where it is being shipped from. At most 10 alphanumeric characters long, hyphens are allowed.
+            If a physical good is being shipped, the postal code of where it is being shipped from. At most 10 alphanumeric characters long, hyphens and spaces are allowed.
             """
             to_postal_code: Optional[str]
             """
-            If a physical good is being shipped, the postal code of where it is being shipped to. At most 10 alphanumeric characters long, hyphens are allowed.
+            If a physical good is being shipped, the postal code of where it is being shipped to. At most 10 alphanumeric characters long, hyphens and spaces are allowed.
             """
 
         class Tax(StripeObject):
@@ -324,6 +324,7 @@ class PaymentIntent(
                 "payment_method_invalid_parameter",
                 "payment_method_invalid_parameter_testmode",
                 "payment_method_microdeposit_failed",
+                "payment_method_microdeposit_processing_error",
                 "payment_method_microdeposit_verification_amounts_invalid",
                 "payment_method_microdeposit_verification_amounts_mismatch",
                 "payment_method_microdeposit_verification_attempts_exceeded",
@@ -364,6 +365,7 @@ class PaymentIntent(
                 "setup_intent_unexpected_state",
                 "shipping_address_invalid",
                 "shipping_calculation_failed",
+                "siret_invalid",
                 "sku_inactive",
                 "state_unsupported",
                 "status_transition_invalid",
@@ -508,6 +510,9 @@ class PaymentIntent(
             """
             The URL you must redirect your customer to in order to authenticate the payment.
             """
+
+        class BlikAuthorize(StripeObject):
+            pass
 
         class BoletoDisplayDetails(StripeObject):
             expires_at: Optional[int]
@@ -1440,6 +1445,7 @@ class PaymentIntent(
             """
 
         alipay_handle_redirect: Optional[AlipayHandleRedirect]
+        blik_authorize: Optional[BlikAuthorize]
         boleto_display_details: Optional[BoletoDisplayDetails]
         card_await_notification: Optional[CardAwaitNotification]
         cashapp_handle_redirect_or_display_qr_code: Optional[
@@ -1478,6 +1484,7 @@ class PaymentIntent(
         wechat_pay_redirect_to_ios_app: Optional[WechatPayRedirectToIosApp]
         _inner_class_types = {
             "alipay_handle_redirect": AlipayHandleRedirect,
+            "blik_authorize": BlikAuthorize,
             "boleto_display_details": BoletoDisplayDetails,
             "card_await_notification": CardAwaitNotification,
             "cashapp_handle_redirect_or_display_qr_code": CashappHandleRedirectOrDisplayQrCode,
@@ -1709,6 +1716,9 @@ class PaymentIntent(
             """
             Controls when the funds will be captured from the customer's account.
             """
+
+        class Bizum(StripeObject):
+            pass
 
         class Blik(StripeObject):
             setup_future_usage: Optional[Literal["none"]]
@@ -2513,6 +2523,12 @@ class PaymentIntent(
             Controls when the funds will be captured from the customer's account.
             """
 
+        class Scalapay(StripeObject):
+            capture_method: Optional[Literal["manual"]]
+            """
+            Controls when the funds will be captured from the customer's account.
+            """
+
         class SepaDebit(StripeObject):
             class MandateOptions(StripeObject):
                 reference_prefix: Optional[str]
@@ -2574,7 +2590,7 @@ class PaymentIntent(
             """
 
         class Twint(StripeObject):
-            setup_future_usage: Optional[Literal["none"]]
+            setup_future_usage: Optional[Literal["none", "off_session"]]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -2716,6 +2732,7 @@ class PaymentIntent(
         bacs_debit: Optional[BacsDebit]
         bancontact: Optional[Bancontact]
         billie: Optional[Billie]
+        bizum: Optional[Bizum]
         blik: Optional[Blik]
         boleto: Optional[Boleto]
         card: Optional[Card]
@@ -2751,6 +2768,7 @@ class PaymentIntent(
         revolut_pay: Optional[RevolutPay]
         samsung_pay: Optional[SamsungPay]
         satispay: Optional[Satispay]
+        scalapay: Optional[Scalapay]
         sepa_debit: Optional[SepaDebit]
         sofort: Optional[Sofort]
         swish: Optional[Swish]
@@ -2770,6 +2788,7 @@ class PaymentIntent(
             "bacs_debit": BacsDebit,
             "bancontact": Bancontact,
             "billie": Billie,
+            "bizum": Bizum,
             "blik": Blik,
             "boleto": Boleto,
             "card": Card,
@@ -2805,6 +2824,7 @@ class PaymentIntent(
             "revolut_pay": RevolutPay,
             "samsung_pay": SamsungPay,
             "satispay": Satispay,
+            "scalapay": Scalapay,
             "sepa_debit": SepaDebit,
             "sofort": Sofort,
             "swish": Swish,
@@ -2896,16 +2916,36 @@ class PaymentIntent(
         _inner_class_types = {"address": Address}
 
     class TransferData(StripeObject):
+        class PaymentData(StripeObject):
+            description: Optional[str]
+            """
+            An arbitrary string attached to the destination payment. Often useful for displaying to users.
+            """
+            metadata: Optional[UntypedStripeObject[str]]
+            """
+            Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+            """
+
         amount: Optional[int]
         """
         The amount transferred to the destination account. This transfer will occur automatically after the payment succeeds. If no amount is specified, by default the entire payment amount is transferred to the destination account.
          The amount must be less than or equal to the [amount](https://docs.stripe.com/api/payment_intents/object#payment_intent_object-amount), and must be a positive integer
          representing how much to transfer in the smallest currency unit (e.g., 100 cents to charge $1.00).
         """
+        description: Optional[str]
+        """
+        An arbitrary string attached to the transfer. Often useful for displaying to users.
+        """
         destination: ExpandableField["Account"]
         """
         The account (if any) that the payment is attributed to for tax reporting, and where funds from the payment are transferred to after payment success.
         """
+        metadata: Optional[UntypedStripeObject[str]]
+        """
+        Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+        """
+        payment_data: Optional[PaymentData]
+        _inner_class_types = {"payment_data": PaymentData}
 
     amount: int
     """
@@ -3008,6 +3048,7 @@ class PaymentIntent(
                 "bacs_debit",
                 "bancontact",
                 "billie",
+                "bizum",
                 "blik",
                 "boleto",
                 "card",
@@ -3040,6 +3081,7 @@ class PaymentIntent(
                 "revolut_pay",
                 "samsung_pay",
                 "satispay",
+                "scalapay",
                 "sepa_debit",
                 "sofort",
                 "sunbit",
@@ -4000,7 +4042,9 @@ class PaymentIntent(
         Each PaymentIntent can have a maximum of 10 incremental authorization attempts, including declines.
         After it's captured, a PaymentIntent can no longer be incremented.
 
-        Learn more about [incremental authorizations](https://docs.stripe.com/docs/terminal/features/incremental-authorizations).
+        Learn more about incremental authorizations with
+        [in-person payments](https://docs.stripe.com/docs/terminal/features/incremental-authorizations) and
+        [online payments](https://docs.stripe.com/docs/payments/incremental-authorization?platform=web&ui=elements).
         """
         return cast(
             "PaymentIntent",
@@ -4043,7 +4087,9 @@ class PaymentIntent(
         Each PaymentIntent can have a maximum of 10 incremental authorization attempts, including declines.
         After it's captured, a PaymentIntent can no longer be incremented.
 
-        Learn more about [incremental authorizations](https://docs.stripe.com/docs/terminal/features/incremental-authorizations).
+        Learn more about incremental authorizations with
+        [in-person payments](https://docs.stripe.com/docs/terminal/features/incremental-authorizations) and
+        [online payments](https://docs.stripe.com/docs/payments/incremental-authorization?platform=web&ui=elements).
         """
         ...
 
@@ -4075,7 +4121,9 @@ class PaymentIntent(
         Each PaymentIntent can have a maximum of 10 incremental authorization attempts, including declines.
         After it's captured, a PaymentIntent can no longer be incremented.
 
-        Learn more about [incremental authorizations](https://docs.stripe.com/docs/terminal/features/incremental-authorizations).
+        Learn more about incremental authorizations with
+        [in-person payments](https://docs.stripe.com/docs/terminal/features/incremental-authorizations) and
+        [online payments](https://docs.stripe.com/docs/payments/incremental-authorization?platform=web&ui=elements).
         """
         ...
 
@@ -4107,7 +4155,9 @@ class PaymentIntent(
         Each PaymentIntent can have a maximum of 10 incremental authorization attempts, including declines.
         After it's captured, a PaymentIntent can no longer be incremented.
 
-        Learn more about [incremental authorizations](https://docs.stripe.com/docs/terminal/features/incremental-authorizations).
+        Learn more about incremental authorizations with
+        [in-person payments](https://docs.stripe.com/docs/terminal/features/incremental-authorizations) and
+        [online payments](https://docs.stripe.com/docs/payments/incremental-authorization?platform=web&ui=elements).
         """
         return cast(
             "PaymentIntent",
@@ -4150,7 +4200,9 @@ class PaymentIntent(
         Each PaymentIntent can have a maximum of 10 incremental authorization attempts, including declines.
         After it's captured, a PaymentIntent can no longer be incremented.
 
-        Learn more about [incremental authorizations](https://docs.stripe.com/docs/terminal/features/incremental-authorizations).
+        Learn more about incremental authorizations with
+        [in-person payments](https://docs.stripe.com/docs/terminal/features/incremental-authorizations) and
+        [online payments](https://docs.stripe.com/docs/payments/incremental-authorization?platform=web&ui=elements).
         """
         return cast(
             "PaymentIntent",
@@ -4193,7 +4245,9 @@ class PaymentIntent(
         Each PaymentIntent can have a maximum of 10 incremental authorization attempts, including declines.
         After it's captured, a PaymentIntent can no longer be incremented.
 
-        Learn more about [incremental authorizations](https://docs.stripe.com/docs/terminal/features/incremental-authorizations).
+        Learn more about incremental authorizations with
+        [in-person payments](https://docs.stripe.com/docs/terminal/features/incremental-authorizations) and
+        [online payments](https://docs.stripe.com/docs/payments/incremental-authorization?platform=web&ui=elements).
         """
         ...
 
@@ -4225,7 +4279,9 @@ class PaymentIntent(
         Each PaymentIntent can have a maximum of 10 incremental authorization attempts, including declines.
         After it's captured, a PaymentIntent can no longer be incremented.
 
-        Learn more about [incremental authorizations](https://docs.stripe.com/docs/terminal/features/incremental-authorizations).
+        Learn more about incremental authorizations with
+        [in-person payments](https://docs.stripe.com/docs/terminal/features/incremental-authorizations) and
+        [online payments](https://docs.stripe.com/docs/payments/incremental-authorization?platform=web&ui=elements).
         """
         ...
 
@@ -4257,7 +4313,9 @@ class PaymentIntent(
         Each PaymentIntent can have a maximum of 10 incremental authorization attempts, including declines.
         After it's captured, a PaymentIntent can no longer be incremented.
 
-        Learn more about [incremental authorizations](https://docs.stripe.com/docs/terminal/features/incremental-authorizations).
+        Learn more about incremental authorizations with
+        [in-person payments](https://docs.stripe.com/docs/terminal/features/incremental-authorizations) and
+        [online payments](https://docs.stripe.com/docs/payments/incremental-authorization?platform=web&ui=elements).
         """
         return cast(
             "PaymentIntent",

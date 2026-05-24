@@ -89,8 +89,14 @@ class PaymentLinkModifyParams(RequestOptions):
 
     If you'd like information on how to collect a payment method outside of Checkout, read the guide on [configuring subscriptions with a free trial](https://docs.stripe.com/payments/checkout/free-trials).
     """
+    payment_method_options: NotRequired[
+        "Literal['']|PaymentLinkModifyParamsPaymentMethodOptions"
+    ]
+    """
+    Payment-method-specific configuration.
+    """
     payment_method_types: NotRequired[
-        "Literal['']|List[Literal['affirm', 'afterpay_clearpay', 'alipay', 'alma', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'blik', 'boleto', 'card', 'cashapp', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'mb_way', 'mobilepay', 'multibanco', 'oxxo', 'p24', 'pay_by_bank', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'satispay', 'sepa_debit', 'sofort', 'sunbit', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay', 'zip']]"
+        "Literal['']|List[Literal['affirm', 'afterpay_clearpay', 'alipay', 'alma', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boleto', 'card', 'cashapp', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'mb_way', 'mobilepay', 'multibanco', 'oxxo', 'p24', 'pay_by_bank', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'satispay', 'sepa_debit', 'sofort', 'sunbit', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay', 'zip']]"
     ]
     """
     The list of payment method types that customers can use. Pass an empty string to enable dynamic payment methods that use your [payment method settings](https://dashboard.stripe.com/settings/payment_methods).
@@ -543,6 +549,33 @@ class PaymentLinkModifyParamsPaymentIntentData(TypedDict):
     transfer_group: NotRequired["Literal['']|str"]
     """
     A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://docs.stripe.com/connect/separate-charges-and-transfers) for details.
+    """
+
+
+class PaymentLinkModifyParamsPaymentMethodOptions(TypedDict):
+    card: NotRequired[
+        "Literal['']|PaymentLinkModifyParamsPaymentMethodOptionsCard"
+    ]
+    """
+    Configuration for `card` payment methods.
+    """
+
+
+class PaymentLinkModifyParamsPaymentMethodOptionsCard(TypedDict):
+    restrictions: NotRequired[
+        "Literal['']|PaymentLinkModifyParamsPaymentMethodOptionsCardRestrictions"
+    ]
+    """
+    Restrictions to apply to the card payment method. For example, you can block specific card brands.
+    """
+
+
+class PaymentLinkModifyParamsPaymentMethodOptionsCardRestrictions(TypedDict):
+    brands_blocked: NotRequired[
+        "Literal['']|List[Literal['american_express', 'discover_global_network', 'mastercard', 'visa']]"
+    ]
+    """
+    The card brands to block. If a customer enters or selects a card belonging to a blocked brand, they can't complete the payment.
     """
 
 
