@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 class BusinessProfile(StripeObject):
     """
-    The Stripe profile represents a business' public identity on the Stripe network.
+    The Stripe business profile represents a business' public identity on the Stripe network.
     """
 
     OBJECT_NAME: ClassVar[Literal["v2.network.business_profile"]] = (
@@ -55,7 +55,7 @@ class BusinessProfile(StripeObject):
     """
     display_name: str
     """
-    The display name of the Stripe profile.
+    The display name of the Stripe business profile.
     """
     id: str
     """
@@ -75,6 +75,6 @@ class BusinessProfile(StripeObject):
     """
     username: str
     """
-    The username of the Stripe profile.
+    The username of the Stripe business profile.
     """
     _inner_class_types = {"branding": Branding}

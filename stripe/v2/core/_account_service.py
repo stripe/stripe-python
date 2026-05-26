@@ -102,7 +102,7 @@ class AccountService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Account":
         """
-        An Account is a representation of a company, individual or other entity that a user interacts with. Accounts contain identifying information about the entity, and configurations that store the features an account has access to. An account can be configured as any or all of the following configurations: Customer, Merchant and/or Recipient.
+        Create an Account that represents a company, individual, or other entity that your business interacts with. Accounts contain identifying information about the entity, and configurations that store the features an account has access to. An account can be configured as any or all of the following configurations: Customer, Merchant and/or Recipient.
         """
         return cast(
             "Account",
@@ -121,7 +121,7 @@ class AccountService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Account":
         """
-        An Account is a representation of a company, individual or other entity that a user interacts with. Accounts contain identifying information about the entity, and configurations that store the features an account has access to. An account can be configured as any or all of the following configurations: Customer, Merchant and/or Recipient.
+        Create an Account that represents a company, individual, or other entity that your business interacts with. Accounts contain identifying information about the entity, and configurations that store the features an account has access to. An account can be configured as any or all of the following configurations: Customer, Merchant and/or Recipient.
         """
         return cast(
             "Account",

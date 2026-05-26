@@ -7,11 +7,18 @@ if TYPE_CHECKING:
     from stripe.params.v2.iam._activity_log_list_params import (
         ActivityLogListParams as ActivityLogListParams,
     )
+    from stripe.params.v2.iam._activity_log_retrieve_params import (
+        ActivityLogRetrieveParams as ActivityLogRetrieveParams,
+    )
 
 # name -> (import_target, is_submodule)
 _import_map = {
     "ActivityLogListParams": (
         "stripe.params.v2.iam._activity_log_list_params",
+        False,
+    ),
+    "ActivityLogRetrieveParams": (
+        "stripe.params.v2.iam._activity_log_retrieve_params",
         False,
     ),
 }

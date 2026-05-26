@@ -14,6 +14,7 @@ class OutboundSetupIntentUpdateParams(TypedDict):
     """
     If no payout_method provided, used to create the underlying credential that is set up for outbound money movement.
     If a payout_method provided, used to update data on the credential linked to this setup intent.
+    Only card expiry (exp_month, exp_year) can be updated in the case where payout_method is provided.
     """
 
 
