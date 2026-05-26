@@ -14,12 +14,12 @@ class MeterEventAdjustmentCreateParams(TypedDict):
     """
     type: Literal["cancel"]
     """
-    Specifies whether to cancel a single event or a range of events for a time period. Time period cancellation is not supported yet.
+    Specifies the type of cancellation. Currently supports canceling a single event.
     """
 
 
 class MeterEventAdjustmentCreateParamsCancel(TypedDict):
     identifier: str
     """
-    Unique identifier for the event. You can only cancel events within 24 hours of Stripe receiving them.
+    The identifier that was originally assigned to the meter event. You can only cancel events within 24 hours of Stripe receiving them.
     """

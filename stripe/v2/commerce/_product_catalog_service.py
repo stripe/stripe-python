@@ -5,21 +5,20 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.v2._billing_service import BillingService
-    from stripe.v2._commerce_service import CommerceService
-    from stripe.v2._core_service import CoreService
+    from stripe.v2.commerce.product_catalog._import_service import (
+        ImportService,
+    )
 
 _subservices = {
-    "billing": ["stripe.v2._billing_service", "BillingService"],
-    "commerce": ["stripe.v2._commerce_service", "CommerceService"],
-    "core": ["stripe.v2._core_service", "CoreService"],
+    "imports": [
+        "stripe.v2.commerce.product_catalog._import_service",
+        "ImportService",
+    ],
 }
 
 
-class V2Services(StripeService):
-    billing: "BillingService"
-    commerce: "CommerceService"
-    core: "CoreService"
+class ProductCatalogService(StripeService):
+    imports: "ImportService"
 
     def __init__(self, requestor):
         super().__init__(requestor)

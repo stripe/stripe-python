@@ -18,7 +18,7 @@ class AccountCreateParams(TypedDict):
     """
     contact_email: NotRequired[str]
     """
-    The default contact email address for the Account. Required when configuring the account as a merchant or recipient.
+    The primary contact email address for the Account.
     """
     contact_phone: NotRequired[str]
     """
@@ -65,7 +65,7 @@ class AccountCreateParams(TypedDict):
 class AccountCreateParamsConfiguration(TypedDict):
     customer: NotRequired["AccountCreateParamsConfigurationCustomer"]
     """
-    The Customer Configuration allows the Account to be used in inbound payment flows.
+    The Customer Configuration allows the Account to be used in inbound payment flows (i.e. customer-facing payment and billing flows).
     """
     merchant: NotRequired["AccountCreateParamsConfigurationMerchant"]
     """
@@ -1343,7 +1343,7 @@ class AccountCreateParamsIdentity(TypedDict):
         Literal["company", "government_entity", "individual", "non_profit"]
     ]
     """
-    The entity type.
+    The entity type represented by the Account. Ensure this field is accurate before adding configurations that rely on identity information, as it determines which identity fields apply and how the Account is validated.
     """
     individual: NotRequired["AccountCreateParamsIdentityIndividual"]
     """
@@ -1805,9 +1805,24 @@ class AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistration(
     """
     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
     """
+    signer: NotRequired[
+        "AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistrationSigner"
+    ]
+    """
+    Person that is signing the document.
+    """
     type: Literal["files"]
     """
     The format of the document. Currently supports `files` only.
+    """
+
+
+class AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistrationSigner(
+    TypedDict,
+):
+    person: str
+    """
+    Person signing the document.
     """
 
 
@@ -1818,9 +1833,24 @@ class AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBenefici
     """
     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
     """
+    signer: NotRequired[
+        "AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnershipSigner"
+    ]
+    """
+    Person that is signing the document.
+    """
     type: Literal["files"]
     """
     The format of the document. Currently supports `files` only.
+    """
+
+
+class AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnershipSigner(
+    TypedDict,
+):
+    person: str
+    """
+    Person signing the document.
     """
 
 
@@ -2116,7 +2146,7 @@ class AccountCreateParamsIdentityIndividual(TypedDict):
     """
     email: NotRequired[str]
     """
-    The individual's email address.
+    The individual's email address. You can only set this field when the Account is configured as a `merchant` or `recipient`. Use `contact_email` as the primary contact email for this Account.
     """
     given_name: NotRequired[str]
     """

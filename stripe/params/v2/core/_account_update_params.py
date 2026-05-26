@@ -18,7 +18,7 @@ class AccountUpdateParams(TypedDict):
     """
     contact_email: NotRequired[str]
     """
-    The default contact email address for the Account. Required when configuring the account as a merchant or recipient.
+    The primary contact email address for the Account.
     """
     contact_phone: NotRequired[str]
     """
@@ -128,7 +128,7 @@ class AccountUpdateParamsConfigurationCustomerAutomaticIndirectTax(TypedDict):
 class AccountUpdateParamsConfigurationCustomerBilling(TypedDict):
     default_payment_method: NotRequired[str]
     """
-    ID of a PaymentMethod attached to the customer account to use as the default for invoices and subscriptions.
+    The ID of a `PaymentMethod` attached to this Account's `customer` configuration, used as the default payment method for invoices and subscriptions.
     """
     invoice: NotRequired[
         "AccountUpdateParamsConfigurationCustomerBillingInvoice"
@@ -1365,7 +1365,7 @@ class AccountUpdateParamsIdentity(TypedDict):
         Literal["company", "government_entity", "individual", "non_profit"]
     ]
     """
-    The entity type.
+    The entity type represented by the Account. Ensure this field is accurate before adding configurations that rely on identity information, as it determines which identity fields apply and how the Account is validated.
     """
     individual: NotRequired["AccountUpdateParamsIdentityIndividual"]
     """
@@ -1737,7 +1737,7 @@ class AccountUpdateParamsIdentityBusinessDetailsDocuments(TypedDict):
         "AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfRegistration"
     ]
     """
-    One or more documents showing the company's proof of registration with the national business registry.
+    One or more documents that demonstrate proof of ultimate beneficial ownership.
     """
     proof_of_ultimate_beneficial_ownership: NotRequired[
         "AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnership"
@@ -1871,9 +1871,24 @@ class AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfRegistration(
     """
     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
     """
+    signer: NotRequired[
+        "AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfRegistrationSigner"
+    ]
+    """
+    Person that is signing the document.
+    """
     type: Literal["files"]
     """
     The format of the document. Currently supports `files` only.
+    """
+
+
+class AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfRegistrationSigner(
+    TypedDict,
+):
+    person: str
+    """
+    Person signing the document.
     """
 
 
@@ -1884,9 +1899,24 @@ class AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBenefici
     """
     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
     """
+    signer: NotRequired[
+        "AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnershipSigner"
+    ]
+    """
+    Person that is signing the document.
+    """
     type: Literal["files"]
     """
     The format of the document. Currently supports `files` only.
+    """
+
+
+class AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnershipSigner(
+    TypedDict,
+):
+    person: str
+    """
+    Person signing the document.
     """
 
 
@@ -2182,7 +2212,7 @@ class AccountUpdateParamsIdentityIndividual(TypedDict):
     """
     email: NotRequired[str]
     """
-    The individual's email address.
+    The individual's email address. You can only set this field when the Account is configured as a `merchant` or `recipient`. Use `contact_email` as the primary contact email for this Account.
     """
     given_name: NotRequired[str]
     """

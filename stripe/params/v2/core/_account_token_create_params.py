@@ -10,7 +10,7 @@ from typing_extensions import Literal, NotRequired, TypedDict
 class AccountTokenCreateParams(TypedDict):
     contact_email: NotRequired[str]
     """
-    The default contact email address for the Account. Required when configuring the account as a merchant or recipient.
+    The primary contact email address for the Account.
     """
     contact_phone: NotRequired[str]
     """
@@ -343,7 +343,7 @@ class AccountTokenCreateParamsIdentityBusinessDetailsDocuments(TypedDict):
         "AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistration"
     ]
     """
-    One or more documents showing the company's proof of registration with the national business registry.
+    One or more documents that demonstrate proof of ultimate beneficial ownership.
     """
     proof_of_ultimate_beneficial_ownership: NotRequired[
         "AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnership"
@@ -477,9 +477,24 @@ class AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistratio
     """
     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
     """
+    signer: NotRequired[
+        "AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistrationSigner"
+    ]
+    """
+    Person that is signing the document.
+    """
     type: Literal["files"]
     """
     The format of the document. Currently supports `files` only.
+    """
+
+
+class AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistrationSigner(
+    TypedDict,
+):
+    person: str
+    """
+    Person signing the document.
     """
 
 
@@ -490,9 +505,24 @@ class AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBen
     """
     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
     """
+    signer: NotRequired[
+        "AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnershipSigner"
+    ]
+    """
+    Person that is signing the document.
+    """
     type: Literal["files"]
     """
     The format of the document. Currently supports `files` only.
+    """
+
+
+class AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnershipSigner(
+    TypedDict,
+):
+    person: str
+    """
+    Person signing the document.
     """
 
 
@@ -800,7 +830,7 @@ class AccountTokenCreateParamsIdentityIndividual(TypedDict):
     """
     email: NotRequired[str]
     """
-    The individual's email address.
+    The individual's email address. You can only set this field when the Account is configured as a `merchant` or `recipient`. Use `contact_email` as the primary contact email for this Account.
     """
     given_name: NotRequired[str]
     """

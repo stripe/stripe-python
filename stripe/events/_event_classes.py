@@ -13,6 +13,18 @@ if TYPE_CHECKING:
     from stripe.events._v1_billing_meter_no_meter_found_event import (
         V1BillingMeterNoMeterFoundEventNotification,
     )
+    from stripe.events._v2_commerce_product_catalog_imports_failed_event import (
+        V2CommerceProductCatalogImportsFailedEventNotification,
+    )
+    from stripe.events._v2_commerce_product_catalog_imports_processing_event import (
+        V2CommerceProductCatalogImportsProcessingEventNotification,
+    )
+    from stripe.events._v2_commerce_product_catalog_imports_succeeded_event import (
+        V2CommerceProductCatalogImportsSucceededEventNotification,
+    )
+    from stripe.events._v2_commerce_product_catalog_imports_succeeded_with_errors_event import (
+        V2CommerceProductCatalogImportsSucceededWithErrorsEventNotification,
+    )
     from stripe.events._v2_core_account_closed_event import (
         V2CoreAccountClosedEventNotification,
     )
@@ -77,6 +89,22 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v1.billing.meter.no_meter_found": (
         "stripe.events._v1_billing_meter_no_meter_found_event",
         "V1BillingMeterNoMeterFoundEvent",
+    ),
+    "v2.commerce.product_catalog.imports.failed": (
+        "stripe.events._v2_commerce_product_catalog_imports_failed_event",
+        "V2CommerceProductCatalogImportsFailedEvent",
+    ),
+    "v2.commerce.product_catalog.imports.processing": (
+        "stripe.events._v2_commerce_product_catalog_imports_processing_event",
+        "V2CommerceProductCatalogImportsProcessingEvent",
+    ),
+    "v2.commerce.product_catalog.imports.succeeded": (
+        "stripe.events._v2_commerce_product_catalog_imports_succeeded_event",
+        "V2CommerceProductCatalogImportsSucceededEvent",
+    ),
+    "v2.commerce.product_catalog.imports.succeeded_with_errors": (
+        "stripe.events._v2_commerce_product_catalog_imports_succeeded_with_errors_event",
+        "V2CommerceProductCatalogImportsSucceededWithErrorsEvent",
     ),
     "v2.core.account.closed": (
         "stripe.events._v2_core_account_closed_event",
@@ -173,6 +201,22 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v1_billing_meter_no_meter_found_event",
         "V1BillingMeterNoMeterFoundEventNotification",
     ),
+    "v2.commerce.product_catalog.imports.failed": (
+        "stripe.events._v2_commerce_product_catalog_imports_failed_event",
+        "V2CommerceProductCatalogImportsFailedEventNotification",
+    ),
+    "v2.commerce.product_catalog.imports.processing": (
+        "stripe.events._v2_commerce_product_catalog_imports_processing_event",
+        "V2CommerceProductCatalogImportsProcessingEventNotification",
+    ),
+    "v2.commerce.product_catalog.imports.succeeded": (
+        "stripe.events._v2_commerce_product_catalog_imports_succeeded_event",
+        "V2CommerceProductCatalogImportsSucceededEventNotification",
+    ),
+    "v2.commerce.product_catalog.imports.succeeded_with_errors": (
+        "stripe.events._v2_commerce_product_catalog_imports_succeeded_with_errors_event",
+        "V2CommerceProductCatalogImportsSucceededWithErrorsEventNotification",
+    ),
     "v2.core.account.closed": (
         "stripe.events._v2_core_account_closed_event",
         "V2CoreAccountClosedEventNotification",
@@ -262,6 +306,10 @@ def get_v2_event_notification_class(type_: str):
 ALL_EVENT_NOTIFICATIONS = Union[
     "V1BillingMeterErrorReportTriggeredEventNotification",
     "V1BillingMeterNoMeterFoundEventNotification",
+    "V2CommerceProductCatalogImportsFailedEventNotification",
+    "V2CommerceProductCatalogImportsProcessingEventNotification",
+    "V2CommerceProductCatalogImportsSucceededEventNotification",
+    "V2CommerceProductCatalogImportsSucceededWithErrorsEventNotification",
     "V2CoreAccountClosedEventNotification",
     "V2CoreAccountCreatedEventNotification",
     "V2CoreAccountIncludingConfigurationCustomerCapabilityStatusUpdatedEventNotification",
