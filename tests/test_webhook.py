@@ -24,7 +24,7 @@ DUMMY_WEBHOOK_SECRET = "whsec_test_secret"
 
 
 def generate_header(**kwargs):
-    return stripe.WebhookSignature.generate_test_header_string(
+    return stripe.Webhook.generate_test_header_string(
         payload=kwargs.get("payload", DUMMY_WEBHOOK_PAYLOAD),
         secret=kwargs.get("secret", DUMMY_WEBHOOK_SECRET),
         timestamp=kwargs.get("timestamp"),
@@ -147,7 +147,7 @@ class TestWebhookSignature(object):
 class TestGenerateTestHeaderString(object):
     def test_uses_defaults_when_optional_args_omitted(self):
         before = int(time.time())
-        header = stripe.WebhookSignature.generate_test_header_string(
+        header = stripe.Webhook.generate_test_header_string(
             payload=DUMMY_WEBHOOK_PAYLOAD, secret=DUMMY_WEBHOOK_SECRET
         )
         after = int(time.time())
@@ -157,7 +157,7 @@ class TestGenerateTestHeaderString(object):
         assert "v1" in parts
 
     def test_header_verifies_round_trip(self):
-        header = stripe.WebhookSignature.generate_test_header_string(
+        header = stripe.Webhook.generate_test_header_string(
             payload=DUMMY_WEBHOOK_PAYLOAD, secret=DUMMY_WEBHOOK_SECRET
         )
         assert stripe.WebhookSignature.verify_header(
@@ -168,7 +168,7 @@ class TestGenerateTestHeaderString(object):
         )
 
     def test_honors_custom_timestamp_and_scheme(self):
-        header = stripe.WebhookSignature.generate_test_header_string(
+        header = stripe.Webhook.generate_test_header_string(
             payload=DUMMY_WEBHOOK_PAYLOAD,
             secret=DUMMY_WEBHOOK_SECRET,
             timestamp=12345,
@@ -177,7 +177,7 @@ class TestGenerateTestHeaderString(object):
         assert header.startswith("t=12345,v0=")
 
     def test_uses_provided_signature_verbatim(self):
-        header = stripe.WebhookSignature.generate_test_header_string(
+        header = stripe.Webhook.generate_test_header_string(
             payload=DUMMY_WEBHOOK_PAYLOAD,
             secret=DUMMY_WEBHOOK_SECRET,
             timestamp=12345,
@@ -186,7 +186,7 @@ class TestGenerateTestHeaderString(object):
         assert header == "t=12345,v1=deadbeef"
 
     def test_bad_secret_fails_verification(self):
-        header = stripe.WebhookSignature.generate_test_header_string(
+        header = stripe.Webhook.generate_test_header_string(
             payload=DUMMY_WEBHOOK_PAYLOAD, secret="whsec_wrong"
         )
         with pytest.raises(SignatureVerificationError):

@@ -40,22 +40,8 @@ class Webhook(object):
             )
         return event
 
-
-class WebhookSignature(object):
-    EXPECTED_SCHEME = "v1"
-
     @staticmethod
-    def _compute_signature(payload, secret):
-        mac = hmac.new(
-            secret.encode("utf-8"),
-            msg=payload.encode("utf-8"),
-            digestmod=sha256,
-        )
-        return mac.hexdigest()
-
-    @classmethod
     def generate_test_header_string(
-        cls,
         payload: str,
         secret: str,
         timestamp: Optional[int] = None,
@@ -81,11 +67,26 @@ class WebhookSignature(object):
         if timestamp is None:
             timestamp = int(time.time())
         if scheme is None:
-            scheme = cls.EXPECTED_SCHEME
+            scheme = WebhookSignature.EXPECTED_SCHEME
         if signature is None:
             signed_payload = "%d.%s" % (timestamp, payload)
-            signature = cls._compute_signature(signed_payload, secret)
+            signature = WebhookSignature._compute_signature(
+                signed_payload, secret
+            )
         return "t=%d,%s=%s" % (timestamp, scheme, signature)
+
+
+class WebhookSignature(object):
+    EXPECTED_SCHEME = "v1"
+
+    @staticmethod
+    def _compute_signature(payload, secret):
+        mac = hmac.new(
+            secret.encode("utf-8"),
+            msg=payload.encode("utf-8"),
+            digestmod=sha256,
+        )
+        return mac.hexdigest()
 
     @staticmethod
     def _get_timestamp_and_signatures(header, scheme):
