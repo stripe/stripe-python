@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from decimal import Decimal
 from stripe._api_mode import ApiMode
 from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
@@ -11,51 +12,51 @@ if TYPE_CHECKING:
     from stripe._api_requestor import _APIRequestor
 
 
-class V2CoreHealthTrafficVolumeDropResolvedEventNotification(
+class V2CoreHealthInvoiceCountDroppedFiringEventNotification(
     EventNotification
 ):
-    LOOKUP_TYPE = "v2.core.health.traffic_volume_drop.resolved"
-    type: Literal["v2.core.health.traffic_volume_drop.resolved"]
+    LOOKUP_TYPE = "v2.core.health.invoice_count_dropped.firing"
+    type: Literal["v2.core.health.invoice_count_dropped.firing"]
 
     @override
-    def fetch_event(self) -> "V2CoreHealthTrafficVolumeDropResolvedEvent":
+    def fetch_event(self) -> "V2CoreHealthInvoiceCountDroppedFiringEvent":
         return cast(
-            "V2CoreHealthTrafficVolumeDropResolvedEvent",
+            "V2CoreHealthInvoiceCountDroppedFiringEvent",
             super().fetch_event(),
         )
 
     @override
     async def fetch_event_async(
         self,
-    ) -> "V2CoreHealthTrafficVolumeDropResolvedEvent":
+    ) -> "V2CoreHealthInvoiceCountDroppedFiringEvent":
         return cast(
-            "V2CoreHealthTrafficVolumeDropResolvedEvent",
+            "V2CoreHealthInvoiceCountDroppedFiringEvent",
             await super().fetch_event_async(),
         )
 
 
-class V2CoreHealthTrafficVolumeDropResolvedEvent(Event):
-    LOOKUP_TYPE = "v2.core.health.traffic_volume_drop.resolved"
-    type: Literal["v2.core.health.traffic_volume_drop.resolved"]
+class V2CoreHealthInvoiceCountDroppedFiringEvent(Event):
+    LOOKUP_TYPE = "v2.core.health.invoice_count_dropped.firing"
+    type: Literal["v2.core.health.invoice_count_dropped.firing"]
 
-    class V2CoreHealthTrafficVolumeDropResolvedEventData(StripeObject):
+    class V2CoreHealthInvoiceCountDroppedFiringEventData(StripeObject):
         class Impact(StripeObject):
-            actual_traffic: int
+            observed_count: Decimal
             """
-            The total volume of payment requests within the latest observation time window.
+            The observed number of invoices within the time window.
             """
-            canonical_path: Optional[str]
+            threshold_count: Decimal
             """
-            The canonical path.
-            """
-            expected_traffic: Optional[int]
-            """
-            The expected volume of payment requests within the latest observation time window.
+            The expected threshold number of invoices within the time window.
             """
             time_window: str
             """
             The size of the observation time window.
             """
+            _field_encodings = {
+                "observed_count": "decimal_string",
+                "threshold_count": "decimal_string",
+            }
 
         alert_id: str
         """
@@ -69,10 +70,6 @@ class V2CoreHealthTrafficVolumeDropResolvedEvent(Event):
         """
         The user impact.
         """
-        resolved_at: str
-        """
-        The time when the user experience has returned to expected levels.
-        """
         started_at: str
         """
         The time when impact on the user experience was first detected.
@@ -83,9 +80,9 @@ class V2CoreHealthTrafficVolumeDropResolvedEvent(Event):
         """
         _inner_class_types = {"impact": Impact}
 
-    data: V2CoreHealthTrafficVolumeDropResolvedEventData
+    data: V2CoreHealthInvoiceCountDroppedFiringEventData
     """
-    Data for the v2.core.health.traffic_volume_drop.resolved event
+    Data for the v2.core.health.invoice_count_dropped.firing event
     """
 
     @classmethod
@@ -96,7 +93,7 @@ class V2CoreHealthTrafficVolumeDropResolvedEvent(Event):
         last_response: Optional[StripeResponse] = None,
         requestor: "_APIRequestor",
         api_mode: ApiMode,
-    ) -> "V2CoreHealthTrafficVolumeDropResolvedEvent":
+    ) -> "V2CoreHealthInvoiceCountDroppedFiringEvent":
         evt = super()._construct_from(
             values=values,
             last_response=last_response,
@@ -104,7 +101,7 @@ class V2CoreHealthTrafficVolumeDropResolvedEvent(Event):
             api_mode=api_mode,
         )
         if hasattr(evt, "data"):
-            evt.data = V2CoreHealthTrafficVolumeDropResolvedEvent.V2CoreHealthTrafficVolumeDropResolvedEventData._construct_from(
+            evt.data = V2CoreHealthInvoiceCountDroppedFiringEvent.V2CoreHealthInvoiceCountDroppedFiringEventData._construct_from(
                 values=evt.data,
                 last_response=last_response,
                 requestor=requestor,

@@ -85,10 +85,6 @@ class LicenseFee(StripeObject):
     """
     Unique identifier for the object.
     """
-    latest_version: str
-    """
-    The ID of the license fee's most recently created version.
-    """
     licensed_item: "LicensedItem"
     """
     A Licensed Item represents a billable item whose pricing is based on license fees. You can use license fees
@@ -117,15 +113,6 @@ class LicenseFee(StripeObject):
     service_cycle: ServiceCycle
     """
     The service cycle configuration for this License Fee.
-    """
-    service_interval: Literal["day", "month", "week", "year"]
-    """
-    The interval for assessing service.
-    """
-    service_interval_count: int
-    """
-    The length of the interval for assessing service. For example, set this to 3 and `service_interval` to `"month"`
-    to specify quarterly service.
     """
     tax_behavior: Literal["exclusive", "inclusive"]
     """

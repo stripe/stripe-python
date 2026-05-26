@@ -3908,9 +3908,24 @@ class AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistration(
     """
     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
     """
+    signer: NotRequired[
+        "AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistrationSigner"
+    ]
+    """
+    Person that is signing the document.
+    """
     type: Literal["files"]
     """
     The format of the document. Currently supports `files` only.
+    """
+
+
+class AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistrationSigner(
+    TypedDict,
+):
+    person: str
+    """
+    Person signing the document.
     """
 
 
@@ -3921,9 +3936,24 @@ class AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBenefici
     """
     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
     """
+    signer: NotRequired[
+        "AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnershipSigner"
+    ]
+    """
+    Person that is signing the document.
+    """
     type: Literal["files"]
     """
     The format of the document. Currently supports `files` only.
+    """
+
+
+class AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnershipSigner(
+    TypedDict,
+):
+    person: str
+    """
+    Person signing the document.
     """
 
 

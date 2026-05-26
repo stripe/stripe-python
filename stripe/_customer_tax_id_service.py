@@ -12,9 +12,6 @@ if TYPE_CHECKING:
     from stripe._list_object import ListObject
     from stripe._request_options import RequestOptions
     from stripe._tax_id import TaxId
-    from stripe.params._customer_tax_id_create_for_customer_params import (
-        CustomerTaxIdCreateForCustomerParams,
-    )
     from stripe.params._customer_tax_id_create_params import (
         CustomerTaxIdCreateParams,
     )
@@ -229,20 +226,20 @@ class CustomerTaxIdService(StripeService):
             options.get("stripe_version") if options else None
         ) or _ApiVersion.CURRENT
         context = options.get("stripe_context") if options else None
-        item = {
+        batch_request = {
             "id": item_id,
             "path_params": {"customer": customer, "id": id},
             "params": params,
             "stripe_version": stripe_version,
         }
         if context is not None:
-            item["context"] = context
-        return json.dumps(item)
+            batch_request["context"] = context
+        return json.dumps(batch_request)
 
     def serialize_batch_create_for_customer(
         self,
         customer: str,
-        params: Optional["CustomerTaxIdCreateForCustomerParams"] = None,
+        params: Optional["CustomerTaxIdCreateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> str:
         """
@@ -253,12 +250,12 @@ class CustomerTaxIdService(StripeService):
             options.get("stripe_version") if options else None
         ) or _ApiVersion.CURRENT
         context = options.get("stripe_context") if options else None
-        item = {
+        batch_request = {
             "id": item_id,
             "path_params": {"customer": customer},
             "params": params,
             "stripe_version": stripe_version,
         }
         if context is not None:
-            item["context"] = context
-        return json.dumps(item)
+            batch_request["context"] = context
+        return json.dumps(batch_request)

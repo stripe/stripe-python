@@ -49,10 +49,6 @@ class RateCard(StripeObject):
     """
     Unique identifier for the object.
     """
-    latest_version: str
-    """
-    The ID of this rate card's most recently created version.
-    """
     live_version: str
     """
     The ID of the Rate Card Version used by all subscriptions when no specific version is specified.
@@ -79,18 +75,6 @@ class RateCard(StripeObject):
     first 10 "workloads" and 2 USD thereafter means "1 USD per workload up to 10 workloads during a month of service."
     This is similar to but distinct from billing interval; the service interval deals with the rate at which the
     customer accumulates fees, while the billing interval in Cadence deals with the rate the customer is billed.
-    """
-    service_interval: Literal["day", "month", "week", "year"]
-    """
-    The interval for assessing service. For example, a monthly Rate Card with a rate of 1 USD for the first 10 "workloads"
-    and 2 USD thereafter means "1 USD per workload up to 10 workloads during a month of service." This is similar to but
-    distinct from billing interval; the service interval deals with the rate at which the customer accumulates fees,
-    while the billing interval in Cadence deals with the rate the customer is billed.
-    """
-    service_interval_count: int
-    """
-    The length of the interval for assessing service. For example, set this to 3 and `service_interval` to `"month"`
-    to specify quarterly service.
     """
     tax_behavior: Literal["exclusive", "inclusive"]
     """

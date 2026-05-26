@@ -47,9 +47,9 @@ class Settlement(StripeObject):
     """
     The total net amount required to settle with the network.
     """
-    network: Literal["maestro", "visa"]
+    network: Literal["maestro", "mastercard", "visa"]
     """
-    The card network for this settlement report. One of ["visa", "maestro"]
+    The card network for this settlement report. One of ["visa", "maestro", "mastercard"]
     """
     network_fees_amount: int
     """

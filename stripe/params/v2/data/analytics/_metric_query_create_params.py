@@ -51,9 +51,9 @@ class MetricQueryCreateParams(TypedDict):
 class MetricQueryCreateParamsMetric(TypedDict):
     id: NotRequired[str]
     """
-    The Gen6 ID for this metric, e.g. metric_61Sud3n5oAGVCWiSr5.
+    The ID for this metric, e.g. metric_61Sud3n5oAGVCWiSr5.
     """
     name: NotRequired[str]
     """
-    The common name for this metric, e.g. mrr_minor_units.
+    The common name for this metric, e.g. revenue.mrr.
     """

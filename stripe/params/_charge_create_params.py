@@ -156,6 +156,10 @@ class ChargeCreateParamsTransferData(TypedDict):
     """
     The amount transferred to the destination account, if specified. By default, the entire charge amount is transferred to the destination account.
     """
+    description: NotRequired[str]
+    """
+    An arbitrary string attached to the transfer. Often useful for displaying to users.
+    """
     destination: str
     """
     ID of an existing, connected Stripe account.

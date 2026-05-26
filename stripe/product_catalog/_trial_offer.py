@@ -15,8 +15,11 @@ if TYPE_CHECKING:
 
 class TrialOffer(CreateableAPIResource["TrialOffer"]):
     """
-    Resource for the TrialOffer API, used to describe a subscription item's trial period settings.
-    Renders a TrialOffer object that describes the price, duration, end_behavior of a trial offer.
+    Trial offers let you define free or paid introductory pricing for a subscription item.
+    A TrialOffer specifies the price to charge during the trial, how long the trial lasts
+    (a fixed end timestamp or a number of billing intervals), and what price the subscription
+    item transitions to when the trial ends. You attach a TrialOffer to a subscription item
+    using `items[current_trial][trial_offer]` when creating or updating a subscription.
     """
 
     OBJECT_NAME: ClassVar[Literal["product_catalog.trial_offer"]] = (
@@ -39,7 +42,7 @@ class TrialOffer(CreateableAPIResource["TrialOffer"]):
 
     class EndBehavior(StripeObject):
         class Transition(StripeObject):
-            price: str
+            price: ExpandableField["Price"]
             """
             The new price to use at the end of the trial offer period.
             """

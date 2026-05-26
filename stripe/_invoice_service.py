@@ -865,15 +865,15 @@ class InvoiceService(StripeService):
             options.get("stripe_version") if options else None
         ) or _ApiVersion.CURRENT
         context = options.get("stripe_context") if options else None
-        item = {
+        batch_request = {
             "id": item_id,
             "path_params": {"invoice": invoice},
             "params": params,
             "stripe_version": stripe_version,
         }
         if context is not None:
-            item["context"] = context
-        return json.dumps(item)
+            batch_request["context"] = context
+        return json.dumps(batch_request)
 
     def serialize_batch_update(
         self,
@@ -889,15 +889,15 @@ class InvoiceService(StripeService):
             options.get("stripe_version") if options else None
         ) or _ApiVersion.CURRENT
         context = options.get("stripe_context") if options else None
-        item = {
+        batch_request = {
             "id": item_id,
             "path_params": {"invoice": invoice},
             "params": params,
             "stripe_version": stripe_version,
         }
         if context is not None:
-            item["context"] = context
-        return json.dumps(item)
+            batch_request["context"] = context
+        return json.dumps(batch_request)
 
     def serialize_batch_create(
         self,
@@ -912,14 +912,14 @@ class InvoiceService(StripeService):
             options.get("stripe_version") if options else None
         ) or _ApiVersion.CURRENT
         context = options.get("stripe_context") if options else None
-        item = {
+        batch_request = {
             "id": item_id,
             "params": params,
             "stripe_version": stripe_version,
         }
         if context is not None:
-            item["context"] = context
-        return json.dumps(item)
+            batch_request["context"] = context
+        return json.dumps(batch_request)
 
     def serialize_batch_add_lines(
         self,
@@ -935,15 +935,15 @@ class InvoiceService(StripeService):
             options.get("stripe_version") if options else None
         ) or _ApiVersion.CURRENT
         context = options.get("stripe_context") if options else None
-        item = {
+        batch_request = {
             "id": item_id,
             "path_params": {"invoice": invoice},
             "params": params,
             "stripe_version": stripe_version,
         }
         if context is not None:
-            item["context"] = context
-        return json.dumps(item)
+            batch_request["context"] = context
+        return json.dumps(batch_request)
 
     def serialize_batch_finalize_invoice(
         self,
@@ -959,15 +959,15 @@ class InvoiceService(StripeService):
             options.get("stripe_version") if options else None
         ) or _ApiVersion.CURRENT
         context = options.get("stripe_context") if options else None
-        item = {
+        batch_request = {
             "id": item_id,
             "path_params": {"invoice": invoice},
             "params": params,
             "stripe_version": stripe_version,
         }
         if context is not None:
-            item["context"] = context
-        return json.dumps(item)
+            batch_request["context"] = context
+        return json.dumps(batch_request)
 
     def serialize_batch_mark_uncollectible(
         self,
@@ -983,15 +983,15 @@ class InvoiceService(StripeService):
             options.get("stripe_version") if options else None
         ) or _ApiVersion.CURRENT
         context = options.get("stripe_context") if options else None
-        item = {
+        batch_request = {
             "id": item_id,
             "path_params": {"invoice": invoice},
             "params": params,
             "stripe_version": stripe_version,
         }
         if context is not None:
-            item["context"] = context
-        return json.dumps(item)
+            batch_request["context"] = context
+        return json.dumps(batch_request)
 
     def serialize_batch_pay(
         self,
@@ -1007,15 +1007,15 @@ class InvoiceService(StripeService):
             options.get("stripe_version") if options else None
         ) or _ApiVersion.CURRENT
         context = options.get("stripe_context") if options else None
-        item = {
+        batch_request = {
             "id": item_id,
             "path_params": {"invoice": invoice},
             "params": params,
             "stripe_version": stripe_version,
         }
         if context is not None:
-            item["context"] = context
-        return json.dumps(item)
+            batch_request["context"] = context
+        return json.dumps(batch_request)
 
     def serialize_batch_remove_lines(
         self,
@@ -1031,15 +1031,15 @@ class InvoiceService(StripeService):
             options.get("stripe_version") if options else None
         ) or _ApiVersion.CURRENT
         context = options.get("stripe_context") if options else None
-        item = {
+        batch_request = {
             "id": item_id,
             "path_params": {"invoice": invoice},
             "params": params,
             "stripe_version": stripe_version,
         }
         if context is not None:
-            item["context"] = context
-        return json.dumps(item)
+            batch_request["context"] = context
+        return json.dumps(batch_request)
 
     def serialize_batch_send_invoice(
         self,
@@ -1055,15 +1055,15 @@ class InvoiceService(StripeService):
             options.get("stripe_version") if options else None
         ) or _ApiVersion.CURRENT
         context = options.get("stripe_context") if options else None
-        item = {
+        batch_request = {
             "id": item_id,
             "path_params": {"invoice": invoice},
             "params": params,
             "stripe_version": stripe_version,
         }
         if context is not None:
-            item["context"] = context
-        return json.dumps(item)
+            batch_request["context"] = context
+        return json.dumps(batch_request)
 
     def serialize_batch_update_lines(
         self,
@@ -1079,15 +1079,15 @@ class InvoiceService(StripeService):
             options.get("stripe_version") if options else None
         ) or _ApiVersion.CURRENT
         context = options.get("stripe_context") if options else None
-        item = {
+        batch_request = {
             "id": item_id,
             "path_params": {"invoice": invoice},
             "params": params,
             "stripe_version": stripe_version,
         }
         if context is not None:
-            item["context"] = context
-        return json.dumps(item)
+            batch_request["context"] = context
+        return json.dumps(batch_request)
 
     def serialize_batch_void_invoice(
         self,
@@ -1103,15 +1103,15 @@ class InvoiceService(StripeService):
             options.get("stripe_version") if options else None
         ) or _ApiVersion.CURRENT
         context = options.get("stripe_context") if options else None
-        item = {
+        batch_request = {
             "id": item_id,
             "path_params": {"invoice": invoice},
             "params": params,
             "stripe_version": stripe_version,
         }
         if context is not None:
-            item["context"] = context
-        return json.dumps(item)
+            batch_request["context"] = context
+        return json.dumps(batch_request)
 
     def serialize_batch_create_preview(
         self,
@@ -1126,11 +1126,11 @@ class InvoiceService(StripeService):
             options.get("stripe_version") if options else None
         ) or _ApiVersion.CURRENT
         context = options.get("stripe_context") if options else None
-        item = {
+        batch_request = {
             "id": item_id,
             "params": params,
             "stripe_version": stripe_version,
         }
         if context is not None:
-            item["context"] = context
-        return json.dumps(item)
+            batch_request["context"] = context
+        return json.dumps(batch_request)

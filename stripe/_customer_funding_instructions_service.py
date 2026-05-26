@@ -11,9 +11,6 @@ from typing_extensions import TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe._funding_instructions import FundingInstructions
     from stripe._request_options import RequestOptions
-    from stripe.params._customer_funding_instructions_create_funding_instructions_params import (
-        CustomerFundingInstructionsCreateFundingInstructionsParams,
-    )
     from stripe.params._customer_funding_instructions_create_params import (
         CustomerFundingInstructionsCreateParams,
     )
@@ -71,9 +68,7 @@ class CustomerFundingInstructionsService(StripeService):
     def serialize_batch_create_funding_instructions(
         self,
         customer: str,
-        params: Optional[
-            "CustomerFundingInstructionsCreateFundingInstructionsParams"
-        ] = None,
+        params: Optional["CustomerFundingInstructionsCreateParams"] = None,
         options: Optional["RequestOptions"] = None,
     ) -> str:
         """
@@ -84,12 +79,12 @@ class CustomerFundingInstructionsService(StripeService):
             options.get("stripe_version") if options else None
         ) or _ApiVersion.CURRENT
         context = options.get("stripe_context") if options else None
-        item = {
+        batch_request = {
             "id": item_id,
             "path_params": {"customer": customer},
             "params": params,
             "stripe_version": stripe_version,
         }
         if context is not None:
-            item["context"] = context
-        return json.dumps(item)
+            batch_request["context"] = context
+        return json.dumps(batch_request)

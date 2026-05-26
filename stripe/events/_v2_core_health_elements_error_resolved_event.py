@@ -11,50 +11,40 @@ if TYPE_CHECKING:
     from stripe._api_requestor import _APIRequestor
 
 
-class V2CoreHealthTrafficVolumeDropResolvedEventNotification(
-    EventNotification
-):
-    LOOKUP_TYPE = "v2.core.health.traffic_volume_drop.resolved"
-    type: Literal["v2.core.health.traffic_volume_drop.resolved"]
+class V2CoreHealthElementsErrorResolvedEventNotification(EventNotification):
+    LOOKUP_TYPE = "v2.core.health.elements_error.resolved"
+    type: Literal["v2.core.health.elements_error.resolved"]
 
     @override
-    def fetch_event(self) -> "V2CoreHealthTrafficVolumeDropResolvedEvent":
+    def fetch_event(self) -> "V2CoreHealthElementsErrorResolvedEvent":
         return cast(
-            "V2CoreHealthTrafficVolumeDropResolvedEvent",
+            "V2CoreHealthElementsErrorResolvedEvent",
             super().fetch_event(),
         )
 
     @override
     async def fetch_event_async(
         self,
-    ) -> "V2CoreHealthTrafficVolumeDropResolvedEvent":
+    ) -> "V2CoreHealthElementsErrorResolvedEvent":
         return cast(
-            "V2CoreHealthTrafficVolumeDropResolvedEvent",
+            "V2CoreHealthElementsErrorResolvedEvent",
             await super().fetch_event_async(),
         )
 
 
-class V2CoreHealthTrafficVolumeDropResolvedEvent(Event):
-    LOOKUP_TYPE = "v2.core.health.traffic_volume_drop.resolved"
-    type: Literal["v2.core.health.traffic_volume_drop.resolved"]
+class V2CoreHealthElementsErrorResolvedEvent(Event):
+    LOOKUP_TYPE = "v2.core.health.elements_error.resolved"
+    type: Literal["v2.core.health.elements_error.resolved"]
 
-    class V2CoreHealthTrafficVolumeDropResolvedEventData(StripeObject):
+    class V2CoreHealthElementsErrorResolvedEventData(StripeObject):
         class Impact(StripeObject):
-            actual_traffic: int
+            element_type: Optional[Literal["expressCheckout", "payment"]]
             """
-            The total volume of payment requests within the latest observation time window.
+            The type of the element.
             """
-            canonical_path: Optional[str]
+            impacted_sessions: int
             """
-            The canonical path.
-            """
-            expected_traffic: Optional[int]
-            """
-            The expected volume of payment requests within the latest observation time window.
-            """
-            time_window: str
-            """
-            The size of the observation time window.
+            The number of impacted sessions.
             """
 
         alert_id: str
@@ -83,9 +73,9 @@ class V2CoreHealthTrafficVolumeDropResolvedEvent(Event):
         """
         _inner_class_types = {"impact": Impact}
 
-    data: V2CoreHealthTrafficVolumeDropResolvedEventData
+    data: V2CoreHealthElementsErrorResolvedEventData
     """
-    Data for the v2.core.health.traffic_volume_drop.resolved event
+    Data for the v2.core.health.elements_error.resolved event
     """
 
     @classmethod
@@ -96,7 +86,7 @@ class V2CoreHealthTrafficVolumeDropResolvedEvent(Event):
         last_response: Optional[StripeResponse] = None,
         requestor: "_APIRequestor",
         api_mode: ApiMode,
-    ) -> "V2CoreHealthTrafficVolumeDropResolvedEvent":
+    ) -> "V2CoreHealthElementsErrorResolvedEvent":
         evt = super()._construct_from(
             values=values,
             last_response=last_response,
@@ -104,7 +94,7 @@ class V2CoreHealthTrafficVolumeDropResolvedEvent(Event):
             api_mode=api_mode,
         )
         if hasattr(evt, "data"):
-            evt.data = V2CoreHealthTrafficVolumeDropResolvedEvent.V2CoreHealthTrafficVolumeDropResolvedEventData._construct_from(
+            evt.data = V2CoreHealthElementsErrorResolvedEvent.V2CoreHealthElementsErrorResolvedEventData._construct_from(
                 values=evt.data,
                 last_response=last_response,
                 requestor=requestor,

@@ -22,7 +22,7 @@ class MetricQueryResult(StripeObject):
             """
             metric: str
             """
-            The Gen6 ID of this metric.
+            The ID of this metric.
             """
             name: str
             """

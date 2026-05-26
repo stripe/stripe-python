@@ -172,7 +172,9 @@ class AlertCreateParamsSpendThreshold(TypedDict):
     """
     Filters to scope the spend calculation.
     """
-    group_by: NotRequired[Literal["pricing_plan_subscription"]]
+    group_by: NotRequired[
+        Literal["billing_cadence", "pricing_plan_subscription"]
+    ]
     """
     Defines the granularity of spend aggregation. Defaults to `pricing_plan_subscription`.
     """

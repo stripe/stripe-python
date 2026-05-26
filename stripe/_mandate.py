@@ -259,6 +259,9 @@ class Mandate(ListableAPIResource["Mandate"]):
             The URL of the mandate. This URL generally contains sensitive information about the customer and should be shared with them exclusively.
             """
 
+        class Twint(StripeObject):
+            pass
+
         class Upi(StripeObject):
             amount: Optional[int]
             """
@@ -300,6 +303,7 @@ class Mandate(ListableAPIResource["Mandate"]):
         pix: Optional[Pix]
         revolut_pay: Optional[RevolutPay]
         sepa_debit: Optional[SepaDebit]
+        twint: Optional[Twint]
         type: str
         """
         This mandate corresponds with a specific payment method type. The `payment_method_details` includes an additional hash with the same name and contains mandate information that's specific to that payment method.
@@ -324,6 +328,7 @@ class Mandate(ListableAPIResource["Mandate"]):
             "pix": Pix,
             "revolut_pay": RevolutPay,
             "sepa_debit": SepaDebit,
+            "twint": Twint,
             "upi": Upi,
             "us_bank_account": UsBankAccount,
         }

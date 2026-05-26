@@ -483,7 +483,7 @@ class Session(
         """
         If set to `auto`, enables the collection of customer consent for promotional communications. The Checkout
         Session will determine whether to display an option to opt into promotional communication
-        from the merchant depending on the customer's locale. Only available to US merchants.
+        from the merchant depending on the customer's locale. Only available to US merchants and US customers.
         """
         terms_of_service: Optional[Literal["none", "required"]]
         """
@@ -1454,7 +1454,7 @@ class Session(
                     ]
                 ]
                 """
-                Specify the card brands to block in the Checkout Session. If a customer enters or selects a card belonging to a blocked brand, they can't complete the Session.
+                The card brands to block. If a customer enters or selects a card belonging to a blocked brand, they can't complete the payment.
                 """
 
             capture_method: Optional[Literal["manual"]]
@@ -2013,6 +2013,12 @@ class Session(
             Controls when the funds will be captured from the customer's account.
             """
 
+        class Scalapay(StripeObject):
+            capture_method: Optional[Literal["manual"]]
+            """
+            Controls when the funds will be captured from the customer's account.
+            """
+
         class SepaDebit(StripeObject):
             class MandateOptions(StripeObject):
                 reference_prefix: Optional[str]
@@ -2058,7 +2064,7 @@ class Session(
             """
 
         class Twint(StripeObject):
-            setup_future_usage: Optional[Literal["none"]]
+            setup_future_usage: Optional[Literal["none", "off_session"]]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -2223,6 +2229,7 @@ class Session(
         revolut_pay: Optional[RevolutPay]
         samsung_pay: Optional[SamsungPay]
         satispay: Optional[Satispay]
+        scalapay: Optional[Scalapay]
         sepa_debit: Optional[SepaDebit]
         sofort: Optional[Sofort]
         swish: Optional[Swish]
@@ -2268,6 +2275,7 @@ class Session(
             "revolut_pay": RevolutPay,
             "samsung_pay": SamsungPay,
             "satispay": Satispay,
+            "scalapay": Scalapay,
             "sepa_debit": SepaDebit,
             "sofort": Sofort,
             "swish": Swish,
@@ -2834,8 +2842,8 @@ class Session(
     """
     client_secret: Optional[str]
     """
-    The client secret of your Checkout Session. Applies to Checkout Sessions with `ui_mode: embedded` or `ui_mode: custom`. For `ui_mode: embedded`, the client secret is to be used when initializing Stripe.js embedded checkout.
-     For `ui_mode: custom`, use the client secret with [initCheckout](https://docs.stripe.com/js/custom_checkout/init) on your front end.
+    The client secret of your Checkout Session. Applies to Checkout Sessions with `ui_mode: embedded_page` or `ui_mode: elements`. For `ui_mode: embedded_page`, the client secret is to be used when initializing Stripe.js embedded checkout.
+     For `ui_mode: elements`, use the client secret with [initCheckout](https://docs.stripe.com/js/custom_checkout/init) on your front end.
     """
     collected_information: Optional[CollectedInformation]
     """
@@ -3062,11 +3070,11 @@ class Session(
     """
     redirect_on_completion: Optional[Literal["always", "if_required", "never"]]
     """
-    This parameter applies to `ui_mode: embedded`. Learn more about the [redirect behavior](https://docs.stripe.com/payments/checkout/custom-success-page?payment-ui=embedded-form) of embedded sessions. Defaults to `always`.
+    This parameter applies to `ui_mode: embedded_page`. Learn more about the [redirect behavior](https://docs.stripe.com/payments/checkout/custom-success-page?payment-ui=embedded-form) of embedded sessions. Defaults to `always`.
     """
     return_url: Optional[str]
     """
-    Applies to Checkout Sessions with `ui_mode: embedded` or `ui_mode: custom`. The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site.
+    Applies to Checkout Sessions with `ui_mode: embedded_page` or `ui_mode: elements`. The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site.
     """
     saved_payment_method_options: Optional[SavedPaymentMethodOptions]
     """
@@ -3123,7 +3131,7 @@ class Session(
     """
     url: Optional[str]
     """
-    The URL to the Checkout Session. Applies to Checkout Sessions with `ui_mode: hosted`. Redirect customers to this URL to take them to Checkout. If you're using [Custom Domains](https://docs.stripe.com/payments/checkout/custom-domains), the URL will use your subdomain. Otherwise, it'll use `checkout.stripe.com.`
+    The URL to the Checkout Session. Applies to Checkout Sessions with `ui_mode: hosted_page`. Redirect customers to this URL to take them to Checkout. If you're using [Custom Domains](https://docs.stripe.com/payments/checkout/custom-domains), the URL will use your subdomain. Otherwise, it'll use `checkout.stripe.com.`
     This value is only present when the session is active.
     """
     wallet_options: Optional[WalletOptions]

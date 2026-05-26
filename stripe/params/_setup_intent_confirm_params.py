@@ -163,6 +163,10 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
     """
     Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
     """
+    bizum: NotRequired["SetupIntentConfirmParamsPaymentMethodDataBizum"]
+    """
+    If this is a `bizum` PaymentMethod, this hash contains details about the Bizum payment method.
+    """
     blik: NotRequired["SetupIntentConfirmParamsPaymentMethodDataBlik"]
     """
     If this is a `blik` PaymentMethod, this hash contains details about the BLIK payment method.
@@ -243,7 +247,7 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
     """
     link: NotRequired["SetupIntentConfirmParamsPaymentMethodDataLink"]
     """
-    If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
+    If this is an `Link` PaymentMethod, this hash contains details about the Link payment method (Link is also known as Onelink in the UK).
     """
     mb_way: NotRequired["SetupIntentConfirmParamsPaymentMethodDataMbWay"]
     """
@@ -349,6 +353,10 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
     """
     If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
     """
+    scalapay: NotRequired["SetupIntentConfirmParamsPaymentMethodDataScalapay"]
+    """
+    If this is a Scalapay PaymentMethod, this hash contains details about the Scalapay payment method.
+    """
     sepa_debit: NotRequired[
         "SetupIntentConfirmParamsPaymentMethodDataSepaDebit"
     ]
@@ -398,6 +406,7 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
         "bacs_debit",
         "bancontact",
         "billie",
+        "bizum",
         "blik",
         "boleto",
         "cashapp",
@@ -436,6 +445,7 @@ class SetupIntentConfirmParamsPaymentMethodData(TypedDict):
         "revolut_pay",
         "samsung_pay",
         "satispay",
+        "scalapay",
         "sepa_debit",
         "shopeepay",
         "sofort",
@@ -590,6 +600,10 @@ class SetupIntentConfirmParamsPaymentMethodDataBillingDetailsAddress(
     """
     State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """
+
+
+class SetupIntentConfirmParamsPaymentMethodDataBizum(TypedDict):
+    pass
 
 
 class SetupIntentConfirmParamsPaymentMethodDataBlik(TypedDict):
@@ -956,6 +970,10 @@ class SetupIntentConfirmParamsPaymentMethodDataSatispay(TypedDict):
     pass
 
 
+class SetupIntentConfirmParamsPaymentMethodDataScalapay(TypedDict):
+    pass
+
+
 class SetupIntentConfirmParamsPaymentMethodDataSepaDebit(TypedDict):
     iban: str
     """
@@ -1071,6 +1089,10 @@ class SetupIntentConfirmParamsPaymentMethodOptions(TypedDict):
     """
     If this is a `bacs_debit` SetupIntent, this sub-hash contains details about the Bacs Debit payment method options.
     """
+    bizum: NotRequired["SetupIntentConfirmParamsPaymentMethodOptionsBizum"]
+    """
+    If this is a `bizum` SetupIntent, this sub-hash contains details about the Bizum payment method options.
+    """
     card: NotRequired["SetupIntentConfirmParamsPaymentMethodOptionsCard"]
     """
     Configuration for any card setup attempted on this SetupIntent.
@@ -1087,7 +1109,7 @@ class SetupIntentConfirmParamsPaymentMethodOptions(TypedDict):
     """
     link: NotRequired["SetupIntentConfirmParamsPaymentMethodOptionsLink"]
     """
-    If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
+    If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options (Link is also known as Onelink in the UK).
     """
     paypal: NotRequired["SetupIntentConfirmParamsPaymentMethodOptionsPaypal"]
     """
@@ -1191,6 +1213,10 @@ class SetupIntentConfirmParamsPaymentMethodOptionsBacsDebitMandateOptions(
     """
     Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
     """
+
+
+class SetupIntentConfirmParamsPaymentMethodOptionsBizum(TypedDict):
+    pass
 
 
 class SetupIntentConfirmParamsPaymentMethodOptionsCard(TypedDict):

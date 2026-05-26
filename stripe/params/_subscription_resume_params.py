@@ -14,6 +14,12 @@ class SubscriptionResumeParams(RequestOptions):
     """
     Specifies which fields in the response should be expanded.
     """
+    payment_behavior: NotRequired[
+        Literal["resume_on_payment_attempt", "resume_on_payment_success"]
+    ]
+    """
+    Controls whether Stripe attempts payment on the resumption invoice in the resume request, and how payment on that invoice affects the subscription's status. The default is `resume_on_payment_attempt`.
+    """
     proration_behavior: NotRequired[
         Literal["always_invoice", "create_prorations", "none"]
     ]

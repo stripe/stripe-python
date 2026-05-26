@@ -6,6 +6,10 @@ from typing_extensions import NotRequired
 
 
 class TestClockCreateParams(RequestOptions):
+    customer: NotRequired[str]
+    """
+    Existing customer this test clock will be attached to. Once attached, customers can't be removed from a test clock.
+    """
     expand: NotRequired[List[str]]
     """
     Specifies which fields in the response should be expanded.

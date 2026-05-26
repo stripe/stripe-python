@@ -178,6 +178,9 @@ class PaymentMethod(
         """
         _inner_class_types = {"address": Address}
 
+    class Bizum(StripeObject):
+        pass
+
     class Blik(StripeObject):
         pass
 
@@ -1376,6 +1379,9 @@ class PaymentMethod(
     class Satispay(StripeObject):
         pass
 
+    class Scalapay(StripeObject):
+        pass
+
     class SepaDebit(StripeObject):
         class GeneratedFrom(StripeObject):
             charge: Optional[ExpandableField["Charge"]]
@@ -1563,6 +1569,7 @@ class PaymentMethod(
     bancontact: Optional[Bancontact]
     billie: Optional[Billie]
     billing_details: BillingDetails
+    bizum: Optional[Bizum]
     blik: Optional[Blik]
     boleto: Optional[Boleto]
     card: Optional[Card]
@@ -1638,6 +1645,7 @@ class PaymentMethod(
     revolut_pay: Optional[RevolutPay]
     samsung_pay: Optional[SamsungPay]
     satispay: Optional[Satispay]
+    scalapay: Optional[Scalapay]
     sepa_debit: Optional[SepaDebit]
     shared_payment_granted_token: Optional[str]
     """
@@ -1660,6 +1668,7 @@ class PaymentMethod(
         "bacs_debit",
         "bancontact",
         "billie",
+        "bizum",
         "blik",
         "boleto",
         "card",
@@ -1702,6 +1711,7 @@ class PaymentMethod(
         "revolut_pay",
         "samsung_pay",
         "satispay",
+        "scalapay",
         "sepa_debit",
         "shopeepay",
         "sofort",
@@ -2298,6 +2308,7 @@ class PaymentMethod(
         "bancontact": Bancontact,
         "billie": Billie,
         "billing_details": BillingDetails,
+        "bizum": Bizum,
         "blik": Blik,
         "boleto": Boleto,
         "card": Card,
@@ -2341,6 +2352,7 @@ class PaymentMethod(
         "revolut_pay": RevolutPay,
         "samsung_pay": SamsungPay,
         "satispay": Satispay,
+        "scalapay": Scalapay,
         "sepa_debit": SepaDebit,
         "shopeepay": Shopeepay,
         "sofort": Sofort,

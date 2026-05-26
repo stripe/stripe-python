@@ -1195,6 +1195,14 @@ if TYPE_CHECKING:
         V2CoreHealthAuthorizationRateDropResolvedEvent as V2CoreHealthAuthorizationRateDropResolvedEvent,
         V2CoreHealthAuthorizationRateDropResolvedEventNotification as V2CoreHealthAuthorizationRateDropResolvedEventNotification,
     )
+    from stripe.events._v2_core_health_elements_error_firing_event import (
+        V2CoreHealthElementsErrorFiringEvent as V2CoreHealthElementsErrorFiringEvent,
+        V2CoreHealthElementsErrorFiringEventNotification as V2CoreHealthElementsErrorFiringEventNotification,
+    )
+    from stripe.events._v2_core_health_elements_error_resolved_event import (
+        V2CoreHealthElementsErrorResolvedEvent as V2CoreHealthElementsErrorResolvedEvent,
+        V2CoreHealthElementsErrorResolvedEventNotification as V2CoreHealthElementsErrorResolvedEventNotification,
+    )
     from stripe.events._v2_core_health_event_generation_failure_resolved_event import (
         V2CoreHealthEventGenerationFailureResolvedEvent as V2CoreHealthEventGenerationFailureResolvedEvent,
         V2CoreHealthEventGenerationFailureResolvedEventNotification as V2CoreHealthEventGenerationFailureResolvedEventNotification,
@@ -1202,6 +1210,14 @@ if TYPE_CHECKING:
     from stripe.events._v2_core_health_fraud_rate_increased_event import (
         V2CoreHealthFraudRateIncreasedEvent as V2CoreHealthFraudRateIncreasedEvent,
         V2CoreHealthFraudRateIncreasedEventNotification as V2CoreHealthFraudRateIncreasedEventNotification,
+    )
+    from stripe.events._v2_core_health_invoice_count_dropped_firing_event import (
+        V2CoreHealthInvoiceCountDroppedFiringEvent as V2CoreHealthInvoiceCountDroppedFiringEvent,
+        V2CoreHealthInvoiceCountDroppedFiringEventNotification as V2CoreHealthInvoiceCountDroppedFiringEventNotification,
+    )
+    from stripe.events._v2_core_health_invoice_count_dropped_resolved_event import (
+        V2CoreHealthInvoiceCountDroppedResolvedEvent as V2CoreHealthInvoiceCountDroppedResolvedEvent,
+        V2CoreHealthInvoiceCountDroppedResolvedEventNotification as V2CoreHealthInvoiceCountDroppedResolvedEventNotification,
     )
     from stripe.events._v2_core_health_issuing_authorization_request_errors_firing_event import (
         V2CoreHealthIssuingAuthorizationRequestErrorsFiringEvent as V2CoreHealthIssuingAuthorizationRequestErrorsFiringEvent,
@@ -3876,6 +3892,22 @@ _import_map = {
         "stripe.events._v2_core_health_authorization_rate_drop_resolved_event",
         False,
     ),
+    "V2CoreHealthElementsErrorFiringEvent": (
+        "stripe.events._v2_core_health_elements_error_firing_event",
+        False,
+    ),
+    "V2CoreHealthElementsErrorFiringEventNotification": (
+        "stripe.events._v2_core_health_elements_error_firing_event",
+        False,
+    ),
+    "V2CoreHealthElementsErrorResolvedEvent": (
+        "stripe.events._v2_core_health_elements_error_resolved_event",
+        False,
+    ),
+    "V2CoreHealthElementsErrorResolvedEventNotification": (
+        "stripe.events._v2_core_health_elements_error_resolved_event",
+        False,
+    ),
     "V2CoreHealthEventGenerationFailureResolvedEvent": (
         "stripe.events._v2_core_health_event_generation_failure_resolved_event",
         False,
@@ -3890,6 +3922,22 @@ _import_map = {
     ),
     "V2CoreHealthFraudRateIncreasedEventNotification": (
         "stripe.events._v2_core_health_fraud_rate_increased_event",
+        False,
+    ),
+    "V2CoreHealthInvoiceCountDroppedFiringEvent": (
+        "stripe.events._v2_core_health_invoice_count_dropped_firing_event",
+        False,
+    ),
+    "V2CoreHealthInvoiceCountDroppedFiringEventNotification": (
+        "stripe.events._v2_core_health_invoice_count_dropped_firing_event",
+        False,
+    ),
+    "V2CoreHealthInvoiceCountDroppedResolvedEvent": (
+        "stripe.events._v2_core_health_invoice_count_dropped_resolved_event",
+        False,
+    ),
+    "V2CoreHealthInvoiceCountDroppedResolvedEventNotification": (
+        "stripe.events._v2_core_health_invoice_count_dropped_resolved_event",
         False,
     ),
     "V2CoreHealthIssuingAuthorizationRequestErrorsFiringEvent": (

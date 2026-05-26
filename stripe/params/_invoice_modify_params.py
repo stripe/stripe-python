@@ -253,7 +253,7 @@ class InvoiceModifyParamsPaymentSettings(TypedDict):
     Payment-method-specific configuration to provide to the invoice's PaymentIntent.
     """
     payment_method_types: NotRequired[
-        "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'bizum', 'blik', 'boleto', 'card', 'cashapp', 'check_scan', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'momo', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'upi', 'us_bank_account', 'wechat_pay']]"
+        "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'bizum', 'blik', 'boleto', 'card', 'cashapp', 'check_scan', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'momo', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'stripe_balance', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay']]"
     ]
     """
     The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice).
@@ -344,6 +344,12 @@ class InvoiceModifyParamsPaymentSettingsPaymentMethodOptions(TypedDict):
     ]
     """
     If paying by `us_bank_account`, this sub-hash contains details about the ACH direct debit payment method options to pass to the invoice's PaymentIntent.
+    """
+    wechat_pay: NotRequired[
+        "Literal['']|InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsWechatPay"
+    ]
+    """
+    If paying by `wechat_pay`, this sub-hash contains details about the WeChat Pay payment method options to pass to the invoice's PaymentIntent.
     """
 
 
@@ -635,6 +641,19 @@ class InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinanci
     institution: NotRequired[str]
     """
     ID of the institution to use to filter for selectable accounts.
+    """
+
+
+class InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsWechatPay(
+    TypedDict,
+):
+    app_id: NotRequired[str]
+    """
+    The app ID registered with WeChat Pay. Only required when client is `ios` or `android`.
+    """
+    client: NotRequired[Literal["android", "ios", "mobile_web", "web"]]
+    """
+    The client type that the end customer will pay from.
     """
 
 

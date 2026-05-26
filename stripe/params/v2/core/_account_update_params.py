@@ -3808,7 +3808,7 @@ class AccountUpdateParamsIdentityBusinessDetailsDocuments(TypedDict):
         "AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfRegistration"
     ]
     """
-    One or more documents showing the company's proof of registration with the national business registry.
+    One or more documents that demonstrate proof of ultimate beneficial ownership.
     """
     proof_of_ultimate_beneficial_ownership: NotRequired[
         "AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnership"
@@ -3942,9 +3942,24 @@ class AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfRegistration(
     """
     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
     """
+    signer: NotRequired[
+        "AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfRegistrationSigner"
+    ]
+    """
+    Person that is signing the document.
+    """
     type: Literal["files"]
     """
     The format of the document. Currently supports `files` only.
+    """
+
+
+class AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfRegistrationSigner(
+    TypedDict,
+):
+    person: str
+    """
+    Person signing the document.
     """
 
 
@@ -3955,9 +3970,24 @@ class AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBenefici
     """
     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
     """
+    signer: NotRequired[
+        "AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnershipSigner"
+    ]
+    """
+    Person that is signing the document.
+    """
     type: Literal["files"]
     """
     The format of the document. Currently supports `files` only.
+    """
+
+
+class AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnershipSigner(
+    TypedDict,
+):
+    person: str
+    """
+    Person signing the document.
     """
 
 
