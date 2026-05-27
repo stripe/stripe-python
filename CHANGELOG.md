@@ -1,5 +1,28 @@
 # Changelog
 
+## 15.3.0b1 - 2026-05-27
+This release changes the pinned API version to 2026-05-27.private.
+
+* [#1801](https://github.com/stripe/stripe-python/pull/1801) Update generated code for beta
+  * Add support for `pause` method on resource `Subscription`
+  * Add support for `retrieve` method on resource `v2.iam.ActivityLog`
+  * ⚠️ Add support for new value `mastercard` on enum `Issuing.Settlement.network`
+  * ⚠️ Change type of `ProductCatalog.TrialOffer.EndBehavior.Transition.price` from `string` to `expandable($Price)`
+  * Add support for `amount_paid_off_stripe` on `QuotePreviewInvoice`
+  * ⚠️ Add support for new value `twint` on enum `QuotePreviewInvoice.PaymentSetting.payment_method_types`
+  * Add support for `discountable` on `QuotePreviewSubscriptionSchedule.Phase.AddInvoiceItem`
+  * Add support for `bizum` and `scalapay` on `SharedPayment.GrantedToken.PaymentMethodDetail`
+  * ⚠️ Add support for new values `bizum` and `scalapay` on enum `SharedPayment.GrantedToken.PaymentMethodDetail.type`
+  * Change `SharedPayment.GrantedToken.agent_details` to be required
+  * Change type of `SubscriptionItem.billed_until` from `nullable(DateTime)` to `DateTime`
+  * Add support for `payment_behavior` on `SubscriptionResumeParams`
+  * Add support for `status_details` on `Subscription`
+  * Change `Subscription.billing_schedules` to be required
+  * ⚠️ Add support for new values `ao_bank_account`, `az_bank_account`, `bd_bank_account`, `bo_bank_account`, `br_bank_account`, `cl_bank_account`, `ga_bank_account`, `gh_bank_account`, `gi_bank_account`, `hn_bank_account`, `kr_bank_account`, `kz_bank_account`, `la_bank_account`, `ne_bank_account`, `ng_bank_account`, `ni_bank_account`, `py_bank_account`, `sa_bank_account`, `sm_bank_account`, and `uy_bank_account` on enum `V2.Core.Account.Configuration.Recipient.DefaultOutboundDestination.type`
+  * ⚠️ Change type of `V2.MoneyManagement.ReceivedCredit.BankTransfer.GbBankAccount.network` from `literal('fps')` to `enum('chaps'|'fps')`
+  * Add support for new value `chaps` on enum `v2.FinancialAddressCreditSimulationCreditParams.network`
+  * Add support for error codes `payment_method_microdeposit_processing_error` and `siret_invalid` on `QuotePreviewInvoice.LastFinalizationError`
+
 ## 15.2.0b2 - 2026-04-24
 * [#1797](https://github.com/stripe/stripe-python/pull/1797) Update generated code for beta
   * Add support for new resources `v2.commerce.ProductCatalogImport`, `v2.data.reporting.QueryRun`, `v2.extend.WorkflowRun`, `v2.extend.Workflow`, `v2.iam.ActivityLog`, `v2.network.BusinessProfile`, and `v2.orchestrated_commerce.Agreement`
