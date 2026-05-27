@@ -22,7 +22,7 @@ if TYPE_CHECKING:
     from stripe.v2._billing_service import BillingService as BillingService
     from stripe.v2._commerce_service import CommerceService as CommerceService
     from stripe.v2._core_service import CoreService as CoreService
-    from stripe.v2._datum_service import DatumService as DatumService
+    from stripe.v2._data_service import DataService as DataService
     from stripe.v2._deleted_object import DeletedObject as DeletedObject
     from stripe.v2._extend_service import ExtendService as ExtendService
     from stripe.v2._financial_address_credit_simulation import (
@@ -58,7 +58,7 @@ _import_map = {
     "BillingService": ("stripe.v2._billing_service", False),
     "CommerceService": ("stripe.v2._commerce_service", False),
     "CoreService": ("stripe.v2._core_service", False),
-    "DatumService": ("stripe.v2._datum_service", False),
+    "DataService": ("stripe.v2._data_service", False),
     "DeletedObject": ("stripe.v2._deleted_object", False),
     "ExtendService": ("stripe.v2._extend_service", False),
     "FinancialAddressCreditSimulation": (

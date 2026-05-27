@@ -9,9 +9,8 @@ from typing_extensions import Literal
 
 class Account(StripeObject):
     """
-    An Account v2 object represents a company, individual, or other entity that interacts with a platform on Stripe. It contains both identifying information and properties that control its behavior and functionality. An Account can have one or more configurations that enable sets of related features, such as allowing it to act as a merchant or customer.
-    The Accounts v2 API supports both the Global Payouts preview feature and the Connect-Billing integration preview feature. However, a particular Account can only access one of them.
-    The Connect-Billing integration preview feature allows an Account v2 to pay subscription fees to a platform. An Account v1 required a separate Customer object to pay subscription fees.
+    An Account v2 object represents a company, individual, or other entity that your Stripe integration interacts with. It contains both identifying information and properties that control its behavior and functionality. An Account can have one or more configurations that enable sets of related features, such as allowing it to act as a merchant or customer.
+    The Accounts v2 API is broadly available to Connect platforms, and to other users in preview. The Accounts v2 API also supports the Global Payouts preview feature.
     """
 
     OBJECT_NAME: ClassVar[Literal["v2.core.account"]] = "v2.core.account"
@@ -105,7 +104,7 @@ class Account(StripeObject):
 
                 default_payment_method: Optional[str]
                 """
-                ID of a PaymentMethod attached to the customer account to use as the default for invoices and subscriptions.
+                The ID of a `PaymentMethod` attached to this Account's `customer` configuration, used as the default payment method for invoices and subscriptions.
                 """
                 invoice: Optional[Invoice]
                 """
@@ -2430,15 +2429,20 @@ class Account(StripeObject):
                     "ag_bank_account",
                     "al_bank_account",
                     "am_bank_account",
+                    "ao_bank_account",
                     "ar_bank_account",
                     "at_bank_account",
                     "au_bank_account",
+                    "az_bank_account",
                     "ba_bank_account",
+                    "bd_bank_account",
                     "be_bank_account",
                     "bg_bank_account",
                     "bh_bank_account",
                     "bj_bank_account",
                     "bn_bank_account",
+                    "bo_bank_account",
+                    "br_bank_account",
                     "bs_bank_account",
                     "bt_bank_account",
                     "bw_bank_account",
@@ -2446,6 +2450,7 @@ class Account(StripeObject):
                     "ca_bank_account",
                     "ch_bank_account",
                     "ci_bank_account",
+                    "cl_bank_account",
                     "cn_bank_account",
                     "co_bank_account",
                     "crypto_wallet",
@@ -2463,12 +2468,16 @@ class Account(StripeObject):
                     "et_bank_account",
                     "fi_bank_account",
                     "fr_bank_account",
+                    "ga_bank_account",
                     "gb_bank_account",
+                    "gh_bank_account",
+                    "gi_bank_account",
                     "gm_bank_account",
                     "gr_bank_account",
                     "gt_bank_account",
                     "gy_bank_account",
                     "hk_bank_account",
+                    "hn_bank_account",
                     "hr_bank_account",
                     "hu_bank_account",
                     "id_bank_account",
@@ -2482,7 +2491,10 @@ class Account(StripeObject):
                     "jp_bank_account",
                     "ke_bank_account",
                     "kh_bank_account",
+                    "kr_bank_account",
                     "kw_bank_account",
+                    "kz_bank_account",
+                    "la_bank_account",
                     "lc_bank_account",
                     "li_bank_account",
                     "lk_bank_account",
@@ -2502,6 +2514,9 @@ class Account(StripeObject):
                     "my_bank_account",
                     "mz_bank_account",
                     "na_bank_account",
+                    "ne_bank_account",
+                    "ng_bank_account",
+                    "ni_bank_account",
                     "nl_bank_account",
                     "no_bank_account",
                     "nz_bank_account",
@@ -2512,14 +2527,17 @@ class Account(StripeObject):
                     "pk_bank_account",
                     "pl_bank_account",
                     "pt_bank_account",
+                    "py_bank_account",
                     "qa_bank_account",
                     "ro_bank_account",
                     "rs_bank_account",
                     "rw_bank_account",
+                    "sa_bank_account",
                     "se_bank_account",
                     "sg_bank_account",
                     "si_bank_account",
                     "sk_bank_account",
+                    "sm_bank_account",
                     "sn_bank_account",
                     "sv_bank_account",
                     "th_bank_account",
@@ -2529,6 +2547,7 @@ class Account(StripeObject):
                     "tw_bank_account",
                     "tz_bank_account",
                     "us_bank_account",
+                    "uy_bank_account",
                     "uz_bank_account",
                     "vn_bank_account",
                     "za_bank_account",
@@ -3008,7 +3027,7 @@ class Account(StripeObject):
 
         customer: Optional[Customer]
         """
-        The Customer Configuration allows the Account to be used in inbound payment flows.
+        The Customer Configuration allows the Account to be used in inbound payment flows (i.e. customer-facing payment and billing flows).
         """
         merchant: Optional[Merchant]
         """
@@ -3745,24 +3764,46 @@ class Account(StripeObject):
                     """
 
                 class ProofOfRegistration(StripeObject):
+                    class Signer(StripeObject):
+                        person: str
+                        """
+                        Person signing the document.
+                        """
+
                     files: List[str]
                     """
                     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                    """
+                    signer: Optional[Signer]
+                    """
+                    Person that is signing the document.
                     """
                     type: Literal["files"]
                     """
                     The format of the document. Currently supports `files` only.
                     """
+                    _inner_class_types = {"signer": Signer}
 
                 class ProofOfUltimateBeneficialOwnership(StripeObject):
+                    class Signer(StripeObject):
+                        person: str
+                        """
+                        Person signing the document.
+                        """
+
                     files: List[str]
                     """
                     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                    """
+                    signer: Optional[Signer]
+                    """
+                    Person that is signing the document.
                     """
                     type: Literal["files"]
                     """
                     The format of the document. Currently supports `files` only.
                     """
+                    _inner_class_types = {"signer": Signer}
 
                 bank_account_ownership_verification: Optional[
                     BankAccountOwnershipVerification
@@ -4628,7 +4669,7 @@ class Account(StripeObject):
             """
             email: Optional[str]
             """
-            The individual's email address.
+            The individual's email address. You can only set this field when the Account is configured as a `merchant` or `recipient`. Use `contact_email` as the primary contact email for this Account.
             """
             given_name: Optional[str]
             """
@@ -4715,7 +4756,7 @@ class Account(StripeObject):
             Literal["company", "government_entity", "individual", "non_profit"]
         ]
         """
-        The entity type.
+        The entity type represented by the Account. Ensure this field is accurate before adding configurations that rely on identity information, as it determines which identity fields apply and how the Account is validated.
         """
         individual: Optional[Individual]
         """
@@ -5037,7 +5078,7 @@ class Account(StripeObject):
     """
     contact_email: Optional[str]
     """
-    The default contact email address for the Account. Required when configuring the account as a merchant or recipient.
+    The primary contact email address for the Account.
     """
     contact_phone: Optional[str]
     """

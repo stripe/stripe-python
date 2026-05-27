@@ -295,6 +295,10 @@ class AccountCreateParamsCapabilities(TypedDict):
     """
     The billie_payments capability.
     """
+    bizum_payments: NotRequired["AccountCreateParamsCapabilitiesBizumPayments"]
+    """
+    The bizum_payments capability.
+    """
     blik_payments: NotRequired["AccountCreateParamsCapabilitiesBlikPayments"]
     """
     The blik_payments capability.
@@ -541,6 +545,12 @@ class AccountCreateParamsCapabilities(TypedDict):
     """
     The satispay_payments capability.
     """
+    scalapay_payments: NotRequired[
+        "AccountCreateParamsCapabilitiesScalapayPayments"
+    ]
+    """
+    The scalapay_payments capability.
+    """
     sepa_bank_transfer_payments: NotRequired[
         "AccountCreateParamsCapabilitiesSepaBankTransferPayments"
     ]
@@ -723,6 +733,13 @@ class AccountCreateParamsCapabilitiesBankTransferPayments(TypedDict):
 
 
 class AccountCreateParamsCapabilitiesBilliePayments(TypedDict):
+    requested: NotRequired[bool]
+    """
+    Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+    """
+
+
+class AccountCreateParamsCapabilitiesBizumPayments(TypedDict):
     requested: NotRequired[bool]
     """
     Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -1045,6 +1062,13 @@ class AccountCreateParamsCapabilitiesSamsungPayPayments(TypedDict):
 
 
 class AccountCreateParamsCapabilitiesSatispayPayments(TypedDict):
+    requested: NotRequired[bool]
+    """
+    Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+    """
+
+
+class AccountCreateParamsCapabilitiesScalapayPayments(TypedDict):
     requested: NotRequired[bool]
     """
     Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.

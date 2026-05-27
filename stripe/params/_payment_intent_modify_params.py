@@ -52,7 +52,7 @@ class PaymentIntentModifyParams(RequestOptions):
     An arbitrary string attached to the object. Often useful for displaying to users.
     """
     excluded_payment_method_types: NotRequired[
-        "Literal['']|List[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'gopay', 'grabpay', 'id_bank_transfer', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'qris', 'rechnung', 'revolut_pay', 'samsung_pay', 'satispay', 'sepa_debit', 'shopeepay', 'sofort', 'stripe_balance', 'sunbit', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay', 'zip']]"
+        "Literal['']|List[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'gopay', 'grabpay', 'id_bank_transfer', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'qris', 'rechnung', 'revolut_pay', 'samsung_pay', 'satispay', 'scalapay', 'sepa_debit', 'shopeepay', 'sofort', 'stripe_balance', 'sunbit', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay', 'zip']]"
     ]
     """
     The list of payment method types to exclude from use with this payment.
@@ -333,11 +333,11 @@ class PaymentIntentModifyParamsAmountDetailsShipping(TypedDict):
     """
     from_postal_code: NotRequired["Literal['']|str"]
     """
-    If a physical good is being shipped, the postal code of where it is being shipped from. At most 10 alphanumeric characters long, hyphens are allowed.
+    If a physical good is being shipped, the postal code of where it is being shipped from. At most 10 alphanumeric characters long, hyphens and spaces are allowed.
     """
     to_postal_code: NotRequired["Literal['']|str"]
     """
-    If a physical good is being shipped, the postal code of where it is being shipped to. At most 10 alphanumeric characters long, hyphens are allowed.
+    If a physical good is being shipped, the postal code of where it is being shipped to. At most 10 alphanumeric characters long, hyphens and spaces are allowed.
     """
 
 
@@ -2278,6 +2278,10 @@ class PaymentIntentModifyParamsPaymentMethodData(TypedDict):
     """
     Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
     """
+    bizum: NotRequired["PaymentIntentModifyParamsPaymentMethodDataBizum"]
+    """
+    If this is a `bizum` PaymentMethod, this hash contains details about the Bizum payment method.
+    """
     blik: NotRequired["PaymentIntentModifyParamsPaymentMethodDataBlik"]
     """
     If this is a `blik` PaymentMethod, this hash contains details about the BLIK payment method.
@@ -2356,7 +2360,7 @@ class PaymentIntentModifyParamsPaymentMethodData(TypedDict):
     """
     link: NotRequired["PaymentIntentModifyParamsPaymentMethodDataLink"]
     """
-    If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
+    If this is an `Link` PaymentMethod, this hash contains details about the Link payment method (Link is also known as Onelink in the UK).
     """
     mb_way: NotRequired["PaymentIntentModifyParamsPaymentMethodDataMbWay"]
     """
@@ -2464,6 +2468,10 @@ class PaymentIntentModifyParamsPaymentMethodData(TypedDict):
     """
     If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
     """
+    scalapay: NotRequired["PaymentIntentModifyParamsPaymentMethodDataScalapay"]
+    """
+    If this is a Scalapay PaymentMethod, this hash contains details about the Scalapay payment method.
+    """
     sepa_debit: NotRequired[
         "PaymentIntentModifyParamsPaymentMethodDataSepaDebit"
     ]
@@ -2513,6 +2521,7 @@ class PaymentIntentModifyParamsPaymentMethodData(TypedDict):
         "bacs_debit",
         "bancontact",
         "billie",
+        "bizum",
         "blik",
         "boleto",
         "cashapp",
@@ -2550,6 +2559,7 @@ class PaymentIntentModifyParamsPaymentMethodData(TypedDict):
         "revolut_pay",
         "samsung_pay",
         "satispay",
+        "scalapay",
         "sepa_debit",
         "shopeepay",
         "sofort",
@@ -2704,6 +2714,10 @@ class PaymentIntentModifyParamsPaymentMethodDataBillingDetailsAddress(
     """
     State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """
+
+
+class PaymentIntentModifyParamsPaymentMethodDataBizum(TypedDict):
+    pass
 
 
 class PaymentIntentModifyParamsPaymentMethodDataBlik(TypedDict):
@@ -3063,6 +3077,10 @@ class PaymentIntentModifyParamsPaymentMethodDataSatispay(TypedDict):
     pass
 
 
+class PaymentIntentModifyParamsPaymentMethodDataScalapay(TypedDict):
+    pass
+
+
 class PaymentIntentModifyParamsPaymentMethodDataSepaDebit(TypedDict):
     iban: str
     """
@@ -3220,6 +3238,12 @@ class PaymentIntentModifyParamsPaymentMethodOptions(TypedDict):
     """
     If this is a `billie` PaymentMethod, this sub-hash contains details about the Billie payment method options.
     """
+    bizum: NotRequired[
+        "Literal['']|PaymentIntentModifyParamsPaymentMethodOptionsBizum"
+    ]
+    """
+    If this is a `bizum` PaymentMethod, this sub-hash contains details about the Bizum payment method options.
+    """
     blik: NotRequired[
         "Literal['']|PaymentIntentModifyParamsPaymentMethodOptionsBlik"
     ]
@@ -3338,7 +3362,7 @@ class PaymentIntentModifyParamsPaymentMethodOptions(TypedDict):
         "Literal['']|PaymentIntentModifyParamsPaymentMethodOptionsLink"
     ]
     """
-    If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
+    If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options (Link is also known as Onelink in the UK).
     """
     mb_way: NotRequired[
         "Literal['']|PaymentIntentModifyParamsPaymentMethodOptionsMbWay"
@@ -3459,6 +3483,12 @@ class PaymentIntentModifyParamsPaymentMethodOptions(TypedDict):
     ]
     """
     If this is a `satispay` PaymentMethod, this sub-hash contains details about the Satispay payment method options.
+    """
+    scalapay: NotRequired[
+        "Literal['']|PaymentIntentModifyParamsPaymentMethodOptionsScalapay"
+    ]
+    """
+    If this is a `scalapay` PaymentMethod, this sub-hash contains details about the ScalaPay payment method options.
     """
     sepa_debit: NotRequired[
         "Literal['']|PaymentIntentModifyParamsPaymentMethodOptionsSepaDebit"
@@ -3771,6 +3801,10 @@ class PaymentIntentModifyParamsPaymentMethodOptionsBillie(TypedDict):
 
     If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
     """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsBizum(TypedDict):
+    pass
 
 
 class PaymentIntentModifyParamsPaymentMethodOptionsBlik(TypedDict):
@@ -6256,6 +6290,17 @@ class PaymentIntentModifyParamsPaymentMethodOptionsSatispay(TypedDict):
     """
 
 
+class PaymentIntentModifyParamsPaymentMethodOptionsScalapay(TypedDict):
+    capture_method: NotRequired["Literal['']|Literal['manual']"]
+    """
+    Controls when the funds are captured from the customer's account.
+
+    If provided, this parameter overrides the behavior of the top-level [capture_method](https://docs.stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+    If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+    """
+
+
 class PaymentIntentModifyParamsPaymentMethodOptionsSepaDebit(TypedDict):
     mandate_options: NotRequired[
         "PaymentIntentModifyParamsPaymentMethodOptionsSepaDebitMandateOptions"
@@ -6367,7 +6412,7 @@ class PaymentIntentModifyParamsPaymentMethodOptionsSwish(TypedDict):
 
 
 class PaymentIntentModifyParamsPaymentMethodOptionsTwint(TypedDict):
-    setup_future_usage: NotRequired[Literal["none"]]
+    setup_future_usage: NotRequired[Literal["none", "off_session"]]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -6636,4 +6681,33 @@ class PaymentIntentModifyParamsTransferData(TypedDict):
     amount: NotRequired[int]
     """
     The amount that will be transferred automatically when a charge succeeds.
+    """
+    description: NotRequired[str]
+    """
+    An arbitrary string attached to the transfer. Often useful for displaying to users.
+    """
+    metadata: NotRequired[
+        "Literal['']|Dict[str, str]|UntypedStripeObject[str]"
+    ]
+    """
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    """
+    payment_data: NotRequired[
+        "PaymentIntentModifyParamsTransferDataPaymentData"
+    ]
+    """
+    The data with which to populate the destination payment.
+    """
+
+
+class PaymentIntentModifyParamsTransferDataPaymentData(TypedDict):
+    description: NotRequired[str]
+    """
+    An arbitrary string attached to the destination payment. Often useful for displaying to users.
+    """
+    metadata: NotRequired[
+        "Literal['']|Dict[str, str]|UntypedStripeObject[str]"
+    ]
+    """
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """

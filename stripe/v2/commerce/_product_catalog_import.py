@@ -7,7 +7,7 @@ from typing_extensions import Literal
 
 class ProductCatalogImport(StripeObject):
     """
-    The product catalog import object tracks the long-running background process that handles uploading, processing and validation.
+    The ProductCatalogImport object tracks the long-running background process that handles uploading, processing and validation.
     """
 
     OBJECT_NAME: ClassVar[Literal["v2.commerce.product_catalog_import"]] = (

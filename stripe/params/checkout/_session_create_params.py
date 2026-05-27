@@ -14,7 +14,7 @@ class SessionCreateParams(RequestOptions):
     """
     after_expiration: NotRequired["SessionCreateParamsAfterExpiration"]
     """
-    Configure actions after a Checkout Session has expired. You can't set this parameter if `ui_mode` is `custom`.
+    Configure actions after a Checkout Session has expired. You can't set this parameter if `ui_mode` is `elements`.
     """
     allow_promotion_codes: NotRequired[bool]
     """
@@ -30,11 +30,11 @@ class SessionCreateParams(RequestOptions):
     """
     branding_settings: NotRequired["SessionCreateParamsBrandingSettings"]
     """
-    The branding settings for the Checkout Session. This parameter is not allowed if ui_mode is `custom`.
+    The branding settings for the Checkout Session. This parameter is not allowed if ui_mode is `elements`.
     """
     cancel_url: NotRequired[str]
     """
-    If set, Checkout displays a back button and customers will be directed to this URL if they decide to cancel payment and return to your website. This parameter is not allowed if ui_mode is `embedded` or `custom`.
+    If set, Checkout displays a back button and customers will be directed to this URL if they decide to cancel payment and return to your website. This parameter is not allowed if ui_mode is `embedded_page` or `elements`.
     """
     client_reference_id: NotRequired[str]
     """
@@ -117,6 +117,7 @@ class SessionCreateParams(RequestOptions):
                 "bacs_debit",
                 "bancontact",
                 "billie",
+                "bizum",
                 "blik",
                 "boleto",
                 "card",
@@ -153,6 +154,7 @@ class SessionCreateParams(RequestOptions):
                 "revolut_pay",
                 "samsung_pay",
                 "satispay",
+                "scalapay",
                 "sepa_debit",
                 "shopeepay",
                 "sofort",
@@ -277,7 +279,7 @@ class SessionCreateParams(RequestOptions):
     """
     origin_context: NotRequired[Literal["mobile_app", "web"]]
     """
-    Where the user is coming from. This informs the optimizations that are applied to the session. You can't set this parameter if `ui_mode` is `custom`.
+    Where the user is coming from. This informs the optimizations that are applied to the session. You can't set this parameter if `ui_mode` is `elements`.
     """
     payment_intent_data: NotRequired["SessionCreateParamsPaymentIntentData"]
     """
@@ -319,6 +321,7 @@ class SessionCreateParams(RequestOptions):
                 "bacs_debit",
                 "bancontact",
                 "billie",
+                "bizum",
                 "blik",
                 "boleto",
                 "card",
@@ -356,6 +359,7 @@ class SessionCreateParams(RequestOptions):
                 "revolut_pay",
                 "samsung_pay",
                 "satispay",
+                "scalapay",
                 "sepa_debit",
                 "shopeepay",
                 "sofort",
@@ -401,12 +405,12 @@ class SessionCreateParams(RequestOptions):
         Literal["always", "if_required", "never"]
     ]
     """
-    This parameter applies to `ui_mode: embedded`. Learn more about the [redirect behavior](https://docs.stripe.com/payments/checkout/custom-success-page?payment-ui=embedded-form) of embedded sessions. Defaults to `always`.
+    This parameter applies to `ui_mode: embedded_page`. Learn more about the [redirect behavior](https://docs.stripe.com/payments/checkout/custom-success-page?payment-ui=embedded-form) of embedded sessions. Defaults to `always`.
     """
     return_url: NotRequired[str]
     """
     The URL to redirect your customer back to after they authenticate or cancel their payment on the
-    payment method's app or site. This parameter is required if `ui_mode` is `embedded` or `custom`
+    payment method's app or site. This parameter is required if `ui_mode` is `embedded_page` or `elements`
     and redirect-based payment methods are enabled on the session.
     """
     saved_payment_method_options: NotRequired[
@@ -437,7 +441,7 @@ class SessionCreateParams(RequestOptions):
     to customize relevant text on the page, such as the submit button.
      `submit_type` can only be specified on Checkout Sessions in
     `payment` or `subscription` mode. If blank or `auto`, `pay` is used.
-    You can't set this parameter if `ui_mode` is `custom`.
+    You can't set this parameter if `ui_mode` is `elements`.
     """
     subscription_data: NotRequired["SessionCreateParamsSubscriptionData"]
     """
@@ -447,7 +451,7 @@ class SessionCreateParams(RequestOptions):
     """
     The URL to which Stripe should send customers when payment or setup
     is complete.
-    This parameter is not allowed if ui_mode is `embedded` or `custom`. If you'd like to use
+    This parameter is not allowed if ui_mode is `embedded_page` or `elements`. If you'd like to use
     information from the successful Checkout Session on your page, read the
     guide on [customizing your success page](https://docs.stripe.com/payments/checkout/custom-success-page).
     """
@@ -459,7 +463,7 @@ class SessionCreateParams(RequestOptions):
         Literal["elements", "embedded_page", "form", "hosted_page"]
     ]
     """
-    The UI mode of the Session. Defaults to `hosted`.
+    The UI mode of the Session. Defaults to `hosted_page`.
     """
     wallet_options: NotRequired["SessionCreateParamsWalletOptions"]
     """
@@ -594,7 +598,7 @@ class SessionCreateParamsConsentCollection(TypedDict):
     """
     If set to `auto`, enables the collection of customer consent for promotional communications. The Checkout
     Session will determine whether to display an option to opt into promotional communication
-    from the merchant depending on the customer's locale. Only available to US merchants.
+    from the merchant depending on the customer's locale. Only available to US merchants and US customers.
     """
     terms_of_service: NotRequired[Literal["none", "required"]]
     """
@@ -1263,7 +1267,7 @@ class SessionCreateParamsPaymentMethodData(TypedDict):
 class SessionCreateParamsPaymentMethodOptions(TypedDict):
     acss_debit: NotRequired["SessionCreateParamsPaymentMethodOptionsAcssDebit"]
     """
-    contains details about the ACSS Debit payment method options. You can't set this parameter if `ui_mode` is `custom`.
+    contains details about the ACSS Debit payment method options. You can't set this parameter if `ui_mode` is `elements`.
     """
     affirm: NotRequired["SessionCreateParamsPaymentMethodOptionsAffirm"]
     """
@@ -1375,7 +1379,7 @@ class SessionCreateParamsPaymentMethodOptions(TypedDict):
     """
     link: NotRequired["SessionCreateParamsPaymentMethodOptionsLink"]
     """
-    contains details about the Link payment method options.
+    contains details about the Link payment method options (Link is also known as Onelink in the UK).
     """
     mobilepay: NotRequired["SessionCreateParamsPaymentMethodOptionsMobilepay"]
     """
@@ -1440,6 +1444,10 @@ class SessionCreateParamsPaymentMethodOptions(TypedDict):
     satispay: NotRequired["SessionCreateParamsPaymentMethodOptionsSatispay"]
     """
     contains details about the Satispay payment method options.
+    """
+    scalapay: NotRequired["SessionCreateParamsPaymentMethodOptionsScalapay"]
+    """
+    contains details about the Scalapay payment method options.
     """
     sepa_debit: NotRequired["SessionCreateParamsPaymentMethodOptionsSepaDebit"]
     """
@@ -1804,7 +1812,7 @@ class SessionCreateParamsPaymentMethodOptionsCardRestrictions(TypedDict):
         ]
     ]
     """
-    Specify the card brands to block in the Checkout Session. If a customer enters or selects a card belonging to a blocked brand, they can't complete the Session.
+    The card brands to block. If a customer enters or selects a card belonging to a blocked brand, they can't complete the payment.
     """
 
 
@@ -2431,6 +2439,13 @@ class SessionCreateParamsPaymentMethodOptionsSatispay(TypedDict):
     """
 
 
+class SessionCreateParamsPaymentMethodOptionsScalapay(TypedDict):
+    capture_method: NotRequired[Literal["manual"]]
+    """
+    Controls when the funds will be captured from the customer's account.
+    """
+
+
 class SessionCreateParamsPaymentMethodOptionsSepaDebit(TypedDict):
     mandate_options: NotRequired[
         "SessionCreateParamsPaymentMethodOptionsSepaDebitMandateOptions"
@@ -2486,7 +2501,7 @@ class SessionCreateParamsPaymentMethodOptionsSwish(TypedDict):
 
 
 class SessionCreateParamsPaymentMethodOptionsTwint(TypedDict):
-    setup_future_usage: NotRequired[Literal["none"]]
+    setup_future_usage: NotRequired[Literal["none", "off_session"]]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -3068,7 +3083,7 @@ class SessionCreateParamsSubscriptionData(TypedDict):
     """
     billing_cycle_anchor: NotRequired[int]
     """
-    A future timestamp to anchor the subscription's billing cycle for new subscriptions. You can't set this parameter if `ui_mode` is `custom`.
+    A future timestamp to anchor the subscription's billing cycle for new subscriptions. You can't set this parameter if `ui_mode` is `elements`.
     """
     billing_mode: NotRequired["SessionCreateParamsSubscriptionDataBillingMode"]
     """
@@ -3222,7 +3237,7 @@ class SessionCreateParamsTaxIdCollection(TypedDict):
 class SessionCreateParamsWalletOptions(TypedDict):
     link: NotRequired["SessionCreateParamsWalletOptionsLink"]
     """
-    contains details about the Link wallet options.
+    contains details about the Link wallet options (Link is also known as Onelink in the UK).
     """
 
 

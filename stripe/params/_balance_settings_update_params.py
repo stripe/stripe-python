@@ -34,6 +34,12 @@ class BalanceSettingsUpdateParamsPayments(TypedDict):
 
 
 class BalanceSettingsUpdateParamsPaymentsPayouts(TypedDict):
+    automatic_transfer_rules_by_currency: NotRequired[
+        "Literal['']|Dict[str, Union[Literal[''], List[BalanceSettingsUpdateParamsPaymentsPayoutsAutomaticTransferRulesByCurrency]]]|UntypedStripeObject[Union[Literal[''], List[BalanceSettingsUpdateParamsPaymentsPayoutsAutomaticTransferRulesByCurrency]]]"
+    ]
+    """
+    Configures per-currency rules for automatically transferring funds from the payments balance to a FinancialAccount.
+    """
     minimum_balance_by_currency: NotRequired[
         "Literal['']|Dict[str, Union[Literal[''], int]]|UntypedStripeObject[Union[Literal[''], int]]"
     ]
@@ -47,6 +53,23 @@ class BalanceSettingsUpdateParamsPaymentsPayouts(TypedDict):
     statement_descriptor: NotRequired[str]
     """
     The text that appears on the bank account statement for payouts. If not set, this defaults to the platform's bank descriptor as set in the Dashboard.
+    """
+
+
+class BalanceSettingsUpdateParamsPaymentsPayoutsAutomaticTransferRulesByCurrency(
+    TypedDict,
+):
+    payout_method: str
+    """
+    The ID of the FinancialAccount that funds will be transferred to during automatic transfers.
+    """
+    transfer_up_to_amount: NotRequired[int]
+    """
+    The maximum amount in minor units to transfer to the FinancialAccount. Required and only applicable when `type` is `transfer_up_to_amount`.
+    """
+    type: Literal["transfer_all", "transfer_up_to_amount"]
+    """
+    The type of automatic transfer rule.
     """
 
 
@@ -71,4 +94,25 @@ class BalanceSettingsUpdateParamsPaymentsSettlementTiming(TypedDict):
     delay_days_override: NotRequired["Literal['']|int"]
     """
     Change `delay_days` for this account, which determines the number of days charge funds are held before becoming available. The maximum value is 31. Passing an empty string to `delay_days_override` will return `delay_days` to the default, which is the lowest available value for the account. [Learn more about controlling delay days](https://docs.stripe.com/connect/manage-payout-schedule).
+    """
+    start_of_day: NotRequired[
+        "Literal['']|BalanceSettingsUpdateParamsPaymentsSettlementTimingStartOfDay"
+    ]
+    """
+    Customized start of day configuration for automatic payouts to group and send payments in local timezones with a customized day starting time. For details, see our [Customized start of day](https://docs.stripe.com/connect/customized-start-of-day) documentation.
+    """
+
+
+class BalanceSettingsUpdateParamsPaymentsSettlementTimingStartOfDay(TypedDict):
+    hour: NotRequired[int]
+    """
+    Hour at which the customized start of day begins according to the given timezone. Must be a [supported customized start of day hour](https://docs.stripe.com/connect/customized-start-of-day#available-timezones-and-cutoffs).
+    """
+    minutes: NotRequired[int]
+    """
+    Minutes at which the customized start of day begins according to the given timezone. Must be either 0 or 30.
+    """
+    timezone: NotRequired[str]
+    """
+    Timezone for the customized start of day. Must be a [supported customized start of day timezone](https://docs.stripe.com/connect/customized-start-of-day#available-timezones-and-cutoffs).
     """

@@ -534,6 +534,7 @@ class QuotePreviewInvoice(StripeObject):
                 "payment_method_invalid_parameter",
                 "payment_method_invalid_parameter_testmode",
                 "payment_method_microdeposit_failed",
+                "payment_method_microdeposit_processing_error",
                 "payment_method_microdeposit_verification_amounts_invalid",
                 "payment_method_microdeposit_verification_amounts_mismatch",
                 "payment_method_microdeposit_verification_attempts_exceeded",
@@ -575,6 +576,7 @@ class QuotePreviewInvoice(StripeObject):
                 "setup_intent_unexpected_state",
                 "shipping_address_invalid",
                 "shipping_calculation_failed",
+                "siret_invalid",
                 "sku_inactive",
                 "state_unsupported",
                 "status_transition_invalid",
@@ -1064,6 +1066,7 @@ class QuotePreviewInvoice(StripeObject):
                     "sofort",
                     "stripe_balance",
                     "swish",
+                    "twint",
                     "upi",
                     "us_bank_account",
                     "wechat_pay",
@@ -1363,6 +1366,10 @@ class QuotePreviewInvoice(StripeObject):
     amount_paid: int
     """
     The amount, in cents (or local equivalent), that was paid.
+    """
+    amount_paid_off_stripe: Optional[int]
+    """
+    Amount, in cents (or local equivalent), that was paid on the invoice outside of Stripe.
     """
     amount_remaining: int
     """

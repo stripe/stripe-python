@@ -292,6 +292,28 @@ class PaymentMethodConfiguration(
         display_preference: DisplayPreference
         _inner_class_types = {"display_preference": DisplayPreference}
 
+    class Bizum(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Literal["none", "off", "on"]
+            """
+            The account's display preference.
+            """
+            value: Literal["off", "on"]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
     class Blik(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
@@ -1172,6 +1194,28 @@ class PaymentMethodConfiguration(
         display_preference: DisplayPreference
         _inner_class_types = {"display_preference": DisplayPreference}
 
+    class Scalapay(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Literal["none", "off", "on"]
+            """
+            The account's display preference.
+            """
+            value: Literal["off", "on"]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
     class SepaDebit(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
@@ -1411,6 +1455,7 @@ class PaymentMethodConfiguration(
     bacs_debit: Optional[BacsDebit]
     bancontact: Optional[Bancontact]
     billie: Optional[Billie]
+    bizum: Optional[Bizum]
     blik: Optional[Blik]
     boleto: Optional[Boleto]
     card: Optional[Card]
@@ -1475,6 +1520,7 @@ class PaymentMethodConfiguration(
     revolut_pay: Optional[RevolutPay]
     samsung_pay: Optional[SamsungPay]
     satispay: Optional[Satispay]
+    scalapay: Optional[Scalapay]
     sepa_debit: Optional[SepaDebit]
     shopeepay: Optional[Shopeepay]
     sofort: Optional[Sofort]
@@ -1634,6 +1680,7 @@ class PaymentMethodConfiguration(
         "bacs_debit": BacsDebit,
         "bancontact": Bancontact,
         "billie": Billie,
+        "bizum": Bizum,
         "blik": Blik,
         "boleto": Boleto,
         "card": Card,
@@ -1674,6 +1721,7 @@ class PaymentMethodConfiguration(
         "revolut_pay": RevolutPay,
         "samsung_pay": SamsungPay,
         "satispay": Satispay,
+        "scalapay": Scalapay,
         "sepa_debit": SepaDebit,
         "shopeepay": Shopeepay,
         "sofort": Sofort,

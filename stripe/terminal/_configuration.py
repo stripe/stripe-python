@@ -437,7 +437,31 @@ class Configuration(
             "usd": Usd,
         }
 
+    class VerifoneM425(StripeObject):
+        splashscreen: Optional[ExpandableField["File"]]
+        """
+        A File ID representing an image to display on the reader
+        """
+
     class VerifoneP400(StripeObject):
+        splashscreen: Optional[ExpandableField["File"]]
+        """
+        A File ID representing an image to display on the reader
+        """
+
+    class VerifoneP630(StripeObject):
+        splashscreen: Optional[ExpandableField["File"]]
+        """
+        A File ID representing an image to display on the reader
+        """
+
+    class VerifoneUx700(StripeObject):
+        splashscreen: Optional[ExpandableField["File"]]
+        """
+        A File ID representing an image to display on the reader
+        """
+
+    class VerifoneV660p(StripeObject):
         splashscreen: Optional[ExpandableField["File"]]
         """
         A File ID representing an image to display on the reader
@@ -542,7 +566,11 @@ class Configuration(
     stripe_s700: Optional[StripeS700]
     stripe_s710: Optional[StripeS710]
     tipping: Optional[Tipping]
+    verifone_m425: Optional[VerifoneM425]
     verifone_p400: Optional[VerifoneP400]
+    verifone_p630: Optional[VerifoneP630]
+    verifone_ux700: Optional[VerifoneUx700]
+    verifone_v660p: Optional[VerifoneV660p]
     wifi: Optional[Wifi]
 
     @classmethod
@@ -781,6 +809,10 @@ class Configuration(
         "stripe_s700": StripeS700,
         "stripe_s710": StripeS710,
         "tipping": Tipping,
+        "verifone_m425": VerifoneM425,
         "verifone_p400": VerifoneP400,
+        "verifone_p630": VerifoneP630,
+        "verifone_ux700": VerifoneUx700,
+        "verifone_v660p": VerifoneV660p,
         "wifi": Wifi,
     }

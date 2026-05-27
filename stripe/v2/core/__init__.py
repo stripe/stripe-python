@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+# File copied from our code generator; changes here will be overwritten.
+# -*- coding: utf-8 -*-
 
 from typing_extensions import TYPE_CHECKING
 from stripe.v2.core._event import (

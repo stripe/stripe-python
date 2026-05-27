@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+# File copied from our code generator; changes here will be overwritten.
 import json
 from typing import Callable
 from typing_extensions import assert_type

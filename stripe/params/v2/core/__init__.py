@@ -133,7 +133,9 @@ if TYPE_CHECKING:
         AccountCreateParamsIdentityBusinessDetailsDocumentsPrimaryVerificationFrontBack as AccountCreateParamsIdentityBusinessDetailsDocumentsPrimaryVerificationFrontBack,
         AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfAddress as AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfAddress,
         AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistration as AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistration,
+        AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistrationSigner as AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistrationSigner,
         AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnership as AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnership,
+        AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnershipSigner as AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnershipSigner,
         AccountCreateParamsIdentityBusinessDetailsIdNumber as AccountCreateParamsIdentityBusinessDetailsIdNumber,
         AccountCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenue as AccountCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenue,
         AccountCreateParamsIdentityBusinessDetailsRegistrationDate as AccountCreateParamsIdentityBusinessDetailsRegistrationDate,
@@ -204,7 +206,9 @@ if TYPE_CHECKING:
         AccountTokenCreateParamsIdentityBusinessDetailsDocumentsPrimaryVerificationFrontBack as AccountTokenCreateParamsIdentityBusinessDetailsDocumentsPrimaryVerificationFrontBack,
         AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfAddress as AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfAddress,
         AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistration as AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistration,
+        AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistrationSigner as AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistrationSigner,
         AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnership as AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnership,
+        AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnershipSigner as AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnershipSigner,
         AccountTokenCreateParamsIdentityBusinessDetailsIdNumber as AccountTokenCreateParamsIdentityBusinessDetailsIdNumber,
         AccountTokenCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenue as AccountTokenCreateParamsIdentityBusinessDetailsMonthlyEstimatedRevenue,
         AccountTokenCreateParamsIdentityBusinessDetailsRegistrationDate as AccountTokenCreateParamsIdentityBusinessDetailsRegistrationDate,
@@ -365,7 +369,9 @@ if TYPE_CHECKING:
         AccountUpdateParamsIdentityBusinessDetailsDocumentsPrimaryVerificationFrontBack as AccountUpdateParamsIdentityBusinessDetailsDocumentsPrimaryVerificationFrontBack,
         AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfAddress as AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfAddress,
         AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfRegistration as AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfRegistration,
+        AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfRegistrationSigner as AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfRegistrationSigner,
         AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnership as AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnership,
+        AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnershipSigner as AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnershipSigner,
         AccountUpdateParamsIdentityBusinessDetailsIdNumber as AccountUpdateParamsIdentityBusinessDetailsIdNumber,
         AccountUpdateParamsIdentityBusinessDetailsMonthlyEstimatedRevenue as AccountUpdateParamsIdentityBusinessDetailsMonthlyEstimatedRevenue,
         AccountUpdateParamsIdentityBusinessDetailsRegistrationDate as AccountUpdateParamsIdentityBusinessDetailsRegistrationDate,
@@ -948,7 +954,15 @@ _import_map = {
         "stripe.params.v2.core._account_create_params",
         False,
     ),
+    "AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistrationSigner": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
     "AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnership": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnershipSigner": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
@@ -1197,7 +1211,15 @@ _import_map = {
         "stripe.params.v2.core._account_token_create_params",
         False,
     ),
+    "AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfRegistrationSigner": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
     "AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnership": (
+        "stripe.params.v2.core._account_token_create_params",
+        False,
+    ),
+    "AccountTokenCreateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnershipSigner": (
         "stripe.params.v2.core._account_token_create_params",
         False,
     ),
@@ -1825,7 +1847,15 @@ _import_map = {
         "stripe.params.v2.core._account_update_params",
         False,
     ),
+    "AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfRegistrationSigner": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
     "AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnership": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsIdentityBusinessDetailsDocumentsProofOfUltimateBeneficialOwnershipSigner": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),

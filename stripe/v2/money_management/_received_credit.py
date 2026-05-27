@@ -57,7 +57,7 @@ class ReceivedCredit(StripeObject):
             """
             The last 4 digits of the account number that originated the transfer.
             """
-            network: Literal["fps"]
+            network: Literal["chaps", "fps"]
             """
             Open Enum. The money transmission network used to send funds for this ReceivedCredit.
             """
