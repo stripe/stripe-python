@@ -12,6 +12,10 @@ class EventDestinationCreateParams(TypedDict):
     """
     Amazon EventBridge configuration.
     """
+    azure_event_grid: NotRequired["EventDestinationCreateParamsAzureEventGrid"]
+    """
+    Azure Event Grid configuration.
+    """
     description: NotRequired[str]
     """
     An optional description of what the event destination is used for.
@@ -52,7 +56,7 @@ class EventDestinationCreateParams(TypedDict):
     """
     If using the snapshot event payload, the API version events are rendered as.
     """
-    type: Literal["amazon_eventbridge", "webhook_endpoint"]
+    type: Literal["amazon_eventbridge", "azure_event_grid", "webhook_endpoint"]
     """
     Event destination type.
     """
@@ -72,6 +76,21 @@ class EventDestinationCreateParamsAmazonEventbridge(TypedDict):
     aws_region: str
     """
     The region of the AWS event source.
+    """
+
+
+class EventDestinationCreateParamsAzureEventGrid(TypedDict):
+    azure_region: str
+    """
+    The Azure region.
+    """
+    azure_resource_group_name: str
+    """
+    The name of the Azure resource group.
+    """
+    azure_subscription_id: str
+    """
+    The Azure subscription ID.
     """
 
 

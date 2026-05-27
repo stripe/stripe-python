@@ -31,6 +31,7 @@ if TYPE_CHECKING:
     from stripe._discount import Discount
     from stripe._invoice import Invoice
     from stripe._payment_method import PaymentMethod
+    from stripe._price import Price
     from stripe._setup_intent import SetupIntent
     from stripe._source import Source
     from stripe._subscription_item import SubscriptionItem
@@ -147,6 +148,60 @@ class Subscription(
         Details on when the current billing_mode was adopted.
         """
         _inner_class_types = {"flexible": Flexible}
+
+    class BillingSchedule(StripeObject):
+        class AppliesTo(StripeObject):
+            price: Optional[ExpandableField["Price"]]
+            """
+            The billing schedule will apply to the subscription item with the given price ID.
+            """
+            type: Literal["price"]
+            """
+            Controls which subscription items the billing schedule applies to.
+            """
+
+        class BillUntil(StripeObject):
+            class Duration(StripeObject):
+                interval: Literal["day", "month", "week", "year"]
+                """
+                Specifies billing duration. Either `day`, `week`, `month` or `year`.
+                """
+                interval_count: Optional[int]
+                """
+                The multiplier applied to the interval.
+                """
+
+            computed_timestamp: int
+            """
+            The timestamp the billing schedule will apply until.
+            """
+            duration: Optional[Duration]
+            """
+            Specifies the billing period.
+            """
+            timestamp: Optional[int]
+            """
+            If specified, the billing schedule will apply until the specified timestamp.
+            """
+            type: Literal["duration", "timestamp"]
+            """
+            Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
+            """
+            _inner_class_types = {"duration": Duration}
+
+        applies_to: Optional[List[AppliesTo]]
+        """
+        Specifies which subscription items the billing schedule applies to.
+        """
+        bill_until: BillUntil
+        """
+        Specifies the end of billing period.
+        """
+        key: str
+        """
+        Unique identifier for the billing schedule.
+        """
+        _inner_class_types = {"applies_to": AppliesTo, "bill_until": BillUntil}
 
     class BillingThresholds(StripeObject):
         amount_gte: Optional[int]
@@ -552,6 +607,7 @@ class Subscription(
                     "sepa_debit",
                     "sofort",
                     "swish",
+                    "twint",
                     "upi",
                     "us_bank_account",
                     "wechat_pay",
@@ -584,9 +640,21 @@ class Subscription(
         """
         If the update is applied, determines the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. The timestamp is in UTC format.
         """
+        discount: Optional["Discount"]
+        """
+        The pending subscription-level discount that will be applied when the pending update is applied.
+        """
+        discounts: Optional[List[ExpandableField["Discount"]]]
+        """
+        The discounts that will be applied to the subscription when the pending update is applied. Use `expand[]=discounts` to expand each discount.
+        """
         expires_at: int
         """
         The point after which the changes reflected by this update will be discarded and no longer applied.
+        """
+        metadata: Optional[UntypedStripeObject[str]]
+        """
+        Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
         """
         subscription_items: Optional[List["SubscriptionItem"]]
         """
@@ -652,6 +720,10 @@ class Subscription(
     billing_mode: BillingMode
     """
     The billing mode of the subscription.
+    """
+    billing_schedules: List[BillingSchedule]
+    """
+    Billing schedules for this subscription.
     """
     billing_thresholds: Optional[BillingThresholds]
     """
@@ -842,7 +914,7 @@ class Subscription(
         **params: Unpack["SubscriptionCancelParams"],
     ) -> "Subscription":
         """
-        Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, you can no longer update the subscription or its [metadata](https://docs.stripe.com/metadata).
+        Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, the subscription is largely immutable. You can still update its [metadata](https://docs.stripe.com/metadata) and cancellation_details.
 
         Any pending invoice items that you've created are still charged at the end of the period, unless manually [deleted](https://docs.stripe.com/api/invoiceitems/delete). If you've set the subscription to cancel at the end of the period, any pending prorations are also left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations are removed if invoice_now and prorate are both set to true.
 
@@ -868,7 +940,7 @@ class Subscription(
         **params: Unpack["SubscriptionCancelParams"],
     ) -> "Subscription":
         """
-        Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, you can no longer update the subscription or its [metadata](https://docs.stripe.com/metadata).
+        Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, the subscription is largely immutable. You can still update its [metadata](https://docs.stripe.com/metadata) and cancellation_details.
 
         Any pending invoice items that you've created are still charged at the end of the period, unless manually [deleted](https://docs.stripe.com/api/invoiceitems/delete). If you've set the subscription to cancel at the end of the period, any pending prorations are also left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations are removed if invoice_now and prorate are both set to true.
 
@@ -881,7 +953,7 @@ class Subscription(
         self, **params: Unpack["SubscriptionCancelParams"]
     ) -> "Subscription":
         """
-        Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, you can no longer update the subscription or its [metadata](https://docs.stripe.com/metadata).
+        Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, the subscription is largely immutable. You can still update its [metadata](https://docs.stripe.com/metadata) and cancellation_details.
 
         Any pending invoice items that you've created are still charged at the end of the period, unless manually [deleted](https://docs.stripe.com/api/invoiceitems/delete). If you've set the subscription to cancel at the end of the period, any pending prorations are also left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations are removed if invoice_now and prorate are both set to true.
 
@@ -894,7 +966,7 @@ class Subscription(
         self, **params: Unpack["SubscriptionCancelParams"]
     ) -> "Subscription":
         """
-        Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, you can no longer update the subscription or its [metadata](https://docs.stripe.com/metadata).
+        Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, the subscription is largely immutable. You can still update its [metadata](https://docs.stripe.com/metadata) and cancellation_details.
 
         Any pending invoice items that you've created are still charged at the end of the period, unless manually [deleted](https://docs.stripe.com/api/invoiceitems/delete). If you've set the subscription to cancel at the end of the period, any pending prorations are also left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations are removed if invoice_now and prorate are both set to true.
 
@@ -918,7 +990,7 @@ class Subscription(
         **params: Unpack["SubscriptionCancelParams"],
     ) -> "Subscription":
         """
-        Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, you can no longer update the subscription or its [metadata](https://docs.stripe.com/metadata).
+        Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, the subscription is largely immutable. You can still update its [metadata](https://docs.stripe.com/metadata) and cancellation_details.
 
         Any pending invoice items that you've created are still charged at the end of the period, unless manually [deleted](https://docs.stripe.com/api/invoiceitems/delete). If you've set the subscription to cancel at the end of the period, any pending prorations are also left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations are removed if invoice_now and prorate are both set to true.
 
@@ -944,7 +1016,7 @@ class Subscription(
         **params: Unpack["SubscriptionCancelParams"],
     ) -> "Subscription":
         """
-        Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, you can no longer update the subscription or its [metadata](https://docs.stripe.com/metadata).
+        Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, the subscription is largely immutable. You can still update its [metadata](https://docs.stripe.com/metadata) and cancellation_details.
 
         Any pending invoice items that you've created are still charged at the end of the period, unless manually [deleted](https://docs.stripe.com/api/invoiceitems/delete). If you've set the subscription to cancel at the end of the period, any pending prorations are also left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations are removed if invoice_now and prorate are both set to true.
 
@@ -957,7 +1029,7 @@ class Subscription(
         self, **params: Unpack["SubscriptionCancelParams"]
     ) -> "Subscription":
         """
-        Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, you can no longer update the subscription or its [metadata](https://docs.stripe.com/metadata).
+        Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, the subscription is largely immutable. You can still update its [metadata](https://docs.stripe.com/metadata) and cancellation_details.
 
         Any pending invoice items that you've created are still charged at the end of the period, unless manually [deleted](https://docs.stripe.com/api/invoiceitems/delete). If you've set the subscription to cancel at the end of the period, any pending prorations are also left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations are removed if invoice_now and prorate are both set to true.
 
@@ -970,7 +1042,7 @@ class Subscription(
         self, **params: Unpack["SubscriptionCancelParams"]
     ) -> "Subscription":
         """
-        Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, you can no longer update the subscription or its [metadata](https://docs.stripe.com/metadata).
+        Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, the subscription is largely immutable. You can still update its [metadata](https://docs.stripe.com/metadata) and cancellation_details.
 
         Any pending invoice items that you've created are still charged at the end of the period, unless manually [deleted](https://docs.stripe.com/api/invoiceitems/delete). If you've set the subscription to cancel at the end of the period, any pending prorations are also left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations are removed if invoice_now and prorate are both set to true.
 
@@ -1380,7 +1452,7 @@ class Subscription(
         cls, subscription: str, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
-        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice isn't paid by the expiration date, it is voided and the subscription remains paused. You can only resume subscriptions with collection_method set to charge_automatically. send_invoice subscriptions are not supported.
+        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. Resume is only available for subscriptions that use charge_automatically collection. If Stripe doesn't generate a resumption invoice, the subscription becomes active immediately. When a resumption invoice is generated, Stripe finalizes it immediately. If the invoice is paid or marked uncollectible, the subscription becomes active. If the invoice is manually voided, the subscription stays paused. If there is no payment attempt within 23 hours, Stripe voids the invoice and the subscription stays paused. Learn more about [resuming subscriptions](https://docs.stripe.com/docs/billing/subscriptions/pause#resume-subscriptions).
         """
         return cast(
             "Subscription",
@@ -1399,7 +1471,7 @@ class Subscription(
         subscription: str, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
-        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice isn't paid by the expiration date, it is voided and the subscription remains paused. You can only resume subscriptions with collection_method set to charge_automatically. send_invoice subscriptions are not supported.
+        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. Resume is only available for subscriptions that use charge_automatically collection. If Stripe doesn't generate a resumption invoice, the subscription becomes active immediately. When a resumption invoice is generated, Stripe finalizes it immediately. If the invoice is paid or marked uncollectible, the subscription becomes active. If the invoice is manually voided, the subscription stays paused. If there is no payment attempt within 23 hours, Stripe voids the invoice and the subscription stays paused. Learn more about [resuming subscriptions](https://docs.stripe.com/docs/billing/subscriptions/pause#resume-subscriptions).
         """
         ...
 
@@ -1408,7 +1480,7 @@ class Subscription(
         self, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
-        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice isn't paid by the expiration date, it is voided and the subscription remains paused. You can only resume subscriptions with collection_method set to charge_automatically. send_invoice subscriptions are not supported.
+        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. Resume is only available for subscriptions that use charge_automatically collection. If Stripe doesn't generate a resumption invoice, the subscription becomes active immediately. When a resumption invoice is generated, Stripe finalizes it immediately. If the invoice is paid or marked uncollectible, the subscription becomes active. If the invoice is manually voided, the subscription stays paused. If there is no payment attempt within 23 hours, Stripe voids the invoice and the subscription stays paused. Learn more about [resuming subscriptions](https://docs.stripe.com/docs/billing/subscriptions/pause#resume-subscriptions).
         """
         ...
 
@@ -1417,7 +1489,7 @@ class Subscription(
         self, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
-        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice isn't paid by the expiration date, it is voided and the subscription remains paused. You can only resume subscriptions with collection_method set to charge_automatically. send_invoice subscriptions are not supported.
+        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. Resume is only available for subscriptions that use charge_automatically collection. If Stripe doesn't generate a resumption invoice, the subscription becomes active immediately. When a resumption invoice is generated, Stripe finalizes it immediately. If the invoice is paid or marked uncollectible, the subscription becomes active. If the invoice is manually voided, the subscription stays paused. If there is no payment attempt within 23 hours, Stripe voids the invoice and the subscription stays paused. Learn more about [resuming subscriptions](https://docs.stripe.com/docs/billing/subscriptions/pause#resume-subscriptions).
         """
         return cast(
             "Subscription",
@@ -1435,7 +1507,7 @@ class Subscription(
         cls, subscription: str, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
-        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice isn't paid by the expiration date, it is voided and the subscription remains paused. You can only resume subscriptions with collection_method set to charge_automatically. send_invoice subscriptions are not supported.
+        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. Resume is only available for subscriptions that use charge_automatically collection. If Stripe doesn't generate a resumption invoice, the subscription becomes active immediately. When a resumption invoice is generated, Stripe finalizes it immediately. If the invoice is paid or marked uncollectible, the subscription becomes active. If the invoice is manually voided, the subscription stays paused. If there is no payment attempt within 23 hours, Stripe voids the invoice and the subscription stays paused. Learn more about [resuming subscriptions](https://docs.stripe.com/docs/billing/subscriptions/pause#resume-subscriptions).
         """
         return cast(
             "Subscription",
@@ -1454,7 +1526,7 @@ class Subscription(
         subscription: str, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
-        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice isn't paid by the expiration date, it is voided and the subscription remains paused. You can only resume subscriptions with collection_method set to charge_automatically. send_invoice subscriptions are not supported.
+        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. Resume is only available for subscriptions that use charge_automatically collection. If Stripe doesn't generate a resumption invoice, the subscription becomes active immediately. When a resumption invoice is generated, Stripe finalizes it immediately. If the invoice is paid or marked uncollectible, the subscription becomes active. If the invoice is manually voided, the subscription stays paused. If there is no payment attempt within 23 hours, Stripe voids the invoice and the subscription stays paused. Learn more about [resuming subscriptions](https://docs.stripe.com/docs/billing/subscriptions/pause#resume-subscriptions).
         """
         ...
 
@@ -1463,7 +1535,7 @@ class Subscription(
         self, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
-        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice isn't paid by the expiration date, it is voided and the subscription remains paused. You can only resume subscriptions with collection_method set to charge_automatically. send_invoice subscriptions are not supported.
+        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. Resume is only available for subscriptions that use charge_automatically collection. If Stripe doesn't generate a resumption invoice, the subscription becomes active immediately. When a resumption invoice is generated, Stripe finalizes it immediately. If the invoice is paid or marked uncollectible, the subscription becomes active. If the invoice is manually voided, the subscription stays paused. If there is no payment attempt within 23 hours, Stripe voids the invoice and the subscription stays paused. Learn more about [resuming subscriptions](https://docs.stripe.com/docs/billing/subscriptions/pause#resume-subscriptions).
         """
         ...
 
@@ -1472,7 +1544,7 @@ class Subscription(
         self, **params: Unpack["SubscriptionResumeParams"]
     ) -> "Subscription":
         """
-        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If no resumption invoice is generated, the subscription becomes active immediately. If a resumption invoice is generated, the subscription remains paused until the invoice is paid or marked uncollectible. If the invoice isn't paid by the expiration date, it is voided and the subscription remains paused. You can only resume subscriptions with collection_method set to charge_automatically. send_invoice subscriptions are not supported.
+        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. Resume is only available for subscriptions that use charge_automatically collection. If Stripe doesn't generate a resumption invoice, the subscription becomes active immediately. When a resumption invoice is generated, Stripe finalizes it immediately. If the invoice is paid or marked uncollectible, the subscription becomes active. If the invoice is manually voided, the subscription stays paused. If there is no payment attempt within 23 hours, Stripe voids the invoice and the subscription stays paused. Learn more about [resuming subscriptions](https://docs.stripe.com/docs/billing/subscriptions/pause#resume-subscriptions).
         """
         return cast(
             "Subscription",
@@ -1551,6 +1623,7 @@ class Subscription(
         "automatic_tax": AutomaticTax,
         "billing_cycle_anchor_config": BillingCycleAnchorConfig,
         "billing_mode": BillingMode,
+        "billing_schedules": BillingSchedule,
         "billing_thresholds": BillingThresholds,
         "cancellation_details": CancellationDetails,
         "invoice_settings": InvoiceSettings,

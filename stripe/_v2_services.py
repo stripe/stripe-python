@@ -6,16 +6,19 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.v2._billing_service import BillingService
+    from stripe.v2._commerce_service import CommerceService
     from stripe.v2._core_service import CoreService
 
 _subservices = {
     "billing": ["stripe.v2._billing_service", "BillingService"],
+    "commerce": ["stripe.v2._commerce_service", "CommerceService"],
     "core": ["stripe.v2._core_service", "CoreService"],
 }
 
 
 class V2Services(StripeService):
     billing: "BillingService"
+    commerce: "CommerceService"
     core: "CoreService"
 
     def __init__(self, requestor):

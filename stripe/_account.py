@@ -262,6 +262,10 @@ class Account(
         """
         The status of the Billie capability of the account, or whether the account can directly process Billie payments.
         """
+        bizum_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the Bizum capability of the account, or whether the account can directly process Bizum payments.
+        """
         blik_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the blik payments capability of the account, or whether the account can directly process blik charges.
@@ -435,6 +439,10 @@ class Account(
         satispay_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the Satispay capability of the account, or whether the account can directly process Satispay payments.
+        """
+        scalapay_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the Scalapay capability of the account, or whether the account can directly process Scalapay payments.
         """
         sepa_bank_transfer_payments: Optional[
             Literal["active", "inactive", "pending"]

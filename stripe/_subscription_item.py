@@ -52,6 +52,10 @@ class SubscriptionItem(
         Usage threshold that triggers the subscription to create an invoice
         """
 
+    billed_until: Optional[int]
+    """
+    The time period the subscription item has been billed for.
+    """
     billing_thresholds: Optional[BillingThresholds]
     """
     Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period

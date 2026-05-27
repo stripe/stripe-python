@@ -43576,6 +43576,74 @@ class TestGeneratedExamples(object):
             is_json=True,
         )
 
+    def test_v2_commerce_product_catalog_import_get_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/commerce/product_catalog/imports",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.commerce.product_catalog.imports.list()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/commerce/product_catalog/imports",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_commerce_product_catalog_import_post_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "post",
+            "/v2/commerce/product_catalog/imports",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.commerce.product_catalog.imports.create(
+            {
+                "feed_type": "pricing",
+                "metadata": {"key": "metadata"},
+                "mode": "upsert",
+            }
+        )
+        http_client_mock.assert_requested(
+            "post",
+            path="/v2/commerce/product_catalog/imports",
+            query_string="",
+            api_base="https://api.stripe.com",
+            post_data='{"feed_type":"pricing","metadata":{"key":"metadata"},"mode":"upsert"}',
+            is_json=True,
+        )
+
+    def test_v2_commerce_product_catalog_import_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/commerce/product_catalog/imports/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.commerce.product_catalog.imports.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/commerce/product_catalog/imports/id_123",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
     def test_v2_core_account_get_service(
         self, http_client_mock: HTTPClientMock
     ) -> None:

@@ -406,6 +406,33 @@ class PaymentLink(
         A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://docs.stripe.com/connect/separate-charges-and-transfers) for details.
         """
 
+    class PaymentMethodOptions(StripeObject):
+        class Card(StripeObject):
+            class Restrictions(StripeObject):
+                brands_blocked: List[
+                    Literal[
+                        "american_express",
+                        "discover_global_network",
+                        "mastercard",
+                        "visa",
+                    ]
+                ]
+                """
+                The card brands to block. If a customer enters or selects a card belonging to a blocked brand, they can't complete the payment.
+                """
+
+            restrictions: Optional[Restrictions]
+            """
+            Restrictions to apply to the card payment method. For example, you can block specific card brands.
+            """
+            _inner_class_types = {"restrictions": Restrictions}
+
+        card: Optional[Card]
+        """
+        Configuration for `card` payment methods.
+        """
+        _inner_class_types = {"card": Card}
+
     class PhoneNumberCollection(StripeObject):
         enabled: bool
         """
@@ -844,6 +871,10 @@ class PaymentLink(
     """
     Configuration for collecting a payment method during checkout. Defaults to `always`.
     """
+    payment_method_options: Optional[PaymentMethodOptions]
+    """
+    Payment-method-specific configuration.
+    """
     payment_method_types: Optional[
         List[
             Literal[
@@ -855,6 +886,7 @@ class PaymentLink(
                 "bacs_debit",
                 "bancontact",
                 "billie",
+                "bizum",
                 "blik",
                 "boleto",
                 "card",
@@ -1178,6 +1210,7 @@ class PaymentLink(
         "name_collection": NameCollection,
         "optional_items": OptionalItem,
         "payment_intent_data": PaymentIntentData,
+        "payment_method_options": PaymentMethodOptions,
         "phone_number_collection": PhoneNumberCollection,
         "restrictions": Restrictions,
         "shipping_address_collection": ShippingAddressCollection,

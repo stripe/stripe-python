@@ -515,7 +515,7 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
     """
     recommended_action: Literal["block", "continue"]
     """
-    Recommended action based on the score of the `fraudulent_payment` signal. Possible values are `block` and `continue`.
+    Recommended action based on the score of the `fraudulent_payment` signal. Possible values are `block`, `continue` and `request_three_d_secure`.
     """
     signals: Signals
     """

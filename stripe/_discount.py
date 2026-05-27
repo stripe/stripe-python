@@ -33,7 +33,7 @@ class Discount(StripeObject):
 
     checkout_session: Optional[str]
     """
-    The Checkout session that this coupon is applied to, if it is applied to a particular session in payment mode. Will not be present for subscription mode.
+    The Checkout session that this coupon is applied to, if it is applied to a particular session in payment mode. Not present for subscription mode.
     """
     customer: Optional[ExpandableField["Customer"]]
     """
@@ -53,7 +53,7 @@ class Discount(StripeObject):
     """
     id: str
     """
-    The ID of the discount object. Discounts cannot be fetched by ID. Use `expand[]=discounts` in API calls to expand discount IDs in an array.
+    The ID of the discount object. Discounts can't be fetched by ID. Use `expand[]=discounts` in API calls to expand discount IDs in an array.
     """
     invoice: Optional[str]
     """
