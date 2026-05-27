@@ -98,7 +98,7 @@ class ReceivedCredit(StripeObject):
             """
             The last 4 digits of the account number that originated the transfer.
             """
-            network: Literal["fps"]
+            network: Literal["chaps", "fps"]
             """
             Open Enum. The money transmission network used to send funds for this ReceivedCredit.
             """
@@ -346,6 +346,10 @@ class ReceivedCredit(StripeObject):
         """
 
     class StripeBalancePayment(StripeObject):
+        debit_agreement: Optional[str]
+        """
+        ID of the debit agreement associated with this payment.
+        """
         statement_descriptor: Optional[str]
         """
         Statement descriptor for the Stripe Balance Payment.

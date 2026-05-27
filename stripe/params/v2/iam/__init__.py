@@ -7,6 +7,9 @@ if TYPE_CHECKING:
     from stripe.params.v2.iam._activity_log_list_params import (
         ActivityLogListParams as ActivityLogListParams,
     )
+    from stripe.params.v2.iam._activity_log_retrieve_params import (
+        ActivityLogRetrieveParams as ActivityLogRetrieveParams,
+    )
     from stripe.params.v2.iam._api_key_create_params import (
         ApiKeyCreateParams as ApiKeyCreateParams,
         ApiKeyCreateParamsPublicKey as ApiKeyCreateParamsPublicKey,
@@ -34,6 +37,10 @@ if TYPE_CHECKING:
 _import_map = {
     "ActivityLogListParams": (
         "stripe.params.v2.iam._activity_log_list_params",
+        False,
+    ),
+    "ActivityLogRetrieveParams": (
+        "stripe.params.v2.iam._activity_log_retrieve_params",
         False,
     ),
     "ApiKeyCreateParams": (

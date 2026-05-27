@@ -897,11 +897,23 @@ if TYPE_CHECKING:
     from stripe.events._v2_core_health_authorization_rate_drop_resolved_event import (
         V2CoreHealthAuthorizationRateDropResolvedEventNotification,
     )
+    from stripe.events._v2_core_health_elements_error_firing_event import (
+        V2CoreHealthElementsErrorFiringEventNotification,
+    )
+    from stripe.events._v2_core_health_elements_error_resolved_event import (
+        V2CoreHealthElementsErrorResolvedEventNotification,
+    )
     from stripe.events._v2_core_health_event_generation_failure_resolved_event import (
         V2CoreHealthEventGenerationFailureResolvedEventNotification,
     )
     from stripe.events._v2_core_health_fraud_rate_increased_event import (
         V2CoreHealthFraudRateIncreasedEventNotification,
+    )
+    from stripe.events._v2_core_health_invoice_count_dropped_firing_event import (
+        V2CoreHealthInvoiceCountDroppedFiringEventNotification,
+    )
+    from stripe.events._v2_core_health_invoice_count_dropped_resolved_event import (
+        V2CoreHealthInvoiceCountDroppedResolvedEventNotification,
     )
     from stripe.events._v2_core_health_issuing_authorization_request_errors_firing_event import (
         V2CoreHealthIssuingAuthorizationRequestErrorsFiringEventNotification,
@@ -5149,6 +5161,32 @@ class StripeEventNotificationHandler:
         )
         return func
 
+    def on_v2_core_health_elements_error_firing(
+        self,
+        func: "Callable[[V2CoreHealthElementsErrorFiringEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2CoreHealthElementsErrorFiringEvent` (`v2.core.health.elements_error.firing`) event notification.
+        """
+        self._register(
+            "v2.core.health.elements_error.firing",
+            func,
+        )
+        return func
+
+    def on_v2_core_health_elements_error_resolved(
+        self,
+        func: "Callable[[V2CoreHealthElementsErrorResolvedEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2CoreHealthElementsErrorResolvedEvent` (`v2.core.health.elements_error.resolved`) event notification.
+        """
+        self._register(
+            "v2.core.health.elements_error.resolved",
+            func,
+        )
+        return func
+
     def on_v2_core_health_event_generation_failure_resolved(
         self,
         func: "Callable[[V2CoreHealthEventGenerationFailureResolvedEventNotification, StripeClient], None]",
@@ -5171,6 +5209,32 @@ class StripeEventNotificationHandler:
         """
         self._register(
             "v2.core.health.fraud_rate.increased",
+            func,
+        )
+        return func
+
+    def on_v2_core_health_invoice_count_dropped_firing(
+        self,
+        func: "Callable[[V2CoreHealthInvoiceCountDroppedFiringEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2CoreHealthInvoiceCountDroppedFiringEvent` (`v2.core.health.invoice_count_dropped.firing`) event notification.
+        """
+        self._register(
+            "v2.core.health.invoice_count_dropped.firing",
+            func,
+        )
+        return func
+
+    def on_v2_core_health_invoice_count_dropped_resolved(
+        self,
+        func: "Callable[[V2CoreHealthInvoiceCountDroppedResolvedEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2CoreHealthInvoiceCountDroppedResolvedEvent` (`v2.core.health.invoice_count_dropped.resolved`) event notification.
+        """
+        self._register(
+            "v2.core.health.invoice_count_dropped.resolved",
             func,
         )
         return func

@@ -55,7 +55,7 @@ class SubscriptionService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Subscription":
         """
-        Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, you can no longer update the subscription or its [metadata](https://docs.stripe.com/metadata).
+        Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, the subscription is largely immutable. You can still update its [metadata](https://docs.stripe.com/metadata) and cancellation_details.
 
         Any pending invoice items that you've created are still charged at the end of the period, unless manually [deleted](https://docs.stripe.com/api/invoiceitems/delete). If you've set the subscription to cancel at the end of the period, any pending prorations are also left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations are removed if invoice_now and prorate are both set to true.
 
@@ -83,7 +83,7 @@ class SubscriptionService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Subscription":
         """
-        Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, you can no longer update the subscription or its [metadata](https://docs.stripe.com/metadata).
+        Cancels a customer's subscription immediately. The customer won't be charged again for the subscription. After it's canceled, the subscription is largely immutable. You can still update its [metadata](https://docs.stripe.com/metadata) and cancellation_details.
 
         Any pending invoice items that you've created are still charged at the end of the period, unless manually [deleted](https://docs.stripe.com/api/invoiceitems/delete). If you've set the subscription to cancel at the end of the period, any pending prorations are also left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations are removed if invoice_now and prorate are both set to true.
 
@@ -559,7 +559,7 @@ class SubscriptionService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Subscription":
         """
-        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
+        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. Resume is only available for subscriptions that use charge_automatically collection. If Stripe doesn't generate a resumption invoice, the subscription becomes active immediately. When a resumption invoice is generated, Stripe finalizes it immediately. If the invoice is paid or marked uncollectible, the subscription becomes active. If the invoice is manually voided, the subscription stays paused. If there is no payment attempt within 23 hours, Stripe voids the invoice and the subscription stays paused. Learn more about [resuming subscriptions](https://docs.stripe.com/docs/billing/subscriptions/pause#resume-subscriptions).
         """
         return cast(
             "Subscription",
@@ -581,7 +581,7 @@ class SubscriptionService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Subscription":
         """
-        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
+        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. Resume is only available for subscriptions that use charge_automatically collection. If Stripe doesn't generate a resumption invoice, the subscription becomes active immediately. When a resumption invoice is generated, Stripe finalizes it immediately. If the invoice is paid or marked uncollectible, the subscription becomes active. If the invoice is manually voided, the subscription stays paused. If there is no payment attempt within 23 hours, Stripe voids the invoice and the subscription stays paused. Learn more about [resuming subscriptions](https://docs.stripe.com/docs/billing/subscriptions/pause#resume-subscriptions).
         """
         return cast(
             "Subscription",
@@ -595,6 +595,32 @@ class SubscriptionService(StripeService):
                 options=options,
             ),
         )
+
+    def serialize_batch_cancel(
+        self,
+        subscription_exposed_id: str,
+        params: Optional["SubscriptionCancelParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> str:
+        """
+        Serializes a Subscription cancel request into a batch job JSONL line.
+        """
+        item_id = str(uuid4())
+        stripe_version = (
+            options.get("stripe_version") if options else None
+        ) or _ApiVersion.CURRENT
+        context = options.get("stripe_context") if options else None
+        batch_request = {
+            "id": item_id,
+            "path_params": {
+                "subscription_exposed_id": subscription_exposed_id
+            },
+            "params": params,
+            "stripe_version": stripe_version,
+        }
+        if context is not None:
+            batch_request["context"] = context
+        return json.dumps(batch_request)
 
     def serialize_batch_update(
         self,
@@ -610,7 +636,7 @@ class SubscriptionService(StripeService):
             options.get("stripe_version") if options else None
         ) or _ApiVersion.CURRENT
         context = options.get("stripe_context") if options else None
-        item = {
+        batch_request = {
             "id": item_id,
             "path_params": {
                 "subscription_exposed_id": subscription_exposed_id
@@ -619,8 +645,30 @@ class SubscriptionService(StripeService):
             "stripe_version": stripe_version,
         }
         if context is not None:
-            item["context"] = context
-        return json.dumps(item)
+            batch_request["context"] = context
+        return json.dumps(batch_request)
+
+    def serialize_batch_create(
+        self,
+        params: Optional["SubscriptionCreateParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> str:
+        """
+        Serializes a Subscription create request into a batch job JSONL line.
+        """
+        item_id = str(uuid4())
+        stripe_version = (
+            options.get("stripe_version") if options else None
+        ) or _ApiVersion.CURRENT
+        context = options.get("stripe_context") if options else None
+        batch_request = {
+            "id": item_id,
+            "params": params,
+            "stripe_version": stripe_version,
+        }
+        if context is not None:
+            batch_request["context"] = context
+        return json.dumps(batch_request)
 
     def serialize_batch_migrate(
         self,
@@ -636,12 +684,60 @@ class SubscriptionService(StripeService):
             options.get("stripe_version") if options else None
         ) or _ApiVersion.CURRENT
         context = options.get("stripe_context") if options else None
-        item = {
+        batch_request = {
             "id": item_id,
             "path_params": {"subscription": subscription},
             "params": params,
             "stripe_version": stripe_version,
         }
         if context is not None:
-            item["context"] = context
-        return json.dumps(item)
+            batch_request["context"] = context
+        return json.dumps(batch_request)
+
+    def serialize_batch_pause(
+        self,
+        subscription: str,
+        params: Optional["SubscriptionPauseParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> str:
+        """
+        Serializes a Subscription pause request into a batch job JSONL line.
+        """
+        item_id = str(uuid4())
+        stripe_version = (
+            options.get("stripe_version") if options else None
+        ) or _ApiVersion.CURRENT
+        context = options.get("stripe_context") if options else None
+        batch_request = {
+            "id": item_id,
+            "path_params": {"subscription": subscription},
+            "params": params,
+            "stripe_version": stripe_version,
+        }
+        if context is not None:
+            batch_request["context"] = context
+        return json.dumps(batch_request)
+
+    def serialize_batch_resume(
+        self,
+        subscription: str,
+        params: Optional["SubscriptionResumeParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> str:
+        """
+        Serializes a Subscription resume request into a batch job JSONL line.
+        """
+        item_id = str(uuid4())
+        stripe_version = (
+            options.get("stripe_version") if options else None
+        ) or _ApiVersion.CURRENT
+        context = options.get("stripe_context") if options else None
+        batch_request = {
+            "id": item_id,
+            "path_params": {"subscription": subscription},
+            "params": params,
+            "stripe_version": stripe_version,
+        }
+        if context is not None:
+            batch_request["context"] = context
+        return json.dumps(batch_request)

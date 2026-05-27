@@ -164,6 +164,9 @@ class GrantedToken(APIResource["GrantedToken"]):
             """
             _inner_class_types = {"address": Address}
 
+        class Bizum(StripeObject):
+            pass
+
         class Blik(StripeObject):
             pass
 
@@ -1073,6 +1076,9 @@ class GrantedToken(APIResource["GrantedToken"]):
         class Satispay(StripeObject):
             pass
 
+        class Scalapay(StripeObject):
+            pass
+
         class SepaDebit(StripeObject):
             class GeneratedFrom(StripeObject):
                 charge: Optional[ExpandableField["Charge"]]
@@ -1259,6 +1265,7 @@ class GrantedToken(APIResource["GrantedToken"]):
         """
         Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
         """
+        bizum: Optional[Bizum]
         blik: Optional[Blik]
         boleto: Optional[Boleto]
         card: Optional[Card]
@@ -1300,6 +1307,7 @@ class GrantedToken(APIResource["GrantedToken"]):
         revolut_pay: Optional[RevolutPay]
         samsung_pay: Optional[SamsungPay]
         satispay: Optional[Satispay]
+        scalapay: Optional[Scalapay]
         sepa_debit: Optional[SepaDebit]
         shopeepay: Optional[Shopeepay]
         sofort: Optional[Sofort]
@@ -1318,6 +1326,7 @@ class GrantedToken(APIResource["GrantedToken"]):
             "bacs_debit",
             "bancontact",
             "billie",
+            "bizum",
             "blik",
             "boleto",
             "card",
@@ -1360,6 +1369,7 @@ class GrantedToken(APIResource["GrantedToken"]):
             "revolut_pay",
             "samsung_pay",
             "satispay",
+            "scalapay",
             "sepa_debit",
             "shopeepay",
             "sofort",
@@ -1391,6 +1401,7 @@ class GrantedToken(APIResource["GrantedToken"]):
             "bancontact": Bancontact,
             "billie": Billie,
             "billing_details": BillingDetails,
+            "bizum": Bizum,
             "blik": Blik,
             "boleto": Boleto,
             "card": Card,
@@ -1432,6 +1443,7 @@ class GrantedToken(APIResource["GrantedToken"]):
             "revolut_pay": RevolutPay,
             "samsung_pay": SamsungPay,
             "satispay": Satispay,
+            "scalapay": Scalapay,
             "sepa_debit": SepaDebit,
             "shopeepay": Shopeepay,
             "sofort": Sofort,

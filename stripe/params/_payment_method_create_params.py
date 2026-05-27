@@ -55,6 +55,10 @@ class PaymentMethodCreateParams(RequestOptions):
     """
     Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
     """
+    bizum: NotRequired["PaymentMethodCreateParamsBizum"]
+    """
+    If this is a `bizum` PaymentMethod, this hash contains details about the Bizum payment method.
+    """
     blik: NotRequired["PaymentMethodCreateParamsBlik"]
     """
     If this is a `blik` PaymentMethod, this hash contains details about the BLIK payment method.
@@ -145,7 +149,7 @@ class PaymentMethodCreateParams(RequestOptions):
     """
     link: NotRequired["PaymentMethodCreateParamsLink"]
     """
-    If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
+    If this is an `Link` PaymentMethod, this hash contains details about the Link payment method (Link is also known as Onelink in the UK).
     """
     mb_way: NotRequired["PaymentMethodCreateParamsMbWay"]
     """
@@ -239,6 +243,10 @@ class PaymentMethodCreateParams(RequestOptions):
     """
     If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
     """
+    scalapay: NotRequired["PaymentMethodCreateParamsScalapay"]
+    """
+    If this is a Scalapay PaymentMethod, this hash contains details about the Scalapay payment method.
+    """
     sepa_debit: NotRequired["PaymentMethodCreateParamsSepaDebit"]
     """
     If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
@@ -279,6 +287,7 @@ class PaymentMethodCreateParams(RequestOptions):
             "bacs_debit",
             "bancontact",
             "billie",
+            "bizum",
             "blik",
             "boleto",
             "card",
@@ -319,6 +328,7 @@ class PaymentMethodCreateParams(RequestOptions):
             "revolut_pay",
             "samsung_pay",
             "satispay",
+            "scalapay",
             "sepa_debit",
             "shopeepay",
             "sofort",
@@ -468,6 +478,10 @@ class PaymentMethodCreateParamsBillingDetailsAddress(TypedDict):
     """
     State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """
+
+
+class PaymentMethodCreateParamsBizum(TypedDict):
+    pass
 
 
 class PaymentMethodCreateParamsBlik(TypedDict):
@@ -872,6 +886,10 @@ class PaymentMethodCreateParamsSamsungPay(TypedDict):
 
 
 class PaymentMethodCreateParamsSatispay(TypedDict):
+    pass
+
+
+class PaymentMethodCreateParamsScalapay(TypedDict):
     pass
 
 

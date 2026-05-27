@@ -132,6 +132,7 @@ class WebhookEndpointCreateParams(RequestOptions):
             "2026-02-25.clover",
             "2026-03-25.dahlia",
             "2026-04-22.dahlia",
+            "2026-05-27.dahlia",
         ]
     ]
     """
@@ -443,6 +444,7 @@ class WebhookEndpointCreateParams(RequestOptions):
             "treasury.received_debit.created",
             "invoice_payment.detached",
             "billing.alert.recovered",
+            "payment_intent.expired",
             "billing.credit_balance_transaction.created",
             "billing.credit_grant.updated",
             "billing.meter.created",

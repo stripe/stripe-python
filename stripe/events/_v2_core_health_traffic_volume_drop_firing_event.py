@@ -42,6 +42,10 @@ class V2CoreHealthTrafficVolumeDropFiringEvent(Event):
             """
             The total volume of payment requests within the latest observation time window.
             """
+            canonical_path: Optional[str]
+            """
+            The canonical path.
+            """
             expected_traffic: Optional[int]
             """
             The expected volume of payment requests within the latest observation time window.

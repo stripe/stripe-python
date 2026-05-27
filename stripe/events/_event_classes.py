@@ -892,11 +892,23 @@ if TYPE_CHECKING:
     from stripe.events._v2_core_health_authorization_rate_drop_resolved_event import (
         V2CoreHealthAuthorizationRateDropResolvedEventNotification,
     )
+    from stripe.events._v2_core_health_elements_error_firing_event import (
+        V2CoreHealthElementsErrorFiringEventNotification,
+    )
+    from stripe.events._v2_core_health_elements_error_resolved_event import (
+        V2CoreHealthElementsErrorResolvedEventNotification,
+    )
     from stripe.events._v2_core_health_event_generation_failure_resolved_event import (
         V2CoreHealthEventGenerationFailureResolvedEventNotification,
     )
     from stripe.events._v2_core_health_fraud_rate_increased_event import (
         V2CoreHealthFraudRateIncreasedEventNotification,
+    )
+    from stripe.events._v2_core_health_invoice_count_dropped_firing_event import (
+        V2CoreHealthInvoiceCountDroppedFiringEventNotification,
+    )
+    from stripe.events._v2_core_health_invoice_count_dropped_resolved_event import (
+        V2CoreHealthInvoiceCountDroppedResolvedEventNotification,
     )
     from stripe.events._v2_core_health_issuing_authorization_request_errors_firing_event import (
         V2CoreHealthIssuingAuthorizationRequestErrorsFiringEventNotification,
@@ -2396,6 +2408,14 @@ _V2_EVENT_CLASS_LOOKUP = {
         "stripe.events._v2_core_health_authorization_rate_drop_resolved_event",
         "V2CoreHealthAuthorizationRateDropResolvedEvent",
     ),
+    "v2.core.health.elements_error.firing": (
+        "stripe.events._v2_core_health_elements_error_firing_event",
+        "V2CoreHealthElementsErrorFiringEvent",
+    ),
+    "v2.core.health.elements_error.resolved": (
+        "stripe.events._v2_core_health_elements_error_resolved_event",
+        "V2CoreHealthElementsErrorResolvedEvent",
+    ),
     "v2.core.health.event_generation_failure.resolved": (
         "stripe.events._v2_core_health_event_generation_failure_resolved_event",
         "V2CoreHealthEventGenerationFailureResolvedEvent",
@@ -2403,6 +2423,14 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v2.core.health.fraud_rate.increased": (
         "stripe.events._v2_core_health_fraud_rate_increased_event",
         "V2CoreHealthFraudRateIncreasedEvent",
+    ),
+    "v2.core.health.invoice_count_dropped.firing": (
+        "stripe.events._v2_core_health_invoice_count_dropped_firing_event",
+        "V2CoreHealthInvoiceCountDroppedFiringEvent",
+    ),
+    "v2.core.health.invoice_count_dropped.resolved": (
+        "stripe.events._v2_core_health_invoice_count_dropped_resolved_event",
+        "V2CoreHealthInvoiceCountDroppedResolvedEvent",
     ),
     "v2.core.health.issuing_authorization_request_errors.firing": (
         "stripe.events._v2_core_health_issuing_authorization_request_errors_firing_event",
@@ -4019,6 +4047,14 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_core_health_authorization_rate_drop_resolved_event",
         "V2CoreHealthAuthorizationRateDropResolvedEventNotification",
     ),
+    "v2.core.health.elements_error.firing": (
+        "stripe.events._v2_core_health_elements_error_firing_event",
+        "V2CoreHealthElementsErrorFiringEventNotification",
+    ),
+    "v2.core.health.elements_error.resolved": (
+        "stripe.events._v2_core_health_elements_error_resolved_event",
+        "V2CoreHealthElementsErrorResolvedEventNotification",
+    ),
     "v2.core.health.event_generation_failure.resolved": (
         "stripe.events._v2_core_health_event_generation_failure_resolved_event",
         "V2CoreHealthEventGenerationFailureResolvedEventNotification",
@@ -4026,6 +4062,14 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
     "v2.core.health.fraud_rate.increased": (
         "stripe.events._v2_core_health_fraud_rate_increased_event",
         "V2CoreHealthFraudRateIncreasedEventNotification",
+    ),
+    "v2.core.health.invoice_count_dropped.firing": (
+        "stripe.events._v2_core_health_invoice_count_dropped_firing_event",
+        "V2CoreHealthInvoiceCountDroppedFiringEventNotification",
+    ),
+    "v2.core.health.invoice_count_dropped.resolved": (
+        "stripe.events._v2_core_health_invoice_count_dropped_resolved_event",
+        "V2CoreHealthInvoiceCountDroppedResolvedEventNotification",
     ),
     "v2.core.health.issuing_authorization_request_errors.firing": (
         "stripe.events._v2_core_health_issuing_authorization_request_errors_firing_event",
@@ -4757,8 +4801,12 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2CoreHealthApiLatencyResolvedEventNotification",
     "V2CoreHealthAuthorizationRateDropFiringEventNotification",
     "V2CoreHealthAuthorizationRateDropResolvedEventNotification",
+    "V2CoreHealthElementsErrorFiringEventNotification",
+    "V2CoreHealthElementsErrorResolvedEventNotification",
     "V2CoreHealthEventGenerationFailureResolvedEventNotification",
     "V2CoreHealthFraudRateIncreasedEventNotification",
+    "V2CoreHealthInvoiceCountDroppedFiringEventNotification",
+    "V2CoreHealthInvoiceCountDroppedResolvedEventNotification",
     "V2CoreHealthIssuingAuthorizationRequestErrorsFiringEventNotification",
     "V2CoreHealthIssuingAuthorizationRequestErrorsResolvedEventNotification",
     "V2CoreHealthIssuingAuthorizationRequestTimeoutFiringEventNotification",

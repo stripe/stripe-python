@@ -27,6 +27,20 @@ class BalanceSettings(
 
     class Payments(StripeObject):
         class Payouts(StripeObject):
+            class AutomaticTransferRulesByCurrency(StripeObject):
+                payout_method: str
+                """
+                The ID of the FinancialAccount that funds will be transferred to during automatic transfers.
+                """
+                transfer_up_to_amount: Optional[int]
+                """
+                The maximum amount in minor units to transfer to the FinancialAccount. Only applicable when `type` is `transfer_up_to_amount`.
+                """
+                type: Literal["transfer_all", "transfer_up_to_amount"]
+                """
+                The type of automatic transfer rule.
+                """
+
             class Schedule(StripeObject):
                 interval: Optional[
                     Literal["daily", "manual", "monthly", "weekly"]
@@ -53,6 +67,12 @@ class BalanceSettings(
                 The days of the week when available funds are paid out, specified as an array, for example, [`monday`, `tuesday`]. Only shown if `interval` is weekly.
                 """
 
+            automatic_transfer_rules_by_currency: Optional[
+                UntypedStripeObject[List[AutomaticTransferRulesByCurrency]]
+            ]
+            """
+            Configures per-currency rules for automatically transferring funds from the payments balance to a FinancialAccount.
+            """
             minimum_balance_by_currency: Optional[UntypedStripeObject[int]]
             """
             The minimum balance amount to retain per currency after automatic payouts. Only funds that exceed these amounts are paid out. Learn more about the [minimum balances for automatic payouts](https://docs.stripe.com/payouts/minimum-balances-for-automatic-payouts).
@@ -69,9 +89,27 @@ class BalanceSettings(
             """
             Whether the funds in this account can be paid out.
             """
-            _inner_class_types = {"schedule": Schedule}
+            _inner_class_types = {
+                "automatic_transfer_rules_by_currency": AutomaticTransferRulesByCurrency,
+                "schedule": Schedule,
+            }
+            _inner_class_dicts = ["automatic_transfer_rules_by_currency"]
 
         class SettlementTiming(StripeObject):
+            class StartOfDay(StripeObject):
+                hour: int
+                """
+                Hour at which the customized start of day begins according to the given timezone. Must be a [supported customized start of day hour](https://docs.stripe.com/connect/customized-start-of-day#available-timezones-and-cutoffs).
+                """
+                minutes: int
+                """
+                Minutes at which the customized start of day begins according to the given timezone. Must be either 0 or 30.
+                """
+                timezone: str
+                """
+                Timezone for the customized start of day. Must be a [supported customized start of day timezone](https://docs.stripe.com/connect/customized-start-of-day#available-timezones-and-cutoffs).
+                """
+
             delay_days: int
             """
             The number of days charge funds are held before becoming available.
@@ -80,6 +118,11 @@ class BalanceSettings(
             """
             The number of days charge funds are held before becoming available. If present, overrides the default, or minimum available, for the account.
             """
+            start_of_day: Optional[StartOfDay]
+            """
+            Customized start of day configuration for automatic payouts to group and send payments in local timezones with a customized day starting time. For details, see our [Customized start of day](https://docs.stripe.com/connect/customized-start-of-day) documentation.
+            """
+            _inner_class_types = {"start_of_day": StartOfDay}
 
         debit_negative_balances: Optional[bool]
         """

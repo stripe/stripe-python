@@ -402,6 +402,30 @@ class AccountService(StripeService):
             ),
         )
 
+    def serialize_batch_delete(
+        self,
+        account: str,
+        params: Optional["AccountDeleteParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> str:
+        """
+        Serializes an Account delete request into a batch job JSONL line.
+        """
+        item_id = str(uuid4())
+        stripe_version = (
+            options.get("stripe_version") if options else None
+        ) or _ApiVersion.CURRENT
+        context = options.get("stripe_context") if options else None
+        batch_request = {
+            "id": item_id,
+            "path_params": {"account": account},
+            "params": params,
+            "stripe_version": stripe_version,
+        }
+        if context is not None:
+            batch_request["context"] = context
+        return json.dumps(batch_request)
+
     def serialize_batch_update(
         self,
         account: str,
@@ -416,12 +440,34 @@ class AccountService(StripeService):
             options.get("stripe_version") if options else None
         ) or _ApiVersion.CURRENT
         context = options.get("stripe_context") if options else None
-        item = {
+        batch_request = {
             "id": item_id,
             "path_params": {"account": account},
             "params": params,
             "stripe_version": stripe_version,
         }
         if context is not None:
-            item["context"] = context
-        return json.dumps(item)
+            batch_request["context"] = context
+        return json.dumps(batch_request)
+
+    def serialize_batch_create(
+        self,
+        params: Optional["AccountCreateParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> str:
+        """
+        Serializes an Account create request into a batch job JSONL line.
+        """
+        item_id = str(uuid4())
+        stripe_version = (
+            options.get("stripe_version") if options else None
+        ) or _ApiVersion.CURRENT
+        context = options.get("stripe_context") if options else None
+        batch_request = {
+            "id": item_id,
+            "params": params,
+            "stripe_version": stripe_version,
+        }
+        if context is not None:
+            batch_request["context"] = context
+        return json.dumps(batch_request)

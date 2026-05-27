@@ -46428,10 +46428,7 @@ class TestGeneratedExamples(object):
 
         client.v2.core.batch_jobs.create(
             {
-                "endpoint": {
-                    "http_method": "delete",
-                    "path": "/v1/subscription_schedules",
-                },
+                "endpoint": {"http_method": "delete", "path": "/v1/products"},
                 "metadata": {"key": "metadata"},
                 "skip_validation": True,
             }
@@ -46441,7 +46438,7 @@ class TestGeneratedExamples(object):
             path="/v2/core/batch_jobs",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"endpoint":{"http_method":"delete","path":"/v1/subscription_schedules"},"metadata":{"key":"metadata"},"skip_validation":true}',
+            post_data='{"endpoint":{"http_method":"delete","path":"/v1/products"},"metadata":{"key":"metadata"},"skip_validation":true}',
             is_json=True,
         )
 
@@ -47391,6 +47388,26 @@ class TestGeneratedExamples(object):
         http_client_mock.assert_requested(
             "get",
             path="/v2/iam/activity_logs",
+            query_string="",
+            api_base="https://api.stripe.com",
+        )
+
+    def test_v2_iam_activity_log_get_2_service(
+        self, http_client_mock: HTTPClientMock
+    ) -> None:
+        http_client_mock.stub_request(
+            "get",
+            "/v2/iam/activity_logs/id_123",
+        )
+        client = StripeClient(
+            "sk_test_123",
+            http_client=http_client_mock.get_mock_http_client(),
+        )
+
+        client.v2.iam.activity_logs.retrieve("id_123")
+        http_client_mock.assert_requested(
+            "get",
+            path="/v2/iam/activity_logs/id_123",
             query_string="",
             api_base="https://api.stripe.com",
         )
@@ -49457,14 +49474,14 @@ class TestGeneratedExamples(object):
 
         client.v2.test_helpers.financial_addresses.credit(
             "id_123",
-            {"amount": {"currency": "USD", "value": 96}, "network": "fps"},
+            {"amount": {"currency": "USD", "value": 96}, "network": "wire"},
         )
         http_client_mock.assert_requested(
             "post",
             path="/v2/test_helpers/financial_addresses/id_123/credit",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"amount":{"currency":"USD","value":96},"network":"fps"}',
+            post_data='{"amount":{"currency":"USD","value":96},"network":"wire"}',
             is_json=True,
         )
 
