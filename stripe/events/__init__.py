@@ -21,6 +21,22 @@ if TYPE_CHECKING:
         V1BillingMeterNoMeterFoundEvent as V1BillingMeterNoMeterFoundEvent,
         V1BillingMeterNoMeterFoundEventNotification as V1BillingMeterNoMeterFoundEventNotification,
     )
+    from stripe.events._v2_commerce_product_catalog_imports_failed_event import (
+        V2CommerceProductCatalogImportsFailedEvent as V2CommerceProductCatalogImportsFailedEvent,
+        V2CommerceProductCatalogImportsFailedEventNotification as V2CommerceProductCatalogImportsFailedEventNotification,
+    )
+    from stripe.events._v2_commerce_product_catalog_imports_processing_event import (
+        V2CommerceProductCatalogImportsProcessingEvent as V2CommerceProductCatalogImportsProcessingEvent,
+        V2CommerceProductCatalogImportsProcessingEventNotification as V2CommerceProductCatalogImportsProcessingEventNotification,
+    )
+    from stripe.events._v2_commerce_product_catalog_imports_succeeded_event import (
+        V2CommerceProductCatalogImportsSucceededEvent as V2CommerceProductCatalogImportsSucceededEvent,
+        V2CommerceProductCatalogImportsSucceededEventNotification as V2CommerceProductCatalogImportsSucceededEventNotification,
+    )
+    from stripe.events._v2_commerce_product_catalog_imports_succeeded_with_errors_event import (
+        V2CommerceProductCatalogImportsSucceededWithErrorsEvent as V2CommerceProductCatalogImportsSucceededWithErrorsEvent,
+        V2CommerceProductCatalogImportsSucceededWithErrorsEventNotification as V2CommerceProductCatalogImportsSucceededWithErrorsEventNotification,
+    )
     from stripe.events._v2_core_account_closed_event import (
         V2CoreAccountClosedEvent as V2CoreAccountClosedEvent,
         V2CoreAccountClosedEventNotification as V2CoreAccountClosedEventNotification,
@@ -111,6 +127,38 @@ _import_map = {
     ),
     "V1BillingMeterNoMeterFoundEventNotification": (
         "stripe.events._v1_billing_meter_no_meter_found_event",
+        False,
+    ),
+    "V2CommerceProductCatalogImportsFailedEvent": (
+        "stripe.events._v2_commerce_product_catalog_imports_failed_event",
+        False,
+    ),
+    "V2CommerceProductCatalogImportsFailedEventNotification": (
+        "stripe.events._v2_commerce_product_catalog_imports_failed_event",
+        False,
+    ),
+    "V2CommerceProductCatalogImportsProcessingEvent": (
+        "stripe.events._v2_commerce_product_catalog_imports_processing_event",
+        False,
+    ),
+    "V2CommerceProductCatalogImportsProcessingEventNotification": (
+        "stripe.events._v2_commerce_product_catalog_imports_processing_event",
+        False,
+    ),
+    "V2CommerceProductCatalogImportsSucceededEvent": (
+        "stripe.events._v2_commerce_product_catalog_imports_succeeded_event",
+        False,
+    ),
+    "V2CommerceProductCatalogImportsSucceededEventNotification": (
+        "stripe.events._v2_commerce_product_catalog_imports_succeeded_event",
+        False,
+    ),
+    "V2CommerceProductCatalogImportsSucceededWithErrorsEvent": (
+        "stripe.events._v2_commerce_product_catalog_imports_succeeded_with_errors_event",
+        False,
+    ),
+    "V2CommerceProductCatalogImportsSucceededWithErrorsEventNotification": (
+        "stripe.events._v2_commerce_product_catalog_imports_succeeded_with_errors_event",
         False,
     ),
     "V2CoreAccountClosedEvent": (

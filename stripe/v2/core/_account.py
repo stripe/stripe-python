@@ -9,9 +9,8 @@ from typing_extensions import Literal
 
 class Account(StripeObject):
     """
-    An Account v2 object represents a company, individual, or other entity that interacts with a platform on Stripe. It contains both identifying information and properties that control its behavior and functionality. An Account can have one or more configurations that enable sets of related features, such as allowing it to act as a merchant or customer.
-    The Accounts v2 API supports both the Global Payouts preview feature and the Connect-Billing integration preview feature. However, a particular Account can only access one of them.
-    The Connect-Billing integration preview feature allows an Account v2 to pay subscription fees to a platform. An Account v1 required a separate Customer object to pay subscription fees.
+    An Account v2 object represents a company, individual, or other entity that your Stripe integration interacts with. It contains both identifying information and properties that control its behavior and functionality. An Account can have one or more configurations that enable sets of related features, such as allowing it to act as a merchant or customer.
+    The Accounts v2 API is broadly available to Connect platforms, and to other users in preview. The Accounts v2 API also supports the Global Payouts preview feature.
     """
 
     OBJECT_NAME: ClassVar[Literal["v2.core.account"]] = "v2.core.account"
@@ -105,7 +104,7 @@ class Account(StripeObject):
 
                 default_payment_method: Optional[str]
                 """
-                ID of a PaymentMethod attached to the customer account to use as the default for invoices and subscriptions.
+                The ID of a `PaymentMethod` attached to this Account's `customer` configuration, used as the default payment method for invoices and subscriptions.
                 """
                 invoice: Optional[Invoice]
                 """
@@ -2284,7 +2283,7 @@ class Account(StripeObject):
 
         customer: Optional[Customer]
         """
-        The Customer Configuration allows the Account to be used in inbound payment flows.
+        The Customer Configuration allows the Account to be used in inbound payment flows (i.e. customer-facing payment and billing flows).
         """
         merchant: Optional[Merchant]
         """
@@ -2982,24 +2981,46 @@ class Account(StripeObject):
                     """
 
                 class ProofOfRegistration(StripeObject):
+                    class Signer(StripeObject):
+                        person: str
+                        """
+                        Person signing the document.
+                        """
+
                     files: List[str]
                     """
                     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                    """
+                    signer: Optional[Signer]
+                    """
+                    Person that is signing the document.
                     """
                     type: Literal["files"]
                     """
                     The format of the document. Currently supports `files` only.
                     """
+                    _inner_class_types = {"signer": Signer}
 
                 class ProofOfUltimateBeneficialOwnership(StripeObject):
+                    class Signer(StripeObject):
+                        person: str
+                        """
+                        Person signing the document.
+                        """
+
                     files: List[str]
                     """
                     One or more document IDs returned by a [file upload](https://docs.stripe.com/api/persons/update#create_file) with a purpose value of `account_requirement`.
+                    """
+                    signer: Optional[Signer]
+                    """
+                    Person that is signing the document.
                     """
                     type: Literal["files"]
                     """
                     The format of the document. Currently supports `files` only.
                     """
+                    _inner_class_types = {"signer": Signer}
 
                 bank_account_ownership_verification: Optional[
                     BankAccountOwnershipVerification
@@ -3865,7 +3886,7 @@ class Account(StripeObject):
             """
             email: Optional[str]
             """
-            The individual's email address.
+            The individual's email address. You can only set this field when the Account is configured as a `merchant` or `recipient`. Use `contact_email` as the primary contact email for this Account.
             """
             given_name: Optional[str]
             """
@@ -3952,7 +3973,7 @@ class Account(StripeObject):
             Literal["company", "government_entity", "individual", "non_profit"]
         ]
         """
-        The entity type.
+        The entity type represented by the Account. Ensure this field is accurate before adding configurations that rely on identity information, as it determines which identity fields apply and how the Account is validated.
         """
         individual: Optional[Individual]
         """
@@ -4260,7 +4281,7 @@ class Account(StripeObject):
     """
     contact_email: Optional[str]
     """
-    The default contact email address for the Account. Required when configuring the account as a merchant or recipient.
+    The primary contact email address for the Account.
     """
     contact_phone: Optional[str]
     """

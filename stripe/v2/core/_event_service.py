@@ -61,7 +61,8 @@ class EventService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Event":
         """
-        Retrieves the details of an event.
+        Retrieves the details of an event if it was created in the last 30 days. Supply the unique
+        identifier of the event, which might have been delivered to your event destination.
         """
         return cast(
             "Event",
@@ -81,7 +82,8 @@ class EventService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Event":
         """
-        Retrieves the details of an event.
+        Retrieves the details of an event if it was created in the last 30 days. Supply the unique
+        identifier of the event, which might have been delivered to your event destination.
         """
         return cast(
             "Event",

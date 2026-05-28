@@ -212,6 +212,9 @@ class Refund(
         class Revolut(StripeObject):
             pass
 
+        class Scalapay(StripeObject):
+            pass
+
         class Sofort(StripeObject):
             pass
 
@@ -286,6 +289,7 @@ class Refund(
         paypal: Optional[Paypal]
         pix: Optional[Pix]
         revolut: Optional[Revolut]
+        scalapay: Optional[Scalapay]
         sofort: Optional[Sofort]
         swish: Optional[Swish]
         th_bank_transfer: Optional[ThBankTransfer]
@@ -326,6 +330,7 @@ class Refund(
             "paypal": Paypal,
             "pix": Pix,
             "revolut": Revolut,
+            "scalapay": Scalapay,
             "sofort": Sofort,
             "swish": Swish,
             "th_bank_transfer": ThBankTransfer,

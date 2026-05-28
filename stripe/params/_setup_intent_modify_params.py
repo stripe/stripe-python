@@ -30,7 +30,7 @@ class SetupIntentModifyParams(RequestOptions):
     An arbitrary string attached to the object. Often useful for displaying to users.
     """
     excluded_payment_method_types: NotRequired[
-        "Literal['']|List[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'samsung_pay', 'satispay', 'sepa_debit', 'sofort', 'sunbit', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay', 'zip']]"
+        "Literal['']|List[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'samsung_pay', 'satispay', 'scalapay', 'sepa_debit', 'sofort', 'sunbit', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay', 'zip']]"
     ]
     """
     The list of payment method types to exclude from use with this SetupIntent.
@@ -141,6 +141,10 @@ class SetupIntentModifyParamsPaymentMethodData(TypedDict):
     """
     Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
     """
+    bizum: NotRequired["SetupIntentModifyParamsPaymentMethodDataBizum"]
+    """
+    If this is a `bizum` PaymentMethod, this hash contains details about the Bizum payment method.
+    """
     blik: NotRequired["SetupIntentModifyParamsPaymentMethodDataBlik"]
     """
     If this is a `blik` PaymentMethod, this hash contains details about the BLIK payment method.
@@ -207,7 +211,7 @@ class SetupIntentModifyParamsPaymentMethodData(TypedDict):
     """
     link: NotRequired["SetupIntentModifyParamsPaymentMethodDataLink"]
     """
-    If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
+    If this is an `Link` PaymentMethod, this hash contains details about the Link payment method (Link is also known as Onelink in the UK).
     """
     mb_way: NotRequired["SetupIntentModifyParamsPaymentMethodDataMbWay"]
     """
@@ -297,6 +301,10 @@ class SetupIntentModifyParamsPaymentMethodData(TypedDict):
     """
     If this is a `satispay` PaymentMethod, this hash contains details about the Satispay payment method.
     """
+    scalapay: NotRequired["SetupIntentModifyParamsPaymentMethodDataScalapay"]
+    """
+    If this is a Scalapay PaymentMethod, this hash contains details about the Scalapay payment method.
+    """
     sepa_debit: NotRequired[
         "SetupIntentModifyParamsPaymentMethodDataSepaDebit"
     ]
@@ -330,6 +338,7 @@ class SetupIntentModifyParamsPaymentMethodData(TypedDict):
         "bacs_debit",
         "bancontact",
         "billie",
+        "bizum",
         "blik",
         "boleto",
         "cashapp",
@@ -362,6 +371,7 @@ class SetupIntentModifyParamsPaymentMethodData(TypedDict):
         "revolut_pay",
         "samsung_pay",
         "satispay",
+        "scalapay",
         "sepa_debit",
         "sofort",
         "sunbit",
@@ -512,6 +522,10 @@ class SetupIntentModifyParamsPaymentMethodDataBillingDetailsAddress(TypedDict):
     """
     State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """
+
+
+class SetupIntentModifyParamsPaymentMethodDataBizum(TypedDict):
+    pass
 
 
 class SetupIntentModifyParamsPaymentMethodDataBlik(TypedDict):
@@ -830,6 +844,10 @@ class SetupIntentModifyParamsPaymentMethodDataSatispay(TypedDict):
     pass
 
 
+class SetupIntentModifyParamsPaymentMethodDataScalapay(TypedDict):
+    pass
+
+
 class SetupIntentModifyParamsPaymentMethodDataSepaDebit(TypedDict):
     iban: str
     """
@@ -934,6 +952,10 @@ class SetupIntentModifyParamsPaymentMethodOptions(TypedDict):
     """
     If this is a `bacs_debit` SetupIntent, this sub-hash contains details about the Bacs Debit payment method options.
     """
+    bizum: NotRequired["SetupIntentModifyParamsPaymentMethodOptionsBizum"]
+    """
+    If this is a `bizum` SetupIntent, this sub-hash contains details about the Bizum payment method options.
+    """
     card: NotRequired["SetupIntentModifyParamsPaymentMethodOptionsCard"]
     """
     Configuration for any card setup attempted on this SetupIntent.
@@ -950,7 +972,7 @@ class SetupIntentModifyParamsPaymentMethodOptions(TypedDict):
     """
     link: NotRequired["SetupIntentModifyParamsPaymentMethodOptionsLink"]
     """
-    If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
+    If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options (Link is also known as Onelink in the UK).
     """
     paypal: NotRequired["SetupIntentModifyParamsPaymentMethodOptionsPaypal"]
     """
@@ -1048,6 +1070,10 @@ class SetupIntentModifyParamsPaymentMethodOptionsBacsDebitMandateOptions(
     """
     Prefix used to generate the Mandate reference. Must be at most 12 characters long. Must consist of only uppercase letters, numbers, spaces, or the following special characters: '/', '_', '-', '&', '.'. Cannot begin with 'DDIC' or 'STRIPE'.
     """
+
+
+class SetupIntentModifyParamsPaymentMethodOptionsBizum(TypedDict):
+    pass
 
 
 class SetupIntentModifyParamsPaymentMethodOptionsCard(TypedDict):

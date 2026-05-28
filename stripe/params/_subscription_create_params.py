@@ -40,13 +40,21 @@ class SubscriptionCreateParams(RequestOptions):
     """
     Controls how prorations and invoices for subscriptions are calculated and orchestrated.
     """
+    billing_schedules: NotRequired[
+        List["SubscriptionCreateParamsBillingSchedule"]
+    ]
+    """
+    Sets the billing schedules for the subscription.
+    """
     billing_thresholds: NotRequired[
         "Literal['']|SubscriptionCreateParamsBillingThresholds"
     ]
     """
     Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
     """
-    cancel_at: NotRequired["int|Literal['max_period_end', 'min_period_end']"]
+    cancel_at: NotRequired[
+        "int|Literal['max_billed_until', 'max_period_end', 'min_period_end']"
+    ]
     """
     A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
     """
@@ -133,17 +141,7 @@ class SubscriptionCreateParams(RequestOptions):
         ]
     ]
     """
-    Only applies to subscriptions with `collection_method=charge_automatically`.
-
-    Use `allow_incomplete` to create Subscriptions with `status=incomplete` if the first invoice can't be paid. Creating Subscriptions with this status allows you to manage scenarios where additional customer actions are needed to pay a subscription's invoice. For example, SCA regulation may require 3DS authentication to complete payment. See the [SCA Migration Guide](https://docs.stripe.com/billing/migration/strong-customer-authentication) for Billing to learn more. This is the default behavior.
-
-    Use `default_incomplete` to create Subscriptions with `status=incomplete` when the first invoice requires payment, otherwise start as active. Subscriptions transition to `status=active` when successfully confirming the PaymentIntent on the first invoice. This allows simpler management of scenarios where additional customer actions are needed to pay a subscription's invoice, such as failed payments, [SCA regulation](https://docs.stripe.com/billing/migration/strong-customer-authentication), or collecting a mandate for a bank debit payment method. If the PaymentIntent is not confirmed within 23 hours Subscriptions transition to `status=incomplete_expired`, which is a terminal state.
-
-    Use `error_if_incomplete` if you want Stripe to return an HTTP 402 status code if a subscription's first invoice can't be paid. For example, if a payment method requires 3DS authentication due to SCA regulation and further customer action is needed, this parameter doesn't create a Subscription and returns an error instead. This was the default behavior for API versions prior to 2019-03-14. See the [changelog](https://docs.stripe.com/upgrades#2019-03-14) to learn more.
-
-    `pending_if_incomplete` is only used with updates and cannot be passed when creating a Subscription.
-
-    Subscriptions with `collection_method=send_invoice` are automatically activated regardless of the first Invoice status.
+    Controls how Stripe handles the first invoice when payment is required and `collection_method=charge_automatically`. Subscriptions with `collection_method=send_invoice` are automatically activated regardless of the first Invoice status.
     """
     payment_settings: NotRequired["SubscriptionCreateParamsPaymentSettings"]
     """
@@ -184,6 +182,10 @@ class SubscriptionCreateParams(RequestOptions):
 
 
 class SubscriptionCreateParamsAddInvoiceItem(TypedDict):
+    discountable: NotRequired[bool]
+    """
+    Controls whether discounts apply to this invoice item. Defaults to true if no value is provided.
+    """
     discounts: NotRequired[
         List["SubscriptionCreateParamsAddInvoiceItemDiscount"]
     ]
@@ -350,6 +352,62 @@ class SubscriptionCreateParamsBillingModeFlexible(TypedDict):
     """
 
 
+class SubscriptionCreateParamsBillingSchedule(TypedDict):
+    applies_to: NotRequired[
+        List["SubscriptionCreateParamsBillingScheduleAppliesTo"]
+    ]
+    """
+    Configure billing schedule differently for individual subscription items.
+    """
+    bill_until: "SubscriptionCreateParamsBillingScheduleBillUntil"
+    """
+    The end date for the billing schedule.
+    """
+    key: NotRequired[str]
+    """
+    Specify a key for the billing schedule. Must be unique to this field, alphanumeric, and up to 200 characters. If not provided, a unique key will be generated.
+    """
+
+
+class SubscriptionCreateParamsBillingScheduleAppliesTo(TypedDict):
+    price: NotRequired[str]
+    """
+    The ID of the price object.
+    """
+    type: Literal["price"]
+    """
+    Controls which subscription items the billing schedule applies to.
+    """
+
+
+class SubscriptionCreateParamsBillingScheduleBillUntil(TypedDict):
+    duration: NotRequired[
+        "SubscriptionCreateParamsBillingScheduleBillUntilDuration"
+    ]
+    """
+    Specifies the billing period.
+    """
+    timestamp: NotRequired[int]
+    """
+    The end date of the billing schedule.
+    """
+    type: Literal["duration", "timestamp"]
+    """
+    Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
+    """
+
+
+class SubscriptionCreateParamsBillingScheduleBillUntilDuration(TypedDict):
+    interval: Literal["day", "month", "week", "year"]
+    """
+    Specifies billing duration. Either `day`, `week`, `month` or `year`.
+    """
+    interval_count: NotRequired[int]
+    """
+    The multiplier applied to the interval.
+    """
+
+
 class SubscriptionCreateParamsBillingThresholds(TypedDict):
     amount_gte: NotRequired[int]
     """
@@ -505,7 +563,7 @@ class SubscriptionCreateParamsPaymentSettings(TypedDict):
     Payment-method-specific configuration to provide to invoices created by the subscription.
     """
     payment_method_types: NotRequired[
-        "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'swish', 'upi', 'us_bank_account', 'wechat_pay']]"
+        "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'boleto', 'card', 'cashapp', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'sepa_credit_transfer', 'sepa_debit', 'sofort', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay']]"
     ]
     """
     The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice). Should not be specified with payment_method_configuration

@@ -46,9 +46,25 @@ class ConfigurationCreateParams(RequestOptions):
     """
     Tipping configurations for readers that support on-reader tips.
     """
+    verifone_m425: NotRequired["ConfigurationCreateParamsVerifoneM425"]
+    """
+    An object containing device type specific settings for Verifone M425 readers.
+    """
     verifone_p400: NotRequired["ConfigurationCreateParamsVerifoneP400"]
     """
     An object containing device type specific settings for Verifone P400 readers.
+    """
+    verifone_p630: NotRequired["ConfigurationCreateParamsVerifoneP630"]
+    """
+    An object containing device type specific settings for Verifone P630 readers.
+    """
+    verifone_ux700: NotRequired["ConfigurationCreateParamsVerifoneUx700"]
+    """
+    An object containing device type specific settings for Verifone UX700 readers.
+    """
+    verifone_v660p: NotRequired["ConfigurationCreateParamsVerifoneV660p"]
+    """
+    An object containing device type specific settings for Verifone V660p readers.
     """
     wifi: NotRequired["Literal['']|ConfigurationCreateParamsWifi"]
     """
@@ -511,7 +527,35 @@ class ConfigurationCreateParamsTippingUsd(TypedDict):
     """
 
 
+class ConfigurationCreateParamsVerifoneM425(TypedDict):
+    splashscreen: NotRequired["Literal['']|str"]
+    """
+    A File ID representing an image you want to display on the reader.
+    """
+
+
 class ConfigurationCreateParamsVerifoneP400(TypedDict):
+    splashscreen: NotRequired["Literal['']|str"]
+    """
+    A File ID representing an image you want to display on the reader.
+    """
+
+
+class ConfigurationCreateParamsVerifoneP630(TypedDict):
+    splashscreen: NotRequired["Literal['']|str"]
+    """
+    A File ID representing an image you want to display on the reader.
+    """
+
+
+class ConfigurationCreateParamsVerifoneUx700(TypedDict):
+    splashscreen: NotRequired["Literal['']|str"]
+    """
+    A File ID representing an image you want to display on the reader.
+    """
+
+
+class ConfigurationCreateParamsVerifoneV660p(TypedDict):
     splashscreen: NotRequired["Literal['']|str"]
     """
     A File ID representing an image you want to display on the reader.

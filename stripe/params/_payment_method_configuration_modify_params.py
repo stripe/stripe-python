@@ -64,6 +64,10 @@ class PaymentMethodConfigurationModifyParams(RequestOptions):
     """
     Billie is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method that offers businesses Pay by Invoice where they offer payment terms ranging from 7-120 days. Customers are redirected from your website or app, authorize the payment with Billie, then return to your website or app. You get [immediate notification](https://docs.stripe.com/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
     """
+    bizum: NotRequired["PaymentMethodConfigurationModifyParamsBizum"]
+    """
+    To enable Bizum, buyers need a Spanish IBAN from a bank connected to Bizum. Within their banking app, they can enable Bizum and link their mobile number to their IBAN.
+    """
     blik: NotRequired["PaymentMethodConfigurationModifyParamsBlik"]
     """
     BLIK is a [single use](https://docs.stripe.com/payments/payment-methods#usage) payment method that requires customers to authenticate their payments. When customers want to pay online using BLIK, they request a six-digit code from their banking application and enter it into the payment collection form. Check this [page](https://docs.stripe.com/payments/blik) for more details.
@@ -231,6 +235,10 @@ class PaymentMethodConfigurationModifyParams(RequestOptions):
     satispay: NotRequired["PaymentMethodConfigurationModifyParamsSatispay"]
     """
     Satispay is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method where customers are required to [authenticate](https://docs.stripe.com/payments/payment-methods#customer-actions) their payment. Customers pay by being redirected from your website or app, authorizing the payment with Satispay, then returning to your website or app. You get [immediate notification](https://docs.stripe.com/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
+    """
+    scalapay: NotRequired["PaymentMethodConfigurationModifyParamsScalapay"]
+    """
+    Scalapay is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) payment method that lets customers pay in 3 or 4 installments. Customers are redirected from your website or app, authorize the payment with Scalapay, then return to your website or app. You get [immediate notification](https://docs.stripe.com/payments/payment-methods#payment-notification) of whether the payment succeeded or failed.
     """
     sepa_debit: NotRequired["PaymentMethodConfigurationModifyParamsSepaDebit"]
     """
@@ -474,6 +482,22 @@ class PaymentMethodConfigurationModifyParamsBillie(TypedDict):
 
 
 class PaymentMethodConfigurationModifyParamsBillieDisplayPreference(TypedDict):
+    preference: NotRequired[Literal["none", "off", "on"]]
+    """
+    The account's preference for whether or not to display this payment method.
+    """
+
+
+class PaymentMethodConfigurationModifyParamsBizum(TypedDict):
+    display_preference: NotRequired[
+        "PaymentMethodConfigurationModifyParamsBizumDisplayPreference"
+    ]
+    """
+    Whether or not the payment method should be displayed.
+    """
+
+
+class PaymentMethodConfigurationModifyParamsBizumDisplayPreference(TypedDict):
     preference: NotRequired[Literal["none", "off", "on"]]
     """
     The account's preference for whether or not to display this payment method.
@@ -1100,6 +1124,24 @@ class PaymentMethodConfigurationModifyParamsSatispay(TypedDict):
 
 
 class PaymentMethodConfigurationModifyParamsSatispayDisplayPreference(
+    TypedDict,
+):
+    preference: NotRequired[Literal["none", "off", "on"]]
+    """
+    The account's preference for whether or not to display this payment method.
+    """
+
+
+class PaymentMethodConfigurationModifyParamsScalapay(TypedDict):
+    display_preference: NotRequired[
+        "PaymentMethodConfigurationModifyParamsScalapayDisplayPreference"
+    ]
+    """
+    Whether or not the payment method should be displayed.
+    """
+
+
+class PaymentMethodConfigurationModifyParamsScalapayDisplayPreference(
     TypedDict,
 ):
     preference: NotRequired[Literal["none", "off", "on"]]
