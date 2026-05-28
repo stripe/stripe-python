@@ -14,6 +14,7 @@ from stripe._api_mode import ApiMode
 from stripe._error import AuthenticationError
 from stripe._request_options import extract_options_from_dict
 from stripe._requestor_options import RequestorOptions, BaseAddresses
+from stripe._request_signing_authenticator import RequestSigningOptions
 from stripe._client_options import _ClientOptions
 from stripe._http_client import (
     new_default_http_client,
@@ -136,7 +137,7 @@ if TYPE_CHECKING:
 class StripeClient(object):
     def __init__(
         self,
-        api_key: str,
+        api_key: Optional[str] = None,
         *,
         stripe_account: Optional[str] = None,
         stripe_context: "Optional[Union[str, StripeContext]]" = None,
@@ -147,13 +148,18 @@ class StripeClient(object):
         proxy: Optional[str] = None,
         max_network_retries: Optional[int] = None,
         http_client: Optional["HTTPClient"] = None,
+        signing_keys: "Optional[RequestSigningOptions]" = None,
     ):
-        # The types forbid this, but let's give users without types a friendly error.
-        if api_key is None:  # pyright: ignore[reportUnnecessaryComparison]
+        if api_key is not None and signing_keys is not None:
+            raise ValueError(
+                "Cannot use both `api_key` and `signing_keys`. "
+                "Request signing_keys replaces API key authentication."
+            )
+
+        if api_key is None and signing_keys is None:
             raise AuthenticationError(
-                "No API key provided. (HINT: set your API key using "
-                '"client = stripe.StripeClient(<API-KEY>)"). You can '
-                "generate API keys from the Stripe web interface. "
+                "No authentication provided. Supply an `api_key` or a `signing_keys` "
+                "config. You can generate API keys from the Stripe web interface. "
                 "See https://stripe.com/api for details, or email "
                 "support@stripe.com if you have any questions."
             )
@@ -182,6 +188,7 @@ class StripeClient(object):
             stripe_version=stripe_version or _ApiVersion.CURRENT,
             base_addresses=base_addresses,
             max_network_retries=max_network_retries,
+            signing_keys=signing_keys,
         )
 
         if http_client is None:

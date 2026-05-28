@@ -431,6 +431,9 @@ if TYPE_CHECKING:
     from stripe._refund_service import RefundService as RefundService
     from stripe._reporting_service import ReportingService as ReportingService
     from stripe._request_options import RequestOptions as RequestOptions
+    from stripe._request_signing_authenticator import (
+        RequestSigningOptions as RequestSigningOptions,
+    )
     from stripe._requestor_options import RequestorOptions as RequestorOptions
     from stripe._reserve_transaction import (
         ReserveTransaction as ReserveTransaction,
@@ -801,6 +804,8 @@ _import_map = {
     "RefundService": ("stripe._refund_service", False),
     "ReportingService": ("stripe._reporting_service", False),
     "RequestOptions": ("stripe._request_options", False),
+    # TODO: move this to codegen
+    "RequestSigningOptions": ("stripe._request_signing_authenticator", False),
     "RequestorOptions": ("stripe._requestor_options", False),
     "ReserveTransaction": ("stripe._reserve_transaction", False),
     "Reversal": ("stripe._reversal", False),

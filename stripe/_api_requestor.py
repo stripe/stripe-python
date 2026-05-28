@@ -65,6 +65,9 @@ from stripe._api_mode import ApiMode
 if TYPE_CHECKING:
     from stripe._app_info import AppInfo
     from stripe._stripe_object import StripeObject
+    from stripe._request_signing_authenticator import (
+        RequestSigningAuthenticator,
+    )
 
 HttpVerb = Literal["get", "post", "delete"]
 
@@ -86,6 +89,7 @@ def is_v2_delete_resp(method: str, api_mode: ApiMode) -> bool:
 
 class _APIRequestor(object):
     _instance: ClassVar["_APIRequestor|None"] = None
+    _authenticator: Optional["RequestSigningAuthenticator"] = None
 
     def __init__(
         self,
@@ -96,6 +100,15 @@ class _APIRequestor(object):
             options = RequestorOptions()
         self._options = options
         self._client = client
+
+        if options.signing_keys is not None:
+            from stripe._request_signing_authenticator import (
+                RequestSigningAuthenticator,
+            )
+
+            self._authenticator = RequestSigningAuthenticator(
+                options.signing_keys
+            )
 
     # In the case of client=None, we should use the current value of stripe.default_http_client
     # or lazily initialize it. Since stripe.default_http_client can change throughout the lifetime of
@@ -544,8 +557,11 @@ class _APIRequestor(object):
         headers: Dict[str, str] = {
             "X-Stripe-Client-User-Agent": json.dumps(ua),
             "User-Agent": user_agent,
-            "Authorization": "Bearer %s" % (options.get("api_key"),),
         }
+
+        api_key = options.get("api_key")
+        if api_key is not None:
+            headers["Authorization"] = "Bearer %s" % (api_key,)
 
         stripe_account = options.get("stripe_account")
         if stripe_account:
@@ -599,15 +615,6 @@ class _APIRequestor(object):
         ):
             # If user specified an API version, honor it
             request_options["stripe_version"] = options["stripe_version"]
-
-        if request_options.get("api_key") is None:
-            raise error.AuthenticationError(
-                "No API key provided. (HINT: set your API key using "
-                '"stripe.api_key = <API-KEY>"). You can generate API keys '
-                "from the Stripe web interface.  See https://stripe.com/api "
-                "for details, or email support@stripe.com if you have any "
-                "questions."
-            )
 
         abs_url = "%s%s" % (
             self._options.base_addresses.get(base_address),
@@ -706,6 +713,19 @@ class _APIRequestor(object):
                 headers[key] = value
 
         max_network_retries = request_options.get("max_network_retries")
+
+        if self._authenticator is not None:
+            headers = self._authenticator.apply_signing_headers(
+                method, abs_url, headers, post_data
+            )
+
+        if not headers.get("Authorization"):
+            raise error.AuthenticationError(
+                "No API key or request signing mechanism provided. You can generate API keys "
+                "from the Stripe web interface.  See https://stripe.com/api "
+                "for details, or email support@stripe.com if you have any "
+                "questions."
+            )
 
         return (
             # Actual args
