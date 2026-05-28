@@ -158,6 +158,15 @@ def _api_encode(
         elif hasattr(value, "id"):
             yield (key, getattr(value, "id"))
         elif isinstance(value, list) or isinstance(value, tuple):
+            if not value:
+                # An empty list signals "clear this array field".  Stripe's
+                # form-encoded API interprets `key=` (empty string) as a
+                # request to remove all previously set values, matching the
+                # documented workaround of passing "" instead of [].
+                # Without this, an empty list is silently dropped and the
+                # field is left unchanged.
+                # See https://github.com/stripe/stripe-python/issues/802
+                yield (key, "")
             for i, sv in enumerate(value):
                 # Always use indexed format for arrays
                 encoded_key = "%s[%d]" % (key, i)

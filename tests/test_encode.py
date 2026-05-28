@@ -116,3 +116,27 @@ class TestApiEncode:
             ("items[1][0]", 3),
             ("items[1][1]", 4),
         ]
+
+    def test_encode_empty_list_yields_empty_string(self):
+        """An empty list must encode to (key, '') so the Stripe API clears the field.
+
+        Regression test for https://github.com/stripe/stripe-python/issues/802
+
+        Before this fix, _api_encode({"blocked_categories": []}) yielded
+        nothing — the field was silently omitted from the request and the Stripe
+        API left the previously-set values untouched.  The documented workaround
+        was to pass "" instead of [], which encodes to ("blocked_categories", "").
+        The fix makes an empty list behave identically to that workaround.
+        """
+        result = list(_api_encode({"blocked_categories": []}))
+        assert result == [("blocked_categories", "")], (
+            "Empty list should encode to (key, '') to clear the field; "
+            f"got {result!r} instead"
+        )
+
+    def test_encode_empty_tuple_yields_empty_string(self):
+        """An empty tuple must encode to (key, '') just like an empty list."""
+        result = list(_api_encode({"tags": ()}))
+        assert result == [("tags", "")], (
+            f"Empty tuple should encode to (key, ''); got {result!r}"
+        )
