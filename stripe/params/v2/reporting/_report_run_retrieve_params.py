@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from typing_extensions import TypedDict
+from typing import List
+from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class ReportRunRetrieveParams(TypedDict):
-    pass
+    include: NotRequired[List[Literal["result.file.schema"]]]
+    """
+    Any optional includes (see https://docs.stripe.com/api-includable-response-values).
+    """
