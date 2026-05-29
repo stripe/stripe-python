@@ -111,7 +111,7 @@ class PaymentLocation(
     """
     capability_settings: Optional[CapabilitySettings]
     """
-    The capability settings for the location. Only applicable for locations with requested Payment Location Capabilities.
+    The capability settings for the location. Only applicable for locations with requested payment location capabilities.
     """
     deleted: Optional[Literal[True]]
     """

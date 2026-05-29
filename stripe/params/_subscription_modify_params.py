@@ -887,12 +887,6 @@ class SubscriptionModifyParamsPaymentSettingsPaymentMethodOptions(TypedDict):
     """
     This sub-hash contains details about the ACH direct debit payment method options to pass to the invoice's PaymentIntent.
     """
-    wechat_pay: NotRequired[
-        "Literal['']|SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsWechatPay"
-    ]
-    """
-    This sub-hash contains details about the WeChat Pay payment method options to pass to the invoice's PaymentIntent.
-    """
 
 
 class SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebit(
@@ -1255,19 +1249,6 @@ class SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFi
     institution: NotRequired[str]
     """
     ID of the institution to use to filter for selectable accounts.
-    """
-
-
-class SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsWechatPay(
-    TypedDict,
-):
-    app_id: NotRequired[str]
-    """
-    The app ID registered with WeChat Pay. Only required when client is `ios` or `android`.
-    """
-    client: NotRequired[Literal["android", "ios", "mobile_web", "web"]]
-    """
-    The client type that the end customer will pay from.
     """
 
 

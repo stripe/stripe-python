@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     from stripe.v2.billing._collection_setting_service import (
         CollectionSettingService,
     )
+    from stripe.v2.billing._contract_service import ContractService
     from stripe.v2.billing._custom_pricing_unit_service import (
         CustomPricingUnitService,
     )
@@ -49,6 +50,7 @@ _subservices = {
         "stripe.v2.billing._collection_setting_service",
         "CollectionSettingService",
     ],
+    "contracts": ["stripe.v2.billing._contract_service", "ContractService"],
     "custom_pricing_units": [
         "stripe.v2.billing._custom_pricing_unit_service",
         "CustomPricingUnitService",
@@ -111,6 +113,7 @@ class BillingService(StripeService):
     bill_settings: "BillSettingService"
     cadences: "CadenceService"
     collection_settings: "CollectionSettingService"
+    contracts: "ContractService"
     custom_pricing_units: "CustomPricingUnitService"
     intents: "IntentService"
     license_fees: "LicenseFeeService"

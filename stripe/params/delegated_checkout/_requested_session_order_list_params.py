@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._request_options import RequestOptions
 from typing import List
-from typing_extensions import NotRequired
+from typing_extensions import NotRequired, TypedDict
 
 
-class PaymentLocationListParams(RequestOptions):
+class RequestedSessionOrderListParams(TypedDict):
     ending_before: NotRequired[str]
     """
     A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.

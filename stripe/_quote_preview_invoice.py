@@ -985,18 +985,6 @@ class QuotePreviewInvoice(StripeObject):
                     "financial_connections": FinancialConnections,
                 }
 
-            class WechatPay(StripeObject):
-                app_id: Optional[str]
-                """
-                The app ID registered with WeChat Pay. Only required when client is `ios` or `android`.
-                """
-                client: Optional[
-                    Literal["android", "ios", "mobile_web", "web"]
-                ]
-                """
-                The client type that the end customer will pay from.
-                """
-
             acss_debit: Optional[AcssDebit]
             """
             If paying by `acss_debit`, this sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to the invoice's PaymentIntent.
@@ -1053,10 +1041,6 @@ class QuotePreviewInvoice(StripeObject):
             """
             If paying by `us_bank_account`, this sub-hash contains details about the ACH direct debit payment method options to pass to the invoice's PaymentIntent.
             """
-            wechat_pay: Optional[WechatPay]
-            """
-            If paying by `wechat_pay`, this sub-hash contains details about the WeChat Pay payment method options to pass to the invoice's PaymentIntent.
-            """
             _inner_class_types = {
                 "acss_debit": AcssDebit,
                 "bancontact": Bancontact,
@@ -1072,7 +1056,6 @@ class QuotePreviewInvoice(StripeObject):
                 "sepa_debit": SepaDebit,
                 "upi": Upi,
                 "us_bank_account": UsBankAccount,
-                "wechat_pay": WechatPay,
             }
 
         default_mandate: Optional[str]

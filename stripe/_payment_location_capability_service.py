@@ -27,7 +27,7 @@ class PaymentLocationCapabilityService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[PaymentLocationCapability]":
         """
-        Returns a list of PaymentLocationCapability objects associated with the location.
+        List all payment location capabilities associated with the payment location.
         """
         return cast(
             "ListObject[PaymentLocationCapability]",
@@ -46,7 +46,7 @@ class PaymentLocationCapabilityService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[PaymentLocationCapability]":
         """
-        Returns a list of PaymentLocationCapability objects associated with the location.
+        List all payment location capabilities associated with the payment location.
         """
         return cast(
             "ListObject[PaymentLocationCapability]",
@@ -66,7 +66,7 @@ class PaymentLocationCapabilityService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentLocationCapability":
         """
-        Retrieves information about the specified Payment Location Capability.
+        Retrieves a payment_location capability
         """
         return cast(
             "PaymentLocationCapability",
@@ -88,7 +88,7 @@ class PaymentLocationCapabilityService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentLocationCapability":
         """
-        Retrieves information about the specified Payment Location Capability.
+        Retrieves a payment_location capability
         """
         return cast(
             "PaymentLocationCapability",
@@ -110,7 +110,7 @@ class PaymentLocationCapabilityService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentLocationCapability":
         """
-        Updates a specified Payment Location Capability. Request or remove a payment location capability by updating its requested parameter.
+        Updates a payment_location capability. Request or remove a payment_location capability by updating its requested parameter.
         """
         return cast(
             "PaymentLocationCapability",
@@ -132,7 +132,7 @@ class PaymentLocationCapabilityService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentLocationCapability":
         """
-        Updates a specified Payment Location Capability. Request or remove a payment location capability by updating its requested parameter.
+        Updates a payment_location capability. Request or remove a payment_location capability by updating its requested parameter.
         """
         return cast(
             "PaymentLocationCapability",

@@ -142,7 +142,7 @@ class IssuingAuthorizationEvaluationCreateParamsCardDetails(TypedDict):
     """
     The timestamp when the card was created, as a Unix timestamp in seconds.
     """
-    last4: NotRequired[str]
+    last4: str
     """
     The last 4 digits of the card number.
     """

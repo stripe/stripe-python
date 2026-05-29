@@ -29,6 +29,9 @@ if TYPE_CHECKING:
     from stripe.params.delegated_checkout._requested_session_expire_params import (
         RequestedSessionExpireParams as RequestedSessionExpireParams,
     )
+    from stripe.params.delegated_checkout._requested_session_list_orders_params import (
+        RequestedSessionListOrdersParams as RequestedSessionListOrdersParams,
+    )
     from stripe.params.delegated_checkout._requested_session_modify_params import (
         RequestedSessionModifyParams as RequestedSessionModifyParams,
         RequestedSessionModifyParamsDiscounts as RequestedSessionModifyParamsDiscounts,
@@ -43,6 +46,9 @@ if TYPE_CHECKING:
         RequestedSessionModifyParamsLineItemDetail as RequestedSessionModifyParamsLineItemDetail,
         RequestedSessionModifyParamsPaymentMethodOptions as RequestedSessionModifyParamsPaymentMethodOptions,
         RequestedSessionModifyParamsPaymentMethodOptionsCard as RequestedSessionModifyParamsPaymentMethodOptionsCard,
+    )
+    from stripe.params.delegated_checkout._requested_session_order_list_params import (
+        RequestedSessionOrderListParams as RequestedSessionOrderListParams,
     )
     from stripe.params.delegated_checkout._requested_session_retrieve_params import (
         RequestedSessionRetrieveParams as RequestedSessionRetrieveParams,
@@ -141,6 +147,10 @@ _import_map = {
         "stripe.params.delegated_checkout._requested_session_expire_params",
         False,
     ),
+    "RequestedSessionListOrdersParams": (
+        "stripe.params.delegated_checkout._requested_session_list_orders_params",
+        False,
+    ),
     "RequestedSessionModifyParams": (
         "stripe.params.delegated_checkout._requested_session_modify_params",
         False,
@@ -191,6 +201,10 @@ _import_map = {
     ),
     "RequestedSessionModifyParamsPaymentMethodOptionsCard": (
         "stripe.params.delegated_checkout._requested_session_modify_params",
+        False,
+    ),
+    "RequestedSessionOrderListParams": (
+        "stripe.params.delegated_checkout._requested_session_order_list_params",
         False,
     ),
     "RequestedSessionRetrieveParams": (

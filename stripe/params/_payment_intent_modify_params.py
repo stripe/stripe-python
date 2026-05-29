@@ -4723,6 +4723,12 @@ class PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServic
 class PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding(
     TypedDict,
 ):
+    digital_asset_category: NotRequired[
+        Literal["blockchain_native", "nft", "other_non_fiat", "stablecoin"]
+    ]
+    """
+    The category of digital asset being acquired through this account funding transaction.
+    """
     liquid_asset: NotRequired[
         "Literal['']|PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAsset"
     ]
@@ -4992,6 +4998,12 @@ class PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMone
 class PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding(
     TypedDict,
 ):
+    digital_asset_category: NotRequired[
+        Literal["blockchain_native", "nft", "other_non_fiat", "stablecoin"]
+    ]
+    """
+    The category of digital asset being acquired through this account funding transaction.
+    """
     liquid_asset: NotRequired[
         "Literal['']|PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAsset"
     ]

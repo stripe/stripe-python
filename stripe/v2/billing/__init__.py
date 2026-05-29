@@ -8,6 +8,7 @@ if TYPE_CHECKING:
         bill_settings as bill_settings,
         cadences as cadences,
         collection_settings as collection_settings,
+        contracts as contracts,
         intents as intents,
         license_fees as license_fees,
         pricing_plans as pricing_plans,
@@ -35,6 +36,13 @@ if TYPE_CHECKING:
     )
     from stripe.v2.billing._collection_setting_version import (
         CollectionSettingVersion as CollectionSettingVersion,
+    )
+    from stripe.v2.billing._contract import Contract as Contract
+    from stripe.v2.billing._contract_license_pricing_quantity_change import (
+        ContractLicensePricingQuantityChange as ContractLicensePricingQuantityChange,
+    )
+    from stripe.v2.billing._contract_service import (
+        ContractService as ContractService,
     )
     from stripe.v2.billing._custom_pricing_unit import (
         CustomPricingUnit as CustomPricingUnit,
@@ -134,6 +142,7 @@ _import_map = {
     "bill_settings": ("stripe.v2.billing.bill_settings", True),
     "cadences": ("stripe.v2.billing.cadences", True),
     "collection_settings": ("stripe.v2.billing.collection_settings", True),
+    "contracts": ("stripe.v2.billing.contracts", True),
     "intents": ("stripe.v2.billing.intents", True),
     "license_fees": ("stripe.v2.billing.license_fees", True),
     "pricing_plans": ("stripe.v2.billing.pricing_plans", True),
@@ -156,6 +165,12 @@ _import_map = {
         "stripe.v2.billing._collection_setting_version",
         False,
     ),
+    "Contract": ("stripe.v2.billing._contract", False),
+    "ContractLicensePricingQuantityChange": (
+        "stripe.v2.billing._contract_license_pricing_quantity_change",
+        False,
+    ),
+    "ContractService": ("stripe.v2.billing._contract_service", False),
     "CustomPricingUnit": ("stripe.v2.billing._custom_pricing_unit", False),
     "CustomPricingUnitService": (
         "stripe.v2.billing._custom_pricing_unit_service",

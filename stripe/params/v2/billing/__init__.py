@@ -110,6 +110,101 @@ if TYPE_CHECKING:
         CollectionSettingUpdateParamsPaymentMethodOptionsUsBankAccountFinancialConnections as CollectionSettingUpdateParamsPaymentMethodOptionsUsBankAccountFinancialConnections,
         CollectionSettingUpdateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters as CollectionSettingUpdateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters,
     )
+    from stripe.params.v2.billing._contract_activate_params import (
+        ContractActivateParams as ContractActivateParams,
+    )
+    from stripe.params.v2.billing._contract_cancel_params import (
+        ContractCancelParams as ContractCancelParams,
+    )
+    from stripe.params.v2.billing._contract_create_params import (
+        ContractCreateParams as ContractCreateParams,
+        ContractCreateParamsBillingSettings as ContractCreateParamsBillingSettings,
+        ContractCreateParamsBillingSettingsContractBillingDetails as ContractCreateParamsBillingSettingsContractBillingDetails,
+        ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetails as ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetails,
+        ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetailsCalculation as ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetailsCalculation,
+        ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetailsCalculationTax as ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetailsCalculationTax,
+        ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetailsInvoice as ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetailsInvoice,
+        ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetailsInvoiceTimeUntilDue as ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetailsInvoiceTimeUntilDue,
+        ContractCreateParamsBillingSettingsContractBillingDetailsBillingProfileDetails as ContractCreateParamsBillingSettingsContractBillingDetailsBillingProfileDetails,
+        ContractCreateParamsBillingSettingsContractBillingDetailsCollectionSettingsDetails as ContractCreateParamsBillingSettingsContractBillingDetailsCollectionSettingsDetails,
+        ContractCreateParamsContractLine as ContractCreateParamsContractLine,
+        ContractCreateParamsContractLineEndsAt as ContractCreateParamsContractLineEndsAt,
+        ContractCreateParamsContractLineOverride as ContractCreateParamsContractLineOverride,
+        ContractCreateParamsContractLineOverrideEndsAt as ContractCreateParamsContractLineOverrideEndsAt,
+        ContractCreateParamsContractLineOverrideServiceAction as ContractCreateParamsContractLineOverrideServiceAction,
+        ContractCreateParamsContractLineOverrideServiceActionAdd as ContractCreateParamsContractLineOverrideServiceActionAdd,
+        ContractCreateParamsContractLineOverrideServiceActionAddCreditGrant as ContractCreateParamsContractLineOverrideServiceActionAddCreditGrant,
+        ContractCreateParamsContractLineOverrideServiceActionAddCreditGrantAmount as ContractCreateParamsContractLineOverrideServiceActionAddCreditGrantAmount,
+        ContractCreateParamsContractLineOverrideServiceActionAddCreditGrantApplicabilityConfig as ContractCreateParamsContractLineOverrideServiceActionAddCreditGrantApplicabilityConfig,
+        ContractCreateParamsContractLineOverrideServiceActionAddCreditGrantApplicabilityConfigScope as ContractCreateParamsContractLineOverrideServiceActionAddCreditGrantApplicabilityConfigScope,
+        ContractCreateParamsContractLineOverrideServiceActionAddCreditGrantExpiryConfig as ContractCreateParamsContractLineOverrideServiceActionAddCreditGrantExpiryConfig,
+        ContractCreateParamsContractLineOverrideServiceActionReplace as ContractCreateParamsContractLineOverrideServiceActionReplace,
+        ContractCreateParamsContractLineOverrideServiceActionReplaceCreditGrant as ContractCreateParamsContractLineOverrideServiceActionReplaceCreditGrant,
+        ContractCreateParamsContractLineOverrideServiceActionReplaceCreditGrantAmount as ContractCreateParamsContractLineOverrideServiceActionReplaceCreditGrantAmount,
+        ContractCreateParamsContractLineOverrideServiceActionReplaceCreditGrantApplicabilityConfig as ContractCreateParamsContractLineOverrideServiceActionReplaceCreditGrantApplicabilityConfig,
+        ContractCreateParamsContractLineOverrideServiceActionReplaceCreditGrantApplicabilityConfigScope as ContractCreateParamsContractLineOverrideServiceActionReplaceCreditGrantApplicabilityConfigScope,
+        ContractCreateParamsContractLineOverrideServiceActionReplaceCreditGrantExpiryConfig as ContractCreateParamsContractLineOverrideServiceActionReplaceCreditGrantExpiryConfig,
+        ContractCreateParamsContractLineOverrideStartsAt as ContractCreateParamsContractLineOverrideStartsAt,
+        ContractCreateParamsContractLinePricing as ContractCreateParamsContractLinePricing,
+        ContractCreateParamsContractLineStartsAt as ContractCreateParamsContractLineStartsAt,
+        ContractCreateParamsLicenseQuantityAction as ContractCreateParamsLicenseQuantityAction,
+        ContractCreateParamsLicenseQuantityActionEffectiveAt as ContractCreateParamsLicenseQuantityActionEffectiveAt,
+        ContractCreateParamsLicenseQuantityActionSet as ContractCreateParamsLicenseQuantityActionSet,
+        ContractCreateParamsOneTimeFee as ContractCreateParamsOneTimeFee,
+        ContractCreateParamsOneTimeFeeBillSchedule as ContractCreateParamsOneTimeFeeBillSchedule,
+        ContractCreateParamsOneTimeFeeBillScheduleBillAt as ContractCreateParamsOneTimeFeeBillScheduleBillAt,
+        ContractCreateParamsOneTimeFeeProductDetails as ContractCreateParamsOneTimeFeeProductDetails,
+        ContractCreateParamsPricingLine as ContractCreateParamsPricingLine,
+        ContractCreateParamsPricingLineEndsAt as ContractCreateParamsPricingLineEndsAt,
+        ContractCreateParamsPricingLinePricing as ContractCreateParamsPricingLinePricing,
+        ContractCreateParamsPricingLinePricingPriceDetails as ContractCreateParamsPricingLinePricingPriceDetails,
+        ContractCreateParamsPricingLineStartsAt as ContractCreateParamsPricingLineStartsAt,
+        ContractCreateParamsPricingOverride as ContractCreateParamsPricingOverride,
+        ContractCreateParamsPricingOverrideEndsAt as ContractCreateParamsPricingOverrideEndsAt,
+        ContractCreateParamsPricingOverrideMultiplier as ContractCreateParamsPricingOverrideMultiplier,
+        ContractCreateParamsPricingOverrideMultiplierCriterion as ContractCreateParamsPricingOverrideMultiplierCriterion,
+        ContractCreateParamsPricingOverrideMultiplierCriterionMetadataCondition as ContractCreateParamsPricingOverrideMultiplierCriterionMetadataCondition,
+        ContractCreateParamsPricingOverrideMultiplierCriterionMetadataConditionAllOf as ContractCreateParamsPricingOverrideMultiplierCriterionMetadataConditionAllOf,
+        ContractCreateParamsPricingOverrideOverwritePrice as ContractCreateParamsPricingOverrideOverwritePrice,
+        ContractCreateParamsPricingOverrideOverwritePriceTier as ContractCreateParamsPricingOverrideOverwritePriceTier,
+        ContractCreateParamsPricingOverrideStartsAt as ContractCreateParamsPricingOverrideStartsAt,
+    )
+    from stripe.params.v2.billing._contract_list_params import (
+        ContractListParams as ContractListParams,
+    )
+    from stripe.params.v2.billing._contract_retrieve_params import (
+        ContractRetrieveParams as ContractRetrieveParams,
+    )
+    from stripe.params.v2.billing._contract_update_params import (
+        ContractUpdateParams as ContractUpdateParams,
+        ContractUpdateParamsLicenseQuantityAction as ContractUpdateParamsLicenseQuantityAction,
+        ContractUpdateParamsLicenseQuantityActionEffectiveAt as ContractUpdateParamsLicenseQuantityActionEffectiveAt,
+        ContractUpdateParamsLicenseQuantityActionSet as ContractUpdateParamsLicenseQuantityActionSet,
+        ContractUpdateParamsPricingLineAction as ContractUpdateParamsPricingLineAction,
+        ContractUpdateParamsPricingLineActionAdd as ContractUpdateParamsPricingLineActionAdd,
+        ContractUpdateParamsPricingLineActionAddEndsAt as ContractUpdateParamsPricingLineActionAddEndsAt,
+        ContractUpdateParamsPricingLineActionAddPricing as ContractUpdateParamsPricingLineActionAddPricing,
+        ContractUpdateParamsPricingLineActionAddPricingPriceDetails as ContractUpdateParamsPricingLineActionAddPricingPriceDetails,
+        ContractUpdateParamsPricingLineActionAddStartsAt as ContractUpdateParamsPricingLineActionAddStartsAt,
+        ContractUpdateParamsPricingLineActionRemove as ContractUpdateParamsPricingLineActionRemove,
+        ContractUpdateParamsPricingLineActionUpdate as ContractUpdateParamsPricingLineActionUpdate,
+        ContractUpdateParamsPricingLineActionUpdateEndsAt as ContractUpdateParamsPricingLineActionUpdateEndsAt,
+        ContractUpdateParamsPricingLineActionUpdateStartsAt as ContractUpdateParamsPricingLineActionUpdateStartsAt,
+        ContractUpdateParamsPricingOverrideAction as ContractUpdateParamsPricingOverrideAction,
+        ContractUpdateParamsPricingOverrideActionAdd as ContractUpdateParamsPricingOverrideActionAdd,
+        ContractUpdateParamsPricingOverrideActionAddEndsAt as ContractUpdateParamsPricingOverrideActionAddEndsAt,
+        ContractUpdateParamsPricingOverrideActionAddMultiplier as ContractUpdateParamsPricingOverrideActionAddMultiplier,
+        ContractUpdateParamsPricingOverrideActionAddMultiplierCriterion as ContractUpdateParamsPricingOverrideActionAddMultiplierCriterion,
+        ContractUpdateParamsPricingOverrideActionAddMultiplierCriterionMetadataCondition as ContractUpdateParamsPricingOverrideActionAddMultiplierCriterionMetadataCondition,
+        ContractUpdateParamsPricingOverrideActionAddMultiplierCriterionMetadataConditionAllOf as ContractUpdateParamsPricingOverrideActionAddMultiplierCriterionMetadataConditionAllOf,
+        ContractUpdateParamsPricingOverrideActionAddOverwritePrice as ContractUpdateParamsPricingOverrideActionAddOverwritePrice,
+        ContractUpdateParamsPricingOverrideActionAddOverwritePriceTier as ContractUpdateParamsPricingOverrideActionAddOverwritePriceTier,
+        ContractUpdateParamsPricingOverrideActionAddStartsAt as ContractUpdateParamsPricingOverrideActionAddStartsAt,
+        ContractUpdateParamsPricingOverrideActionRemove as ContractUpdateParamsPricingOverrideActionRemove,
+        ContractUpdateParamsPricingOverrideActionUpdate as ContractUpdateParamsPricingOverrideActionUpdate,
+        ContractUpdateParamsPricingOverrideActionUpdateEndsAt as ContractUpdateParamsPricingOverrideActionUpdateEndsAt,
+        ContractUpdateParamsPricingOverrideActionUpdateStartsAt as ContractUpdateParamsPricingOverrideActionUpdateStartsAt,
+    )
     from stripe.params.v2.billing._custom_pricing_unit_create_params import (
         CustomPricingUnitCreateParams as CustomPricingUnitCreateParams,
     )
@@ -666,6 +761,338 @@ _import_map = {
     ),
     "CollectionSettingUpdateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters": (
         "stripe.params.v2.billing._collection_setting_update_params",
+        False,
+    ),
+    "ContractActivateParams": (
+        "stripe.params.v2.billing._contract_activate_params",
+        False,
+    ),
+    "ContractCancelParams": (
+        "stripe.params.v2.billing._contract_cancel_params",
+        False,
+    ),
+    "ContractCreateParams": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsBillingSettings": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsBillingSettingsContractBillingDetails": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetails": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetailsCalculation": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetailsCalculationTax": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetailsInvoice": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetailsInvoiceTimeUntilDue": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsBillingSettingsContractBillingDetailsBillingProfileDetails": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsBillingSettingsContractBillingDetailsCollectionSettingsDetails": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsContractLine": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsContractLineEndsAt": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsContractLineOverride": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsContractLineOverrideEndsAt": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsContractLineOverrideServiceAction": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsContractLineOverrideServiceActionAdd": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsContractLineOverrideServiceActionAddCreditGrant": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsContractLineOverrideServiceActionAddCreditGrantAmount": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsContractLineOverrideServiceActionAddCreditGrantApplicabilityConfig": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsContractLineOverrideServiceActionAddCreditGrantApplicabilityConfigScope": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsContractLineOverrideServiceActionAddCreditGrantExpiryConfig": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsContractLineOverrideServiceActionReplace": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsContractLineOverrideServiceActionReplaceCreditGrant": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsContractLineOverrideServiceActionReplaceCreditGrantAmount": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsContractLineOverrideServiceActionReplaceCreditGrantApplicabilityConfig": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsContractLineOverrideServiceActionReplaceCreditGrantApplicabilityConfigScope": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsContractLineOverrideServiceActionReplaceCreditGrantExpiryConfig": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsContractLineOverrideStartsAt": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsContractLinePricing": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsContractLineStartsAt": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsLicenseQuantityAction": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsLicenseQuantityActionEffectiveAt": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsLicenseQuantityActionSet": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsOneTimeFee": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsOneTimeFeeBillSchedule": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsOneTimeFeeBillScheduleBillAt": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsOneTimeFeeProductDetails": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsPricingLine": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsPricingLineEndsAt": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsPricingLinePricing": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsPricingLinePricingPriceDetails": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsPricingLineStartsAt": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsPricingOverride": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsPricingOverrideEndsAt": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsPricingOverrideMultiplier": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsPricingOverrideMultiplierCriterion": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsPricingOverrideMultiplierCriterionMetadataCondition": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsPricingOverrideMultiplierCriterionMetadataConditionAllOf": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsPricingOverrideOverwritePrice": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsPricingOverrideOverwritePriceTier": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsPricingOverrideStartsAt": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractListParams": (
+        "stripe.params.v2.billing._contract_list_params",
+        False,
+    ),
+    "ContractRetrieveParams": (
+        "stripe.params.v2.billing._contract_retrieve_params",
+        False,
+    ),
+    "ContractUpdateParams": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsLicenseQuantityAction": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsLicenseQuantityActionEffectiveAt": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsLicenseQuantityActionSet": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsPricingLineAction": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsPricingLineActionAdd": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsPricingLineActionAddEndsAt": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsPricingLineActionAddPricing": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsPricingLineActionAddPricingPriceDetails": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsPricingLineActionAddStartsAt": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsPricingLineActionRemove": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsPricingLineActionUpdate": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsPricingLineActionUpdateEndsAt": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsPricingLineActionUpdateStartsAt": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsPricingOverrideAction": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsPricingOverrideActionAdd": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsPricingOverrideActionAddEndsAt": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsPricingOverrideActionAddMultiplier": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsPricingOverrideActionAddMultiplierCriterion": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsPricingOverrideActionAddMultiplierCriterionMetadataCondition": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsPricingOverrideActionAddMultiplierCriterionMetadataConditionAllOf": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsPricingOverrideActionAddOverwritePrice": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsPricingOverrideActionAddOverwritePriceTier": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsPricingOverrideActionAddStartsAt": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsPricingOverrideActionRemove": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsPricingOverrideActionUpdate": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsPricingOverrideActionUpdateEndsAt": (
+        "stripe.params.v2.billing._contract_update_params",
+        False,
+    ),
+    "ContractUpdateParamsPricingOverrideActionUpdateStartsAt": (
+        "stripe.params.v2.billing._contract_update_params",
         False,
     ),
     "CustomPricingUnitCreateParams": (

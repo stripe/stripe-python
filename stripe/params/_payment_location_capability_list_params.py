@@ -12,5 +12,5 @@ class PaymentLocationCapabilityListParams(RequestOptions):
     """
     location: str
     """
-    The location for which the capabilities enable functionality.
+    The payment location that the capabilities enable functionality for.
     """
