@@ -1574,6 +1574,7 @@ if TYPE_CHECKING:
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccount as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccount,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections,
         InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters,
+        InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsWechatPay as InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsWechatPay,
         InvoiceCreateParamsRendering as InvoiceCreateParamsRendering,
         InvoiceCreateParamsRenderingPdf as InvoiceCreateParamsRenderingPdf,
         InvoiceCreateParamsShippingCost as InvoiceCreateParamsShippingCost,
@@ -1829,6 +1830,7 @@ if TYPE_CHECKING:
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccount as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccount,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections,
         InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters,
+        InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsWechatPay as InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsWechatPay,
         InvoiceModifyParamsRendering as InvoiceModifyParamsRendering,
         InvoiceModifyParamsRenderingPdf as InvoiceModifyParamsRenderingPdf,
         InvoiceModifyParamsShippingCost as InvoiceModifyParamsShippingCost,
@@ -1927,6 +1929,7 @@ if TYPE_CHECKING:
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsUsBankAccount as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsUsBankAccount,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections,
         InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters,
+        InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsWechatPay as InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsWechatPay,
         InvoiceUpdateParamsRendering as InvoiceUpdateParamsRendering,
         InvoiceUpdateParamsRenderingPdf as InvoiceUpdateParamsRenderingPdf,
         InvoiceUpdateParamsShippingCost as InvoiceUpdateParamsShippingCost,
@@ -5702,6 +5705,7 @@ if TYPE_CHECKING:
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccount as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccount,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections,
         SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters,
+        SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsWechatPay as SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsWechatPay,
         SubscriptionCreateParamsPendingInvoiceItemInterval as SubscriptionCreateParamsPendingInvoiceItemInterval,
         SubscriptionCreateParamsPrebilling as SubscriptionCreateParamsPrebilling,
         SubscriptionCreateParamsTransferData as SubscriptionCreateParamsTransferData,
@@ -5837,6 +5841,7 @@ if TYPE_CHECKING:
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccount as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccount,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections,
         SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters,
+        SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsWechatPay as SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsWechatPay,
         SubscriptionModifyParamsPendingInvoiceItemInterval as SubscriptionModifyParamsPendingInvoiceItemInterval,
         SubscriptionModifyParamsPrebilling as SubscriptionModifyParamsPrebilling,
         SubscriptionModifyParamsTransferData as SubscriptionModifyParamsTransferData,
@@ -6147,6 +6152,7 @@ if TYPE_CHECKING:
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsUsBankAccount as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsUsBankAccount,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnections,
         SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters,
+        SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsWechatPay as SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsWechatPay,
         SubscriptionUpdateParamsPendingInvoiceItemInterval as SubscriptionUpdateParamsPendingInvoiceItemInterval,
         SubscriptionUpdateParamsPrebilling as SubscriptionUpdateParamsPrebilling,
         SubscriptionUpdateParamsTransferData as SubscriptionUpdateParamsTransferData,
@@ -10894,6 +10900,10 @@ _import_map = {
         "stripe.params._invoice_create_params",
         False,
     ),
+    "InvoiceCreateParamsPaymentSettingsPaymentMethodOptionsWechatPay": (
+        "stripe.params._invoice_create_params",
+        False,
+    ),
     "InvoiceCreateParamsRendering": (
         "stripe.params._invoice_create_params",
         False,
@@ -11771,6 +11781,10 @@ _import_map = {
         "stripe.params._invoice_modify_params",
         False,
     ),
+    "InvoiceModifyParamsPaymentSettingsPaymentMethodOptionsWechatPay": (
+        "stripe.params._invoice_modify_params",
+        False,
+    ),
     "InvoiceModifyParamsRendering": (
         "stripe.params._invoice_modify_params",
         False,
@@ -12044,6 +12058,10 @@ _import_map = {
         False,
     ),
     "InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters": (
+        "stripe.params._invoice_update_params",
+        False,
+    ),
+    "InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsWechatPay": (
         "stripe.params._invoice_update_params",
         False,
     ),
@@ -25394,6 +25412,10 @@ _import_map = {
         "stripe.params._subscription_create_params",
         False,
     ),
+    "SubscriptionCreateParamsPaymentSettingsPaymentMethodOptionsWechatPay": (
+        "stripe.params._subscription_create_params",
+        False,
+    ),
     "SubscriptionCreateParamsPendingInvoiceItemInterval": (
         "stripe.params._subscription_create_params",
         False,
@@ -25851,6 +25873,10 @@ _import_map = {
         False,
     ),
     "SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters": (
+        "stripe.params._subscription_modify_params",
+        False,
+    ),
+    "SubscriptionModifyParamsPaymentSettingsPaymentMethodOptionsWechatPay": (
         "stripe.params._subscription_modify_params",
         False,
     ),
@@ -26987,6 +27013,10 @@ _import_map = {
         False,
     ),
     "SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters": (
+        "stripe.params._subscription_update_params",
+        False,
+    ),
+    "SubscriptionUpdateParamsPaymentSettingsPaymentMethodOptionsWechatPay": (
         "stripe.params._subscription_update_params",
         False,
     ),

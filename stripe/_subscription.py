@@ -578,6 +578,18 @@ class Subscription(
                     "financial_connections": FinancialConnections,
                 }
 
+            class WechatPay(StripeObject):
+                app_id: Optional[str]
+                """
+                The app ID registered with WeChat Pay. Only required when client is `ios` or `android`.
+                """
+                client: Optional[
+                    Literal["android", "ios", "mobile_web", "web"]
+                ]
+                """
+                The client type that the end customer will pay from.
+                """
+
             acss_debit: Optional[AcssDebit]
             """
             This sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to invoices created by the subscription.
@@ -634,6 +646,10 @@ class Subscription(
             """
             This sub-hash contains details about the ACH direct debit payment method options to pass to invoices created by the subscription.
             """
+            wechat_pay: Optional[WechatPay]
+            """
+            This sub-hash contains details about the WeChat Pay payment method options to pass to invoices created by the subscription.
+            """
             _inner_class_types = {
                 "acss_debit": AcssDebit,
                 "bancontact": Bancontact,
@@ -649,6 +665,7 @@ class Subscription(
                 "sepa_debit": SepaDebit,
                 "upi": Upi,
                 "us_bank_account": UsBankAccount,
+                "wechat_pay": WechatPay,
             }
 
         payment_method_options: Optional[PaymentMethodOptions]
