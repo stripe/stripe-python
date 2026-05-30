@@ -172,6 +172,7 @@ if TYPE_CHECKING:
         AccountCreateParamsIndividualAddress as AccountCreateParamsIndividualAddress,
         AccountCreateParamsIndividualAddressKana as AccountCreateParamsIndividualAddressKana,
         AccountCreateParamsIndividualAddressKanji as AccountCreateParamsIndividualAddressKanji,
+        AccountCreateParamsIndividualBirthAddress as AccountCreateParamsIndividualBirthAddress,
         AccountCreateParamsIndividualDob as AccountCreateParamsIndividualDob,
         AccountCreateParamsIndividualRegisteredAddress as AccountCreateParamsIndividualRegisteredAddress,
         AccountCreateParamsIndividualRelationship as AccountCreateParamsIndividualRelationship,
@@ -215,6 +216,7 @@ if TYPE_CHECKING:
         AccountCreatePersonParamsAddress as AccountCreatePersonParamsAddress,
         AccountCreatePersonParamsAddressKana as AccountCreatePersonParamsAddressKana,
         AccountCreatePersonParamsAddressKanji as AccountCreatePersonParamsAddressKanji,
+        AccountCreatePersonParamsBirthAddress as AccountCreatePersonParamsBirthAddress,
         AccountCreatePersonParamsDob as AccountCreatePersonParamsDob,
         AccountCreatePersonParamsDocuments as AccountCreatePersonParamsDocuments,
         AccountCreatePersonParamsDocumentsCompanyAuthorization as AccountCreatePersonParamsDocumentsCompanyAuthorization,
@@ -296,6 +298,7 @@ if TYPE_CHECKING:
         AccountModifyPersonParamsAddress as AccountModifyPersonParamsAddress,
         AccountModifyPersonParamsAddressKana as AccountModifyPersonParamsAddressKana,
         AccountModifyPersonParamsAddressKanji as AccountModifyPersonParamsAddressKanji,
+        AccountModifyPersonParamsBirthAddress as AccountModifyPersonParamsBirthAddress,
         AccountModifyPersonParamsDob as AccountModifyPersonParamsDob,
         AccountModifyPersonParamsDocuments as AccountModifyPersonParamsDocuments,
         AccountModifyPersonParamsDocumentsCompanyAuthorization as AccountModifyPersonParamsDocumentsCompanyAuthorization,
@@ -333,6 +336,7 @@ if TYPE_CHECKING:
         AccountPersonCreateParamsAddress as AccountPersonCreateParamsAddress,
         AccountPersonCreateParamsAddressKana as AccountPersonCreateParamsAddressKana,
         AccountPersonCreateParamsAddressKanji as AccountPersonCreateParamsAddressKanji,
+        AccountPersonCreateParamsBirthAddress as AccountPersonCreateParamsBirthAddress,
         AccountPersonCreateParamsDob as AccountPersonCreateParamsDob,
         AccountPersonCreateParamsDocuments as AccountPersonCreateParamsDocuments,
         AccountPersonCreateParamsDocumentsCompanyAuthorization as AccountPersonCreateParamsDocumentsCompanyAuthorization,
@@ -366,6 +370,7 @@ if TYPE_CHECKING:
         AccountPersonUpdateParamsAddress as AccountPersonUpdateParamsAddress,
         AccountPersonUpdateParamsAddressKana as AccountPersonUpdateParamsAddressKana,
         AccountPersonUpdateParamsAddressKanji as AccountPersonUpdateParamsAddressKanji,
+        AccountPersonUpdateParamsBirthAddress as AccountPersonUpdateParamsBirthAddress,
         AccountPersonUpdateParamsDob as AccountPersonUpdateParamsDob,
         AccountPersonUpdateParamsDocuments as AccountPersonUpdateParamsDocuments,
         AccountPersonUpdateParamsDocumentsCompanyAuthorization as AccountPersonUpdateParamsDocumentsCompanyAuthorization,
@@ -606,6 +611,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsIndividualAddress as AccountUpdateParamsIndividualAddress,
         AccountUpdateParamsIndividualAddressKana as AccountUpdateParamsIndividualAddressKana,
         AccountUpdateParamsIndividualAddressKanji as AccountUpdateParamsIndividualAddressKanji,
+        AccountUpdateParamsIndividualBirthAddress as AccountUpdateParamsIndividualBirthAddress,
         AccountUpdateParamsIndividualDob as AccountUpdateParamsIndividualDob,
         AccountUpdateParamsIndividualRegisteredAddress as AccountUpdateParamsIndividualRegisteredAddress,
         AccountUpdateParamsIndividualRelationship as AccountUpdateParamsIndividualRelationship,
@@ -3034,7 +3040,6 @@ if TYPE_CHECKING:
         PaymentIntentCreateParamsPaymentMethodOptionsWechatPay as PaymentIntentCreateParamsPaymentMethodOptionsWechatPay,
         PaymentIntentCreateParamsPaymentMethodOptionsZip as PaymentIntentCreateParamsPaymentMethodOptionsZip,
         PaymentIntentCreateParamsPaymentsOrchestration as PaymentIntentCreateParamsPaymentsOrchestration,
-        PaymentIntentCreateParamsPaymentsOrchestrationPaymentDetails as PaymentIntentCreateParamsPaymentsOrchestrationPaymentDetails,
         PaymentIntentCreateParamsRadarOptions as PaymentIntentCreateParamsRadarOptions,
         PaymentIntentCreateParamsShipping as PaymentIntentCreateParamsShipping,
         PaymentIntentCreateParamsShippingAddress as PaymentIntentCreateParamsShippingAddress,
@@ -6207,6 +6212,7 @@ if TYPE_CHECKING:
         TokenCreateParamsAccountIndividualAddress as TokenCreateParamsAccountIndividualAddress,
         TokenCreateParamsAccountIndividualAddressKana as TokenCreateParamsAccountIndividualAddressKana,
         TokenCreateParamsAccountIndividualAddressKanji as TokenCreateParamsAccountIndividualAddressKanji,
+        TokenCreateParamsAccountIndividualBirthAddress as TokenCreateParamsAccountIndividualBirthAddress,
         TokenCreateParamsAccountIndividualDob as TokenCreateParamsAccountIndividualDob,
         TokenCreateParamsAccountIndividualRegisteredAddress as TokenCreateParamsAccountIndividualRegisteredAddress,
         TokenCreateParamsAccountIndividualRelationship as TokenCreateParamsAccountIndividualRelationship,
@@ -6225,6 +6231,7 @@ if TYPE_CHECKING:
         TokenCreateParamsPersonAddress as TokenCreateParamsPersonAddress,
         TokenCreateParamsPersonAddressKana as TokenCreateParamsPersonAddressKana,
         TokenCreateParamsPersonAddressKanji as TokenCreateParamsPersonAddressKanji,
+        TokenCreateParamsPersonBirthAddress as TokenCreateParamsPersonBirthAddress,
         TokenCreateParamsPersonDob as TokenCreateParamsPersonDob,
         TokenCreateParamsPersonDocuments as TokenCreateParamsPersonDocuments,
         TokenCreateParamsPersonDocumentsCompanyAuthorization as TokenCreateParamsPersonDocumentsCompanyAuthorization,
@@ -6868,6 +6875,10 @@ _import_map = {
         "stripe.params._account_create_params",
         False,
     ),
+    "AccountCreateParamsIndividualBirthAddress": (
+        "stripe.params._account_create_params",
+        False,
+    ),
     "AccountCreateParamsIndividualDob": (
         "stripe.params._account_create_params",
         False,
@@ -7029,6 +7040,10 @@ _import_map = {
         False,
     ),
     "AccountCreatePersonParamsAddressKanji": (
+        "stripe.params._account_create_person_params",
+        False,
+    ),
+    "AccountCreatePersonParamsBirthAddress": (
         "stripe.params._account_create_person_params",
         False,
     ),
@@ -7211,6 +7226,10 @@ _import_map = {
         "stripe.params._account_modify_person_params",
         False,
     ),
+    "AccountModifyPersonParamsBirthAddress": (
+        "stripe.params._account_modify_person_params",
+        False,
+    ),
     "AccountModifyPersonParamsDob": (
         "stripe.params._account_modify_person_params",
         False,
@@ -7319,6 +7338,10 @@ _import_map = {
         "stripe.params._account_person_create_params",
         False,
     ),
+    "AccountPersonCreateParamsBirthAddress": (
+        "stripe.params._account_person_create_params",
+        False,
+    ),
     "AccountPersonCreateParamsDob": (
         "stripe.params._account_person_create_params",
         False,
@@ -7416,6 +7439,10 @@ _import_map = {
         False,
     ),
     "AccountPersonUpdateParamsAddressKanji": (
+        "stripe.params._account_person_update_params",
+        False,
+    ),
+    "AccountPersonUpdateParamsBirthAddress": (
         "stripe.params._account_person_update_params",
         False,
     ),
@@ -8273,6 +8300,10 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsIndividualAddressKanji": (
+        "stripe.params._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsIndividualBirthAddress": (
         "stripe.params._account_update_params",
         False,
     ),
@@ -16173,10 +16204,6 @@ _import_map = {
         False,
     ),
     "PaymentIntentCreateParamsPaymentsOrchestration": (
-        "stripe.params._payment_intent_create_params",
-        False,
-    ),
-    "PaymentIntentCreateParamsPaymentsOrchestrationPaymentDetails": (
         "stripe.params._payment_intent_create_params",
         False,
     ),
@@ -27091,6 +27118,10 @@ _import_map = {
         "stripe.params._token_create_params",
         False,
     ),
+    "TokenCreateParamsAccountIndividualBirthAddress": (
+        "stripe.params._token_create_params",
+        False,
+    ),
     "TokenCreateParamsAccountIndividualDob": (
         "stripe.params._token_create_params",
         False,
@@ -27154,6 +27185,10 @@ _import_map = {
         False,
     ),
     "TokenCreateParamsPersonAddressKanji": (
+        "stripe.params._token_create_params",
+        False,
+    ),
+    "TokenCreateParamsPersonBirthAddress": (
         "stripe.params._token_create_params",
         False,
     ),

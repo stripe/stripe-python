@@ -2,6 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
+from stripe._list_object import ListObject
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
@@ -10,6 +11,7 @@ from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._profile import Profile
+    from stripe.delegated_checkout._order import Order
     from stripe.params.delegated_checkout._requested_session_confirm_params import (
         RequestedSessionConfirmParams,
     )
@@ -18,6 +20,9 @@ if TYPE_CHECKING:
     )
     from stripe.params.delegated_checkout._requested_session_expire_params import (
         RequestedSessionExpireParams,
+    )
+    from stripe.params.delegated_checkout._requested_session_list_orders_params import (
+        RequestedSessionListOrdersParams,
     )
     from stripe.params.delegated_checkout._requested_session_modify_params import (
         RequestedSessionModifyParams,
@@ -1105,6 +1110,122 @@ class RequestedSession(
             await self._request_async(
                 "post",
                 "/v1/delegated_checkout/requested_sessions/{requested_session}/expire".format(
+                    requested_session=sanitize_id(self._data.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def _cls_list_orders(
+        cls,
+        requested_session: str,
+        **params: Unpack["RequestedSessionListOrdersParams"],
+    ) -> ListObject["Order"]:
+        """
+        Lists orders for a delegated checkout requested session.
+        """
+        return cast(
+            ListObject["Order"],
+            cls._static_request(
+                "get",
+                "/v1/delegated_checkout/requested_sessions/{requested_session}/orders".format(
+                    requested_session=sanitize_id(requested_session)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def list_orders(
+        requested_session: str,
+        **params: Unpack["RequestedSessionListOrdersParams"],
+    ) -> ListObject["Order"]:
+        """
+        Lists orders for a delegated checkout requested session.
+        """
+        ...
+
+    @overload
+    def list_orders(
+        self, **params: Unpack["RequestedSessionListOrdersParams"]
+    ) -> ListObject["Order"]:
+        """
+        Lists orders for a delegated checkout requested session.
+        """
+        ...
+
+    @class_method_variant("_cls_list_orders")
+    def list_orders(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["RequestedSessionListOrdersParams"]
+    ) -> ListObject["Order"]:
+        """
+        Lists orders for a delegated checkout requested session.
+        """
+        return cast(
+            ListObject["Order"],
+            self._request(
+                "get",
+                "/v1/delegated_checkout/requested_sessions/{requested_session}/orders".format(
+                    requested_session=sanitize_id(self._data.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_list_orders_async(
+        cls,
+        requested_session: str,
+        **params: Unpack["RequestedSessionListOrdersParams"],
+    ) -> ListObject["Order"]:
+        """
+        Lists orders for a delegated checkout requested session.
+        """
+        return cast(
+            ListObject["Order"],
+            await cls._static_request_async(
+                "get",
+                "/v1/delegated_checkout/requested_sessions/{requested_session}/orders".format(
+                    requested_session=sanitize_id(requested_session)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def list_orders_async(
+        requested_session: str,
+        **params: Unpack["RequestedSessionListOrdersParams"],
+    ) -> ListObject["Order"]:
+        """
+        Lists orders for a delegated checkout requested session.
+        """
+        ...
+
+    @overload
+    async def list_orders_async(
+        self, **params: Unpack["RequestedSessionListOrdersParams"]
+    ) -> ListObject["Order"]:
+        """
+        Lists orders for a delegated checkout requested session.
+        """
+        ...
+
+    @class_method_variant("_cls_list_orders_async")
+    async def list_orders_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["RequestedSessionListOrdersParams"]
+    ) -> ListObject["Order"]:
+        """
+        Lists orders for a delegated checkout requested session.
+        """
+        return cast(
+            ListObject["Order"],
+            await self._request_async(
+                "get",
+                "/v1/delegated_checkout/requested_sessions/{requested_session}/orders".format(
                     requested_session=sanitize_id(self._data.get("id"))
                 ),
                 params=params,

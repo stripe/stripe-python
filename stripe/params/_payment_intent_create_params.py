@@ -4874,6 +4874,12 @@ class PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServic
 class PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding(
     TypedDict,
 ):
+    digital_asset_category: NotRequired[
+        Literal["blockchain_native", "nft", "other_non_fiat", "stablecoin"]
+    ]
+    """
+    The category of digital asset being acquired through this account funding transaction.
+    """
     liquid_asset: NotRequired[
         "Literal['']|PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAsset"
     ]
@@ -5143,6 +5149,12 @@ class PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMone
 class PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding(
     TypedDict,
 ):
+    digital_asset_category: NotRequired[
+        Literal["blockchain_native", "nft", "other_non_fiat", "stablecoin"]
+    ]
+    """
+    The category of digital asset being acquired through this account funding transaction.
+    """
     liquid_asset: NotRequired[
         "Literal['']|PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAsset"
     ]
@@ -7693,16 +7705,7 @@ class PaymentIntentCreateParamsPaymentsOrchestration(TypedDict):
     """
     Whether this feature is enabled.
     """
-    payment_details: NotRequired[
-        "PaymentIntentCreateParamsPaymentsOrchestrationPaymentDetails"
-    ]
-    """
-    Payment-level details for the orchestrated payment.
-    """
-
-
-class PaymentIntentCreateParamsPaymentsOrchestrationPaymentDetails(TypedDict):
-    reference: NotRequired[str]
+    payment_reference: NotRequired[str]
     """
     Merchant-provided reference for this payment, used for reconciliation.
     """

@@ -117,6 +117,11 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "CustomerCashBalanceTransaction",
     ),
     "customer_session": ("stripe._customer_session", "CustomerSession"),
+    "delegated_checkout.order": ("stripe.delegated_checkout._order", "Order"),
+    "delegated_checkout.order_event": (
+        "stripe.delegated_checkout._order_event",
+        "OrderEvent",
+    ),
     "delegated_checkout.requested_session": (
         "stripe.delegated_checkout._requested_session",
         "RequestedSession",
@@ -475,6 +480,11 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     "v2.billing.collection_setting_version": (
         "stripe.v2.billing._collection_setting_version",
         "CollectionSettingVersion",
+    ),
+    "v2.billing.contract": ("stripe.v2.billing._contract", "Contract"),
+    "v2.billing.contract_license_pricing_quantity_change": (
+        "stripe.v2.billing._contract_license_pricing_quantity_change",
+        "ContractLicensePricingQuantityChange",
     ),
     "v2.billing.custom_pricing_unit": (
         "stripe.v2.billing._custom_pricing_unit",
