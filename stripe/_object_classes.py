@@ -336,6 +336,10 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.v2.billing._meter_event_session",
         "MeterEventSession",
     ),
+    "v2.commerce.product_catalog_import": (
+        "stripe.v2.commerce._product_catalog_import",
+        "ProductCatalogImport",
+    ),
     "v2.core.account": ("stripe.v2.core._account", "Account"),
     "v2.core.account_link": ("stripe.v2.core._account_link", "AccountLink"),
     "v2.core.account_person": (

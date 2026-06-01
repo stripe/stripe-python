@@ -104,6 +104,9 @@ class PaymentLinkCreateParams(RequestOptions):
 
     If you'd like information on how to collect a payment method outside of Checkout, read the guide on [configuring subscriptions with a free trial](https://docs.stripe.com/payments/checkout/free-trials).
     """
+    payment_method_options: NotRequired[
+        "PaymentLinkCreateParamsPaymentMethodOptions"
+    ]
     payment_method_types: NotRequired[
         List[
             Literal[
@@ -115,6 +118,7 @@ class PaymentLinkCreateParams(RequestOptions):
                 "bacs_debit",
                 "bancontact",
                 "billie",
+                "bizum",
                 "blik",
                 "boleto",
                 "card",
@@ -264,7 +268,7 @@ class PaymentLinkCreateParamsConsentCollection(TypedDict):
     """
     If set to `auto`, enables the collection of customer consent for promotional communications. The Checkout
     Session will determine whether to display an option to opt into promotional communication
-    from the merchant depending on the customer's locale. Only available to US merchants.
+    from the merchant depending on the customer's locale. Only available to US merchants and US customers.
     """
     terms_of_service: NotRequired[Literal["none", "required"]]
     """
@@ -740,6 +744,38 @@ class PaymentLinkCreateParamsPaymentIntentData(TypedDict):
     transfer_group: NotRequired[str]
     """
     A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://docs.stripe.com/connect/separate-charges-and-transfers) for details.
+    """
+
+
+class PaymentLinkCreateParamsPaymentMethodOptions(TypedDict):
+    card: NotRequired["PaymentLinkCreateParamsPaymentMethodOptionsCard"]
+    """
+    Configuration for `card` payment methods.
+    """
+
+
+class PaymentLinkCreateParamsPaymentMethodOptionsCard(TypedDict):
+    restrictions: NotRequired[
+        "PaymentLinkCreateParamsPaymentMethodOptionsCardRestrictions"
+    ]
+    """
+    Restrictions to apply to the card payment method. For example, you can block specific card brands.
+    """
+
+
+class PaymentLinkCreateParamsPaymentMethodOptionsCardRestrictions(TypedDict):
+    brands_blocked: NotRequired[
+        List[
+            Literal[
+                "american_express",
+                "discover_global_network",
+                "mastercard",
+                "visa",
+            ]
+        ]
+    ]
+    """
+    The card brands to block. If a customer enters or selects a card belonging to a blocked brand, they can't complete the payment.
     """
 
 

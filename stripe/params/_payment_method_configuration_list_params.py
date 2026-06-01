@@ -6,6 +6,10 @@ from typing_extensions import Literal, NotRequired
 
 
 class PaymentMethodConfigurationListParams(RequestOptions):
+    active: NotRequired[bool]
+    """
+    Whether the configuration is active.
+    """
     application: NotRequired["Literal['']|str"]
     """
     The Connect application to filter by.

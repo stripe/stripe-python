@@ -632,6 +632,10 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhase(TypedDict):
 
 
 class InvoiceCreatePreviewParamsScheduleDetailsPhaseAddInvoiceItem(TypedDict):
+    discountable: NotRequired[bool]
+    """
+    Controls whether discounts apply to this invoice item. Defaults to true if no value is provided.
+    """
     discounts: NotRequired[
         List[
             "InvoiceCreatePreviewParamsScheduleDetailsPhaseAddInvoiceItemDiscount"
@@ -977,8 +981,14 @@ class InvoiceCreatePreviewParamsSubscriptionDetails(TypedDict):
     """
     Controls how prorations and invoices for subscriptions are calculated and orchestrated.
     """
+    billing_schedules: NotRequired[
+        "Literal['']|List[InvoiceCreatePreviewParamsSubscriptionDetailsBillingSchedule]"
+    ]
+    """
+    Sets the billing schedules for the subscription.
+    """
     cancel_at: NotRequired[
-        "Literal['']|int|Literal['max_period_end', 'min_period_end']"
+        "Literal['']|int|Literal['max_billed_until', 'max_period_end', 'min_period_end']"
     ]
     """
     A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
@@ -1044,6 +1054,72 @@ class InvoiceCreatePreviewParamsSubscriptionDetailsBillingModeFlexible(
     proration_discounts: NotRequired[Literal["included", "itemized"]]
     """
     Controls how invoices and invoice items display proration amounts and discount amounts.
+    """
+
+
+class InvoiceCreatePreviewParamsSubscriptionDetailsBillingSchedule(TypedDict):
+    applies_to: NotRequired[
+        List[
+            "InvoiceCreatePreviewParamsSubscriptionDetailsBillingScheduleAppliesTo"
+        ]
+    ]
+    """
+    Configure billing schedule differently for individual subscription items.
+    """
+    bill_until: NotRequired[
+        "InvoiceCreatePreviewParamsSubscriptionDetailsBillingScheduleBillUntil"
+    ]
+    """
+    The end date for the billing schedule.
+    """
+    key: NotRequired[str]
+    """
+    Specify a key for the billing schedule. Must be unique to this field, alphanumeric, and up to 200 characters. If not provided, a unique key will be generated.
+    """
+
+
+class InvoiceCreatePreviewParamsSubscriptionDetailsBillingScheduleAppliesTo(
+    TypedDict,
+):
+    price: NotRequired[str]
+    """
+    The ID of the price object.
+    """
+    type: Literal["price"]
+    """
+    Controls which subscription items the billing schedule applies to.
+    """
+
+
+class InvoiceCreatePreviewParamsSubscriptionDetailsBillingScheduleBillUntil(
+    TypedDict,
+):
+    duration: NotRequired[
+        "InvoiceCreatePreviewParamsSubscriptionDetailsBillingScheduleBillUntilDuration"
+    ]
+    """
+    Specifies the billing period.
+    """
+    timestamp: NotRequired[int]
+    """
+    The end date of the billing schedule.
+    """
+    type: Literal["duration", "timestamp"]
+    """
+    Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
+    """
+
+
+class InvoiceCreatePreviewParamsSubscriptionDetailsBillingScheduleBillUntilDuration(
+    TypedDict,
+):
+    interval: Literal["day", "month", "week", "year"]
+    """
+    Specifies billing duration. Either `day`, `week`, `month` or `year`.
+    """
+    interval_count: NotRequired[int]
+    """
+    The multiplier applied to the interval.
     """
 
 
