@@ -33,8 +33,8 @@ jobs:
       - name: Set up Python 3
         uses: actions/setup-python@v4
         with:
-          python-version: "3.10"
-      - name: check examples w/ mypy (against python@3.10)
+          python-version: "3.13"
+      - name: check examples w/ mypy (against python@3.13)
         run: just typecheck-examples
       # skip deps on all these since mypy installed everything
       - name: check linting
@@ -43,13 +43,11 @@ jobs:
         run: just --no-deps format-check
       # pyright depends on node, which it handles and installs for itself as needed
       # we _could_ run setup-node to make it available for it if we're having reliability problems
-      - name: check types (all Python versions)
-        run: |
-          set -eox
-
-          for minor in {6..12}; do
-            just --no-deps typecheck $minor
-          done
+      - name: check types
+        # only check against a modern version- unit tests will catch syntax errors on older versions
+        # this isn't user facing, this is just checking that our code is internally consistent
+        # e.g. a bug here wouldn't cause user CI to fail since the issue is internal to our codebase
+        run: just --no-deps typecheck
 
   build:
     name: Build
