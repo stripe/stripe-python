@@ -149,7 +149,7 @@ class HTTPClient(object):
         self._verify_ssl_certs = verify_ssl_certs
         if proxy:
             if isinstance(proxy, str):
-                proxy = {"http": proxy, "https": proxy}
+                proxy = HTTPClient._Proxy(http=proxy, https=proxy)
             if not isinstance(proxy, dict):  # pyright: ignore[reportUnnecessaryIsInstance]
                 raise ValueError(
                     "Proxy(ies) must be specified as either a string "
@@ -897,11 +897,6 @@ class UrlFetchClient(HTTPClient):
 
     def close(self):
         pass
-
-
-class _Proxy(TypedDict):
-    http: Optional["ParseResult"]
-    https: Optional["ParseResult"]
 
 
 class PycurlClient(HTTPClient):
