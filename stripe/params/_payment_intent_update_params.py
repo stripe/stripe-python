@@ -5155,6 +5155,10 @@ class PaymentIntentUpdateParamsPaymentMethodOptionsCryptoDepositOptions(
     """
     The blockchain networks to support for deposits. Learn more about [supported networks and tokens](https://docs.stripe.com/payments/deposit-mode-stablecoin-payments#token-and-network-support).
     """
+    static_address: NotRequired[bool]
+    """
+    If true, provisions a permanent per-customer deposit address reused across PaymentIntents.
+    """
 
 
 class PaymentIntentUpdateParamsPaymentMethodOptionsCustomerBalance(TypedDict):

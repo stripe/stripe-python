@@ -3735,6 +3735,10 @@ class PaymentIntent(
                 """
                 The blockchain networks to support for deposits. Learn more about [supported networks and tokens](https://docs.stripe.com/payments/deposit-mode-stablecoin-payments#token-and-network-support).
                 """
+                static_address: Optional[bool]
+                """
+                If true, provisions a permanent per-customer deposit address reused across PaymentIntents.
+                """
 
             deposit_options: Optional[DepositOptions]
             mode: Optional[Literal["default", "deposit"]]
