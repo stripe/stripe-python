@@ -4484,22 +4484,6 @@ class PaymentIntentModifyParamsPaymentMethodOptionsBoleto(TypedDict):
 
 
 class PaymentIntentModifyParamsPaymentMethodOptionsCard(TypedDict):
-    capture_by: NotRequired[
-        Literal["auth_expiry", "end_of_day", "target_delay"]
-    ]
-    """
-    Controls when funds are captured from the customer's account when `capture_method` is `automatic_delayed`.
-
-    If omitted, funds are captured before the authorization expires.
-    """
-    capture_delay: NotRequired[
-        "PaymentIntentModifyParamsPaymentMethodOptionsCardCaptureDelay"
-    ]
-    """
-    The number of days or hours to delay the capture of the funds. You can set both days and hours as long as the total delay does not exceed 30 days.
-
-    You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
-    """
     capture_method: NotRequired["Literal['']|Literal['manual']"]
     """
     Controls when the funds are captured from the customer's account.
@@ -4639,11 +4623,6 @@ class PaymentIntentModifyParamsPaymentMethodOptionsCard(TypedDict):
     If 3D Secure authentication was performed with a third-party provider,
     the authentication details to use for this payment.
     """
-
-
-class PaymentIntentModifyParamsPaymentMethodOptionsCardCaptureDelay(TypedDict):
-    days: NotRequired[int]
-    hours: NotRequired[int]
 
 
 class PaymentIntentModifyParamsPaymentMethodOptionsCardInstallments(TypedDict):
@@ -4962,22 +4941,6 @@ class PaymentIntentModifyParamsPaymentMethodOptionsCardThreeDSecureNetworkOption
 
 
 class PaymentIntentModifyParamsPaymentMethodOptionsCardPresent(TypedDict):
-    capture_by: NotRequired[
-        Literal["auth_expiry", "end_of_day", "target_delay"]
-    ]
-    """
-    Controls when funds are captured from the customer's account when `capture_method` is `automatic_delayed`.
-
-    If omitted, funds are captured before the authorization expires.
-    """
-    capture_delay: NotRequired[
-        "PaymentIntentModifyParamsPaymentMethodOptionsCardPresentCaptureDelay"
-    ]
-    """
-    The number of days or hours to delay the capture of the funds. You can set both days and hours as long as the total delay does not exceed 30 days.
-
-    You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
-    """
     capture_method: NotRequired[Literal["manual", "manual_preferred"]]
     """
     Controls when the funds are captured from the customer's account.
@@ -5010,13 +4973,6 @@ class PaymentIntentModifyParamsPaymentMethodOptionsCardPresent(TypedDict):
     """
     Network routing priority on co-branded EMV cards supporting domestic debit and international card schemes.
     """
-
-
-class PaymentIntentModifyParamsPaymentMethodOptionsCardPresentCaptureDelay(
-    TypedDict,
-):
-    days: NotRequired[int]
-    hours: NotRequired[int]
 
 
 class PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetails(

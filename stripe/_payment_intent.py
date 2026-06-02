@@ -3456,20 +3456,6 @@ class PaymentIntent(
             """
 
         class Card(StripeObject):
-            class CaptureDelay(StripeObject):
-                days: Optional[int]
-                """
-                The number of days to delay the capture of the funds.
-
-                You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
-                """
-                hours: Optional[int]
-                """
-                The number of hours to delay the capture of the funds.
-
-                You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
-                """
-
             class Installments(StripeObject):
                 class AvailablePlan(StripeObject):
                     count: Optional[int]
@@ -3590,15 +3576,6 @@ class PaymentIntent(
                 """
                 _inner_class_types = {"address": Address}
 
-            capture_by: Optional[
-                Literal["auth_expiry", "end_of_day", "target_delay"]
-            ]
-            """
-            Controls when funds are captured from the customer's account when `capture_method` is `automatic_delayed`.
-
-            If omitted, funds are captured before the authorization expires.
-            """
-            capture_delay: Optional[CaptureDelay]
             capture_method: Optional[Literal["manual"]]
             """
             Controls when the funds will be captured from the customer's account.
@@ -3701,27 +3678,12 @@ class PaymentIntent(
             """
             statement_details: Optional[StatementDetails]
             _inner_class_types = {
-                "capture_delay": CaptureDelay,
                 "installments": Installments,
                 "mandate_options": MandateOptions,
                 "statement_details": StatementDetails,
             }
 
         class CardPresent(StripeObject):
-            class CaptureDelay(StripeObject):
-                days: Optional[int]
-                """
-                The number of days to delay the capture of the funds.
-
-                You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
-                """
-                hours: Optional[int]
-                """
-                The number of hours to delay the capture of the funds.
-
-                You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
-                """
-
             class Routing(StripeObject):
                 requested_priority: Optional[
                     Literal["domestic", "international"]
@@ -3730,15 +3692,6 @@ class PaymentIntent(
                 Requested routing priority
                 """
 
-            capture_by: Optional[
-                Literal["auth_expiry", "end_of_day", "target_delay"]
-            ]
-            """
-            Controls when funds are captured from the customer's account when `capture_method` is `automatic_delayed`.
-
-            If omitted, funds are captured before the authorization expires.
-            """
-            capture_delay: Optional[CaptureDelay]
             capture_method: Optional[Literal["manual", "manual_preferred"]]
             """
             Controls when the funds will be captured from the customer's account.
@@ -3756,10 +3709,7 @@ class PaymentIntent(
             Request ability to [reauthorize](https://docs.stripe.com/payments/reauthorization) for this PaymentIntent.
             """
             routing: Optional[Routing]
-            _inner_class_types = {
-                "capture_delay": CaptureDelay,
-                "routing": Routing,
-            }
+            _inner_class_types = {"routing": Routing}
 
         class Cashapp(StripeObject):
             capture_method: Optional[Literal["manual"]]

@@ -13,8 +13,6 @@ if TYPE_CHECKING:
         CalculationCreateParamsCustomerDetailsAddress as CalculationCreateParamsCustomerDetailsAddress,
         CalculationCreateParamsCustomerDetailsTaxId as CalculationCreateParamsCustomerDetailsTaxId,
         CalculationCreateParamsLineItem as CalculationCreateParamsLineItem,
-        CalculationCreateParamsLineItemPerformanceLocationDetails as CalculationCreateParamsLineItemPerformanceLocationDetails,
-        CalculationCreateParamsLineItemPerformanceLocationDetailsAddress as CalculationCreateParamsLineItemPerformanceLocationDetailsAddress,
         CalculationCreateParamsShipFromDetails as CalculationCreateParamsShipFromDetails,
         CalculationCreateParamsShipFromDetailsAddress as CalculationCreateParamsShipFromDetailsAddress,
         CalculationCreateParamsShippingCost as CalculationCreateParamsShippingCost,
@@ -292,14 +290,6 @@ _import_map = {
         False,
     ),
     "CalculationCreateParamsLineItem": (
-        "stripe.params.tax._calculation_create_params",
-        False,
-    ),
-    "CalculationCreateParamsLineItemPerformanceLocationDetails": (
-        "stripe.params.tax._calculation_create_params",
-        False,
-    ),
-    "CalculationCreateParamsLineItemPerformanceLocationDetailsAddress": (
         "stripe.params.tax._calculation_create_params",
         False,
     ),
