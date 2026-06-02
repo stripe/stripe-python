@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject, UntypedStripeObject
-from typing import Any, ClassVar, Optional
+from typing import Any, ClassVar, List, Optional
 from typing_extensions import Literal
 
 
@@ -28,6 +28,18 @@ class ReportRun(StripeObject):
                 The URL that can be used for accessing the file.
                 """
 
+            class Schema(StripeObject):
+                name: str
+                """
+                The name of the column.
+                """
+                type: Literal[
+                    "boolean", "double", "bigint", "varchar", "timestamp"
+                ]
+                """
+                The type of the column.
+                """
+
             content_type: Literal["csv", "zip"]
             """
             The content type of the file.
@@ -36,11 +48,18 @@ class ReportRun(StripeObject):
             """
             A pre-signed URL that allows secure, time-limited access to download the file.
             """
+            schema: List[Schema]
+            """
+            The columns of the schema.
+            """
             size: int
             """
             The total size of the file in bytes.
             """
-            _inner_class_types = {"download_url": DownloadUrl}
+            _inner_class_types = {
+                "download_url": DownloadUrl,
+                "schema": Schema,
+            }
             _field_encodings = {"size": "int64_string"}
 
         file: Optional[File]

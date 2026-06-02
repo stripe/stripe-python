@@ -36,7 +36,7 @@ class OutboundTransferCreateParams(_OutboundTransferCreateParamsBase):
     """
     statement_descriptor: NotRequired[str]
     """
-    The description that appears on the receiving end for an OutboundTransfer (for example, on a bank statement). Must be between 3 and 22 characters long, and not contain profanity.
+    The description that appears on the receiving end for an OutboundTransfer (for example, on a bank statement). Must be between 3 and 22 characters long for most destinations (500 for FinancialAccount destinations), and not contain profanity.
     """
     to: "OutboundTransferCreateParamsTo"
     """

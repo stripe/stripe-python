@@ -130,6 +130,32 @@ class Person(UpdateableAPIResource["Person"]):
         Town/cho-me.
         """
 
+    class BirthAddress(StripeObject):
+        city: Optional[str]
+        """
+        City, district, suburb, town, or village.
+        """
+        country: Optional[str]
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: Optional[str]
+        """
+        Address line 1, such as the street, PO Box, or company name.
+        """
+        line2: Optional[str]
+        """
+        Address line 2, such as the apartment, suite, unit, or building.
+        """
+        postal_code: Optional[str]
+        """
+        ZIP or postal code.
+        """
+        state: Optional[str]
+        """
+        State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+        """
+
     class Dob(StripeObject):
         day: Optional[int]
         """
@@ -676,6 +702,7 @@ class Person(UpdateableAPIResource["Person"]):
     """
     The Kanji variation of the person's address (Japan only).
     """
+    birth_address: Optional[BirthAddress]
     created: int
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -811,6 +838,7 @@ class Person(UpdateableAPIResource["Person"]):
         "address": Address,
         "address_kana": AddressKana,
         "address_kanji": AddressKanji,
+        "birth_address": BirthAddress,
         "dob": Dob,
         "future_requirements": FutureRequirements,
         "registered_address": RegisteredAddress,

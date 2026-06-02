@@ -24,6 +24,10 @@ class AccountPersonCreateParams(TypedDict):
     """
     The Kanji variation of the person's address (Japan only).
     """
+    birth_address: NotRequired["AccountPersonCreateParamsBirthAddress"]
+    """
+    The person's place of birth.
+    """
     dob: NotRequired["Literal['']|AccountPersonCreateParamsDob"]
     """
     The person's date of birth.
@@ -252,6 +256,33 @@ class AccountPersonCreateParamsAddressKanji(TypedDict):
     town: NotRequired[str]
     """
     Town or cho-me.
+    """
+
+
+class AccountPersonCreateParamsBirthAddress(TypedDict):
+    city: NotRequired[str]
+    """
+    City, district, suburb, town, or village.
+    """
+    country: NotRequired[str]
+    """
+    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+    """
+    line1: NotRequired[str]
+    """
+    Address line 1, such as the street, PO Box, or company name.
+    """
+    line2: NotRequired[str]
+    """
+    Address line 2, such as the apartment, suite, unit, or building.
+    """
+    postal_code: NotRequired[str]
+    """
+    ZIP or postal code.
+    """
+    state: NotRequired[str]
+    """
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
     """
 
 

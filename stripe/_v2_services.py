@@ -18,6 +18,7 @@ if TYPE_CHECKING:
     )
     from stripe.v2._payment_service import PaymentService
     from stripe.v2._reporting_service import ReportingService
+    from stripe.v2._signal_service import SignalService
     from stripe.v2._tax_service import TaxService
     from stripe.v2._test_helper_service import TestHelperService
 
@@ -39,6 +40,7 @@ _subservices = {
     ],
     "payments": ["stripe.v2._payment_service", "PaymentService"],
     "reporting": ["stripe.v2._reporting_service", "ReportingService"],
+    "signals": ["stripe.v2._signal_service", "SignalService"],
     "tax": ["stripe.v2._tax_service", "TaxService"],
     "test_helpers": ["stripe.v2._test_helper_service", "TestHelperService"],
 }
@@ -56,6 +58,7 @@ class V2Services(StripeService):
     orchestrated_commerce: "OrchestratedCommerceService"
     payments: "PaymentService"
     reporting: "ReportingService"
+    signals: "SignalService"
     tax: "TaxService"
     test_helpers: "TestHelperService"
 

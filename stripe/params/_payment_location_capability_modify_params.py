@@ -12,7 +12,7 @@ class PaymentLocationCapabilityModifyParams(RequestOptions):
     """
     location: str
     """
-    The location for which the capability enables functionality.
+    The location that the capability enables functionality for.
     """
     requested: bool
     """

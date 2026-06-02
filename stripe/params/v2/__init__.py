@@ -14,6 +14,7 @@ if TYPE_CHECKING:
         orchestrated_commerce as orchestrated_commerce,
         payments as payments,
         reporting as reporting,
+        signals as signals,
         tax as tax,
         test_helpers as test_helpers,
     )
@@ -29,6 +30,7 @@ _import_map = {
     "orchestrated_commerce": ("stripe.params.v2.orchestrated_commerce", True),
     "payments": ("stripe.params.v2.payments", True),
     "reporting": ("stripe.params.v2.reporting", True),
+    "signals": ("stripe.params.v2.signals", True),
     "tax": ("stripe.params.v2.tax", True),
     "test_helpers": ("stripe.params.v2.test_helpers", True),
 }

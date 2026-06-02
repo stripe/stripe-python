@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from stripe.v2._amount import Amount
 from typing import ClassVar, Optional
 from typing_extensions import Literal
 
@@ -12,6 +11,18 @@ class FeeEntry(StripeObject):
     """
 
     OBJECT_NAME: ClassVar[Literal["v2.core.fee_entry"]] = "v2.core.fee_entry"
+
+    class Amount(StripeObject):
+        currency: str
+        """
+        A lowercase alpha3 currency code like "usd"
+        For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+        """
+        value: str
+        """
+        In major units like "1.23" for 1.23 USD
+        For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+        """
 
     class ChargedBy(StripeObject):
         class Application(StripeObject):
@@ -73,10 +84,23 @@ class FeeEntry(StripeObject):
         """
 
     class Tax(StripeObject):
+        class Amount(StripeObject):
+            currency: str
+            """
+            A lowercase alpha3 currency code like "usd"
+            For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            """
+            value: str
+            """
+            In major units like "1.23" for 1.23 USD
+            For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            """
+
         amount: Amount
         """
         The tax amount calculated for this fee.
         """
+        _inner_class_types = {"amount": Amount}
 
     amount: Amount
     """
@@ -130,6 +154,7 @@ class FeeEntry(StripeObject):
     The category of this fee.
     """
     _inner_class_types = {
+        "amount": Amount,
         "charged_by": ChargedBy,
         "incurred_by": IncurredBy,
         "tax": Tax,

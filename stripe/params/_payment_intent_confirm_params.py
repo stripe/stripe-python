@@ -2614,7 +2614,9 @@ class PaymentIntentConfirmParamsPaymentDetailsMoneyServices(TypedDict):
     """
     Account funding transaction details including sender and beneficiary information.
     """
-    transaction_type: NotRequired["Literal['']|Literal['account_funding']"]
+    transaction_type: NotRequired[
+        "Literal['']|Literal['account_funding', 'debt_repayment']"
+    ]
     """
     The type of money services transaction.
     """
@@ -4750,6 +4752,12 @@ class PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServi
 class PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding(
     TypedDict,
 ):
+    digital_asset_category: NotRequired[
+        Literal["blockchain_native", "nft", "other_non_fiat", "stablecoin"]
+    ]
+    """
+    The category of digital asset being acquired through this account funding transaction.
+    """
     liquid_asset: NotRequired[
         "Literal['']|PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAsset"
     ]
@@ -5021,6 +5029,12 @@ class PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMon
 class PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding(
     TypedDict,
 ):
+    digital_asset_category: NotRequired[
+        Literal["blockchain_native", "nft", "other_non_fiat", "stablecoin"]
+    ]
+    """
+    The category of digital asset being acquired through this account funding transaction.
+    """
     liquid_asset: NotRequired[
         "Literal['']|PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAsset"
     ]

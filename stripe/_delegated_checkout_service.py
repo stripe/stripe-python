@@ -5,11 +5,13 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.delegated_checkout._order_service import OrderService
     from stripe.delegated_checkout._requested_session_service import (
         RequestedSessionService,
     )
 
 _subservices = {
+    "orders": ["stripe.delegated_checkout._order_service", "OrderService"],
     "requested_sessions": [
         "stripe.delegated_checkout._requested_session_service",
         "RequestedSessionService",
@@ -18,6 +20,7 @@ _subservices = {
 
 
 class DelegatedCheckoutService(StripeService):
+    orders: "OrderService"
     requested_sessions: "RequestedSessionService"
 
     def __init__(self, requestor):

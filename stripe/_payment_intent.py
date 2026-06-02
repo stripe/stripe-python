@@ -3140,7 +3140,9 @@ class PaymentIntent(
                 }
 
             account_funding: Optional[AccountFunding]
-            transaction_type: Optional[Literal["account_funding"]]
+            transaction_type: Optional[
+                Literal["account_funding", "debt_repayment"]
+            ]
             """
             The type of money services transaction.
             """

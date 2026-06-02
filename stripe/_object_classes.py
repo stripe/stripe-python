@@ -117,6 +117,11 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "CustomerCashBalanceTransaction",
     ),
     "customer_session": ("stripe._customer_session", "CustomerSession"),
+    "delegated_checkout.order": ("stripe.delegated_checkout._order", "Order"),
+    "delegated_checkout.order_event": (
+        "stripe.delegated_checkout._order_event",
+        "OrderEvent",
+    ),
     "delegated_checkout.requested_session": (
         "stripe.delegated_checkout._requested_session",
         "RequestedSession",
@@ -476,6 +481,11 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.v2.billing._collection_setting_version",
         "CollectionSettingVersion",
     ),
+    "v2.billing.contract": ("stripe.v2.billing._contract", "Contract"),
+    "v2.billing.contract_license_pricing_quantity_change": (
+        "stripe.v2.billing._contract_license_pricing_quantity_change",
+        "ContractLicensePricingQuantityChange",
+    ),
     "v2.billing.custom_pricing_unit": (
         "stripe.v2.billing._custom_pricing_unit",
         "CustomPricingUnit",
@@ -715,6 +725,10 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     "v2.reporting.report_run": (
         "stripe.v2.reporting._report_run",
         "ReportRun",
+    ),
+    "v2.signals.account_signal": (
+        "stripe.v2.signals._account_signal",
+        "AccountSignal",
     ),
     "v2.tax.manual_rule": ("stripe.v2.tax._manual_rule", "ManualRule"),
     # V2 Object classes: The end of the section generated from our OpenAPI spec

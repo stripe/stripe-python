@@ -1230,6 +1230,9 @@ if TYPE_CHECKING:
     from stripe.events._v2_signals_account_signal_fraudulent_merchant_ready_event import (
         V2SignalsAccountSignalFraudulentMerchantReadyEventNotification,
     )
+    from stripe.events._v2_signals_account_signal_merchant_delinquency_ready_event import (
+        V2SignalsAccountSignalMerchantDelinquencyReadyEventNotification,
+    )
     # event-notification-types: The end of the section generated from our OpenAPI spec
 
 # internal type to represent any EventNotification subclass
@@ -6600,6 +6603,19 @@ class StripeEventNotificationHandler:
         """
         self._register(
             "v2.signals.account_signal.fraudulent_merchant_ready",
+            func,
+        )
+        return func
+
+    def on_v2_signals_account_signal_merchant_delinquency_ready(
+        self,
+        func: "Callable[[V2SignalsAccountSignalMerchantDelinquencyReadyEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2SignalsAccountSignalMerchantDelinquencyReadyEvent` (`v2.signals.account_signal.merchant_delinquency_ready`) event notification.
+        """
+        self._register(
+            "v2.signals.account_signal.merchant_delinquency_ready",
             func,
         )
         return func

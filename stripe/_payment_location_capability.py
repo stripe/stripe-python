@@ -25,7 +25,7 @@ class PaymentLocationCapability(
     UpdateableAPIResource["PaymentLocationCapability"],
 ):
     """
-    A Payment Location Capability represents a capability for a Stripe account at a Payment Location.
+    A `payment_location` capability represents a capability for a Stripe account at a payment location.
     """
 
     OBJECT_NAME: ClassVar[Literal["payment_location_capability"]] = (
@@ -72,7 +72,7 @@ class PaymentLocationCapability(
 
     account: str
     """
-    The account for which the capability enables functionality.
+    The account that the capability enables functionality for.
     """
     capability: Literal["fr_meal_vouchers_conecs_payments"]
     """
@@ -84,7 +84,7 @@ class PaymentLocationCapability(
     """
     location: str
     """
-    The payment location for which the capability enables functionality.
+    The payment location that the capability enables functionality for.
     """
     object: Literal["payment_location_capability"]
     """
@@ -96,7 +96,7 @@ class PaymentLocationCapability(
     """
     requested_at: Optional[int]
     """
-    Time at which the capability was requested. Measured in seconds since the Unix epoch.
+    Time when the capability was requested. Measured in seconds since the Unix epoch.
     """
     requirements: Requirements
     status: Literal["active", "inactive", "pending", "unrequested"]
@@ -109,7 +109,7 @@ class PaymentLocationCapability(
         cls, **params: Unpack["PaymentLocationCapabilityListParams"]
     ) -> ListObject["PaymentLocationCapability"]:
         """
-        Returns a list of PaymentLocationCapability objects associated with the location.
+        List all payment location capabilities associated with the payment location.
         """
         result = cls._static_request(
             "get",
@@ -129,7 +129,7 @@ class PaymentLocationCapability(
         cls, **params: Unpack["PaymentLocationCapabilityListParams"]
     ) -> ListObject["PaymentLocationCapability"]:
         """
-        Returns a list of PaymentLocationCapability objects associated with the location.
+        List all payment location capabilities associated with the payment location.
         """
         result = await cls._static_request_async(
             "get",
@@ -149,7 +149,7 @@ class PaymentLocationCapability(
         cls, id: str, **params: Unpack["PaymentLocationCapabilityModifyParams"]
     ) -> "PaymentLocationCapability":
         """
-        Updates a specified Payment Location Capability. Request or remove a payment location capability by updating its requested parameter.
+        Updates a payment_location capability. Request or remove a payment_location capability by updating its requested parameter.
         """
         url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
@@ -166,7 +166,7 @@ class PaymentLocationCapability(
         cls, id: str, **params: Unpack["PaymentLocationCapabilityModifyParams"]
     ) -> "PaymentLocationCapability":
         """
-        Updates a specified Payment Location Capability. Request or remove a payment location capability by updating its requested parameter.
+        Updates a payment_location capability. Request or remove a payment_location capability by updating its requested parameter.
         """
         url = "%s/%s" % (cls.class_url(), sanitize_id(id))
         return cast(
@@ -185,7 +185,7 @@ class PaymentLocationCapability(
         **params: Unpack["PaymentLocationCapabilityRetrieveParams"],
     ) -> "PaymentLocationCapability":
         """
-        Retrieves information about the specified Payment Location Capability.
+        Retrieves a payment_location capability
         """
         instance = cls(id, **params)
         instance.refresh()
@@ -198,7 +198,7 @@ class PaymentLocationCapability(
         **params: Unpack["PaymentLocationCapabilityRetrieveParams"],
     ) -> "PaymentLocationCapability":
         """
-        Retrieves information about the specified Payment Location Capability.
+        Retrieves a payment_location capability
         """
         instance = cls(id, **params)
         await instance.refresh_async()
