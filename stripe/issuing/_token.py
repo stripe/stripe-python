@@ -35,6 +35,196 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
             """
             The IP address of the device at provisioning time.
             """
+            language: Optional[
+                Literal[
+                    "aa",
+                    "ab",
+                    "ae",
+                    "af",
+                    "ak",
+                    "am",
+                    "an",
+                    "ar",
+                    "as",
+                    "av",
+                    "ay",
+                    "az",
+                    "ba",
+                    "be",
+                    "bg",
+                    "bi",
+                    "bm",
+                    "bn",
+                    "bo",
+                    "br",
+                    "bs",
+                    "ca",
+                    "ce",
+                    "ch",
+                    "co",
+                    "cr",
+                    "cs",
+                    "cu",
+                    "cv",
+                    "cy",
+                    "da",
+                    "de",
+                    "dv",
+                    "dz",
+                    "ee",
+                    "el",
+                    "en",
+                    "eo",
+                    "es",
+                    "et",
+                    "eu",
+                    "fa",
+                    "ff",
+                    "fi",
+                    "fj",
+                    "fo",
+                    "fr",
+                    "fy",
+                    "ga",
+                    "gd",
+                    "gl",
+                    "gn",
+                    "gu",
+                    "gv",
+                    "ha",
+                    "he",
+                    "hi",
+                    "ho",
+                    "hr",
+                    "ht",
+                    "hu",
+                    "hy",
+                    "hz",
+                    "ia",
+                    "id",
+                    "ie",
+                    "ig",
+                    "ii",
+                    "ik",
+                    "io",
+                    "is",
+                    "it",
+                    "iu",
+                    "ja",
+                    "jv",
+                    "ka",
+                    "kg",
+                    "ki",
+                    "kj",
+                    "kk",
+                    "kl",
+                    "km",
+                    "kn",
+                    "ko",
+                    "kr",
+                    "ks",
+                    "ku",
+                    "kv",
+                    "kw",
+                    "ky",
+                    "la",
+                    "lb",
+                    "lg",
+                    "li",
+                    "ln",
+                    "lo",
+                    "lt",
+                    "lu",
+                    "lv",
+                    "mg",
+                    "mh",
+                    "mi",
+                    "mk",
+                    "ml",
+                    "mn",
+                    "mr",
+                    "ms",
+                    "mt",
+                    "my",
+                    "na",
+                    "nb",
+                    "nd",
+                    "ne",
+                    "ng",
+                    "nl",
+                    "nn",
+                    "no",
+                    "nr",
+                    "nv",
+                    "ny",
+                    "oc",
+                    "oj",
+                    "om",
+                    "or",
+                    "os",
+                    "pa",
+                    "pi",
+                    "pl",
+                    "ps",
+                    "pt",
+                    "qu",
+                    "rm",
+                    "rn",
+                    "ro",
+                    "ru",
+                    "rw",
+                    "sa",
+                    "sc",
+                    "sd",
+                    "se",
+                    "sg",
+                    "si",
+                    "sk",
+                    "sl",
+                    "sm",
+                    "sn",
+                    "so",
+                    "sq",
+                    "sr",
+                    "ss",
+                    "st",
+                    "su",
+                    "sv",
+                    "sw",
+                    "ta",
+                    "te",
+                    "tg",
+                    "th",
+                    "ti",
+                    "tk",
+                    "tl",
+                    "tn",
+                    "to",
+                    "tr",
+                    "ts",
+                    "tt",
+                    "tw",
+                    "ty",
+                    "ug",
+                    "uk",
+                    "ur",
+                    "uz",
+                    "ve",
+                    "vi",
+                    "vo",
+                    "wa",
+                    "wo",
+                    "xh",
+                    "yi",
+                    "yo",
+                    "za",
+                    "zh",
+                    "zu",
+                ]
+            ]
+            """
+            The ISO 639-1 language code of the device associated with the tokenization request.
+            """
             location: Optional[str]
             """
             The geographic latitude/longitude coordinates of the device at provisioning time. The format is [+-]decimal/[+-]decimal.
@@ -74,6 +264,12 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
             card_reference_id: Optional[str]
             """
             A unique reference ID from Visa to represent the card account number.
+            """
+            token_decision_recommendation: Optional[
+                Literal["approve", "decline", "recommend_id_and_v"]
+            ]
+            """
+            Stripe's recommendation to the network for this token activation request, derived from the same risk signals used for the activation decision.
             """
             token_reference_id: str
             """
@@ -227,9 +423,28 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
+    provisioning_decision: Optional[
+        Literal["approve", "approve_pending_id_and_v", "decline"]
+    ]
+    """
+    The decision made during token provisioning.
+    """
     status: Literal["active", "deleted", "requested", "suspended"]
     """
     The usage state of the token.
+    """
+    token_type: Optional[
+        Literal[
+            "card_on_file",
+            "cloud_based",
+            "commerce_platform",
+            "commercial_virtual_account",
+            "secure_element",
+            "static_credential",
+        ]
+    ]
+    """
+    The type of the token, indicating how it is used.
     """
     wallet_provider: Optional[
         Literal["apple_pay", "google_pay", "samsung_pay"]

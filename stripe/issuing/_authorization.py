@@ -811,6 +811,12 @@ class Authorization(
                 """
                 A unique reference ID from the network to represent the card account number.
                 """
+                token_decision_recommendation: Optional[
+                    Literal["approve", "decline", "recommend_id_and_v"]
+                ]
+                """
+                Stripe's recommendation to the network for this token activation request, derived from the same risk signals used for the activation decision.
+                """
                 token_reference_id: str
                 """
                 The network-unique identifier for the token.
@@ -911,6 +917,25 @@ class Authorization(
         The hashed ID derived from the device ID from the card network associated with the token.
         """
         network_data: Optional[NetworkData]
+        provisioning_decision: Optional[
+            Literal["approve", "approve_pending_id_and_v", "decline"]
+        ]
+        """
+        The decision made during token provisioning.
+        """
+        token_type: Optional[
+            Literal[
+                "card_on_file",
+                "cloud_based",
+                "commerce_platform",
+                "commercial_virtual_account",
+                "secure_element",
+                "static_credential",
+            ]
+        ]
+        """
+        The type of the token, indicating how it is used.
+        """
         _inner_class_types = {"network_data": NetworkData}
 
     class Treasury(StripeObject):
