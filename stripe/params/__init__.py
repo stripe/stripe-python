@@ -2582,6 +2582,7 @@ if TYPE_CHECKING:
         PaymentIntentConfirmParamsPaymentMethodOptionsBlik as PaymentIntentConfirmParamsPaymentMethodOptionsBlik,
         PaymentIntentConfirmParamsPaymentMethodOptionsBoleto as PaymentIntentConfirmParamsPaymentMethodOptionsBoleto,
         PaymentIntentConfirmParamsPaymentMethodOptionsCard as PaymentIntentConfirmParamsPaymentMethodOptionsCard,
+        PaymentIntentConfirmParamsPaymentMethodOptionsCardCaptureDelay as PaymentIntentConfirmParamsPaymentMethodOptionsCardCaptureDelay,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardInstallments as PaymentIntentConfirmParamsPaymentMethodOptionsCardInstallments,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardInstallmentsPlan as PaymentIntentConfirmParamsPaymentMethodOptionsCardInstallmentsPlan,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardMandateOptions as PaymentIntentConfirmParamsPaymentMethodOptionsCardMandateOptions,
@@ -2595,6 +2596,7 @@ if TYPE_CHECKING:
         PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase as PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant as PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardPresent as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresent,
+        PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentCaptureDelay as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentCaptureDelay,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetails as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetails,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding,
@@ -2909,6 +2911,7 @@ if TYPE_CHECKING:
         PaymentIntentCreateParamsPaymentMethodOptionsBlik as PaymentIntentCreateParamsPaymentMethodOptionsBlik,
         PaymentIntentCreateParamsPaymentMethodOptionsBoleto as PaymentIntentCreateParamsPaymentMethodOptionsBoleto,
         PaymentIntentCreateParamsPaymentMethodOptionsCard as PaymentIntentCreateParamsPaymentMethodOptionsCard,
+        PaymentIntentCreateParamsPaymentMethodOptionsCardCaptureDelay as PaymentIntentCreateParamsPaymentMethodOptionsCardCaptureDelay,
         PaymentIntentCreateParamsPaymentMethodOptionsCardInstallments as PaymentIntentCreateParamsPaymentMethodOptionsCardInstallments,
         PaymentIntentCreateParamsPaymentMethodOptionsCardInstallmentsPlan as PaymentIntentCreateParamsPaymentMethodOptionsCardInstallmentsPlan,
         PaymentIntentCreateParamsPaymentMethodOptionsCardMandateOptions as PaymentIntentCreateParamsPaymentMethodOptionsCardMandateOptions,
@@ -2922,6 +2925,7 @@ if TYPE_CHECKING:
         PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase as PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase,
         PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant as PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant,
         PaymentIntentCreateParamsPaymentMethodOptionsCardPresent as PaymentIntentCreateParamsPaymentMethodOptionsCardPresent,
+        PaymentIntentCreateParamsPaymentMethodOptionsCardPresentCaptureDelay as PaymentIntentCreateParamsPaymentMethodOptionsCardPresentCaptureDelay,
         PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetails as PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetails,
         PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices as PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices,
         PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding as PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding,
@@ -3286,6 +3290,7 @@ if TYPE_CHECKING:
         PaymentIntentModifyParamsPaymentMethodOptionsBlik as PaymentIntentModifyParamsPaymentMethodOptionsBlik,
         PaymentIntentModifyParamsPaymentMethodOptionsBoleto as PaymentIntentModifyParamsPaymentMethodOptionsBoleto,
         PaymentIntentModifyParamsPaymentMethodOptionsCard as PaymentIntentModifyParamsPaymentMethodOptionsCard,
+        PaymentIntentModifyParamsPaymentMethodOptionsCardCaptureDelay as PaymentIntentModifyParamsPaymentMethodOptionsCardCaptureDelay,
         PaymentIntentModifyParamsPaymentMethodOptionsCardInstallments as PaymentIntentModifyParamsPaymentMethodOptionsCardInstallments,
         PaymentIntentModifyParamsPaymentMethodOptionsCardInstallmentsPlan as PaymentIntentModifyParamsPaymentMethodOptionsCardInstallmentsPlan,
         PaymentIntentModifyParamsPaymentMethodOptionsCardMandateOptions as PaymentIntentModifyParamsPaymentMethodOptionsCardMandateOptions,
@@ -3299,6 +3304,7 @@ if TYPE_CHECKING:
         PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase as PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase,
         PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant as PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant,
         PaymentIntentModifyParamsPaymentMethodOptionsCardPresent as PaymentIntentModifyParamsPaymentMethodOptionsCardPresent,
+        PaymentIntentModifyParamsPaymentMethodOptionsCardPresentCaptureDelay as PaymentIntentModifyParamsPaymentMethodOptionsCardPresentCaptureDelay,
         PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetails as PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetails,
         PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices as PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices,
         PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding as PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding,
@@ -3628,6 +3634,7 @@ if TYPE_CHECKING:
         PaymentIntentUpdateParamsPaymentMethodOptionsBlik as PaymentIntentUpdateParamsPaymentMethodOptionsBlik,
         PaymentIntentUpdateParamsPaymentMethodOptionsBoleto as PaymentIntentUpdateParamsPaymentMethodOptionsBoleto,
         PaymentIntentUpdateParamsPaymentMethodOptionsCard as PaymentIntentUpdateParamsPaymentMethodOptionsCard,
+        PaymentIntentUpdateParamsPaymentMethodOptionsCardCaptureDelay as PaymentIntentUpdateParamsPaymentMethodOptionsCardCaptureDelay,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardInstallments as PaymentIntentUpdateParamsPaymentMethodOptionsCardInstallments,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardInstallmentsPlan as PaymentIntentUpdateParamsPaymentMethodOptionsCardInstallmentsPlan,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardMandateOptions as PaymentIntentUpdateParamsPaymentMethodOptionsCardMandateOptions,
@@ -3641,6 +3648,7 @@ if TYPE_CHECKING:
         PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase as PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant as PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardPresent as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresent,
+        PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentCaptureDelay as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentCaptureDelay,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetails as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetails,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding,
@@ -14383,6 +14391,10 @@ _import_map = {
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsCardCaptureDelay": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
     "PaymentIntentConfirmParamsPaymentMethodOptionsCardInstallments": (
         "stripe.params._payment_intent_confirm_params",
         False,
@@ -14432,6 +14444,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentConfirmParamsPaymentMethodOptionsCardPresent": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentCaptureDelay": (
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
@@ -15683,6 +15699,10 @@ _import_map = {
         "stripe.params._payment_intent_create_params",
         False,
     ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsCardCaptureDelay": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
     "PaymentIntentCreateParamsPaymentMethodOptionsCardInstallments": (
         "stripe.params._payment_intent_create_params",
         False,
@@ -15732,6 +15752,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentCreateParamsPaymentMethodOptionsCardPresent": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsCardPresentCaptureDelay": (
         "stripe.params._payment_intent_create_params",
         False,
     ),
@@ -17151,6 +17175,10 @@ _import_map = {
         "stripe.params._payment_intent_modify_params",
         False,
     ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsCardCaptureDelay": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
     "PaymentIntentModifyParamsPaymentMethodOptionsCardInstallments": (
         "stripe.params._payment_intent_modify_params",
         False,
@@ -17200,6 +17228,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentModifyParamsPaymentMethodOptionsCardPresent": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsCardPresentCaptureDelay": (
         "stripe.params._payment_intent_modify_params",
         False,
     ),
@@ -18471,6 +18503,10 @@ _import_map = {
         "stripe.params._payment_intent_update_params",
         False,
     ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsCardCaptureDelay": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
     "PaymentIntentUpdateParamsPaymentMethodOptionsCardInstallments": (
         "stripe.params._payment_intent_update_params",
         False,
@@ -18520,6 +18556,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentUpdateParamsPaymentMethodOptionsCardPresent": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentCaptureDelay": (
         "stripe.params._payment_intent_update_params",
         False,
     ),
