@@ -24,7 +24,7 @@ _subservices = {
 }
 
 
-class PaymentService(StripeService):
+class PaymentsService(StripeService):
     off_session_payments: "OffSessionPaymentService"
     settlement_allocation_intents: "SettlementAllocationIntentService"
 

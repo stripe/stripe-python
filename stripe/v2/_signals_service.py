@@ -15,7 +15,7 @@ _subservices = {
 }
 
 
-class SignalService(StripeService):
+class SignalsService(StripeService):
     account_signals: "AccountSignalService"
 
     def __init__(self, requestor):
