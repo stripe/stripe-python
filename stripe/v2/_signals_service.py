@@ -5,28 +5,18 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.v2.payments._off_session_payment_service import (
-        OffSessionPaymentService,
-    )
-    from stripe.v2.payments._settlement_allocation_intent_service import (
-        SettlementAllocationIntentService,
-    )
+    from stripe.v2.signals._account_signal_service import AccountSignalService
 
 _subservices = {
-    "off_session_payments": [
-        "stripe.v2.payments._off_session_payment_service",
-        "OffSessionPaymentService",
-    ],
-    "settlement_allocation_intents": [
-        "stripe.v2.payments._settlement_allocation_intent_service",
-        "SettlementAllocationIntentService",
+    "account_signals": [
+        "stripe.v2.signals._account_signal_service",
+        "AccountSignalService",
     ],
 }
 
 
-class PaymentService(StripeService):
-    off_session_payments: "OffSessionPaymentService"
-    settlement_allocation_intents: "SettlementAllocationIntentService"
+class SignalsService(StripeService):
+    account_signals: "AccountSignalService"
 
     def __init__(self, requestor):
         super().__init__(requestor)

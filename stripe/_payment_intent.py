@@ -3140,7 +3140,9 @@ class PaymentIntent(
                 }
 
             account_funding: Optional[AccountFunding]
-            transaction_type: Optional[Literal["account_funding"]]
+            transaction_type: Optional[
+                Literal["account_funding", "debt_repayment"]
+            ]
             """
             The type of money services transaction.
             """
@@ -3732,6 +3734,10 @@ class PaymentIntent(
                 networks: Optional[List[Literal["base", "solana", "tempo"]]]
                 """
                 The blockchain networks to support for deposits. Learn more about [supported networks and tokens](https://docs.stripe.com/payments/deposit-mode-stablecoin-payments#token-and-network-support).
+                """
+                static_address: Optional[bool]
+                """
+                If true, provisions a permanent per-customer deposit address reused across PaymentIntents.
                 """
 
             deposit_options: Optional[DepositOptions]

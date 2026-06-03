@@ -1639,6 +1639,10 @@ if TYPE_CHECKING:
         V2SignalsAccountSignalFraudulentMerchantReadyEvent as V2SignalsAccountSignalFraudulentMerchantReadyEvent,
         V2SignalsAccountSignalFraudulentMerchantReadyEventNotification as V2SignalsAccountSignalFraudulentMerchantReadyEventNotification,
     )
+    from stripe.events._v2_signals_account_signal_merchant_delinquency_ready_event import (
+        V2SignalsAccountSignalMerchantDelinquencyReadyEvent as V2SignalsAccountSignalMerchantDelinquencyReadyEvent,
+        V2SignalsAccountSignalMerchantDelinquencyReadyEventNotification as V2SignalsAccountSignalMerchantDelinquencyReadyEventNotification,
+    )
 
 # name -> (import_target, is_submodule)
 _import_map = {
@@ -4778,6 +4782,14 @@ _import_map = {
     ),
     "V2SignalsAccountSignalFraudulentMerchantReadyEventNotification": (
         "stripe.events._v2_signals_account_signal_fraudulent_merchant_ready_event",
+        False,
+    ),
+    "V2SignalsAccountSignalMerchantDelinquencyReadyEvent": (
+        "stripe.events._v2_signals_account_signal_merchant_delinquency_ready_event",
+        False,
+    ),
+    "V2SignalsAccountSignalMerchantDelinquencyReadyEventNotification": (
+        "stripe.events._v2_signals_account_signal_merchant_delinquency_ready_event",
         False,
     ),
 }

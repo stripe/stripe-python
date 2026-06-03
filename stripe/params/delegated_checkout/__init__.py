@@ -4,6 +4,9 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.params.delegated_checkout._order_retrieve_params import (
+        OrderRetrieveParams as OrderRetrieveParams,
+    )
     from stripe.params.delegated_checkout._requested_session_confirm_params import (
         RequestedSessionConfirmParams as RequestedSessionConfirmParams,
         RequestedSessionConfirmParamsAffiliateAttribution as RequestedSessionConfirmParamsAffiliateAttribution,
@@ -29,6 +32,9 @@ if TYPE_CHECKING:
     from stripe.params.delegated_checkout._requested_session_expire_params import (
         RequestedSessionExpireParams as RequestedSessionExpireParams,
     )
+    from stripe.params.delegated_checkout._requested_session_list_orders_params import (
+        RequestedSessionListOrdersParams as RequestedSessionListOrdersParams,
+    )
     from stripe.params.delegated_checkout._requested_session_modify_params import (
         RequestedSessionModifyParams as RequestedSessionModifyParams,
         RequestedSessionModifyParamsDiscounts as RequestedSessionModifyParamsDiscounts,
@@ -43,6 +49,9 @@ if TYPE_CHECKING:
         RequestedSessionModifyParamsLineItemDetail as RequestedSessionModifyParamsLineItemDetail,
         RequestedSessionModifyParamsPaymentMethodOptions as RequestedSessionModifyParamsPaymentMethodOptions,
         RequestedSessionModifyParamsPaymentMethodOptionsCard as RequestedSessionModifyParamsPaymentMethodOptionsCard,
+    )
+    from stripe.params.delegated_checkout._requested_session_order_list_params import (
+        RequestedSessionOrderListParams as RequestedSessionOrderListParams,
     )
     from stripe.params.delegated_checkout._requested_session_retrieve_params import (
         RequestedSessionRetrieveParams as RequestedSessionRetrieveParams,
@@ -65,6 +74,10 @@ if TYPE_CHECKING:
 
 # name -> (import_target, is_submodule)
 _import_map = {
+    "OrderRetrieveParams": (
+        "stripe.params.delegated_checkout._order_retrieve_params",
+        False,
+    ),
     "RequestedSessionConfirmParams": (
         "stripe.params.delegated_checkout._requested_session_confirm_params",
         False,
@@ -141,6 +154,10 @@ _import_map = {
         "stripe.params.delegated_checkout._requested_session_expire_params",
         False,
     ),
+    "RequestedSessionListOrdersParams": (
+        "stripe.params.delegated_checkout._requested_session_list_orders_params",
+        False,
+    ),
     "RequestedSessionModifyParams": (
         "stripe.params.delegated_checkout._requested_session_modify_params",
         False,
@@ -191,6 +208,10 @@ _import_map = {
     ),
     "RequestedSessionModifyParamsPaymentMethodOptionsCard": (
         "stripe.params.delegated_checkout._requested_session_modify_params",
+        False,
+    ),
+    "RequestedSessionOrderListParams": (
+        "stripe.params.delegated_checkout._requested_session_order_list_params",
         False,
     ),
     "RequestedSessionRetrieveParams": (

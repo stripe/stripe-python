@@ -116,7 +116,7 @@ class Session(
         """
         Indicates whether automatic surcharge is enabled for the session.
         """
-        provider: Optional[Literal["interpayments", "yeeld"]]
+        provider: Optional[Literal["interpayments", "proserv", "yeeld"]]
         """
         The surcharge provider used for this session.
         """

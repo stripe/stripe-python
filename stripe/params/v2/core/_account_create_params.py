@@ -2228,6 +2228,10 @@ class AccountCreateParamsDefaultsResponsibilities(TypedDict):
     """
     A value indicating who is responsible for losses when this Account can't pay back negative balances from payments.
     """
+    requirements_collector: NotRequired[Literal["application", "stripe"]]
+    """
+    A value indicating the party responsible for collecting requirements on this account.
+    """
 
 
 class AccountCreateParamsIdentity(TypedDict):

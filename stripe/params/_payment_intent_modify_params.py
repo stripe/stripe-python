@@ -2597,7 +2597,9 @@ class PaymentIntentModifyParamsPaymentDetailsMoneyServices(TypedDict):
     """
     Account funding transaction details including sender and beneficiary information.
     """
-    transaction_type: NotRequired["Literal['']|Literal['account_funding']"]
+    transaction_type: NotRequired[
+        "Literal['']|Literal['account_funding', 'debt_repayment']"
+    ]
     """
     The type of money services transaction.
     """
@@ -4723,6 +4725,12 @@ class PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServic
 class PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding(
     TypedDict,
 ):
+    digital_asset_category: NotRequired[
+        Literal["blockchain_native", "nft", "other_non_fiat", "stablecoin"]
+    ]
+    """
+    The category of digital asset being acquired through this account funding transaction.
+    """
     liquid_asset: NotRequired[
         "Literal['']|PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAsset"
     ]
@@ -4992,6 +5000,12 @@ class PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMone
 class PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding(
     TypedDict,
 ):
+    digital_asset_category: NotRequired[
+        Literal["blockchain_native", "nft", "other_non_fiat", "stablecoin"]
+    ]
+    """
+    The category of digital asset being acquired through this account funding transaction.
+    """
     liquid_asset: NotRequired[
         "Literal['']|PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAsset"
     ]
@@ -5141,6 +5155,10 @@ class PaymentIntentModifyParamsPaymentMethodOptionsCryptoDepositOptions(
     networks: List[Literal["base", "solana", "tempo"]]
     """
     The blockchain networks to support for deposits. Learn more about [supported networks and tokens](https://docs.stripe.com/payments/deposit-mode-stablecoin-payments#token-and-network-support).
+    """
+    static_address: NotRequired[bool]
+    """
+    If true, provisions a permanent per-customer deposit address reused across PaymentIntents.
     """
 
 

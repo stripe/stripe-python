@@ -19,6 +19,7 @@ if TYPE_CHECKING:
         orchestrated_commerce as orchestrated_commerce,
         payments as payments,
         reporting as reporting,
+        signals as signals,
         tax as tax,
         test_helpers as test_helpers,
     )
@@ -42,10 +43,11 @@ if TYPE_CHECKING:
     from stripe.v2._orchestrated_commerce_service import (
         OrchestratedCommerceService as OrchestratedCommerceService,
     )
-    from stripe.v2._payment_service import PaymentService as PaymentService
+    from stripe.v2._payments_service import PaymentsService as PaymentsService
     from stripe.v2._reporting_service import (
         ReportingService as ReportingService,
     )
+    from stripe.v2._signals_service import SignalsService as SignalsService
     from stripe.v2._tax_service import TaxService as TaxService
     from stripe.v2._test_helper_service import (
         TestHelperService as TestHelperService,
@@ -64,6 +66,7 @@ _import_map = {
     "orchestrated_commerce": ("stripe.v2.orchestrated_commerce", True),
     "payments": ("stripe.v2.payments", True),
     "reporting": ("stripe.v2.reporting", True),
+    "signals": ("stripe.v2.signals", True),
     "tax": ("stripe.v2.tax", True),
     "test_helpers": ("stripe.v2.test_helpers", True),
     "BillingService": ("stripe.v2._billing_service", False),
@@ -87,8 +90,9 @@ _import_map = {
         "stripe.v2._orchestrated_commerce_service",
         False,
     ),
-    "PaymentService": ("stripe.v2._payment_service", False),
+    "PaymentsService": ("stripe.v2._payments_service", False),
     "ReportingService": ("stripe.v2._reporting_service", False),
+    "SignalsService": ("stripe.v2._signals_service", False),
     "TaxService": ("stripe.v2._tax_service", False),
     "TestHelperService": ("stripe.v2._test_helper_service", False),
 }

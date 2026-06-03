@@ -2382,7 +2382,9 @@ class PaymentIntentCaptureParamsPaymentDetailsMoneyServices(TypedDict):
     """
     Account funding transaction details including sender and beneficiary information.
     """
-    transaction_type: NotRequired["Literal['']|Literal['account_funding']"]
+    transaction_type: NotRequired[
+        "Literal['']|Literal['account_funding', 'debt_repayment']"
+    ]
     """
     The type of money services transaction.
     """

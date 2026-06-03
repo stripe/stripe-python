@@ -81,7 +81,7 @@ class PaymentLink(
         """
         Indicates whether automatic surcharge is enabled for the payment link.
         """
-        provider: Optional[Literal["interpayments", "yeeld"]]
+        provider: Optional[Literal["interpayments", "proserv", "yeeld"]]
         """
         The surcharge provider used for this payment link.
         """

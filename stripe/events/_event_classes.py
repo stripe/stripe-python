@@ -1225,6 +1225,9 @@ if TYPE_CHECKING:
     from stripe.events._v2_signals_account_signal_fraudulent_merchant_ready_event import (
         V2SignalsAccountSignalFraudulentMerchantReadyEventNotification,
     )
+    from stripe.events._v2_signals_account_signal_merchant_delinquency_ready_event import (
+        V2SignalsAccountSignalMerchantDelinquencyReadyEventNotification,
+    )
 
 
 _V2_EVENT_CLASS_LOOKUP = {
@@ -2851,6 +2854,10 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v2.signals.account_signal.fraudulent_merchant_ready": (
         "stripe.events._v2_signals_account_signal_fraudulent_merchant_ready_event",
         "V2SignalsAccountSignalFraudulentMerchantReadyEvent",
+    ),
+    "v2.signals.account_signal.merchant_delinquency_ready": (
+        "stripe.events._v2_signals_account_signal_merchant_delinquency_ready_event",
+        "V2SignalsAccountSignalMerchantDelinquencyReadyEvent",
     ),
 }
 
@@ -4491,6 +4498,10 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_signals_account_signal_fraudulent_merchant_ready_event",
         "V2SignalsAccountSignalFraudulentMerchantReadyEventNotification",
     ),
+    "v2.signals.account_signal.merchant_delinquency_ready": (
+        "stripe.events._v2_signals_account_signal_merchant_delinquency_ready_event",
+        "V2SignalsAccountSignalMerchantDelinquencyReadyEventNotification",
+    ),
 }
 
 
@@ -4912,4 +4923,5 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2ReportingReportRunSucceededEventNotification",
     "V2ReportingReportRunUpdatedEventNotification",
     "V2SignalsAccountSignalFraudulentMerchantReadyEventNotification",
+    "V2SignalsAccountSignalMerchantDelinquencyReadyEventNotification",
 ]
