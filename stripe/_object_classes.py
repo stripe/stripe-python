@@ -184,6 +184,11 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "FundingInstructions",
     ),
     "fx_quote": ("stripe._fx_quote", "FxQuote"),
+    "gift_card": ("stripe._gift_card", "GiftCard"),
+    "gift_card_operation": (
+        "stripe._gift_card_operation",
+        "GiftCardOperation",
+    ),
     "identity.blocklist_entry": (
         "stripe.identity._blocklist_entry",
         "BlocklistEntry",
@@ -385,6 +390,7 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe._tax_deducted_at_source",
         "TaxDeductedAtSource",
     ),
+    "tax_fund": ("stripe._tax_fund", "TaxFund"),
     "tax_id": ("stripe._tax_id", "TaxId"),
     "tax_rate": ("stripe._tax_rate", "TaxRate"),
     "terminal.configuration": (

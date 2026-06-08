@@ -660,7 +660,7 @@ class PaymentIntentModifyParamsPaymentDetailsBenefitFrMealVoucher(TypedDict):
     """
     Whether to enable meal voucher benefit for this payment.
     """
-    siret: str
+    siret: NotRequired[str]
     """
     The 14-digit SIRET of the meal voucher acceptor.
     """
@@ -4484,6 +4484,22 @@ class PaymentIntentModifyParamsPaymentMethodOptionsBoleto(TypedDict):
 
 
 class PaymentIntentModifyParamsPaymentMethodOptionsCard(TypedDict):
+    capture_by: NotRequired[
+        Literal["auth_expiry", "end_of_day", "target_delay"]
+    ]
+    """
+    Controls when funds are captured from the customer's account when `capture_method` is `automatic_delayed`.
+
+    If omitted, funds are captured before the authorization expires.
+    """
+    capture_delay: NotRequired[
+        "PaymentIntentModifyParamsPaymentMethodOptionsCardCaptureDelay"
+    ]
+    """
+    The number of days or hours to delay the capture of the funds. You can set both days and hours as long as the total delay does not exceed 30 days.
+
+    You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
+    """
     capture_method: NotRequired["Literal['']|Literal['manual']"]
     """
     Controls when the funds are captured from the customer's account.
@@ -4625,6 +4641,11 @@ class PaymentIntentModifyParamsPaymentMethodOptionsCard(TypedDict):
     """
 
 
+class PaymentIntentModifyParamsPaymentMethodOptionsCardCaptureDelay(TypedDict):
+    days: NotRequired[int]
+    hours: NotRequired[int]
+
+
 class PaymentIntentModifyParamsPaymentMethodOptionsCardInstallments(TypedDict):
     enabled: NotRequired[bool]
     """
@@ -4731,52 +4752,11 @@ class PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServic
     """
     The category of digital asset being acquired through this account funding transaction.
     """
-    liquid_asset: NotRequired[
-        "Literal['']|PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAsset"
-    ]
-    """
-    Details for a liquid asset (crypto or security) funding transaction.
-    """
     wallet: NotRequired[
         "PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWallet"
     ]
     """
     Details for a wallet funding transaction.
-    """
-
-
-class PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAsset(
-    TypedDict,
-):
-    crypto: NotRequired[
-        "PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto"
-    ]
-    """
-    Details for a cryptocurrency liquid asset funding transaction.
-    """
-    security: NotRequired[
-        "PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity"
-    ]
-    """
-    Details for a security liquid asset funding transaction.
-    """
-
-
-class PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto(
-    TypedDict,
-):
-    currency_code: NotRequired[str]
-    """
-    The cryptocurrency currency code (e.g. BTC, ETH).
-    """
-
-
-class PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity(
-    TypedDict,
-):
-    ticker_symbol: NotRequired[str]
-    """
-    The security's ticker symbol (e.g. AAPL).
     """
 
 
@@ -4941,6 +4921,22 @@ class PaymentIntentModifyParamsPaymentMethodOptionsCardThreeDSecureNetworkOption
 
 
 class PaymentIntentModifyParamsPaymentMethodOptionsCardPresent(TypedDict):
+    capture_by: NotRequired[
+        Literal["auth_expiry", "end_of_day", "target_delay"]
+    ]
+    """
+    Controls when funds are captured from the customer's account when `capture_method` is `automatic_delayed`.
+
+    If omitted, funds are captured before the authorization expires.
+    """
+    capture_delay: NotRequired[
+        "PaymentIntentModifyParamsPaymentMethodOptionsCardPresentCaptureDelay"
+    ]
+    """
+    The number of days or hours to delay the capture of the funds. You can set both days and hours as long as the total delay does not exceed 30 days.
+
+    You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
+    """
     capture_method: NotRequired[Literal["manual", "manual_preferred"]]
     """
     Controls when the funds are captured from the customer's account.
@@ -4963,6 +4959,10 @@ class PaymentIntentModifyParamsPaymentMethodOptionsCardPresent(TypedDict):
     """
     Request ability to [increment](https://docs.stripe.com/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://docs.stripe.com/api/payment_intents/confirm) response to verify support.
     """
+    request_multicapture: NotRequired[Literal["if_available", "never"]]
+    """
+    Request ability to make [multiple captures](https://docs.stripe.com/payments/multicapture) for this PaymentIntent.
+    """
     request_reauthorization: NotRequired[Literal["if_available", "never"]]
     """
     Request ability to [reauthorize](https://docs.stripe.com/payments/reauthorization) for this PaymentIntent.
@@ -4973,6 +4973,13 @@ class PaymentIntentModifyParamsPaymentMethodOptionsCardPresent(TypedDict):
     """
     Network routing priority on co-branded EMV cards supporting domestic debit and international card schemes.
     """
+
+
+class PaymentIntentModifyParamsPaymentMethodOptionsCardPresentCaptureDelay(
+    TypedDict,
+):
+    days: NotRequired[int]
+    hours: NotRequired[int]
 
 
 class PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetails(
@@ -5006,52 +5013,11 @@ class PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMone
     """
     The category of digital asset being acquired through this account funding transaction.
     """
-    liquid_asset: NotRequired[
-        "Literal['']|PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAsset"
-    ]
-    """
-    Details for a liquid asset (crypto or security) funding transaction.
-    """
     wallet: NotRequired[
         "PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWallet"
     ]
     """
     Details for a wallet funding transaction.
-    """
-
-
-class PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAsset(
-    TypedDict,
-):
-    crypto: NotRequired[
-        "PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto"
-    ]
-    """
-    Details for a cryptocurrency liquid asset funding transaction.
-    """
-    security: NotRequired[
-        "PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity"
-    ]
-    """
-    Details for a security liquid asset funding transaction.
-    """
-
-
-class PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto(
-    TypedDict,
-):
-    currency_code: NotRequired[str]
-    """
-    The cryptocurrency currency code (e.g. BTC, ETH).
-    """
-
-
-class PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity(
-    TypedDict,
-):
-    ticker_symbol: NotRequired[str]
-    """
-    The security's ticker symbol (e.g. AAPL).
     """
 
 
@@ -5131,7 +5097,9 @@ class PaymentIntentModifyParamsPaymentMethodOptionsCrypto(TypedDict):
     """
     Specific configuration for this PaymentIntent when the mode is `deposit`.
     """
-    mode: NotRequired[Literal["default", "deposit"]]
+    mode: NotRequired[
+        Literal["default", "deposit", "transaction_verification"]
+    ]
     """
     The mode of the crypto payment.
     """
@@ -5260,7 +5228,20 @@ class PaymentIntentModifyParamsPaymentMethodOptionsFpx(TypedDict):
 
 
 class PaymentIntentModifyParamsPaymentMethodOptionsGiftCard(TypedDict):
-    pass
+    ignore_application_fee: NotRequired[Literal["yes"]]
+    """
+    Set to `yes` to ignore the application fee on the PaymentIntent when redeeming this gift card.
+    """
+    ignore_transfer_data: NotRequired[Literal["yes"]]
+    """
+    Set to `yes` to ignore transfer data on the PaymentIntent when redeeming this gift card.
+    """
+    request_partial_authorization: NotRequired[
+        Literal["if_available", "never"]
+    ]
+    """
+    Request partial authorization on this PaymentIntent.
+    """
 
 
 class PaymentIntentModifyParamsPaymentMethodOptionsGiropay(TypedDict):

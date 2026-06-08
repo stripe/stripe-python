@@ -725,6 +725,12 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             }
 
         class CardPresent(StripeObject):
+            class Multicapture(StripeObject):
+                status: Literal["available", "unavailable"]
+                """
+                Indicates whether or not multiple captures are supported.
+                """
+
             class Offline(StripeObject):
                 stored_at: Optional[int]
                 """
@@ -863,6 +869,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
             ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
             """
+            multicapture: Optional[Multicapture]
             network: Optional[str]
             """
             Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
@@ -913,6 +920,7 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
             wallet: Optional[Wallet]
             _inner_class_types = {
+                "multicapture": Multicapture,
                 "offline": Offline,
                 "reauthorization": Reauthorization,
                 "receipt": Receipt,
@@ -2212,17 +2220,52 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
             """
 
+        class FiservValuelink(StripeObject):
+            payment_reference: str
+            """
+            An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
+            """
+
+        class Givex(StripeObject):
+            payment_reference: str
+            """
+            An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
+            """
+
+        class Svs(StripeObject):
+            payment_reference: str
+            """
+            An opaque string for manual reconciliation of this payment, for example a check number or a payment processor ID.
+            """
+
         custom: Optional[Custom]
         """
         Custom processors represent payment processors not modeled directly in
         the Stripe API. This resource consists of details about the custom processor
         used for this payment attempt.
         """
-        type: Literal["custom"]
+        fiserv_valuelink: Optional[FiservValuelink]
+        """
+        Represents the Fiserv ValueLink gift card processor.
+        """
+        givex: Optional[Givex]
+        """
+        Represents the Givex gift card processor.
+        """
+        svs: Optional[Svs]
+        """
+        Represents the SVS gift card processor.
+        """
+        type: Literal["custom", "fiserv_valuelink", "givex", "svs"]
         """
         The processor used for this payment attempt.
         """
-        _inner_class_types = {"custom": Custom}
+        _inner_class_types = {
+            "custom": Custom,
+            "fiserv_valuelink": FiservValuelink,
+            "givex": Givex,
+            "svs": Svs,
+        }
 
     class ShippingDetails(StripeObject):
         class Address(StripeObject):

@@ -25,3 +25,7 @@ class PaymentAttemptRecordReportCanceledParams(RequestOptions):
     """
     Payment evaluations associated with this reported payment.
     """
+    reason: NotRequired[Literal["blocked_for_fraud"]]
+    """
+    The reason the payment attempt was canceled.
+    """

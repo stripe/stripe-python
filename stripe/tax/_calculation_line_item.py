@@ -10,6 +10,36 @@ class CalculationLineItem(StripeObject):
         "tax.calculation_line_item"
     )
 
+    class PerformanceLocationDetails(StripeObject):
+        class Address(StripeObject):
+            city: Optional[str]
+            """
+            City, district, suburb, town, or village.
+            """
+            country: str
+            """
+            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            """
+            line1: Optional[str]
+            """
+            Address line 1, such as the street, PO Box, or company name.
+            """
+            line2: Optional[str]
+            """
+            Address line 2, such as the apartment, suite, unit, or building.
+            """
+            postal_code: Optional[str]
+            """
+            ZIP or postal code.
+            """
+            state: Optional[str]
+            """
+            State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix, such as "NY" or "TX".
+            """
+
+        address: Address
+        _inner_class_types = {"address": Address}
+
     class TaxBreakdown(StripeObject):
         class Jurisdiction(StripeObject):
             country: str
@@ -136,6 +166,10 @@ class CalculationLineItem(StripeObject):
     """
     Indicates the line item represents a performance where the venue location might determine the tax, not the customer address. Leave empty if the tax code doesn't require a tax location. If you provide this value for tax codes with an `optional` location requirement, it overrides the customer address.
     """
+    performance_location_details: Optional[PerformanceLocationDetails]
+    """
+    The address of the location where this line item's event or service takes place. Depending on the [tax code](https://docs.stripe.com/tax/tax-codes), providing a performance location is required, optional, or not supported. Use this to provide the address inline without pre-creating a [TaxLocation](https://docs.stripe.com/api/tax/location) object. Can't be used with `performance_location`.
+    """
     product: Optional[str]
     """
     The ID of an existing [Product](https://docs.stripe.com/api/products/object).
@@ -160,4 +194,7 @@ class CalculationLineItem(StripeObject):
     """
     The [tax code](https://docs.stripe.com/tax/tax-categories) ID used for this resource.
     """
-    _inner_class_types = {"tax_breakdown": TaxBreakdown}
+    _inner_class_types = {
+        "performance_location_details": PerformanceLocationDetails,
+        "tax_breakdown": TaxBreakdown,
+    }

@@ -269,7 +269,7 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
                 Literal["approve", "decline", "recommend_id_and_v"]
             ]
             """
-            Stripe's recommendation to the network for this token activation request, derived from the same risk signals used for the activation decision.
+            The network's recommendation to Stripe for this token activation request.
             """
             token_reference_id: str
             """

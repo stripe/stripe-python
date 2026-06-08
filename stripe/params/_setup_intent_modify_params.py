@@ -1805,7 +1805,7 @@ class SetupIntentModifyParamsSetupDetailsBenefitFrMealVoucher(TypedDict):
     """
     Whether to enable meal voucher benefit for this setup intent.
     """
-    siret: str
+    siret: NotRequired[str]
     """
     The 14-digit SIRET of the meal voucher acceptor.
     """

@@ -86,6 +86,8 @@ if TYPE_CHECKING:
         FrMealVouchersOnboardingService,
     )
     from stripe._fx_quote_service import FxQuoteService
+    from stripe._gift_card_service import GiftCardService
+    from stripe._gift_card_operation_service import GiftCardOperationService
     from stripe._identity_service import IdentityService
     from stripe._invoice_service import InvoiceService
     from stripe._invoice_item_service import InvoiceItemService
@@ -141,6 +143,7 @@ if TYPE_CHECKING:
     )
     from stripe._tax_service import TaxService
     from stripe._tax_code_service import TaxCodeService
+    from stripe._tax_fund_service import TaxFundService
     from stripe._tax_id_service import TaxIdService
     from stripe._tax_rate_service import TaxRateService
     from stripe._terminal_service import TerminalService
@@ -781,6 +784,28 @@ class StripeClient(object):
     @property
     @deprecated(
         """
+        StripeClient.gift_cards is deprecated, use StripeClient.v1.gift_cards instead.
+          All functionality under it has been copied over to StripeClient.v1.gift_cards.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """,
+    )
+    def gift_cards(self) -> "GiftCardService":
+        return self.v1.gift_cards
+
+    @property
+    @deprecated(
+        """
+        StripeClient.gift_card_operations is deprecated, use StripeClient.v1.gift_card_operations instead.
+          All functionality under it has been copied over to StripeClient.v1.gift_card_operations.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """,
+    )
+    def gift_card_operations(self) -> "GiftCardOperationService":
+        return self.v1.gift_card_operations
+
+    @property
+    @deprecated(
+        """
         StripeClient.identity is deprecated, use StripeClient.v1.identity instead.
           All functionality under it has been copied over to StripeClient.v1.identity.
           See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
@@ -1254,6 +1279,17 @@ class StripeClient(object):
     )
     def tax_codes(self) -> "TaxCodeService":
         return self.v1.tax_codes
+
+    @property
+    @deprecated(
+        """
+        StripeClient.tax_funds is deprecated, use StripeClient.v1.tax_funds instead.
+          All functionality under it has been copied over to StripeClient.v1.tax_funds.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """,
+    )
+    def tax_funds(self) -> "TaxFundService":
+        return self.v1.tax_funds
 
     @property
     @deprecated(
