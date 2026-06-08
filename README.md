@@ -280,7 +280,7 @@ stripe.add_beta_version("feature_beta", "v3")
 
 ### Private Preview SDKs
 
-Stripe has features in the [private preview phase](https://docs.stripe.com/release-phases) that can be accessed via versions of this package that have the `aX` suffix like `12.2.0a2`. These are invite-only features. Once invited, you can install the private preview SDKs by following the same instructions as for the [public preview SDKs](https://github.com/stripe/stripe-python?tab=readme-ov-file#public-preview-sdks) above and replacing the suffix `b` with `a` in package versions.
+Stripe has features in the [private preview phase](https://docs.stripe.com/release-phases) that can be accessed via versions of this package that have the `aX` suffix like `12.2.0a2`. You can install the private preview SDKs by following the same instructions as for the [public preview SDKs](https://github.com/stripe/stripe-python?tab=readme-ov-file#public-preview-sdks) above and replacing the suffix `b` with `a` in package versions. Note that access to specific private preview API features may require separate approval.
 
 ### Custom requests
 
