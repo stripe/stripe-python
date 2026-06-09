@@ -25,6 +25,10 @@ class DisputeModifyParams(RequestOptions):
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
+    provisional_credit: NotRequired["DisputeModifyParamsProvisionalCredit"]
+    """
+    Provisional credit information for this dispute.
+    """
 
 
 class DisputeModifyParamsEvidence(TypedDict):
@@ -272,4 +276,15 @@ class DisputeModifyParamsEvidenceServiceNotAsDescribed(TypedDict):
     received_at: NotRequired["Literal['']|int"]
     """
     Date when the product was received.
+    """
+
+
+class DisputeModifyParamsProvisionalCredit(TypedDict):
+    granted_at: NotRequired[int]
+    """
+    The time at which the platform granted the provisional credit to their user.
+    """
+    revoked_at: NotRequired[int]
+    """
+    The time at which the platform revoked the provisional credit from their user.
     """

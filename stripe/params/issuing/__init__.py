@@ -255,6 +255,7 @@ if TYPE_CHECKING:
         DisputeModifyParamsEvidenceNotReceived as DisputeModifyParamsEvidenceNotReceived,
         DisputeModifyParamsEvidenceOther as DisputeModifyParamsEvidenceOther,
         DisputeModifyParamsEvidenceServiceNotAsDescribed as DisputeModifyParamsEvidenceServiceNotAsDescribed,
+        DisputeModifyParamsProvisionalCredit as DisputeModifyParamsProvisionalCredit,
     )
     from stripe.params.issuing._dispute_retrieve_params import (
         DisputeRetrieveParams as DisputeRetrieveParams,
@@ -291,6 +292,7 @@ if TYPE_CHECKING:
         DisputeUpdateParamsEvidenceNotReceived as DisputeUpdateParamsEvidenceNotReceived,
         DisputeUpdateParamsEvidenceOther as DisputeUpdateParamsEvidenceOther,
         DisputeUpdateParamsEvidenceServiceNotAsDescribed as DisputeUpdateParamsEvidenceServiceNotAsDescribed,
+        DisputeUpdateParamsProvisionalCredit as DisputeUpdateParamsProvisionalCredit,
     )
     from stripe.params.issuing._fraud_liability_debit_list_params import (
         FraudLiabilityDebitListParams as FraudLiabilityDebitListParams,
@@ -1105,6 +1107,10 @@ _import_map = {
         "stripe.params.issuing._dispute_modify_params",
         False,
     ),
+    "DisputeModifyParamsProvisionalCredit": (
+        "stripe.params.issuing._dispute_modify_params",
+        False,
+    ),
     "DisputeRetrieveParams": (
         "stripe.params.issuing._dispute_retrieve_params",
         False,
@@ -1182,6 +1188,10 @@ _import_map = {
         False,
     ),
     "DisputeUpdateParamsEvidenceServiceNotAsDescribed": (
+        "stripe.params.issuing._dispute_update_params",
+        False,
+    ),
+    "DisputeUpdateParamsProvisionalCredit": (
         "stripe.params.issuing._dispute_update_params",
         False,
     ),
