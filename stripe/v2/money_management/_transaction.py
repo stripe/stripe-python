@@ -104,6 +104,10 @@ class Transaction(StripeObject):
         """
         If applicable, the ID of the Reserve Release that created this Transaction.
         """
+        tax_fund: Optional[str]
+        """
+        If applicable, the ID of the TaxFund that created this Transaction.
+        """
         topup: Optional[str]
         """
         If applicable, the ID of the Topup that created this Transaction.
@@ -166,6 +170,7 @@ class Transaction(StripeObject):
             "refund",
             "reserve_hold",
             "reserve_release",
+            "tax_fund",
             "topup",
             "transfer",
             "transfer_reversal",
@@ -251,6 +256,7 @@ class Transaction(StripeObject):
         "stripe_balance_payment_debit_reversal",
         "stripe_fee",
         "stripe_fee_tax",
+        "tax_fund",
         "tax_withholding",
         "transfer_reversal",
         "unreconciled_customer_funds",

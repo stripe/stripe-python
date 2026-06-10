@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from stripe.v2._amount import Amount
 from typing import ClassVar, List, Optional
 from typing_extensions import Literal
 
@@ -15,9 +14,34 @@ class FeeBatch(StripeObject):
     OBJECT_NAME: ClassVar[Literal["v2.core.fee_batch"]] = "v2.core.fee_batch"
 
     class Adjustments(StripeObject):
-        tax_adjustment: Optional[Amount]
+        class TaxAdjustment(StripeObject):
+            currency: str
+            """
+            A lowercase alpha3 currency code like "usd"
+            For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            """
+            value: str
+            """
+            In major units like "1.23" for 1.23 USD
+            For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            """
+
+        tax_adjustment: Optional[TaxAdjustment]
         """
         The amount of tax adjusted for this batch.
+        """
+        _inner_class_types = {"tax_adjustment": TaxAdjustment}
+
+    class Amount(StripeObject):
+        currency: str
+        """
+        A lowercase alpha3 currency code like "usd"
+        For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+        """
+        value: str
+        """
+        In major units like "1.23" for 1.23 USD
+        For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
         """
 
     class CollectedBy(StripeObject):
@@ -27,11 +51,36 @@ class FeeBatch(StripeObject):
         """
 
     class CollectionRecord(StripeObject):
+        class Amount(StripeObject):
+            currency: str
+            """
+            A lowercase alpha3 currency code like "usd"
+            For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            """
+            value: str
+            """
+            In major units like "1.23" for 1.23 USD
+            For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            """
+
         class Tax(StripeObject):
+            class Amount(StripeObject):
+                currency: str
+                """
+                A lowercase alpha3 currency code like "usd"
+                For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+                """
+                value: str
+                """
+                In major units like "1.23" for 1.23 USD
+                For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+                """
+
             amount: Amount
             """
             The tax amount collected via this record.
             """
+            _inner_class_types = {"amount": Amount}
 
         amount: Amount
         """
@@ -66,7 +115,7 @@ class FeeBatch(StripeObject):
         """
         The type of money movement object.
         """
-        _inner_class_types = {"tax": Tax}
+        _inner_class_types = {"amount": Amount, "tax": Tax}
 
     class StatusTransitions(StripeObject):
         billed_at: Optional[str]
@@ -75,10 +124,23 @@ class FeeBatch(StripeObject):
         """
 
     class Tax(StripeObject):
+        class Amount(StripeObject):
+            currency: str
+            """
+            A lowercase alpha3 currency code like "usd"
+            For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            """
+            value: str
+            """
+            In major units like "1.23" for 1.23 USD
+            For the taxonomy label choice, see SECURE_FRAMEWORKS-2849.
+            """
+
         amount: Amount
         """
         The tax amount included in this batch.
         """
+        _inner_class_types = {"amount": Amount}
 
     adjustments: Optional[Adjustments]
     """
@@ -126,6 +188,7 @@ class FeeBatch(StripeObject):
     """
     _inner_class_types = {
         "adjustments": Adjustments,
+        "amount": Amount,
         "collected_by": CollectedBy,
         "collection_records": CollectionRecord,
         "status_transitions": StatusTransitions,

@@ -4262,7 +4262,7 @@ class Account(StripeObject):
             """
             losses_collector: Optional[Literal["application", "stripe"]]
             """
-            A value indicating responsibility for collecting requirements on this account.
+            A value indicating the responsibility for losses on this account.
             """
             requirements_collector: Literal["application", "stripe"]
             """

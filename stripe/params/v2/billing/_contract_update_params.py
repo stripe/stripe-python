@@ -270,7 +270,7 @@ class ContractUpdateParamsPricingOverrideActionAdd(TypedDict):
     """
     priority: int
     """
-    The priority for the pricing override.
+    The priority for the pricing override. The highest priority is 0 and the lowest is 100.
     """
     starts_at: "ContractUpdateParamsPricingOverrideActionAddStartsAt"
     """

@@ -50001,7 +50001,7 @@ class TestGeneratedExamples(object):
     ) -> None:
         http_client_mock.stub_request(
             "post",
-            "/v2/extend/workflows/id_123/invoke",
+            "/v2/core/vault/us_bank_accounts/id_123/archive",
             rbody='{"error":{"type":"cannot_proceed","code":"default_payout_method_cannot_be_archived"}}',
             rcode=400,
         )
@@ -50011,30 +50011,15 @@ class TestGeneratedExamples(object):
         )
 
         try:
-            client.v2.extend.workflows.invoke(
-                "id_123",
-                {
-                    "input_parameters": {
-                        "int_key": 123,
-                        "string_key": "value",
-                        "boolean_key": True,
-                        "object_key": {
-                            "object_int_key": 123,
-                            "object_string_key": "value",
-                            "object_boolean_key": True,
-                        },
-                        "array_key": [1, 2, 3],
-                    },
-                },
-            )
+            client.v2.core.vault.us_bank_accounts.archive("id_123")
         except _error.CannotProceedError:
             pass
         http_client_mock.assert_requested(
             "post",
-            path="/v2/extend/workflows/id_123/invoke",
+            path="/v2/core/vault/us_bank_accounts/id_123/archive",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"input_parameters":{"int_key":123,"string_key":"value","boolean_key":true,"object_key":{"object_int_key":123,"object_string_key":"value","object_boolean_key":true},"array_key":[1,2,3]}}',
+            post_data="{}",
             is_json=True,
         )
 
