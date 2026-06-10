@@ -35,6 +35,7 @@ if TYPE_CHECKING:
         PaymentIntentAmountDetailsLineItem,
     )
     from stripe._payment_method import PaymentMethod
+    from stripe._payment_record import PaymentRecord
     from stripe._profile import Profile
     from stripe._review import Review
     from stripe._setup_intent import SetupIntent
@@ -83,6 +84,9 @@ if TYPE_CHECKING:
     )
     from stripe.params._payment_intent_trigger_action_params import (
         PaymentIntentTriggerActionParams,
+    )
+    from stripe.params._payment_intent_update_crypto_refund_address_params import (
+        PaymentIntentUpdateCryptoRefundAddressParams,
     )
     from stripe.params._payment_intent_verify_microdeposits_params import (
         PaymentIntentVerifyMicrodepositsParams,
@@ -141,12 +145,6 @@ class PaymentIntent(
             Indicates whether overcapture is supported.
             """
 
-        class Reauthorization(StripeObject):
-            status: Literal["available", "unavailable"]
-            """
-            Indicates whether the feature is supported.
-            """
-
         capture_before: Optional[int]
         """
         Timestamp at which the authorization will expire if not captured.
@@ -155,17 +153,11 @@ class PaymentIntent(
         incremental_authorization: Optional[IncrementalAuthorization]
         multicapture: Optional[Multicapture]
         overcapture: Optional[Overcapture]
-        reauthorization: Optional[Reauthorization]
-        reauthorize_before: Optional[int]
-        """
-        Timestamp at which the reauthorization window closes.
-        """
         _inner_class_types = {
             "decremental_authorization": DecrementalAuthorization,
             "incremental_authorization": IncrementalAuthorization,
             "multicapture": Multicapture,
             "overcapture": Overcapture,
-            "reauthorization": Reauthorization,
         }
 
     class AgentDetails(StripeObject):
@@ -712,6 +704,10 @@ class PaymentIntent(
                     """
                     Address of the deposit address.
                     """
+                    refund_address: Optional[str]
+                    """
+                    The wallet address that should receive refunds for deposits on this network.
+                    """
                     supported_tokens: List[SupportedToken]
                     """
                     The token currencies supported on this network.
@@ -733,6 +729,10 @@ class PaymentIntent(
                     """
                     Address of the deposit address.
                     """
+                    refund_address: Optional[str]
+                    """
+                    The wallet address that should receive refunds for deposits on this network.
+                    """
                     supported_tokens: List[SupportedToken]
                     """
                     The token currencies supported on this network.
@@ -753,6 +753,10 @@ class PaymentIntent(
                     address: str
                     """
                     Address of the deposit address.
+                    """
+                    refund_address: Optional[str]
+                    """
+                    The wallet address that should receive refunds for deposits on this network.
                     """
                     supported_tokens: List[SupportedToken]
                     """
@@ -3203,6 +3207,10 @@ class PaymentIntent(
         Fleet data for this PaymentIntent.
         """
         flight_data: Optional[List[FlightDatum]]
+        location: Optional[str]
+        """
+        The Payment Location associated with this PaymentIntent.
+        """
         lodging_data: Optional[List[LodgingDatum]]
         money_services: Optional[MoneyServices]
         order_reference: Optional[str]
@@ -3456,6 +3464,20 @@ class PaymentIntent(
             """
 
         class Card(StripeObject):
+            class CaptureDelay(StripeObject):
+                days: Optional[int]
+                """
+                The number of days to delay the capture of the funds.
+
+                You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
+                """
+                hours: Optional[int]
+                """
+                The number of hours to delay the capture of the funds.
+
+                You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
+                """
+
             class Installments(StripeObject):
                 class AvailablePlan(StripeObject):
                     count: Optional[int]
@@ -3576,6 +3598,15 @@ class PaymentIntent(
                 """
                 _inner_class_types = {"address": Address}
 
+            capture_by: Optional[
+                Literal["auth_expiry", "end_of_day", "target_delay"]
+            ]
+            """
+            Controls when funds are captured from the customer's account when `capture_method` is `automatic_delayed`.
+
+            If omitted, funds are captured before the authorization expires.
+            """
+            capture_delay: Optional[CaptureDelay]
             capture_method: Optional[Literal["manual"]]
             """
             Controls when the funds will be captured from the customer's account.
@@ -3678,12 +3709,27 @@ class PaymentIntent(
             """
             statement_details: Optional[StatementDetails]
             _inner_class_types = {
+                "capture_delay": CaptureDelay,
                 "installments": Installments,
                 "mandate_options": MandateOptions,
                 "statement_details": StatementDetails,
             }
 
         class CardPresent(StripeObject):
+            class CaptureDelay(StripeObject):
+                days: Optional[int]
+                """
+                The number of days to delay the capture of the funds.
+
+                You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
+                """
+                hours: Optional[int]
+                """
+                The number of hours to delay the capture of the funds.
+
+                You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
+                """
+
             class Routing(StripeObject):
                 requested_priority: Optional[
                     Literal["domestic", "international"]
@@ -3692,6 +3738,15 @@ class PaymentIntent(
                 Requested routing priority
                 """
 
+            capture_by: Optional[
+                Literal["auth_expiry", "end_of_day", "target_delay"]
+            ]
+            """
+            Controls when funds are captured from the customer's account when `capture_method` is `automatic_delayed`.
+
+            If omitted, funds are captured before the authorization expires.
+            """
+            capture_delay: Optional[CaptureDelay]
             capture_method: Optional[Literal["manual", "manual_preferred"]]
             """
             Controls when the funds will be captured from the customer's account.
@@ -3704,12 +3759,19 @@ class PaymentIntent(
             """
             Request ability to [increment](https://docs.stripe.com/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://docs.stripe.com/api/payment_intents/confirm) response to verify support.
             """
+            request_multicapture: Optional[Literal["if_available", "never"]]
+            """
+            Request ability to make [multiple captures](https://docs.stripe.com/payments/multicapture) for this PaymentIntent.
+            """
             request_reauthorization: Optional[Literal["if_available", "never"]]
             """
             Request ability to [reauthorize](https://docs.stripe.com/payments/reauthorization) for this PaymentIntent.
             """
             routing: Optional[Routing]
-            _inner_class_types = {"routing": Routing}
+            _inner_class_types = {
+                "capture_delay": CaptureDelay,
+                "routing": Routing,
+            }
 
         class Cashapp(StripeObject):
             capture_method: Optional[Literal["manual"]]
@@ -3741,7 +3803,9 @@ class PaymentIntent(
                 """
 
             deposit_options: Optional[DepositOptions]
-            mode: Optional[Literal["default", "deposit"]]
+            mode: Optional[
+                Literal["default", "deposit", "transaction_verification"]
+            ]
             """
             The mode of the crypto payment.
             """
@@ -5111,6 +5175,10 @@ class PaymentIntent(
     """
     ID of the latest [Charge object](https://docs.stripe.com/api/charges) created by this PaymentIntent. This property is `null` until PaymentIntent confirmation is attempted.
     """
+    latest_payment_attempt_record: Optional[str]
+    """
+    ID of the latest [Payment Attempt Record object](https://docs.stripe.com/api/payment-attempt-record) created by this PaymentIntent. This property is `null` until PaymentIntent confirmation is attempted.
+    """
     livemode: bool
     """
     If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
@@ -5154,6 +5222,10 @@ class PaymentIntent(
     payment_method_types: List[str]
     """
     The list of payment method types (e.g. card) that this PaymentIntent is allowed to use. A comprehensive list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
+    """
+    payment_record: Optional[ExpandableField["PaymentRecord"]]
+    """
+    ID of the [Payment Record object](https://docs.stripe.com/api/payment-record) created by this PaymentIntent.
     """
     payments_orchestration: Optional[PaymentsOrchestration]
     """
@@ -6961,6 +7033,122 @@ class PaymentIntent(
             await self._request_async(
                 "post",
                 "/v1/test/payment_intents/{intent}/trigger_action".format(
+                    intent=sanitize_id(self._data.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def _cls_update_crypto_refund_address(
+        cls,
+        intent: str,
+        **params: Unpack["PaymentIntentUpdateCryptoRefundAddressParams"],
+    ) -> "PaymentIntent":
+        """
+        Updates the refund address for a static crypto deposit PaymentIntent on the specified network.
+        """
+        return cast(
+            "PaymentIntent",
+            cls._static_request(
+                "post",
+                "/v1/payment_intents/{intent}/update_crypto_refund_address".format(
+                    intent=sanitize_id(intent)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def update_crypto_refund_address(
+        intent: str,
+        **params: Unpack["PaymentIntentUpdateCryptoRefundAddressParams"],
+    ) -> "PaymentIntent":
+        """
+        Updates the refund address for a static crypto deposit PaymentIntent on the specified network.
+        """
+        ...
+
+    @overload
+    def update_crypto_refund_address(
+        self, **params: Unpack["PaymentIntentUpdateCryptoRefundAddressParams"]
+    ) -> "PaymentIntent":
+        """
+        Updates the refund address for a static crypto deposit PaymentIntent on the specified network.
+        """
+        ...
+
+    @class_method_variant("_cls_update_crypto_refund_address")
+    def update_crypto_refund_address(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentIntentUpdateCryptoRefundAddressParams"]
+    ) -> "PaymentIntent":
+        """
+        Updates the refund address for a static crypto deposit PaymentIntent on the specified network.
+        """
+        return cast(
+            "PaymentIntent",
+            self._request(
+                "post",
+                "/v1/payment_intents/{intent}/update_crypto_refund_address".format(
+                    intent=sanitize_id(self._data.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_update_crypto_refund_address_async(
+        cls,
+        intent: str,
+        **params: Unpack["PaymentIntentUpdateCryptoRefundAddressParams"],
+    ) -> "PaymentIntent":
+        """
+        Updates the refund address for a static crypto deposit PaymentIntent on the specified network.
+        """
+        return cast(
+            "PaymentIntent",
+            await cls._static_request_async(
+                "post",
+                "/v1/payment_intents/{intent}/update_crypto_refund_address".format(
+                    intent=sanitize_id(intent)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def update_crypto_refund_address_async(
+        intent: str,
+        **params: Unpack["PaymentIntentUpdateCryptoRefundAddressParams"],
+    ) -> "PaymentIntent":
+        """
+        Updates the refund address for a static crypto deposit PaymentIntent on the specified network.
+        """
+        ...
+
+    @overload
+    async def update_crypto_refund_address_async(
+        self, **params: Unpack["PaymentIntentUpdateCryptoRefundAddressParams"]
+    ) -> "PaymentIntent":
+        """
+        Updates the refund address for a static crypto deposit PaymentIntent on the specified network.
+        """
+        ...
+
+    @class_method_variant("_cls_update_crypto_refund_address_async")
+    async def update_crypto_refund_address_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["PaymentIntentUpdateCryptoRefundAddressParams"]
+    ) -> "PaymentIntent":
+        """
+        Updates the refund address for a static crypto deposit PaymentIntent on the specified network.
+        """
+        return cast(
+            "PaymentIntent",
+            await self._request_async(
+                "post",
+                "/v1/payment_intents/{intent}/update_crypto_refund_address".format(
                     intent=sanitize_id(self._data.get("id"))
                 ),
                 params=params,

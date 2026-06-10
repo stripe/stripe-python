@@ -263,6 +263,12 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             class GeneratedFrom(StripeObject):
                 class PaymentMethodDetails(StripeObject):
                     class CardPresent(StripeObject):
+                        class Multicapture(StripeObject):
+                            status: Literal["available", "unavailable"]
+                            """
+                            Indicates whether or not multiple captures are supported.
+                            """
+
                         class Offline(StripeObject):
                             stored_at: Optional[int]
                             """
@@ -406,6 +412,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                         """
                         ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
                         """
+                        multicapture: Optional[Multicapture]
                         network: Optional[str]
                         """
                         Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
@@ -456,6 +463,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
                         """
                         wallet: Optional[Wallet]
                         _inner_class_types = {
+                            "multicapture": Multicapture,
                             "offline": Offline,
                             "reauthorization": Reauthorization,
                             "receipt": Receipt,

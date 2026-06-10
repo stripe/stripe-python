@@ -8,8 +8,10 @@ if TYPE_CHECKING:
         AccountEvaluationCreateParams as AccountEvaluationCreateParams,
         AccountEvaluationCreateParamsLoginInitiated as AccountEvaluationCreateParamsLoginInitiated,
         AccountEvaluationCreateParamsLoginInitiatedClientDeviceMetadataDetails as AccountEvaluationCreateParamsLoginInitiatedClientDeviceMetadataDetails,
+        AccountEvaluationCreateParamsLoginInitiatedClientDeviceMetadataDetailsData as AccountEvaluationCreateParamsLoginInitiatedClientDeviceMetadataDetailsData,
         AccountEvaluationCreateParamsRegistrationInitiated as AccountEvaluationCreateParamsRegistrationInitiated,
         AccountEvaluationCreateParamsRegistrationInitiatedClientDeviceMetadataDetails as AccountEvaluationCreateParamsRegistrationInitiatedClientDeviceMetadataDetails,
+        AccountEvaluationCreateParamsRegistrationInitiatedClientDeviceMetadataDetailsData as AccountEvaluationCreateParamsRegistrationInitiatedClientDeviceMetadataDetailsData,
         AccountEvaluationCreateParamsRegistrationInitiatedCustomerData as AccountEvaluationCreateParamsRegistrationInitiatedCustomerData,
     )
     from stripe.params.radar._account_evaluation_modify_params import (
@@ -33,6 +35,7 @@ if TYPE_CHECKING:
         CustomerEvaluationCreateParams as CustomerEvaluationCreateParams,
         CustomerEvaluationCreateParamsEvaluationContext as CustomerEvaluationCreateParamsEvaluationContext,
         CustomerEvaluationCreateParamsEvaluationContextClientDetails as CustomerEvaluationCreateParamsEvaluationContextClientDetails,
+        CustomerEvaluationCreateParamsEvaluationContextClientDetailsData as CustomerEvaluationCreateParamsEvaluationContextClientDetailsData,
         CustomerEvaluationCreateParamsEvaluationContextCustomerDetails as CustomerEvaluationCreateParamsEvaluationContextCustomerDetails,
         CustomerEvaluationCreateParamsEvaluationContextCustomerDetailsCustomerData as CustomerEvaluationCreateParamsEvaluationContextCustomerDetailsCustomerData,
     )
@@ -120,11 +123,19 @@ _import_map = {
         "stripe.params.radar._account_evaluation_create_params",
         False,
     ),
+    "AccountEvaluationCreateParamsLoginInitiatedClientDeviceMetadataDetailsData": (
+        "stripe.params.radar._account_evaluation_create_params",
+        False,
+    ),
     "AccountEvaluationCreateParamsRegistrationInitiated": (
         "stripe.params.radar._account_evaluation_create_params",
         False,
     ),
     "AccountEvaluationCreateParamsRegistrationInitiatedClientDeviceMetadataDetails": (
+        "stripe.params.radar._account_evaluation_create_params",
+        False,
+    ),
+    "AccountEvaluationCreateParamsRegistrationInitiatedClientDeviceMetadataDetailsData": (
         "stripe.params.radar._account_evaluation_create_params",
         False,
     ),
@@ -185,6 +196,10 @@ _import_map = {
         False,
     ),
     "CustomerEvaluationCreateParamsEvaluationContextClientDetails": (
+        "stripe.params.radar._customer_evaluation_create_params",
+        False,
+    ),
+    "CustomerEvaluationCreateParamsEvaluationContextClientDetailsData": (
         "stripe.params.radar._customer_evaluation_create_params",
         False,
     ),

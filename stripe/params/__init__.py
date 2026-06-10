@@ -810,14 +810,6 @@ if TYPE_CHECKING:
         ChargeCaptureParamsPaymentDetailsLodgingDelivery as ChargeCaptureParamsPaymentDetailsLodgingDelivery,
         ChargeCaptureParamsPaymentDetailsLodgingDeliveryRecipient as ChargeCaptureParamsPaymentDetailsLodgingDeliveryRecipient,
         ChargeCaptureParamsPaymentDetailsLodgingPassenger as ChargeCaptureParamsPaymentDetailsLodgingPassenger,
-        ChargeCaptureParamsPaymentDetailsMoneyServices as ChargeCaptureParamsPaymentDetailsMoneyServices,
-        ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFunding as ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFunding,
-        ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails as ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails,
-        ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress as ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress,
-        ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth as ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth,
-        ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails as ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails,
-        ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsAddress as ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsAddress,
-        ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsDateOfBirth as ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsDateOfBirth,
         ChargeCaptureParamsPaymentDetailsSubscription as ChargeCaptureParamsPaymentDetailsSubscription,
         ChargeCaptureParamsPaymentDetailsSubscriptionAffiliate as ChargeCaptureParamsPaymentDetailsSubscriptionAffiliate,
         ChargeCaptureParamsPaymentDetailsSubscriptionBillingInterval as ChargeCaptureParamsPaymentDetailsSubscriptionBillingInterval,
@@ -912,14 +904,6 @@ if TYPE_CHECKING:
         ChargeModifyParamsPaymentDetailsLodgingDelivery as ChargeModifyParamsPaymentDetailsLodgingDelivery,
         ChargeModifyParamsPaymentDetailsLodgingDeliveryRecipient as ChargeModifyParamsPaymentDetailsLodgingDeliveryRecipient,
         ChargeModifyParamsPaymentDetailsLodgingPassenger as ChargeModifyParamsPaymentDetailsLodgingPassenger,
-        ChargeModifyParamsPaymentDetailsMoneyServices as ChargeModifyParamsPaymentDetailsMoneyServices,
-        ChargeModifyParamsPaymentDetailsMoneyServicesAccountFunding as ChargeModifyParamsPaymentDetailsMoneyServicesAccountFunding,
-        ChargeModifyParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails as ChargeModifyParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails,
-        ChargeModifyParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress as ChargeModifyParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress,
-        ChargeModifyParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth as ChargeModifyParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth,
-        ChargeModifyParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails as ChargeModifyParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails,
-        ChargeModifyParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsAddress as ChargeModifyParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsAddress,
-        ChargeModifyParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsDateOfBirth as ChargeModifyParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsDateOfBirth,
         ChargeModifyParamsPaymentDetailsSubscription as ChargeModifyParamsPaymentDetailsSubscription,
         ChargeModifyParamsPaymentDetailsSubscriptionAffiliate as ChargeModifyParamsPaymentDetailsSubscriptionAffiliate,
         ChargeModifyParamsPaymentDetailsSubscriptionBillingInterval as ChargeModifyParamsPaymentDetailsSubscriptionBillingInterval,
@@ -1009,14 +993,6 @@ if TYPE_CHECKING:
         ChargeUpdateParamsPaymentDetailsLodgingDelivery as ChargeUpdateParamsPaymentDetailsLodgingDelivery,
         ChargeUpdateParamsPaymentDetailsLodgingDeliveryRecipient as ChargeUpdateParamsPaymentDetailsLodgingDeliveryRecipient,
         ChargeUpdateParamsPaymentDetailsLodgingPassenger as ChargeUpdateParamsPaymentDetailsLodgingPassenger,
-        ChargeUpdateParamsPaymentDetailsMoneyServices as ChargeUpdateParamsPaymentDetailsMoneyServices,
-        ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFunding as ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFunding,
-        ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails as ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails,
-        ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress as ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress,
-        ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth as ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth,
-        ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails as ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails,
-        ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsAddress as ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsAddress,
-        ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsDateOfBirth as ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsDateOfBirth,
         ChargeUpdateParamsPaymentDetailsSubscription as ChargeUpdateParamsPaymentDetailsSubscription,
         ChargeUpdateParamsPaymentDetailsSubscriptionAffiliate as ChargeUpdateParamsPaymentDetailsSubscriptionAffiliate,
         ChargeUpdateParamsPaymentDetailsSubscriptionBillingInterval as ChargeUpdateParamsPaymentDetailsSubscriptionBillingInterval,
@@ -1519,6 +1495,31 @@ if TYPE_CHECKING:
     )
     from stripe.params._fx_quote_retrieve_params import (
         FxQuoteRetrieveParams as FxQuoteRetrieveParams,
+    )
+    from stripe.params._gift_card_activate_params import (
+        GiftCardActivateParams as GiftCardActivateParams,
+        GiftCardActivateParamsBalance as GiftCardActivateParamsBalance,
+    )
+    from stripe.params._gift_card_cashout_params import (
+        GiftCardCashoutParams as GiftCardCashoutParams,
+    )
+    from stripe.params._gift_card_check_balance_params import (
+        GiftCardCheckBalanceParams as GiftCardCheckBalanceParams,
+    )
+    from stripe.params._gift_card_create_params import (
+        GiftCardCreateParams as GiftCardCreateParams,
+    )
+    from stripe.params._gift_card_operation_retrieve_params import (
+        GiftCardOperationRetrieveParams as GiftCardOperationRetrieveParams,
+    )
+    from stripe.params._gift_card_reload_params import (
+        GiftCardReloadParams as GiftCardReloadParams,
+    )
+    from stripe.params._gift_card_retrieve_params import (
+        GiftCardRetrieveParams as GiftCardRetrieveParams,
+    )
+    from stripe.params._gift_card_void_operation_params import (
+        GiftCardVoidOperationParams as GiftCardVoidOperationParams,
     )
     from stripe.params._invoice_add_lines_params import (
         InvoiceAddLinesParams as InvoiceAddLinesParams,
@@ -2377,14 +2378,6 @@ if TYPE_CHECKING:
         PaymentIntentCaptureParamsPaymentDetailsLodgingDelivery as PaymentIntentCaptureParamsPaymentDetailsLodgingDelivery,
         PaymentIntentCaptureParamsPaymentDetailsLodgingDeliveryRecipient as PaymentIntentCaptureParamsPaymentDetailsLodgingDeliveryRecipient,
         PaymentIntentCaptureParamsPaymentDetailsLodgingPassenger as PaymentIntentCaptureParamsPaymentDetailsLodgingPassenger,
-        PaymentIntentCaptureParamsPaymentDetailsMoneyServices as PaymentIntentCaptureParamsPaymentDetailsMoneyServices,
-        PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFunding as PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFunding,
-        PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails as PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails,
-        PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress as PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress,
-        PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth as PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth,
-        PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails as PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails,
-        PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsAddress as PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsAddress,
-        PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsDateOfBirth as PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsDateOfBirth,
         PaymentIntentCaptureParamsPaymentDetailsSubscription as PaymentIntentCaptureParamsPaymentDetailsSubscription,
         PaymentIntentCaptureParamsPaymentDetailsSubscriptionAffiliate as PaymentIntentCaptureParamsPaymentDetailsSubscriptionAffiliate,
         PaymentIntentCaptureParamsPaymentDetailsSubscriptionBillingInterval as PaymentIntentCaptureParamsPaymentDetailsSubscriptionBillingInterval,
@@ -2582,25 +2575,21 @@ if TYPE_CHECKING:
         PaymentIntentConfirmParamsPaymentMethodOptionsBlik as PaymentIntentConfirmParamsPaymentMethodOptionsBlik,
         PaymentIntentConfirmParamsPaymentMethodOptionsBoleto as PaymentIntentConfirmParamsPaymentMethodOptionsBoleto,
         PaymentIntentConfirmParamsPaymentMethodOptionsCard as PaymentIntentConfirmParamsPaymentMethodOptionsCard,
+        PaymentIntentConfirmParamsPaymentMethodOptionsCardCaptureDelay as PaymentIntentConfirmParamsPaymentMethodOptionsCardCaptureDelay,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardInstallments as PaymentIntentConfirmParamsPaymentMethodOptionsCardInstallments,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardInstallmentsPlan as PaymentIntentConfirmParamsPaymentMethodOptionsCardInstallmentsPlan,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardMandateOptions as PaymentIntentConfirmParamsPaymentMethodOptionsCardMandateOptions,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetails as PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetails,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices as PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding as PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding,
-        PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAsset as PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAsset,
-        PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto as PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto,
-        PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity as PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWallet as PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWallet,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase as PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant as PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardPresent as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresent,
+        PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentCaptureDelay as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentCaptureDelay,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetails as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetails,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding,
-        PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAsset as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAsset,
-        PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto,
-        PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWallet as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWallet,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase,
         PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant as PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant,
@@ -2909,25 +2898,21 @@ if TYPE_CHECKING:
         PaymentIntentCreateParamsPaymentMethodOptionsBlik as PaymentIntentCreateParamsPaymentMethodOptionsBlik,
         PaymentIntentCreateParamsPaymentMethodOptionsBoleto as PaymentIntentCreateParamsPaymentMethodOptionsBoleto,
         PaymentIntentCreateParamsPaymentMethodOptionsCard as PaymentIntentCreateParamsPaymentMethodOptionsCard,
+        PaymentIntentCreateParamsPaymentMethodOptionsCardCaptureDelay as PaymentIntentCreateParamsPaymentMethodOptionsCardCaptureDelay,
         PaymentIntentCreateParamsPaymentMethodOptionsCardInstallments as PaymentIntentCreateParamsPaymentMethodOptionsCardInstallments,
         PaymentIntentCreateParamsPaymentMethodOptionsCardInstallmentsPlan as PaymentIntentCreateParamsPaymentMethodOptionsCardInstallmentsPlan,
         PaymentIntentCreateParamsPaymentMethodOptionsCardMandateOptions as PaymentIntentCreateParamsPaymentMethodOptionsCardMandateOptions,
         PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetails as PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetails,
         PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices as PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices,
         PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding as PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding,
-        PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAsset as PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAsset,
-        PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto as PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto,
-        PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity as PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity,
         PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWallet as PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWallet,
         PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase as PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase,
         PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant as PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant,
         PaymentIntentCreateParamsPaymentMethodOptionsCardPresent as PaymentIntentCreateParamsPaymentMethodOptionsCardPresent,
+        PaymentIntentCreateParamsPaymentMethodOptionsCardPresentCaptureDelay as PaymentIntentCreateParamsPaymentMethodOptionsCardPresentCaptureDelay,
         PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetails as PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetails,
         PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices as PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices,
         PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding as PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding,
-        PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAsset as PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAsset,
-        PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto as PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto,
-        PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity as PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity,
         PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWallet as PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWallet,
         PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase as PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase,
         PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant as PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant,
@@ -3286,25 +3271,21 @@ if TYPE_CHECKING:
         PaymentIntentModifyParamsPaymentMethodOptionsBlik as PaymentIntentModifyParamsPaymentMethodOptionsBlik,
         PaymentIntentModifyParamsPaymentMethodOptionsBoleto as PaymentIntentModifyParamsPaymentMethodOptionsBoleto,
         PaymentIntentModifyParamsPaymentMethodOptionsCard as PaymentIntentModifyParamsPaymentMethodOptionsCard,
+        PaymentIntentModifyParamsPaymentMethodOptionsCardCaptureDelay as PaymentIntentModifyParamsPaymentMethodOptionsCardCaptureDelay,
         PaymentIntentModifyParamsPaymentMethodOptionsCardInstallments as PaymentIntentModifyParamsPaymentMethodOptionsCardInstallments,
         PaymentIntentModifyParamsPaymentMethodOptionsCardInstallmentsPlan as PaymentIntentModifyParamsPaymentMethodOptionsCardInstallmentsPlan,
         PaymentIntentModifyParamsPaymentMethodOptionsCardMandateOptions as PaymentIntentModifyParamsPaymentMethodOptionsCardMandateOptions,
         PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetails as PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetails,
         PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices as PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices,
         PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding as PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding,
-        PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAsset as PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAsset,
-        PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto as PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto,
-        PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity as PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity,
         PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWallet as PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWallet,
         PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase as PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase,
         PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant as PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant,
         PaymentIntentModifyParamsPaymentMethodOptionsCardPresent as PaymentIntentModifyParamsPaymentMethodOptionsCardPresent,
+        PaymentIntentModifyParamsPaymentMethodOptionsCardPresentCaptureDelay as PaymentIntentModifyParamsPaymentMethodOptionsCardPresentCaptureDelay,
         PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetails as PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetails,
         PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices as PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices,
         PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding as PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding,
-        PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAsset as PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAsset,
-        PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto as PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto,
-        PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity as PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity,
         PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWallet as PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWallet,
         PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase as PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase,
         PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant as PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant,
@@ -3436,6 +3417,9 @@ if TYPE_CHECKING:
     from stripe.params._payment_intent_trigger_action_params import (
         PaymentIntentTriggerActionParams as PaymentIntentTriggerActionParams,
         PaymentIntentTriggerActionParamsScanQrCode as PaymentIntentTriggerActionParamsScanQrCode,
+    )
+    from stripe.params._payment_intent_update_crypto_refund_address_params import (
+        PaymentIntentUpdateCryptoRefundAddressParams as PaymentIntentUpdateCryptoRefundAddressParams,
     )
     from stripe.params._payment_intent_update_params import (
         PaymentIntentUpdateParams as PaymentIntentUpdateParams,
@@ -3628,25 +3612,21 @@ if TYPE_CHECKING:
         PaymentIntentUpdateParamsPaymentMethodOptionsBlik as PaymentIntentUpdateParamsPaymentMethodOptionsBlik,
         PaymentIntentUpdateParamsPaymentMethodOptionsBoleto as PaymentIntentUpdateParamsPaymentMethodOptionsBoleto,
         PaymentIntentUpdateParamsPaymentMethodOptionsCard as PaymentIntentUpdateParamsPaymentMethodOptionsCard,
+        PaymentIntentUpdateParamsPaymentMethodOptionsCardCaptureDelay as PaymentIntentUpdateParamsPaymentMethodOptionsCardCaptureDelay,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardInstallments as PaymentIntentUpdateParamsPaymentMethodOptionsCardInstallments,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardInstallmentsPlan as PaymentIntentUpdateParamsPaymentMethodOptionsCardInstallmentsPlan,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardMandateOptions as PaymentIntentUpdateParamsPaymentMethodOptionsCardMandateOptions,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetails as PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetails,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices as PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServices,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding as PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFunding,
-        PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAsset as PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAsset,
-        PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto as PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto,
-        PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity as PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWallet as PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWallet,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase as PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant as PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardPresent as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresent,
+        PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentCaptureDelay as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentCaptureDelay,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetails as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetails,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServices,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding,
-        PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAsset as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAsset,
-        PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto,
-        PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWallet as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWallet,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase,
         PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant as PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant,
@@ -6164,6 +6144,13 @@ if TYPE_CHECKING:
     )
     from stripe.params._tax_code_retrieve_params import (
         TaxCodeRetrieveParams as TaxCodeRetrieveParams,
+    )
+    from stripe.params._tax_fund_list_params import (
+        TaxFundListParams as TaxFundListParams,
+        TaxFundListParamsCreated as TaxFundListParamsCreated,
+    )
+    from stripe.params._tax_fund_retrieve_params import (
+        TaxFundRetrieveParams as TaxFundRetrieveParams,
     )
     from stripe.params._tax_id_create_params import (
         TaxIdCreateParams as TaxIdCreateParams,
@@ -8890,38 +8877,6 @@ _import_map = {
         "stripe.params._charge_capture_params",
         False,
     ),
-    "ChargeCaptureParamsPaymentDetailsMoneyServices": (
-        "stripe.params._charge_capture_params",
-        False,
-    ),
-    "ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFunding": (
-        "stripe.params._charge_capture_params",
-        False,
-    ),
-    "ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails": (
-        "stripe.params._charge_capture_params",
-        False,
-    ),
-    "ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress": (
-        "stripe.params._charge_capture_params",
-        False,
-    ),
-    "ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth": (
-        "stripe.params._charge_capture_params",
-        False,
-    ),
-    "ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails": (
-        "stripe.params._charge_capture_params",
-        False,
-    ),
-    "ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsAddress": (
-        "stripe.params._charge_capture_params",
-        False,
-    ),
-    "ChargeCaptureParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsDateOfBirth": (
-        "stripe.params._charge_capture_params",
-        False,
-    ),
     "ChargeCaptureParamsPaymentDetailsSubscription": (
         "stripe.params._charge_capture_params",
         False,
@@ -9254,38 +9209,6 @@ _import_map = {
         "stripe.params._charge_modify_params",
         False,
     ),
-    "ChargeModifyParamsPaymentDetailsMoneyServices": (
-        "stripe.params._charge_modify_params",
-        False,
-    ),
-    "ChargeModifyParamsPaymentDetailsMoneyServicesAccountFunding": (
-        "stripe.params._charge_modify_params",
-        False,
-    ),
-    "ChargeModifyParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails": (
-        "stripe.params._charge_modify_params",
-        False,
-    ),
-    "ChargeModifyParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress": (
-        "stripe.params._charge_modify_params",
-        False,
-    ),
-    "ChargeModifyParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth": (
-        "stripe.params._charge_modify_params",
-        False,
-    ),
-    "ChargeModifyParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails": (
-        "stripe.params._charge_modify_params",
-        False,
-    ),
-    "ChargeModifyParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsAddress": (
-        "stripe.params._charge_modify_params",
-        False,
-    ),
-    "ChargeModifyParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsDateOfBirth": (
-        "stripe.params._charge_modify_params",
-        False,
-    ),
     "ChargeModifyParamsPaymentDetailsSubscription": (
         "stripe.params._charge_modify_params",
         False,
@@ -9598,38 +9521,6 @@ _import_map = {
         False,
     ),
     "ChargeUpdateParamsPaymentDetailsLodgingPassenger": (
-        "stripe.params._charge_update_params",
-        False,
-    ),
-    "ChargeUpdateParamsPaymentDetailsMoneyServices": (
-        "stripe.params._charge_update_params",
-        False,
-    ),
-    "ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFunding": (
-        "stripe.params._charge_update_params",
-        False,
-    ),
-    "ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails": (
-        "stripe.params._charge_update_params",
-        False,
-    ),
-    "ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress": (
-        "stripe.params._charge_update_params",
-        False,
-    ),
-    "ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth": (
-        "stripe.params._charge_update_params",
-        False,
-    ),
-    "ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails": (
-        "stripe.params._charge_update_params",
-        False,
-    ),
-    "ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsAddress": (
-        "stripe.params._charge_update_params",
-        False,
-    ),
-    "ChargeUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsDateOfBirth": (
         "stripe.params._charge_update_params",
         False,
     ),
@@ -10705,6 +10596,36 @@ _import_map = {
     "FxQuoteListParams": ("stripe.params._fx_quote_list_params", False),
     "FxQuoteRetrieveParams": (
         "stripe.params._fx_quote_retrieve_params",
+        False,
+    ),
+    "GiftCardActivateParams": (
+        "stripe.params._gift_card_activate_params",
+        False,
+    ),
+    "GiftCardActivateParamsBalance": (
+        "stripe.params._gift_card_activate_params",
+        False,
+    ),
+    "GiftCardCashoutParams": (
+        "stripe.params._gift_card_cashout_params",
+        False,
+    ),
+    "GiftCardCheckBalanceParams": (
+        "stripe.params._gift_card_check_balance_params",
+        False,
+    ),
+    "GiftCardCreateParams": ("stripe.params._gift_card_create_params", False),
+    "GiftCardOperationRetrieveParams": (
+        "stripe.params._gift_card_operation_retrieve_params",
+        False,
+    ),
+    "GiftCardReloadParams": ("stripe.params._gift_card_reload_params", False),
+    "GiftCardRetrieveParams": (
+        "stripe.params._gift_card_retrieve_params",
+        False,
+    ),
+    "GiftCardVoidOperationParams": (
+        "stripe.params._gift_card_void_operation_params",
         False,
     ),
     "InvoiceAddLinesParams": (
@@ -13571,38 +13492,6 @@ _import_map = {
         "stripe.params._payment_intent_capture_params",
         False,
     ),
-    "PaymentIntentCaptureParamsPaymentDetailsMoneyServices": (
-        "stripe.params._payment_intent_capture_params",
-        False,
-    ),
-    "PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFunding": (
-        "stripe.params._payment_intent_capture_params",
-        False,
-    ),
-    "PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails": (
-        "stripe.params._payment_intent_capture_params",
-        False,
-    ),
-    "PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress": (
-        "stripe.params._payment_intent_capture_params",
-        False,
-    ),
-    "PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth": (
-        "stripe.params._payment_intent_capture_params",
-        False,
-    ),
-    "PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails": (
-        "stripe.params._payment_intent_capture_params",
-        False,
-    ),
-    "PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsAddress": (
-        "stripe.params._payment_intent_capture_params",
-        False,
-    ),
-    "PaymentIntentCaptureParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsDateOfBirth": (
-        "stripe.params._payment_intent_capture_params",
-        False,
-    ),
     "PaymentIntentCaptureParamsPaymentDetailsSubscription": (
         "stripe.params._payment_intent_capture_params",
         False,
@@ -14383,6 +14272,10 @@ _import_map = {
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsCardCaptureDelay": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
     "PaymentIntentConfirmParamsPaymentMethodOptionsCardInstallments": (
         "stripe.params._payment_intent_confirm_params",
         False,
@@ -14407,18 +14300,6 @@ _import_map = {
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
-    "PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAsset": (
-        "stripe.params._payment_intent_confirm_params",
-        False,
-    ),
-    "PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto": (
-        "stripe.params._payment_intent_confirm_params",
-        False,
-    ),
-    "PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity": (
-        "stripe.params._payment_intent_confirm_params",
-        False,
-    ),
     "PaymentIntentConfirmParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWallet": (
         "stripe.params._payment_intent_confirm_params",
         False,
@@ -14435,6 +14316,10 @@ _import_map = {
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentCaptureDelay": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
     "PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetails": (
         "stripe.params._payment_intent_confirm_params",
         False,
@@ -14444,18 +14329,6 @@ _import_map = {
         False,
     ),
     "PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding": (
-        "stripe.params._payment_intent_confirm_params",
-        False,
-    ),
-    "PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAsset": (
-        "stripe.params._payment_intent_confirm_params",
-        False,
-    ),
-    "PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto": (
-        "stripe.params._payment_intent_confirm_params",
-        False,
-    ),
-    "PaymentIntentConfirmParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity": (
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
@@ -15683,6 +15556,10 @@ _import_map = {
         "stripe.params._payment_intent_create_params",
         False,
     ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsCardCaptureDelay": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
     "PaymentIntentCreateParamsPaymentMethodOptionsCardInstallments": (
         "stripe.params._payment_intent_create_params",
         False,
@@ -15707,18 +15584,6 @@ _import_map = {
         "stripe.params._payment_intent_create_params",
         False,
     ),
-    "PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAsset": (
-        "stripe.params._payment_intent_create_params",
-        False,
-    ),
-    "PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto": (
-        "stripe.params._payment_intent_create_params",
-        False,
-    ),
-    "PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity": (
-        "stripe.params._payment_intent_create_params",
-        False,
-    ),
     "PaymentIntentCreateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWallet": (
         "stripe.params._payment_intent_create_params",
         False,
@@ -15735,6 +15600,10 @@ _import_map = {
         "stripe.params._payment_intent_create_params",
         False,
     ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsCardPresentCaptureDelay": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
     "PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetails": (
         "stripe.params._payment_intent_create_params",
         False,
@@ -15744,18 +15613,6 @@ _import_map = {
         False,
     ),
     "PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding": (
-        "stripe.params._payment_intent_create_params",
-        False,
-    ),
-    "PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAsset": (
-        "stripe.params._payment_intent_create_params",
-        False,
-    ),
-    "PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto": (
-        "stripe.params._payment_intent_create_params",
-        False,
-    ),
-    "PaymentIntentCreateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity": (
         "stripe.params._payment_intent_create_params",
         False,
     ),
@@ -17151,6 +17008,10 @@ _import_map = {
         "stripe.params._payment_intent_modify_params",
         False,
     ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsCardCaptureDelay": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
     "PaymentIntentModifyParamsPaymentMethodOptionsCardInstallments": (
         "stripe.params._payment_intent_modify_params",
         False,
@@ -17175,18 +17036,6 @@ _import_map = {
         "stripe.params._payment_intent_modify_params",
         False,
     ),
-    "PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAsset": (
-        "stripe.params._payment_intent_modify_params",
-        False,
-    ),
-    "PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto": (
-        "stripe.params._payment_intent_modify_params",
-        False,
-    ),
-    "PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity": (
-        "stripe.params._payment_intent_modify_params",
-        False,
-    ),
     "PaymentIntentModifyParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWallet": (
         "stripe.params._payment_intent_modify_params",
         False,
@@ -17203,6 +17052,10 @@ _import_map = {
         "stripe.params._payment_intent_modify_params",
         False,
     ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsCardPresentCaptureDelay": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
     "PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetails": (
         "stripe.params._payment_intent_modify_params",
         False,
@@ -17212,18 +17065,6 @@ _import_map = {
         False,
     ),
     "PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding": (
-        "stripe.params._payment_intent_modify_params",
-        False,
-    ),
-    "PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAsset": (
-        "stripe.params._payment_intent_modify_params",
-        False,
-    ),
-    "PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto": (
-        "stripe.params._payment_intent_modify_params",
-        False,
-    ),
-    "PaymentIntentModifyParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity": (
         "stripe.params._payment_intent_modify_params",
         False,
     ),
@@ -17709,6 +17550,10 @@ _import_map = {
     ),
     "PaymentIntentTriggerActionParamsScanQrCode": (
         "stripe.params._payment_intent_trigger_action_params",
+        False,
+    ),
+    "PaymentIntentUpdateCryptoRefundAddressParams": (
+        "stripe.params._payment_intent_update_crypto_refund_address_params",
         False,
     ),
     "PaymentIntentUpdateParams": (
@@ -18471,6 +18316,10 @@ _import_map = {
         "stripe.params._payment_intent_update_params",
         False,
     ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsCardCaptureDelay": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
     "PaymentIntentUpdateParamsPaymentMethodOptionsCardInstallments": (
         "stripe.params._payment_intent_update_params",
         False,
@@ -18495,18 +18344,6 @@ _import_map = {
         "stripe.params._payment_intent_update_params",
         False,
     ),
-    "PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAsset": (
-        "stripe.params._payment_intent_update_params",
-        False,
-    ),
-    "PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto": (
-        "stripe.params._payment_intent_update_params",
-        False,
-    ),
-    "PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity": (
-        "stripe.params._payment_intent_update_params",
-        False,
-    ),
     "PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWallet": (
         "stripe.params._payment_intent_update_params",
         False,
@@ -18523,6 +18360,10 @@ _import_map = {
         "stripe.params._payment_intent_update_params",
         False,
     ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentCaptureDelay": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
     "PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetails": (
         "stripe.params._payment_intent_update_params",
         False,
@@ -18532,18 +18373,6 @@ _import_map = {
         False,
     ),
     "PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFunding": (
-        "stripe.params._payment_intent_update_params",
-        False,
-    ),
-    "PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAsset": (
-        "stripe.params._payment_intent_update_params",
-        False,
-    ),
-    "PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetCrypto": (
-        "stripe.params._payment_intent_update_params",
-        False,
-    ),
-    "PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingLiquidAssetSecurity": (
         "stripe.params._payment_intent_update_params",
         False,
     ),
@@ -27043,6 +26872,12 @@ _import_map = {
     "TaxCodeListParams": ("stripe.params._tax_code_list_params", False),
     "TaxCodeRetrieveParams": (
         "stripe.params._tax_code_retrieve_params",
+        False,
+    ),
+    "TaxFundListParams": ("stripe.params._tax_fund_list_params", False),
+    "TaxFundListParamsCreated": ("stripe.params._tax_fund_list_params", False),
+    "TaxFundRetrieveParams": (
+        "stripe.params._tax_fund_retrieve_params",
         False,
     ),
     "TaxIdCreateParams": ("stripe.params._tax_id_create_params", False),

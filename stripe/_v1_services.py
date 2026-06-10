@@ -45,6 +45,8 @@ if TYPE_CHECKING:
         FrMealVouchersOnboardingService,
     )
     from stripe._fx_quote_service import FxQuoteService
+    from stripe._gift_card_operation_service import GiftCardOperationService
+    from stripe._gift_card_service import GiftCardService
     from stripe._identity_service import IdentityService
     from stripe._invoice_item_service import InvoiceItemService
     from stripe._invoice_payment_service import InvoicePaymentService
@@ -99,6 +101,7 @@ if TYPE_CHECKING:
     )
     from stripe._subscription_service import SubscriptionService
     from stripe._tax_code_service import TaxCodeService
+    from stripe._tax_fund_service import TaxFundService
     from stripe._tax_id_service import TaxIdService
     from stripe._tax_rate_service import TaxRateService
     from stripe._tax_service import TaxService
@@ -189,6 +192,11 @@ _subservices = {
         "FrMealVouchersOnboardingService",
     ],
     "fx_quotes": ["stripe._fx_quote_service", "FxQuoteService"],
+    "gift_cards": ["stripe._gift_card_service", "GiftCardService"],
+    "gift_card_operations": [
+        "stripe._gift_card_operation_service",
+        "GiftCardOperationService",
+    ],
     "identity": ["stripe._identity_service", "IdentityService"],
     "invoices": ["stripe._invoice_service", "InvoiceService"],
     "invoice_items": ["stripe._invoice_item_service", "InvoiceItemService"],
@@ -277,6 +285,7 @@ _subservices = {
     ],
     "tax": ["stripe._tax_service", "TaxService"],
     "tax_codes": ["stripe._tax_code_service", "TaxCodeService"],
+    "tax_funds": ["stripe._tax_fund_service", "TaxFundService"],
     "tax_ids": ["stripe._tax_id_service", "TaxIdService"],
     "tax_rates": ["stripe._tax_rate_service", "TaxRateService"],
     "terminal": ["stripe._terminal_service", "TerminalService"],
@@ -329,6 +338,8 @@ class V1Services(StripeService):
     forwarding: "ForwardingService"
     fr_meal_vouchers_onboardings: "FrMealVouchersOnboardingService"
     fx_quotes: "FxQuoteService"
+    gift_cards: "GiftCardService"
+    gift_card_operations: "GiftCardOperationService"
     identity: "IdentityService"
     invoices: "InvoiceService"
     invoice_items: "InvoiceItemService"
@@ -372,6 +383,7 @@ class V1Services(StripeService):
     subscription_schedules: "SubscriptionScheduleService"
     tax: "TaxService"
     tax_codes: "TaxCodeService"
+    tax_funds: "TaxFundService"
     tax_ids: "TaxIdService"
     tax_rates: "TaxRateService"
     terminal: "TerminalService"

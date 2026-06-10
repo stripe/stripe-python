@@ -447,6 +447,37 @@ class Dispute(
             "pre_arbitration_submission": PreArbitrationSubmission,
         }
 
+    class ProvisionalCredit(StripeObject):
+        grant_deadline: Optional[int]
+        """
+        The time by which the platform must grant a provisional credit to the consumer.
+        """
+        granted_at: Optional[int]
+        """
+        The time at which the platform reported granting the provisional credit.
+        """
+        revocable_after: Optional[int]
+        """
+        The earliest time after which the platform can revoke the provisional credit.
+        """
+        revoked_at: Optional[int]
+        """
+        The time at which the platform reported revoking the provisional credit.
+        """
+        status: Literal[
+            "delinquent",
+            "granted",
+            "not_required",
+            "permanent",
+            "required",
+            "revocable",
+            "revocation_notice_period",
+            "revoked",
+        ]
+        """
+        The status of the provisional credit obligation.
+        """
+
     class Treasury(StripeObject):
         debit_reversal: Optional[str]
         """
@@ -524,6 +555,10 @@ class Dispute(
     object: Literal["issuing.dispute"]
     """
     String representing the object's type. Objects of the same type share the same value.
+    """
+    provisional_credit: Optional[ProvisionalCredit]
+    """
+    Provisional credit details for this dispute.
     """
     status: Literal["expired", "lost", "submitted", "unsubmitted", "won"]
     """
@@ -1311,6 +1346,7 @@ class Dispute(
         "crypto_transactions": CryptoTransaction,
         "evidence": Evidence,
         "network_lifecycle": NetworkLifecycle,
+        "provisional_credit": ProvisionalCredit,
         "treasury": Treasury,
     }
 

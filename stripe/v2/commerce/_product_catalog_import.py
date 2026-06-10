@@ -167,7 +167,7 @@ class ProductCatalogImport(StripeObject):
     """
     The time this ProductCatalogImport was created.
     """
-    feed_type: Literal["inventory", "pricing", "product"]
+    feed_type: Literal["inventory", "pricing", "product", "promotion"]
     """
     The type of feed data being imported into the product catalog.
     """

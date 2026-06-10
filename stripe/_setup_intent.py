@@ -965,6 +965,10 @@ class SetupIntent(
             _inner_class_types = {"fr_meal_voucher": FrMealVoucher}
 
         benefit: Optional[Benefit]
+        location: Optional[str]
+        """
+        The Payment Location associated with this SetupIntent.
+        """
         _inner_class_types = {"benefit": Benefit}
 
     application: Optional[ExpandableField["Application"]]

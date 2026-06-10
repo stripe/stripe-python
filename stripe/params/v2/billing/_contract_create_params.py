@@ -649,7 +649,7 @@ class ContractCreateParamsPricingOverride(TypedDict):
     """
     priority: int
     """
-    The priority of this override relative to others. Lower number = higher priority.
+    The priority of this override relative to others. The highest priority is 0 and the lowest is 100.
     """
     starts_at: "ContractCreateParamsPricingOverrideStartsAt"
     """

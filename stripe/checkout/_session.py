@@ -594,6 +594,7 @@ class Session(
                     "elo",
                     "girocard",
                     "interac",
+                    "jaywan",
                     "jcb",
                     "link",
                     "maestro",
@@ -651,6 +652,12 @@ class Session(
                 Unique, encrypted bank account identifier.
                 """
 
+            class Pix(StripeObject):
+                fingerprint: Optional[str]
+                """
+                Uniquely identifies this particular Pix account. You can use this attribute to check whether two Pix accounts are the same.
+                """
+
             class SepaDebit(StripeObject):
                 fingerprint: Optional[str]
                 """
@@ -672,6 +679,7 @@ class Session(
             boleto: Optional[Boleto]
             card: Optional[Card]
             link: Optional[Link]
+            pix: Optional[Pix]
             sepa_debit: Optional[SepaDebit]
             type: str
             """
@@ -684,6 +692,7 @@ class Session(
                 "boleto": Boleto,
                 "card": Card,
                 "link": Link,
+                "pix": Pix,
                 "sepa_debit": SepaDebit,
                 "us_bank_account": UsBankAccount,
             }

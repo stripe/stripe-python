@@ -24,6 +24,10 @@ class DisputeUpdateParams(TypedDict):
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
+    provisional_credit: NotRequired["DisputeUpdateParamsProvisionalCredit"]
+    """
+    Provisional credit information for this dispute.
+    """
 
 
 class DisputeUpdateParamsEvidence(TypedDict):
@@ -271,4 +275,15 @@ class DisputeUpdateParamsEvidenceServiceNotAsDescribed(TypedDict):
     received_at: NotRequired["Literal['']|int"]
     """
     Date when the product was received.
+    """
+
+
+class DisputeUpdateParamsProvisionalCredit(TypedDict):
+    granted_at: NotRequired[int]
+    """
+    The time at which the platform granted the provisional credit to their user.
+    """
+    revoked_at: NotRequired[int]
+    """
+    The time at which the platform revoked the provisional credit from their user.
     """

@@ -40,9 +40,32 @@ class AccountEvaluationCreateParamsLoginInitiated(TypedDict):
 class AccountEvaluationCreateParamsLoginInitiatedClientDeviceMetadataDetails(
     TypedDict,
 ):
-    radar_session: str
+    data: NotRequired[
+        "AccountEvaluationCreateParamsLoginInitiatedClientDeviceMetadataDetailsData"
+    ]
     """
-    ID for the Radar Session associated with the account evaluation.
+    Raw client metadata fallback when Stripe.js is blocked. Required unless radar_session is provided.
+    """
+    radar_session: NotRequired[str]
+    """
+    ID for the Radar Session. Required unless data is provided.
+    """
+
+
+class AccountEvaluationCreateParamsLoginInitiatedClientDeviceMetadataDetailsData(
+    TypedDict,
+):
+    ip: str
+    """
+    The end user's IP address. Used for proxy detection and IP-clustering signals.
+    """
+    referrer: NotRequired[str]
+    """
+    The referring URL of the login or registration page.
+    """
+    user_agent: NotRequired[str]
+    """
+    The User-Agent HTTP header.
     """
 
 
@@ -66,9 +89,32 @@ class AccountEvaluationCreateParamsRegistrationInitiated(TypedDict):
 class AccountEvaluationCreateParamsRegistrationInitiatedClientDeviceMetadataDetails(
     TypedDict,
 ):
-    radar_session: str
+    data: NotRequired[
+        "AccountEvaluationCreateParamsRegistrationInitiatedClientDeviceMetadataDetailsData"
+    ]
     """
-    ID for the Radar Session associated with the account evaluation.
+    Raw client metadata fallback when Stripe.js is blocked. Required unless radar_session is provided.
+    """
+    radar_session: NotRequired[str]
+    """
+    ID for the Radar Session. Required unless data is provided.
+    """
+
+
+class AccountEvaluationCreateParamsRegistrationInitiatedClientDeviceMetadataDetailsData(
+    TypedDict,
+):
+    ip: str
+    """
+    The end user's IP address. Used for proxy detection and IP-clustering signals.
+    """
+    referrer: NotRequired[str]
+    """
+    The referring URL of the login or registration page.
+    """
+    user_agent: NotRequired[str]
+    """
+    The User-Agent HTTP header.
     """
 
 

@@ -50,6 +50,9 @@ if TYPE_CHECKING:
     from stripe.params._payment_intent_trigger_action_params import (
         PaymentIntentTriggerActionParams,
     )
+    from stripe.params._payment_intent_update_crypto_refund_address_params import (
+        PaymentIntentUpdateCryptoRefundAddressParams,
+    )
     from stripe.params._payment_intent_update_params import (
         PaymentIntentUpdateParams,
     )
@@ -801,6 +804,50 @@ class PaymentIntentService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/payment_intents/{intent}/reauthorize".format(
+                    intent=sanitize_id(intent),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def update_crypto_refund_address(
+        self,
+        intent: str,
+        params: "PaymentIntentUpdateCryptoRefundAddressParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentIntent":
+        """
+        Updates the refund address for a static crypto deposit PaymentIntent on the specified network.
+        """
+        return cast(
+            "PaymentIntent",
+            self._request(
+                "post",
+                "/v1/payment_intents/{intent}/update_crypto_refund_address".format(
+                    intent=sanitize_id(intent),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def update_crypto_refund_address_async(
+        self,
+        intent: str,
+        params: "PaymentIntentUpdateCryptoRefundAddressParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentIntent":
+        """
+        Updates the refund address for a static crypto deposit PaymentIntent on the specified network.
+        """
+        return cast(
+            "PaymentIntent",
+            await self._request_async(
+                "post",
+                "/v1/payment_intents/{intent}/update_crypto_refund_address".format(
                     intent=sanitize_id(intent),
                 ),
                 base_address="api",

@@ -399,6 +399,14 @@ if TYPE_CHECKING:
     )
     from stripe._fx_quote import FxQuote as FxQuote
     from stripe._fx_quote_service import FxQuoteService as FxQuoteService
+    from stripe._gift_card import GiftCard as GiftCard
+    from stripe._gift_card_operation import (
+        GiftCardOperation as GiftCardOperation,
+    )
+    from stripe._gift_card_operation_service import (
+        GiftCardOperationService as GiftCardOperationService,
+    )
+    from stripe._gift_card_service import GiftCardService as GiftCardService
     from stripe._http_client import (
         AIOHTTPClient as AIOHTTPClient,
         HTTPClient as HTTPClient,
@@ -628,6 +636,8 @@ if TYPE_CHECKING:
     from stripe._tax_deducted_at_source import (
         TaxDeductedAtSource as TaxDeductedAtSource,
     )
+    from stripe._tax_fund import TaxFund as TaxFund
+    from stripe._tax_fund_service import TaxFundService as TaxFundService
     from stripe._tax_id import TaxId as TaxId
     from stripe._tax_id_service import TaxIdService as TaxIdService
     from stripe._tax_rate import TaxRate as TaxRate
@@ -880,6 +890,10 @@ _import_map = {
     "FundingInstructions": ("stripe._funding_instructions", False),
     "FxQuote": ("stripe._fx_quote", False),
     "FxQuoteService": ("stripe._fx_quote_service", False),
+    "GiftCard": ("stripe._gift_card", False),
+    "GiftCardOperation": ("stripe._gift_card_operation", False),
+    "GiftCardOperationService": ("stripe._gift_card_operation_service", False),
+    "GiftCardService": ("stripe._gift_card_service", False),
     "AIOHTTPClient": ("stripe._http_client", False),
     "HTTPClient": ("stripe._http_client", False),
     "HTTPXClient": ("stripe._http_client", False),
@@ -1056,6 +1070,8 @@ _import_map = {
     "TaxCode": ("stripe._tax_code", False),
     "TaxCodeService": ("stripe._tax_code_service", False),
     "TaxDeductedAtSource": ("stripe._tax_deducted_at_source", False),
+    "TaxFund": ("stripe._tax_fund", False),
+    "TaxFundService": ("stripe._tax_fund_service", False),
     "TaxId": ("stripe._tax_id", False),
     "TaxIdService": ("stripe._tax_id_service", False),
     "TaxRate": ("stripe._tax_rate", False),

@@ -235,6 +235,12 @@ class CalculationCreateParamsLineItem(TypedDict):
     """
     A tax location ID. Depending on the [tax code](https://docs.stripe.com/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
     """
+    performance_location_details: NotRequired[
+        "CalculationCreateParamsLineItemPerformanceLocationDetails"
+    ]
+    """
+    Details of the performance location for this line item. Use this to specify an address directly instead of a tax location ID.
+    """
     product: NotRequired[str]
     """
     If provided, the product's `tax_code` will be used as the line item's `tax_code`.
@@ -254,6 +260,42 @@ class CalculationCreateParamsLineItem(TypedDict):
     tax_code: NotRequired[str]
     """
     A [tax code](https://docs.stripe.com/tax/tax-categories) ID to use for this line item. If not provided, we will use the tax code from the provided `product` param. If neither `tax_code` nor `product` is provided, we will use the default tax code from your Tax Settings.
+    """
+
+
+class CalculationCreateParamsLineItemPerformanceLocationDetails(TypedDict):
+    address: "CalculationCreateParamsLineItemPerformanceLocationDetailsAddress"
+    """
+    The address of the performance venue.
+    """
+
+
+class CalculationCreateParamsLineItemPerformanceLocationDetailsAddress(
+    TypedDict,
+):
+    city: NotRequired["Literal['']|str"]
+    """
+    City, district, suburb, town, or village.
+    """
+    country: str
+    """
+    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+    """
+    line1: NotRequired["Literal['']|str"]
+    """
+    Address line 1, such as the street, PO Box, or company name.
+    """
+    line2: NotRequired["Literal['']|str"]
+    """
+    Address line 2, such as the apartment, suite, unit, or building.
+    """
+    postal_code: NotRequired["Literal['']|str"]
+    """
+    ZIP or postal code.
+    """
+    state: NotRequired["Literal['']|str"]
+    """
+    State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix, such as "NY" or "TX".
     """
 
 

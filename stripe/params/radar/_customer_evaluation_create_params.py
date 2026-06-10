@@ -40,9 +40,32 @@ class CustomerEvaluationCreateParamsEvaluationContext(TypedDict):
 
 
 class CustomerEvaluationCreateParamsEvaluationContextClientDetails(TypedDict):
-    radar_session: str
+    data: NotRequired[
+        "CustomerEvaluationCreateParamsEvaluationContextClientDetailsData"
+    ]
     """
-    ID for the Radar Session associated with the customer evaluation.
+    Raw client metadata fallback in case a Radar Session is unavailable.
+    """
+    radar_session: NotRequired[str]
+    """
+    ID for the Radar Session. Required unless data is provided.
+    """
+
+
+class CustomerEvaluationCreateParamsEvaluationContextClientDetailsData(
+    TypedDict,
+):
+    ip: str
+    """
+    The end user's IP address. Used for proxy detection and IP-clustering signals.
+    """
+    referrer: NotRequired[str]
+    """
+    The referring URL of the login or registration page.
+    """
+    user_agent: NotRequired[str]
+    """
+    The User-Agent HTTP header.
     """
 
 
