@@ -1,3 +1,6 @@
+## 15.2.1 - 2026-06-12
+* [#1825](https://github.com/stripe/stripe-python/pull/1825) Add "source" field to user-agent header
+
 ## 15.2.0 - 2026-05-27
 This release changes the pinned API version to 2026-05-27.dahlia.
 
