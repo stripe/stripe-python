@@ -88,6 +88,9 @@ This release changes the pinned API version to 2026-05-27.private.
   * Add support for snapshot event `payment_intent.expired` with resource `PaymentIntent`
   * Add support for event notifications `V2CoreHealthElementsErrorFiringEvent`, `V2CoreHealthElementsErrorResolvedEvent`, `V2CoreHealthInvoiceCountDroppedFiringEvent`, and `V2CoreHealthInvoiceCountDroppedResolvedEvent`
 
+## 15.2.1 - 2026-06-12
+* [#1825](https://github.com/stripe/stripe-python/pull/1825) Add "source" field to user-agent header
+
 ## 15.2.0 - 2026-05-27
 This release changes the pinned API version to 2026-05-27.dahlia.
 
