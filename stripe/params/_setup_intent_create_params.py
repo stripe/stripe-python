@@ -104,6 +104,7 @@ class SetupIntentCreateParams(RequestOptions):
                 "stripe_balance",
                 "sunbit",
                 "swish",
+                "tamara",
                 "twint",
                 "upi",
                 "us_bank_account",
@@ -529,6 +530,10 @@ class SetupIntentCreateParamsPaymentMethodData(TypedDict):
     """
     If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
     """
+    tamara: NotRequired["SetupIntentCreateParamsPaymentMethodDataTamara"]
+    """
+    If this is a `tamara` PaymentMethod, this hash contains details about the Tamara payment method.
+    """
     twint: NotRequired["SetupIntentCreateParamsPaymentMethodDataTwint"]
     """
     If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
@@ -590,6 +595,7 @@ class SetupIntentCreateParamsPaymentMethodData(TypedDict):
         "stripe_balance",
         "sunbit",
         "swish",
+        "tamara",
         "twint",
         "upi",
         "us_bank_account",
@@ -1140,6 +1146,10 @@ class SetupIntentCreateParamsPaymentMethodDataSunbit(TypedDict):
 
 
 class SetupIntentCreateParamsPaymentMethodDataSwish(TypedDict):
+    pass
+
+
+class SetupIntentCreateParamsPaymentMethodDataTamara(TypedDict):
     pass
 
 

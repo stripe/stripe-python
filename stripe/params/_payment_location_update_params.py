@@ -57,7 +57,7 @@ class PaymentLocationUpdateParamsAddress(TypedDict):
 
 
 class PaymentLocationUpdateParamsBusinessRegistration(TypedDict):
-    siret: NotRequired[str]
+    siret: NotRequired["Literal['']|str"]
     """
     14-digit SIRET (Système d'identification du répertoire des établissements) number for the location.
     """

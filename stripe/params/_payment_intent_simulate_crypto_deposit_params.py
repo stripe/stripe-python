@@ -14,11 +14,11 @@ class PaymentIntentSimulateCryptoDepositParams(RequestOptions):
     """
     Specifies which fields in the response should be expanded.
     """
-    network: Literal["base", "solana", "tempo"]
+    network: Literal["base", "ethereum", "polygon", "solana", "tempo"]
     """
     The blockchain network of the simulated crypto deposit.
     """
-    token_currency: Literal["usdc"]
+    token_currency: Literal["usdc", "usdg", "usdp"]
     """
     The token currency of the simulated crypto deposit.
     """

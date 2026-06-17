@@ -120,6 +120,16 @@ class Mandate(ListableAPIResource["Mandate"]):
             The URL that will contain the mandate that the customer has signed.
             """
 
+        class Blik(StripeObject):
+            expires_after: Optional[int]
+            """
+            Date at which the mandate expires.
+            """
+            type: Literal["off_session", "on_session"]
+            """
+            Type of the mandate.
+            """
+
         class Card(StripeObject):
             pass
 
@@ -290,6 +300,7 @@ class Mandate(ListableAPIResource["Mandate"]):
         amazon_pay: Optional[AmazonPay]
         au_becs_debit: Optional[AuBecsDebit]
         bacs_debit: Optional[BacsDebit]
+        blik: Optional[Blik]
         card: Optional[Card]
         cashapp: Optional[Cashapp]
         kakao_pay: Optional[KakaoPay]
@@ -315,6 +326,7 @@ class Mandate(ListableAPIResource["Mandate"]):
             "amazon_pay": AmazonPay,
             "au_becs_debit": AuBecsDebit,
             "bacs_debit": BacsDebit,
+            "blik": Blik,
             "card": Card,
             "cashapp": Cashapp,
             "kakao_pay": KakaoPay,

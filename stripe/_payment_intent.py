@@ -123,6 +123,16 @@ class PaymentIntent(
             Indicates whether the feature is supported.
             """
 
+        class ForcedCapture(StripeObject):
+            expires_at: Optional[int]
+            """
+            Timestamp at which the forced capture window expires.
+            """
+            status: Literal["available", "unavailable"]
+            """
+            Indicates whether forced capture is supported.
+            """
+
         class IncrementalAuthorization(StripeObject):
             status: Literal["available", "unavailable"]
             """
@@ -150,11 +160,13 @@ class PaymentIntent(
         Timestamp at which the authorization will expire if not captured.
         """
         decremental_authorization: Optional[DecrementalAuthorization]
+        forced_capture: Optional[ForcedCapture]
         incremental_authorization: Optional[IncrementalAuthorization]
         multicapture: Optional[Multicapture]
         overcapture: Optional[Overcapture]
         _inner_class_types = {
             "decremental_authorization": DecrementalAuthorization,
+            "forced_capture": ForcedCapture,
             "incremental_authorization": IncrementalAuthorization,
             "multicapture": Multicapture,
             "overcapture": Overcapture,
@@ -695,9 +707,59 @@ class PaymentIntent(
                         """
                         The on-chain contract address for the supported token currency on this specific network.
                         """
-                        token_currency: Literal["usdc"]
+                        token_currency: Literal["usdc", "usdg", "usdp"]
                         """
-                        The supported token currency. Supported token currencies include: `usdc`.
+                        The supported token currency.
+                        """
+
+                    address: str
+                    """
+                    Address of the deposit address.
+                    """
+                    refund_address: Optional[str]
+                    """
+                    The wallet address that should receive refunds for deposits on this network.
+                    """
+                    supported_tokens: List[SupportedToken]
+                    """
+                    The token currencies supported on this network.
+                    """
+                    _inner_class_types = {"supported_tokens": SupportedToken}
+
+                class Ethereum(StripeObject):
+                    class SupportedToken(StripeObject):
+                        token_contract_address: str
+                        """
+                        The on-chain contract address for the supported token currency on this specific network.
+                        """
+                        token_currency: Literal["usdc", "usdg", "usdp"]
+                        """
+                        The supported token currency.
+                        """
+
+                    address: str
+                    """
+                    Address of the deposit address.
+                    """
+                    refund_address: Optional[str]
+                    """
+                    The wallet address that should receive refunds for deposits on this network.
+                    """
+                    supported_tokens: List[SupportedToken]
+                    """
+                    The token currencies supported on this network.
+                    """
+                    _inner_class_types = {"supported_tokens": SupportedToken}
+
+                class Polygon(StripeObject):
+                    class SupportedToken(StripeObject):
+                        token_contract_address: str
+                        """
+                        The on-chain contract address for the supported token currency on this specific network.
+                        """
+                        token_currency: Literal["usdc", "usdg", "usdp"]
+                        """
+                        The supported token currency.
                         """
 
                     address: str
@@ -720,9 +782,9 @@ class PaymentIntent(
                         """
                         The on-chain contract address for the supported token currency on this specific network.
                         """
-                        token_currency: Literal["usdc"]
+                        token_currency: Literal["usdc", "usdg", "usdp"]
                         """
-                        The supported token currency. Supported token currencies include: `usdc`.
+                        The supported token currency.
                         """
 
                     address: str
@@ -745,9 +807,9 @@ class PaymentIntent(
                         """
                         The on-chain contract address for the supported token currency on this specific network.
                         """
-                        token_currency: Literal["usdc"]
+                        token_currency: Literal["usdc", "usdg", "usdp"]
                         """
-                        The supported token currency. Supported token currencies include: `usdc`.
+                        The supported token currency.
                         """
 
                     address: str
@@ -765,10 +827,14 @@ class PaymentIntent(
                     _inner_class_types = {"supported_tokens": SupportedToken}
 
                 base: Optional[Base]
+                ethereum: Optional[Ethereum]
+                polygon: Optional[Polygon]
                 solana: Optional[Solana]
                 tempo: Optional[Tempo]
                 _inner_class_types = {
                     "base": Base,
+                    "ethereum": Ethereum,
+                    "polygon": Polygon,
                     "solana": Solana,
                     "tempo": Tempo,
                 }
@@ -1616,6 +1682,12 @@ class PaymentIntent(
             The image_url_svg string used to render QR code
             """
 
+        class WechatPayHandleAppRedirect(StripeObject):
+            session_id: str
+            """
+            Session ID of the WeChat Pay signing session
+            """
+
         class WechatPayRedirectToAndroidApp(StripeObject):
             app_id: str
             """
@@ -1687,6 +1759,7 @@ class PaymentIntent(
         """
         verify_with_microdeposits: Optional[VerifyWithMicrodeposits]
         wechat_pay_display_qr_code: Optional[WechatPayDisplayQrCode]
+        wechat_pay_handle_app_redirect: Optional[WechatPayHandleAppRedirect]
         wechat_pay_redirect_to_android_app: Optional[
             WechatPayRedirectToAndroidApp
         ]
@@ -1711,6 +1784,7 @@ class PaymentIntent(
             "upi_handle_redirect_or_display_qr_code": UpiHandleRedirectOrDisplayQrCode,
             "verify_with_microdeposits": VerifyWithMicrodeposits,
             "wechat_pay_display_qr_code": WechatPayDisplayQrCode,
+            "wechat_pay_handle_app_redirect": WechatPayHandleAppRedirect,
             "wechat_pay_redirect_to_android_app": WechatPayRedirectToAndroidApp,
             "wechat_pay_redirect_to_ios_app": WechatPayRedirectToIosApp,
         }
@@ -3008,66 +3082,6 @@ class PaymentIntent(
 
         class MoneyServices(StripeObject):
             class AccountFunding(StripeObject):
-                class BeneficiaryDetails(StripeObject):
-                    class Address(StripeObject):
-                        city: Optional[str]
-                        """
-                        City, district, suburb, town, or village.
-                        """
-                        country: Optional[str]
-                        """
-                        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-                        """
-                        line1: Optional[str]
-                        """
-                        Address line 1 (e.g., street, PO Box, or company name).
-                        """
-                        line2: Optional[str]
-                        """
-                        Address line 2 (e.g., apartment, suite, unit, or building).
-                        """
-                        postal_code: Optional[str]
-                        """
-                        ZIP or postal code.
-                        """
-                        state: Optional[str]
-                        """
-                        State, county, province, or region.
-                        """
-
-                    class DateOfBirth(StripeObject):
-                        day: int
-                        """
-                        Day of birth, between 1 and 31.
-                        """
-                        month: int
-                        """
-                        Month of birth, between 1 and 12.
-                        """
-                        year: int
-                        """
-                        Four-digit year of birth.
-                        """
-
-                    address: Optional[Address]
-                    date_of_birth: Optional[DateOfBirth]
-                    email: Optional[str]
-                    """
-                    Email address.
-                    """
-                    name: Optional[str]
-                    """
-                    Full name.
-                    """
-                    phone: Optional[str]
-                    """
-                    Phone number.
-                    """
-                    _inner_class_types = {
-                        "address": Address,
-                        "date_of_birth": DateOfBirth,
-                    }
-
                 class SenderDetails(StripeObject):
                     class Address(StripeObject):
                         city: Optional[str]
@@ -3115,42 +3129,110 @@ class PaymentIntent(
                     """
                     Email address.
                     """
-                    name: Optional[str]
+                    given_name: Optional[str]
                     """
-                    Full name.
+                    Given name (first name).
                     """
                     phone: Optional[str]
                     """
                     Phone number.
+                    """
+                    surname: Optional[str]
+                    """
+                    Surname (last name).
                     """
                     _inner_class_types = {
                         "address": Address,
                         "date_of_birth": DateOfBirth,
                     }
 
-                beneficiary_account: Optional[str]
-                """
-                ID of the Account representing the beneficiary in this account funding transaction.
-                """
-                beneficiary_details: Optional[BeneficiaryDetails]
                 sender_account: Optional[str]
                 """
                 ID of the Account representing the sender in this account funding transaction.
                 """
                 sender_details: Optional[SenderDetails]
+                _inner_class_types = {"sender_details": SenderDetails}
+
+            class BeneficiaryDetails(StripeObject):
+                class Address(StripeObject):
+                    city: Optional[str]
+                    """
+                    City, district, suburb, town, or village.
+                    """
+                    country: Optional[str]
+                    """
+                    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                    """
+                    line1: Optional[str]
+                    """
+                    Address line 1 (e.g., street, PO Box, or company name).
+                    """
+                    line2: Optional[str]
+                    """
+                    Address line 2 (e.g., apartment, suite, unit, or building).
+                    """
+                    postal_code: Optional[str]
+                    """
+                    ZIP or postal code.
+                    """
+                    state: Optional[str]
+                    """
+                    State, county, province, or region.
+                    """
+
+                class DateOfBirth(StripeObject):
+                    day: int
+                    """
+                    Day of birth, between 1 and 31.
+                    """
+                    month: int
+                    """
+                    Month of birth, between 1 and 12.
+                    """
+                    year: int
+                    """
+                    Four-digit year of birth.
+                    """
+
+                address: Optional[Address]
+                date_of_birth: Optional[DateOfBirth]
+                email: Optional[str]
+                """
+                Email address.
+                """
+                given_name: Optional[str]
+                """
+                Given name (first name).
+                """
+                phone: Optional[str]
+                """
+                Phone number.
+                """
+                surname: Optional[str]
+                """
+                Surname (last name).
+                """
                 _inner_class_types = {
-                    "beneficiary_details": BeneficiaryDetails,
-                    "sender_details": SenderDetails,
+                    "address": Address,
+                    "date_of_birth": DateOfBirth,
                 }
 
             account_funding: Optional[AccountFunding]
+            beneficiary_account: Optional[str]
+            """
+            ID of the Account representing the beneficiary in this account funding transaction.
+            """
+            beneficiary_details: Optional[BeneficiaryDetails]
             transaction_type: Optional[
                 Literal["account_funding", "debt_repayment"]
             ]
             """
             The type of money services transaction.
             """
-            _inner_class_types = {"account_funding": AccountFunding}
+            _inner_class_types = {
+                "account_funding": AccountFunding,
+                "beneficiary_details": BeneficiaryDetails,
+            }
 
         class Subscription(StripeObject):
             class Affiliate(StripeObject):
@@ -3607,7 +3689,7 @@ class PaymentIntent(
             If omitted, funds are captured before the authorization expires.
             """
             capture_delay: Optional[CaptureDelay]
-            capture_method: Optional[Literal["manual"]]
+            capture_method: Optional[Literal["automatic_delayed", "manual"]]
             """
             Controls when the funds will be captured from the customer's account.
             """
@@ -3747,7 +3829,9 @@ class PaymentIntent(
             If omitted, funds are captured before the authorization expires.
             """
             capture_delay: Optional[CaptureDelay]
-            capture_method: Optional[Literal["manual", "manual_preferred"]]
+            capture_method: Optional[
+                Literal["automatic_delayed", "manual", "manual_preferred"]
+            ]
             """
             Controls when the funds will be captured from the customer's account.
             """
@@ -3793,13 +3877,31 @@ class PaymentIntent(
 
         class Crypto(StripeObject):
             class DepositOptions(StripeObject):
-                networks: Optional[List[Literal["base", "solana", "tempo"]]]
+                networks: Optional[
+                    List[
+                        Literal[
+                            "base", "ethereum", "polygon", "solana", "tempo"
+                        ]
+                    ]
+                ]
                 """
                 The blockchain networks to support for deposits. Learn more about [supported networks and tokens](https://docs.stripe.com/payments/deposit-mode-stablecoin-payments#token-and-network-support).
                 """
                 static_address: Optional[bool]
                 """
                 If true, provisions a permanent per-customer deposit address reused across PaymentIntents.
+                """
+
+            class TransactionVerificationOptions(StripeObject):
+                network: Optional[
+                    Literal["base", "ethereum", "polygon", "solana", "tempo"]
+                ]
+                """
+                The network on which the transaction was submitted.
+                """
+                transaction_hash: Optional[str]
+                """
+                The hash of the onchain transaction to verify.
                 """
 
             deposit_options: Optional[DepositOptions]
@@ -3819,7 +3921,13 @@ class PaymentIntent(
 
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
             """
-            _inner_class_types = {"deposit_options": DepositOptions}
+            transaction_verification_options: Optional[
+                TransactionVerificationOptions
+            ]
+            _inner_class_types = {
+                "deposit_options": DepositOptions,
+                "transaction_verification_options": TransactionVerificationOptions,
+            }
 
         class CustomerBalance(StripeObject):
             class BankTransfer(StripeObject):
@@ -4712,7 +4820,11 @@ class PaymentIntent(
             """
             The app ID registered with WeChat Pay. Only required when client is ios or android.
             """
-            client: Optional[Literal["android", "ios", "web"]]
+            buyer_id: Optional[str]
+            """
+            The unique buyer ID for the app ID registered with WeChat Pay. Only required when client is mini_program.
+            """
+            client: Optional[Literal["android", "ios", "mini_program", "web"]]
             """
             The client type that the end customer will pay from
             """
@@ -5147,6 +5259,7 @@ class PaymentIntent(
                 "stripe_balance",
                 "sunbit",
                 "swish",
+                "tamara",
                 "twint",
                 "upi",
                 "us_bank_account",

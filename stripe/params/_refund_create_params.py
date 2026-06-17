@@ -38,6 +38,10 @@ class RefundCreateParams(RequestOptions):
     """
     Origin of the refund
     """
+    payment_attempt_record: NotRequired[str]
+    """
+    The identifier of the PaymentAttemptRecord to refund.
+    """
     payment_intent: NotRequired[str]
     """
     The identifier of the PaymentIntent to refund.

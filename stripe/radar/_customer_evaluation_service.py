@@ -10,6 +10,9 @@ if TYPE_CHECKING:
     from stripe.params.radar._customer_evaluation_create_params import (
         CustomerEvaluationCreateParams,
     )
+    from stripe.params.radar._customer_evaluation_retrieve_params import (
+        CustomerEvaluationRetrieveParams,
+    )
     from stripe.params.radar._customer_evaluation_update_params import (
         CustomerEvaluationUpdateParams,
     )
@@ -17,6 +20,50 @@ if TYPE_CHECKING:
 
 
 class CustomerEvaluationService(StripeService):
+    def retrieve(
+        self,
+        customer_evaluation: str,
+        params: Optional["CustomerEvaluationRetrieveParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "CustomerEvaluation":
+        """
+        Retrieves an CustomerEvaluation object.
+        """
+        return cast(
+            "CustomerEvaluation",
+            self._request(
+                "get",
+                "/v1/radar/customer_evaluations/{customer_evaluation}".format(
+                    customer_evaluation=sanitize_id(customer_evaluation),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def retrieve_async(
+        self,
+        customer_evaluation: str,
+        params: Optional["CustomerEvaluationRetrieveParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "CustomerEvaluation":
+        """
+        Retrieves an CustomerEvaluation object.
+        """
+        return cast(
+            "CustomerEvaluation",
+            await self._request_async(
+                "get",
+                "/v1/radar/customer_evaluations/{customer_evaluation}".format(
+                    customer_evaluation=sanitize_id(customer_evaluation),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def create(
         self,
         params: "CustomerEvaluationCreateParams",

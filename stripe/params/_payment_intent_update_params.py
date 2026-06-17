@@ -70,6 +70,7 @@ class PaymentIntentUpdateParams(TypedDict):
                 "stripe_balance",
                 "sunbit",
                 "swish",
+                "tamara",
                 "twint",
                 "upi",
                 "us_bank_account",
@@ -126,7 +127,7 @@ class PaymentIntentUpdateParams(TypedDict):
     An arbitrary string attached to the object. Often useful for displaying to users.
     """
     excluded_payment_method_types: NotRequired[
-        "Literal['']|List[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'gift_card', 'giropay', 'gopay', 'grabpay', 'id_bank_transfer', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'qris', 'rechnung', 'revolut_pay', 'samsung_pay', 'satispay', 'scalapay', 'sepa_debit', 'shopeepay', 'sofort', 'stripe_balance', 'sunbit', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay', 'zip']]"
+        "Literal['']|List[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'alma', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'billie', 'bizum', 'blik', 'boleto', 'card', 'cashapp', 'crypto', 'customer_balance', 'eps', 'fpx', 'gift_card', 'giropay', 'gopay', 'grabpay', 'id_bank_transfer', 'ideal', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'mb_way', 'mobilepay', 'multibanco', 'naver_pay', 'nz_bank_account', 'oxxo', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'paypay', 'payto', 'pix', 'promptpay', 'qris', 'rechnung', 'revolut_pay', 'samsung_pay', 'satispay', 'scalapay', 'sepa_debit', 'shopeepay', 'sofort', 'stripe_balance', 'sunbit', 'swish', 'tamara', 'twint', 'upi', 'us_bank_account', 'wechat_pay', 'zip']]"
     ]
     """
     The list of payment method types to exclude from use with this payment.
@@ -2594,7 +2595,13 @@ class PaymentIntentUpdateParamsPaymentDetailsMoneyServices(TypedDict):
         "Literal['']|PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFunding"
     ]
     """
-    Account funding transaction details including sender and beneficiary information.
+    Account funding transaction details including sender information.
+    """
+    beneficiary_details: NotRequired[
+        "Literal['']|PaymentIntentUpdateParamsPaymentDetailsMoneyServicesBeneficiaryDetails"
+    ]
+    """
+    Inline identity details for the beneficiary of this transaction.
     """
     transaction_type: NotRequired[
         "Literal['']|Literal['account_funding', 'debt_repayment']"
@@ -2607,100 +2614,11 @@ class PaymentIntentUpdateParamsPaymentDetailsMoneyServices(TypedDict):
 class PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFunding(
     TypedDict,
 ):
-    beneficiary_account: NotRequired[str]
-    """
-    ID of the Account representing the beneficiary in this account funding transaction.
-    """
-    beneficiary_details: NotRequired[
-        "Literal['']|PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails"
-    ]
-    """
-    Inline identity details for the beneficiary of this account funding transaction.
-    """
-    sender_account: NotRequired[str]
-    """
-    ID of the Account representing the sender in this account funding transaction.
-    """
     sender_details: NotRequired[
         "Literal['']|PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetails"
     ]
     """
     Inline identity details for the sender of this account funding transaction.
-    """
-
-
-class PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetails(
-    TypedDict,
-):
-    address: NotRequired[
-        "PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress"
-    ]
-    """
-    Address.
-    """
-    date_of_birth: NotRequired[
-        "PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth"
-    ]
-    """
-    Date of birth.
-    """
-    email: NotRequired[str]
-    """
-    Email address.
-    """
-    name: NotRequired[str]
-    """
-    Full name.
-    """
-    phone: NotRequired[str]
-    """
-    Phone number.
-    """
-
-
-class PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsAddress(
-    TypedDict,
-):
-    city: NotRequired[str]
-    """
-    City, district, suburb, town, or village.
-    """
-    country: NotRequired[str]
-    """
-    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-    """
-    line1: NotRequired[str]
-    """
-    Address line 1, such as the street, PO Box, or company name.
-    """
-    line2: NotRequired[str]
-    """
-    Address line 2, such as the apartment, suite, unit, or building.
-    """
-    postal_code: NotRequired[str]
-    """
-    ZIP or postal code.
-    """
-    state: NotRequired[str]
-    """
-    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
-    """
-
-
-class PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFundingBeneficiaryDetailsDateOfBirth(
-    TypedDict,
-):
-    day: int
-    """
-    Day of birth, between 1 and 31.
-    """
-    month: int
-    """
-    Month of birth, between 1 and 12.
-    """
-    year: int
-    """
-    Four-digit year of birth.
     """
 
 
@@ -2723,13 +2641,17 @@ class PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDe
     """
     Email address.
     """
-    name: NotRequired[str]
+    given_name: NotRequired[str]
     """
-    Full name.
+    Given (first) name.
     """
     phone: NotRequired[str]
     """
     Phone number.
+    """
+    surname: NotRequired[str]
+    """
+    Surname (family name).
     """
 
 
@@ -2763,6 +2685,89 @@ class PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDe
 
 
 class PaymentIntentUpdateParamsPaymentDetailsMoneyServicesAccountFundingSenderDetailsDateOfBirth(
+    TypedDict,
+):
+    day: int
+    """
+    Day of birth, between 1 and 31.
+    """
+    month: int
+    """
+    Month of birth, between 1 and 12.
+    """
+    year: int
+    """
+    Four-digit year of birth.
+    """
+
+
+class PaymentIntentUpdateParamsPaymentDetailsMoneyServicesBeneficiaryDetails(
+    TypedDict,
+):
+    account_reference: NotRequired[str]
+    """
+    An opaque identifier for the beneficiary's account (e.g. bank account number, card first6+last4, or other unique identifier).
+    """
+    address: NotRequired[
+        "PaymentIntentUpdateParamsPaymentDetailsMoneyServicesBeneficiaryDetailsAddress"
+    ]
+    """
+    Address.
+    """
+    date_of_birth: NotRequired[
+        "PaymentIntentUpdateParamsPaymentDetailsMoneyServicesBeneficiaryDetailsDateOfBirth"
+    ]
+    """
+    Date of birth.
+    """
+    email: NotRequired[str]
+    """
+    Email address.
+    """
+    given_name: NotRequired[str]
+    """
+    Given (first) name.
+    """
+    phone: NotRequired[str]
+    """
+    Phone number.
+    """
+    surname: NotRequired[str]
+    """
+    Surname (family name).
+    """
+
+
+class PaymentIntentUpdateParamsPaymentDetailsMoneyServicesBeneficiaryDetailsAddress(
+    TypedDict,
+):
+    city: NotRequired[str]
+    """
+    City, district, suburb, town, or village.
+    """
+    country: NotRequired[str]
+    """
+    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+    """
+    line1: NotRequired[str]
+    """
+    Address line 1, such as the street, PO Box, or company name.
+    """
+    line2: NotRequired[str]
+    """
+    Address line 2, such as the apartment, suite, unit, or building.
+    """
+    postal_code: NotRequired[str]
+    """
+    ZIP or postal code.
+    """
+    state: NotRequired[str]
+    """
+    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+    """
+
+
+class PaymentIntentUpdateParamsPaymentDetailsMoneyServicesBeneficiaryDetailsDateOfBirth(
     TypedDict,
 ):
     day: int
@@ -3127,6 +3132,10 @@ class PaymentIntentUpdateParamsPaymentMethodData(TypedDict):
     """
     If this is a `swish` PaymentMethod, this hash contains details about the Swish payment method.
     """
+    tamara: NotRequired["PaymentIntentUpdateParamsPaymentMethodDataTamara"]
+    """
+    If this is a `tamara` PaymentMethod, this hash contains details about the Tamara payment method.
+    """
     twint: NotRequired["PaymentIntentUpdateParamsPaymentMethodDataTwint"]
     """
     If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
@@ -3188,6 +3197,7 @@ class PaymentIntentUpdateParamsPaymentMethodData(TypedDict):
         "stripe_balance",
         "sunbit",
         "swish",
+        "tamara",
         "twint",
         "upi",
         "us_bank_account",
@@ -3740,6 +3750,10 @@ class PaymentIntentUpdateParamsPaymentMethodDataSunbit(TypedDict):
 
 
 class PaymentIntentUpdateParamsPaymentMethodDataSwish(TypedDict):
+    pass
+
+
+class PaymentIntentUpdateParamsPaymentMethodDataTamara(TypedDict):
     pass
 
 
@@ -4499,7 +4513,9 @@ class PaymentIntentUpdateParamsPaymentMethodOptionsCard(TypedDict):
 
     You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
     """
-    capture_method: NotRequired["Literal['']|Literal['manual']"]
+    capture_method: NotRequired[
+        "Literal['']|Literal['automatic_delayed', 'manual']"
+    ]
     """
     Controls when the funds are captured from the customer's account.
 
@@ -4751,47 +4767,6 @@ class PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServic
     """
     The category of digital asset being acquired through this account funding transaction.
     """
-    wallet: NotRequired[
-        "PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWallet"
-    ]
-    """
-    Details for a wallet funding transaction.
-    """
-
-
-class PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWallet(
-    TypedDict,
-):
-    staged_purchase: NotRequired[
-        "Literal['']|PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase"
-    ]
-    """
-    Details for a staged purchase.
-    """
-
-
-class PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase(
-    TypedDict,
-):
-    merchant: NotRequired[
-        "PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant"
-    ]
-    """
-    The merchant where the staged wallet purchase is made.
-    """
-
-
-class PaymentIntentUpdateParamsPaymentMethodOptionsCardPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant(
-    TypedDict,
-):
-    mcc: NotRequired[str]
-    """
-    The merchant category code of the merchant.
-    """
-    name: NotRequired[str]
-    """
-    The merchant's name.
-    """
 
 
 class PaymentIntentUpdateParamsPaymentMethodOptionsCardStatementDetails(
@@ -4936,7 +4911,9 @@ class PaymentIntentUpdateParamsPaymentMethodOptionsCardPresent(TypedDict):
 
     You can only set this if `capture_method` is `automatic_delayed` and `capture_by` is `target_delay`.
     """
-    capture_method: NotRequired[Literal["manual", "manual_preferred"]]
+    capture_method: NotRequired[
+        Literal["automatic_delayed", "manual", "manual_preferred"]
+    ]
     """
     Controls when the funds are captured from the customer's account.
 
@@ -5012,47 +4989,6 @@ class PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMone
     """
     The category of digital asset being acquired through this account funding transaction.
     """
-    wallet: NotRequired[
-        "PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWallet"
-    ]
-    """
-    Details for a wallet funding transaction.
-    """
-
-
-class PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWallet(
-    TypedDict,
-):
-    staged_purchase: NotRequired[
-        "Literal['']|PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase"
-    ]
-    """
-    Details for a staged purchase.
-    """
-
-
-class PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchase(
-    TypedDict,
-):
-    merchant: NotRequired[
-        "PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant"
-    ]
-    """
-    The merchant where the staged wallet purchase is made.
-    """
-
-
-class PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentPaymentDetailsMoneyServicesAccountFundingWalletStagedPurchaseMerchant(
-    TypedDict,
-):
-    mcc: NotRequired[str]
-    """
-    The merchant category code of the merchant.
-    """
-    name: NotRequired[str]
-    """
-    The merchant's name.
-    """
 
 
 class PaymentIntentUpdateParamsPaymentMethodOptionsCardPresentRouting(
@@ -5114,18 +5050,37 @@ class PaymentIntentUpdateParamsPaymentMethodOptionsCrypto(TypedDict):
 
     If you've already set `setup_future_usage` and you're performing a request using a publishable key, you can only update the value from `on_session` to `off_session`.
     """
+    transaction_verification_options: NotRequired[
+        "PaymentIntentUpdateParamsPaymentMethodOptionsCryptoTransactionVerificationOptions"
+    ]
+    """
+    Specific configuration for this PaymentIntent when the mode is `transaction_verification`.
+    """
 
 
 class PaymentIntentUpdateParamsPaymentMethodOptionsCryptoDepositOptions(
     TypedDict,
 ):
-    networks: List[Literal["base", "solana", "tempo"]]
+    networks: List[Literal["base", "ethereum", "polygon", "solana", "tempo"]]
     """
     The blockchain networks to support for deposits. Learn more about [supported networks and tokens](https://docs.stripe.com/payments/deposit-mode-stablecoin-payments#token-and-network-support).
     """
     static_address: NotRequired[bool]
     """
     If true, provisions a permanent per-customer deposit address reused across PaymentIntents.
+    """
+
+
+class PaymentIntentUpdateParamsPaymentMethodOptionsCryptoTransactionVerificationOptions(
+    TypedDict,
+):
+    network: Literal["base", "ethereum", "polygon", "solana", "tempo"]
+    """
+    The network on which the transaction was submitted.
+    """
+    transaction_hash: str
+    """
+    The hash of the onchain transaction to verify.
     """
 
 
@@ -7502,7 +7457,11 @@ class PaymentIntentUpdateParamsPaymentMethodOptionsWechatPay(TypedDict):
     """
     The app ID registered with WeChat Pay. Only required when client is ios or android.
     """
-    client: NotRequired[Literal["android", "ios", "web"]]
+    buyer_id: NotRequired[str]
+    """
+    The unique buyer ID for the app ID registered with WeChat Pay. Only required when client is mini_program.
+    """
+    client: NotRequired[Literal["android", "ios", "mini_program", "web"]]
     """
     The client type that the end customer will pay from
     """

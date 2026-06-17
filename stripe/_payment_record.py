@@ -1967,6 +1967,12 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             The last four digits of the Swish account phone number
             """
 
+        class Tamara(StripeObject):
+            transaction_id: Optional[str]
+            """
+            The Tamara transaction ID associated with this payment.
+            """
+
         class Twint(StripeObject):
             mandate: Optional[str]
             """
@@ -2121,6 +2127,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
         stripe_balance: Optional[StripeBalance]
         sunbit: Optional[Sunbit]
         swish: Optional[Swish]
+        tamara: Optional[Tamara]
         twint: Optional[Twint]
         type: str
         """
@@ -2199,6 +2206,7 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             "stripe_balance": StripeBalance,
             "sunbit": Sunbit,
             "swish": Swish,
+            "tamara": Tamara,
             "twint": Twint,
             "upi": Upi,
             "us_bank_account": UsBankAccount,

@@ -2210,7 +2210,11 @@ class OrderCreateParamsPaymentSettingsPaymentMethodOptionsWechatPay(TypedDict):
     """
     The app ID registered with WeChat Pay. Only required when client is ios or android.
     """
-    client: NotRequired[Literal["android", "ios", "web"]]
+    buyer_id: NotRequired[str]
+    """
+    The unique buyer ID for the app ID registered with WeChat Pay. Only required when client is mini_program.
+    """
+    client: NotRequired[Literal["android", "ios", "mini_program", "web"]]
     """
     The client type that the end customer will pay from
     """

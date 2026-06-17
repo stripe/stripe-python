@@ -980,10 +980,6 @@ class PaymentMethod(
         """
         Uniquely identifies the gift card.
         """
-        first6: str
-        """
-        The first six digits of the gift card number.
-        """
         last4: Optional[str]
         """
         The last four digits of the gift card number.
@@ -1452,6 +1448,9 @@ class PaymentMethod(
     class Swish(StripeObject):
         pass
 
+    class Tamara(StripeObject):
+        pass
+
     class Twint(StripeObject):
         pass
 
@@ -1664,6 +1663,7 @@ class PaymentMethod(
     stripe_balance: Optional[StripeBalance]
     sunbit: Optional[Sunbit]
     swish: Optional[Swish]
+    tamara: Optional[Tamara]
     twint: Optional[Twint]
     type: Literal[
         "acss_debit",
@@ -1726,6 +1726,7 @@ class PaymentMethod(
         "stripe_balance",
         "sunbit",
         "swish",
+        "tamara",
         "twint",
         "upi",
         "us_bank_account",
@@ -2367,6 +2368,7 @@ class PaymentMethod(
         "stripe_balance": StripeBalance,
         "sunbit": Sunbit,
         "swish": Swish,
+        "tamara": Tamara,
         "twint": Twint,
         "upi": Upi,
         "us_bank_account": UsBankAccount,

@@ -582,34 +582,6 @@ class Session(
                     The type of the wallet, one of `amex_express_checkout`, `apple_pay`, `google_pay`, `masterpass`, `samsung_pay`, `visa_checkout`, `meta_pay`, or `link`.
                     """
 
-                brand: Literal[
-                    "accel",
-                    "amex",
-                    "carnet",
-                    "cartes_bancaires",
-                    "conecs",
-                    "diners",
-                    "discover",
-                    "eftpos_au",
-                    "elo",
-                    "girocard",
-                    "interac",
-                    "jaywan",
-                    "jcb",
-                    "link",
-                    "maestro",
-                    "mastercard",
-                    "nyce",
-                    "pulse",
-                    "rupay",
-                    "star",
-                    "unionpay",
-                    "unknown",
-                    "visa",
-                ]
-                """
-                The brand of the card, accounting for customer's brand choice on dual-branded cards.
-                """
                 country: Optional[str]
                 """
                 Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
