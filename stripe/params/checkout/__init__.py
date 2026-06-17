@@ -46,6 +46,7 @@ if TYPE_CHECKING:
         SessionCreateParamsInvoiceCreationInvoiceDataCustomField as SessionCreateParamsInvoiceCreationInvoiceDataCustomField,
         SessionCreateParamsInvoiceCreationInvoiceDataIssuer as SessionCreateParamsInvoiceCreationInvoiceDataIssuer,
         SessionCreateParamsInvoiceCreationInvoiceDataRenderingOptions as SessionCreateParamsInvoiceCreationInvoiceDataRenderingOptions,
+        SessionCreateParamsItem as SessionCreateParamsItem,
         SessionCreateParamsLineItem as SessionCreateParamsLineItem,
         SessionCreateParamsLineItemAdjustableQuantity as SessionCreateParamsLineItemAdjustableQuantity,
         SessionCreateParamsLineItemPriceData as SessionCreateParamsLineItemPriceData,
@@ -388,6 +389,10 @@ _import_map = {
         False,
     ),
     "SessionCreateParamsInvoiceCreationInvoiceDataRenderingOptions": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsItem": (
         "stripe.params.checkout._session_create_params",
         False,
     ),

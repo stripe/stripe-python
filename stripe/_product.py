@@ -97,6 +97,29 @@ class Product(
         Universal Product Code (UPC) consisting of 12 digits and optional dashes. The final digit is a validated check digit.
         """
 
+    class ManagedPayments(StripeObject):
+        class IneligibilityReason(StripeObject):
+            code: Optional[
+                Literal["ineligible_tax_code", "no_tax_code_specified"]
+            ]
+            """
+            A code identifying the reason this product can't be used with Managed Payments. Additional values might be added as Managed Payments evolves its eligibility criteria.
+            """
+            message: Optional[str]
+            """
+            A human-readable description of the reason this product can't be used with Managed Payments.
+            """
+
+        eligibility: Optional[Literal["eligible", "ineligible"]]
+        """
+        Whether this product is eligible for use with Managed Payments. Possible values are `eligible` and `ineligible`.
+        """
+        ineligibility_reasons: Optional[List[IneligibilityReason]]
+        """
+        The reasons this product is ineligible for use with Managed Payments, if any. This field isn't present if the product is eligible.
+        """
+        _inner_class_types = {"ineligibility_reasons": IneligibilityReason}
+
     class MarketingFeature(StripeObject):
         name: Optional[str]
         """
@@ -164,6 +187,7 @@ class Product(
     """
     If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
+    managed_payments: Optional[ManagedPayments]
     marketing_features: List[MarketingFeature]
     """
     A list of up to 15 marketing features for this product. These are displayed in [pricing tables](https://docs.stripe.com/payments/checkout/pricing-table).
@@ -633,6 +657,7 @@ class Product(
 
     _inner_class_types = {
         "identifiers": Identifiers,
+        "managed_payments": ManagedPayments,
         "marketing_features": MarketingFeature,
         "package_dimensions": PackageDimensions,
         "tax_details": TaxDetails,

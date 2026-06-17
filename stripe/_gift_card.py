@@ -39,6 +39,10 @@ class GiftCard(CreateableAPIResource["GiftCard"]):
     """
     The expiration year of the gift card.
     """
+    fingerprint: str
+    """
+    Uniquely identifies this particular gift card number. You can use this attribute to check whether two gift cards are the same.
+    """
     id: str
     """
     Unique identifier for the object.

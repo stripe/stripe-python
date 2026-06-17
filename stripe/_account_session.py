@@ -119,6 +119,10 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
                 """
                 Whether to enable the bill management feature that grants access to bill creation and payment.
                 """
+                disable_stripe_user_authentication: bool
+                """
+                Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. This is `false` by default.
+                """
                 send_money: bool
                 """
                 Whether to enable the send money feature that grants access to bill creation and payment.

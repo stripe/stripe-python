@@ -25,11 +25,64 @@ class PaymentRecordReportPaymentAttemptGuaranteedParams(RequestOptions):
     """
     Payment evaluations associated with this reported payment.
     """
+    payment_method_details: NotRequired[
+        "PaymentRecordReportPaymentAttemptGuaranteedParamsPaymentMethodDetails"
+    ]
+    """
+    Information about the Payment Method debited for this payment.
+    """
     processor_details: NotRequired[
         "PaymentRecordReportPaymentAttemptGuaranteedParamsProcessorDetails"
     ]
     """
     Processor information for this payment.
+    """
+
+
+class PaymentRecordReportPaymentAttemptGuaranteedParamsPaymentMethodDetails(
+    TypedDict,
+):
+    card: NotRequired[
+        "PaymentRecordReportPaymentAttemptGuaranteedParamsPaymentMethodDetailsCard"
+    ]
+    """
+    Information about the card payment method used to make this payment.
+    """
+    type: Literal["card"]
+    """
+    The type of the payment method details. An additional hash is included on the payment_method_details with a name matching this value. It contains additional information specific to the type.
+    """
+
+
+class PaymentRecordReportPaymentAttemptGuaranteedParamsPaymentMethodDetailsCard(
+    TypedDict,
+):
+    checks: NotRequired[
+        "PaymentRecordReportPaymentAttemptGuaranteedParamsPaymentMethodDetailsCardChecks"
+    ]
+    """
+    Verification checks performed on the card.
+    """
+
+
+class PaymentRecordReportPaymentAttemptGuaranteedParamsPaymentMethodDetailsCardChecks(
+    TypedDict,
+):
+    address_line1_check: NotRequired[
+        Literal["fail", "pass", "unavailable", "unchecked"]
+    ]
+    """
+    The result of the check on the cardholder's address line 1.
+    """
+    address_postal_code_check: NotRequired[
+        Literal["fail", "pass", "unavailable", "unchecked"]
+    ]
+    """
+    The result of the check on the cardholder's postal code.
+    """
+    cvc_check: NotRequired[Literal["fail", "pass", "unavailable", "unchecked"]]
+    """
+    The result of the check on the card's CVC.
     """
 
 

@@ -26,9 +26,17 @@ class RefundListParams(RequestOptions):
     """
     A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
     """
+    payment_attempt_record: NotRequired[str]
+    """
+    Only return refunds for the PaymentAttemptRecord specified by this ID.
+    """
     payment_intent: NotRequired[str]
     """
     Only return refunds for the PaymentIntent specified by this ID.
+    """
+    payment_record: NotRequired[str]
+    """
+    Only return refunds for the PaymentRecord specified by this ID.
     """
     starting_after: NotRequired[str]
     """

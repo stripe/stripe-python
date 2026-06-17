@@ -42,6 +42,9 @@ if TYPE_CHECKING:
     from stripe.params.radar._customer_evaluation_modify_params import (
         CustomerEvaluationModifyParams as CustomerEvaluationModifyParams,
     )
+    from stripe.params.radar._customer_evaluation_retrieve_params import (
+        CustomerEvaluationRetrieveParams as CustomerEvaluationRetrieveParams,
+    )
     from stripe.params.radar._customer_evaluation_update_params import (
         CustomerEvaluationUpdateParams as CustomerEvaluationUpdateParams,
     )
@@ -213,6 +216,10 @@ _import_map = {
     ),
     "CustomerEvaluationModifyParams": (
         "stripe.params.radar._customer_evaluation_modify_params",
+        False,
+    ),
+    "CustomerEvaluationRetrieveParams": (
+        "stripe.params.radar._customer_evaluation_retrieve_params",
         False,
     ),
     "CustomerEvaluationUpdateParams": (

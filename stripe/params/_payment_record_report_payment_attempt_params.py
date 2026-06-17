@@ -149,6 +149,12 @@ class PaymentRecordReportPaymentAttemptParamsPaymentMethodDetails(TypedDict):
     """
     The billing details associated with the method of payment.
     """
+    card: NotRequired[
+        "PaymentRecordReportPaymentAttemptParamsPaymentMethodDetailsCard"
+    ]
+    """
+    Information about the card payment method used to make this payment.
+    """
     custom: NotRequired[
         "PaymentRecordReportPaymentAttemptParamsPaymentMethodDetailsCustom"
     ]
@@ -159,7 +165,7 @@ class PaymentRecordReportPaymentAttemptParamsPaymentMethodDetails(TypedDict):
     """
     ID of the Stripe Payment Method used to make this payment.
     """
-    type: NotRequired[Literal["custom"]]
+    type: NotRequired[Literal["card", "custom"]]
     """
     The type of the payment method details. An additional hash is included on the payment_method_details with a name matching this value. It contains additional information specific to the type.
     """
@@ -214,6 +220,38 @@ class PaymentRecordReportPaymentAttemptParamsPaymentMethodDetailsBillingDetailsA
     state: NotRequired[str]
     """
     State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+    """
+
+
+class PaymentRecordReportPaymentAttemptParamsPaymentMethodDetailsCard(
+    TypedDict,
+):
+    checks: NotRequired[
+        "PaymentRecordReportPaymentAttemptParamsPaymentMethodDetailsCardChecks"
+    ]
+    """
+    Verification checks performed on the card.
+    """
+
+
+class PaymentRecordReportPaymentAttemptParamsPaymentMethodDetailsCardChecks(
+    TypedDict,
+):
+    address_line1_check: NotRequired[
+        Literal["fail", "pass", "unavailable", "unchecked"]
+    ]
+    """
+    The result of the check on the cardholder's address line 1.
+    """
+    address_postal_code_check: NotRequired[
+        Literal["fail", "pass", "unavailable", "unchecked"]
+    ]
+    """
+    The result of the check on the cardholder's postal code.
+    """
+    cvc_check: NotRequired[Literal["fail", "pass", "unavailable", "unchecked"]]
+    """
+    The result of the check on the card's CVC.
     """
 
 

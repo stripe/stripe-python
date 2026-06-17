@@ -85,6 +85,7 @@ class CustomerPaymentMethodListParams(TypedDict):
             "stripe_balance",
             "sunbit",
             "swish",
+            "tamara",
             "twint",
             "upi",
             "us_bank_account",

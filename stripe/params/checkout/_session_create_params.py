@@ -207,6 +207,10 @@ class SessionCreateParams(RequestOptions):
     """
     Generate a post-purchase Invoice for one-time payments.
     """
+    items: NotRequired[List["SessionCreateParamsItem"]]
+    """
+    A list of items the customer will purchase.
+    """
     line_items: NotRequired[List["SessionCreateParamsLineItem"]]
     """
     A list of items the customer is purchasing. Use this parameter to pass one-time or recurring [Prices](https://docs.stripe.com/api/prices). The parameter is required for `payment` and `subscription` mode.
@@ -943,6 +947,13 @@ class SessionCreateParamsInvoiceCreationInvoiceDataRenderingOptions(TypedDict):
     template: NotRequired[str]
     """
     ID of the invoice rendering template to use for this invoice.
+    """
+
+
+class SessionCreateParamsItem(TypedDict):
+    type: Literal["subscription"]
+    """
+    The type of item.
     """
 
 

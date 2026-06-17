@@ -491,6 +491,12 @@ class SetupIntent(
             The type of the microdeposit sent to the customer. Used to distinguish between different verification methods.
             """
 
+        class WechatPayHandleAppRedirect(StripeObject):
+            session_id: str
+            """
+            Session ID of the WeChat Pay signing session
+            """
+
         blik_authorize: Optional[BlikAuthorize]
         cashapp_handle_redirect_or_display_qr_code: Optional[
             CashappHandleRedirectOrDisplayQrCode
@@ -509,6 +515,7 @@ class SetupIntent(
         When confirming a SetupIntent with Stripe.js, Stripe.js depends on the contents of this dictionary to invoke authentication flows. The shape of the contents is subject to change and is only intended to be used by Stripe.js.
         """
         verify_with_microdeposits: Optional[VerifyWithMicrodeposits]
+        wechat_pay_handle_app_redirect: Optional[WechatPayHandleAppRedirect]
         _inner_class_types = {
             "blik_authorize": BlikAuthorize,
             "cashapp_handle_redirect_or_display_qr_code": CashappHandleRedirectOrDisplayQrCode,
@@ -516,6 +523,7 @@ class SetupIntent(
             "redirect_to_url": RedirectToUrl,
             "upi_handle_redirect_or_display_qr_code": UpiHandleRedirectOrDisplayQrCode,
             "verify_with_microdeposits": VerifyWithMicrodeposits,
+            "wechat_pay_handle_app_redirect": WechatPayHandleAppRedirect,
         }
 
     class PaymentMethodConfigurationDetails(StripeObject):
@@ -1076,6 +1084,7 @@ class SetupIntent(
                 "stripe_balance",
                 "sunbit",
                 "swish",
+                "tamara",
                 "twint",
                 "upi",
                 "us_bank_account",

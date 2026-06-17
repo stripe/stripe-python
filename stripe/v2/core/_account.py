@@ -21,6 +21,38 @@ class Account(StripeObject):
                 class Commercial(StripeObject):
                     class Celtic(StripeObject):
                         class ChargeCard(StripeObject):
+                            class Protections(StripeObject):
+                                class PspMigration(StripeObject):
+                                    expires_at: Optional[int]
+                                    """
+                                    The time until which the protection will expire, as a Unix timestamp.
+                                    """
+                                    requested_at: int
+                                    """
+                                    The time at which the protection was requested, as a Unix timestamp.
+                                    """
+                                    status: Literal[
+                                        "active",
+                                        "disrupted",
+                                        "expired",
+                                        "inactive",
+                                    ]
+                                    """
+                                    The current status of the protection.
+                                    """
+                                    _field_encodings = {
+                                        "expires_at": "int64_string",
+                                        "requested_at": "int64_string",
+                                    }
+
+                                psp_migration: PspMigration
+                                """
+                                Protection details for PSP migration.
+                                """
+                                _inner_class_types = {
+                                    "psp_migration": PspMigration,
+                                }
+
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
@@ -43,6 +75,10 @@ class Account(StripeObject):
                                 Machine-readable code explaining how to make the Capability active.
                                 """
 
+                            protections: Protections
+                            """
+                            Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                            """
                             status: Literal[
                                 "active",
                                 "pending",
@@ -57,10 +93,43 @@ class Account(StripeObject):
                             Additional details about the capability's status. This value is empty when `status` is `active`.
                             """
                             _inner_class_types = {
+                                "protections": Protections,
                                 "status_details": StatusDetail,
                             }
 
                         class SpendCard(StripeObject):
+                            class Protections(StripeObject):
+                                class PspMigration(StripeObject):
+                                    expires_at: Optional[int]
+                                    """
+                                    The time until which the protection will expire, as a Unix timestamp.
+                                    """
+                                    requested_at: int
+                                    """
+                                    The time at which the protection was requested, as a Unix timestamp.
+                                    """
+                                    status: Literal[
+                                        "active",
+                                        "disrupted",
+                                        "expired",
+                                        "inactive",
+                                    ]
+                                    """
+                                    The current status of the protection.
+                                    """
+                                    _field_encodings = {
+                                        "expires_at": "int64_string",
+                                        "requested_at": "int64_string",
+                                    }
+
+                                psp_migration: PspMigration
+                                """
+                                Protection details for PSP migration.
+                                """
+                                _inner_class_types = {
+                                    "psp_migration": PspMigration,
+                                }
+
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
@@ -83,6 +152,10 @@ class Account(StripeObject):
                                 Machine-readable code explaining how to make the Capability active.
                                 """
 
+                            protections: Protections
+                            """
+                            Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                            """
                             status: Literal[
                                 "active",
                                 "pending",
@@ -97,6 +170,7 @@ class Account(StripeObject):
                             Additional details about the capability's status. This value is empty when `status` is `active`.
                             """
                             _inner_class_types = {
+                                "protections": Protections,
                                 "status_details": StatusDetail,
                             }
 
@@ -115,6 +189,38 @@ class Account(StripeObject):
 
                     class CrossRiverBank(StripeObject):
                         class ChargeCard(StripeObject):
+                            class Protections(StripeObject):
+                                class PspMigration(StripeObject):
+                                    expires_at: Optional[int]
+                                    """
+                                    The time until which the protection will expire, as a Unix timestamp.
+                                    """
+                                    requested_at: int
+                                    """
+                                    The time at which the protection was requested, as a Unix timestamp.
+                                    """
+                                    status: Literal[
+                                        "active",
+                                        "disrupted",
+                                        "expired",
+                                        "inactive",
+                                    ]
+                                    """
+                                    The current status of the protection.
+                                    """
+                                    _field_encodings = {
+                                        "expires_at": "int64_string",
+                                        "requested_at": "int64_string",
+                                    }
+
+                                psp_migration: PspMigration
+                                """
+                                Protection details for PSP migration.
+                                """
+                                _inner_class_types = {
+                                    "psp_migration": PspMigration,
+                                }
+
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
@@ -137,6 +243,10 @@ class Account(StripeObject):
                                 Machine-readable code explaining how to make the Capability active.
                                 """
 
+                            protections: Protections
+                            """
+                            Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                            """
                             status: Literal[
                                 "active",
                                 "pending",
@@ -151,10 +261,43 @@ class Account(StripeObject):
                             Additional details about the capability's status. This value is empty when `status` is `active`.
                             """
                             _inner_class_types = {
+                                "protections": Protections,
                                 "status_details": StatusDetail,
                             }
 
                         class PrepaidCard(StripeObject):
+                            class Protections(StripeObject):
+                                class PspMigration(StripeObject):
+                                    expires_at: Optional[int]
+                                    """
+                                    The time until which the protection will expire, as a Unix timestamp.
+                                    """
+                                    requested_at: int
+                                    """
+                                    The time at which the protection was requested, as a Unix timestamp.
+                                    """
+                                    status: Literal[
+                                        "active",
+                                        "disrupted",
+                                        "expired",
+                                        "inactive",
+                                    ]
+                                    """
+                                    The current status of the protection.
+                                    """
+                                    _field_encodings = {
+                                        "expires_at": "int64_string",
+                                        "requested_at": "int64_string",
+                                    }
+
+                                psp_migration: PspMigration
+                                """
+                                Protection details for PSP migration.
+                                """
+                                _inner_class_types = {
+                                    "psp_migration": PspMigration,
+                                }
+
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
@@ -177,6 +320,10 @@ class Account(StripeObject):
                                 Machine-readable code explaining how to make the Capability active.
                                 """
 
+                            protections: Protections
+                            """
+                            Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                            """
                             status: Literal[
                                 "active",
                                 "pending",
@@ -191,10 +338,43 @@ class Account(StripeObject):
                             Additional details about the capability's status. This value is empty when `status` is `active`.
                             """
                             _inner_class_types = {
+                                "protections": Protections,
                                 "status_details": StatusDetail,
                             }
 
                         class SpendCard(StripeObject):
+                            class Protections(StripeObject):
+                                class PspMigration(StripeObject):
+                                    expires_at: Optional[int]
+                                    """
+                                    The time until which the protection will expire, as a Unix timestamp.
+                                    """
+                                    requested_at: int
+                                    """
+                                    The time at which the protection was requested, as a Unix timestamp.
+                                    """
+                                    status: Literal[
+                                        "active",
+                                        "disrupted",
+                                        "expired",
+                                        "inactive",
+                                    ]
+                                    """
+                                    The current status of the protection.
+                                    """
+                                    _field_encodings = {
+                                        "expires_at": "int64_string",
+                                        "requested_at": "int64_string",
+                                    }
+
+                                psp_migration: PspMigration
+                                """
+                                Protection details for PSP migration.
+                                """
+                                _inner_class_types = {
+                                    "psp_migration": PspMigration,
+                                }
+
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
@@ -217,6 +397,10 @@ class Account(StripeObject):
                                 Machine-readable code explaining how to make the Capability active.
                                 """
 
+                            protections: Protections
+                            """
+                            Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                            """
                             status: Literal[
                                 "active",
                                 "pending",
@@ -231,6 +415,7 @@ class Account(StripeObject):
                             Additional details about the capability's status. This value is empty when `status` is `active`.
                             """
                             _inner_class_types = {
+                                "protections": Protections,
                                 "status_details": StatusDetail,
                             }
 
@@ -254,6 +439,38 @@ class Account(StripeObject):
 
                     class FifthThird(StripeObject):
                         class ChargeCard(StripeObject):
+                            class Protections(StripeObject):
+                                class PspMigration(StripeObject):
+                                    expires_at: Optional[int]
+                                    """
+                                    The time until which the protection will expire, as a Unix timestamp.
+                                    """
+                                    requested_at: int
+                                    """
+                                    The time at which the protection was requested, as a Unix timestamp.
+                                    """
+                                    status: Literal[
+                                        "active",
+                                        "disrupted",
+                                        "expired",
+                                        "inactive",
+                                    ]
+                                    """
+                                    The current status of the protection.
+                                    """
+                                    _field_encodings = {
+                                        "expires_at": "int64_string",
+                                        "requested_at": "int64_string",
+                                    }
+
+                                psp_migration: PspMigration
+                                """
+                                Protection details for PSP migration.
+                                """
+                                _inner_class_types = {
+                                    "psp_migration": PspMigration,
+                                }
+
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
@@ -276,6 +493,10 @@ class Account(StripeObject):
                                 Machine-readable code explaining how to make the Capability active.
                                 """
 
+                            protections: Protections
+                            """
+                            Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                            """
                             status: Literal[
                                 "active",
                                 "pending",
@@ -290,6 +511,7 @@ class Account(StripeObject):
                             Additional details about the capability's status. This value is empty when `status` is `active`.
                             """
                             _inner_class_types = {
+                                "protections": Protections,
                                 "status_details": StatusDetail,
                             }
 
@@ -301,6 +523,38 @@ class Account(StripeObject):
 
                     class Lead(StripeObject):
                         class PrepaidCard(StripeObject):
+                            class Protections(StripeObject):
+                                class PspMigration(StripeObject):
+                                    expires_at: Optional[int]
+                                    """
+                                    The time until which the protection will expire, as a Unix timestamp.
+                                    """
+                                    requested_at: int
+                                    """
+                                    The time at which the protection was requested, as a Unix timestamp.
+                                    """
+                                    status: Literal[
+                                        "active",
+                                        "disrupted",
+                                        "expired",
+                                        "inactive",
+                                    ]
+                                    """
+                                    The current status of the protection.
+                                    """
+                                    _field_encodings = {
+                                        "expires_at": "int64_string",
+                                        "requested_at": "int64_string",
+                                    }
+
+                                psp_migration: PspMigration
+                                """
+                                Protection details for PSP migration.
+                                """
+                                _inner_class_types = {
+                                    "psp_migration": PspMigration,
+                                }
+
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
@@ -323,6 +577,10 @@ class Account(StripeObject):
                                 Machine-readable code explaining how to make the Capability active.
                                 """
 
+                            protections: Protections
+                            """
+                            Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                            """
                             status: Literal[
                                 "active",
                                 "pending",
@@ -337,6 +595,7 @@ class Account(StripeObject):
                             Additional details about the capability's status. This value is empty when `status` is `active`.
                             """
                             _inner_class_types = {
+                                "protections": Protections,
                                 "status_details": StatusDetail,
                             }
 
@@ -348,6 +607,38 @@ class Account(StripeObject):
 
                     class Stripe(StripeObject):
                         class ChargeCard(StripeObject):
+                            class Protections(StripeObject):
+                                class PspMigration(StripeObject):
+                                    expires_at: Optional[int]
+                                    """
+                                    The time until which the protection will expire, as a Unix timestamp.
+                                    """
+                                    requested_at: int
+                                    """
+                                    The time at which the protection was requested, as a Unix timestamp.
+                                    """
+                                    status: Literal[
+                                        "active",
+                                        "disrupted",
+                                        "expired",
+                                        "inactive",
+                                    ]
+                                    """
+                                    The current status of the protection.
+                                    """
+                                    _field_encodings = {
+                                        "expires_at": "int64_string",
+                                        "requested_at": "int64_string",
+                                    }
+
+                                psp_migration: PspMigration
+                                """
+                                Protection details for PSP migration.
+                                """
+                                _inner_class_types = {
+                                    "psp_migration": PspMigration,
+                                }
+
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
@@ -370,6 +661,10 @@ class Account(StripeObject):
                                 Machine-readable code explaining how to make the Capability active.
                                 """
 
+                            protections: Protections
+                            """
+                            Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                            """
                             status: Literal[
                                 "active",
                                 "pending",
@@ -384,10 +679,43 @@ class Account(StripeObject):
                             Additional details about the capability's status. This value is empty when `status` is `active`.
                             """
                             _inner_class_types = {
+                                "protections": Protections,
                                 "status_details": StatusDetail,
                             }
 
                         class PrepaidCard(StripeObject):
+                            class Protections(StripeObject):
+                                class PspMigration(StripeObject):
+                                    expires_at: Optional[int]
+                                    """
+                                    The time until which the protection will expire, as a Unix timestamp.
+                                    """
+                                    requested_at: int
+                                    """
+                                    The time at which the protection was requested, as a Unix timestamp.
+                                    """
+                                    status: Literal[
+                                        "active",
+                                        "disrupted",
+                                        "expired",
+                                        "inactive",
+                                    ]
+                                    """
+                                    The current status of the protection.
+                                    """
+                                    _field_encodings = {
+                                        "expires_at": "int64_string",
+                                        "requested_at": "int64_string",
+                                    }
+
+                                psp_migration: PspMigration
+                                """
+                                Protection details for PSP migration.
+                                """
+                                _inner_class_types = {
+                                    "psp_migration": PspMigration,
+                                }
+
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
@@ -410,6 +738,10 @@ class Account(StripeObject):
                                 Machine-readable code explaining how to make the Capability active.
                                 """
 
+                            protections: Protections
+                            """
+                            Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                            """
                             status: Literal[
                                 "active",
                                 "pending",
@@ -424,6 +756,7 @@ class Account(StripeObject):
                             Additional details about the capability's status. This value is empty when `status` is `active`.
                             """
                             _inner_class_types = {
+                                "protections": Protections,
                                 "status_details": StatusDetail,
                             }
 
@@ -471,6 +804,38 @@ class Account(StripeObject):
                 class Consumer(StripeObject):
                     class Celtic(StripeObject):
                         class RevolvingCreditCard(StripeObject):
+                            class Protections(StripeObject):
+                                class PspMigration(StripeObject):
+                                    expires_at: Optional[int]
+                                    """
+                                    The time until which the protection will expire, as a Unix timestamp.
+                                    """
+                                    requested_at: int
+                                    """
+                                    The time at which the protection was requested, as a Unix timestamp.
+                                    """
+                                    status: Literal[
+                                        "active",
+                                        "disrupted",
+                                        "expired",
+                                        "inactive",
+                                    ]
+                                    """
+                                    The current status of the protection.
+                                    """
+                                    _field_encodings = {
+                                        "expires_at": "int64_string",
+                                        "requested_at": "int64_string",
+                                    }
+
+                                psp_migration: PspMigration
+                                """
+                                Protection details for PSP migration.
+                                """
+                                _inner_class_types = {
+                                    "psp_migration": PspMigration,
+                                }
+
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
@@ -493,6 +858,10 @@ class Account(StripeObject):
                                 Machine-readable code explaining how to make the Capability active.
                                 """
 
+                            protections: Protections
+                            """
+                            Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                            """
                             status: Literal[
                                 "active",
                                 "pending",
@@ -507,6 +876,7 @@ class Account(StripeObject):
                             Additional details about the capability's status. This value is empty when `status` is `active`.
                             """
                             _inner_class_types = {
+                                "protections": Protections,
                                 "status_details": StatusDetail,
                             }
 
@@ -520,6 +890,38 @@ class Account(StripeObject):
 
                     class CrossRiverBank(StripeObject):
                         class PrepaidCard(StripeObject):
+                            class Protections(StripeObject):
+                                class PspMigration(StripeObject):
+                                    expires_at: Optional[int]
+                                    """
+                                    The time until which the protection will expire, as a Unix timestamp.
+                                    """
+                                    requested_at: int
+                                    """
+                                    The time at which the protection was requested, as a Unix timestamp.
+                                    """
+                                    status: Literal[
+                                        "active",
+                                        "disrupted",
+                                        "expired",
+                                        "inactive",
+                                    ]
+                                    """
+                                    The current status of the protection.
+                                    """
+                                    _field_encodings = {
+                                        "expires_at": "int64_string",
+                                        "requested_at": "int64_string",
+                                    }
+
+                                psp_migration: PspMigration
+                                """
+                                Protection details for PSP migration.
+                                """
+                                _inner_class_types = {
+                                    "psp_migration": PspMigration,
+                                }
+
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
@@ -542,6 +944,10 @@ class Account(StripeObject):
                                 Machine-readable code explaining how to make the Capability active.
                                 """
 
+                            protections: Protections
+                            """
+                            Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                            """
                             status: Literal[
                                 "active",
                                 "pending",
@@ -556,6 +962,7 @@ class Account(StripeObject):
                             Additional details about the capability's status. This value is empty when `status` is `active`.
                             """
                             _inner_class_types = {
+                                "protections": Protections,
                                 "status_details": StatusDetail,
                             }
 
@@ -567,6 +974,38 @@ class Account(StripeObject):
 
                     class Lead(StripeObject):
                         class DebitCard(StripeObject):
+                            class Protections(StripeObject):
+                                class PspMigration(StripeObject):
+                                    expires_at: Optional[int]
+                                    """
+                                    The time until which the protection will expire, as a Unix timestamp.
+                                    """
+                                    requested_at: int
+                                    """
+                                    The time at which the protection was requested, as a Unix timestamp.
+                                    """
+                                    status: Literal[
+                                        "active",
+                                        "disrupted",
+                                        "expired",
+                                        "inactive",
+                                    ]
+                                    """
+                                    The current status of the protection.
+                                    """
+                                    _field_encodings = {
+                                        "expires_at": "int64_string",
+                                        "requested_at": "int64_string",
+                                    }
+
+                                psp_migration: PspMigration
+                                """
+                                Protection details for PSP migration.
+                                """
+                                _inner_class_types = {
+                                    "psp_migration": PspMigration,
+                                }
+
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
@@ -589,6 +1028,10 @@ class Account(StripeObject):
                                 Machine-readable code explaining how to make the Capability active.
                                 """
 
+                            protections: Protections
+                            """
+                            Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                            """
                             status: Literal[
                                 "active",
                                 "pending",
@@ -603,10 +1046,43 @@ class Account(StripeObject):
                             Additional details about the capability's status. This value is empty when `status` is `active`.
                             """
                             _inner_class_types = {
+                                "protections": Protections,
                                 "status_details": StatusDetail,
                             }
 
                         class PrepaidCard(StripeObject):
+                            class Protections(StripeObject):
+                                class PspMigration(StripeObject):
+                                    expires_at: Optional[int]
+                                    """
+                                    The time until which the protection will expire, as a Unix timestamp.
+                                    """
+                                    requested_at: int
+                                    """
+                                    The time at which the protection was requested, as a Unix timestamp.
+                                    """
+                                    status: Literal[
+                                        "active",
+                                        "disrupted",
+                                        "expired",
+                                        "inactive",
+                                    ]
+                                    """
+                                    The current status of the protection.
+                                    """
+                                    _field_encodings = {
+                                        "expires_at": "int64_string",
+                                        "requested_at": "int64_string",
+                                    }
+
+                                psp_migration: PspMigration
+                                """
+                                Protection details for PSP migration.
+                                """
+                                _inner_class_types = {
+                                    "psp_migration": PspMigration,
+                                }
+
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
@@ -629,6 +1105,10 @@ class Account(StripeObject):
                                 Machine-readable code explaining how to make the Capability active.
                                 """
 
+                            protections: Protections
+                            """
+                            Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                            """
                             status: Literal[
                                 "active",
                                 "pending",
@@ -643,6 +1123,7 @@ class Account(StripeObject):
                             Additional details about the capability's status. This value is empty when `status` is `active`.
                             """
                             _inner_class_types = {
+                                "protections": Protections,
                                 "status_details": StatusDetail,
                             }
 
@@ -798,6 +1279,33 @@ class Account(StripeObject):
 
             class Capabilities(StripeObject):
                 class AutomaticIndirectTax(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -818,6 +1326,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -828,7 +1340,10 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 automatic_indirect_tax: Optional[AutomaticIndirectTax]
                 """
@@ -941,6 +1456,33 @@ class Account(StripeObject):
 
             class Capabilities(StripeObject):
                 class AchDebitPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -961,6 +1503,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -971,9 +1517,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class AcssDebitPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -994,6 +1570,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1004,9 +1584,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class AffirmPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -1027,6 +1637,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1037,9 +1651,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class AfterpayClearpayPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -1060,6 +1704,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1070,9 +1718,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class AlmaPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -1093,6 +1771,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1103,9 +1785,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class AmazonPayPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -1126,6 +1838,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1136,9 +1852,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class AuBecsDebitPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -1159,6 +1905,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1169,9 +1919,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class BacsDebitPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -1192,6 +1972,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1202,9 +1986,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class BancontactPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -1225,6 +2039,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1235,9 +2053,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class BlikPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -1258,6 +2106,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1268,9 +2120,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class BoletoPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -1291,6 +2173,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1301,9 +2187,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class CardPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -1324,6 +2240,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1334,9 +2254,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class CartesBancairesPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -1357,6 +2307,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1367,9 +2321,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class CashappPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -1390,6 +2374,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1400,9 +2388,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class EpsPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -1423,6 +2441,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1433,9 +2455,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class FpxPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -1456,6 +2508,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1466,9 +2522,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class GbBankTransferPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -1489,6 +2575,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1499,9 +2589,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class GrabpayPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -1522,6 +2642,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1532,9 +2656,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class IdealPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -1555,6 +2709,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1565,9 +2723,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class JcbPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -1588,6 +2776,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1598,9 +2790,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class JpBankTransferPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -1621,6 +2843,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1631,9 +2857,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class KakaoPayPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -1654,6 +2910,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1664,9 +2924,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class KlarnaPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -1687,6 +2977,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1697,9 +2991,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class KonbiniPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -1720,6 +3044,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1730,9 +3058,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class KrCardPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -1753,6 +3111,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1763,9 +3125,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class LinkPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -1786,6 +3178,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1796,9 +3192,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class MobilepayPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -1819,6 +3245,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1829,9 +3259,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class MultibancoPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -1852,6 +3312,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1862,9 +3326,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class MxBankTransferPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -1885,6 +3379,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1895,9 +3393,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class NaverPayPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -1918,6 +3446,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1928,9 +3460,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class OxxoPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -1951,6 +3513,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1961,9 +3527,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class P24Payments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -1984,6 +3580,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -1994,9 +3594,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class PayByBankPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -2017,6 +3647,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -2027,9 +3661,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class PaycoPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -2050,6 +3714,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -2060,9 +3728,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class PaynowPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -2083,6 +3781,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -2093,9 +3795,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class PromptpayPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -2116,6 +3848,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -2126,9 +3862,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class RevolutPayPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -2149,6 +3915,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -2159,9 +3929,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class SamsungPayPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -2182,6 +3982,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -2192,9 +3996,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class SepaBankTransferPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -2215,6 +4049,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -2225,9 +4063,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class SepaDebitPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -2248,6 +4116,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -2258,10 +4130,45 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class StripeBalance(StripeObject):
                     class Payouts(StripeObject):
+                        class Protections(StripeObject):
+                            class PspMigration(StripeObject):
+                                expires_at: Optional[int]
+                                """
+                                The time until which the protection will expire, as a Unix timestamp.
+                                """
+                                requested_at: int
+                                """
+                                The time at which the protection was requested, as a Unix timestamp.
+                                """
+                                status: Literal[
+                                    "active",
+                                    "disrupted",
+                                    "expired",
+                                    "inactive",
+                                ]
+                                """
+                                The current status of the protection.
+                                """
+                                _field_encodings = {
+                                    "expires_at": "int64_string",
+                                    "requested_at": "int64_string",
+                                }
+
+                            psp_migration: PspMigration
+                            """
+                            Protection details for PSP migration.
+                            """
+                            _inner_class_types = {
+                                "psp_migration": PspMigration
+                            }
+
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
@@ -2284,6 +4191,10 @@ class Account(StripeObject):
                             Machine-readable code explaining how to make the Capability active.
                             """
 
+                        protections: Protections
+                        """
+                        Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                        """
                         status: Literal[
                             "active", "pending", "restricted", "unsupported"
                         ]
@@ -2294,7 +4205,10 @@ class Account(StripeObject):
                         """
                         Additional details about the capability's status. This value is empty when `status` is `active`.
                         """
-                        _inner_class_types = {"status_details": StatusDetail}
+                        _inner_class_types = {
+                            "protections": Protections,
+                            "status_details": StatusDetail,
+                        }
 
                     payouts: Optional[Payouts]
                     """
@@ -2303,6 +4217,33 @@ class Account(StripeObject):
                     _inner_class_types = {"payouts": Payouts}
 
                 class SwishPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -2323,6 +4264,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -2333,9 +4278,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class TwintPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -2356,6 +4331,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -2366,9 +4345,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class UsBankTransferPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -2389,6 +4398,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -2399,9 +4412,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class ZipPayments(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -2422,6 +4465,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -2432,7 +4479,10 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 ach_debit_payments: Optional[AchDebitPayments]
                 """
@@ -2889,6 +4939,38 @@ class Account(StripeObject):
             class Capabilities(StripeObject):
                 class BankAccounts(StripeObject):
                     class Instant(StripeObject):
+                        class Protections(StripeObject):
+                            class PspMigration(StripeObject):
+                                expires_at: Optional[int]
+                                """
+                                The time until which the protection will expire, as a Unix timestamp.
+                                """
+                                requested_at: int
+                                """
+                                The time at which the protection was requested, as a Unix timestamp.
+                                """
+                                status: Literal[
+                                    "active",
+                                    "disrupted",
+                                    "expired",
+                                    "inactive",
+                                ]
+                                """
+                                The current status of the protection.
+                                """
+                                _field_encodings = {
+                                    "expires_at": "int64_string",
+                                    "requested_at": "int64_string",
+                                }
+
+                            psp_migration: PspMigration
+                            """
+                            Protection details for PSP migration.
+                            """
+                            _inner_class_types = {
+                                "psp_migration": PspMigration
+                            }
+
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
@@ -2911,6 +4993,10 @@ class Account(StripeObject):
                             Machine-readable code explaining how to make the Capability active.
                             """
 
+                        protections: Protections
+                        """
+                        Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                        """
                         status: Literal[
                             "active", "pending", "restricted", "unsupported"
                         ]
@@ -2921,9 +5007,44 @@ class Account(StripeObject):
                         """
                         Additional details about the capability's status. This value is empty when `status` is `active`.
                         """
-                        _inner_class_types = {"status_details": StatusDetail}
+                        _inner_class_types = {
+                            "protections": Protections,
+                            "status_details": StatusDetail,
+                        }
 
                     class Local(StripeObject):
+                        class Protections(StripeObject):
+                            class PspMigration(StripeObject):
+                                expires_at: Optional[int]
+                                """
+                                The time until which the protection will expire, as a Unix timestamp.
+                                """
+                                requested_at: int
+                                """
+                                The time at which the protection was requested, as a Unix timestamp.
+                                """
+                                status: Literal[
+                                    "active",
+                                    "disrupted",
+                                    "expired",
+                                    "inactive",
+                                ]
+                                """
+                                The current status of the protection.
+                                """
+                                _field_encodings = {
+                                    "expires_at": "int64_string",
+                                    "requested_at": "int64_string",
+                                }
+
+                            psp_migration: PspMigration
+                            """
+                            Protection details for PSP migration.
+                            """
+                            _inner_class_types = {
+                                "psp_migration": PspMigration
+                            }
+
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
@@ -2946,6 +5067,10 @@ class Account(StripeObject):
                             Machine-readable code explaining how to make the Capability active.
                             """
 
+                        protections: Protections
+                        """
+                        Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                        """
                         status: Literal[
                             "active", "pending", "restricted", "unsupported"
                         ]
@@ -2956,9 +5081,44 @@ class Account(StripeObject):
                         """
                         Additional details about the capability's status. This value is empty when `status` is `active`.
                         """
-                        _inner_class_types = {"status_details": StatusDetail}
+                        _inner_class_types = {
+                            "protections": Protections,
+                            "status_details": StatusDetail,
+                        }
 
                     class Wire(StripeObject):
+                        class Protections(StripeObject):
+                            class PspMigration(StripeObject):
+                                expires_at: Optional[int]
+                                """
+                                The time until which the protection will expire, as a Unix timestamp.
+                                """
+                                requested_at: int
+                                """
+                                The time at which the protection was requested, as a Unix timestamp.
+                                """
+                                status: Literal[
+                                    "active",
+                                    "disrupted",
+                                    "expired",
+                                    "inactive",
+                                ]
+                                """
+                                The current status of the protection.
+                                """
+                                _field_encodings = {
+                                    "expires_at": "int64_string",
+                                    "requested_at": "int64_string",
+                                }
+
+                            psp_migration: PspMigration
+                            """
+                            Protection details for PSP migration.
+                            """
+                            _inner_class_types = {
+                                "psp_migration": PspMigration
+                            }
+
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
@@ -2981,6 +5141,10 @@ class Account(StripeObject):
                             Machine-readable code explaining how to make the Capability active.
                             """
 
+                        protections: Protections
+                        """
+                        Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                        """
                         status: Literal[
                             "active", "pending", "restricted", "unsupported"
                         ]
@@ -2991,7 +5155,10 @@ class Account(StripeObject):
                         """
                         Additional details about the capability's status. This value is empty when `status` is `active`.
                         """
-                        _inner_class_types = {"status_details": StatusDetail}
+                        _inner_class_types = {
+                            "protections": Protections,
+                            "status_details": StatusDetail,
+                        }
 
                     instant: Optional[Instant]
                     """
@@ -3012,6 +5179,33 @@ class Account(StripeObject):
                     }
 
                 class Cards(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -3032,6 +5226,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -3042,9 +5240,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class CryptoWallets(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -3065,6 +5293,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -3075,9 +5307,39 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class PaperChecks(StripeObject):
+                    class Protections(StripeObject):
+                        class PspMigration(StripeObject):
+                            expires_at: Optional[int]
+                            """
+                            The time until which the protection will expire, as a Unix timestamp.
+                            """
+                            requested_at: int
+                            """
+                            The time at which the protection was requested, as a Unix timestamp.
+                            """
+                            status: Literal[
+                                "active", "disrupted", "expired", "inactive"
+                            ]
+                            """
+                            The current status of the protection.
+                            """
+                            _field_encodings = {
+                                "expires_at": "int64_string",
+                                "requested_at": "int64_string",
+                            }
+
+                        psp_migration: PspMigration
+                        """
+                        Protection details for PSP migration.
+                        """
+                        _inner_class_types = {"psp_migration": PspMigration}
+
                     class StatusDetail(StripeObject):
                         code: Literal[
                             "determining_status",
@@ -3098,6 +5360,10 @@ class Account(StripeObject):
                         Machine-readable code explaining how to make the Capability active.
                         """
 
+                    protections: Protections
+                    """
+                    Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                    """
                     status: Literal[
                         "active", "pending", "restricted", "unsupported"
                     ]
@@ -3108,10 +5374,45 @@ class Account(StripeObject):
                     """
                     Additional details about the capability's status. This value is empty when `status` is `active`.
                     """
-                    _inner_class_types = {"status_details": StatusDetail}
+                    _inner_class_types = {
+                        "protections": Protections,
+                        "status_details": StatusDetail,
+                    }
 
                 class StripeBalance(StripeObject):
                     class Payouts(StripeObject):
+                        class Protections(StripeObject):
+                            class PspMigration(StripeObject):
+                                expires_at: Optional[int]
+                                """
+                                The time until which the protection will expire, as a Unix timestamp.
+                                """
+                                requested_at: int
+                                """
+                                The time at which the protection was requested, as a Unix timestamp.
+                                """
+                                status: Literal[
+                                    "active",
+                                    "disrupted",
+                                    "expired",
+                                    "inactive",
+                                ]
+                                """
+                                The current status of the protection.
+                                """
+                                _field_encodings = {
+                                    "expires_at": "int64_string",
+                                    "requested_at": "int64_string",
+                                }
+
+                            psp_migration: PspMigration
+                            """
+                            Protection details for PSP migration.
+                            """
+                            _inner_class_types = {
+                                "psp_migration": PspMigration
+                            }
+
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
@@ -3134,6 +5435,10 @@ class Account(StripeObject):
                             Machine-readable code explaining how to make the Capability active.
                             """
 
+                        protections: Protections
+                        """
+                        Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                        """
                         status: Literal[
                             "active", "pending", "restricted", "unsupported"
                         ]
@@ -3144,9 +5449,44 @@ class Account(StripeObject):
                         """
                         Additional details about the capability's status. This value is empty when `status` is `active`.
                         """
-                        _inner_class_types = {"status_details": StatusDetail}
+                        _inner_class_types = {
+                            "protections": Protections,
+                            "status_details": StatusDetail,
+                        }
 
                     class StripeTransfers(StripeObject):
+                        class Protections(StripeObject):
+                            class PspMigration(StripeObject):
+                                expires_at: Optional[int]
+                                """
+                                The time until which the protection will expire, as a Unix timestamp.
+                                """
+                                requested_at: int
+                                """
+                                The time at which the protection was requested, as a Unix timestamp.
+                                """
+                                status: Literal[
+                                    "active",
+                                    "disrupted",
+                                    "expired",
+                                    "inactive",
+                                ]
+                                """
+                                The current status of the protection.
+                                """
+                                _field_encodings = {
+                                    "expires_at": "int64_string",
+                                    "requested_at": "int64_string",
+                                }
+
+                            psp_migration: PspMigration
+                            """
+                            Protection details for PSP migration.
+                            """
+                            _inner_class_types = {
+                                "psp_migration": PspMigration
+                            }
+
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
@@ -3169,6 +5509,10 @@ class Account(StripeObject):
                             Machine-readable code explaining how to make the Capability active.
                             """
 
+                        protections: Protections
+                        """
+                        Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                        """
                         status: Literal[
                             "active", "pending", "restricted", "unsupported"
                         ]
@@ -3179,7 +5523,10 @@ class Account(StripeObject):
                         """
                         Additional details about the capability's status. This value is empty when `status` is `active`.
                         """
-                        _inner_class_types = {"status_details": StatusDetail}
+                        _inner_class_types = {
+                            "protections": Protections,
+                            "status_details": StatusDetail,
+                        }
 
                     payouts: Optional[Payouts]
                     """
@@ -3381,6 +5728,38 @@ class Account(StripeObject):
                 class Consumer(StripeObject):
                     class HoldsCurrencies(StripeObject):
                         class Usd(StripeObject):
+                            class Protections(StripeObject):
+                                class PspMigration(StripeObject):
+                                    expires_at: Optional[int]
+                                    """
+                                    The time until which the protection will expire, as a Unix timestamp.
+                                    """
+                                    requested_at: int
+                                    """
+                                    The time at which the protection was requested, as a Unix timestamp.
+                                    """
+                                    status: Literal[
+                                        "active",
+                                        "disrupted",
+                                        "expired",
+                                        "inactive",
+                                    ]
+                                    """
+                                    The current status of the protection.
+                                    """
+                                    _field_encodings = {
+                                        "expires_at": "int64_string",
+                                        "requested_at": "int64_string",
+                                    }
+
+                                psp_migration: PspMigration
+                                """
+                                Protection details for PSP migration.
+                                """
+                                _inner_class_types = {
+                                    "psp_migration": PspMigration,
+                                }
+
                             class StatusDetail(StripeObject):
                                 code: Literal[
                                     "determining_status",
@@ -3403,6 +5782,10 @@ class Account(StripeObject):
                                 Machine-readable code explaining how to make the Capability active.
                                 """
 
+                            protections: Protections
+                            """
+                            Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                            """
                             status: Literal[
                                 "active",
                                 "pending",
@@ -3417,6 +5800,7 @@ class Account(StripeObject):
                             Additional details about the capability's status. This value is empty when `status` is `active`.
                             """
                             _inner_class_types = {
+                                "protections": Protections,
                                 "status_details": StatusDetail,
                             }
 
@@ -3434,6 +5818,38 @@ class Account(StripeObject):
 
                 class FinancialAddresses(StripeObject):
                     class BankAccounts(StripeObject):
+                        class Protections(StripeObject):
+                            class PspMigration(StripeObject):
+                                expires_at: Optional[int]
+                                """
+                                The time until which the protection will expire, as a Unix timestamp.
+                                """
+                                requested_at: int
+                                """
+                                The time at which the protection was requested, as a Unix timestamp.
+                                """
+                                status: Literal[
+                                    "active",
+                                    "disrupted",
+                                    "expired",
+                                    "inactive",
+                                ]
+                                """
+                                The current status of the protection.
+                                """
+                                _field_encodings = {
+                                    "expires_at": "int64_string",
+                                    "requested_at": "int64_string",
+                                }
+
+                            psp_migration: PspMigration
+                            """
+                            Protection details for PSP migration.
+                            """
+                            _inner_class_types = {
+                                "psp_migration": PspMigration
+                            }
+
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
@@ -3456,6 +5872,10 @@ class Account(StripeObject):
                             Machine-readable code explaining how to make the Capability active.
                             """
 
+                        protections: Protections
+                        """
+                        Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                        """
                         status: Literal[
                             "active", "pending", "restricted", "unsupported"
                         ]
@@ -3466,9 +5886,44 @@ class Account(StripeObject):
                         """
                         Additional details about the capability's status. This value is empty when `status` is `active`.
                         """
-                        _inner_class_types = {"status_details": StatusDetail}
+                        _inner_class_types = {
+                            "protections": Protections,
+                            "status_details": StatusDetail,
+                        }
 
                     class CryptoWallets(StripeObject):
+                        class Protections(StripeObject):
+                            class PspMigration(StripeObject):
+                                expires_at: Optional[int]
+                                """
+                                The time until which the protection will expire, as a Unix timestamp.
+                                """
+                                requested_at: int
+                                """
+                                The time at which the protection was requested, as a Unix timestamp.
+                                """
+                                status: Literal[
+                                    "active",
+                                    "disrupted",
+                                    "expired",
+                                    "inactive",
+                                ]
+                                """
+                                The current status of the protection.
+                                """
+                                _field_encodings = {
+                                    "expires_at": "int64_string",
+                                    "requested_at": "int64_string",
+                                }
+
+                            psp_migration: PspMigration
+                            """
+                            Protection details for PSP migration.
+                            """
+                            _inner_class_types = {
+                                "psp_migration": PspMigration
+                            }
+
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
@@ -3491,6 +5946,10 @@ class Account(StripeObject):
                             Machine-readable code explaining how to make the Capability active.
                             """
 
+                        protections: Protections
+                        """
+                        Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                        """
                         status: Literal[
                             "active", "pending", "restricted", "unsupported"
                         ]
@@ -3501,7 +5960,10 @@ class Account(StripeObject):
                         """
                         Additional details about the capability's status. This value is empty when `status` is `active`.
                         """
-                        _inner_class_types = {"status_details": StatusDetail}
+                        _inner_class_types = {
+                            "protections": Protections,
+                            "status_details": StatusDetail,
+                        }
 
                     bank_accounts: Optional[BankAccounts]
                     """
@@ -3518,6 +5980,38 @@ class Account(StripeObject):
 
                 class HoldsCurrencies(StripeObject):
                     class Eur(StripeObject):
+                        class Protections(StripeObject):
+                            class PspMigration(StripeObject):
+                                expires_at: Optional[int]
+                                """
+                                The time until which the protection will expire, as a Unix timestamp.
+                                """
+                                requested_at: int
+                                """
+                                The time at which the protection was requested, as a Unix timestamp.
+                                """
+                                status: Literal[
+                                    "active",
+                                    "disrupted",
+                                    "expired",
+                                    "inactive",
+                                ]
+                                """
+                                The current status of the protection.
+                                """
+                                _field_encodings = {
+                                    "expires_at": "int64_string",
+                                    "requested_at": "int64_string",
+                                }
+
+                            psp_migration: PspMigration
+                            """
+                            Protection details for PSP migration.
+                            """
+                            _inner_class_types = {
+                                "psp_migration": PspMigration
+                            }
+
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
@@ -3540,6 +6034,10 @@ class Account(StripeObject):
                             Machine-readable code explaining how to make the Capability active.
                             """
 
+                        protections: Protections
+                        """
+                        Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                        """
                         status: Literal[
                             "active", "pending", "restricted", "unsupported"
                         ]
@@ -3550,9 +6048,44 @@ class Account(StripeObject):
                         """
                         Additional details about the capability's status. This value is empty when `status` is `active`.
                         """
-                        _inner_class_types = {"status_details": StatusDetail}
+                        _inner_class_types = {
+                            "protections": Protections,
+                            "status_details": StatusDetail,
+                        }
 
                     class Gbp(StripeObject):
+                        class Protections(StripeObject):
+                            class PspMigration(StripeObject):
+                                expires_at: Optional[int]
+                                """
+                                The time until which the protection will expire, as a Unix timestamp.
+                                """
+                                requested_at: int
+                                """
+                                The time at which the protection was requested, as a Unix timestamp.
+                                """
+                                status: Literal[
+                                    "active",
+                                    "disrupted",
+                                    "expired",
+                                    "inactive",
+                                ]
+                                """
+                                The current status of the protection.
+                                """
+                                _field_encodings = {
+                                    "expires_at": "int64_string",
+                                    "requested_at": "int64_string",
+                                }
+
+                            psp_migration: PspMigration
+                            """
+                            Protection details for PSP migration.
+                            """
+                            _inner_class_types = {
+                                "psp_migration": PspMigration
+                            }
+
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
@@ -3575,6 +6108,10 @@ class Account(StripeObject):
                             Machine-readable code explaining how to make the Capability active.
                             """
 
+                        protections: Protections
+                        """
+                        Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                        """
                         status: Literal[
                             "active", "pending", "restricted", "unsupported"
                         ]
@@ -3585,9 +6122,44 @@ class Account(StripeObject):
                         """
                         Additional details about the capability's status. This value is empty when `status` is `active`.
                         """
-                        _inner_class_types = {"status_details": StatusDetail}
+                        _inner_class_types = {
+                            "protections": Protections,
+                            "status_details": StatusDetail,
+                        }
 
                     class Usd(StripeObject):
+                        class Protections(StripeObject):
+                            class PspMigration(StripeObject):
+                                expires_at: Optional[int]
+                                """
+                                The time until which the protection will expire, as a Unix timestamp.
+                                """
+                                requested_at: int
+                                """
+                                The time at which the protection was requested, as a Unix timestamp.
+                                """
+                                status: Literal[
+                                    "active",
+                                    "disrupted",
+                                    "expired",
+                                    "inactive",
+                                ]
+                                """
+                                The current status of the protection.
+                                """
+                                _field_encodings = {
+                                    "expires_at": "int64_string",
+                                    "requested_at": "int64_string",
+                                }
+
+                            psp_migration: PspMigration
+                            """
+                            Protection details for PSP migration.
+                            """
+                            _inner_class_types = {
+                                "psp_migration": PspMigration
+                            }
+
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
@@ -3610,6 +6182,10 @@ class Account(StripeObject):
                             Machine-readable code explaining how to make the Capability active.
                             """
 
+                        protections: Protections
+                        """
+                        Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                        """
                         status: Literal[
                             "active", "pending", "restricted", "unsupported"
                         ]
@@ -3620,9 +6196,44 @@ class Account(StripeObject):
                         """
                         Additional details about the capability's status. This value is empty when `status` is `active`.
                         """
-                        _inner_class_types = {"status_details": StatusDetail}
+                        _inner_class_types = {
+                            "protections": Protections,
+                            "status_details": StatusDetail,
+                        }
 
                     class Usdc(StripeObject):
+                        class Protections(StripeObject):
+                            class PspMigration(StripeObject):
+                                expires_at: Optional[int]
+                                """
+                                The time until which the protection will expire, as a Unix timestamp.
+                                """
+                                requested_at: int
+                                """
+                                The time at which the protection was requested, as a Unix timestamp.
+                                """
+                                status: Literal[
+                                    "active",
+                                    "disrupted",
+                                    "expired",
+                                    "inactive",
+                                ]
+                                """
+                                The current status of the protection.
+                                """
+                                _field_encodings = {
+                                    "expires_at": "int64_string",
+                                    "requested_at": "int64_string",
+                                }
+
+                            psp_migration: PspMigration
+                            """
+                            Protection details for PSP migration.
+                            """
+                            _inner_class_types = {
+                                "psp_migration": PspMigration
+                            }
+
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
@@ -3645,6 +6256,10 @@ class Account(StripeObject):
                             Machine-readable code explaining how to make the Capability active.
                             """
 
+                        protections: Protections
+                        """
+                        Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                        """
                         status: Literal[
                             "active", "pending", "restricted", "unsupported"
                         ]
@@ -3655,7 +6270,10 @@ class Account(StripeObject):
                         """
                         Additional details about the capability's status. This value is empty when `status` is `active`.
                         """
-                        _inner_class_types = {"status_details": StatusDetail}
+                        _inner_class_types = {
+                            "protections": Protections,
+                            "status_details": StatusDetail,
+                        }
 
                     eur: Optional[Eur]
                     """
@@ -3682,6 +6300,38 @@ class Account(StripeObject):
 
                 class InboundTransfers(StripeObject):
                     class BankAccounts(StripeObject):
+                        class Protections(StripeObject):
+                            class PspMigration(StripeObject):
+                                expires_at: Optional[int]
+                                """
+                                The time until which the protection will expire, as a Unix timestamp.
+                                """
+                                requested_at: int
+                                """
+                                The time at which the protection was requested, as a Unix timestamp.
+                                """
+                                status: Literal[
+                                    "active",
+                                    "disrupted",
+                                    "expired",
+                                    "inactive",
+                                ]
+                                """
+                                The current status of the protection.
+                                """
+                                _field_encodings = {
+                                    "expires_at": "int64_string",
+                                    "requested_at": "int64_string",
+                                }
+
+                            psp_migration: PspMigration
+                            """
+                            Protection details for PSP migration.
+                            """
+                            _inner_class_types = {
+                                "psp_migration": PspMigration
+                            }
+
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
@@ -3704,6 +6354,10 @@ class Account(StripeObject):
                             Machine-readable code explaining how to make the Capability active.
                             """
 
+                        protections: Protections
+                        """
+                        Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                        """
                         status: Literal[
                             "active", "pending", "restricted", "unsupported"
                         ]
@@ -3714,7 +6368,10 @@ class Account(StripeObject):
                         """
                         Additional details about the capability's status. This value is empty when `status` is `active`.
                         """
-                        _inner_class_types = {"status_details": StatusDetail}
+                        _inner_class_types = {
+                            "protections": Protections,
+                            "status_details": StatusDetail,
+                        }
 
                     bank_accounts: Optional[BankAccounts]
                     """
@@ -3724,6 +6381,38 @@ class Account(StripeObject):
 
                 class OutboundPayments(StripeObject):
                     class BankAccounts(StripeObject):
+                        class Protections(StripeObject):
+                            class PspMigration(StripeObject):
+                                expires_at: Optional[int]
+                                """
+                                The time until which the protection will expire, as a Unix timestamp.
+                                """
+                                requested_at: int
+                                """
+                                The time at which the protection was requested, as a Unix timestamp.
+                                """
+                                status: Literal[
+                                    "active",
+                                    "disrupted",
+                                    "expired",
+                                    "inactive",
+                                ]
+                                """
+                                The current status of the protection.
+                                """
+                                _field_encodings = {
+                                    "expires_at": "int64_string",
+                                    "requested_at": "int64_string",
+                                }
+
+                            psp_migration: PspMigration
+                            """
+                            Protection details for PSP migration.
+                            """
+                            _inner_class_types = {
+                                "psp_migration": PspMigration
+                            }
+
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
@@ -3746,6 +6435,10 @@ class Account(StripeObject):
                             Machine-readable code explaining how to make the Capability active.
                             """
 
+                        protections: Protections
+                        """
+                        Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                        """
                         status: Literal[
                             "active", "pending", "restricted", "unsupported"
                         ]
@@ -3756,9 +6449,44 @@ class Account(StripeObject):
                         """
                         Additional details about the capability's status. This value is empty when `status` is `active`.
                         """
-                        _inner_class_types = {"status_details": StatusDetail}
+                        _inner_class_types = {
+                            "protections": Protections,
+                            "status_details": StatusDetail,
+                        }
 
                     class Cards(StripeObject):
+                        class Protections(StripeObject):
+                            class PspMigration(StripeObject):
+                                expires_at: Optional[int]
+                                """
+                                The time until which the protection will expire, as a Unix timestamp.
+                                """
+                                requested_at: int
+                                """
+                                The time at which the protection was requested, as a Unix timestamp.
+                                """
+                                status: Literal[
+                                    "active",
+                                    "disrupted",
+                                    "expired",
+                                    "inactive",
+                                ]
+                                """
+                                The current status of the protection.
+                                """
+                                _field_encodings = {
+                                    "expires_at": "int64_string",
+                                    "requested_at": "int64_string",
+                                }
+
+                            psp_migration: PspMigration
+                            """
+                            Protection details for PSP migration.
+                            """
+                            _inner_class_types = {
+                                "psp_migration": PspMigration
+                            }
+
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
@@ -3781,6 +6509,10 @@ class Account(StripeObject):
                             Machine-readable code explaining how to make the Capability active.
                             """
 
+                        protections: Protections
+                        """
+                        Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                        """
                         status: Literal[
                             "active", "pending", "restricted", "unsupported"
                         ]
@@ -3791,9 +6523,44 @@ class Account(StripeObject):
                         """
                         Additional details about the capability's status. This value is empty when `status` is `active`.
                         """
-                        _inner_class_types = {"status_details": StatusDetail}
+                        _inner_class_types = {
+                            "protections": Protections,
+                            "status_details": StatusDetail,
+                        }
 
                     class CryptoWallets(StripeObject):
+                        class Protections(StripeObject):
+                            class PspMigration(StripeObject):
+                                expires_at: Optional[int]
+                                """
+                                The time until which the protection will expire, as a Unix timestamp.
+                                """
+                                requested_at: int
+                                """
+                                The time at which the protection was requested, as a Unix timestamp.
+                                """
+                                status: Literal[
+                                    "active",
+                                    "disrupted",
+                                    "expired",
+                                    "inactive",
+                                ]
+                                """
+                                The current status of the protection.
+                                """
+                                _field_encodings = {
+                                    "expires_at": "int64_string",
+                                    "requested_at": "int64_string",
+                                }
+
+                            psp_migration: PspMigration
+                            """
+                            Protection details for PSP migration.
+                            """
+                            _inner_class_types = {
+                                "psp_migration": PspMigration
+                            }
+
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
@@ -3816,6 +6583,10 @@ class Account(StripeObject):
                             Machine-readable code explaining how to make the Capability active.
                             """
 
+                        protections: Protections
+                        """
+                        Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                        """
                         status: Literal[
                             "active", "pending", "restricted", "unsupported"
                         ]
@@ -3826,9 +6597,44 @@ class Account(StripeObject):
                         """
                         Additional details about the capability's status. This value is empty when `status` is `active`.
                         """
-                        _inner_class_types = {"status_details": StatusDetail}
+                        _inner_class_types = {
+                            "protections": Protections,
+                            "status_details": StatusDetail,
+                        }
 
                     class FinancialAccounts(StripeObject):
+                        class Protections(StripeObject):
+                            class PspMigration(StripeObject):
+                                expires_at: Optional[int]
+                                """
+                                The time until which the protection will expire, as a Unix timestamp.
+                                """
+                                requested_at: int
+                                """
+                                The time at which the protection was requested, as a Unix timestamp.
+                                """
+                                status: Literal[
+                                    "active",
+                                    "disrupted",
+                                    "expired",
+                                    "inactive",
+                                ]
+                                """
+                                The current status of the protection.
+                                """
+                                _field_encodings = {
+                                    "expires_at": "int64_string",
+                                    "requested_at": "int64_string",
+                                }
+
+                            psp_migration: PspMigration
+                            """
+                            Protection details for PSP migration.
+                            """
+                            _inner_class_types = {
+                                "psp_migration": PspMigration
+                            }
+
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
@@ -3851,6 +6657,10 @@ class Account(StripeObject):
                             Machine-readable code explaining how to make the Capability active.
                             """
 
+                        protections: Protections
+                        """
+                        Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                        """
                         status: Literal[
                             "active", "pending", "restricted", "unsupported"
                         ]
@@ -3861,9 +6671,44 @@ class Account(StripeObject):
                         """
                         Additional details about the capability's status. This value is empty when `status` is `active`.
                         """
-                        _inner_class_types = {"status_details": StatusDetail}
+                        _inner_class_types = {
+                            "protections": Protections,
+                            "status_details": StatusDetail,
+                        }
 
                     class PaperChecks(StripeObject):
+                        class Protections(StripeObject):
+                            class PspMigration(StripeObject):
+                                expires_at: Optional[int]
+                                """
+                                The time until which the protection will expire, as a Unix timestamp.
+                                """
+                                requested_at: int
+                                """
+                                The time at which the protection was requested, as a Unix timestamp.
+                                """
+                                status: Literal[
+                                    "active",
+                                    "disrupted",
+                                    "expired",
+                                    "inactive",
+                                ]
+                                """
+                                The current status of the protection.
+                                """
+                                _field_encodings = {
+                                    "expires_at": "int64_string",
+                                    "requested_at": "int64_string",
+                                }
+
+                            psp_migration: PspMigration
+                            """
+                            Protection details for PSP migration.
+                            """
+                            _inner_class_types = {
+                                "psp_migration": PspMigration
+                            }
+
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
@@ -3886,6 +6731,10 @@ class Account(StripeObject):
                             Machine-readable code explaining how to make the Capability active.
                             """
 
+                        protections: Protections
+                        """
+                        Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                        """
                         status: Literal[
                             "active", "pending", "restricted", "unsupported"
                         ]
@@ -3896,7 +6745,10 @@ class Account(StripeObject):
                         """
                         Additional details about the capability's status. This value is empty when `status` is `active`.
                         """
-                        _inner_class_types = {"status_details": StatusDetail}
+                        _inner_class_types = {
+                            "protections": Protections,
+                            "status_details": StatusDetail,
+                        }
 
                     bank_accounts: Optional[BankAccounts]
                     """
@@ -3928,6 +6780,38 @@ class Account(StripeObject):
 
                 class OutboundTransfers(StripeObject):
                     class BankAccounts(StripeObject):
+                        class Protections(StripeObject):
+                            class PspMigration(StripeObject):
+                                expires_at: Optional[int]
+                                """
+                                The time until which the protection will expire, as a Unix timestamp.
+                                """
+                                requested_at: int
+                                """
+                                The time at which the protection was requested, as a Unix timestamp.
+                                """
+                                status: Literal[
+                                    "active",
+                                    "disrupted",
+                                    "expired",
+                                    "inactive",
+                                ]
+                                """
+                                The current status of the protection.
+                                """
+                                _field_encodings = {
+                                    "expires_at": "int64_string",
+                                    "requested_at": "int64_string",
+                                }
+
+                            psp_migration: PspMigration
+                            """
+                            Protection details for PSP migration.
+                            """
+                            _inner_class_types = {
+                                "psp_migration": PspMigration
+                            }
+
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
@@ -3950,6 +6834,10 @@ class Account(StripeObject):
                             Machine-readable code explaining how to make the Capability active.
                             """
 
+                        protections: Protections
+                        """
+                        Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                        """
                         status: Literal[
                             "active", "pending", "restricted", "unsupported"
                         ]
@@ -3960,9 +6848,44 @@ class Account(StripeObject):
                         """
                         Additional details about the capability's status. This value is empty when `status` is `active`.
                         """
-                        _inner_class_types = {"status_details": StatusDetail}
+                        _inner_class_types = {
+                            "protections": Protections,
+                            "status_details": StatusDetail,
+                        }
 
                     class CryptoWallets(StripeObject):
+                        class Protections(StripeObject):
+                            class PspMigration(StripeObject):
+                                expires_at: Optional[int]
+                                """
+                                The time until which the protection will expire, as a Unix timestamp.
+                                """
+                                requested_at: int
+                                """
+                                The time at which the protection was requested, as a Unix timestamp.
+                                """
+                                status: Literal[
+                                    "active",
+                                    "disrupted",
+                                    "expired",
+                                    "inactive",
+                                ]
+                                """
+                                The current status of the protection.
+                                """
+                                _field_encodings = {
+                                    "expires_at": "int64_string",
+                                    "requested_at": "int64_string",
+                                }
+
+                            psp_migration: PspMigration
+                            """
+                            Protection details for PSP migration.
+                            """
+                            _inner_class_types = {
+                                "psp_migration": PspMigration
+                            }
+
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
@@ -3985,6 +6908,10 @@ class Account(StripeObject):
                             Machine-readable code explaining how to make the Capability active.
                             """
 
+                        protections: Protections
+                        """
+                        Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                        """
                         status: Literal[
                             "active", "pending", "restricted", "unsupported"
                         ]
@@ -3995,9 +6922,44 @@ class Account(StripeObject):
                         """
                         Additional details about the capability's status. This value is empty when `status` is `active`.
                         """
-                        _inner_class_types = {"status_details": StatusDetail}
+                        _inner_class_types = {
+                            "protections": Protections,
+                            "status_details": StatusDetail,
+                        }
 
                     class FinancialAccounts(StripeObject):
+                        class Protections(StripeObject):
+                            class PspMigration(StripeObject):
+                                expires_at: Optional[int]
+                                """
+                                The time until which the protection will expire, as a Unix timestamp.
+                                """
+                                requested_at: int
+                                """
+                                The time at which the protection was requested, as a Unix timestamp.
+                                """
+                                status: Literal[
+                                    "active",
+                                    "disrupted",
+                                    "expired",
+                                    "inactive",
+                                ]
+                                """
+                                The current status of the protection.
+                                """
+                                _field_encodings = {
+                                    "expires_at": "int64_string",
+                                    "requested_at": "int64_string",
+                                }
+
+                            psp_migration: PspMigration
+                            """
+                            Protection details for PSP migration.
+                            """
+                            _inner_class_types = {
+                                "psp_migration": PspMigration
+                            }
+
                         class StatusDetail(StripeObject):
                             code: Literal[
                                 "determining_status",
@@ -4020,6 +6982,10 @@ class Account(StripeObject):
                             Machine-readable code explaining how to make the Capability active.
                             """
 
+                        protections: Protections
+                        """
+                        Protections applied to this capability, keyed by protection type (e.g. "psp_migration").
+                        """
                         status: Literal[
                             "active", "pending", "restricted", "unsupported"
                         ]
@@ -4030,7 +6996,10 @@ class Account(StripeObject):
                         """
                         Additional details about the capability's status. This value is empty when `status` is `active`.
                         """
-                        _inner_class_types = {"status_details": StatusDetail}
+                        _inner_class_types = {
+                            "protections": Protections,
+                            "status_details": StatusDetail,
+                        }
 
                     bank_accounts: Optional[BankAccounts]
                     """

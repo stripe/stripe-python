@@ -14,6 +14,9 @@ if TYPE_CHECKING:
     from stripe.params.radar._customer_evaluation_modify_params import (
         CustomerEvaluationModifyParams,
     )
+    from stripe.params.radar._customer_evaluation_retrieve_params import (
+        CustomerEvaluationRetrieveParams,
+    )
 
 
 class CustomerEvaluation(
@@ -218,5 +221,27 @@ class CustomerEvaluation(
                 params=params,
             ),
         )
+
+    @classmethod
+    def retrieve(
+        cls, id: str, **params: Unpack["CustomerEvaluationRetrieveParams"]
+    ) -> "CustomerEvaluation":
+        """
+        Retrieves an CustomerEvaluation object.
+        """
+        instance = cls(id, **params)
+        instance.refresh()
+        return instance
+
+    @classmethod
+    async def retrieve_async(
+        cls, id: str, **params: Unpack["CustomerEvaluationRetrieveParams"]
+    ) -> "CustomerEvaluation":
+        """
+        Retrieves an CustomerEvaluation object.
+        """
+        instance = cls(id, **params)
+        await instance.refresh_async()
+        return instance
 
     _inner_class_types = {"events": Event, "signals": Signals}

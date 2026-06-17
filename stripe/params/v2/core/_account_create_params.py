@@ -166,18 +166,66 @@ class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCeltic(
 class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCelticChargeCard(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCelticChargeCardProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCelticChargeCardProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCelticChargeCardProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCelticChargeCardProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCelticSpendCard(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCelticSpendCardProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCelticSpendCardProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCelticSpendCardProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCelticSpendCardProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
@@ -207,27 +255,99 @@ class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCrossRive
 class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCrossRiverBankChargeCard(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCrossRiverBankChargeCardProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCrossRiverBankChargeCardProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCrossRiverBankChargeCardProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCrossRiverBankChargeCardProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCrossRiverBankPrepaidCard(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCrossRiverBankPrepaidCardProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCrossRiverBankPrepaidCardProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCrossRiverBankPrepaidCardProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCrossRiverBankPrepaidCardProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCrossRiverBankSpendCard(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCrossRiverBankSpendCardProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCrossRiverBankSpendCardProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCrossRiverBankSpendCardProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialCrossRiverBankSpendCardProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
@@ -245,9 +365,33 @@ class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialFifthThir
 class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialFifthThirdChargeCard(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialFifthThirdChargeCardProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialFifthThirdChargeCardProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialFifthThirdChargeCardProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialFifthThirdChargeCardProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
@@ -265,9 +409,33 @@ class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialLead(
 class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialLeadPrepaidCard(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialLeadPrepaidCardProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialLeadPrepaidCardProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialLeadPrepaidCardProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialLeadPrepaidCardProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
@@ -291,18 +459,66 @@ class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialStripe(
 class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialStripeChargeCard(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialStripeChargeCardProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialStripeChargeCardProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialStripeChargeCardProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialStripeChargeCardProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialStripePrepaidCard(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialStripePrepaidCardProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialStripePrepaidCardProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialStripePrepaidCardProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialStripePrepaidCardProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
@@ -343,9 +559,33 @@ class AccountCreateParamsConfigurationCardCreatorCapabilitiesConsumerCeltic(
 class AccountCreateParamsConfigurationCardCreatorCapabilitiesConsumerCelticRevolvingCreditCard(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationCardCreatorCapabilitiesConsumerCelticRevolvingCreditCardProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationCardCreatorCapabilitiesConsumerCelticRevolvingCreditCardProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationCardCreatorCapabilitiesConsumerCelticRevolvingCreditCardProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationCardCreatorCapabilitiesConsumerCelticRevolvingCreditCardProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
@@ -363,9 +603,33 @@ class AccountCreateParamsConfigurationCardCreatorCapabilitiesConsumerCrossRiverB
 class AccountCreateParamsConfigurationCardCreatorCapabilitiesConsumerCrossRiverBankPrepaidCard(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationCardCreatorCapabilitiesConsumerCrossRiverBankPrepaidCardProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationCardCreatorCapabilitiesConsumerCrossRiverBankPrepaidCardProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationCardCreatorCapabilitiesConsumerCrossRiverBankPrepaidCardProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationCardCreatorCapabilitiesConsumerCrossRiverBankPrepaidCardProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
@@ -389,18 +653,66 @@ class AccountCreateParamsConfigurationCardCreatorCapabilitiesConsumerLead(
 class AccountCreateParamsConfigurationCardCreatorCapabilitiesConsumerLeadDebitCard(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationCardCreatorCapabilitiesConsumerLeadDebitCardProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationCardCreatorCapabilitiesConsumerLeadDebitCardProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationCardCreatorCapabilitiesConsumerLeadDebitCardProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationCardCreatorCapabilitiesConsumerLeadDebitCardProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationCardCreatorCapabilitiesConsumerLeadPrepaidCard(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationCardCreatorCapabilitiesConsumerLeadPrepaidCardProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationCardCreatorCapabilitiesConsumerLeadPrepaidCardProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationCardCreatorCapabilitiesConsumerLeadPrepaidCardProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationCardCreatorCapabilitiesConsumerLeadPrepaidCardProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
@@ -531,9 +843,33 @@ class AccountCreateParamsConfigurationCustomerCapabilities(TypedDict):
 class AccountCreateParamsConfigurationCustomerCapabilitiesAutomaticIndirectTax(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationCustomerCapabilitiesAutomaticIndirectTaxProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationCustomerCapabilitiesAutomaticIndirectTaxProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationCustomerCapabilitiesAutomaticIndirectTaxProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationCustomerCapabilitiesAutomaticIndirectTaxProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
@@ -934,396 +1270,1452 @@ class AccountCreateParamsConfigurationMerchantCapabilities(TypedDict):
 class AccountCreateParamsConfigurationMerchantCapabilitiesAchDebitPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesAchDebitPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesAchDebitPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesAchDebitPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesAchDebitPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesAcssDebitPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesAcssDebitPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesAcssDebitPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesAcssDebitPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesAcssDebitPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesAffirmPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesAffirmPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesAffirmPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesAffirmPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesAffirmPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesAfterpayClearpayPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesAfterpayClearpayPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesAfterpayClearpayPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesAfterpayClearpayPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesAfterpayClearpayPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesAlmaPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesAlmaPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesAlmaPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesAlmaPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesAlmaPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesAmazonPayPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesAmazonPayPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesAmazonPayPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesAmazonPayPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesAmazonPayPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesAuBecsDebitPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesAuBecsDebitPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesAuBecsDebitPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesAuBecsDebitPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesAuBecsDebitPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesBacsDebitPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesBacsDebitPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesBacsDebitPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesBacsDebitPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesBacsDebitPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesBancontactPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesBancontactPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesBancontactPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesBancontactPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesBancontactPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesBlikPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesBlikPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesBlikPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesBlikPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesBlikPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesBoletoPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesBoletoPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesBoletoPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesBoletoPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesBoletoPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesCardPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesCardPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesCardPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesCardPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesCardPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesCartesBancairesPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesCartesBancairesPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesCartesBancairesPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesCartesBancairesPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesCartesBancairesPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesCashappPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesCashappPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesCashappPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesCashappPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesCashappPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesEpsPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesEpsPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesEpsPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesEpsPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesEpsPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesFpxPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesFpxPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesFpxPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesFpxPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesFpxPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesGbBankTransferPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesGbBankTransferPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesGbBankTransferPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesGbBankTransferPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesGbBankTransferPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesGrabpayPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesGrabpayPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesGrabpayPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesGrabpayPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesGrabpayPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesIdealPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesIdealPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesIdealPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesIdealPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesIdealPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesJcbPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesJcbPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesJcbPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesJcbPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesJcbPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesJpBankTransferPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesJpBankTransferPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesJpBankTransferPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesJpBankTransferPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesJpBankTransferPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesKakaoPayPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesKakaoPayPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesKakaoPayPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesKakaoPayPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesKakaoPayPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesKlarnaPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesKlarnaPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesKlarnaPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesKlarnaPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesKlarnaPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesKonbiniPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesKonbiniPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesKonbiniPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesKonbiniPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesKonbiniPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesKrCardPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesKrCardPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesKrCardPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesKrCardPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesKrCardPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesLinkPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesLinkPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesLinkPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesLinkPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesLinkPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesMobilepayPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesMobilepayPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesMobilepayPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesMobilepayPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesMobilepayPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesMultibancoPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesMultibancoPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesMultibancoPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesMultibancoPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesMultibancoPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesMxBankTransferPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesMxBankTransferPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesMxBankTransferPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesMxBankTransferPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesMxBankTransferPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesNaverPayPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesNaverPayPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesNaverPayPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesNaverPayPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesNaverPayPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesOxxoPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesOxxoPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesOxxoPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesOxxoPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesOxxoPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesP24Payments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesP24PaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesP24PaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesP24PaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesP24PaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesPayByBankPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesPayByBankPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesPayByBankPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesPayByBankPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesPayByBankPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesPaycoPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesPaycoPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesPaycoPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesPaycoPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesPaycoPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesPaynowPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesPaynowPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesPaynowPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesPaynowPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesPaynowPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesPromptpayPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesPromptpayPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesPromptpayPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesPromptpayPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesPromptpayPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesRevolutPayPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesRevolutPayPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesRevolutPayPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesRevolutPayPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesRevolutPayPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesSamsungPayPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesSamsungPayPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesSamsungPayPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesSamsungPayPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesSamsungPayPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesSepaBankTransferPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesSepaBankTransferPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesSepaBankTransferPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesSepaBankTransferPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesSepaBankTransferPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesSepaDebitPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesSepaDebitPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesSepaDebitPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesSepaDebitPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesSepaDebitPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesSwishPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesSwishPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesSwishPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesSwishPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesSwishPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesTwintPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesTwintPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesTwintPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesTwintPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesTwintPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesUsBankTransferPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesUsBankTransferPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesUsBankTransferPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesUsBankTransferPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesUsBankTransferPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesZipPayments(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesZipPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesZipPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesZipPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesZipPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
@@ -1580,52 +2972,196 @@ class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccounts(
 class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsInstant(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsInstantProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsInstantProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsInstantProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsInstantProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsLocal(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsLocalProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsLocalProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsLocalProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsLocalProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsWire(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsWireProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsWireProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsWireProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsWireProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationRecipientCapabilitiesCards(TypedDict):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationRecipientCapabilitiesCardsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesCardsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationRecipientCapabilitiesCardsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesCardsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationRecipientCapabilitiesCryptoWallets(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationRecipientCapabilitiesCryptoWalletsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesCryptoWalletsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationRecipientCapabilitiesCryptoWalletsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesCryptoWalletsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationRecipientCapabilitiesPaperChecks(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationRecipientCapabilitiesPaperChecksProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesPaperChecksProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationRecipientCapabilitiesPaperChecksProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesPaperChecksProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
@@ -1643,9 +3179,33 @@ class AccountCreateParamsConfigurationRecipientCapabilitiesStripeBalance(
 class AccountCreateParamsConfigurationRecipientCapabilitiesStripeBalanceStripeTransfers(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationRecipientCapabilitiesStripeBalanceStripeTransfersProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesStripeBalanceStripeTransfersProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationRecipientCapabilitiesStripeBalanceStripeTransfersProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesStripeBalanceStripeTransfersProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
@@ -1813,9 +3373,33 @@ class AccountCreateParamsConfigurationStorerCapabilitiesConsumerHoldsCurrencies(
 class AccountCreateParamsConfigurationStorerCapabilitiesConsumerHoldsCurrenciesUsd(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationStorerCapabilitiesConsumerHoldsCurrenciesUsdProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationStorerCapabilitiesConsumerHoldsCurrenciesUsdProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationStorerCapabilitiesConsumerHoldsCurrenciesUsdProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationStorerCapabilitiesConsumerHoldsCurrenciesUsdProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
@@ -1839,18 +3423,66 @@ class AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddresses(
 class AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccounts(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccountsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccountsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccountsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccountsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesCryptoWallets(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesCryptoWalletsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesCryptoWalletsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesCryptoWalletsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesCryptoWalletsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
@@ -1886,36 +3518,132 @@ class AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrencies(
 class AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesEur(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesEurProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesEurProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesEurProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesEurProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbp(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbpProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbpProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbpProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbpProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsd(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsdProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsdProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsdProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsdProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsdc(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsdcProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsdcProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsdcProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsdcProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
@@ -1933,9 +3661,33 @@ class AccountCreateParamsConfigurationStorerCapabilitiesInboundTransfers(
 class AccountCreateParamsConfigurationStorerCapabilitiesInboundTransfersBankAccounts(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationStorerCapabilitiesInboundTransfersBankAccountsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationStorerCapabilitiesInboundTransfersBankAccountsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationStorerCapabilitiesInboundTransfersBankAccountsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationStorerCapabilitiesInboundTransfersBankAccountsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
@@ -1977,45 +3729,165 @@ class AccountCreateParamsConfigurationStorerCapabilitiesOutboundPayments(
 class AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsBankAccounts(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsBankAccountsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsBankAccountsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsBankAccountsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsBankAccountsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsCards(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsCardsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsCardsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsCardsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsCardsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsCryptoWallets(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsCryptoWalletsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsCryptoWalletsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsCryptoWalletsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsCryptoWalletsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsFinancialAccounts(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsFinancialAccountsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsFinancialAccountsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsFinancialAccountsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsFinancialAccountsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsPaperChecks(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsPaperChecksProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsPaperChecksProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsPaperChecksProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsPaperChecksProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
@@ -2045,27 +3917,99 @@ class AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfers(
 class AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersBankAccounts(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersBankAccountsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersBankAccountsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersBankAccountsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersBankAccountsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersCryptoWallets(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersCryptoWalletsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersCryptoWalletsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersCryptoWalletsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersCryptoWalletsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
 class AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersFinancialAccounts(
     TypedDict,
 ):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersFinancialAccountsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
     requested: bool
     """
     To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersFinancialAccountsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersFinancialAccountsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersFinancialAccountsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 

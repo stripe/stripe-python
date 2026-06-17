@@ -15,6 +15,10 @@ class PaymentAttemptRecordReportRefundParams(RequestOptions):
     """
     Specifies which fields in the response should be expanded.
     """
+    failed: NotRequired["PaymentAttemptRecordReportRefundParamsFailed"]
+    """
+    Information about the refund failure.
+    """
     initiated_at: NotRequired[int]
     """
     When the reported refund was initiated. Measured in seconds since the Unix epoch.
@@ -25,13 +29,17 @@ class PaymentAttemptRecordReportRefundParams(RequestOptions):
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
-    outcome: Literal["refunded"]
+    outcome: Literal["failed", "refunded"]
     """
     The outcome of the reported refund.
     """
     processor_details: "PaymentAttemptRecordReportRefundParamsProcessorDetails"
     """
     Processor information for this refund.
+    """
+    refund_group: NotRequired[str]
+    """
+    A key to group refunds together.
     """
     refunded: NotRequired["PaymentAttemptRecordReportRefundParamsRefunded"]
     """
@@ -47,6 +55,27 @@ class PaymentAttemptRecordReportRefundParamsAmount(TypedDict):
     value: int
     """
     A positive integer representing the amount in the currency's [minor unit](https://docs.stripe.com/currencies#zero-decimal). For example, `100` can represent 1 USD or 100 JPY.
+    """
+
+
+class PaymentAttemptRecordReportRefundParamsFailed(TypedDict):
+    failed_at: NotRequired[int]
+    """
+    When the reported refund failed. Measured in seconds since the Unix epoch.
+    """
+    failure_reason: NotRequired[
+        Literal[
+            "charge_for_pending_refund_disputed",
+            "declined",
+            "expired_or_canceled_card",
+            "insufficient_funds",
+            "lost_or_stolen_card",
+            "merchant_request",
+            "unknown",
+        ]
+    ]
+    """
+    Provides the reason for the refund failure. Possible values are: `lost_or_stolen_card`, `expired_or_canceled_card`, `charge_for_pending_refund_disputed`, `insufficient_funds`, `declined`, `merchant_request`, or `unknown`.
     """
 
 

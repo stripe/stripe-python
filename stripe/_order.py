@@ -513,7 +513,13 @@ class Order(
                     """
                     The app ID registered with WeChat Pay. Only required when client is ios or android.
                     """
-                    client: Optional[Literal["android", "ios", "web"]]
+                    buyer_id: Optional[str]
+                    """
+                    The unique buyer ID for the app ID registered with WeChat Pay. Only required when client is mini_program.
+                    """
+                    client: Optional[
+                        Literal["android", "ios", "mini_program", "web"]
+                    ]
                     """
                     The client type that the end customer will pay from
                     """
