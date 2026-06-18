@@ -115,6 +115,7 @@ if TYPE_CHECKING:
     )
     from stripe.params.v2.billing._contract_cancel_params import (
         ContractCancelParams as ContractCancelParams,
+        ContractCancelParamsCancelPricingLine as ContractCancelParamsCancelPricingLine,
     )
     from stripe.params.v2.billing._contract_create_params import (
         ContractCreateParams as ContractCreateParams,
@@ -768,6 +769,10 @@ _import_map = {
         False,
     ),
     "ContractCancelParams": (
+        "stripe.params.v2.billing._contract_cancel_params",
+        False,
+    ),
+    "ContractCancelParamsCancelPricingLine": (
         "stripe.params.v2.billing._contract_cancel_params",
         False,
     ),

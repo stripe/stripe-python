@@ -21,6 +21,9 @@ if TYPE_CHECKING:
     from stripe.params._payment_attempt_record_report_canceled_params import (
         PaymentAttemptRecordReportCanceledParams,
     )
+    from stripe.params._payment_attempt_record_report_early_fraud_warning_params import (
+        PaymentAttemptRecordReportEarlyFraudWarningParams,
+    )
     from stripe.params._payment_attempt_record_report_failed_params import (
         PaymentAttemptRecordReportFailedParams,
     )
@@ -245,6 +248,50 @@ class PaymentAttemptRecordService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/payment_attempt_records/{payment_attempt_record}/report_canceled".format(
+                    payment_attempt_record=sanitize_id(payment_attempt_record),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def report_early_fraud_warning(
+        self,
+        payment_attempt_record: str,
+        params: "PaymentAttemptRecordReportEarlyFraudWarningParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record received an early fraud warning.
+        """
+        return cast(
+            "PaymentAttemptRecord",
+            self._request(
+                "post",
+                "/v1/payment_attempt_records/{payment_attempt_record}/report_early_fraud_warning".format(
+                    payment_attempt_record=sanitize_id(payment_attempt_record),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def report_early_fraud_warning_async(
+        self,
+        payment_attempt_record: str,
+        params: "PaymentAttemptRecordReportEarlyFraudWarningParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record received an early fraud warning.
+        """
+        return cast(
+            "PaymentAttemptRecord",
+            await self._request_async(
+                "post",
+                "/v1/payment_attempt_records/{payment_attempt_record}/report_early_fraud_warning".format(
                     payment_attempt_record=sanitize_id(payment_attempt_record),
                 ),
                 base_address="api",

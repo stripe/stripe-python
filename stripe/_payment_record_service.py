@@ -8,6 +8,7 @@ from typing_extensions import TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe._payment_record import PaymentRecord
     from stripe._request_options import RequestOptions
+    from stripe._search_result_object import SearchResultObject
     from stripe.params._payment_record_report_payment_attempt_canceled_params import (
         PaymentRecordReportPaymentAttemptCanceledParams,
     )
@@ -31,6 +32,9 @@ if TYPE_CHECKING:
     )
     from stripe.params._payment_record_retrieve_params import (
         PaymentRecordRetrieveParams,
+    )
+    from stripe.params._payment_record_search_params import (
+        PaymentRecordSearchParams,
     )
 
 
@@ -69,6 +73,50 @@ class PaymentRecordService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/payment_records/{id}".format(id=sanitize_id(id)),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def search(
+        self,
+        params: "PaymentRecordSearchParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "SearchResultObject[PaymentRecord]":
+        """
+        Search for PaymentRecords you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
+        Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
+        conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
+        to an hour behind during outages. Search functionality is not available to merchants in India.
+        """
+        return cast(
+            "SearchResultObject[PaymentRecord]",
+            self._request(
+                "get",
+                "/v1/payment_records/search",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def search_async(
+        self,
+        params: "PaymentRecordSearchParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "SearchResultObject[PaymentRecord]":
+        """
+        Search for PaymentRecords you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
+        Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
+        conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
+        to an hour behind during outages. Search functionality is not available to merchants in India.
+        """
+        return cast(
+            "SearchResultObject[PaymentRecord]",
+            await self._request_async(
+                "get",
+                "/v1/payment_records/search",
                 base_address="api",
                 params=params,
                 options=options,

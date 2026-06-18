@@ -257,6 +257,9 @@ if TYPE_CHECKING:
         DisputeModifyParamsEvidenceServiceNotAsDescribed as DisputeModifyParamsEvidenceServiceNotAsDescribed,
         DisputeModifyParamsProvisionalCredit as DisputeModifyParamsProvisionalCredit,
     )
+    from stripe.params.issuing._dispute_provisional_credit_params import (
+        DisputeProvisionalCreditParams as DisputeProvisionalCreditParams,
+    )
     from stripe.params.issuing._dispute_retrieve_params import (
         DisputeRetrieveParams as DisputeRetrieveParams,
     )
@@ -1109,6 +1112,10 @@ _import_map = {
     ),
     "DisputeModifyParamsProvisionalCredit": (
         "stripe.params.issuing._dispute_modify_params",
+        False,
+    ),
+    "DisputeProvisionalCreditParams": (
+        "stripe.params.issuing._dispute_provisional_credit_params",
         False,
     ),
     "DisputeRetrieveParams": (

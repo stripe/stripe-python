@@ -10,36 +10,6 @@ class TransactionLineItem(StripeObject):
         "tax.transaction_line_item"
     )
 
-    class PerformanceLocationDetails(StripeObject):
-        class Address(StripeObject):
-            city: Optional[str]
-            """
-            City, district, suburb, town, or village.
-            """
-            country: str
-            """
-            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-            """
-            line1: Optional[str]
-            """
-            Address line 1, such as the street, PO Box, or company name.
-            """
-            line2: Optional[str]
-            """
-            Address line 2, such as the apartment, suite, unit, or building.
-            """
-            postal_code: Optional[str]
-            """
-            ZIP or postal code.
-            """
-            state: Optional[str]
-            """
-            State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix, such as "NY" or "TX".
-            """
-
-        address: Address
-        _inner_class_types = {"address": Address}
-
     class Reversal(StripeObject):
         original_line_item: str
         """
@@ -70,10 +40,6 @@ class TransactionLineItem(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    performance_location_details: Optional[PerformanceLocationDetails]
-    """
-    The address of the location where this line item's event or service takes place. Depending on the [tax code](https://docs.stripe.com/tax/tax-codes), providing a performance location is required, optional, or not supported. Use this to provide the address inline without pre-creating a [TaxLocation](https://docs.stripe.com/api/tax/location) object. Can't be used with `performance_location`.
-    """
     product: Optional[str]
     """
     The ID of an existing [Product](https://docs.stripe.com/api/products/object).
@@ -102,7 +68,4 @@ class TransactionLineItem(StripeObject):
     """
     If `reversal`, this line item reverses an earlier transaction.
     """
-    _inner_class_types = {
-        "performance_location_details": PerformanceLocationDetails,
-        "reversal": Reversal,
-    }
+    _inner_class_types = {"reversal": Reversal}

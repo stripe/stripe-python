@@ -47,6 +47,18 @@ if TYPE_CHECKING:
         SessionCreateParamsInvoiceCreationInvoiceDataIssuer as SessionCreateParamsInvoiceCreationInvoiceDataIssuer,
         SessionCreateParamsInvoiceCreationInvoiceDataRenderingOptions as SessionCreateParamsInvoiceCreationInvoiceDataRenderingOptions,
         SessionCreateParamsItem as SessionCreateParamsItem,
+        SessionCreateParamsItemSubscription as SessionCreateParamsItemSubscription,
+        SessionCreateParamsItemSubscriptionBillingCycleAnchorConfig as SessionCreateParamsItemSubscriptionBillingCycleAnchorConfig,
+        SessionCreateParamsItemSubscriptionBillingMode as SessionCreateParamsItemSubscriptionBillingMode,
+        SessionCreateParamsItemSubscriptionBillingModeFlexible as SessionCreateParamsItemSubscriptionBillingModeFlexible,
+        SessionCreateParamsItemSubscriptionItem as SessionCreateParamsItemSubscriptionItem,
+        SessionCreateParamsItemSubscriptionItemPriceData as SessionCreateParamsItemSubscriptionItemPriceData,
+        SessionCreateParamsItemSubscriptionItemPriceDataProductData as SessionCreateParamsItemSubscriptionItemPriceDataProductData,
+        SessionCreateParamsItemSubscriptionItemPriceDataProductDataTaxDetails as SessionCreateParamsItemSubscriptionItemPriceDataProductDataTaxDetails,
+        SessionCreateParamsItemSubscriptionItemPriceDataRecurring as SessionCreateParamsItemSubscriptionItemPriceDataRecurring,
+        SessionCreateParamsItemSubscriptionPendingInvoiceItemInterval as SessionCreateParamsItemSubscriptionPendingInvoiceItemInterval,
+        SessionCreateParamsItemSubscriptionTrialSettings as SessionCreateParamsItemSubscriptionTrialSettings,
+        SessionCreateParamsItemSubscriptionTrialSettingsEndBehavior as SessionCreateParamsItemSubscriptionTrialSettingsEndBehavior,
         SessionCreateParamsLineItem as SessionCreateParamsLineItem,
         SessionCreateParamsLineItemAdjustableQuantity as SessionCreateParamsLineItemAdjustableQuantity,
         SessionCreateParamsLineItemPriceData as SessionCreateParamsLineItemPriceData,
@@ -393,6 +405,54 @@ _import_map = {
         False,
     ),
     "SessionCreateParamsItem": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsItemSubscription": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsItemSubscriptionBillingCycleAnchorConfig": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsItemSubscriptionBillingMode": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsItemSubscriptionBillingModeFlexible": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsItemSubscriptionItem": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsItemSubscriptionItemPriceData": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsItemSubscriptionItemPriceDataProductData": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsItemSubscriptionItemPriceDataProductDataTaxDetails": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsItemSubscriptionItemPriceDataRecurring": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsItemSubscriptionPendingInvoiceItemInterval": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsItemSubscriptionTrialSettings": (
+        "stripe.params.checkout._session_create_params",
+        False,
+    ),
+    "SessionCreateParamsItemSubscriptionTrialSettingsEndBehavior": (
         "stripe.params.checkout._session_create_params",
         False,
     ),

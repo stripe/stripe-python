@@ -449,6 +449,10 @@ if TYPE_CHECKING:
         AccountSessionCreateParamsComponentsFinancialAccountFeatures as AccountSessionCreateParamsComponentsFinancialAccountFeatures,
         AccountSessionCreateParamsComponentsFinancialAccountTransactions as AccountSessionCreateParamsComponentsFinancialAccountTransactions,
         AccountSessionCreateParamsComponentsFinancialAccountTransactionsFeatures as AccountSessionCreateParamsComponentsFinancialAccountTransactionsFeatures,
+        AccountSessionCreateParamsComponentsFinancialAccounts as AccountSessionCreateParamsComponentsFinancialAccounts,
+        AccountSessionCreateParamsComponentsFinancialAccountsFeatures as AccountSessionCreateParamsComponentsFinancialAccountsFeatures,
+        AccountSessionCreateParamsComponentsFinancialAccountsTransactions as AccountSessionCreateParamsComponentsFinancialAccountsTransactions,
+        AccountSessionCreateParamsComponentsFinancialAccountsTransactionsFeatures as AccountSessionCreateParamsComponentsFinancialAccountsTransactionsFeatures,
         AccountSessionCreateParamsComponentsInstantPayoutsPromotion as AccountSessionCreateParamsComponentsInstantPayoutsPromotion,
         AccountSessionCreateParamsComponentsInstantPayoutsPromotionFeatures as AccountSessionCreateParamsComponentsInstantPayoutsPromotionFeatures,
         AccountSessionCreateParamsComponentsIssuingCard as AccountSessionCreateParamsComponentsIssuingCard,
@@ -477,6 +481,8 @@ if TYPE_CHECKING:
         AccountSessionCreateParamsComponentsProductTaxCodeSelectorFeatures as AccountSessionCreateParamsComponentsProductTaxCodeSelectorFeatures,
         AccountSessionCreateParamsComponentsRecipients as AccountSessionCreateParamsComponentsRecipients,
         AccountSessionCreateParamsComponentsRecipientsFeatures as AccountSessionCreateParamsComponentsRecipientsFeatures,
+        AccountSessionCreateParamsComponentsRecipientsList as AccountSessionCreateParamsComponentsRecipientsList,
+        AccountSessionCreateParamsComponentsRecipientsListFeatures as AccountSessionCreateParamsComponentsRecipientsListFeatures,
         AccountSessionCreateParamsComponentsReportingChart as AccountSessionCreateParamsComponentsReportingChart,
         AccountSessionCreateParamsComponentsReportingChartFeatures as AccountSessionCreateParamsComponentsReportingChartFeatures,
         AccountSessionCreateParamsComponentsTaxRegistrations as AccountSessionCreateParamsComponentsTaxRegistrations,
@@ -2255,6 +2261,9 @@ if TYPE_CHECKING:
     )
     from stripe.params._payment_attempt_record_report_canceled_params import (
         PaymentAttemptRecordReportCanceledParams as PaymentAttemptRecordReportCanceledParams,
+    )
+    from stripe.params._payment_attempt_record_report_early_fraud_warning_params import (
+        PaymentAttemptRecordReportEarlyFraudWarningParams as PaymentAttemptRecordReportEarlyFraudWarningParams,
     )
     from stripe.params._payment_attempt_record_report_failed_params import (
         PaymentAttemptRecordReportFailedParams as PaymentAttemptRecordReportFailedParams,
@@ -4531,6 +4540,9 @@ if TYPE_CHECKING:
     )
     from stripe.params._payment_record_retrieve_params import (
         PaymentRecordRetrieveParams as PaymentRecordRetrieveParams,
+    )
+    from stripe.params._payment_record_search_params import (
+        PaymentRecordSearchParams as PaymentRecordSearchParams,
     )
     from stripe.params._payout_cancel_params import (
         PayoutCancelParams as PayoutCancelParams,
@@ -7666,6 +7678,22 @@ _import_map = {
         "stripe.params._account_session_create_params",
         False,
     ),
+    "AccountSessionCreateParamsComponentsFinancialAccounts": (
+        "stripe.params._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsFinancialAccountsFeatures": (
+        "stripe.params._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsFinancialAccountsTransactions": (
+        "stripe.params._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsFinancialAccountsTransactionsFeatures": (
+        "stripe.params._account_session_create_params",
+        False,
+    ),
     "AccountSessionCreateParamsComponentsInstantPayoutsPromotion": (
         "stripe.params._account_session_create_params",
         False,
@@ -7775,6 +7803,14 @@ _import_map = {
         False,
     ),
     "AccountSessionCreateParamsComponentsRecipientsFeatures": (
+        "stripe.params._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsRecipientsList": (
+        "stripe.params._account_session_create_params",
+        False,
+    ),
+    "AccountSessionCreateParamsComponentsRecipientsListFeatures": (
         "stripe.params._account_session_create_params",
         False,
     ),
@@ -13072,6 +13108,10 @@ _import_map = {
     ),
     "PaymentAttemptRecordReportCanceledParams": (
         "stripe.params._payment_attempt_record_report_canceled_params",
+        False,
+    ),
+    "PaymentAttemptRecordReportEarlyFraudWarningParams": (
+        "stripe.params._payment_attempt_record_report_early_fraud_warning_params",
         False,
     ),
     "PaymentAttemptRecordReportFailedParams": (
@@ -21632,6 +21672,10 @@ _import_map = {
     ),
     "PaymentRecordRetrieveParams": (
         "stripe.params._payment_record_retrieve_params",
+        False,
+    ),
+    "PaymentRecordSearchParams": (
+        "stripe.params._payment_record_search_params",
         False,
     ),
     "PayoutCancelParams": ("stripe.params._payout_cancel_params", False),

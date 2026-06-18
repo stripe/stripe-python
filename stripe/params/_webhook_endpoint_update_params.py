@@ -312,8 +312,6 @@ class WebhookEndpointUpdateParams(TypedDict):
                 "treasury.received_credit.succeeded",
                 "treasury.received_debit.created",
                 "invoice_payment.detached",
-                "billing.alert.recovered",
-                "payment_intent.expired",
                 "billing.credit_balance_transaction.created",
                 "billing.credit_grant.updated",
                 "billing.meter.created",

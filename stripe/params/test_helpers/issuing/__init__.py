@@ -79,6 +79,9 @@ if TYPE_CHECKING:
     from stripe.params.test_helpers.issuing._dispute_close_params import (
         DisputeCloseParams as DisputeCloseParams,
     )
+    from stripe.params.test_helpers.issuing._dispute_provisional_credit_params import (
+        DisputeProvisionalCreditParams as DisputeProvisionalCreditParams,
+    )
     from stripe.params.test_helpers.issuing._dispute_simulate_network_lifecycle_dispute_response_params import (
         DisputeSimulateNetworkLifecycleDisputeResponseParams as DisputeSimulateNetworkLifecycleDisputeResponseParams,
         DisputeSimulateNetworkLifecycleDisputeResponseParamsMerchantEvidenceFiles as DisputeSimulateNetworkLifecycleDisputeResponseParamsMerchantEvidenceFiles,
@@ -333,6 +336,10 @@ _import_map = {
     ),
     "DisputeCloseParams": (
         "stripe.params.test_helpers.issuing._dispute_close_params",
+        False,
+    ),
+    "DisputeProvisionalCreditParams": (
+        "stripe.params.test_helpers.issuing._dispute_provisional_credit_params",
         False,
     ),
     "DisputeSimulateNetworkLifecycleDisputeResponseParams": (
