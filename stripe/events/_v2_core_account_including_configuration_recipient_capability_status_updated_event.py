@@ -99,8 +99,18 @@ class V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent(
         StripeObject,
     ):
         updated_capability: Literal[
+            "bank_accounts.ach",
+            "bank_accounts.becs",
+            "bank_accounts.eft",
+            "bank_accounts.fedwire",
+            "bank_accounts.fps",
             "bank_accounts.instant",
             "bank_accounts.local",
+            "bank_accounts.npp",
+            "bank_accounts.rtp",
+            "bank_accounts.sepa_credit",
+            "bank_accounts.sepa_instant",
+            "bank_accounts.swift",
             "bank_accounts.wire",
             "cards",
             "crypto_wallets_v2",

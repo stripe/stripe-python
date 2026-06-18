@@ -8,7 +8,11 @@ class AccountCloseParams(TypedDict):
     applied_configurations: NotRequired[
         List[
             Literal[
-                "card_creator", "customer", "merchant", "recipient", "storer"
+                "card_creator",
+                "customer",
+                "merchant",
+                "recipient",
+                "money_manager",
             ]
         ]
     ]

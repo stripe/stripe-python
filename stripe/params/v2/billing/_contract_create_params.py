@@ -673,7 +673,9 @@ class ContractCreateParamsPricingOverrideEndsAt(TypedDict):
 
 
 class ContractCreateParamsPricingOverrideMultiplier(TypedDict):
-    criteria: List["ContractCreateParamsPricingOverrideMultiplierCriterion"]
+    criteria: NotRequired[
+        List["ContractCreateParamsPricingOverrideMultiplierCriterion"]
+    ]
     """
     Criteria determining which rates the multiplier applies to.
     """

@@ -14,7 +14,11 @@ from stripe.v2.core._event import (
 from importlib import import_module
 
 if TYPE_CHECKING:
-    from stripe.v2.core import accounts as accounts, vault as vault
+    from stripe.v2.core import (
+        accounts as accounts,
+        health as health,
+        vault as vault,
+    )
     from stripe.v2.core._account import Account as Account
     from stripe.v2.core._account_evaluation import (
         AccountEvaluation as AccountEvaluation,
@@ -75,11 +79,13 @@ if TYPE_CHECKING:
     from stripe.v2.core._fee_entry_service import (
         FeeEntryService as FeeEntryService,
     )
+    from stripe.v2.core._health_service import HealthService as HealthService
     from stripe.v2.core._vault_service import VaultService as VaultService
 
 # name -> (import_target, is_submodule)
 _import_map = {
     "accounts": ("stripe.v2.core.accounts", True),
+    "health": ("stripe.v2.core.health", True),
     "vault": ("stripe.v2.core.vault", True),
     "Account": ("stripe.v2.core._account", False),
     "AccountEvaluation": ("stripe.v2.core._account_evaluation", False),
@@ -122,6 +128,7 @@ _import_map = {
     "FeeBatchService": ("stripe.v2.core._fee_batch_service", False),
     "FeeEntry": ("stripe.v2.core._fee_entry", False),
     "FeeEntryService": ("stripe.v2.core._fee_entry_service", False),
+    "HealthService": ("stripe.v2.core._health_service", False),
     "VaultService": ("stripe.v2.core._vault_service", False),
 }
 if not TYPE_CHECKING:

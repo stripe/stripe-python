@@ -10,12 +10,7 @@ class BatchJobCreateParams(TypedDict):
     """
     The endpoint configuration for the batch job.
     """
-    maximum_rps: NotRequired[int]
-    """
-    Optional field that allows the user to control how fast they want this batch job to run.
-    Gives them a control over the number of webhooks they receive.
-    """
-    metadata: "Dict[str, str]|UntypedStripeObject[str]"
+    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     The metadata of the `batch_job`.
     """

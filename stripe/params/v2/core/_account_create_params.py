@@ -47,7 +47,7 @@ class AccountCreateParams(TypedDict):
                 "configuration.customer",
                 "configuration.merchant",
                 "configuration.recipient",
-                "configuration.storer",
+                "configuration.money_manager",
                 "defaults",
                 "future_requirements",
                 "identity",
@@ -77,13 +77,13 @@ class AccountCreateParamsConfiguration(TypedDict):
     """
     Enables the Account to act as a connected account and collect payments facilitated by a Connect platform. You must onboard your platform to Connect before you can add this configuration to your connected accounts. Utilize this configuration when the Account will be the Merchant of Record, like with Direct charges or Destination Charges with on_behalf_of set.
     """
+    money_manager: NotRequired["AccountCreateParamsConfigurationMoneyManager"]
+    """
+    The Money Manager Configuration allows the Account to store and move funds using FinancialAccounts.
+    """
     recipient: NotRequired["AccountCreateParamsConfigurationRecipient"]
     """
     The Recipient Configuration allows the Account to receive funds. Utilize this configuration if the Account will not be the Merchant of Record, like with Separate Charges & Transfers, or Destination Charges without on_behalf_of set.
-    """
-    storer: NotRequired["AccountCreateParamsConfigurationStorer"]
-    """
-    The Storer Configuration allows the Account to store and move funds using stored-value FinancialAccounts.
     """
 
 
@@ -1240,6 +1240,12 @@ class AccountCreateParamsConfigurationMerchantCapabilities(TypedDict):
     ]
     """
     Allow the merchant to process SEPA Direct Debit payments.
+    """
+    sunbit_payments: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesSunbitPayments"
+    ]
+    """
+    Allow the merchant to process Sunbit payments.
     """
     swish_payments: NotRequired[
         "AccountCreateParamsConfigurationMerchantCapabilitiesSwishPayments"
@@ -2587,6 +2593,39 @@ class AccountCreateParamsConfigurationMerchantCapabilitiesSepaDebitPaymentsProte
     """
 
 
+class AccountCreateParamsConfigurationMerchantCapabilitiesSunbitPayments(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesSunbitPaymentsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesSunbitPaymentsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMerchantCapabilitiesSunbitPaymentsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesSunbitPaymentsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
 class AccountCreateParamsConfigurationMerchantCapabilitiesSwishPayments(
     TypedDict,
 ):
@@ -2904,6 +2943,1343 @@ class AccountCreateParamsConfigurationMerchantSupportAddress(TypedDict):
     """
 
 
+class AccountCreateParamsConfigurationMoneyManager(TypedDict):
+    capabilities: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilities"
+    ]
+    """
+    Capabilities to request on the Money Manager Configuration.
+    """
+    high_risk_activities: NotRequired[
+        List[
+            Literal[
+                "adult_entertainment",
+                "gambling",
+                "hold_client_funds",
+                "investment_services",
+                "lending_banking",
+                "marijuana_or_related_services",
+                "money_services",
+                "nicotine_tobacco_or_related_services",
+                "none",
+                "operate_foreign_exchange_virtual_currencies_brokerage_otc",
+                "pharmaceuticals",
+                "precious_metals_precious_stones_jewelry",
+                "safe_deposit_box_rentals",
+                "third_party_payment_processing",
+                "weapons_firearms_and_explosives",
+            ]
+        ]
+    ]
+    """
+    List of high-risk activities the business is involved in.
+    """
+    high_risk_activities_description: NotRequired[str]
+    """
+    Description of the high-risk activities the business offers.
+    """
+    money_services_description: NotRequired[str]
+    """
+    Description of the money services offered by the business.
+    """
+    operates_in_prohibited_countries: NotRequired[bool]
+    """
+    Indicates whether the business operates in any prohibited countries.
+    """
+    participates_in_regulated_activity: NotRequired[bool]
+    """
+    Indicates whether the business participates in any regulated activity.
+    """
+    purpose_of_funds: NotRequired[
+        Literal[
+            "charitable_donations",
+            "ecommerce_retail_payments",
+            "investment_purposes",
+            "other",
+            "payments_to_friends_or_family_abroad",
+            "payroll",
+            "personal_or_living_expenses",
+            "protect_wealth",
+            "purchase_goods_and_services",
+            "receive_payments_for_goods_and_services",
+            "tax_optimization",
+            "third_party_money_transmission",
+            "treasury_management",
+        ]
+    ]
+    """
+    Primary purpose of the stored funds.
+    """
+    purpose_of_funds_description: NotRequired[str]
+    """
+    Description of the purpose of the stored funds.
+    """
+    regulated_activity: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerRegulatedActivity"
+    ]
+    """
+    Details of the regulated activity if the business participates in one.
+    """
+    source_of_funds: NotRequired[
+        Literal[
+            "business_loans",
+            "grants",
+            "inter_company_funds",
+            "investment_proceeds",
+            "legal_settlement",
+            "owners_capital",
+            "pension_retirement",
+            "sales_of_assets",
+            "sales_of_goods_and_services",
+            "tax_refund",
+            "third_party_funds",
+            "treasury_reserves",
+        ]
+    ]
+    """
+    The source of funds for the business, e.g. profits, income, venture capital, etc.
+    """
+    source_of_funds_description: NotRequired[str]
+    """
+    Description of the source of funds for the business' account.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilities(TypedDict):
+    business_storage: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorage"
+    ]
+    """
+    Can send or receive business storage-type funds on Stripe.
+    """
+    consumer_storage: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesConsumerStorage"
+    ]
+    """
+    Can send or receive consumer storage-type funds on Stripe.
+    """
+    inbound_transfers: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesInboundTransfers"
+    ]
+    """
+    Can pull funds from an external source, owned by yourself, to a FinancialAccount.
+    """
+    outbound_payments: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPayments"
+    ]
+    """
+    Can send funds from a FinancialAccount to a destination owned by someone else.
+    """
+    outbound_transfers: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfers"
+    ]
+    """
+    Can send funds from a FinancialAccount to a destination owned by yourself.
+    """
+    received_credits: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesReceivedCredits"
+    ]
+    """
+    Can receive funds into a FinancialAccount.
+    """
+    received_debits: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesReceivedDebits"
+    ]
+    """
+    Can receive debits to a FinancialAccount.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorage(
+    TypedDict,
+):
+    inbound: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInbound"
+    ]
+    """
+    Can receive business storage-type funds on Stripe.
+    """
+    outbound: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutbound"
+    ]
+    """
+    Can send business storage-type funds on Stripe.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInbound(
+    TypedDict,
+):
+    aud: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundAud"
+    ]
+    """
+    Can receive business storage-type funds on Stripe in AUD.
+    """
+    cad: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundCad"
+    ]
+    """
+    Can receive business storage-type funds on Stripe in CAD.
+    """
+    eur: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundEur"
+    ]
+    """
+    Can receive business storage-type funds on Stripe in EUR.
+    """
+    gbp: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundGbp"
+    ]
+    """
+    Can receive business storage-type funds on Stripe in GBP.
+    """
+    usd: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundUsd"
+    ]
+    """
+    Can receive business storage-type funds on Stripe in USD.
+    """
+    usdc: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundUsdc"
+    ]
+    """
+    Can receive business storage-type funds on Stripe in USDC.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundAud(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundAudProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundAudProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundAudProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundAudProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundCad(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundCadProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundCadProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundCadProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundCadProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundEur(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundEurProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundEurProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundEurProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundEurProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundGbp(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundGbpProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundGbpProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundGbpProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundGbpProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundUsd(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundUsdProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundUsdProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundUsdProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundUsdProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundUsdc(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundUsdcProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundUsdcProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundUsdcProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundUsdcProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutbound(
+    TypedDict,
+):
+    aud: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundAud"
+    ]
+    """
+    Can send business storage-type funds on Stripe in AUD.
+    """
+    cad: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundCad"
+    ]
+    """
+    Can send business storage-type funds on Stripe in CAD.
+    """
+    eur: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundEur"
+    ]
+    """
+    Can send business storage-type funds on Stripe in EUR.
+    """
+    gbp: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundGbp"
+    ]
+    """
+    Can send business storage-type funds on Stripe in GBP.
+    """
+    usd: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundUsd"
+    ]
+    """
+    Can send business storage-type funds on Stripe in USD.
+    """
+    usdc: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundUsdc"
+    ]
+    """
+    Can send business storage-type funds on Stripe in USDC.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundAud(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundAudProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundAudProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundAudProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundAudProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundCad(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundCadProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundCadProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundCadProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundCadProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundEur(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundEurProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundEurProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundEurProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundEurProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundGbp(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundGbpProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundGbpProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundGbpProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundGbpProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundUsd(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundUsdProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundUsdProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundUsdProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundUsdProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundUsdc(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundUsdcProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundUsdcProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundUsdcProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundUsdcProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesConsumerStorage(
+    TypedDict,
+):
+    inbound: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageInbound"
+    ]
+    """
+    Can receive consumer storage-type funds on Stripe.
+    """
+    outbound: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageOutbound"
+    ]
+    """
+    Can send consumer storage-type funds on Stripe.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageInbound(
+    TypedDict,
+):
+    usd: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageInboundUsd"
+    ]
+    """
+    Can receive consumer storage-type funds on Stripe in USD.
+    """
+    usdc: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageInboundUsdc"
+    ]
+    """
+    Can receive consumer storage-type funds on Stripe in USDC.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageInboundUsd(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageInboundUsdProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageInboundUsdProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageInboundUsdProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageInboundUsdProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageInboundUsdc(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageInboundUsdcProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageInboundUsdcProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageInboundUsdcProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageInboundUsdcProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageOutbound(
+    TypedDict,
+):
+    usd: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageOutboundUsd"
+    ]
+    """
+    Can send consumer storage-type funds on Stripe in USD.
+    """
+    usdc: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageOutboundUsdc"
+    ]
+    """
+    Can send consumer storage-type funds on Stripe in USDC.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageOutboundUsd(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageOutboundUsdProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageOutboundUsdProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageOutboundUsdProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageOutboundUsdProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageOutboundUsdc(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageOutboundUsdcProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageOutboundUsdcProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageOutboundUsdcProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesConsumerStorageOutboundUsdcProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesInboundTransfers(
+    TypedDict,
+):
+    bank_accounts: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesInboundTransfersBankAccounts"
+    ]
+    """
+    Can pull funds from an external bank account owned by yourself to a FinancialAccount.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesInboundTransfersBankAccounts(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesInboundTransfersBankAccountsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesInboundTransfersBankAccountsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesInboundTransfersBankAccountsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesInboundTransfersBankAccountsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPayments(
+    TypedDict,
+):
+    bank_accounts: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsBankAccounts"
+    ]
+    """
+    Can send funds from a FinancialAccount to a bank account owned by someone else.
+    """
+    cards: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsCards"
+    ]
+    """
+    Can send funds from a FinancialAccount to a debit card owned by someone else.
+    """
+    crypto_wallets: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsCryptoWallets"
+    ]
+    """
+    Can send funds from a FinancialAccount to a crypto wallet owned by someone else.
+    """
+    financial_accounts: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsFinancialAccounts"
+    ]
+    """
+    Can send funds from a FinancialAccount to another FinancialAccount owned by someone else.
+    """
+    paper_checks: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsPaperChecks"
+    ]
+    """
+    Can send funds from a FinancialAccount to someone else via paper check.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsBankAccounts(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsBankAccountsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsBankAccountsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsBankAccountsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsBankAccountsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsCards(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsCardsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsCardsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsCardsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsCardsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsCryptoWallets(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsCryptoWalletsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsCryptoWalletsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsCryptoWalletsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsCryptoWalletsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsFinancialAccounts(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsFinancialAccountsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsFinancialAccountsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsFinancialAccountsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsFinancialAccountsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsPaperChecks(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsPaperChecksProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsPaperChecksProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsPaperChecksProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsPaperChecksProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfers(
+    TypedDict,
+):
+    bank_accounts: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfersBankAccounts"
+    ]
+    """
+    Can send funds from a FinancialAccount to a bank account owned by yourself.
+    """
+    crypto_wallets: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfersCryptoWallets"
+    ]
+    """
+    Can send funds from a FinancialAccount to a crypto wallet owned by yourself.
+    """
+    financial_accounts: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfersFinancialAccounts"
+    ]
+    """
+    Can send funds from a FinancialAccount to another FinancialAccount owned by yourself.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfersBankAccounts(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfersBankAccountsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfersBankAccountsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfersBankAccountsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfersBankAccountsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfersCryptoWallets(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfersCryptoWalletsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfersCryptoWalletsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfersCryptoWalletsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfersCryptoWalletsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfersFinancialAccounts(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfersFinancialAccountsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfersFinancialAccountsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfersFinancialAccountsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfersFinancialAccountsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesReceivedCredits(
+    TypedDict,
+):
+    bank_accounts: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesReceivedCreditsBankAccounts"
+    ]
+    """
+    Can receive funds on a bank-account-like financial address (VBAN) to credit a FinancialAccount.
+    """
+    crypto_wallets: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesReceivedCreditsCryptoWallets"
+    ]
+    """
+    Can receive funds on a crypto wallet like financial address to credit a FinancialAccount.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesReceivedCreditsBankAccounts(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesReceivedCreditsBankAccountsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesReceivedCreditsBankAccountsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesReceivedCreditsBankAccountsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesReceivedCreditsBankAccountsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesReceivedCreditsCryptoWallets(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesReceivedCreditsCryptoWalletsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesReceivedCreditsCryptoWalletsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesReceivedCreditsCryptoWalletsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesReceivedCreditsCryptoWalletsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesReceivedDebits(
+    TypedDict,
+):
+    bank_accounts: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesReceivedDebitsBankAccounts"
+    ]
+    """
+    Can receive debits to a FinancialAccount from a bank account.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesReceivedDebitsBankAccounts(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationMoneyManagerCapabilitiesReceivedDebitsBankAccountsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesReceivedDebitsBankAccountsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationMoneyManagerCapabilitiesReceivedDebitsBankAccountsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerCapabilitiesReceivedDebitsBankAccountsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationMoneyManagerRegulatedActivity(TypedDict):
+    description: NotRequired[str]
+    """
+    A detailed description of the regulated activities the business is licensed to conduct.
+    """
+    license_number: NotRequired[str]
+    """
+    The license number or registration number assigned by the business's primary regulator.
+    """
+    primary_regulatory_authority_country: NotRequired[str]
+    """
+    The country of the primary regulatory authority that oversees the business's regulated activities.
+    """
+    primary_regulatory_authority_name: NotRequired[str]
+    """
+    The name of the primary regulatory authority that oversees the business's regulated activities.
+    """
+
+
 class AccountCreateParamsConfigurationRecipient(TypedDict):
     capabilities: NotRequired[
         "AccountCreateParamsConfigurationRecipientCapabilities"
@@ -2949,6 +4325,36 @@ class AccountCreateParamsConfigurationRecipientCapabilities(TypedDict):
 class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccounts(
     TypedDict,
 ):
+    ach: NotRequired[
+        "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsAch"
+    ]
+    """
+    Enables this Account to receive OutboundPayments to linked bank accounts over ACH rails.
+    """
+    becs: NotRequired[
+        "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsBecs"
+    ]
+    """
+    Enables this Account to receive OutboundPayments to linked bank accounts over BECS rails.
+    """
+    eft: NotRequired[
+        "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsEft"
+    ]
+    """
+    Enables this Account to receive OutboundPayments to linked bank accounts over EFT rails.
+    """
+    fedwire: NotRequired[
+        "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsFedwire"
+    ]
+    """
+    Enables this Account to receive OutboundPayments to linked bank accounts over Fedwire or CHIPS.
+    """
+    fps: NotRequired[
+        "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsFps"
+    ]
+    """
+    Enables this Account to receive OutboundPayments to linked bank accounts over FPS rails.
+    """
     instant: NotRequired[
         "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsInstant"
     ]
@@ -2961,11 +4367,206 @@ class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccounts(
     """
     Enables this Account to receive OutboundPayments to linked bank accounts over local networks.
     """
+    npp: NotRequired[
+        "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsNpp"
+    ]
+    """
+    Enables this Account to receive OutboundPayments to linked bank accounts over NPP (real time) rails.
+    """
+    rtp: NotRequired[
+        "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsRtp"
+    ]
+    """
+    Enables this Account to receive OutboundPayments to linked bank accounts over RTP rails.
+    """
+    sepa_credit: NotRequired[
+        "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaCredit"
+    ]
+    """
+    Enables this Account to receive OutboundPayments to linked bank accounts over SEPA credit rails.
+    """
+    sepa_instant: NotRequired[
+        "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaInstant"
+    ]
+    """
+    Enables this Account to receive OutboundPayments to linked bank accounts over SEPA instant (real time) rails.
+    """
+    swift: NotRequired[
+        "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSwift"
+    ]
+    """
+    Enables this Account to receive OutboundPayments to linked bank accounts over SWIFT.
+    """
     wire: NotRequired[
         "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsWire"
     ]
     """
     Enables this Account to receive OutboundPayments to linked bank accounts over wire.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsAch(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsAchProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsAchProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsAchProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsAchProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsBecs(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsBecsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsBecsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsBecsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsBecsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsEft(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsEftProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsEftProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsEftProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsEftProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsFedwire(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsFedwireProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsFedwireProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsFedwireProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsFedwireProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsFps(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsFpsProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsFpsProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsFpsProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsFpsProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
     """
 
 
@@ -3027,6 +4628,171 @@ class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsLocalProt
 
 
 class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsLocalProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsNpp(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsNppProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsNppProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsNppProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsNppProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsRtp(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsRtpProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsRtpProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsRtpProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsRtpProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaCredit(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaCreditProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaCreditProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaCreditProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaCreditProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaInstant(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaInstantProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaInstantProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaInstantProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSepaInstantProtectionsPspMigration(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a protection, pass true.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSwift(
+    TypedDict,
+):
+    protections: NotRequired[
+        "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSwiftProtections"
+    ]
+    """
+    Protection types to request for this capability (e.g. "psp_migration").
+    """
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSwiftProtections(
+    TypedDict,
+):
+    psp_migration: "AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSwiftProtectionsPspMigration"
+    """
+    Parameter to request psp_migration protection.
+    """
+
+
+class AccountCreateParamsConfigurationRecipientCapabilitiesBankAccountsSwiftProtectionsPspMigration(
     TypedDict,
 ):
     requested: bool
@@ -3206,829 +4972,6 @@ class AccountCreateParamsConfigurationRecipientCapabilitiesStripeBalanceStripeTr
     requested: bool
     """
     To request a protection, pass true.
-    """
-
-
-class AccountCreateParamsConfigurationStorer(TypedDict):
-    capabilities: NotRequired[
-        "AccountCreateParamsConfigurationStorerCapabilities"
-    ]
-    """
-    Capabilities to request on the Storer Configuration.
-    """
-    high_risk_activities: NotRequired[
-        List[
-            Literal[
-                "adult_entertainment",
-                "gambling",
-                "hold_client_funds",
-                "investment_services",
-                "lending_banking",
-                "marijuana_or_related_services",
-                "money_services",
-                "nicotine_tobacco_or_related_services",
-                "none",
-                "operate_foreign_exchange_virtual_currencies_brokerage_otc",
-                "pharmaceuticals",
-                "precious_metals_precious_stones_jewelry",
-                "safe_deposit_box_rentals",
-                "third_party_payment_processing",
-                "weapons_firearms_and_explosives",
-            ]
-        ]
-    ]
-    """
-    List of high-risk activities the business is involved in.
-    """
-    high_risk_activities_description: NotRequired[str]
-    """
-    Description of the high-risk activities the business offers.
-    """
-    money_services_description: NotRequired[str]
-    """
-    Description of the money services offered by the business.
-    """
-    operates_in_prohibited_countries: NotRequired[bool]
-    """
-    Indicates whether the business operates in any prohibited countries.
-    """
-    participates_in_regulated_activity: NotRequired[bool]
-    """
-    Indicates whether the business participates in any regulated activity.
-    """
-    purpose_of_funds: NotRequired[
-        Literal[
-            "charitable_donations",
-            "ecommerce_retail_payments",
-            "investment_purposes",
-            "other",
-            "payments_to_friends_or_family_abroad",
-            "payroll",
-            "personal_or_living_expenses",
-            "protect_wealth",
-            "purchase_goods_and_services",
-            "receive_payments_for_goods_and_services",
-            "tax_optimization",
-            "third_party_money_transmission",
-            "treasury_management",
-        ]
-    ]
-    """
-    Primary purpose of the stored funds.
-    """
-    purpose_of_funds_description: NotRequired[str]
-    """
-    Description of the purpose of the stored funds.
-    """
-    regulated_activity: NotRequired[
-        "AccountCreateParamsConfigurationStorerRegulatedActivity"
-    ]
-    """
-    Details of the regulated activity if the business participates in one.
-    """
-    source_of_funds: NotRequired[
-        Literal[
-            "business_loans",
-            "grants",
-            "inter_company_funds",
-            "investment_proceeds",
-            "legal_settlement",
-            "owners_capital",
-            "pension_retirement",
-            "sales_of_assets",
-            "sales_of_goods_and_services",
-            "tax_refund",
-            "third_party_funds",
-            "treasury_reserves",
-        ]
-    ]
-    """
-    The source of funds for the business, e.g. profits, income, venture capital, etc.
-    """
-    source_of_funds_description: NotRequired[str]
-    """
-    Description of the source of funds for the business' account.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilities(TypedDict):
-    consumer: NotRequired[
-        "AccountCreateParamsConfigurationStorerCapabilitiesConsumer"
-    ]
-    """
-    Can provision a consumer financial account on Stripe.
-    """
-    financial_addresses: NotRequired[
-        "AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddresses"
-    ]
-    """
-    Can provision a financial address to credit/debit a FinancialAccount.
-    """
-    holds_currencies: NotRequired[
-        "AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrencies"
-    ]
-    """
-    Can hold storage-type funds on Stripe.
-    """
-    inbound_transfers: NotRequired[
-        "AccountCreateParamsConfigurationStorerCapabilitiesInboundTransfers"
-    ]
-    """
-    Can pull funds from an external source, owned by yourself, to a FinancialAccount.
-    """
-    outbound_payments: NotRequired[
-        "AccountCreateParamsConfigurationStorerCapabilitiesOutboundPayments"
-    ]
-    """
-    Can send funds from a FinancialAccount to a destination owned by someone else.
-    """
-    outbound_transfers: NotRequired[
-        "AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfers"
-    ]
-    """
-    Can send funds from a FinancialAccount to a destination owned by yourself.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesConsumer(TypedDict):
-    holds_currencies: NotRequired[
-        "AccountCreateParamsConfigurationStorerCapabilitiesConsumerHoldsCurrencies"
-    ]
-    """
-    Can hold storage-type funds on Stripe in a consumer financial account.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesConsumerHoldsCurrencies(
-    TypedDict,
-):
-    usd: NotRequired[
-        "AccountCreateParamsConfigurationStorerCapabilitiesConsumerHoldsCurrenciesUsd"
-    ]
-    """
-    Can hold storage-type funds on Stripe in USD in a consumer financial account.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesConsumerHoldsCurrenciesUsd(
-    TypedDict,
-):
-    protections: NotRequired[
-        "AccountCreateParamsConfigurationStorerCapabilitiesConsumerHoldsCurrenciesUsdProtections"
-    ]
-    """
-    Protection types to request for this capability (e.g. "psp_migration").
-    """
-    requested: bool
-    """
-    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesConsumerHoldsCurrenciesUsdProtections(
-    TypedDict,
-):
-    psp_migration: "AccountCreateParamsConfigurationStorerCapabilitiesConsumerHoldsCurrenciesUsdProtectionsPspMigration"
-    """
-    Parameter to request psp_migration protection.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesConsumerHoldsCurrenciesUsdProtectionsPspMigration(
-    TypedDict,
-):
-    requested: bool
-    """
-    To request a protection, pass true.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddresses(
-    TypedDict,
-):
-    bank_accounts: NotRequired[
-        "AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccounts"
-    ]
-    """
-    Can provision a bank-account-like financial address (VBAN) to credit/debit a FinancialAccount.
-    """
-    crypto_wallets: NotRequired[
-        "AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesCryptoWallets"
-    ]
-    """
-    Can provision a crypto wallet like financial address to credit a FinancialAccount.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccounts(
-    TypedDict,
-):
-    protections: NotRequired[
-        "AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccountsProtections"
-    ]
-    """
-    Protection types to request for this capability (e.g. "psp_migration").
-    """
-    requested: bool
-    """
-    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccountsProtections(
-    TypedDict,
-):
-    psp_migration: "AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccountsProtectionsPspMigration"
-    """
-    Parameter to request psp_migration protection.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccountsProtectionsPspMigration(
-    TypedDict,
-):
-    requested: bool
-    """
-    To request a protection, pass true.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesCryptoWallets(
-    TypedDict,
-):
-    protections: NotRequired[
-        "AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesCryptoWalletsProtections"
-    ]
-    """
-    Protection types to request for this capability (e.g. "psp_migration").
-    """
-    requested: bool
-    """
-    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesCryptoWalletsProtections(
-    TypedDict,
-):
-    psp_migration: "AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesCryptoWalletsProtectionsPspMigration"
-    """
-    Parameter to request psp_migration protection.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesCryptoWalletsProtectionsPspMigration(
-    TypedDict,
-):
-    requested: bool
-    """
-    To request a protection, pass true.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrencies(
-    TypedDict,
-):
-    eur: NotRequired[
-        "AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesEur"
-    ]
-    """
-    Can hold storage-type funds on Stripe in EUR.
-    """
-    gbp: NotRequired[
-        "AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbp"
-    ]
-    """
-    Can hold storage-type funds on Stripe in GBP.
-    """
-    usd: NotRequired[
-        "AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsd"
-    ]
-    """
-    Can hold storage-type funds on Stripe in USD.
-    """
-    usdc: NotRequired[
-        "AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsdc"
-    ]
-    """
-    Can hold storage-type funds on Stripe in USDC.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesEur(
-    TypedDict,
-):
-    protections: NotRequired[
-        "AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesEurProtections"
-    ]
-    """
-    Protection types to request for this capability (e.g. "psp_migration").
-    """
-    requested: bool
-    """
-    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesEurProtections(
-    TypedDict,
-):
-    psp_migration: "AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesEurProtectionsPspMigration"
-    """
-    Parameter to request psp_migration protection.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesEurProtectionsPspMigration(
-    TypedDict,
-):
-    requested: bool
-    """
-    To request a protection, pass true.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbp(
-    TypedDict,
-):
-    protections: NotRequired[
-        "AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbpProtections"
-    ]
-    """
-    Protection types to request for this capability (e.g. "psp_migration").
-    """
-    requested: bool
-    """
-    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbpProtections(
-    TypedDict,
-):
-    psp_migration: "AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbpProtectionsPspMigration"
-    """
-    Parameter to request psp_migration protection.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbpProtectionsPspMigration(
-    TypedDict,
-):
-    requested: bool
-    """
-    To request a protection, pass true.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsd(
-    TypedDict,
-):
-    protections: NotRequired[
-        "AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsdProtections"
-    ]
-    """
-    Protection types to request for this capability (e.g. "psp_migration").
-    """
-    requested: bool
-    """
-    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsdProtections(
-    TypedDict,
-):
-    psp_migration: "AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsdProtectionsPspMigration"
-    """
-    Parameter to request psp_migration protection.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsdProtectionsPspMigration(
-    TypedDict,
-):
-    requested: bool
-    """
-    To request a protection, pass true.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsdc(
-    TypedDict,
-):
-    protections: NotRequired[
-        "AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsdcProtections"
-    ]
-    """
-    Protection types to request for this capability (e.g. "psp_migration").
-    """
-    requested: bool
-    """
-    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsdcProtections(
-    TypedDict,
-):
-    psp_migration: "AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsdcProtectionsPspMigration"
-    """
-    Parameter to request psp_migration protection.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsdcProtectionsPspMigration(
-    TypedDict,
-):
-    requested: bool
-    """
-    To request a protection, pass true.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesInboundTransfers(
-    TypedDict,
-):
-    bank_accounts: NotRequired[
-        "AccountCreateParamsConfigurationStorerCapabilitiesInboundTransfersBankAccounts"
-    ]
-    """
-    Can pull funds from an external bank account owned by yourself to a FinancialAccount.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesInboundTransfersBankAccounts(
-    TypedDict,
-):
-    protections: NotRequired[
-        "AccountCreateParamsConfigurationStorerCapabilitiesInboundTransfersBankAccountsProtections"
-    ]
-    """
-    Protection types to request for this capability (e.g. "psp_migration").
-    """
-    requested: bool
-    """
-    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesInboundTransfersBankAccountsProtections(
-    TypedDict,
-):
-    psp_migration: "AccountCreateParamsConfigurationStorerCapabilitiesInboundTransfersBankAccountsProtectionsPspMigration"
-    """
-    Parameter to request psp_migration protection.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesInboundTransfersBankAccountsProtectionsPspMigration(
-    TypedDict,
-):
-    requested: bool
-    """
-    To request a protection, pass true.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesOutboundPayments(
-    TypedDict,
-):
-    bank_accounts: NotRequired[
-        "AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsBankAccounts"
-    ]
-    """
-    Can send funds from a FinancialAccount to a bank account owned by someone else.
-    """
-    cards: NotRequired[
-        "AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsCards"
-    ]
-    """
-    Can send funds from a FinancialAccount to a debit card owned by someone else.
-    """
-    crypto_wallets: NotRequired[
-        "AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsCryptoWallets"
-    ]
-    """
-    Can send funds from a FinancialAccount to a crypto wallet owned by someone else.
-    """
-    financial_accounts: NotRequired[
-        "AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsFinancialAccounts"
-    ]
-    """
-    Can send funds from a FinancialAccount to another FinancialAccount owned by someone else.
-    """
-    paper_checks: NotRequired[
-        "AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsPaperChecks"
-    ]
-    """
-    Can send funds from a FinancialAccount to someone else via paper check.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsBankAccounts(
-    TypedDict,
-):
-    protections: NotRequired[
-        "AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsBankAccountsProtections"
-    ]
-    """
-    Protection types to request for this capability (e.g. "psp_migration").
-    """
-    requested: bool
-    """
-    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsBankAccountsProtections(
-    TypedDict,
-):
-    psp_migration: "AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsBankAccountsProtectionsPspMigration"
-    """
-    Parameter to request psp_migration protection.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsBankAccountsProtectionsPspMigration(
-    TypedDict,
-):
-    requested: bool
-    """
-    To request a protection, pass true.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsCards(
-    TypedDict,
-):
-    protections: NotRequired[
-        "AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsCardsProtections"
-    ]
-    """
-    Protection types to request for this capability (e.g. "psp_migration").
-    """
-    requested: bool
-    """
-    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsCardsProtections(
-    TypedDict,
-):
-    psp_migration: "AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsCardsProtectionsPspMigration"
-    """
-    Parameter to request psp_migration protection.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsCardsProtectionsPspMigration(
-    TypedDict,
-):
-    requested: bool
-    """
-    To request a protection, pass true.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsCryptoWallets(
-    TypedDict,
-):
-    protections: NotRequired[
-        "AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsCryptoWalletsProtections"
-    ]
-    """
-    Protection types to request for this capability (e.g. "psp_migration").
-    """
-    requested: bool
-    """
-    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsCryptoWalletsProtections(
-    TypedDict,
-):
-    psp_migration: "AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsCryptoWalletsProtectionsPspMigration"
-    """
-    Parameter to request psp_migration protection.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsCryptoWalletsProtectionsPspMigration(
-    TypedDict,
-):
-    requested: bool
-    """
-    To request a protection, pass true.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsFinancialAccounts(
-    TypedDict,
-):
-    protections: NotRequired[
-        "AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsFinancialAccountsProtections"
-    ]
-    """
-    Protection types to request for this capability (e.g. "psp_migration").
-    """
-    requested: bool
-    """
-    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsFinancialAccountsProtections(
-    TypedDict,
-):
-    psp_migration: "AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsFinancialAccountsProtectionsPspMigration"
-    """
-    Parameter to request psp_migration protection.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsFinancialAccountsProtectionsPspMigration(
-    TypedDict,
-):
-    requested: bool
-    """
-    To request a protection, pass true.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsPaperChecks(
-    TypedDict,
-):
-    protections: NotRequired[
-        "AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsPaperChecksProtections"
-    ]
-    """
-    Protection types to request for this capability (e.g. "psp_migration").
-    """
-    requested: bool
-    """
-    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsPaperChecksProtections(
-    TypedDict,
-):
-    psp_migration: "AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsPaperChecksProtectionsPspMigration"
-    """
-    Parameter to request psp_migration protection.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsPaperChecksProtectionsPspMigration(
-    TypedDict,
-):
-    requested: bool
-    """
-    To request a protection, pass true.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfers(
-    TypedDict,
-):
-    bank_accounts: NotRequired[
-        "AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersBankAccounts"
-    ]
-    """
-    Can send funds from a FinancialAccount to a bank account owned by yourself.
-    """
-    crypto_wallets: NotRequired[
-        "AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersCryptoWallets"
-    ]
-    """
-    Can send funds from a FinancialAccount to a crypto wallet owned by yourself.
-    """
-    financial_accounts: NotRequired[
-        "AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersFinancialAccounts"
-    ]
-    """
-    Can send funds from a FinancialAccount to another FinancialAccount owned by yourself.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersBankAccounts(
-    TypedDict,
-):
-    protections: NotRequired[
-        "AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersBankAccountsProtections"
-    ]
-    """
-    Protection types to request for this capability (e.g. "psp_migration").
-    """
-    requested: bool
-    """
-    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersBankAccountsProtections(
-    TypedDict,
-):
-    psp_migration: "AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersBankAccountsProtectionsPspMigration"
-    """
-    Parameter to request psp_migration protection.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersBankAccountsProtectionsPspMigration(
-    TypedDict,
-):
-    requested: bool
-    """
-    To request a protection, pass true.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersCryptoWallets(
-    TypedDict,
-):
-    protections: NotRequired[
-        "AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersCryptoWalletsProtections"
-    ]
-    """
-    Protection types to request for this capability (e.g. "psp_migration").
-    """
-    requested: bool
-    """
-    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersCryptoWalletsProtections(
-    TypedDict,
-):
-    psp_migration: "AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersCryptoWalletsProtectionsPspMigration"
-    """
-    Parameter to request psp_migration protection.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersCryptoWalletsProtectionsPspMigration(
-    TypedDict,
-):
-    requested: bool
-    """
-    To request a protection, pass true.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersFinancialAccounts(
-    TypedDict,
-):
-    protections: NotRequired[
-        "AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersFinancialAccountsProtections"
-    ]
-    """
-    Protection types to request for this capability (e.g. "psp_migration").
-    """
-    requested: bool
-    """
-    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersFinancialAccountsProtections(
-    TypedDict,
-):
-    psp_migration: "AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersFinancialAccountsProtectionsPspMigration"
-    """
-    Parameter to request psp_migration protection.
-    """
-
-
-class AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersFinancialAccountsProtectionsPspMigration(
-    TypedDict,
-):
-    requested: bool
-    """
-    To request a protection, pass true.
-    """
-
-
-class AccountCreateParamsConfigurationStorerRegulatedActivity(TypedDict):
-    description: NotRequired[str]
-    """
-    A detailed description of the regulated activities the business is licensed to conduct.
-    """
-    license_number: NotRequired[str]
-    """
-    The license number or registration number assigned by the business's primary regulator.
-    """
-    primary_regulatory_authority_country: NotRequired[str]
-    """
-    The country of the primary regulatory authority that oversees the business's regulated activities.
-    """
-    primary_regulatory_authority_name: NotRequired[str]
-    """
-    The name of the primary regulatory authority that oversees the business's regulated activities.
     """
 
 
@@ -4322,26 +5265,26 @@ class AccountCreateParamsIdentityAttestationsTermsOfService(TypedDict):
     """
     Details on the Account's acceptance of Issuing-specific terms of service.
     """
+    consumer_money_manager: NotRequired[
+        "AccountCreateParamsIdentityAttestationsTermsOfServiceConsumerMoneyManager"
+    ]
+    """
+    Details on the Account's acceptance of Consumer-specific terms of service.
+    """
     consumer_privacy_disclosures: NotRequired[
         "AccountCreateParamsIdentityAttestationsTermsOfServiceConsumerPrivacyDisclosures"
     ]
     """
     Details on the Account's acceptance of Consumer-privacy-disclosures-specific terms of service.
     """
-    consumer_storer: NotRequired[
-        "AccountCreateParamsIdentityAttestationsTermsOfServiceConsumerStorer"
+    crypto_money_manager: NotRequired[
+        "AccountCreateParamsIdentityAttestationsTermsOfServiceCryptoMoneyManager"
     ]
     """
-    Details on the Account's acceptance of Consumer-storer-specific terms of service.
+    Details on the Account's acceptance of Crypto-specific terms of service.
     """
-    crypto_storer: NotRequired[
-        "AccountCreateParamsIdentityAttestationsTermsOfServiceCryptoStorer"
-    ]
-    """
-    Details on the Account's acceptance of Crypto-storer-specific terms of service.
-    """
-    storer: NotRequired[
-        "AccountCreateParamsIdentityAttestationsTermsOfServiceStorer"
+    money_manager: NotRequired[
+        "AccountCreateParamsIdentityAttestationsTermsOfServiceMoneyManager"
     ]
     """
     Details on the Account's acceptance of Treasury-specific terms of service.
@@ -5462,6 +6405,23 @@ class AccountCreateParamsIdentityAttestationsTermsOfServiceCardCreatorConsumerLe
     """
 
 
+class AccountCreateParamsIdentityAttestationsTermsOfServiceConsumerMoneyManager(
+    TypedDict,
+):
+    date: str
+    """
+    The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
+    """
+    ip: str
+    """
+    The IP address from which the Account's representative accepted the terms of service.
+    """
+    user_agent: NotRequired[str]
+    """
+    The user agent of the browser from which the Account's representative accepted the terms of service.
+    """
+
+
 class AccountCreateParamsIdentityAttestationsTermsOfServiceConsumerPrivacyDisclosures(
     TypedDict,
 ):
@@ -5479,7 +6439,7 @@ class AccountCreateParamsIdentityAttestationsTermsOfServiceConsumerPrivacyDisclo
     """
 
 
-class AccountCreateParamsIdentityAttestationsTermsOfServiceConsumerStorer(
+class AccountCreateParamsIdentityAttestationsTermsOfServiceCryptoMoneyManager(
     TypedDict,
 ):
     date: str
@@ -5496,24 +6456,9 @@ class AccountCreateParamsIdentityAttestationsTermsOfServiceConsumerStorer(
     """
 
 
-class AccountCreateParamsIdentityAttestationsTermsOfServiceCryptoStorer(
+class AccountCreateParamsIdentityAttestationsTermsOfServiceMoneyManager(
     TypedDict,
 ):
-    date: str
-    """
-    The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.
-    """
-    ip: str
-    """
-    The IP address from which the Account's representative accepted the terms of service.
-    """
-    user_agent: NotRequired[str]
-    """
-    The user agent of the browser from which the Account's representative accepted the terms of service.
-    """
-
-
-class AccountCreateParamsIdentityAttestationsTermsOfServiceStorer(TypedDict):
     date: str
     """
     The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.

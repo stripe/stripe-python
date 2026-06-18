@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe.v2._amount import Amount
-from typing import ClassVar, Optional
+from typing import ClassVar, List, Optional
 from typing_extensions import Literal
 
 
@@ -17,6 +17,10 @@ class OutboundPayment(StripeObject):
 
     class DeliveryOptions(StripeObject):
         class PaperCheck(StripeObject):
+            attachment: Optional[str]
+            """
+            The ID of a file to include as an attachment with the paper check.
+            """
             memo: str
             """
             Memo printed on the memo field of the check.
@@ -64,6 +68,7 @@ class OutboundPayment(StripeObject):
     class StatusDetails(StripeObject):
         class Failed(StripeObject):
             reason: Literal[
+                "fx_rate_drift_exceeded_after_review",
                 "paper_check_attachment_too_large",
                 "paper_check_expired",
                 "paper_check_undeliverable",
@@ -73,10 +78,17 @@ class OutboundPayment(StripeObject):
                 "payout_method_expired",
                 "payout_method_unsupported",
                 "payout_method_usage_frequency_limit_exceeded",
+                "review_rejected",
                 "unknown_failure",
             ]
             """
             Open Enum. The `failed` status reason.
+            """
+
+        class Processing(StripeObject):
+            reason: Literal["under_review"]
+            """
+            Open Enum. The `processing` status reason.
             """
 
         class Returned(StripeObject):
@@ -101,11 +113,19 @@ class OutboundPayment(StripeObject):
         """
         The `failed` status reason.
         """
+        processing: Optional[Processing]
+        """
+        The `processing` status details.
+        """
         returned: Optional[Returned]
         """
         The `returned` status reason.
         """
-        _inner_class_types = {"failed": Failed, "returned": Returned}
+        _inner_class_types = {
+            "failed": Failed,
+            "processing": Processing,
+            "returned": Returned,
+        }
 
     class StatusTransitions(StripeObject):
         canceled_at: Optional[str]
@@ -130,6 +150,56 @@ class OutboundPayment(StripeObject):
         """
 
     class To(StripeObject):
+        class PayoutMethodOptions(StripeObject):
+            class BankAccount(StripeObject):
+                class PreferredNetworkOptions(StripeObject):
+                    class Ach(StripeObject):
+                        submission: Optional[Literal["next_day", "same_day"]]
+                        """
+                        Open Enum. ACH submission timing.
+                        """
+                        transaction_purpose: Optional[Literal["payroll"]]
+                        """
+                        The transaction purpose for this ACH payment.
+                        """
+
+                    ach: Optional[Ach]
+                    """
+                    ACH-specific network options.
+                    """
+                    _inner_class_types = {"ach": Ach}
+
+                preferred_network_options: Optional[PreferredNetworkOptions]
+                """
+                Per-network configuration options.
+                """
+                preferred_networks: List[
+                    Literal[
+                        "ach",
+                        "becs",
+                        "eft",
+                        "fedwire",
+                        "fps",
+                        "npp",
+                        "rtp",
+                        "sepa_credit",
+                        "sepa_instant",
+                        "swift",
+                    ]
+                ]
+                """
+                The preferred networks to use for this OutboundPayment.
+                """
+                _inner_class_types = {
+                    "preferred_network_options": PreferredNetworkOptions,
+                }
+
+            bank_account: Optional[BankAccount]
+            """
+            Options for bank account payout methods.
+            """
+            _inner_class_types = {"bank_account": BankAccount}
+
         credited: Amount
         """
         The monetary amount being credited to the destination.
@@ -138,10 +208,15 @@ class OutboundPayment(StripeObject):
         """
         The payout method which the OutboundPayment uses to send payout.
         """
+        payout_method_options: Optional[PayoutMethodOptions]
+        """
+        Payout method options for the OutboundPayment.
+        """
         recipient: str
         """
         To which account the OutboundPayment is sent.
         """
+        _inner_class_types = {"payout_method_options": PayoutMethodOptions}
 
     class TraceId(StripeObject):
         status: Literal["pending", "supported", "unsupported"]
@@ -299,7 +374,7 @@ class OutboundPayment(StripeObject):
     """
     status_details: Optional[StatusDetails]
     """
-    Status details for an OutboundPayment in a `failed` or `returned` state.
+    Status details for an OutboundPayment in a `processing`, `failed`, or `returned` state.
     """
     status_transitions: Optional[StatusTransitions]
     """

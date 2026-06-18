@@ -183,6 +183,10 @@ class ProductCatalogImport(StripeObject):
     """
     Additional information about the object in a structured format.
     """
+    mode: Literal["replace", "upsert"]
+    """
+    The import strategy for handling existing catalog data.
+    """
     object: Literal["v2.commerce.product_catalog_import"]
     """
     String representing the object's type. Objects of the same type share the same value of the object field.

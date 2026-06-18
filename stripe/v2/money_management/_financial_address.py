@@ -169,6 +169,10 @@ class FinancialAddress(StripeObject):
             """
             The name of the Bank.
             """
+            bic: Optional[str]
+            """
+            The BIC of the bank or financial institution.
+            """
             last4: str
             """
             The last four digits of the US Bank Account number. This will always be returned.
@@ -177,10 +181,6 @@ class FinancialAddress(StripeObject):
             routing_number: str
             """
             The routing number of the US Bank Account.
-            """
-            swift_code: Optional[str]
-            """
-            The swift code of the bank or financial institution.
             """
             _inner_class_types = {
                 "account_holder_address": AccountHolderAddress,

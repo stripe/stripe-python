@@ -14,14 +14,12 @@ if TYPE_CHECKING:
     from stripe.v2.core._account import Account
 
 
-class V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEventNotification(
+class V2CoreAccountIncludingConfigurationMoneyManagerCapabilityStatusUpdatedEventNotification(
     EventNotification,
 ):
-    LOOKUP_TYPE = (
-        "v2.core.account[configuration.storer].capability_status_updated"
-    )
+    LOOKUP_TYPE = "v2.core.account[configuration.money_manager].capability_status_updated"
     type: Literal[
-        "v2.core.account[configuration.storer].capability_status_updated"
+        "v2.core.account[configuration.money_manager].capability_status_updated"
     ]
     related_object: RelatedObject
 
@@ -37,11 +35,9 @@ class V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEventNotif
     @override
     def fetch_event(
         self,
-    ) -> (
-        "V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEvent"
-    ):
+    ) -> "V2CoreAccountIncludingConfigurationMoneyManagerCapabilityStatusUpdatedEvent":
         return cast(
-            "V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEvent",
+            "V2CoreAccountIncludingConfigurationMoneyManagerCapabilityStatusUpdatedEvent",
             super().fetch_event(),
         )
 
@@ -64,11 +60,9 @@ class V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEventNotif
     @override
     async def fetch_event_async(
         self,
-    ) -> (
-        "V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEvent"
-    ):
+    ) -> "V2CoreAccountIncludingConfigurationMoneyManagerCapabilityStatusUpdatedEvent":
         return cast(
-            "V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEvent",
+            "V2CoreAccountIncludingConfigurationMoneyManagerCapabilityStatusUpdatedEvent",
             await super().fetch_event_async(),
         )
 
@@ -89,27 +83,32 @@ class V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEventNotif
         )
 
 
-class V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEvent(
+class V2CoreAccountIncludingConfigurationMoneyManagerCapabilityStatusUpdatedEvent(
     Event,
 ):
-    LOOKUP_TYPE = (
-        "v2.core.account[configuration.storer].capability_status_updated"
-    )
+    LOOKUP_TYPE = "v2.core.account[configuration.money_manager].capability_status_updated"
     type: Literal[
-        "v2.core.account[configuration.storer].capability_status_updated"
+        "v2.core.account[configuration.money_manager].capability_status_updated"
     ]
 
-    class V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEventData(
+    class V2CoreAccountIncludingConfigurationMoneyManagerCapabilityStatusUpdatedEventData(
         StripeObject,
     ):
         updated_capability: Literal[
-            "consumer.holds_currencies.usd",
-            "financial_addressses.bank_accounts",
-            "financial_addressses.crypto_wallets",
-            "holds_currencies.eur",
-            "holds_currencies.gbp",
-            "holds_currencies.usd",
-            "holds_currencies.usdc",
+            "business_storage.inbound.cad",
+            "business_storage.inbound.eur",
+            "business_storage.inbound.gbp",
+            "business_storage.inbound.usd",
+            "business_storage.inbound.usdc",
+            "business_storage.outbound.cad",
+            "business_storage.outbound.eur",
+            "business_storage.outbound.gbp",
+            "business_storage.outbound.usd",
+            "business_storage.outbound.usdc",
+            "consumer_storage.inbound.usd",
+            "consumer_storage.inbound.usdc",
+            "consumer_storage.outbound.usd",
+            "consumer_storage.outbound.usdc",
             "inbound_transfers.bank_accounts",
             "outbound_payments.bank_accounts",
             "outbound_payments.cards",
@@ -119,14 +118,17 @@ class V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEvent(
             "outbound_transfers.bank_accounts",
             "outbound_transfers.crypto_wallets",
             "outbound_transfers.financial_accounts",
+            "received_credits.bank_accounts",
+            "received_credits.crypto_wallets",
+            "received_debits.bank_accounts",
         ]
         """
         Open Enum. The capability which had its status updated.
         """
 
-    data: V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEventData
+    data: V2CoreAccountIncludingConfigurationMoneyManagerCapabilityStatusUpdatedEventData
     """
-    Data for the v2.core.account[configuration.storer].capability_status_updated event
+    Data for the v2.core.account[configuration.money_manager].capability_status_updated event
     """
 
     @classmethod
@@ -137,9 +139,7 @@ class V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEvent(
         last_response: Optional[StripeResponse] = None,
         requestor: "_APIRequestor",
         api_mode: ApiMode,
-    ) -> (
-        "V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEvent"
-    ):
+    ) -> "V2CoreAccountIncludingConfigurationMoneyManagerCapabilityStatusUpdatedEvent":
         evt = super()._construct_from(
             values=values,
             last_response=last_response,
@@ -147,7 +147,7 @@ class V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEvent(
             api_mode=api_mode,
         )
         if hasattr(evt, "data"):
-            evt.data = V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEvent.V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEventData._construct_from(
+            evt.data = V2CoreAccountIncludingConfigurationMoneyManagerCapabilityStatusUpdatedEvent.V2CoreAccountIncludingConfigurationMoneyManagerCapabilityStatusUpdatedEventData._construct_from(
                 values=evt.data,
                 last_response=last_response,
                 requestor=requestor,

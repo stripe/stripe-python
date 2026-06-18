@@ -13,9 +13,9 @@ class FinancialAccountListParams(TypedDict):
     """
     The page limit.
     """
-    status: NotRequired[Literal["closed", "open", "pending"]]
+    statuses: NotRequired[List[Literal["closed", "open", "pending"]]]
     """
-    The status of the FinancialAccount to filter by. By default, closed FinancialAccounts are not returned.
+    Filter for FinancialAccount `status`. By default, closed FinancialAccounts are not returned.
     """
     types: NotRequired[
         List[
