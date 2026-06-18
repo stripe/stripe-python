@@ -6,6 +6,7 @@ from typing_extensions import TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe.params.test_helpers.issuing._authorization_capture_params import (
         AuthorizationCaptureParams as AuthorizationCaptureParams,
+        AuthorizationCaptureParamsNetworkData as AuthorizationCaptureParamsNetworkData,
         AuthorizationCaptureParamsPurchaseDetails as AuthorizationCaptureParamsPurchaseDetails,
         AuthorizationCaptureParamsPurchaseDetailsFleet as AuthorizationCaptureParamsPurchaseDetailsFleet,
         AuthorizationCaptureParamsPurchaseDetailsFleetCardholderPromptData as AuthorizationCaptureParamsPurchaseDetailsFleetCardholderPromptData,
@@ -107,6 +108,7 @@ if TYPE_CHECKING:
     from stripe.params.test_helpers.issuing._transaction_create_force_capture_params import (
         TransactionCreateForceCaptureParams as TransactionCreateForceCaptureParams,
         TransactionCreateForceCaptureParamsMerchantData as TransactionCreateForceCaptureParamsMerchantData,
+        TransactionCreateForceCaptureParamsNetworkData as TransactionCreateForceCaptureParamsNetworkData,
         TransactionCreateForceCaptureParamsPurchaseDetails as TransactionCreateForceCaptureParamsPurchaseDetails,
         TransactionCreateForceCaptureParamsPurchaseDetailsFleet as TransactionCreateForceCaptureParamsPurchaseDetailsFleet,
         TransactionCreateForceCaptureParamsPurchaseDetailsFleetCardholderPromptData as TransactionCreateForceCaptureParamsPurchaseDetailsFleetCardholderPromptData,
@@ -143,6 +145,10 @@ if TYPE_CHECKING:
 # name -> (import_target, is_submodule)
 _import_map = {
     "AuthorizationCaptureParams": (
+        "stripe.params.test_helpers.issuing._authorization_capture_params",
+        False,
+    ),
+    "AuthorizationCaptureParamsNetworkData": (
         "stripe.params.test_helpers.issuing._authorization_capture_params",
         False,
     ),
@@ -387,6 +393,10 @@ _import_map = {
         False,
     ),
     "TransactionCreateForceCaptureParamsMerchantData": (
+        "stripe.params.test_helpers.issuing._transaction_create_force_capture_params",
+        False,
+    ),
+    "TransactionCreateForceCaptureParamsNetworkData": (
         "stripe.params.test_helpers.issuing._transaction_create_force_capture_params",
         False,
     ),

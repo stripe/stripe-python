@@ -9,6 +9,7 @@ if TYPE_CHECKING:
     )
     from stripe.params.issuing._authorization_capture_params import (
         AuthorizationCaptureParams as AuthorizationCaptureParams,
+        AuthorizationCaptureParamsNetworkData as AuthorizationCaptureParamsNetworkData,
         AuthorizationCaptureParamsPurchaseDetails as AuthorizationCaptureParamsPurchaseDetails,
         AuthorizationCaptureParamsPurchaseDetailsFleet as AuthorizationCaptureParamsPurchaseDetailsFleet,
         AuthorizationCaptureParamsPurchaseDetailsFleetCardholderPromptData as AuthorizationCaptureParamsPurchaseDetailsFleetCardholderPromptData,
@@ -221,6 +222,9 @@ if TYPE_CHECKING:
         CreditUnderwritingRecordReportDecisionParamsDecisionCreditLimitApproved as CreditUnderwritingRecordReportDecisionParamsDecisionCreditLimitApproved,
         CreditUnderwritingRecordReportDecisionParamsUnderwritingException as CreditUnderwritingRecordReportDecisionParamsUnderwritingException,
     )
+    from stripe.params.issuing._credit_underwriting_record_report_offer_acceptance_params import (
+        CreditUnderwritingRecordReportOfferAcceptanceParams as CreditUnderwritingRecordReportOfferAcceptanceParams,
+    )
     from stripe.params.issuing._credit_underwriting_record_retrieve_params import (
         CreditUnderwritingRecordRetrieveParams as CreditUnderwritingRecordRetrieveParams,
     )
@@ -373,6 +377,7 @@ if TYPE_CHECKING:
     from stripe.params.issuing._transaction_create_force_capture_params import (
         TransactionCreateForceCaptureParams as TransactionCreateForceCaptureParams,
         TransactionCreateForceCaptureParamsMerchantData as TransactionCreateForceCaptureParamsMerchantData,
+        TransactionCreateForceCaptureParamsNetworkData as TransactionCreateForceCaptureParamsNetworkData,
         TransactionCreateForceCaptureParamsPurchaseDetails as TransactionCreateForceCaptureParamsPurchaseDetails,
         TransactionCreateForceCaptureParamsPurchaseDetailsFleet as TransactionCreateForceCaptureParamsPurchaseDetailsFleet,
         TransactionCreateForceCaptureParamsPurchaseDetailsFleetCardholderPromptData as TransactionCreateForceCaptureParamsPurchaseDetailsFleetCardholderPromptData,
@@ -426,6 +431,10 @@ _import_map = {
         False,
     ),
     "AuthorizationCaptureParams": (
+        "stripe.params.issuing._authorization_capture_params",
+        False,
+    ),
+    "AuthorizationCaptureParamsNetworkData": (
         "stripe.params.issuing._authorization_capture_params",
         False,
     ),
@@ -1013,6 +1022,10 @@ _import_map = {
         "stripe.params.issuing._credit_underwriting_record_report_decision_params",
         False,
     ),
+    "CreditUnderwritingRecordReportOfferAcceptanceParams": (
+        "stripe.params.issuing._credit_underwriting_record_report_offer_acceptance_params",
+        False,
+    ),
     "CreditUnderwritingRecordRetrieveParams": (
         "stripe.params.issuing._credit_underwriting_record_retrieve_params",
         False,
@@ -1319,6 +1332,10 @@ _import_map = {
         False,
     ),
     "TransactionCreateForceCaptureParamsMerchantData": (
+        "stripe.params.issuing._transaction_create_force_capture_params",
+        False,
+    ),
+    "TransactionCreateForceCaptureParamsNetworkData": (
         "stripe.params.issuing._transaction_create_force_capture_params",
         False,
     ),

@@ -23,6 +23,9 @@ if TYPE_CHECKING:
     from stripe.params.issuing._credit_underwriting_record_report_decision_params import (
         CreditUnderwritingRecordReportDecisionParams,
     )
+    from stripe.params.issuing._credit_underwriting_record_report_offer_acceptance_params import (
+        CreditUnderwritingRecordReportOfferAcceptanceParams,
+    )
     from stripe.params.issuing._credit_underwriting_record_retrieve_params import (
         CreditUnderwritingRecordRetrieveParams,
     )
@@ -406,6 +409,10 @@ class CreditUnderwritingRecord(
     """
     For underwriting initiated by an application, a decision must be taken 30 days after the submission.
     """
+    decision_deadline_updated_at: Optional[int]
+    """
+    Time at which the decision deadline was last updated.
+    """
     id: str
     """
     Unique identifier for the object.
@@ -787,6 +794,150 @@ class CreditUnderwritingRecord(
             await self._request_async(
                 "post",
                 "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/report_decision".format(
+                    credit_underwriting_record=sanitize_id(
+                        self._data.get("id")
+                    )
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def _cls_report_offer_acceptance(
+        cls,
+        credit_underwriting_record: str,
+        **params: Unpack[
+            "CreditUnderwritingRecordReportOfferAcceptanceParams"
+        ],
+    ) -> "CreditUnderwritingRecord":
+        """
+        Update a CreditUnderwritingRecord object to report that a credit offer has been accepted.
+        """
+        return cast(
+            "CreditUnderwritingRecord",
+            cls._static_request(
+                "post",
+                "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/report_offer_acceptance".format(
+                    credit_underwriting_record=sanitize_id(
+                        credit_underwriting_record
+                    )
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def report_offer_acceptance(
+        credit_underwriting_record: str,
+        **params: Unpack[
+            "CreditUnderwritingRecordReportOfferAcceptanceParams"
+        ],
+    ) -> "CreditUnderwritingRecord":
+        """
+        Update a CreditUnderwritingRecord object to report that a credit offer has been accepted.
+        """
+        ...
+
+    @overload
+    def report_offer_acceptance(
+        self,
+        **params: Unpack[
+            "CreditUnderwritingRecordReportOfferAcceptanceParams"
+        ],
+    ) -> "CreditUnderwritingRecord":
+        """
+        Update a CreditUnderwritingRecord object to report that a credit offer has been accepted.
+        """
+        ...
+
+    @class_method_variant("_cls_report_offer_acceptance")
+    def report_offer_acceptance(  # pyright: ignore[reportGeneralTypeIssues]
+        self,
+        **params: Unpack[
+            "CreditUnderwritingRecordReportOfferAcceptanceParams"
+        ],
+    ) -> "CreditUnderwritingRecord":
+        """
+        Update a CreditUnderwritingRecord object to report that a credit offer has been accepted.
+        """
+        return cast(
+            "CreditUnderwritingRecord",
+            self._request(
+                "post",
+                "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/report_offer_acceptance".format(
+                    credit_underwriting_record=sanitize_id(
+                        self._data.get("id")
+                    )
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_report_offer_acceptance_async(
+        cls,
+        credit_underwriting_record: str,
+        **params: Unpack[
+            "CreditUnderwritingRecordReportOfferAcceptanceParams"
+        ],
+    ) -> "CreditUnderwritingRecord":
+        """
+        Update a CreditUnderwritingRecord object to report that a credit offer has been accepted.
+        """
+        return cast(
+            "CreditUnderwritingRecord",
+            await cls._static_request_async(
+                "post",
+                "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/report_offer_acceptance".format(
+                    credit_underwriting_record=sanitize_id(
+                        credit_underwriting_record
+                    )
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def report_offer_acceptance_async(
+        credit_underwriting_record: str,
+        **params: Unpack[
+            "CreditUnderwritingRecordReportOfferAcceptanceParams"
+        ],
+    ) -> "CreditUnderwritingRecord":
+        """
+        Update a CreditUnderwritingRecord object to report that a credit offer has been accepted.
+        """
+        ...
+
+    @overload
+    async def report_offer_acceptance_async(
+        self,
+        **params: Unpack[
+            "CreditUnderwritingRecordReportOfferAcceptanceParams"
+        ],
+    ) -> "CreditUnderwritingRecord":
+        """
+        Update a CreditUnderwritingRecord object to report that a credit offer has been accepted.
+        """
+        ...
+
+    @class_method_variant("_cls_report_offer_acceptance_async")
+    async def report_offer_acceptance_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self,
+        **params: Unpack[
+            "CreditUnderwritingRecordReportOfferAcceptanceParams"
+        ],
+    ) -> "CreditUnderwritingRecord":
+        """
+        Update a CreditUnderwritingRecord object to report that a credit offer has been accepted.
+        """
+        return cast(
+            "CreditUnderwritingRecord",
+            await self._request_async(
+                "post",
+                "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/report_offer_acceptance".format(
                     credit_underwriting_record=sanitize_id(
                         self._data.get("id")
                     )
