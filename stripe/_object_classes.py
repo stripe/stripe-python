@@ -488,9 +488,9 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "CollectionSettingVersion",
     ),
     "v2.billing.contract": ("stripe.v2.billing._contract", "Contract"),
-    "v2.billing.contract_license_pricing_quantity_change": (
-        "stripe.v2.billing._contract_license_pricing_quantity_change",
-        "ContractLicensePricingQuantityChange",
+    "v2.billing.contract_pricing_line_quantity_change": (
+        "stripe.v2.billing._contract_pricing_line_quantity_change",
+        "ContractPricingLineQuantityChange",
     ),
     "v2.billing.custom_pricing_unit": (
         "stripe.v2.billing._custom_pricing_unit",

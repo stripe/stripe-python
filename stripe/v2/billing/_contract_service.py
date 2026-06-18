@@ -18,6 +18,9 @@ if TYPE_CHECKING:
     from stripe.params.v2.billing._contract_create_params import (
         ContractCreateParams,
     )
+    from stripe.params.v2.billing._contract_delete_params import (
+        ContractDeleteParams,
+    )
     from stripe.params.v2.billing._contract_list_params import (
         ContractListParams,
     )
@@ -27,22 +30,23 @@ if TYPE_CHECKING:
     from stripe.params.v2.billing._contract_update_params import (
         ContractUpdateParams,
     )
+    from stripe.v2._deleted_object import DeletedObject
     from stripe.v2._list_object import ListObject
     from stripe.v2.billing._contract import Contract
-    from stripe.v2.billing.contracts._license_pricing_service import (
-        LicensePricingService,
+    from stripe.v2.billing.contracts._pricing_lines_service import (
+        PricingLinesService,
     )
 
 _subservices = {
-    "license_pricing": [
-        "stripe.v2.billing.contracts._license_pricing_service",
-        "LicensePricingService",
+    "pricing_lines": [
+        "stripe.v2.billing.contracts._pricing_lines_service",
+        "PricingLinesService",
     ],
 }
 
 
 class ContractService(StripeService):
-    license_pricing: "LicensePricingService"
+    pricing_lines: "PricingLinesService"
 
     def __init__(self, requestor):
         super().__init__(requestor)
@@ -149,6 +153,46 @@ class ContractService(StripeService):
                         },
                     },
                 ),
+                options=options,
+            ),
+        )
+
+    def delete(
+        self,
+        id: str,
+        params: Optional["ContractDeleteParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "DeletedObject":
+        """
+        Delete a draft Contract object by ID.
+        """
+        return cast(
+            "DeletedObject",
+            self._request(
+                "delete",
+                "/v2/billing/contracts/{id}".format(id=sanitize_id(id)),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def delete_async(
+        self,
+        id: str,
+        params: Optional["ContractDeleteParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "DeletedObject":
+        """
+        Delete a draft Contract object by ID.
+        """
+        return cast(
+            "DeletedObject",
+            await self._request_async(
+                "delete",
+                "/v2/billing/contracts/{id}".format(id=sanitize_id(id)),
+                base_address="api",
+                params=params,
                 options=options,
             ),
         )

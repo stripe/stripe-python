@@ -13,15 +13,7 @@ class ContractCancelParams(TypedDict):
     not specified for a given line.
     """
     include: NotRequired[
-        List[
-            Literal[
-                "contract_line_details",
-                "license_quantities",
-                "one_time_fees",
-                "pricing_lines",
-                "pricing_overrides",
-            ]
-        ]
+        List[Literal["one_time_fees", "pricing_lines", "pricing_overrides"]]
     ]
     """
     Additional fields to include in the response.

@@ -4,14 +4,14 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.v2.billing.contracts.license_pricing._quantity_change_service import (
+    from stripe.v2.billing.contracts.pricing_lines._quantity_change_service import (
         QuantityChangeService as QuantityChangeService,
     )
 
 # name -> (import_target, is_submodule)
 _import_map = {
     "QuantityChangeService": (
-        "stripe.v2.billing.contracts.license_pricing._quantity_change_service",
+        "stripe.v2.billing.contracts.pricing_lines._quantity_change_service",
         False,
     ),
 }
