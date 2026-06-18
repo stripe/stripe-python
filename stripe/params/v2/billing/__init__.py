@@ -119,6 +119,8 @@ if TYPE_CHECKING:
     )
     from stripe.params.v2.billing._contract_create_params import (
         ContractCreateParams as ContractCreateParams,
+        ContractCreateParamsBillingCycleAnchor as ContractCreateParamsBillingCycleAnchor,
+        ContractCreateParamsBillingCycleAnchorConfig as ContractCreateParamsBillingCycleAnchorConfig,
         ContractCreateParamsBillingSettings as ContractCreateParamsBillingSettings,
         ContractCreateParamsBillingSettingsContractBillingDetails as ContractCreateParamsBillingSettingsContractBillingDetails,
         ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetails as ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetails,
@@ -780,6 +782,14 @@ _import_map = {
         False,
     ),
     "ContractCreateParams": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsBillingCycleAnchor": (
+        "stripe.params.v2.billing._contract_create_params",
+        False,
+    ),
+    "ContractCreateParamsBillingCycleAnchorConfig": (
         "stripe.params.v2.billing._contract_create_params",
         False,
     ),

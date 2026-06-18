@@ -7,6 +7,11 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class ContractCreateParams(TypedDict):
+    billing_cycle_anchor: NotRequired["ContractCreateParamsBillingCycleAnchor"]
+    """
+    The billing cycle anchor for the contract. If not provided, defaults to the pricing line start time.
+    It is only at the top-level of the contract with no option to override at the pricing line level.
+    """
     billing_settings: NotRequired["ContractCreateParamsBillingSettings"]
     """
     The billing settings for the contract.
@@ -40,6 +45,44 @@ class ContractCreateParams(TypedDict):
     pricing_overrides: NotRequired[List["ContractCreateParamsPricingOverride"]]
     """
     A list of pricing overrides to create with the contract.
+    """
+
+
+class ContractCreateParamsBillingCycleAnchor(TypedDict):
+    config: NotRequired["ContractCreateParamsBillingCycleAnchorConfig"]
+    """
+    Configuration for determining the billing cycle anchor by calendar fields.
+    """
+    timestamp: NotRequired[str]
+    """
+    A specific timestamp to use as the billing cycle anchor.
+    """
+    type: Literal["config", "timestamp"]
+    """
+    The type of billing cycle anchor.
+    """
+
+
+class ContractCreateParamsBillingCycleAnchorConfig(TypedDict):
+    day_of_month: int
+    """
+    Day of month (1-31).
+    """
+    hour: NotRequired[int]
+    """
+    Hour of day in UTC (0-23).
+    """
+    minute: NotRequired[int]
+    """
+    Minute of hour (0-59).
+    """
+    month_of_year: NotRequired[int]
+    """
+    Month of year (1-12).
+    """
+    second: NotRequired[int]
+    """
+    Second of minute (0-59).
     """
 
 

@@ -15,6 +15,12 @@ class Contract(StripeObject):
         "v2.billing.contract"
     )
 
+    class BillingCycleAnchor(StripeObject):
+        timestamp: str
+        """
+        The billing cycle anchor as a UTC timestamp.
+        """
+
     class BillingSettings(StripeObject):
         class ContractBillingDetails(StripeObject):
             class BillSettingsDetails(StripeObject):
@@ -471,6 +477,10 @@ class Contract(StripeObject):
         """
         _inner_class_types = {"active": Active, "canceled": Canceled}
 
+    billing_cycle_anchor: Optional[BillingCycleAnchor]
+    """
+    The billing cycle anchor for the contract.
+    """
     billing_settings: Optional[BillingSettings]
     """
     The billing settings for the contract.
@@ -528,6 +538,7 @@ class Contract(StripeObject):
     Information about the contract status transitions.
     """
     _inner_class_types = {
+        "billing_cycle_anchor": BillingCycleAnchor,
         "billing_settings": BillingSettings,
         "one_time_fees": OneTimeFees,
         "pricing_lines": PricingLines,
