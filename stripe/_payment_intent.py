@@ -3147,9 +3147,6 @@ class PaymentIntent(
                     }
 
                 sender_account: Optional[str]
-                """
-                ID of the Account representing the sender in this account funding transaction.
-                """
                 sender_details: Optional[SenderDetails]
                 _inner_class_types = {"sender_details": SenderDetails}
 
@@ -3219,9 +3216,6 @@ class PaymentIntent(
 
             account_funding: Optional[AccountFunding]
             beneficiary_account: Optional[str]
-            """
-            ID of the Account representing the beneficiary in this account funding transaction.
-            """
             beneficiary_details: Optional[BeneficiaryDetails]
             transaction_type: Optional[
                 Literal["account_funding", "debt_repayment"]
