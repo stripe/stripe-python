@@ -8,7 +8,14 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 class ContractUpdateParams(TypedDict):
     include: NotRequired[
-        List[Literal["one_time_fees", "pricing_lines", "pricing_overrides"]]
+        List[
+            Literal[
+                "billing_settings",
+                "one_time_fees",
+                "pricing_lines",
+                "pricing_overrides",
+            ]
+        ]
     ]
     """
     Additional fields to include in the response.
@@ -646,55 +653,17 @@ class ContractUpdateParamsPricingOverrideActionAddMultiplier(TypedDict):
 class ContractUpdateParamsPricingOverrideActionAddMultiplierCriterion(
     TypedDict,
 ):
-    billable_item_ids: List[str]
+    pricing_line_ids: NotRequired[List[str]]
     """
-    Filter by billable item IDs.
+    Filter by pricing line IDs.
     """
-    billable_item_lookup_keys: List[str]
+    pricing_line_lookup_keys: NotRequired[List[str]]
     """
-    Filter by billable item lookup keys.
-    """
-    billable_item_types: List[Literal["licensed", "metered"]]
-    """
-    Filter by billable item type.
-    """
-    metadata_conditions: List[
-        "ContractUpdateParamsPricingOverrideActionAddMultiplierCriterionMetadataCondition"
-    ]
-    """
-    Filter by metadata conditions.
-    """
-    rate_card_ids: List[str]
-    """
-    Filter by rate card IDs. Only applicable for `multiplier` overrides.
+    Filter by pricing line lookup keys.
     """
     type: Literal["exclude", "include"]
     """
     Whether to include or exclude items matching these criteria.
-    """
-
-
-class ContractUpdateParamsPricingOverrideActionAddMultiplierCriterionMetadataCondition(
-    TypedDict,
-):
-    all_of: List[
-        "ContractUpdateParamsPricingOverrideActionAddMultiplierCriterionMetadataConditionAllOf"
-    ]
-    """
-    All of these key-value conditions must match.
-    """
-
-
-class ContractUpdateParamsPricingOverrideActionAddMultiplierCriterionMetadataConditionAllOf(
-    TypedDict,
-):
-    key: str
-    """
-    The metadata key.
-    """
-    value: str
-    """
-    The metadata value.
     """
 
 

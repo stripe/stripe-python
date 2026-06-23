@@ -2,6 +2,7 @@
 # File generated from our OpenAPI spec
 from decimal import Decimal
 from stripe._stripe_object import StripeObject, UntypedStripeObject
+from stripe.v2._amount import Amount
 from typing import ClassVar, List, Optional
 from typing_extensions import Literal
 
@@ -22,136 +23,103 @@ class Contract(StripeObject):
         """
 
     class BillingSettings(StripeObject):
-        class ContractBillingDetails(StripeObject):
-            class BillSettingsDetails(StripeObject):
-                class Calculation(StripeObject):
-                    class Tax(StripeObject):
-                        type: Literal["automatic", "manual"]
-                        """
-                        The type of tax calculation.
-                        """
-
-                    tax: Optional[Tax]
+        class BillSettingsDetails(StripeObject):
+            class Calculation(StripeObject):
+                class Tax(StripeObject):
+                    type: Literal["automatic", "manual"]
                     """
-                    Tax calculation settings.
+                    The type of tax calculation.
                     """
-                    _inner_class_types = {"tax": Tax}
 
-                class Invoice(StripeObject):
-                    class TimeUntilDue(StripeObject):
-                        interval: Literal["day", "month", "week", "year"]
-                        """
-                        The interval unit.
-                        """
-                        interval_count: int
-                        """
-                        The number of intervals.
-                        """
+                tax: Optional[Tax]
+                """
+                Tax calculation settings.
+                """
+                _inner_class_types = {"tax": Tax}
 
-                    time_until_due: Optional[TimeUntilDue]
+            class Invoice(StripeObject):
+                class TimeUntilDue(StripeObject):
+                    interval: Literal["day", "month", "week", "year"]
                     """
-                    The number of time units before the invoice is past due.
+                    The interval unit.
                     """
-                    _inner_class_types = {"time_until_due": TimeUntilDue}
+                    interval_count: int
+                    """
+                    The number of intervals.
+                    """
 
-                calculation: Optional[Calculation]
+                time_until_due: Optional[TimeUntilDue]
                 """
-                Calculation settings.
+                The number of time units before the invoice is past due.
                 """
-                invoice: Optional[Invoice]
-                """
-                Invoice settings.
-                """
-                _inner_class_types = {
-                    "calculation": Calculation,
-                    "invoice": Invoice,
-                }
+                _inner_class_types = {"time_until_due": TimeUntilDue}
 
-            class BillingProfileDetails(StripeObject):
-                customer: str
-                """
-                The customer who pays for the contract invoice.
-                """
-                default_payment_method: Optional[str]
-                """
-                The default payment method for the contract.
-                """
-
-            class CollectionSettingsDetails(StripeObject):
-                collection_method: Literal[
-                    "charge_automatically", "send_invoice"
-                ]
-                """
-                The collection method.
-                """
-                payment_method_configuration: Optional[str]
-                """
-                The payment method configuration.
-                """
-
-            bill_settings_details: Optional[BillSettingsDetails]
+            calculation: Optional[Calculation]
             """
-            The bill settings details.
+            Calculation settings.
             """
-            billing_profile_details: BillingProfileDetails
+            invoice: Optional[Invoice]
             """
-            The billing profile details.
-            """
-            collection_settings_details: CollectionSettingsDetails
-            """
-            The collection settings details.
+            Invoice settings.
             """
             _inner_class_types = {
-                "bill_settings_details": BillSettingsDetails,
-                "billing_profile_details": BillingProfileDetails,
-                "collection_settings_details": CollectionSettingsDetails,
+                "calculation": Calculation,
+                "invoice": Invoice,
             }
 
-        contract_billing_details: Optional[ContractBillingDetails]
+        class BillingProfileDetails(StripeObject):
+            customer: str
+            """
+            The customer who pays for the contract invoice.
+            """
+            default_payment_method: Optional[str]
+            """
+            The default payment method for the contract.
+            """
+
+        class CollectionSettingsDetails(StripeObject):
+            collection_method: Literal["charge_automatically", "send_invoice"]
+            """
+            The collection method.
+            """
+            payment_method_configuration: Optional[str]
+            """
+            The payment method configuration.
+            """
+
+        bill_settings_details: Optional[BillSettingsDetails]
         """
-        Billing settings details for the contract.
+        The bill settings details configures invoice and tax settings for the contract.
+        """
+        billing_profile_details: BillingProfileDetails
+        """
+        The billing profile details configures who is charged for the contract.
+        """
+        collection_settings_details: CollectionSettingsDetails
+        """
+        The collection settings details configures how payments are collected on the contract.
         """
         _inner_class_types = {
-            "contract_billing_details": ContractBillingDetails,
+            "bill_settings_details": BillSettingsDetails,
+            "billing_profile_details": BillingProfileDetails,
+            "collection_settings_details": CollectionSettingsDetails,
         }
 
     class OneTimeFees(StripeObject):
         class Data(StripeObject):
-            class BillSchedule(StripeObject):
-                class BillAt(StripeObject):
-                    timestamp: Optional[str]
-                    """
-                    The datetime at which the entry will be billed. Set when `type` is `datetime`.
-                    """
-                    type: Literal["contract_start", "datetime"]
-                    """
-                    The type of the bill_at.
-                    """
-
-                bill_at: BillAt
+            class BillAt(StripeObject):
+                timestamp: str
                 """
-                When this entry will be billed.
-                """
-                value: int
-                """
-                The amount to bill for this entry, in the smallest currency unit.
-                """
-                _inner_class_types = {"bill_at": BillAt}
-                _field_encodings = {"value": "int64_string"}
-
-            class ProductDetails(StripeObject):
-                product: str
-                """
-                The ID of the v1 Product.
+                The timestamp at which the fee will be billed.
                 """
 
-            bill_schedule: List[BillSchedule]
+            amount: Amount
             """
-            The resolved bill schedule for the fee.
+            The amount billed for this fee.
             """
-            billable_item_type: Literal["product"]
+            bill_at: BillAt
             """
-            The type of billable item that this fee references.
+            When this fee will be billed. Always contains a concrete timestamp.
             """
             id: str
             """
@@ -161,14 +129,11 @@ class Contract(StripeObject):
             """
             The user-provided lookup key.
             """
-            product_details: Optional[ProductDetails]
+            product: str
             """
-            Details for a product billable target. Set when `billable_item_type` is `product`.
+            The ID of the v1 Product for this fee.
             """
-            _inner_class_types = {
-                "bill_schedule": BillSchedule,
-                "product_details": ProductDetails,
-            }
+            _inner_class_types = {"bill_at": BillAt}
 
         data: List[Data]
         """
@@ -353,50 +318,18 @@ class Contract(StripeObject):
 
             class Multiplier(StripeObject):
                 class Criterion(StripeObject):
-                    class MetadataCondition(StripeObject):
-                        class AllOf(StripeObject):
-                            key: str
-                            """
-                            The metadata key.
-                            """
-                            value: str
-                            """
-                            The metadata value.
-                            """
-
-                        all_of: List[AllOf]
-                        """
-                        All of these key-value conditions must match.
-                        """
-                        _inner_class_types = {"all_of": AllOf}
-
-                    billable_item_ids: List[str]
+                    pricing_line_ids: Optional[List[str]]
                     """
-                    Filter by billable item IDs.
+                    Filter by pricing line IDs.
                     """
-                    billable_item_lookup_keys: List[str]
+                    pricing_line_lookup_keys: Optional[List[str]]
                     """
-                    Filter by billable item lookup keys.
-                    """
-                    billable_item_types: List[Literal["licensed", "metered"]]
-                    """
-                    Filter by billable item type.
-                    """
-                    metadata_conditions: List[MetadataCondition]
-                    """
-                    Filter by metadata conditions.
-                    """
-                    rate_card_ids: List[str]
-                    """
-                    Filter by rate card IDs. Only applicable for `multiplier` overrides.
+                    Filter by pricing line lookup keys.
                     """
                     type: Literal["exclude", "include"]
                     """
                     Whether to include or exclude items matching these criteria.
                     """
-                    _inner_class_types = {
-                        "metadata_conditions": MetadataCondition,
-                    }
 
                 criteria: List[Criterion]
                 """

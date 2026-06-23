@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._encode import _coerce_v2_params
 from stripe._stripe_service import StripeService
 from stripe._util import sanitize_id
 from typing import Optional, cast
@@ -119,14 +118,7 @@ class ContractService(StripeService):
                 "post",
                 "/v2/billing/contracts",
                 base_address="api",
-                params=_coerce_v2_params(
-                    params,
-                    {
-                        "one_time_fees": {
-                            "bill_schedule": {"value": "int64_string"},
-                        },
-                    },
-                ),
+                params=params,
                 options=options,
             ),
         )
@@ -145,14 +137,7 @@ class ContractService(StripeService):
                 "post",
                 "/v2/billing/contracts",
                 base_address="api",
-                params=_coerce_v2_params(
-                    params,
-                    {
-                        "one_time_fees": {
-                            "bill_schedule": {"value": "int64_string"},
-                        },
-                    },
-                ),
+                params=params,
                 options=options,
             ),
         )

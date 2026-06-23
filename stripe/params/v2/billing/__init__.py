@@ -122,18 +122,15 @@ if TYPE_CHECKING:
         ContractCreateParamsBillingCycleAnchor as ContractCreateParamsBillingCycleAnchor,
         ContractCreateParamsBillingCycleAnchorConfig as ContractCreateParamsBillingCycleAnchorConfig,
         ContractCreateParamsBillingSettings as ContractCreateParamsBillingSettings,
-        ContractCreateParamsBillingSettingsContractBillingDetails as ContractCreateParamsBillingSettingsContractBillingDetails,
-        ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetails as ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetails,
-        ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetailsCalculation as ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetailsCalculation,
-        ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetailsCalculationTax as ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetailsCalculationTax,
-        ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetailsInvoice as ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetailsInvoice,
-        ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetailsInvoiceTimeUntilDue as ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetailsInvoiceTimeUntilDue,
-        ContractCreateParamsBillingSettingsContractBillingDetailsBillingProfileDetails as ContractCreateParamsBillingSettingsContractBillingDetailsBillingProfileDetails,
-        ContractCreateParamsBillingSettingsContractBillingDetailsCollectionSettingsDetails as ContractCreateParamsBillingSettingsContractBillingDetailsCollectionSettingsDetails,
+        ContractCreateParamsBillingSettingsBillSettingsDetails as ContractCreateParamsBillingSettingsBillSettingsDetails,
+        ContractCreateParamsBillingSettingsBillSettingsDetailsCalculation as ContractCreateParamsBillingSettingsBillSettingsDetailsCalculation,
+        ContractCreateParamsBillingSettingsBillSettingsDetailsCalculationTax as ContractCreateParamsBillingSettingsBillSettingsDetailsCalculationTax,
+        ContractCreateParamsBillingSettingsBillSettingsDetailsInvoice as ContractCreateParamsBillingSettingsBillSettingsDetailsInvoice,
+        ContractCreateParamsBillingSettingsBillSettingsDetailsInvoiceTimeUntilDue as ContractCreateParamsBillingSettingsBillSettingsDetailsInvoiceTimeUntilDue,
+        ContractCreateParamsBillingSettingsBillingProfileDetails as ContractCreateParamsBillingSettingsBillingProfileDetails,
+        ContractCreateParamsBillingSettingsCollectionSettingsDetails as ContractCreateParamsBillingSettingsCollectionSettingsDetails,
         ContractCreateParamsOneTimeFee as ContractCreateParamsOneTimeFee,
-        ContractCreateParamsOneTimeFeeBillSchedule as ContractCreateParamsOneTimeFeeBillSchedule,
-        ContractCreateParamsOneTimeFeeBillScheduleBillAt as ContractCreateParamsOneTimeFeeBillScheduleBillAt,
-        ContractCreateParamsOneTimeFeeProductDetails as ContractCreateParamsOneTimeFeeProductDetails,
+        ContractCreateParamsOneTimeFeeBillAt as ContractCreateParamsOneTimeFeeBillAt,
         ContractCreateParamsPricingLine as ContractCreateParamsPricingLine,
         ContractCreateParamsPricingLineEndsAt as ContractCreateParamsPricingLineEndsAt,
         ContractCreateParamsPricingLinePricing as ContractCreateParamsPricingLinePricing,
@@ -150,8 +147,6 @@ if TYPE_CHECKING:
         ContractCreateParamsPricingOverrideEndsAt as ContractCreateParamsPricingOverrideEndsAt,
         ContractCreateParamsPricingOverrideMultiplier as ContractCreateParamsPricingOverrideMultiplier,
         ContractCreateParamsPricingOverrideMultiplierCriterion as ContractCreateParamsPricingOverrideMultiplierCriterion,
-        ContractCreateParamsPricingOverrideMultiplierCriterionMetadataCondition as ContractCreateParamsPricingOverrideMultiplierCriterionMetadataCondition,
-        ContractCreateParamsPricingOverrideMultiplierCriterionMetadataConditionAllOf as ContractCreateParamsPricingOverrideMultiplierCriterionMetadataConditionAllOf,
         ContractCreateParamsPricingOverrideStartsAt as ContractCreateParamsPricingOverrideStartsAt,
     )
     from stripe.params.v2.billing._contract_delete_params import (
@@ -201,8 +196,6 @@ if TYPE_CHECKING:
         ContractUpdateParamsPricingOverrideActionAddEndsAt as ContractUpdateParamsPricingOverrideActionAddEndsAt,
         ContractUpdateParamsPricingOverrideActionAddMultiplier as ContractUpdateParamsPricingOverrideActionAddMultiplier,
         ContractUpdateParamsPricingOverrideActionAddMultiplierCriterion as ContractUpdateParamsPricingOverrideActionAddMultiplierCriterion,
-        ContractUpdateParamsPricingOverrideActionAddMultiplierCriterionMetadataCondition as ContractUpdateParamsPricingOverrideActionAddMultiplierCriterionMetadataCondition,
-        ContractUpdateParamsPricingOverrideActionAddMultiplierCriterionMetadataConditionAllOf as ContractUpdateParamsPricingOverrideActionAddMultiplierCriterionMetadataConditionAllOf,
         ContractUpdateParamsPricingOverrideActionAddOverwritePrice as ContractUpdateParamsPricingOverrideActionAddOverwritePrice,
         ContractUpdateParamsPricingOverrideActionAddOverwritePriceTier as ContractUpdateParamsPricingOverrideActionAddOverwritePriceTier,
         ContractUpdateParamsPricingOverrideActionAddStartsAt as ContractUpdateParamsPricingOverrideActionAddStartsAt,
@@ -797,35 +790,31 @@ _import_map = {
         "stripe.params.v2.billing._contract_create_params",
         False,
     ),
-    "ContractCreateParamsBillingSettingsContractBillingDetails": (
+    "ContractCreateParamsBillingSettingsBillSettingsDetails": (
         "stripe.params.v2.billing._contract_create_params",
         False,
     ),
-    "ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetails": (
+    "ContractCreateParamsBillingSettingsBillSettingsDetailsCalculation": (
         "stripe.params.v2.billing._contract_create_params",
         False,
     ),
-    "ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetailsCalculation": (
+    "ContractCreateParamsBillingSettingsBillSettingsDetailsCalculationTax": (
         "stripe.params.v2.billing._contract_create_params",
         False,
     ),
-    "ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetailsCalculationTax": (
+    "ContractCreateParamsBillingSettingsBillSettingsDetailsInvoice": (
         "stripe.params.v2.billing._contract_create_params",
         False,
     ),
-    "ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetailsInvoice": (
+    "ContractCreateParamsBillingSettingsBillSettingsDetailsInvoiceTimeUntilDue": (
         "stripe.params.v2.billing._contract_create_params",
         False,
     ),
-    "ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetailsInvoiceTimeUntilDue": (
+    "ContractCreateParamsBillingSettingsBillingProfileDetails": (
         "stripe.params.v2.billing._contract_create_params",
         False,
     ),
-    "ContractCreateParamsBillingSettingsContractBillingDetailsBillingProfileDetails": (
-        "stripe.params.v2.billing._contract_create_params",
-        False,
-    ),
-    "ContractCreateParamsBillingSettingsContractBillingDetailsCollectionSettingsDetails": (
+    "ContractCreateParamsBillingSettingsCollectionSettingsDetails": (
         "stripe.params.v2.billing._contract_create_params",
         False,
     ),
@@ -833,15 +822,7 @@ _import_map = {
         "stripe.params.v2.billing._contract_create_params",
         False,
     ),
-    "ContractCreateParamsOneTimeFeeBillSchedule": (
-        "stripe.params.v2.billing._contract_create_params",
-        False,
-    ),
-    "ContractCreateParamsOneTimeFeeBillScheduleBillAt": (
-        "stripe.params.v2.billing._contract_create_params",
-        False,
-    ),
-    "ContractCreateParamsOneTimeFeeProductDetails": (
+    "ContractCreateParamsOneTimeFeeBillAt": (
         "stripe.params.v2.billing._contract_create_params",
         False,
     ),
@@ -906,14 +887,6 @@ _import_map = {
         False,
     ),
     "ContractCreateParamsPricingOverrideMultiplierCriterion": (
-        "stripe.params.v2.billing._contract_create_params",
-        False,
-    ),
-    "ContractCreateParamsPricingOverrideMultiplierCriterionMetadataCondition": (
-        "stripe.params.v2.billing._contract_create_params",
-        False,
-    ),
-    "ContractCreateParamsPricingOverrideMultiplierCriterionMetadataConditionAllOf": (
         "stripe.params.v2.billing._contract_create_params",
         False,
     ),
@@ -1078,14 +1051,6 @@ _import_map = {
         False,
     ),
     "ContractUpdateParamsPricingOverrideActionAddMultiplierCriterion": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingOverrideActionAddMultiplierCriterionMetadataCondition": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingOverrideActionAddMultiplierCriterionMetadataConditionAllOf": (
         "stripe.params.v2.billing._contract_update_params",
         False,
     ),

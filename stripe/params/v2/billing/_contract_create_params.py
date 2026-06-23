@@ -2,6 +2,7 @@
 # File generated from our OpenAPI spec
 from decimal import Decimal
 from stripe._stripe_object import UntypedStripeObject
+from stripe.v2._amount import AmountParam
 from typing import Dict, List
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -25,7 +26,14 @@ class ContractCreateParams(TypedDict):
     Currency of the contract.
     """
     include: NotRequired[
-        List[Literal["one_time_fees", "pricing_lines", "pricing_overrides"]]
+        List[
+            Literal[
+                "billing_settings",
+                "one_time_fees",
+                "pricing_lines",
+                "pricing_overrides",
+            ]
+        ]
     ]
     """
     Additional fields to include in the response.
@@ -87,60 +95,53 @@ class ContractCreateParamsBillingCycleAnchorConfig(TypedDict):
 
 
 class ContractCreateParamsBillingSettings(TypedDict):
-    contract_billing_details: NotRequired[
-        "ContractCreateParamsBillingSettingsContractBillingDetails"
-    ]
-    """
-    Billing settings details for the contract.
-    """
-
-
-class ContractCreateParamsBillingSettingsContractBillingDetails(TypedDict):
     bill_settings_details: NotRequired[
-        "ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetails"
+        "ContractCreateParamsBillingSettingsBillSettingsDetails"
     ]
     """
-    The bill settings details.
+    The bill settings details configures invoice and tax settings for the contract.
     """
-    billing_profile_details: "ContractCreateParamsBillingSettingsContractBillingDetailsBillingProfileDetails"
+    billing_profile_details: (
+        "ContractCreateParamsBillingSettingsBillingProfileDetails"
+    )
     """
-    The billing profile details.
+    The billing profile details configures who is charged for the contract.
     """
-    collection_settings_details: "ContractCreateParamsBillingSettingsContractBillingDetailsCollectionSettingsDetails"
+    collection_settings_details: (
+        "ContractCreateParamsBillingSettingsCollectionSettingsDetails"
+    )
     """
-    The collection settings details.
+    The collection settings details configures how payments are collected on the contract.
     """
 
 
-class ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetails(
-    TypedDict,
-):
+class ContractCreateParamsBillingSettingsBillSettingsDetails(TypedDict):
     calculation: NotRequired[
-        "ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetailsCalculation"
+        "ContractCreateParamsBillingSettingsBillSettingsDetailsCalculation"
     ]
     """
     Calculation settings.
     """
     invoice: NotRequired[
-        "ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetailsInvoice"
+        "ContractCreateParamsBillingSettingsBillSettingsDetailsInvoice"
     ]
     """
     Invoice settings.
     """
 
 
-class ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetailsCalculation(
+class ContractCreateParamsBillingSettingsBillSettingsDetailsCalculation(
     TypedDict,
 ):
     tax: NotRequired[
-        "ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetailsCalculationTax"
+        "ContractCreateParamsBillingSettingsBillSettingsDetailsCalculationTax"
     ]
     """
     Tax calculation settings.
     """
 
 
-class ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetailsCalculationTax(
+class ContractCreateParamsBillingSettingsBillSettingsDetailsCalculationTax(
     TypedDict,
 ):
     type: Literal["automatic", "manual"]
@@ -149,18 +150,16 @@ class ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetai
     """
 
 
-class ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetailsInvoice(
-    TypedDict,
-):
+class ContractCreateParamsBillingSettingsBillSettingsDetailsInvoice(TypedDict):
     time_until_due: NotRequired[
-        "ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetailsInvoiceTimeUntilDue"
+        "ContractCreateParamsBillingSettingsBillSettingsDetailsInvoiceTimeUntilDue"
     ]
     """
     The number of time units before the invoice is past due.
     """
 
 
-class ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetailsInvoiceTimeUntilDue(
+class ContractCreateParamsBillingSettingsBillSettingsDetailsInvoiceTimeUntilDue(
     TypedDict,
 ):
     interval: Literal["day", "month", "week", "year"]
@@ -173,9 +172,7 @@ class ContractCreateParamsBillingSettingsContractBillingDetailsBillSettingsDetai
     """
 
 
-class ContractCreateParamsBillingSettingsContractBillingDetailsBillingProfileDetails(
-    TypedDict,
-):
+class ContractCreateParamsBillingSettingsBillingProfileDetails(TypedDict):
     customer: str
     """
     The customer who pays for the contract invoice.
@@ -186,9 +183,7 @@ class ContractCreateParamsBillingSettingsContractBillingDetailsBillingProfileDet
     """
 
 
-class ContractCreateParamsBillingSettingsContractBillingDetailsCollectionSettingsDetails(
-    TypedDict,
-):
+class ContractCreateParamsBillingSettingsCollectionSettingsDetails(TypedDict):
     collection_method: Literal["charge_automatically", "send_invoice"]
     """
     The collection method.
@@ -200,48 +195,32 @@ class ContractCreateParamsBillingSettingsContractBillingDetailsCollectionSetting
 
 
 class ContractCreateParamsOneTimeFee(TypedDict):
-    bill_schedule: List["ContractCreateParamsOneTimeFeeBillSchedule"]
+    amount: AmountParam
     """
-    The bill schedule for the fee. Each entry produces an individual invoice item billed at `bill_at`.
+    The amount to bill.
     """
-    billable_item_type: Literal["product"]
+    bill_at: "ContractCreateParamsOneTimeFeeBillAt"
     """
-    The type of billable item that this fee references.
+    When this fee should be billed.
     """
-    product_details: NotRequired[
-        "ContractCreateParamsOneTimeFeeProductDetails"
-    ]
+    lookup_key: NotRequired[str]
     """
-    Details for a product billable target. Required when `billable_item_type` is `product`.
+    A user-provided lookup key.
     """
-
-
-class ContractCreateParamsOneTimeFeeBillSchedule(TypedDict):
-    bill_at: "ContractCreateParamsOneTimeFeeBillScheduleBillAt"
-    """
-    When this entry should be billed.
-    """
-    value: int
-    """
-    The amount to bill for this entry, in the smallest currency unit.
-    """
-
-
-class ContractCreateParamsOneTimeFeeBillScheduleBillAt(TypedDict):
-    timestamp: NotRequired[str]
-    """
-    The datetime at which the entry should be billed. Required if `type` is `datetime`.
-    """
-    type: Literal["contract_start", "datetime"]
-    """
-    The type of the bill_at.
-    """
-
-
-class ContractCreateParamsOneTimeFeeProductDetails(TypedDict):
     product: str
     """
-    The ID of the v1 Product.
+    The ID of the v1 Product for this fee.
+    """
+
+
+class ContractCreateParamsOneTimeFeeBillAt(TypedDict):
+    timestamp: NotRequired[str]
+    """
+    The timestamp at which the entry should be billed. Required if `type` is `timestamp`.
+    """
+    type: Literal["now", "timestamp"]
+    """
+    The type of the bill_at.
     """
 
 
@@ -512,55 +491,17 @@ class ContractCreateParamsPricingOverrideMultiplier(TypedDict):
 
 
 class ContractCreateParamsPricingOverrideMultiplierCriterion(TypedDict):
-    billable_item_ids: List[str]
+    pricing_line_ids: NotRequired[List[str]]
     """
-    Filter by billable item IDs.
+    Filter by pricing line IDs.
     """
-    billable_item_lookup_keys: List[str]
+    pricing_line_lookup_keys: NotRequired[List[str]]
     """
-    Filter by billable item lookup keys.
-    """
-    billable_item_types: List[Literal["licensed", "metered"]]
-    """
-    Filter by billable item type.
-    """
-    metadata_conditions: List[
-        "ContractCreateParamsPricingOverrideMultiplierCriterionMetadataCondition"
-    ]
-    """
-    Filter by metadata conditions.
-    """
-    rate_card_ids: List[str]
-    """
-    Filter by rate card IDs. Only applicable for `multiplier` overrides.
+    Filter by pricing line lookup keys.
     """
     type: Literal["exclude", "include"]
     """
     Whether to include or exclude items matching these criteria.
-    """
-
-
-class ContractCreateParamsPricingOverrideMultiplierCriterionMetadataCondition(
-    TypedDict,
-):
-    all_of: List[
-        "ContractCreateParamsPricingOverrideMultiplierCriterionMetadataConditionAllOf"
-    ]
-    """
-    All of these key-value conditions must match.
-    """
-
-
-class ContractCreateParamsPricingOverrideMultiplierCriterionMetadataConditionAllOf(
-    TypedDict,
-):
-    key: str
-    """
-    The metadata key.
-    """
-    value: str
-    """
-    The metadata value.
     """
 
 
