@@ -46,7 +46,7 @@ class AccountUpdateParams(TypedDict):
                 "configuration.customer",
                 "configuration.merchant",
                 "configuration.recipient",
-                "configuration.storer",
+                "configuration.money_manager",
                 "defaults",
                 "future_requirements",
                 "identity",
@@ -74,13 +74,13 @@ class AccountUpdateParamsConfiguration(TypedDict):
     """
     Enables the Account to act as a connected account and collect payments facilitated by a Connect platform. You must onboard your platform to Connect before you can add this configuration to your connected accounts. Utilize this configuration when the Account will be the Merchant of Record, like with Direct charges or Destination Charges with on_behalf_of set.
     """
+    money_manager: NotRequired["AccountUpdateParamsConfigurationMoneyManager"]
+    """
+    The Money Manager Configuration allows the Account to store and move funds using FinancialAccounts.
+    """
     recipient: NotRequired["AccountUpdateParamsConfigurationRecipient"]
     """
     The Recipient Configuration allows the Account to receive funds. Utilize this configuration if the Account will not be the Merchant of Record, like with Separate Charges & Transfers, or Destination Charges without on_behalf_of set.
-    """
-    storer: NotRequired["AccountUpdateParamsConfigurationStorer"]
-    """
-    The Storer Configuration allows the Account to store and move funds using stored-value FinancialAccounts.
     """
 
 
@@ -601,6 +601,12 @@ class AccountUpdateParamsConfigurationMerchantCapabilities(TypedDict):
     """
     Allow the merchant to process SEPA Direct Debit payments.
     """
+    sunbit_payments: NotRequired[
+        "AccountUpdateParamsConfigurationMerchantCapabilitiesSunbitPayments"
+    ]
+    """
+    Allow the merchant to process Sunbit payments.
+    """
     swish_payments: NotRequired[
         "AccountUpdateParamsConfigurationMerchantCapabilitiesSwishPayments"
     ]
@@ -987,6 +993,15 @@ class AccountUpdateParamsConfigurationMerchantCapabilitiesSepaDebitPayments(
     """
 
 
+class AccountUpdateParamsConfigurationMerchantCapabilitiesSunbitPayments(
+    TypedDict,
+):
+    requested: NotRequired[bool]
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
 class AccountUpdateParamsConfigurationMerchantCapabilitiesSwishPayments(
     TypedDict,
 ):
@@ -1208,6 +1223,380 @@ class AccountUpdateParamsConfigurationMerchantSupportAddress(TypedDict):
     """
 
 
+class AccountUpdateParamsConfigurationMoneyManager(TypedDict):
+    applied: NotRequired[bool]
+    """
+    Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
+    """
+    capabilities: NotRequired[
+        "AccountUpdateParamsConfigurationMoneyManagerCapabilities"
+    ]
+    """
+    Capabilities to request on the Money Manager Configuration.
+    """
+
+
+class AccountUpdateParamsConfigurationMoneyManagerCapabilities(TypedDict):
+    business_storage: NotRequired[
+        "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorage"
+    ]
+    """
+    Can send or receive business storage-type funds on Stripe.
+    """
+    inbound_transfers: NotRequired[
+        "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesInboundTransfers"
+    ]
+    """
+    Can pull funds from an external source, owned by yourself, to a FinancialAccount.
+    """
+    outbound_payments: NotRequired[
+        "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesOutboundPayments"
+    ]
+    """
+    Can send funds from a FinancialAccount to a destination owned by someone else.
+    """
+    outbound_transfers: NotRequired[
+        "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfers"
+    ]
+    """
+    Can send funds from a FinancialAccount to a destination owned by yourself.
+    """
+    received_credits: NotRequired[
+        "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesReceivedCredits"
+    ]
+    """
+    Can receive funds on a financial address to credit a FinancialAccount.
+    """
+    received_debits: NotRequired[
+        "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesReceivedDebits"
+    ]
+    """
+    Can receive debits to a FinancialAccount.
+    """
+
+
+class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorage(
+    TypedDict,
+):
+    inbound: NotRequired[
+        "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInbound"
+    ]
+    """
+    Can receive business storage-type funds on Stripe.
+    """
+    outbound: NotRequired[
+        "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutbound"
+    ]
+    """
+    Can send business storage-type funds on Stripe.
+    """
+
+
+class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInbound(
+    TypedDict,
+):
+    aud: NotRequired[
+        "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundAud"
+    ]
+    """
+    Can receive business storage-type funds on Stripe in AUD.
+    """
+    cad: NotRequired[
+        "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundCad"
+    ]
+    """
+    Can receive business storage-type funds on Stripe in CAD.
+    """
+    eur: NotRequired[
+        "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundEur"
+    ]
+    """
+    Can receive business storage-type funds on Stripe in EUR.
+    """
+    gbp: NotRequired[
+        "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundGbp"
+    ]
+    """
+    Can receive business storage-type funds on Stripe in GBP.
+    """
+    usd: NotRequired[
+        "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundUsd"
+    ]
+    """
+    Can receive business storage-type funds on Stripe in USD.
+    """
+
+
+class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundAud(
+    TypedDict,
+):
+    requested: NotRequired[bool]
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundCad(
+    TypedDict,
+):
+    requested: NotRequired[bool]
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundEur(
+    TypedDict,
+):
+    requested: NotRequired[bool]
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundGbp(
+    TypedDict,
+):
+    requested: NotRequired[bool]
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundUsd(
+    TypedDict,
+):
+    requested: NotRequired[bool]
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutbound(
+    TypedDict,
+):
+    aud: NotRequired[
+        "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundAud"
+    ]
+    """
+    Can send business storage-type funds on Stripe in AUD.
+    """
+    cad: NotRequired[
+        "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundCad"
+    ]
+    """
+    Can send business storage-type funds on Stripe in CAD.
+    """
+    eur: NotRequired[
+        "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundEur"
+    ]
+    """
+    Can send business storage-type funds on Stripe in EUR.
+    """
+    gbp: NotRequired[
+        "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundGbp"
+    ]
+    """
+    Can send business storage-type funds on Stripe in GBP.
+    """
+    usd: NotRequired[
+        "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundUsd"
+    ]
+    """
+    Can send business storage-type funds on Stripe in USD.
+    """
+
+
+class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundAud(
+    TypedDict,
+):
+    requested: NotRequired[bool]
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundCad(
+    TypedDict,
+):
+    requested: NotRequired[bool]
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundEur(
+    TypedDict,
+):
+    requested: NotRequired[bool]
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundGbp(
+    TypedDict,
+):
+    requested: NotRequired[bool]
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundUsd(
+    TypedDict,
+):
+    requested: NotRequired[bool]
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesInboundTransfers(
+    TypedDict,
+):
+    bank_accounts: NotRequired[
+        "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesInboundTransfersBankAccounts"
+    ]
+    """
+    Can pull funds from an external bank account owned by yourself to a FinancialAccount.
+    """
+
+
+class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesInboundTransfersBankAccounts(
+    TypedDict,
+):
+    requested: NotRequired[bool]
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesOutboundPayments(
+    TypedDict,
+):
+    bank_accounts: NotRequired[
+        "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsBankAccounts"
+    ]
+    """
+    Can send funds from a FinancialAccount to a bank account owned by someone else.
+    """
+    cards: NotRequired[
+        "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsCards"
+    ]
+    """
+    Can send funds from a FinancialAccount to a debit card owned by someone else.
+    """
+    financial_accounts: NotRequired[
+        "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsFinancialAccounts"
+    ]
+    """
+    Can send funds from a FinancialAccount to another FinancialAccount owned by someone else.
+    """
+
+
+class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsBankAccounts(
+    TypedDict,
+):
+    requested: NotRequired[bool]
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsCards(
+    TypedDict,
+):
+    requested: NotRequired[bool]
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsFinancialAccounts(
+    TypedDict,
+):
+    requested: NotRequired[bool]
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfers(
+    TypedDict,
+):
+    bank_accounts: NotRequired[
+        "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfersBankAccounts"
+    ]
+    """
+    Can send funds from a FinancialAccount to a bank account owned by yourself.
+    """
+    financial_accounts: NotRequired[
+        "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfersFinancialAccounts"
+    ]
+    """
+    Can send funds from a FinancialAccount to another FinancialAccount owned by yourself.
+    """
+
+
+class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfersBankAccounts(
+    TypedDict,
+):
+    requested: NotRequired[bool]
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfersFinancialAccounts(
+    TypedDict,
+):
+    requested: NotRequired[bool]
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesReceivedCredits(
+    TypedDict,
+):
+    bank_accounts: NotRequired[
+        "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesReceivedCreditsBankAccounts"
+    ]
+    """
+    Can receive funds on a bank-account-like financial address (VBAN) to credit a FinancialAccount.
+    """
+
+
+class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesReceivedCreditsBankAccounts(
+    TypedDict,
+):
+    requested: NotRequired[bool]
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesReceivedDebits(
+    TypedDict,
+):
+    bank_accounts: NotRequired[
+        "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesReceivedDebitsBankAccounts"
+    ]
+    """
+    Can receive debits to a FinancialAccount from a bank account.
+    """
+
+
+class AccountUpdateParamsConfigurationMoneyManagerCapabilitiesReceivedDebitsBankAccounts(
+    TypedDict,
+):
+    requested: NotRequired[bool]
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
 class AccountUpdateParamsConfigurationRecipient(TypedDict):
     applied: NotRequired[bool]
     """
@@ -1300,227 +1689,6 @@ class AccountUpdateParamsConfigurationRecipientCapabilitiesStripeBalance(
 
 
 class AccountUpdateParamsConfigurationRecipientCapabilitiesStripeBalanceStripeTransfers(
-    TypedDict,
-):
-    requested: NotRequired[bool]
-    """
-    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
-    """
-
-
-class AccountUpdateParamsConfigurationStorer(TypedDict):
-    applied: NotRequired[bool]
-    """
-    Represents the state of the configuration, and can be updated to deactivate or re-apply a configuration.
-    """
-    capabilities: NotRequired[
-        "AccountUpdateParamsConfigurationStorerCapabilities"
-    ]
-    """
-    Capabilities to request on the Storer Configuration.
-    """
-
-
-class AccountUpdateParamsConfigurationStorerCapabilities(TypedDict):
-    financial_addresses: NotRequired[
-        "AccountUpdateParamsConfigurationStorerCapabilitiesFinancialAddresses"
-    ]
-    """
-    Can provision a financial address to credit/debit a FinancialAccount.
-    """
-    holds_currencies: NotRequired[
-        "AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrencies"
-    ]
-    """
-    Can hold storage-type funds on Stripe.
-    """
-    inbound_transfers: NotRequired[
-        "AccountUpdateParamsConfigurationStorerCapabilitiesInboundTransfers"
-    ]
-    """
-    Can pull funds from an external source, owned by yourself, to a FinancialAccount.
-    """
-    outbound_payments: NotRequired[
-        "AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPayments"
-    ]
-    """
-    Can send funds from a FinancialAccount to a destination owned by someone else.
-    """
-    outbound_transfers: NotRequired[
-        "AccountUpdateParamsConfigurationStorerCapabilitiesOutboundTransfers"
-    ]
-    """
-    Can send funds from a FinancialAccount to a destination owned by yourself.
-    """
-
-
-class AccountUpdateParamsConfigurationStorerCapabilitiesFinancialAddresses(
-    TypedDict,
-):
-    bank_accounts: NotRequired[
-        "AccountUpdateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccounts"
-    ]
-    """
-    Can provision a bank-account-like financial address (VBAN) to credit/debit a FinancialAccount.
-    """
-
-
-class AccountUpdateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccounts(
-    TypedDict,
-):
-    requested: NotRequired[bool]
-    """
-    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
-    """
-
-
-class AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrencies(
-    TypedDict,
-):
-    eur: NotRequired[
-        "AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesEur"
-    ]
-    """
-    Can hold storage-type funds on Stripe in EUR.
-    """
-    gbp: NotRequired[
-        "AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbp"
-    ]
-    """
-    Can hold storage-type funds on Stripe in GBP.
-    """
-    usd: NotRequired[
-        "AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsd"
-    ]
-    """
-    Can hold storage-type funds on Stripe in USD.
-    """
-
-
-class AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesEur(
-    TypedDict,
-):
-    requested: NotRequired[bool]
-    """
-    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
-    """
-
-
-class AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbp(
-    TypedDict,
-):
-    requested: NotRequired[bool]
-    """
-    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
-    """
-
-
-class AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsd(
-    TypedDict,
-):
-    requested: NotRequired[bool]
-    """
-    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
-    """
-
-
-class AccountUpdateParamsConfigurationStorerCapabilitiesInboundTransfers(
-    TypedDict,
-):
-    bank_accounts: NotRequired[
-        "AccountUpdateParamsConfigurationStorerCapabilitiesInboundTransfersBankAccounts"
-    ]
-    """
-    Can pull funds from an external bank account owned by yourself to a FinancialAccount.
-    """
-
-
-class AccountUpdateParamsConfigurationStorerCapabilitiesInboundTransfersBankAccounts(
-    TypedDict,
-):
-    requested: NotRequired[bool]
-    """
-    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
-    """
-
-
-class AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPayments(
-    TypedDict,
-):
-    bank_accounts: NotRequired[
-        "AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsBankAccounts"
-    ]
-    """
-    Can send funds from a FinancialAccount to a bank account owned by someone else.
-    """
-    cards: NotRequired[
-        "AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsCards"
-    ]
-    """
-    Can send funds from a FinancialAccount to a debit card owned by someone else.
-    """
-    financial_accounts: NotRequired[
-        "AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsFinancialAccounts"
-    ]
-    """
-    Can send funds from a FinancialAccount to another FinancialAccount owned by someone else.
-    """
-
-
-class AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsBankAccounts(
-    TypedDict,
-):
-    requested: NotRequired[bool]
-    """
-    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
-    """
-
-
-class AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsCards(
-    TypedDict,
-):
-    requested: NotRequired[bool]
-    """
-    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
-    """
-
-
-class AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsFinancialAccounts(
-    TypedDict,
-):
-    requested: NotRequired[bool]
-    """
-    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
-    """
-
-
-class AccountUpdateParamsConfigurationStorerCapabilitiesOutboundTransfers(
-    TypedDict,
-):
-    bank_accounts: NotRequired[
-        "AccountUpdateParamsConfigurationStorerCapabilitiesOutboundTransfersBankAccounts"
-    ]
-    """
-    Can send funds from a FinancialAccount to a bank account owned by yourself.
-    """
-    financial_accounts: NotRequired[
-        "AccountUpdateParamsConfigurationStorerCapabilitiesOutboundTransfersFinancialAccounts"
-    ]
-    """
-    Can send funds from a FinancialAccount to another FinancialAccount owned by yourself.
-    """
-
-
-class AccountUpdateParamsConfigurationStorerCapabilitiesOutboundTransfersBankAccounts(
-    TypedDict,
-):
-    requested: NotRequired[bool]
-    """
-    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
-    """
-
-
-class AccountUpdateParamsConfigurationStorerCapabilitiesOutboundTransfersFinancialAccounts(
     TypedDict,
 ):
     requested: NotRequired[bool]
@@ -1809,14 +1977,14 @@ class AccountUpdateParamsIdentityAttestationsTermsOfService(TypedDict):
     """
     Details on the Account's acceptance of the [Stripe Services Agreement](https://docs.stripe.com/connect/updating-accounts#tos-acceptance).
     """
-    crypto_storer: NotRequired[
-        "AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoStorer"
+    crypto_money_manager: NotRequired[
+        "AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoMoneyManager"
     ]
     """
-    Details on the Account's acceptance of Crypto-storer-specific terms of service.
+    Details on the Account's acceptance of Crypto-specific terms of service.
     """
-    storer: NotRequired[
-        "AccountUpdateParamsIdentityAttestationsTermsOfServiceStorer"
+    money_manager: NotRequired[
+        "AccountUpdateParamsIdentityAttestationsTermsOfServiceMoneyManager"
     ]
     """
     Details on the Account's acceptance of Treasury-specific terms of service.
@@ -1838,7 +2006,7 @@ class AccountUpdateParamsIdentityAttestationsTermsOfServiceAccount(TypedDict):
     """
 
 
-class AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoStorer(
+class AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoMoneyManager(
     TypedDict,
 ):
     date: NotRequired[str]
@@ -1855,7 +2023,9 @@ class AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoStorer(
     """
 
 
-class AccountUpdateParamsIdentityAttestationsTermsOfServiceStorer(TypedDict):
+class AccountUpdateParamsIdentityAttestationsTermsOfServiceMoneyManager(
+    TypedDict,
+):
     date: NotRequired[str]
     """
     The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.

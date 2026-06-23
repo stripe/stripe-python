@@ -31,7 +31,13 @@ class AccountLink(StripeObject):
             Specifies the requirements that Stripe collects from v2/core/accounts in the Onboarding flow.
             """
             configurations: List[
-                Literal["customer", "merchant", "recipient", "storer"]
+                Literal[
+                    "customer",
+                    "merchant",
+                    "money_manager",
+                    "recipient",
+                    "storer",
+                ]
             ]
             """
             Open Enum. A v2/core/account can be configured to enable certain functionality. The configuration param targets the v2/core/account_link to collect information for the specified v2/core/account configuration/s.
@@ -62,7 +68,13 @@ class AccountLink(StripeObject):
             Specifies the requirements that Stripe collects from v2/core/accounts in the Onboarding flow.
             """
             configurations: List[
-                Literal["customer", "merchant", "recipient", "storer"]
+                Literal[
+                    "customer",
+                    "merchant",
+                    "money_manager",
+                    "recipient",
+                    "storer",
+                ]
             ]
             """
             Open Enum. A v2/account can be configured to enable certain functionality. The configuration param targets the v2/account_link to collect information for the specified v2/account configuration/s.

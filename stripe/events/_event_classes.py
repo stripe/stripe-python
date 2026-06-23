@@ -43,17 +43,17 @@ if TYPE_CHECKING:
     from stripe.events._v2_core_account_including_configuration_merchant_updated_event import (
         V2CoreAccountIncludingConfigurationMerchantUpdatedEventNotification,
     )
+    from stripe.events._v2_core_account_including_configuration_money_manager_capability_status_updated_event import (
+        V2CoreAccountIncludingConfigurationMoneyManagerCapabilityStatusUpdatedEventNotification,
+    )
+    from stripe.events._v2_core_account_including_configuration_money_manager_updated_event import (
+        V2CoreAccountIncludingConfigurationMoneyManagerUpdatedEventNotification,
+    )
     from stripe.events._v2_core_account_including_configuration_recipient_capability_status_updated_event import (
         V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEventNotification,
     )
     from stripe.events._v2_core_account_including_configuration_recipient_updated_event import (
         V2CoreAccountIncludingConfigurationRecipientUpdatedEventNotification,
-    )
-    from stripe.events._v2_core_account_including_configuration_storer_capability_status_updated_event import (
-        V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEventNotification,
-    )
-    from stripe.events._v2_core_account_including_configuration_storer_updated_event import (
-        V2CoreAccountIncludingConfigurationStorerUpdatedEventNotification,
     )
     from stripe.events._v2_core_account_including_defaults_updated_event import (
         V2CoreAccountIncludingDefaultsUpdatedEventNotification,
@@ -187,6 +187,9 @@ if TYPE_CHECKING:
     from stripe.events._v2_money_management_outbound_payment_returned_event import (
         V2MoneyManagementOutboundPaymentReturnedEventNotification,
     )
+    from stripe.events._v2_money_management_outbound_payment_under_review_event import (
+        V2MoneyManagementOutboundPaymentUnderReviewEventNotification,
+    )
     from stripe.events._v2_money_management_outbound_payment_updated_event import (
         V2MoneyManagementOutboundPaymentUpdatedEventNotification,
     )
@@ -204,6 +207,9 @@ if TYPE_CHECKING:
     )
     from stripe.events._v2_money_management_outbound_transfer_returned_event import (
         V2MoneyManagementOutboundTransferReturnedEventNotification,
+    )
+    from stripe.events._v2_money_management_outbound_transfer_under_review_event import (
+        V2MoneyManagementOutboundTransferUnderReviewEventNotification,
     )
     from stripe.events._v2_money_management_outbound_transfer_updated_event import (
         V2MoneyManagementOutboundTransferUpdatedEventNotification,
@@ -310,6 +316,14 @@ _V2_EVENT_CLASS_LOOKUP = {
         "stripe.events._v2_core_account_including_configuration_merchant_updated_event",
         "V2CoreAccountIncludingConfigurationMerchantUpdatedEvent",
     ),
+    "v2.core.account[configuration.money_manager].capability_status_updated": (
+        "stripe.events._v2_core_account_including_configuration_money_manager_capability_status_updated_event",
+        "V2CoreAccountIncludingConfigurationMoneyManagerCapabilityStatusUpdatedEvent",
+    ),
+    "v2.core.account[configuration.money_manager].updated": (
+        "stripe.events._v2_core_account_including_configuration_money_manager_updated_event",
+        "V2CoreAccountIncludingConfigurationMoneyManagerUpdatedEvent",
+    ),
     "v2.core.account[configuration.recipient].capability_status_updated": (
         "stripe.events._v2_core_account_including_configuration_recipient_capability_status_updated_event",
         "V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEvent",
@@ -317,14 +331,6 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v2.core.account[configuration.recipient].updated": (
         "stripe.events._v2_core_account_including_configuration_recipient_updated_event",
         "V2CoreAccountIncludingConfigurationRecipientUpdatedEvent",
-    ),
-    "v2.core.account[configuration.storer].capability_status_updated": (
-        "stripe.events._v2_core_account_including_configuration_storer_capability_status_updated_event",
-        "V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEvent",
-    ),
-    "v2.core.account[configuration.storer].updated": (
-        "stripe.events._v2_core_account_including_configuration_storer_updated_event",
-        "V2CoreAccountIncludingConfigurationStorerUpdatedEvent",
     ),
     "v2.core.account[defaults].updated": (
         "stripe.events._v2_core_account_including_defaults_updated_event",
@@ -502,6 +508,10 @@ _V2_EVENT_CLASS_LOOKUP = {
         "stripe.events._v2_money_management_outbound_payment_returned_event",
         "V2MoneyManagementOutboundPaymentReturnedEvent",
     ),
+    "v2.money_management.outbound_payment.under_review": (
+        "stripe.events._v2_money_management_outbound_payment_under_review_event",
+        "V2MoneyManagementOutboundPaymentUnderReviewEvent",
+    ),
     "v2.money_management.outbound_payment.updated": (
         "stripe.events._v2_money_management_outbound_payment_updated_event",
         "V2MoneyManagementOutboundPaymentUpdatedEvent",
@@ -525,6 +535,10 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v2.money_management.outbound_transfer.returned": (
         "stripe.events._v2_money_management_outbound_transfer_returned_event",
         "V2MoneyManagementOutboundTransferReturnedEvent",
+    ),
+    "v2.money_management.outbound_transfer.under_review": (
+        "stripe.events._v2_money_management_outbound_transfer_under_review_event",
+        "V2MoneyManagementOutboundTransferUnderReviewEvent",
     ),
     "v2.money_management.outbound_transfer.updated": (
         "stripe.events._v2_money_management_outbound_transfer_updated_event",
@@ -661,6 +675,14 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_core_account_including_configuration_merchant_updated_event",
         "V2CoreAccountIncludingConfigurationMerchantUpdatedEventNotification",
     ),
+    "v2.core.account[configuration.money_manager].capability_status_updated": (
+        "stripe.events._v2_core_account_including_configuration_money_manager_capability_status_updated_event",
+        "V2CoreAccountIncludingConfigurationMoneyManagerCapabilityStatusUpdatedEventNotification",
+    ),
+    "v2.core.account[configuration.money_manager].updated": (
+        "stripe.events._v2_core_account_including_configuration_money_manager_updated_event",
+        "V2CoreAccountIncludingConfigurationMoneyManagerUpdatedEventNotification",
+    ),
     "v2.core.account[configuration.recipient].capability_status_updated": (
         "stripe.events._v2_core_account_including_configuration_recipient_capability_status_updated_event",
         "V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEventNotification",
@@ -668,14 +690,6 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
     "v2.core.account[configuration.recipient].updated": (
         "stripe.events._v2_core_account_including_configuration_recipient_updated_event",
         "V2CoreAccountIncludingConfigurationRecipientUpdatedEventNotification",
-    ),
-    "v2.core.account[configuration.storer].capability_status_updated": (
-        "stripe.events._v2_core_account_including_configuration_storer_capability_status_updated_event",
-        "V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEventNotification",
-    ),
-    "v2.core.account[configuration.storer].updated": (
-        "stripe.events._v2_core_account_including_configuration_storer_updated_event",
-        "V2CoreAccountIncludingConfigurationStorerUpdatedEventNotification",
     ),
     "v2.core.account[defaults].updated": (
         "stripe.events._v2_core_account_including_defaults_updated_event",
@@ -853,6 +867,10 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_money_management_outbound_payment_returned_event",
         "V2MoneyManagementOutboundPaymentReturnedEventNotification",
     ),
+    "v2.money_management.outbound_payment.under_review": (
+        "stripe.events._v2_money_management_outbound_payment_under_review_event",
+        "V2MoneyManagementOutboundPaymentUnderReviewEventNotification",
+    ),
     "v2.money_management.outbound_payment.updated": (
         "stripe.events._v2_money_management_outbound_payment_updated_event",
         "V2MoneyManagementOutboundPaymentUpdatedEventNotification",
@@ -876,6 +894,10 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
     "v2.money_management.outbound_transfer.returned": (
         "stripe.events._v2_money_management_outbound_transfer_returned_event",
         "V2MoneyManagementOutboundTransferReturnedEventNotification",
+    ),
+    "v2.money_management.outbound_transfer.under_review": (
+        "stripe.events._v2_money_management_outbound_transfer_under_review_event",
+        "V2MoneyManagementOutboundTransferUnderReviewEventNotification",
     ),
     "v2.money_management.outbound_transfer.updated": (
         "stripe.events._v2_money_management_outbound_transfer_updated_event",
@@ -976,10 +998,10 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2CoreAccountIncludingConfigurationCustomerUpdatedEventNotification",
     "V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEventNotification",
     "V2CoreAccountIncludingConfigurationMerchantUpdatedEventNotification",
+    "V2CoreAccountIncludingConfigurationMoneyManagerCapabilityStatusUpdatedEventNotification",
+    "V2CoreAccountIncludingConfigurationMoneyManagerUpdatedEventNotification",
     "V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEventNotification",
     "V2CoreAccountIncludingConfigurationRecipientUpdatedEventNotification",
-    "V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEventNotification",
-    "V2CoreAccountIncludingConfigurationStorerUpdatedEventNotification",
     "V2CoreAccountIncludingDefaultsUpdatedEventNotification",
     "V2CoreAccountIncludingFutureRequirementsUpdatedEventNotification",
     "V2CoreAccountIncludingIdentityUpdatedEventNotification",
@@ -1024,12 +1046,14 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2MoneyManagementOutboundPaymentFailedEventNotification",
     "V2MoneyManagementOutboundPaymentPostedEventNotification",
     "V2MoneyManagementOutboundPaymentReturnedEventNotification",
+    "V2MoneyManagementOutboundPaymentUnderReviewEventNotification",
     "V2MoneyManagementOutboundPaymentUpdatedEventNotification",
     "V2MoneyManagementOutboundTransferCanceledEventNotification",
     "V2MoneyManagementOutboundTransferCreatedEventNotification",
     "V2MoneyManagementOutboundTransferFailedEventNotification",
     "V2MoneyManagementOutboundTransferPostedEventNotification",
     "V2MoneyManagementOutboundTransferReturnedEventNotification",
+    "V2MoneyManagementOutboundTransferUnderReviewEventNotification",
     "V2MoneyManagementOutboundTransferUpdatedEventNotification",
     "V2MoneyManagementPayoutMethodCreatedEventNotification",
     "V2MoneyManagementPayoutMethodUpdatedEventNotification",

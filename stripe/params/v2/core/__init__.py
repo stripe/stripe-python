@@ -65,6 +65,7 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationMerchantCapabilitiesSamsungPayPayments as AccountCreateParamsConfigurationMerchantCapabilitiesSamsungPayPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesSepaBankTransferPayments as AccountCreateParamsConfigurationMerchantCapabilitiesSepaBankTransferPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesSepaDebitPayments as AccountCreateParamsConfigurationMerchantCapabilitiesSepaDebitPayments,
+        AccountCreateParamsConfigurationMerchantCapabilitiesSunbitPayments as AccountCreateParamsConfigurationMerchantCapabilitiesSunbitPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesSwishPayments as AccountCreateParamsConfigurationMerchantCapabilitiesSwishPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesTwintPayments as AccountCreateParamsConfigurationMerchantCapabilitiesTwintPayments,
         AccountCreateParamsConfigurationMerchantCapabilitiesUsBankTransferPayments as AccountCreateParamsConfigurationMerchantCapabilitiesUsBankTransferPayments,
@@ -82,6 +83,34 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationMerchantStatementDescriptor as AccountCreateParamsConfigurationMerchantStatementDescriptor,
         AccountCreateParamsConfigurationMerchantSupport as AccountCreateParamsConfigurationMerchantSupport,
         AccountCreateParamsConfigurationMerchantSupportAddress as AccountCreateParamsConfigurationMerchantSupportAddress,
+        AccountCreateParamsConfigurationMoneyManager as AccountCreateParamsConfigurationMoneyManager,
+        AccountCreateParamsConfigurationMoneyManagerCapabilities as AccountCreateParamsConfigurationMoneyManagerCapabilities,
+        AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorage as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorage,
+        AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInbound as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInbound,
+        AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundAud as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundAud,
+        AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundCad as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundCad,
+        AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundEur as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundEur,
+        AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundGbp as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundGbp,
+        AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundUsd as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundUsd,
+        AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutbound as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutbound,
+        AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundAud as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundAud,
+        AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundCad as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundCad,
+        AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundEur as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundEur,
+        AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundGbp as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundGbp,
+        AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundUsd as AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundUsd,
+        AccountCreateParamsConfigurationMoneyManagerCapabilitiesInboundTransfers as AccountCreateParamsConfigurationMoneyManagerCapabilitiesInboundTransfers,
+        AccountCreateParamsConfigurationMoneyManagerCapabilitiesInboundTransfersBankAccounts as AccountCreateParamsConfigurationMoneyManagerCapabilitiesInboundTransfersBankAccounts,
+        AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPayments as AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPayments,
+        AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsBankAccounts as AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsBankAccounts,
+        AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsCards as AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsCards,
+        AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsFinancialAccounts as AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsFinancialAccounts,
+        AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfers as AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfers,
+        AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfersBankAccounts as AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfersBankAccounts,
+        AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfersFinancialAccounts as AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfersFinancialAccounts,
+        AccountCreateParamsConfigurationMoneyManagerCapabilitiesReceivedCredits as AccountCreateParamsConfigurationMoneyManagerCapabilitiesReceivedCredits,
+        AccountCreateParamsConfigurationMoneyManagerCapabilitiesReceivedCreditsBankAccounts as AccountCreateParamsConfigurationMoneyManagerCapabilitiesReceivedCreditsBankAccounts,
+        AccountCreateParamsConfigurationMoneyManagerCapabilitiesReceivedDebits as AccountCreateParamsConfigurationMoneyManagerCapabilitiesReceivedDebits,
+        AccountCreateParamsConfigurationMoneyManagerCapabilitiesReceivedDebitsBankAccounts as AccountCreateParamsConfigurationMoneyManagerCapabilitiesReceivedDebitsBankAccounts,
         AccountCreateParamsConfigurationRecipient as AccountCreateParamsConfigurationRecipient,
         AccountCreateParamsConfigurationRecipientCapabilities as AccountCreateParamsConfigurationRecipientCapabilities,
         AccountCreateParamsConfigurationRecipientCapabilitiesBankAccounts as AccountCreateParamsConfigurationRecipientCapabilitiesBankAccounts,
@@ -90,23 +119,6 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationRecipientCapabilitiesCards as AccountCreateParamsConfigurationRecipientCapabilitiesCards,
         AccountCreateParamsConfigurationRecipientCapabilitiesStripeBalance as AccountCreateParamsConfigurationRecipientCapabilitiesStripeBalance,
         AccountCreateParamsConfigurationRecipientCapabilitiesStripeBalanceStripeTransfers as AccountCreateParamsConfigurationRecipientCapabilitiesStripeBalanceStripeTransfers,
-        AccountCreateParamsConfigurationStorer as AccountCreateParamsConfigurationStorer,
-        AccountCreateParamsConfigurationStorerCapabilities as AccountCreateParamsConfigurationStorerCapabilities,
-        AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddresses as AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddresses,
-        AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccounts as AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccounts,
-        AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrencies as AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrencies,
-        AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesEur as AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesEur,
-        AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbp as AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbp,
-        AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsd as AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsd,
-        AccountCreateParamsConfigurationStorerCapabilitiesInboundTransfers as AccountCreateParamsConfigurationStorerCapabilitiesInboundTransfers,
-        AccountCreateParamsConfigurationStorerCapabilitiesInboundTransfersBankAccounts as AccountCreateParamsConfigurationStorerCapabilitiesInboundTransfersBankAccounts,
-        AccountCreateParamsConfigurationStorerCapabilitiesOutboundPayments as AccountCreateParamsConfigurationStorerCapabilitiesOutboundPayments,
-        AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsBankAccounts as AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsBankAccounts,
-        AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsCards as AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsCards,
-        AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsFinancialAccounts as AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsFinancialAccounts,
-        AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfers as AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfers,
-        AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersBankAccounts as AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersBankAccounts,
-        AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersFinancialAccounts as AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersFinancialAccounts,
         AccountCreateParamsDefaults as AccountCreateParamsDefaults,
         AccountCreateParamsDefaultsProfile as AccountCreateParamsDefaultsProfile,
         AccountCreateParamsDefaultsResponsibilities as AccountCreateParamsDefaultsResponsibilities,
@@ -118,7 +130,7 @@ if TYPE_CHECKING:
         AccountCreateParamsIdentityAttestationsRepresentativeDeclaration as AccountCreateParamsIdentityAttestationsRepresentativeDeclaration,
         AccountCreateParamsIdentityAttestationsTermsOfService as AccountCreateParamsIdentityAttestationsTermsOfService,
         AccountCreateParamsIdentityAttestationsTermsOfServiceAccount as AccountCreateParamsIdentityAttestationsTermsOfServiceAccount,
-        AccountCreateParamsIdentityAttestationsTermsOfServiceStorer as AccountCreateParamsIdentityAttestationsTermsOfServiceStorer,
+        AccountCreateParamsIdentityAttestationsTermsOfServiceMoneyManager as AccountCreateParamsIdentityAttestationsTermsOfServiceMoneyManager,
         AccountCreateParamsIdentityBusinessDetails as AccountCreateParamsIdentityBusinessDetails,
         AccountCreateParamsIdentityBusinessDetailsAddress as AccountCreateParamsIdentityBusinessDetailsAddress,
         AccountCreateParamsIdentityBusinessDetailsAnnualRevenue as AccountCreateParamsIdentityBusinessDetailsAnnualRevenue,
@@ -191,7 +203,7 @@ if TYPE_CHECKING:
         AccountTokenCreateParamsIdentityAttestationsRepresentativeDeclaration as AccountTokenCreateParamsIdentityAttestationsRepresentativeDeclaration,
         AccountTokenCreateParamsIdentityAttestationsTermsOfService as AccountTokenCreateParamsIdentityAttestationsTermsOfService,
         AccountTokenCreateParamsIdentityAttestationsTermsOfServiceAccount as AccountTokenCreateParamsIdentityAttestationsTermsOfServiceAccount,
-        AccountTokenCreateParamsIdentityAttestationsTermsOfServiceStorer as AccountTokenCreateParamsIdentityAttestationsTermsOfServiceStorer,
+        AccountTokenCreateParamsIdentityAttestationsTermsOfServiceMoneyManager as AccountTokenCreateParamsIdentityAttestationsTermsOfServiceMoneyManager,
         AccountTokenCreateParamsIdentityBusinessDetails as AccountTokenCreateParamsIdentityBusinessDetails,
         AccountTokenCreateParamsIdentityBusinessDetailsAddress as AccountTokenCreateParamsIdentityBusinessDetailsAddress,
         AccountTokenCreateParamsIdentityBusinessDetailsAnnualRevenue as AccountTokenCreateParamsIdentityBusinessDetailsAnnualRevenue,
@@ -300,6 +312,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationMerchantCapabilitiesSamsungPayPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesSamsungPayPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesSepaBankTransferPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesSepaBankTransferPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesSepaDebitPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesSepaDebitPayments,
+        AccountUpdateParamsConfigurationMerchantCapabilitiesSunbitPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesSunbitPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesSwishPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesSwishPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesTwintPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesTwintPayments,
         AccountUpdateParamsConfigurationMerchantCapabilitiesUsBankTransferPayments as AccountUpdateParamsConfigurationMerchantCapabilitiesUsBankTransferPayments,
@@ -317,6 +330,34 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationMerchantStatementDescriptor as AccountUpdateParamsConfigurationMerchantStatementDescriptor,
         AccountUpdateParamsConfigurationMerchantSupport as AccountUpdateParamsConfigurationMerchantSupport,
         AccountUpdateParamsConfigurationMerchantSupportAddress as AccountUpdateParamsConfigurationMerchantSupportAddress,
+        AccountUpdateParamsConfigurationMoneyManager as AccountUpdateParamsConfigurationMoneyManager,
+        AccountUpdateParamsConfigurationMoneyManagerCapabilities as AccountUpdateParamsConfigurationMoneyManagerCapabilities,
+        AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorage as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorage,
+        AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInbound as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInbound,
+        AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundAud as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundAud,
+        AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundCad as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundCad,
+        AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundEur as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundEur,
+        AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundGbp as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundGbp,
+        AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundUsd as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundUsd,
+        AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutbound as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutbound,
+        AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundAud as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundAud,
+        AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundCad as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundCad,
+        AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundEur as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundEur,
+        AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundGbp as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundGbp,
+        AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundUsd as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundUsd,
+        AccountUpdateParamsConfigurationMoneyManagerCapabilitiesInboundTransfers as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesInboundTransfers,
+        AccountUpdateParamsConfigurationMoneyManagerCapabilitiesInboundTransfersBankAccounts as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesInboundTransfersBankAccounts,
+        AccountUpdateParamsConfigurationMoneyManagerCapabilitiesOutboundPayments as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesOutboundPayments,
+        AccountUpdateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsBankAccounts as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsBankAccounts,
+        AccountUpdateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsCards as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsCards,
+        AccountUpdateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsFinancialAccounts as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsFinancialAccounts,
+        AccountUpdateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfers as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfers,
+        AccountUpdateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfersBankAccounts as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfersBankAccounts,
+        AccountUpdateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfersFinancialAccounts as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfersFinancialAccounts,
+        AccountUpdateParamsConfigurationMoneyManagerCapabilitiesReceivedCredits as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesReceivedCredits,
+        AccountUpdateParamsConfigurationMoneyManagerCapabilitiesReceivedCreditsBankAccounts as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesReceivedCreditsBankAccounts,
+        AccountUpdateParamsConfigurationMoneyManagerCapabilitiesReceivedDebits as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesReceivedDebits,
+        AccountUpdateParamsConfigurationMoneyManagerCapabilitiesReceivedDebitsBankAccounts as AccountUpdateParamsConfigurationMoneyManagerCapabilitiesReceivedDebitsBankAccounts,
         AccountUpdateParamsConfigurationRecipient as AccountUpdateParamsConfigurationRecipient,
         AccountUpdateParamsConfigurationRecipientCapabilities as AccountUpdateParamsConfigurationRecipientCapabilities,
         AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccounts as AccountUpdateParamsConfigurationRecipientCapabilitiesBankAccounts,
@@ -325,23 +366,6 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationRecipientCapabilitiesCards as AccountUpdateParamsConfigurationRecipientCapabilitiesCards,
         AccountUpdateParamsConfigurationRecipientCapabilitiesStripeBalance as AccountUpdateParamsConfigurationRecipientCapabilitiesStripeBalance,
         AccountUpdateParamsConfigurationRecipientCapabilitiesStripeBalanceStripeTransfers as AccountUpdateParamsConfigurationRecipientCapabilitiesStripeBalanceStripeTransfers,
-        AccountUpdateParamsConfigurationStorer as AccountUpdateParamsConfigurationStorer,
-        AccountUpdateParamsConfigurationStorerCapabilities as AccountUpdateParamsConfigurationStorerCapabilities,
-        AccountUpdateParamsConfigurationStorerCapabilitiesFinancialAddresses as AccountUpdateParamsConfigurationStorerCapabilitiesFinancialAddresses,
-        AccountUpdateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccounts as AccountUpdateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccounts,
-        AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrencies as AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrencies,
-        AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesEur as AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesEur,
-        AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbp as AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbp,
-        AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsd as AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsd,
-        AccountUpdateParamsConfigurationStorerCapabilitiesInboundTransfers as AccountUpdateParamsConfigurationStorerCapabilitiesInboundTransfers,
-        AccountUpdateParamsConfigurationStorerCapabilitiesInboundTransfersBankAccounts as AccountUpdateParamsConfigurationStorerCapabilitiesInboundTransfersBankAccounts,
-        AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPayments as AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPayments,
-        AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsBankAccounts as AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsBankAccounts,
-        AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsCards as AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsCards,
-        AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsFinancialAccounts as AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsFinancialAccounts,
-        AccountUpdateParamsConfigurationStorerCapabilitiesOutboundTransfers as AccountUpdateParamsConfigurationStorerCapabilitiesOutboundTransfers,
-        AccountUpdateParamsConfigurationStorerCapabilitiesOutboundTransfersBankAccounts as AccountUpdateParamsConfigurationStorerCapabilitiesOutboundTransfersBankAccounts,
-        AccountUpdateParamsConfigurationStorerCapabilitiesOutboundTransfersFinancialAccounts as AccountUpdateParamsConfigurationStorerCapabilitiesOutboundTransfersFinancialAccounts,
         AccountUpdateParamsDefaults as AccountUpdateParamsDefaults,
         AccountUpdateParamsDefaultsProfile as AccountUpdateParamsDefaultsProfile,
         AccountUpdateParamsDefaultsResponsibilities as AccountUpdateParamsDefaultsResponsibilities,
@@ -353,8 +377,8 @@ if TYPE_CHECKING:
         AccountUpdateParamsIdentityAttestationsRepresentativeDeclaration as AccountUpdateParamsIdentityAttestationsRepresentativeDeclaration,
         AccountUpdateParamsIdentityAttestationsTermsOfService as AccountUpdateParamsIdentityAttestationsTermsOfService,
         AccountUpdateParamsIdentityAttestationsTermsOfServiceAccount as AccountUpdateParamsIdentityAttestationsTermsOfServiceAccount,
-        AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoStorer as AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoStorer,
-        AccountUpdateParamsIdentityAttestationsTermsOfServiceStorer as AccountUpdateParamsIdentityAttestationsTermsOfServiceStorer,
+        AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoMoneyManager as AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoMoneyManager,
+        AccountUpdateParamsIdentityAttestationsTermsOfServiceMoneyManager as AccountUpdateParamsIdentityAttestationsTermsOfServiceMoneyManager,
         AccountUpdateParamsIdentityBusinessDetails as AccountUpdateParamsIdentityBusinessDetails,
         AccountUpdateParamsIdentityBusinessDetailsAddress as AccountUpdateParamsIdentityBusinessDetailsAddress,
         AccountUpdateParamsIdentityBusinessDetailsAnnualRevenue as AccountUpdateParamsIdentityBusinessDetailsAnnualRevenue,
@@ -682,6 +706,10 @@ _import_map = {
         "stripe.params.v2.core._account_create_params",
         False,
     ),
+    "AccountCreateParamsConfigurationMerchantCapabilitiesSunbitPayments": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
     "AccountCreateParamsConfigurationMerchantCapabilitiesSwishPayments": (
         "stripe.params.v2.core._account_create_params",
         False,
@@ -750,6 +778,118 @@ _import_map = {
         "stripe.params.v2.core._account_create_params",
         False,
     ),
+    "AccountCreateParamsConfigurationMoneyManager": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMoneyManagerCapabilities": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorage": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInbound": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundAud": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundCad": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundEur": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundGbp": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundUsd": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutbound": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundAud": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundCad": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundEur": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundGbp": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundUsd": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMoneyManagerCapabilitiesInboundTransfers": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMoneyManagerCapabilitiesInboundTransfersBankAccounts": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPayments": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsBankAccounts": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsCards": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsFinancialAccounts": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfers": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfersBankAccounts": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfersFinancialAccounts": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMoneyManagerCapabilitiesReceivedCredits": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMoneyManagerCapabilitiesReceivedCreditsBankAccounts": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMoneyManagerCapabilitiesReceivedDebits": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationMoneyManagerCapabilitiesReceivedDebitsBankAccounts": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
     "AccountCreateParamsConfigurationRecipient": (
         "stripe.params.v2.core._account_create_params",
         False,
@@ -779,74 +919,6 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsConfigurationRecipientCapabilitiesStripeBalanceStripeTransfers": (
-        "stripe.params.v2.core._account_create_params",
-        False,
-    ),
-    "AccountCreateParamsConfigurationStorer": (
-        "stripe.params.v2.core._account_create_params",
-        False,
-    ),
-    "AccountCreateParamsConfigurationStorerCapabilities": (
-        "stripe.params.v2.core._account_create_params",
-        False,
-    ),
-    "AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddresses": (
-        "stripe.params.v2.core._account_create_params",
-        False,
-    ),
-    "AccountCreateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccounts": (
-        "stripe.params.v2.core._account_create_params",
-        False,
-    ),
-    "AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrencies": (
-        "stripe.params.v2.core._account_create_params",
-        False,
-    ),
-    "AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesEur": (
-        "stripe.params.v2.core._account_create_params",
-        False,
-    ),
-    "AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbp": (
-        "stripe.params.v2.core._account_create_params",
-        False,
-    ),
-    "AccountCreateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsd": (
-        "stripe.params.v2.core._account_create_params",
-        False,
-    ),
-    "AccountCreateParamsConfigurationStorerCapabilitiesInboundTransfers": (
-        "stripe.params.v2.core._account_create_params",
-        False,
-    ),
-    "AccountCreateParamsConfigurationStorerCapabilitiesInboundTransfersBankAccounts": (
-        "stripe.params.v2.core._account_create_params",
-        False,
-    ),
-    "AccountCreateParamsConfigurationStorerCapabilitiesOutboundPayments": (
-        "stripe.params.v2.core._account_create_params",
-        False,
-    ),
-    "AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsBankAccounts": (
-        "stripe.params.v2.core._account_create_params",
-        False,
-    ),
-    "AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsCards": (
-        "stripe.params.v2.core._account_create_params",
-        False,
-    ),
-    "AccountCreateParamsConfigurationStorerCapabilitiesOutboundPaymentsFinancialAccounts": (
-        "stripe.params.v2.core._account_create_params",
-        False,
-    ),
-    "AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfers": (
-        "stripe.params.v2.core._account_create_params",
-        False,
-    ),
-    "AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersBankAccounts": (
-        "stripe.params.v2.core._account_create_params",
-        False,
-    ),
-    "AccountCreateParamsConfigurationStorerCapabilitiesOutboundTransfersFinancialAccounts": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
@@ -894,7 +966,7 @@ _import_map = {
         "stripe.params.v2.core._account_create_params",
         False,
     ),
-    "AccountCreateParamsIdentityAttestationsTermsOfServiceStorer": (
+    "AccountCreateParamsIdentityAttestationsTermsOfServiceMoneyManager": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
@@ -1151,7 +1223,7 @@ _import_map = {
         "stripe.params.v2.core._account_token_create_params",
         False,
     ),
-    "AccountTokenCreateParamsIdentityAttestationsTermsOfServiceStorer": (
+    "AccountTokenCreateParamsIdentityAttestationsTermsOfServiceMoneyManager": (
         "stripe.params.v2.core._account_token_create_params",
         False,
     ),
@@ -1571,6 +1643,10 @@ _import_map = {
         "stripe.params.v2.core._account_update_params",
         False,
     ),
+    "AccountUpdateParamsConfigurationMerchantCapabilitiesSunbitPayments": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
     "AccountUpdateParamsConfigurationMerchantCapabilitiesSwishPayments": (
         "stripe.params.v2.core._account_update_params",
         False,
@@ -1639,6 +1715,118 @@ _import_map = {
         "stripe.params.v2.core._account_update_params",
         False,
     ),
+    "AccountUpdateParamsConfigurationMoneyManager": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMoneyManagerCapabilities": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorage": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInbound": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundAud": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundCad": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundEur": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundGbp": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageInboundUsd": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutbound": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundAud": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundCad": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundEur": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundGbp": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesBusinessStorageOutboundUsd": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesInboundTransfers": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesInboundTransfersBankAccounts": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesOutboundPayments": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsBankAccounts": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsCards": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesOutboundPaymentsFinancialAccounts": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfers": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfersBankAccounts": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesOutboundTransfersFinancialAccounts": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesReceivedCredits": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesReceivedCreditsBankAccounts": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesReceivedDebits": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationMoneyManagerCapabilitiesReceivedDebitsBankAccounts": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
     "AccountUpdateParamsConfigurationRecipient": (
         "stripe.params.v2.core._account_update_params",
         False,
@@ -1668,74 +1856,6 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsConfigurationRecipientCapabilitiesStripeBalanceStripeTransfers": (
-        "stripe.params.v2.core._account_update_params",
-        False,
-    ),
-    "AccountUpdateParamsConfigurationStorer": (
-        "stripe.params.v2.core._account_update_params",
-        False,
-    ),
-    "AccountUpdateParamsConfigurationStorerCapabilities": (
-        "stripe.params.v2.core._account_update_params",
-        False,
-    ),
-    "AccountUpdateParamsConfigurationStorerCapabilitiesFinancialAddresses": (
-        "stripe.params.v2.core._account_update_params",
-        False,
-    ),
-    "AccountUpdateParamsConfigurationStorerCapabilitiesFinancialAddressesBankAccounts": (
-        "stripe.params.v2.core._account_update_params",
-        False,
-    ),
-    "AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrencies": (
-        "stripe.params.v2.core._account_update_params",
-        False,
-    ),
-    "AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesEur": (
-        "stripe.params.v2.core._account_update_params",
-        False,
-    ),
-    "AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesGbp": (
-        "stripe.params.v2.core._account_update_params",
-        False,
-    ),
-    "AccountUpdateParamsConfigurationStorerCapabilitiesHoldsCurrenciesUsd": (
-        "stripe.params.v2.core._account_update_params",
-        False,
-    ),
-    "AccountUpdateParamsConfigurationStorerCapabilitiesInboundTransfers": (
-        "stripe.params.v2.core._account_update_params",
-        False,
-    ),
-    "AccountUpdateParamsConfigurationStorerCapabilitiesInboundTransfersBankAccounts": (
-        "stripe.params.v2.core._account_update_params",
-        False,
-    ),
-    "AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPayments": (
-        "stripe.params.v2.core._account_update_params",
-        False,
-    ),
-    "AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsBankAccounts": (
-        "stripe.params.v2.core._account_update_params",
-        False,
-    ),
-    "AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsCards": (
-        "stripe.params.v2.core._account_update_params",
-        False,
-    ),
-    "AccountUpdateParamsConfigurationStorerCapabilitiesOutboundPaymentsFinancialAccounts": (
-        "stripe.params.v2.core._account_update_params",
-        False,
-    ),
-    "AccountUpdateParamsConfigurationStorerCapabilitiesOutboundTransfers": (
-        "stripe.params.v2.core._account_update_params",
-        False,
-    ),
-    "AccountUpdateParamsConfigurationStorerCapabilitiesOutboundTransfersBankAccounts": (
-        "stripe.params.v2.core._account_update_params",
-        False,
-    ),
-    "AccountUpdateParamsConfigurationStorerCapabilitiesOutboundTransfersFinancialAccounts": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),
@@ -1783,11 +1903,11 @@ _import_map = {
         "stripe.params.v2.core._account_update_params",
         False,
     ),
-    "AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoStorer": (
+    "AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoMoneyManager": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),
-    "AccountUpdateParamsIdentityAttestationsTermsOfServiceStorer": (
+    "AccountUpdateParamsIdentityAttestationsTermsOfServiceMoneyManager": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),
