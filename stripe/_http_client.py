@@ -5,6 +5,7 @@ import time
 import random
 import threading
 import json
+import asyncio
 import ssl
 from http.client import HTTPResponse
 
@@ -1358,10 +1359,6 @@ class AIOHTTPClient(HTTPClient):
 
         self.aiohttp = _lib
 
-        import asyncio
-
-        self._asyncio = asyncio
-
         self._timeout = timeout
         self._user_session = session
         self._user_connector = connector
@@ -1394,7 +1391,7 @@ class AIOHTTPClient(HTTPClient):
         return self._cached_session
 
     def sleep_async(self, secs):
-        return self._asyncio.sleep(secs)
+        return asyncio.sleep(secs)
 
     def request(self) -> Tuple[bytes, int, Mapping[str, str]]:
         raise NotImplementedError(
