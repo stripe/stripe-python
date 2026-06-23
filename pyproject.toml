@@ -1,0 +1,89 @@
+[project]
+name = "stripe"
+version = "15.2.1"
+description = "Python bindings for the Stripe API"
+requires-python = ">=3.9"
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.7",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+dependencies = [
+  # this is the version where everything started getting re-exported, so it's a convenient backstop
+  "typing_extensions >= 4.7.0",
+  "requests >= 2.20",
+]
+
+[project.optional-dependencies]
+# `pip install stripe[async]` gets you everything + `httpx`, so our async stuff works out of the box
+async = ["httpx"]
+
+
+[build-system]
+requires = ["flit_core >=3.11, <4"]
+build-backend = "flit_core.buildapi"
+
+
+[tool.ruff]
+# same as our black config
+line-length = 79
+extend-exclude = ["build"]
+
+[tool.ruff.format]
+# currently the default value, but opt-out in the future
+docstring-code-format = false
+
+[tool.pyright]
+include = [
+  "stripe",
+  "tests/test_generated_examples.py",
+  "tests/test_exports.py",
+  "tests/test_http_client.py",
+  "tests/test_v2_event.py",
+  "tests/test_metadata.py",
+]
+exclude = ["build", "**/__pycache__"]
+reportMissingTypeArgument = true
+reportUnnecessaryCast = true
+reportUnnecessaryComparison = true
+reportUnnecessaryContains = true
+reportUnnecessaryIsInstance = true
+reportPrivateImportUsage = true
+reportUnnecessaryTypeIgnoreComment = true
+
+[tool.mypy]
+follow_imports = "silent"
+python_version = "3.10"
+files = ["tests/test_generated_examples.py", "tests/test_exports.py"]
+disallow_untyped_calls = true
+disallow_untyped_defs = true
+warn_unused_ignores = true
+no_implicit_reexport = true
+
+[tool.pytest.ini_options]
+# use as many threads as available for tests
+addopts = "-n auto"
+# already the default, but will speed up searching a little, since this is the only place tests live
+testpaths = "tests"
+# these are warnings we show to users; we don't need them in our test logs
+filterwarnings = [
+  # single quotes so we don't have to re-backslack our backslashes
+  'ignore:[\S\s]*stripe-python:DeprecationWarning',
+  'ignore:[\S\s]*stripe\..* package:DeprecationWarning',
+  'ignore:[\S\s]*RecipientTransfer:DeprecationWarning',
+  'ignore:[\S\s]*`save` method is deprecated:DeprecationWarning',
+]

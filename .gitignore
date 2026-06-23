@@ -1,0 +1,9 @@
+# Build artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+.tox/
+.venv/
