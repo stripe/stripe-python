@@ -140,6 +140,7 @@ class V2CoreAccountIncludingConfigurationMerchantCapabilityStatusUpdatedEvent(
             "samsung_pay_payments",
             "sepa_bank_transfer_payments",
             "sepa_debit_payments",
+            "sunbit_payments",
             "swish_payments",
             "twint_payments",
             "us_bank_transfer_payments",
