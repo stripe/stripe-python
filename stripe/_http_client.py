@@ -1509,9 +1509,21 @@ class NoImportFoundAsyncClient(HTTPClient):
 # where module loading has a generous timeout (10s) but handler invocation
 # does not (often 3s).
 #
+# Sync client precedence:
+#   1. Urlfetch (Google App Engine — if present, you probably want it)
+#   2. Requests (popular, top priority outside GAE)
+#   3. Pycurl (verifies SSL certs, but less preferred than Requests)
+#   4. urllib (stdlib fallback, basically always present)
+#
+# Async client precedence:
+#   1. httpx + anyio (both required)
+#   2. aiohttp
+#   3. NoImportFoundAsyncClient (raises on use)
+#
 # To add a new client: define the class above, then add it to the appropriate
 # cascade below. The resolved class is stored directly — new_default_http_client()
 # and new_http_client_async_fallback() just call it.
+
 
 def _resolve_sync_client():
     try:
