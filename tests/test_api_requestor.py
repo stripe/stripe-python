@@ -1,5 +1,6 @@
 import datetime
 import json
+import re
 import tempfile
 import uuid
 from collections import OrderedDict
@@ -787,6 +788,36 @@ class TestAPIRequestor(object):
         assert "platform" not in json.loads(
             last_call.get_raw_header("X-Stripe-Client-User-Agent")
         )
+
+    def test_source_field_is_md5_hex(self, requestor, http_client_mock):
+        http_client_mock.stub_request(
+            "get", path=self.v1_path, rbody="{}", rcode=200
+        )
+        requestor.request("get", self.v1_path, {}, base_address="api")
+
+        last_call = http_client_mock.get_last_call()
+        client_ua = json.loads(
+            last_call.get_raw_header("X-Stripe-Client-User-Agent")
+        )
+        assert "source" in client_ua
+        assert re.fullmatch(r"[0-9a-f]{32}", client_ua["source"])
+
+    def test_source_field_absent_when_uname_fails(
+        self, requestor, mocker, http_client_mock
+    ):
+        http_client_mock.stub_request(
+            "get", path=self.v1_path, rbody="{}", rcode=200
+        )
+        mocker.patch(
+            "stripe._api_requestor._get_uname_hash", return_value=None
+        )
+        requestor.request("get", self.v1_path, {}, base_address="api")
+
+        last_call = http_client_mock.get_last_call()
+        client_ua = json.loads(
+            last_call.get_raw_header("X-Stripe-Client-User-Agent")
+        )
+        assert "source" not in client_ua
 
     def test_uses_given_idempotency_key(self, requestor, http_client_mock):
         method = "post"
