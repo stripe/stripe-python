@@ -24,7 +24,6 @@ from typing_extensions import (
     NoReturn,
     Unpack,
 )
-import uuid
 from urllib.parse import urlsplit, urlunsplit, parse_qs
 
 # breaking circular dependency
@@ -580,7 +579,7 @@ class _APIRequestor(object):
 
         # IKs should be set for all POST requests and v2 delete requests
         if method == "post" or (api_mode == "V2" and method == "delete"):
-            headers.setdefault("Idempotency-Key", str(uuid.uuid4()))
+            headers.setdefault("Idempotency-Key", os.urandom(16).hex())
 
         if method == "post":
             if api_mode == "V2":
