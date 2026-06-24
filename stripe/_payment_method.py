@@ -175,10 +175,16 @@ class PaymentMethod(
         _inner_class_types = {"address": Address}
 
     class Bizum(StripeObject):
-        pass
+        buyer_id: Optional[str]
+        """
+        A unique identifier for the buyer as determined by the local payment processor.
+        """
 
     class Blik(StripeObject):
-        pass
+        buyer_id: Optional[str]
+        """
+        A unique and immutable identifier assigned by BLIK to every buyer.
+        """
 
     class Boleto(StripeObject):
         tax_id: str
@@ -1273,7 +1279,10 @@ class PaymentMethod(
         """
 
     class Pix(StripeObject):
-        pass
+        fingerprint: Optional[str]
+        """
+        Uniquely identifies this particular Pix account. You can use this attribute to check whether two Pix accounts are the same.
+        """
 
     class Promptpay(StripeObject):
         pass
@@ -1304,6 +1313,12 @@ class PaymentMethod(
 
         dob: Optional[Dob]
         _inner_class_types = {"dob": Dob}
+
+    class Redaction(StripeObject):
+        status: Literal["processing", "redacted", "validated"]
+        """
+        Indicates whether this object and its related objects have been redacted or not.
+        """
 
     class RevolutPay(StripeObject):
         pass
@@ -1572,6 +1587,10 @@ class PaymentMethod(
     Options to configure Radar. See [Radar Session](https://docs.stripe.com/radar/radar-session) for more information.
     """
     rechnung: Optional[Rechnung]
+    redaction: Optional[Redaction]
+    """
+    Redaction status of this PaymentMethod. If the PaymentMethod is not redacted, this field will be null.
+    """
     revolut_pay: Optional[RevolutPay]
     samsung_pay: Optional[SamsungPay]
     satispay: Optional[Satispay]
@@ -2161,6 +2180,7 @@ class PaymentMethod(
         "qris": Qris,
         "radar_options": RadarOptions,
         "rechnung": Rechnung,
+        "redaction": Redaction,
         "revolut_pay": RevolutPay,
         "samsung_pay": SamsungPay,
         "satispay": Satispay,

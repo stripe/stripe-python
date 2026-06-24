@@ -173,6 +173,22 @@ class Account(ListableAPIResource["Account"]):
         """
 
     class StatusDetails(StripeObject):
+        class Active(StripeObject):
+            action: Literal["none", "relink_required"]
+            """
+            The action (if any) to proactively relink the Account.
+            """
+            cause: Literal[
+                "access_expired", "institution_requirement", "unspecified"
+            ]
+            """
+            The underlying cause of the Account becoming inactive.
+            """
+            expected_deactivation_date: int
+            """
+            When the Account is expected to become inactive, if applicable.
+            """
+
         class Inactive(StripeObject):
             action: Literal["none", "relink_required"]
             """
@@ -183,14 +199,16 @@ class Account(ListableAPIResource["Account"]):
                 "access_expired",
                 "account_closed",
                 "account_unavailable",
+                "institution_requirement",
                 "unspecified",
             ]
             """
             The underlying cause of the Account being inactive.
             """
 
+        active: Optional[Active]
         inactive: Optional[Inactive]
-        _inner_class_types = {"inactive": Inactive}
+        _inner_class_types = {"active": Active, "inactive": Inactive}
 
     class TransactionRefresh(StripeObject):
         id: str

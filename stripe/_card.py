@@ -33,6 +33,12 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
         The preferred network for co-branded cards. Can be `cartes_bancaires`, `mastercard`, `visa` or `invalid_preference` if requested network is not valid for the card.
         """
 
+    class Redaction(StripeObject):
+        status: Literal["processing", "redacted", "validated"]
+        """
+        Indicates whether this object and its related objects have been redacted or not.
+        """
+
     account: Optional[ExpandableField["Account"]]
     address_city: Optional[str]
     """
@@ -160,6 +166,10 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     object: Literal["card"]
     """
     String representing the object's type. Objects of the same type share the same value.
+    """
+    redaction: Optional[Redaction]
+    """
+    Redaction status of this card. If not null, this card is associated to a redaction job.
     """
     regulated_status: Optional[Literal["regulated", "unregulated"]]
     """
@@ -325,4 +335,4 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
             "(see https://stripe.com/docs/api/external_account_cards/retrieve)."
         )
 
-    _inner_class_types = {"networks": Networks}
+    _inner_class_types = {"networks": Networks, "redaction": Redaction}

@@ -1911,6 +1911,14 @@ class InvoiceCreatePreviewParamsSubscriptionDetails(TypedDict):
     """
     A list of up to 20 subscription items, each with an attached price.
     """
+    pause: NotRequired["InvoiceCreatePreviewParamsSubscriptionDetailsPause"]
+    """
+    Previews the invoice that would be generated when pausing the subscription. Passing an empty hash won't preview pausing and instead returns the next invoice.
+
+    To receive a preview invoice, set `invoicing_behavior` to `invoice`. A preview isn't available if the `bill_for` options produce no billable amounts.
+
+    `pending_invoice_item` never has a preview available because pausing wouldn't generate an invoice, and paused subscriptions don't generate invoices either.
+    """
     prebilling: NotRequired[
         "InvoiceCreatePreviewParamsSubscriptionDetailsPrebilling"
     ]
@@ -2058,7 +2066,7 @@ class InvoiceCreatePreviewParamsSubscriptionDetailsItem(TypedDict):
     """
     id: NotRequired[str]
     """
-    Subscription item to update.
+    Subscription item to update. If you omit `id`, the API adds a new subscription item rather than updating the existing one. See [Changing a subscription's price](https://docs.stripe.com/billing/subscriptions/change-price#changing).
     """
     metadata: NotRequired[
         "Literal['']|Dict[str, str]|UntypedStripeObject[str]"
@@ -2202,6 +2210,56 @@ class InvoiceCreatePreviewParamsSubscriptionDetailsItemPriceDataRecurring(
     interval_count: NotRequired[int]
     """
     The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
+    """
+
+
+class InvoiceCreatePreviewParamsSubscriptionDetailsPause(TypedDict):
+    bill_for: NotRequired[
+        "InvoiceCreatePreviewParamsSubscriptionDetailsPauseBillFor"
+    ]
+    """
+    Controls what to bill for when pausing the subscription.
+    """
+    invoicing_behavior: NotRequired[Literal["invoice", "pending_invoice_item"]]
+    """
+    Determines how to handle debits and credits when pausing. Defaults to `pending_invoice_item`.
+    """
+    type: NotRequired[Literal["subscription"]]
+    """
+    The type of pause to apply. Defaults to `subscription`.
+    """
+
+
+class InvoiceCreatePreviewParamsSubscriptionDetailsPauseBillFor(TypedDict):
+    outstanding_usage_through: NotRequired[
+        "InvoiceCreatePreviewParamsSubscriptionDetailsPauseBillForOutstandingUsageThrough"
+    ]
+    """
+    Controls when to bill for metered usage in the current period. Defaults to `{ type: "now" }`.
+    """
+    unused_time_from: NotRequired[
+        "InvoiceCreatePreviewParamsSubscriptionDetailsPauseBillForUnusedTimeFrom"
+    ]
+    """
+    Controls when to credit for unused time on licensed items. Defaults to `{ type: "now" }`.
+    """
+
+
+class InvoiceCreatePreviewParamsSubscriptionDetailsPauseBillForOutstandingUsageThrough(
+    TypedDict,
+):
+    type: Literal["none", "now"]
+    """
+    When to bill metered usage in the current period.
+    """
+
+
+class InvoiceCreatePreviewParamsSubscriptionDetailsPauseBillForUnusedTimeFrom(
+    TypedDict,
+):
+    type: Literal["item_current_period_start", "none", "now"]
+    """
+    When to credit for unused time.
     """
 
 

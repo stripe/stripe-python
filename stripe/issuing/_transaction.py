@@ -356,6 +356,12 @@ class Transaction(
             "receipt": Receipt,
         }
 
+    class Redaction(StripeObject):
+        status: Literal["processing", "redacted", "validated"]
+        """
+        Indicates whether this object and its related objects have been redacted or not.
+        """
+
     class Treasury(StripeObject):
         received_credit: Optional[str]
         """
@@ -434,6 +440,10 @@ class Transaction(
     purchase_details: Optional[PurchaseDetails]
     """
     Additional purchase information that is optionally provided by the merchant.
+    """
+    redaction: Optional[Redaction]
+    """
+    Redaction status of this transaction. If the transaction is not redacted, this field will be null.
     """
     settlement: Optional[ExpandableField["Settlement"]]
     """
@@ -738,6 +748,7 @@ class Transaction(
         "merchant_data": MerchantData,
         "network_data": NetworkData,
         "purchase_details": PurchaseDetails,
+        "redaction": Redaction,
         "treasury": Treasury,
     }
 

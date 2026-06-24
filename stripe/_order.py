@@ -511,7 +511,7 @@ class Order(
                 class WechatPay(StripeObject):
                     app_id: Optional[str]
                     """
-                    The app ID registered with WeChat Pay. Only required when client is ios or android.
+                    The app ID registered with WeChat Pay. Only required when client is ios, android, or mini_program.
                     """
                     client: Optional[Literal["android", "ios", "web"]]
                     """

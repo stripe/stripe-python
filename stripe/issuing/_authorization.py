@@ -348,6 +348,12 @@ class Authorization(
         """
         _inner_class_types = {"amount_details": AmountDetails}
 
+    class Redaction(StripeObject):
+        status: Literal["processing", "redacted", "validated"]
+        """
+        Indicates whether this object and its related objects have been redacted or not.
+        """
+
     class RequestHistory(StripeObject):
         class AmountDetails(StripeObject):
             atm_fee: Optional[int]
@@ -584,6 +590,10 @@ class Authorization(
     pending_request: Optional[PendingRequest]
     """
     The pending authorization request. This field will only be non-null during an `issuing_authorization.request` webhook.
+    """
+    redaction: Optional[Redaction]
+    """
+    Redaction status of this authorization. If the authorization is not redacted, this field will be null.
     """
     request_history: List[RequestHistory]
     """
@@ -1706,6 +1716,7 @@ class Authorization(
         "merchant_data": MerchantData,
         "network_data": NetworkData,
         "pending_request": PendingRequest,
+        "redaction": Redaction,
         "request_history": RequestHistory,
         "treasury": Treasury,
         "verification_data": VerificationData,

@@ -251,6 +251,12 @@ class Dispute(
             "service_not_as_described": ServiceNotAsDescribed,
         }
 
+    class Redaction(StripeObject):
+        status: Literal["processing", "redacted", "validated"]
+        """
+        Indicates whether this object and its related objects have been redacted or not.
+        """
+
     class Treasury(StripeObject):
         debit_reversal: Optional[str]
         """
@@ -320,6 +326,10 @@ class Dispute(
     object: Literal["issuing.dispute"]
     """
     String representing the object's type. Objects of the same type share the same value.
+    """
+    redaction: Optional[Redaction]
+    """
+    Redaction status of this dispute. If the dispute is not redacted, this field will be null.
     """
     status: Literal["expired", "lost", "submitted", "unsubmitted", "won"]
     """
@@ -568,4 +578,8 @@ class Dispute(
             ),
         )
 
-    _inner_class_types = {"evidence": Evidence, "treasury": Treasury}
+    _inner_class_types = {
+        "evidence": Evidence,
+        "redaction": Redaction,
+        "treasury": Treasury,
+    }
