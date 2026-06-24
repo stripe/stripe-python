@@ -212,6 +212,7 @@ class PaymentIntent(
                 "alipay_upgrade_required",
                 "amount_too_large",
                 "amount_too_small",
+                "anomalous_money_movement_request",
                 "api_key_expired",
                 "application_fees_not_allowed",
                 "approval_required",
@@ -251,6 +252,10 @@ class PaymentIntent(
                 "debit_not_authorized",
                 "email_invalid",
                 "expired_card",
+                "failed_tax_calculation",
+                "financial_account_balance_does_not_support_currency",
+                "financial_account_capability_not_enabled",
+                "financial_account_capability_restricted",
                 "financial_connections_account_inactive",
                 "financial_connections_account_pending_account_numbers",
                 "financial_connections_account_unavailable_account_numbers",
@@ -2522,6 +2527,18 @@ class PaymentIntent(
             """
             Controls when the funds will be captured from the customer's account.
             """
+            setup_future_usage: Optional[
+                Literal["none", "off_session", "on_session"]
+            ]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+            """
 
         class Scalapay(StripeObject):
             capture_method: Optional[Literal["manual"]]
@@ -2563,6 +2580,22 @@ class PaymentIntent(
             Preferred language of the SOFORT authorization page that the customer is redirected to.
             """
             setup_future_usage: Optional[Literal["none", "off_session"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+            """
+
+        class Sunbit(StripeObject):
+            capture_method: Optional[Literal["manual"]]
+            """
+            Controls when the funds will be captured from the customer's account.
+            """
+            setup_future_usage: Optional[Literal["none"]]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -2693,7 +2726,7 @@ class PaymentIntent(
         class WechatPay(StripeObject):
             app_id: Optional[str]
             """
-            The app ID registered with WeChat Pay. Only required when client is ios or android.
+            The app ID registered with WeChat Pay. Only required when client is ios, android, or mini_program.
             """
             client: Optional[Literal["android", "ios", "web"]]
             """
@@ -2771,6 +2804,7 @@ class PaymentIntent(
         scalapay: Optional[Scalapay]
         sepa_debit: Optional[SepaDebit]
         sofort: Optional[Sofort]
+        sunbit: Optional[Sunbit]
         swish: Optional[Swish]
         twint: Optional[Twint]
         upi: Optional[Upi]
@@ -2827,6 +2861,7 @@ class PaymentIntent(
             "scalapay": Scalapay,
             "sepa_debit": SepaDebit,
             "sofort": Sofort,
+            "sunbit": Sunbit,
             "swish": Swish,
             "twint": Twint,
             "upi": Upi,

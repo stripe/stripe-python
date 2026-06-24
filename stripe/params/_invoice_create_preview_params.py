@@ -1146,7 +1146,7 @@ class InvoiceCreatePreviewParamsSubscriptionDetailsItem(TypedDict):
     """
     id: NotRequired[str]
     """
-    Subscription item to update.
+    Subscription item to update. If you omit `id`, the API adds a new subscription item rather than updating the existing one. See [Changing a subscription's price](https://docs.stripe.com/billing/subscriptions/change-price#changing).
     """
     metadata: NotRequired[
         "Literal['']|Dict[str, str]|UntypedStripeObject[str]"
