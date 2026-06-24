@@ -34,11 +34,11 @@ typecheck: install-test-deps install-dev-deps
 
 # ⭐ format all code
 format: install-dev-deps
-    ruff format . --quiet
+    ruff format . > /dev/null
 
 # verify formatting, but don't modify files
 format-check: install-dev-deps
-    ruff format . --check  --quiet
+    ruff format . --check > /dev/null
 
 # remove venv & build artifacts
 clean:
