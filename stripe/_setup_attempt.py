@@ -365,9 +365,15 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             pass
 
         class Pix(StripeObject):
-            pass
+            fingerprint: Optional[str]
+            """
+            Uniquely identifies this particular Pix account. You can use this attribute to check whether two Pix accounts are the same.
+            """
 
         class RevolutPay(StripeObject):
+            pass
+
+        class Satispay(StripeObject):
             pass
 
         class SepaDebit(StripeObject):
@@ -438,6 +444,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         payto: Optional[Payto]
         pix: Optional[Pix]
         revolut_pay: Optional[RevolutPay]
+        satispay: Optional[Satispay]
         sepa_debit: Optional[SepaDebit]
         sofort: Optional[Sofort]
         twint: Optional[Twint]
@@ -468,6 +475,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             "payto": Payto,
             "pix": Pix,
             "revolut_pay": RevolutPay,
+            "satispay": Satispay,
             "sepa_debit": SepaDebit,
             "sofort": Sofort,
             "twint": Twint,
@@ -498,6 +506,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 "alipay_upgrade_required",
                 "amount_too_large",
                 "amount_too_small",
+                "anomalous_money_movement_request",
                 "api_key_expired",
                 "application_fees_not_allowed",
                 "approval_required",
@@ -537,6 +546,10 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 "debit_not_authorized",
                 "email_invalid",
                 "expired_card",
+                "failed_tax_calculation",
+                "financial_account_balance_does_not_support_currency",
+                "financial_account_capability_not_enabled",
+                "financial_account_capability_restricted",
                 "financial_connections_account_inactive",
                 "financial_connections_account_pending_account_numbers",
                 "financial_connections_account_unavailable_account_numbers",

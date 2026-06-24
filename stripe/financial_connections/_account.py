@@ -149,6 +149,26 @@ class Account(ListableAPIResource["Account"]):
         The status of the last refresh attempt.
         """
 
+    class StatusDetails(StripeObject):
+        class Active(StripeObject):
+            action: Literal["none", "relink_required"]
+            """
+            The action (if any) to proactively relink the Account.
+            """
+            cause: Literal[
+                "access_expired", "institution_requirement", "unspecified"
+            ]
+            """
+            The underlying cause of the Account becoming inactive.
+            """
+            expected_deactivation_date: int
+            """
+            When the Account is expected to become inactive, if applicable.
+            """
+
+        active: Optional[Active]
+        _inner_class_types = {"active": Active}
+
     class TransactionRefresh(StripeObject):
         id: str
         """
@@ -235,6 +255,7 @@ class Account(ListableAPIResource["Account"]):
     """
     The status of the link to the account.
     """
+    status_details: Optional[StatusDetails]
     subcategory: Literal[
         "checking",
         "credit_card",
@@ -890,5 +911,6 @@ class Account(ListableAPIResource["Account"]):
         "balance": Balance,
         "balance_refresh": BalanceRefresh,
         "ownership_refresh": OwnershipRefresh,
+        "status_details": StatusDetails,
         "transaction_refresh": TransactionRefresh,
     }

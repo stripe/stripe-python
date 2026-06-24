@@ -50,7 +50,7 @@ class CreditBalanceSummaryRetrieveParamsFilterApplicabilityScope(TypedDict):
         List["CreditBalanceSummaryRetrieveParamsFilterApplicabilityScopePrice"]
     ]
     """
-    A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`.
+    A list of prices that the credit grant can apply to. We currently only support the `metered` prices. Cannot be used in combination with `price_type`. Limit 20 prices.
     """
 
 
