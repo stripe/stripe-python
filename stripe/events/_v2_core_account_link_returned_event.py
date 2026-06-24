@@ -40,7 +40,9 @@ class V2CoreAccountLinkReturnedEvent(Event):
         The ID of the v2 account.
         """
         configurations: List[
-            Literal["customer", "merchant", "recipient", "storer"]
+            Literal[
+                "customer", "merchant", "money_manager", "recipient", "storer"
+            ]
         ]
         """
         Configurations on the Account that was onboarded via the account link.

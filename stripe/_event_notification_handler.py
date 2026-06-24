@@ -48,17 +48,17 @@ if TYPE_CHECKING:
     from stripe.events._v2_core_account_including_configuration_merchant_updated_event import (
         V2CoreAccountIncludingConfigurationMerchantUpdatedEventNotification,
     )
+    from stripe.events._v2_core_account_including_configuration_money_manager_capability_status_updated_event import (
+        V2CoreAccountIncludingConfigurationMoneyManagerCapabilityStatusUpdatedEventNotification,
+    )
+    from stripe.events._v2_core_account_including_configuration_money_manager_updated_event import (
+        V2CoreAccountIncludingConfigurationMoneyManagerUpdatedEventNotification,
+    )
     from stripe.events._v2_core_account_including_configuration_recipient_capability_status_updated_event import (
         V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEventNotification,
     )
     from stripe.events._v2_core_account_including_configuration_recipient_updated_event import (
         V2CoreAccountIncludingConfigurationRecipientUpdatedEventNotification,
-    )
-    from stripe.events._v2_core_account_including_configuration_storer_capability_status_updated_event import (
-        V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEventNotification,
-    )
-    from stripe.events._v2_core_account_including_configuration_storer_updated_event import (
-        V2CoreAccountIncludingConfigurationStorerUpdatedEventNotification,
     )
     from stripe.events._v2_core_account_including_defaults_updated_event import (
         V2CoreAccountIncludingDefaultsUpdatedEventNotification,
@@ -192,6 +192,9 @@ if TYPE_CHECKING:
     from stripe.events._v2_money_management_outbound_payment_returned_event import (
         V2MoneyManagementOutboundPaymentReturnedEventNotification,
     )
+    from stripe.events._v2_money_management_outbound_payment_under_review_event import (
+        V2MoneyManagementOutboundPaymentUnderReviewEventNotification,
+    )
     from stripe.events._v2_money_management_outbound_payment_updated_event import (
         V2MoneyManagementOutboundPaymentUpdatedEventNotification,
     )
@@ -209,6 +212,9 @@ if TYPE_CHECKING:
     )
     from stripe.events._v2_money_management_outbound_transfer_returned_event import (
         V2MoneyManagementOutboundTransferReturnedEventNotification,
+    )
+    from stripe.events._v2_money_management_outbound_transfer_under_review_event import (
+        V2MoneyManagementOutboundTransferUnderReviewEventNotification,
     )
     from stripe.events._v2_money_management_outbound_transfer_updated_event import (
         V2MoneyManagementOutboundTransferUpdatedEventNotification,
@@ -516,6 +522,32 @@ class StripeEventNotificationHandler:
         )
         return func
 
+    def on_v2_core_account_including_configuration_money_manager_capability_status_updated(
+        self,
+        func: "Callable[[V2CoreAccountIncludingConfigurationMoneyManagerCapabilityStatusUpdatedEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2CoreAccountIncludingConfigurationMoneyManagerCapabilityStatusUpdatedEvent` (`v2.core.account[configuration.money_manager].capability_status_updated`) event notification.
+        """
+        self._register(
+            "v2.core.account[configuration.money_manager].capability_status_updated",
+            func,
+        )
+        return func
+
+    def on_v2_core_account_including_configuration_money_manager_updated(
+        self,
+        func: "Callable[[V2CoreAccountIncludingConfigurationMoneyManagerUpdatedEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2CoreAccountIncludingConfigurationMoneyManagerUpdatedEvent` (`v2.core.account[configuration.money_manager].updated`) event notification.
+        """
+        self._register(
+            "v2.core.account[configuration.money_manager].updated",
+            func,
+        )
+        return func
+
     def on_v2_core_account_including_configuration_recipient_capability_status_updated(
         self,
         func: "Callable[[V2CoreAccountIncludingConfigurationRecipientCapabilityStatusUpdatedEventNotification, StripeClient], None]",
@@ -538,32 +570,6 @@ class StripeEventNotificationHandler:
         """
         self._register(
             "v2.core.account[configuration.recipient].updated",
-            func,
-        )
-        return func
-
-    def on_v2_core_account_including_configuration_storer_capability_status_updated(
-        self,
-        func: "Callable[[V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEventNotification, StripeClient], None]",
-    ):
-        """
-        Registers a callback for the `V2CoreAccountIncludingConfigurationStorerCapabilityStatusUpdatedEvent` (`v2.core.account[configuration.storer].capability_status_updated`) event notification.
-        """
-        self._register(
-            "v2.core.account[configuration.storer].capability_status_updated",
-            func,
-        )
-        return func
-
-    def on_v2_core_account_including_configuration_storer_updated(
-        self,
-        func: "Callable[[V2CoreAccountIncludingConfigurationStorerUpdatedEventNotification, StripeClient], None]",
-    ):
-        """
-        Registers a callback for the `V2CoreAccountIncludingConfigurationStorerUpdatedEvent` (`v2.core.account[configuration.storer].updated`) event notification.
-        """
-        self._register(
-            "v2.core.account[configuration.storer].updated",
             func,
         )
         return func
@@ -1140,6 +1146,19 @@ class StripeEventNotificationHandler:
         )
         return func
 
+    def on_v2_money_management_outbound_payment_under_review(
+        self,
+        func: "Callable[[V2MoneyManagementOutboundPaymentUnderReviewEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2MoneyManagementOutboundPaymentUnderReviewEvent` (`v2.money_management.outbound_payment.under_review`) event notification.
+        """
+        self._register(
+            "v2.money_management.outbound_payment.under_review",
+            func,
+        )
+        return func
+
     def on_v2_money_management_outbound_payment_updated(
         self,
         func: "Callable[[V2MoneyManagementOutboundPaymentUpdatedEventNotification, StripeClient], None]",
@@ -1214,6 +1233,19 @@ class StripeEventNotificationHandler:
         """
         self._register(
             "v2.money_management.outbound_transfer.returned",
+            func,
+        )
+        return func
+
+    def on_v2_money_management_outbound_transfer_under_review(
+        self,
+        func: "Callable[[V2MoneyManagementOutboundTransferUnderReviewEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2MoneyManagementOutboundTransferUnderReviewEvent` (`v2.money_management.outbound_transfer.under_review`) event notification.
+        """
+        self._register(
+            "v2.money_management.outbound_transfer.under_review",
             func,
         )
         return func

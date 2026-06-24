@@ -108,6 +108,7 @@ class SetupIntent(
                 "alipay_upgrade_required",
                 "amount_too_large",
                 "amount_too_small",
+                "anomalous_money_movement_request",
                 "api_key_expired",
                 "application_fees_not_allowed",
                 "approval_required",
@@ -147,6 +148,10 @@ class SetupIntent(
                 "debit_not_authorized",
                 "email_invalid",
                 "expired_card",
+                "failed_tax_calculation",
+                "financial_account_balance_does_not_support_currency",
+                "financial_account_capability_not_enabled",
+                "financial_account_capability_restricted",
                 "financial_connections_account_inactive",
                 "financial_connections_account_pending_account_numbers",
                 "financial_connections_account_unavailable_account_numbers",
@@ -935,6 +940,12 @@ class SetupIntent(
             "us_bank_account": UsBankAccount,
         }
 
+    class Redaction(StripeObject):
+        status: Literal["processing", "redacted", "validated"]
+        """
+        Indicates whether this object and its related objects have been redacted or not.
+        """
+
     application: Optional[ExpandableField["Application"]]
     """
     ID of the Connect application that created the SetupIntent.
@@ -1110,6 +1121,10 @@ class SetupIntent(
     payment_method_types: List[str]
     """
     The list of payment method types (e.g. card) that this SetupIntent is allowed to set up. A list of valid payment method types can be found [here](https://docs.stripe.com/api/payment_methods/object#payment_method_object-type).
+    """
+    redaction: Optional[Redaction]
+    """
+    Redaction status of this SetupIntent. If the SetupIntent isn't redacted, this field is null.
     """
     single_use_mandate: Optional[ExpandableField["Mandate"]]
     """
@@ -1736,4 +1751,5 @@ class SetupIntent(
         "next_action": NextAction,
         "payment_method_configuration_details": PaymentMethodConfigurationDetails,
         "payment_method_options": PaymentMethodOptions,
+        "redaction": Redaction,
     }

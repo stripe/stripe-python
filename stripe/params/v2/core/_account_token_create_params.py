@@ -140,8 +140,8 @@ class AccountTokenCreateParamsIdentityAttestationsTermsOfService(TypedDict):
     """
     Details on the Account's acceptance of the [Stripe Services Agreement]; IP, date, and User Agent are expanded by Stripe.
     """
-    storer: NotRequired[
-        "AccountTokenCreateParamsIdentityAttestationsTermsOfServiceStorer"
+    money_manager: NotRequired[
+        "AccountTokenCreateParamsIdentityAttestationsTermsOfServiceMoneyManager"
     ]
     """
     Details on the Account's acceptance of Treasury-specific terms of service; IP, date, and User Agent are expanded by Stripe.
@@ -157,7 +157,7 @@ class AccountTokenCreateParamsIdentityAttestationsTermsOfServiceAccount(
     """
 
 
-class AccountTokenCreateParamsIdentityAttestationsTermsOfServiceStorer(
+class AccountTokenCreateParamsIdentityAttestationsTermsOfServiceMoneyManager(
     TypedDict,
 ):
     shown_and_accepted: NotRequired[bool]

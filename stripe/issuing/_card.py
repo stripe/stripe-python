@@ -69,6 +69,12 @@ class Card(
         cancel_after: CancelAfter
         _inner_class_types = {"cancel_after": CancelAfter}
 
+    class Redaction(StripeObject):
+        status: Literal["processing", "redacted", "validated"]
+        """
+        Indicates whether this object and its related objects have been redacted or not.
+        """
+
     class Shipping(StripeObject):
         class Address(StripeObject):
             city: Optional[str]
@@ -1295,6 +1301,10 @@ class Card(
     """
     The personalization design object belonging to this card.
     """
+    redaction: Optional[Redaction]
+    """
+    Redaction status of this card. If not null, this card is associated to a redaction job.
+    """
     replaced_by: Optional[ExpandableField["Card"]]
     """
     The latest card that replaces this card, if any.
@@ -2009,6 +2019,7 @@ class Card(
     _inner_class_types = {
         "latest_fraud_warning": LatestFraudWarning,
         "lifecycle_controls": LifecycleControls,
+        "redaction": Redaction,
         "shipping": Shipping,
         "spending_controls": SpendingControls,
         "wallets": Wallets,

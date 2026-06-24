@@ -51,6 +51,7 @@ class ReceivedDebit(StripeObject):
     class StatusDetails(StripeObject):
         class Failed(StripeObject):
             reason: Literal[
+                "capability_inactive",
                 "financial_address_inactive",
                 "insufficient_funds",
                 "stripe_rejected",

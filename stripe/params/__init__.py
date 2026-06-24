@@ -1320,6 +1320,7 @@ if TYPE_CHECKING:
         DisputeModifyParams as DisputeModifyParams,
         DisputeModifyParamsEvidence as DisputeModifyParamsEvidence,
         DisputeModifyParamsEvidenceEnhancedEvidence as DisputeModifyParamsEvidenceEnhancedEvidence,
+        DisputeModifyParamsEvidenceEnhancedEvidenceMastercardCompliance as DisputeModifyParamsEvidenceEnhancedEvidenceMastercardCompliance,
         DisputeModifyParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3 as DisputeModifyParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3,
         DisputeModifyParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3DisputedTransaction as DisputeModifyParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3DisputedTransaction,
         DisputeModifyParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3DisputedTransactionShippingAddress as DisputeModifyParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3DisputedTransactionShippingAddress,
@@ -1334,6 +1335,7 @@ if TYPE_CHECKING:
         DisputeUpdateParams as DisputeUpdateParams,
         DisputeUpdateParamsEvidence as DisputeUpdateParamsEvidence,
         DisputeUpdateParamsEvidenceEnhancedEvidence as DisputeUpdateParamsEvidenceEnhancedEvidence,
+        DisputeUpdateParamsEvidenceEnhancedEvidenceMastercardCompliance as DisputeUpdateParamsEvidenceEnhancedEvidenceMastercardCompliance,
         DisputeUpdateParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3 as DisputeUpdateParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3,
         DisputeUpdateParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3DisputedTransaction as DisputeUpdateParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3DisputedTransaction,
         DisputeUpdateParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3DisputedTransactionShippingAddress as DisputeUpdateParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3DisputedTransactionShippingAddress,
@@ -1585,6 +1587,10 @@ if TYPE_CHECKING:
         InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscountDiscountEndDuration as InvoiceCreatePreviewParamsSubscriptionDetailsItemDiscountDiscountEndDuration,
         InvoiceCreatePreviewParamsSubscriptionDetailsItemPriceData as InvoiceCreatePreviewParamsSubscriptionDetailsItemPriceData,
         InvoiceCreatePreviewParamsSubscriptionDetailsItemPriceDataRecurring as InvoiceCreatePreviewParamsSubscriptionDetailsItemPriceDataRecurring,
+        InvoiceCreatePreviewParamsSubscriptionDetailsPause as InvoiceCreatePreviewParamsSubscriptionDetailsPause,
+        InvoiceCreatePreviewParamsSubscriptionDetailsPauseBillFor as InvoiceCreatePreviewParamsSubscriptionDetailsPauseBillFor,
+        InvoiceCreatePreviewParamsSubscriptionDetailsPauseBillForOutstandingUsageThrough as InvoiceCreatePreviewParamsSubscriptionDetailsPauseBillForOutstandingUsageThrough,
+        InvoiceCreatePreviewParamsSubscriptionDetailsPauseBillForUnusedTimeFrom as InvoiceCreatePreviewParamsSubscriptionDetailsPauseBillForUnusedTimeFrom,
         InvoiceCreatePreviewParamsSubscriptionDetailsPrebilling as InvoiceCreatePreviewParamsSubscriptionDetailsPrebilling,
     )
     from stripe.params._invoice_delete_params import (
@@ -2469,6 +2475,7 @@ if TYPE_CHECKING:
         PaymentIntentConfirmParamsPaymentMethodOptionsShopeepay as PaymentIntentConfirmParamsPaymentMethodOptionsShopeepay,
         PaymentIntentConfirmParamsPaymentMethodOptionsSofort as PaymentIntentConfirmParamsPaymentMethodOptionsSofort,
         PaymentIntentConfirmParamsPaymentMethodOptionsStripeBalance as PaymentIntentConfirmParamsPaymentMethodOptionsStripeBalance,
+        PaymentIntentConfirmParamsPaymentMethodOptionsSunbit as PaymentIntentConfirmParamsPaymentMethodOptionsSunbit,
         PaymentIntentConfirmParamsPaymentMethodOptionsSwish as PaymentIntentConfirmParamsPaymentMethodOptionsSwish,
         PaymentIntentConfirmParamsPaymentMethodOptionsTwint as PaymentIntentConfirmParamsPaymentMethodOptionsTwint,
         PaymentIntentConfirmParamsPaymentMethodOptionsUpi as PaymentIntentConfirmParamsPaymentMethodOptionsUpi,
@@ -2757,6 +2764,7 @@ if TYPE_CHECKING:
         PaymentIntentCreateParamsPaymentMethodOptionsShopeepay as PaymentIntentCreateParamsPaymentMethodOptionsShopeepay,
         PaymentIntentCreateParamsPaymentMethodOptionsSofort as PaymentIntentCreateParamsPaymentMethodOptionsSofort,
         PaymentIntentCreateParamsPaymentMethodOptionsStripeBalance as PaymentIntentCreateParamsPaymentMethodOptionsStripeBalance,
+        PaymentIntentCreateParamsPaymentMethodOptionsSunbit as PaymentIntentCreateParamsPaymentMethodOptionsSunbit,
         PaymentIntentCreateParamsPaymentMethodOptionsSwish as PaymentIntentCreateParamsPaymentMethodOptionsSwish,
         PaymentIntentCreateParamsPaymentMethodOptionsTwint as PaymentIntentCreateParamsPaymentMethodOptionsTwint,
         PaymentIntentCreateParamsPaymentMethodOptionsUpi as PaymentIntentCreateParamsPaymentMethodOptionsUpi,
@@ -3092,6 +3100,7 @@ if TYPE_CHECKING:
         PaymentIntentModifyParamsPaymentMethodOptionsShopeepay as PaymentIntentModifyParamsPaymentMethodOptionsShopeepay,
         PaymentIntentModifyParamsPaymentMethodOptionsSofort as PaymentIntentModifyParamsPaymentMethodOptionsSofort,
         PaymentIntentModifyParamsPaymentMethodOptionsStripeBalance as PaymentIntentModifyParamsPaymentMethodOptionsStripeBalance,
+        PaymentIntentModifyParamsPaymentMethodOptionsSunbit as PaymentIntentModifyParamsPaymentMethodOptionsSunbit,
         PaymentIntentModifyParamsPaymentMethodOptionsSwish as PaymentIntentModifyParamsPaymentMethodOptionsSwish,
         PaymentIntentModifyParamsPaymentMethodOptionsTwint as PaymentIntentModifyParamsPaymentMethodOptionsTwint,
         PaymentIntentModifyParamsPaymentMethodOptionsUpi as PaymentIntentModifyParamsPaymentMethodOptionsUpi,
@@ -3389,6 +3398,7 @@ if TYPE_CHECKING:
         PaymentIntentUpdateParamsPaymentMethodOptionsShopeepay as PaymentIntentUpdateParamsPaymentMethodOptionsShopeepay,
         PaymentIntentUpdateParamsPaymentMethodOptionsSofort as PaymentIntentUpdateParamsPaymentMethodOptionsSofort,
         PaymentIntentUpdateParamsPaymentMethodOptionsStripeBalance as PaymentIntentUpdateParamsPaymentMethodOptionsStripeBalance,
+        PaymentIntentUpdateParamsPaymentMethodOptionsSunbit as PaymentIntentUpdateParamsPaymentMethodOptionsSunbit,
         PaymentIntentUpdateParamsPaymentMethodOptionsSwish as PaymentIntentUpdateParamsPaymentMethodOptionsSwish,
         PaymentIntentUpdateParamsPaymentMethodOptionsTwint as PaymentIntentUpdateParamsPaymentMethodOptionsTwint,
         PaymentIntentUpdateParamsPaymentMethodOptionsUpi as PaymentIntentUpdateParamsPaymentMethodOptionsUpi,
@@ -5142,6 +5152,7 @@ if TYPE_CHECKING:
         SubscriptionCreateParamsDiscountDiscountEnd as SubscriptionCreateParamsDiscountDiscountEnd,
         SubscriptionCreateParamsDiscountDiscountEndDuration as SubscriptionCreateParamsDiscountDiscountEndDuration,
         SubscriptionCreateParamsInvoiceSettings as SubscriptionCreateParamsInvoiceSettings,
+        SubscriptionCreateParamsInvoiceSettingsCustomField as SubscriptionCreateParamsInvoiceSettingsCustomField,
         SubscriptionCreateParamsInvoiceSettingsIssuer as SubscriptionCreateParamsInvoiceSettingsIssuer,
         SubscriptionCreateParamsItem as SubscriptionCreateParamsItem,
         SubscriptionCreateParamsItemBillingThresholds as SubscriptionCreateParamsItemBillingThresholds,
@@ -5259,6 +5270,7 @@ if TYPE_CHECKING:
         SubscriptionModifyParamsDiscountDiscountEnd as SubscriptionModifyParamsDiscountDiscountEnd,
         SubscriptionModifyParamsDiscountDiscountEndDuration as SubscriptionModifyParamsDiscountDiscountEndDuration,
         SubscriptionModifyParamsInvoiceSettings as SubscriptionModifyParamsInvoiceSettings,
+        SubscriptionModifyParamsInvoiceSettingsCustomField as SubscriptionModifyParamsInvoiceSettingsCustomField,
         SubscriptionModifyParamsInvoiceSettingsIssuer as SubscriptionModifyParamsInvoiceSettingsIssuer,
         SubscriptionModifyParamsItem as SubscriptionModifyParamsItem,
         SubscriptionModifyParamsItemBillingThresholds as SubscriptionModifyParamsItemBillingThresholds,
@@ -5516,6 +5528,7 @@ if TYPE_CHECKING:
         SubscriptionUpdateParamsDiscountDiscountEnd as SubscriptionUpdateParamsDiscountDiscountEnd,
         SubscriptionUpdateParamsDiscountDiscountEndDuration as SubscriptionUpdateParamsDiscountDiscountEndDuration,
         SubscriptionUpdateParamsInvoiceSettings as SubscriptionUpdateParamsInvoiceSettings,
+        SubscriptionUpdateParamsInvoiceSettingsCustomField as SubscriptionUpdateParamsInvoiceSettingsCustomField,
         SubscriptionUpdateParamsInvoiceSettingsIssuer as SubscriptionUpdateParamsInvoiceSettingsIssuer,
         SubscriptionUpdateParamsItem as SubscriptionUpdateParamsItem,
         SubscriptionUpdateParamsItemBillingThresholds as SubscriptionUpdateParamsItemBillingThresholds,
@@ -5648,6 +5661,8 @@ if TYPE_CHECKING:
     )
     from stripe.params._topup_create_params import (
         TopupCreateParams as TopupCreateParams,
+        TopupCreateParamsPaymentMethodOptions as TopupCreateParamsPaymentMethodOptions,
+        TopupCreateParamsPaymentMethodOptionsUsBankAccount as TopupCreateParamsPaymentMethodOptionsUsBankAccount,
     )
     from stripe.params._topup_list_params import (
         TopupListParams as TopupListParams,
@@ -9609,6 +9624,10 @@ _import_map = {
         "stripe.params._dispute_modify_params",
         False,
     ),
+    "DisputeModifyParamsEvidenceEnhancedEvidenceMastercardCompliance": (
+        "stripe.params._dispute_modify_params",
+        False,
+    ),
     "DisputeModifyParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3": (
         "stripe.params._dispute_modify_params",
         False,
@@ -9640,6 +9659,10 @@ _import_map = {
         False,
     ),
     "DisputeUpdateParamsEvidenceEnhancedEvidence": (
+        "stripe.params._dispute_update_params",
+        False,
+    ),
+    "DisputeUpdateParamsEvidenceEnhancedEvidenceMastercardCompliance": (
         "stripe.params._dispute_update_params",
         False,
     ),
@@ -10394,6 +10417,22 @@ _import_map = {
         False,
     ),
     "InvoiceCreatePreviewParamsSubscriptionDetailsItemPriceDataRecurring": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsSubscriptionDetailsPause": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsSubscriptionDetailsPauseBillFor": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsSubscriptionDetailsPauseBillForOutstandingUsageThrough": (
+        "stripe.params._invoice_create_preview_params",
+        False,
+    ),
+    "InvoiceCreatePreviewParamsSubscriptionDetailsPauseBillForUnusedTimeFrom": (
         "stripe.params._invoice_create_preview_params",
         False,
     ),
@@ -13448,6 +13487,10 @@ _import_map = {
         "stripe.params._payment_intent_confirm_params",
         False,
     ),
+    "PaymentIntentConfirmParamsPaymentMethodOptionsSunbit": (
+        "stripe.params._payment_intent_confirm_params",
+        False,
+    ),
     "PaymentIntentConfirmParamsPaymentMethodOptionsSwish": (
         "stripe.params._payment_intent_confirm_params",
         False,
@@ -14589,6 +14632,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentCreateParamsPaymentMethodOptionsStripeBalance": (
+        "stripe.params._payment_intent_create_params",
+        False,
+    ),
+    "PaymentIntentCreateParamsPaymentMethodOptionsSunbit": (
         "stripe.params._payment_intent_create_params",
         False,
     ),
@@ -15892,6 +15939,10 @@ _import_map = {
         "stripe.params._payment_intent_modify_params",
         False,
     ),
+    "PaymentIntentModifyParamsPaymentMethodOptionsSunbit": (
+        "stripe.params._payment_intent_modify_params",
+        False,
+    ),
     "PaymentIntentModifyParamsPaymentMethodOptionsSwish": (
         "stripe.params._payment_intent_modify_params",
         False,
@@ -17045,6 +17096,10 @@ _import_map = {
         False,
     ),
     "PaymentIntentUpdateParamsPaymentMethodOptionsStripeBalance": (
+        "stripe.params._payment_intent_update_params",
+        False,
+    ),
+    "PaymentIntentUpdateParamsPaymentMethodOptionsSunbit": (
         "stripe.params._payment_intent_update_params",
         False,
     ),
@@ -22789,6 +22844,10 @@ _import_map = {
         "stripe.params._subscription_create_params",
         False,
     ),
+    "SubscriptionCreateParamsInvoiceSettingsCustomField": (
+        "stripe.params._subscription_create_params",
+        False,
+    ),
     "SubscriptionCreateParamsInvoiceSettingsIssuer": (
         "stripe.params._subscription_create_params",
         False,
@@ -23174,6 +23233,10 @@ _import_map = {
         False,
     ),
     "SubscriptionModifyParamsInvoiceSettings": (
+        "stripe.params._subscription_modify_params",
+        False,
+    ),
+    "SubscriptionModifyParamsInvoiceSettingsCustomField": (
         "stripe.params._subscription_modify_params",
         False,
     ),
@@ -24101,6 +24164,10 @@ _import_map = {
         "stripe.params._subscription_update_params",
         False,
     ),
+    "SubscriptionUpdateParamsInvoiceSettingsCustomField": (
+        "stripe.params._subscription_update_params",
+        False,
+    ),
     "SubscriptionUpdateParamsInvoiceSettingsIssuer": (
         "stripe.params._subscription_update_params",
         False,
@@ -24449,6 +24516,14 @@ _import_map = {
     "TokenRetrieveParams": ("stripe.params._token_retrieve_params", False),
     "TopupCancelParams": ("stripe.params._topup_cancel_params", False),
     "TopupCreateParams": ("stripe.params._topup_create_params", False),
+    "TopupCreateParamsPaymentMethodOptions": (
+        "stripe.params._topup_create_params",
+        False,
+    ),
+    "TopupCreateParamsPaymentMethodOptionsUsBankAccount": (
+        "stripe.params._topup_create_params",
+        False,
+    ),
     "TopupListParams": ("stripe.params._topup_list_params", False),
     "TopupListParamsAmount": ("stripe.params._topup_list_params", False),
     "TopupListParamsCreated": ("stripe.params._topup_list_params", False),

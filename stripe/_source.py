@@ -330,6 +330,12 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         Type of refund attribute status, one of `missing`, `requested`, or `available`.
         """
 
+    class Redaction(StripeObject):
+        status: Literal["processing", "redacted", "validated"]
+        """
+        Indicates whether this object and its related objects have been redacted or not.
+        """
+
     class Redirect(StripeObject):
         failure_reason: Optional[str]
         """
@@ -564,6 +570,10 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     p24: Optional[P24]
     paypal: Optional[Paypal]
     receiver: Optional[Receiver]
+    redaction: Optional[Redaction]
+    """
+    Redaction status of this source. If not null, this source is associated to a redaction job.
+    """
     redirect: Optional[Redirect]
     sepa_credit_transfer: Optional[SepaCreditTransfer]
     sepa_debit: Optional[SepaDebit]
@@ -960,6 +970,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         "p24": P24,
         "paypal": Paypal,
         "receiver": Receiver,
+        "redaction": Redaction,
         "redirect": Redirect,
         "sepa_credit_transfer": SepaCreditTransfer,
         "sepa_debit": SepaDebit,

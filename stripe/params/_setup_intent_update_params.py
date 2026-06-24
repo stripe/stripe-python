@@ -352,7 +352,7 @@ class SetupIntentUpdateParamsPaymentMethodData(TypedDict):
     """
     sunbit: NotRequired["SetupIntentUpdateParamsPaymentMethodDataSunbit"]
     """
-    If this is a Sunbit PaymentMethod, this hash contains details about the Sunbit payment method.
+    If this is a `sunbit` PaymentMethod, this hash contains details about the Sunbit payment method.
     """
     swish: NotRequired["SetupIntentUpdateParamsPaymentMethodDataSwish"]
     """

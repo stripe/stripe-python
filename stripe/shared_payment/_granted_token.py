@@ -164,10 +164,16 @@ class GrantedToken(APIResource["GrantedToken"]):
             _inner_class_types = {"address": Address}
 
         class Bizum(StripeObject):
-            pass
+            buyer_id: Optional[str]
+            """
+            A unique identifier for the buyer as determined by the local payment processor.
+            """
 
         class Blik(StripeObject):
-            pass
+            buyer_id: Optional[str]
+            """
+            A unique and immutable identifier assigned by BLIK to every buyer.
+            """
 
         class Boleto(StripeObject):
             tax_id: str
@@ -1014,7 +1020,10 @@ class GrantedToken(APIResource["GrantedToken"]):
             """
 
         class Pix(StripeObject):
-            pass
+            fingerprint: Optional[str]
+            """
+            Uniquely identifies this particular Pix account. You can use this attribute to check whether two Pix accounts are the same.
+            """
 
         class Promptpay(StripeObject):
             pass

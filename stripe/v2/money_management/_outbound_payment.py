@@ -41,15 +41,24 @@ class OutboundPayment(StripeObject):
     class StatusDetails(StripeObject):
         class Failed(StripeObject):
             reason: Literal[
+                "fx_rate_drift_exceeded_after_review",
+                "payout_method_amount_limit_exceeded",
                 "payout_method_declined",
                 "payout_method_does_not_exist",
                 "payout_method_expired",
                 "payout_method_unsupported",
                 "payout_method_usage_frequency_limit_exceeded",
+                "review_rejected",
                 "unknown_failure",
             ]
             """
             Open Enum. The `failed` status reason.
+            """
+
+        class Processing(StripeObject):
+            reason: Literal["under_review"]
+            """
+            Open Enum. The `processing` status reason.
             """
 
         class Returned(StripeObject):
@@ -74,11 +83,19 @@ class OutboundPayment(StripeObject):
         """
         The `failed` status reason.
         """
+        processing: Optional[Processing]
+        """
+        The `processing` status details.
+        """
         returned: Optional[Returned]
         """
         The `returned` status reason.
         """
-        _inner_class_types = {"failed": Failed, "returned": Returned}
+        _inner_class_types = {
+            "failed": Failed,
+            "processing": Processing,
+            "returned": Returned,
+        }
 
     class StatusTransitions(StripeObject):
         canceled_at: Optional[str]
@@ -204,7 +221,7 @@ class OutboundPayment(StripeObject):
     """
     status_details: Optional[StatusDetails]
     """
-    Status details for an OutboundPayment in a `failed` or `returned` state.
+    Status details for an OutboundPayment in a `processing`, `failed`, or `returned` state.
     """
     status_transitions: Optional[StatusTransitions]
     """

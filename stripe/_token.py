@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._createable_api_resource import CreateableAPIResource
+from stripe._stripe_object import StripeObject
 from typing import ClassVar, Optional, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
@@ -36,6 +37,13 @@ class Token(CreateableAPIResource["Token"]):
     """
 
     OBJECT_NAME: ClassVar[Literal["token"]] = "token"
+
+    class Redaction(StripeObject):
+        status: Literal["processing", "redacted", "validated"]
+        """
+        Indicates whether this object and its related objects have been redacted or not.
+        """
+
     bank_account: Optional["BankAccount"]
     """
     These bank accounts are payment methods on `Customer` objects.
@@ -73,6 +81,10 @@ class Token(CreateableAPIResource["Token"]):
     object: Literal["token"]
     """
     String representing the object's type. Objects of the same type share the same value.
+    """
+    redaction: Optional[Redaction]
+    """
+    Redaction status of this token. If not null, this token is associated to a redaction job.
     """
     type: str
     """
@@ -136,3 +148,5 @@ class Token(CreateableAPIResource["Token"]):
         instance = cls(id, **params)
         await instance.refresh_async()
         return instance
+
+    _inner_class_types = {"redaction": Redaction}

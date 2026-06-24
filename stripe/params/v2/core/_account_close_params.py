@@ -6,7 +6,7 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 class AccountCloseParams(TypedDict):
     applied_configurations: NotRequired[
-        List[Literal["customer", "merchant", "recipient", "storer"]]
+        List[Literal["customer", "merchant", "recipient", "money_manager"]]
     ]
     """
     Configurations on the Account to be closed. All configurations on the Account must be passed in for this request to succeed.

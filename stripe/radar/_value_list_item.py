@@ -4,6 +4,7 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
+from stripe._stripe_object import StripeObject
 from stripe._util import class_method_variant, sanitize_id
 from typing import ClassVar, Optional, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
@@ -37,6 +38,13 @@ class ValueListItem(
     OBJECT_NAME: ClassVar[Literal["radar.value_list_item"]] = (
         "radar.value_list_item"
     )
+
+    class Redaction(StripeObject):
+        status: Literal["processing", "redacted", "validated"]
+        """
+        Indicates whether this object and its related objects have been redacted or not.
+        """
+
     created: int
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -60,6 +68,10 @@ class ValueListItem(
     object: Literal["radar.value_list_item"]
     """
     String representing the object's type. Objects of the same type share the same value.
+    """
+    redaction: Optional[Redaction]
+    """
+    Redaction status of this item. If not null, this item is associated to a redaction job.
     """
     value: str
     """
@@ -261,3 +273,5 @@ class ValueListItem(
         instance = cls(id, **params)
         await instance.refresh_async()
         return instance
+
+    _inner_class_types = {"redaction": Redaction}

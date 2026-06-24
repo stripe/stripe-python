@@ -6,7 +6,7 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 class AccountListParams(TypedDict):
     applied_configurations: NotRequired[
-        List[Literal["customer", "merchant", "recipient", "storer"]]
+        List[Literal["customer", "merchant", "recipient", "money_manager"]]
     ]
     """
     Filter only accounts that have all of the configurations specified. If omitted, returns all accounts regardless of which configurations they have.
