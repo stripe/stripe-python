@@ -38,8 +38,8 @@ if TYPE_CHECKING:
         CollectionSettingVersion as CollectionSettingVersion,
     )
     from stripe.v2.billing._contract import Contract as Contract
-    from stripe.v2.billing._contract_license_pricing_quantity_change import (
-        ContractLicensePricingQuantityChange as ContractLicensePricingQuantityChange,
+    from stripe.v2.billing._contract_pricing_line_quantity_change import (
+        ContractPricingLineQuantityChange as ContractPricingLineQuantityChange,
     )
     from stripe.v2.billing._contract_service import (
         ContractService as ContractService,
@@ -166,8 +166,8 @@ _import_map = {
         False,
     ),
     "Contract": ("stripe.v2.billing._contract", False),
-    "ContractLicensePricingQuantityChange": (
-        "stripe.v2.billing._contract_license_pricing_quantity_change",
+    "ContractPricingLineQuantityChange": (
+        "stripe.v2.billing._contract_pricing_line_quantity_change",
         False,
     ),
     "ContractService": ("stripe.v2.billing._contract_service", False),

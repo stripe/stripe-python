@@ -23,6 +23,9 @@ if TYPE_CHECKING:
     from stripe.params._payment_attempt_record_report_canceled_params import (
         PaymentAttemptRecordReportCanceledParams,
     )
+    from stripe.params._payment_attempt_record_report_early_fraud_warning_params import (
+        PaymentAttemptRecordReportEarlyFraudWarningParams,
+    )
     from stripe.params._payment_attempt_record_report_failed_params import (
         PaymentAttemptRecordReportFailedParams,
     )
@@ -1088,6 +1091,14 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             last4: Optional[str]
             """
             The last four digits of the gift card number.
+            """
+            location: Optional[str]
+            """
+            ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
+            """
+            reader: Optional[str]
+            """
+            ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
             """
             transaction_id: Optional[str]
             """
@@ -2783,6 +2794,126 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             await self._request_async(
                 "post",
                 "/v1/payment_attempt_records/{payment_attempt_record}/report_canceled".format(
+                    payment_attempt_record=sanitize_id(self._data.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def _cls_report_early_fraud_warning(
+        cls,
+        payment_attempt_record: str,
+        **params: Unpack["PaymentAttemptRecordReportEarlyFraudWarningParams"],
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record received an early fraud warning.
+        """
+        return cast(
+            "PaymentAttemptRecord",
+            cls._static_request(
+                "post",
+                "/v1/payment_attempt_records/{payment_attempt_record}/report_early_fraud_warning".format(
+                    payment_attempt_record=sanitize_id(payment_attempt_record)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def report_early_fraud_warning(
+        payment_attempt_record: str,
+        **params: Unpack["PaymentAttemptRecordReportEarlyFraudWarningParams"],
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record received an early fraud warning.
+        """
+        ...
+
+    @overload
+    def report_early_fraud_warning(
+        self,
+        **params: Unpack["PaymentAttemptRecordReportEarlyFraudWarningParams"],
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record received an early fraud warning.
+        """
+        ...
+
+    @class_method_variant("_cls_report_early_fraud_warning")
+    def report_early_fraud_warning(  # pyright: ignore[reportGeneralTypeIssues]
+        self,
+        **params: Unpack["PaymentAttemptRecordReportEarlyFraudWarningParams"],
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record received an early fraud warning.
+        """
+        return cast(
+            "PaymentAttemptRecord",
+            self._request(
+                "post",
+                "/v1/payment_attempt_records/{payment_attempt_record}/report_early_fraud_warning".format(
+                    payment_attempt_record=sanitize_id(self._data.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_report_early_fraud_warning_async(
+        cls,
+        payment_attempt_record: str,
+        **params: Unpack["PaymentAttemptRecordReportEarlyFraudWarningParams"],
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record received an early fraud warning.
+        """
+        return cast(
+            "PaymentAttemptRecord",
+            await cls._static_request_async(
+                "post",
+                "/v1/payment_attempt_records/{payment_attempt_record}/report_early_fraud_warning".format(
+                    payment_attempt_record=sanitize_id(payment_attempt_record)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def report_early_fraud_warning_async(
+        payment_attempt_record: str,
+        **params: Unpack["PaymentAttemptRecordReportEarlyFraudWarningParams"],
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record received an early fraud warning.
+        """
+        ...
+
+    @overload
+    async def report_early_fraud_warning_async(
+        self,
+        **params: Unpack["PaymentAttemptRecordReportEarlyFraudWarningParams"],
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record received an early fraud warning.
+        """
+        ...
+
+    @class_method_variant("_cls_report_early_fraud_warning_async")
+    async def report_early_fraud_warning_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self,
+        **params: Unpack["PaymentAttemptRecordReportEarlyFraudWarningParams"],
+    ) -> "PaymentAttemptRecord":
+        """
+        Report that the specified Payment Attempt Record received an early fraud warning.
+        """
+        return cast(
+            "PaymentAttemptRecord",
+            await self._request_async(
+                "post",
+                "/v1/payment_attempt_records/{payment_attempt_record}/report_early_fraud_warning".format(
                     payment_attempt_record=sanitize_id(self._data.get("id"))
                 ),
                 params=params,

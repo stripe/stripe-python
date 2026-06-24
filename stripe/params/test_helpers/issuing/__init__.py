@@ -6,6 +6,7 @@ from typing_extensions import TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe.params.test_helpers.issuing._authorization_capture_params import (
         AuthorizationCaptureParams as AuthorizationCaptureParams,
+        AuthorizationCaptureParamsNetworkData as AuthorizationCaptureParamsNetworkData,
         AuthorizationCaptureParamsPurchaseDetails as AuthorizationCaptureParamsPurchaseDetails,
         AuthorizationCaptureParamsPurchaseDetailsFleet as AuthorizationCaptureParamsPurchaseDetailsFleet,
         AuthorizationCaptureParamsPurchaseDetailsFleetCardholderPromptData as AuthorizationCaptureParamsPurchaseDetailsFleetCardholderPromptData,
@@ -79,6 +80,9 @@ if TYPE_CHECKING:
     from stripe.params.test_helpers.issuing._dispute_close_params import (
         DisputeCloseParams as DisputeCloseParams,
     )
+    from stripe.params.test_helpers.issuing._dispute_provisional_credit_params import (
+        DisputeProvisionalCreditParams as DisputeProvisionalCreditParams,
+    )
     from stripe.params.test_helpers.issuing._dispute_simulate_network_lifecycle_dispute_response_params import (
         DisputeSimulateNetworkLifecycleDisputeResponseParams as DisputeSimulateNetworkLifecycleDisputeResponseParams,
         DisputeSimulateNetworkLifecycleDisputeResponseParamsMerchantEvidenceFiles as DisputeSimulateNetworkLifecycleDisputeResponseParamsMerchantEvidenceFiles,
@@ -104,6 +108,7 @@ if TYPE_CHECKING:
     from stripe.params.test_helpers.issuing._transaction_create_force_capture_params import (
         TransactionCreateForceCaptureParams as TransactionCreateForceCaptureParams,
         TransactionCreateForceCaptureParamsMerchantData as TransactionCreateForceCaptureParamsMerchantData,
+        TransactionCreateForceCaptureParamsNetworkData as TransactionCreateForceCaptureParamsNetworkData,
         TransactionCreateForceCaptureParamsPurchaseDetails as TransactionCreateForceCaptureParamsPurchaseDetails,
         TransactionCreateForceCaptureParamsPurchaseDetailsFleet as TransactionCreateForceCaptureParamsPurchaseDetailsFleet,
         TransactionCreateForceCaptureParamsPurchaseDetailsFleetCardholderPromptData as TransactionCreateForceCaptureParamsPurchaseDetailsFleetCardholderPromptData,
@@ -140,6 +145,10 @@ if TYPE_CHECKING:
 # name -> (import_target, is_submodule)
 _import_map = {
     "AuthorizationCaptureParams": (
+        "stripe.params.test_helpers.issuing._authorization_capture_params",
+        False,
+    ),
+    "AuthorizationCaptureParamsNetworkData": (
         "stripe.params.test_helpers.issuing._authorization_capture_params",
         False,
     ),
@@ -335,6 +344,10 @@ _import_map = {
         "stripe.params.test_helpers.issuing._dispute_close_params",
         False,
     ),
+    "DisputeProvisionalCreditParams": (
+        "stripe.params.test_helpers.issuing._dispute_provisional_credit_params",
+        False,
+    ),
     "DisputeSimulateNetworkLifecycleDisputeResponseParams": (
         "stripe.params.test_helpers.issuing._dispute_simulate_network_lifecycle_dispute_response_params",
         False,
@@ -380,6 +393,10 @@ _import_map = {
         False,
     ),
     "TransactionCreateForceCaptureParamsMerchantData": (
+        "stripe.params.test_helpers.issuing._transaction_create_force_capture_params",
+        False,
+    ),
+    "TransactionCreateForceCaptureParamsNetworkData": (
         "stripe.params.test_helpers.issuing._transaction_create_force_capture_params",
         False,
     ),

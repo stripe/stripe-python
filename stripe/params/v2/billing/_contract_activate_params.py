@@ -8,8 +8,7 @@ class ContractActivateParams(TypedDict):
     include: NotRequired[
         List[
             Literal[
-                "contract_line_details",
-                "license_quantities",
+                "billing_settings",
                 "one_time_fees",
                 "pricing_lines",
                 "pricing_overrides",

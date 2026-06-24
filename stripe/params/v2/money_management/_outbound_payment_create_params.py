@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_object import UntypedStripeObject
 from stripe.v2._amount import AmountParam
-from typing import Dict
+from typing import Dict, List
 from typing_extensions import Literal, NotRequired, TypedDict
 
 _OutboundPaymentCreateParamsBase = TypedDict(
@@ -31,6 +31,10 @@ class OutboundPaymentCreateParams(_OutboundPaymentCreateParamsBase):
     outbound_payment_quote: NotRequired[str]
     """
     The quote for this OutboundPayment. Only required for countries with regulatory mandates to display fee estimates before OutboundPayment creation.
+    """
+    payout_intent: NotRequired[str]
+    """
+    The PayoutIntent ID that triggered this OutboundPayment.
     """
     purpose: NotRequired[Literal["payroll"]]
     """
@@ -74,6 +78,10 @@ class OutboundPaymentCreateParamsDeliveryOptions(TypedDict):
 
 
 class OutboundPaymentCreateParamsDeliveryOptionsPaperCheck(TypedDict):
+    attachment: NotRequired[str]
+    """
+    The ID of a file to include as an attachment with the paper check.
+    """
     memo: NotRequired[str]
     """
     Memo printed on the memo field of the check.
@@ -122,7 +130,72 @@ class OutboundPaymentCreateParamsTo(TypedDict):
     """
     The payout method which the OutboundPayment uses to send payout.
     """
+    payout_method_options: NotRequired[
+        "OutboundPaymentCreateParamsToPayoutMethodOptions"
+    ]
+    """
+    Payout method options for the OutboundPayment.
+    """
     recipient: str
     """
     To which account the OutboundPayment is sent.
+    """
+
+
+class OutboundPaymentCreateParamsToPayoutMethodOptions(TypedDict):
+    bank_account: NotRequired[
+        "OutboundPaymentCreateParamsToPayoutMethodOptionsBankAccount"
+    ]
+    """
+    Options for bank account payout methods.
+    """
+
+
+class OutboundPaymentCreateParamsToPayoutMethodOptionsBankAccount(TypedDict):
+    preferred_network_options: NotRequired[
+        "OutboundPaymentCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptions"
+    ]
+    """
+    Per-network configuration options.
+    """
+    preferred_networks: List[
+        Literal[
+            "ach",
+            "becs",
+            "eft",
+            "fedwire",
+            "fps",
+            "npp",
+            "rtp",
+            "sepa_credit",
+            "sepa_instant",
+            "swift",
+        ]
+    ]
+    """
+    The preferred networks to use for this OutboundPayment.
+    """
+
+
+class OutboundPaymentCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptions(
+    TypedDict,
+):
+    ach: NotRequired[
+        "OutboundPaymentCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptionsAch"
+    ]
+    """
+    ACH-specific network options.
+    """
+
+
+class OutboundPaymentCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptionsAch(
+    TypedDict,
+):
+    submission: NotRequired[Literal["next_day", "same_day"]]
+    """
+    Open Enum. ACH submission timing.
+    """
+    transaction_purpose: NotRequired[Literal["payroll"]]
+    """
+    The transaction purpose for this ACH payment.
     """

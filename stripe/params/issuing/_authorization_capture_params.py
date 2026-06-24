@@ -19,9 +19,20 @@ class AuthorizationCaptureParams(RequestOptions):
     """
     Specifies which fields in the response should be expanded.
     """
+    network_data: NotRequired["AuthorizationCaptureParamsNetworkData"]
+    """
+    Details about the transaction, such as processing dates, set by the card network.
+    """
     purchase_details: NotRequired["AuthorizationCaptureParamsPurchaseDetails"]
     """
     Additional purchase information that is optionally provided by the merchant.
+    """
+
+
+class AuthorizationCaptureParamsNetworkData(TypedDict):
+    acquirer_reference_number: NotRequired[str]
+    """
+    Optional. A test value to populate network_data.acquirer_reference_number on the resulting Issuing Transaction. Must contain only digits and be at most 23 characters long. This value is intended only for integration validation in testmode and does not need to correspond to a real network-assigned acquirer reference number.
     """
 
 

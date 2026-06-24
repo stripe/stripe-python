@@ -113,6 +113,7 @@ class ReceivedDebit(StripeObject):
     class StatusDetails(StripeObject):
         class Failed(StripeObject):
             reason: Literal[
+                "capability_inactive",
                 "financial_address_inactive",
                 "insufficient_funds",
                 "stripe_rejected",
@@ -121,12 +122,23 @@ class ReceivedDebit(StripeObject):
             Open Enum. The reason for the failure of the ReceivedDebit.
             """
 
+        class Returned(StripeObject):
+            reason: Literal["originator_initiated"]
+            """
+            Open Enum. The reason the ReceivedDebit was returned.
+            """
+
         failed: Failed
         """
         Information that elaborates on the `failed` status of a ReceivedDebit.
         It is only present when the ReceivedDebit status is `failed`.
         """
-        _inner_class_types = {"failed": Failed}
+        returned: Returned
+        """
+        Information that elaborates on the `returned` status of a ReceivedDebit.
+        It is only present when the ReceivedDebit status is `returned`.
+        """
+        _inner_class_types = {"failed": Failed, "returned": Returned}
 
     class StatusTransitions(StripeObject):
         canceled_at: Optional[str]
@@ -137,6 +149,11 @@ class ReceivedDebit(StripeObject):
         failed_at: Optional[str]
         """
         The time when the ReceivedDebit was marked as `failed`.
+        Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
+        """
+        returned_at: Optional[str]
+        """
+        The time when the ReceivedDebit was marked as `returned`.
         Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
         """
         succeeded_at: Optional[str]

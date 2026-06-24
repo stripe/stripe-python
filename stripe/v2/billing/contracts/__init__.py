@@ -4,16 +4,16 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.v2.billing.contracts import license_pricing as license_pricing
-    from stripe.v2.billing.contracts._license_pricing_service import (
-        LicensePricingService as LicensePricingService,
+    from stripe.v2.billing.contracts import pricing_lines as pricing_lines
+    from stripe.v2.billing.contracts._pricing_lines_service import (
+        PricingLinesService as PricingLinesService,
     )
 
 # name -> (import_target, is_submodule)
 _import_map = {
-    "license_pricing": ("stripe.v2.billing.contracts.license_pricing", True),
-    "LicensePricingService": (
-        "stripe.v2.billing.contracts._license_pricing_service",
+    "pricing_lines": ("stripe.v2.billing.contracts.pricing_lines", True),
+    "PricingLinesService": (
+        "stripe.v2.billing.contracts._pricing_lines_service",
         False,
     ),
 }

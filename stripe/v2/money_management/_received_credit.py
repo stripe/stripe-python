@@ -152,6 +152,10 @@ class ReceivedCredit(StripeObject):
             """
 
         class UsBankAccount(StripeObject):
+            account_holder_name: Optional[str]
+            """
+            The name of the account holder that sent the payment.
+            """
             bank_name: Optional[str]
             """
             The bank name the transfer was received from.

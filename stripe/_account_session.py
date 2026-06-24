@@ -267,6 +267,70 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             features: Features
             _inner_class_types = {"features": Features}
 
+        class FinancialAccounts(StripeObject):
+            class Features(StripeObject):
+                bill_management: bool
+                """
+                Whether to allow bill management features.
+                """
+                card_management: bool
+                """
+                Whether to allow card management features.
+                """
+                disable_stripe_user_authentication: bool
+                """
+                Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. This is `false` by default.
+                """
+                edit_payout_schedule: bool
+                """
+                Whether to allow payout schedule to be changed. Defaults to `true` when `controller.losses.payments` is set to `stripe` for the account, otherwise `false`.
+                """
+                send_money: bool
+                """
+                Whether to enable the send money feature that grants access to the v2 CreateOutboundPayment API.
+                """
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
+        class FinancialAccountsTransactions(StripeObject):
+            class Features(StripeObject):
+                capture_payments: bool
+                """
+                Whether to allow capturing and cancelling payment intents. This is `true` by default.
+                """
+                card_management: bool
+                """
+                Whether to allow card management features.
+                """
+                card_spend_dispute_management: bool
+                """
+                Whether to allow card spend dispute management features.
+                """
+                destination_on_behalf_of_charge_management: bool
+                """
+                Whether connected accounts can manage destination charges that are created on behalf of them. This is `false` by default.
+                """
+                dispute_management: bool
+                """
+                Whether responding to disputes is enabled, including submitting evidence and accepting disputes. This is `true` by default.
+                """
+                refund_management: bool
+                """
+                Whether sending refunds is enabled. This is `true` by default.
+                """
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
         class InstantPayoutsPromotion(StripeObject):
             class Features(StripeObject):
                 disable_stripe_user_authentication: bool
@@ -522,6 +586,24 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             features: Features
             _inner_class_types = {"features": Features}
 
+        class RecipientsList(StripeObject):
+            class Features(StripeObject):
+                disable_stripe_user_authentication: bool
+                """
+                Whether Stripe user authentication is disabled. This value can only be `true` for accounts where `controller.requirement_collection` is `application` for the account. This is `false` by default.
+                """
+                send_money: bool
+                """
+                Whether to allow sending money.
+                """
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Features
+            _inner_class_types = {"features": Features}
+
         class TaxRegistrations(StripeObject):
             class Features(StripeObject):
                 pass
@@ -593,6 +675,16 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         Configuration for the [financial account rewards](https://docs.stripe.com/connect/supported-embedded-components/financial-account-rewards/) embedded component.
         """
         financial_account_transactions: FinancialAccountTransactions
+        financial_accounts: Optional[FinancialAccounts]
+        """
+        Configuration for the [financial accounts](https://docs.stripe.com/connect/supported-embedded-components/financial-accounts/) embedded component.
+        """
+        financial_accounts_transactions: Optional[
+            FinancialAccountsTransactions
+        ]
+        """
+        Configuration for the [financial accounts transactions](https://docs.stripe.com/connect/supported-embedded-components/financial-accounts-transactions/) embedded component.
+        """
         instant_payouts_promotion: InstantPayoutsPromotion
         issuing_card: IssuingCard
         issuing_cards_list: IssuingCardsList
@@ -612,6 +704,10 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         payout_reconciliation_report: PayoutReconciliationReport
         payouts: Payouts
         payouts_list: PayoutsList
+        recipients_list: Optional[RecipientsList]
+        """
+        Configuration for the [recipients list](https://docs.stripe.com/connect/supported-embedded-components/recipients-list/) embedded component.
+        """
         tax_registrations: TaxRegistrations
         tax_settings: TaxSettings
         terminal_hardware_orders: Optional[TerminalHardwareOrders]
@@ -638,6 +734,8 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "financial_account": FinancialAccount,
             "financial_account_rewards": FinancialAccountRewards,
             "financial_account_transactions": FinancialAccountTransactions,
+            "financial_accounts": FinancialAccounts,
+            "financial_accounts_transactions": FinancialAccountsTransactions,
             "instant_payouts_promotion": InstantPayoutsPromotion,
             "issuing_card": IssuingCard,
             "issuing_cards_list": IssuingCardsList,
@@ -651,6 +749,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "payout_reconciliation_report": PayoutReconciliationReport,
             "payouts": Payouts,
             "payouts_list": PayoutsList,
+            "recipients_list": RecipientsList,
             "tax_registrations": TaxRegistrations,
             "tax_settings": TaxSettings,
             "terminal_hardware_orders": TerminalHardwareOrders,

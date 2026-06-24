@@ -23,6 +23,9 @@ if TYPE_CHECKING:
     from stripe.params.issuing._dispute_modify_params import (
         DisputeModifyParams,
     )
+    from stripe.params.issuing._dispute_provisional_credit_params import (
+        DisputeProvisionalCreditParams,
+    )
     from stripe.params.issuing._dispute_retrieve_params import (
         DisputeRetrieveParams,
     )
@@ -912,6 +915,120 @@ class Dispute(
                 await self.resource._request_async(
                     "post",
                     "/v1/test_helpers/issuing/disputes/{dispute}/close".format(
+                        dispute=sanitize_id(self.resource._data.get("id"))
+                    ),
+                    params=params,
+                ),
+            )
+
+        @classmethod
+        def _cls_provisional_credit(
+            cls,
+            dispute: str,
+            **params: Unpack["DisputeProvisionalCreditParams"],
+        ) -> "Dispute":
+            """
+            Test helper: overrides the grant_deadline and revocable_after timestamps on a test-mode Issuing dispute's provisional credit, allowing tests to simulate timer-driven status transitions without waiting for real regulatory deadlines to pass.
+            """
+            return cast(
+                "Dispute",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/issuing/disputes/{dispute}/provisional_credit".format(
+                        dispute=sanitize_id(dispute)
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        def provisional_credit(
+            dispute: str, **params: Unpack["DisputeProvisionalCreditParams"]
+        ) -> "Dispute":
+            """
+            Test helper: overrides the grant_deadline and revocable_after timestamps on a test-mode Issuing dispute's provisional credit, allowing tests to simulate timer-driven status transitions without waiting for real regulatory deadlines to pass.
+            """
+            ...
+
+        @overload
+        def provisional_credit(
+            self, **params: Unpack["DisputeProvisionalCreditParams"]
+        ) -> "Dispute":
+            """
+            Test helper: overrides the grant_deadline and revocable_after timestamps on a test-mode Issuing dispute's provisional credit, allowing tests to simulate timer-driven status transitions without waiting for real regulatory deadlines to pass.
+            """
+            ...
+
+        @class_method_variant("_cls_provisional_credit")
+        def provisional_credit(  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["DisputeProvisionalCreditParams"]
+        ) -> "Dispute":
+            """
+            Test helper: overrides the grant_deadline and revocable_after timestamps on a test-mode Issuing dispute's provisional credit, allowing tests to simulate timer-driven status transitions without waiting for real regulatory deadlines to pass.
+            """
+            return cast(
+                "Dispute",
+                self.resource._request(
+                    "post",
+                    "/v1/test_helpers/issuing/disputes/{dispute}/provisional_credit".format(
+                        dispute=sanitize_id(self.resource._data.get("id"))
+                    ),
+                    params=params,
+                ),
+            )
+
+        @classmethod
+        async def _cls_provisional_credit_async(
+            cls,
+            dispute: str,
+            **params: Unpack["DisputeProvisionalCreditParams"],
+        ) -> "Dispute":
+            """
+            Test helper: overrides the grant_deadline and revocable_after timestamps on a test-mode Issuing dispute's provisional credit, allowing tests to simulate timer-driven status transitions without waiting for real regulatory deadlines to pass.
+            """
+            return cast(
+                "Dispute",
+                await cls._static_request_async(
+                    "post",
+                    "/v1/test_helpers/issuing/disputes/{dispute}/provisional_credit".format(
+                        dispute=sanitize_id(dispute)
+                    ),
+                    params=params,
+                ),
+            )
+
+        @overload
+        @staticmethod
+        async def provisional_credit_async(
+            dispute: str, **params: Unpack["DisputeProvisionalCreditParams"]
+        ) -> "Dispute":
+            """
+            Test helper: overrides the grant_deadline and revocable_after timestamps on a test-mode Issuing dispute's provisional credit, allowing tests to simulate timer-driven status transitions without waiting for real regulatory deadlines to pass.
+            """
+            ...
+
+        @overload
+        async def provisional_credit_async(
+            self, **params: Unpack["DisputeProvisionalCreditParams"]
+        ) -> "Dispute":
+            """
+            Test helper: overrides the grant_deadline and revocable_after timestamps on a test-mode Issuing dispute's provisional credit, allowing tests to simulate timer-driven status transitions without waiting for real regulatory deadlines to pass.
+            """
+            ...
+
+        @class_method_variant("_cls_provisional_credit_async")
+        async def provisional_credit_async(  # pyright: ignore[reportGeneralTypeIssues]
+            self, **params: Unpack["DisputeProvisionalCreditParams"]
+        ) -> "Dispute":
+            """
+            Test helper: overrides the grant_deadline and revocable_after timestamps on a test-mode Issuing dispute's provisional credit, allowing tests to simulate timer-driven status transitions without waiting for real regulatory deadlines to pass.
+            """
+            return cast(
+                "Dispute",
+                await self.resource._request_async(
+                    "post",
+                    "/v1/test_helpers/issuing/disputes/{dispute}/provisional_credit".format(
                         dispute=sanitize_id(self.resource._data.get("id"))
                     ),
                     params=params,

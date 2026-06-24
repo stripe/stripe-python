@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_object import UntypedStripeObject
 from stripe.v2._amount import AmountParam
-from typing import Dict
+from typing import Dict, List
 from typing_extensions import Literal, NotRequired, TypedDict
 
 _OutboundTransferCreateParamsBase = TypedDict(
@@ -76,4 +76,39 @@ class OutboundTransferCreateParamsTo(TypedDict):
     payout_method: str
     """
     The payout method which the OutboundTransfer uses to send payout.
+    """
+    payout_method_options: NotRequired[
+        "OutboundTransferCreateParamsToPayoutMethodOptions"
+    ]
+    """
+    Payout method options for the OutboundTransfer.
+    """
+
+
+class OutboundTransferCreateParamsToPayoutMethodOptions(TypedDict):
+    bank_account: NotRequired[
+        "OutboundTransferCreateParamsToPayoutMethodOptionsBankAccount"
+    ]
+    """
+    Options for bank account payout methods.
+    """
+
+
+class OutboundTransferCreateParamsToPayoutMethodOptionsBankAccount(TypedDict):
+    preferred_networks: List[
+        Literal[
+            "ach",
+            "becs",
+            "eft",
+            "fedwire",
+            "fps",
+            "npp",
+            "rtp",
+            "sepa_credit",
+            "sepa_instant",
+            "swift",
+        ]
+    ]
+    """
+    The preferred networks to use for this OutboundTransfer.
     """

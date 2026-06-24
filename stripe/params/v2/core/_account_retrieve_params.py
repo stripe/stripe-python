@@ -12,7 +12,7 @@ class AccountRetrieveParams(TypedDict):
                 "configuration.customer",
                 "configuration.merchant",
                 "configuration.recipient",
-                "configuration.storer",
+                "configuration.money_manager",
                 "defaults",
                 "future_requirements",
                 "identity",

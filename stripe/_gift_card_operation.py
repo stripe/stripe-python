@@ -248,6 +248,10 @@ class GiftCardOperation(APIResource["GiftCardOperation"]):
     """
     If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
+    location: Optional[str]
+    """
+    ID of the location that this transaction's reader is assigned to.
+    """
     object: Literal["gift_card_operation"]
     """
     String representing the object's type. Objects of the same type share the same value.
@@ -255,6 +259,10 @@ class GiftCardOperation(APIResource["GiftCardOperation"]):
     on_behalf_of: Optional[str]
     """
     The connected account whose credentials were used to perform this operation.
+    """
+    reader: Optional[str]
+    """
+    ID of the reader this transaction was made on.
     """
     reload: Optional[Reload]
     """

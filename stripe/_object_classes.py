@@ -488,9 +488,9 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "CollectionSettingVersion",
     ),
     "v2.billing.contract": ("stripe.v2.billing._contract", "Contract"),
-    "v2.billing.contract_license_pricing_quantity_change": (
-        "stripe.v2.billing._contract_license_pricing_quantity_change",
-        "ContractLicensePricingQuantityChange",
+    "v2.billing.contract_pricing_line_quantity_change": (
+        "stripe.v2.billing._contract_pricing_line_quantity_change",
+        "ContractPricingLineQuantityChange",
     ),
     "v2.billing.custom_pricing_unit": (
         "stripe.v2.billing._custom_pricing_unit",
@@ -604,6 +604,11 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     ),
     "v2.core.fee_batch": ("stripe.v2.core._fee_batch", "FeeBatch"),
     "v2.core.fee_entry": ("stripe.v2.core._fee_entry", "FeeEntry"),
+    "v2.core.health.alert": ("stripe.v2.core.health._alert", "Alert"),
+    "v2.core.health.alert_history_entry": (
+        "stripe.v2.core.health._alert_history_entry",
+        "AlertHistoryEntry",
+    ),
     "v2.core.vault.gb_bank_account": (
         "stripe.v2.core.vault._gb_bank_account",
         "GbBankAccount",
@@ -659,6 +664,10 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.v2.money_management._financial_address",
         "FinancialAddress",
     ),
+    "v2.money_management.financial_address_debit_simulation": (
+        "stripe.v2.money_management._financial_address_debit_simulation",
+        "FinancialAddressDebitSimulation",
+    ),
     "v2.money_management.inbound_transfer": (
         "stripe.v2.money_management._inbound_transfer",
         "InboundTransfer",
@@ -678,6 +687,10 @@ V2_OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
     "v2.money_management.outbound_transfer": (
         "stripe.v2.money_management._outbound_transfer",
         "OutboundTransfer",
+    ),
+    "v2.money_management.payout_intent": (
+        "stripe.v2.money_management._payout_intent",
+        "PayoutIntent",
     ),
     "v2.money_management.payout_method": (
         "stripe.v2.money_management._payout_method",

@@ -26,6 +26,9 @@ if TYPE_CHECKING:
     from stripe.params.issuing._credit_underwriting_record_report_decision_params import (
         CreditUnderwritingRecordReportDecisionParams,
     )
+    from stripe.params.issuing._credit_underwriting_record_report_offer_acceptance_params import (
+        CreditUnderwritingRecordReportOfferAcceptanceParams,
+    )
     from stripe.params.issuing._credit_underwriting_record_retrieve_params import (
         CreditUnderwritingRecordRetrieveParams,
     )
@@ -204,6 +207,58 @@ class CreditUnderwritingRecordService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/report_decision".format(
+                    credit_underwriting_record=sanitize_id(
+                        credit_underwriting_record
+                    ),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def report_offer_acceptance(
+        self,
+        credit_underwriting_record: str,
+        params: Optional[
+            "CreditUnderwritingRecordReportOfferAcceptanceParams"
+        ] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "CreditUnderwritingRecord":
+        """
+        Update a CreditUnderwritingRecord object to report that a credit offer has been accepted.
+        """
+        return cast(
+            "CreditUnderwritingRecord",
+            self._request(
+                "post",
+                "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/report_offer_acceptance".format(
+                    credit_underwriting_record=sanitize_id(
+                        credit_underwriting_record
+                    ),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def report_offer_acceptance_async(
+        self,
+        credit_underwriting_record: str,
+        params: Optional[
+            "CreditUnderwritingRecordReportOfferAcceptanceParams"
+        ] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "CreditUnderwritingRecord":
+        """
+        Update a CreditUnderwritingRecord object to report that a credit offer has been accepted.
+        """
+        return cast(
+            "CreditUnderwritingRecord",
+            await self._request_async(
+                "post",
+                "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/report_offer_acceptance".format(
                     credit_underwriting_record=sanitize_id(
                         credit_underwriting_record
                     ),

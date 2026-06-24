@@ -5,19 +5,19 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.v2.billing.contracts.license_pricing._quantity_change_service import (
+    from stripe.v2.billing.contracts.pricing_lines._quantity_change_service import (
         QuantityChangeService,
     )
 
 _subservices = {
     "quantity_changes": [
-        "stripe.v2.billing.contracts.license_pricing._quantity_change_service",
+        "stripe.v2.billing.contracts.pricing_lines._quantity_change_service",
         "QuantityChangeService",
     ],
 }
 
 
-class LicensePricingService(StripeService):
+class PricingLinesService(StripeService):
     quantity_changes: "QuantityChangeService"
 
     def __init__(self, requestor):

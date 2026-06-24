@@ -4,14 +4,23 @@ from importlib import import_module
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.v2.billing.contracts.license_pricing._quantity_change_service import (
-        QuantityChangeService as QuantityChangeService,
+    from stripe.params.v2.core.health import alerts as alerts
+    from stripe.params.v2.core.health._alert_list_params import (
+        AlertListParams as AlertListParams,
+    )
+    from stripe.params.v2.core.health._alert_retrieve_params import (
+        AlertRetrieveParams as AlertRetrieveParams,
     )
 
 # name -> (import_target, is_submodule)
 _import_map = {
-    "QuantityChangeService": (
-        "stripe.v2.billing.contracts.license_pricing._quantity_change_service",
+    "alerts": ("stripe.params.v2.core.health.alerts", True),
+    "AlertListParams": (
+        "stripe.params.v2.core.health._alert_list_params",
+        False,
+    ),
+    "AlertRetrieveParams": (
+        "stripe.params.v2.core.health._alert_retrieve_params",
         False,
     ),
 }

@@ -146,14 +146,14 @@ class AccountTokenCreateParamsIdentityAttestationsTermsOfService(TypedDict):
     """
     Details on the Account's acceptance of Issuing-specific terms of service.
     """
-    crypto_storer: NotRequired[
-        "AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCryptoStorer"
+    crypto_money_manager: NotRequired[
+        "AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCryptoMoneyManager"
     ]
     """
-    Details on the Account's acceptance of Crypto-storer-specific terms of service; IP, date, and User Agent are expanded by Stripe.
+    Details on the Account's acceptance of Crypto-specific terms of service; IP, date, and User Agent are expanded by Stripe.
     """
-    storer: NotRequired[
-        "AccountTokenCreateParamsIdentityAttestationsTermsOfServiceStorer"
+    money_manager: NotRequired[
+        "AccountTokenCreateParamsIdentityAttestationsTermsOfServiceMoneyManager"
     ]
     """
     Details on the Account's acceptance of Treasury-specific terms of service; IP, date, and User Agent are expanded by Stripe.
@@ -446,7 +446,7 @@ class AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCardCreatorComme
     """
 
 
-class AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCryptoStorer(
+class AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCryptoMoneyManager(
     TypedDict,
 ):
     shown_and_accepted: NotRequired[bool]
@@ -455,7 +455,7 @@ class AccountTokenCreateParamsIdentityAttestationsTermsOfServiceCryptoStorer(
     """
 
 
-class AccountTokenCreateParamsIdentityAttestationsTermsOfServiceStorer(
+class AccountTokenCreateParamsIdentityAttestationsTermsOfServiceMoneyManager(
     TypedDict,
 ):
     shown_and_accepted: NotRequired[bool]

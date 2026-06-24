@@ -28,6 +28,10 @@ class TransactionCreateForceCaptureParams(TypedDict):
     """
     Details about the seller (grocery store, e-commerce website, etc.) where the card authorization happened.
     """
+    network_data: NotRequired["TransactionCreateForceCaptureParamsNetworkData"]
+    """
+    Details about the transaction, such as processing dates, set by the card network.
+    """
     purchase_details: NotRequired[
         "TransactionCreateForceCaptureParamsPurchaseDetails"
     ]
@@ -377,6 +381,13 @@ class TransactionCreateForceCaptureParamsMerchantData(TypedDict):
     url: NotRequired[str]
     """
     URL provided by the merchant on a 3DS request
+    """
+
+
+class TransactionCreateForceCaptureParamsNetworkData(TypedDict):
+    acquirer_reference_number: NotRequired[str]
+    """
+    Optional. A test value to populate network_data.acquirer_reference_number on the resulting Issuing Transaction. Must contain only digits and be at most 23 characters long. This value is intended only for integration validation in testmode and does not need to correspond to a real network-assigned acquirer reference number.
     """
 
 

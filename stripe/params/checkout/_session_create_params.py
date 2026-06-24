@@ -951,9 +951,237 @@ class SessionCreateParamsInvoiceCreationInvoiceDataRenderingOptions(TypedDict):
 
 
 class SessionCreateParamsItem(TypedDict):
+    subscription: NotRequired["SessionCreateParamsItemSubscription"]
+    """
+    Configuration for the subscription item.
+    """
     type: Literal["subscription"]
     """
     The type of item.
+    """
+
+
+class SessionCreateParamsItemSubscription(TypedDict):
+    billing_cycle_anchor_config: NotRequired[
+        "SessionCreateParamsItemSubscriptionBillingCycleAnchorConfig"
+    ]
+    """
+    Configures when the subscription schedule's billing cycle anchors to a specific day of the week or month.
+    """
+    billing_mode: NotRequired["SessionCreateParamsItemSubscriptionBillingMode"]
+    """
+    Controls how prorations and invoices for subscriptions are calculated and orchestrated.
+    """
+    description: NotRequired[str]
+    """
+    The subscription's description, meant to be displayable to the customer.
+    """
+    items: List["SessionCreateParamsItemSubscriptionItem"]
+    """
+    The list of items for the subscription.
+    """
+    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
+    """
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    """
+    pending_invoice_item_interval: NotRequired[
+        "SessionCreateParamsItemSubscriptionPendingInvoiceItemInterval"
+    ]
+    """
+    Specifies an interval for how often to bill for any pending invoice items.
+    """
+    proration_behavior: NotRequired[Literal["create_prorations", "none"]]
+    """
+    Determines how to handle prorations resulting from the `billing_cycle_anchor`. If no value is passed, the default is `create_prorations`.
+    """
+    trial_end: NotRequired[int]
+    """
+    Unix timestamp representing the end of the trial period the customer will get before being charged for the first time. Has to be at least 48 hours in the future.
+    """
+    trial_period_days: NotRequired[int]
+    """
+    Integer representing the number of trial period days before the customer is charged for the first time. Has to be at least 1.
+    """
+    trial_settings: NotRequired[
+        "SessionCreateParamsItemSubscriptionTrialSettings"
+    ]
+    """
+    Settings related to subscription trials.
+    """
+
+
+class SessionCreateParamsItemSubscriptionBillingCycleAnchorConfig(TypedDict):
+    day_of_month: int
+    """
+    The day of the month the anchor should be. Ranges from 1 to 31.
+    """
+    hour: NotRequired[int]
+    """
+    The hour of the day the anchor should be. Ranges from 0 to 23.
+    """
+    minute: NotRequired[int]
+    """
+    The minute of the hour the anchor should be. Ranges from 0 to 59.
+    """
+    month: NotRequired[int]
+    """
+    The month to start full cycle periods. Ranges from 1 to 12.
+    """
+    second: NotRequired[int]
+    """
+    The second of the minute the anchor should be. Ranges from 0 to 59.
+    """
+
+
+class SessionCreateParamsItemSubscriptionBillingMode(TypedDict):
+    flexible: NotRequired[
+        "SessionCreateParamsItemSubscriptionBillingModeFlexible"
+    ]
+    """
+    Configure behavior for flexible billing mode.
+    """
+    type: Literal["classic", "flexible"]
+    """
+    Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
+    """
+
+
+class SessionCreateParamsItemSubscriptionBillingModeFlexible(TypedDict):
+    proration_discounts: NotRequired[Literal["included", "itemized"]]
+    """
+    Controls how invoices and invoice items display proration amounts and discount amounts.
+    """
+
+
+class SessionCreateParamsItemSubscriptionItem(TypedDict):
+    price: NotRequired[str]
+    """
+    The ID of the price for this subscription item.
+    """
+    price_data: NotRequired["SessionCreateParamsItemSubscriptionItemPriceData"]
+    """
+    Data used to generate a new Price object inline.
+    """
+    quantity: NotRequired[int]
+    """
+    Quantity for this item.
+    """
+
+
+class SessionCreateParamsItemSubscriptionItemPriceData(TypedDict):
+    currency: str
+    """
+    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+    """
+    product: NotRequired[str]
+    """
+    The ID of the [Product](https://docs.stripe.com/api/products) that this [Price](https://docs.stripe.com/api/prices) will belong to. One of `product` or `product_data` is required.
+    """
+    product_data: NotRequired[
+        "SessionCreateParamsItemSubscriptionItemPriceDataProductData"
+    ]
+    """
+    Data used to generate a new [Product](https://docs.stripe.com/api/products) object inline. One of `product` or `product_data` is required.
+    """
+    recurring: NotRequired[
+        "SessionCreateParamsItemSubscriptionItemPriceDataRecurring"
+    ]
+    """
+    The recurring components of a price such as `interval` and `interval_count`.
+    """
+    tax_behavior: NotRequired[Literal["exclusive", "inclusive", "unspecified"]]
+    """
+    Only required if a [default tax behavior](https://docs.stripe.com/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+    """
+    unit_amount: NotRequired[int]
+    """
+    A non-negative integer in cents (or local equivalent) representing how much to charge. One of `unit_amount` or `unit_amount_decimal` is required.
+    """
+    unit_amount_decimal: NotRequired[Decimal]
+    """
+    Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+    """
+
+
+class SessionCreateParamsItemSubscriptionItemPriceDataProductData(TypedDict):
+    description: NotRequired[str]
+    """
+    The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
+    """
+    images: NotRequired[List[str]]
+    """
+    A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
+    """
+    metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
+    """
+    Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+    """
+    name: str
+    """
+    The product's name, meant to be displayable to the customer.
+    """
+    tax_code: NotRequired[str]
+    """
+    A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+    """
+    tax_details: NotRequired[
+        "SessionCreateParamsItemSubscriptionItemPriceDataProductDataTaxDetails"
+    ]
+    """
+    Tax details for this product, including the [tax code](https://docs.stripe.com/tax/tax-codes) and an optional performance location.
+    """
+    unit_label: NotRequired[str]
+    """
+    A label that represents units of this product. When set, this will be included in customers' receipts, invoices, Checkout, and the customer portal.
+    """
+
+
+class SessionCreateParamsItemSubscriptionItemPriceDataProductDataTaxDetails(
+    TypedDict,
+):
+    performance_location: NotRequired[str]
+    """
+    A tax location ID. Depending on the [tax code](https://docs.stripe.com/tax/tax-for-tickets/reference/tax-location-performance), this is required, optional, or not supported.
+    """
+    tax_code: NotRequired["Literal['']|str"]
+    """
+    A [tax code](https://docs.stripe.com/tax/tax-categories) ID.
+    """
+
+
+class SessionCreateParamsItemSubscriptionItemPriceDataRecurring(TypedDict):
+    interval: Literal["day", "month", "week", "year"]
+    """
+    Specifies billing frequency. Either `day`, `week`, `month` or `year`.
+    """
+    interval_count: NotRequired[int]
+    """
+    The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of three years interval allowed (3 years, 36 months, or 156 weeks).
+    """
+
+
+class SessionCreateParamsItemSubscriptionPendingInvoiceItemInterval(TypedDict):
+    interval: Literal["day", "month", "week", "year"]
+    """
+    Specifies invoicing frequency. Either `day`, `week`, `month` or `year`.
+    """
+    interval_count: NotRequired[int]
+    """
+    The number of intervals between invoices. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
+    """
+
+
+class SessionCreateParamsItemSubscriptionTrialSettings(TypedDict):
+    end_behavior: "SessionCreateParamsItemSubscriptionTrialSettingsEndBehavior"
+    """
+    Defines how the subscription should behave when the user's free trial ends.
+    """
+
+
+class SessionCreateParamsItemSubscriptionTrialSettingsEndBehavior(TypedDict):
+    missing_payment_method: Literal["cancel", "create_invoice", "pause"]
+    """
+    Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
     """
 
 

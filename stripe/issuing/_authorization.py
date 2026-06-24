@@ -88,13 +88,17 @@ class Authorization(
         """
         The cardholder account type affected by this authorization.
         """
-        amount: int
+        available_balance: int
         """
-        The remaining balance in the cardholder's account after the authorization, in the smallest currency unit.
+        The available balance or credit limit in the cardholder's account after the authorization, in the smallest currency unit.
         """
         currency: str
         """
-        The currency of the remaining balance in the cardholder's account after the authorization.
+        The currency of the remaining balances in the cardholder's account after the authorization.
+        """
+        current_balance: int
+        """
+        The current ledger balance or remaining credit amount in the cardholder's account after the authorization, in the smallest currency unit.
         """
 
     class CryptoTransaction(StripeObject):
@@ -231,6 +235,431 @@ class Authorization(
         _inner_class_types = {
             "crypto_transaction_confirmed": CryptoTransactionConfirmed,
             "crypto_transaction_failed": CryptoTransactionFailed,
+        }
+
+    class EnrichedMerchantData(StripeObject):
+        class Merchant(StripeObject):
+            class Industry(StripeObject):
+                id: Literal[
+                    "accessories",
+                    "accounting_and_bookkeeping",
+                    "acupuncture",
+                    "administrative_services",
+                    "adult_entertainment",
+                    "adult_retail",
+                    "advertising_and_marketing",
+                    "advertising_technology",
+                    "agricultural_technology",
+                    "agriculture_and_forestry",
+                    "airlines_and_aviation",
+                    "alternative_medicine",
+                    "alternative_rentals",
+                    "anesthesiologists",
+                    "antiques",
+                    "aquatic_transportation",
+                    "arcades_and_amusement_parks",
+                    "art_dealers_and_galleries",
+                    "arts_and_hobbies",
+                    "atms",
+                    "auctions",
+                    "auto_parts_and_supplies",
+                    "auto_smog_checks",
+                    "auto_tires",
+                    "auto_transmission",
+                    "automotive_dealerships",
+                    "automotive_retail",
+                    "automotive_services",
+                    "bakeries",
+                    "banking_and_finance",
+                    "bars",
+                    "beauty_spas_and_salons",
+                    "beer_wine_and_spirits",
+                    "benefits",
+                    "bicycles",
+                    "billiards_and_pool",
+                    "biotechnology",
+                    "blood_banks_and_centers",
+                    "boat_dealers",
+                    "bookstores",
+                    "bowling",
+                    "breweries_distilleries_and_wineries",
+                    "business_brokers_and_franchises",
+                    "business_services",
+                    "butchers",
+                    "buy_now_pay_later",
+                    "cafes",
+                    "candy_shops",
+                    "cannabis_dispensary",
+                    "car_appraisers",
+                    "car_wash_and_detail",
+                    "cardiologists",
+                    "cards_and_stationery",
+                    "casinos_and_gambling",
+                    "catering",
+                    "charity",
+                    "childcare",
+                    "children_s_clothing",
+                    "children_s_retail",
+                    "chiropractors",
+                    "circuses_and_carnivals",
+                    "cleaning",
+                    "clothing_and_accessories",
+                    "clothing_services",
+                    "commercial_supplies",
+                    "communication_software",
+                    "computers_and_electronics",
+                    "construction_and_home_improvement",
+                    "construction_supplies",
+                    "contractors",
+                    "convenience_stores",
+                    "cosmetics",
+                    "costumes",
+                    "counseling_and_therapy",
+                    "couriers",
+                    "coworking_spaces",
+                    "creative",
+                    "creative_software",
+                    "credit_reporting",
+                    "crm",
+                    "crowdfunding",
+                    "cryptocurrency",
+                    "dance_halls_and_saloons",
+                    "delivery_services",
+                    "dentists",
+                    "department_stores",
+                    "dermatologists",
+                    "design_technology",
+                    "developer_tools",
+                    "digital_money_movement",
+                    "discount_stores",
+                    "education",
+                    "educational_technology",
+                    "electric_vehicle_charging",
+                    "emergency_services",
+                    "employment_services",
+                    "enterprise_software",
+                    "entertainment",
+                    "ents",
+                    "environmental_technology",
+                    "equipment_rentals",
+                    "events_and_event_planning",
+                    "eyewear",
+                    "fairgrounds_and_rodeos",
+                    "family_medicine",
+                    "fast_food",
+                    "fertility",
+                    "financial_management_software",
+                    "financial_planning_and_investments",
+                    "financial_technology",
+                    "fishmongers",
+                    "flea_markets",
+                    "fleet",
+                    "florists",
+                    "food_and_drink",
+                    "food_delivery_services",
+                    "food_trucks",
+                    "fuel_dealers",
+                    "funeral_services",
+                    "furniture",
+                    "gas_stations",
+                    "gastroenterologists",
+                    "general_goods",
+                    "general_surgery",
+                    "gift_and_novelty",
+                    "government",
+                    "grocery_delivery_services",
+                    "gyms_health_and_fitness_centers",
+                    "hair_removal",
+                    "hair_salons_and_barbers",
+                    "hardware",
+                    "hardware_and_home_improvement",
+                    "hospitals_clinics_and_medical_centers",
+                    "household_services",
+                    "hr_platform",
+                    "immigration",
+                    "import_and_export",
+                    "industrial_and_energy",
+                    "inflight_internet_and_entertainment",
+                    "insurance",
+                    "internal_medicine",
+                    "internet",
+                    "jewelry_and_watches",
+                    "landmarks",
+                    "laundry_and_garment_services",
+                    "lawn_and_garden",
+                    "legal_services",
+                    "legal_technology",
+                    "lending",
+                    "lingerie",
+                    "lodging",
+                    "luggage",
+                    "maintenance_and_repair",
+                    "manicures_and_pedicures",
+                    "manufacturing",
+                    "marina",
+                    "marine_supplies",
+                    "marketing_software",
+                    "massage_clinics_and_therapists",
+                    "media",
+                    "medical_and_healthcare_services",
+                    "medical_supplies_and_labs",
+                    "men_s_clothing",
+                    "mental_health_professionals",
+                    "mobile_applications",
+                    "motorcycle_moped_and_scooter_repair",
+                    "museums",
+                    "musical_instruments",
+                    "neurologists",
+                    "news_and_magazines",
+                    "newsstands",
+                    "nutritionists",
+                    "obstetricians_and_gynecologists",
+                    "office_supplies",
+                    "oil_and_gas",
+                    "oncologists",
+                    "online_marketplace",
+                    "ophthalmologists",
+                    "optometrists",
+                    "organizations",
+                    "orthopedic_surgeons",
+                    "other",
+                    "outlets",
+                    "packaging",
+                    "paper",
+                    "parking",
+                    "parks_and_outdoors",
+                    "party_centers",
+                    "pathologists",
+                    "pawn_shops",
+                    "pediatricians",
+                    "pet_grooming",
+                    "pet_services",
+                    "pets",
+                    "pharmacies",
+                    "photography",
+                    "physical_therapy",
+                    "piercings",
+                    "plastic_surgeons",
+                    "podiatrists",
+                    "pregnancy_and_sexual_health",
+                    "professional_services",
+                    "property_management",
+                    "psychiatrists",
+                    "psychics_and_astrologers",
+                    "psychologists",
+                    "public_services",
+                    "public_transportation",
+                    "publishing_software",
+                    "radiologists",
+                    "rails",
+                    "real_estate",
+                    "recreation",
+                    "religious",
+                    "renewable_energy",
+                    "respiratory",
+                    "restaurants",
+                    "retail",
+                    "ride_shares",
+                    "sales_enablement_software",
+                    "security_and_privacy",
+                    "security_and_safety",
+                    "services",
+                    "shipping_and_freight",
+                    "shoes",
+                    "skin_care",
+                    "social_clubs",
+                    "software",
+                    "software_engineering",
+                    "spas",
+                    "specialist_physicans",
+                    "specialty_clothing_and_accessories",
+                    "specialty_foods",
+                    "specialty_groceries",
+                    "specialty_retail",
+                    "sporting_goods",
+                    "storage",
+                    "streaming_services",
+                    "supermarkets_and_grocery_stores",
+                    "swimwear",
+                    "tailors",
+                    "tanning_salons",
+                    "tattoos",
+                    "taxes",
+                    "taxi_and_limousines",
+                    "technology",
+                    "telecommunications",
+                    "television",
+                    "textiles",
+                    "theater_and_cinema",
+                    "tickets_and_reservations",
+                    "tobacco_smoke_and_vape_shops",
+                    "tolls_and_fees",
+                    "tourist_information_and_services",
+                    "towing_and_roadside_assistance",
+                    "toy_stores",
+                    "transportation",
+                    "travel",
+                    "travel_services",
+                    "travel_software",
+                    "urologists",
+                    "utilities",
+                    "vehicle_rentals",
+                    "vending_machine",
+                    "venues",
+                    "veterinarians",
+                    "video_games",
+                    "vintage_and_thrift",
+                    "warehouses_and_wholesale_stores",
+                    "water_and_waste_management_services",
+                    "web_infrastructure",
+                    "wedding_and_bridal",
+                    "women_s_clothing",
+                    "zoos_and_aquariums",
+                ]
+                """
+                Most specific value of the seller's category.
+                """
+                names: List[str]
+                """
+                Increasingly specific textual representations of the seller's category.
+                """
+
+            class Location(StripeObject):
+                class Address(StripeObject):
+                    city: Optional[str]
+                    """
+                    City, district, suburb, town, or village.
+                    """
+                    country: str
+                    """
+                    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                    """
+                    line1: Optional[str]
+                    """
+                    Address line 1, such as the street, PO Box, or company name.
+                    """
+                    line2: Optional[str]
+                    """
+                    Address line 2, such as the apartment, suite, unit, or building.
+                    """
+                    postal_code: Optional[str]
+                    """
+                    ZIP or postal code.
+                    """
+                    state: Optional[str]
+                    """
+                    State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+                    """
+
+                class Coordinates(StripeObject):
+                    latitude: Optional[float]
+                    """
+                    Latitude of the seller's location.
+                    """
+                    longitude: Optional[float]
+                    """
+                    Longitude of the seller's location.
+                    """
+
+                address: Optional[Address]
+                """
+                Address details of the seller.
+                """
+                coordinates: Optional[Coordinates]
+                """
+                Coordinates of the seller.
+                """
+                _inner_class_types = {
+                    "address": Address,
+                    "coordinates": Coordinates,
+                }
+
+            class Spade(StripeObject):
+                counterparty_id: Optional[str]
+                """
+                Unified identifier for the seller.
+                """
+                location_id: Optional[str]
+                """
+                Unified identifier for the seller's location.
+                """
+
+            data_sources: List[Literal["spade"]]
+            industry: Industry
+            location: Optional[Location]
+            """
+            Location data of the seller.
+            """
+            logo: Optional[str]
+            """
+            Image link to the seller's logo.
+            """
+            name: Optional[str]
+            """
+            The name of the seller.
+            """
+            phone: Optional[str]
+            """
+            Phone number of the seller.
+            """
+            spade: Optional[Spade]
+            """
+            If `spade` is a data source, this hash contains details provided by Spade.
+            """
+            url: Optional[str]
+            """
+            URL of the seller's website.
+            """
+            _inner_class_types = {
+                "industry": Industry,
+                "location": Location,
+                "spade": Spade,
+            }
+
+        class ThirdParty(StripeObject):
+            class Spade(StripeObject):
+                third_party_id: Optional[str]
+                """
+                Unified identifier for the third party.
+                """
+
+            data_sources: List[Literal["spade"]]
+            logo: Optional[str]
+            """
+            Image link to the third party's logo.
+            """
+            name: Optional[str]
+            """
+            Name of the third party.
+            """
+            spade: Optional[Spade]
+            """
+            If `spade` is a data source, this hash contains details provided by Spade.
+            """
+            type: Literal[
+                "buy_now_pay_later",
+                "delivery_service",
+                "marketplace",
+                "other",
+                "payment_processor",
+                "platform",
+            ]
+            """
+            Category of the third party.
+            """
+            _inner_class_types = {"spade": Spade}
+
+        merchant: Optional[Merchant]
+        """
+        Additional details about the seller (grocery store, e-commerce website, and so on) where the card authorization happened.
+        """
+        third_parties: Optional[List[ThirdParty]]
+        """
+        An array of third parties involved in the card authorization, when applicable.
+        """
+        _inner_class_types = {
+            "merchant": Merchant,
+            "third_parties": ThirdParty,
         }
 
     class Fleet(StripeObject):
@@ -1052,6 +1481,10 @@ class Authorization(
     currency: str
     """
     The currency of the cardholder. This currency can be different from the currency presented at authorization and the `merchant_currency` field on this authorization. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+    """
+    enriched_merchant_data: Optional[EnrichedMerchantData]
+    """
+    Enriched merchant data for this authorization.
     """
     fleet: Optional[Fleet]
     """
@@ -2216,6 +2649,7 @@ class Authorization(
         "amount_details": AmountDetails,
         "balance_response": BalanceResponse,
         "crypto_transactions": CryptoTransaction,
+        "enriched_merchant_data": EnrichedMerchantData,
         "fleet": Fleet,
         "fraud_challenges": FraudChallenge,
         "fuel": Fuel,

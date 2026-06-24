@@ -5,13 +5,13 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.params.v2.billing.contracts import (
-        license_pricing as license_pricing,
+        pricing_lines as pricing_lines,
     )
 
 # name -> (import_target, is_submodule)
 _import_map = {
-    "license_pricing": (
-        "stripe.params.v2.billing.contracts.license_pricing",
+    "pricing_lines": (
+        "stripe.params.v2.billing.contracts.pricing_lines",
         True,
     ),
 }

@@ -6,6 +6,7 @@ from typing_extensions import TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe.v2.money_management import (
         financial_accounts as financial_accounts,
+        test_helpers as test_helpers,
     )
     from stripe.v2.money_management._adjustment import Adjustment as Adjustment
     from stripe.v2.money_management._adjustment_service import (
@@ -34,6 +35,9 @@ if TYPE_CHECKING:
     )
     from stripe.v2.money_management._financial_address import (
         FinancialAddress as FinancialAddress,
+    )
+    from stripe.v2.money_management._financial_address_debit_simulation import (
+        FinancialAddressDebitSimulation as FinancialAddressDebitSimulation,
     )
     from stripe.v2.money_management._financial_address_service import (
         FinancialAddressService as FinancialAddressService,
@@ -68,6 +72,12 @@ if TYPE_CHECKING:
     from stripe.v2.money_management._outbound_transfer_service import (
         OutboundTransferService as OutboundTransferService,
     )
+    from stripe.v2.money_management._payout_intent import (
+        PayoutIntent as PayoutIntent,
+    )
+    from stripe.v2.money_management._payout_intent_service import (
+        PayoutIntentService as PayoutIntentService,
+    )
     from stripe.v2.money_management._payout_method import (
         PayoutMethod as PayoutMethod,
     )
@@ -98,6 +108,9 @@ if TYPE_CHECKING:
     from stripe.v2.money_management._recipient_verification_service import (
         RecipientVerificationService as RecipientVerificationService,
     )
+    from stripe.v2.money_management._test_helpers_service import (
+        TestHelpersService as TestHelpersService,
+    )
     from stripe.v2.money_management._transaction import (
         Transaction as Transaction,
     )
@@ -117,6 +130,7 @@ _import_map = {
         "stripe.v2.money_management.financial_accounts",
         True,
     ),
+    "test_helpers": ("stripe.v2.money_management.test_helpers", True),
     "Adjustment": ("stripe.v2.money_management._adjustment", False),
     "AdjustmentService": (
         "stripe.v2.money_management._adjustment_service",
@@ -149,6 +163,10 @@ _import_map = {
     ),
     "FinancialAddress": (
         "stripe.v2.money_management._financial_address",
+        False,
+    ),
+    "FinancialAddressDebitSimulation": (
+        "stripe.v2.money_management._financial_address_debit_simulation",
         False,
     ),
     "FinancialAddressService": (
@@ -189,6 +207,11 @@ _import_map = {
         "stripe.v2.money_management._outbound_transfer_service",
         False,
     ),
+    "PayoutIntent": ("stripe.v2.money_management._payout_intent", False),
+    "PayoutIntentService": (
+        "stripe.v2.money_management._payout_intent_service",
+        False,
+    ),
     "PayoutMethod": ("stripe.v2.money_management._payout_method", False),
     "PayoutMethodService": (
         "stripe.v2.money_management._payout_method_service",
@@ -218,6 +241,10 @@ _import_map = {
     ),
     "RecipientVerificationService": (
         "stripe.v2.money_management._recipient_verification_service",
+        False,
+    ),
+    "TestHelpersService": (
+        "stripe.v2.money_management._test_helpers_service",
         False,
     ),
     "Transaction": ("stripe.v2.money_management._transaction", False),

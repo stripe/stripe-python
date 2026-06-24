@@ -582,6 +582,10 @@ class Session(
                     The type of the wallet, one of `amex_express_checkout`, `apple_pay`, `google_pay`, `masterpass`, `samsung_pay`, `visa_checkout`, `meta_pay`, or `link`.
                     """
 
+                brand: str
+                """
+                The brand of the card, accounting for customer's brand choice on dual-branded cards.
+                """
                 country: Optional[str]
                 """
                 Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
@@ -1148,6 +1152,16 @@ class Session(
         """
         invoice_data: InvoiceData
         _inner_class_types = {"invoice_data": InvoiceData}
+
+    class Item(StripeObject):
+        key: str
+        """
+        The key of the item. Guaranteed to be a unique ID within this checkout session's items.
+        """
+        type: Literal["subscription"]
+        """
+        The type of the item.
+        """
 
     class ManagedPayments(StripeObject):
         enabled: bool
@@ -2920,6 +2934,10 @@ class Session(
     """
     Details on the state of invoice creation for the Checkout Session.
     """
+    items: Optional[List[Item]]
+    """
+    The items to be purchased by the customer.
+    """
     line_items: Optional[ListObject["LineItem"]]
     """
     The line items purchased by the customer.
@@ -3609,6 +3627,7 @@ class Session(
         "customer_details": CustomerDetails,
         "discounts": Discount,
         "invoice_creation": InvoiceCreation,
+        "items": Item,
         "managed_payments": ManagedPayments,
         "name_collection": NameCollection,
         "optional_items": OptionalItem,

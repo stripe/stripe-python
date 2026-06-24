@@ -8,14 +8,14 @@ from typing_extensions import Literal, TYPE_CHECKING, override
 
 if TYPE_CHECKING:
     from stripe._stripe_client import StripeClient
-    from stripe.v2.core._account import Account
+    from stripe.v2.money_management._outbound_payment import OutboundPayment
 
 
-class V2CoreAccountIncludingConfigurationStorerUpdatedEventNotification(
+class V2MoneyManagementOutboundPaymentUnderReviewEventNotification(
     EventNotification,
 ):
-    LOOKUP_TYPE = "v2.core.account[configuration.storer].updated"
-    type: Literal["v2.core.account[configuration.storer].updated"]
+    LOOKUP_TYPE = "v2.money_management.outbound_payment.under_review"
+    type: Literal["v2.money_management.outbound_payment.under_review"]
     related_object: RelatedObject
 
     def __init__(
@@ -30,13 +30,13 @@ class V2CoreAccountIncludingConfigurationStorerUpdatedEventNotification(
     @override
     def fetch_event(
         self,
-    ) -> "V2CoreAccountIncludingConfigurationStorerUpdatedEvent":
+    ) -> "V2MoneyManagementOutboundPaymentUnderReviewEvent":
         return cast(
-            "V2CoreAccountIncludingConfigurationStorerUpdatedEvent",
+            "V2MoneyManagementOutboundPaymentUnderReviewEvent",
             super().fetch_event(),
         )
 
-    def fetch_related_object(self) -> "Account":
+    def fetch_related_object(self) -> "OutboundPayment":
         response = self._client.raw_request(
             "get",
             self.related_object.url,
@@ -45,7 +45,7 @@ class V2CoreAccountIncludingConfigurationStorerUpdatedEventNotification(
             usage=["fetch_related_object"],
         )
         return cast(
-            "Account",
+            "OutboundPayment",
             self._client.deserialize(
                 response,
                 api_mode=get_api_mode(self.related_object.url),
@@ -55,13 +55,13 @@ class V2CoreAccountIncludingConfigurationStorerUpdatedEventNotification(
     @override
     async def fetch_event_async(
         self,
-    ) -> "V2CoreAccountIncludingConfigurationStorerUpdatedEvent":
+    ) -> "V2MoneyManagementOutboundPaymentUnderReviewEvent":
         return cast(
-            "V2CoreAccountIncludingConfigurationStorerUpdatedEvent",
+            "V2MoneyManagementOutboundPaymentUnderReviewEvent",
             await super().fetch_event_async(),
         )
 
-    async def fetch_related_object_async(self) -> "Account":
+    async def fetch_related_object_async(self) -> "OutboundPayment":
         response = await self._client.raw_request_async(
             "get",
             self.related_object.url,
@@ -70,7 +70,7 @@ class V2CoreAccountIncludingConfigurationStorerUpdatedEventNotification(
             usage=["fetch_related_object"],
         )
         return cast(
-            "Account",
+            "OutboundPayment",
             self._client.deserialize(
                 response,
                 api_mode=get_api_mode(self.related_object.url),
@@ -78,9 +78,9 @@ class V2CoreAccountIncludingConfigurationStorerUpdatedEventNotification(
         )
 
 
-class V2CoreAccountIncludingConfigurationStorerUpdatedEvent(Event):
-    LOOKUP_TYPE = "v2.core.account[configuration.storer].updated"
-    type: Literal["v2.core.account[configuration.storer].updated"]
+class V2MoneyManagementOutboundPaymentUnderReviewEvent(Event):
+    LOOKUP_TYPE = "v2.money_management.outbound_payment.under_review"
+    type: Literal["v2.money_management.outbound_payment.under_review"]
 
     class RelatedObject(StripeObject):
         id: str
@@ -101,12 +101,12 @@ class V2CoreAccountIncludingConfigurationStorerUpdatedEvent(Event):
     Object containing the reference to API resource relevant to the event
     """
 
-    def fetch_related_object(self) -> "Account":
+    def fetch_related_object(self) -> "OutboundPayment":
         """
         Retrieves the related object from the API. Makes an API request on every call.
         """
         return cast(
-            "Account",
+            "OutboundPayment",
             self._requestor.request(
                 "get",
                 self.related_object.url,

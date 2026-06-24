@@ -293,10 +293,6 @@ class BatchJob(StripeObject):
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
-    maximum_rps: int
-    """
-    The maximum requests per second defined for the `batch_job`.
-    """
     metadata: UntypedStripeObject[str]
     """
     The metadata of the `batch_job`.

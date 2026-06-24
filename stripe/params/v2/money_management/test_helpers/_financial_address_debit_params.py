@@ -1,0 +1,19 @@
+# -*- coding: utf-8 -*-
+# File generated from our OpenAPI spec
+from stripe.v2._amount import AmountParam
+from typing_extensions import Literal, NotRequired, TypedDict
+
+
+class FinancialAddressDebitParams(TypedDict):
+    amount: AmountParam
+    """
+    Object containing the amount value and currency to debit.
+    """
+    network: Literal["ach"]
+    """
+    The network to use in simulating the funds flow. This will be reflected in the resulting ReceivedDebit.
+    """
+    statement_descriptor: NotRequired[str]
+    """
+    String explaining funds flow. Use this field to populate the statement descriptor of the ReceivedDebit created as an eventual result of this simulation.
+    """

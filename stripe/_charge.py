@@ -1341,6 +1341,14 @@ class Charge(
             """
             The last four digits of the gift card number.
             """
+            location: Optional[str]
+            """
+            ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
+            """
+            reader: Optional[str]
+            """
+            ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
+            """
             transaction_id: str
             """
             The transaction ID from the gift card processor.

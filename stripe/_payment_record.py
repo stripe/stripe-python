@@ -1,10 +1,19 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe._api_resource import APIResource
 from stripe._expandable_field import ExpandableField
+from stripe._search_result_object import SearchResultObject
+from stripe._searchable_api_resource import SearchableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
+from typing import (
+    AsyncIterator,
+    ClassVar,
+    Iterator,
+    List,
+    Optional,
+    cast,
+    overload,
+)
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -34,9 +43,12 @@ if TYPE_CHECKING:
     from stripe.params._payment_record_retrieve_params import (
         PaymentRecordRetrieveParams,
     )
+    from stripe.params._payment_record_search_params import (
+        PaymentRecordSearchParams,
+    )
 
 
-class PaymentRecord(APIResource["PaymentRecord"]):
+class PaymentRecord(SearchableAPIResource["PaymentRecord"]):
     """
     A Payment Record is a resource that allows you to represent payments that occur on- or off-Stripe.
     For example, you can create a Payment Record to model a payment made on a different payment processor,
@@ -1082,6 +1094,14 @@ class PaymentRecord(APIResource["PaymentRecord"]):
             last4: Optional[str]
             """
             The last four digits of the gift card number.
+            """
+            location: Optional[str]
+            """
+            ID of the [location](https://docs.stripe.com/api/terminal/locations) that this transaction's reader is assigned to.
+            """
+            reader: Optional[str]
+            """
+            ID of the [reader](https://docs.stripe.com/api/terminal/readers) this transaction was made on.
             """
             transaction_id: Optional[str]
             """
@@ -3208,6 +3228,46 @@ class PaymentRecord(APIResource["PaymentRecord"]):
         instance = cls(id, **params)
         await instance.refresh_async()
         return instance
+
+    @classmethod
+    def search(
+        cls, *args, **kwargs: Unpack["PaymentRecordSearchParams"]
+    ) -> SearchResultObject["PaymentRecord"]:
+        """
+        Search for PaymentRecords you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
+        Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
+        conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
+        to an hour behind during outages. Search functionality is not available to merchants in India.
+        """
+        return cls._search(
+            search_url="/v1/payment_records/search", *args, **kwargs
+        )
+
+    @classmethod
+    async def search_async(
+        cls, *args, **kwargs: Unpack["PaymentRecordSearchParams"]
+    ) -> SearchResultObject["PaymentRecord"]:
+        """
+        Search for PaymentRecords you've previously created using Stripe's [Search Query Language](https://docs.stripe.com/docs/search#search-query-language).
+        Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
+        conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
+        to an hour behind during outages. Search functionality is not available to merchants in India.
+        """
+        return await cls._search_async(
+            search_url="/v1/payment_records/search", *args, **kwargs
+        )
+
+    @classmethod
+    def search_auto_paging_iter(
+        cls, *args, **kwargs: Unpack["PaymentRecordSearchParams"]
+    ) -> Iterator["PaymentRecord"]:
+        return cls.search(*args, **kwargs).auto_paging_iter()
+
+    @classmethod
+    async def search_auto_paging_iter_async(
+        cls, *args, **kwargs: Unpack["PaymentRecordSearchParams"]
+    ) -> AsyncIterator["PaymentRecord"]:
+        return (await cls.search_async(*args, **kwargs)).auto_paging_iter()
 
     _inner_class_types = {
         "amount": Amount,

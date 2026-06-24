@@ -11,6 +11,9 @@ if TYPE_CHECKING:
     from stripe.params.test_helpers.issuing._dispute_close_params import (
         DisputeCloseParams,
     )
+    from stripe.params.test_helpers.issuing._dispute_provisional_credit_params import (
+        DisputeProvisionalCreditParams,
+    )
     from stripe.params.test_helpers.issuing._dispute_simulate_network_lifecycle_dispute_response_params import (
         DisputeSimulateNetworkLifecycleDisputeResponseParams,
     )
@@ -59,6 +62,50 @@ class DisputeService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/test_helpers/issuing/disputes/{dispute}/close".format(
+                    dispute=sanitize_id(dispute),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def provisional_credit(
+        self,
+        dispute: str,
+        params: Optional["DisputeProvisionalCreditParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "Dispute":
+        """
+        Test helper: overrides the grant_deadline and revocable_after timestamps on a test-mode Issuing dispute's provisional credit, allowing tests to simulate timer-driven status transitions without waiting for real regulatory deadlines to pass.
+        """
+        return cast(
+            "Dispute",
+            self._request(
+                "post",
+                "/v1/test_helpers/issuing/disputes/{dispute}/provisional_credit".format(
+                    dispute=sanitize_id(dispute),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def provisional_credit_async(
+        self,
+        dispute: str,
+        params: Optional["DisputeProvisionalCreditParams"] = None,
+        options: Optional["RequestOptions"] = None,
+    ) -> "Dispute":
+        """
+        Test helper: overrides the grant_deadline and revocable_after timestamps on a test-mode Issuing dispute's provisional credit, allowing tests to simulate timer-driven status transitions without waiting for real regulatory deadlines to pass.
+        """
+        return cast(
+            "Dispute",
+            await self._request_async(
+                "post",
+                "/v1/test_helpers/issuing/disputes/{dispute}/provisional_credit".format(
                     dispute=sanitize_id(dispute),
                 ),
                 base_address="api",
