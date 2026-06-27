@@ -3,6 +3,7 @@ import json
 import time
 from collections import OrderedDict
 from hashlib import sha256
+from typing import Optional
 
 # Used for global variables
 import stripe  # noqa: IMP101
@@ -38,6 +39,41 @@ class Webhook(object):
                 "You passed a thin event notification to Webhook.construct_event, which expects a webhook payload. Use StripeClient.parse_event_notification instead."
             )
         return event
+
+    @staticmethod
+    def generate_test_header_string(
+        payload: str,
+        secret: str,
+        timestamp: Optional[int] = None,
+        scheme: Optional[str] = None,
+        signature: Optional[str] = None,
+    ) -> str:
+        """
+        Generates a value for the `Stripe-Signature` header that can be used
+        when testing code that calls `Webhook.construct_event` or
+        `WebhookSignature.verify_header`. Mirrors `generateTestHeaderString`
+        from stripe-node.
+
+        Args:
+            payload: The webhook payload to sign, as a string.
+            secret: The webhook signing secret (`whsec_...`).
+            timestamp: Unix timestamp to embed in the header. Defaults to
+                the current time.
+            scheme: Signature scheme. Defaults to
+                `WebhookSignature.EXPECTED_SCHEME`.
+            signature: Pre-computed signature to embed in the header. If
+                omitted, a signature is computed from `payload` and `secret`.
+        """
+        if timestamp is None:
+            timestamp = int(time.time())
+        if scheme is None:
+            scheme = WebhookSignature.EXPECTED_SCHEME
+        if signature is None:
+            signed_payload = "%d.%s" % (timestamp, payload)
+            signature = WebhookSignature._compute_signature(
+                signed_payload, secret
+            )
+        return "t=%d,%s=%s" % (timestamp, scheme, signature)
 
 
 class WebhookSignature(object):
