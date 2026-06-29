@@ -1569,5 +1569,7 @@ def _resolve_async_client():
     return NoImportFoundAsyncClient
 
 
+# Called at module load time so HTTP library imports happen during Python's init
+# phase rather than inside StripeClient.__init__().
 _default_sync_client = _resolve_sync_client()
 _default_async_client = _resolve_async_client()
