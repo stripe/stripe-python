@@ -24,7 +24,6 @@ from typing_extensions import (
     NoReturn,
     Unpack,
 )
-import uuid
 from urllib.parse import urlsplit, urlunsplit, parse_qs
 
 # breaking circular dependency
@@ -98,6 +97,11 @@ def _maybe_emit_stripe_notice(rheaders: Mapping[str, str]) -> None:
 
 def is_v2_delete_resp(method: str, api_mode: ApiMode) -> bool:
     return method == "delete" and api_mode == "V2"
+
+
+def _generate_idempotency_key() -> str:
+    b = os.urandom(16)
+    return f"{b[0:4].hex()}-{b[4:6].hex()}-{b[6:8].hex()}-{b[8:10].hex()}-{b[10:].hex()}"
 
 
 class _APIRequestor(object):
@@ -616,7 +620,7 @@ class _APIRequestor(object):
 
         # IKs should be set for all POST requests and v2 delete requests
         if method == "post" or (api_mode == "V2" and method == "delete"):
-            headers.setdefault("Idempotency-Key", str(uuid.uuid4()))
+            headers.setdefault("Idempotency-Key", _generate_idempotency_key())
 
         if method == "post":
             if api_mode == "V2":

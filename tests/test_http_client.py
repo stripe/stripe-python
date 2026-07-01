@@ -101,8 +101,8 @@ class TestImports:
         with patch("builtins.__import__") as mocked_import_fn:
             mocked_import_fn.side_effect = mock_import(available_libs)
 
-            client = _http_client.new_default_http_client()
-            assert isinstance(client, expected)
+            resolved_class = _http_client._resolve_sync_client()
+            assert resolved_class is expected
 
     @pytest.mark.parametrize(
         ["available_libs", "expected"],
@@ -123,8 +123,8 @@ class TestImports:
         with patch("builtins.__import__") as mocked_import_fn:
             mocked_import_fn.side_effect = mock_import(available_libs)
 
-            client = _http_client.new_http_client_async_fallback()
-            assert isinstance(client, expected)
+            resolved_class = _http_client._resolve_async_client()
+            assert resolved_class is expected
 
 
 MakeReqFunc = Callable[[str, str, Dict[str, str], Optional[str]], Any]
