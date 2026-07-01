@@ -36,6 +36,10 @@ class Transaction(StripeObject):
         """
 
     class Flow(StripeObject):
+        account: Optional[str]
+        """
+        If applicable, the connected account associated with this Transaction's flow.
+        """
         adjustment: Optional[str]
         """
         If applicable, the ID of the Adjustment that created this Transaction.
@@ -71,6 +75,18 @@ class Transaction(StripeObject):
         inbound_transfer: Optional[str]
         """
         If applicable, the ID of the InboundTransfer that created this Transaction.
+        """
+        issuing_authorization: Optional[str]
+        """
+        If applicable, the ID of the Issuing authorization that created this Transaction.
+        """
+        issuing_dispute: Optional[str]
+        """
+        If applicable, the ID of the Issuing dispute that created this Transaction.
+        """
+        issuing_transaction: Optional[str]
+        """
+        If applicable, the ID of the Issuing transaction that created this Transaction.
         """
         outbound_payment: Optional[str]
         """
@@ -162,6 +178,9 @@ class Transaction(StripeObject):
             "dispute",
             "fee_transaction",
             "inbound_transfer",
+            "issuing_authorization",
+            "issuing_dispute",
+            "issuing_transaction",
             "outbound_payment",
             "outbound_transfer",
             "payout",
@@ -228,10 +247,12 @@ class Transaction(StripeObject):
         "inbound_transfer",
         "inbound_transfer_reversal",
         "india_mdr_processing_fee",
+        "issuing_authorization",
         "issuing_dispute",
         "issuing_dispute_fraud_liability_debit",
         "issuing_dispute_provisional_credit",
         "issuing_dispute_provisional_credit_reversal",
+        "issuing_transaction",
         "minimum_balance_hold",
         "network_cost",
         "obligation",
@@ -245,6 +266,7 @@ class Transaction(StripeObject):
         "platform_earning",
         "platform_earning_refund",
         "platform_fee",
+        "platform_funded_credit_transaction",
         "received_credit",
         "received_credit_reversal",
         "received_debit",

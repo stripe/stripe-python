@@ -1,9 +1,18 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from typing import List
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class ApiKeyCreateParams(TypedDict):
+    connect_permissions: NotRequired[List[str]]
+    """
+    List of connect permissions for this API key.
+    """
+    expires_at: NotRequired[str]
+    """
+    Timestamp at which the key expires. If not provided, the key never expires.
+    """
     name: NotRequired[str]
     """
     Name for the API key.
@@ -11,6 +20,10 @@ class ApiKeyCreateParams(TypedDict):
     note: NotRequired[str]
     """
     Note or description for the API key.
+    """
+    permissions: NotRequired[List[str]]
+    """
+    List of permissions for this API key.
     """
     public_key: NotRequired["ApiKeyCreateParamsPublicKey"]
     """

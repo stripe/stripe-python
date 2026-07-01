@@ -39,6 +39,34 @@ class FinancialAccount(StripeObject):
         Balance of funds that are being used for a pending outbound money movement.
         """
 
+    class Credit(StripeObject):
+        class FundedBy(StripeObject):
+            class Platform(StripeObject):
+                financial_account: str
+                """
+                The platform FinancialAccount used to fund this credit FinancialAccount.
+                """
+
+            platform: Platform
+            """
+            Details for platform-funded credit FinancialAccounts.
+            """
+            type: Literal["platform", "stripe"]
+            """
+            The type of funding source for this credit FinancialAccount.
+            """
+            _inner_class_types = {"platform": Platform}
+
+        funded_by: Optional[FundedBy]
+        """
+        Details about how this credit FinancialAccount is funded.
+        """
+        supported_currencies: List[str]
+        """
+        The currencies supported by this credit FinancialAccount.
+        """
+        _inner_class_types = {"funded_by": FundedBy}
+
     class ManagedBy(StripeObject):
         type: Literal["multiprocessor_settlement"]
         """
@@ -186,6 +214,10 @@ class FinancialAccount(StripeObject):
     """
     Time at which the object was created.
     """
+    credit: Optional[Credit]
+    """
+    If this is a `credit` FinancialAccount, this hash includes details specific to `credit` FinancialAccounts.
+    """
     display_name: Optional[str]
     """
     A descriptive name for the FinancialAccount, up to 50 characters long. This name will be used in the Stripe Dashboard and embedded components.
@@ -237,6 +269,7 @@ class FinancialAccount(StripeObject):
     """
     type: Literal[
         "accrued_fees",
+        "credit",
         "multiprocessor_settlement",
         "other",
         "payments",
@@ -249,6 +282,7 @@ class FinancialAccount(StripeObject):
     _inner_class_types = {
         "accrued_fees": AccruedFees,
         "balance": Balance,
+        "credit": Credit,
         "managed_by": ManagedBy,
         "multiprocessor_settlement": MultiprocessorSettlement,
         "other": Other,

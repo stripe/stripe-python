@@ -48046,16 +48046,14 @@ class TestGeneratedExamples(object):
         )
 
         client.v2.money_management.financial_accounts.create(
-            {
-                "type": "storage",
-            }
+            {"type": "credit"}
         )
         http_client_mock.assert_requested(
             "post",
             path="/v2/money_management/financial_accounts",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"type":"storage"}',
+            post_data='{"type":"credit"}',
             is_json=True,
         )
 
@@ -50093,7 +50091,7 @@ class TestGeneratedExamples(object):
         try:
             client.v2.money_management.financial_accounts.create(
                 {
-                    "type": "storage",
+                    "type": "credit",
                 }
             )
         except _error.AlreadyExistsError:
@@ -50103,7 +50101,7 @@ class TestGeneratedExamples(object):
             path="/v2/money_management/financial_accounts",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"type":"storage"}',
+            post_data='{"type":"credit"}',
             is_json=True,
         )
 
