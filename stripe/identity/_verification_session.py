@@ -157,7 +157,7 @@ class VerificationSession(
         """
 
     class Redaction(StripeObject):
-        status: Literal["processing", "redacted"]
+        status: Literal["processing", "redacted", "validated"]
         """
         Indicates whether this object and its related objects have been redacted or not.
         """

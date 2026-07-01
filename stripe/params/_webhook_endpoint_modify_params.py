@@ -31,7 +31,13 @@ class WebhookEndpointModifyParams(RequestOptions):
                 "balance.available",
                 "balance_settings.updated",
                 "billing.alert.triggered",
+                "billing.credit_balance_transaction.created",
                 "billing.credit_grant.created",
+                "billing.credit_grant.updated",
+                "billing.meter.created",
+                "billing.meter.deactivated",
+                "billing.meter.reactivated",
+                "billing.meter.updated",
                 "billing_portal.configuration.created",
                 "billing_portal.configuration.updated",
                 "billing_portal.session.created",
@@ -273,12 +279,6 @@ class WebhookEndpointModifyParams(RequestOptions):
                 "treasury.received_credit.failed",
                 "treasury.received_credit.succeeded",
                 "treasury.received_debit.created",
-                "billing.credit_balance_transaction.created",
-                "billing.credit_grant.updated",
-                "billing.meter.created",
-                "billing.meter.deactivated",
-                "billing.meter.reactivated",
-                "billing.meter.updated",
             ]
         ]
     ]

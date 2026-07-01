@@ -35,6 +35,12 @@ class Dispute(
 
     class Evidence(StripeObject):
         class EnhancedEvidence(StripeObject):
+            class MastercardCompliance(StripeObject):
+                fee_acknowledged: bool
+                """
+                A field acknowledging the fee incurred when countering a Mastercard compliance dispute. If this field is set to true, evidence can be submitted for the compliance dispute.
+                """
+
             class VisaCompellingEvidence3(StripeObject):
                 class DisputedTransaction(StripeObject):
                     class ShippingAddress(StripeObject):
@@ -179,9 +185,11 @@ class Dispute(
                 A field acknowledging the fee incurred when countering a Visa compliance dispute. If this field is set to true, evidence can be submitted for the compliance dispute. Stripe collects a 500 USD (or local equivalent) amount to cover the network costs associated with resolving compliance disputes. Stripe refunds the 500 USD network fee if you win the dispute.
                 """
 
+            mastercard_compliance: Optional[MastercardCompliance]
             visa_compelling_evidence_3: Optional[VisaCompellingEvidence3]
             visa_compliance: Optional[VisaCompliance]
             _inner_class_types = {
+                "mastercard_compliance": MastercardCompliance,
                 "visa_compelling_evidence_3": VisaCompellingEvidence3,
                 "visa_compliance": VisaCompliance,
             }
@@ -299,6 +307,14 @@ class Dispute(
 
     class EvidenceDetails(StripeObject):
         class EnhancedEligibility(StripeObject):
+            class MastercardCompliance(StripeObject):
+                status: Literal[
+                    "fee_acknowledged", "requires_fee_acknowledgement"
+                ]
+                """
+                Mastercard compliance eligibility status.
+                """
+
             class VisaCompellingEvidence3(StripeObject):
                 required_actions: List[
                     Literal[
@@ -327,9 +343,11 @@ class Dispute(
                 Visa compliance eligibility status.
                 """
 
+            mastercard_compliance: Optional[MastercardCompliance]
             visa_compelling_evidence_3: Optional[VisaCompellingEvidence3]
             visa_compliance: Optional[VisaCompliance]
             _inner_class_types = {
+                "mastercard_compliance": MastercardCompliance,
                 "visa_compelling_evidence_3": VisaCompellingEvidence3,
                 "visa_compliance": VisaCompliance,
             }
@@ -432,7 +450,11 @@ class Dispute(
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
     enhanced_eligibility_types: List[
-        Literal["visa_compelling_evidence_3", "visa_compliance"]
+        Literal[
+            "mastercard_compliance",
+            "visa_compelling_evidence_3",
+            "visa_compliance",
+        ]
     ]
     """
     List of eligibility types that are included in `enhanced_evidence`.

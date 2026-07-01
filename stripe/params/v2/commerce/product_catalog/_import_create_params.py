@@ -6,7 +6,7 @@ from typing_extensions import Literal, TypedDict
 
 
 class ImportCreateParams(TypedDict):
-    feed_type: Literal["inventory", "pricing", "product"]
+    feed_type: Literal["inventory", "pricing", "product", "promotion"]
     """
     The type of catalog data to import.
     """

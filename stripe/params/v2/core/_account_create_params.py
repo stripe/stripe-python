@@ -561,6 +561,12 @@ class AccountCreateParamsConfigurationMerchantCapabilities(TypedDict):
     """
     Allow the merchant to process SEPA Direct Debit payments.
     """
+    sunbit_payments: NotRequired[
+        "AccountCreateParamsConfigurationMerchantCapabilitiesSunbitPayments"
+    ]
+    """
+    Allow the merchant to process Sunbit payments.
+    """
     swish_payments: NotRequired[
         "AccountCreateParamsConfigurationMerchantCapabilitiesSwishPayments"
     ]
@@ -939,6 +945,15 @@ class AccountCreateParamsConfigurationMerchantCapabilitiesSepaBankTransferPaymen
 
 
 class AccountCreateParamsConfigurationMerchantCapabilitiesSepaDebitPayments(
+    TypedDict,
+):
+    requested: bool
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountCreateParamsConfigurationMerchantCapabilitiesSunbitPayments(
     TypedDict,
 ):
     requested: bool

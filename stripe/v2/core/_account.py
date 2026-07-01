@@ -1618,6 +1618,39 @@ class Account(StripeObject):
                     """
                     _inner_class_types = {"payouts": Payouts}
 
+                class SunbitPayments(StripeObject):
+                    class StatusDetail(StripeObject):
+                        code: Literal[
+                            "determining_status",
+                            "requirements_past_due",
+                            "requirements_pending_verification",
+                            "restricted_other",
+                            "unsupported_business",
+                            "unsupported_country",
+                            "unsupported_entity_type",
+                        ]
+                        """
+                        Machine-readable code explaining the reason for the Capability to be in its current status.
+                        """
+                        resolution: Literal[
+                            "contact_stripe", "no_resolution", "provide_info"
+                        ]
+                        """
+                        Machine-readable code explaining how to make the Capability active.
+                        """
+
+                    status: Literal[
+                        "active", "pending", "restricted", "unsupported"
+                    ]
+                    """
+                    The status of the Capability.
+                    """
+                    status_details: List[StatusDetail]
+                    """
+                    Additional details about the capability's status. This value is empty when `status` is `active`.
+                    """
+                    _inner_class_types = {"status_details": StatusDetail}
+
                 class SwishPayments(StripeObject):
                     class StatusDetail(StripeObject):
                         code: Literal[
@@ -1914,6 +1947,10 @@ class Account(StripeObject):
                 """
                 Capabilities that enable the merchant to manage their Stripe Balance (/v1/balance).
                 """
+                sunbit_payments: Optional[SunbitPayments]
+                """
+                Allow the merchant to process Sunbit payments.
+                """
                 swish_payments: Optional[SwishPayments]
                 """
                 Allow the merchant to process Swish payments.
@@ -1972,6 +2009,7 @@ class Account(StripeObject):
                     "sepa_bank_transfer_payments": SepaBankTransferPayments,
                     "sepa_debit_payments": SepaDebitPayments,
                     "stripe_balance": StripeBalance,
+                    "sunbit_payments": SunbitPayments,
                     "swish_payments": SwishPayments,
                     "twint_payments": TwintPayments,
                     "us_bank_transfer_payments": UsBankTransferPayments,
@@ -2328,7 +2366,7 @@ class Account(StripeObject):
             """
             losses_collector: Optional[Literal["application", "stripe"]]
             """
-            A value indicating responsibility for collecting requirements on this account.
+            A value indicating the responsibility for losses on this account.
             """
             requirements_collector: Literal["application", "stripe"]
             """

@@ -579,6 +579,12 @@ class AccountUpdateParamsConfigurationMerchantCapabilities(TypedDict):
     """
     Allow the merchant to process SEPA Direct Debit payments.
     """
+    sunbit_payments: NotRequired[
+        "AccountUpdateParamsConfigurationMerchantCapabilitiesSunbitPayments"
+    ]
+    """
+    Allow the merchant to process Sunbit payments.
+    """
     swish_payments: NotRequired[
         "AccountUpdateParamsConfigurationMerchantCapabilitiesSwishPayments"
     ]
@@ -957,6 +963,15 @@ class AccountUpdateParamsConfigurationMerchantCapabilitiesSepaBankTransferPaymen
 
 
 class AccountUpdateParamsConfigurationMerchantCapabilitiesSepaDebitPayments(
+    TypedDict,
+):
+    requested: NotRequired[bool]
+    """
+    To request a new Capability for an account, pass true. There can be a delay before the requested Capability becomes active.
+    """
+
+
+class AccountUpdateParamsConfigurationMerchantCapabilitiesSunbitPayments(
     TypedDict,
 ):
     requested: NotRequired[bool]
@@ -1486,14 +1501,14 @@ class AccountUpdateParamsIdentityAttestationsTermsOfService(TypedDict):
     """
     Details on the Account's acceptance of the [Stripe Services Agreement](https://docs.stripe.com/connect/updating-accounts#tos-acceptance).
     """
-    crypto_storer: NotRequired[
-        "AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoStorer"
+    crypto_money_manager: NotRequired[
+        "AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoMoneyManager"
     ]
     """
-    Details on the Account's acceptance of Crypto-storer-specific terms of service.
+    Details on the Account's acceptance of Crypto-specific terms of service.
     """
-    storer: NotRequired[
-        "AccountUpdateParamsIdentityAttestationsTermsOfServiceStorer"
+    money_manager: NotRequired[
+        "AccountUpdateParamsIdentityAttestationsTermsOfServiceMoneyManager"
     ]
     """
     Details on the Account's acceptance of Treasury-specific terms of service.
@@ -1515,7 +1530,7 @@ class AccountUpdateParamsIdentityAttestationsTermsOfServiceAccount(TypedDict):
     """
 
 
-class AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoStorer(
+class AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoMoneyManager(
     TypedDict,
 ):
     date: NotRequired[str]
@@ -1532,7 +1547,9 @@ class AccountUpdateParamsIdentityAttestationsTermsOfServiceCryptoStorer(
     """
 
 
-class AccountUpdateParamsIdentityAttestationsTermsOfServiceStorer(TypedDict):
+class AccountUpdateParamsIdentityAttestationsTermsOfServiceMoneyManager(
+    TypedDict,
+):
     date: NotRequired[str]
     """
     The time when the Account's representative accepted the terms of service. Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: 2022-09-18T13:22:18.123Z.

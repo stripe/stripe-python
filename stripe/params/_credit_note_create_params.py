@@ -95,7 +95,7 @@ class CreditNoteCreateParamsLine(TypedDict):
         "Literal['']|List[CreditNoteCreateParamsLineTaxAmount]"
     ]
     """
-    A list of up to 10 tax amounts for the credit note line item. Not valid when `tax_rates` is used or if invoice is set up with `automatic_tax[enabled]=true`.
+    A list of up to 20 tax amounts for the credit note line item. Not valid when `tax_rates` is used or if invoice is set up with `automatic_tax[enabled]=true`.
     """
     tax_rates: NotRequired["Literal['']|List[str]"]
     """
