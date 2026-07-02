@@ -21,6 +21,7 @@ class FinancialAccountListParams(TypedDict):
         List[
             Literal[
                 "accrued_fees",
+                "credit",
                 "multiprocessor_settlement",
                 "payments",
                 "storage",

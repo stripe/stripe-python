@@ -64,6 +64,10 @@ class ApiKey(StripeObject):
         """
         _inner_class_types = {"encrypted_secret": EncryptedSecret}
 
+    connect_permissions: Optional[List[str]]
+    """
+    List of connect permissions for this API key.
+    """
     created: str
     """
     Timestamp when the API key was created.
@@ -103,6 +107,10 @@ class ApiKey(StripeObject):
     object: Literal["v2.iam.api_key"]
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
+    """
+    permissions: Optional[List[str]]
+    """
+    List of permissions for this API key.
     """
     publishable_key: Optional[PublishableKey]
     """

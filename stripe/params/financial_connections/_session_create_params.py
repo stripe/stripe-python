@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -114,9 +114,9 @@ class SessionCreateParamsHosted(TypedDict):
 
 
 class SessionCreateParamsLimits(TypedDict):
-    accounts: int
+    accounts: Union[Literal[""], int]
     """
-    The number of accounts that can be linked in this Session.
+    The number of accounts that can be linked in this Session. Pass an empty value to allow any number of accounts.
     """
 
 

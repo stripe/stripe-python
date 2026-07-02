@@ -26,6 +26,7 @@ if TYPE_CHECKING:
     from stripe._country_spec_service import CountrySpecService
     from stripe._coupon_service import CouponService
     from stripe._credit_note_service import CreditNoteService
+    from stripe._crypto_service import CryptoService
     from stripe._customer_service import CustomerService
     from stripe._customer_session_service import CustomerSessionService
     from stripe._delegated_checkout_service import DelegatedCheckoutService
@@ -162,6 +163,7 @@ _subservices = {
     "country_specs": ["stripe._country_spec_service", "CountrySpecService"],
     "coupons": ["stripe._coupon_service", "CouponService"],
     "credit_notes": ["stripe._credit_note_service", "CreditNoteService"],
+    "crypto": ["stripe._crypto_service", "CryptoService"],
     "customers": ["stripe._customer_service", "CustomerService"],
     "customer_sessions": [
         "stripe._customer_session_service",
@@ -323,6 +325,7 @@ class V1Services(StripeService):
     country_specs: "CountrySpecService"
     coupons: "CouponService"
     credit_notes: "CreditNoteService"
+    crypto: "CryptoService"
     customers: "CustomerService"
     customer_sessions: "CustomerSessionService"
     delegated_checkout: "DelegatedCheckoutService"

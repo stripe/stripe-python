@@ -44,6 +44,7 @@ class PayoutIntent(StripeObject):
             failure_reason: Literal[
                 "account_not_configured_as_recipient",
                 "currency_not_supported_for_financial_account_balance",
+                "currency_required",
                 "feature_not_active_for_recipient",
                 "fx_rate_drift_exceeded_after_review",
                 "insufficient_funds",

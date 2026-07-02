@@ -107,6 +107,23 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe._credit_note_line_item",
         "CreditNoteLineItem",
     ),
+    "crypto.customer": ("stripe.crypto._customer", "Customer"),
+    "crypto.consumer_wallet": (
+        "stripe.crypto._customer_consumer_wallet",
+        "CustomerConsumerWallet",
+    ),
+    "crypto.payment_token": (
+        "stripe.crypto._customer_payment_token",
+        "CustomerPaymentToken",
+    ),
+    "crypto.onramp_session": (
+        "stripe.crypto._onramp_session",
+        "OnrampSession",
+    ),
+    "crypto.onramp_transaction_limits": (
+        "stripe.crypto._onramp_transaction_limits",
+        "OnrampTransactionLimits",
+    ),
     "customer": ("stripe._customer", "Customer"),
     "customer_balance_transaction": (
         "stripe._customer_balance_transaction",

@@ -18,7 +18,7 @@ class FinancialAccountCreateParams(TypedDict):
     """
     Parameters specific to creating `storage` type FinancialAccounts.
     """
-    type: Literal["storage"]
+    type: Literal["credit", "storage"]
     """
     The type of FinancialAccount to create.
     """

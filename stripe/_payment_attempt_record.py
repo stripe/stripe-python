@@ -446,6 +446,10 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             _inner_class_types = {"address": Address}
 
         class Bizum(StripeObject):
+            buyer_id: Optional[str]
+            """
+            A unique identifier for the buyer as determined by the local payment processor.
+            """
             transaction_id: Optional[str]
             """
             The Bizum transaction ID associated with this payment.
@@ -705,12 +709,6 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
             This is used by the financial networks to identify a transaction. Visa calls this the Transaction ID, Mastercard calls this the Trace ID, and American Express calls this the Acquirer Reference Data. This value will be present if it is returned by the financial network in the authorization response, and null otherwise.
             """
-            stored_credential_usage: Optional[
-                Literal["recurring", "unscheduled"]
-            ]
-            """
-            The transaction type that was passed for an off-session, Merchant-Initiated transaction, one of `recurring` or `unscheduled`.
-            """
             three_d_secure: Optional[ThreeDSecure]
             """
             Populated if this transaction used 3D Secure authentication.
@@ -945,18 +943,30 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             """
 
         class Crypto(StripeObject):
+            amount_received: Optional[int]
+            """
+            The amount received for the crypto payment.
+            """
+            amount_requested: Optional[int]
+            """
+            The amount requested for the crypto payment.
+            """
             buyer_address: Optional[str]
             """
             The wallet address of the customer.
             """
             network: Optional[
-                Literal["base", "ethereum", "polygon", "solana", "tempo"]
+                Literal[
+                    "base", "ethereum", "polygon", "solana", "sui", "tempo"
+                ]
             ]
             """
             The blockchain network that the transaction was sent on.
             """
             token_currency: Optional[
-                Literal["phantom_cash", "usdc", "usdg", "usdp", "usdt"]
+                Literal[
+                    "phantom_cash", "usdc", "usdg", "usdp", "usdsui", "usdt"
+                ]
             ]
             """
             The token currency that the transaction was sent with.
@@ -1083,6 +1093,10 @@ class PaymentAttemptRecord(ListableAPIResource["PaymentAttemptRecord"]):
             exp_year: Optional[int]
             """
             The expiration year of the gift card.
+            """
+            fingerprint: Optional[str]
+            """
+            Uniquely identifies this particular gift card number. You can use this attribute to check whether two transactions were made using the same gift card.
             """
             first6: Optional[str]
             """

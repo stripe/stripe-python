@@ -37,6 +37,12 @@ class PaymentAttemptRecordReportRefundParams(RequestOptions):
     """
     Processor information for this refund.
     """
+    reason: NotRequired[
+        Literal["duplicate", "fraudulent", "requested_by_customer"]
+    ]
+    """
+    The reason for the refund. One of `duplicate`, `fraudulent`, or `requested_by_customer`.
+    """
     refund_group: NotRequired[str]
     """
     A key to group refunds together.

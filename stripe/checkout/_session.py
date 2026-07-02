@@ -21,10 +21,11 @@ if TYPE_CHECKING:
     from stripe._payment_intent import PaymentIntent
     from stripe._payment_link import PaymentLink
     from stripe._payment_record import PaymentRecord
+    from stripe._price import Price
     from stripe._promotion_code import PromotionCode
     from stripe._setup_intent import SetupIntent
     from stripe._shipping_rate import ShippingRate
-    from stripe._subscription import Subscription
+    from stripe._subscription import Subscription as SubscriptionResource
     from stripe._tax_id import TaxId as TaxIdResource
     from stripe._tax_rate import TaxRate
     from stripe.params.checkout._session_approve_params import (
@@ -1154,14 +1155,97 @@ class Session(
         _inner_class_types = {"invoice_data": InvoiceData}
 
     class Item(StripeObject):
+        class Subscription(StripeObject):
+            class Item(StripeObject):
+                price: ExpandableField["Price"]
+                """
+                The price for this subscription item.
+                """
+                quantity: Optional[int]
+                """
+                The quantity for this subscription item.
+                """
+
+            class PendingInvoiceItemInterval(StripeObject):
+                interval: Literal["day", "month", "week", "year"]
+                """
+                Specifies invoicing frequency. Either `day`, `week`, `month` or `year`.
+                """
+                interval_count: int
+                """
+                The number of intervals between invoices. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
+                """
+
+            class TrialSettings(StripeObject):
+                class EndBehavior(StripeObject):
+                    missing_payment_method: Literal[
+                        "cancel", "create_invoice", "pause"
+                    ]
+                    """
+                    Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
+                    """
+
+                end_behavior: EndBehavior
+                """
+                Defines how a subscription behaves when a free trial ends.
+                """
+                _inner_class_types = {"end_behavior": EndBehavior}
+
+            description: Optional[str]
+            """
+            The description for the subscription.
+            """
+            items: List[Item]
+            """
+            The items in the subscription.
+            """
+            metadata: Optional[UntypedStripeObject[str]]
+            """
+            Set of key-value pairs attached to the subscription.
+            """
+            pending_invoice_item_interval: Optional[PendingInvoiceItemInterval]
+            """
+            Specifies an interval for how often to bill for any pending invoice items.
+            """
+            proration_behavior: Optional[Literal["create_prorations", "none"]]
+            """
+            Determines how to handle prorations when the subscription is updated.
+            """
+            subscription: Optional[ExpandableField["SubscriptionResource"]]
+            """
+            The ID of the [Subscription](https://docs.stripe.com/api/subscriptions).
+            """
+            trial_end: Optional[int]
+            """
+            The Unix timestamp marking when the trial period ends.
+            """
+            trial_period_days: Optional[int]
+            """
+            The number of trial period days before the customer is charged for the first time.
+            """
+            trial_settings: Optional[TrialSettings]
+            """
+            Settings related to subscription trials.
+            """
+            _inner_class_types = {
+                "items": Item,
+                "pending_invoice_item_interval": PendingInvoiceItemInterval,
+                "trial_settings": TrialSettings,
+            }
+
         key: str
         """
         The key of the item. Guaranteed to be a unique ID within this checkout session's items.
+        """
+        subscription: Optional[Subscription]
+        """
+        Details on the subscription for this item.
         """
         type: Literal["subscription"]
         """
         The type of the item.
         """
+        _inner_class_types = {"subscription": Subscription}
 
     class ManagedPayments(StripeObject):
         enabled: bool
@@ -2052,6 +2136,22 @@ class Session(
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
             """
 
+        class Sunbit(StripeObject):
+            capture_method: Optional[Literal["manual"]]
+            """
+            Controls when the funds will be captured from the customer's account.
+            """
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+            """
+
         class Swish(StripeObject):
             reference: Optional[str]
             """
@@ -2186,6 +2286,26 @@ class Session(
                 "financial_connections": FinancialConnections
             }
 
+        class WechatPay(StripeObject):
+            app_id: Optional[str]
+            """
+            The app ID registered with WeChat Pay. Only required when client is iOS or Android.
+            """
+            client: Optional[Literal["android", "ios", "web"]]
+            """
+            The client type that the end customer will pay from
+            """
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+            """
+
         acss_debit: Optional[AcssDebit]
         affirm: Optional[Affirm]
         afterpay_clearpay: Optional[AfterpayClearpay]
@@ -2227,10 +2347,12 @@ class Session(
         scalapay: Optional[Scalapay]
         sepa_debit: Optional[SepaDebit]
         sofort: Optional[Sofort]
+        sunbit: Optional[Sunbit]
         swish: Optional[Swish]
         twint: Optional[Twint]
         upi: Optional[Upi]
         us_bank_account: Optional[UsBankAccount]
+        wechat_pay: Optional[WechatPay]
         _inner_class_types = {
             "acss_debit": AcssDebit,
             "affirm": Affirm,
@@ -2273,10 +2395,12 @@ class Session(
             "scalapay": Scalapay,
             "sepa_debit": SepaDebit,
             "sofort": Sofort,
+            "sunbit": Sunbit,
             "swish": Swish,
             "twint": Twint,
             "upi": Upi,
             "us_bank_account": UsBankAccount,
+            "wechat_pay": WechatPay,
         }
 
     class Permissions(StripeObject):
@@ -2336,6 +2460,12 @@ class Session(
         presentment_currency: str
         """
         Currency presented to the customer during payment.
+        """
+
+    class Redaction(StripeObject):
+        status: Literal["processing", "redacted", "validated"]
+        """
+        Indicates whether this object and its related objects have been redacted or not.
         """
 
     class SavedPaymentMethodOptions(StripeObject):
@@ -3067,6 +3197,10 @@ class Session(
     """
     The ID of the original expired Checkout Session that triggered the recovery flow.
     """
+    redaction: Optional[Redaction]
+    """
+    The redaction status of the Checkout Session. If the Session is not redacted, this field is null.
+    """
     redirect_on_completion: Optional[Literal["always", "if_required", "never"]]
     """
     This parameter applies to `ui_mode: embedded_page`. Learn more about the [redirect behavior](https://docs.stripe.com/payments/checkout/custom-success-page?payment-ui=embedded-form) of embedded sessions. Defaults to `always`.
@@ -3107,7 +3241,7 @@ class Session(
     relevant text on the page, such as the submit button. `submit_type` can only be
     specified on Checkout Sessions in `payment` mode. If blank or `auto`, `pay` is used.
     """
-    subscription: Optional[ExpandableField["Subscription"]]
+    subscription: Optional[ExpandableField["SubscriptionResource"]]
     """
     The ID of the [Subscription](https://docs.stripe.com/api/subscriptions) for Checkout Sessions in `subscription` mode.
     """
@@ -3636,6 +3770,7 @@ class Session(
         "permissions": Permissions,
         "phone_number_collection": PhoneNumberCollection,
         "presentment_details": PresentmentDetails,
+        "redaction": Redaction,
         "saved_payment_method_options": SavedPaymentMethodOptions,
         "shipping_address_collection": ShippingAddressCollection,
         "shipping_cost": ShippingCost,

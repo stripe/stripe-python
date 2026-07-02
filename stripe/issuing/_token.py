@@ -31,6 +31,10 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
             """
             An obfuscated ID derived from the device ID.
             """
+            device_id: Optional[str]
+            """
+            An identifier for the device used during wallet provisioning.
+            """
             ip_address: Optional[str]
             """
             The IP address of the device at provisioning time.

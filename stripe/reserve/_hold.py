@@ -4,7 +4,7 @@ from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
-from typing import ClassVar, Optional
+from typing import ClassVar, List, Optional
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -20,6 +20,16 @@ class Hold(ListableAPIResource["Hold"]):
     """
 
     OBJECT_NAME: ClassVar[Literal["reserve.hold"]] = "reserve.hold"
+
+    class ReleaseDetail(StripeObject):
+        amount: int
+        """
+        The amount released by the ReserveRelease from this ReserveHold. A positive integer representing how much is released in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
+        """
+        reserve_release: str
+        """
+        The ReserveRelease which released funds from this ReserveHold (e.g., resrel_123).
+        """
 
     class ReleaseSchedule(StripeObject):
         release_after: Optional[int]
@@ -74,6 +84,10 @@ class Hold(ListableAPIResource["Hold"]):
     reason: Literal["charge", "standalone"]
     """
     The reason for the ReserveHold.
+    """
+    release_details: Optional[List[ReleaseDetail]]
+    """
+    List of ReserveReleases and the amounts released from this ReserveHold.
     """
     release_schedule: ReleaseSchedule
     reserve_plan: Optional[ExpandableField["Plan"]]
@@ -149,4 +163,7 @@ class Hold(ListableAPIResource["Hold"]):
         await instance.refresh_async()
         return instance
 
-    _inner_class_types = {"release_schedule": ReleaseSchedule}
+    _inner_class_types = {
+        "release_details": ReleaseDetail,
+        "release_schedule": ReleaseSchedule,
+    }
