@@ -338,6 +338,7 @@ class PaymentIntent(
                 "alipay_upgrade_required",
                 "amount_too_large",
                 "amount_too_small",
+                "anomalous_money_movement_request",
                 "api_key_expired",
                 "application_fees_not_allowed",
                 "approval_required",
@@ -377,6 +378,10 @@ class PaymentIntent(
                 "debit_not_authorized",
                 "email_invalid",
                 "expired_card",
+                "failed_tax_calculation",
+                "financial_account_balance_does_not_support_currency",
+                "financial_account_capability_not_enabled",
+                "financial_account_capability_restricted",
                 "financial_connections_account_inactive",
                 "financial_connections_account_pending_account_numbers",
                 "financial_connections_account_unavailable_account_numbers",
@@ -3870,6 +3875,12 @@ class PaymentIntent(
             """
 
         class Crypto(StripeObject):
+            class AmountReconciliation(StripeObject):
+                type: Optional[Literal["accept_partial_funding", "exact"]]
+                """
+                Controls how crypto funding amounts are reconciled for the PaymentIntent.
+                """
+
             class DepositOptions(StripeObject):
                 networks: Optional[
                     List[
@@ -3898,6 +3909,7 @@ class PaymentIntent(
                 The hash of the onchain transaction to verify.
                 """
 
+            amount_reconciliation: Optional[AmountReconciliation]
             deposit_options: Optional[DepositOptions]
             mode: Optional[
                 Literal["default", "deposit", "transaction_verification"]
@@ -3919,6 +3931,7 @@ class PaymentIntent(
                 TransactionVerificationOptions
             ]
             _inner_class_types = {
+                "amount_reconciliation": AmountReconciliation,
                 "deposit_options": DepositOptions,
                 "transaction_verification_options": TransactionVerificationOptions,
             }
@@ -4588,6 +4601,18 @@ class PaymentIntent(
             """
             Controls when the funds will be captured from the customer's account.
             """
+            setup_future_usage: Optional[
+                Literal["none", "off_session", "on_session"]
+            ]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+            """
 
         class Scalapay(StripeObject):
             capture_method: Optional[Literal["manual"]]
@@ -4670,6 +4695,22 @@ class PaymentIntent(
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
             """
             _inner_class_types = {"mandate_options": MandateOptions}
+
+        class Sunbit(StripeObject):
+            capture_method: Optional[Literal["manual"]]
+            """
+            Controls when the funds will be captured from the customer's account.
+            """
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+            """
 
         class Swish(StripeObject):
             reference: Optional[str]
@@ -4812,7 +4853,7 @@ class PaymentIntent(
         class WechatPay(StripeObject):
             app_id: Optional[str]
             """
-            The app ID registered with WeChat Pay. Only required when client is ios or android.
+            The app ID registered with WeChat Pay. Only required when client is ios, android, or mini_program.
             """
             buyer_id: Optional[str]
             """
@@ -4902,6 +4943,7 @@ class PaymentIntent(
         shopeepay: Optional[Shopeepay]
         sofort: Optional[Sofort]
         stripe_balance: Optional[StripeBalance]
+        sunbit: Optional[Sunbit]
         swish: Optional[Swish]
         twint: Optional[Twint]
         upi: Optional[Upi]
@@ -4966,6 +5008,7 @@ class PaymentIntent(
             "shopeepay": Shopeepay,
             "sofort": Sofort,
             "stripe_balance": StripeBalance,
+            "sunbit": Sunbit,
             "swish": Swish,
             "twint": Twint,
             "upi": Upi,
@@ -5013,6 +5056,12 @@ class PaymentIntent(
         Type of the payment method for which payment is in `processing` state, one of `card`.
         """
         _inner_class_types = {"card": Card}
+
+    class Redaction(StripeObject):
+        status: Literal["processing", "redacted", "validated"]
+        """
+        Indicates whether this object and its related objects have been redacted or not.
+        """
 
     class Shipping(StripeObject):
         class Address(StripeObject):
@@ -5346,6 +5395,10 @@ class PaymentIntent(
     receipt_email: Optional[str]
     """
     Email address that the receipt for the resulting payment will be sent to. If `receipt_email` is specified for a payment in live mode, a receipt will be sent regardless of your [email settings](https://dashboard.stripe.com/account/emails).
+    """
+    redaction: Optional[Redaction]
+    """
+    Redaction status of this PaymentIntent. If the PaymentIntent isn't redacted, this field is null.
     """
     review: Optional[ExpandableField["Review"]]
     """
@@ -7596,6 +7649,7 @@ class PaymentIntent(
         "payments_orchestration": PaymentsOrchestration,
         "presentment_details": PresentmentDetails,
         "processing": Processing,
+        "redaction": Redaction,
         "shipping": Shipping,
         "transfer_data": TransferData,
     }

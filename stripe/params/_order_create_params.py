@@ -2208,7 +2208,7 @@ class OrderCreateParamsPaymentSettingsPaymentMethodOptionsSofort(TypedDict):
 class OrderCreateParamsPaymentSettingsPaymentMethodOptionsWechatPay(TypedDict):
     app_id: NotRequired[str]
     """
-    The app ID registered with WeChat Pay. Only required when client is ios or android.
+    The app ID registered with WeChat Pay. Only required when client is ios, android, or mini_program.
     """
     buyer_id: NotRequired[str]
     """

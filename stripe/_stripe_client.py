@@ -67,6 +67,7 @@ if TYPE_CHECKING:
     from stripe._country_spec_service import CountrySpecService
     from stripe._coupon_service import CouponService
     from stripe._credit_note_service import CreditNoteService
+    from stripe._crypto_service import CryptoService
     from stripe._customer_service import CustomerService
     from stripe._customer_session_service import CustomerSessionService
     from stripe._delegated_checkout_service import DelegatedCheckoutService
@@ -613,6 +614,17 @@ class StripeClient(object):
     )
     def credit_notes(self) -> "CreditNoteService":
         return self.v1.credit_notes
+
+    @property
+    @deprecated(
+        """
+        StripeClient.crypto is deprecated, use StripeClient.v1.crypto instead.
+          All functionality under it has been copied over to StripeClient.v1.crypto.
+          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
+        """,
+    )
+    def crypto(self) -> "CryptoService":
+        return self.v1.crypto
 
     @property
     @deprecated(

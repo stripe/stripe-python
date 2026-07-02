@@ -113,6 +113,9 @@ class PaymentLinkCreateParams(RequestOptions):
     payment_method_options: NotRequired[
         "PaymentLinkCreateParamsPaymentMethodOptions"
     ]
+    """
+    Payment-method-specific configuration.
+    """
     payment_method_types: NotRequired[
         List[
             Literal[

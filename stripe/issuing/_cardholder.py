@@ -154,6 +154,12 @@ class Cardholder(
             "verification": Verification,
         }
 
+    class Redaction(StripeObject):
+        status: Literal["processing", "redacted", "validated"]
+        """
+        Indicates whether this object and its related objects have been redacted or not.
+        """
+
     class Requirements(StripeObject):
         disabled_reason: Optional[
             Literal[
@@ -1193,6 +1199,10 @@ class Cardholder(
     The cardholder's preferred locales (languages), ordered by preference. Locales can be `da`, `de`, `en`, `es`, `fr`, `it`, `pl`, or `sv`.
      This changes the language of the [3D Secure flow](https://docs.stripe.com/issuing/3d-secure) and one-time password messages sent to the cardholder.
     """
+    redaction: Optional[Redaction]
+    """
+    Redaction status of this cardholder. If the cardholder is not redacted, this field will be null.
+    """
     requirements: Requirements
     spending_controls: Optional[SpendingControls]
     """
@@ -1339,6 +1349,7 @@ class Cardholder(
         "billing": Billing,
         "company": Company,
         "individual": Individual,
+        "redaction": Redaction,
         "requirements": Requirements,
         "spending_controls": SpendingControls,
     }

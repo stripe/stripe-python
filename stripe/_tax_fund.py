@@ -23,19 +23,46 @@ class TaxFund(ListableAPIResource["TaxFund"]):
 
     class Context(StripeObject):
         checkout_session: Optional[str]
+        """
+        The Checkout Session associated with this sweep, if any.
+        """
         credit_note: Optional[str]
+        """
+        The Credit Note associated with this sweep, if any.
+        """
         invoice: Optional[str]
+        """
+        The Invoice associated with this sweep, if any.
+        """
         payment_intent: Optional[str]
+        """
+        The PaymentIntent associated with this sweep, if any.
+        """
         refund: Optional[str]
+        """
+        The Refund associated with this sweep, if any.
+        """
         tax_transaction: Optional[str]
+        """
+        The Tax Transaction associated with this sweep, if any.
+        """
 
     class Destination(StripeObject):
         class PaymentsBalance(StripeObject):
             balance_transaction: ExpandableField["BalanceTransaction"]
+            """
+            The balance transaction on the payments balance side of the sweep.
+            """
 
         class TaxFundAccount(StripeObject):
             financial_account: Optional[str]
+            """
+            The tax fund financial account involved in the sweep.
+            """
             transaction: Optional[str]
+            """
+            The financial account transaction on the tax fund account side of the sweep.
+            """
 
         payments_balance: Optional[PaymentsBalance]
         """
@@ -46,6 +73,9 @@ class TaxFund(ListableAPIResource["TaxFund"]):
         Details about the tax fund financial account side of the sweep.
         """
         type: str
+        """
+        The type of account funds moved to or from. Either `payments_balance` or `tax_fund_account`.
+        """
         _inner_class_types = {
             "payments_balance": PaymentsBalance,
             "tax_fund_account": TaxFundAccount,
@@ -54,10 +84,19 @@ class TaxFund(ListableAPIResource["TaxFund"]):
     class Source(StripeObject):
         class PaymentsBalance(StripeObject):
             balance_transaction: ExpandableField["BalanceTransaction"]
+            """
+            The balance transaction on the payments balance side of the sweep.
+            """
 
         class TaxFundAccount(StripeObject):
             financial_account: Optional[str]
+            """
+            The tax fund financial account involved in the sweep.
+            """
             transaction: Optional[str]
+            """
+            The financial account transaction on the tax fund account side of the sweep.
+            """
 
         payments_balance: Optional[PaymentsBalance]
         """
@@ -68,6 +107,9 @@ class TaxFund(ListableAPIResource["TaxFund"]):
         Details about the tax fund financial account side of the sweep.
         """
         type: str
+        """
+        The type of account funds moved to or from. Either `payments_balance` or `tax_fund_account`.
+        """
         _inner_class_types = {
             "payments_balance": PaymentsBalance,
             "tax_fund_account": TaxFundAccount,
@@ -75,7 +117,13 @@ class TaxFund(ListableAPIResource["TaxFund"]):
 
     class Trigger(StripeObject):
         balance_transaction: ExpandableField["BalanceTransaction"]
+        """
+        The balance transaction on the payments balance that triggered the sweep.
+        """
         type: str
+        """
+        The type of event that triggered the sweep. Always `balance_transaction`.
+        """
 
     amount: int
     """

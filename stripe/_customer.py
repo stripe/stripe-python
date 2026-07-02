@@ -200,6 +200,12 @@ class Customer(
             "rendering_options": RenderingOptions,
         }
 
+    class Redaction(StripeObject):
+        status: Literal["processing", "redacted", "validated"]
+        """
+        Indicates whether this object and its related objects have been redacted or not.
+        """
+
     class Shipping(StripeObject):
         class Address(StripeObject):
             city: Optional[str]
@@ -390,6 +396,10 @@ class Customer(
     preferred_locales: Optional[List[str]]
     """
     The customer's preferred locales (languages), ordered by preference.
+    """
+    redaction: Optional[Redaction]
+    """
+    Redaction status of this customer. If not null, this customer is associated to a redaction job.
     """
     shipping: Optional[Shipping]
     """
@@ -1985,6 +1995,7 @@ class Customer(
     _inner_class_types = {
         "address": Address,
         "invoice_settings": InvoiceSettings,
+        "redaction": Redaction,
         "shipping": Shipping,
         "tax": Tax,
     }

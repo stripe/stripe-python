@@ -937,6 +937,12 @@ class Authorization(
         """
         _inner_class_types = {"amount_details": AmountDetails}
 
+    class Redaction(StripeObject):
+        status: Literal["processing", "redacted", "validated"]
+        """
+        Indicates whether this object and its related objects have been redacted or not.
+        """
+
     class RequestHistory(StripeObject):
         class AmountDetails(StripeObject):
             atm_fee: Optional[int]
@@ -1022,6 +1028,10 @@ class Authorization(
     class TokenDetails(StripeObject):
         class NetworkData(StripeObject):
             class Device(StripeObject):
+                device_id: Optional[str]
+                """
+                An identifier for the device used during wallet provisioning.
+                """
                 ip_address: Optional[str]
                 """
                 The IP address of the device at provisioning time.
@@ -1510,6 +1520,10 @@ class Authorization(
     """
     The total amount that was authorized or rejected. This amount is in the `merchant_currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). `merchant_amount` should be the same as `amount`, unless `merchant_currency` and `currency` are different.
     """
+    merchant_amount_exchange_rate: Optional[float]
+    """
+    The exchange rate used by the network to convert the `merchant_amount` to `amount`. The `merchant_amount` multiplied with this rate will equal to the `amount`.
+    """
     merchant_currency: str
     """
     The local currency that was presented to the cardholder for the authorization. This currency can be different from the cardholder currency and the `currency` field on this authorization. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -1530,6 +1544,10 @@ class Authorization(
     pending_request: Optional[PendingRequest]
     """
     The pending authorization request. This field will only be non-null during an `issuing_authorization.request` webhook.
+    """
+    redaction: Optional[Redaction]
+    """
+    Redaction status of this authorization. If the authorization is not redacted, this field will be null.
     """
     request_history: List[RequestHistory]
     """
@@ -2656,6 +2674,7 @@ class Authorization(
         "merchant_data": MerchantData,
         "network_data": NetworkData,
         "pending_request": PendingRequest,
+        "redaction": Redaction,
         "request_history": RequestHistory,
         "token_details": TokenDetails,
         "treasury": Treasury,

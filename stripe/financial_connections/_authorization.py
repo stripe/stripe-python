@@ -40,14 +40,25 @@ class Authorization(APIResource["Authorization"]):
         """
 
     class StatusDetails(StripeObject):
+        class Active(StripeObject):
+            action: Literal["none", "relink_required"]
+            """
+            The action (if any) to proactively relink the Authorization.
+            """
+            expected_deactivation_date: int
+            """
+            When the Authorization is expected to become inactive, if applicable.
+            """
+
         class Inactive(StripeObject):
             action: Literal["none", "relink_required"]
             """
             The action (if any) to relink the inactive Authorization.
             """
 
+        active: Optional[Active]
         inactive: Optional[Inactive]
-        _inner_class_types = {"inactive": Inactive}
+        _inner_class_types = {"active": Active, "inactive": Inactive}
 
     account_holder: Optional[AccountHolder]
     """

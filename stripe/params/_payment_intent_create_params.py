@@ -3290,7 +3290,7 @@ class PaymentIntentCreateParamsPaymentMethodData(TypedDict):
     """
     sunbit: NotRequired["PaymentIntentCreateParamsPaymentMethodDataSunbit"]
     """
-    If this is a Sunbit PaymentMethod, this hash contains details about the Sunbit payment method.
+    If this is a `sunbit` PaymentMethod, this hash contains details about the Sunbit payment method.
     """
     swish: NotRequired["PaymentIntentCreateParamsPaymentMethodDataSwish"]
     """
@@ -4327,6 +4327,12 @@ class PaymentIntentCreateParamsPaymentMethodOptions(TypedDict):
     """
     If this is a `stripe_balance` PaymentMethod, this sub-hash contains details about the Stripe Balance payment method options.
     """
+    sunbit: NotRequired[
+        "Literal['']|PaymentIntentCreateParamsPaymentMethodOptionsSunbit"
+    ]
+    """
+    If this is a `sunbit` PaymentMethod, this sub-hash contains details about the Sunbit payment method options.
+    """
     swish: NotRequired[
         "Literal['']|PaymentIntentCreateParamsPaymentMethodOptionsSwish"
     ]
@@ -5190,6 +5196,12 @@ class PaymentIntentCreateParamsPaymentMethodOptionsCashapp(TypedDict):
 
 
 class PaymentIntentCreateParamsPaymentMethodOptionsCrypto(TypedDict):
+    amount_reconciliation: NotRequired[
+        "PaymentIntentCreateParamsPaymentMethodOptionsCryptoAmountReconciliation"
+    ]
+    """
+    Controls how crypto funding amounts are reconciled for this PaymentIntent.
+    """
     deposit_options: NotRequired[
         "PaymentIntentCreateParamsPaymentMethodOptionsCryptoDepositOptions"
     ]
@@ -5219,6 +5231,15 @@ class PaymentIntentCreateParamsPaymentMethodOptionsCrypto(TypedDict):
     ]
     """
     Specific configuration for this PaymentIntent when the mode is `transaction_verification`.
+    """
+
+
+class PaymentIntentCreateParamsPaymentMethodOptionsCryptoAmountReconciliation(
+    TypedDict,
+):
+    type: Literal["accept_partial_funding", "exact"]
+    """
+    Controls how crypto funding amounts are reconciled for the PaymentIntent.
     """
 
 
@@ -7300,6 +7321,18 @@ class PaymentIntentCreateParamsPaymentMethodOptionsSatispay(TypedDict):
 
     If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
     """
+    setup_future_usage: NotRequired[
+        "Literal['']|Literal['none', 'off_session', 'on_session']"
+    ]
+    """
+    Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+    If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+    If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+    When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+    """
 
 
 class PaymentIntentCreateParamsPaymentMethodOptionsScalapay(TypedDict):
@@ -7416,6 +7449,27 @@ class PaymentIntentCreateParamsPaymentMethodOptionsStripeBalanceMandateOptions(
     stripe_balance_debit_agreement: NotRequired[str]
     """
     The ID of the Stripe Balance Debit Agreement used for this mandate.
+    """
+
+
+class PaymentIntentCreateParamsPaymentMethodOptionsSunbit(TypedDict):
+    capture_method: NotRequired["Literal['']|Literal['manual']"]
+    """
+    Controls when the funds are captured from the customer's account.
+
+    If provided, this parameter overrides the behavior of the top-level [capture_method](https://docs.stripe.com/api/payment_intents/update#update_payment_intent-capture_method) for this payment method type when finalizing the payment with this payment method type.
+
+    If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter unsets the stored value for this payment method type.
+    """
+    setup_future_usage: NotRequired[Literal["none"]]
+    """
+    Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+    If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+    If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+    When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
     """
 
 
@@ -7619,7 +7673,7 @@ class PaymentIntentCreateParamsPaymentMethodOptionsUsBankAccountNetworks(
 class PaymentIntentCreateParamsPaymentMethodOptionsWechatPay(TypedDict):
     app_id: NotRequired[str]
     """
-    The app ID registered with WeChat Pay. Only required when client is ios or android.
+    The app ID registered with WeChat Pay. Only required when client is ios, android, or mini_program.
     """
     buyer_id: NotRequired[str]
     """

@@ -504,6 +504,12 @@ class Transaction(
             "receipt": Receipt,
         }
 
+    class Redaction(StripeObject):
+        status: Literal["processing", "redacted", "validated"]
+        """
+        Indicates whether this object and its related objects have been redacted or not.
+        """
+
     class Treasury(StripeObject):
         received_credit: Optional[str]
         """
@@ -566,6 +572,10 @@ class Transaction(
     """
     The amount that the merchant will receive, denominated in `merchant_currency` and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). It will be different from `amount` if the merchant is taking payment in a different currency.
     """
+    merchant_amount_exchange_rate: Optional[float]
+    """
+    The exchange rate used by the network to convert the `merchant_amount` to `amount`. The `merchant_amount` multiplied with this rate will equal to the `amount`.
+    """
     merchant_currency: str
     """
     The currency with which the merchant is taking payment.
@@ -586,6 +596,10 @@ class Transaction(
     purchase_details: Optional[PurchaseDetails]
     """
     Additional purchase information that is optionally provided by the merchant.
+    """
+    redaction: Optional[Redaction]
+    """
+    Redaction status of this transaction. If the transaction is not redacted, this field will be null.
     """
     settlement: Optional[ExpandableField["Settlement"]]
     """
@@ -891,6 +905,7 @@ class Transaction(
         "merchant_data": MerchantData,
         "network_data": NetworkData,
         "purchase_details": PurchaseDetails,
+        "redaction": Redaction,
         "treasury": Treasury,
     }
 

@@ -150,6 +150,7 @@ if TYPE_CHECKING:
         capital as capital,
         checkout as checkout,
         climate as climate,
+        crypto as crypto,
         delegated_checkout as delegated_checkout,
         entitlements as entitlements,
         events as events,
@@ -281,6 +282,7 @@ if TYPE_CHECKING:
     from stripe._credit_note_service import (
         CreditNoteService as CreditNoteService,
     )
+    from stripe._crypto_service import CryptoService as CryptoService
     from stripe._custom_method import custom_method as custom_method
     from stripe._customer import Customer as Customer
     from stripe._customer_balance_transaction import (
@@ -688,6 +690,7 @@ _import_map = {
     "capital": ("stripe.capital", True),
     "checkout": ("stripe.checkout", True),
     "climate": ("stripe.climate", True),
+    "crypto": ("stripe.crypto", True),
     "delegated_checkout": ("stripe.delegated_checkout", True),
     "entitlements": ("stripe.entitlements", True),
     "events": ("stripe.events", True),
@@ -784,6 +787,7 @@ _import_map = {
         False,
     ),
     "CreditNoteService": ("stripe._credit_note_service", False),
+    "CryptoService": ("stripe._crypto_service", False),
     "custom_method": ("stripe._custom_method", False),
     "Customer": ("stripe._customer", False),
     "CustomerBalanceTransaction": (

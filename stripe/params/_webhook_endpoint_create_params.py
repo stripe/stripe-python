@@ -133,6 +133,7 @@ class WebhookEndpointCreateParams(RequestOptions):
             "2026-03-25.dahlia",
             "2026-04-22.dahlia",
             "2026-05-27.dahlia",
+            "2026-06-24.dahlia",
         ]
     ]
     """
@@ -163,7 +164,13 @@ class WebhookEndpointCreateParams(RequestOptions):
             "balance.available",
             "balance_settings.updated",
             "billing.alert.triggered",
+            "billing.credit_balance_transaction.created",
             "billing.credit_grant.created",
+            "billing.credit_grant.updated",
+            "billing.meter.created",
+            "billing.meter.deactivated",
+            "billing.meter.reactivated",
+            "billing.meter.updated",
             "billing_portal.configuration.created",
             "billing_portal.configuration.updated",
             "billing_portal.session.created",
@@ -442,13 +449,6 @@ class WebhookEndpointCreateParams(RequestOptions):
             "treasury.received_credit.failed",
             "treasury.received_credit.succeeded",
             "treasury.received_debit.created",
-            "invoice_payment.detached",
-            "billing.credit_balance_transaction.created",
-            "billing.credit_grant.updated",
-            "billing.meter.created",
-            "billing.meter.deactivated",
-            "billing.meter.reactivated",
-            "billing.meter.updated",
         ]
     ]
     """

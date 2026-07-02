@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 class GiftCardOperation(APIResource["GiftCardOperation"]):
     """
     A GiftCardOperation represents an operation performed on a third-party gift card,
-    such as activation, deactivation, reload, cashout, balance check, or void.
+    such as activation, reload, cashout, balance check, or void.
     """
 
     OBJECT_NAME: ClassVar[Literal["gift_card_operation"]] = (
@@ -118,9 +118,6 @@ class GiftCardOperation(APIResource["GiftCardOperation"]):
         """
         _inner_class_types = {"balance": Balance}
 
-    class Deactivation(StripeObject):
-        pass
-
     class Reload(StripeObject):
         class Balance(StripeObject):
             amount: int
@@ -204,10 +201,6 @@ class GiftCardOperation(APIResource["GiftCardOperation"]):
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
     """
-    deactivation: Optional[Deactivation]
-    """
-    Details about a gift card deactivation operation.
-    """
     failure_code: Optional[
         Literal[
             "action_not_supported",
@@ -282,7 +275,6 @@ class GiftCardOperation(APIResource["GiftCardOperation"]):
         "balance_check",
         "cashout",
         "cashout_void",
-        "deactivation",
         "reload",
         "reload_void",
     ]
@@ -318,7 +310,6 @@ class GiftCardOperation(APIResource["GiftCardOperation"]):
         "balance_check": BalanceCheck,
         "cashout": Cashout,
         "cashout_void": CashoutVoid,
-        "deactivation": Deactivation,
         "reload": Reload,
         "reload_void": ReloadVoid,
     }

@@ -481,6 +481,12 @@ class Dispute(
         The status of the provisional credit obligation.
         """
 
+    class Redaction(StripeObject):
+        status: Literal["processing", "redacted", "validated"]
+        """
+        Indicates whether this object and its related objects have been redacted or not.
+        """
+
     class Treasury(StripeObject):
         debit_reversal: Optional[str]
         """
@@ -562,6 +568,10 @@ class Dispute(
     provisional_credit: Optional[ProvisionalCredit]
     """
     Provisional credit details for this dispute.
+    """
+    redaction: Optional[Redaction]
+    """
+    Redaction status of this dispute. If the dispute is not redacted, this field will be null.
     """
     status: Literal["expired", "lost", "submitted", "unsubmitted", "won"]
     """
@@ -1464,6 +1474,7 @@ class Dispute(
         "evidence": Evidence,
         "network_lifecycle": NetworkLifecycle,
         "provisional_credit": ProvisionalCredit,
+        "redaction": Redaction,
         "treasury": Treasury,
     }
 
