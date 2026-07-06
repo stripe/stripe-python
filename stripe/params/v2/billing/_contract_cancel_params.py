@@ -34,7 +34,7 @@ class ContractCancelParams(TypedDict):
 class ContractCancelParamsCancelPricingLine(TypedDict):
     id: NotRequired[str]
     """
-    The ID of the pricing line.
+    The id of the pricing line.
     """
     lookup_key: NotRequired[str]
     """

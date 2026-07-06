@@ -43952,7 +43952,7 @@ class TestGeneratedExamples(object):
                     {
                         "ends_at": {
                             "timestamp": "1970-01-01T15:18:46.294Z",
-                            "type": "contract_end",
+                            "type": "timestamp",
                         },
                         "lookup_key": "lookup_key",
                         "metadata": {"key": "metadata"},
@@ -43963,7 +43963,7 @@ class TestGeneratedExamples(object):
                                     {
                                         "ends_at": {
                                             "timestamp": "1970-01-01T15:18:46.294Z",
-                                            "type": "contract_end",
+                                            "type": "timestamp",
                                         },
                                         "lookup_key": "lookup_key",
                                         "metadata": {"key": "metadata"},
@@ -43984,7 +43984,7 @@ class TestGeneratedExamples(object):
                                         "priority": 1165461084,
                                         "starts_at": {
                                             "timestamp": "1970-01-01T15:18:46.294Z",
-                                            "type": "contract_start",
+                                            "type": "timestamp",
                                         },
                                         "type": "overwrite_price",
                                     },
@@ -44003,7 +44003,7 @@ class TestGeneratedExamples(object):
                         },
                         "starts_at": {
                             "timestamp": "1970-01-01T15:18:46.294Z",
-                            "type": "contract_start",
+                            "type": "timestamp",
                         },
                     },
                 ],
@@ -44014,7 +44014,7 @@ class TestGeneratedExamples(object):
             path="/v2/billing/contracts",
             query_string="",
             api_base="https://api.stripe.com",
-            post_data='{"contract_number":"contract_number","currency":"usd","pricing_lines":[{"ends_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"contract_end"},"lookup_key":"lookup_key","metadata":{"key":"metadata"},"pricing":{"price_details":{"price":"price","pricing_overrides":[{"ends_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"contract_end"},"lookup_key":"lookup_key","metadata":{"key":"metadata"},"overwrite_price":{"tiering_mode":"graduated","tiers":[{"flat_amount":"flat_amount","unit_amount":"unit_amount","up_to_decimal":"1387931359.3333333","up_to_inf":"inf"}],"unit_amount":"unit_amount"},"priority":1165461084,"starts_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"contract_start"},"type":"overwrite_price"}],"quantity_changes":[{"effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"timestamp"},"set":"75841.33333333333"}]},"type":"price"},"starts_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"contract_start"}}]}',
+            post_data='{"contract_number":"contract_number","currency":"usd","pricing_lines":[{"ends_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"timestamp"},"lookup_key":"lookup_key","metadata":{"key":"metadata"},"pricing":{"price_details":{"price":"price","pricing_overrides":[{"ends_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"timestamp"},"lookup_key":"lookup_key","metadata":{"key":"metadata"},"overwrite_price":{"tiering_mode":"graduated","tiers":[{"flat_amount":"flat_amount","unit_amount":"unit_amount","up_to_decimal":"1387931359.3333333","up_to_inf":"inf"}],"unit_amount":"unit_amount"},"priority":1165461084,"starts_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"timestamp"},"type":"overwrite_price"}],"quantity_changes":[{"effective_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"timestamp"},"set":"75841.33333333333"}]},"type":"price"},"starts_at":{"timestamp":"1970-01-01T15:18:46.294Z","type":"timestamp"}}]}',
             is_json=True,
         )
 

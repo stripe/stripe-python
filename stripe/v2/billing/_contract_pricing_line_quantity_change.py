@@ -35,7 +35,7 @@ class ContractPricingLineQuantityChange(StripeObject):
     """
     id: str
     """
-    The ID of the quantity change object.
+    The id of the quantity change object.
     """
     livemode: bool
     """
@@ -51,7 +51,7 @@ class ContractPricingLineQuantityChange(StripeObject):
     """
     pricing_line: str
     """
-    The ID of the pricing line associated with this quantity change.
+    The id of the pricing line associated with this quantity change.
     """
     quantity: Decimal
     """

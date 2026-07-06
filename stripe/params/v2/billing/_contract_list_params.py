@@ -7,7 +7,7 @@ from typing_extensions import Literal, NotRequired, TypedDict
 class ContractListParams(TypedDict):
     customer: NotRequired[str]
     """
-    Filter by customer ID.
+    Filter by customer id.
     """
     include: NotRequired[
         List[

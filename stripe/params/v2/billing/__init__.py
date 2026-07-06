@@ -145,8 +145,8 @@ if TYPE_CHECKING:
         ContractCreateParamsPricingLineStartsAt as ContractCreateParamsPricingLineStartsAt,
         ContractCreateParamsPricingOverride as ContractCreateParamsPricingOverride,
         ContractCreateParamsPricingOverrideEndsAt as ContractCreateParamsPricingOverrideEndsAt,
-        ContractCreateParamsPricingOverrideMultiplier as ContractCreateParamsPricingOverrideMultiplier,
-        ContractCreateParamsPricingOverrideMultiplierCriterion as ContractCreateParamsPricingOverrideMultiplierCriterion,
+        ContractCreateParamsPricingOverrideMultiplyPricing as ContractCreateParamsPricingOverrideMultiplyPricing,
+        ContractCreateParamsPricingOverrideMultiplyPricingCriterion as ContractCreateParamsPricingOverrideMultiplyPricingCriterion,
         ContractCreateParamsPricingOverrideStartsAt as ContractCreateParamsPricingOverrideStartsAt,
     )
     from stripe.params.v2.billing._contract_delete_params import (
@@ -194,8 +194,8 @@ if TYPE_CHECKING:
         ContractUpdateParamsPricingOverrideAction as ContractUpdateParamsPricingOverrideAction,
         ContractUpdateParamsPricingOverrideActionAdd as ContractUpdateParamsPricingOverrideActionAdd,
         ContractUpdateParamsPricingOverrideActionAddEndsAt as ContractUpdateParamsPricingOverrideActionAddEndsAt,
-        ContractUpdateParamsPricingOverrideActionAddMultiplier as ContractUpdateParamsPricingOverrideActionAddMultiplier,
-        ContractUpdateParamsPricingOverrideActionAddMultiplierCriterion as ContractUpdateParamsPricingOverrideActionAddMultiplierCriterion,
+        ContractUpdateParamsPricingOverrideActionAddMultiplyPricing as ContractUpdateParamsPricingOverrideActionAddMultiplyPricing,
+        ContractUpdateParamsPricingOverrideActionAddMultiplyPricingCriterion as ContractUpdateParamsPricingOverrideActionAddMultiplyPricingCriterion,
         ContractUpdateParamsPricingOverrideActionAddOverwritePrice as ContractUpdateParamsPricingOverrideActionAddOverwritePrice,
         ContractUpdateParamsPricingOverrideActionAddOverwritePriceTier as ContractUpdateParamsPricingOverrideActionAddOverwritePriceTier,
         ContractUpdateParamsPricingOverrideActionAddStartsAt as ContractUpdateParamsPricingOverrideActionAddStartsAt,
@@ -882,11 +882,11 @@ _import_map = {
         "stripe.params.v2.billing._contract_create_params",
         False,
     ),
-    "ContractCreateParamsPricingOverrideMultiplier": (
+    "ContractCreateParamsPricingOverrideMultiplyPricing": (
         "stripe.params.v2.billing._contract_create_params",
         False,
     ),
-    "ContractCreateParamsPricingOverrideMultiplierCriterion": (
+    "ContractCreateParamsPricingOverrideMultiplyPricingCriterion": (
         "stripe.params.v2.billing._contract_create_params",
         False,
     ),
@@ -1046,11 +1046,11 @@ _import_map = {
         "stripe.params.v2.billing._contract_update_params",
         False,
     ),
-    "ContractUpdateParamsPricingOverrideActionAddMultiplier": (
+    "ContractUpdateParamsPricingOverrideActionAddMultiplyPricing": (
         "stripe.params.v2.billing._contract_update_params",
         False,
     ),
-    "ContractUpdateParamsPricingOverrideActionAddMultiplierCriterion": (
+    "ContractUpdateParamsPricingOverrideActionAddMultiplyPricingCriterion": (
         "stripe.params.v2.billing._contract_update_params",
         False,
     ),

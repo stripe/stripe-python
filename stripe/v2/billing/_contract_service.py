@@ -72,7 +72,7 @@ class ContractService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Contract]":
         """
-        List Contract objects with pagination.
+        List contracts.
         """
         return cast(
             "ListObject[Contract]",
@@ -91,7 +91,7 @@ class ContractService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "ListObject[Contract]":
         """
-        List Contract objects with pagination.
+        List contracts.
         """
         return cast(
             "ListObject[Contract]",
@@ -110,7 +110,7 @@ class ContractService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Contract":
         """
-        Create a Contract object.
+        Create a draft contract.
         """
         return cast(
             "Contract",
@@ -129,7 +129,7 @@ class ContractService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Contract":
         """
-        Create a Contract object.
+        Create a draft contract.
         """
         return cast(
             "Contract",
@@ -149,7 +149,7 @@ class ContractService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "DeletedObject":
         """
-        Delete a draft Contract object by ID.
+        Delete a draft contract.
         """
         return cast(
             "DeletedObject",
@@ -169,7 +169,7 @@ class ContractService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "DeletedObject":
         """
-        Delete a draft Contract object by ID.
+        Delete a draft contract.
         """
         return cast(
             "DeletedObject",
@@ -189,7 +189,7 @@ class ContractService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Contract":
         """
-        Retrieve a Contract object by ID.
+        Retrieve a contract.
         """
         return cast(
             "Contract",
@@ -209,7 +209,7 @@ class ContractService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Contract":
         """
-        Retrieve a Contract object by ID.
+        Retrieve a contract.
         """
         return cast(
             "Contract",
@@ -229,7 +229,7 @@ class ContractService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Contract":
         """
-        Update a Contract object by ID.
+        Update a draft or active contract.
         """
         return cast(
             "Contract",
@@ -249,7 +249,7 @@ class ContractService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Contract":
         """
-        Update a Contract object by ID.
+        Update a draft or active contract.
         """
         return cast(
             "Contract",
@@ -269,7 +269,7 @@ class ContractService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Contract":
         """
-        Activate a Draft Contract object by ID.
+        Activate a draft contract.
         """
         return cast(
             "Contract",
@@ -291,7 +291,7 @@ class ContractService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Contract":
         """
-        Activate a Draft Contract object by ID.
+        Activate a draft contract.
         """
         return cast(
             "Contract",
@@ -313,7 +313,7 @@ class ContractService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Contract":
         """
-        Cancel a Contract object by ID.
+        Cancel an active contract.
         """
         return cast(
             "Contract",
@@ -333,7 +333,7 @@ class ContractService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "Contract":
         """
-        Cancel a Contract object by ID.
+        Cancel an active contract.
         """
         return cast(
             "Contract",
