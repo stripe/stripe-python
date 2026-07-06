@@ -387,28 +387,19 @@ class Contract(StripeObject):
         """
         _inner_class_types = {"data": Data}
 
-    class StatusDetails(StripeObject):
-        class Active(StripeObject):
-            activated_at: str
-            """
-            The timestamp when the contract was activated.
-            """
-
-        class Canceled(StripeObject):
-            canceled_at: str
-            """
-            The timestamp when the contract was canceled.
-            """
-
-        active: Optional[Active]
+    class StatusTransitions(StripeObject):
+        activated_at: Optional[str]
         """
-        Details of the active contract status.
+        The timestamp when the contract was activated.
         """
-        canceled: Optional[Canceled]
+        canceled_at: Optional[str]
         """
-        Details of the canceled contract status.
+        The timestamp when the contract was canceled.
         """
-        _inner_class_types = {"active": Active, "canceled": Canceled}
+        ended_at: Optional[str]
+        """
+        The timestamp when the contract ended.
+        """
 
     billing_cycle_anchor: Optional[BillingCycleAnchor]
     """
@@ -466,9 +457,9 @@ class Contract(StripeObject):
     """
     The current status of the contract.
     """
-    status_details: StatusDetails
+    status_transitions: Optional[StatusTransitions]
     """
-    Information about the contract status transitions.
+    Historical timestamps of when the contract transitioned into each status.
     """
     _inner_class_types = {
         "billing_cycle_anchor": BillingCycleAnchor,
@@ -476,5 +467,5 @@ class Contract(StripeObject):
         "one_time_fees": OneTimeFees,
         "pricing_lines": PricingLines,
         "pricing_overrides": PricingOverrides,
-        "status_details": StatusDetails,
+        "status_transitions": StatusTransitions,
     }

@@ -835,6 +835,26 @@ if TYPE_CHECKING:
         V2BillingCadenceCreatedEvent as V2BillingCadenceCreatedEvent,
         V2BillingCadenceCreatedEventNotification as V2BillingCadenceCreatedEventNotification,
     )
+    from stripe.events._v2_billing_contract_activated_event import (
+        V2BillingContractActivatedEvent as V2BillingContractActivatedEvent,
+        V2BillingContractActivatedEventNotification as V2BillingContractActivatedEventNotification,
+    )
+    from stripe.events._v2_billing_contract_canceled_event import (
+        V2BillingContractCanceledEvent as V2BillingContractCanceledEvent,
+        V2BillingContractCanceledEventNotification as V2BillingContractCanceledEventNotification,
+    )
+    from stripe.events._v2_billing_contract_created_event import (
+        V2BillingContractCreatedEvent as V2BillingContractCreatedEvent,
+        V2BillingContractCreatedEventNotification as V2BillingContractCreatedEventNotification,
+    )
+    from stripe.events._v2_billing_contract_ended_event import (
+        V2BillingContractEndedEvent as V2BillingContractEndedEvent,
+        V2BillingContractEndedEventNotification as V2BillingContractEndedEventNotification,
+    )
+    from stripe.events._v2_billing_contract_updated_event import (
+        V2BillingContractUpdatedEvent as V2BillingContractUpdatedEvent,
+        V2BillingContractUpdatedEventNotification as V2BillingContractUpdatedEventNotification,
+    )
     from stripe.events._v2_billing_license_fee_created_event import (
         V2BillingLicenseFeeCreatedEvent as V2BillingLicenseFeeCreatedEvent,
         V2BillingLicenseFeeCreatedEventNotification as V2BillingLicenseFeeCreatedEventNotification,
@@ -3194,6 +3214,46 @@ _import_map = {
     ),
     "V2BillingCadenceCreatedEventNotification": (
         "stripe.events._v2_billing_cadence_created_event",
+        False,
+    ),
+    "V2BillingContractActivatedEvent": (
+        "stripe.events._v2_billing_contract_activated_event",
+        False,
+    ),
+    "V2BillingContractActivatedEventNotification": (
+        "stripe.events._v2_billing_contract_activated_event",
+        False,
+    ),
+    "V2BillingContractCanceledEvent": (
+        "stripe.events._v2_billing_contract_canceled_event",
+        False,
+    ),
+    "V2BillingContractCanceledEventNotification": (
+        "stripe.events._v2_billing_contract_canceled_event",
+        False,
+    ),
+    "V2BillingContractCreatedEvent": (
+        "stripe.events._v2_billing_contract_created_event",
+        False,
+    ),
+    "V2BillingContractCreatedEventNotification": (
+        "stripe.events._v2_billing_contract_created_event",
+        False,
+    ),
+    "V2BillingContractEndedEvent": (
+        "stripe.events._v2_billing_contract_ended_event",
+        False,
+    ),
+    "V2BillingContractEndedEventNotification": (
+        "stripe.events._v2_billing_contract_ended_event",
+        False,
+    ),
+    "V2BillingContractUpdatedEvent": (
+        "stripe.events._v2_billing_contract_updated_event",
+        False,
+    ),
+    "V2BillingContractUpdatedEventNotification": (
+        "stripe.events._v2_billing_contract_updated_event",
         False,
     ),
     "V2BillingLicenseFeeCreatedEvent": (

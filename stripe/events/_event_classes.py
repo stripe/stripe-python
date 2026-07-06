@@ -622,6 +622,21 @@ if TYPE_CHECKING:
     from stripe.events._v2_billing_cadence_created_event import (
         V2BillingCadenceCreatedEventNotification,
     )
+    from stripe.events._v2_billing_contract_activated_event import (
+        V2BillingContractActivatedEventNotification,
+    )
+    from stripe.events._v2_billing_contract_canceled_event import (
+        V2BillingContractCanceledEventNotification,
+    )
+    from stripe.events._v2_billing_contract_created_event import (
+        V2BillingContractCreatedEventNotification,
+    )
+    from stripe.events._v2_billing_contract_ended_event import (
+        V2BillingContractEndedEventNotification,
+    )
+    from stripe.events._v2_billing_contract_updated_event import (
+        V2BillingContractUpdatedEventNotification,
+    )
     from stripe.events._v2_billing_licensed_item_created_event import (
         V2BillingLicensedItemCreatedEventNotification,
     )
@@ -2065,6 +2080,26 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v2.billing.cadence.created": (
         "stripe.events._v2_billing_cadence_created_event",
         "V2BillingCadenceCreatedEvent",
+    ),
+    "v2.billing.contract.activated": (
+        "stripe.events._v2_billing_contract_activated_event",
+        "V2BillingContractActivatedEvent",
+    ),
+    "v2.billing.contract.canceled": (
+        "stripe.events._v2_billing_contract_canceled_event",
+        "V2BillingContractCanceledEvent",
+    ),
+    "v2.billing.contract.created": (
+        "stripe.events._v2_billing_contract_created_event",
+        "V2BillingContractCreatedEvent",
+    ),
+    "v2.billing.contract.ended": (
+        "stripe.events._v2_billing_contract_ended_event",
+        "V2BillingContractEndedEvent",
+    ),
+    "v2.billing.contract.updated": (
+        "stripe.events._v2_billing_contract_updated_event",
+        "V2BillingContractUpdatedEvent",
     ),
     "v2.billing.licensed_item.created": (
         "stripe.events._v2_billing_licensed_item_created_event",
@@ -3729,6 +3764,26 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_billing_cadence_created_event",
         "V2BillingCadenceCreatedEventNotification",
     ),
+    "v2.billing.contract.activated": (
+        "stripe.events._v2_billing_contract_activated_event",
+        "V2BillingContractActivatedEventNotification",
+    ),
+    "v2.billing.contract.canceled": (
+        "stripe.events._v2_billing_contract_canceled_event",
+        "V2BillingContractCanceledEventNotification",
+    ),
+    "v2.billing.contract.created": (
+        "stripe.events._v2_billing_contract_created_event",
+        "V2BillingContractCreatedEventNotification",
+    ),
+    "v2.billing.contract.ended": (
+        "stripe.events._v2_billing_contract_ended_event",
+        "V2BillingContractEndedEventNotification",
+    ),
+    "v2.billing.contract.updated": (
+        "stripe.events._v2_billing_contract_updated_event",
+        "V2BillingContractUpdatedEventNotification",
+    ),
     "v2.billing.licensed_item.created": (
         "stripe.events._v2_billing_licensed_item_created_event",
         "V2BillingLicensedItemCreatedEventNotification",
@@ -4777,6 +4832,11 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2BillingCadenceBilledEventNotification",
     "V2BillingCadenceCanceledEventNotification",
     "V2BillingCadenceCreatedEventNotification",
+    "V2BillingContractActivatedEventNotification",
+    "V2BillingContractCanceledEventNotification",
+    "V2BillingContractCreatedEventNotification",
+    "V2BillingContractEndedEventNotification",
+    "V2BillingContractUpdatedEventNotification",
     "V2BillingLicensedItemCreatedEventNotification",
     "V2BillingLicensedItemUpdatedEventNotification",
     "V2BillingLicenseFeeCreatedEventNotification",
