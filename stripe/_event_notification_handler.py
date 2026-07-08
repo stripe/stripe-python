@@ -627,6 +627,21 @@ if TYPE_CHECKING:
     from stripe.events._v2_billing_cadence_created_event import (
         V2BillingCadenceCreatedEventNotification,
     )
+    from stripe.events._v2_billing_contract_activated_event import (
+        V2BillingContractActivatedEventNotification,
+    )
+    from stripe.events._v2_billing_contract_canceled_event import (
+        V2BillingContractCanceledEventNotification,
+    )
+    from stripe.events._v2_billing_contract_created_event import (
+        V2BillingContractCreatedEventNotification,
+    )
+    from stripe.events._v2_billing_contract_ended_event import (
+        V2BillingContractEndedEventNotification,
+    )
+    from stripe.events._v2_billing_contract_updated_event import (
+        V2BillingContractUpdatedEventNotification,
+    )
     from stripe.events._v2_billing_licensed_item_created_event import (
         V2BillingLicensedItemCreatedEventNotification,
     )
@@ -4005,6 +4020,71 @@ class StripeEventNotificationHandler:
         """
         self._register(
             "v2.billing.cadence.created",
+            func,
+        )
+        return func
+
+    def on_v2_billing_contract_activated(
+        self,
+        func: "Callable[[V2BillingContractActivatedEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2BillingContractActivatedEvent` (`v2.billing.contract.activated`) event notification.
+        """
+        self._register(
+            "v2.billing.contract.activated",
+            func,
+        )
+        return func
+
+    def on_v2_billing_contract_canceled(
+        self,
+        func: "Callable[[V2BillingContractCanceledEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2BillingContractCanceledEvent` (`v2.billing.contract.canceled`) event notification.
+        """
+        self._register(
+            "v2.billing.contract.canceled",
+            func,
+        )
+        return func
+
+    def on_v2_billing_contract_created(
+        self,
+        func: "Callable[[V2BillingContractCreatedEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2BillingContractCreatedEvent` (`v2.billing.contract.created`) event notification.
+        """
+        self._register(
+            "v2.billing.contract.created",
+            func,
+        )
+        return func
+
+    def on_v2_billing_contract_ended(
+        self,
+        func: "Callable[[V2BillingContractEndedEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2BillingContractEndedEvent` (`v2.billing.contract.ended`) event notification.
+        """
+        self._register(
+            "v2.billing.contract.ended",
+            func,
+        )
+        return func
+
+    def on_v2_billing_contract_updated(
+        self,
+        func: "Callable[[V2BillingContractUpdatedEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2BillingContractUpdatedEvent` (`v2.billing.contract.updated`) event notification.
+        """
+        self._register(
+            "v2.billing.contract.updated",
             func,
         )
         return func

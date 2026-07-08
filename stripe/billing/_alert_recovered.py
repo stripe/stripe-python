@@ -13,6 +13,21 @@ class AlertRecovered(StripeObject):
     OBJECT_NAME: ClassVar[Literal["billing.alert_recovered"]] = (
         "billing.alert_recovered"
     )
+
+    class AggregationPeriod(StripeObject):
+        ends_at: int
+        """
+        End time of the aggregation period
+        """
+        starts_at: int
+        """
+        Start time of the aggregation period
+        """
+
+    aggregation_period: Optional[AggregationPeriod]
+    """
+    The aggregation period for which this alert recovered
+    """
     alert: "Alert"
     """
     A billing alert is a resource that notifies you when a certain usage threshold on a meter is crossed. For example, you might create a billing alert to notify you when a certain user made 100 API requests.
@@ -49,4 +64,5 @@ class AlertRecovered(StripeObject):
     """
     The value at which the alert recovered
     """
+    _inner_class_types = {"aggregation_period": AggregationPeriod}
     _field_encodings = {"value": "decimal_string"}

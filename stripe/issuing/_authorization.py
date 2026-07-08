@@ -883,9 +883,17 @@ class Authorization(
         """
 
     class NetworkData(StripeObject):
+        acquiring_institution_country: Optional[str]
+        """
+        Country code of the acquirer assigned by the card network.
+        """
         acquiring_institution_id: Optional[str]
         """
         Identifier assigned to the acquirer by the card network. Sometimes this value is not provided by the network; in this case, the value will be `null`.
+        """
+        retrieval_reference_number: Optional[str]
+        """
+        Identifier assigned by the acquirer to track all messages related to this transaction.
         """
         system_trace_audit_number: Optional[str]
         """
@@ -954,6 +962,27 @@ class Authorization(
             The amount of cash requested by the cardholder.
             """
 
+        class NetworkData(StripeObject):
+            class TraceId(StripeObject):
+                banknet_reference_number: Optional[str]
+                """
+                The unique reference number within the specified financial network on the specified network date.
+                """
+                financial_network_code: Optional[str]
+                """
+                The identifier of the program or service.
+                """
+                network_date: Optional[str]
+                """
+                The card network's record date for this authorization.
+                """
+
+            trace_id: Optional[TraceId]
+            """
+            Mastercard identifier for each authorization request.
+            """
+            _inner_class_types = {"trace_id": TraceId}
+
         amount: int
         """
         The `pending_request.amount` at the time of the request, presented in your card's currency and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). Stripe held this amount from your account to fund the authorization if the request was approved.
@@ -985,6 +1014,10 @@ class Authorization(
         merchant_currency: str
         """
         The currency that was collected by the merchant and presented to the cardholder for the authorization. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        network_data: Optional[NetworkData]
+        """
+        Details about the authorization request, such as identifiers, set by the card network.
         """
         network_risk_score: Optional[int]
         """
@@ -1023,7 +1056,25 @@ class Authorization(
         """
         Time when the card network received an authorization request from the acquirer in UTC. Referred to by networks as transmission time.
         """
-        _inner_class_types = {"amount_details": AmountDetails}
+        _inner_class_types = {
+            "amount_details": AmountDetails,
+            "network_data": NetworkData,
+        }
+
+    class TerminalData(StripeObject):
+        cardholder_verification_result: Optional[
+            Literal[
+                "failed",
+                "none",
+                "pin",
+                "pin_and_signature",
+                "signature",
+                "unknown",
+            ]
+        ]
+        """
+        The method used to confirm the cardholder's identity.
+        """
 
     class TokenDetails(StripeObject):
         class NetworkData(StripeObject):
@@ -1556,6 +1607,10 @@ class Authorization(
     status: Literal["closed", "expired", "pending", "reversed"]
     """
     The current status of the authorization in its lifecycle.
+    """
+    terminal_data: Optional[TerminalData]
+    """
+    Details about the cardholder verification outcome at the terminal.
     """
     token: Optional[ExpandableField["Token"]]
     """
@@ -2676,6 +2731,7 @@ class Authorization(
         "pending_request": PendingRequest,
         "redaction": Redaction,
         "request_history": RequestHistory,
+        "terminal_data": TerminalData,
         "token_details": TokenDetails,
         "treasury": Treasury,
         "verification_data": VerificationData,

@@ -1743,7 +1743,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhase(TypedDict):
     """
     start_date: NotRequired["int|Literal['now']"]
     """
-    The date at which this phase of the subscription schedule starts or `now`. Must be set on the first phase.
+    The date at which this phase of the subscription schedule starts or `now`. Must be set on the first phase. Prefer to specify `now` over an explicit timestamp when appropriate to avoid unexpected behavior due to request delays or clock skew resulting in the phase being slightly backdated or postdated.
     """
     transfer_data: NotRequired[
         "InvoiceCreatePreviewParamsScheduleDetailsPhaseTransferData"

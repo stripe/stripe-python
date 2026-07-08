@@ -31,6 +31,10 @@ class ReaderCollectPaymentMethodParamsCollectConfig(TypedDict):
     """
     Enables cancel button on transaction screens.
     """
+    gift_card_brand: NotRequired[Literal["fiserv_valuelink", "givex", "svs"]]
+    """
+    The gift card brand to use in the transaction.
+    """
     skip_tipping: NotRequired[bool]
     """
     Override showing a tipping selection screen on this transaction.

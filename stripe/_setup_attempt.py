@@ -13,6 +13,7 @@ if TYPE_CHECKING:
     from stripe._bank_account import BankAccount
     from stripe._card import Card as CardResource
     from stripe._customer import Customer
+    from stripe._gift_card_operation import GiftCardOperation
     from stripe._mandate import Mandate
     from stripe._payment_intent import PaymentIntent
     from stripe._payment_method import PaymentMethod
@@ -379,6 +380,9 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         class Paypal(StripeObject):
             pass
 
+        class Paypay(StripeObject):
+            pass
+
         class Payto(StripeObject):
             pass
 
@@ -463,6 +467,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         naver_pay: Optional[NaverPay]
         nz_bank_account: Optional[NzBankAccount]
         paypal: Optional[Paypal]
+        paypay: Optional[Paypay]
         payto: Optional[Payto]
         pix: Optional[Pix]
         revolut_pay: Optional[RevolutPay]
@@ -496,6 +501,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             "naver_pay": NaverPay,
             "nz_bank_account": NzBankAccount,
             "paypal": Paypal,
+            "paypay": Paypay,
             "payto": Payto,
             "pix": Pix,
             "revolut_pay": RevolutPay,
@@ -731,6 +737,11 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         doc_url: Optional[str]
         """
         A URL to more information about the [error code](https://docs.stripe.com/error-codes) reported.
+        """
+        gift_card_operation: Optional["GiftCardOperation"]
+        """
+        A GiftCardOperation represents an operation performed on a third-party gift card,
+        such as activation, reload, cashout, balance check, or void.
         """
         message: Optional[str]
         """

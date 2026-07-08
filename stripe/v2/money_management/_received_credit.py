@@ -359,6 +359,24 @@ class ReceivedCredit(StripeObject):
         Statement descriptor for the Stripe Balance Payment.
         """
 
+    class StripeNetworkTransfer(StripeObject):
+        class From(StripeObject):
+            network_business_profile: str
+            """
+            The network ID of the sender.
+            """
+            type: Literal["network_business_profile"]
+            """
+            Open Enum. The type of the sender.
+            """
+
+        from_: From
+        """
+        Information about the sender of the network transfer.
+        """
+        _inner_class_types = {"from": From}
+        _field_remappings = {"from_": "from"}
+
     amount: Amount
     """
     The amount and currency of the ReceivedCredit.
@@ -428,6 +446,10 @@ class ReceivedCredit(StripeObject):
     """
     This object stores details about the stripe balance pay refund that resulted in the ReceivedCredit. Present if `type` field value is `stripe_balance_payment`.
     """
+    stripe_network_transfer: Optional[StripeNetworkTransfer]
+    """
+    This object stores details about the Stripe network transfer that resulted in the ReceivedCredit. Present if `type` field value is `stripe_network_transfer`.
+    """
     type: Literal[
         "balance_transfer",
         "bank_transfer",
@@ -435,6 +457,7 @@ class ReceivedCredit(StripeObject):
         "crypto_wallet_transfer",
         "external_credit",
         "stripe_balance_payment",
+        "stripe_network_transfer",
     ]
     """
     Open Enum. The type of flow that caused the ReceivedCredit.
@@ -447,4 +470,5 @@ class ReceivedCredit(StripeObject):
         "status_details": StatusDetails,
         "status_transitions": StatusTransitions,
         "stripe_balance_payment": StripeBalancePayment,
+        "stripe_network_transfer": StripeNetworkTransfer,
     }

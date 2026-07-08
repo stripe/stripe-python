@@ -8,14 +8,7 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 class ContractUpdateParams(TypedDict):
     include: NotRequired[
-        List[
-            Literal[
-                "billing_settings",
-                "one_time_fees",
-                "pricing_lines",
-                "pricing_overrides",
-            ]
-        ]
+        List[Literal["billing_settings", "pricing_lines", "pricing_overrides"]]
     ]
     """
     Additional fields to include in the response.
@@ -37,11 +30,11 @@ class ContractUpdateParams(TypedDict):
 class ContractUpdateParamsPricingLineAction(TypedDict):
     add: NotRequired["ContractUpdateParamsPricingLineActionAdd"]
     """
-    Parameters for adding a pricing line.
+    Add a pricing line.
     """
     remove: NotRequired["ContractUpdateParamsPricingLineActionRemove"]
     """
-    Parameters for removing a pricing line.
+    Remove a pricing line.
     """
     type: Literal["add", "remove", "update"]
     """
@@ -49,7 +42,7 @@ class ContractUpdateParamsPricingLineAction(TypedDict):
     """
     update: NotRequired["ContractUpdateParamsPricingLineActionUpdate"]
     """
-    Parameters for updating a pricing line.
+    Update a pricing line.
     """
 
 
@@ -79,9 +72,9 @@ class ContractUpdateParamsPricingLineActionAdd(TypedDict):
 class ContractUpdateParamsPricingLineActionAddEndsAt(TypedDict):
     timestamp: NotRequired[str]
     """
-    The timestamp when the item ends.
+    The timestamp when the pricing ends.
     """
-    type: Literal["billing_period_end", "timestamp"]
+    type: Literal["timestamp"]
     """
     The type of end time to apply.
     """
@@ -103,7 +96,7 @@ class ContractUpdateParamsPricingLineActionAddPricing(TypedDict):
 class ContractUpdateParamsPricingLineActionAddPricingPriceDetails(TypedDict):
     price: str
     """
-    The ID of the V1 price.
+    The id of the price.
     """
     pricing_overrides: NotRequired[
         List[
@@ -120,7 +113,7 @@ class ContractUpdateParamsPricingLineActionAddPricingPriceDetails(TypedDict):
     ]
     """
     Quantity changes for the pricing line. For now, at most one entry is allowed.
-    A quantity change clears all future quantity changes on this pricing line.
+    A quantity change clears all future quantity changes on this pricing line. Defaults to 1.
     """
 
 
@@ -159,7 +152,7 @@ class ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverride
     """
     type: Literal["overwrite_price"]
     """
-    The type of override. Currently only `overwrite_price` is supported.
+    The type of override.
     """
 
 
@@ -170,7 +163,7 @@ class ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverride
     """
     The timestamp when the item ends. Required if `type` is `timestamp`.
     """
-    type: Literal["contract_end", "timestamp"]
+    type: Literal["timestamp"]
     """
     The type of the ends_at.
     """
@@ -179,42 +172,9 @@ class ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverride
 class ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverrideOverwritePrice(
     TypedDict,
 ):
-    tiering_mode: NotRequired[Literal["graduated", "volume"]]
-    """
-    Defines whether the tiered price should be graduated or volume-based.
-    """
-    tiers: NotRequired[
-        List[
-            "ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverrideOverwritePriceTier"
-        ]
-    ]
-    """
-    Each element represents a pricing tier.
-    """
     unit_amount: NotRequired[str]
     """
     The per-unit amount to be charged, represented as a decimal string in minor currency units.
-    """
-
-
-class ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverrideOverwritePriceTier(
-    TypedDict,
-):
-    flat_amount: NotRequired[str]
-    """
-    Price for the entire tier, represented as a decimal string in minor currency units.
-    """
-    unit_amount: NotRequired[str]
-    """
-    Per-unit price for units included in this tier, represented as a decimal string in minor currency units.
-    """
-    up_to_decimal: NotRequired[Decimal]
-    """
-    Up to and including this quantity will be contained in the tier.
-    """
-    up_to_inf: NotRequired[Literal["inf"]]
-    """
-    No upper bound to this tier.
     """
 
 
@@ -225,7 +185,7 @@ class ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverride
     """
     The timestamp when the item starts. Required if `type` is `timestamp`.
     """
-    type: Literal["contract_start", "timestamp"]
+    type: Literal["timestamp"]
     """
     The type of the starts_at.
     """
@@ -260,9 +220,9 @@ class ContractUpdateParamsPricingLineActionAddPricingPriceDetailsQuantityChangeE
 class ContractUpdateParamsPricingLineActionAddStartsAt(TypedDict):
     timestamp: NotRequired[str]
     """
-    The timestamp when the item starts.
+    The timestamp when the pricing starts.
     """
-    type: Literal["billing_period_start", "timestamp"]
+    type: Literal["timestamp"]
     """
     The type of start time to apply.
     """
@@ -271,37 +231,37 @@ class ContractUpdateParamsPricingLineActionAddStartsAt(TypedDict):
 class ContractUpdateParamsPricingLineActionRemove(TypedDict):
     id: str
     """
-    The ID of the pricing line to remove.
+    The id of the pricing line to remove.
     """
 
 
 class ContractUpdateParamsPricingLineActionUpdate(TypedDict):
     ends_at: NotRequired["ContractUpdateParamsPricingLineActionUpdateEndsAt"]
     """
-    The updated end time for the pricing line.
+    Updated end time.
     """
     id: str
     """
-    The ID of the pricing line.
+    The id of the pricing line.
     """
     pricing: NotRequired["ContractUpdateParamsPricingLineActionUpdatePricing"]
     """
-    Pricing updates for the pricing line (quantity changes and pricing override actions).
+    Updated pricing configuration.
     """
     starts_at: NotRequired[
         "ContractUpdateParamsPricingLineActionUpdateStartsAt"
     ]
     """
-    The updated start time for the pricing line.
+    Updated start time.
     """
 
 
 class ContractUpdateParamsPricingLineActionUpdateEndsAt(TypedDict):
     timestamp: NotRequired[str]
     """
-    The timestamp when the item ends.
+    The timestamp when the pricing ends.
     """
-    type: Literal["billing_period_end", "timestamp"]
+    type: Literal["timestamp"]
     """
     The type of end time to apply.
     """
@@ -344,13 +304,13 @@ class ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverr
         "ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAdd"
     ]
     """
-    Parameters for adding a pricing line override.
+    Add a pricing line override.
     """
     remove: NotRequired[
         "ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionRemove"
     ]
     """
-    Parameters for removing a pricing line override.
+    Remove a pricing line override.
     """
     type: Literal["add", "remove", "update"]
     """
@@ -360,7 +320,7 @@ class ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverr
         "ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionUpdate"
     ]
     """
-    Parameters for updating a pricing line override.
+    Update a pricing line override.
     """
 
 
@@ -377,7 +337,7 @@ class ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverr
     """
     metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
-    Set of key-value pairs that you can attach to an object.
+    Metadata for the pricing override.
     """
     overwrite_price: NotRequired[
         "ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAddOverwritePrice"
@@ -404,9 +364,9 @@ class ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverr
 ):
     timestamp: NotRequired[str]
     """
-    The timestamp when the item ends.
+    The timestamp when the pricing ends.
     """
-    type: Literal["billing_period_end", "timestamp"]
+    type: Literal["timestamp"]
     """
     The type of end time to apply.
     """
@@ -415,42 +375,9 @@ class ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverr
 class ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAddOverwritePrice(
     TypedDict,
 ):
-    tiering_mode: NotRequired[Literal["graduated", "volume"]]
-    """
-    Defines whether the tiered price should be graduated or volume-based.
-    """
-    tiers: NotRequired[
-        List[
-            "ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAddOverwritePriceTier"
-        ]
-    ]
-    """
-    Each element represents a pricing tier.
-    """
     unit_amount: NotRequired[str]
     """
     The per-unit amount to be charged, represented as a decimal string in minor currency units.
-    """
-
-
-class ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAddOverwritePriceTier(
-    TypedDict,
-):
-    flat_amount: NotRequired[str]
-    """
-    Price for the entire tier, represented as a decimal string in minor currency units.
-    """
-    unit_amount: NotRequired[str]
-    """
-    Per-unit price for units included in this tier, represented as a decimal string in minor currency units.
-    """
-    up_to_decimal: NotRequired[Decimal]
-    """
-    Up to and including this quantity will be contained in the tier.
-    """
-    up_to_inf: NotRequired[Literal["inf"]]
-    """
-    No upper bound to this tier.
     """
 
 
@@ -459,9 +386,9 @@ class ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverr
 ):
     timestamp: NotRequired[str]
     """
-    The timestamp when the item starts.
+    The timestamp when the pricing starts.
     """
-    type: Literal["billing_period_start", "timestamp"]
+    type: Literal["timestamp"]
     """
     The type of start time to apply.
     """
@@ -472,11 +399,11 @@ class ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverr
 ):
     id: NotRequired[str]
     """
-    The ID of the pricing line override to remove.
+    The id of the pricing override to remove.
     """
     lookup_key: NotRequired[str]
     """
-    A lookup key for the override to remove.
+    Lookup key of the override to remove.
     """
 
 
@@ -487,25 +414,25 @@ class ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverr
         "ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionUpdateEndsAt"
     ]
     """
-    The updated end time for the override.
+    Updated end time.
     """
     id: NotRequired[str]
     """
-    The ID of the pricing line override to update.
+    The id of the pricing override to update.
     """
     lookup_key: NotRequired[str]
     """
-    A lookup key for the override to update.
+    Updated lookup key.
     """
     metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
-    Set of key-value pairs that you can attach to an object.
+    Metadata for the pricing override.
     """
     starts_at: NotRequired[
         "ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionUpdateStartsAt"
     ]
     """
-    The updated start time for the override.
+    Updated start time.
     """
 
 
@@ -514,9 +441,9 @@ class ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverr
 ):
     timestamp: NotRequired[str]
     """
-    The timestamp when the item ends.
+    The timestamp when the pricing ends.
     """
-    type: Literal["billing_period_end", "timestamp"]
+    type: Literal["timestamp"]
     """
     The type of end time to apply.
     """
@@ -527,9 +454,9 @@ class ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverr
 ):
     timestamp: NotRequired[str]
     """
-    The timestamp when the item starts.
+    The timestamp when the pricing starts.
     """
-    type: Literal["billing_period_start", "timestamp"]
+    type: Literal["timestamp"]
     """
     The type of start time to apply.
     """
@@ -564,9 +491,9 @@ class ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsQuantityChan
 class ContractUpdateParamsPricingLineActionUpdateStartsAt(TypedDict):
     timestamp: NotRequired[str]
     """
-    The timestamp when the item starts.
+    The timestamp when the pricing starts.
     """
-    type: Literal["billing_period_start", "timestamp"]
+    type: Literal["timestamp"]
     """
     The type of start time to apply.
     """
@@ -575,11 +502,11 @@ class ContractUpdateParamsPricingLineActionUpdateStartsAt(TypedDict):
 class ContractUpdateParamsPricingOverrideAction(TypedDict):
     add: NotRequired["ContractUpdateParamsPricingOverrideActionAdd"]
     """
-    Parameters for adding a pricing override.
+    Add a pricing override.
     """
     remove: NotRequired["ContractUpdateParamsPricingOverrideActionRemove"]
     """
-    Parameters for removing a pricing override.
+    Remove a pricing override.
     """
     type: Literal["add", "remove", "update"]
     """
@@ -587,7 +514,7 @@ class ContractUpdateParamsPricingOverrideAction(TypedDict):
     """
     update: NotRequired["ContractUpdateParamsPricingOverrideActionUpdate"]
     """
-    Parameters for updating a pricing override.
+    Update a pricing override.
     """
 
 
@@ -600,11 +527,11 @@ class ContractUpdateParamsPricingOverrideActionAdd(TypedDict):
     """
     A lookup key for the pricing override.
     """
-    multiplier: NotRequired[
-        "ContractUpdateParamsPricingOverrideActionAddMultiplier"
+    multiply_pricing: NotRequired[
+        "ContractUpdateParamsPricingOverrideActionAddMultiplyPricing"
     ]
     """
-    A multiplier override to add.
+    A multiply_pricing override to add.
     """
     overwrite_price: NotRequired[
         "ContractUpdateParamsPricingOverrideActionAddOverwritePrice"
@@ -612,7 +539,7 @@ class ContractUpdateParamsPricingOverrideActionAdd(TypedDict):
     """
     An overwrite price override to add.
     """
-    priority: int
+    priority: NotRequired[int]
     """
     The priority for the pricing override. The highest priority is 0 and the lowest is 100.
     """
@@ -620,7 +547,7 @@ class ContractUpdateParamsPricingOverrideActionAdd(TypedDict):
     """
     The start time for the pricing override.
     """
-    type: Literal["multiplier"]
+    type: Literal["multiply_pricing"]
     """
     The type of pricing override to add.
     """
@@ -629,28 +556,28 @@ class ContractUpdateParamsPricingOverrideActionAdd(TypedDict):
 class ContractUpdateParamsPricingOverrideActionAddEndsAt(TypedDict):
     timestamp: NotRequired[str]
     """
-    The timestamp when the item ends.
+    The timestamp when the pricing ends.
     """
-    type: Literal["billing_period_end", "timestamp"]
+    type: Literal["timestamp"]
     """
     The type of end time to apply.
     """
 
 
-class ContractUpdateParamsPricingOverrideActionAddMultiplier(TypedDict):
+class ContractUpdateParamsPricingOverrideActionAddMultiplyPricing(TypedDict):
     criteria: List[
-        "ContractUpdateParamsPricingOverrideActionAddMultiplierCriterion"
+        "ContractUpdateParamsPricingOverrideActionAddMultiplyPricingCriterion"
     ]
     """
-    Criteria determining which rates the multiplier applies to.
+    Criteria determining which rates the multiply_pricing override applies to.
     """
     factor: str
     """
-    The multiplier factor, represented as a decimal string. e.g. "0.8" for a 20% reduction.
+    The multiply_pricing factor, represented as a decimal string. e.g. "0.8" for a 20% reduction.
     """
 
 
-class ContractUpdateParamsPricingOverrideActionAddMultiplierCriterion(
+class ContractUpdateParamsPricingOverrideActionAddMultiplyPricingCriterion(
     TypedDict,
 ):
     pricing_line_ids: NotRequired[List[str]]
@@ -668,49 +595,18 @@ class ContractUpdateParamsPricingOverrideActionAddMultiplierCriterion(
 
 
 class ContractUpdateParamsPricingOverrideActionAddOverwritePrice(TypedDict):
-    tiering_mode: NotRequired[Literal["graduated", "volume"]]
-    """
-    Defines whether the tiered price should be graduated or volume-based.
-    """
-    tiers: List[
-        "ContractUpdateParamsPricingOverrideActionAddOverwritePriceTier"
-    ]
-    """
-    Each element represents a pricing tier.
-    """
     unit_amount: NotRequired[str]
     """
     The per-unit amount to be charged, represented as a decimal string in minor currency units.
     """
 
 
-class ContractUpdateParamsPricingOverrideActionAddOverwritePriceTier(
-    TypedDict
-):
-    flat_amount: NotRequired[str]
-    """
-    Price for the entire tier, represented as a decimal string in minor currency units.
-    """
-    unit_amount: NotRequired[str]
-    """
-    Per-unit price for units included in this tier, represented as a decimal string in minor currency units.
-    """
-    up_to_decimal: NotRequired[Decimal]
-    """
-    Up to and including this quantity will be contained in the tier.
-    """
-    up_to_inf: NotRequired[Literal["inf"]]
-    """
-    No upper bound to this tier.
-    """
-
-
 class ContractUpdateParamsPricingOverrideActionAddStartsAt(TypedDict):
     timestamp: NotRequired[str]
     """
-    The timestamp when the item starts.
+    The timestamp when the pricing starts.
     """
-    type: Literal["billing_period_start", "timestamp"]
+    type: Literal["timestamp"]
     """
     The type of start time to apply.
     """
@@ -719,7 +615,7 @@ class ContractUpdateParamsPricingOverrideActionAddStartsAt(TypedDict):
 class ContractUpdateParamsPricingOverrideActionRemove(TypedDict):
     id: str
     """
-    The ID of the pricing override to remove.
+    The id of the pricing override to remove.
     """
 
 
@@ -745,9 +641,9 @@ class ContractUpdateParamsPricingOverrideActionUpdate(TypedDict):
 class ContractUpdateParamsPricingOverrideActionUpdateEndsAt(TypedDict):
     timestamp: NotRequired[str]
     """
-    The timestamp when the item ends.
+    The timestamp when the pricing ends.
     """
-    type: Literal["billing_period_end", "timestamp"]
+    type: Literal["timestamp"]
     """
     The type of end time to apply.
     """
@@ -756,9 +652,9 @@ class ContractUpdateParamsPricingOverrideActionUpdateEndsAt(TypedDict):
 class ContractUpdateParamsPricingOverrideActionUpdateStartsAt(TypedDict):
     timestamp: NotRequired[str]
     """
-    The timestamp when the item starts.
+    The timestamp when the pricing starts.
     """
-    type: Literal["billing_period_start", "timestamp"]
+    type: Literal["timestamp"]
     """
     The type of start time to apply.
     """

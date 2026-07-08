@@ -68,6 +68,12 @@ class Session(CreateableAPIResource["Session"]):
         """
         Stripe ID of the institution with which the customer should be directed to log in.
         """
+        require_payment_method_support: Optional[
+            Literal["all", "at_least_one", "none"]
+        ]
+        """
+        Whether the Session should require that linked accounts support payments and retrieve account numbers before completion.
+        """
 
     class Hosted(StripeObject):
         delivery_method: Optional[Literal["email", "url"]]

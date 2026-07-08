@@ -395,6 +395,10 @@ class Dispute(
             """
             The type of dispute opened. Different case types may have varying fees and financial impact.
             """
+            network: str
+            """
+            Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `link`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+            """
             network_reason_code: Optional[str]
             """
             The card network's specific dispute reason code, which maps to one of Stripe's primary dispute categories to simplify response guidance. The [Network code map](https://stripe.com/docs/disputes/categories#network-code-map) lists all available dispute reason codes by network.
@@ -547,7 +551,7 @@ class Dispute(
         cls, dispute: str, **params: Unpack["DisputeCloseParams"]
     ) -> "Dispute":
         """
-        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
 
         The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
         """
@@ -568,7 +572,7 @@ class Dispute(
         dispute: str, **params: Unpack["DisputeCloseParams"]
     ) -> "Dispute":
         """
-        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
 
         The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
         """
@@ -577,7 +581,7 @@ class Dispute(
     @overload
     def close(self, **params: Unpack["DisputeCloseParams"]) -> "Dispute":
         """
-        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
 
         The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
         """
@@ -588,7 +592,7 @@ class Dispute(
         self, **params: Unpack["DisputeCloseParams"]
     ) -> "Dispute":
         """
-        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
 
         The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
         """
@@ -608,7 +612,7 @@ class Dispute(
         cls, dispute: str, **params: Unpack["DisputeCloseParams"]
     ) -> "Dispute":
         """
-        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
 
         The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
         """
@@ -629,7 +633,7 @@ class Dispute(
         dispute: str, **params: Unpack["DisputeCloseParams"]
     ) -> "Dispute":
         """
-        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
 
         The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
         """
@@ -640,7 +644,7 @@ class Dispute(
         self, **params: Unpack["DisputeCloseParams"]
     ) -> "Dispute":
         """
-        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
 
         The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
         """
@@ -651,7 +655,7 @@ class Dispute(
         self, **params: Unpack["DisputeCloseParams"]
     ) -> "Dispute":
         """
-        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute (accepting it), acknowledging it as lost.
 
         The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
         """

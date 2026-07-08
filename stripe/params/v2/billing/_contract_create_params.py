@@ -2,7 +2,6 @@
 # File generated from our OpenAPI spec
 from decimal import Decimal
 from stripe._stripe_object import UntypedStripeObject
-from stripe.v2._amount import AmountParam
 from typing import Dict, List
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -26,14 +25,7 @@ class ContractCreateParams(TypedDict):
     Currency of the contract.
     """
     include: NotRequired[
-        List[
-            Literal[
-                "billing_settings",
-                "one_time_fees",
-                "pricing_lines",
-                "pricing_overrides",
-            ]
-        ]
+        List[Literal["billing_settings", "pricing_lines", "pricing_overrides"]]
     ]
     """
     Additional fields to include in the response.
@@ -41,10 +33,6 @@ class ContractCreateParams(TypedDict):
     metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     Set of key-value pairs that you can attach to an object.
-    """
-    one_time_fees: NotRequired[List["ContractCreateParamsOneTimeFee"]]
-    """
-    A list of one-time fees to create with the contract. Each fee is billed as individual invoice items per its bill_schedule.
     """
     pricing_lines: List["ContractCreateParamsPricingLine"]
     """
@@ -155,7 +143,7 @@ class ContractCreateParamsBillingSettingsBillSettingsDetailsInvoice(TypedDict):
         "ContractCreateParamsBillingSettingsBillSettingsDetailsInvoiceTimeUntilDue"
     ]
     """
-    The number of time units before the invoice is past due.
+    How long the customer has to pay the invoice before it's past due.
     """
 
 
@@ -186,41 +174,11 @@ class ContractCreateParamsBillingSettingsBillingProfileDetails(TypedDict):
 class ContractCreateParamsBillingSettingsCollectionSettingsDetails(TypedDict):
     collection_method: Literal["charge_automatically", "send_invoice"]
     """
-    The collection method.
+    How payment is collected for the contract.
     """
     payment_method_configuration: NotRequired[str]
     """
     The payment method configuration.
-    """
-
-
-class ContractCreateParamsOneTimeFee(TypedDict):
-    amount: AmountParam
-    """
-    The amount to bill.
-    """
-    bill_at: "ContractCreateParamsOneTimeFeeBillAt"
-    """
-    When this fee should be billed.
-    """
-    lookup_key: NotRequired[str]
-    """
-    A user-provided lookup key.
-    """
-    product: str
-    """
-    The ID of the v1 Product for this fee.
-    """
-
-
-class ContractCreateParamsOneTimeFeeBillAt(TypedDict):
-    timestamp: NotRequired[str]
-    """
-    The timestamp at which the entry should be billed. Required if `type` is `timestamp`.
-    """
-    type: Literal["now", "timestamp"]
-    """
-    The type of the bill_at.
     """
 
 
@@ -252,7 +210,7 @@ class ContractCreateParamsPricingLineEndsAt(TypedDict):
     """
     The timestamp when the item ends. Required if `type` is `timestamp`.
     """
-    type: Literal["contract_end", "timestamp"]
+    type: Literal["timestamp"]
     """
     The type of the ends_at.
     """
@@ -274,7 +232,7 @@ class ContractCreateParamsPricingLinePricing(TypedDict):
 class ContractCreateParamsPricingLinePricingPriceDetails(TypedDict):
     price: str
     """
-    The ID of the V1 price.
+    The id of the price.
     """
     pricing_overrides: NotRequired[
         List[
@@ -291,7 +249,7 @@ class ContractCreateParamsPricingLinePricingPriceDetails(TypedDict):
     ]
     """
     Quantity changes for the pricing line. For now, at most one entry is allowed.
-    A quantity change clears all future quantity changes on this pricing line.
+    A quantity change clears all future quantity changes on this pricing line. Defaults to 1.
     """
 
 
@@ -330,7 +288,7 @@ class ContractCreateParamsPricingLinePricingPriceDetailsPricingOverride(
     """
     type: Literal["overwrite_price"]
     """
-    The type of override. Currently only `overwrite_price` is supported.
+    The type of override.
     """
 
 
@@ -341,7 +299,7 @@ class ContractCreateParamsPricingLinePricingPriceDetailsPricingOverrideEndsAt(
     """
     The timestamp when the item ends. Required if `type` is `timestamp`.
     """
-    type: Literal["contract_end", "timestamp"]
+    type: Literal["timestamp"]
     """
     The type of the ends_at.
     """
@@ -350,42 +308,9 @@ class ContractCreateParamsPricingLinePricingPriceDetailsPricingOverrideEndsAt(
 class ContractCreateParamsPricingLinePricingPriceDetailsPricingOverrideOverwritePrice(
     TypedDict,
 ):
-    tiering_mode: NotRequired[Literal["graduated", "volume"]]
-    """
-    Defines whether the tiered price should be graduated or volume-based.
-    """
-    tiers: NotRequired[
-        List[
-            "ContractCreateParamsPricingLinePricingPriceDetailsPricingOverrideOverwritePriceTier"
-        ]
-    ]
-    """
-    Each element represents a pricing tier.
-    """
     unit_amount: NotRequired[str]
     """
     The per-unit amount to be charged, represented as a decimal string in minor currency units.
-    """
-
-
-class ContractCreateParamsPricingLinePricingPriceDetailsPricingOverrideOverwritePriceTier(
-    TypedDict,
-):
-    flat_amount: NotRequired[str]
-    """
-    Price for the entire tier, represented as a decimal string in minor currency units.
-    """
-    unit_amount: NotRequired[str]
-    """
-    Per-unit price for units included in this tier, represented as a decimal string in minor currency units.
-    """
-    up_to_decimal: NotRequired[Decimal]
-    """
-    Up to and including this quantity will be contained in the tier.
-    """
-    up_to_inf: NotRequired[Literal["inf"]]
-    """
-    No upper bound to this tier.
     """
 
 
@@ -396,7 +321,7 @@ class ContractCreateParamsPricingLinePricingPriceDetailsPricingOverrideStartsAt(
     """
     The timestamp when the item starts. Required if `type` is `timestamp`.
     """
-    type: Literal["contract_start", "timestamp"]
+    type: Literal["timestamp"]
     """
     The type of the starts_at.
     """
@@ -433,7 +358,7 @@ class ContractCreateParamsPricingLineStartsAt(TypedDict):
     """
     The timestamp when the item starts. Required if `type` is `timestamp`.
     """
-    type: Literal["contract_start", "timestamp"]
+    type: Literal["timestamp"]
     """
     The type of the starts_at.
     """
@@ -448,11 +373,13 @@ class ContractCreateParamsPricingOverride(TypedDict):
     """
     A user-provided lookup key to reference this pricing override.
     """
-    multiplier: NotRequired["ContractCreateParamsPricingOverrideMultiplier"]
+    multiply_pricing: NotRequired[
+        "ContractCreateParamsPricingOverrideMultiplyPricing"
+    ]
     """
-    Parameters for a multiplier override. Required if `type` is `multiplier`.
+    Parameters for a multiply_pricing override. Required if `type` is `multiply_pricing`.
     """
-    priority: int
+    priority: NotRequired[int]
     """
     The priority of this override relative to others. The highest priority is 0 and the lowest is 100.
     """
@@ -460,7 +387,7 @@ class ContractCreateParamsPricingOverride(TypedDict):
     """
     When the pricing override starts.
     """
-    type: Literal["multiplier"]
+    type: Literal["multiply_pricing"]
     """
     The type of pricing override.
     """
@@ -471,26 +398,26 @@ class ContractCreateParamsPricingOverrideEndsAt(TypedDict):
     """
     The timestamp when the item ends. Required if `type` is `timestamp`.
     """
-    type: Literal["contract_end", "timestamp"]
+    type: Literal["timestamp"]
     """
     The type of the ends_at.
     """
 
 
-class ContractCreateParamsPricingOverrideMultiplier(TypedDict):
+class ContractCreateParamsPricingOverrideMultiplyPricing(TypedDict):
     criteria: NotRequired[
-        List["ContractCreateParamsPricingOverrideMultiplierCriterion"]
+        List["ContractCreateParamsPricingOverrideMultiplyPricingCriterion"]
     ]
     """
-    Criteria determining which rates the multiplier applies to.
+    Criteria determining which rates the multiply_pricing override applies to.
     """
     factor: str
     """
-    The multiplier factor, represented as a decimal string. e.g. "0.8" for a 20% reduction.
+    The multiply_pricing factor, represented as a decimal string. e.g. "0.8" for a 20% reduction.
     """
 
 
-class ContractCreateParamsPricingOverrideMultiplierCriterion(TypedDict):
+class ContractCreateParamsPricingOverrideMultiplyPricingCriterion(TypedDict):
     pricing_line_ids: NotRequired[List[str]]
     """
     Filter by pricing line IDs.
@@ -510,7 +437,7 @@ class ContractCreateParamsPricingOverrideStartsAt(TypedDict):
     """
     The timestamp when the item starts. Required if `type` is `timestamp`.
     """
-    type: Literal["contract_start", "timestamp"]
+    type: Literal["timestamp"]
     """
     The type of the starts_at.
     """

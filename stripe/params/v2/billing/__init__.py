@@ -129,8 +129,6 @@ if TYPE_CHECKING:
         ContractCreateParamsBillingSettingsBillSettingsDetailsInvoiceTimeUntilDue as ContractCreateParamsBillingSettingsBillSettingsDetailsInvoiceTimeUntilDue,
         ContractCreateParamsBillingSettingsBillingProfileDetails as ContractCreateParamsBillingSettingsBillingProfileDetails,
         ContractCreateParamsBillingSettingsCollectionSettingsDetails as ContractCreateParamsBillingSettingsCollectionSettingsDetails,
-        ContractCreateParamsOneTimeFee as ContractCreateParamsOneTimeFee,
-        ContractCreateParamsOneTimeFeeBillAt as ContractCreateParamsOneTimeFeeBillAt,
         ContractCreateParamsPricingLine as ContractCreateParamsPricingLine,
         ContractCreateParamsPricingLineEndsAt as ContractCreateParamsPricingLineEndsAt,
         ContractCreateParamsPricingLinePricing as ContractCreateParamsPricingLinePricing,
@@ -138,15 +136,14 @@ if TYPE_CHECKING:
         ContractCreateParamsPricingLinePricingPriceDetailsPricingOverride as ContractCreateParamsPricingLinePricingPriceDetailsPricingOverride,
         ContractCreateParamsPricingLinePricingPriceDetailsPricingOverrideEndsAt as ContractCreateParamsPricingLinePricingPriceDetailsPricingOverrideEndsAt,
         ContractCreateParamsPricingLinePricingPriceDetailsPricingOverrideOverwritePrice as ContractCreateParamsPricingLinePricingPriceDetailsPricingOverrideOverwritePrice,
-        ContractCreateParamsPricingLinePricingPriceDetailsPricingOverrideOverwritePriceTier as ContractCreateParamsPricingLinePricingPriceDetailsPricingOverrideOverwritePriceTier,
         ContractCreateParamsPricingLinePricingPriceDetailsPricingOverrideStartsAt as ContractCreateParamsPricingLinePricingPriceDetailsPricingOverrideStartsAt,
         ContractCreateParamsPricingLinePricingPriceDetailsQuantityChange as ContractCreateParamsPricingLinePricingPriceDetailsQuantityChange,
         ContractCreateParamsPricingLinePricingPriceDetailsQuantityChangeEffectiveAt as ContractCreateParamsPricingLinePricingPriceDetailsQuantityChangeEffectiveAt,
         ContractCreateParamsPricingLineStartsAt as ContractCreateParamsPricingLineStartsAt,
         ContractCreateParamsPricingOverride as ContractCreateParamsPricingOverride,
         ContractCreateParamsPricingOverrideEndsAt as ContractCreateParamsPricingOverrideEndsAt,
-        ContractCreateParamsPricingOverrideMultiplier as ContractCreateParamsPricingOverrideMultiplier,
-        ContractCreateParamsPricingOverrideMultiplierCriterion as ContractCreateParamsPricingOverrideMultiplierCriterion,
+        ContractCreateParamsPricingOverrideMultiplyPricing as ContractCreateParamsPricingOverrideMultiplyPricing,
+        ContractCreateParamsPricingOverrideMultiplyPricingCriterion as ContractCreateParamsPricingOverrideMultiplyPricingCriterion,
         ContractCreateParamsPricingOverrideStartsAt as ContractCreateParamsPricingOverrideStartsAt,
     )
     from stripe.params.v2.billing._contract_delete_params import (
@@ -168,7 +165,6 @@ if TYPE_CHECKING:
         ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverride as ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverride,
         ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverrideEndsAt as ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverrideEndsAt,
         ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverrideOverwritePrice as ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverrideOverwritePrice,
-        ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverrideOverwritePriceTier as ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverrideOverwritePriceTier,
         ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverrideStartsAt as ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverrideStartsAt,
         ContractUpdateParamsPricingLineActionAddPricingPriceDetailsQuantityChange as ContractUpdateParamsPricingLineActionAddPricingPriceDetailsQuantityChange,
         ContractUpdateParamsPricingLineActionAddPricingPriceDetailsQuantityChangeEffectiveAt as ContractUpdateParamsPricingLineActionAddPricingPriceDetailsQuantityChangeEffectiveAt,
@@ -182,7 +178,6 @@ if TYPE_CHECKING:
         ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAdd as ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAdd,
         ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAddEndsAt as ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAddEndsAt,
         ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAddOverwritePrice as ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAddOverwritePrice,
-        ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAddOverwritePriceTier as ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAddOverwritePriceTier,
         ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAddStartsAt as ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAddStartsAt,
         ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionRemove as ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionRemove,
         ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionUpdate as ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionUpdate,
@@ -194,10 +189,9 @@ if TYPE_CHECKING:
         ContractUpdateParamsPricingOverrideAction as ContractUpdateParamsPricingOverrideAction,
         ContractUpdateParamsPricingOverrideActionAdd as ContractUpdateParamsPricingOverrideActionAdd,
         ContractUpdateParamsPricingOverrideActionAddEndsAt as ContractUpdateParamsPricingOverrideActionAddEndsAt,
-        ContractUpdateParamsPricingOverrideActionAddMultiplier as ContractUpdateParamsPricingOverrideActionAddMultiplier,
-        ContractUpdateParamsPricingOverrideActionAddMultiplierCriterion as ContractUpdateParamsPricingOverrideActionAddMultiplierCriterion,
+        ContractUpdateParamsPricingOverrideActionAddMultiplyPricing as ContractUpdateParamsPricingOverrideActionAddMultiplyPricing,
+        ContractUpdateParamsPricingOverrideActionAddMultiplyPricingCriterion as ContractUpdateParamsPricingOverrideActionAddMultiplyPricingCriterion,
         ContractUpdateParamsPricingOverrideActionAddOverwritePrice as ContractUpdateParamsPricingOverrideActionAddOverwritePrice,
-        ContractUpdateParamsPricingOverrideActionAddOverwritePriceTier as ContractUpdateParamsPricingOverrideActionAddOverwritePriceTier,
         ContractUpdateParamsPricingOverrideActionAddStartsAt as ContractUpdateParamsPricingOverrideActionAddStartsAt,
         ContractUpdateParamsPricingOverrideActionRemove as ContractUpdateParamsPricingOverrideActionRemove,
         ContractUpdateParamsPricingOverrideActionUpdate as ContractUpdateParamsPricingOverrideActionUpdate,
@@ -818,14 +812,6 @@ _import_map = {
         "stripe.params.v2.billing._contract_create_params",
         False,
     ),
-    "ContractCreateParamsOneTimeFee": (
-        "stripe.params.v2.billing._contract_create_params",
-        False,
-    ),
-    "ContractCreateParamsOneTimeFeeBillAt": (
-        "stripe.params.v2.billing._contract_create_params",
-        False,
-    ),
     "ContractCreateParamsPricingLine": (
         "stripe.params.v2.billing._contract_create_params",
         False,
@@ -854,10 +840,6 @@ _import_map = {
         "stripe.params.v2.billing._contract_create_params",
         False,
     ),
-    "ContractCreateParamsPricingLinePricingPriceDetailsPricingOverrideOverwritePriceTier": (
-        "stripe.params.v2.billing._contract_create_params",
-        False,
-    ),
     "ContractCreateParamsPricingLinePricingPriceDetailsPricingOverrideStartsAt": (
         "stripe.params.v2.billing._contract_create_params",
         False,
@@ -882,11 +864,11 @@ _import_map = {
         "stripe.params.v2.billing._contract_create_params",
         False,
     ),
-    "ContractCreateParamsPricingOverrideMultiplier": (
+    "ContractCreateParamsPricingOverrideMultiplyPricing": (
         "stripe.params.v2.billing._contract_create_params",
         False,
     ),
-    "ContractCreateParamsPricingOverrideMultiplierCriterion": (
+    "ContractCreateParamsPricingOverrideMultiplyPricingCriterion": (
         "stripe.params.v2.billing._contract_create_params",
         False,
     ),
@@ -942,10 +924,6 @@ _import_map = {
         "stripe.params.v2.billing._contract_update_params",
         False,
     ),
-    "ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverrideOverwritePriceTier": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
     "ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverrideStartsAt": (
         "stripe.params.v2.billing._contract_update_params",
         False,
@@ -998,10 +976,6 @@ _import_map = {
         "stripe.params.v2.billing._contract_update_params",
         False,
     ),
-    "ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAddOverwritePriceTier": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
     "ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAddStartsAt": (
         "stripe.params.v2.billing._contract_update_params",
         False,
@@ -1046,19 +1020,15 @@ _import_map = {
         "stripe.params.v2.billing._contract_update_params",
         False,
     ),
-    "ContractUpdateParamsPricingOverrideActionAddMultiplier": (
+    "ContractUpdateParamsPricingOverrideActionAddMultiplyPricing": (
         "stripe.params.v2.billing._contract_update_params",
         False,
     ),
-    "ContractUpdateParamsPricingOverrideActionAddMultiplierCriterion": (
+    "ContractUpdateParamsPricingOverrideActionAddMultiplyPricingCriterion": (
         "stripe.params.v2.billing._contract_update_params",
         False,
     ),
     "ContractUpdateParamsPricingOverrideActionAddOverwritePrice": (
-        "stripe.params.v2.billing._contract_update_params",
-        False,
-    ),
-    "ContractUpdateParamsPricingOverrideActionAddOverwritePriceTier": (
         "stripe.params.v2.billing._contract_update_params",
         False,
     ),

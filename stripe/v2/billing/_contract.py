@@ -2,14 +2,13 @@
 # File generated from our OpenAPI spec
 from decimal import Decimal
 from stripe._stripe_object import StripeObject, UntypedStripeObject
-from stripe.v2._amount import Amount
 from typing import ClassVar, List, Optional
 from typing_extensions import Literal
 
 
 class Contract(StripeObject):
     """
-    Main Contract resource representing a comprehensive billing agreement
+    Contract resource representing a comprehensive sales agreement
     """
 
     OBJECT_NAME: ClassVar[Literal["v2.billing.contract"]] = (
@@ -105,42 +104,6 @@ class Contract(StripeObject):
             "collection_settings_details": CollectionSettingsDetails,
         }
 
-    class OneTimeFees(StripeObject):
-        class Data(StripeObject):
-            class BillAt(StripeObject):
-                timestamp: str
-                """
-                The timestamp at which the fee will be billed.
-                """
-
-            amount: Amount
-            """
-            The amount billed for this fee.
-            """
-            bill_at: BillAt
-            """
-            When this fee will be billed. Always contains a concrete timestamp.
-            """
-            id: str
-            """
-            The ID of the one-time fee.
-            """
-            lookup_key: Optional[str]
-            """
-            The user-provided lookup key.
-            """
-            product: str
-            """
-            The ID of the v1 Product for this fee.
-            """
-            _inner_class_types = {"bill_at": BillAt}
-
-        data: List[Data]
-        """
-        The one-time fees for this page.
-        """
-        _inner_class_types = {"data": Data}
-
     class PricingLines(StripeObject):
         class Data(StripeObject):
             class EndsAt(StripeObject):
@@ -160,42 +123,10 @@ class Contract(StripeObject):
                                 """
 
                             class OverwritePrice(StripeObject):
-                                class Tier(StripeObject):
-                                    flat_amount: Optional[str]
-                                    """
-                                    Price for the entire tier, represented as a decimal string in minor currency units.
-                                    """
-                                    unit_amount: Optional[str]
-                                    """
-                                    Per-unit price for units included in this tier, represented as a decimal string in minor currency units.
-                                    """
-                                    up_to_decimal: Optional[Decimal]
-                                    """
-                                    Up to and including this quantity will be contained in the tier.
-                                    """
-                                    up_to_inf: Optional[Literal["inf"]]
-                                    """
-                                    No upper bound to this tier.
-                                    """
-                                    _field_encodings = {
-                                        "up_to_decimal": "decimal_string",
-                                    }
-
-                                tiering_mode: Optional[
-                                    Literal["graduated", "volume"]
-                                ]
-                                """
-                                Defines whether the tiered price should be graduated or volume-based.
-                                """
-                                tiers: List[Tier]
-                                """
-                                Each element represents a pricing tier.
-                                """
                                 unit_amount: Optional[str]
                                 """
                                 The per-unit amount to be charged, represented as a decimal string in minor currency units.
                                 """
-                                _inner_class_types = {"tiers": Tier}
 
                             class StartsAt(StripeObject):
                                 timestamp: str
@@ -205,7 +136,11 @@ class Contract(StripeObject):
 
                             ends_at: EndsAt
                             """
-                            Resolved timestamp when this override ends.
+                            Timestamp when this override ends.
+                            """
+                            id: str
+                            """
+                            The ID of the pricing override.
                             """
                             lookup_key: Optional[str]
                             """
@@ -215,13 +150,13 @@ class Contract(StripeObject):
                             """
                             Details for an overwrite_price override.
                             """
-                            pricing_override: str
+                            priority: int
                             """
-                            The ID of the pricing line override.
+                            The priority of this override relative to others. Lower number = higher priority.
                             """
                             starts_at: StartsAt
                             """
-                            Resolved timestamp when this override starts.
+                            Timestamp when this override starts.
                             """
                             type: Literal["overwrite_price"]
                             """
@@ -274,11 +209,11 @@ class Contract(StripeObject):
 
             ends_at: EndsAt
             """
-            Resolved timestamp when the pricing line ends.
+            Timestamp when the pricing line ends.
             """
             id: str
             """
-            The ID of the pricing line.
+            The id of the pricing line.
             """
             lookup_key: Optional[str]
             """
@@ -286,7 +221,7 @@ class Contract(StripeObject):
             """
             metadata: Optional[UntypedStripeObject[str]]
             """
-            Set of key-value pairs that you can attach to an object.
+            Set of key-value pairs.
             """
             pricing: Pricing
             """
@@ -294,7 +229,7 @@ class Contract(StripeObject):
             """
             starts_at: StartsAt
             """
-            Resolved timestamp when the pricing line starts.
+            Timestamp when the pricing line starts.
             """
             _inner_class_types = {
                 "ends_at": EndsAt,
@@ -316,7 +251,7 @@ class Contract(StripeObject):
                 The timestamp when the item ends.
                 """
 
-            class Multiplier(StripeObject):
+            class MultiplyPricing(StripeObject):
                 class Criterion(StripeObject):
                     pricing_line_ids: Optional[List[str]]
                     """
@@ -333,11 +268,11 @@ class Contract(StripeObject):
 
                 criteria: List[Criterion]
                 """
-                Criteria determining which rates the multiplier applies to.
+                Criteria determining which rates the multiply_pricing override applies to.
                 """
                 factor: str
                 """
-                The multiplier factor, represented as a decimal string. e.g. "0.8" for a 20% reduction.
+                The multiply_pricing factor, represented as a decimal string. e.g. "0.8" for a 20% reduction.
                 """
                 _inner_class_types = {"criteria": Criterion}
 
@@ -359,9 +294,9 @@ class Contract(StripeObject):
             """
             The user-provided lookup key for the pricing override.
             """
-            multiplier: Optional[Multiplier]
+            multiply_pricing: Optional[MultiplyPricing]
             """
-            Details for a multiplier override.
+            Details for a multiply_pricing override.
             """
             priority: int
             """
@@ -371,13 +306,13 @@ class Contract(StripeObject):
             """
             Resolved timestamp when the pricing override starts.
             """
-            type: Literal["multiplier"]
+            type: Literal["multiply_pricing"]
             """
             The type of pricing override.
             """
             _inner_class_types = {
                 "ends_at": EndsAt,
-                "multiplier": Multiplier,
+                "multiply_pricing": MultiplyPricing,
                 "starts_at": StartsAt,
             }
 
@@ -387,36 +322,27 @@ class Contract(StripeObject):
         """
         _inner_class_types = {"data": Data}
 
-    class StatusDetails(StripeObject):
-        class Active(StripeObject):
-            activated_at: str
-            """
-            The timestamp when the contract was activated.
-            """
-
-        class Canceled(StripeObject):
-            canceled_at: str
-            """
-            The timestamp when the contract was canceled.
-            """
-
-        active: Optional[Active]
+    class StatusTransitions(StripeObject):
+        activated_at: Optional[str]
         """
-        Details of the active contract status.
+        The timestamp when the contract was activated.
         """
-        canceled: Optional[Canceled]
+        canceled_at: Optional[str]
         """
-        Details of the canceled contract status.
+        The timestamp when the contract was canceled.
         """
-        _inner_class_types = {"active": Active, "canceled": Canceled}
+        ended_at: Optional[str]
+        """
+        The timestamp when the contract ended.
+        """
 
     billing_cycle_anchor: Optional[BillingCycleAnchor]
     """
-    The billing cycle anchor for the contract.
+    The billing cycle anchor.
     """
     billing_settings: Optional[BillingSettings]
     """
-    The billing settings for the contract.
+    The billing settings.
     """
     contract_number: str
     """
@@ -424,19 +350,19 @@ class Contract(StripeObject):
     """
     created: str
     """
-    Timestamp of when the object was created.
+    Timestamp of when the contract was created.
     """
     currency: str
     """
-    The currency of the contract.
+    The currency.
     """
     customer: str
     """
-    The ID of the customer associated with the contract.
+    The customer id.
     """
     id: str
     """
-    The ID of the contract object.
+    The contract id.
     """
     livemode: bool
     """
@@ -444,37 +370,32 @@ class Contract(StripeObject):
     """
     metadata: Optional[UntypedStripeObject[str]]
     """
-    Set of key-value pairs that you can attach to an object.
+    Set of key-value pairs.
     """
     object: Literal["v2.billing.contract"]
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
     """
-    one_time_fees: Optional[OneTimeFees]
-    """
-    The one-time fees of the contract. Only populated when `one_time_fees` is passed in the `include` parameter.
-    """
     pricing_lines: Optional[PricingLines]
     """
-    The pricing lines of the contract. Only populated when `pricing_lines` is passed in the `include` parameter.
+    The pricing lines. Only populated when `pricing_lines` is passed in the `include` parameter.
     """
     pricing_overrides: Optional[PricingOverrides]
     """
-    The pricing overrides of the contract. Only populated when `pricing_overrides` is passed in the `include` parameter.
+    The pricing overrides. Only populated when `pricing_overrides` is passed in the `include` parameter.
     """
     status: Literal["active", "canceled", "draft", "ended"]
     """
     The current status of the contract.
     """
-    status_details: StatusDetails
+    status_transitions: Optional[StatusTransitions]
     """
-    Information about the contract status transitions.
+    Historical timestamps of when the contract transitioned into each status.
     """
     _inner_class_types = {
         "billing_cycle_anchor": BillingCycleAnchor,
         "billing_settings": BillingSettings,
-        "one_time_fees": OneTimeFees,
         "pricing_lines": PricingLines,
         "pricing_overrides": PricingOverrides,
-        "status_details": StatusDetails,
+        "status_transitions": StatusTransitions,
     }

@@ -256,9 +256,31 @@ class Transaction(
         """
 
     class NetworkData(StripeObject):
+        class TraceId(StripeObject):
+            banknet_reference_number: Optional[str]
+            """
+            The unique reference number within the specified financial network on the specified network date.
+            """
+            financial_network_code: Optional[str]
+            """
+            The identifier of the program or service.
+            """
+            network_date: Optional[str]
+            """
+            The card network's record date for this transaction.
+            """
+
         acquirer_reference_number: Optional[str]
         """
         The network-provided acquirer reference number for this transaction, if available. Use this value for downstream operational workflows such as filing disputes with the card network.
+        """
+        acquiring_institution_country: Optional[str]
+        """
+        The two-letter country code of the acquirer ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        acquiring_institution_id: Optional[str]
+        """
+        Identifier assigned to the acquirer by the card network. Sometimes this value is not provided by the network; in this case, the value will be null.
         """
         authorization_code: Optional[str]
         """
@@ -268,10 +290,30 @@ class Transaction(
         """
         The date the transaction was processed by the card network. This can be different from the date the seller recorded the transaction depending on when the acquirer submits the transaction to the network.
         """
+        retrieval_reference_number: Optional[str]
+        """
+        Identifier assigned by the acquirer to track all messages related to this transaction.
+        """
+        routed_network: Optional[
+            Literal[
+                "cirrus",
+                "interlink",
+                "maestro",
+                "mastercard",
+                "other",
+                "plus",
+                "visa",
+            ]
+        ]
+        """
+        The card network over which Stripe received the transaction. This field may differ from the associated card's primary network.
+        """
+        trace_id: Optional[TraceId]
         transaction_id: Optional[str]
         """
         Unique identifier for the authorization assigned by the card network used to match subsequent messages, disputes, and transactions.
         """
+        _inner_class_types = {"trace_id": TraceId}
 
     class PurchaseDetails(StripeObject):
         class Fleet(StripeObject):
@@ -510,6 +552,20 @@ class Transaction(
         Indicates whether this object and its related objects have been redacted or not.
         """
 
+    class SettlementDetails(StripeObject):
+        amount: Optional[int]
+        """
+        `merchant_amount` in the settlement currency.
+        """
+        currency: Optional[str]
+        """
+        Settlement currency.
+        """
+        exchange_rate: Optional[float]
+        """
+        Exchange rate used by the network to convert the `merchant_amount` to `settlement_details.amount`. The `merchant_amount` multiplied with this rate will equal to the `settlement_details.amount`.
+        """
+
     class Treasury(StripeObject):
         received_credit: Optional[str]
         """
@@ -604,6 +660,10 @@ class Transaction(
     settlement: Optional[ExpandableField["Settlement"]]
     """
     The ID of the [settlement](https://docs.stripe.com/api/issuing/settlements) to which this transaction belongs.
+    """
+    settlement_details: Optional[SettlementDetails]
+    """
+    Details about the transaction for settlement reconciliation.
     """
     token: Optional[ExpandableField["Token"]]
     """
@@ -906,6 +966,7 @@ class Transaction(
         "network_data": NetworkData,
         "purchase_details": PurchaseDetails,
         "redaction": Redaction,
+        "settlement_details": SettlementDetails,
         "treasury": Treasury,
     }
 
