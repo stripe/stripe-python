@@ -510,6 +510,20 @@ class Transaction(
         Indicates whether this object and its related objects have been redacted or not.
         """
 
+    class SettlementDetails(StripeObject):
+        amount: Optional[int]
+        """
+        `merchant_amount` in the settlement currency.
+        """
+        currency: Optional[str]
+        """
+        Settlement currency.
+        """
+        exchange_rate: Optional[float]
+        """
+        Exchange rate used by the network to convert the `merchant_amount` to `settlement_details.amount`. The `merchant_amount` multiplied with this rate will equal to the `settlement_details.amount`.
+        """
+
     class Treasury(StripeObject):
         received_credit: Optional[str]
         """
@@ -604,6 +618,10 @@ class Transaction(
     settlement: Optional[ExpandableField["Settlement"]]
     """
     The ID of the [settlement](https://docs.stripe.com/api/issuing/settlements) to which this transaction belongs.
+    """
+    settlement_details: Optional[SettlementDetails]
+    """
+    Details about the transaction for settlement reconciliation.
     """
     token: Optional[ExpandableField["Token"]]
     """
@@ -906,6 +924,7 @@ class Transaction(
         "network_data": NetworkData,
         "purchase_details": PurchaseDetails,
         "redaction": Redaction,
+        "settlement_details": SettlementDetails,
         "treasury": Treasury,
     }
 

@@ -883,9 +883,17 @@ class Authorization(
         """
 
     class NetworkData(StripeObject):
+        acquiring_institution_country: Optional[str]
+        """
+        Country code of the acquirer assigned by the card network.
+        """
         acquiring_institution_id: Optional[str]
         """
         Identifier assigned to the acquirer by the card network. Sometimes this value is not provided by the network; in this case, the value will be `null`.
+        """
+        retrieval_reference_number: Optional[str]
+        """
+        Identifier assigned by the acquirer to track all messages related to this transaction.
         """
         system_trace_audit_number: Optional[str]
         """
@@ -1024,6 +1032,21 @@ class Authorization(
         Time when the card network received an authorization request from the acquirer in UTC. Referred to by networks as transmission time.
         """
         _inner_class_types = {"amount_details": AmountDetails}
+
+    class TerminalData(StripeObject):
+        cardholder_verification_result: Optional[
+            Literal[
+                "failed",
+                "none",
+                "pin",
+                "pin_and_signature",
+                "signature",
+                "unknown",
+            ]
+        ]
+        """
+        The method used to confirm the cardholder's identity.
+        """
 
     class TokenDetails(StripeObject):
         class NetworkData(StripeObject):
@@ -1556,6 +1579,10 @@ class Authorization(
     status: Literal["closed", "expired", "pending", "reversed"]
     """
     The current status of the authorization in its lifecycle.
+    """
+    terminal_data: Optional[TerminalData]
+    """
+    Details about the cardholder verification outcome at the terminal.
     """
     token: Optional[ExpandableField["Token"]]
     """
@@ -2676,6 +2703,7 @@ class Authorization(
         "pending_request": PendingRequest,
         "redaction": Redaction,
         "request_history": RequestHistory,
+        "terminal_data": TerminalData,
         "token_details": TokenDetails,
         "treasury": Treasury,
         "verification_data": VerificationData,
