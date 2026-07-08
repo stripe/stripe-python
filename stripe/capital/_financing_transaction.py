@@ -49,7 +49,7 @@ class FinancingTransaction(ListableAPIResource["FinancingTransaction"]):
         """
         linked_payment: Optional[str]
         """
-        The linked payment for the transaction. This field only applies to financing transactions of type `paydown` and reason `automatic_withholding`.
+        The linked payment for the transaction. This field only applies to financing transactions of type `payment` and reason `automatic_withholding`.
         """
         reason: Optional[
             Literal[

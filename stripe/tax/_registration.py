@@ -1001,6 +1001,18 @@ class Registration(
                 A [jurisdiction code](https://docs.stripe.com/tax/registering?type=luxury_tax#registration-types) representing the local jurisdiction.
                 """
 
+            class MassTransitParkingTax(StripeObject):
+                jurisdiction: str
+                """
+                A [jurisdiction code](https://docs.stripe.com/tax/registering?type=mass_transit_parking_tax#registration-types) representing the local jurisdiction.
+                """
+
+            class ParkingTax(StripeObject):
+                jurisdiction: str
+                """
+                A [jurisdiction code](https://docs.stripe.com/tax/registering?type=parking_tax#registration-types) representing the local jurisdiction.
+                """
+
             class ResortTax(StripeObject):
                 jurisdiction: str
                 """
@@ -1043,6 +1055,8 @@ class Registration(
             local_amusement_tax: Optional[LocalAmusementTax]
             local_lease_tax: Optional[LocalLeaseTax]
             luxury_tax: Optional[LuxuryTax]
+            mass_transit_parking_tax: Optional[MassTransitParkingTax]
+            parking_tax: Optional[ParkingTax]
             resort_tax: Optional[ResortTax]
             state: str
             """
@@ -1060,6 +1074,8 @@ class Registration(
                 "local_amusement_tax",
                 "local_lease_tax",
                 "luxury_tax",
+                "mass_transit_parking_tax",
+                "parking_tax",
                 "resort_tax",
                 "state_communications_tax",
                 "state_retail_delivery_fee",
@@ -1079,6 +1095,8 @@ class Registration(
                 "local_amusement_tax": LocalAmusementTax,
                 "local_lease_tax": LocalLeaseTax,
                 "luxury_tax": LuxuryTax,
+                "mass_transit_parking_tax": MassTransitParkingTax,
+                "parking_tax": ParkingTax,
                 "resort_tax": ResortTax,
                 "state_sales_tax": StateSalesTax,
                 "tourism_tax": TourismTax,

@@ -32,7 +32,7 @@ class PromotionCodeModifyParamsRestrictions(TypedDict):
         "Dict[str, PromotionCodeModifyParamsRestrictionsCurrencyOptions]|UntypedStripeObject[PromotionCodeModifyParamsRestrictionsCurrencyOptions]"
     ]
     """
-    Promotion codes defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
+    Promotion codes defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies). Each currency must be different from the `minimum_amount_currency` set on the promotion code.
     """
 
 

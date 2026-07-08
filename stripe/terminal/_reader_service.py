@@ -8,8 +8,17 @@ from typing_extensions import TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe._list_object import ListObject
     from stripe._request_options import RequestOptions
+    from stripe.params.terminal._reader_activate_gift_card_params import (
+        ReaderActivateGiftCardParams,
+    )
     from stripe.params.terminal._reader_cancel_action_params import (
         ReaderCancelActionParams,
+    )
+    from stripe.params.terminal._reader_cashout_gift_card_params import (
+        ReaderCashoutGiftCardParams,
+    )
+    from stripe.params.terminal._reader_check_gift_card_balance_params import (
+        ReaderCheckGiftCardBalanceParams,
     )
     from stripe.params.terminal._reader_collect_inputs_params import (
         ReaderCollectInputsParams,
@@ -31,6 +40,9 @@ if TYPE_CHECKING:
     )
     from stripe.params.terminal._reader_refund_payment_params import (
         ReaderRefundPaymentParams,
+    )
+    from stripe.params.terminal._reader_reload_gift_card_params import (
+        ReaderReloadGiftCardParams,
     )
     from stripe.params.terminal._reader_retrieve_params import (
         ReaderRetrieveParams,
@@ -251,6 +263,50 @@ class ReaderService(StripeService):
             ),
         )
 
+    def activate_gift_card(
+        self,
+        reader: str,
+        params: "ReaderActivateGiftCardParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "Reader":
+        """
+        Initiates a gift card activation flow on a Reader and optionally sets its balance.
+        """
+        return cast(
+            "Reader",
+            self._request(
+                "post",
+                "/v1/terminal/readers/{reader}/activate_gift_card".format(
+                    reader=sanitize_id(reader),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def activate_gift_card_async(
+        self,
+        reader: str,
+        params: "ReaderActivateGiftCardParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "Reader":
+        """
+        Initiates a gift card activation flow on a Reader and optionally sets its balance.
+        """
+        return cast(
+            "Reader",
+            await self._request_async(
+                "post",
+                "/v1/terminal/readers/{reader}/activate_gift_card".format(
+                    reader=sanitize_id(reader),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
     def cancel_action(
         self,
         reader: str,
@@ -287,6 +343,94 @@ class ReaderService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/terminal/readers/{reader}/cancel_action".format(
+                    reader=sanitize_id(reader),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def cashout_gift_card(
+        self,
+        reader: str,
+        params: "ReaderCashoutGiftCardParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "Reader":
+        """
+        Initiates a gift card cashout flow on a Reader. A cashout sets the gift card balance to 0.
+        """
+        return cast(
+            "Reader",
+            self._request(
+                "post",
+                "/v1/terminal/readers/{reader}/cashout_gift_card".format(
+                    reader=sanitize_id(reader),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def cashout_gift_card_async(
+        self,
+        reader: str,
+        params: "ReaderCashoutGiftCardParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "Reader":
+        """
+        Initiates a gift card cashout flow on a Reader. A cashout sets the gift card balance to 0.
+        """
+        return cast(
+            "Reader",
+            await self._request_async(
+                "post",
+                "/v1/terminal/readers/{reader}/cashout_gift_card".format(
+                    reader=sanitize_id(reader),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def check_gift_card_balance(
+        self,
+        reader: str,
+        params: "ReaderCheckGiftCardBalanceParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "Reader":
+        """
+        Initiates a gift card balance check flow on a Reader.
+        """
+        return cast(
+            "Reader",
+            self._request(
+                "post",
+                "/v1/terminal/readers/{reader}/check_gift_card_balance".format(
+                    reader=sanitize_id(reader),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def check_gift_card_balance_async(
+        self,
+        reader: str,
+        params: "ReaderCheckGiftCardBalanceParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "Reader":
+        """
+        Initiates a gift card balance check flow on a Reader.
+        """
+        return cast(
+            "Reader",
+            await self._request_async(
+                "post",
+                "/v1/terminal/readers/{reader}/check_gift_card_balance".format(
                     reader=sanitize_id(reader),
                 ),
                 base_address="api",
@@ -551,6 +695,50 @@ class ReaderService(StripeService):
             await self._request_async(
                 "post",
                 "/v1/terminal/readers/{reader}/refund_payment".format(
+                    reader=sanitize_id(reader),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def reload_gift_card(
+        self,
+        reader: str,
+        params: "ReaderReloadGiftCardParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "Reader":
+        """
+        Initiates a gift card reload flow on a Reader by adding the specified amount to its balance.
+        """
+        return cast(
+            "Reader",
+            self._request(
+                "post",
+                "/v1/terminal/readers/{reader}/reload_gift_card".format(
+                    reader=sanitize_id(reader),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def reload_gift_card_async(
+        self,
+        reader: str,
+        params: "ReaderReloadGiftCardParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "Reader":
+        """
+        Initiates a gift card reload flow on a Reader by adding the specified amount to its balance.
+        """
+        return cast(
+            "Reader",
+            await self._request_async(
+                "post",
+                "/v1/terminal/readers/{reader}/reload_gift_card".format(
                     reader=sanitize_id(reader),
                 ),
                 base_address="api",

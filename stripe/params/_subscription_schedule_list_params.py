@@ -20,7 +20,7 @@ class SubscriptionScheduleListParams(RequestOptions):
     """
     customer: NotRequired[str]
     """
-    Only return subscription schedules for the given customer.
+    Only return subscription schedules for the given customer. The response will not include subscription schedules for customers with a test clock attached if this parameter is not set.
     """
     customer_account: NotRequired[str]
     """

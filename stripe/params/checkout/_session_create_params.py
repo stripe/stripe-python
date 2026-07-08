@@ -3406,7 +3406,7 @@ class SessionCreateParamsSubscriptionData(TypedDict):
     """
     billing_cycle_anchor: NotRequired[int]
     """
-    A future timestamp to anchor the subscription's billing cycle for new subscriptions. You can't set this parameter if `ui_mode` is `elements`.
+    A future timestamp to anchor the subscription's billing cycle for new subscriptions.
     """
     billing_cycle_anchor_config: NotRequired[
         "SessionCreateParamsSubscriptionDataBillingCycleAnchorConfig"

@@ -17,13 +17,24 @@ if TYPE_CHECKING:
     from stripe._bank_account import BankAccount
     from stripe._card import Card
     from stripe._charge import Charge
+    from stripe._gift_card import GiftCard
+    from stripe._gift_card_operation import GiftCardOperation
     from stripe._payment_intent import PaymentIntent
     from stripe._payment_method import PaymentMethod
     from stripe._refund import Refund
     from stripe._setup_intent import SetupIntent
     from stripe._source import Source
+    from stripe.params.terminal._reader_activate_gift_card_params import (
+        ReaderActivateGiftCardParams,
+    )
     from stripe.params.terminal._reader_cancel_action_params import (
         ReaderCancelActionParams,
+    )
+    from stripe.params.terminal._reader_cashout_gift_card_params import (
+        ReaderCashoutGiftCardParams,
+    )
+    from stripe.params.terminal._reader_check_gift_card_balance_params import (
+        ReaderCheckGiftCardBalanceParams,
     )
     from stripe.params.terminal._reader_collect_inputs_params import (
         ReaderCollectInputsParams,
@@ -49,6 +60,9 @@ if TYPE_CHECKING:
     )
     from stripe.params.terminal._reader_refund_payment_params import (
         ReaderRefundPaymentParams,
+    )
+    from stripe.params.terminal._reader_reload_gift_card_params import (
+        ReaderReloadGiftCardParams,
     )
     from stripe.params.terminal._reader_retrieve_params import (
         ReaderRetrieveParams,
@@ -80,6 +94,16 @@ class Reader(
     OBJECT_NAME: ClassVar[Literal["terminal.reader"]] = "terminal.reader"
 
     class Action(StripeObject):
+        class ActivateGiftCard(StripeObject):
+            gift_card: Optional[ExpandableField["GiftCard"]]
+            """
+            The gift card used in this reader action.
+            """
+            gift_card_operation: Optional[ExpandableField["GiftCardOperation"]]
+            """
+            The GiftCardOperation created for this reader action.
+            """
+
         class ApiError(StripeObject):
             advice_code: Optional[str]
             """
@@ -304,6 +328,11 @@ class Reader(
             """
             A URL to more information about the [error code](https://docs.stripe.com/error-codes) reported.
             """
+            gift_card_operation: Optional["GiftCardOperation"]
+            """
+            A GiftCardOperation represents an operation performed on a third-party gift card,
+            such as activation, reload, cashout, balance check, or void.
+            """
             message: Optional[str]
             """
             A human-readable message providing more details about the error. For card errors, these messages can be shown to your users.
@@ -383,6 +412,26 @@ class Reader(
             ]
             """
             The type of error returned. One of `api_error`, `card_error`, `idempotency_error`, or `invalid_request_error`
+            """
+
+        class CashoutGiftCard(StripeObject):
+            gift_card: Optional[ExpandableField["GiftCard"]]
+            """
+            The gift card used in this reader action.
+            """
+            gift_card_operation: Optional[ExpandableField["GiftCardOperation"]]
+            """
+            The GiftCardOperation created for this reader action.
+            """
+
+        class CheckGiftCardBalance(StripeObject):
+            gift_card: Optional[ExpandableField["GiftCard"]]
+            """
+            The gift card used in this reader action.
+            """
+            gift_card_operation: Optional[ExpandableField["GiftCardOperation"]]
+            """
+            The GiftCardOperation created for this reader action.
             """
 
         class CollectInputs(StripeObject):
@@ -619,6 +668,16 @@ class Reader(
             """
             _inner_class_types = {"confirm_config": ConfirmConfig}
 
+        class DeactivateGiftCard(StripeObject):
+            gift_card: Optional[ExpandableField["GiftCard"]]
+            """
+            The gift card used in this reader action.
+            """
+            gift_card_operation: Optional[ExpandableField["GiftCardOperation"]]
+            """
+            The GiftCardOperation created for this reader action.
+            """
+
         class PrintContent(StripeObject):
             class Image(StripeObject):
                 created_at: int
@@ -760,6 +819,16 @@ class Reader(
             """
             _inner_class_types = {"refund_payment_config": RefundPaymentConfig}
 
+        class ReloadGiftCard(StripeObject):
+            gift_card: Optional[ExpandableField["GiftCard"]]
+            """
+            The gift card used in this reader action.
+            """
+            gift_card_operation: Optional[ExpandableField["GiftCardOperation"]]
+            """
+            The GiftCardOperation created for this reader action.
+            """
+
         class SetReaderDisplay(StripeObject):
             class Cart(StripeObject):
                 class LineItem(StripeObject):
@@ -804,9 +873,21 @@ class Reader(
             """
             _inner_class_types = {"cart": Cart}
 
+        activate_gift_card: Optional[ActivateGiftCard]
+        """
+        Represents a reader action to activate a gift card
+        """
         api_error: Optional[ApiError]
         """
         The reader action failed due to an [API error](https://docs.stripe.com/api/errors). Only present when `status` is `failed` and the underlying failure was an API error. Avoid parsing the `message` field for programmatic logic; use `type` or `code` instead. The `message` field is for display to humans only and may be updated at anytime. Requires [reader version](https://docs.stripe.com/terminal/readers/stripe-reader-s700-s710#reader-software-version) 2.42 or later. Readers on older versions always return null.
+        """
+        cashout_gift_card: Optional[CashoutGiftCard]
+        """
+        Represents a reader action to cash out a gift card
+        """
+        check_gift_card_balance: Optional[CheckGiftCardBalance]
+        """
+        Represents a reader action to check a gift card balance
         """
         collect_inputs: Optional[CollectInputs]
         """
@@ -819,6 +900,10 @@ class Reader(
         confirm_payment_intent: Optional[ConfirmPaymentIntent]
         """
         Represents a reader action to confirm a payment
+        """
+        deactivate_gift_card: Optional[DeactivateGiftCard]
+        """
+        Represents a reader action to deactivate a gift card
         """
         failure_code: Optional[str]
         """
@@ -844,6 +929,10 @@ class Reader(
         """
         Represents a reader action to refund a payment
         """
+        reload_gift_card: Optional[ReloadGiftCard]
+        """
+        Represents a reader action to reload a gift card
+        """
         set_reader_display: Optional[SetReaderDisplay]
         """
         Represents a reader action to set the reader display
@@ -853,27 +942,37 @@ class Reader(
         Status of the action performed by the reader.
         """
         type: Literal[
+            "activate_gift_card",
+            "cashout_gift_card",
+            "check_gift_card_balance",
             "collect_inputs",
             "collect_payment_method",
             "confirm_payment_intent",
+            "deactivate_gift_card",
             "print_content",
             "process_payment_intent",
             "process_setup_intent",
             "refund_payment",
+            "reload_gift_card",
             "set_reader_display",
         ]
         """
         Type of action performed by the reader.
         """
         _inner_class_types = {
+            "activate_gift_card": ActivateGiftCard,
             "api_error": ApiError,
+            "cashout_gift_card": CashoutGiftCard,
+            "check_gift_card_balance": CheckGiftCardBalance,
             "collect_inputs": CollectInputs,
             "collect_payment_method": CollectPaymentMethod,
             "confirm_payment_intent": ConfirmPaymentIntent,
+            "deactivate_gift_card": DeactivateGiftCard,
             "print_content": PrintContent,
             "process_payment_intent": ProcessPaymentIntent,
             "process_setup_intent": ProcessSetupIntent,
             "refund_payment": RefundPayment,
+            "reload_gift_card": ReloadGiftCard,
             "set_reader_display": SetReaderDisplay,
         }
 
@@ -953,6 +1052,116 @@ class Reader(
     """
     The networking status of the reader. We do not recommend using this field in flows that may block taking payments.
     """
+
+    @classmethod
+    def _cls_activate_gift_card(
+        cls, reader: str, **params: Unpack["ReaderActivateGiftCardParams"]
+    ) -> "Reader":
+        """
+        Initiates a gift card activation flow on a Reader and optionally sets its balance.
+        """
+        return cast(
+            "Reader",
+            cls._static_request(
+                "post",
+                "/v1/terminal/readers/{reader}/activate_gift_card".format(
+                    reader=sanitize_id(reader)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def activate_gift_card(
+        reader: str, **params: Unpack["ReaderActivateGiftCardParams"]
+    ) -> "Reader":
+        """
+        Initiates a gift card activation flow on a Reader and optionally sets its balance.
+        """
+        ...
+
+    @overload
+    def activate_gift_card(
+        self, **params: Unpack["ReaderActivateGiftCardParams"]
+    ) -> "Reader":
+        """
+        Initiates a gift card activation flow on a Reader and optionally sets its balance.
+        """
+        ...
+
+    @class_method_variant("_cls_activate_gift_card")
+    def activate_gift_card(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["ReaderActivateGiftCardParams"]
+    ) -> "Reader":
+        """
+        Initiates a gift card activation flow on a Reader and optionally sets its balance.
+        """
+        return cast(
+            "Reader",
+            self._request(
+                "post",
+                "/v1/terminal/readers/{reader}/activate_gift_card".format(
+                    reader=sanitize_id(self._data.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_activate_gift_card_async(
+        cls, reader: str, **params: Unpack["ReaderActivateGiftCardParams"]
+    ) -> "Reader":
+        """
+        Initiates a gift card activation flow on a Reader and optionally sets its balance.
+        """
+        return cast(
+            "Reader",
+            await cls._static_request_async(
+                "post",
+                "/v1/terminal/readers/{reader}/activate_gift_card".format(
+                    reader=sanitize_id(reader)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def activate_gift_card_async(
+        reader: str, **params: Unpack["ReaderActivateGiftCardParams"]
+    ) -> "Reader":
+        """
+        Initiates a gift card activation flow on a Reader and optionally sets its balance.
+        """
+        ...
+
+    @overload
+    async def activate_gift_card_async(
+        self, **params: Unpack["ReaderActivateGiftCardParams"]
+    ) -> "Reader":
+        """
+        Initiates a gift card activation flow on a Reader and optionally sets its balance.
+        """
+        ...
+
+    @class_method_variant("_cls_activate_gift_card_async")
+    async def activate_gift_card_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["ReaderActivateGiftCardParams"]
+    ) -> "Reader":
+        """
+        Initiates a gift card activation flow on a Reader and optionally sets its balance.
+        """
+        return cast(
+            "Reader",
+            await self._request_async(
+                "post",
+                "/v1/terminal/readers/{reader}/activate_gift_card".format(
+                    reader=sanitize_id(self._data.get("id"))
+                ),
+                params=params,
+            ),
+        )
 
     @classmethod
     def _cls_cancel_action(
@@ -1058,6 +1267,226 @@ class Reader(
             await self._request_async(
                 "post",
                 "/v1/terminal/readers/{reader}/cancel_action".format(
+                    reader=sanitize_id(self._data.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def _cls_cashout_gift_card(
+        cls, reader: str, **params: Unpack["ReaderCashoutGiftCardParams"]
+    ) -> "Reader":
+        """
+        Initiates a gift card cashout flow on a Reader. A cashout sets the gift card balance to 0.
+        """
+        return cast(
+            "Reader",
+            cls._static_request(
+                "post",
+                "/v1/terminal/readers/{reader}/cashout_gift_card".format(
+                    reader=sanitize_id(reader)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def cashout_gift_card(
+        reader: str, **params: Unpack["ReaderCashoutGiftCardParams"]
+    ) -> "Reader":
+        """
+        Initiates a gift card cashout flow on a Reader. A cashout sets the gift card balance to 0.
+        """
+        ...
+
+    @overload
+    def cashout_gift_card(
+        self, **params: Unpack["ReaderCashoutGiftCardParams"]
+    ) -> "Reader":
+        """
+        Initiates a gift card cashout flow on a Reader. A cashout sets the gift card balance to 0.
+        """
+        ...
+
+    @class_method_variant("_cls_cashout_gift_card")
+    def cashout_gift_card(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["ReaderCashoutGiftCardParams"]
+    ) -> "Reader":
+        """
+        Initiates a gift card cashout flow on a Reader. A cashout sets the gift card balance to 0.
+        """
+        return cast(
+            "Reader",
+            self._request(
+                "post",
+                "/v1/terminal/readers/{reader}/cashout_gift_card".format(
+                    reader=sanitize_id(self._data.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_cashout_gift_card_async(
+        cls, reader: str, **params: Unpack["ReaderCashoutGiftCardParams"]
+    ) -> "Reader":
+        """
+        Initiates a gift card cashout flow on a Reader. A cashout sets the gift card balance to 0.
+        """
+        return cast(
+            "Reader",
+            await cls._static_request_async(
+                "post",
+                "/v1/terminal/readers/{reader}/cashout_gift_card".format(
+                    reader=sanitize_id(reader)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def cashout_gift_card_async(
+        reader: str, **params: Unpack["ReaderCashoutGiftCardParams"]
+    ) -> "Reader":
+        """
+        Initiates a gift card cashout flow on a Reader. A cashout sets the gift card balance to 0.
+        """
+        ...
+
+    @overload
+    async def cashout_gift_card_async(
+        self, **params: Unpack["ReaderCashoutGiftCardParams"]
+    ) -> "Reader":
+        """
+        Initiates a gift card cashout flow on a Reader. A cashout sets the gift card balance to 0.
+        """
+        ...
+
+    @class_method_variant("_cls_cashout_gift_card_async")
+    async def cashout_gift_card_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["ReaderCashoutGiftCardParams"]
+    ) -> "Reader":
+        """
+        Initiates a gift card cashout flow on a Reader. A cashout sets the gift card balance to 0.
+        """
+        return cast(
+            "Reader",
+            await self._request_async(
+                "post",
+                "/v1/terminal/readers/{reader}/cashout_gift_card".format(
+                    reader=sanitize_id(self._data.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def _cls_check_gift_card_balance(
+        cls, reader: str, **params: Unpack["ReaderCheckGiftCardBalanceParams"]
+    ) -> "Reader":
+        """
+        Initiates a gift card balance check flow on a Reader.
+        """
+        return cast(
+            "Reader",
+            cls._static_request(
+                "post",
+                "/v1/terminal/readers/{reader}/check_gift_card_balance".format(
+                    reader=sanitize_id(reader)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def check_gift_card_balance(
+        reader: str, **params: Unpack["ReaderCheckGiftCardBalanceParams"]
+    ) -> "Reader":
+        """
+        Initiates a gift card balance check flow on a Reader.
+        """
+        ...
+
+    @overload
+    def check_gift_card_balance(
+        self, **params: Unpack["ReaderCheckGiftCardBalanceParams"]
+    ) -> "Reader":
+        """
+        Initiates a gift card balance check flow on a Reader.
+        """
+        ...
+
+    @class_method_variant("_cls_check_gift_card_balance")
+    def check_gift_card_balance(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["ReaderCheckGiftCardBalanceParams"]
+    ) -> "Reader":
+        """
+        Initiates a gift card balance check flow on a Reader.
+        """
+        return cast(
+            "Reader",
+            self._request(
+                "post",
+                "/v1/terminal/readers/{reader}/check_gift_card_balance".format(
+                    reader=sanitize_id(self._data.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_check_gift_card_balance_async(
+        cls, reader: str, **params: Unpack["ReaderCheckGiftCardBalanceParams"]
+    ) -> "Reader":
+        """
+        Initiates a gift card balance check flow on a Reader.
+        """
+        return cast(
+            "Reader",
+            await cls._static_request_async(
+                "post",
+                "/v1/terminal/readers/{reader}/check_gift_card_balance".format(
+                    reader=sanitize_id(reader)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def check_gift_card_balance_async(
+        reader: str, **params: Unpack["ReaderCheckGiftCardBalanceParams"]
+    ) -> "Reader":
+        """
+        Initiates a gift card balance check flow on a Reader.
+        """
+        ...
+
+    @overload
+    async def check_gift_card_balance_async(
+        self, **params: Unpack["ReaderCheckGiftCardBalanceParams"]
+    ) -> "Reader":
+        """
+        Initiates a gift card balance check flow on a Reader.
+        """
+        ...
+
+    @class_method_variant("_cls_check_gift_card_balance_async")
+    async def check_gift_card_balance_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["ReaderCheckGiftCardBalanceParams"]
+    ) -> "Reader":
+        """
+        Initiates a gift card balance check flow on a Reader.
+        """
+        return cast(
+            "Reader",
+            await self._request_async(
+                "post",
+                "/v1/terminal/readers/{reader}/check_gift_card_balance".format(
                     reader=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
@@ -1916,6 +2345,116 @@ class Reader(
             await self._request_async(
                 "post",
                 "/v1/terminal/readers/{reader}/refund_payment".format(
+                    reader=sanitize_id(self._data.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def _cls_reload_gift_card(
+        cls, reader: str, **params: Unpack["ReaderReloadGiftCardParams"]
+    ) -> "Reader":
+        """
+        Initiates a gift card reload flow on a Reader by adding the specified amount to its balance.
+        """
+        return cast(
+            "Reader",
+            cls._static_request(
+                "post",
+                "/v1/terminal/readers/{reader}/reload_gift_card".format(
+                    reader=sanitize_id(reader)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def reload_gift_card(
+        reader: str, **params: Unpack["ReaderReloadGiftCardParams"]
+    ) -> "Reader":
+        """
+        Initiates a gift card reload flow on a Reader by adding the specified amount to its balance.
+        """
+        ...
+
+    @overload
+    def reload_gift_card(
+        self, **params: Unpack["ReaderReloadGiftCardParams"]
+    ) -> "Reader":
+        """
+        Initiates a gift card reload flow on a Reader by adding the specified amount to its balance.
+        """
+        ...
+
+    @class_method_variant("_cls_reload_gift_card")
+    def reload_gift_card(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["ReaderReloadGiftCardParams"]
+    ) -> "Reader":
+        """
+        Initiates a gift card reload flow on a Reader by adding the specified amount to its balance.
+        """
+        return cast(
+            "Reader",
+            self._request(
+                "post",
+                "/v1/terminal/readers/{reader}/reload_gift_card".format(
+                    reader=sanitize_id(self._data.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_reload_gift_card_async(
+        cls, reader: str, **params: Unpack["ReaderReloadGiftCardParams"]
+    ) -> "Reader":
+        """
+        Initiates a gift card reload flow on a Reader by adding the specified amount to its balance.
+        """
+        return cast(
+            "Reader",
+            await cls._static_request_async(
+                "post",
+                "/v1/terminal/readers/{reader}/reload_gift_card".format(
+                    reader=sanitize_id(reader)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def reload_gift_card_async(
+        reader: str, **params: Unpack["ReaderReloadGiftCardParams"]
+    ) -> "Reader":
+        """
+        Initiates a gift card reload flow on a Reader by adding the specified amount to its balance.
+        """
+        ...
+
+    @overload
+    async def reload_gift_card_async(
+        self, **params: Unpack["ReaderReloadGiftCardParams"]
+    ) -> "Reader":
+        """
+        Initiates a gift card reload flow on a Reader by adding the specified amount to its balance.
+        """
+        ...
+
+    @class_method_variant("_cls_reload_gift_card_async")
+    async def reload_gift_card_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["ReaderReloadGiftCardParams"]
+    ) -> "Reader":
+        """
+        Initiates a gift card reload flow on a Reader by adding the specified amount to its balance.
+        """
+        return cast(
+            "Reader",
+            await self._request_async(
+                "post",
+                "/v1/terminal/readers/{reader}/reload_gift_card".format(
                     reader=sanitize_id(self._data.get("id"))
                 ),
                 params=params,

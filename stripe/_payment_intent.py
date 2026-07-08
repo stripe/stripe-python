@@ -31,6 +31,7 @@ if TYPE_CHECKING:
     from stripe._card import Card as CardResource
     from stripe._charge import Charge
     from stripe._customer import Customer
+    from stripe._gift_card_operation import GiftCardOperation
     from stripe._payment_intent_amount_details_line_item import (
         PaymentIntentAmountDetailsLineItem,
     )
@@ -538,6 +539,11 @@ class PaymentIntent(
         doc_url: Optional[str]
         """
         A URL to more information about the [error code](https://docs.stripe.com/error-codes) reported.
+        """
+        gift_card_operation: Optional["GiftCardOperation"]
+        """
+        A GiftCardOperation represents an operation performed on a third-party gift card,
+        such as activation, reload, cashout, balance check, or void.
         """
         message: Optional[str]
         """
@@ -4317,6 +4323,16 @@ class PaymentIntent(
             """
             Controls when the funds will be captured from the customer's account.
             """
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+            """
 
         class Paynow(StripeObject):
             setup_future_usage: Optional[Literal["none"]]
@@ -4412,7 +4428,18 @@ class PaymentIntent(
             _inner_class_types = {"line_items": LineItem}
 
         class Paypay(StripeObject):
-            pass
+            setup_future_usage: Optional[
+                Literal["none", "off_session", "on_session"]
+            ]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+            """
 
         class Payto(StripeObject):
             class MandateOptions(StripeObject):
@@ -4594,6 +4621,16 @@ class PaymentIntent(
             capture_method: Optional[Literal["manual"]]
             """
             Controls when the funds will be captured from the customer's account.
+            """
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
             """
 
         class Satispay(StripeObject):

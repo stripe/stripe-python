@@ -30,6 +30,7 @@ if TYPE_CHECKING:
     from stripe._card import Card as CardResource
     from stripe._customer import Customer
     from stripe._discount import Discount
+    from stripe._gift_card_operation import GiftCardOperation
     from stripe._invoice_line_item import InvoiceLineItem
     from stripe._invoice_payment import InvoicePayment
     from stripe._margin import Margin
@@ -665,6 +666,11 @@ class Invoice(
         doc_url: Optional[str]
         """
         A URL to more information about the [error code](https://docs.stripe.com/error-codes) reported.
+        """
+        gift_card_operation: Optional["GiftCardOperation"]
+        """
+        A GiftCardOperation represents an operation performed on a third-party gift card,
+        such as activation, reload, cashout, balance check, or void.
         """
         message: Optional[str]
         """

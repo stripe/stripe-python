@@ -962,6 +962,27 @@ class Authorization(
             The amount of cash requested by the cardholder.
             """
 
+        class NetworkData(StripeObject):
+            class TraceId(StripeObject):
+                banknet_reference_number: Optional[str]
+                """
+                The unique reference number within the specified financial network on the specified network date.
+                """
+                financial_network_code: Optional[str]
+                """
+                The identifier of the program or service.
+                """
+                network_date: Optional[str]
+                """
+                The card network's record date for this authorization.
+                """
+
+            trace_id: Optional[TraceId]
+            """
+            Mastercard identifier for each authorization request.
+            """
+            _inner_class_types = {"trace_id": TraceId}
+
         amount: int
         """
         The `pending_request.amount` at the time of the request, presented in your card's currency and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal). Stripe held this amount from your account to fund the authorization if the request was approved.
@@ -993,6 +1014,10 @@ class Authorization(
         merchant_currency: str
         """
         The currency that was collected by the merchant and presented to the cardholder for the authorization. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        network_data: Optional[NetworkData]
+        """
+        Details about the authorization request, such as identifiers, set by the card network.
         """
         network_risk_score: Optional[int]
         """
@@ -1031,7 +1056,10 @@ class Authorization(
         """
         Time when the card network received an authorization request from the acquirer in UTC. Referred to by networks as transmission time.
         """
-        _inner_class_types = {"amount_details": AmountDetails}
+        _inner_class_types = {
+            "amount_details": AmountDetails,
+            "network_data": NetworkData,
+        }
 
     class TerminalData(StripeObject):
         cardholder_verification_result: Optional[

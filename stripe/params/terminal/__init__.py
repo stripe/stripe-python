@@ -174,8 +174,18 @@ if TYPE_CHECKING:
         OnboardingLinkCreateParamsLinkOptions as OnboardingLinkCreateParamsLinkOptions,
         OnboardingLinkCreateParamsLinkOptionsAppleTermsAndConditions as OnboardingLinkCreateParamsLinkOptionsAppleTermsAndConditions,
     )
+    from stripe.params.terminal._reader_activate_gift_card_params import (
+        ReaderActivateGiftCardParams as ReaderActivateGiftCardParams,
+        ReaderActivateGiftCardParamsBalance as ReaderActivateGiftCardParamsBalance,
+    )
     from stripe.params.terminal._reader_cancel_action_params import (
         ReaderCancelActionParams as ReaderCancelActionParams,
+    )
+    from stripe.params.terminal._reader_cashout_gift_card_params import (
+        ReaderCashoutGiftCardParams as ReaderCashoutGiftCardParams,
+    )
+    from stripe.params.terminal._reader_check_gift_card_balance_params import (
+        ReaderCheckGiftCardBalanceParams as ReaderCheckGiftCardBalanceParams,
     )
     from stripe.params.terminal._reader_collect_inputs_params import (
         ReaderCollectInputsParams as ReaderCollectInputsParams,
@@ -227,6 +237,9 @@ if TYPE_CHECKING:
     from stripe.params.terminal._reader_refund_payment_params import (
         ReaderRefundPaymentParams as ReaderRefundPaymentParams,
         ReaderRefundPaymentParamsRefundPaymentConfig as ReaderRefundPaymentParamsRefundPaymentConfig,
+    )
+    from stripe.params.terminal._reader_reload_gift_card_params import (
+        ReaderReloadGiftCardParams as ReaderReloadGiftCardParams,
     )
     from stripe.params.terminal._reader_retrieve_params import (
         ReaderRetrieveParams as ReaderRetrieveParams,
@@ -816,8 +829,24 @@ _import_map = {
         "stripe.params.terminal._onboarding_link_create_params",
         False,
     ),
+    "ReaderActivateGiftCardParams": (
+        "stripe.params.terminal._reader_activate_gift_card_params",
+        False,
+    ),
+    "ReaderActivateGiftCardParamsBalance": (
+        "stripe.params.terminal._reader_activate_gift_card_params",
+        False,
+    ),
     "ReaderCancelActionParams": (
         "stripe.params.terminal._reader_cancel_action_params",
+        False,
+    ),
+    "ReaderCashoutGiftCardParams": (
+        "stripe.params.terminal._reader_cashout_gift_card_params",
+        False,
+    ),
+    "ReaderCheckGiftCardBalanceParams": (
+        "stripe.params.terminal._reader_check_gift_card_balance_params",
         False,
     ),
     "ReaderCollectInputsParams": (
@@ -923,6 +952,10 @@ _import_map = {
     ),
     "ReaderRefundPaymentParamsRefundPaymentConfig": (
         "stripe.params.terminal._reader_refund_payment_params",
+        False,
+    ),
+    "ReaderReloadGiftCardParams": (
+        "stripe.params.terminal._reader_reload_gift_card_params",
         False,
     ),
     "ReaderRetrieveParams": (
