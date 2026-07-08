@@ -2,7 +2,6 @@
 # File generated from our OpenAPI spec
 from decimal import Decimal
 from stripe._stripe_object import StripeObject, UntypedStripeObject
-from stripe.v2._amount import Amount
 from typing import ClassVar, List, Optional
 from typing_extensions import Literal
 
@@ -105,42 +104,6 @@ class Contract(StripeObject):
             "collection_settings_details": CollectionSettingsDetails,
         }
 
-    class OneTimeFees(StripeObject):
-        class Data(StripeObject):
-            class BillAt(StripeObject):
-                timestamp: str
-                """
-                The timestamp at which the fee will be billed.
-                """
-
-            amount: Amount
-            """
-            The amount billed for this fee.
-            """
-            bill_at: BillAt
-            """
-            When this fee will be billed. Always contains a concrete timestamp.
-            """
-            id: str
-            """
-            The id of the one-time fee.
-            """
-            lookup_key: Optional[str]
-            """
-            The user-provided lookup key.
-            """
-            product: str
-            """
-            The id of the product for this fee.
-            """
-            _inner_class_types = {"bill_at": BillAt}
-
-        data: List[Data]
-        """
-        The one-time fees for this page.
-        """
-        _inner_class_types = {"data": Data}
-
     class PricingLines(StripeObject):
         class Data(StripeObject):
             class EndsAt(StripeObject):
@@ -160,42 +123,10 @@ class Contract(StripeObject):
                                 """
 
                             class OverwritePrice(StripeObject):
-                                class Tier(StripeObject):
-                                    flat_amount: Optional[str]
-                                    """
-                                    Price for the entire tier, represented as a decimal string in minor currency units.
-                                    """
-                                    unit_amount: Optional[str]
-                                    """
-                                    Per-unit price for units included in this tier, represented as a decimal string in minor currency units.
-                                    """
-                                    up_to_decimal: Optional[Decimal]
-                                    """
-                                    Up to and including this quantity will be contained in the tier.
-                                    """
-                                    up_to_inf: Optional[Literal["inf"]]
-                                    """
-                                    No upper bound to this tier.
-                                    """
-                                    _field_encodings = {
-                                        "up_to_decimal": "decimal_string",
-                                    }
-
-                                tiering_mode: Optional[
-                                    Literal["graduated", "volume"]
-                                ]
-                                """
-                                Defines whether the tiered price should be graduated or volume-based.
-                                """
-                                tiers: List[Tier]
-                                """
-                                Each element represents a pricing tier.
-                                """
                                 unit_amount: Optional[str]
                                 """
                                 The per-unit amount to be charged, represented as a decimal string in minor currency units.
                                 """
-                                _inner_class_types = {"tiers": Tier}
 
                             class StartsAt(StripeObject):
                                 timestamp: str
@@ -445,10 +376,6 @@ class Contract(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
     """
-    one_time_fees: Optional[OneTimeFees]
-    """
-    The one-time fees. Only populated when `one_time_fees` is passed in the `include` parameter.
-    """
     pricing_lines: Optional[PricingLines]
     """
     The pricing lines. Only populated when `pricing_lines` is passed in the `include` parameter.
@@ -468,7 +395,6 @@ class Contract(StripeObject):
     _inner_class_types = {
         "billing_cycle_anchor": BillingCycleAnchor,
         "billing_settings": BillingSettings,
-        "one_time_fees": OneTimeFees,
         "pricing_lines": PricingLines,
         "pricing_overrides": PricingOverrides,
         "status_transitions": StatusTransitions,

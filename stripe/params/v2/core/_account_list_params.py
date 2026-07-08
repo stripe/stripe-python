@@ -27,3 +27,7 @@ class AccountListParams(TypedDict):
     """
     The upper limit on the number of accounts returned by the List Account request.
     """
+    related_network_object: NotRequired[str]
+    """
+    Filter by the network object related to the account. If omitted, returns all Accounts regardless of the network object they have.
+    """

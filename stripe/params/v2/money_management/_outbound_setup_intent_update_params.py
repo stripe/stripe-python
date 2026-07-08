@@ -29,7 +29,12 @@ class OutboundSetupIntentUpdateParamsPayoutMethodData(TypedDict):
     """
     The type specific details of the card payout method.
     """
-    type: Literal["bank_account", "card", "crypto_wallet"]
+    type: Literal[
+        "bank_account",
+        "card",
+        "crypto_wallet",
+        "network_business_profile_wallet",
+    ]
     """
     Closed Enum. The type of payout method to be created/updated.
     """

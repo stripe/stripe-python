@@ -9002,6 +9002,7 @@ class Account(StripeObject):
                     "my_bank_account",
                     "mz_bank_account",
                     "na_bank_account",
+                    "network_business_profile_wallet",
                     "ne_bank_account",
                     "ng_bank_account",
                     "ni_bank_account",
@@ -12008,6 +12009,16 @@ class Account(StripeObject):
             "individual": Individual,
         }
 
+    class RelatedNetworkObject(StripeObject):
+        network_business_profile: Optional[str]
+        """
+        The ID of the network business profile associated with this Account.
+        """
+        type: Literal["link", "network_business_profile"]
+        """
+        Closed Enum. The type of related network object.
+        """
+
     class Requirements(StripeObject):
         class Entry(StripeObject):
             class Error(StripeObject):
@@ -12413,6 +12424,10 @@ class Account(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
     """
+    related_network_object: Optional[RelatedNetworkObject]
+    """
+    The network object related to this Account.
+    """
     requirements: Optional[Requirements]
     """
     Information about the active requirements for the Account, including what information needs to be collected, and by when.
@@ -12422,5 +12437,6 @@ class Account(StripeObject):
         "defaults": Defaults,
         "future_requirements": FutureRequirements,
         "identity": Identity,
+        "related_network_object": RelatedNetworkObject,
         "requirements": Requirements,
     }

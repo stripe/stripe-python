@@ -8,14 +8,7 @@ from typing_extensions import Literal, NotRequired, TypedDict
 
 class ContractUpdateParams(TypedDict):
     include: NotRequired[
-        List[
-            Literal[
-                "billing_settings",
-                "one_time_fees",
-                "pricing_lines",
-                "pricing_overrides",
-            ]
-        ]
+        List[Literal["billing_settings", "pricing_lines", "pricing_overrides"]]
     ]
     """
     Additional fields to include in the response.
@@ -179,42 +172,9 @@ class ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverride
 class ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverrideOverwritePrice(
     TypedDict,
 ):
-    tiering_mode: NotRequired[Literal["graduated", "volume"]]
-    """
-    Defines whether the tiered price should be graduated or volume-based.
-    """
-    tiers: NotRequired[
-        List[
-            "ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverrideOverwritePriceTier"
-        ]
-    ]
-    """
-    Each element represents a pricing tier.
-    """
     unit_amount: NotRequired[str]
     """
     The per-unit amount to be charged, represented as a decimal string in minor currency units.
-    """
-
-
-class ContractUpdateParamsPricingLineActionAddPricingPriceDetailsPricingOverrideOverwritePriceTier(
-    TypedDict,
-):
-    flat_amount: NotRequired[str]
-    """
-    Price for the entire tier, represented as a decimal string in minor currency units.
-    """
-    unit_amount: NotRequired[str]
-    """
-    Per-unit price for units included in this tier, represented as a decimal string in minor currency units.
-    """
-    up_to_decimal: NotRequired[Decimal]
-    """
-    Up to and including this quantity will be contained in the tier.
-    """
-    up_to_inf: NotRequired[Literal["inf"]]
-    """
-    No upper bound to this tier.
     """
 
 
@@ -415,42 +375,9 @@ class ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverr
 class ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAddOverwritePrice(
     TypedDict,
 ):
-    tiering_mode: NotRequired[Literal["graduated", "volume"]]
-    """
-    Defines whether the tiered price should be graduated or volume-based.
-    """
-    tiers: NotRequired[
-        List[
-            "ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAddOverwritePriceTier"
-        ]
-    ]
-    """
-    Each element represents a pricing tier.
-    """
     unit_amount: NotRequired[str]
     """
     The per-unit amount to be charged, represented as a decimal string in minor currency units.
-    """
-
-
-class ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverrideActionAddOverwritePriceTier(
-    TypedDict,
-):
-    flat_amount: NotRequired[str]
-    """
-    Price for the entire tier, represented as a decimal string in minor currency units.
-    """
-    unit_amount: NotRequired[str]
-    """
-    Per-unit price for units included in this tier, represented as a decimal string in minor currency units.
-    """
-    up_to_decimal: NotRequired[Decimal]
-    """
-    Up to and including this quantity will be contained in the tier.
-    """
-    up_to_inf: NotRequired[Literal["inf"]]
-    """
-    No upper bound to this tier.
     """
 
 
@@ -668,40 +595,9 @@ class ContractUpdateParamsPricingOverrideActionAddMultiplyPricingCriterion(
 
 
 class ContractUpdateParamsPricingOverrideActionAddOverwritePrice(TypedDict):
-    tiering_mode: NotRequired[Literal["graduated", "volume"]]
-    """
-    Defines whether the tiered price should be graduated or volume-based.
-    """
-    tiers: List[
-        "ContractUpdateParamsPricingOverrideActionAddOverwritePriceTier"
-    ]
-    """
-    Each element represents a pricing tier.
-    """
     unit_amount: NotRequired[str]
     """
     The per-unit amount to be charged, represented as a decimal string in minor currency units.
-    """
-
-
-class ContractUpdateParamsPricingOverrideActionAddOverwritePriceTier(
-    TypedDict
-):
-    flat_amount: NotRequired[str]
-    """
-    Price for the entire tier, represented as a decimal string in minor currency units.
-    """
-    unit_amount: NotRequired[str]
-    """
-    Per-unit price for units included in this tier, represented as a decimal string in minor currency units.
-    """
-    up_to_decimal: NotRequired[Decimal]
-    """
-    Up to and including this quantity will be contained in the tier.
-    """
-    up_to_inf: NotRequired[Literal["inf"]]
-    """
-    No upper bound to this tier.
     """
 
 

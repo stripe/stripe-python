@@ -131,6 +131,12 @@ class PayoutMethod(StripeObject):
         Which rail is being used to make an outbound money movement to this wallet.
         """
 
+    class NetworkBusinessProfileWallet(StripeObject):
+        network_business_profile: str
+        """
+        The Network ID of the Stripe profile.
+        """
+
     class UsageStatus(StripeObject):
         payments: Literal["eligible", "invalid", "requires_action"]
         """
@@ -177,6 +183,10 @@ class PayoutMethod(StripeObject):
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
+    network_business_profile_wallet: Optional[NetworkBusinessProfileWallet]
+    """
+    The PayoutMethodNetworkBusinessProfileWallet object details.
+    """
     object: Literal["v2.money_management.payout_method"]
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
@@ -186,7 +196,12 @@ class PayoutMethod(StripeObject):
     Whether the Payout Method is currently unusable for money movement, despite potentially being correctly set up.
     Please reach out to Stripe Support for more information.
     """
-    type: Literal["bank_account", "card", "crypto_wallet"]
+    type: Literal[
+        "bank_account",
+        "card",
+        "crypto_wallet",
+        "network_business_profile_wallet",
+    ]
     """
     Closed Enum. The type of payout method.
     """
@@ -199,5 +214,6 @@ class PayoutMethod(StripeObject):
         "bank_account": BankAccount,
         "card": Card,
         "crypto_wallet": CryptoWallet,
+        "network_business_profile_wallet": NetworkBusinessProfileWallet,
         "usage_status": UsageStatus,
     }

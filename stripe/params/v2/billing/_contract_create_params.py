@@ -2,7 +2,6 @@
 # File generated from our OpenAPI spec
 from decimal import Decimal
 from stripe._stripe_object import UntypedStripeObject
-from stripe.v2._amount import AmountParam
 from typing import Dict, List
 from typing_extensions import Literal, NotRequired, TypedDict
 
@@ -26,14 +25,7 @@ class ContractCreateParams(TypedDict):
     Currency of the contract.
     """
     include: NotRequired[
-        List[
-            Literal[
-                "billing_settings",
-                "one_time_fees",
-                "pricing_lines",
-                "pricing_overrides",
-            ]
-        ]
+        List[Literal["billing_settings", "pricing_lines", "pricing_overrides"]]
     ]
     """
     Additional fields to include in the response.
@@ -41,10 +33,6 @@ class ContractCreateParams(TypedDict):
     metadata: NotRequired["Dict[str, str]|UntypedStripeObject[str]"]
     """
     Set of key-value pairs that you can attach to an object.
-    """
-    one_time_fees: NotRequired[List["ContractCreateParamsOneTimeFee"]]
-    """
-    A list of one-time fees to create with the contract. Each fee is billed as individual invoice items per its bill_schedule.
     """
     pricing_lines: List["ContractCreateParamsPricingLine"]
     """
@@ -194,36 +182,6 @@ class ContractCreateParamsBillingSettingsCollectionSettingsDetails(TypedDict):
     """
 
 
-class ContractCreateParamsOneTimeFee(TypedDict):
-    amount: AmountParam
-    """
-    The amount to bill.
-    """
-    bill_at: "ContractCreateParamsOneTimeFeeBillAt"
-    """
-    When this fee should be billed.
-    """
-    lookup_key: NotRequired[str]
-    """
-    A user-provided lookup key.
-    """
-    product: str
-    """
-    The id of the product for this fee.
-    """
-
-
-class ContractCreateParamsOneTimeFeeBillAt(TypedDict):
-    timestamp: NotRequired[str]
-    """
-    The timestamp at which the entry should be billed. Required if `type` is `timestamp`.
-    """
-    type: Literal["now", "timestamp"]
-    """
-    The type of the bill_at.
-    """
-
-
 class ContractCreateParamsPricingLine(TypedDict):
     ends_at: "ContractCreateParamsPricingLineEndsAt"
     """
@@ -350,42 +308,9 @@ class ContractCreateParamsPricingLinePricingPriceDetailsPricingOverrideEndsAt(
 class ContractCreateParamsPricingLinePricingPriceDetailsPricingOverrideOverwritePrice(
     TypedDict,
 ):
-    tiering_mode: NotRequired[Literal["graduated", "volume"]]
-    """
-    Defines whether the tiered price should be graduated or volume-based.
-    """
-    tiers: NotRequired[
-        List[
-            "ContractCreateParamsPricingLinePricingPriceDetailsPricingOverrideOverwritePriceTier"
-        ]
-    ]
-    """
-    Each element represents a pricing tier.
-    """
     unit_amount: NotRequired[str]
     """
     The per-unit amount to be charged, represented as a decimal string in minor currency units.
-    """
-
-
-class ContractCreateParamsPricingLinePricingPriceDetailsPricingOverrideOverwritePriceTier(
-    TypedDict,
-):
-    flat_amount: NotRequired[str]
-    """
-    Price for the entire tier, represented as a decimal string in minor currency units.
-    """
-    unit_amount: NotRequired[str]
-    """
-    Per-unit price for units included in this tier, represented as a decimal string in minor currency units.
-    """
-    up_to_decimal: NotRequired[Decimal]
-    """
-    Up to and including this quantity will be contained in the tier.
-    """
-    up_to_inf: NotRequired[Literal["inf"]]
-    """
-    No upper bound to this tier.
     """
 
 
