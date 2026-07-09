@@ -1366,7 +1366,7 @@ class AccountCreateParamsDocuments(TypedDict):
         "AccountCreateParamsDocumentsCompanyMemorandumOfAssociation"
     ]
     """
-    One or more documents showing the company's Memorandum of Association.
+    One or more documents showing the company's governing document (for example, a memorandum of association, constitution, or articles of association).
     """
     company_ministerial_decree: NotRequired[
         "AccountCreateParamsDocumentsCompanyMinisterialDecree"

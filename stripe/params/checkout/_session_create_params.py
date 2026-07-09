@@ -257,8 +257,6 @@ class SessionCreateParams(RequestOptions):
     You can configure Checkout to collect your customers' business names, individual names, or both. Each name field can be either required or optional.
 
     If a [Customer](https://docs.stripe.com/api/customers) is created or provided, the names can be saved to the Customer object as well.
-
-    You can't set this parameter if `ui_mode` is `custom`.
     """
     optional_items: NotRequired[List["SessionCreateParamsOptionalItem"]]
     """
@@ -1393,6 +1391,10 @@ class SessionCreateParamsPaymentMethodOptions(TypedDict):
     """
     contains details about the Sofort payment method options.
     """
+    sunbit: NotRequired["SessionCreateParamsPaymentMethodOptionsSunbit"]
+    """
+    contains details about the Sunbit payment method options.
+    """
     swish: NotRequired["SessionCreateParamsPaymentMethodOptionsSwish"]
     """
     contains details about the Swish payment method options.
@@ -2396,6 +2398,23 @@ class SessionCreateParamsPaymentMethodOptionsSofort(TypedDict):
     """
 
 
+class SessionCreateParamsPaymentMethodOptionsSunbit(TypedDict):
+    capture_method: NotRequired[Literal["manual"]]
+    """
+    Controls when the funds will be captured from the customer's account.
+    """
+    setup_future_usage: NotRequired[Literal["none"]]
+    """
+    Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+    If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+    If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+    When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+    """
+
+
 class SessionCreateParamsPaymentMethodOptionsSwish(TypedDict):
     reference: NotRequired[str]
     """
@@ -2947,6 +2966,12 @@ class SessionCreateParamsSubscriptionData(TypedDict):
     """
     A future timestamp to anchor the subscription's billing cycle for new subscriptions. You can't set this parameter if `ui_mode` is `elements`.
     """
+    billing_cycle_anchor_config: NotRequired[
+        "SessionCreateParamsSubscriptionDataBillingCycleAnchorConfig"
+    ]
+    """
+    Configures when the subscription schedule's billing cycle anchors to a specific day of the week or month.
+    """
     billing_mode: NotRequired["SessionCreateParamsSubscriptionDataBillingMode"]
     """
     Controls how prorations and invoices for subscriptions are calculated and orchestrated.
@@ -3006,6 +3031,29 @@ class SessionCreateParamsSubscriptionData(TypedDict):
     ]
     """
     Settings related to subscription trials.
+    """
+
+
+class SessionCreateParamsSubscriptionDataBillingCycleAnchorConfig(TypedDict):
+    day_of_month: int
+    """
+    The day of the month the anchor should be. Ranges from 1 to 31.
+    """
+    hour: NotRequired[int]
+    """
+    The hour of the day the anchor should be. Ranges from 0 to 23.
+    """
+    minute: NotRequired[int]
+    """
+    The minute of the hour the anchor should be. Ranges from 0 to 59.
+    """
+    month: NotRequired[int]
+    """
+    The month to start full cycle periods. Ranges from 1 to 12.
+    """
+    second: NotRequired[int]
+    """
+    The second of the minute the anchor should be. Ranges from 0 to 59.
     """
 
 

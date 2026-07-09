@@ -167,7 +167,7 @@ class ProductCatalogImport(StripeObject):
     """
     The time this ProductCatalogImport was created.
     """
-    feed_type: Literal["inventory", "pricing", "product"]
+    feed_type: Literal["inventory", "pricing", "product", "promotion"]
     """
     The type of feed data being imported into the product catalog.
     """
@@ -182,6 +182,10 @@ class ProductCatalogImport(StripeObject):
     metadata: UntypedStripeObject[str]
     """
     Additional information about the object in a structured format.
+    """
+    mode: Literal["replace", "upsert"]
+    """
+    The import strategy for handling existing catalog data.
     """
     object: Literal["v2.commerce.product_catalog_import"]
     """

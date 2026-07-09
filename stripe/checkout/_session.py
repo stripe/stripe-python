@@ -1585,6 +1585,22 @@ class Session(
             When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
             """
 
+        class Sunbit(StripeObject):
+            capture_method: Optional[Literal["manual"]]
+            """
+            Controls when the funds will be captured from the customer's account.
+            """
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+            """
+
         class Swish(StripeObject):
             reference: Optional[str]
             """
@@ -1698,6 +1714,26 @@ class Session(
                 "financial_connections": FinancialConnections
             }
 
+        class WechatPay(StripeObject):
+            app_id: Optional[str]
+            """
+            The app ID registered with WeChat Pay. Only required when client is iOS or Android.
+            """
+            client: Optional[Literal["android", "ios", "web"]]
+            """
+            The client type that the end customer will pay from
+            """
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+            """
+
         acss_debit: Optional[AcssDebit]
         affirm: Optional[Affirm]
         afterpay_clearpay: Optional[AfterpayClearpay]
@@ -1738,10 +1774,12 @@ class Session(
         scalapay: Optional[Scalapay]
         sepa_debit: Optional[SepaDebit]
         sofort: Optional[Sofort]
+        sunbit: Optional[Sunbit]
         swish: Optional[Swish]
         twint: Optional[Twint]
         upi: Optional[Upi]
         us_bank_account: Optional[UsBankAccount]
+        wechat_pay: Optional[WechatPay]
         _inner_class_types = {
             "acss_debit": AcssDebit,
             "affirm": Affirm,
@@ -1783,10 +1821,12 @@ class Session(
             "scalapay": Scalapay,
             "sepa_debit": SepaDebit,
             "sofort": Sofort,
+            "sunbit": Sunbit,
             "swish": Swish,
             "twint": Twint,
             "upi": Upi,
             "us_bank_account": UsBankAccount,
+            "wechat_pay": WechatPay,
         }
 
     class Permissions(StripeObject):
