@@ -85,7 +85,6 @@ class HTTPClient(object):
 
     MAX_DELAY = 5
     INITIAL_DELAY = 0.5
-    MAX_RETRY_AFTER = 60
     _proxy: Optional[_Proxy]
     _verify_ssl_certs: bool
 
@@ -162,23 +161,7 @@ class HTTPClient(object):
 
         return False
 
-    def _retry_after_header(
-        self, response: Optional[Tuple[Any, Any, Mapping[str, str]]] = None
-    ):
-        if response is None:
-            return None
-        _, _, rheaders = response
-
-        try:
-            return int(rheaders["retry-after"])
-        except (KeyError, ValueError):
-            return None
-
-    def _sleep_time_seconds(
-        self,
-        num_retries: int,
-        response: Optional[Tuple[Any, Any, Mapping[str, str]]] = None,
-    ) -> float:
+    def _sleep_time_seconds(self, num_retries: int) -> float:
         """
         Apply exponential backoff with initial_network_retry_delay on the number of num_retries so far as inputs.
         Do not allow the number to exceed `max_network_retry_delay`.
@@ -192,11 +175,6 @@ class HTTPClient(object):
 
         # But never sleep less than the base sleep seconds.
         sleep_seconds = max(HTTPClient.INITIAL_DELAY, sleep_seconds)
-
-        # And never sleep less than the time the API asks us to wait, assuming it's a reasonable ask.
-        retry_after = self._retry_after_header(response) or 0
-        if retry_after <= HTTPClient.MAX_RETRY_AFTER:
-            sleep_seconds = max(retry_after, sleep_seconds)
 
         return sleep_seconds
 
@@ -311,7 +289,7 @@ class HTTPClient(object):
                         % connection_error.user_message
                     )
                 num_retries += 1
-                sleep_time = self._sleep_time_seconds(num_retries, response)
+                sleep_time = self._sleep_time_seconds(num_retries)
                 _util.log_info(
                     (
                         "Initiating retry %i for request %s %s after "
@@ -469,7 +447,7 @@ class HTTPClient(object):
                         % connection_error.user_message
                     )
                 num_retries += 1
-                sleep_time = self._sleep_time_seconds(num_retries, response)
+                sleep_time = self._sleep_time_seconds(num_retries)
                 _util.log_info(
                     (
                         "Initiating retry %i for request %s %s after "

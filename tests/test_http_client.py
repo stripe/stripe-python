@@ -168,23 +168,6 @@ class TestRetrySleepTimeDefaultHttpClient:
         expected = [0.5, 1.0, 2.0, 4.0, max_delay, max_delay, max_delay]
         self.assert_sleep_times(client, expected)
 
-    def test_retry_after_header(self):
-        client = _http_client.new_default_http_client()
-        client._add_jitter_time = lambda sleep_seconds: sleep_seconds
-
-        # Prefer retry-after if it's bigger
-        assert 30 == client._sleep_time_seconds(
-            2, (None, 409, {"retry-after": "30"})
-        )
-        # Prefer default if it's bigger
-        assert 2 == client._sleep_time_seconds(
-            3, (None, 409, {"retry-after": "1"})
-        )
-        # Ignore crazy-big values
-        assert 1 == client._sleep_time_seconds(
-            2, (None, 409, {"retry-after": "300"})
-        )
-
     def test_randomness_added(self):
         client = _http_client.new_default_http_client()
         random_value = 0.8
