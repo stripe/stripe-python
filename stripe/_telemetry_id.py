@@ -22,28 +22,29 @@ def get_telemetry_id() -> Optional[str]:
     global _cached_id, _loaded
     if _loaded:
         return _cached_id
-    _loaded = True
-
-    config_dir = get_config_dir()
-    if config_dir is None:
-        return None
-
-    file_path = config_dir / "telemetry_id"
 
     try:
-        if content := file_path.read_text().strip():
-            _cached_id = content
-            return _cached_id
-    except OSError:
-        pass
+        if (config_dir := get_config_dir()) is None:
+            return None
 
-    new_id = secrets.token_hex(16)
+        file_path = config_dir / "telemetry_id"
 
-    try:
-        config_dir.mkdir(parents=True, exist_ok=True)
-        file_path.write_text(new_id)
-    except OSError:
-        return None
+        try:
+            if content := file_path.read_text().strip():
+                _cached_id = content
+                return _cached_id
+        except OSError:
+            pass
 
-    _cached_id = new_id
-    return _cached_id
+        new_id = secrets.token_hex(16)
+
+        try:
+            config_dir.mkdir(parents=True, exist_ok=True)
+            file_path.write_text(new_id)
+        except OSError:
+            return None
+
+        _cached_id = new_id
+        return _cached_id
+    finally:
+        _loaded = True
