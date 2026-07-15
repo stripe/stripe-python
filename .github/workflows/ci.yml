@@ -118,34 +118,20 @@ jobs:
       startsWith(github.ref, 'refs/tags/v')
     needs: [build, test, lint]
     runs-on: "ubuntu-24.04"
+    environment: publish
     permissions:
       contents: read
+      id-token: write
     steps:
-      - uses: extractions/setup-just@v2
-      - uses: actions/checkout@v3
       - name: Download all workflow run artifacts
         uses: actions/download-artifact@v4
         with:
           name: dist
           path: dist
-      - name: Set up Python 3
-        uses: actions/setup-python@v4
-        with:
-          python-version: "3.10"
-
-      - name: Install tools
-        run: just install-build-deps
-
       - name: Publish packages to PyPI
-        # could probably move this into a just recipe too?
-        run: |
-          set -ex
-          source .venv/bin/activate
-
-          python -m twine upload --verbose dist/*
-        env:
-          TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
-          TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: dist/
       - uses: stripe/openapi/actions/notify-release@master
         if: always()
         with:
