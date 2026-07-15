@@ -16,7 +16,7 @@ class ConfigurationUpdateParams(TypedDict):
     """
     default_return_url: NotRequired["Literal['']|str"]
     """
-    The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overriden](https://docs.stripe.com/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session.
+    The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overridden](https://docs.stripe.com/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session.
     """
     expand: NotRequired[List[str]]
     """

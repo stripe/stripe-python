@@ -513,6 +513,7 @@ class FundingInstructions(StripeObject):
                     Literal[
                         "ach",
                         "bacs",
+                        "chaps",
                         "domestic_wire_us",
                         "fps",
                         "sepa",

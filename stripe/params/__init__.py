@@ -450,10 +450,6 @@ if TYPE_CHECKING:
         AccountSessionCreateParamsComponentsFinancialAccountFeatures as AccountSessionCreateParamsComponentsFinancialAccountFeatures,
         AccountSessionCreateParamsComponentsFinancialAccountTransactions as AccountSessionCreateParamsComponentsFinancialAccountTransactions,
         AccountSessionCreateParamsComponentsFinancialAccountTransactionsFeatures as AccountSessionCreateParamsComponentsFinancialAccountTransactionsFeatures,
-        AccountSessionCreateParamsComponentsFinancialAccounts as AccountSessionCreateParamsComponentsFinancialAccounts,
-        AccountSessionCreateParamsComponentsFinancialAccountsFeatures as AccountSessionCreateParamsComponentsFinancialAccountsFeatures,
-        AccountSessionCreateParamsComponentsFinancialAccountsTransactions as AccountSessionCreateParamsComponentsFinancialAccountsTransactions,
-        AccountSessionCreateParamsComponentsFinancialAccountsTransactionsFeatures as AccountSessionCreateParamsComponentsFinancialAccountsTransactionsFeatures,
         AccountSessionCreateParamsComponentsInstantPayoutsPromotion as AccountSessionCreateParamsComponentsInstantPayoutsPromotion,
         AccountSessionCreateParamsComponentsInstantPayoutsPromotionFeatures as AccountSessionCreateParamsComponentsInstantPayoutsPromotionFeatures,
         AccountSessionCreateParamsComponentsIssuingCard as AccountSessionCreateParamsComponentsIssuingCard,
@@ -482,8 +478,6 @@ if TYPE_CHECKING:
         AccountSessionCreateParamsComponentsProductTaxCodeSelectorFeatures as AccountSessionCreateParamsComponentsProductTaxCodeSelectorFeatures,
         AccountSessionCreateParamsComponentsRecipients as AccountSessionCreateParamsComponentsRecipients,
         AccountSessionCreateParamsComponentsRecipientsFeatures as AccountSessionCreateParamsComponentsRecipientsFeatures,
-        AccountSessionCreateParamsComponentsRecipientsList as AccountSessionCreateParamsComponentsRecipientsList,
-        AccountSessionCreateParamsComponentsRecipientsListFeatures as AccountSessionCreateParamsComponentsRecipientsListFeatures,
         AccountSessionCreateParamsComponentsReportingChart as AccountSessionCreateParamsComponentsReportingChart,
         AccountSessionCreateParamsComponentsReportingChartFeatures as AccountSessionCreateParamsComponentsReportingChartFeatures,
         AccountSessionCreateParamsComponentsTaxRegistrations as AccountSessionCreateParamsComponentsTaxRegistrations,
@@ -1478,21 +1472,6 @@ if TYPE_CHECKING:
     )
     from stripe.params._file_retrieve_params import (
         FileRetrieveParams as FileRetrieveParams,
-    )
-    from stripe.params._fr_meal_vouchers_onboarding_create_params import (
-        FrMealVouchersOnboardingCreateParams as FrMealVouchersOnboardingCreateParams,
-    )
-    from stripe.params._fr_meal_vouchers_onboarding_list_params import (
-        FrMealVouchersOnboardingListParams as FrMealVouchersOnboardingListParams,
-    )
-    from stripe.params._fr_meal_vouchers_onboarding_modify_params import (
-        FrMealVouchersOnboardingModifyParams as FrMealVouchersOnboardingModifyParams,
-    )
-    from stripe.params._fr_meal_vouchers_onboarding_retrieve_params import (
-        FrMealVouchersOnboardingRetrieveParams as FrMealVouchersOnboardingRetrieveParams,
-    )
-    from stripe.params._fr_meal_vouchers_onboarding_update_params import (
-        FrMealVouchersOnboardingUpdateParams as FrMealVouchersOnboardingUpdateParams,
     )
     from stripe.params._fx_quote_create_params import (
         FxQuoteCreateParams as FxQuoteCreateParams,
@@ -4495,6 +4474,15 @@ if TYPE_CHECKING:
         PaymentMethodUpdateParamsPayto as PaymentMethodUpdateParamsPayto,
         PaymentMethodUpdateParamsUsBankAccount as PaymentMethodUpdateParamsUsBankAccount,
     )
+    from stripe.params._payment_record_create_params import (
+        PaymentRecordCreateParams as PaymentRecordCreateParams,
+        PaymentRecordCreateParamsAmount as PaymentRecordCreateParamsAmount,
+        PaymentRecordCreateParamsClosed as PaymentRecordCreateParamsClosed,
+        PaymentRecordCreateParamsFunded as PaymentRecordCreateParamsFunded,
+        PaymentRecordCreateParamsFundedAmount as PaymentRecordCreateParamsFundedAmount,
+        PaymentRecordCreateParamsProcessorDetails as PaymentRecordCreateParamsProcessorDetails,
+        PaymentRecordCreateParamsProcessorDetailsCustom as PaymentRecordCreateParamsProcessorDetailsCustom,
+    )
     from stripe.params._payment_record_report_payment_attempt_canceled_params import (
         PaymentRecordReportPaymentAttemptCanceledParams as PaymentRecordReportPaymentAttemptCanceledParams,
     )
@@ -5955,6 +5943,17 @@ if TYPE_CHECKING:
         SubscriptionScheduleCreateParamsDefaultSettingsInvoiceSettings as SubscriptionScheduleCreateParamsDefaultSettingsInvoiceSettings,
         SubscriptionScheduleCreateParamsDefaultSettingsInvoiceSettingsIssuer as SubscriptionScheduleCreateParamsDefaultSettingsInvoiceSettingsIssuer,
         SubscriptionScheduleCreateParamsDefaultSettingsTransferData as SubscriptionScheduleCreateParamsDefaultSettingsTransferData,
+        SubscriptionScheduleCreateParamsPauseSchedule as SubscriptionScheduleCreateParamsPauseSchedule,
+        SubscriptionScheduleCreateParamsPauseSchedulePause as SubscriptionScheduleCreateParamsPauseSchedulePause,
+        SubscriptionScheduleCreateParamsPauseSchedulePausePauseAt as SubscriptionScheduleCreateParamsPauseSchedulePausePauseAt,
+        SubscriptionScheduleCreateParamsPauseSchedulePauseSettings as SubscriptionScheduleCreateParamsPauseSchedulePauseSettings,
+        SubscriptionScheduleCreateParamsPauseSchedulePauseSettingsBillFor as SubscriptionScheduleCreateParamsPauseSchedulePauseSettingsBillFor,
+        SubscriptionScheduleCreateParamsPauseSchedulePauseSettingsBillForOutstandingUsageThrough as SubscriptionScheduleCreateParamsPauseSchedulePauseSettingsBillForOutstandingUsageThrough,
+        SubscriptionScheduleCreateParamsPauseSchedulePauseSettingsBillForUnusedTimeFrom as SubscriptionScheduleCreateParamsPauseSchedulePauseSettingsBillForUnusedTimeFrom,
+        SubscriptionScheduleCreateParamsPauseScheduleResume as SubscriptionScheduleCreateParamsPauseScheduleResume,
+        SubscriptionScheduleCreateParamsPauseScheduleResumeResumeAt as SubscriptionScheduleCreateParamsPauseScheduleResumeResumeAt,
+        SubscriptionScheduleCreateParamsPauseScheduleResumeResumeAtDuration as SubscriptionScheduleCreateParamsPauseScheduleResumeResumeAtDuration,
+        SubscriptionScheduleCreateParamsPauseScheduleResumeSettings as SubscriptionScheduleCreateParamsPauseScheduleResumeSettings,
         SubscriptionScheduleCreateParamsPhase as SubscriptionScheduleCreateParamsPhase,
         SubscriptionScheduleCreateParamsPhaseAddInvoiceItem as SubscriptionScheduleCreateParamsPhaseAddInvoiceItem,
         SubscriptionScheduleCreateParamsPhaseAddInvoiceItemDiscount as SubscriptionScheduleCreateParamsPhaseAddInvoiceItemDiscount,
@@ -6013,6 +6012,17 @@ if TYPE_CHECKING:
         SubscriptionScheduleModifyParamsDefaultSettingsInvoiceSettings as SubscriptionScheduleModifyParamsDefaultSettingsInvoiceSettings,
         SubscriptionScheduleModifyParamsDefaultSettingsInvoiceSettingsIssuer as SubscriptionScheduleModifyParamsDefaultSettingsInvoiceSettingsIssuer,
         SubscriptionScheduleModifyParamsDefaultSettingsTransferData as SubscriptionScheduleModifyParamsDefaultSettingsTransferData,
+        SubscriptionScheduleModifyParamsPauseSchedule as SubscriptionScheduleModifyParamsPauseSchedule,
+        SubscriptionScheduleModifyParamsPauseSchedulePause as SubscriptionScheduleModifyParamsPauseSchedulePause,
+        SubscriptionScheduleModifyParamsPauseSchedulePausePauseAt as SubscriptionScheduleModifyParamsPauseSchedulePausePauseAt,
+        SubscriptionScheduleModifyParamsPauseSchedulePauseSettings as SubscriptionScheduleModifyParamsPauseSchedulePauseSettings,
+        SubscriptionScheduleModifyParamsPauseSchedulePauseSettingsBillFor as SubscriptionScheduleModifyParamsPauseSchedulePauseSettingsBillFor,
+        SubscriptionScheduleModifyParamsPauseSchedulePauseSettingsBillForOutstandingUsageThrough as SubscriptionScheduleModifyParamsPauseSchedulePauseSettingsBillForOutstandingUsageThrough,
+        SubscriptionScheduleModifyParamsPauseSchedulePauseSettingsBillForUnusedTimeFrom as SubscriptionScheduleModifyParamsPauseSchedulePauseSettingsBillForUnusedTimeFrom,
+        SubscriptionScheduleModifyParamsPauseScheduleResume as SubscriptionScheduleModifyParamsPauseScheduleResume,
+        SubscriptionScheduleModifyParamsPauseScheduleResumeResumeAt as SubscriptionScheduleModifyParamsPauseScheduleResumeResumeAt,
+        SubscriptionScheduleModifyParamsPauseScheduleResumeResumeAtDuration as SubscriptionScheduleModifyParamsPauseScheduleResumeResumeAtDuration,
+        SubscriptionScheduleModifyParamsPauseScheduleResumeSettings as SubscriptionScheduleModifyParamsPauseScheduleResumeSettings,
         SubscriptionScheduleModifyParamsPhase as SubscriptionScheduleModifyParamsPhase,
         SubscriptionScheduleModifyParamsPhaseAddInvoiceItem as SubscriptionScheduleModifyParamsPhaseAddInvoiceItem,
         SubscriptionScheduleModifyParamsPhaseAddInvoiceItemDiscount as SubscriptionScheduleModifyParamsPhaseAddInvoiceItemDiscount,
@@ -6070,6 +6080,17 @@ if TYPE_CHECKING:
         SubscriptionScheduleUpdateParamsDefaultSettingsInvoiceSettings as SubscriptionScheduleUpdateParamsDefaultSettingsInvoiceSettings,
         SubscriptionScheduleUpdateParamsDefaultSettingsInvoiceSettingsIssuer as SubscriptionScheduleUpdateParamsDefaultSettingsInvoiceSettingsIssuer,
         SubscriptionScheduleUpdateParamsDefaultSettingsTransferData as SubscriptionScheduleUpdateParamsDefaultSettingsTransferData,
+        SubscriptionScheduleUpdateParamsPauseSchedule as SubscriptionScheduleUpdateParamsPauseSchedule,
+        SubscriptionScheduleUpdateParamsPauseSchedulePause as SubscriptionScheduleUpdateParamsPauseSchedulePause,
+        SubscriptionScheduleUpdateParamsPauseSchedulePausePauseAt as SubscriptionScheduleUpdateParamsPauseSchedulePausePauseAt,
+        SubscriptionScheduleUpdateParamsPauseSchedulePauseSettings as SubscriptionScheduleUpdateParamsPauseSchedulePauseSettings,
+        SubscriptionScheduleUpdateParamsPauseSchedulePauseSettingsBillFor as SubscriptionScheduleUpdateParamsPauseSchedulePauseSettingsBillFor,
+        SubscriptionScheduleUpdateParamsPauseSchedulePauseSettingsBillForOutstandingUsageThrough as SubscriptionScheduleUpdateParamsPauseSchedulePauseSettingsBillForOutstandingUsageThrough,
+        SubscriptionScheduleUpdateParamsPauseSchedulePauseSettingsBillForUnusedTimeFrom as SubscriptionScheduleUpdateParamsPauseSchedulePauseSettingsBillForUnusedTimeFrom,
+        SubscriptionScheduleUpdateParamsPauseScheduleResume as SubscriptionScheduleUpdateParamsPauseScheduleResume,
+        SubscriptionScheduleUpdateParamsPauseScheduleResumeResumeAt as SubscriptionScheduleUpdateParamsPauseScheduleResumeResumeAt,
+        SubscriptionScheduleUpdateParamsPauseScheduleResumeResumeAtDuration as SubscriptionScheduleUpdateParamsPauseScheduleResumeResumeAtDuration,
+        SubscriptionScheduleUpdateParamsPauseScheduleResumeSettings as SubscriptionScheduleUpdateParamsPauseScheduleResumeSettings,
         SubscriptionScheduleUpdateParamsPhase as SubscriptionScheduleUpdateParamsPhase,
         SubscriptionScheduleUpdateParamsPhaseAddInvoiceItem as SubscriptionScheduleUpdateParamsPhaseAddInvoiceItem,
         SubscriptionScheduleUpdateParamsPhaseAddInvoiceItemDiscount as SubscriptionScheduleUpdateParamsPhaseAddInvoiceItemDiscount,
@@ -7712,22 +7733,6 @@ _import_map = {
         "stripe.params._account_session_create_params",
         False,
     ),
-    "AccountSessionCreateParamsComponentsFinancialAccounts": (
-        "stripe.params._account_session_create_params",
-        False,
-    ),
-    "AccountSessionCreateParamsComponentsFinancialAccountsFeatures": (
-        "stripe.params._account_session_create_params",
-        False,
-    ),
-    "AccountSessionCreateParamsComponentsFinancialAccountsTransactions": (
-        "stripe.params._account_session_create_params",
-        False,
-    ),
-    "AccountSessionCreateParamsComponentsFinancialAccountsTransactionsFeatures": (
-        "stripe.params._account_session_create_params",
-        False,
-    ),
     "AccountSessionCreateParamsComponentsInstantPayoutsPromotion": (
         "stripe.params._account_session_create_params",
         False,
@@ -7837,14 +7842,6 @@ _import_map = {
         False,
     ),
     "AccountSessionCreateParamsComponentsRecipientsFeatures": (
-        "stripe.params._account_session_create_params",
-        False,
-    ),
-    "AccountSessionCreateParamsComponentsRecipientsList": (
-        "stripe.params._account_session_create_params",
-        False,
-    ),
-    "AccountSessionCreateParamsComponentsRecipientsListFeatures": (
         "stripe.params._account_session_create_params",
         False,
     ),
@@ -10644,26 +10641,6 @@ _import_map = {
     "FileListParams": ("stripe.params._file_list_params", False),
     "FileListParamsCreated": ("stripe.params._file_list_params", False),
     "FileRetrieveParams": ("stripe.params._file_retrieve_params", False),
-    "FrMealVouchersOnboardingCreateParams": (
-        "stripe.params._fr_meal_vouchers_onboarding_create_params",
-        False,
-    ),
-    "FrMealVouchersOnboardingListParams": (
-        "stripe.params._fr_meal_vouchers_onboarding_list_params",
-        False,
-    ),
-    "FrMealVouchersOnboardingModifyParams": (
-        "stripe.params._fr_meal_vouchers_onboarding_modify_params",
-        False,
-    ),
-    "FrMealVouchersOnboardingRetrieveParams": (
-        "stripe.params._fr_meal_vouchers_onboarding_retrieve_params",
-        False,
-    ),
-    "FrMealVouchersOnboardingUpdateParams": (
-        "stripe.params._fr_meal_vouchers_onboarding_update_params",
-        False,
-    ),
     "FxQuoteCreateParams": ("stripe.params._fx_quote_create_params", False),
     "FxQuoteCreateParamsUsage": (
         "stripe.params._fx_quote_create_params",
@@ -21584,6 +21561,34 @@ _import_map = {
         "stripe.params._payment_method_update_params",
         False,
     ),
+    "PaymentRecordCreateParams": (
+        "stripe.params._payment_record_create_params",
+        False,
+    ),
+    "PaymentRecordCreateParamsAmount": (
+        "stripe.params._payment_record_create_params",
+        False,
+    ),
+    "PaymentRecordCreateParamsClosed": (
+        "stripe.params._payment_record_create_params",
+        False,
+    ),
+    "PaymentRecordCreateParamsFunded": (
+        "stripe.params._payment_record_create_params",
+        False,
+    ),
+    "PaymentRecordCreateParamsFundedAmount": (
+        "stripe.params._payment_record_create_params",
+        False,
+    ),
+    "PaymentRecordCreateParamsProcessorDetails": (
+        "stripe.params._payment_record_create_params",
+        False,
+    ),
+    "PaymentRecordCreateParamsProcessorDetailsCustom": (
+        "stripe.params._payment_record_create_params",
+        False,
+    ),
     "PaymentRecordReportPaymentAttemptCanceledParams": (
         "stripe.params._payment_record_report_payment_attempt_canceled_params",
         False,
@@ -26221,6 +26226,50 @@ _import_map = {
         "stripe.params._subscription_schedule_create_params",
         False,
     ),
+    "SubscriptionScheduleCreateParamsPauseSchedule": (
+        "stripe.params._subscription_schedule_create_params",
+        False,
+    ),
+    "SubscriptionScheduleCreateParamsPauseSchedulePause": (
+        "stripe.params._subscription_schedule_create_params",
+        False,
+    ),
+    "SubscriptionScheduleCreateParamsPauseSchedulePausePauseAt": (
+        "stripe.params._subscription_schedule_create_params",
+        False,
+    ),
+    "SubscriptionScheduleCreateParamsPauseSchedulePauseSettings": (
+        "stripe.params._subscription_schedule_create_params",
+        False,
+    ),
+    "SubscriptionScheduleCreateParamsPauseSchedulePauseSettingsBillFor": (
+        "stripe.params._subscription_schedule_create_params",
+        False,
+    ),
+    "SubscriptionScheduleCreateParamsPauseSchedulePauseSettingsBillForOutstandingUsageThrough": (
+        "stripe.params._subscription_schedule_create_params",
+        False,
+    ),
+    "SubscriptionScheduleCreateParamsPauseSchedulePauseSettingsBillForUnusedTimeFrom": (
+        "stripe.params._subscription_schedule_create_params",
+        False,
+    ),
+    "SubscriptionScheduleCreateParamsPauseScheduleResume": (
+        "stripe.params._subscription_schedule_create_params",
+        False,
+    ),
+    "SubscriptionScheduleCreateParamsPauseScheduleResumeResumeAt": (
+        "stripe.params._subscription_schedule_create_params",
+        False,
+    ),
+    "SubscriptionScheduleCreateParamsPauseScheduleResumeResumeAtDuration": (
+        "stripe.params._subscription_schedule_create_params",
+        False,
+    ),
+    "SubscriptionScheduleCreateParamsPauseScheduleResumeSettings": (
+        "stripe.params._subscription_schedule_create_params",
+        False,
+    ),
     "SubscriptionScheduleCreateParamsPhase": (
         "stripe.params._subscription_schedule_create_params",
         False,
@@ -26437,6 +26486,50 @@ _import_map = {
         "stripe.params._subscription_schedule_modify_params",
         False,
     ),
+    "SubscriptionScheduleModifyParamsPauseSchedule": (
+        "stripe.params._subscription_schedule_modify_params",
+        False,
+    ),
+    "SubscriptionScheduleModifyParamsPauseSchedulePause": (
+        "stripe.params._subscription_schedule_modify_params",
+        False,
+    ),
+    "SubscriptionScheduleModifyParamsPauseSchedulePausePauseAt": (
+        "stripe.params._subscription_schedule_modify_params",
+        False,
+    ),
+    "SubscriptionScheduleModifyParamsPauseSchedulePauseSettings": (
+        "stripe.params._subscription_schedule_modify_params",
+        False,
+    ),
+    "SubscriptionScheduleModifyParamsPauseSchedulePauseSettingsBillFor": (
+        "stripe.params._subscription_schedule_modify_params",
+        False,
+    ),
+    "SubscriptionScheduleModifyParamsPauseSchedulePauseSettingsBillForOutstandingUsageThrough": (
+        "stripe.params._subscription_schedule_modify_params",
+        False,
+    ),
+    "SubscriptionScheduleModifyParamsPauseSchedulePauseSettingsBillForUnusedTimeFrom": (
+        "stripe.params._subscription_schedule_modify_params",
+        False,
+    ),
+    "SubscriptionScheduleModifyParamsPauseScheduleResume": (
+        "stripe.params._subscription_schedule_modify_params",
+        False,
+    ),
+    "SubscriptionScheduleModifyParamsPauseScheduleResumeResumeAt": (
+        "stripe.params._subscription_schedule_modify_params",
+        False,
+    ),
+    "SubscriptionScheduleModifyParamsPauseScheduleResumeResumeAtDuration": (
+        "stripe.params._subscription_schedule_modify_params",
+        False,
+    ),
+    "SubscriptionScheduleModifyParamsPauseScheduleResumeSettings": (
+        "stripe.params._subscription_schedule_modify_params",
+        False,
+    ),
     "SubscriptionScheduleModifyParamsPhase": (
         "stripe.params._subscription_schedule_modify_params",
         False,
@@ -26638,6 +26731,50 @@ _import_map = {
         False,
     ),
     "SubscriptionScheduleUpdateParamsDefaultSettingsTransferData": (
+        "stripe.params._subscription_schedule_update_params",
+        False,
+    ),
+    "SubscriptionScheduleUpdateParamsPauseSchedule": (
+        "stripe.params._subscription_schedule_update_params",
+        False,
+    ),
+    "SubscriptionScheduleUpdateParamsPauseSchedulePause": (
+        "stripe.params._subscription_schedule_update_params",
+        False,
+    ),
+    "SubscriptionScheduleUpdateParamsPauseSchedulePausePauseAt": (
+        "stripe.params._subscription_schedule_update_params",
+        False,
+    ),
+    "SubscriptionScheduleUpdateParamsPauseSchedulePauseSettings": (
+        "stripe.params._subscription_schedule_update_params",
+        False,
+    ),
+    "SubscriptionScheduleUpdateParamsPauseSchedulePauseSettingsBillFor": (
+        "stripe.params._subscription_schedule_update_params",
+        False,
+    ),
+    "SubscriptionScheduleUpdateParamsPauseSchedulePauseSettingsBillForOutstandingUsageThrough": (
+        "stripe.params._subscription_schedule_update_params",
+        False,
+    ),
+    "SubscriptionScheduleUpdateParamsPauseSchedulePauseSettingsBillForUnusedTimeFrom": (
+        "stripe.params._subscription_schedule_update_params",
+        False,
+    ),
+    "SubscriptionScheduleUpdateParamsPauseScheduleResume": (
+        "stripe.params._subscription_schedule_update_params",
+        False,
+    ),
+    "SubscriptionScheduleUpdateParamsPauseScheduleResumeResumeAt": (
+        "stripe.params._subscription_schedule_update_params",
+        False,
+    ),
+    "SubscriptionScheduleUpdateParamsPauseScheduleResumeResumeAtDuration": (
+        "stripe.params._subscription_schedule_update_params",
+        False,
+    ),
+    "SubscriptionScheduleUpdateParamsPauseScheduleResumeSettings": (
         "stripe.params._subscription_schedule_update_params",
         False,
     ),

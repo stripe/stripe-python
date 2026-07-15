@@ -324,7 +324,7 @@ class PaymentMethodService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentMethod":
         """
-        Detaches a PaymentMethod object from a Customer. After a PaymentMethod is detached, it can no longer be used for a payment or re-attached to a Customer.
+        Detaches a PaymentMethod object from a Customer. Detachment is permanent and irreversible — once detached, a PaymentMethod can no longer be used for payments or re-attached to a Customer.
         """
         return cast(
             "PaymentMethod",
@@ -346,7 +346,7 @@ class PaymentMethodService(StripeService):
         options: Optional["RequestOptions"] = None,
     ) -> "PaymentMethod":
         """
-        Detaches a PaymentMethod object from a Customer. After a PaymentMethod is detached, it can no longer be used for a payment or re-attached to a Customer.
+        Detaches a PaymentMethod object from a Customer. Detachment is permanent and irreversible — once detached, a PaymentMethod can no longer be used for payments or re-attached to a Customer.
         """
         return cast(
             "PaymentMethod",

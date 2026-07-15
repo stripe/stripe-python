@@ -509,7 +509,7 @@ class TransactionCreateForceCaptureParamsPurchaseDetailsFleetReportedBreakdownFu
 ):
     gross_amount_decimal: NotRequired[Decimal]
     """
-    Gross fuel amount that should equal Fuel Volume multipled by Fuel Unit Cost, inclusive of taxes.
+    Gross fuel amount that should equal Fuel Volume multiplied by Fuel Unit Cost, inclusive of taxes.
     """
 
 

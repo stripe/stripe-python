@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._search_result_object import SearchResultObject
 from stripe._searchable_api_resource import SearchableAPIResource
@@ -19,6 +20,9 @@ from typing_extensions import Literal, Unpack, TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe._mandate import Mandate
     from stripe._payment_method import PaymentMethod
+    from stripe.params._payment_record_create_params import (
+        PaymentRecordCreateParams,
+    )
     from stripe.params._payment_record_report_payment_attempt_canceled_params import (
         PaymentRecordReportPaymentAttemptCanceledParams,
     )
@@ -48,7 +52,10 @@ if TYPE_CHECKING:
     )
 
 
-class PaymentRecord(SearchableAPIResource["PaymentRecord"]):
+class PaymentRecord(
+    CreateableAPIResource["PaymentRecord"],
+    SearchableAPIResource["PaymentRecord"],
+):
     """
     A Payment Record is a resource that allows you to represent payments that occur on- or off-Stripe.
     For example, you can create a Payment Record to model a payment made on a different payment processor,
@@ -2431,6 +2438,40 @@ class PaymentRecord(SearchableAPIResource["PaymentRecord"]):
     """
     Shipping information for this payment.
     """
+
+    @classmethod
+    def create(
+        cls, **params: Unpack["PaymentRecordCreateParams"]
+    ) -> "PaymentRecord":
+        """
+        Report that the most recent payment attempt on the specified Payment Record
+         was disputed.
+        """
+        return cast(
+            "PaymentRecord",
+            cls._static_request(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def create_async(
+        cls, **params: Unpack["PaymentRecordCreateParams"]
+    ) -> "PaymentRecord":
+        """
+        Report that the most recent payment attempt on the specified Payment Record
+         was disputed.
+        """
+        return cast(
+            "PaymentRecord",
+            await cls._static_request_async(
+                "post",
+                cls.class_url(),
+                params=params,
+            ),
+        )
 
     @classmethod
     def report_payment(

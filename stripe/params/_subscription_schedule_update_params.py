@@ -39,6 +39,12 @@ class SubscriptionScheduleUpdateParams(TypedDict):
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
+    pause_schedules: NotRequired[
+        "Literal['']|List[SubscriptionScheduleUpdateParamsPauseSchedule]"
+    ]
+    """
+    Sets the pause schedules for the subscription schedule. Include a `key` to update an existing entry or omit it to add a new one. Pass `""` to clear all entries or `[]` to leave them unchanged.
+    """
     phases: NotRequired[List["SubscriptionScheduleUpdateParamsPhase"]]
     """
     List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase. Note that past phases can be omitted.
@@ -256,6 +262,163 @@ class SubscriptionScheduleUpdateParamsDefaultSettingsTransferData(TypedDict):
     """
 
 
+class SubscriptionScheduleUpdateParamsPauseSchedule(TypedDict):
+    key: NotRequired[str]
+    """
+    A unique identifier for this pause schedule entry.
+    """
+    pause: NotRequired["SubscriptionScheduleUpdateParamsPauseSchedulePause"]
+    """
+    Configuration for when and how the subscription pauses.
+    """
+    resume: NotRequired["SubscriptionScheduleUpdateParamsPauseScheduleResume"]
+    """
+    Configuration for when and how the subscription resumes.
+    """
+
+
+class SubscriptionScheduleUpdateParamsPauseSchedulePause(TypedDict):
+    pause_at: NotRequired[
+        "SubscriptionScheduleUpdateParamsPauseSchedulePausePauseAt"
+    ]
+    """
+    When to pause the subscription.
+    """
+    settings: NotRequired[
+        "SubscriptionScheduleUpdateParamsPauseSchedulePauseSettings"
+    ]
+    """
+    Settings controlling billing behavior during the pause.
+    """
+
+
+class SubscriptionScheduleUpdateParamsPauseSchedulePausePauseAt(TypedDict):
+    timestamp: NotRequired[int]
+    """
+    The Unix timestamp at which to pause the subscription. Required when `type` is `timestamp`.
+    """
+    type: Literal["now", "timestamp"]
+    """
+    When to pause the subscription. Use `now` to pause immediately or `timestamp` to pause at a specific time.
+    """
+
+
+class SubscriptionScheduleUpdateParamsPauseSchedulePauseSettings(TypedDict):
+    bill_for: NotRequired[
+        "SubscriptionScheduleUpdateParamsPauseSchedulePauseSettingsBillFor"
+    ]
+    """
+    Controls what to bill for when pausing the subscription.
+    """
+    invoicing_behavior: NotRequired[Literal["invoice", "pending_invoice_item"]]
+    """
+    Determines whether to generate an invoice for outstanding amounts when pausing.
+    """
+    type: NotRequired[Literal["subscription"]]
+    """
+    The pause type. Currently only `subscription` is supported.
+    """
+
+
+class SubscriptionScheduleUpdateParamsPauseSchedulePauseSettingsBillFor(
+    TypedDict,
+):
+    outstanding_usage_through: NotRequired[
+        "SubscriptionScheduleUpdateParamsPauseSchedulePauseSettingsBillForOutstandingUsageThrough"
+    ]
+    """
+    Controls whether to collect metered usage accrued up to the pause date.
+    """
+    unused_time_from: NotRequired[
+        "SubscriptionScheduleUpdateParamsPauseSchedulePauseSettingsBillForUnusedTimeFrom"
+    ]
+    """
+    Controls how unused time on subscription items is credited when pausing.
+    """
+
+
+class SubscriptionScheduleUpdateParamsPauseSchedulePauseSettingsBillForOutstandingUsageThrough(
+    TypedDict,
+):
+    type: NotRequired[Literal["none", "pause_at"]]
+    """
+    Determines whether to collect metered usage accrued up to the pause date.
+    """
+
+
+class SubscriptionScheduleUpdateParamsPauseSchedulePauseSettingsBillForUnusedTimeFrom(
+    TypedDict,
+):
+    type: NotRequired[Literal["item_current_period_start", "none", "pause_at"]]
+    """
+    Determines which point in the billing period unused time is credited from.
+    """
+
+
+class SubscriptionScheduleUpdateParamsPauseScheduleResume(TypedDict):
+    resume_at: NotRequired[
+        "SubscriptionScheduleUpdateParamsPauseScheduleResumeResumeAt"
+    ]
+    """
+    When to resume the subscription.
+    """
+    settings: NotRequired[
+        "SubscriptionScheduleUpdateParamsPauseScheduleResumeSettings"
+    ]
+    """
+    Settings controlling how the subscription resumes.
+    """
+
+
+class SubscriptionScheduleUpdateParamsPauseScheduleResumeResumeAt(TypedDict):
+    duration: NotRequired[
+        "SubscriptionScheduleUpdateParamsPauseScheduleResumeResumeAtDuration"
+    ]
+    """
+    The duration after which to resume the subscription. Required when `type` is `duration`.
+    """
+    timestamp: NotRequired[int]
+    """
+    The Unix timestamp at which to resume the subscription. Required when `type` is `timestamp`.
+    """
+    type: Literal["duration", "now", "timestamp"]
+    """
+    When to resume the subscription. Use `now` to resume immediately, `duration` to resume after a set duration, or `timestamp` to resume at a specific time.
+    """
+
+
+class SubscriptionScheduleUpdateParamsPauseScheduleResumeResumeAtDuration(
+    TypedDict,
+):
+    interval: Literal["day", "month", "week", "year"]
+    """
+    The time unit for the resume duration. One of `day`, `week`, `month`, or `year`.
+    """
+    interval_count: NotRequired[int]
+    """
+    The number of intervals after which the subscription resumes.
+    """
+
+
+class SubscriptionScheduleUpdateParamsPauseScheduleResumeSettings(TypedDict):
+    billing_cycle_anchor: NotRequired[Literal["resume_at", "unchanged"]]
+    """
+    Controls the billing cycle anchor when the subscription resumes.
+    """
+    payment_behavior: NotRequired[
+        Literal["resume_on_payment_attempt", "resume_on_payment_success"]
+    ]
+    """
+    Controls whether Stripe attempts payment on the resumption invoice and how payment affects the subscription's status. The default is `resume_on_payment_attempt`.
+    """
+    proration_behavior: NotRequired[
+        Literal["always_invoice", "create_prorations", "none"]
+    ]
+    """
+    Determines how to handle prorations when the subscription resumes. The default is `create_prorations`.
+    """
+
+
 class SubscriptionScheduleUpdateParamsPhase(TypedDict):
     add_invoice_items: NotRequired[
         List["SubscriptionScheduleUpdateParamsPhaseAddInvoiceItem"]
@@ -373,7 +536,7 @@ class SubscriptionScheduleUpdateParamsPhase(TypedDict):
     """
     trial_end: NotRequired["int|Literal['now']"]
     """
-    Sets the phase to trialing from the start date to this date. Must be before the phase end date, can not be combined with `trial`
+    Sets the phase to trialing from the start date to this date. Must be within the phase. When combined with `trial=true`, it must match the phase end date.
     """
     trial_settings: NotRequired[
         "SubscriptionScheduleUpdateParamsPhaseTrialSettings"

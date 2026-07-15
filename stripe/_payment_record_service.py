@@ -9,6 +9,9 @@ if TYPE_CHECKING:
     from stripe._payment_record import PaymentRecord
     from stripe._request_options import RequestOptions
     from stripe._search_result_object import SearchResultObject
+    from stripe.params._payment_record_create_params import (
+        PaymentRecordCreateParams,
+    )
     from stripe.params._payment_record_report_payment_attempt_canceled_params import (
         PaymentRecordReportPaymentAttemptCanceledParams,
     )
@@ -117,6 +120,52 @@ class PaymentRecordService(StripeService):
             await self._request_async(
                 "get",
                 "/v1/payment_records/search",
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    def create(
+        self,
+        id: str,
+        params: "PaymentRecordCreateParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentRecord":
+        """
+        Report that the most recent payment attempt on the specified Payment Record
+         was disputed.
+        """
+        return cast(
+            "PaymentRecord",
+            self._request(
+                "post",
+                "/v1/payment_records/{id}/report_dispute".format(
+                    id=sanitize_id(id),
+                ),
+                base_address="api",
+                params=params,
+                options=options,
+            ),
+        )
+
+    async def create_async(
+        self,
+        id: str,
+        params: "PaymentRecordCreateParams",
+        options: Optional["RequestOptions"] = None,
+    ) -> "PaymentRecord":
+        """
+        Report that the most recent payment attempt on the specified Payment Record
+         was disputed.
+        """
+        return cast(
+            "PaymentRecord",
+            await self._request_async(
+                "post",
+                "/v1/payment_records/{id}/report_dispute".format(
+                    id=sanitize_id(id),
+                ),
                 base_address="api",
                 params=params,
                 options=options,

@@ -46,6 +46,10 @@ class RefundCreateParams(RequestOptions):
     """
     The identifier of the PaymentIntent to refund.
     """
+    payment_record: NotRequired[str]
+    """
+    The identifier of the PaymentRecord to refund.
+    """
     reason: NotRequired[
         Literal["duplicate", "fraudulent", "requested_by_customer"]
     ]
