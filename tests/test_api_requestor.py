@@ -813,27 +813,16 @@ class TestAPIRequestor(object):
             last_call.get_raw_header("X-Stripe-Client-User-Agent")
         )
 
-    def test_source_field_is_md5_hex(self, requestor, http_client_mock):
-        http_client_mock.stub_request(
-            "get", path=self.v1_path, rbody="{}", rcode=200
-        )
-        requestor.request("get", self.v1_path, {}, base_address="api")
-
-        last_call = http_client_mock.get_last_call()
-        client_ua = json.loads(
-            last_call.get_raw_header("X-Stripe-Client-User-Agent")
-        )
-        assert "source" in client_ua
-        assert re.fullmatch(r"[0-9a-f]{32}", client_ua["source"])
-
-    def test_source_field_absent_when_uname_fails(
+    def test_telemetry_id_field_is_hex(
         self, requestor, mocker, http_client_mock
     ):
         http_client_mock.stub_request(
             "get", path=self.v1_path, rbody="{}", rcode=200
         )
+        mocker.patch("stripe.enable_telemetry", True)
         mocker.patch(
-            "stripe._api_requestor._get_uname_hash", return_value=None
+            "stripe._telemetry_id.get_telemetry_id",
+            return_value="abcdef1234567890abcdef1234567890",
         )
         requestor.request("get", self.v1_path, {}, base_address="api")
 
@@ -841,7 +830,23 @@ class TestAPIRequestor(object):
         client_ua = json.loads(
             last_call.get_raw_header("X-Stripe-Client-User-Agent")
         )
-        assert "source" not in client_ua
+        assert "telemetry_id" in client_ua
+        assert re.fullmatch(r"[0-9a-f]{32}", client_ua["telemetry_id"])
+
+    def test_telemetry_id_absent_when_telemetry_disabled(
+        self, requestor, mocker, http_client_mock
+    ):
+        http_client_mock.stub_request(
+            "get", path=self.v1_path, rbody="{}", rcode=200
+        )
+        mocker.patch("stripe.enable_telemetry", False)
+        requestor.request("get", self.v1_path, {}, base_address="api")
+
+        last_call = http_client_mock.get_last_call()
+        client_ua = json.loads(
+            last_call.get_raw_header("X-Stripe-Client-User-Agent")
+        )
+        assert "telemetry_id" not in client_ua
 
     def test_uses_given_idempotency_key(self, requestor, http_client_mock):
         method = "post"

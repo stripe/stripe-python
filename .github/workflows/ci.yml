@@ -74,15 +74,19 @@ jobs:
           path: dist/
 
   test:
-    runs-on: "ubuntu-24.04"
+    name: Test (${{ matrix.python_version }}, ${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
     permissions:
       contents: read
     strategy:
       fail-fast: false
       matrix:
+        os:
+          - "ubuntu-24.04"
         python_version:
           # The last ~5 versions, once we're on schedule
           # https://docs.stripe.com/sdks/versioning?lang=python#stripe-sdk-language-version-support-policy
+          # https://endoflife.date/python
           - "3.9"
           - "3.10"
           - "3.11"
@@ -92,7 +96,10 @@ jobs:
           - "pypy-3.9"
           - "pypy-3.10"
           - "pypy-3.11"
-    name: Test (${{ matrix.python_version }})
+        include:
+          - os: windows-latest
+            # use any modern-ish version
+            python_version: "3.14"
     steps:
       - uses: extractions/setup-just@v2
       - uses: actions/checkout@v3
@@ -104,6 +111,9 @@ jobs:
 
       - name: "run tests"
         run: just test
+        env:
+          # Use IP instead of 'localhost' to avoid slow DNS resolution on Windows
+          STRIPE_MOCK_HOST: ${{ runner.os == 'Windows' && '127.0.0.1' || 'localhost' }}
 
   publish:
     name: Publish
