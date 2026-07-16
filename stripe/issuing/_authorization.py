@@ -1038,6 +1038,7 @@ class Authorization(
             "not_allowed",
             "pin_blocked",
             "spending_controls",
+            "stripe_internal_error",
             "suspected_fraud",
             "verification_failed",
             "webhook_approved",

@@ -1761,7 +1761,7 @@ class InvoiceCreatePreviewParamsScheduleDetailsPhase(TypedDict):
     """
     trial_end: NotRequired["int|Literal['now']"]
     """
-    Sets the phase to trialing from the start date to this date. Must be before the phase end date, can not be combined with `trial`
+    Sets the phase to trialing from the start date to this date. Must be within the phase. When previewing an update, if combined with `trial=true`, it must match the phase end date.
     """
     trial_settings: NotRequired[
         "InvoiceCreatePreviewParamsScheduleDetailsPhaseTrialSettings"

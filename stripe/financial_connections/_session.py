@@ -92,7 +92,10 @@ class Session(CreateableAPIResource["Session"]):
         """
 
     class ManualEntry(StripeObject):
-        pass
+        mode: Optional[Literal["automatic", "custom", "disabled"]]
+        """
+        Controls how manual entry of bank account details is presented to the user.
+        """
 
     class RelinkOptions(StripeObject):
         account: Optional[str]

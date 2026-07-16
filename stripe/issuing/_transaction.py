@@ -309,6 +309,9 @@ class Transaction(
         The card network over which Stripe received the transaction. This field may differ from the associated card's primary network.
         """
         trace_id: Optional[TraceId]
+        """
+        Mastercard identifier assigned by the card network for the transaction.
+        """
         transaction_id: Optional[str]
         """
         Unique identifier for the authorization assigned by the card network used to match subsequent messages, disputes, and transactions.
@@ -343,7 +346,7 @@ class Transaction(
                 class Fuel(StripeObject):
                     gross_amount_decimal: Optional[Decimal]
                     """
-                    Gross fuel amount that should equal Fuel Volume multipled by Fuel Unit Cost, inclusive of taxes.
+                    Gross fuel amount that should equal Fuel Volume multiplied by Fuel Unit Cost, inclusive of taxes.
                     """
                     _field_encodings = {
                         "gross_amount_decimal": "decimal_string",

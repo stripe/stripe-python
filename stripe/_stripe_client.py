@@ -83,9 +83,6 @@ if TYPE_CHECKING:
         FinancialConnectionsService,
     )
     from stripe._forwarding_service import ForwardingService
-    from stripe._fr_meal_vouchers_onboarding_service import (
-        FrMealVouchersOnboardingService,
-    )
     from stripe._fx_quote_service import FxQuoteService
     from stripe._gift_card_service import GiftCardService
     from stripe._gift_card_operation_service import GiftCardOperationService
@@ -768,19 +765,6 @@ class StripeClient(object):
     )
     def forwarding(self) -> "ForwardingService":
         return self.v1.forwarding
-
-    @property
-    @deprecated(
-        """
-        StripeClient.fr_meal_vouchers_onboardings is deprecated, use StripeClient.v1.fr_meal_vouchers_onboardings instead.
-          All functionality under it has been copied over to StripeClient.v1.fr_meal_vouchers_onboardings.
-          See [migration guide](https://github.com/stripe/stripe-python/wiki/v1-namespace-in-StripeClient) for more on this and tips on migrating to the new v1 namespace.
-        """,
-    )
-    def fr_meal_vouchers_onboardings(
-        self,
-    ) -> "FrMealVouchersOnboardingService":
-        return self.v1.fr_meal_vouchers_onboardings
 
     @property
     @deprecated(

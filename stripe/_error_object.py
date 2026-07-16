@@ -6,6 +6,7 @@ from stripe._api_mode import ApiMode
 
 if TYPE_CHECKING:
     # errorImports: The beginning of the section generated from our OpenAPI spec
+    from stripe._gift_card_operation import GiftCardOperation
     from stripe._payment_intent import PaymentIntent
     from stripe._payment_method import PaymentMethod
     from stripe._setup_intent import SetupIntent
@@ -34,6 +35,10 @@ class ErrorObject(StripeObject):
     doc_url: Optional[str]
     """
     A URL to more information about the [error code](https://docs.stripe.com/error-codes) reported.
+    """
+    gift_card_operation: Optional["GiftCardOperation"]
+    """
+    The GiftCardOperation object for errors returned on a request involving a GiftCardOperation.
     """
     message: Optional[str]
     """
@@ -130,6 +135,7 @@ class ErrorObject(StripeObject):
                 "code": None,
                 "decline_code": None,
                 "doc_url": None,
+                "gift_card_operation": None,
                 "message": None,
                 "network_advice_code": None,
                 "network_decline_code": None,

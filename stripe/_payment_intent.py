@@ -1348,6 +1348,7 @@ class PaymentIntent(
                         Literal[
                             "ach",
                             "bacs",
+                            "chaps",
                             "domestic_wire_us",
                             "fps",
                             "sepa",

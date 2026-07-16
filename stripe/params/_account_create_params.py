@@ -1324,6 +1324,8 @@ class AccountCreateParamsCompany(TypedDict):
     tax_id: NotRequired[str]
     """
     The business ID number of the company, as appropriate for the company's country. (Examples are an Employer ID Number in the U.S., a Business Number in Canada, or a Company Number in the UK.)
+
+    Changing this value requires that the account re-accept the [terms of service](https://docs.stripe.com/api/accounts/object#account_object-tos_acceptance).
     """
     tax_id_registrar: NotRequired[str]
     """

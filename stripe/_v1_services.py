@@ -42,9 +42,6 @@ if TYPE_CHECKING:
         FinancialConnectionsService,
     )
     from stripe._forwarding_service import ForwardingService
-    from stripe._fr_meal_vouchers_onboarding_service import (
-        FrMealVouchersOnboardingService,
-    )
     from stripe._fx_quote_service import FxQuoteService
     from stripe._gift_card_operation_service import GiftCardOperationService
     from stripe._gift_card_service import GiftCardService
@@ -189,10 +186,6 @@ _subservices = {
         "FinancialConnectionsService",
     ],
     "forwarding": ["stripe._forwarding_service", "ForwardingService"],
-    "fr_meal_vouchers_onboardings": [
-        "stripe._fr_meal_vouchers_onboarding_service",
-        "FrMealVouchersOnboardingService",
-    ],
     "fx_quotes": ["stripe._fx_quote_service", "FxQuoteService"],
     "gift_cards": ["stripe._gift_card_service", "GiftCardService"],
     "gift_card_operations": [
@@ -339,7 +332,6 @@ class V1Services(StripeService):
     file_links: "FileLinkService"
     financial_connections: "FinancialConnectionsService"
     forwarding: "ForwardingService"
-    fr_meal_vouchers_onboardings: "FrMealVouchersOnboardingService"
     fx_quotes: "FxQuoteService"
     gift_cards: "GiftCardService"
     gift_card_operations: "GiftCardOperationService"

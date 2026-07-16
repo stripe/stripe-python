@@ -164,7 +164,13 @@ class Card(
         """
         Address validation details for the shipment.
         """
-        carrier: Optional[Literal["dhl", "fedex", "royal_mail", "usps"]]
+        business_name: Optional[str]
+        """
+        The name of the business at the shipping address, used on the shipping label to ensure delivery when the card is shipped to a cardholder's workplace.
+        """
+        carrier: Optional[
+            Literal["correos", "dhl", "fedex", "royal_mail", "usps"]
+        ]
         """
         The delivery company that shipped a card.
         """

@@ -315,6 +315,89 @@ class SubscriptionSchedule(
         """
         _inner_class_types = {"failed_transitions": FailedTransition}
 
+    class PauseSchedule(StripeObject):
+        class Pause(StripeObject):
+            class Settings(StripeObject):
+                class BillFor(StripeObject):
+                    class OutstandingUsageThrough(StripeObject):
+                        type: Literal["none", "pause_at"]
+                        """
+                        The type of outstanding usage billing behavior.
+                        """
+
+                    class UnusedTimeFrom(StripeObject):
+                        type: Literal[
+                            "item_current_period_start", "none", "pause_at"
+                        ]
+                        """
+                        The type of unused time credit behavior.
+                        """
+
+                    outstanding_usage_through: OutstandingUsageThrough
+                    unused_time_from: UnusedTimeFrom
+                    _inner_class_types = {
+                        "outstanding_usage_through": OutstandingUsageThrough,
+                        "unused_time_from": UnusedTimeFrom,
+                    }
+
+                bill_for: BillFor
+                invoicing_behavior: Literal["invoice", "pending_invoice_item"]
+                """
+                Determines how to handle debits and credits when pausing.
+                """
+                type: Literal["subscription"]
+                """
+                The type of pause settings.
+                """
+                _inner_class_types = {"bill_for": BillFor}
+
+            pause_at: int
+            """
+            Time at which the subscription pauses.
+            """
+            settings: Optional[Settings]
+            """
+            Settings controlling billing behavior during the pause.
+            """
+            _inner_class_types = {"settings": Settings}
+
+        class Resume(StripeObject):
+            class Settings(StripeObject):
+                billing_cycle_anchor: Literal["resume_at", "unchanged"]
+                """
+                The billing cycle anchor that applies when the subscription is resumed.
+                """
+                payment_behavior: Literal[
+                    "resume_on_payment_attempt", "resume_on_payment_success"
+                ]
+                """
+                Controls whether Stripe attempts payment on the resumption invoice and how that affects the subscription's status.
+                """
+                proration_behavior: Literal[
+                    "always_invoice", "create_prorations", "none"
+                ]
+                """
+                Determines how to handle prorations resulting from the billing_cycle_anchor change on resume.
+                """
+
+            resume_at: int
+            """
+            Time at which the subscription resumes.
+            """
+            settings: Settings
+            _inner_class_types = {"settings": Settings}
+
+        key: str
+        """
+        A unique identifier for this pause schedule.
+        """
+        pause: Pause
+        resume: Optional[Resume]
+        """
+        Details about when and how the subscription resumes.
+        """
+        _inner_class_types = {"pause": Pause, "resume": Resume}
+
     class Phase(StripeObject):
         class AddInvoiceItem(StripeObject):
             class Discount(StripeObject):
@@ -812,6 +895,10 @@ class SubscriptionSchedule(
         """
         The account (if any) the associated subscription's payments will be attributed to for tax reporting, and where funds from each payment will be transferred to for each of the subscription's invoices.
         """
+        trial: Optional[bool]
+        """
+        If set to true the entire phase is counted as a trial and the customer will not be charged for any fees.
+        """
         trial_continuation: Optional[Literal["continue", "none"]]
         """
         Specify behavior of the trial when crossing schedule phase boundaries
@@ -924,6 +1011,10 @@ class SubscriptionSchedule(
     object: Literal["subscription_schedule"]
     """
     String representing the object's type. Objects of the same type share the same value.
+    """
+    pause_schedules: Optional[List[PauseSchedule]]
+    """
+    The pause schedules for this subscription schedule.
     """
     phases: List[Phase]
     """
@@ -1428,6 +1519,7 @@ class SubscriptionSchedule(
         "current_phase": CurrentPhase,
         "default_settings": DefaultSettings,
         "last_price_migration_error": LastPriceMigrationError,
+        "pause_schedules": PauseSchedule,
         "phases": Phase,
         "prebilling": Prebilling,
     }

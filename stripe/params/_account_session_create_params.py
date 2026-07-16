@@ -117,18 +117,6 @@ class AccountSessionCreateParamsComponents(TypedDict):
     """
     Configuration for the [financial account transactions](https://docs.stripe.com/connect/supported-embedded-components/financial-account-transactions/) embedded component.
     """
-    financial_accounts: NotRequired[
-        "AccountSessionCreateParamsComponentsFinancialAccounts"
-    ]
-    """
-    Configuration for the [financial accounts](https://docs.stripe.com/connect/supported-embedded-components/financial-accounts/) embedded component.
-    """
-    financial_accounts_transactions: NotRequired[
-        "AccountSessionCreateParamsComponentsFinancialAccountsTransactions"
-    ]
-    """
-    Configuration for the [financial accounts transactions](https://docs.stripe.com/connect/supported-embedded-components/financial-accounts-transactions/) embedded component.
-    """
     instant_payouts_promotion: NotRequired[
         "AccountSessionCreateParamsComponentsInstantPayoutsPromotion"
     ]
@@ -206,12 +194,6 @@ class AccountSessionCreateParamsComponents(TypedDict):
     recipients: NotRequired["AccountSessionCreateParamsComponentsRecipients"]
     """
     Configuration for the [recipients](https://docs.stripe.com/connect/supported-embedded-components/recipients/) embedded component.
-    """
-    recipients_list: NotRequired[
-        "AccountSessionCreateParamsComponentsRecipientsList"
-    ]
-    """
-    Configuration for the [recipients list](https://docs.stripe.com/connect/supported-embedded-components/recipients-list/) embedded component.
     """
     reporting_chart: NotRequired[
         "AccountSessionCreateParamsComponentsReportingChart"
@@ -626,30 +608,6 @@ class AccountSessionCreateParamsComponentsFinancialAccountTransactionsFeatures(
     """
 
 
-class AccountSessionCreateParamsComponentsFinancialAccounts(TypedDict):
-    features: NotRequired[
-        "AccountSessionCreateParamsComponentsFinancialAccountsFeatures"
-    ]
-
-
-class AccountSessionCreateParamsComponentsFinancialAccountsFeatures(TypedDict):
-    pass
-
-
-class AccountSessionCreateParamsComponentsFinancialAccountsTransactions(
-    TypedDict,
-):
-    features: NotRequired[
-        "AccountSessionCreateParamsComponentsFinancialAccountsTransactionsFeatures"
-    ]
-
-
-class AccountSessionCreateParamsComponentsFinancialAccountsTransactionsFeatures(
-    TypedDict,
-):
-    pass
-
-
 class AccountSessionCreateParamsComponentsInstantPayoutsPromotion(TypedDict):
     enabled: bool
     """
@@ -1010,16 +968,6 @@ class AccountSessionCreateParamsComponentsRecipientsFeatures(TypedDict):
     """
     Whether to allow sending money.
     """
-
-
-class AccountSessionCreateParamsComponentsRecipientsList(TypedDict):
-    features: NotRequired[
-        "AccountSessionCreateParamsComponentsRecipientsListFeatures"
-    ]
-
-
-class AccountSessionCreateParamsComponentsRecipientsListFeatures(TypedDict):
-    pass
 
 
 class AccountSessionCreateParamsComponentsReportingChart(TypedDict):
