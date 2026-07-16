@@ -110,6 +110,9 @@ jobs:
 
       - name: "run tests"
         run: just test
+        env:
+          # Use IP instead of 'localhost' to avoid slow DNS resolution on Windows
+          STRIPE_MOCK_HOST: ${{ runner.os == 'Windows' && '127.0.0.1' || 'localhost' }}
 
   publish:
     name: Publish
