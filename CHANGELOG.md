@@ -1,3 +1,10 @@
+## 15.3.1 - 2026-07-15
+* [#1846](https://github.com/stripe/stripe-python/pull/1846) Replace source hash with Telemetry UUID
+* [#1845](https://github.com/stripe/stripe-python/pull/1845) Make Error fields generated
+* [#1843](https://github.com/stripe/stripe-python/pull/1843) Remove unused Retry-After header support
+* [#1834](https://github.com/stripe/stripe-python/pull/1834) Reduce StripeClient() cold start latency for serverless environments
+  - Moves HTTP library imports to module load time to better accommodate AWS Lambda and other serverless environments that have separate Init phase and Invoke phase time budgets.
+
 ## 15.3.0 - 2026-06-24
 This release changes the pinned API version to 2026-06-24.dahlia.
 
