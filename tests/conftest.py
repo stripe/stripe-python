@@ -24,7 +24,8 @@ if StripeMock.start():
 else:
     MOCK_PORT = os.environ.get("STRIPE_MOCK_PORT", 12111)
 
-MOCK_API_BASE = "http://localhost:%s" % MOCK_PORT
+MOCK_HOST = os.environ.get("STRIPE_MOCK_HOST", "localhost")
+MOCK_API_BASE = f"http://{MOCK_HOST}:{MOCK_PORT}"
 MOCK_API_KEY = "sk_test_123"
 
 
@@ -36,12 +37,10 @@ def stop_stripe_mock():
 def pytest_configure(config):
     if not config.getoption("--nomock"):
         try:
-            requests.get("http://localhost:%s/" % MOCK_PORT)
+            requests.get(f"http://{MOCK_HOST}:{MOCK_PORT}/")
         except Exception:
             sys.exit(
-                "Couldn't reach stripe-mock at `localhost:%s`. Is "
-                "it running? Please see README for setup instructions."
-                % MOCK_PORT
+                f"Couldn't reach stripe-mock at `{MOCK_HOST}:{MOCK_PORT}`. Is it running? Please see README for setup instructions."
             )
 
 

@@ -1,10 +1,7 @@
 from io import BytesIO, IOBase
-import functools
-import hashlib
 import json
 import os
 import platform
-import socket
 from typing import (
     Any,
     AsyncIterable,
@@ -72,19 +69,6 @@ HttpVerb = Literal["get", "post", "delete"]
 
 # Lazily initialized
 _default_proxy: Optional[str] = None
-
-
-@functools.lru_cache(maxsize=None)
-def _get_uname_hash() -> Optional[str]:
-    try:
-        parts: List[str] = list(platform.uname())
-        try:
-            parts.append(socket.gethostname())
-        except Exception:
-            pass
-        return hashlib.md5(" ".join(parts).encode()).hexdigest()
-    except Exception:
-        return None
 
 
 def _maybe_emit_stripe_notice(rheaders: Mapping[str, str]) -> None:
@@ -583,9 +567,11 @@ class _APIRequestor(object):
             "lang": "python",
             "httplib": self._get_http_client().name,
         }
-        uname_hash = _get_uname_hash()
-        if uname_hash is not None:
-            ua["source"] = uname_hash
+        if stripe.enable_telemetry:
+            from stripe._telemetry_id import get_telemetry_id
+
+            if (telemetry_id := get_telemetry_id()) is not None:
+                ua["telemetry_id"] = telemetry_id
         attr_funcs: List[Tuple[str, Callable[[], str]]] = [
             ("lang_version", platform.python_version),
         ]
