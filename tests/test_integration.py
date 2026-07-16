@@ -242,7 +242,8 @@ class TestIntegration(object):
         duration_ms = telemetry["last_request_metrics"]["request_duration_ms"]
         # The first request took 31 ms, so the client perceived
         # latency shouldn't be outside this range.
-        assert 30 < duration_ms < 300
+        # Windows CI can be significantly slower due to process startup overhead.
+        assert 30 < duration_ms < 5000
 
         usage = telemetry["last_request_metrics"]["usage"]
         assert usage == ["save"]
