@@ -72,7 +72,7 @@ class TestMultipartDataGenerator(object):
         assert http_body.find(file_contents) != -1
 
     def test_multipart_data_file_text(self):
-        with open(__file__, mode="r") as test_file:
+        with open(__file__, mode="r", encoding="utf-8") as test_file:
             self.run_test_multipart_data_with_file(test_file)
 
     def test_multipart_data_file_binary(self):
