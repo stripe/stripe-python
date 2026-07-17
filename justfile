@@ -3,8 +3,9 @@ set quiet
 import? '../sdk-codegen/utils.just'
 
 VENV_NAME := ".venv"
+VENV_BIN := if os() == "windows" { VENV_NAME / "Scripts" } else { VENV_NAME / "bin" }
 
-export PATH := `pwd` / VENV_NAME / "bin:" + env('PATH')
+export PATH := `pwd` / VENV_BIN + ":" + env('PATH')
 
 _default:
     just --list --unsorted
@@ -82,7 +83,7 @@ update-certs:
 venv:
     [ -d {{ VENV_NAME }} ] || ( \
         python -m venv {{ VENV_NAME }} && \
-        {{ VENV_NAME }}/bin/python -I -m pip install -e . --quiet --disable-pip-version-check \
+        {{ VENV_BIN }}/python -I -m pip install -e . --quiet --disable-pip-version-check \
     )
 
 # called by tooling
