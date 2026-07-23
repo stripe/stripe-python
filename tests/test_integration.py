@@ -27,6 +27,9 @@ MOCK_HOST = os.environ.get("STRIPE_MOCK_HOST", "localhost")
 
 
 class MyTestHandler(BaseHTTPRequestHandler):
+    protocol_version = "HTTP/1.1"
+    timeout = 30
+
     num_requests = 0
 
     requests = defaultdict(Queue)
