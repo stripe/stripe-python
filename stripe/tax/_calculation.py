@@ -4,7 +4,7 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._list_object import ListObject
 from stripe._stripe_object import StripeObject
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
+from typing import ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -189,7 +189,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
         """
         The customer's postal address (for example, home or business location).
         """
-        address_source: Optional[Literal["billing", "shipping"]]
+        address_source: Optional[Union[Literal["billing", "shipping"], str]]
         """
         The type of customer address provided.
         """
@@ -201,8 +201,8 @@ class Calculation(CreateableAPIResource["Calculation"]):
         """
         The customer's tax IDs (for example, EU VAT numbers).
         """
-        taxability_override: Literal[
-            "customer_exempt", "none", "reverse_charge"
+        taxability_override: Union[
+            Literal["customer_exempt", "none", "reverse_charge"], str
         ]
         """
         The taxability override used for taxation.
@@ -250,8 +250,9 @@ class Calculation(CreateableAPIResource["Calculation"]):
                 """
                 A human-readable name for the jurisdiction imposing the tax.
                 """
-                level: Literal[
-                    "city", "country", "county", "district", "state"
+                level: Union[
+                    Literal["city", "country", "county", "district", "state"],
+                    str,
                 ]
                 """
                 Indicates the level of the jurisdiction imposing the tax.
@@ -313,22 +314,25 @@ class Calculation(CreateableAPIResource["Calculation"]):
             """
             Details regarding the rate for this tax. This field will be `null` when the tax is not imposed, for example if the product is exempt from tax.
             """
-            taxability_reason: Literal[
-                "customer_exempt",
-                "not_collecting",
-                "not_subject_to_tax",
-                "not_supported",
-                "portion_product_exempt",
-                "portion_reduced_rated",
-                "portion_standard_rated",
-                "product_exempt",
-                "product_exempt_holiday",
-                "proportionally_rated",
-                "reduced_rated",
-                "reverse_charge",
-                "standard_rated",
-                "taxable_basis_reduced",
-                "zero_rated",
+            taxability_reason: Union[
+                Literal[
+                    "customer_exempt",
+                    "not_collecting",
+                    "not_subject_to_tax",
+                    "not_supported",
+                    "portion_product_exempt",
+                    "portion_reduced_rated",
+                    "portion_standard_rated",
+                    "product_exempt",
+                    "product_exempt_holiday",
+                    "proportionally_rated",
+                    "reduced_rated",
+                    "reverse_charge",
+                    "standard_rated",
+                    "taxable_basis_reduced",
+                    "zero_rated",
+                ],
+                str,
             ]
             """
             The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
@@ -354,7 +358,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
         """
         The ID of an existing [ShippingRate](https://docs.stripe.com/api/shipping_rates/object).
         """
-        tax_behavior: Literal["exclusive", "inclusive"]
+        tax_behavior: Union[Literal["exclusive", "inclusive"], str]
         """
         Specifies whether the `amount` includes taxes. If `tax_behavior=inclusive`, then the amount includes taxes.
         """
@@ -392,7 +396,9 @@ class Calculation(CreateableAPIResource["Calculation"]):
             """
             The tax rate percentage as a string. For example, 8.5% is represented as `"8.5"`.
             """
-            rate_type: Optional[Literal["flat_amount", "percentage"]]
+            rate_type: Optional[
+                Union[Literal["flat_amount", "percentage"], str]
+            ]
             """
             Indicates the type of tax rate applied to the taxable amount. This value can be `null` when no tax applies to the location. This field is only present for TaxRates created by Stripe Tax.
             """
@@ -442,22 +448,25 @@ class Calculation(CreateableAPIResource["Calculation"]):
         Specifies whether the tax amount is included in the line item amount.
         """
         tax_rate_details: TaxRateDetails
-        taxability_reason: Literal[
-            "customer_exempt",
-            "not_collecting",
-            "not_subject_to_tax",
-            "not_supported",
-            "portion_product_exempt",
-            "portion_reduced_rated",
-            "portion_standard_rated",
-            "product_exempt",
-            "product_exempt_holiday",
-            "proportionally_rated",
-            "reduced_rated",
-            "reverse_charge",
-            "standard_rated",
-            "taxable_basis_reduced",
-            "zero_rated",
+        taxability_reason: Union[
+            Literal[
+                "customer_exempt",
+                "not_collecting",
+                "not_subject_to_tax",
+                "not_supported",
+                "portion_product_exempt",
+                "portion_reduced_rated",
+                "portion_standard_rated",
+                "product_exempt",
+                "product_exempt_holiday",
+                "proportionally_rated",
+                "reduced_rated",
+                "reverse_charge",
+                "standard_rated",
+                "taxable_basis_reduced",
+                "zero_rated",
+            ],
+            str,
         ]
         """
         The reasoning behind this tax, for example, if the product is tax exempt. We might extend the possible values for this field to support new tax rules.

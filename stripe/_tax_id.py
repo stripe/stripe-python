@@ -7,7 +7,7 @@ from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, Optional, cast, overload
+from typing import ClassVar, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -51,7 +51,7 @@ class TaxId(
         """
         The Account representing the customer being referenced when `type` is `customer`.
         """
-        type: Literal["account", "application", "customer", "self"]
+        type: Union[Literal["account", "application", "customer", "self"], str]
         """
         Type of owner referenced.
         """

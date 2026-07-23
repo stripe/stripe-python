@@ -54,7 +54,7 @@ class MeterEventSummaryListParams(TypedDict):
     """
     List of value lists corresponding to each key in tenant_keys. Each element contains the values to filter on for the corresponding tenant key. Must be used together with tenant_operator and tenant_keys. Cannot be used with tenant_filters.
     """
-    value_grouping_window: NotRequired[Literal["day", "hour"]]
+    value_grouping_window: NotRequired["Literal['day', 'hour']|str"]
     """
     Specifies what granularity to use when generating event summaries. If not specified, a single event summary would be returned for the specified time range. For hourly granularity, start and end times must align with hour boundaries (e.g., 00:00, 01:00, ..., 23:00). For daily granularity, start and end times must align with UTC day boundaries (00:00 UTC).
     """

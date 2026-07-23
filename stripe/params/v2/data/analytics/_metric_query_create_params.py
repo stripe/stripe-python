@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import UntypedStripeObject
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -18,7 +18,7 @@ class MetricQueryCreateParams(TypedDict):
     """
     Which dimension values to filter on; keys are dimension names, values are arrays of dimension values to filter on.
     """
-    granularity: Literal["day", "month", "week", "year"]
+    granularity: Union[Literal["day", "month", "week", "year"], str]
     """
     The time granularity to aggregate results by.
     """

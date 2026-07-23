@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
-from typing import ClassVar, Optional, cast
+from typing import ClassVar, Optional, Union, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -28,7 +28,10 @@ class IssuingAuthorizationEvaluation(
         The total amount of the authorization in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
         """
         authorization_method: Optional[
-            Literal["chip", "contactless", "keyed_in", "online", "swipe"]
+            Union[
+                Literal["chip", "contactless", "keyed_in", "online", "swipe"],
+                str,
+            ]
         ]
         """
         How the card details were provided.
@@ -38,16 +41,19 @@ class IssuingAuthorizationEvaluation(
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         """
         entry_mode: Optional[
-            Literal[
-                "contactless",
-                "contactless_magstripe",
-                "credential_on_file",
-                "integrated_circuit_card",
-                "magstripe",
-                "magstripe_no_cvv",
-                "manual",
-                "other",
-                "unknown",
+            Union[
+                Literal[
+                    "contactless",
+                    "contactless_magstripe",
+                    "credential_on_file",
+                    "integrated_circuit_card",
+                    "magstripe",
+                    "magstripe_no_cvv",
+                    "manual",
+                    "other",
+                    "unknown",
+                ],
+                str,
             ]
         ]
         """
@@ -62,17 +68,20 @@ class IssuingAuthorizationEvaluation(
         The time the authorization was initiated, as a Unix timestamp in seconds.
         """
         point_of_sale_condition: Optional[
-            Literal[
-                "account_verification",
-                "card_not_present",
-                "card_present",
-                "e_commerce",
-                "key_entered_pos",
-                "missing",
-                "moto",
-                "other",
-                "pin_entered",
-                "recurring",
+            Union[
+                Literal[
+                    "account_verification",
+                    "card_not_present",
+                    "card_present",
+                    "e_commerce",
+                    "key_entered_pos",
+                    "missing",
+                    "moto",
+                    "other",
+                    "pin_entered",
+                    "recurring",
+                ],
+                str,
             ]
         ]
         """
@@ -96,7 +105,7 @@ class IssuingAuthorizationEvaluation(
         """
         The two-letter country code of the BIN issuer.
         """
-        card_type: Literal["physical", "virtual"]
+        card_type: Union[Literal["physical", "virtual"], str]
         """
         The type of the card.
         """
@@ -151,14 +160,17 @@ class IssuingAuthorizationEvaluation(
         Identifier assigned to the acquirer by the card network. Sometimes this value is not provided by the network; in this case, the value will be null.
         """
         routed_network: Optional[
-            Literal[
-                "cirrus",
-                "interlink",
-                "maestro",
-                "mastercard",
-                "other",
-                "plus",
-                "visa",
+            Union[
+                Literal[
+                    "cirrus",
+                    "interlink",
+                    "maestro",
+                    "mastercard",
+                    "other",
+                    "plus",
+                    "visa",
+                ],
+                str,
             ]
         ]
         """
@@ -172,13 +184,16 @@ class IssuingAuthorizationEvaluation(
                 """
                 The time when this signal was evaluated.
                 """
-                level: Literal[
-                    "elevated",
-                    "highest",
-                    "low",
-                    "normal",
-                    "not_assessed",
-                    "unknown",
+                level: Union[
+                    Literal[
+                        "elevated",
+                        "highest",
+                        "low",
+                        "normal",
+                        "not_assessed",
+                        "unknown",
+                    ],
+                    str,
                 ]
                 """
                 Risk level, based on the score.
@@ -196,7 +211,7 @@ class IssuingAuthorizationEvaluation(
             """
             Details of an error that prevented reporting this signal.
             """
-            status: Literal["error", "success"]
+            status: Union[Literal["error", "success"], str]
             """
             The status of this signal.
             """
@@ -217,19 +232,24 @@ class IssuingAuthorizationEvaluation(
         """
         User's specified unique ID of the card token for this authorization attempt (e.g., RRN or internal reference).
         """
-        wallet: Optional[Literal["apple_pay", "google_pay", "samsung_pay"]]
+        wallet: Optional[
+            Union[Literal["apple_pay", "google_pay", "samsung_pay"], str]
+        ]
         """
         The digital wallet used for this transaction. One of `apple_pay`, `google_pay`, or `samsung_pay`.
         """
 
     class VerificationDetails(StripeObject):
         three_d_secure_result: Optional[
-            Literal[
-                "attempt_acknowledged",
-                "authenticated",
-                "exempted",
-                "failed",
-                "required",
+            Union[
+                Literal[
+                    "attempt_acknowledged",
+                    "authenticated",
+                    "exempted",
+                    "failed",
+                    "required",
+                ],
+                str,
             ]
         ]
         """

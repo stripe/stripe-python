@@ -4,7 +4,7 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional, cast
+from typing import ClassVar, List, Optional, Union, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -40,7 +40,7 @@ class Session(CreateableAPIResource["Session"]):
         The ID for an Account representing a customer that this account belongs to. Only available when `account_holder.type` is `customer`.
         """
         customer_account: Optional[str]
-        type: Literal["account", "customer"]
+        type: Union[Literal["account", "customer"], str]
         """
         Type of account holder that this account belongs to.
         """
@@ -48,12 +48,15 @@ class Session(CreateableAPIResource["Session"]):
     class Filters(StripeObject):
         account_subcategories: Optional[
             List[
-                Literal[
-                    "checking",
-                    "credit_card",
-                    "line_of_credit",
-                    "mortgage",
-                    "savings",
+                Union[
+                    Literal[
+                        "checking",
+                        "credit_card",
+                        "line_of_credit",
+                        "mortgage",
+                        "savings",
+                    ],
+                    str,
                 ]
             ]
         ]
@@ -92,7 +95,7 @@ class Session(CreateableAPIResource["Session"]):
         """
 
     class ManualEntry(StripeObject):
-        mode: Optional[Literal["automatic", "custom", "disabled"]]
+        mode: Optional[Union[Literal["automatic", "custom", "disabled"], str]]
         """
         Controls how manual entry of bank account details is presented to the user.
         """
@@ -117,7 +120,7 @@ class Session(CreateableAPIResource["Session"]):
         The authorization relinked in the Session. Only present if relink is successful.
         """
         failure_reason: Optional[
-            Literal["no_account", "no_authorization", "other"]
+            Union[Literal["no_account", "no_authorization", "other"], str]
         ]
         """
         Reason for why relink failed. One of `no_authorization`, `no_account`, or `other`.
@@ -125,7 +128,7 @@ class Session(CreateableAPIResource["Session"]):
 
     class StatusDetails(StripeObject):
         class Cancelled(StripeObject):
-            reason: Literal["custom_manual_entry", "other"]
+            reason: Union[Literal["custom_manual_entry", "other"], str]
             """
             The reason for the Session being cancelled.
             """
@@ -165,15 +168,24 @@ class Session(CreateableAPIResource["Session"]):
     String representing the object's type. Objects of the same type share the same value.
     """
     permissions: List[
-        Literal["balances", "ownership", "payment_method", "transactions"]
+        Union[
+            Literal["balances", "ownership", "payment_method", "transactions"],
+            str,
+        ]
     ]
     """
     Permissions requested for accounts collected during this session.
     """
     prefetch: Optional[
         List[
-            Literal[
-                "balances", "inferred_balances", "ownership", "transactions"
+            Union[
+                Literal[
+                    "balances",
+                    "inferred_balances",
+                    "ownership",
+                    "transactions",
+                ],
+                str,
             ]
         ]
     ]
@@ -186,12 +198,14 @@ class Session(CreateableAPIResource["Session"]):
     """
     For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
     """
-    status: Optional[Literal["cancelled", "failed", "pending", "succeeded"]]
+    status: Optional[
+        Union[Literal["cancelled", "failed", "pending", "succeeded"], str]
+    ]
     """
     The current state of the session.
     """
     status_details: Optional[StatusDetails]
-    ui_mode: Optional[Literal["hosted", "modal"]]
+    ui_mode: Optional[Union[Literal["hosted", "modal"], str]]
     """
     The UI mode for this session.
     """

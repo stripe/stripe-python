@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
@@ -17,11 +17,15 @@ class AccountLink(StripeObject):
     class UseCase(StripeObject):
         class AccountOnboarding(StripeObject):
             class CollectionOptions(StripeObject):
-                fields: Optional[Literal["currently_due", "eventually_due"]]
+                fields: Optional[
+                    Union[Literal["currently_due", "eventually_due"], str]
+                ]
                 """
                 Specifies whether the platform collects only currently_due requirements (`currently_due`) or both currently_due and eventually_due requirements (`eventually_due`). If you don't specify collection_options, the default value is currently_due.
                 """
-                future_requirements: Optional[Literal["include", "omit"]]
+                future_requirements: Optional[
+                    Union[Literal["include", "omit"], str]
+                ]
                 """
                 Specifies whether the platform collects future_requirements in addition to requirements in Connect Onboarding. The default value is `omit`.
                 """
@@ -31,12 +35,15 @@ class AccountLink(StripeObject):
             Specifies the requirements that Stripe collects from v2/core/accounts in the Onboarding flow.
             """
             configurations: List[
-                Literal[
-                    "customer",
-                    "merchant",
-                    "money_manager",
-                    "recipient",
-                    "storer",
+                Union[
+                    Literal[
+                        "customer",
+                        "merchant",
+                        "money_manager",
+                        "recipient",
+                        "storer",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -54,11 +61,15 @@ class AccountLink(StripeObject):
 
         class AccountUpdate(StripeObject):
             class CollectionOptions(StripeObject):
-                fields: Optional[Literal["currently_due", "eventually_due"]]
+                fields: Optional[
+                    Union[Literal["currently_due", "eventually_due"], str]
+                ]
                 """
                 Specifies whether the platform collects only currently_due requirements (`currently_due`) or both currently_due and eventually_due requirements (`eventually_due`). The default value is `currently_due`.
                 """
-                future_requirements: Optional[Literal["include", "omit"]]
+                future_requirements: Optional[
+                    Union[Literal["include", "omit"], str]
+                ]
                 """
                 Specifies whether the platform collects future_requirements in addition to requirements in Connect Onboarding. The default value is `omit`.
                 """
@@ -68,12 +79,15 @@ class AccountLink(StripeObject):
             Specifies the requirements that Stripe collects from v2/core/accounts in the Onboarding flow.
             """
             configurations: List[
-                Literal[
-                    "customer",
-                    "merchant",
-                    "money_manager",
-                    "recipient",
-                    "storer",
+                Union[
+                    Literal[
+                        "customer",
+                        "merchant",
+                        "money_manager",
+                        "recipient",
+                        "storer",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -91,11 +105,15 @@ class AccountLink(StripeObject):
 
         class RecipientOnboarding(StripeObject):
             class CollectionOptions(StripeObject):
-                fields: Optional[Literal["currently_due", "eventually_due"]]
+                fields: Optional[
+                    Union[Literal["currently_due", "eventually_due"], str]
+                ]
                 """
                 Specifies whether the platform collects only currently_due requirements (`currently_due`) or both currently_due and eventually_due requirements (`eventually_due`). If you don't specify collection_options, the default value is currently_due.
                 """
-                future_requirements: Optional[Literal["include", "omit"]]
+                future_requirements: Optional[
+                    Union[Literal["include", "omit"], str]
+                ]
                 """
                 Specifies whether the platform collects future_requirements in addition to requirements in Connect Onboarding. The default value is `omit`.
                 """
@@ -120,11 +138,15 @@ class AccountLink(StripeObject):
 
         class RecipientUpdate(StripeObject):
             class CollectionOptions(StripeObject):
-                fields: Optional[Literal["currently_due", "eventually_due"]]
+                fields: Optional[
+                    Union[Literal["currently_due", "eventually_due"], str]
+                ]
                 """
                 Specifies whether the platform collects only currently_due requirements (`currently_due`) or both currently_due and eventually_due requirements (`eventually_due`). The default value is `currently_due`.
                 """
-                future_requirements: Optional[Literal["include", "omit"]]
+                future_requirements: Optional[
+                    Union[Literal["include", "omit"], str]
+                ]
                 """
                 Specifies whether the platform collects future_requirements in addition to requirements in Connect Onboarding. The default value is `omit`.
                 """
@@ -163,11 +185,14 @@ class AccountLink(StripeObject):
         """
         Hash containing configuration options for an Account Link that updates an existing recipient.
         """
-        type: Literal[
-            "account_onboarding",
-            "account_update",
-            "recipient_onboarding",
-            "recipient_update",
+        type: Union[
+            Literal[
+                "account_onboarding",
+                "account_update",
+                "recipient_onboarding",
+                "recipient_update",
+            ],
+            str,
         ]
         """
         Open Enum. The type of Account Link the user is requesting.

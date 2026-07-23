@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal
 
 
@@ -180,7 +180,7 @@ class Intent(StripeObject):
             """
             Specific configuration for determining billing dates when type=month.
             """
-            type: Literal["day", "month", "week", "year"]
+            type: Union[Literal["day", "month", "week", "year"], str]
             """
             The frequency at which a cadence bills.
             """

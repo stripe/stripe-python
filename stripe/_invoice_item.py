@@ -9,7 +9,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
+from typing import ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -113,11 +113,14 @@ class InvoiceItem(
         """
         Details about the subscription that generated this invoice item
         """
-        type: Literal[
-            "pricing_plan_subscription_details",
-            "rate_card_subscription_details",
-            "schedule_details",
-            "subscription_details",
+        type: Union[
+            Literal[
+                "pricing_plan_subscription_details",
+                "rate_card_subscription_details",
+                "schedule_details",
+                "subscription_details",
+            ],
+            str,
         ]
         """
         The type of parent that generated this invoice item
@@ -202,11 +205,14 @@ class InvoiceItem(
             RateCardCustomPricingUnitOverageRateDetails
         ]
         rate_card_rate_details: Optional[RateCardRateDetails]
-        type: Literal[
-            "license_fee_details",
-            "price_details",
-            "rate_card_custom_pricing_unit_overage_rate_details",
-            "rate_card_rate_details",
+        type: Union[
+            Literal[
+                "license_fee_details",
+                "price_details",
+                "rate_card_custom_pricing_unit_overage_rate_details",
+                "rate_card_rate_details",
+            ],
+            str,
         ]
         """
         The type of the pricing details.

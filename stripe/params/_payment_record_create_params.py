@@ -11,7 +11,7 @@ class PaymentRecordCreateParams(RequestOptions):
     """
     The amount that has been lost to the customer due to disputes on this payment.
     """
-    closed: "PaymentRecordCreateParamsClosed"
+    closed: NotRequired["PaymentRecordCreateParamsClosed"]
     """
     Information about the dispute closing.
     """
@@ -19,7 +19,7 @@ class PaymentRecordCreateParams(RequestOptions):
     """
     Specifies which fields in the response should be expanded.
     """
-    funded: "PaymentRecordCreateParamsFunded"
+    funded: NotRequired["PaymentRecordCreateParamsFunded"]
     """
     Information about the dispute funding event.
     """
@@ -38,23 +38,7 @@ class PaymentRecordCreateParams(RequestOptions):
     Processor information for this payment.
     """
     reason: NotRequired[
-        Literal[
-            "bank_cannot_process",
-            "check_returned",
-            "credit_not_processed",
-            "customer_initiated",
-            "debit_not_authorized",
-            "duplicate",
-            "fraudulent",
-            "general",
-            "incorrect_account_details",
-            "insufficient_funds",
-            "noncompliant",
-            "product_not_received",
-            "product_unacceptable",
-            "subscription_canceled",
-            "unrecognized",
-        ]
+        "Literal['bank_cannot_process', 'check_returned', 'credit_not_processed', 'customer_initiated', 'debit_not_authorized', 'duplicate', 'fraudulent', 'general', 'incorrect_account_details', 'insufficient_funds', 'noncompliant', 'product_not_received', 'product_unacceptable', 'subscription_canceled', 'unrecognized']|str"
     ]
     """
     The reason the payment was disputed.

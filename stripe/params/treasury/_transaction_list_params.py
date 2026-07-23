@@ -26,7 +26,7 @@ class TransactionListParams(RequestOptions):
     """
     A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
     """
-    order_by: NotRequired[Literal["created", "posted_at"]]
+    order_by: NotRequired["Literal['created', 'posted_at']|str"]
     """
     The results are in reverse chronological order by `created` or `posted_at`. The default is `created`.
     """
@@ -34,7 +34,7 @@ class TransactionListParams(RequestOptions):
     """
     A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
     """
-    status: NotRequired[Literal["open", "posted", "void"]]
+    status: NotRequired["Literal['open', 'posted', 'void']|str"]
     """
     Only return Transactions that have the given status: `open`, `posted`, or `void`.
     """

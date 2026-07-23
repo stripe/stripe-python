@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_object import UntypedStripeObject
 from stripe.v2._amount import AmountParam
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -20,7 +20,7 @@ class OffSessionPaymentCreateParams(TypedDict):
     The amount of the application fee (if any) that will be requested to be applied to the
     payment and transferred to the application owner's Stripe account.
     """
-    cadence: Literal["recurring", "unscheduled"]
+    cadence: Union[Literal["recurring", "unscheduled"], str]
     """
     The frequency of the underlying payment.
     """
@@ -189,7 +189,7 @@ class OffSessionPaymentCreateParamsAmountDetailsTax(TypedDict):
 
 
 class OffSessionPaymentCreateParamsCapture(TypedDict):
-    capture_method: Literal["automatic", "manual"]
+    capture_method: Union[Literal["automatic", "manual"], str]
     """
     The method to use to capture the payment.
     """
@@ -328,7 +328,7 @@ class OffSessionPaymentCreateParamsRetryDetails(TypedDict):
     """
     The pre-configured retry policy to use for the payment.
     """
-    retry_strategy: NotRequired[Literal["best_available", "none"]]
+    retry_strategy: NotRequired["Literal['best_available', 'none']|str"]
     """
     Indicates the strategy for how you want Stripe to retry the payment.
     """

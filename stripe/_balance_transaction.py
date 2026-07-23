@@ -76,13 +76,16 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
     """
     The date that the transaction's net funds become available in the Stripe balance.
     """
-    balance_type: Literal[
-        "fee_credits",
-        "issuing",
-        "payments",
-        "refund_and_dispute_prefunding",
-        "risk_reserved",
-        "transit",
+    balance_type: Union[
+        Literal[
+            "fee_credits",
+            "issuing",
+            "payments",
+            "refund_and_dispute_prefunding",
+            "risk_reserved",
+            "transit",
+        ],
+        str,
     ]
     """
     The balance that this transaction impacts.

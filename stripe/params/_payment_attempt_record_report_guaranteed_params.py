@@ -69,18 +69,20 @@ class PaymentAttemptRecordReportGuaranteedParamsPaymentMethodDetailsCardChecks(
     TypedDict,
 ):
     address_line1_check: NotRequired[
-        Literal["fail", "pass", "unavailable", "unchecked"]
+        "Literal['fail', 'pass', 'unavailable', 'unchecked']|str"
     ]
     """
     The result of the check on the cardholder's address line 1.
     """
     address_postal_code_check: NotRequired[
-        Literal["fail", "pass", "unavailable", "unchecked"]
+        "Literal['fail', 'pass', 'unavailable', 'unchecked']|str"
     ]
     """
     The result of the check on the cardholder's postal code.
     """
-    cvc_check: NotRequired[Literal["fail", "pass", "unavailable", "unchecked"]]
+    cvc_check: NotRequired[
+        "Literal['fail', 'pass', 'unavailable', 'unchecked']|str"
+    ]
     """
     The result of the check on the card's CVC.
     """

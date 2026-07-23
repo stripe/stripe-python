@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from decimal import Decimal
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -75,7 +75,7 @@ class SessionUpdateParamsAutomaticTaxLiability(TypedDict):
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "application", "self"]
+    type: Union[Literal["account", "application", "self"], str]
     """
     Type of the account referenced in the request.
     """
@@ -149,7 +149,7 @@ class SessionUpdateParamsDiscountCouponData(TypedDict):
     Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `amount_off` parameter (required if `amount_off` is passed).
     """
     duration: NotRequired[
-        Literal["forever", "once", "repeating", "service_period"]
+        "Literal['forever', 'once', 'repeating', 'service_period']|str"
     ]
     """
     Specifies how long the discount will be in effect if used on a subscription. Defaults to `once`.
@@ -189,7 +189,7 @@ class SessionUpdateParamsInvoiceCreationInvoiceDataIssuer(TypedDict):
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "application", "self"]
+    type: Union[Literal["account", "application", "self"], str]
     """
     Type of the account referenced in the request.
     """
@@ -401,7 +401,7 @@ class SessionUpdateParamsShippingOptionShippingRateDataDeliveryEstimate(
 class SessionUpdateParamsShippingOptionShippingRateDataDeliveryEstimateMaximum(
     TypedDict,
 ):
-    unit: Literal["business_day", "day", "hour", "month", "week"]
+    unit: Union[Literal["business_day", "day", "hour", "month", "week"], str]
     """
     A unit of time.
     """
@@ -414,7 +414,7 @@ class SessionUpdateParamsShippingOptionShippingRateDataDeliveryEstimateMaximum(
 class SessionUpdateParamsShippingOptionShippingRateDataDeliveryEstimateMinimum(
     TypedDict,
 ):
-    unit: Literal["business_day", "day", "hour", "month", "week"]
+    unit: Union[Literal["business_day", "day", "hour", "month", "week"], str]
     """
     A unit of time.
     """
@@ -491,7 +491,7 @@ class SessionUpdateParamsSubscriptionDataInvoiceSettingsIssuer(TypedDict):
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "application", "self"]
+    type: Union[Literal["account", "application", "self"], str]
     """
     Type of the account referenced in the request.
     """

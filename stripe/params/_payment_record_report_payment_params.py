@@ -17,7 +17,7 @@ class PaymentRecordReportPaymentParams(RequestOptions):
     """
     Customer information for this payment.
     """
-    customer_presence: NotRequired[Literal["off_session", "on_session"]]
+    customer_presence: NotRequired["Literal['off_session', 'on_session']|str"]
     """
     Indicates whether the customer was present in your checkout flow during this payment.
     """
@@ -47,7 +47,7 @@ class PaymentRecordReportPaymentParams(RequestOptions):
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
-    outcome: NotRequired[Literal["failed", "guaranteed"]]
+    outcome: NotRequired["Literal['failed', 'guaranteed']|str"]
     """
     The outcome of the reported payment.
     """
@@ -107,10 +107,7 @@ class PaymentRecordReportPaymentParamsFailed(TypedDict):
     When the reported payment failed. Measured in seconds since the Unix epoch.
     """
     failure_code: NotRequired[
-        Literal[
-            "payment_method_customer_decline",
-            "payment_method_provider_unknown_outcome",
-        ]
+        "Literal['payment_method_customer_decline', 'payment_method_provider_unknown_outcome']|str"
     ]
     """
     The failure code for this payment attempt. Must be one of `payment_method_customer_decline` or `payment_method_provider_unknown_outcome`.
@@ -209,7 +206,7 @@ class PaymentRecordReportPaymentParamsPaymentMethodDetails(TypedDict):
     """
     ID of the Stripe Payment Method used to make this payment.
     """
-    type: NotRequired[Literal["card", "custom"]]
+    type: NotRequired["Literal['card', 'custom']|str"]
     """
     The type of the payment method details. An additional hash is included on the payment_method_details with a name matching this value. It contains additional information specific to the type.
     """
@@ -280,18 +277,20 @@ class PaymentRecordReportPaymentParamsPaymentMethodDetailsCardChecks(
     TypedDict
 ):
     address_line1_check: NotRequired[
-        Literal["fail", "pass", "unavailable", "unchecked"]
+        "Literal['fail', 'pass', 'unavailable', 'unchecked']|str"
     ]
     """
     The result of the check on the cardholder's address line 1.
     """
     address_postal_code_check: NotRequired[
-        Literal["fail", "pass", "unavailable", "unchecked"]
+        "Literal['fail', 'pass', 'unavailable', 'unchecked']|str"
     ]
     """
     The result of the check on the cardholder's postal code.
     """
-    cvc_check: NotRequired[Literal["fail", "pass", "unavailable", "unchecked"]]
+    cvc_check: NotRequired[
+        "Literal['fail', 'pass', 'unavailable', 'unchecked']|str"
+    ]
     """
     The result of the check on the card's CVC.
     """

@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class ReaderProcessSetupIntentParams(RequestOptions):
-    allow_redisplay: Literal["always", "limited", "unspecified"]
+    allow_redisplay: Union[Literal["always", "limited", "unspecified"], str]
     """
     This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow.
     """

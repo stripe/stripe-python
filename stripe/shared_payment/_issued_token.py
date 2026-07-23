@@ -3,7 +3,7 @@
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, Optional, cast, overload
+from typing import ClassVar, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -48,7 +48,7 @@ class IssuedToken(CreateableAPIResource["IssuedToken"]):
         """
         Contains details for handling the next action by redirecting the customer. Present when `next_action.type` is `redirect_to_url`.
         """
-        type: Literal["redirect_to_url", "use_stripe_sdk"]
+        type: Union[Literal["redirect_to_url", "use_stripe_sdk"], str]
         """
         Specifies the type of next action required. Determines which child attribute contains action details.
         """
@@ -187,7 +187,9 @@ class IssuedToken(CreateableAPIResource["IssuedToken"]):
         """
         Max amount that can be captured using this SharedPaymentToken.
         """
-        recurring_interval: Optional[Literal["month", "week", "year"]]
+        recurring_interval: Optional[
+            Union[Literal["month", "week", "year"], str]
+        ]
         """
         The recurring interval at which the shared payment token's amount usage restrictions reset.
         """
@@ -201,7 +203,7 @@ class IssuedToken(CreateableAPIResource["IssuedToken"]):
     Time at which this SharedPaymentIssuedToken was deactivated.
     """
     deactivated_reason: Optional[
-        Literal["consumed", "expired", "resolved", "revoked"]
+        Union[Literal["consumed", "expired", "resolved", "revoked"], str]
     ]
     """
     The reason why the SharedPaymentIssuedToken has been deactivated.
@@ -246,7 +248,9 @@ class IssuedToken(CreateableAPIResource["IssuedToken"]):
     """
     Metadata about the SharedPaymentIssuedToken.
     """
-    status: Optional[Literal["active", "deactivated", "requires_action"]]
+    status: Optional[
+        Union[Literal["active", "deactivated", "requires_action"], str]
+    ]
     """
     Status of this SharedPaymentIssuedToken, one of `active`, `requires_action`, or `deactivated`.
     """

@@ -334,7 +334,7 @@ class Charge(
                 class Card(StripeObject):
                     brand: Optional[str]
                     """
-                    Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
+                    Card brand. Can be `American Express`, `Cartes Bancaires`, `Diners Club`, `Discover`, `Eftpos Australia`, `Girocard`, `JCB`, `MasterCard`, `UnionPay`, `Visa`, or `Unknown`.
                     """
                     brand_product: Optional[str]
                     """
@@ -519,19 +519,19 @@ class Charge(
                 """
 
             class DecrementalAuthorization(StripeObject):
-                status: Literal["available", "unavailable"]
+                status: Union[Literal["available", "unavailable"], str]
                 """
                 Indicates whether or not the decremental authorization feature is supported.
                 """
 
             class ExtendedAuthorization(StripeObject):
-                status: Literal["disabled", "enabled"]
+                status: Union[Literal["disabled", "enabled"], str]
                 """
                 Indicates whether or not the capture window is extended beyond the standard authorization.
                 """
 
             class IncrementalAuthorization(StripeObject):
-                status: Literal["available", "unavailable"]
+                status: Union[Literal["available", "unavailable"], str]
                 """
                 Indicates whether or not the incremental authorization feature is supported.
                 """
@@ -547,7 +547,9 @@ class Charge(
                     For `fixed_count` installment plans, this is the interval between installment payments your customer will make to their credit card.
                     One of `month`.
                     """
-                    type: Literal["bonus", "fixed_count", "revolving"]
+                    type: Union[
+                        Literal["bonus", "fixed_count", "revolving"], str
+                    ]
                     """
                     Type of installment plan, one of `fixed_count`, `bonus`, or `revolving`.
                     """
@@ -559,7 +561,7 @@ class Charge(
                 _inner_class_types = {"plan": Plan}
 
             class Multicapture(StripeObject):
-                status: Literal["available", "unavailable"]
+                status: Union[Literal["available", "unavailable"], str]
                 """
                 Indicates whether or not multiple captures are supported.
                 """
@@ -575,44 +577,49 @@ class Charge(
                 """
                 The maximum amount that can be captured.
                 """
-                status: Literal["available", "unavailable"]
+                status: Union[Literal["available", "unavailable"], str]
                 """
                 Indicates whether or not the authorized amount can be over-captured.
                 """
 
             class PartialAuthorization(StripeObject):
-                status: Literal[
-                    "declined",
-                    "fully_authorized",
-                    "not_requested",
-                    "partially_authorized",
+                status: Union[
+                    Literal[
+                        "declined",
+                        "fully_authorized",
+                        "not_requested",
+                        "partially_authorized",
+                    ],
+                    str,
                 ]
                 """
                 Indicates whether the transaction requested for partial authorization feature and the authorization outcome.
                 """
 
             class Reauthorization(StripeObject):
-                status: Literal["available", "unavailable"]
+                status: Union[Literal["available", "unavailable"], str]
                 """
                 Indicates whether or not the reauthorization feature is supported.
                 """
 
             class ThreeDSecure(StripeObject):
                 authentication_flow: Optional[
-                    Literal["challenge", "frictionless"]
+                    Union[Literal["challenge", "frictionless"], str]
                 ]
                 """
                 For authenticated transactions: how the customer was authenticated by
                 the issuing bank.
                 """
                 electronic_commerce_indicator: Optional[
-                    Literal["01", "02", "05", "06", "07"]
+                    Union[Literal["01", "02", "05", "06", "07"], str]
                 ]
                 """
                 The Electronic Commerce Indicator (ECI). A protocol-level field
                 indicating what degree of authentication was performed.
                 """
-                exemption_indicator: Optional[Literal["low_risk", "none"]]
+                exemption_indicator: Optional[
+                    Union[Literal["low_risk", "none"], str]
+                ]
                 """
                 The exemption requested via 3DS and accepted by the issuer at authentication time.
                 """
@@ -622,27 +629,34 @@ class Charge(
                 the outcome of Stripe's internal risk assessment.
                 """
                 result: Optional[
-                    Literal[
-                        "attempt_acknowledged",
-                        "authenticated",
-                        "exempted",
-                        "failed",
-                        "not_supported",
-                        "processing_error",
+                    Union[
+                        Literal[
+                            "attempt_acknowledged",
+                            "authenticated",
+                            "data_share_only",
+                            "exempted",
+                            "failed",
+                            "not_supported",
+                            "processing_error",
+                        ],
+                        str,
                     ]
                 ]
                 """
                 Indicates the outcome of 3D Secure authentication.
                 """
                 result_reason: Optional[
-                    Literal[
-                        "abandoned",
-                        "bypassed",
-                        "canceled",
-                        "card_not_enrolled",
-                        "network_not_supported",
-                        "protocol_error",
-                        "rejected",
+                    Union[
+                        Literal[
+                            "abandoned",
+                            "bypassed",
+                            "canceled",
+                            "card_not_enrolled",
+                            "network_not_supported",
+                            "protocol_error",
+                            "rejected",
+                        ],
+                        str,
                     ]
                 ]
                 """
@@ -655,7 +669,10 @@ class Charge(
                 (dsTransId) for this payment.
                 """
                 version: Optional[
-                    Literal["1.0.2", "2.1.0", "2.2.0", "2.3.0", "2.3.1"]
+                    Union[
+                        Literal["1.0.2", "2.1.0", "2.2.0", "2.3.0", "2.3.1"],
+                        str,
+                    ]
                 ]
                 """
                 The version of 3D Secure that was used.
@@ -966,7 +983,9 @@ class Charge(
             """
             The time at which the associated PaymentIntent will transition to a terminal state if it is not reauthorized.
             """
-            regulated_status: Optional[Literal["regulated", "unregulated"]]
+            regulated_status: Optional[
+                Union[Literal["regulated", "unregulated"], str]
+            ]
             """
             Status of a card based on the card issuer.
             """
@@ -1017,14 +1036,17 @@ class Charge(
                 """
 
             class Reauthorization(StripeObject):
-                status: Literal["available", "unavailable"]
+                status: Union[Literal["available", "unavailable"], str]
                 """
                 Indicates whether or not the reauthorization feature is supported.
                 """
 
             class Receipt(StripeObject):
                 account_type: Optional[
-                    Literal["checking", "credit", "prepaid", "unknown"]
+                    Union[
+                        Literal["checking", "credit", "prepaid", "unknown"],
+                        str,
+                    ]
                 ]
                 """
                 The type of account being debited or credited
@@ -1063,8 +1085,11 @@ class Charge(
                 """
 
             class Wallet(StripeObject):
-                type: Literal[
-                    "apple_pay", "google_pay", "samsung_pay", "unknown"
+                type: Union[
+                    Literal[
+                        "apple_pay", "google_pay", "samsung_pay", "unknown"
+                    ],
+                    str,
                 ]
                 """
                 The type of mobile wallet, one of `apple_pay`, `google_pay`, `samsung_pay`, or `unknown`.
@@ -1166,12 +1191,15 @@ class Charge(
             The languages that the issuing bank recommends using for localizing any customer-facing text, as read from the card. Referenced from EMV tag 5F2D, data encoded on the card's chip.
             """
             read_method: Optional[
-                Literal[
-                    "contact_emv",
-                    "contactless_emv",
-                    "contactless_magstripe_mode",
-                    "magnetic_stripe_fallback",
-                    "magnetic_stripe_track2",
+                Union[
+                    Literal[
+                        "contact_emv",
+                        "contactless_emv",
+                        "contactless_magstripe_mode",
+                        "magnetic_stripe_fallback",
+                        "magnetic_stripe_track2",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -1230,16 +1258,27 @@ class Charge(
             The wallet address of the customer.
             """
             network: Optional[
-                Literal[
-                    "base", "ethereum", "polygon", "solana", "sui", "tempo"
+                Union[
+                    Literal[
+                        "base", "ethereum", "polygon", "solana", "sui", "tempo"
+                    ],
+                    str,
                 ]
             ]
             """
             The blockchain network that the transaction was sent on.
             """
             token_currency: Optional[
-                Literal[
-                    "phantom_cash", "usdc", "usdg", "usdp", "usdsui", "usdt"
+                Union[
+                    Literal[
+                        "phantom_cash",
+                        "usdc",
+                        "usdg",
+                        "usdp",
+                        "usdsui",
+                        "usdt",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -1348,7 +1387,7 @@ class Charge(
                 """
 
             balance: Balance
-            brand: Literal["fiserv_valuelink", "givex", "svs"]
+            brand: Union[Literal["fiserv_valuelink", "givex", "svs"], str]
             """
             The brand of the gift card.
             """
@@ -1420,7 +1459,7 @@ class Charge(
             """
             Account number of the bank account to transfer funds to.
             """
-            bank: Literal["bca", "bni", "bri", "cimb", "permata"]
+            bank: Union[Literal["bca", "bni", "bri", "cimb", "permata"], str]
             """
             Bank where the account is located.
             """
@@ -1518,7 +1557,7 @@ class Charge(
         class InteracPresent(StripeObject):
             class Receipt(StripeObject):
                 account_type: Optional[
-                    Literal["checking", "savings", "unknown"]
+                    Union[Literal["checking", "savings", "unknown"], str]
                 ]
                 """
                 The type of account being debited or credited
@@ -1627,12 +1666,15 @@ class Charge(
             The languages that the issuing bank recommends using for localizing any customer-facing text, as read from the card. Referenced from EMV tag 5F2D, data encoded on the card's chip.
             """
             read_method: Optional[
-                Literal[
-                    "contact_emv",
-                    "contactless_emv",
-                    "contactless_magstripe_mode",
-                    "magnetic_stripe_fallback",
-                    "magnetic_stripe_track2",
+                Union[
+                    Literal[
+                        "contact_emv",
+                        "contactless_emv",
+                        "contactless_magstripe_mode",
+                        "magnetic_stripe_fallback",
+                        "magnetic_stripe_track2",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -1713,29 +1755,32 @@ class Charge(
 
         class KrCard(StripeObject):
             brand: Optional[
-                Literal[
-                    "bc",
-                    "citi",
-                    "hana",
-                    "hyundai",
-                    "jeju",
-                    "jeonbuk",
-                    "kakaobank",
-                    "kbank",
-                    "kdbbank",
-                    "kookmin",
-                    "kwangju",
-                    "lotte",
-                    "mg",
-                    "nh",
-                    "post",
-                    "samsung",
-                    "savingsbank",
-                    "shinhan",
-                    "shinhyup",
-                    "suhyup",
-                    "tossbank",
-                    "woori",
+                Union[
+                    Literal[
+                        "bc",
+                        "citi",
+                        "hana",
+                        "hyundai",
+                        "jeju",
+                        "jeonbuk",
+                        "kakaobank",
+                        "kbank",
+                        "kdbbank",
+                        "kookmin",
+                        "kwangju",
+                        "lotte",
+                        "mg",
+                        "nh",
+                        "post",
+                        "samsung",
+                        "savingsbank",
+                        "shinhan",
+                        "shinhyup",
+                        "suhyup",
+                        "tossbank",
+                        "woori",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -1924,13 +1969,18 @@ class Charge(
         class Paypal(StripeObject):
             class SellerProtection(StripeObject):
                 dispute_categories: Optional[
-                    List[Literal["fraudulent", "product_not_received"]]
+                    List[
+                        Union[
+                            Literal["fraudulent", "product_not_received"], str
+                        ]
+                    ]
                 ]
                 """
                 An array of conditions that are covered for the transaction, if applicable.
                 """
-                status: Literal[
-                    "eligible", "not_eligible", "partially_eligible"
+                status: Union[
+                    Literal["eligible", "not_eligible", "partially_eligible"],
+                    str,
                 ]
                 """
                 Indicates whether the transaction is eligible for PayPal's seller protection.
@@ -2097,7 +2147,7 @@ class Charge(
                 class Card(StripeObject):
                     brand: Optional[str]
                     """
-                    Card brand. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `jcb`, `link`, `mastercard`, `unionpay`, `visa` or `unknown`.
+                    Card brand. Can be `American Express`, `Cartes Bancaires`, `Diners Club`, `Discover`, `Eftpos Australia`, `Girocard`, `JCB`, `MasterCard`, `UnionPay`, `Visa`, or `Unknown`.
                     """
                     brand_product: Optional[str]
                     """
@@ -2297,11 +2347,13 @@ class Charge(
             """
 
         class UsBankAccount(StripeObject):
-            account_holder_type: Optional[Literal["company", "individual"]]
+            account_holder_type: Optional[
+                Union[Literal["company", "individual"], str]
+            ]
             """
             Account holder type: individual or company.
             """
-            account_type: Optional[Literal["checking", "savings"]]
+            account_type: Optional[Union[Literal["checking", "savings"], str]]
             """
             Account type: checkings or savings. Defaults to checking if omitted.
             """
@@ -2524,7 +2576,7 @@ class Charge(
         """
 
     class Redaction(StripeObject):
-        status: Literal["processing", "redacted", "validated"]
+        status: Union[Literal["processing", "redacted", "validated"], str]
         """
         Indicates whether this object and its related objects have been redacted or not.
         """
@@ -2764,7 +2816,7 @@ class Charge(
     """
     Provides information about a card charge. Concatenated to the account's [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static) to form the complete statement descriptor that appears on the customer's statement. If the account has no prefix value, the suffix is concatenated to the account's statement descriptor.
     """
-    status: Literal["failed", "pending", "succeeded"]
+    status: Union[Literal["failed", "pending", "succeeded"], str]
     """
     The status of the payment is either `succeeded`, `pending`, or `failed`.
     """

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal
 
 
@@ -16,7 +16,7 @@ class CustomerPaymentToken(StripeObject):
 
     class Card(StripeObject):
         class Wallet(StripeObject):
-            type: Literal["apple_pay", "google_pay"]
+            type: Union[Literal["apple_pay", "google_pay"], str]
             """
             The type of the card wallet, one of `apple_pay` or `google_pay`.
             """
@@ -48,7 +48,7 @@ class CustomerPaymentToken(StripeObject):
         _inner_class_types = {"wallet": Wallet}
 
     class UsBankAccount(StripeObject):
-        account_type: Optional[Literal["checking", "savings"]]
+        account_type: Optional[Union[Literal["checking", "savings"], str]]
         """
         Account type: `checkings` or `savings`.
         """
@@ -73,7 +73,7 @@ class CustomerPaymentToken(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    type: Literal["card", "us_bank_account"]
+    type: Union[Literal["card", "us_bank_account"], str]
     """
     Type of the Payment Token.
     """

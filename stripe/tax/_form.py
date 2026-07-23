@@ -5,7 +5,7 @@ from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject
 from stripe._util import class_method_variant, sanitize_id
-from typing import Any, ClassVar, List, Optional, cast, overload
+from typing import Any, ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -60,7 +60,7 @@ class Form(ListableAPIResource["Form"]):
             """
             Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             """
-            level: Literal["country", "state"]
+            level: Union[Literal["country", "state"], str]
             """
             Indicates the level of the jurisdiction where the form was filed.
             """
@@ -74,7 +74,7 @@ class Form(ListableAPIResource["Form"]):
         Time when the filing status was updated.
         """
         jurisdiction: Jurisdiction
-        value: Literal["accepted", "filed", "rejected"]
+        value: Union[Literal["accepted", "filed", "rejected"], str]
         """
         The current status of the filed form.
         """
@@ -109,7 +109,7 @@ class Form(ListableAPIResource["Form"]):
         """
         The external reference to this payee.
         """
-        type: Literal["account", "external_reference"]
+        type: Union[Literal["account", "external_reference"], str]
         """
         Either `account` or `external_reference`.
         """
@@ -162,15 +162,18 @@ class Form(ListableAPIResource["Form"]):
     String representing the object's type. Objects of the same type share the same value.
     """
     payee: Payee
-    type: Literal[
-        "au_serr",
-        "ca_mrdp",
-        "eu_dac7",
-        "gb_mrdp",
-        "nz_mrdp",
-        "us_1099_k",
-        "us_1099_misc",
-        "us_1099_nec",
+    type: Union[
+        Literal[
+            "au_serr",
+            "ca_mrdp",
+            "eu_dac7",
+            "gb_mrdp",
+            "nz_mrdp",
+            "us_1099_k",
+            "us_1099_misc",
+            "us_1099_nec",
+        ],
+        str,
     ]
     """
     The type of the tax form. An additional hash is included on the tax form with a name matching this value. It contains additional information specific to the tax form type.

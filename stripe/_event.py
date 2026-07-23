@@ -3,7 +3,7 @@
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
-from typing import Any, ClassVar, Optional
+from typing import Any, ClassVar, Optional, Union
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -81,7 +81,7 @@ class Event(ListableAPIResource["Event"]):
 
         automation_action: Optional[AutomationAction]
         request: Optional[Request]
-        type: Literal["automation_action", "request"]
+        type: Union[Literal["automation_action", "request"], str]
         """
         The type of the reason for the event.
         """

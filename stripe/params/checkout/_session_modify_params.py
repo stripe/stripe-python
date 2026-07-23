@@ -3,7 +3,7 @@
 from decimal import Decimal
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -76,7 +76,7 @@ class SessionModifyParamsAutomaticTaxLiability(TypedDict):
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "application", "self"]
+    type: Union[Literal["account", "application", "self"], str]
     """
     Type of the account referenced in the request.
     """
@@ -150,7 +150,7 @@ class SessionModifyParamsDiscountCouponData(TypedDict):
     Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `amount_off` parameter (required if `amount_off` is passed).
     """
     duration: NotRequired[
-        Literal["forever", "once", "repeating", "service_period"]
+        "Literal['forever', 'once', 'repeating', 'service_period']|str"
     ]
     """
     Specifies how long the discount will be in effect if used on a subscription. Defaults to `once`.
@@ -190,7 +190,7 @@ class SessionModifyParamsInvoiceCreationInvoiceDataIssuer(TypedDict):
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "application", "self"]
+    type: Union[Literal["account", "application", "self"], str]
     """
     Type of the account referenced in the request.
     """
@@ -402,7 +402,7 @@ class SessionModifyParamsShippingOptionShippingRateDataDeliveryEstimate(
 class SessionModifyParamsShippingOptionShippingRateDataDeliveryEstimateMaximum(
     TypedDict,
 ):
-    unit: Literal["business_day", "day", "hour", "month", "week"]
+    unit: Union[Literal["business_day", "day", "hour", "month", "week"], str]
     """
     A unit of time.
     """
@@ -415,7 +415,7 @@ class SessionModifyParamsShippingOptionShippingRateDataDeliveryEstimateMaximum(
 class SessionModifyParamsShippingOptionShippingRateDataDeliveryEstimateMinimum(
     TypedDict,
 ):
-    unit: Literal["business_day", "day", "hour", "month", "week"]
+    unit: Union[Literal["business_day", "day", "hour", "month", "week"], str]
     """
     A unit of time.
     """
@@ -492,7 +492,7 @@ class SessionModifyParamsSubscriptionDataInvoiceSettingsIssuer(TypedDict):
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "application", "self"]
+    type: Union[Literal["account", "application", "self"], str]
     """
     Type of the account referenced in the request.
     """

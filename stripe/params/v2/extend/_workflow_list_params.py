@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -10,7 +10,7 @@ class WorkflowListParams(TypedDict):
     Restrict page size to no more than this number.
     """
     status: NotRequired[
-        List[Literal["active", "archived", "draft", "inactive"]]
+        List[Union[Literal["active", "archived", "draft", "inactive"], str]]
     ]
     """
     When retrieving Workflows, include only those with the specified status values.

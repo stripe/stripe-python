@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -18,15 +18,18 @@ class PersonalizationDesignRejectParams(TypedDict):
 class PersonalizationDesignRejectParamsRejectionReasons(TypedDict):
     card_logo: NotRequired[
         List[
-            Literal[
-                "geographic_location",
-                "inappropriate",
-                "network_name",
-                "non_binary_image",
-                "non_fiat_currency",
-                "other",
-                "other_entity",
-                "promotional_material",
+            Union[
+                Literal[
+                    "geographic_location",
+                    "inappropriate",
+                    "network_name",
+                    "non_binary_image",
+                    "non_fiat_currency",
+                    "other",
+                    "other_entity",
+                    "promotional_material",
+                ],
+                str,
             ]
         ]
     ]
@@ -35,14 +38,17 @@ class PersonalizationDesignRejectParamsRejectionReasons(TypedDict):
     """
     carrier_text: NotRequired[
         List[
-            Literal[
-                "geographic_location",
-                "inappropriate",
-                "network_name",
-                "non_fiat_currency",
-                "other",
-                "other_entity",
-                "promotional_material",
+            Union[
+                Literal[
+                    "geographic_location",
+                    "inappropriate",
+                    "network_name",
+                    "non_fiat_currency",
+                    "other",
+                    "other_entity",
+                    "promotional_material",
+                ],
+                str,
             ]
         ]
     ]

@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from decimal import Decimal
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -101,14 +101,14 @@ class InvoiceLineItemUpdateParamsDiscountDiscountEnd(TypedDict):
     """
     A precise Unix timestamp for the discount to end. Must be in the future.
     """
-    type: Literal["duration", "timestamp"]
+    type: Union[Literal["duration", "timestamp"], str]
     """
     The type of calculation made to determine when the discount ends.
     """
 
 
 class InvoiceLineItemUpdateParamsDiscountDiscountEndDuration(TypedDict):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
     """
@@ -221,23 +221,7 @@ class InvoiceLineItemUpdateParamsTaxAmount(TypedDict):
     Stripe automatically creates or reuses a TaxRate object for each tax amount. If the `tax_rate_data` exactly matches a previous value, Stripe will reuse the TaxRate object. TaxRate objects created automatically by Stripe are immediately archived, do not appear in the line item's `tax_rates`, and cannot be directly added to invoices, payments, or line items.
     """
     taxability_reason: NotRequired[
-        Literal[
-            "customer_exempt",
-            "not_collecting",
-            "not_subject_to_tax",
-            "not_supported",
-            "portion_product_exempt",
-            "portion_reduced_rated",
-            "portion_standard_rated",
-            "product_exempt",
-            "product_exempt_holiday",
-            "proportionally_rated",
-            "reduced_rated",
-            "reverse_charge",
-            "standard_rated",
-            "taxable_basis_reduced",
-            "zero_rated",
-        ]
+        "Literal['customer_exempt', 'not_collecting', 'not_subject_to_tax', 'not_supported', 'portion_product_exempt', 'portion_reduced_rated', 'portion_standard_rated', 'product_exempt', 'product_exempt_holiday', 'proportionally_rated', 'reduced_rated', 'reverse_charge', 'standard_rated', 'taxable_basis_reduced', 'zero_rated']|str"
     ]
     """
     The reasoning behind this tax, for example, if the product is tax exempt.
@@ -270,7 +254,7 @@ class InvoiceLineItemUpdateParamsTaxAmountTaxRateData(TypedDict):
     The jurisdiction for the tax rate. You can use this label field for tax reporting purposes. It also appears on your customer's invoice.
     """
     jurisdiction_level: NotRequired[
-        Literal["city", "country", "county", "district", "multiple", "state"]
+        "Literal['city', 'country', 'county', 'district', 'multiple', 'state']|str"
     ]
     """
     The level of the jurisdiction that imposes this tax rate.

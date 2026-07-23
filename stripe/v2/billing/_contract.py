@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from decimal import Decimal
 from stripe._stripe_object import StripeObject, UntypedStripeObject
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
@@ -261,7 +261,7 @@ class Contract(StripeObject):
                     """
                     Filter by pricing line lookup keys.
                     """
-                    type: Literal["exclude", "include"]
+                    type: Union[Literal["exclude", "include"], str]
                     """
                     Whether to include or exclude items matching these criteria.
                     """
@@ -384,7 +384,7 @@ class Contract(StripeObject):
     """
     The pricing overrides. Only populated when `pricing_overrides` is passed in the `include` parameter.
     """
-    status: Literal["active", "canceled", "draft", "ended"]
+    status: Union[Literal["active", "canceled", "draft", "ended"], str]
     """
     The current status of the contract.
     """

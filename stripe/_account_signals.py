@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
@@ -18,29 +18,35 @@ class AccountSignals(StripeObject):
             """
             A brief explanation of how this indicator contributed to the delinquency probability.
             """
-            impact: Literal[
-                "decrease", "neutral", "slight_increase", "strong_increase"
+            impact: Union[
+                Literal[
+                    "decrease", "neutral", "slight_increase", "strong_increase"
+                ],
+                str,
             ]
             """
             The effect this indicator had on the overall risk level.
             """
-            indicator: Literal[
-                "account_balance",
-                "aov",
-                "charge_concentration",
-                "dispute_window",
-                "disputes",
-                "duplicates",
-                "exposure",
-                "firmographic",
-                "lifetime_metrics",
-                "payment_processing",
-                "payment_volume",
-                "payouts",
-                "refunds",
-                "related_accounts",
-                "tenure",
-                "transfers",
+            indicator: Union[
+                Literal[
+                    "account_balance",
+                    "aov",
+                    "charge_concentration",
+                    "dispute_window",
+                    "disputes",
+                    "duplicates",
+                    "exposure",
+                    "firmographic",
+                    "lifetime_metrics",
+                    "payment_processing",
+                    "payment_volume",
+                    "payouts",
+                    "refunds",
+                    "related_accounts",
+                    "tenure",
+                    "transfers",
+                ],
+                str,
             ]
             """
             The name of the specific indicator used in the risk assessment.
@@ -58,8 +64,16 @@ class AccountSignals(StripeObject):
         """
         The probability of delinquency. Can be between 0.00 and 100.00
         """
-        risk_level: Literal[
-            "elevated", "highest", "low", "normal", "not_assessed", "unknown"
+        risk_level: Union[
+            Literal[
+                "elevated",
+                "highest",
+                "low",
+                "normal",
+                "not_assessed",
+                "unknown",
+            ],
+            str,
         ]
         """
         Categorical assessment of the delinquency risk based on probability.
@@ -76,23 +90,29 @@ class AccountSignals(StripeObject):
             """
             A brief explanation of how this indicator contributed to the delinquency probability.
             """
-            impact: Literal[
-                "decrease", "neutral", "slight_increase", "strong_increase"
+            impact: Union[
+                Literal[
+                    "decrease", "neutral", "slight_increase", "strong_increase"
+                ],
+                str,
             ]
             """
             The effect this indicator had on the overall risk level.
             """
-            indicator: Literal[
-                "bank_account",
-                "business_information_and_account_activity",
-                "disputes",
-                "failures",
-                "geo_location",
-                "other",
-                "other_related_accounts",
-                "other_transaction_activity",
-                "owner_email",
-                "web_presence",
+            indicator: Union[
+                Literal[
+                    "bank_account",
+                    "business_information_and_account_activity",
+                    "disputes",
+                    "failures",
+                    "geo_location",
+                    "other",
+                    "other_related_accounts",
+                    "other_transaction_activity",
+                    "owner_email",
+                    "web_presence",
+                ],
+                str,
             ]
             """
             The name of the specific indicator used in the risk assessment.
@@ -110,8 +130,16 @@ class AccountSignals(StripeObject):
         """
         The probability of fraud intent. Can be between 0.00 and 100.00
         """
-        risk_level: Literal[
-            "elevated", "highest", "low", "normal", "not_assessed", "unknown"
+        risk_level: Union[
+            Literal[
+                "elevated",
+                "highest",
+                "low",
+                "normal",
+                "not_assessed",
+                "unknown",
+            ],
+            str,
         ]
         """
         Categorical assessment of the fraud intent risk based on probability.

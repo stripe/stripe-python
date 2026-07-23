@@ -19,6 +19,15 @@ if TYPE_CHECKING:
     from stripe.params.crypto._customer_retrieve_params import (
         CustomerRetrieveParams as CustomerRetrieveParams,
     )
+    from stripe.params.crypto._deposit_address_create_params import (
+        DepositAddressCreateParams as DepositAddressCreateParams,
+    )
+    from stripe.params.crypto._deposit_address_list_params import (
+        DepositAddressListParams as DepositAddressListParams,
+    )
+    from stripe.params.crypto._deposit_address_retrieve_params import (
+        DepositAddressRetrieveParams as DepositAddressRetrieveParams,
+    )
     from stripe.params.crypto._onramp_session_checkout_params import (
         OnrampSessionCheckoutParams as OnrampSessionCheckoutParams,
         OnrampSessionCheckoutParamsMandateData as OnrampSessionCheckoutParamsMandateData,
@@ -66,6 +75,18 @@ _import_map = {
     ),
     "CustomerRetrieveParams": (
         "stripe.params.crypto._customer_retrieve_params",
+        False,
+    ),
+    "DepositAddressCreateParams": (
+        "stripe.params.crypto._deposit_address_create_params",
+        False,
+    ),
+    "DepositAddressListParams": (
+        "stripe.params.crypto._deposit_address_list_params",
+        False,
+    ),
+    "DepositAddressRetrieveParams": (
+        "stripe.params.crypto._deposit_address_retrieve_params",
         False,
     ),
     "OnrampSessionCheckoutParams": (

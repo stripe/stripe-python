@@ -27,7 +27,7 @@ class BalanceSettingsModifyParamsPayments(TypedDict):
     Settings specific to the account's payouts.
     """
     settlement_currencies: NotRequired[
-        "Dict[str, Literal['disabled', 'enabled']]|UntypedStripeObject[Literal['disabled', 'enabled']]"
+        "Dict[str, Union[Literal['disabled', 'enabled'], str]]|UntypedStripeObject[Union[Literal['disabled', 'enabled'], str]]"
     ]
     """
     A hash of settlement currencies to update. Each key is an ISO 4217 currency code, and the value is either `enabled` or `disabled`.
@@ -74,14 +74,16 @@ class BalanceSettingsModifyParamsPaymentsPayoutsAutomaticTransferRulesByCurrency
     """
     The maximum amount in minor units to transfer to the FinancialAccount. Required and only applicable when `type` is `transfer_up_to_amount`.
     """
-    type: Literal["transfer_all", "transfer_up_to_amount"]
+    type: Union[Literal["transfer_all", "transfer_up_to_amount"], str]
     """
     The type of automatic transfer rule.
     """
 
 
 class BalanceSettingsModifyParamsPaymentsPayoutsSchedule(TypedDict):
-    interval: NotRequired[Literal["daily", "manual", "monthly", "weekly"]]
+    interval: NotRequired[
+        "Literal['daily', 'manual', 'monthly', 'weekly']|str"
+    ]
     """
     How frequently available funds are paid out. One of: `daily`, `manual`, `weekly`, or `monthly`. Default is `daily`.
     """
@@ -90,7 +92,14 @@ class BalanceSettingsModifyParamsPaymentsPayoutsSchedule(TypedDict):
     The days of the month when available funds are paid out, specified as an array of numbers between 1--31. Payouts nominally scheduled between the 29th and 31st of the month are instead sent on the last day of a shorter month. Required and applicable only if `interval` is `monthly`.
     """
     weekly_payout_days: NotRequired[
-        List[Literal["friday", "monday", "thursday", "tuesday", "wednesday"]]
+        List[
+            Union[
+                Literal[
+                    "friday", "monday", "thursday", "tuesday", "wednesday"
+                ],
+                str,
+            ]
+        ]
     ]
     """
     The days of the week when available funds are paid out, specified as an array, e.g., [`monday`, `tuesday`]. Required and applicable only if `interval` is `weekly`.

@@ -8,7 +8,7 @@ from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._test_helpers import APIResourceTestHelpers
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, Optional, cast, overload
+from typing import ClassVar, Optional, Union, cast, overload
 from typing_extensions import Literal, Type, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -95,7 +95,7 @@ class Refund(
             """
             Type of the reference number assigned to the refund.
             """
-            type: Literal["pending", "refund", "reversal"]
+            type: Union[Literal["pending", "refund", "reversal"], str]
             """
             The type of refund. This can be `refund`, `reversal`, or `pending`.
             """
@@ -445,18 +445,23 @@ class Refund(
     ID of the PaymentIntent that's refunded.
     """
     pending_reason: Optional[
-        Literal["charge_pending", "insufficient_funds", "processing"]
+        Union[
+            Literal["charge_pending", "insufficient_funds", "processing"], str
+        ]
     ]
     """
     Provides the reason for why the refund is pending. Possible values are: `processing`, `insufficient_funds`, or `charge_pending`.
     """
     presentment_details: Optional[PresentmentDetails]
     reason: Optional[
-        Literal[
-            "duplicate",
-            "expired_uncaptured_charge",
-            "fraudulent",
-            "requested_by_customer",
+        Union[
+            Literal[
+                "duplicate",
+                "expired_uncaptured_charge",
+                "fraudulent",
+                "requested_by_customer",
+            ],
+            str,
         ]
     ]
     """

@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -38,6 +38,10 @@ class RequestedSessionConfirmParams(RequestOptions):
     risk_details: NotRequired["RequestedSessionConfirmParamsRiskDetails"]
     """
     Risk details/signals associated with the requested session
+    """
+    use_stripe_sdk: NotRequired[bool]
+    """
+    Set to true when using Stripe.js, iOS, or Android client-side SDKs to handle next actions.
     """
 
 
@@ -84,7 +88,7 @@ class RequestedSessionConfirmParamsAffiliateAttribution(TypedDict):
     """
     Agent-scoped sub-tracking identifier.
     """
-    touchpoint: Literal["first", "last"]
+    touchpoint: Union[Literal["first", "last"], str]
     """
     Whether this is the first or last touchpoint.
     """
@@ -95,7 +99,7 @@ class RequestedSessionConfirmParamsAffiliateAttributionSource(TypedDict):
     """
     The platform where the attribution originated.
     """
-    type: Literal["platform", "url"]
+    type: Union[Literal["platform", "url"], str]
     """
     The type of the attribution source.
     """

@@ -3,7 +3,7 @@
 from stripe._singleton_api_resource import SingletonAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
-from typing import ClassVar, List, Optional, cast
+from typing import ClassVar, List, Optional, Union, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -36,14 +36,16 @@ class BalanceSettings(
                 """
                 The maximum amount in minor units to transfer to the FinancialAccount. Only applicable when `type` is `transfer_up_to_amount`.
                 """
-                type: Literal["transfer_all", "transfer_up_to_amount"]
+                type: Union[
+                    Literal["transfer_all", "transfer_up_to_amount"], str
+                ]
                 """
                 The type of automatic transfer rule.
                 """
 
             class Schedule(StripeObject):
                 interval: Optional[
-                    Literal["daily", "manual", "monthly", "weekly"]
+                    Union[Literal["daily", "manual", "monthly", "weekly"], str]
                 ]
                 """
                 How frequently funds will be paid out. One of `manual` (payouts only created via API call), `daily`, `weekly`, or `monthly`.
@@ -54,12 +56,15 @@ class BalanceSettings(
                 """
                 weekly_payout_days: Optional[
                     List[
-                        Literal[
-                            "friday",
-                            "monday",
-                            "thursday",
-                            "tuesday",
-                            "wednesday",
+                        Union[
+                            Literal[
+                                "friday",
+                                "monday",
+                                "thursday",
+                                "tuesday",
+                                "wednesday",
+                            ],
+                            str,
                         ]
                     ]
                 ]
@@ -85,7 +90,7 @@ class BalanceSettings(
             """
             The text that appears on the bank account statement for payouts. If not set, this defaults to the platform's bank descriptor as set in the Dashboard.
             """
-            status: Literal["disabled", "enabled"]
+            status: Union[Literal["disabled", "enabled"], str]
             """
             Whether the funds in this account can be paid out.
             """
@@ -138,7 +143,12 @@ class BalanceSettings(
         """
         settlement_currencies: Optional[
             UntypedStripeObject[
-                Literal["disabled", "enabled", "restricted_by_application"]
+                Union[
+                    Literal[
+                        "disabled", "enabled", "restricted_by_application"
+                    ],
+                    str,
+                ]
             ]
         ]
         """

@@ -87,7 +87,7 @@ class ConfigurationCreateParamsFeatures(TypedDict):
 
 class ConfigurationCreateParamsFeaturesCustomerUpdate(TypedDict):
     allowed_updates: NotRequired[
-        "Literal['']|List[Literal['address', 'email', 'name', 'phone', 'shipping', 'tax_id']]"
+        "Literal['']|List[Union[Literal['address', 'email', 'name', 'phone', 'shipping', 'tax_id'], str]]"
     ]
     """
     The types of customer updates that are supported. When empty, customers are not updateable.
@@ -127,7 +127,7 @@ class ConfigurationCreateParamsFeaturesSubscriptionCancel(TypedDict):
     """
     Whether the feature is enabled.
     """
-    mode: NotRequired[Literal["at_period_end", "immediately"]]
+    mode: NotRequired["Literal['at_period_end', 'immediately']|str"]
     """
     Whether to cancel subscriptions immediately or at the end of the billing period.
     """
@@ -149,15 +149,18 @@ class ConfigurationCreateParamsFeaturesSubscriptionCancelCancellationReason(
     options: Union[
         Literal[""],
         List[
-            Literal[
-                "customer_service",
-                "low_quality",
-                "missing_features",
-                "other",
-                "switched_service",
-                "too_complex",
-                "too_expensive",
-                "unused",
+            Union[
+                Literal[
+                    "customer_service",
+                    "low_quality",
+                    "missing_features",
+                    "other",
+                    "switched_service",
+                    "too_complex",
+                    "too_expensive",
+                    "unused",
+                ],
+                str,
             ]
         ],
     ]
@@ -172,7 +175,7 @@ class ConfigurationCreateParamsFeaturesSubscriptionUpdate(TypedDict):
     Determines the value to use for the billing cycle anchor on subscription updates. Valid values are `now` or `unchanged`, and the default value is `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time (in UTC). For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
     """
     default_allowed_updates: NotRequired[
-        "Literal['']|List[Literal['price', 'promotion_code', 'quantity']]"
+        "Literal['']|List[Union[Literal['price', 'promotion_code', 'quantity'], str]]"
     ]
     """
     The types of subscription updates that are supported. When empty, subscriptions are not updateable.
@@ -199,7 +202,9 @@ class ConfigurationCreateParamsFeaturesSubscriptionUpdate(TypedDict):
     """
     Setting to control when an update should be scheduled at the end of the period instead of applying immediately.
     """
-    trial_update_behavior: NotRequired[Literal["continue_trial", "end_trial"]]
+    trial_update_behavior: NotRequired[
+        "Literal['continue_trial', 'end_trial']|str"
+    ]
     """
     The behavior when updating a subscription that is trialing.
     """
@@ -255,7 +260,7 @@ class ConfigurationCreateParamsFeaturesSubscriptionUpdateScheduleAtPeriodEnd(
 class ConfigurationCreateParamsFeaturesSubscriptionUpdateScheduleAtPeriodEndCondition(
     TypedDict,
 ):
-    type: Literal["decreasing_item_amount", "shortening_interval"]
+    type: Union[Literal["decreasing_item_amount", "shortening_interval"], str]
     """
     The type of condition.
     """

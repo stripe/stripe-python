@@ -3,7 +3,7 @@
 from decimal import Decimal
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe.v2._amount import Amount as V2AmountResource
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -29,15 +29,18 @@ class PricingPlanSubscription(StripeObject):
         Additional comments about why the user canceled the subscription, if the subscription was canceled explicitly by the user.
         """
         feedback: Optional[
-            Literal[
-                "customer_service",
-                "low_quality",
-                "missing_features",
-                "other",
-                "switched_service",
-                "too_complex",
-                "too_expensive",
-                "unused",
+            Union[
+                Literal[
+                    "customer_service",
+                    "low_quality",
+                    "missing_features",
+                    "other",
+                    "switched_service",
+                    "too_complex",
+                    "too_expensive",
+                    "unused",
+                ],
+                str,
             ]
         ]
         """
@@ -264,7 +267,9 @@ class PricingPlanSubscription(StripeObject):
                     """
                     The monetary amount of the credit grant. Required if `type` is `monetary`.
                     """
-                    type: Literal["custom_pricing_unit", "monetary"]
+                    type: Union[
+                        Literal["custom_pricing_unit", "monetary"], str
+                    ]
                     """
                     The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
                     """
@@ -340,7 +345,9 @@ class PricingPlanSubscription(StripeObject):
                     """
                     The monetary amount of the credit grant. Required if `type` is `monetary`.
                     """
-                    type: Literal["custom_pricing_unit", "monetary"]
+                    type: Union[
+                        Literal["custom_pricing_unit", "monetary"], str
+                    ]
                     """
                     The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
                     """
@@ -418,7 +425,9 @@ class PricingPlanSubscription(StripeObject):
             """
             The service cycle configuration.
             """
-            type: Literal["credit_grant", "credit_grant_per_tenant"]
+            type: Union[
+                Literal["credit_grant", "credit_grant_per_tenant"], str
+            ]
             """
             The type of the recurring credit grant.
             """

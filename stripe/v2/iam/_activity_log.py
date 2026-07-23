@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
@@ -126,7 +126,7 @@ class ActivityLog(StripeObject):
         """
         Details of an API key action.
         """
-        type: Literal["api_key", "user_invite", "user_roles"]
+        type: Union[Literal["api_key", "user_invite", "user_roles"], str]
         """
         The action group type of the activity log entry.
         """
@@ -172,16 +172,19 @@ class ActivityLog(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
     """
-    type: Literal[
-        "api_key_created",
-        "api_key_deleted",
-        "api_key_updated",
-        "api_key_viewed",
-        "user_invite_accepted",
-        "user_invite_created",
-        "user_invite_deleted",
-        "user_roles_deleted",
-        "user_roles_updated",
+    type: Union[
+        Literal[
+            "api_key_created",
+            "api_key_deleted",
+            "api_key_updated",
+            "api_key_viewed",
+            "user_invite_accepted",
+            "user_invite_created",
+            "user_invite_deleted",
+            "user_roles_deleted",
+            "user_roles_updated",
+        ],
+        str,
     ]
     """
     The type of action that was performed.

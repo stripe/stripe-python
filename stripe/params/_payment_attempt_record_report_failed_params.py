@@ -16,10 +16,7 @@ class PaymentAttemptRecordReportFailedParams(RequestOptions):
     When the reported payment failed. Measured in seconds since the Unix epoch.
     """
     failure_code: NotRequired[
-        Literal[
-            "payment_method_customer_decline",
-            "payment_method_provider_unknown_outcome",
-        ]
+        "Literal['payment_method_customer_decline', 'payment_method_provider_unknown_outcome']|str"
     ]
     """
     The failure code for this payment attempt. Must be one of `payment_method_customer_decline` or `payment_method_provider_unknown_outcome`.
@@ -76,18 +73,20 @@ class PaymentAttemptRecordReportFailedParamsPaymentMethodDetailsCardChecks(
     TypedDict,
 ):
     address_line1_check: NotRequired[
-        Literal["fail", "pass", "unavailable", "unchecked"]
+        "Literal['fail', 'pass', 'unavailable', 'unchecked']|str"
     ]
     """
     The result of the check on the cardholder's address line 1.
     """
     address_postal_code_check: NotRequired[
-        Literal["fail", "pass", "unavailable", "unchecked"]
+        "Literal['fail', 'pass', 'unavailable', 'unchecked']|str"
     ]
     """
     The result of the check on the cardholder's postal code.
     """
-    cvc_check: NotRequired[Literal["fail", "pass", "unavailable", "unchecked"]]
+    cvc_check: NotRequired[
+        "Literal['fail', 'pass', 'unavailable', 'unchecked']|str"
+    ]
     """
     The result of the check on the card's CVC.
     """

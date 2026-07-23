@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -19,12 +19,15 @@ class FinancialAccountListParams(TypedDict):
     """
     types: NotRequired[
         List[
-            Literal[
-                "accrued_fees",
-                "credit",
-                "multiprocessor_settlement",
-                "payments",
-                "storage",
+            Union[
+                Literal[
+                    "accrued_fees",
+                    "credit",
+                    "multiprocessor_settlement",
+                    "payments",
+                    "storage",
+                ],
+                str,
             ]
         ]
     ]

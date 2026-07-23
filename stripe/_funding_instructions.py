@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
@@ -510,16 +510,19 @@ class FundingInstructions(StripeObject):
             """
             supported_networks: Optional[
                 List[
-                    Literal[
-                        "ach",
-                        "bacs",
-                        "chaps",
-                        "domestic_wire_us",
-                        "fps",
-                        "sepa",
-                        "spei",
-                        "swift",
-                        "zengin",
+                    Union[
+                        Literal[
+                            "ach",
+                            "bacs",
+                            "chaps",
+                            "domestic_wire_us",
+                            "fps",
+                            "sepa",
+                            "spei",
+                            "swift",
+                            "zengin",
+                        ],
+                        str,
                     ]
                 ]
             ]
@@ -530,8 +533,9 @@ class FundingInstructions(StripeObject):
             """
             SWIFT Records contain U.S. bank account details per the SWIFT format.
             """
-            type: Literal[
-                "aba", "iban", "sort_code", "spei", "swift", "zengin"
+            type: Union[
+                Literal["aba", "iban", "sort_code", "spei", "swift", "zengin"],
+                str,
             ]
             """
             The type of financial address
@@ -557,7 +561,7 @@ class FundingInstructions(StripeObject):
         """
         A list of financial addresses that can be used to fund a particular balance
         """
-        type: Literal["eu_bank_transfer", "jp_bank_transfer"]
+        type: Union[Literal["eu_bank_transfer", "jp_bank_transfer"], str]
         """
         The bank_transfer type
         """

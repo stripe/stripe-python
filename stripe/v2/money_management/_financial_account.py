@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe.v2._amount import Amount
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
@@ -51,7 +51,7 @@ class FinancialAccount(StripeObject):
             """
             Details for platform-funded credit FinancialAccounts.
             """
-            type: Literal["platform", "stripe"]
+            type: Union[Literal["platform", "stripe"], str]
             """
             The type of funding source for this credit FinancialAccount.
             """
@@ -189,7 +189,7 @@ class FinancialAccount(StripeObject):
         _inner_class_types = {"closed": Closed}
 
     class Storage(StripeObject):
-        funds_usage_type: Optional[Literal["business", "consumer"]]
+        funds_usage_type: Optional[Union[Literal["business", "consumer"], str]]
         """
         The usage type for funds in this FinancialAccount. Can be used to specify that the funds are for Consumer activity.
         """

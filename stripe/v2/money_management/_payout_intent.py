@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe.v2._amount import Amount
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
@@ -34,39 +34,42 @@ class PayoutIntent(StripeObject):
         """
         The ID of the OutboundTransfer, if applicable.
         """
-        type: Literal["outbound_payment", "outbound_transfer"]
+        type: Union[Literal["outbound_payment", "outbound_transfer"], str]
         """
         The type of payout.
         """
 
     class NextAction(StripeObject):
         class HandleFailure(StripeObject):
-            failure_reason: Literal[
-                "account_not_configured_as_recipient",
-                "currency_not_supported_for_financial_account_balance",
-                "currency_required",
-                "feature_not_active_for_recipient",
-                "fx_rate_drift_exceeded_after_review",
-                "insufficient_funds",
-                "payout_method_account_type_incorrect",
-                "payout_method_amount_limit_exceeded",
-                "payout_method_canceled_by_customer",
-                "payout_method_closed",
-                "payout_method_currency_unsupported",
-                "payout_method_declined",
-                "payout_method_does_not_exist",
-                "payout_method_expired",
-                "payout_method_holder_address_incorrect",
-                "payout_method_holder_details_incorrect",
-                "payout_method_holder_name_incorrect",
-                "payout_method_invalid_account_number",
-                "payout_method_restricted",
-                "payout_method_unsupported",
-                "payout_method_usage_frequency_limit_exceeded",
-                "recalled",
-                "review_rejected",
-                "to_destination_invalid",
-                "unknown_failure",
+            failure_reason: Union[
+                Literal[
+                    "account_not_configured_as_recipient",
+                    "currency_not_supported_for_financial_account_balance",
+                    "currency_required",
+                    "feature_not_active_for_recipient",
+                    "fx_rate_drift_exceeded_after_review",
+                    "insufficient_funds",
+                    "payout_method_account_type_incorrect",
+                    "payout_method_amount_limit_exceeded",
+                    "payout_method_canceled_by_customer",
+                    "payout_method_closed",
+                    "payout_method_currency_unsupported",
+                    "payout_method_declined",
+                    "payout_method_does_not_exist",
+                    "payout_method_expired",
+                    "payout_method_holder_address_incorrect",
+                    "payout_method_holder_details_incorrect",
+                    "payout_method_holder_name_incorrect",
+                    "payout_method_invalid_account_number",
+                    "payout_method_restricted",
+                    "payout_method_unsupported",
+                    "payout_method_usage_frequency_limit_exceeded",
+                    "recalled",
+                    "review_rejected",
+                    "to_destination_invalid",
+                    "unknown_failure",
+                ],
+                str,
             ]
             """
             Open Enum. The reason for the failure.
@@ -122,7 +125,9 @@ class PayoutIntent(StripeObject):
             class BankAccount(StripeObject):
                 class PreferredNetworkOptions(StripeObject):
                     class Ach(StripeObject):
-                        submission: Optional[Literal["next_day", "same_day"]]
+                        submission: Optional[
+                            Union[Literal["next_day", "same_day"], str]
+                        ]
                         """
                         Open Enum. ACH submission timing.
                         """
@@ -142,17 +147,20 @@ class PayoutIntent(StripeObject):
                 Per-network configuration options.
                 """
                 preferred_networks: List[
-                    Literal[
-                        "ach",
-                        "becs",
-                        "eft",
-                        "fedwire",
-                        "fps",
-                        "npp",
-                        "rtp",
-                        "sepa_credit",
-                        "sepa_instant",
-                        "swift",
+                    Union[
+                        Literal[
+                            "ach",
+                            "becs",
+                            "eft",
+                            "fedwire",
+                            "fps",
+                            "npp",
+                            "rtp",
+                            "sepa_credit",
+                            "sepa_instant",
+                            "swift",
+                        ],
+                        str,
                     ]
                 ]
                 """
@@ -239,8 +247,11 @@ class PayoutIntent(StripeObject):
     """
     The description that appears on the receiving end for the payout (for example, on a bank statement).
     """
-    status: Literal[
-        "canceled", "pending", "posted", "processing", "requires_action"
+    status: Union[
+        Literal[
+            "canceled", "pending", "posted", "processing", "requires_action"
+        ],
+        str,
     ]
     """
     Open Enum. Current status of the PayoutIntent: `pending`, `processing`, `posted`, `canceled`, `requires_action`.

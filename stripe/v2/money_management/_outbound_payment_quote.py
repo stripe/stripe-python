@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe.v2._amount import Amount
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
@@ -16,11 +16,15 @@ class OutboundPaymentQuote(StripeObject):
     ] = "v2.money_management.outbound_payment_quote"
 
     class DeliveryOptions(StripeObject):
-        bank_account: Optional[Literal["automatic", "local", "wire"]]
+        bank_account: Optional[
+            Union[Literal["automatic", "local", "wire"], str]
+        ]
         """
         Open Enum. Method for bank account.
         """
-        speed: Optional[Literal["instant", "next_business_day", "standard"]]
+        speed: Optional[
+            Union[Literal["instant", "next_business_day", "standard"], str]
+        ]
         """
         Open Enum. Speed of the payout.
         """
@@ -30,14 +34,17 @@ class OutboundPaymentQuote(StripeObject):
         """
         The fee amount for corresponding fee type.
         """
-        type: Literal[
-            "cross_border_payout_fee",
-            "foreign_exchange_fee",
-            "instant_payout_fee",
-            "next_day_payout_fee",
-            "real_time_payout_fee",
-            "standard_payout_fee",
-            "wire_payout_fee",
+        type: Union[
+            Literal[
+                "cross_border_payout_fee",
+                "foreign_exchange_fee",
+                "instant_payout_fee",
+                "next_day_payout_fee",
+                "real_time_payout_fee",
+                "standard_payout_fee",
+                "wire_payout_fee",
+            ],
+            str,
         ]
         """
         The fee type.
@@ -60,7 +67,7 @@ class OutboundPaymentQuote(StripeObject):
             The exchange rate going from_currency -> to_currency.
             """
 
-        lock_duration: Literal["five_minutes", "none"]
+        lock_duration: Union[Literal["five_minutes", "none"], str]
         """
         The duration the exchange rate lock remains valid from creation time. Allowed value is five_minutes or none.
         """
@@ -68,7 +75,7 @@ class OutboundPaymentQuote(StripeObject):
         """
         Time at which the rate lock will expire, measured in seconds since the Unix epoch. Null when rate locking is not supported.
         """
-        lock_status: Literal["active", "expired", "none"]
+        lock_status: Union[Literal["active", "expired", "none"], str]
         """
         Lock status of the quote. Transitions from active to expired once past the lock_expires_at timestamp. Value can be active, expired or none.
         """

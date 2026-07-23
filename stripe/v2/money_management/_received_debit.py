@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
 from stripe.v2._amount import Amount
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
@@ -112,11 +112,14 @@ class ReceivedDebit(StripeObject):
 
     class StatusDetails(StripeObject):
         class Failed(StripeObject):
-            reason: Literal[
-                "capability_inactive",
-                "financial_address_inactive",
-                "insufficient_funds",
-                "stripe_rejected",
+            reason: Union[
+                Literal[
+                    "capability_inactive",
+                    "financial_address_inactive",
+                    "insufficient_funds",
+                    "stripe_rejected",
+                ],
+                str,
             ]
             """
             Open Enum. The reason for the failure of the ReceivedDebit.
@@ -225,7 +228,9 @@ class ReceivedDebit(StripeObject):
     """
     A link to the Stripe-hosted receipt for this ReceivedDebit.
     """
-    status: Literal["canceled", "failed", "pending", "returned", "succeeded"]
+    status: Union[
+        Literal["canceled", "failed", "pending", "returned", "succeeded"], str
+    ]
     """
     Open Enum. The status of the ReceivedDebit.
     """
@@ -241,12 +246,15 @@ class ReceivedDebit(StripeObject):
     """
     This object stores details about the Stripe Balance Payment that resulted in the ReceivedDebit.
     """
-    type: Literal[
-        "balance_transfer",
-        "bank_transfer",
-        "card_spend",
-        "external_debit",
-        "stripe_balance_payment",
+    type: Union[
+        Literal[
+            "balance_transfer",
+            "bank_transfer",
+            "card_spend",
+            "external_debit",
+            "stripe_balance_payment",
+        ],
+        str,
     ]
     """
     Open Enum. The type of the ReceivedDebit.

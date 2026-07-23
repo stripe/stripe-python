@@ -6,7 +6,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._nested_resource_class_methods import nested_resource_class_methods
 from stripe._stripe_object import StripeObject
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, Optional, cast, overload
+from typing import ClassVar, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -59,7 +59,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         """
         Transfer ID that created this application fee.
         """
-        type: Literal["charge", "payout", "transfer"]
+        type: Union[Literal["charge", "payout", "transfer"], str]
         """
         Type of object that created the application fee.
         """

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject, UntypedStripeObject
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
@@ -33,7 +33,10 @@ class ProductCatalogImport(StripeObject):
             _inner_class_types = {"upload_url": UploadUrl}
 
         class Failed(StripeObject):
-            code: Literal["file_not_found", "internal_error", "invalid_file"]
+            code: Union[
+                Literal["file_not_found", "internal_error", "invalid_file"],
+                str,
+            ]
             """
             The error code for this product catalog processing failure.
             """
@@ -41,7 +44,7 @@ class ProductCatalogImport(StripeObject):
             """
             A message explaining why the import failed.
             """
-            type: Literal["cannot_proceed", "transient_failure"]
+            type: Union[Literal["cannot_proceed", "transient_failure"], str]
             """
             The error type for this product catalog processing failure.
             """
@@ -167,7 +170,9 @@ class ProductCatalogImport(StripeObject):
     """
     The time this ProductCatalogImport was created.
     """
-    feed_type: Literal["inventory", "pricing", "product", "promotion"]
+    feed_type: Union[
+        Literal["inventory", "pricing", "product", "promotion"], str
+    ]
     """
     The type of feed data being imported into the product catalog.
     """
@@ -183,7 +188,7 @@ class ProductCatalogImport(StripeObject):
     """
     Additional information about the object in a structured format.
     """
-    mode: Literal["replace", "upsert"]
+    mode: Union[Literal["replace", "upsert"], str]
     """
     The import strategy for handling existing catalog data.
     """

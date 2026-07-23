@@ -4,7 +4,7 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import sanitize_id
-from typing import ClassVar, List, Optional, cast
+from typing import ClassVar, List, Optional, Union, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -72,13 +72,16 @@ class CustomerEvaluation(
             Time at which the signal was evaluated. Measured in seconds since the Unix epoch.
             """
             risk_level: Optional[
-                Literal[
-                    "elevated",
-                    "highest",
-                    "low",
-                    "normal",
-                    "not_assessed",
-                    "unknown",
+                Union[
+                    Literal[
+                        "elevated",
+                        "highest",
+                        "low",
+                        "normal",
+                        "not_assessed",
+                        "unknown",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -95,13 +98,16 @@ class CustomerEvaluation(
             Time at which the signal was evaluated. Measured in seconds since the Unix epoch.
             """
             risk_level: Optional[
-                Literal[
-                    "elevated",
-                    "highest",
-                    "low",
-                    "normal",
-                    "not_assessed",
-                    "unknown",
+                Union[
+                    Literal[
+                        "elevated",
+                        "highest",
+                        "low",
+                        "normal",
+                        "not_assessed",
+                        "unknown",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -127,7 +133,7 @@ class CustomerEvaluation(
     """
     The ID of the Customer to associate with this CustomerEvaluation.
     """
-    event_type: Literal["login", "registration"]
+    event_type: Union[Literal["login", "registration"], str]
     """
     The type of evaluation event.
     """

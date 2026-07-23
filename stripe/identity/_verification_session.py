@@ -7,7 +7,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
+from typing import ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -57,26 +57,29 @@ class VerificationSession(
 
     class LastError(StripeObject):
         code: Optional[
-            Literal[
-                "abandoned",
-                "consent_declined",
-                "country_not_supported",
-                "device_not_supported",
-                "document_expired",
-                "document_type_not_supported",
-                "document_unverified_other",
-                "email_unverified_other",
-                "email_verification_declined",
-                "id_number_insufficient_document_data",
-                "id_number_mismatch",
-                "id_number_unverified_other",
-                "phone_unverified_other",
-                "phone_verification_declined",
-                "selfie_document_missing_photo",
-                "selfie_face_mismatch",
-                "selfie_manipulated",
-                "selfie_unverified_other",
-                "under_supported_age",
+            Union[
+                Literal[
+                    "abandoned",
+                    "consent_declined",
+                    "country_not_supported",
+                    "device_not_supported",
+                    "document_expired",
+                    "document_type_not_supported",
+                    "document_unverified_other",
+                    "email_unverified_other",
+                    "email_verification_declined",
+                    "id_number_insufficient_document_data",
+                    "id_number_mismatch",
+                    "id_number_unverified_other",
+                    "phone_unverified_other",
+                    "phone_verification_declined",
+                    "selfie_document_missing_photo",
+                    "selfie_face_mismatch",
+                    "selfie_manipulated",
+                    "selfie_unverified_other",
+                    "under_supported_age",
+                ],
+                str,
             ]
         ]
         """
@@ -90,7 +93,11 @@ class VerificationSession(
     class Options(StripeObject):
         class Document(StripeObject):
             allowed_types: Optional[
-                List[Literal["driving_license", "id_card", "passport"]]
+                List[
+                    Union[
+                        Literal["driving_license", "id_card", "passport"], str
+                    ]
+                ]
             ]
             """
             Array of strings of allowed identity document types. If the provided identity document isn't one of the allowed types, the verification check will fail with a document_type_not_allowed error code.
@@ -118,11 +125,11 @@ class VerificationSession(
             pass
 
         class Matching(StripeObject):
-            dob: Optional[Literal["none", "similar"]]
+            dob: Optional[Union[Literal["none", "similar"], str]]
             """
             Strictness of the DOB matching policy to apply.
             """
-            name: Optional[Literal["none", "similar"]]
+            name: Optional[Union[Literal["none", "similar"], str]]
             """
             Strictness of the name matching policy to apply.
             """
@@ -157,7 +164,7 @@ class VerificationSession(
         """
 
     class Redaction(StripeObject):
-        status: Literal["processing", "redacted", "validated"]
+        status: Union[Literal["processing", "redacted", "validated"], str]
         """
         Indicates whether this object and its related objects have been redacted or not.
         """
@@ -233,7 +240,9 @@ class VerificationSession(
         """
         The user's verified id number.
         """
-        id_number_type: Optional[Literal["br_cpf", "sg_nric", "us_ssn"]]
+        id_number_type: Optional[
+            Union[Literal["br_cpf", "sg_nric", "us_ssn"], str]
+        ]
         """
         The user's verified id number type.
         """
@@ -245,7 +254,9 @@ class VerificationSession(
         """
         The user's verified phone number
         """
-        sex: Optional[Literal["[redacted]", "female", "male", "unknown"]]
+        sex: Optional[
+            Union[Literal["[redacted]", "female", "male", "unknown"], str]
+        ]
         """
         The user's verified sex.
         """
@@ -316,11 +327,15 @@ class VerificationSession(
     The ID of the Account representing a customer.
     """
     related_person: Optional[RelatedPerson]
-    status: Literal["canceled", "processing", "requires_input", "verified"]
+    status: Union[
+        Literal["canceled", "processing", "requires_input", "verified"], str
+    ]
     """
     Status of this VerificationSession. [Learn more about the lifecycle of sessions](https://docs.stripe.com/identity/how-sessions-work).
     """
-    type: Literal["document", "email", "id_number", "verification_flow"]
+    type: Union[
+        Literal["document", "email", "id_number", "verification_flow"], str
+    ]
     """
     The type of [verification check](https://docs.stripe.com/identity/verification-checks) to be performed.
     """

@@ -5,7 +5,7 @@ from stripe._expandable_field import ExpandableField
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import sanitize_id
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
@@ -74,6 +74,10 @@ class Capability(UpdateableAPIResource["Capability"]):
                 "invalid_url_website_incomplete_under_construction",
                 "invalid_url_website_other",
                 "invalid_value_other",
+                "partner_disabled_dispute_rate",
+                "partner_disabled_responsibilities",
+                "partner_disabled_restricted_business",
+                "partner_disabled_suspected_fraud",
                 "unsupported_business_type",
                 "verification_data_not_found",
                 "verification_directors_mismatch",
@@ -155,17 +159,20 @@ class Capability(UpdateableAPIResource["Capability"]):
         Fields that need to be resolved to keep the capability enabled. If not resolved by `future_requirements[current_deadline]`, these fields will transition to the main `requirements` hash.
         """
         disabled_reason: Optional[
-            Literal[
-                "other",
-                "paused.inactivity",
-                "pending.onboarding",
-                "pending.review",
-                "platform_disabled",
-                "platform_paused",
-                "rejected.inactivity",
-                "rejected.other",
-                "rejected.unsupported_business",
-                "requirements.fields_needed",
+            Union[
+                Literal[
+                    "other",
+                    "paused.inactivity",
+                    "pending.onboarding",
+                    "pending.review",
+                    "platform_disabled",
+                    "platform_paused",
+                    "rejected.inactivity",
+                    "rejected.other",
+                    "rejected.unsupported_business",
+                    "requirements.fields_needed",
+                ],
+                str,
             ]
         ]
         """
@@ -199,7 +206,9 @@ class Capability(UpdateableAPIResource["Capability"]):
             """
             Time at which the protection was requested. Measured in seconds since the Unix epoch.
             """
-            status: Literal["active", "disrupted", "expired", "inactive"]
+            status: Union[
+                Literal["active", "disrupted", "expired", "inactive"], str
+            ]
             """
             The status of the capability protection.
             """
@@ -263,6 +272,10 @@ class Capability(UpdateableAPIResource["Capability"]):
                 "invalid_url_website_incomplete_under_construction",
                 "invalid_url_website_other",
                 "invalid_value_other",
+                "partner_disabled_dispute_rate",
+                "partner_disabled_responsibilities",
+                "partner_disabled_restricted_business",
+                "partner_disabled_suspected_fraud",
                 "unsupported_business_type",
                 "verification_data_not_found",
                 "verification_directors_mismatch",
@@ -344,17 +357,20 @@ class Capability(UpdateableAPIResource["Capability"]):
         Fields that need to be resolved to keep the capability enabled. If not resolved by `current_deadline`, these fields will appear in `past_due` as well, and the capability is disabled.
         """
         disabled_reason: Optional[
-            Literal[
-                "other",
-                "paused.inactivity",
-                "pending.onboarding",
-                "pending.review",
-                "platform_disabled",
-                "platform_paused",
-                "rejected.inactivity",
-                "rejected.other",
-                "rejected.unsupported_business",
-                "requirements.fields_needed",
+            Union[
+                Literal[
+                    "other",
+                    "paused.inactivity",
+                    "pending.onboarding",
+                    "pending.review",
+                    "platform_disabled",
+                    "platform_paused",
+                    "rejected.inactivity",
+                    "rejected.other",
+                    "rejected.unsupported_business",
+                    "requirements.fields_needed",
+                ],
+                str,
             ]
         ]
         """
@@ -401,7 +417,7 @@ class Capability(UpdateableAPIResource["Capability"]):
     Time at which the capability was requested. Measured in seconds since the Unix epoch.
     """
     requirements: Optional[Requirements]
-    status: Literal["active", "inactive", "pending", "unrequested"]
+    status: Union[Literal["active", "inactive", "pending", "unrequested"], str]
     """
     The status of the capability.
     """

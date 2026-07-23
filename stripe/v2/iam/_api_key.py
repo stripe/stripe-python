@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
@@ -120,11 +120,11 @@ class ApiKey(StripeObject):
     """
     Token set for a secret key.
     """
-    status: Literal["active", "expired"]
+    status: Union[Literal["active", "expired"], str]
     """
     Current status of the API key (e.g., active, expired).
     """
-    type: Literal["publishable_key", "secret_key"]
+    type: Union[Literal["publishable_key", "secret_key"], str]
     """
     Type of the API key.
     """

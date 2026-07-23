@@ -5,7 +5,7 @@ from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
 from stripe._util import get_api_mode
 from stripe.v2.core._event import Event, EventNotification, RelatedObject
-from typing import Any, Dict, Optional, cast
+from typing import Any, Dict, Optional, Union, cast
 from typing_extensions import Literal, TYPE_CHECKING, override
 
 if TYPE_CHECKING:
@@ -98,20 +98,24 @@ class V2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEvent
     class V2CoreAccountIncludingConfigurationCardCreatorCapabilityStatusUpdatedEventData(
         StripeObject,
     ):
-        updated_capability: Literal[
-            "commercial.celtic.charge_card",
-            "commercial.celtic.spend_card",
-            "commercial.cross_river_bank.charge_card",
-            "commercial.cross_river_bank.prepaid_card",
-            "commercial.cross_river_bank.spend_card",
-            "commercial.fifth_third.charge_card",
-            "commercial.lead.prepaid_card",
-            "commercial.stripe.charge_card",
-            "commercial.stripe.prepaid_card",
-            "consumer.celtic.revolving_credit_card",
-            "consumer.cross_river_bank.prepaid_card",
-            "consumer.lead.debit_card",
-            "consumer.lead.prepaid_card",
+        updated_capability: Union[
+            Literal[
+                "commercial.celtic.charge_card",
+                "commercial.celtic.spend_card",
+                "commercial.cross_river_bank.charge_card",
+                "commercial.cross_river_bank.prepaid_card",
+                "commercial.cross_river_bank.spend_card",
+                "commercial.fifth_third.charge_card",
+                "commercial.lead.prepaid_card",
+                "commercial.stripe.charge_card",
+                "commercial.stripe.prepaid_card",
+                "commercial.stripe.spend_card",
+                "consumer.celtic.revolving_credit_card",
+                "consumer.cross_river_bank.prepaid_card",
+                "consumer.lead.debit_card",
+                "consumer.lead.prepaid_card",
+            ],
+            str,
         ]
         """
         Open Enum. The capability which had its status updated.

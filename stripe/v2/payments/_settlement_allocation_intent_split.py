@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe.v2._amount import Amount
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal
 
 
@@ -28,8 +28,11 @@ class SettlementAllocationIntentSplit(StripeObject):
         """
         If applicable, the ID of the ReceivedCredit that created this transaction.
         """
-        type: Literal[
-            "outbound_payment", "outbound_transfer", "received_credit"
+        type: Union[
+            Literal[
+                "outbound_payment", "outbound_transfer", "received_credit"
+            ],
+            str,
         ]
         """
         Type of the flow linked to the transaction which settled the SettlementAllocationIntentSplit. The field matching this value will contain the ID of the flow.
@@ -71,11 +74,11 @@ class SettlementAllocationIntentSplit(StripeObject):
     """
     The ID of the SettlementAllocationIntent that this split belongs to.
     """
-    status: Literal["canceled", "pending", "settled"]
+    status: Union[Literal["canceled", "pending", "settled"], str]
     """
     The status of the SettlementAllocationIntentSplit.
     """
-    type: Literal["credit", "debit"]
+    type: Union[Literal["credit", "debit"], str]
     """
     The type of the SettlementAllocationIntentSplit.
     """

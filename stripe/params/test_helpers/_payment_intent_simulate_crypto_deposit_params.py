@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -13,7 +13,9 @@ class PaymentIntentSimulateCryptoDepositParams(TypedDict):
     """
     Specifies which fields in the response should be expanded.
     """
-    network: Literal["base", "ethereum", "polygon", "solana", "tempo"]
+    network: Union[
+        Literal["base", "ethereum", "polygon", "solana", "tempo"], str
+    ]
     """
     The blockchain network of the simulated crypto deposit.
     """

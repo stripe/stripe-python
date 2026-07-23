@@ -26,7 +26,7 @@ class FinancialAccountListParams(RequestOptions):
     """
     An object ID cursor for use in pagination.
     """
-    status: NotRequired[Literal["closed", "open"]]
+    status: NotRequired["Literal['closed', 'open']|str"]
     """
     Only return FinancialAccounts that have the given status: `open` or `closed`
     """

@@ -5,7 +5,7 @@ from stripe._list_object import ListObject
 from stripe._nested_resource_class_methods import nested_resource_class_methods
 from stripe._stripe_object import StripeObject
 from stripe._util import sanitize_id
-from typing import ClassVar, List, Optional, cast
+from typing import ClassVar, List, Optional, Union, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -37,17 +37,27 @@ class Customer(APIResource["Customer"]):
         The KYC tier level (e.g., l0, l1, l2).
         """
         verification_errors: List[
-            Literal[
-                "id_document_verification_failed",
-                "phone_verification_failed",
-                "user_has_reached_max_verification_attempts",
+            Union[
+                Literal[
+                    "id_document_verification_failed",
+                    "phone_verification_failed",
+                    "user_has_reached_max_verification_attempts",
+                ],
+                str,
             ]
         ]
         """
         List of errors associated with this KYC tier verification.
         """
-        verification_status: Literal[
-            "not_available", "not_started", "pending", "rejected", "verified"
+        verification_status: Union[
+            Literal[
+                "not_available",
+                "not_started",
+                "pending",
+                "rejected",
+                "verified",
+            ],
+            str,
         ]
         """
         The verification status for this KYC tier.
@@ -55,21 +65,34 @@ class Customer(APIResource["Customer"]):
 
     class Verification(StripeObject):
         errors: List[
-            Literal[
-                "id_document_verification_failed",
-                "phone_verification_failed",
-                "user_has_reached_max_verification_attempts",
+            Union[
+                Literal[
+                    "id_document_verification_failed",
+                    "phone_verification_failed",
+                    "user_has_reached_max_verification_attempts",
+                ],
+                str,
             ]
         ]
         """
         List of errors associated with the verification.
         """
-        name: Literal["id_document_verified", "kyc_verified", "phone_verified"]
+        name: Union[
+            Literal["id_document_verified", "kyc_verified", "phone_verified"],
+            str,
+        ]
         """
         Type of verification.
         """
-        status: Literal[
-            "not_available", "not_started", "pending", "rejected", "verified"
+        status: Union[
+            Literal[
+                "not_available",
+                "not_started",
+                "pending",
+                "rejected",
+                "verified",
+            ],
+            str,
         ]
         """
         Outcome of the verification.
@@ -79,7 +102,7 @@ class Customer(APIResource["Customer"]):
     """
     Unique identifier for the object.
     """
-    kyc_region: Optional[Literal["eu", "us"]]
+    kyc_region: Optional[Union[Literal["eu", "us"], str]]
     """
     The KYC region determined by the customer's address country.
     """
@@ -92,25 +115,28 @@ class Customer(APIResource["Customer"]):
     String representing the object's type. Objects of the same type share the same value.
     """
     provided_fields: List[
-        Literal[
-            "address_city",
-            "address_country",
-            "address_line_1",
-            "address_line_2",
-            "address_postal_code",
-            "address_state",
-            "attestation",
-            "birth_city",
-            "birth_country",
-            "dob",
-            "first_name",
-            "id_document",
-            "id_number",
-            "id_type",
-            "identifiers",
-            "last_name",
-            "nationalities",
-            "selfie",
+        Union[
+            Literal[
+                "address_city",
+                "address_country",
+                "address_line_1",
+                "address_line_2",
+                "address_postal_code",
+                "address_state",
+                "attestation",
+                "birth_city",
+                "birth_country",
+                "dob",
+                "first_name",
+                "id_document",
+                "id_number",
+                "id_type",
+                "identifiers",
+                "last_name",
+                "nationalities",
+                "selfie",
+            ],
+            str,
         ]
     ]
     """

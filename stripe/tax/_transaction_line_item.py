@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject, UntypedStripeObject
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal
 
 
@@ -56,7 +56,7 @@ class TransactionLineItem(StripeObject):
     """
     If `type=reversal`, contains information about what was reversed.
     """
-    tax_behavior: Literal["exclusive", "inclusive"]
+    tax_behavior: Union[Literal["exclusive", "inclusive"], str]
     """
     Specifies whether the `amount` includes taxes. If `tax_behavior=inclusive`, then the amount includes taxes.
     """
@@ -64,7 +64,7 @@ class TransactionLineItem(StripeObject):
     """
     The [tax code](https://docs.stripe.com/tax/tax-categories) ID used for this resource.
     """
-    type: Literal["reversal", "transaction"]
+    type: Union[Literal["reversal", "transaction"], str]
     """
     If `reversal`, this line item reverses an earlier transaction.
     """

@@ -3,7 +3,7 @@
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._stripe_object import StripeObject, UntypedStripeObject
-from typing import ClassVar, List, Optional, cast
+from typing import ClassVar, List, Optional, Union, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -29,7 +29,9 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
             The IP address of the client device.
             """
             pasted_fields: Optional[
-                List[Literal["cvc", "exp", "number", "other", "zip"]]
+                List[
+                    Union[Literal["cvc", "exp", "number", "other", "zip"], str]
+                ]
             ]
             """
             Pasted fields from the checkout flow.
@@ -89,29 +91,35 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
             """
             Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             """
-            reason: Literal[
-                "account_not_available",
-                "credit_not_processed",
-                "customer_initiated",
-                "duplicate",
-                "fraudulent",
-                "general",
-                "noncompliant",
-                "product_not_received",
-                "product_unacceptable",
-                "subscription_canceled",
-                "unrecognized",
+            reason: Union[
+                Literal[
+                    "account_not_available",
+                    "credit_not_processed",
+                    "customer_initiated",
+                    "duplicate",
+                    "fraudulent",
+                    "general",
+                    "noncompliant",
+                    "product_not_received",
+                    "product_unacceptable",
+                    "subscription_canceled",
+                    "unrecognized",
+                ],
+                str,
             ]
             """
             Reason given by cardholder for dispute.
             """
 
         class EarlyFraudWarningReceived(StripeObject):
-            fraud_type: Literal[
-                "made_with_lost_card",
-                "made_with_stolen_card",
-                "other",
-                "unauthorized_use_of_card",
+            fraud_type: Union[
+                Literal[
+                    "made_with_lost_card",
+                    "made_with_stolen_card",
+                    "other",
+                    "unauthorized_use_of_card",
+                ],
+                str,
             ]
             """
             The type of fraud labeled by the issuer.
@@ -126,8 +134,11 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
             """
             Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             """
-            reason: Literal[
-                "duplicate", "fraudulent", "other", "requested_by_customer"
+            reason: Union[
+                Literal[
+                    "duplicate", "fraudulent", "other", "requested_by_customer"
+                ],
+                str,
             ]
             """
             Indicates the reason for the refund.
@@ -148,7 +159,7 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
             """
             Unique identifier for the user intervention event.
             """
-            type: Literal["3ds", "captcha", "custom"]
+            type: Union[Literal["3ds", "captcha", "custom"], str]
             """
             Type of user intervention raised.
             """
@@ -159,7 +170,9 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
             """
             Unique ID of this intervention. Use this to provide the result.
             """
-            outcome: Optional[Literal["abandoned", "failed", "passed"]]
+            outcome: Optional[
+                Union[Literal["abandoned", "failed", "passed"], str]
+            ]
             """
             Result of the intervention if it has been completed.
             """
@@ -180,12 +193,15 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
         """
         Refunded Event details attached to this payment evaluation.
         """
-        type: Literal[
-            "dispute_opened",
-            "early_fraud_warning_received",
-            "refunded",
-            "user_intervention_raised",
-            "user_intervention_resolved",
+        type: Union[
+            Literal[
+                "dispute_opened",
+                "early_fraud_warning_received",
+                "refunded",
+                "user_intervention_raised",
+                "user_intervention_resolved",
+            ],
+            str,
         ]
         """
         Indicates the type of event attached to the payment evaluation.
@@ -208,11 +224,14 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
 
     class Outcome(StripeObject):
         class MerchantBlocked(StripeObject):
-            reason: Literal[
-                "authentication_required",
-                "blocked_for_fraud",
-                "invalid_payment",
-                "other",
+            reason: Union[
+                Literal[
+                    "authentication_required",
+                    "blocked_for_fraud",
+                    "invalid_payment",
+                    "other",
+                ],
+                str,
             ]
             """
             The reason the payment was blocked by the merchant.
@@ -220,36 +239,41 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
 
         class Rejected(StripeObject):
             class Card(StripeObject):
-                address_line1_check: Literal[
-                    "fail", "pass", "unavailable", "unchecked"
+                address_line1_check: Union[
+                    Literal["fail", "pass", "unavailable", "unchecked"], str
                 ]
                 """
                 Result of the address line 1 check.
                 """
-                address_postal_code_check: Literal[
-                    "fail", "pass", "unavailable", "unchecked"
+                address_postal_code_check: Union[
+                    Literal["fail", "pass", "unavailable", "unchecked"], str
                 ]
                 """
                 Indicates whether the cardholder provided a postal code and if it matched the cardholder's billing address.
                 """
-                cvc_check: Literal["fail", "pass", "unavailable", "unchecked"]
+                cvc_check: Union[
+                    Literal["fail", "pass", "unavailable", "unchecked"], str
+                ]
                 """
                 Result of the CVC check.
                 """
-                reason: Literal[
-                    "authentication_failed",
-                    "do_not_honor",
-                    "expired",
-                    "incorrect_cvc",
-                    "incorrect_number",
-                    "incorrect_postal_code",
-                    "insufficient_funds",
-                    "invalid_account",
-                    "lost_card",
-                    "other",
-                    "processing_error",
-                    "reported_stolen",
-                    "try_again_later",
+                reason: Union[
+                    Literal[
+                        "authentication_failed",
+                        "do_not_honor",
+                        "expired",
+                        "incorrect_cvc",
+                        "incorrect_number",
+                        "incorrect_postal_code",
+                        "insufficient_funds",
+                        "invalid_account",
+                        "lost_card",
+                        "other",
+                        "processing_error",
+                        "reported_stolen",
+                        "try_again_later",
+                    ],
+                    str,
                 ]
                 """
                 Card issuer's reason for the network decline.
@@ -263,19 +287,21 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
 
         class Succeeded(StripeObject):
             class Card(StripeObject):
-                address_line1_check: Literal[
-                    "fail", "pass", "unavailable", "unchecked"
+                address_line1_check: Union[
+                    Literal["fail", "pass", "unavailable", "unchecked"], str
                 ]
                 """
                 Result of the address line 1 check.
                 """
-                address_postal_code_check: Literal[
-                    "fail", "pass", "unavailable", "unchecked"
+                address_postal_code_check: Union[
+                    Literal["fail", "pass", "unavailable", "unchecked"], str
                 ]
                 """
                 Indicates whether the cardholder provided a postal code and if it matched the cardholder's billing address.
                 """
-                cvc_check: Literal["fail", "pass", "unavailable", "unchecked"]
+                cvc_check: Union[
+                    Literal["fail", "pass", "unavailable", "unchecked"], str
+                ]
                 """
                 Result of the CVC check.
                 """
@@ -302,7 +328,9 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
         """
         Details of a succeeded outcome attached to this payment evaluation.
         """
-        type: Literal["failed", "merchant_blocked", "rejected", "succeeded"]
+        type: Union[
+            Literal["failed", "merchant_blocked", "rejected", "succeeded"], str
+        ]
         """
         Indicates the outcome of the payment evaluation.
         """
@@ -316,17 +344,20 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
         class MoneyMovementDetails(StripeObject):
             class Card(StripeObject):
                 customer_presence: Optional[
-                    Literal["off_session", "on_session"]
+                    Union[Literal["off_session", "on_session"], str]
                 ]
                 """
                 Describes the presence of the customer during the payment.
                 """
                 payment_type: Optional[
-                    Literal[
-                        "one_off",
-                        "recurring",
-                        "setup_one_off",
-                        "setup_recurring",
+                    Union[
+                        Literal[
+                            "one_off",
+                            "recurring",
+                            "setup_one_off",
+                            "setup_recurring",
+                        ],
+                        str,
                     ]
                 ]
                 """
@@ -542,7 +573,7 @@ class PaymentEvaluation(CreateableAPIResource["PaymentEvaluation"]):
     """
     Payment details attached to this payment evaluation.
     """
-    recommended_action: Literal["block", "continue"]
+    recommended_action: Union[Literal["block", "continue"], str]
     """
     Recommended action based on the score of the `fraudulent_payment` signal. Possible values are `block`, `continue` and `request_three_d_secure`.
     """

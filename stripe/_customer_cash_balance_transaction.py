@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._expandable_field import ExpandableField
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -85,7 +85,9 @@ class CustomerCashBalanceTransaction(StripeObject):
                 """
 
             class UsBankTransfer(StripeObject):
-                network: Optional[Literal["ach", "domestic_wire_us", "swift"]]
+                network: Optional[
+                    Union[Literal["ach", "domestic_wire_us", "swift"], str]
+                ]
                 """
                 The banking network used for this funding.
                 """
@@ -101,12 +103,15 @@ class CustomerCashBalanceTransaction(StripeObject):
             """
             The user-supplied reference field on the bank transfer.
             """
-            type: Literal[
-                "eu_bank_transfer",
-                "gb_bank_transfer",
-                "jp_bank_transfer",
-                "mx_bank_transfer",
-                "us_bank_transfer",
+            type: Union[
+                Literal[
+                    "eu_bank_transfer",
+                    "gb_bank_transfer",
+                    "jp_bank_transfer",
+                    "mx_bank_transfer",
+                    "us_bank_transfer",
+                ],
+                str,
             ]
             """
             The funding method type used to fund the customer balance. Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
@@ -181,16 +186,19 @@ class CustomerCashBalanceTransaction(StripeObject):
     """
     refunded_from_payment: Optional[RefundedFromPayment]
     transferred_to_balance: Optional[TransferredToBalance]
-    type: Literal[
-        "adjusted_for_overdraft",
-        "applied_to_payment",
-        "funded",
-        "funding_reversed",
-        "refunded_from_payment",
-        "return_canceled",
-        "return_initiated",
-        "transferred_to_balance",
-        "unapplied_from_payment",
+    type: Union[
+        Literal[
+            "adjusted_for_overdraft",
+            "applied_to_payment",
+            "funded",
+            "funding_reversed",
+            "refunded_from_payment",
+            "return_canceled",
+            "return_initiated",
+            "transferred_to_balance",
+            "unapplied_from_payment",
+        ],
+        str,
     ]
     """
     The type of the cash balance transaction. New types may be added in future. See [Customer Balance](https://docs.stripe.com/payments/customer-balance#types) to learn more about these types.

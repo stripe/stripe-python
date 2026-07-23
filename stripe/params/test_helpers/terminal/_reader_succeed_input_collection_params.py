@@ -9,7 +9,7 @@ class ReaderSucceedInputCollectionParams(TypedDict):
     """
     Specifies which fields in the response should be expanded.
     """
-    skip_non_required_inputs: NotRequired[Literal["all", "none"]]
+    skip_non_required_inputs: NotRequired["Literal['all', 'none']|str"]
     """
     This parameter defines the skip behavior for input collection.
     """

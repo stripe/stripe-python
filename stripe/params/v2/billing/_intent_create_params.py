@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from decimal import Decimal
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -46,7 +46,9 @@ class IntentCreateParamsAction(TypedDict):
     """
     Details for a subscribe action.
     """
-    type: Literal["apply", "deactivate", "modify", "remove", "subscribe"]
+    type: Union[
+        Literal["apply", "deactivate", "modify", "remove", "subscribe"], str
+    ]
     """
     Type of the Billing Intent action.
     """
@@ -73,7 +75,10 @@ class IntentCreateParamsActionApply(TypedDict):
     """
     Details for applying a spend modifier rule. Only present if type is spend_modifier_rule.
     """
-    type: Literal["discount", "invoice_discount_rule", "spend_modifier_rule"]
+    type: Union[
+        Literal["discount", "invoice_discount_rule", "spend_modifier_rule"],
+        str,
+    ]
     """
     Type of the apply action details.
     """
@@ -222,7 +227,9 @@ class IntentCreateParamsActionDeactivate(TypedDict):
     """
     Details about why the cancellation is being requested.
     """
-    collect_at: NotRequired[Literal["next_billing_date", "on_effective_at"]]
+    collect_at: NotRequired[
+        "Literal['next_billing_date', 'on_effective_at']|str"
+    ]
     """
     When the invoice is collected. If not specified, the default behavior is on_effective_at.
     """
@@ -250,16 +257,7 @@ class IntentCreateParamsActionDeactivateCancellationDetails(TypedDict):
     Additional comments about why the user canceled the subscription, if the subscription was canceled explicitly by the user.
     """
     feedback: NotRequired[
-        Literal[
-            "customer_service",
-            "low_quality",
-            "missing_features",
-            "other",
-            "switched_service",
-            "too_complex",
-            "too_expensive",
-            "unused",
-        ]
+        "Literal['customer_service', 'low_quality', 'missing_features', 'other', 'switched_service', 'too_complex', 'too_expensive', 'unused']|str"
     ]
     """
     The customer submitted reason for why they canceled, if the subscription was canceled explicitly by the user.
@@ -271,11 +269,14 @@ class IntentCreateParamsActionDeactivateEffectiveAt(TypedDict):
     """
     The timestamp at which the deactivate action takes effect. Only present if type is timestamp.
     """
-    type: Literal[
-        "current_billing_period_end",
-        "current_billing_period_start",
-        "on_reserve",
-        "timestamp",
+    type: Union[
+        Literal[
+            "current_billing_period_end",
+            "current_billing_period_start",
+            "on_reserve",
+            "timestamp",
+        ],
+        str,
     ]
     """
     When the deactivate action takes effect.
@@ -317,7 +318,7 @@ class IntentCreateParamsActionDeactivatePricingPlanSubscriptionDetailsOverridesP
     """
     Overrides the behavior for license fee components when the action takes effect during the service period.
     """
-    type: Literal["license_fee", "recurring_credit_grant"]
+    type: Union[Literal["license_fee", "recurring_credit_grant"], str]
     """
     The type of behavior to override.
     """
@@ -326,14 +327,16 @@ class IntentCreateParamsActionDeactivatePricingPlanSubscriptionDetailsOverridesP
 class IntentCreateParamsActionDeactivatePricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorLicenseFee(
     TypedDict,
 ):
-    credit_proration_behavior: Literal["none", "prorated"]
+    credit_proration_behavior: Union[Literal["none", "prorated"], str]
     """
     The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is deactivating. If not specified, defaults to none.
     """
 
 
 class IntentCreateParamsActionModify(TypedDict):
-    collect_at: NotRequired[Literal["next_billing_date", "on_effective_at"]]
+    collect_at: NotRequired[
+        "Literal['next_billing_date', 'on_effective_at']|str"
+    ]
     """
     When the invoice is collected. If not specified, the default behavior is next_billing_date.
     """
@@ -360,7 +363,9 @@ class IntentCreateParamsActionModifyEffectiveAt(TypedDict):
     """
     The timestamp at which the modify action takes effect. Only present if type is timestamp.
     """
-    type: Literal["current_billing_period_start", "on_reserve", "timestamp"]
+    type: Union[
+        Literal["current_billing_period_start", "on_reserve", "timestamp"], str
+    ]
     """
     When the modify action takes effect.
     """
@@ -438,7 +443,7 @@ class IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverridesParti
     """
     Overrides the behavior for recurring credit grant components when the action takes effect during the service period.
     """
-    type: Literal["license_fee", "recurring_credit_grant"]
+    type: Union[Literal["license_fee", "recurring_credit_grant"], str]
     """
     The type of behavior to override.
     """
@@ -447,11 +452,11 @@ class IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverridesParti
 class IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorLicenseFee(
     TypedDict,
 ):
-    credit_proration_behavior: Literal["none", "prorated"]
+    credit_proration_behavior: Union[Literal["none", "prorated"], str]
     """
     The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user modifies the subscription. If not specified, defaults to prorated.
     """
-    debit_proration_behavior: Literal["none", "prorated"]
+    debit_proration_behavior: Union[Literal["none", "prorated"], str]
     """
     The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user modifies the subscription. If not specified, defaults to prorated.
     """
@@ -460,7 +465,7 @@ class IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverridesParti
 class IntentCreateParamsActionModifyPricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorRecurringCreditGrant(
     TypedDict,
 ):
-    create_behavior: Literal["full_credits", "none"]
+    create_behavior: Union[Literal["full_credits", "none"], str]
     """
     Controls credit grant creation behavior during partial periods. If not specified, defaults to full_credits.
     """
@@ -479,21 +484,23 @@ class IntentCreateParamsActionRemove(TypedDict):
     """
     The ID of the spend modifier rule to remove.
     """
-    type: Literal["invoice_discount_rule", "spend_modifier_rule"]
+    type: Union[Literal["invoice_discount_rule", "spend_modifier_rule"], str]
     """
     Type of the remove action.
     """
 
 
 class IntentCreateParamsActionRemoveEffectiveAt(TypedDict):
-    type: Literal["current_billing_period_end", "on_reserve"]
+    type: Union[Literal["current_billing_period_end", "on_reserve"], str]
     """
     When the remove action takes effect.
     """
 
 
 class IntentCreateParamsActionSubscribe(TypedDict):
-    collect_at: NotRequired[Literal["next_billing_date", "on_effective_at"]]
+    collect_at: NotRequired[
+        "Literal['next_billing_date', 'on_effective_at']|str"
+    ]
     """
     When the invoice is collected. If not specified, defaults to on_effective_at.
     """
@@ -526,7 +533,9 @@ class IntentCreateParamsActionSubscribeEffectiveAt(TypedDict):
     """
     The timestamp at which the subscribe action takes effect. Only present if type is timestamp.
     """
-    type: Literal["current_billing_period_start", "on_reserve", "timestamp"]
+    type: Union[
+        Literal["current_billing_period_start", "on_reserve", "timestamp"], str
+    ]
     """
     When the subscribe action takes effect.
     """
@@ -606,7 +615,7 @@ class IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverridesPa
     """
     Overrides the behavior for recurring credit grant components when the action takes effect during the service period.
     """
-    type: Literal["license_fee", "recurring_credit_grant"]
+    type: Union[Literal["license_fee", "recurring_credit_grant"], str]
     """
     The type of behavior to override.
     """
@@ -615,7 +624,7 @@ class IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverridesPa
 class IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorLicenseFee(
     TypedDict,
 ):
-    debit_proration_behavior: Literal["none", "prorated"]
+    debit_proration_behavior: Union[Literal["none", "prorated"], str]
     """
     The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is subscribing. If not specified, defaults to prorated.
     """
@@ -624,7 +633,7 @@ class IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverridesPa
 class IntentCreateParamsActionSubscribePricingPlanSubscriptionDetailsOverridesPartialPeriodBehaviorRecurringCreditGrant(
     TypedDict,
 ):
-    create_behavior: Literal["full_credits", "none"]
+    create_behavior: Union[Literal["full_credits", "none"], str]
     """
     Controls credit grant creation behavior during partial periods. If not specified, defaults to full_credits.
     """
@@ -691,7 +700,7 @@ class IntentCreateParamsCadenceDataBillingCycle(TypedDict):
     """
     Specific configuration for determining billing dates when type=month.
     """
-    type: Literal["day", "month", "week", "year"]
+    type: Union[Literal["day", "month", "week", "year"], str]
     """
     The frequency at which a cadence bills.
     """

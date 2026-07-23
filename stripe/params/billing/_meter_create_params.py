@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -26,7 +26,7 @@ class MeterCreateParams(RequestOptions):
     """
     The name of the meter event to record usage for. Corresponds with the `event_name` field on meter events.
     """
-    event_time_window: NotRequired[Literal["day", "hour"]]
+    event_time_window: NotRequired["Literal['day', 'hour']|str"]
     """
     The time window which meter events have been pre-aggregated for, if any.
     """
@@ -52,7 +52,7 @@ class MeterCreateParamsCustomerMapping(TypedDict):
 
 
 class MeterCreateParamsDefaultAggregation(TypedDict):
-    formula: Literal["count", "last", "sum"]
+    formula: Union[Literal["count", "last", "sum"], str]
     """
     Specifies how events are aggregated.
     """

@@ -2,13 +2,16 @@
 # File generated from our OpenAPI spec
 from decimal import Decimal
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
 class AccountSignal(StripeObject):
     """
-    An automatically evaluated signal on a v2 account.
+    An automatically evaluated signal on an account. Each Account Signal object corresponds to
+    exactly one signal type, indicated by type. Only the type-specific field is populated; other
+    type-specific payload fields are null. If an account has multiple signals, Stripe creates
+    separate account signal objects.
     """
 
     OBJECT_NAME: ClassVar[Literal["v2.signals.account_signal"]] = (
@@ -152,7 +155,14 @@ class AccountSignal(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
     """
-    type: Literal["fraudulent_merchant", "merchant_delinquency"]
+    type: Union[
+        Literal[
+            "fraudulent_merchant",
+            "merchant_delinquency",
+            "payment_delinquency_exposure",
+        ],
+        str,
+    ]
     """
     The type of signal.
     """

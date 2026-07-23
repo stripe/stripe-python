@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -9,7 +9,9 @@ class WorkflowRunListParams(TypedDict):
     """
     Restrict page size to no more than this number.
     """
-    status: NotRequired[List[Literal["failed", "started", "succeeded"]]]
+    status: NotRequired[
+        List[Union[Literal["failed", "started", "succeeded"], str]]
+    ]
     """
     When retrieving Workflow Runs, include only those with the specified status values. If not specified, all Runs are returned.
     """

@@ -8,7 +8,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
+from typing import ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -62,7 +62,7 @@ class SubscriptionItem(
         """
         List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
         """
-        type: Literal["free", "paid"]
+        type: Union[Literal["free", "paid"], str]
         """
         Determines the type of trial for this item.
         """

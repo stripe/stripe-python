@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -41,7 +41,7 @@ class TaxIdListParamsOwner(TypedDict):
     """
     ID of the Account representing the customer that the tax ID belongs to. Can be used in place of `customer` when `type=customer`
     """
-    type: Literal["account", "application", "customer", "self"]
+    type: Union[Literal["account", "application", "customer", "self"], str]
     """
     Type of owner referenced.
     """

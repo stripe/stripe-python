@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -65,7 +65,7 @@ class IssuingAuthorizationEvaluationCreateParamsAuthorizationDetails(
     The total amount of the authorization in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
     """
     authorization_method: NotRequired[
-        Literal["chip", "contactless", "keyed_in", "online", "swipe"]
+        "Literal['chip', 'contactless', 'keyed_in', 'online', 'swipe']|str"
     ]
     """
     How the card details were provided.
@@ -75,17 +75,7 @@ class IssuingAuthorizationEvaluationCreateParamsAuthorizationDetails(
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
     entry_mode: NotRequired[
-        Literal[
-            "contactless",
-            "contactless_magstripe",
-            "credential_on_file",
-            "integrated_circuit_card",
-            "magstripe",
-            "magstripe_no_cvv",
-            "manual",
-            "other",
-            "unknown",
-        ]
+        "Literal['contactless', 'contactless_magstripe', 'credential_on_file', 'integrated_circuit_card', 'magstripe', 'magstripe_no_cvv', 'manual', 'other', 'unknown']|str"
     ]
     """
     Defines how the card's information was entered for the authorization.
@@ -99,18 +89,7 @@ class IssuingAuthorizationEvaluationCreateParamsAuthorizationDetails(
     The time the authorization was initiated, as a Unix timestamp in seconds. Must not be in the future.
     """
     point_of_sale_condition: NotRequired[
-        Literal[
-            "account_verification",
-            "card_not_present",
-            "card_present",
-            "e_commerce",
-            "key_entered_pos",
-            "missing",
-            "moto",
-            "other",
-            "pin_entered",
-            "recurring",
-        ]
+        "Literal['account_verification', 'card_not_present', 'card_present', 'e_commerce', 'key_entered_pos', 'missing', 'moto', 'other', 'pin_entered', 'recurring']|str"
     ]
     """
     Defines how the card was read at the point of sale.
@@ -134,7 +113,7 @@ class IssuingAuthorizationEvaluationCreateParamsCardDetails(TypedDict):
     """
     The two-letter country code of the BIN issuer.
     """
-    card_type: Literal["physical", "virtual"]
+    card_type: Union[Literal["physical", "virtual"], str]
     """
     The type of the card.
     """
@@ -192,15 +171,7 @@ class IssuingAuthorizationEvaluationCreateParamsNetworkDetails(TypedDict):
     Identifier assigned to the acquirer by the card network. Sometimes this value is not provided by the network; in this case, the value will be null.
     """
     routed_network: NotRequired[
-        Literal[
-            "cirrus",
-            "interlink",
-            "maestro",
-            "mastercard",
-            "other",
-            "plus",
-            "visa",
-        ]
+        "Literal['cirrus', 'interlink', 'maestro', 'mastercard', 'other', 'plus', 'visa']|str"
     ]
     """
     The card network over which Stripe received the authorization.
@@ -216,7 +187,9 @@ class IssuingAuthorizationEvaluationCreateParamsTokenDetails(TypedDict):
     """
     User's specified unique ID of the card token for this authorization attempt (e.g., RRN or internal reference).
     """
-    wallet: NotRequired[Literal["apple_pay", "google_pay", "samsung_pay"]]
+    wallet: NotRequired[
+        "Literal['apple_pay', 'google_pay', 'samsung_pay']|str"
+    ]
     """
     The digital wallet used for this transaction. One of `apple_pay`, `google_pay`, or `samsung_pay`.
     """
@@ -224,13 +197,7 @@ class IssuingAuthorizationEvaluationCreateParamsTokenDetails(TypedDict):
 
 class IssuingAuthorizationEvaluationCreateParamsVerificationDetails(TypedDict):
     three_d_secure_result: NotRequired[
-        Literal[
-            "attempt_acknowledged",
-            "authenticated",
-            "exempted",
-            "failed",
-            "required",
-        ]
+        "Literal['attempt_acknowledged', 'authenticated', 'exempted', 'failed', 'required']|str"
     ]
     """
     The outcome of the 3D Secure authentication request.

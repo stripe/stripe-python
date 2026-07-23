@@ -5,7 +5,7 @@ from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
 from stripe._util import get_api_mode
 from stripe.v2.core._event import Event, EventNotification, RelatedObject
-from typing import Any, Dict, List, Optional, cast
+from typing import Any, Dict, List, Optional, Union, cast
 from typing_extensions import Literal, TYPE_CHECKING, override
 
 if TYPE_CHECKING:
@@ -101,17 +101,20 @@ class V1BillingMeterErrorReportTriggeredEvent(Event):
                     """
                     _inner_class_types = {"request": Request}
 
-                code: Literal[
-                    "archived_meter",
-                    "meter_event_customer_not_found",
-                    "meter_event_dimension_count_too_high",
-                    "meter_event_invalid_value",
-                    "meter_event_no_customer_defined",
-                    "meter_event_value_too_many_digits",
-                    "missing_dimension_payload_keys",
-                    "no_meter",
-                    "timestamp_in_future",
-                    "timestamp_too_far_in_past",
+                code: Union[
+                    Literal[
+                        "archived_meter",
+                        "meter_event_customer_not_found",
+                        "meter_event_dimension_count_too_high",
+                        "meter_event_invalid_value",
+                        "meter_event_no_customer_defined",
+                        "meter_event_value_too_many_digits",
+                        "missing_dimension_payload_keys",
+                        "no_meter",
+                        "timestamp_in_future",
+                        "timestamp_too_far_in_past",
+                    ],
+                    str,
                 ]
                 """
                 Open Enum.

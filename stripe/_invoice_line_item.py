@@ -5,7 +5,7 @@ from stripe._expandable_field import ExpandableField
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import sanitize_id
-from typing import ClassVar, List, Optional, cast
+from typing import ClassVar, List, Optional, Union, cast
 from typing_extensions import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -215,12 +215,15 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         """
         Details about the subscription item that generated this line item
         """
-        type: Literal[
-            "invoice_item_details",
-            "pricing_plan_subscription_details",
-            "rate_card_subscription_details",
-            "schedule_details",
-            "subscription_item_details",
+        type: Union[
+            Literal[
+                "invoice_item_details",
+                "pricing_plan_subscription_details",
+                "rate_card_subscription_details",
+                "schedule_details",
+                "subscription_item_details",
+            ],
+            str,
         ]
         """
         The type of parent that generated this line item
@@ -262,7 +265,9 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         """
         The margin that was applied to get this pretax credit amount.
         """
-        type: Literal["credit_balance_transaction", "discount", "margin"]
+        type: Union[
+            Literal["credit_balance_transaction", "discount", "margin"], str
+        ]
         """
         Type of the pretax credit amount referenced.
         """
@@ -330,11 +335,14 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
             RateCardCustomPricingUnitOverageRateDetails
         ]
         rate_card_rate_details: Optional[RateCardRateDetails]
-        type: Literal[
-            "license_fee_details",
-            "price_details",
-            "rate_card_custom_pricing_unit_overage_rate_details",
-            "rate_card_rate_details",
+        type: Union[
+            Literal[
+                "license_fee_details",
+                "price_details",
+                "rate_card_custom_pricing_unit_overage_rate_details",
+                "rate_card_rate_details",
+            ],
+            str,
         ]
         """
         The type of the pricing details.
@@ -380,23 +388,26 @@ class InvoiceLineItem(UpdateableAPIResource["InvoiceLineItem"]):
         """
         Additional details about the tax rate. Only present when `type` is `tax_rate_details`.
         """
-        taxability_reason: Literal[
-            "customer_exempt",
-            "not_available",
-            "not_collecting",
-            "not_subject_to_tax",
-            "not_supported",
-            "portion_product_exempt",
-            "portion_reduced_rated",
-            "portion_standard_rated",
-            "product_exempt",
-            "product_exempt_holiday",
-            "proportionally_rated",
-            "reduced_rated",
-            "reverse_charge",
-            "standard_rated",
-            "taxable_basis_reduced",
-            "zero_rated",
+        taxability_reason: Union[
+            Literal[
+                "customer_exempt",
+                "not_available",
+                "not_collecting",
+                "not_subject_to_tax",
+                "not_supported",
+                "portion_product_exempt",
+                "portion_reduced_rated",
+                "portion_standard_rated",
+                "product_exempt",
+                "product_exempt_holiday",
+                "proportionally_rated",
+                "reduced_rated",
+                "reverse_charge",
+                "standard_rated",
+                "taxable_basis_reduced",
+                "zero_rated",
+            ],
+            str,
         ]
         """
         The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.

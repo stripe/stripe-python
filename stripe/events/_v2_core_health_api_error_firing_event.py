@@ -5,7 +5,7 @@ from stripe._api_mode import ApiMode
 from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
 from stripe.v2.core._event import Event, EventNotification
-from typing import Any, Dict, List, Optional, cast
+from typing import Any, Dict, List, Optional, Union, cast
 from typing_extensions import Literal, TYPE_CHECKING, override
 
 if TYPE_CHECKING:
@@ -62,7 +62,7 @@ class V2CoreHealthApiErrorFiringEvent(Event):
             """
             The error code.
             """
-            http_method: Literal["DELETE", "GET", "POST", "PUT"]
+            http_method: Union[Literal["DELETE", "GET", "POST", "PUT"], str]
             """
             The HTTP method.
             """

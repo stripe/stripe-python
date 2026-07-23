@@ -169,15 +169,18 @@ class Invoice(
             """
             The connected account being referenced when `type` is `account`.
             """
-            type: Literal["account", "application", "self"]
+            type: Union[Literal["account", "application", "self"], str]
             """
             Type of the account referenced.
             """
 
         disabled_reason: Optional[
-            Literal[
-                "finalization_requires_location_inputs",
-                "finalization_system_error",
+            Union[
+                Literal[
+                    "finalization_requires_location_inputs",
+                    "finalization_system_error",
+                ],
+                str,
             ]
         ]
         """
@@ -196,7 +199,9 @@ class Invoice(
         The tax provider powering automatic tax.
         """
         status: Optional[
-            Literal["complete", "failed", "requires_location_inputs"]
+            Union[
+                Literal["complete", "failed", "requires_location_inputs"], str
+            ]
         ]
         """
         The status of the most recent automated tax calculation for this invoice.
@@ -439,7 +444,7 @@ class Invoice(
         """
         The connected account being referenced when `type` is `account`.
         """
-        type: Literal["account", "application", "self"]
+        type: Union[Literal["account", "application", "self"], str]
         """
         Type of the account referenced.
         """
@@ -827,11 +832,14 @@ class Invoice(
         """
         Details about the subscription that generated this invoice
         """
-        type: Literal[
-            "billing_cadence_details",
-            "quote_details",
-            "schedule_details",
-            "subscription_details",
+        type: Union[
+            Literal[
+                "billing_cadence_details",
+                "quote_details",
+                "schedule_details",
+                "subscription_details",
+            ],
+            str,
         ]
         """
         The type of parent that generated this invoice
@@ -847,14 +855,18 @@ class Invoice(
         class PaymentMethodOptions(StripeObject):
             class AcssDebit(StripeObject):
                 class MandateOptions(StripeObject):
-                    transaction_type: Optional[Literal["business", "personal"]]
+                    transaction_type: Optional[
+                        Union[Literal["business", "personal"], str]
+                    ]
                     """
                     Transaction type of the mandate.
                     """
 
                 mandate_options: Optional[MandateOptions]
                 verification_method: Optional[
-                    Literal["automatic", "instant", "microdeposits"]
+                    Union[
+                        Literal["automatic", "instant", "microdeposits"], str
+                    ]
                 ]
                 """
                 Bank account verification method. The default value is `automatic`.
@@ -862,7 +874,7 @@ class Invoice(
                 _inner_class_types = {"mandate_options": MandateOptions}
 
             class Bancontact(StripeObject):
-                preferred_language: Literal["de", "en", "fr", "nl"]
+                preferred_language: Union[Literal["de", "en", "fr", "nl"], str]
                 """
                 Preferred language of the Bancontact authorization page that the customer is redirected to.
                 """
@@ -882,7 +894,7 @@ class Invoice(
 
                 installments: Optional[Installments]
                 request_three_d_secure: Optional[
-                    Literal["any", "automatic", "challenge"]
+                    Union[Literal["any", "automatic", "challenge"], str]
                 ]
                 """
                 We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
@@ -926,23 +938,28 @@ class Invoice(
                     """
                     The maximum amount that can be collected in a single invoice. If you don't specify a maximum, then there is no limit.
                     """
-                    amount_type: Optional[Literal["fixed", "maximum"]]
+                    amount_type: Optional[
+                        Union[Literal["fixed", "maximum"], str]
+                    ]
                     """
                     Only `maximum` is supported.
                     """
                     purpose: Optional[
-                        Literal[
-                            "dependant_support",
-                            "government",
-                            "loan",
-                            "mortgage",
-                            "other",
-                            "pension",
-                            "personal",
-                            "retail",
-                            "salary",
-                            "tax",
-                            "utility",
+                        Union[
+                            Literal[
+                                "dependant_support",
+                                "government",
+                                "loan",
+                                "mortgage",
+                                "other",
+                                "pension",
+                                "personal",
+                                "retail",
+                                "salary",
+                                "tax",
+                                "utility",
+                            ],
+                            str,
                         ]
                     ]
                     """
@@ -953,7 +970,9 @@ class Invoice(
                 _inner_class_types = {"mandate_options": MandateOptions}
 
             class Pix(StripeObject):
-                amount_includes_iof: Optional[Literal["always", "never"]]
+                amount_includes_iof: Optional[
+                    Union[Literal["always", "never"], str]
+                ]
                 """
                 Determines if the amount includes the IOF tax.
                 """
@@ -971,7 +990,9 @@ class Invoice(
                     """
                     Amount to be charged for future payments.
                     """
-                    amount_type: Optional[Literal["fixed", "maximum"]]
+                    amount_type: Optional[
+                        Union[Literal["fixed", "maximum"], str]
+                    ]
                     """
                     One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
                     """
@@ -991,7 +1012,7 @@ class Invoice(
                 class FinancialConnections(StripeObject):
                     class Filters(StripeObject):
                         account_subcategories: Optional[
-                            List[Literal["checking", "savings"]]
+                            List[Union[Literal["checking", "savings"], str]]
                         ]
                         """
                         The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`.
@@ -1004,11 +1025,14 @@ class Invoice(
                     filters: Optional[Filters]
                     permissions: Optional[
                         List[
-                            Literal[
-                                "balances",
-                                "ownership",
-                                "payment_method",
-                                "transactions",
+                            Union[
+                                Literal[
+                                    "balances",
+                                    "ownership",
+                                    "payment_method",
+                                    "transactions",
+                                ],
+                                str,
                             ]
                         ]
                     ]
@@ -1017,11 +1041,14 @@ class Invoice(
                     """
                     prefetch: Optional[
                         List[
-                            Literal[
-                                "balances",
-                                "inferred_balances",
-                                "ownership",
-                                "transactions",
+                            Union[
+                                Literal[
+                                    "balances",
+                                    "inferred_balances",
+                                    "ownership",
+                                    "transactions",
+                                ],
+                                str,
                             ]
                         ]
                     ]
@@ -1032,7 +1059,9 @@ class Invoice(
 
                 financial_connections: Optional[FinancialConnections]
                 verification_method: Optional[
-                    Literal["automatic", "instant", "microdeposits"]
+                    Union[
+                        Literal["automatic", "instant", "microdeposits"], str
+                    ]
                 ]
                 """
                 Bank account verification method. The default value is `automatic`.
@@ -1141,61 +1170,65 @@ class Invoice(
         """
         payment_method_types: Optional[
             List[
-                Literal[
-                    "ach_credit_transfer",
-                    "ach_debit",
-                    "acss_debit",
-                    "affirm",
-                    "alipay",
-                    "amazon_pay",
-                    "au_becs_debit",
-                    "bacs_debit",
-                    "bancontact",
-                    "bizum",
-                    "blik",
-                    "boleto",
-                    "card",
-                    "cashapp",
-                    "check_scan",
-                    "crypto",
-                    "custom",
-                    "customer_balance",
-                    "eps",
-                    "fpx",
-                    "giropay",
-                    "grabpay",
-                    "id_bank_transfer",
-                    "ideal",
-                    "jp_credit_transfer",
-                    "kakao_pay",
-                    "klarna",
-                    "konbini",
-                    "kr_card",
-                    "link",
-                    "momo",
-                    "multibanco",
-                    "naver_pay",
-                    "nz_bank_account",
-                    "p24",
-                    "pay_by_bank",
-                    "payco",
-                    "paynow",
-                    "paypal",
-                    "payto",
-                    "pix",
-                    "promptpay",
-                    "revolut_pay",
-                    "satispay",
-                    "sepa_credit_transfer",
-                    "sepa_debit",
-                    "sequra",
-                    "sofort",
-                    "stripe_balance",
-                    "swish",
-                    "twint",
-                    "upi",
-                    "us_bank_account",
-                    "wechat_pay",
+                Union[
+                    Literal[
+                        "ach_credit_transfer",
+                        "ach_debit",
+                        "acss_debit",
+                        "affirm",
+                        "alipay",
+                        "amazon_pay",
+                        "au_becs_debit",
+                        "bacs_debit",
+                        "bancontact",
+                        "bizum",
+                        "blik",
+                        "boleto",
+                        "card",
+                        "cashapp",
+                        "check_scan",
+                        "crypto",
+                        "custom",
+                        "customer_balance",
+                        "eps",
+                        "fpx",
+                        "giropay",
+                        "grabpay",
+                        "id_bank_transfer",
+                        "ideal",
+                        "jp_credit_transfer",
+                        "kakao_pay",
+                        "klarna",
+                        "konbini",
+                        "kr_card",
+                        "link",
+                        "mb_way",
+                        "momo",
+                        "multibanco",
+                        "naver_pay",
+                        "nz_bank_account",
+                        "p24",
+                        "pay_by_bank",
+                        "payco",
+                        "paynow",
+                        "paypal",
+                        "payto",
+                        "pix",
+                        "promptpay",
+                        "revolut_pay",
+                        "satispay",
+                        "sepa_credit_transfer",
+                        "sepa_debit",
+                        "sequra",
+                        "sofort",
+                        "stripe_balance",
+                        "swish",
+                        "twint",
+                        "upi",
+                        "us_bank_account",
+                        "wechat_pay",
+                    ],
+                    str,
                 ]
             ]
         ]
@@ -1242,22 +1275,25 @@ class Invoice(
             Related guide: [Tax rates](https://docs.stripe.com/billing/taxes/tax-rates)
             """
             taxability_reason: Optional[
-                Literal[
-                    "customer_exempt",
-                    "not_collecting",
-                    "not_subject_to_tax",
-                    "not_supported",
-                    "portion_product_exempt",
-                    "portion_reduced_rated",
-                    "portion_standard_rated",
-                    "product_exempt",
-                    "product_exempt_holiday",
-                    "proportionally_rated",
-                    "reduced_rated",
-                    "reverse_charge",
-                    "standard_rated",
-                    "taxable_basis_reduced",
-                    "zero_rated",
+                Union[
+                    Literal[
+                        "customer_exempt",
+                        "not_collecting",
+                        "not_subject_to_tax",
+                        "not_supported",
+                        "portion_product_exempt",
+                        "portion_reduced_rated",
+                        "portion_standard_rated",
+                        "product_exempt",
+                        "product_exempt_holiday",
+                        "proportionally_rated",
+                        "reduced_rated",
+                        "reverse_charge",
+                        "standard_rated",
+                        "taxable_basis_reduced",
+                        "zero_rated",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -1414,7 +1450,9 @@ class Invoice(
         """
         The margin that was applied to get this pretax credit amount.
         """
-        type: Literal["credit_balance_transaction", "discount", "margin"]
+        type: Union[
+            Literal["credit_balance_transaction", "discount", "margin"], str
+        ]
         """
         Type of the pretax credit amount referenced.
         """
@@ -1438,23 +1476,26 @@ class Invoice(
         """
         Additional details about the tax rate. Only present when `type` is `tax_rate_details`.
         """
-        taxability_reason: Literal[
-            "customer_exempt",
-            "not_available",
-            "not_collecting",
-            "not_subject_to_tax",
-            "not_supported",
-            "portion_product_exempt",
-            "portion_reduced_rated",
-            "portion_standard_rated",
-            "product_exempt",
-            "product_exempt_holiday",
-            "proportionally_rated",
-            "reduced_rated",
-            "reverse_charge",
-            "standard_rated",
-            "taxable_basis_reduced",
-            "zero_rated",
+        taxability_reason: Union[
+            Literal[
+                "customer_exempt",
+                "not_available",
+                "not_collecting",
+                "not_subject_to_tax",
+                "not_supported",
+                "portion_product_exempt",
+                "portion_reduced_rated",
+                "portion_standard_rated",
+                "product_exempt",
+                "product_exempt_holiday",
+                "proportionally_rated",
+                "reduced_rated",
+                "reverse_charge",
+                "standard_rated",
+                "taxable_basis_reduced",
+                "zero_rated",
+            ],
+            str,
         ]
         """
         The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
@@ -1554,7 +1595,9 @@ class Invoice(
     * `subscription_update`: A subscription was updated.
     * `upcoming`: Reserved for upcoming invoices created through the Create Preview Invoice API or when an `invoice.upcoming` event is generated for an upcoming invoice on a subscription.
     """
-    collection_method: Literal["charge_automatically", "send_invoice"]
+    collection_method: Union[
+        Literal["charge_automatically", "send_invoice"], str
+    ]
     """
     Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay this invoice using the default source attached to the customer. When sending an invoice, Stripe will email this invoice to the customer with payment instructions.
     """
@@ -1760,7 +1803,9 @@ class Invoice(
     """
     Extra information about an invoice for the customer's credit card statement.
     """
-    status: Optional[Literal["draft", "open", "paid", "uncollectible", "void"]]
+    status: Optional[
+        Union[Literal["draft", "open", "paid", "uncollectible", "void"], str]
+    ]
     """
     The status of the invoice, one of `draft`, `open`, `paid`, `uncollectible`, or `void`. [Learn more](https://docs.stripe.com/billing/invoices/workflow#workflow-overview)
     """

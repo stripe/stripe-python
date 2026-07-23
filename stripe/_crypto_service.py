@@ -6,6 +6,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.crypto._customer_service import CustomerService
+    from stripe.crypto._deposit_address_service import DepositAddressService
     from stripe.crypto._onramp_session_service import OnrampSessionService
     from stripe.crypto._onramp_transaction_limits_service import (
         OnrampTransactionLimitsService,
@@ -13,6 +14,10 @@ if TYPE_CHECKING:
 
 _subservices = {
     "customers": ["stripe.crypto._customer_service", "CustomerService"],
+    "deposit_addresses": [
+        "stripe.crypto._deposit_address_service",
+        "DepositAddressService",
+    ],
     "onramp_sessions": [
         "stripe.crypto._onramp_session_service",
         "OnrampSessionService",
@@ -26,6 +31,7 @@ _subservices = {
 
 class CryptoService(StripeService):
     customers: "CustomerService"
+    deposit_addresses: "DepositAddressService"
     onramp_sessions: "OnrampSessionService"
     onramp_transaction_limits: "OnrampTransactionLimitsService"
 

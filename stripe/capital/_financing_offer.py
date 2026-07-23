@@ -5,7 +5,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._test_helpers import APIResourceTestHelpers
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, Optional, cast, overload
+from typing import ClassVar, Optional, Union, cast, overload
 from typing_extensions import Literal, Type, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -64,8 +64,13 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
         """
         Amount of financing offered, in minor units. For example, 1,000 USD is represented as 100000.
         """
-        campaign_type: Literal[
-            "newly_eligible_user", "previously_eligible_user", "repeat_user"
+        campaign_type: Union[
+            Literal[
+                "newly_eligible_user",
+                "previously_eligible_user",
+                "repeat_user",
+            ],
+            str,
         ]
         """
         Describes the type of user the offer is being extended to.
@@ -126,7 +131,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     """
     Time at which the offer expires. Given in seconds since unix epoch.
     """
-    financing_type: Optional[Literal["cash_advance", "flex_loan"]]
+    financing_type: Optional[Union[Literal["cash_advance", "flex_loan"], str]]
     """
     The type of financing being offered.
     """
@@ -152,7 +157,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     Stripe Capital to a Connected account. This resource represents
     both the terms offered to the Connected account.
     """
-    product_type: Optional[Literal["refill", "standard"]]
+    product_type: Optional[Union[Literal["refill", "standard"], str]]
     """
     Financing product identifier.
     """
@@ -164,17 +169,20 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     """
     The ID of the financing offer that this offer is a replacement for.
     """
-    status: Literal[
-        "accepted",
-        "canceled",
-        "completed",
-        "delivered",
-        "expired",
-        "fully_repaid",
-        "paid_out",
-        "rejected",
-        "replaced",
-        "undelivered",
+    status: Union[
+        Literal[
+            "accepted",
+            "canceled",
+            "completed",
+            "delivered",
+            "expired",
+            "fully_repaid",
+            "paid_out",
+            "rejected",
+            "replaced",
+            "undelivered",
+        ],
+        str,
     ]
     """
     The current status of the offer.

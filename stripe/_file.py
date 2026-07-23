@@ -3,7 +3,7 @@
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
-from typing import ClassVar, Optional, cast
+from typing import ClassVar, Optional, Union, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -49,28 +49,31 @@ class File(CreateableAPIResource["File"], ListableAPIResource["File"]):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    purpose: Literal[
-        "account_requirement",
-        "additional_verification",
-        "business_icon",
-        "business_logo",
-        "customer_signature",
-        "dispute_evidence",
-        "document_provider_identity_document",
-        "finance_report_run",
-        "financial_account_statement",
-        "identity_document",
-        "identity_document_downloadable",
-        "issuing_regulatory_reporting",
-        "pci_document",
-        "platform_terms_of_service",
-        "selfie",
-        "sigma_scheduled_query",
-        "tax_document_user_upload",
-        "terminal_android_apk",
-        "terminal_reader_splashscreen",
-        "terminal_wifi_certificate",
-        "terminal_wifi_private_key",
+    purpose: Union[
+        Literal[
+            "account_requirement",
+            "additional_verification",
+            "business_icon",
+            "business_logo",
+            "customer_signature",
+            "dispute_evidence",
+            "document_provider_identity_document",
+            "finance_report_run",
+            "financial_account_statement",
+            "identity_document",
+            "identity_document_downloadable",
+            "issuing_regulatory_reporting",
+            "pci_document",
+            "platform_terms_of_service",
+            "selfie",
+            "sigma_scheduled_query",
+            "tax_document_user_upload",
+            "terminal_android_apk",
+            "terminal_reader_splashscreen",
+            "terminal_wifi_certificate",
+            "terminal_wifi_private_key",
+        ],
+        str,
     ]
     """
     The [purpose](https://docs.stripe.com/file-upload#uploading-a-file) of the uploaded file.

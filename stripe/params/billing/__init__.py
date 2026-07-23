@@ -34,8 +34,16 @@ if TYPE_CHECKING:
     from stripe.params.billing._alert_deactivate_params import (
         AlertDeactivateParams as AlertDeactivateParams,
     )
+    from stripe.params.billing._alert_list_notifications_params import (
+        AlertListNotificationsParams as AlertListNotificationsParams,
+        AlertListNotificationsParamsNotifiedAt as AlertListNotificationsParamsNotifiedAt,
+    )
     from stripe.params.billing._alert_list_params import (
         AlertListParams as AlertListParams,
+    )
+    from stripe.params.billing._alert_notification_list_params import (
+        AlertNotificationListParams as AlertNotificationListParams,
+        AlertNotificationListParamsNotifiedAt as AlertNotificationListParamsNotifiedAt,
     )
     from stripe.params.billing._alert_retrieve_params import (
         AlertRetrieveParams as AlertRetrieveParams,
@@ -203,7 +211,23 @@ _import_map = {
         "stripe.params.billing._alert_deactivate_params",
         False,
     ),
+    "AlertListNotificationsParams": (
+        "stripe.params.billing._alert_list_notifications_params",
+        False,
+    ),
+    "AlertListNotificationsParamsNotifiedAt": (
+        "stripe.params.billing._alert_list_notifications_params",
+        False,
+    ),
     "AlertListParams": ("stripe.params.billing._alert_list_params", False),
+    "AlertNotificationListParams": (
+        "stripe.params.billing._alert_notification_list_params",
+        False,
+    ),
+    "AlertNotificationListParamsNotifiedAt": (
+        "stripe.params.billing._alert_notification_list_params",
+        False,
+    ),
     "AlertRetrieveParams": (
         "stripe.params.billing._alert_retrieve_params",
         False,

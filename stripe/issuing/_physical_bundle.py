@@ -3,7 +3,7 @@
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject
-from typing import ClassVar
+from typing import ClassVar, Union
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -25,15 +25,17 @@ class PhysicalBundle(ListableAPIResource["PhysicalBundle"]):
     )
 
     class Features(StripeObject):
-        card_logo: Literal["optional", "required", "unsupported"]
+        card_logo: Union[Literal["optional", "required", "unsupported"], str]
         """
         The policy for how to use card logo images in a card design with this physical bundle.
         """
-        carrier_text: Literal["optional", "required", "unsupported"]
+        carrier_text: Union[
+            Literal["optional", "required", "unsupported"], str
+        ]
         """
         The policy for how to use carrier letter text in a card design with this physical bundle.
         """
-        second_line: Literal["optional", "required", "unsupported"]
+        second_line: Union[Literal["optional", "required", "unsupported"], str]
         """
         The policy for how to use a second line on a card with this physical bundle.
         """
@@ -55,11 +57,11 @@ class PhysicalBundle(ListableAPIResource["PhysicalBundle"]):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    status: Literal["active", "inactive", "review"]
+    status: Union[Literal["active", "inactive", "review"], str]
     """
     Whether this physical bundle can be used to create cards.
     """
-    type: Literal["custom", "standard"]
+    type: Union[Literal["custom", "standard"], str]
     """
     Whether this physical bundle is a standard Stripe offering or custom-made for you.
     """

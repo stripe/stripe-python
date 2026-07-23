@@ -6,7 +6,7 @@ from stripe._list_object import ListObject
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
+from typing import ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -51,7 +51,7 @@ class RequestedSession(
             """
             The platform of the attribution source.
             """
-            type: Literal["platform", "url"]
+            type: Union[Literal["platform", "url"], str]
             """
             The type of the attribution source.
             """
@@ -100,7 +100,7 @@ class RequestedSession(
         """
         Agent-scoped sub-tracking identifier.
         """
-        touchpoint: Literal["first", "last"]
+        touchpoint: Union[Literal["first", "last"], str]
         """
         Whether this is the first or last touchpoint.
         """
@@ -174,7 +174,7 @@ class RequestedSession(
             """
             The percentage off provided by this discount.
             """
-            type: Literal["cart", "fulfillment"]
+            type: Union[Literal["cart", "fulfillment"], str]
             """
             The type of discount.
             """
@@ -301,7 +301,7 @@ class RequestedSession(
             """
             The shipping option.
             """
-            type: Literal["digital", "shipping"]
+            type: Union[Literal["digital", "shipping"], str]
             """
             The type of the fulfillment option.
             """
@@ -328,7 +328,7 @@ class RequestedSession(
             """
             The shipping option.
             """
-            type: Literal["digital", "shipping"]
+            type: Union[Literal["digital", "shipping"], str]
             """
             The type of the selected fulfillment option.
             """
@@ -359,7 +359,7 @@ class RequestedSession(
             """
             The shipping option.
             """
-            type: Literal["digital", "shipping"]
+            type: Union[Literal["digital", "shipping"], str]
             """
             The type of the selected fulfillment option.
             """
@@ -419,7 +419,7 @@ class RequestedSession(
                 """
                 The content of the disclosure.
                 """
-                content_type: Literal["link", "markdown", "plain"]
+                content_type: Union[Literal["link", "markdown", "plain"], str]
                 """
                 The content type of the disclosure.
                 """
@@ -501,7 +501,11 @@ class RequestedSession(
     class PaymentMethodOptions(StripeObject):
         class Card(StripeObject):
             brands_blocked: Optional[
-                List[Literal["american_express", "mastercard", "visa"]]
+                List[
+                    Union[
+                        Literal["american_express", "mastercard", "visa"], str
+                    ]
+                ]
             ]
             """
             The card brands blocked by the agent.
@@ -512,19 +516,19 @@ class RequestedSession(
         Card-specific payment method options.
         """
         displayable_card_brands: Optional[
-            List[Literal["american_express", "mastercard", "visa"]]
+            List[Union[Literal["american_express", "mastercard", "visa"], str]]
         ]
         """
         The computed displayable card brands.
         """
         displayable_payment_method_types: Optional[
-            List[Literal["affirm", "card", "klarna"]]
+            List[Union[Literal["affirm", "card", "klarna"], str]]
         ]
         """
         The computed displayable payment method types.
         """
         excluded_payment_method_types: Optional[
-            List[Literal["affirm", "card", "klarna"]]
+            List[Union[Literal["affirm", "card", "klarna"], str]]
         ]
         """
         The payment method types excluded by the agent.
@@ -641,7 +645,7 @@ class RequestedSession(
             pass
 
         card_brands: Optional[
-            List[Literal["american_express", "mastercard", "visa"]]
+            List[Union[Literal["american_express", "mastercard", "visa"], str]]
         ]
         """
         The card brands supported by the seller.
@@ -655,7 +659,7 @@ class RequestedSession(
         The network profile of the seller.
         """
         payment_method_types: Optional[
-            List[Literal["affirm", "card", "klarna"]]
+            List[Union[Literal["affirm", "card", "klarna"], str]]
         ]
         """
         The payment method types supported by the seller.
@@ -842,7 +846,9 @@ class RequestedSession(
     """
     The SPT used for payment.
     """
-    status: Literal["completed", "expired", "open", "requires_action"]
+    status: Union[
+        Literal["completed", "expired", "open", "requires_action"], str
+    ]
     """
     The status of the requested session.
     """

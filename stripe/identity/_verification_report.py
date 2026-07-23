@@ -4,7 +4,7 @@ from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -79,10 +79,13 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
 
         class Error(StripeObject):
             code: Optional[
-                Literal[
-                    "document_expired",
-                    "document_type_not_supported",
-                    "document_unverified_other",
+                Union[
+                    Literal[
+                        "document_expired",
+                        "document_type_not_supported",
+                        "document_unverified_other",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -165,15 +168,19 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
         """
         Document ID number.
         """
-        sex: Optional[Literal["[redacted]", "female", "male", "unknown"]]
+        sex: Optional[
+            Union[Literal["[redacted]", "female", "male", "unknown"], str]
+        ]
         """
         Sex of the person in the document.
         """
-        status: Literal["unverified", "verified"]
+        status: Union[Literal["unverified", "verified"], str]
         """
         Status of this `document` check.
         """
-        type: Optional[Literal["driving_license", "id_card", "passport"]]
+        type: Optional[
+            Union[Literal["driving_license", "id_card", "passport"], str]
+        ]
         """
         Type of the document.
         """
@@ -210,8 +217,11 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
 
         class Error(StripeObject):
             code: Optional[
-                Literal[
-                    "email_unverified_other", "email_verification_declined"
+                Union[
+                    Literal[
+                        "email_unverified_other", "email_verification_declined"
+                    ],
+                    str,
                 ]
             ]
             """
@@ -234,7 +244,7 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
         """
         Details on the verification error. Present when status is `unverified`.
         """
-        status: Literal["unverified", "verified"]
+        status: Union[Literal["unverified", "verified"], str]
         """
         Status of this `email` check.
         """
@@ -257,10 +267,13 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
 
         class Error(StripeObject):
             code: Optional[
-                Literal[
-                    "id_number_insufficient_document_data",
-                    "id_number_mismatch",
-                    "id_number_unverified_other",
+                Union[
+                    Literal[
+                        "id_number_insufficient_document_data",
+                        "id_number_mismatch",
+                        "id_number_unverified_other",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -287,7 +300,9 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
         """
         ID number. When `id_number_type` is `us_ssn`, only the last 4 digits are present.
         """
-        id_number_type: Optional[Literal["br_cpf", "sg_nric", "us_ssn"]]
+        id_number_type: Optional[
+            Union[Literal["br_cpf", "sg_nric", "us_ssn"], str]
+        ]
         """
         Type of ID number.
         """
@@ -295,7 +310,7 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
         """
         Last name.
         """
-        status: Literal["unverified", "verified"]
+        status: Union[Literal["unverified", "verified"], str]
         """
         Status of this `id_number` check.
         """
@@ -304,7 +319,11 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
     class Options(StripeObject):
         class Document(StripeObject):
             allowed_types: Optional[
-                List[Literal["driving_license", "id_card", "passport"]]
+                List[
+                    Union[
+                        Literal["driving_license", "id_card", "passport"], str
+                    ]
+                ]
             ]
             """
             Array of strings of allowed identity document types. If the provided identity document isn't one of the allowed types, the verification check will fail with a document_type_not_allowed error code.
@@ -332,8 +351,11 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
     class Phone(StripeObject):
         class Error(StripeObject):
             code: Optional[
-                Literal[
-                    "phone_unverified_other", "phone_verification_declined"
+                Union[
+                    Literal[
+                        "phone_unverified_other", "phone_verification_declined"
+                    ],
+                    str,
                 ]
             ]
             """
@@ -352,7 +374,7 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
         """
         Phone to be verified.
         """
-        status: Literal["unverified", "verified"]
+        status: Union[Literal["unverified", "verified"], str]
         """
         Status of this `phone` check.
         """
@@ -361,11 +383,14 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
     class Selfie(StripeObject):
         class Error(StripeObject):
             code: Optional[
-                Literal[
-                    "selfie_document_missing_photo",
-                    "selfie_face_mismatch",
-                    "selfie_manipulated",
-                    "selfie_unverified_other",
+                Union[
+                    Literal[
+                        "selfie_document_missing_photo",
+                        "selfie_face_mismatch",
+                        "selfie_manipulated",
+                        "selfie_unverified_other",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -392,7 +417,7 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
         """
         ID of the [File](https://docs.stripe.com/api/files) holding the image of the selfie used in this check.
         """
-        status: Literal["unverified", "verified"]
+        status: Union[Literal["unverified", "verified"], str]
         """
         Status of this `selfie` check.
         """
@@ -439,7 +464,9 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
     """
     Result from a selfie check
     """
-    type: Literal["document", "email", "id_number", "verification_flow"]
+    type: Union[
+        Literal["document", "email", "id_number", "verification_flow"], str
+    ]
     """
     Type of report.
     """

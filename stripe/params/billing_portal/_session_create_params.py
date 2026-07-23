@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -27,55 +27,7 @@ class SessionCreateParams(RequestOptions):
     Information about a specific flow for the customer to go through. See the [docs](https://docs.stripe.com/customer-management/portal-deep-links) to learn more about using customer portal deep links and flows.
     """
     locale: NotRequired[
-        Literal[
-            "auto",
-            "bg",
-            "cs",
-            "da",
-            "de",
-            "el",
-            "en",
-            "en-AU",
-            "en-CA",
-            "en-GB",
-            "en-IE",
-            "en-IN",
-            "en-NZ",
-            "en-SG",
-            "es",
-            "es-419",
-            "et",
-            "fi",
-            "fil",
-            "fr",
-            "fr-CA",
-            "hr",
-            "hu",
-            "id",
-            "it",
-            "ja",
-            "ko",
-            "lt",
-            "lv",
-            "ms",
-            "mt",
-            "nb",
-            "nl",
-            "pl",
-            "pt",
-            "pt-BR",
-            "ro",
-            "ru",
-            "sk",
-            "sl",
-            "sv",
-            "th",
-            "tr",
-            "vi",
-            "zh",
-            "zh-HK",
-            "zh-TW",
-        ]
+        "Literal['auto', 'bg', 'cs', 'da', 'de', 'el', 'en', 'en-AU', 'en-CA', 'en-GB', 'en-IE', 'en-IN', 'en-NZ', 'en-SG', 'es', 'es-419', 'et', 'fi', 'fil', 'fr', 'fr-CA', 'hr', 'hu', 'id', 'it', 'ja', 'ko', 'lt', 'lv', 'ms', 'mt', 'nb', 'nl', 'pl', 'pt', 'pt-BR', 'ro', 'ru', 'sk', 'sl', 'sv', 'th', 'tr', 'vi', 'zh', 'zh-HK', 'zh-TW']|str"
     ]
     """
     The IETF language tag of the locale customer portal is displayed in. If blank or auto, the customer's `preferred_locales` or browser's locale is used.
@@ -113,11 +65,14 @@ class SessionCreateParamsFlowData(TypedDict):
     """
     Configuration when `flow_data.type=subscription_update_confirm`.
     """
-    type: Literal[
-        "payment_method_update",
-        "subscription_cancel",
-        "subscription_update",
-        "subscription_update_confirm",
+    type: Union[
+        Literal[
+            "payment_method_update",
+            "subscription_cancel",
+            "subscription_update",
+            "subscription_update_confirm",
+        ],
+        str,
     ]
     """
     Type of flow that the customer will go through.
@@ -135,7 +90,9 @@ class SessionCreateParamsFlowDataAfterCompletion(TypedDict):
     """
     Configuration when `after_completion.type=redirect`.
     """
-    type: Literal["hosted_confirmation", "portal_homepage", "redirect"]
+    type: Union[
+        Literal["hosted_confirmation", "portal_homepage", "redirect"], str
+    ]
     """
     The specified behavior after the flow is completed.
     """

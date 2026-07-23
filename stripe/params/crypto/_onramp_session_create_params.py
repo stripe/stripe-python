@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -24,7 +24,12 @@ class OnrampSessionCreateParams(RequestOptions):
     """
     destination_currencies: NotRequired[
         List[
-            Literal["avax", "btc", "eth", "matic", "sol", "usdc", "wld", "xlm"]
+            Union[
+                Literal[
+                    "avax", "btc", "eth", "matic", "sol", "usdc", "wld", "xlm"
+                ],
+                str,
+            ]
         ]
     ]
     """
@@ -34,7 +39,7 @@ class OnrampSessionCreateParams(RequestOptions):
     * When set, it must be a non-empty array where all values in the array are valid cryptocurrencies. You can use it to lock users to a specific cryptocurrency by passing a single value array. Users **cannot** override this parameter.
     """
     destination_currency: NotRequired[
-        Literal["avax", "btc", "eth", "matic", "sol", "usdc", "wld", "xlm"]
+        "Literal['avax', 'btc', 'eth', 'matic', 'sol', 'usdc', 'wld', 'xlm']|str"
     ]
     """
     The default destination cryptocurrency.
@@ -43,17 +48,7 @@ class OnrampSessionCreateParams(RequestOptions):
     * When set, if `destination_currencies` is also set, the value of `destination_currency` must be present in that array. To lock a `destination_currency`, specify that value as the single value for `destination_currencies`. Users can select a different cryptocurrency in the onramp UI subject to `destination_currencies` if set.
     """
     destination_network: NotRequired[
-        Literal[
-            "avalanche",
-            "base",
-            "bitcoin",
-            "ethereum",
-            "optimism",
-            "polygon",
-            "solana",
-            "stellar",
-            "worldchain",
-        ]
+        "Literal['avalanche', 'base', 'bitcoin', 'ethereum', 'optimism', 'polygon', 'solana', 'stellar', 'sui', 'worldchain']|str"
     ]
     """
     The default destination crypto network.
@@ -63,16 +58,20 @@ class OnrampSessionCreateParams(RequestOptions):
     """
     destination_networks: NotRequired[
         List[
-            Literal[
-                "avalanche",
-                "base",
-                "bitcoin",
-                "ethereum",
-                "optimism",
-                "polygon",
-                "solana",
-                "stellar",
-                "worldchain",
+            Union[
+                Literal[
+                    "avalanche",
+                    "base",
+                    "bitcoin",
+                    "ethereum",
+                    "optimism",
+                    "polygon",
+                    "solana",
+                    "stellar",
+                    "sui",
+                    "worldchain",
+                ],
+                str,
             ]
         ]
     ]
@@ -100,7 +99,7 @@ class OnrampSessionCreateParams(RequestOptions):
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
-    settlement_speed: NotRequired[Literal["instant", "standard"]]
+    settlement_speed: NotRequired["Literal['instant', 'standard']|str"]
     """
     Speed at which the cryptocurrency is delivered to the wallet
     One of:
@@ -114,7 +113,7 @@ class OnrampSessionCreateParams(RequestOptions):
     * When left null, a default value is computed if `destination_amount` is set.
     * When set, setting `source_amount` is mutually exclusive with setting `destination_amount` (only one or the other is supported). We don't support fractional pennies. If fractional minor units of a currency are passed in, it generates an error. Users can update the value in the onramp UI.
     """
-    source_currency: NotRequired[Literal["eur", "gbp", "usd"]]
+    source_currency: NotRequired["Literal['eur', 'gbp', 'usd']|str"]
     """
     The default source fiat currency for the onramp session.
 

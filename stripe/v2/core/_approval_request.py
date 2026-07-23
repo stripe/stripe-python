@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal
 
 
@@ -225,23 +225,26 @@ class ApprovalRequest(StripeObject):
         Timestamp when the approval request succeeded.
         """
 
-    action: Literal[
-        "charge.create",
-        "dispute.close",
-        "inbound_transfers.money_management.create",
-        "invoice.create",
-        "outbound_payments.money_management.create",
-        "outbound_transfers.money_management.create",
-        "payment_intent.create",
-        "payment_intent.update",
-        "payout.create",
-        "price.update",
-        "refund.create",
-        "setup_intent.create",
-        "subscription.create",
-        "subscription.update",
-        "topup.create",
-        "transfer.create",
+    action: Union[
+        Literal[
+            "charge.create",
+            "dispute.close",
+            "inbound_transfers.money_management.create",
+            "invoice.create",
+            "outbound_payments.money_management.create",
+            "outbound_transfers.money_management.create",
+            "payment_intent.create",
+            "payment_intent.update",
+            "payout.create",
+            "price.update",
+            "refund.create",
+            "setup_intent.create",
+            "subscription.create",
+            "subscription.update",
+            "topup.create",
+            "transfer.create",
+        ],
+        str,
     ]
     """
     The action that was requested.
@@ -286,19 +289,22 @@ class ApprovalRequest(StripeObject):
     """
     The rule associated with this ApprovalRequest.
     """
-    status: Literal[
-        "approved",
-        "canceled",
-        "execution_failed",
-        "execution_started",
-        "execution_succeeded",
-        "expired",
-        "failed",
-        "pending",
-        "rejected",
-        "requires_execution",
-        "requires_review",
-        "succeeded",
+    status: Union[
+        Literal[
+            "approved",
+            "canceled",
+            "execution_failed",
+            "execution_started",
+            "execution_succeeded",
+            "expired",
+            "failed",
+            "pending",
+            "rejected",
+            "requires_execution",
+            "requires_review",
+            "succeeded",
+        ],
+        str,
     ]
     """
     The status of this ApprovalRequest.

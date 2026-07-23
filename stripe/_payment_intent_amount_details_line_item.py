@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal
 
 
@@ -12,6 +12,40 @@ class PaymentIntentAmountDetailsLineItem(StripeObject):
 
     class PaymentMethodOptions(StripeObject):
         class Card(StripeObject):
+            class EvCharging(StripeObject):
+                carbon_footprint_avoided_grams_co2: Optional[int]
+                """
+                The carbon footprint avoided by the charging session, in grams of CO2.
+                """
+                charging_ended_at: Optional[int]
+                """
+                The time the charging session ended, measured in seconds since the Unix epoch.
+                """
+                charging_power_output_capacity_kw: Optional[int]
+                """
+                The power output capacity of the charging station, in kilowatts (kW).
+                """
+                charging_started_at: Optional[int]
+                """
+                The time the charging session started, measured in seconds since the Unix epoch.
+                """
+                connector_type: Optional[str]
+                """
+                The type of connector used for the charging session.
+                """
+                estimated_range_added: Optional[int]
+                """
+                The estimated distance in kilometers or miles added to the vehicle during the charging session.
+                """
+                estimated_range_left: Optional[int]
+                """
+                The estimated distance in kilometers or miles remaining in the vehicle after the charging session.
+                """
+                maximum_power_dispensed_kw: Optional[int]
+                """
+                The maximum power dispensed during the charging session, in kilowatts (kW).
+                """
+
             class FleetData(StripeObject):
                 product_type: Optional[str]
                 """
@@ -23,8 +57,12 @@ class PaymentIntentAmountDetailsLineItem(StripeObject):
                 """
 
             commodity_code: Optional[str]
+            ev_charging: Optional[EvCharging]
             fleet_data: Optional[FleetData]
-            _inner_class_types = {"fleet_data": FleetData}
+            _inner_class_types = {
+                "ev_charging": EvCharging,
+                "fleet_data": FleetData,
+            }
 
         class CardPresent(StripeObject):
             commodity_code: Optional[str]
@@ -37,7 +75,9 @@ class PaymentIntentAmountDetailsLineItem(StripeObject):
 
         class Paypal(StripeObject):
             category: Optional[
-                Literal["digital_goods", "donation", "physical_goods"]
+                Union[
+                    Literal["digital_goods", "donation", "physical_goods"], str
+                ]
             ]
             """
             Type of the line item.

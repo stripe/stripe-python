@@ -119,7 +119,7 @@ class PaymentIntent(
 
     class AdvancedFeatureDetails(StripeObject):
         class DecrementalAuthorization(StripeObject):
-            status: Literal["available", "unavailable"]
+            status: Union[Literal["available", "unavailable"], str]
             """
             Indicates whether the feature is supported.
             """
@@ -129,19 +129,19 @@ class PaymentIntent(
             """
             Timestamp at which the forced capture window expires.
             """
-            status: Literal["available", "unavailable"]
+            status: Union[Literal["available", "unavailable"], str]
             """
             Indicates whether forced capture is supported.
             """
 
         class IncrementalAuthorization(StripeObject):
-            status: Literal["available", "unavailable"]
+            status: Union[Literal["available", "unavailable"], str]
             """
             Indicates whether the feature is supported.
             """
 
         class Multicapture(StripeObject):
-            status: Literal["available", "unavailable"]
+            status: Union[Literal["available", "unavailable"], str]
             """
             Indicates whether the feature is supported.
             """
@@ -151,7 +151,7 @@ class PaymentIntent(
             """
             The maximum amount that can be captured.
             """
-            status: Literal["available", "unavailable"]
+            status: Union[Literal["available", "unavailable"], str]
             """
             Indicates whether overcapture is supported.
             """
@@ -192,9 +192,12 @@ class PaymentIntent(
     class AmountDetails(StripeObject):
         class Error(StripeObject):
             code: Optional[
-                Literal[
-                    "amount_details_amount_mismatch",
-                    "amount_details_tax_shipping_discount_greater_than_amount",
+                Union[
+                    Literal[
+                        "amount_details_amount_mismatch",
+                        "amount_details_tax_shipping_discount_greater_than_amount",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -291,7 +294,7 @@ class PaymentIntent(
         _inner_class_types = {"inputs": Inputs}
 
     class AutomaticPaymentMethods(StripeObject):
-        allow_redirects: Optional[Literal["always", "never"]]
+        allow_redirects: Optional[Union[Literal["always", "never"], str]]
         """
         Controls whether this PaymentIntent will accept redirect-based payment methods.
 
@@ -1345,16 +1348,19 @@ class PaymentIntent(
                 """
                 supported_networks: Optional[
                     List[
-                        Literal[
-                            "ach",
-                            "bacs",
-                            "chaps",
-                            "domestic_wire_us",
-                            "fps",
-                            "sepa",
-                            "spei",
-                            "swift",
-                            "zengin",
+                        Union[
+                            Literal[
+                                "ach",
+                                "bacs",
+                                "chaps",
+                                "domestic_wire_us",
+                                "fps",
+                                "sepa",
+                                "spei",
+                                "swift",
+                                "zengin",
+                            ],
+                            str,
                         ]
                     ]
                 ]
@@ -1365,8 +1371,11 @@ class PaymentIntent(
                 """
                 SWIFT Records contain U.S. bank account details per the SWIFT format.
                 """
-                type: Literal[
-                    "aba", "iban", "sort_code", "spei", "swift", "zengin"
+                type: Union[
+                    Literal[
+                        "aba", "iban", "sort_code", "spei", "swift", "zengin"
+                    ],
+                    str,
                 ]
                 """
                 The type of financial address
@@ -1404,12 +1413,15 @@ class PaymentIntent(
             """
             A string identifying this payment. Instruct your customer to include this code in the reference or memo field of their bank transfer.
             """
-            type: Literal[
-                "eu_bank_transfer",
-                "gb_bank_transfer",
-                "jp_bank_transfer",
-                "mx_bank_transfer",
-                "us_bank_transfer",
+            type: Union[
+                Literal[
+                    "eu_bank_transfer",
+                    "gb_bank_transfer",
+                    "jp_bank_transfer",
+                    "mx_bank_transfer",
+                    "us_bank_transfer",
+                ],
+                str,
             ]
             """
             Type of bank transfer
@@ -1667,7 +1679,9 @@ class PaymentIntent(
             """
             The URL for the hosted verification page, which allows customers to verify their bank account.
             """
-            microdeposit_type: Optional[Literal["amounts", "descriptor_code"]]
+            microdeposit_type: Optional[
+                Union[Literal["amounts", "descriptor_code"], str]
+            ]
             """
             The type of the microdeposit sent to the customer. Used to distinguish between different verification methods.
             """
@@ -1805,7 +1819,9 @@ class PaymentIntent(
         class Benefit(StripeObject):
             class FrMealVoucher(StripeObject):
                 enabled: Optional[
-                    Literal["if_payment_method_is_eligible", "never"]
+                    Union[
+                        Literal["if_payment_method_is_eligible", "never"], str
+                    ]
                 ]
                 """
                 Whether meal voucher benefit is enabled for this payment.
@@ -1840,7 +1856,9 @@ class PaymentIntent(
                     The phone number of the recipient the ticket is delivered to.
                     """
 
-                mode: Optional[Literal["email", "phone", "pickup", "post"]]
+                mode: Optional[
+                    Union[Literal["email", "phone", "pickup", "post"], str]
+                ]
                 """
                 The delivery method for the payment
                 """
@@ -1960,12 +1978,15 @@ class PaymentIntent(
             """
             extra_charges: Optional[
                 List[
-                    Literal[
-                        "extra_mileage",
-                        "gas",
-                        "late_return",
-                        "one_way_service",
-                        "parking_violation",
+                    Union[
+                        Literal[
+                            "extra_mileage",
+                            "gas",
+                            "late_return",
+                            "one_way_service",
+                            "parking_violation",
+                        ],
+                        str,
                     ]
                 ]
             ]
@@ -1989,7 +2010,9 @@ class PaymentIntent(
             """
             Rental rate.
             """
-            rate_interval: Optional[Literal["day", "month", "week"]]
+            rate_interval: Optional[
+                Union[Literal["day", "month", "week"], str]
+            ]
             """
             The frequency at which the rate amount is applied. One of `day`, `week` or `month`
             """
@@ -2039,7 +2062,7 @@ class PaymentIntent(
                 """
                 Distance amount.
                 """
-                unit: Optional[Literal["kilometers", "miles"]]
+                unit: Optional[Union[Literal["kilometers", "miles"], str]]
                 """
                 Unit for the distance.
                 """
@@ -2126,13 +2149,16 @@ class PaymentIntent(
                 Name of the insurance company.
                 """
                 insurance_type: Optional[
-                    Literal[
-                        "liability_supplement",
-                        "loss_damage_waiver",
-                        "other",
-                        "partial_damage_waiver",
-                        "personal_accident",
-                        "personal_effects",
+                    Union[
+                        Literal[
+                            "liability_supplement",
+                            "loss_damage_waiver",
+                            "other",
+                            "partial_damage_waiver",
+                            "personal_accident",
+                            "personal_effects",
+                        ],
+                        str,
                     ]
                 ]
                 """
@@ -2198,17 +2224,20 @@ class PaymentIntent(
                     Amount of the extra charge.
                     """
                     type: Optional[
-                        Literal[
-                            "extra_mileage",
-                            "gas",
-                            "gps",
-                            "late_charge",
-                            "one_way_drop_off",
-                            "other",
-                            "parking",
-                            "phone",
-                            "regular_mileage",
-                            "towing",
+                        Union[
+                            Literal[
+                                "extra_mileage",
+                                "gas",
+                                "gps",
+                                "late_charge",
+                                "one_way_drop_off",
+                                "other",
+                                "parking",
+                                "phone",
+                                "regular_mileage",
+                                "towing",
+                            ],
+                            str,
                         ]
                     ]
                     """
@@ -2216,7 +2245,7 @@ class PaymentIntent(
                     """
 
                 class Tax(StripeObject):
-                    class Tax(StripeObject):
+                    class TaxItem(StripeObject):
                         amount: Optional[int]
                         """
                         Tax amount.
@@ -2234,11 +2263,11 @@ class PaymentIntent(
                     """
                     Indicates whether the rental is tax-exempt.
                     """
-                    taxes: Optional[List[Tax]]
+                    tax_items: Optional[List[TaxItem]]
                     """
                     Tax details.
                     """
-                    _inner_class_types = {"taxes": Tax}
+                    _inner_class_types = {"tax_items": TaxItem}
 
                 amount: Optional[int]
                 """
@@ -2257,7 +2286,7 @@ class PaymentIntent(
                 """
                 Rate per unit.
                 """
-                rate_unit: Optional[Literal["kilometers", "miles"]]
+                rate_unit: Optional[Union[Literal["kilometers", "miles"], str]]
                 """
                 Unit for the rate.
                 """
@@ -2282,49 +2311,58 @@ class PaymentIntent(
                 Odometer reading.
                 """
                 type: Optional[
-                    Literal[
-                        "cargo_van",
-                        "compact",
-                        "economy",
-                        "exotic",
-                        "exotic_suv",
-                        "fifteen_passenger_van",
-                        "four_wheel_drive",
-                        "full_size",
-                        "intermediate",
-                        "large_suv",
-                        "large_truck",
-                        "luxury",
-                        "medium_suv",
-                        "midsize",
-                        "mini",
-                        "minivan",
-                        "miscellaneous",
-                        "moped",
-                        "moving_van",
-                        "premium",
-                        "regular",
-                        "small_medium_truck",
-                        "small_suv",
-                        "special",
-                        "standard",
-                        "stretch",
-                        "subcompact",
-                        "taxi",
-                        "twelve_foot_truck",
-                        "twelve_passenger_van",
-                        "twenty_foot_truck",
-                        "twenty_four_foot_truck",
-                        "twenty_six_foot_truck",
-                        "unique",
+                    Union[
+                        Literal[
+                            "cargo_van",
+                            "compact",
+                            "economy",
+                            "exotic",
+                            "exotic_suv",
+                            "fifteen_passenger_van",
+                            "four_wheel_drive",
+                            "full_size",
+                            "intermediate",
+                            "large_suv",
+                            "large_truck",
+                            "luxury",
+                            "medium_suv",
+                            "midsize",
+                            "mini",
+                            "minivan",
+                            "miscellaneous",
+                            "moped",
+                            "moving_van",
+                            "premium",
+                            "regular",
+                            "small_medium_truck",
+                            "small_suv",
+                            "special",
+                            "standard",
+                            "stretch",
+                            "subcompact",
+                            "taxi",
+                            "twelve_foot_truck",
+                            "twelve_passenger_van",
+                            "twenty_foot_truck",
+                            "twenty_four_foot_truck",
+                            "twenty_six_foot_truck",
+                            "unique",
+                        ],
+                        str,
                     ]
                 ]
                 """
                 Type of the vehicle.
                 """
                 vehicle_class: Optional[
-                    Literal[
-                        "business", "economy", "first_class", "premium_economy"
+                    Union[
+                        Literal[
+                            "business",
+                            "economy",
+                            "first_class",
+                            "premium_economy",
+                        ],
+                        str,
                     ]
                 ]
                 """
@@ -2432,7 +2470,9 @@ class PaymentIntent(
                     The phone number of the recipient the ticket is delivered to.
                     """
 
-                mode: Optional[Literal["email", "phone", "pickup", "post"]]
+                mode: Optional[
+                    Union[Literal["email", "phone", "pickup", "post"], str]
+                ]
                 """
                 The delivery method for the payment
                 """
@@ -2573,12 +2613,15 @@ class PaymentIntent(
                 Name of the insurance company.
                 """
                 insurance_type: Optional[
-                    Literal[
-                        "baggage",
-                        "bankruptcy",
-                        "cancelation",
-                        "emergency",
-                        "medical",
+                    Union[
+                        Literal[
+                            "baggage",
+                            "bankruptcy",
+                            "cancelation",
+                            "emergency",
+                            "medical",
+                        ],
+                        str,
                     ]
                 ]
                 """
@@ -2671,8 +2714,14 @@ class PaymentIntent(
                 Refundable ticket indicator.
                 """
                 service_class: Optional[
-                    Literal[
-                        "business", "economy", "first_class", "premium_economy"
+                    Union[
+                        Literal[
+                            "business",
+                            "economy",
+                            "first_class",
+                            "premium_economy",
+                        ],
+                        str,
                     ]
                 ]
                 """
@@ -2704,10 +2753,13 @@ class PaymentIntent(
                     Amount of the extra charge.
                     """
                     type: Optional[
-                        Literal[
-                            "additional_fees",
-                            "ancillary_service_charges",
-                            "exchange_fee",
+                        Union[
+                            Literal[
+                                "additional_fees",
+                                "ancillary_service_charges",
+                                "exchange_fee",
+                            ],
+                            str,
                         ]
                     ]
                     """
@@ -2715,7 +2767,7 @@ class PaymentIntent(
                     """
 
                 class Tax(StripeObject):
-                    class Tax(StripeObject):
+                    class TaxItem(StripeObject):
                         amount: Optional[int]
                         """
                         Tax amount.
@@ -2729,23 +2781,26 @@ class PaymentIntent(
                         Type of tax.
                         """
 
-                    taxes: Optional[List[Tax]]
+                    tax_items: Optional[List[TaxItem]]
                     """
                     Tax details.
                     """
-                    _inner_class_types = {"taxes": Tax}
+                    _inner_class_types = {"tax_items": TaxItem}
 
                 amount: Optional[int]
                 """
                 Total amount.
                 """
                 credit_reason: Optional[
-                    Literal[
-                        "other",
-                        "partial_ticket_refund",
-                        "passenger_transport_ancillary_cancellation",
-                        "ticket_and_ancillary_cancellation",
-                        "ticket_cancellation",
+                    Union[
+                        Literal[
+                            "other",
+                            "partial_ticket_refund",
+                            "passenger_transport_ancillary_cancellation",
+                            "ticket_and_ancillary_cancellation",
+                            "ticket_cancellation",
+                        ],
+                        str,
                     ]
                 ]
                 """
@@ -2798,11 +2853,14 @@ class PaymentIntent(
             """
             total: Optional[Total]
             transaction_type: Optional[
-                Literal[
-                    "exchange_ticket",
-                    "miscellaneous",
-                    "refund",
-                    "ticket_purchase",
+                Union[
+                    Literal[
+                        "exchange_ticket",
+                        "miscellaneous",
+                        "refund",
+                        "ticket_purchase",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -2819,15 +2877,18 @@ class PaymentIntent(
         class LodgingDatum(StripeObject):
             class Accommodation(StripeObject):
                 accommodation_type: Optional[
-                    Literal[
-                        "apartment",
-                        "cabana",
-                        "house",
-                        "penthouse",
-                        "room",
-                        "standard",
-                        "suite",
-                        "villa",
+                    Union[
+                        Literal[
+                            "apartment",
+                            "cabana",
+                            "house",
+                            "penthouse",
+                            "room",
+                            "standard",
+                            "suite",
+                            "villa",
+                        ],
+                        str,
                     ]
                 ]
                 """
@@ -2911,7 +2972,10 @@ class PaymentIntent(
                 Reference number for the host.
                 """
                 host_type: Optional[
-                    Literal["hostel", "hotel", "owner", "rental_agency"]
+                    Union[
+                        Literal["hostel", "hotel", "owner", "rental_agency"],
+                        str,
+                    ]
                 ]
                 """
                 Type of host.
@@ -2948,8 +3012,11 @@ class PaymentIntent(
                 Name of the insurance company.
                 """
                 insurance_type: Optional[
-                    Literal[
-                        "bankruptcy", "cancelation", "emergency", "medical"
+                    Union[
+                        Literal[
+                            "bankruptcy", "cancelation", "emergency", "medical"
+                        ],
+                        str,
                     ]
                 ]
                 """
@@ -2973,13 +3040,16 @@ class PaymentIntent(
                     Amount of the extra charge in cents.
                     """
                     type: Optional[
-                        Literal[
-                            "gift_shop",
-                            "laundry",
-                            "mini_bar",
-                            "other",
-                            "phone",
-                            "restaurant",
+                        Union[
+                            Literal[
+                                "gift_shop",
+                                "laundry",
+                                "mini_bar",
+                                "other",
+                                "phone",
+                                "restaurant",
+                            ],
+                            str,
                         ]
                     ]
                     """
@@ -2987,7 +3057,7 @@ class PaymentIntent(
                     """
 
                 class Tax(StripeObject):
-                    class Tax(StripeObject):
+                    class TaxItem(StripeObject):
                         amount: Optional[int]
                         """
                         Tax amount in cents.
@@ -3005,11 +3075,11 @@ class PaymentIntent(
                     """
                     Indicates whether the transaction is tax exempt.
                     """
-                    taxes: Optional[List[Tax]]
+                    tax_items: Optional[List[TaxItem]]
                     """
                     Tax details.
                     """
-                    _inner_class_types = {"taxes": Tax}
+                    _inner_class_types = {"tax_items": TaxItem}
 
                 amount: Optional[int]
                 """
@@ -3230,7 +3300,7 @@ class PaymentIntent(
             beneficiary_account: Optional[str]
             beneficiary_details: Optional[BeneficiaryDetails]
             transaction_type: Optional[
-                Literal["account_funding", "debt_repayment"]
+                Union[Literal["account_funding", "debt_repayment"], str]
             ]
             """
             The type of money services transaction.
@@ -3252,7 +3322,9 @@ class PaymentIntent(
                 """
                 The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
                 """
-                interval: Optional[Literal["day", "month", "week", "year"]]
+                interval: Optional[
+                    Union[Literal["day", "month", "week", "year"], str]
+                ]
                 """
                 Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
                 """
@@ -3342,19 +3414,21 @@ class PaymentIntent(
                 Description of the interval. Only required if the 'payment_schedule' parameter is 'interval' or 'combined'.
                 """
                 payment_schedule: Optional[
-                    Literal["combined", "interval", "sporadic"]
+                    Union[Literal["combined", "interval", "sporadic"], str]
                 ]
                 """
                 Payment schedule for the mandate.
                 """
-                transaction_type: Optional[Literal["business", "personal"]]
+                transaction_type: Optional[
+                    Union[Literal["business", "personal"], str]
+                ]
                 """
                 Transaction type of the mandate.
                 """
 
             mandate_options: Optional[MandateOptions]
             setup_future_usage: Optional[
-                Literal["none", "off_session", "on_session"]
+                Union[Literal["none", "off_session", "on_session"], str]
             ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -3370,7 +3444,7 @@ class PaymentIntent(
             Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
             """
             verification_method: Optional[
-                Literal["automatic", "instant", "microdeposits"]
+                Union[Literal["automatic", "instant", "microdeposits"], str]
             ]
             """
             Bank account verification method. The default value is `automatic`.
@@ -3419,7 +3493,9 @@ class PaymentIntent(
             """
 
         class Alipay(StripeObject):
-            setup_future_usage: Optional[Literal["none", "off_session"]]
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -3441,7 +3517,9 @@ class PaymentIntent(
             """
             Controls when the funds will be captured from the customer's account.
             """
-            setup_future_usage: Optional[Literal["none", "off_session"]]
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -3454,7 +3532,7 @@ class PaymentIntent(
 
         class AuBecsDebit(StripeObject):
             setup_future_usage: Optional[
-                Literal["none", "off_session", "on_session"]
+                Union[Literal["none", "off_session", "on_session"], str]
             ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -3479,7 +3557,7 @@ class PaymentIntent(
 
             mandate_options: Optional[MandateOptions]
             setup_future_usage: Optional[
-                Literal["none", "off_session", "on_session"]
+                Union[Literal["none", "off_session", "on_session"], str]
             ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -3501,7 +3579,9 @@ class PaymentIntent(
             """
             Preferred language of the Bancontact authorization page that the customer is redirected to.
             """
-            setup_future_usage: Optional[Literal["none", "off_session"]]
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -3539,7 +3619,7 @@ class PaymentIntent(
             The number of calendar days before a Boleto voucher expires. For example, if you create a Boleto voucher on Monday and you set expires_after_days to 2, the Boleto voucher will expire on Wednesday at 23:59 America/Sao_Paulo time.
             """
             setup_future_usage: Optional[
-                Literal["none", "off_session", "on_session"]
+                Union[Literal["none", "off_session", "on_session"], str]
             ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -3577,7 +3657,9 @@ class PaymentIntent(
                     For `fixed_count` installment plans, this is the interval between installment payments your customer will make to their credit card.
                     One of `month`.
                     """
-                    type: Literal["bonus", "fixed_count", "revolving"]
+                    type: Union[
+                        Literal["bonus", "fixed_count", "revolving"], str
+                    ]
                     """
                     Type of installment plan, one of `fixed_count`, `bonus`, or `revolving`.
                     """
@@ -3592,7 +3674,9 @@ class PaymentIntent(
                     For `fixed_count` installment plans, this is the interval between installment payments your customer will make to their credit card.
                     One of `month`.
                     """
-                    type: Literal["bonus", "fixed_count", "revolving"]
+                    type: Union[
+                        Literal["bonus", "fixed_count", "revolving"], str
+                    ]
                     """
                     Type of installment plan, one of `fixed_count`, `bonus`, or `revolving`.
                     """
@@ -3695,7 +3779,9 @@ class PaymentIntent(
             If omitted, funds are captured before the authorization expires.
             """
             capture_delay: Optional[CaptureDelay]
-            capture_method: Optional[Literal["automatic_delayed", "manual"]]
+            capture_method: Optional[
+                Union[Literal["automatic_delayed", "manual"], str]
+            ]
             """
             Controls when the funds will be captured from the customer's account.
             """
@@ -3730,43 +3816,49 @@ class PaymentIntent(
             Selected network to process this payment intent on. Depends on the available networks of the card attached to the payment intent. Can be only set confirm-time.
             """
             request_decremental_authorization: Optional[
-                Literal["if_available", "never"]
+                Union[Literal["if_available", "never"], str]
             ]
             """
             Request ability to [decrement the authorization](https://docs.stripe.com/payments/decremental-authorization) for this PaymentIntent.
             """
             request_extended_authorization: Optional[
-                Literal["if_available", "never"]
+                Union[Literal["if_available", "never"], str]
             ]
             """
             Request ability to [capture beyond the standard authorization validity window](https://docs.stripe.com/payments/extended-authorization) for this PaymentIntent.
             """
             request_incremental_authorization: Optional[
-                Literal["if_available", "never"]
+                Union[Literal["if_available", "never"], str]
             ]
             """
             Request ability to [increment the authorization](https://docs.stripe.com/payments/incremental-authorization) for this PaymentIntent.
             """
-            request_multicapture: Optional[Literal["if_available", "never"]]
+            request_multicapture: Optional[
+                Union[Literal["if_available", "never"], str]
+            ]
             """
             Request ability to make [multiple captures](https://docs.stripe.com/payments/multicapture) for this PaymentIntent.
             """
-            request_overcapture: Optional[Literal["if_available", "never"]]
+            request_overcapture: Optional[
+                Union[Literal["if_available", "never"], str]
+            ]
             """
             Request ability to [overcapture](https://docs.stripe.com/payments/overcapture) for this PaymentIntent.
             """
             request_partial_authorization: Optional[
-                Literal["if_available", "never"]
+                Union[Literal["if_available", "never"], str]
             ]
             """
             Request partial authorization on this PaymentIntent.
             """
-            request_reauthorization: Optional[Literal["if_available", "never"]]
+            request_reauthorization: Optional[
+                Union[Literal["if_available", "never"], str]
+            ]
             """
             Request ability to [reauthorize](https://docs.stripe.com/payments/reauthorization) for this PaymentIntent.
             """
             request_three_d_secure: Optional[
-                Literal["any", "automatic", "challenge"]
+                Union[Literal["any", "automatic", "challenge"], str]
             ]
             """
             We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
@@ -3776,7 +3868,7 @@ class PaymentIntent(
             When enabled, using a card that is attached to a customer will require the CVC to be provided again (i.e. using the cvc_token parameter).
             """
             setup_future_usage: Optional[
-                Literal["none", "off_session", "on_session"]
+                Union[Literal["none", "off_session", "on_session"], str]
             ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -3820,7 +3912,7 @@ class PaymentIntent(
 
             class Routing(StripeObject):
                 requested_priority: Optional[
-                    Literal["domestic", "international"]
+                    Union[Literal["domestic", "international"], str]
                 ]
                 """
                 Requested routing priority
@@ -3849,11 +3941,15 @@ class PaymentIntent(
             """
             Request ability to [increment](https://docs.stripe.com/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://docs.stripe.com/api/payment_intents/confirm) response to verify support.
             """
-            request_multicapture: Optional[Literal["if_available", "never"]]
+            request_multicapture: Optional[
+                Union[Literal["if_available", "never"], str]
+            ]
             """
             Request ability to make [multiple captures](https://docs.stripe.com/payments/multicapture) for this PaymentIntent.
             """
-            request_reauthorization: Optional[Literal["if_available", "never"]]
+            request_reauthorization: Optional[
+                Union[Literal["if_available", "never"], str]
+            ]
             """
             Request ability to [reauthorize](https://docs.stripe.com/payments/reauthorization) for this PaymentIntent.
             """
@@ -3869,7 +3965,7 @@ class PaymentIntent(
             Controls when the funds will be captured from the customer's account.
             """
             setup_future_usage: Optional[
-                Literal["none", "off_session", "on_session"]
+                Union[Literal["none", "off_session", "on_session"], str]
             ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -3891,8 +3987,15 @@ class PaymentIntent(
             class DepositOptions(StripeObject):
                 networks: Optional[
                     List[
-                        Literal[
-                            "base", "ethereum", "polygon", "solana", "tempo"
+                        Union[
+                            Literal[
+                                "base",
+                                "ethereum",
+                                "polygon",
+                                "solana",
+                                "tempo",
+                            ],
+                            str,
                         ]
                     ]
                 ]
@@ -3906,7 +4009,12 @@ class PaymentIntent(
 
             class TransactionVerificationOptions(StripeObject):
                 network: Optional[
-                    Literal["base", "ethereum", "polygon", "solana", "tempo"]
+                    Union[
+                        Literal[
+                            "base", "ethereum", "polygon", "solana", "tempo"
+                        ],
+                        str,
+                    ]
                 ]
                 """
                 The network on which the transaction was submitted.
@@ -3919,7 +4027,10 @@ class PaymentIntent(
             amount_reconciliation: Optional[AmountReconciliation]
             deposit_options: Optional[DepositOptions]
             mode: Optional[
-                Literal["default", "deposit", "transaction_verification"]
+                Union[
+                    Literal["default", "deposit", "transaction_verification"],
+                    str,
+                ]
             ]
             """
             The mode of the crypto payment.
@@ -3954,14 +4065,17 @@ class PaymentIntent(
                 eu_bank_transfer: Optional[EuBankTransfer]
                 requested_address_types: Optional[
                     List[
-                        Literal[
-                            "aba",
-                            "iban",
-                            "sepa",
-                            "sort_code",
-                            "spei",
-                            "swift",
-                            "zengin",
+                        Union[
+                            Literal[
+                                "aba",
+                                "iban",
+                                "sepa",
+                                "sort_code",
+                                "spei",
+                                "swift",
+                                "zengin",
+                            ],
+                            str,
                         ]
                     ]
                 ]
@@ -3971,12 +4085,15 @@ class PaymentIntent(
                 Permitted values include: `sort_code`, `zengin`, `iban`, or `spei`.
                 """
                 type: Optional[
-                    Literal[
-                        "eu_bank_transfer",
-                        "gb_bank_transfer",
-                        "jp_bank_transfer",
-                        "mx_bank_transfer",
-                        "us_bank_transfer",
+                    Union[
+                        Literal[
+                            "eu_bank_transfer",
+                            "gb_bank_transfer",
+                            "jp_bank_transfer",
+                            "mx_bank_transfer",
+                            "us_bank_transfer",
+                        ],
+                        str,
                     ]
                 ]
                 """
@@ -4035,7 +4152,7 @@ class PaymentIntent(
             Set to `yes` to ignore transfer data on the PaymentIntent when redeeming this gift card.
             """
             request_partial_authorization: Optional[
-                Literal["if_available", "never"]
+                Union[Literal["if_available", "never"], str]
             ]
             """
             Request partial authorization on this PaymentIntent.
@@ -4054,7 +4171,9 @@ class PaymentIntent(
             """
 
         class Gopay(StripeObject):
-            setup_future_usage: Optional[Literal["none", "off_session"]]
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -4098,7 +4217,9 @@ class PaymentIntent(
             """
 
         class Ideal(StripeObject):
-            setup_future_usage: Optional[Literal["none", "off_session"]]
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -4117,7 +4238,9 @@ class PaymentIntent(
             """
             Controls when the funds will be captured from the customer's account.
             """
-            setup_future_usage: Optional[Literal["none", "off_session"]]
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -4138,7 +4261,7 @@ class PaymentIntent(
             Preferred locale of the Klarna checkout page that the customer is redirected to.
             """
             setup_future_usage: Optional[
-                Literal["none", "off_session", "on_session"]
+                Union[Literal["none", "off_session", "on_session"], str]
             ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -4183,7 +4306,9 @@ class PaymentIntent(
             """
             Controls when the funds will be captured from the customer's account.
             """
-            setup_future_usage: Optional[Literal["none", "off_session"]]
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -4203,7 +4328,9 @@ class PaymentIntent(
             """
             [Deprecated] This is a legacy parameter that no longer has any function.
             """
-            setup_future_usage: Optional[Literal["none", "off_session"]]
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -4259,7 +4386,9 @@ class PaymentIntent(
             """
             Controls when the funds will be captured from the customer's account.
             """
-            setup_future_usage: Optional[Literal["none", "off_session"]]
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -4272,7 +4401,7 @@ class PaymentIntent(
 
         class NzBankAccount(StripeObject):
             setup_future_usage: Optional[
-                Literal["none", "off_session", "on_session"]
+                Union[Literal["none", "off_session", "on_session"], str]
             ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -4354,13 +4483,16 @@ class PaymentIntent(
                     """
                     The tax for a single unit of the line item in minor units. Cannot be a negative number.
                     """
-                    behavior: Literal["exclusive", "inclusive"]
+                    behavior: Union[Literal["exclusive", "inclusive"], str]
                     """
                     The tax behavior for the line item.
                     """
 
                 category: Optional[
-                    Literal["digital_goods", "donation", "physical_goods"]
+                    Union[
+                        Literal["digital_goods", "donation", "physical_goods"],
+                        str,
+                    ]
                 ]
                 """
                 Type of the line item.
@@ -4412,7 +4544,9 @@ class PaymentIntent(
             """
             A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
             """
-            setup_future_usage: Optional[Literal["none", "off_session"]]
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -4430,7 +4564,7 @@ class PaymentIntent(
 
         class Paypay(StripeObject):
             setup_future_usage: Optional[
-                Literal["none", "off_session", "on_session"]
+                Union[Literal["none", "off_session", "on_session"], str]
             ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -4448,7 +4582,7 @@ class PaymentIntent(
                 """
                 Amount that will be collected. It is required when `amount_type` is `fixed`.
                 """
-                amount_type: Optional[Literal["fixed", "maximum"]]
+                amount_type: Optional[Union[Literal["fixed", "maximum"], str]]
                 """
                 The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively. Defaults to `maximum`.
                 """
@@ -4457,15 +4591,18 @@ class PaymentIntent(
                 Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
                 """
                 payment_schedule: Optional[
-                    Literal[
-                        "adhoc",
-                        "annual",
-                        "daily",
-                        "fortnightly",
-                        "monthly",
-                        "quarterly",
-                        "semi_annual",
-                        "weekly",
+                    Union[
+                        Literal[
+                            "adhoc",
+                            "annual",
+                            "daily",
+                            "fortnightly",
+                            "monthly",
+                            "quarterly",
+                            "semi_annual",
+                            "weekly",
+                        ],
+                        str,
                     ]
                 ]
                 """
@@ -4476,18 +4613,21 @@ class PaymentIntent(
                 The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
                 """
                 purpose: Optional[
-                    Literal[
-                        "dependant_support",
-                        "government",
-                        "loan",
-                        "mortgage",
-                        "other",
-                        "pension",
-                        "personal",
-                        "retail",
-                        "salary",
-                        "tax",
-                        "utility",
+                    Union[
+                        Literal[
+                            "dependant_support",
+                            "government",
+                            "loan",
+                            "mortgage",
+                            "other",
+                            "pension",
+                            "personal",
+                            "retail",
+                            "salary",
+                            "tax",
+                            "utility",
+                        ],
+                        str,
                     ]
                 ]
                 """
@@ -4495,7 +4635,9 @@ class PaymentIntent(
                 """
 
             mandate_options: Optional[MandateOptions]
-            setup_future_usage: Optional[Literal["none", "off_session"]]
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -4513,11 +4655,13 @@ class PaymentIntent(
                 """
                 Amount to be charged for future payments.
                 """
-                amount_includes_iof: Optional[Literal["always", "never"]]
+                amount_includes_iof: Optional[
+                    Union[Literal["always", "never"], str]
+                ]
                 """
                 Determines if the amount includes the IOF tax.
                 """
-                amount_type: Optional[Literal["fixed", "maximum"]]
+                amount_type: Optional[Union[Literal["fixed", "maximum"], str]]
                 """
                 Type of amount.
                 """
@@ -4530,12 +4674,15 @@ class PaymentIntent(
                 Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`.
                 """
                 payment_schedule: Optional[
-                    Literal[
-                        "halfyearly",
-                        "monthly",
-                        "quarterly",
-                        "weekly",
-                        "yearly",
+                    Union[
+                        Literal[
+                            "halfyearly",
+                            "monthly",
+                            "quarterly",
+                            "weekly",
+                            "yearly",
+                        ],
+                        str,
                     ]
                 ]
                 """
@@ -4550,7 +4697,9 @@ class PaymentIntent(
                 Start date of the mandate, in `YYYY-MM-DD`.
                 """
 
-            amount_includes_iof: Optional[Literal["always", "never"]]
+            amount_includes_iof: Optional[
+                Union[Literal["always", "never"], str]
+            ]
             """
             Determines if the amount includes the IOF tax.
             """
@@ -4563,7 +4712,9 @@ class PaymentIntent(
             The timestamp at which the Pix expires.
             """
             mandate_options: Optional[MandateOptions]
-            setup_future_usage: Optional[Literal["none", "off_session"]]
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -4640,7 +4791,7 @@ class PaymentIntent(
             Controls when the funds will be captured from the customer's account.
             """
             setup_future_usage: Optional[
-                Literal["none", "off_session", "on_session"]
+                Union[Literal["none", "off_session", "on_session"], str]
             ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -4667,7 +4818,7 @@ class PaymentIntent(
 
             mandate_options: Optional[MandateOptions]
             setup_future_usage: Optional[
-                Literal["none", "off_session", "on_session"]
+                Union[Literal["none", "off_session", "on_session"], str]
             ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -4703,7 +4854,9 @@ class PaymentIntent(
             """
             Preferred language of the SOFORT authorization page that the customer is redirected to.
             """
-            setup_future_usage: Optional[Literal["none", "off_session"]]
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -4722,7 +4875,9 @@ class PaymentIntent(
                 """
 
             mandate_options: Optional[MandateOptions]
-            setup_future_usage: Optional[Literal["none", "off_session"]]
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -4767,7 +4922,9 @@ class PaymentIntent(
             """
 
         class Twint(StripeObject):
-            setup_future_usage: Optional[Literal["none", "off_session"]]
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -4779,7 +4936,9 @@ class PaymentIntent(
             """
 
         class Upi(StripeObject):
-            setup_future_usage: Optional[Literal["off_session", "on_session"]]
+            setup_future_usage: Optional[
+                Union[Literal["off_session", "on_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -4794,7 +4953,7 @@ class PaymentIntent(
             class FinancialConnections(StripeObject):
                 class Filters(StripeObject):
                     account_subcategories: Optional[
-                        List[Literal["checking", "savings"]]
+                        List[Union[Literal["checking", "savings"], str]]
                     ]
                     """
                     The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`.
@@ -4805,7 +4964,7 @@ class PaymentIntent(
                     """
 
                 class ManualEntry(StripeObject):
-                    mode: Optional[Literal["automatic", "custom"]]
+                    mode: Optional[Union[Literal["automatic", "custom"], str]]
                     """
                     Settings for configuring manual entry of account details.
                     """
@@ -4814,11 +4973,14 @@ class PaymentIntent(
                 manual_entry: Optional[ManualEntry]
                 permissions: Optional[
                     List[
-                        Literal[
-                            "balances",
-                            "ownership",
-                            "payment_method",
-                            "transactions",
+                        Union[
+                            Literal[
+                                "balances",
+                                "ownership",
+                                "payment_method",
+                                "transactions",
+                            ],
+                            str,
                         ]
                     ]
                 ]
@@ -4827,11 +4989,14 @@ class PaymentIntent(
                 """
                 prefetch: Optional[
                     List[
-                        Literal[
-                            "balances",
-                            "inferred_balances",
-                            "ownership",
-                            "transactions",
+                        Union[
+                            Literal[
+                                "balances",
+                                "inferred_balances",
+                                "ownership",
+                                "transactions",
+                            ],
+                            str,
                         ]
                     ]
                 ]
@@ -4856,7 +5021,7 @@ class PaymentIntent(
             financial_connections: Optional[FinancialConnections]
             mandate_options: Optional[MandateOptions]
             setup_future_usage: Optional[
-                Literal["none", "off_session", "on_session"]
+                Union[Literal["none", "off_session", "on_session"], str]
             ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -4872,13 +5037,15 @@ class PaymentIntent(
             Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
             """
             transaction_purpose: Optional[
-                Literal["goods", "other", "services", "unspecified"]
+                Union[
+                    Literal["goods", "other", "services", "unspecified"], str
+                ]
             ]
             """
             The purpose of the transaction.
             """
             verification_method: Optional[
-                Literal["automatic", "instant", "microdeposits"]
+                Union[Literal["automatic", "instant", "microdeposits"], str]
             ]
             """
             Bank account verification method. The default value is `automatic`.
@@ -4887,6 +5054,48 @@ class PaymentIntent(
                 "financial_connections": FinancialConnections,
                 "mandate_options": MandateOptions,
             }
+
+        class Vipps(StripeObject):
+            class PaymentDetails(StripeObject):
+                class MoneyServices(StripeObject):
+                    class AccountFunding(StripeObject):
+                        digital_asset_category: Optional[
+                            Union[
+                                Literal[
+                                    "blockchain_native",
+                                    "nft",
+                                    "other_non_fiat",
+                                    "stablecoin",
+                                ],
+                                str,
+                            ]
+                        ]
+                        """
+                        The category of digital asset being acquired through this account funding transaction.
+                        """
+
+                    account_funding: Optional[AccountFunding]
+                    _inner_class_types = {"account_funding": AccountFunding}
+
+                money_services: Optional[MoneyServices]
+                _inner_class_types = {"money_services": MoneyServices}
+
+            capture_method: Optional[Literal["manual"]]
+            """
+            Controls when the funds will be captured from the customer's account.
+            """
+            payment_details: Optional[PaymentDetails]
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            If you provide a Customer with the PaymentIntent, you can use this parameter to [attach the payment method](https://docs.stripe.com/payments/save-during-payment) to the Customer after the PaymentIntent is confirmed and the customer completes any required actions. If you don't provide a Customer, you can still [attach](https://docs.stripe.com/api/payment_methods/attach) the payment method to a Customer after the transaction completes.
+
+            If the payment method is `card_present` and isn't a digital wallet, Stripe creates and attaches a [generated_card](https://docs.stripe.com/api/charges/object#charge_object-payment_method_details-card_present-generated_card) payment method representing the card to the Customer instead.
+
+            When processing card payments, Stripe uses `setup_future_usage` to help you comply with regional legislation and network rules, such as [SCA](https://docs.stripe.com/strong-customer-authentication).
+            """
+            _inner_class_types = {"payment_details": PaymentDetails}
 
         class WechatPay(StripeObject):
             app_id: Optional[str]
@@ -4897,7 +5106,9 @@ class PaymentIntent(
             """
             The unique buyer ID for the app ID registered with WeChat Pay. Only required when client is mini_program.
             """
-            client: Optional[Literal["android", "ios", "mini_program", "web"]]
+            client: Optional[
+                Union[Literal["android", "ios", "mini_program", "web"], str]
+            ]
             """
             The client type that the end customer will pay from
             """
@@ -4986,6 +5197,7 @@ class PaymentIntent(
         twint: Optional[Twint]
         upi: Optional[Upi]
         us_bank_account: Optional[UsBankAccount]
+        vipps: Optional[Vipps]
         wechat_pay: Optional[WechatPay]
         zip: Optional[Zip]
         _inner_class_types = {
@@ -5051,6 +5263,7 @@ class PaymentIntent(
             "twint": Twint,
             "upi": Upi,
             "us_bank_account": UsBankAccount,
+            "vipps": Vipps,
             "wechat_pay": WechatPay,
             "zip": Zip,
         }
@@ -5096,7 +5309,7 @@ class PaymentIntent(
         _inner_class_types = {"card": Card}
 
     class Redaction(StripeObject):
-        status: Literal["processing", "redacted", "validated"]
+        status: Union[Literal["processing", "redacted", "validated"], str]
         """
         Indicates whether this object and its related objects have been redacted or not.
         """
@@ -5188,7 +5401,111 @@ class PaymentIntent(
     """
     Allocated Funds configuration for this PaymentIntent.
     """
-    allowed_payment_method_types: Optional[List[str]]
+    allowed_payment_method_types: Optional[
+        List[
+            Union[
+                Literal[
+                    "acss_debit",
+                    "affirm",
+                    "afterpay_clearpay",
+                    "alipay",
+                    "alma",
+                    "amazon_pay",
+                    "au_becs_debit",
+                    "bacs_debit",
+                    "bancontact",
+                    "billie",
+                    "bizum",
+                    "blik",
+                    "boku_promptpay",
+                    "boleto",
+                    "capchase_pay",
+                    "card",
+                    "cashapp",
+                    "check_scan",
+                    "click_to_pay",
+                    "crypto",
+                    "customer_balance",
+                    "demo_pay",
+                    "duitnow",
+                    "dummy_auth_push",
+                    "dummy_passthrough_card",
+                    "edenred",
+                    "eps",
+                    "fpx",
+                    "gcash",
+                    "getbalance",
+                    "gift_card",
+                    "giropay",
+                    "gopay",
+                    "grabpay",
+                    "id_bank_transfer",
+                    "ideal",
+                    "kakao_pay",
+                    "klarna",
+                    "knet",
+                    "konbini",
+                    "kr_card",
+                    "kr_market",
+                    "kriya",
+                    "link",
+                    "mb_way",
+                    "mobilepay",
+                    "momo",
+                    "mondu",
+                    "multibanco",
+                    "naver_pay",
+                    "netbanking",
+                    "ng_bank",
+                    "ng_bank_transfer",
+                    "ng_card",
+                    "ng_market",
+                    "ng_ussd",
+                    "ng_wallet",
+                    "nz_bank_account",
+                    "octopus",
+                    "oxxo",
+                    "p24",
+                    "paper_check",
+                    "pay_by_bank",
+                    "payco",
+                    "paynow",
+                    "paypal",
+                    "paypay",
+                    "payto",
+                    "pix",
+                    "promptpay",
+                    "qris",
+                    "rechnung",
+                    "revolut_pay",
+                    "samsung_pay",
+                    "satispay",
+                    "scalapay",
+                    "sepa_debit",
+                    "sequra",
+                    "shop_pay",
+                    "shopeepay",
+                    "sofort",
+                    "south_korea_market",
+                    "stripe_balance",
+                    "sunbit",
+                    "swish",
+                    "tamara",
+                    "test_pay",
+                    "truemoney",
+                    "twint",
+                    "upi",
+                    "us_bank_account",
+                    "us_cash_voucher",
+                    "vipps",
+                    "wechat_pay",
+                    "wero",
+                    "zip",
+                ],
+                str,
+            ]
+        ]
+    ]
     """
     The list of payment method types allowed for use with this payment. Stripe automatically returns compatible payment methods from this list in the `payment_method_types` field of the response, based on the other PaymentIntent parameters, such as `currency`, `amount`, and `customer`.
     """
@@ -5237,7 +5554,9 @@ class PaymentIntent(
     """
     Reason for cancellation of this PaymentIntent, either user-provided (`duplicate`, `fraudulent`, `requested_by_customer`, or `abandoned`) or generated by Stripe internally (`failed_invoice`, `void_invoice`, `automatic`, or `expired`).
     """
-    capture_method: Literal["automatic", "automatic_async", "manual"]
+    capture_method: Union[
+        Literal["automatic", "automatic_async", "manual"], str
+    ]
     """
     Controls when the funds will be captured from the customer's account.
     """
@@ -5249,7 +5568,7 @@ class PaymentIntent(
 
     Refer to our docs to [accept a payment](https://docs.stripe.com/payments/accept-a-payment?ui=elements) and learn about how `client_secret` should be handled.
     """
-    confirmation_method: Literal["automatic", "manual"]
+    confirmation_method: Union[Literal["automatic", "manual"], str]
     """
     Describes whether we can confirm this PaymentIntent automatically, or if it requires customer action to confirm the payment.
     """
@@ -5283,69 +5602,73 @@ class PaymentIntent(
     """
     excluded_payment_method_types: Optional[
         List[
-            Literal[
-                "acss_debit",
-                "affirm",
-                "afterpay_clearpay",
-                "alipay",
-                "alma",
-                "amazon_pay",
-                "au_becs_debit",
-                "bacs_debit",
-                "bancontact",
-                "billie",
-                "bizum",
-                "blik",
-                "boleto",
-                "card",
-                "cashapp",
-                "crypto",
-                "customer_balance",
-                "eps",
-                "fpx",
-                "gift_card",
-                "giropay",
-                "gopay",
-                "grabpay",
-                "id_bank_transfer",
-                "ideal",
-                "kakao_pay",
-                "klarna",
-                "konbini",
-                "kr_card",
-                "mb_way",
-                "mobilepay",
-                "multibanco",
-                "naver_pay",
-                "nz_bank_account",
-                "oxxo",
-                "p24",
-                "pay_by_bank",
-                "payco",
-                "paynow",
-                "paypal",
-                "paypay",
-                "payto",
-                "pix",
-                "promptpay",
-                "qris",
-                "rechnung",
-                "revolut_pay",
-                "samsung_pay",
-                "satispay",
-                "scalapay",
-                "sepa_debit",
-                "shopeepay",
-                "sofort",
-                "stripe_balance",
-                "sunbit",
-                "swish",
-                "tamara",
-                "twint",
-                "upi",
-                "us_bank_account",
-                "wechat_pay",
-                "zip",
+            Union[
+                Literal[
+                    "acss_debit",
+                    "affirm",
+                    "afterpay_clearpay",
+                    "alipay",
+                    "alma",
+                    "amazon_pay",
+                    "au_becs_debit",
+                    "bacs_debit",
+                    "bancontact",
+                    "billie",
+                    "bizum",
+                    "blik",
+                    "boleto",
+                    "card",
+                    "cashapp",
+                    "crypto",
+                    "customer_balance",
+                    "eps",
+                    "fpx",
+                    "gift_card",
+                    "giropay",
+                    "gopay",
+                    "grabpay",
+                    "id_bank_transfer",
+                    "ideal",
+                    "kakao_pay",
+                    "klarna",
+                    "konbini",
+                    "kr_card",
+                    "mb_way",
+                    "mobilepay",
+                    "multibanco",
+                    "naver_pay",
+                    "nz_bank_account",
+                    "oxxo",
+                    "p24",
+                    "pay_by_bank",
+                    "payco",
+                    "paynow",
+                    "paypal",
+                    "paypay",
+                    "payto",
+                    "pix",
+                    "promptpay",
+                    "qris",
+                    "rechnung",
+                    "revolut_pay",
+                    "samsung_pay",
+                    "satispay",
+                    "scalapay",
+                    "sepa_debit",
+                    "shopeepay",
+                    "sofort",
+                    "stripe_balance",
+                    "sunbit",
+                    "swish",
+                    "tamara",
+                    "twint",
+                    "upi",
+                    "us_bank_account",
+                    "vipps",
+                    "wechat_pay",
+                    "zip",
+                ],
+                str,
             ]
         ]
     ]
@@ -5442,11 +5765,15 @@ class PaymentIntent(
     """
     ID of the review associated with this PaymentIntent, if any.
     """
-    secret_key_confirmation: Optional[Literal["optional", "required"]]
+    secret_key_confirmation: Optional[
+        Union[Literal["optional", "required"], str]
+    ]
     """
     Indicates whether confirmation for this PaymentIntent using a secret key is `required` or `optional`.
     """
-    setup_future_usage: Optional[Literal["off_session", "on_session"]]
+    setup_future_usage: Optional[
+        Union[Literal["off_session", "on_session"], str]
+    ]
     """
     Indicates that you intend to make future payments with this PaymentIntent's payment method.
 

@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -19,22 +19,25 @@ class FileCreateParams(RequestOptions):
     """
     Optional parameters that automatically create a [file link](https://api.stripe.com#file_links) for the newly created file.
     """
-    purpose: Literal[
-        "account_requirement",
-        "additional_verification",
-        "business_icon",
-        "business_logo",
-        "customer_signature",
-        "dispute_evidence",
-        "identity_document",
-        "issuing_regulatory_reporting",
-        "pci_document",
-        "platform_terms_of_service",
-        "tax_document_user_upload",
-        "terminal_android_apk",
-        "terminal_reader_splashscreen",
-        "terminal_wifi_certificate",
-        "terminal_wifi_private_key",
+    purpose: Union[
+        Literal[
+            "account_requirement",
+            "additional_verification",
+            "business_icon",
+            "business_logo",
+            "customer_signature",
+            "dispute_evidence",
+            "identity_document",
+            "issuing_regulatory_reporting",
+            "pci_document",
+            "platform_terms_of_service",
+            "tax_document_user_upload",
+            "terminal_android_apk",
+            "terminal_reader_splashscreen",
+            "terminal_wifi_certificate",
+            "terminal_wifi_private_key",
+        ],
+        str,
     ]
     """
     The [purpose](https://docs.stripe.com/file-upload#uploading-a-file) of the uploaded file.

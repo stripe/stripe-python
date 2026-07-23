@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from typing import Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -40,11 +41,14 @@ class OutboundSetupIntentCreateParamsPayoutMethodData(TypedDict):
     """
     The type specific details of the crypto wallet payout method.
     """
-    type: Literal[
-        "bank_account",
-        "card",
-        "crypto_wallet",
-        "network_business_profile_wallet",
+    type: Union[
+        Literal[
+            "bank_account",
+            "card",
+            "crypto_wallet",
+            "network_business_profile_wallet",
+        ],
+        str,
     ]
     """
     Closed Enum. The type of payout method to be created.
@@ -112,16 +116,19 @@ class OutboundSetupIntentCreateParamsPayoutMethodDataCryptoWallet(TypedDict):
     """
     Optional field, required if network supports memos (only "stellar" currently).
     """
-    network: Literal[
-        "arbitrum",
-        "avalanche_c_chain",
-        "base",
-        "ethereum",
-        "optimism",
-        "polygon",
-        "solana",
-        "stellar",
-        "tempo",
+    network: Union[
+        Literal[
+            "arbitrum",
+            "avalanche_c_chain",
+            "base",
+            "ethereum",
+            "optimism",
+            "polygon",
+            "solana",
+            "stellar",
+            "tempo",
+        ],
+        str,
     ]
     """
     Which rail we should use to make an Outbound money movement to this wallet.

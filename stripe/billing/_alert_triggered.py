@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from decimal import Decimal
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -33,7 +33,9 @@ class AlertTriggered(StripeObject):
         """
         The pricing plan subscription ID, populated when type is `pricing_plan_subscription`
         """
-        type: Literal["billing_cadence", "pricing_plan_subscription"]
+        type: Union[
+            Literal["billing_cadence", "pricing_plan_subscription"], str
+        ]
         """
         The type of grouping used for this alert notification
         """

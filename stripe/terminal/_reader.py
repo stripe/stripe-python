@@ -478,7 +478,9 @@ class Reader(
                         """
                         The identifier for the selected choice. Maximum 50 characters.
                         """
-                        style: Optional[Literal["primary", "secondary"]]
+                        style: Optional[
+                            Union[Literal["primary", "secondary"], str]
+                        ]
                         """
                         The button style for the choice. Can be `primary` or `secondary`.
                         """
@@ -514,7 +516,9 @@ class Reader(
                     """
 
                 class Toggle(StripeObject):
-                    default_value: Optional[Literal["disabled", "enabled"]]
+                    default_value: Optional[
+                        Union[Literal["disabled", "enabled"], str]
+                    ]
                     """
                     The toggle's default value. Can be `enabled` or `disabled`.
                     """
@@ -526,7 +530,7 @@ class Reader(
                     """
                     The toggle's title text. Maximum 50 characters.
                     """
-                    value: Optional[Literal["disabled", "enabled"]]
+                    value: Optional[Union[Literal["disabled", "enabled"], str]]
                     """
                     The toggle's collected value. Can be `enabled` or `disabled`.
                     """
@@ -937,24 +941,27 @@ class Reader(
         """
         Represents a reader action to set the reader display
         """
-        status: Literal["failed", "in_progress", "succeeded"]
+        status: Union[Literal["failed", "in_progress", "succeeded"], str]
         """
         Status of the action performed by the reader.
         """
-        type: Literal[
-            "activate_gift_card",
-            "cashout_gift_card",
-            "check_gift_card_balance",
-            "collect_inputs",
-            "collect_payment_method",
-            "confirm_payment_intent",
-            "deactivate_gift_card",
-            "print_content",
-            "process_payment_intent",
-            "process_setup_intent",
-            "refund_payment",
-            "reload_gift_card",
-            "set_reader_display",
+        type: Union[
+            Literal[
+                "activate_gift_card",
+                "cashout_gift_card",
+                "check_gift_card_balance",
+                "collect_inputs",
+                "collect_payment_method",
+                "confirm_payment_intent",
+                "deactivate_gift_card",
+                "print_content",
+                "process_payment_intent",
+                "process_setup_intent",
+                "refund_payment",
+                "reload_gift_card",
+                "set_reader_display",
+            ],
+            str,
         ]
         """
         Type of action performed by the reader.
@@ -988,26 +995,29 @@ class Reader(
     """
     The current software version of the reader.
     """
-    device_type: Literal[
-        "bbpos_chipper2x",
-        "bbpos_wisepad3",
-        "bbpos_wisepos_e",
-        "mobile_phone_reader",
-        "simulated_stripe_s700",
-        "simulated_stripe_s710",
-        "simulated_verifone_m425",
-        "simulated_verifone_p630",
-        "simulated_verifone_ux700",
-        "simulated_verifone_v660p",
-        "simulated_wisepos_e",
-        "stripe_m2",
-        "stripe_s700",
-        "stripe_s710",
-        "verifone_P400",
-        "verifone_m425",
-        "verifone_p630",
-        "verifone_ux700",
-        "verifone_v660p",
+    device_type: Union[
+        Literal[
+            "bbpos_chipper2x",
+            "bbpos_wisepad3",
+            "bbpos_wisepos_e",
+            "mobile_phone_reader",
+            "simulated_stripe_s700",
+            "simulated_stripe_s710",
+            "simulated_verifone_m425",
+            "simulated_verifone_p630",
+            "simulated_verifone_ux700",
+            "simulated_verifone_v660p",
+            "simulated_wisepos_e",
+            "stripe_m2",
+            "stripe_s700",
+            "stripe_s710",
+            "verifone_P400",
+            "verifone_m425",
+            "verifone_p630",
+            "verifone_ux700",
+            "verifone_v660p",
+        ],
+        str,
     ]
     """
     Device type of the reader.

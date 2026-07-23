@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
@@ -45,7 +45,7 @@ class FeeBatch(StripeObject):
         """
 
     class CollectedBy(StripeObject):
-        type: Literal["application", "network", "stripe"]
+        type: Union[Literal["application", "network", "stripe"], str]
         """
         The type of entity that collected this batch.
         """
@@ -106,11 +106,14 @@ class FeeBatch(StripeObject):
         """
         The tax amount collected via this record.
         """
-        type: Literal[
-            "balance_transaction",
-            "credit_transaction",
-            "money_management_transaction",
-            "payable_invoice",
+        type: Union[
+            Literal[
+                "balance_transaction",
+                "credit_transaction",
+                "money_management_transaction",
+                "payable_invoice",
+            ],
+            str,
         ]
         """
         The type of money movement object.
@@ -174,7 +177,7 @@ class FeeBatch(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
     """
-    status: Literal["billed", "pending"]
+    status: Union[Literal["billed", "pending"], str]
     """
     The current state of this batch.
     """

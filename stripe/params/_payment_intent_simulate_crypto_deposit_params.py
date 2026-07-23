@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired
 
 
@@ -14,7 +14,9 @@ class PaymentIntentSimulateCryptoDepositParams(RequestOptions):
     """
     Specifies which fields in the response should be expanded.
     """
-    network: Literal["base", "ethereum", "polygon", "solana", "tempo"]
+    network: Union[
+        Literal["base", "ethereum", "polygon", "solana", "tempo"], str
+    ]
     """
     The blockchain network of the simulated crypto deposit.
     """

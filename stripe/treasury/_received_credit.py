@@ -5,7 +5,7 @@ from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject
 from stripe._test_helpers import APIResourceTestHelpers
-from typing import ClassVar, Optional, cast
+from typing import ClassVar, Optional, Union, cast
 from typing_extensions import Literal, Type, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -107,12 +107,15 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
         """
         Set when `type` is `issuing_card`. This is an [Issuing Card](https://api.stripe.com#issuing_cards) ID.
         """
-        type: Literal[
-            "balance",
-            "financial_account",
-            "issuing_card",
-            "stripe",
-            "us_bank_account",
+        type: Union[
+            Literal[
+                "balance",
+                "financial_account",
+                "issuing_card",
+                "stripe",
+                "us_bank_account",
+            ],
+            str,
         ]
         """
         Polymorphic type matching the originating money movement's source. This can be an external account, a Stripe balance, or a FinancialAccount.
@@ -157,12 +160,15 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
 
             Related guide: [Receiving payouts](https://docs.stripe.com/payouts)
             """
-            type: Literal[
-                "credit_reversal",
-                "other",
-                "outbound_payment",
-                "outbound_transfer",
-                "payout",
+            type: Union[
+                Literal[
+                    "credit_reversal",
+                    "other",
+                    "outbound_payment",
+                    "outbound_transfer",
+                    "payout",
+                ],
+                str,
             ]
             """
             The type of the source flow that originated the ReceivedCredit.
@@ -217,12 +223,15 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
         Time before which a ReceivedCredit can be reversed.
         """
         restricted_reason: Optional[
-            Literal[
-                "already_reversed",
-                "deadline_passed",
-                "network_restricted",
-                "other",
-                "source_flow_restricted",
+            Union[
+                Literal[
+                    "already_reversed",
+                    "deadline_passed",
+                    "network_restricted",
+                    "other",
+                    "source_flow_restricted",
+                ],
+                str,
             ]
         ]
         """
@@ -246,11 +255,14 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
     An arbitrary string attached to the object. Often useful for displaying to users.
     """
     failure_code: Optional[
-        Literal[
-            "account_closed",
-            "account_frozen",
-            "international_transaction",
-            "other",
+        Union[
+            Literal[
+                "account_closed",
+                "account_frozen",
+                "international_transaction",
+                "other",
+            ],
+            str,
         ]
     ]
     """
@@ -274,7 +286,7 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
     """
     If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
-    network: Literal["ach", "card", "stripe", "us_domestic_wire"]
+    network: Union[Literal["ach", "card", "stripe", "us_domestic_wire"], str]
     """
     The rails used to send the funds.
     """
@@ -290,7 +302,7 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
     """
     Details describing when a ReceivedCredit may be reversed.
     """
-    status: Literal["failed", "succeeded"]
+    status: Union[Literal["failed", "succeeded"], str]
     """
     Status of the ReceivedCredit. ReceivedCredits are created either `succeeded` (approved) or `failed` (declined). If a ReceivedCredit is declined, the failure reason can be found in the `failure_code` field.
     """

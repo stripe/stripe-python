@@ -101,41 +101,48 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
 
             class ThreeDSecure(StripeObject):
                 authentication_flow: Optional[
-                    Literal["challenge", "frictionless"]
+                    Union[Literal["challenge", "frictionless"], str]
                 ]
                 """
                 For authenticated transactions: how the customer was authenticated by
                 the issuing bank.
                 """
                 electronic_commerce_indicator: Optional[
-                    Literal["01", "02", "05", "06", "07"]
+                    Union[Literal["01", "02", "05", "06", "07"], str]
                 ]
                 """
                 The Electronic Commerce Indicator (ECI). A protocol-level field
                 indicating what degree of authentication was performed.
                 """
                 result: Optional[
-                    Literal[
-                        "attempt_acknowledged",
-                        "authenticated",
-                        "exempted",
-                        "failed",
-                        "not_supported",
-                        "processing_error",
+                    Union[
+                        Literal[
+                            "attempt_acknowledged",
+                            "authenticated",
+                            "data_share_only",
+                            "exempted",
+                            "failed",
+                            "not_supported",
+                            "processing_error",
+                        ],
+                        str,
                     ]
                 ]
                 """
                 Indicates the outcome of 3D Secure authentication.
                 """
                 result_reason: Optional[
-                    Literal[
-                        "abandoned",
-                        "bypassed",
-                        "canceled",
-                        "card_not_enrolled",
-                        "network_not_supported",
-                        "protocol_error",
-                        "rejected",
+                    Union[
+                        Literal[
+                            "abandoned",
+                            "bypassed",
+                            "canceled",
+                            "card_not_enrolled",
+                            "network_not_supported",
+                            "protocol_error",
+                            "rejected",
+                        ],
+                        str,
                     ]
                 ]
                 """
@@ -148,7 +155,10 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 (dsTransId) for this payment.
                 """
                 version: Optional[
-                    Literal["1.0.2", "2.1.0", "2.2.0", "2.3.0", "2.3.1"]
+                    Union[
+                        Literal["1.0.2", "2.1.0", "2.2.0", "2.3.0", "2.3.1"],
+                        str,
+                    ]
                 ]
                 """
                 The version of 3D Secure that was used.
@@ -265,7 +275,9 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
             pass
 
         class IdBankTransfer(StripeObject):
-            bank: Optional[Literal["bca", "bni", "bri", "cimb", "permata"]]
+            bank: Optional[
+                Union[Literal["bca", "bni", "bri", "cimb", "permata"], str]
+            ]
             """
             Bank where the account is located.
             """

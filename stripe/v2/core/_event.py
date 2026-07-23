@@ -3,7 +3,7 @@
 # -*- coding: utf-8 -*-
 
 import json
-from typing import Any, ClassVar, Dict, Optional, cast
+from typing import Any, ClassVar, Dict, Optional, cast, Union
 
 from typing_extensions import Literal, TYPE_CHECKING
 
@@ -62,7 +62,9 @@ class Event(StripeObject):
                 """
                 Stripe action that triggered the event.
                 """
-                type: Literal["api_key", "dashboard_user", "stripe_action"]
+                type: Union[
+                    Literal["api_key", "dashboard_user", "stripe_action"], str
+                ]
                 """
                 The type of the client.
                 """

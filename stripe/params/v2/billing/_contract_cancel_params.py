@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -13,12 +13,19 @@ class ContractCancelParams(TypedDict):
     not specified for a given line.
     """
     include: NotRequired[
-        List[Literal["billing_settings", "pricing_lines", "pricing_overrides"]]
+        List[
+            Union[
+                Literal[
+                    "billing_settings", "pricing_lines", "pricing_overrides"
+                ],
+                str,
+            ]
+        ]
     ]
     """
     Additional fields to include in the response.
     """
-    proration_behavior: NotRequired[Literal["none", "prorated"]]
+    proration_behavior: NotRequired["Literal['none', 'prorated']|str"]
     """
     Top-level proration behavior for the cancellation. Defaults to `prorated` if not set.
     """
@@ -33,7 +40,7 @@ class ContractCancelParamsCancelPricingLine(TypedDict):
     """
     The lookup key of the pricing line.
     """
-    proration_behavior: NotRequired[Literal["none", "prorated"]]
+    proration_behavior: NotRequired["Literal['none', 'prorated']|str"]
     """
     Proration behavior scoped to this pricing line. If not provided, falls back to the
     top-level `proration_behavior` on the cancel request. Defaults to `prorated`.

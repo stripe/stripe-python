@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -14,7 +14,7 @@ class FxQuoteCreateParams(RequestOptions):
     """
     A list of three letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be [supported currencies](https://stripe.com/docs/currencies).
     """
-    lock_duration: Literal["day", "five_minutes", "hour", "none"]
+    lock_duration: Union[Literal["day", "five_minutes", "hour", "none"], str]
     """
     The duration that you wish the quote to be locked for. The quote will be usable for the duration specified. The default is `none`. The maximum is 1 day.
     """
@@ -37,7 +37,7 @@ class FxQuoteCreateParamsUsage(TypedDict):
     """
     The transfer transaction details that are intended for the FX Quote.
     """
-    type: Literal["payment", "transfer"]
+    type: Union[Literal["payment", "transfer"], str]
     """
     Which transaction the FX Quote will be used for
 

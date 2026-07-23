@@ -8,7 +8,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
+from typing import ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -138,7 +138,7 @@ class Session(
             """
             The connected account being referenced when `type` is `account`.
             """
-            type: Literal["account", "application", "self"]
+            type: Union[Literal["account", "application", "self"], str]
             """
             Type of the account referenced.
             """
@@ -160,7 +160,9 @@ class Session(
         The tax provider powering automatic tax.
         """
         status: Optional[
-            Literal["complete", "failed", "requires_location_inputs"]
+            Union[
+                Literal["complete", "failed", "requires_location_inputs"], str
+            ]
         ]
         """
         The status of the most recent automated tax calculation for this session.
@@ -652,7 +654,9 @@ class Session(
                 Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
                 """
 
-            allow_redisplay: Literal["always", "limited", "unspecified"]
+            allow_redisplay: Union[
+                Literal["always", "limited", "unspecified"], str
+            ]
             """
             Indicates whether this payment method can be shown again to its customer in a checkout flow.
             """
@@ -827,7 +831,7 @@ class Session(
         Whether the customer is required to complete the field before completing the Checkout Session. Defaults to `false`.
         """
         text: Optional[Text]
-        type: Literal["dropdown", "numeric", "text"]
+        type: Union[Literal["dropdown", "numeric", "text"], str]
         """
         The type of the field.
         """
@@ -1104,7 +1108,7 @@ class Session(
                 """
                 The connected account being referenced when `type` is `account`.
                 """
-                type: Literal["account", "application", "self"]
+                type: Union[Literal["account", "application", "self"], str]
                 """
                 Type of the account referenced.
                 """
@@ -1184,8 +1188,8 @@ class Session(
 
             class TrialSettings(StripeObject):
                 class EndBehavior(StripeObject):
-                    missing_payment_method: Literal[
-                        "cancel", "create_invoice", "pause"
+                    missing_payment_method: Union[
+                        Literal["cancel", "create_invoice", "pause"], str
                     ]
                     """
                     Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
@@ -1213,7 +1217,9 @@ class Session(
             """
             Specifies an interval for how often to bill for any pending invoice items.
             """
-            proration_behavior: Optional[Literal["create_prorations", "none"]]
+            proration_behavior: Optional[
+                Union[Literal["create_prorations", "none"], str]
+            ]
             """
             Determines how to handle prorations when the subscription is updated.
             """
@@ -1321,7 +1327,9 @@ class Session(
                 """
                 A URL for custom mandate text
                 """
-                default_for: Optional[List[Literal["invoice", "subscription"]]]
+                default_for: Optional[
+                    List[Union[Literal["invoice", "subscription"], str]]
+                ]
                 """
                 List of Stripe products where this mandate can be selected automatically. Returned when the Session is in `setup` mode.
                 """
@@ -1330,23 +1338,25 @@ class Session(
                 Description of the interval. Only required if the 'payment_schedule' parameter is 'interval' or 'combined'.
                 """
                 payment_schedule: Optional[
-                    Literal["combined", "interval", "sporadic"]
+                    Union[Literal["combined", "interval", "sporadic"], str]
                 ]
                 """
                 Payment schedule for the mandate.
                 """
-                transaction_type: Optional[Literal["business", "personal"]]
+                transaction_type: Optional[
+                    Union[Literal["business", "personal"], str]
+                ]
                 """
                 Transaction type of the mandate.
                 """
 
-            currency: Optional[Literal["cad", "usd"]]
+            currency: Optional[Union[Literal["cad", "usd"], str]]
             """
             Currency supported by the bank account. Returned when the Session is in `setup` mode.
             """
             mandate_options: Optional[MandateOptions]
             setup_future_usage: Optional[
-                Literal["none", "off_session", "on_session"]
+                Union[Literal["none", "off_session", "on_session"], str]
             ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1362,7 +1372,7 @@ class Session(
             Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
             """
             verification_method: Optional[
-                Literal["automatic", "instant", "microdeposits"]
+                Union[Literal["automatic", "instant", "microdeposits"], str]
             ]
             """
             Bank account verification method. The default value is `automatic`.
@@ -1424,7 +1434,9 @@ class Session(
             """
             Controls when the funds will be captured from the customer's account.
             """
-            setup_future_usage: Optional[Literal["none", "off_session"]]
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1460,7 +1472,7 @@ class Session(
 
             mandate_options: Optional[MandateOptions]
             setup_future_usage: Optional[
-                Literal["none", "off_session", "on_session"]
+                Union[Literal["none", "off_session", "on_session"], str]
             ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1508,7 +1520,7 @@ class Session(
             The number of calendar days before a Boleto voucher expires. For example, if you create a Boleto voucher on Monday and you set expires_after_days to 2, the Boleto voucher will expire on Wednesday at 23:59 America/Sao_Paulo time.
             """
             setup_future_usage: Optional[
-                Literal["none", "off_session", "on_session"]
+                Union[Literal["none", "off_session", "on_session"], str]
             ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1548,38 +1560,44 @@ class Session(
             """
             installments: Optional[Installments]
             request_decremental_authorization: Optional[
-                Literal["if_available", "never"]
+                Union[Literal["if_available", "never"], str]
             ]
             """
             Request ability to [capture beyond the standard authorization validity window](https://docs.stripe.com/payments/extended-authorization) for this CheckoutSession.
             """
             request_extended_authorization: Optional[
-                Literal["if_available", "never"]
+                Union[Literal["if_available", "never"], str]
             ]
             """
             Request ability to [capture beyond the standard authorization validity window](https://docs.stripe.com/payments/extended-authorization) for this CheckoutSession.
             """
             request_incremental_authorization: Optional[
-                Literal["if_available", "never"]
+                Union[Literal["if_available", "never"], str]
             ]
             """
             Request ability to [increment the authorization](https://docs.stripe.com/payments/incremental-authorization) for this CheckoutSession.
             """
-            request_multicapture: Optional[Literal["if_available", "never"]]
+            request_multicapture: Optional[
+                Union[Literal["if_available", "never"], str]
+            ]
             """
             Request ability to make [multiple captures](https://docs.stripe.com/payments/multicapture) for this CheckoutSession.
             """
-            request_overcapture: Optional[Literal["if_available", "never"]]
+            request_overcapture: Optional[
+                Union[Literal["if_available", "never"], str]
+            ]
             """
             Request ability to [overcapture](https://docs.stripe.com/payments/overcapture) for this CheckoutSession.
             """
-            request_three_d_secure: Literal["any", "automatic", "challenge"]
+            request_three_d_secure: Union[
+                Literal["any", "automatic", "challenge"], str
+            ]
             """
             We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
             """
             restrictions: Optional[Restrictions]
             setup_future_usage: Optional[
-                Literal["none", "off_session", "on_session"]
+                Union[Literal["none", "off_session", "on_session"], str]
             ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1630,14 +1648,17 @@ class Session(
                 eu_bank_transfer: Optional[EuBankTransfer]
                 requested_address_types: Optional[
                     List[
-                        Literal[
-                            "aba",
-                            "iban",
-                            "sepa",
-                            "sort_code",
-                            "spei",
-                            "swift",
-                            "zengin",
+                        Union[
+                            Literal[
+                                "aba",
+                                "iban",
+                                "sepa",
+                                "sort_code",
+                                "spei",
+                                "swift",
+                                "zengin",
+                            ],
+                            str,
                         ]
                     ]
                 ]
@@ -1647,12 +1668,15 @@ class Session(
                 Permitted values include: `sort_code`, `zengin`, `iban`, or `spei`.
                 """
                 type: Optional[
-                    Literal[
-                        "eu_bank_transfer",
-                        "gb_bank_transfer",
-                        "jp_bank_transfer",
-                        "mx_bank_transfer",
-                        "us_bank_transfer",
+                    Union[
+                        Literal[
+                            "eu_bank_transfer",
+                            "gb_bank_transfer",
+                            "jp_bank_transfer",
+                            "mx_bank_transfer",
+                            "us_bank_transfer",
+                        ],
+                        str,
                     ]
                 ]
                 """
@@ -1742,7 +1766,9 @@ class Session(
             """
             Controls when the funds will be captured from the customer's account.
             """
-            setup_future_usage: Optional[Literal["none", "off_session"]]
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1759,7 +1785,7 @@ class Session(
             Controls when the funds will be captured from the customer's account.
             """
             setup_future_usage: Optional[
-                Literal["none", "off_session", "on_session"]
+                Union[Literal["none", "off_session", "on_session"], str]
             ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -1792,7 +1818,9 @@ class Session(
             """
             Controls when the funds will be captured from the customer's account.
             """
-            setup_future_usage: Optional[Literal["none", "off_session"]]
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1808,7 +1836,9 @@ class Session(
             """
             Controls when the funds will be captured from the customer's account.
             """
-            setup_future_usage: Optional[Literal["none", "off_session"]]
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1852,7 +1882,9 @@ class Session(
             """
             Controls when the funds will be captured from the customer's account.
             """
-            setup_future_usage: Optional[Literal["none", "off_session"]]
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1932,7 +1964,9 @@ class Session(
             """
             A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
             """
-            setup_future_usage: Optional[Literal["none", "off_session"]]
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -1953,7 +1987,7 @@ class Session(
                 """
                 Amount that will be collected. It is required when `amount_type` is `fixed`.
                 """
-                amount_type: Optional[Literal["fixed", "maximum"]]
+                amount_type: Optional[Union[Literal["fixed", "maximum"], str]]
                 """
                 The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively. Defaults to `maximum`.
                 """
@@ -1962,15 +1996,18 @@ class Session(
                 Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
                 """
                 payment_schedule: Optional[
-                    Literal[
-                        "adhoc",
-                        "annual",
-                        "daily",
-                        "fortnightly",
-                        "monthly",
-                        "quarterly",
-                        "semi_annual",
-                        "weekly",
+                    Union[
+                        Literal[
+                            "adhoc",
+                            "annual",
+                            "daily",
+                            "fortnightly",
+                            "monthly",
+                            "quarterly",
+                            "semi_annual",
+                            "weekly",
+                        ],
+                        str,
                     ]
                 ]
                 """
@@ -1981,18 +2018,21 @@ class Session(
                 The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
                 """
                 purpose: Optional[
-                    Literal[
-                        "dependant_support",
-                        "government",
-                        "loan",
-                        "mortgage",
-                        "other",
-                        "pension",
-                        "personal",
-                        "retail",
-                        "salary",
-                        "tax",
-                        "utility",
+                    Union[
+                        Literal[
+                            "dependant_support",
+                            "government",
+                            "loan",
+                            "mortgage",
+                            "other",
+                            "pension",
+                            "personal",
+                            "retail",
+                            "salary",
+                            "tax",
+                            "utility",
+                        ],
+                        str,
                     ]
                 ]
                 """
@@ -2004,7 +2044,9 @@ class Session(
                 """
 
             mandate_options: Optional[MandateOptions]
-            setup_future_usage: Optional[Literal["none", "off_session"]]
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -2022,11 +2064,13 @@ class Session(
                 """
                 Amount to be charged for future payments.
                 """
-                amount_includes_iof: Optional[Literal["always", "never"]]
+                amount_includes_iof: Optional[
+                    Union[Literal["always", "never"], str]
+                ]
                 """
                 Determines if the amount includes the IOF tax.
                 """
-                amount_type: Optional[Literal["fixed", "maximum"]]
+                amount_type: Optional[Union[Literal["fixed", "maximum"], str]]
                 """
                 Type of amount.
                 """
@@ -2039,12 +2083,15 @@ class Session(
                 Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`.
                 """
                 payment_schedule: Optional[
-                    Literal[
-                        "halfyearly",
-                        "monthly",
-                        "quarterly",
-                        "weekly",
-                        "yearly",
+                    Union[
+                        Literal[
+                            "halfyearly",
+                            "monthly",
+                            "quarterly",
+                            "weekly",
+                            "yearly",
+                        ],
+                        str,
                     ]
                 ]
                 """
@@ -2059,7 +2106,9 @@ class Session(
                 Start date of the mandate, in `YYYY-MM-DD`.
                 """
 
-            amount_includes_iof: Optional[Literal["always", "never"]]
+            amount_includes_iof: Optional[
+                Union[Literal["always", "never"], str]
+            ]
             """
             Determines if the amount includes the IOF tax.
             """
@@ -2068,7 +2117,9 @@ class Session(
             The number of seconds after which Pix payment will expire.
             """
             mandate_options: Optional[MandateOptions]
-            setup_future_usage: Optional[Literal["none", "off_session"]]
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -2133,7 +2184,7 @@ class Session(
 
             mandate_options: Optional[MandateOptions]
             setup_future_usage: Optional[
-                Literal["none", "off_session", "on_session"]
+                Union[Literal["none", "off_session", "on_session"], str]
             ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -2185,7 +2236,9 @@ class Session(
             """
 
         class Twint(StripeObject):
-            setup_future_usage: Optional[Literal["none", "off_session"]]
+            setup_future_usage: Optional[
+                Union[Literal["none", "off_session"], str]
+            ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
 
@@ -2202,7 +2255,7 @@ class Session(
                 """
                 Amount to be charged for future payments.
                 """
-                amount_type: Optional[Literal["fixed", "maximum"]]
+                amount_type: Optional[Union[Literal["fixed", "maximum"], str]]
                 """
                 One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
                 """
@@ -2217,7 +2270,7 @@ class Session(
 
             mandate_options: Optional[MandateOptions]
             setup_future_usage: Optional[
-                Literal["none", "off_session", "on_session"]
+                Union[Literal["none", "off_session", "on_session"], str]
             ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -2234,7 +2287,7 @@ class Session(
             class FinancialConnections(StripeObject):
                 class Filters(StripeObject):
                     account_subcategories: Optional[
-                        List[Literal["checking", "savings"]]
+                        List[Union[Literal["checking", "savings"], str]]
                     ]
                     """
                     The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`.
@@ -2245,7 +2298,7 @@ class Session(
                     """
 
                 class ManualEntry(StripeObject):
-                    mode: Optional[Literal["automatic", "custom"]]
+                    mode: Optional[Union[Literal["automatic", "custom"], str]]
                     """
                     Settings for configuring manual entry of account details.
                     """
@@ -2254,11 +2307,14 @@ class Session(
                 manual_entry: Optional[ManualEntry]
                 permissions: Optional[
                     List[
-                        Literal[
-                            "balances",
-                            "ownership",
-                            "payment_method",
-                            "transactions",
+                        Union[
+                            Literal[
+                                "balances",
+                                "ownership",
+                                "payment_method",
+                                "transactions",
+                            ],
+                            str,
                         ]
                     ]
                 ]
@@ -2267,11 +2323,14 @@ class Session(
                 """
                 prefetch: Optional[
                     List[
-                        Literal[
-                            "balances",
-                            "inferred_balances",
-                            "ownership",
-                            "transactions",
+                        Union[
+                            Literal[
+                                "balances",
+                                "inferred_balances",
+                                "ownership",
+                                "transactions",
+                            ],
+                            str,
                         ]
                     ]
                 ]
@@ -2289,7 +2348,7 @@ class Session(
 
             financial_connections: Optional[FinancialConnections]
             setup_future_usage: Optional[
-                Literal["none", "off_session", "on_session"]
+                Union[Literal["none", "off_session", "on_session"], str]
             ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -2304,7 +2363,9 @@ class Session(
             """
             Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
             """
-            verification_method: Optional[Literal["automatic", "instant"]]
+            verification_method: Optional[
+                Union[Literal["automatic", "instant"], str]
+            ]
             """
             Bank account verification method. The default value is `automatic`.
             """
@@ -2489,268 +2550,275 @@ class Session(
         """
 
     class Redaction(StripeObject):
-        status: Literal["processing", "redacted", "validated"]
+        status: Union[Literal["processing", "redacted", "validated"], str]
         """
         Indicates whether this object and its related objects have been redacted or not.
         """
 
     class SavedPaymentMethodOptions(StripeObject):
         allow_redisplay_filters: Optional[
-            List[Literal["always", "limited", "unspecified"]]
+            List[Union[Literal["always", "limited", "unspecified"], str]]
         ]
         """
         Uses the `allow_redisplay` value of each saved payment method to filter the set presented to a returning customer. By default, only saved payment methods with 'allow_redisplay: ‘always' are shown in Checkout.
         """
-        payment_method_remove: Optional[Literal["disabled", "enabled"]]
+        payment_method_remove: Optional[
+            Union[Literal["disabled", "enabled"], str]
+        ]
         """
         Enable customers to choose if they wish to remove their saved payment methods. Disabled by default.
         """
-        payment_method_save: Optional[Literal["disabled", "enabled"]]
+        payment_method_save: Optional[
+            Union[Literal["disabled", "enabled"], str]
+        ]
         """
         Enable customers to choose if they wish to save their payment method for future use. Disabled by default.
         """
 
     class ShippingAddressCollection(StripeObject):
         allowed_countries: List[
-            Literal[
-                "AC",
-                "AD",
-                "AE",
-                "AF",
-                "AG",
-                "AI",
-                "AL",
-                "AM",
-                "AO",
-                "AQ",
-                "AR",
-                "AT",
-                "AU",
-                "AW",
-                "AX",
-                "AZ",
-                "BA",
-                "BB",
-                "BD",
-                "BE",
-                "BF",
-                "BG",
-                "BH",
-                "BI",
-                "BJ",
-                "BL",
-                "BM",
-                "BN",
-                "BO",
-                "BQ",
-                "BR",
-                "BS",
-                "BT",
-                "BV",
-                "BW",
-                "BY",
-                "BZ",
-                "CA",
-                "CD",
-                "CF",
-                "CG",
-                "CH",
-                "CI",
-                "CK",
-                "CL",
-                "CM",
-                "CN",
-                "CO",
-                "CR",
-                "CV",
-                "CW",
-                "CY",
-                "CZ",
-                "DE",
-                "DJ",
-                "DK",
-                "DM",
-                "DO",
-                "DZ",
-                "EC",
-                "EE",
-                "EG",
-                "EH",
-                "ER",
-                "ES",
-                "ET",
-                "FI",
-                "FJ",
-                "FK",
-                "FO",
-                "FR",
-                "GA",
-                "GB",
-                "GD",
-                "GE",
-                "GF",
-                "GG",
-                "GH",
-                "GI",
-                "GL",
-                "GM",
-                "GN",
-                "GP",
-                "GQ",
-                "GR",
-                "GS",
-                "GT",
-                "GU",
-                "GW",
-                "GY",
-                "HK",
-                "HN",
-                "HR",
-                "HT",
-                "HU",
-                "ID",
-                "IE",
-                "IL",
-                "IM",
-                "IN",
-                "IO",
-                "IQ",
-                "IS",
-                "IT",
-                "JE",
-                "JM",
-                "JO",
-                "JP",
-                "KE",
-                "KG",
-                "KH",
-                "KI",
-                "KM",
-                "KN",
-                "KR",
-                "KW",
-                "KY",
-                "KZ",
-                "LA",
-                "LB",
-                "LC",
-                "LI",
-                "LK",
-                "LR",
-                "LS",
-                "LT",
-                "LU",
-                "LV",
-                "LY",
-                "MA",
-                "MC",
-                "MD",
-                "ME",
-                "MF",
-                "MG",
-                "MK",
-                "ML",
-                "MM",
-                "MN",
-                "MO",
-                "MQ",
-                "MR",
-                "MS",
-                "MT",
-                "MU",
-                "MV",
-                "MW",
-                "MX",
-                "MY",
-                "MZ",
-                "NA",
-                "NC",
-                "NE",
-                "NG",
-                "NI",
-                "NL",
-                "NO",
-                "NP",
-                "NR",
-                "NU",
-                "NZ",
-                "OM",
-                "PA",
-                "PE",
-                "PF",
-                "PG",
-                "PH",
-                "PK",
-                "PL",
-                "PM",
-                "PN",
-                "PR",
-                "PS",
-                "PT",
-                "PY",
-                "QA",
-                "RE",
-                "RO",
-                "RS",
-                "RU",
-                "RW",
-                "SA",
-                "SB",
-                "SC",
-                "SD",
-                "SE",
-                "SG",
-                "SH",
-                "SI",
-                "SJ",
-                "SK",
-                "SL",
-                "SM",
-                "SN",
-                "SO",
-                "SR",
-                "SS",
-                "ST",
-                "SV",
-                "SX",
-                "SZ",
-                "TA",
-                "TC",
-                "TD",
-                "TF",
-                "TG",
-                "TH",
-                "TJ",
-                "TK",
-                "TL",
-                "TM",
-                "TN",
-                "TO",
-                "TR",
-                "TT",
-                "TV",
-                "TW",
-                "TZ",
-                "UA",
-                "UG",
-                "US",
-                "UY",
-                "UZ",
-                "VA",
-                "VC",
-                "VE",
-                "VG",
-                "VN",
-                "VU",
-                "WF",
-                "WS",
-                "XK",
-                "YE",
-                "YT",
-                "ZA",
-                "ZM",
-                "ZW",
-                "ZZ",
+            Union[
+                Literal[
+                    "AC",
+                    "AD",
+                    "AE",
+                    "AF",
+                    "AG",
+                    "AI",
+                    "AL",
+                    "AM",
+                    "AO",
+                    "AQ",
+                    "AR",
+                    "AT",
+                    "AU",
+                    "AW",
+                    "AX",
+                    "AZ",
+                    "BA",
+                    "BB",
+                    "BD",
+                    "BE",
+                    "BF",
+                    "BG",
+                    "BH",
+                    "BI",
+                    "BJ",
+                    "BL",
+                    "BM",
+                    "BN",
+                    "BO",
+                    "BQ",
+                    "BR",
+                    "BS",
+                    "BT",
+                    "BV",
+                    "BW",
+                    "BY",
+                    "BZ",
+                    "CA",
+                    "CD",
+                    "CF",
+                    "CG",
+                    "CH",
+                    "CI",
+                    "CK",
+                    "CL",
+                    "CM",
+                    "CN",
+                    "CO",
+                    "CR",
+                    "CV",
+                    "CW",
+                    "CY",
+                    "CZ",
+                    "DE",
+                    "DJ",
+                    "DK",
+                    "DM",
+                    "DO",
+                    "DZ",
+                    "EC",
+                    "EE",
+                    "EG",
+                    "EH",
+                    "ER",
+                    "ES",
+                    "ET",
+                    "FI",
+                    "FJ",
+                    "FK",
+                    "FO",
+                    "FR",
+                    "GA",
+                    "GB",
+                    "GD",
+                    "GE",
+                    "GF",
+                    "GG",
+                    "GH",
+                    "GI",
+                    "GL",
+                    "GM",
+                    "GN",
+                    "GP",
+                    "GQ",
+                    "GR",
+                    "GS",
+                    "GT",
+                    "GU",
+                    "GW",
+                    "GY",
+                    "HK",
+                    "HN",
+                    "HR",
+                    "HT",
+                    "HU",
+                    "ID",
+                    "IE",
+                    "IL",
+                    "IM",
+                    "IN",
+                    "IO",
+                    "IQ",
+                    "IS",
+                    "IT",
+                    "JE",
+                    "JM",
+                    "JO",
+                    "JP",
+                    "KE",
+                    "KG",
+                    "KH",
+                    "KI",
+                    "KM",
+                    "KN",
+                    "KR",
+                    "KW",
+                    "KY",
+                    "KZ",
+                    "LA",
+                    "LB",
+                    "LC",
+                    "LI",
+                    "LK",
+                    "LR",
+                    "LS",
+                    "LT",
+                    "LU",
+                    "LV",
+                    "LY",
+                    "MA",
+                    "MC",
+                    "MD",
+                    "ME",
+                    "MF",
+                    "MG",
+                    "MK",
+                    "ML",
+                    "MM",
+                    "MN",
+                    "MO",
+                    "MQ",
+                    "MR",
+                    "MS",
+                    "MT",
+                    "MU",
+                    "MV",
+                    "MW",
+                    "MX",
+                    "MY",
+                    "MZ",
+                    "NA",
+                    "NC",
+                    "NE",
+                    "NG",
+                    "NI",
+                    "NL",
+                    "NO",
+                    "NP",
+                    "NR",
+                    "NU",
+                    "NZ",
+                    "OM",
+                    "PA",
+                    "PE",
+                    "PF",
+                    "PG",
+                    "PH",
+                    "PK",
+                    "PL",
+                    "PM",
+                    "PN",
+                    "PR",
+                    "PS",
+                    "PT",
+                    "PY",
+                    "QA",
+                    "RE",
+                    "RO",
+                    "RS",
+                    "RU",
+                    "RW",
+                    "SA",
+                    "SB",
+                    "SC",
+                    "SD",
+                    "SE",
+                    "SG",
+                    "SH",
+                    "SI",
+                    "SJ",
+                    "SK",
+                    "SL",
+                    "SM",
+                    "SN",
+                    "SO",
+                    "SR",
+                    "SS",
+                    "ST",
+                    "SV",
+                    "SX",
+                    "SZ",
+                    "TA",
+                    "TC",
+                    "TD",
+                    "TF",
+                    "TG",
+                    "TH",
+                    "TJ",
+                    "TK",
+                    "TL",
+                    "TM",
+                    "TN",
+                    "TO",
+                    "TR",
+                    "TT",
+                    "TV",
+                    "TW",
+                    "TZ",
+                    "UA",
+                    "UG",
+                    "US",
+                    "UY",
+                    "UZ",
+                    "VA",
+                    "VC",
+                    "VE",
+                    "VG",
+                    "VN",
+                    "VU",
+                    "WF",
+                    "WS",
+                    "XK",
+                    "YE",
+                    "YT",
+                    "ZA",
+                    "ZM",
+                    "ZW",
+                    "ZZ",
+                ],
+                str,
             ]
         ]
         """
@@ -2771,22 +2839,25 @@ class Session(
             Related guide: [Tax rates](https://docs.stripe.com/billing/taxes/tax-rates)
             """
             taxability_reason: Optional[
-                Literal[
-                    "customer_exempt",
-                    "not_collecting",
-                    "not_subject_to_tax",
-                    "not_supported",
-                    "portion_product_exempt",
-                    "portion_reduced_rated",
-                    "portion_standard_rated",
-                    "product_exempt",
-                    "product_exempt_holiday",
-                    "proportionally_rated",
-                    "reduced_rated",
-                    "reverse_charge",
-                    "standard_rated",
-                    "taxable_basis_reduced",
-                    "zero_rated",
+                Union[
+                    Literal[
+                        "customer_exempt",
+                        "not_collecting",
+                        "not_subject_to_tax",
+                        "not_supported",
+                        "portion_product_exempt",
+                        "portion_reduced_rated",
+                        "portion_standard_rated",
+                        "product_exempt",
+                        "product_exempt_holiday",
+                        "proportionally_rated",
+                        "reduced_rated",
+                        "reverse_charge",
+                        "standard_rated",
+                        "taxable_basis_reduced",
+                        "zero_rated",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -2848,7 +2919,7 @@ class Session(
         """
         Indicates whether tax ID collection is enabled for the session
         """
-        required: Literal["if_supported", "never"]
+        required: Union[Literal["if_supported", "never"], str]
         """
         Indicates whether a tax ID is required on the payment page
         """
@@ -2880,22 +2951,25 @@ class Session(
                 Related guide: [Tax rates](https://docs.stripe.com/billing/taxes/tax-rates)
                 """
                 taxability_reason: Optional[
-                    Literal[
-                        "customer_exempt",
-                        "not_collecting",
-                        "not_subject_to_tax",
-                        "not_supported",
-                        "portion_product_exempt",
-                        "portion_reduced_rated",
-                        "portion_standard_rated",
-                        "product_exempt",
-                        "product_exempt_holiday",
-                        "proportionally_rated",
-                        "reduced_rated",
-                        "reverse_charge",
-                        "standard_rated",
-                        "taxable_basis_reduced",
-                        "zero_rated",
+                    Union[
+                        Literal[
+                            "customer_exempt",
+                            "not_collecting",
+                            "not_subject_to_tax",
+                            "not_supported",
+                            "portion_product_exempt",
+                            "portion_reduced_rated",
+                            "portion_standard_rated",
+                            "product_exempt",
+                            "product_exempt_holiday",
+                            "proportionally_rated",
+                            "reduced_rated",
+                            "reverse_charge",
+                            "standard_rated",
+                            "taxable_basis_reduced",
+                            "zero_rated",
+                        ],
+                        str,
                     ]
                 ]
                 """
@@ -2937,7 +3011,7 @@ class Session(
 
     class WalletOptions(StripeObject):
         class Link(StripeObject):
-            display: Optional[Literal["auto", "never"]]
+            display: Optional[Union[Literal["auto", "never"], str]]
             """
             Describes whether Checkout should display Link. Defaults to `auto`.
             """
@@ -2965,7 +3039,7 @@ class Session(
     """
     Total of all items after discounts and taxes are applied.
     """
-    approval_method: Optional[Literal["auto", "manual"]]
+    approval_method: Optional[Union[Literal["auto", "manual"], str]]
     """
     Determines whether the customer's attempt to pay must be manually approved.
 
@@ -2975,7 +3049,9 @@ class Session(
     """
     automatic_surcharge: Optional[AutomaticSurcharge]
     automatic_tax: AutomaticTax
-    billing_address_collection: Optional[Literal["auto", "required"]]
+    billing_address_collection: Optional[
+        Union[Literal["auto", "required"], str]
+    ]
     """
     Describes whether Checkout should collect the customer's billing address. Defaults to `auto`.
     """
@@ -3046,7 +3122,7 @@ class Session(
     """
     The ID of the account for this Session.
     """
-    customer_creation: Optional[Literal["always", "if_required"]]
+    customer_creation: Optional[Union[Literal["always", "if_required"], str]]
     """
     Configure whether a Checkout Session creates a Customer when the Checkout Session completes.
     """
@@ -3103,48 +3179,51 @@ class Session(
     If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
     locale: Optional[
-        Literal[
-            "auto",
-            "bg",
-            "cs",
-            "da",
-            "de",
-            "el",
-            "en",
-            "en-GB",
-            "es",
-            "es-419",
-            "et",
-            "fi",
-            "fil",
-            "fr",
-            "fr-CA",
-            "hr",
-            "hu",
-            "id",
-            "it",
-            "ja",
-            "ko",
-            "lt",
-            "lv",
-            "ms",
-            "mt",
-            "nb",
-            "nl",
-            "pl",
-            "pt",
-            "pt-BR",
-            "ro",
-            "ru",
-            "sk",
-            "sl",
-            "sv",
-            "th",
-            "tr",
-            "vi",
-            "zh",
-            "zh-HK",
-            "zh-TW",
+        Union[
+            Literal[
+                "auto",
+                "bg",
+                "cs",
+                "da",
+                "de",
+                "el",
+                "en",
+                "en-GB",
+                "es",
+                "es-419",
+                "et",
+                "fi",
+                "fil",
+                "fr",
+                "fr-CA",
+                "hr",
+                "hu",
+                "id",
+                "it",
+                "ja",
+                "ko",
+                "lt",
+                "lv",
+                "ms",
+                "mt",
+                "nb",
+                "nl",
+                "pl",
+                "pt",
+                "pt-BR",
+                "ro",
+                "ru",
+                "sk",
+                "sl",
+                "sv",
+                "th",
+                "tr",
+                "vi",
+                "zh",
+                "zh-HK",
+                "zh-TW",
+            ],
+            str,
         ]
     ]
     """
@@ -3158,7 +3237,7 @@ class Session(
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
-    mode: Literal["payment", "setup", "subscription"]
+    mode: Union[Literal["payment", "setup", "subscription"], str]
     """
     The mode of the Checkout Session.
     """
@@ -3171,7 +3250,7 @@ class Session(
     """
     The optional items presented to the customer at checkout.
     """
-    origin_context: Optional[Literal["mobile_app", "web"]]
+    origin_context: Optional[Union[Literal["mobile_app", "web"], str]]
     """
     Where the user is coming from. This informs the optimizations that are applied to the session.
     """
@@ -3183,7 +3262,9 @@ class Session(
     """
     The ID of the Payment Link that created this Session.
     """
-    payment_method_collection: Optional[Literal["always", "if_required"]]
+    payment_method_collection: Optional[
+        Union[Literal["always", "if_required"], str]
+    ]
     """
     Configure whether a Checkout Session should collect a payment method. Defaults to `always`.
     """
@@ -3206,7 +3287,9 @@ class Session(
     """
     The [Payment Record](https://docs.stripe.com/api/payment-record) for this Checkout Session.
     """
-    payment_status: Literal["no_payment_required", "paid", "unpaid"]
+    payment_status: Union[
+        Literal["no_payment_required", "paid", "unpaid"], str
+    ]
     """
     The payment status of the Checkout Session, one of `paid`, `unpaid`, or `no_payment_required`.
     You can use this value to decide when to fulfill your customer's order.
@@ -3227,7 +3310,9 @@ class Session(
     """
     The redaction status of the Checkout Session. If the Session is not redacted, this field is null.
     """
-    redirect_on_completion: Optional[Literal["always", "if_required", "never"]]
+    redirect_on_completion: Optional[
+        Union[Literal["always", "if_required", "never"], str]
+    ]
     """
     This parameter applies to `ui_mode: embedded_page`. Learn more about the [redirect behavior](https://docs.stripe.com/payments/checkout/custom-success-page?payment-ui=embedded-form) of embedded sessions. Defaults to `always`.
     """
@@ -3260,7 +3345,7 @@ class Session(
     The status of the Checkout Session, one of `open`, `complete`, or `expired`.
     """
     submit_type: Optional[
-        Literal["auto", "book", "donate", "pay", "subscribe"]
+        Union[Literal["auto", "book", "donate", "pay", "subscribe"], str]
     ]
     """
     Describes the type of transaction being performed by Checkout in order to customize
@@ -3283,7 +3368,7 @@ class Session(
     Tax and discount details for the computed total amount.
     """
     ui_mode: Optional[
-        Literal["elements", "embedded_page", "form", "hosted_page"]
+        Union[Literal["elements", "embedded_page", "form", "hosted_page"], str]
     ]
     """
     The UI mode of the Session. Defaults to `hosted_page`.

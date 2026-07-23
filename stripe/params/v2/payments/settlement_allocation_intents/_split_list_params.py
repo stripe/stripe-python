@@ -8,7 +8,7 @@ class SplitListParams(TypedDict):
     """
     The page size.
     """
-    status: NotRequired[Literal["canceled", "pending", "settled"]]
+    status: NotRequired["Literal['canceled', 'pending', 'settled']|str"]
     """
     Filter the SettlementAllocationIntentSplits by status.
     """

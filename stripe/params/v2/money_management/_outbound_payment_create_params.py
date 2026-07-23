@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_object import UntypedStripeObject
 from stripe.v2._amount import AmountParam
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 _OutboundPaymentCreateParamsBase = TypedDict(
@@ -61,7 +61,7 @@ class OutboundPaymentCreateParams(_OutboundPaymentCreateParamsBase):
 
 
 class OutboundPaymentCreateParamsDeliveryOptions(TypedDict):
-    bank_account: NotRequired[Literal["automatic", "local", "wire"]]
+    bank_account: NotRequired["Literal['automatic', 'local', 'wire']|str"]
     """
     Open Enum. Method for bank account.
     """
@@ -71,7 +71,9 @@ class OutboundPaymentCreateParamsDeliveryOptions(TypedDict):
     """
     Delivery options for paper check.
     """
-    speed: NotRequired[Literal["instant", "next_business_day", "standard"]]
+    speed: NotRequired[
+        "Literal['instant', 'next_business_day', 'standard']|str"
+    ]
     """
     Open Enum. Speed of the payout.
     """
@@ -86,7 +88,7 @@ class OutboundPaymentCreateParamsDeliveryOptionsPaperCheck(TypedDict):
     """
     Memo printed on the memo field of the check.
     """
-    shipping_speed: NotRequired[Literal["priority", "standard"]]
+    shipping_speed: NotRequired["Literal['priority', 'standard']|str"]
     """
     Open Enum. Shipping speed of the paper check. Defaults to standard.
     """
@@ -159,17 +161,20 @@ class OutboundPaymentCreateParamsToPayoutMethodOptionsBankAccount(TypedDict):
     Per-network configuration options.
     """
     preferred_networks: List[
-        Literal[
-            "ach",
-            "becs",
-            "eft",
-            "fedwire",
-            "fps",
-            "npp",
-            "rtp",
-            "sepa_credit",
-            "sepa_instant",
-            "swift",
+        Union[
+            Literal[
+                "ach",
+                "becs",
+                "eft",
+                "fedwire",
+                "fps",
+                "npp",
+                "rtp",
+                "sepa_credit",
+                "sepa_instant",
+                "swift",
+            ],
+            str,
         ]
     ]
     """
@@ -191,7 +196,7 @@ class OutboundPaymentCreateParamsToPayoutMethodOptionsBankAccountPreferredNetwor
 class OutboundPaymentCreateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptionsAch(
     TypedDict,
 ):
-    submission: NotRequired[Literal["next_day", "same_day"]]
+    submission: NotRequired["Literal['next_day', 'same_day']|str"]
     """
     Open Enum. ACH submission timing.
     """

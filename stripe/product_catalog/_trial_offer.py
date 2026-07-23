@@ -3,7 +3,7 @@
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional, cast
+from typing import ClassVar, Optional, Union, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -34,7 +34,7 @@ class TrialOffer(CreateableAPIResource["TrialOffer"]):
             """
 
         relative: Optional[Relative]
-        type: Literal["relative", "timestamp"]
+        type: Union[Literal["relative", "timestamp"], str]
         """
         The type of trial offer duration.
         """

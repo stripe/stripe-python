@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -43,7 +43,7 @@ class TokenCreateParams(RequestOptions):
 
 class TokenCreateParamsAccount(TypedDict):
     business_type: NotRequired[
-        Literal["company", "government_entity", "individual", "non_profit"]
+        "Literal['company', 'government_entity', 'individual', 'non_profit']|str"
     ]
     """
     The business type.
@@ -124,7 +124,7 @@ class TokenCreateParamsAccountCompany(TypedDict):
     Whether the user described by the data in the token has been shown the Ownership Declaration and indicated that it is correct.
     """
     ownership_exemption_reason: NotRequired[
-        "Literal['']|Literal['qualified_entity_exceeds_ownership_threshold', 'qualifies_as_financial_institution']"
+        "Literal['']|Literal['qualified_entity_exceeds_ownership_threshold', 'qualifies_as_financial_institution']|str"
     ]
     """
     This value is used to determine if a business is exempt from providing ultimate beneficial owners. See [this support article](https://support.stripe.com/questions/exemption-from-providing-ownership-details) and [changelog](https://docs.stripe.com/changelog/acacia/2025-01-27/ownership-exemption-reason-accounts-api) for more details.
@@ -150,7 +150,7 @@ class TokenCreateParamsAccountCompany(TypedDict):
     This hash is used to attest that the representative is authorized to act as the representative of their legal entity.
     """
     structure: NotRequired[
-        "Literal['']|Literal['free_zone_establishment', 'free_zone_llc', 'government_instrumentality', 'governmental_unit', 'incorporated_non_profit', 'incorporated_partnership', 'limited_liability_partnership', 'llc', 'multi_member_llc', 'private_company', 'private_corporation', 'private_partnership', 'public_company', 'public_corporation', 'public_partnership', 'registered_charity', 'single_member_llc', 'sole_establishment', 'sole_proprietorship', 'tax_exempt_government_instrumentality', 'unincorporated_association', 'unincorporated_non_profit', 'unincorporated_partnership']"
+        "Literal['']|Literal['free_zone_establishment', 'free_zone_llc', 'government_instrumentality', 'governmental_unit', 'incorporated_non_profit', 'incorporated_partnership', 'limited_liability_partnership', 'llc', 'multi_member_llc', 'private_company', 'private_corporation', 'private_partnership', 'public_company', 'public_corporation', 'public_partnership', 'registered_charity', 'single_member_llc', 'sole_establishment', 'sole_proprietorship', 'tax_exempt_government_instrumentality', 'unincorporated_association', 'unincorporated_non_profit', 'unincorporated_partnership']|str"
     ]
     """
     The category identifying the legal structure of the company or legal entity. See [Business structure](https://docs.stripe.com/connect/identity-verification#business-structure) for more details. Pass an empty string to unset this value.
@@ -424,7 +424,7 @@ class TokenCreateParamsAccountIndividual(TypedDict):
     """
     The individual's phone number.
     """
-    political_exposure: NotRequired[Literal["existing", "none"]]
+    political_exposure: NotRequired["Literal['existing', 'none']|str"]
     """
     Indicates if the person or any of their representatives, family members, or other closely related persons, declares that they hold or have held an important public job or function, in any jurisdiction.
     """
@@ -795,7 +795,9 @@ class TokenCreateParamsCard(TypedDict):
 
 
 class TokenCreateParamsCardNetworks(TypedDict):
-    preferred: NotRequired[Literal["cartes_bancaires", "mastercard", "visa"]]
+    preferred: NotRequired[
+        "Literal['cartes_bancaires', 'mastercard', 'visa']|str"
+    ]
     """
     The customer's preferred card network for co-branded cards. Supports `cartes_bancaires`, `mastercard`, or `visa`. Selection of a network that does not apply to the card will be stored as `invalid_preference` on the card.
     """
@@ -905,7 +907,7 @@ class TokenCreateParamsPerson(TypedDict):
     """
     The person's phone number.
     """
-    political_exposure: NotRequired[Literal["existing", "none"]]
+    political_exposure: NotRequired["Literal['existing', 'none']|str"]
     """
     Indicates if the person or any of their representatives, family members, or other closely related persons, declares that they hold or have held an important public job or function, in any jurisdiction.
     """
@@ -1242,14 +1244,17 @@ class TokenCreateParamsPersonUsCfpbData(TypedDict):
 class TokenCreateParamsPersonUsCfpbDataEthnicityDetails(TypedDict):
     ethnicity: NotRequired[
         List[
-            Literal[
-                "cuban",
-                "hispanic_or_latino",
-                "mexican",
-                "not_hispanic_or_latino",
-                "other_hispanic_or_latino",
-                "prefer_not_to_answer",
-                "puerto_rican",
+            Union[
+                Literal[
+                    "cuban",
+                    "hispanic_or_latino",
+                    "mexican",
+                    "not_hispanic_or_latino",
+                    "other_hispanic_or_latino",
+                    "prefer_not_to_answer",
+                    "puerto_rican",
+                ],
+                str,
             ]
         ]
     ]
@@ -1265,31 +1270,34 @@ class TokenCreateParamsPersonUsCfpbDataEthnicityDetails(TypedDict):
 class TokenCreateParamsPersonUsCfpbDataRaceDetails(TypedDict):
     race: NotRequired[
         List[
-            Literal[
-                "african_american",
-                "american_indian_or_alaska_native",
-                "asian",
-                "asian_indian",
-                "black_or_african_american",
-                "chinese",
-                "ethiopian",
-                "filipino",
-                "guamanian_or_chamorro",
-                "haitian",
-                "jamaican",
-                "japanese",
-                "korean",
-                "native_hawaiian",
-                "native_hawaiian_or_other_pacific_islander",
-                "nigerian",
-                "other_asian",
-                "other_black_or_african_american",
-                "other_pacific_islander",
-                "prefer_not_to_answer",
-                "samoan",
-                "somali",
-                "vietnamese",
-                "white",
+            Union[
+                Literal[
+                    "african_american",
+                    "american_indian_or_alaska_native",
+                    "asian",
+                    "asian_indian",
+                    "black_or_african_american",
+                    "chinese",
+                    "ethiopian",
+                    "filipino",
+                    "guamanian_or_chamorro",
+                    "haitian",
+                    "jamaican",
+                    "japanese",
+                    "korean",
+                    "native_hawaiian",
+                    "native_hawaiian_or_other_pacific_islander",
+                    "nigerian",
+                    "other_asian",
+                    "other_black_or_african_american",
+                    "other_pacific_islander",
+                    "prefer_not_to_answer",
+                    "samoan",
+                    "somali",
+                    "vietnamese",
+                    "white",
+                ],
+                str,
             ]
         ]
     ]

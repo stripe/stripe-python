@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
 from stripe.v2._amount import Amount
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal
 
 
@@ -20,7 +20,9 @@ class DebitDispute(StripeObject):
         """
         The bank network the dispute was originated on.
         """
-        reason: Optional[Literal["incorrect_amount_or_date", "unauthorized"]]
+        reason: Optional[
+            Union[Literal["incorrect_amount_or_date", "unauthorized"], str]
+        ]
         """
         The reason for the dispute.
         """
@@ -88,7 +90,7 @@ class DebitDispute(StripeObject):
     """
     The ID of the ReceivedDebit that was disputed.
     """
-    status: Literal["failed", "submitted", "succeeded"]
+    status: Union[Literal["failed", "submitted", "succeeded"], str]
     """
     The status of the DebitDispute.
     """

@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -20,12 +20,15 @@ class RequestCreateParams(RequestOptions):
     The PaymentMethod to insert into the forwarded request. Forwarding previously consumed PaymentMethods is allowed.
     """
     replacements: List[
-        Literal[
-            "card_cvc",
-            "card_expiry",
-            "card_number",
-            "cardholder_name",
-            "request_signature",
+        Union[
+            Literal[
+                "card_cvc",
+                "card_expiry",
+                "card_number",
+                "cardholder_name",
+                "request_signature",
+            ],
+            str,
         ]
     ]
     """

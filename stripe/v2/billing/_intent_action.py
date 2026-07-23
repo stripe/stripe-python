@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from decimal import Decimal
 from stripe._stripe_object import StripeObject, UntypedStripeObject
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
@@ -171,8 +171,11 @@ class IntentAction(StripeObject):
         """
         Details for applying a spend modifier rule. Only present if type is spend_modifier_rule.
         """
-        type: Literal[
-            "discount", "invoice_discount_rule", "spend_modifier_rule"
+        type: Union[
+            Literal[
+                "discount", "invoice_discount_rule", "spend_modifier_rule"
+            ],
+            str,
         ]
         """
         Type of the apply action details.
@@ -191,15 +194,18 @@ class IntentAction(StripeObject):
             Additional comments about why the user canceled the subscription, if the subscription was canceled explicitly by the user.
             """
             feedback: Optional[
-                Literal[
-                    "customer_service",
-                    "low_quality",
-                    "missing_features",
-                    "other",
-                    "switched_service",
-                    "too_complex",
-                    "too_expensive",
-                    "unused",
+                Union[
+                    Literal[
+                        "customer_service",
+                        "low_quality",
+                        "missing_features",
+                        "other",
+                        "switched_service",
+                        "too_complex",
+                        "too_expensive",
+                        "unused",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -211,11 +217,14 @@ class IntentAction(StripeObject):
             """
             The timestamp at which the deactivate action takes effect. Only present if type is timestamp.
             """
-            type: Literal[
-                "current_billing_period_end",
-                "current_billing_period_start",
-                "on_reserve",
-                "timestamp",
+            type: Union[
+                Literal[
+                    "current_billing_period_end",
+                    "current_billing_period_start",
+                    "on_reserve",
+                    "timestamp",
+                ],
+                str,
             ]
             """
             When the deactivate action takes effect.
@@ -225,7 +234,9 @@ class IntentAction(StripeObject):
             class Overrides(StripeObject):
                 class PartialPeriodBehavior(StripeObject):
                     class LicenseFee(StripeObject):
-                        credit_proration_behavior: Literal["none", "prorated"]
+                        credit_proration_behavior: Union[
+                            Literal["none", "prorated"], str
+                        ]
                         """
                         The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is deactivating. If not specified, defaults to none.
                         """
@@ -234,7 +245,9 @@ class IntentAction(StripeObject):
                     """
                     Overrides the behavior for license fee components when the action takes effect during the service period.
                     """
-                    type: Literal["license_fee", "recurring_credit_grant"]
+                    type: Union[
+                        Literal["license_fee", "recurring_credit_grant"], str
+                    ]
                     """
                     The type of behavior to override.
                     """
@@ -262,7 +275,7 @@ class IntentAction(StripeObject):
         """
         Details about why the cancellation was requested by the user.
         """
-        collect_at: Literal["next_billing_date", "on_effective_at"]
+        collect_at: Union[Literal["next_billing_date", "on_effective_at"], str]
         """
         Allows users to override the collect at behavior.
         """
@@ -294,8 +307,11 @@ class IntentAction(StripeObject):
             """
             The timestamp at which the modify action takes effect. Only present if type is timestamp.
             """
-            type: Literal[
-                "current_billing_period_start", "on_reserve", "timestamp"
+            type: Union[
+                Literal[
+                    "current_billing_period_start", "on_reserve", "timestamp"
+                ],
+                str,
             ]
             """
             When the modify action takes effect.
@@ -319,17 +335,23 @@ class IntentAction(StripeObject):
             class Overrides(StripeObject):
                 class PartialPeriodBehavior(StripeObject):
                     class LicenseFee(StripeObject):
-                        credit_proration_behavior: Literal["none", "prorated"]
+                        credit_proration_behavior: Union[
+                            Literal["none", "prorated"], str
+                        ]
                         """
                         The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user modifies the subscription. If not specified, defaults to prorated.
                         """
-                        debit_proration_behavior: Literal["none", "prorated"]
+                        debit_proration_behavior: Union[
+                            Literal["none", "prorated"], str
+                        ]
                         """
                         The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user modifies the subscription. If not specified, defaults to prorated.
                         """
 
                     class RecurringCreditGrant(StripeObject):
-                        create_behavior: Literal["full_credits", "none"]
+                        create_behavior: Union[
+                            Literal["full_credits", "none"], str
+                        ]
                         """
                         Controls credit grant creation behavior during partial periods. If not specified, defaults to full_credits.
                         """
@@ -342,7 +364,9 @@ class IntentAction(StripeObject):
                     """
                     Overrides the behavior for recurring credit grant components when the action takes effect during the service period.
                     """
-                    type: Literal["license_fee", "recurring_credit_grant"]
+                    type: Union[
+                        Literal["license_fee", "recurring_credit_grant"], str
+                    ]
                     """
                     The type of behavior to override.
                     """
@@ -384,7 +408,7 @@ class IntentAction(StripeObject):
                 "overrides": Overrides,
             }
 
-        collect_at: Literal["next_billing_date", "on_effective_at"]
+        collect_at: Union[Literal["next_billing_date", "on_effective_at"], str]
         """
         Allows users to override the collect at behavior.
         """
@@ -411,7 +435,9 @@ class IntentAction(StripeObject):
 
     class Remove(StripeObject):
         class EffectiveAt(StripeObject):
-            type: Literal["current_billing_period_end", "on_reserve"]
+            type: Union[
+                Literal["current_billing_period_end", "on_reserve"], str
+            ]
             """
             When the remove action takes effect.
             """
@@ -428,7 +454,9 @@ class IntentAction(StripeObject):
         """
         The ID of the spend modifier rule removed.
         """
-        type: Literal["invoice_discount_rule", "spend_modifier_rule"]
+        type: Union[
+            Literal["invoice_discount_rule", "spend_modifier_rule"], str
+        ]
         """
         Type of the remove action.
         """
@@ -440,8 +468,11 @@ class IntentAction(StripeObject):
             """
             The timestamp at which the subscribe action takes effect. Only present if type is timestamp.
             """
-            type: Literal[
-                "current_billing_period_start", "on_reserve", "timestamp"
+            type: Union[
+                Literal[
+                    "current_billing_period_start", "on_reserve", "timestamp"
+                ],
+                str,
             ]
             """
             When the subscribe action takes effect.
@@ -465,13 +496,17 @@ class IntentAction(StripeObject):
             class Overrides(StripeObject):
                 class PartialPeriodBehavior(StripeObject):
                     class LicenseFee(StripeObject):
-                        debit_proration_behavior: Literal["none", "prorated"]
+                        debit_proration_behavior: Union[
+                            Literal["none", "prorated"], str
+                        ]
                         """
                         The proration behavior for the partial servicing period. Defines how we prorate the license fee when the user is subscribing. If not specified, defaults to prorated.
                         """
 
                     class RecurringCreditGrant(StripeObject):
-                        create_behavior: Literal["full_credits", "none"]
+                        create_behavior: Union[
+                            Literal["full_credits", "none"], str
+                        ]
                         """
                         Controls credit grant creation behavior during partial periods. If not specified, defaults to full_credits.
                         """
@@ -484,7 +519,9 @@ class IntentAction(StripeObject):
                     """
                     Overrides the behavior for recurring credit grant components when the action takes effect during the service period.
                     """
-                    type: Literal["license_fee", "recurring_credit_grant"]
+                    type: Union[
+                        Literal["license_fee", "recurring_credit_grant"], str
+                    ]
                     """
                     The type of behavior to override.
                     """
@@ -560,7 +597,7 @@ class IntentAction(StripeObject):
             """
             _inner_class_types = {"items": Item}
 
-        collect_at: Literal["next_billing_date", "on_effective_at"]
+        collect_at: Union[Literal["next_billing_date", "on_effective_at"], str]
         """
         Allows users to override the collect at behavior.
         """
@@ -626,7 +663,9 @@ class IntentAction(StripeObject):
     """
     Details for a subscribe action.
     """
-    type: Literal["apply", "deactivate", "modify", "remove", "subscribe"]
+    type: Union[
+        Literal["apply", "deactivate", "modify", "remove", "subscribe"], str
+    ]
     """
     Type of the Billing Intent Action.
     """

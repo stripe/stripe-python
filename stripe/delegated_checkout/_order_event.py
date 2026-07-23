@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
@@ -41,17 +41,20 @@ class OrderEvent(StripeObject):
         """
         The line items associated with the adjustment.
         """
-        status: Literal["completed", "failed", "pending"]
+        status: Union[Literal["completed", "failed", "pending"], str]
         """
         The status of the adjustment.
         """
-        type: Literal[
-            "cancellation",
-            "credit",
-            "dispute",
-            "original_payment_refund",
-            "return",
-            "store_credit_refund",
+        type: Union[
+            Literal[
+                "cancellation",
+                "credit",
+                "dispute",
+                "original_payment_refund",
+                "return",
+                "store_credit_refund",
+            ],
+            str,
         ]
         """
         The type of adjustment.
@@ -85,13 +88,16 @@ class OrderEvent(StripeObject):
         """
         Time at which the fulfillment shipped. Measured in seconds since the Unix epoch.
         """
-        status: Literal[
-            "confirmed",
-            "delivered",
-            "fulfilled",
-            "pending",
-            "returned",
-            "shipped",
+        status: Union[
+            Literal[
+                "confirmed",
+                "delivered",
+                "fulfilled",
+                "pending",
+                "returned",
+                "shipped",
+            ],
+            str,
         ]
         """
         The status of the fulfillment.
@@ -142,7 +148,7 @@ class OrderEvent(StripeObject):
     """
     The requested session associated with this order event.
     """
-    type: Literal["adjustment", "fulfillment"]
+    type: Union[Literal["adjustment", "fulfillment"], str]
     """
     The type of order event.
     """

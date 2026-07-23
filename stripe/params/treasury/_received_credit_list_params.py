@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -30,19 +30,22 @@ class ReceivedCreditListParams(RequestOptions):
     """
     A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
     """
-    status: NotRequired[Literal["failed", "succeeded"]]
+    status: NotRequired["Literal['failed', 'succeeded']|str"]
     """
     Only return ReceivedCredits that have the given status: `succeeded` or `failed`.
     """
 
 
 class ReceivedCreditListParamsLinkedFlows(TypedDict):
-    source_flow_type: Literal[
-        "credit_reversal",
-        "other",
-        "outbound_payment",
-        "outbound_transfer",
-        "payout",
+    source_flow_type: Union[
+        Literal[
+            "credit_reversal",
+            "other",
+            "outbound_payment",
+            "outbound_transfer",
+            "payout",
+        ],
+        str,
     ]
     """
     The source flow type.

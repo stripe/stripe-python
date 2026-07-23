@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -35,7 +35,9 @@ class CardholderUpdateParams(TypedDict):
     The cardholder's phone number. This is required for all cardholders who will be creating EU cards. See the [3D Secure documentation](https://docs.stripe.com/issuing/3d-secure) for more details.
     """
     preferred_locales: NotRequired[
-        List[Literal["da", "de", "en", "es", "fr", "it", "pl", "sv"]]
+        List[
+            Union[Literal["da", "de", "en", "es", "fr", "it", "pl", "sv"], str]
+        ]
     ]
     """
     The cardholder's preferred locales (languages), ordered by preference. Locales can be `da`, `de`, `en`, `es`, `fr`, `it`, `pl`, or `sv`.
@@ -45,7 +47,7 @@ class CardholderUpdateParams(TypedDict):
     """
     Rules that control spending across this cardholder's cards. Refer to our [documentation](https://docs.stripe.com/issuing/controls/spending-controls) for more details.
     """
-    status: NotRequired[Literal["active", "inactive"]]
+    status: NotRequired["Literal['active', 'inactive']|str"]
     """
     Specifies whether to permit authorizations on this cardholder's cards.
     """
@@ -1126,8 +1128,16 @@ class CardholderUpdateParamsSpendingControlsSpendingLimit(TypedDict):
     """
     Array of strings containing [categories](https://docs.stripe.com/api#issuing_authorization_object-merchant_data-category) this limit applies to. Omitting this field will apply the limit to all categories.
     """
-    interval: Literal[
-        "all_time", "daily", "monthly", "per_authorization", "weekly", "yearly"
+    interval: Union[
+        Literal[
+            "all_time",
+            "daily",
+            "monthly",
+            "per_authorization",
+            "weekly",
+            "yearly",
+        ],
+        str,
     ]
     """
     Interval (or event) to which the amount applies.

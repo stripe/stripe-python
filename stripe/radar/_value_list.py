@@ -7,7 +7,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, Optional, cast, overload
+from typing import ClassVar, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -60,19 +60,22 @@ class ValueList(
     """
     Unique identifier for the object.
     """
-    item_type: Literal[
-        "account",
-        "card_bin",
-        "card_fingerprint",
-        "case_sensitive_string",
-        "country",
-        "crypto_fingerprint",
-        "customer_id",
-        "email",
-        "ip_address",
-        "sepa_debit_fingerprint",
-        "string",
-        "us_bank_account_fingerprint",
+    item_type: Union[
+        Literal[
+            "account",
+            "card_bin",
+            "card_fingerprint",
+            "case_sensitive_string",
+            "country",
+            "crypto_fingerprint",
+            "customer_id",
+            "email",
+            "ip_address",
+            "sepa_debit_fingerprint",
+            "string",
+            "us_bank_account_fingerprint",
+        ],
+        str,
     ]
     """
     The type of items in the value list. One of `card_fingerprint`, `card_bin`, `crypto_fingerprint`, `email`, `ip_address`, `country`, `string`, `case_sensitive_string`, `customer_id`, `account`, `sepa_debit_fingerprint`, or `us_bank_account_fingerprint`.
