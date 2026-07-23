@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._api_resource import APIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -40,7 +40,7 @@ class Plan(APIResource["Plan"]):
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
     """
-    created_by: Literal["application", "stripe"]
+    created_by: Union[Literal["application", "stripe"], str]
     """
     Indicates which party created this ReservePlan.
     """
@@ -74,11 +74,11 @@ class Plan(APIResource["Plan"]):
     The percent of each Charge to reserve.
     """
     rolling_release: Optional[RollingRelease]
-    status: Literal["active", "disabled", "expired"]
+    status: Union[Literal["active", "disabled", "expired"], str]
     """
     The current status of the ReservePlan. The ReservePlan only affects charges if it is `active`.
     """
-    type: Literal["fixed_release", "rolling_release"]
+    type: Union[Literal["fixed_release", "rolling_release"], str]
     """
     The type of the ReservePlan.
     """

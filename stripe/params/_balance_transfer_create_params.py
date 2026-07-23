@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -11,7 +11,7 @@ class BalanceTransferCreateParams(RequestOptions):
     """
     A positive integer representing how much to transfer in the smallest currency unit.
     """
-    currency: Literal["eur", "gbp", "usd"]
+    currency: Union[Literal["eur", "gbp", "usd"], str]
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
@@ -34,7 +34,7 @@ class BalanceTransferCreateParams(RequestOptions):
 
 
 class BalanceTransferCreateParamsDestinationBalance(TypedDict):
-    type: Literal["issuing", "payments"]
+    type: Union[Literal["issuing", "payments"], str]
     """
     Destination balance type to push funds into for the Balance Transfer.
     """
@@ -44,7 +44,7 @@ class BalanceTransferCreateParamsSourceBalance(TypedDict):
     allocated_funds: NotRequired[
         "BalanceTransferCreateParamsSourceBalanceAllocatedFunds"
     ]
-    type: Literal["allocated_funds", "issuing", "payments"]
+    type: Union[Literal["allocated_funds", "issuing", "payments"], str]
     """
     Source balance type to pull funds from for the Balance Transfer.
     """

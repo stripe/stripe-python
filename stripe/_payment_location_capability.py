@@ -5,7 +5,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import sanitize_id
-from typing import ClassVar, List, Optional, cast
+from typing import ClassVar, List, Optional, Union, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -34,7 +34,9 @@ class PaymentLocationCapability(
 
     class Requirements(StripeObject):
         class Error(StripeObject):
-            code: Literal["information_missing", "invalid_value_other"]
+            code: Union[
+                Literal["information_missing", "invalid_value_other"], str
+            ]
             """
             The code for the type of error.
             """
@@ -52,13 +54,16 @@ class PaymentLocationCapability(
         Fields that need to be collected to keep the capability enabled.
         """
         disabled_reason: Optional[
-            Literal[
-                "account.capability_required",
-                "pending.onboarding",
-                "pending.review",
-                "rejected.other",
-                "rejected.unsupported_business",
-                "requirements.fields_needed",
+            Union[
+                Literal[
+                    "account.capability_required",
+                    "pending.onboarding",
+                    "pending.review",
+                    "rejected.other",
+                    "rejected.unsupported_business",
+                    "requirements.fields_needed",
+                ],
+                str,
             ]
         ]
         """
@@ -99,7 +104,7 @@ class PaymentLocationCapability(
     Time when the capability was requested. Measured in seconds since the Unix epoch.
     """
     requirements: Requirements
-    status: Literal["active", "inactive", "pending", "unrequested"]
+    status: Union[Literal["active", "inactive", "pending", "unrequested"], str]
     """
     The status of the capability.
     """

@@ -8,7 +8,7 @@ from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._test_helpers import APIResourceTestHelpers
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
+from typing import ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Type, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -222,11 +222,15 @@ class Dispute(
             """
             Description of the merchandise or service that was purchased.
             """
-            product_type: Optional[Literal["merchandise", "service"]]
+            product_type: Optional[
+                Union[Literal["merchandise", "service"], str]
+            ]
             """
             Whether the product was a merchandise or service.
             """
-            return_status: Optional[Literal["merchant_rejected", "successful"]]
+            return_status: Optional[
+                Union[Literal["merchant_rejected", "successful"], str]
+            ]
             """
             Result of cardholder's attempt to return the product.
             """
@@ -288,7 +292,9 @@ class Dispute(
             """
             Description of the cardholder's attempt to return the product.
             """
-            return_status: Optional[Literal["merchant_rejected", "successful"]]
+            return_status: Optional[
+                Union[Literal["merchant_rejected", "successful"], str]
+            ]
             """
             Result of cardholder's attempt to return the product.
             """
@@ -324,7 +330,9 @@ class Dispute(
             """
             Description of the merchandise or service that was purchased.
             """
-            product_type: Optional[Literal["merchandise", "service"]]
+            product_type: Optional[
+                Union[Literal["merchandise", "service"], str]
+            ]
             """
             Whether the product was a merchandise or service.
             """
@@ -342,7 +350,9 @@ class Dispute(
             """
             Description of the merchandise or service that was purchased.
             """
-            product_type: Optional[Literal["merchandise", "service"]]
+            product_type: Optional[
+                Union[Literal["merchandise", "service"], str]
+            ]
             """
             Whether the product was a merchandise or service.
             """
@@ -376,15 +386,18 @@ class Dispute(
         no_valid_authorization: Optional[NoValidAuthorization]
         not_received: Optional[NotReceived]
         other: Optional[Other]
-        reason: Literal[
-            "canceled",
-            "duplicate",
-            "fraudulent",
-            "merchandise_not_as_described",
-            "no_valid_authorization",
-            "not_received",
-            "other",
-            "service_not_as_described",
+        reason: Union[
+            Literal[
+                "canceled",
+                "duplicate",
+                "fraudulent",
+                "merchandise_not_as_described",
+                "no_valid_authorization",
+                "not_received",
+                "other",
+                "service_not_as_described",
+            ],
+            str,
         ]
         """
         The reason for filing the dispute. Its value will match the field containing the evidence.
@@ -467,22 +480,25 @@ class Dispute(
         """
         The time at which the platform reported revoking the provisional credit.
         """
-        status: Literal[
-            "delinquent",
-            "granted",
-            "not_required",
-            "permanent",
-            "required",
-            "revocable",
-            "revocation_notice_period",
-            "revoked",
+        status: Union[
+            Literal[
+                "delinquent",
+                "granted",
+                "not_required",
+                "permanent",
+                "required",
+                "revocable",
+                "revocation_notice_period",
+                "revoked",
+            ],
+            str,
         ]
         """
         The status of the provisional credit obligation.
         """
 
     class Redaction(StripeObject):
-        status: Literal["processing", "redacted", "validated"]
+        status: Union[Literal["processing", "redacted", "validated"], str]
         """
         Indicates whether this object and its related objects have been redacted or not.
         """
@@ -527,27 +543,30 @@ class Dispute(
     If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
     loss_reason: Optional[
-        Literal[
-            "cardholder_authentication_issuer_liability",
-            "eci5_token_transaction_with_tavv",
-            "excess_disputes_in_timeframe",
-            "has_not_met_the_minimum_dispute_amount_requirements",
-            "invalid_duplicate_dispute",
-            "invalid_incorrect_amount_dispute",
-            "invalid_no_authorization",
-            "invalid_use_of_disputes",
-            "merchandise_delivered_or_shipped",
-            "merchandise_or_service_as_described",
-            "not_cancelled",
-            "other",
-            "refund_issued",
-            "submitted_beyond_allowable_time_limit",
-            "transaction_3ds_required",
-            "transaction_approved_after_prior_fraud_dispute",
-            "transaction_authorized",
-            "transaction_electronically_read",
-            "transaction_qualifies_for_visa_easy_payment_service",
-            "transaction_unattended",
+        Union[
+            Literal[
+                "cardholder_authentication_issuer_liability",
+                "eci5_token_transaction_with_tavv",
+                "excess_disputes_in_timeframe",
+                "has_not_met_the_minimum_dispute_amount_requirements",
+                "invalid_duplicate_dispute",
+                "invalid_incorrect_amount_dispute",
+                "invalid_no_authorization",
+                "invalid_use_of_disputes",
+                "merchandise_delivered_or_shipped",
+                "merchandise_or_service_as_described",
+                "not_cancelled",
+                "other",
+                "refund_issued",
+                "submitted_beyond_allowable_time_limit",
+                "transaction_3ds_required",
+                "transaction_approved_after_prior_fraud_dispute",
+                "transaction_authorized",
+                "transaction_electronically_read",
+                "transaction_qualifies_for_visa_easy_payment_service",
+                "transaction_unattended",
+            ],
+            str,
         ]
     ]
     """
@@ -573,7 +592,9 @@ class Dispute(
     """
     Redaction status of this dispute. If the dispute is not redacted, this field will be null.
     """
-    status: Literal["expired", "lost", "submitted", "unsubmitted", "won"]
+    status: Union[
+        Literal["expired", "lost", "submitted", "unsubmitted", "won"], str
+    ]
     """
     Current status of the dispute.
     """

@@ -230,7 +230,9 @@ class DisputeUpdateParamsEvidenceEnhancedEvidenceVisaCompellingEvidence3Disputed
     """
     The IP address that the customer used when making the purchase.
     """
-    merchandise_or_services: NotRequired[Literal["merchandise", "services"]]
+    merchandise_or_services: NotRequired[
+        "Literal['merchandise', 'services']|str"
+    ]
     """
     Categorization of disputed payment.
     """

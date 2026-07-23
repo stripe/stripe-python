@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe.v2._amount import Amount
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
@@ -25,7 +25,7 @@ class OutboundPayment(StripeObject):
             """
             Memo printed on the memo field of the check.
             """
-            shipping_speed: Literal["priority", "standard"]
+            shipping_speed: Union[Literal["priority", "standard"], str]
             """
             Open Enum. Shipping speed of the paper check.
             """
@@ -34,7 +34,9 @@ class OutboundPayment(StripeObject):
             Signature for the paper check.
             """
 
-        bank_account: Optional[Literal["automatic", "local", "wire"]]
+        bank_account: Optional[
+            Union[Literal["automatic", "local", "wire"], str]
+        ]
         """
         Open Enum. Method for bank account.
         """
@@ -42,7 +44,9 @@ class OutboundPayment(StripeObject):
         """
         Delivery options for paper check.
         """
-        speed: Optional[Literal["instant", "next_business_day", "standard"]]
+        speed: Optional[
+            Union[Literal["instant", "next_business_day", "standard"], str]
+        ]
         """
         Open Enum. Speed of the payout.
         """
@@ -67,19 +71,22 @@ class OutboundPayment(StripeObject):
 
     class StatusDetails(StripeObject):
         class Failed(StripeObject):
-            reason: Literal[
-                "fx_rate_drift_exceeded_after_review",
-                "paper_check_attachment_too_large",
-                "paper_check_expired",
-                "paper_check_undeliverable",
-                "payout_method_amount_limit_exceeded",
-                "payout_method_declined",
-                "payout_method_does_not_exist",
-                "payout_method_expired",
-                "payout_method_unsupported",
-                "payout_method_usage_frequency_limit_exceeded",
-                "review_rejected",
-                "unknown_failure",
+            reason: Union[
+                Literal[
+                    "fx_rate_drift_exceeded_after_review",
+                    "paper_check_attachment_too_large",
+                    "paper_check_expired",
+                    "paper_check_undeliverable",
+                    "payout_method_amount_limit_exceeded",
+                    "payout_method_declined",
+                    "payout_method_does_not_exist",
+                    "payout_method_expired",
+                    "payout_method_unsupported",
+                    "payout_method_usage_frequency_limit_exceeded",
+                    "review_rejected",
+                    "unknown_failure",
+                ],
+                str,
             ]
             """
             Open Enum. The `failed` status reason.
@@ -92,18 +99,21 @@ class OutboundPayment(StripeObject):
             """
 
         class Returned(StripeObject):
-            reason: Literal[
-                "payout_method_canceled_by_customer",
-                "payout_method_closed",
-                "payout_method_currency_unsupported",
-                "payout_method_does_not_exist",
-                "payout_method_holder_address_incorrect",
-                "payout_method_holder_details_incorrect",
-                "payout_method_holder_name_incorrect",
-                "payout_method_invalid_account_number",
-                "payout_method_restricted",
-                "recalled",
-                "unknown_failure",
+            reason: Union[
+                Literal[
+                    "payout_method_canceled_by_customer",
+                    "payout_method_closed",
+                    "payout_method_currency_unsupported",
+                    "payout_method_does_not_exist",
+                    "payout_method_holder_address_incorrect",
+                    "payout_method_holder_details_incorrect",
+                    "payout_method_holder_name_incorrect",
+                    "payout_method_invalid_account_number",
+                    "payout_method_restricted",
+                    "recalled",
+                    "unknown_failure",
+                ],
+                str,
             ]
             """
             Open Enum. The `returned` status reason.
@@ -154,7 +164,9 @@ class OutboundPayment(StripeObject):
             class BankAccount(StripeObject):
                 class PreferredNetworkOptions(StripeObject):
                     class Ach(StripeObject):
-                        submission: Optional[Literal["next_day", "same_day"]]
+                        submission: Optional[
+                            Union[Literal["next_day", "same_day"], str]
+                        ]
                         """
                         Open Enum. ACH submission timing.
                         """
@@ -174,17 +186,20 @@ class OutboundPayment(StripeObject):
                 Per-network configuration options.
                 """
                 preferred_networks: List[
-                    Literal[
-                        "ach",
-                        "becs",
-                        "eft",
-                        "fedwire",
-                        "fps",
-                        "npp",
-                        "rtp",
-                        "sepa_credit",
-                        "sepa_instant",
-                        "swift",
+                    Union[
+                        Literal[
+                            "ach",
+                            "becs",
+                            "eft",
+                            "fedwire",
+                            "fps",
+                            "npp",
+                            "rtp",
+                            "sepa_credit",
+                            "sepa_instant",
+                            "swift",
+                        ],
+                        str,
                     ]
                 ]
                 """
@@ -219,7 +234,7 @@ class OutboundPayment(StripeObject):
         _inner_class_types = {"payout_method_options": PayoutMethodOptions}
 
     class TraceId(StripeObject):
-        status: Literal["pending", "supported", "unsupported"]
+        status: Union[Literal["pending", "supported", "unsupported"], str]
         """
         Possible values are `pending`, `supported`, and `unsupported`. Initially set to `pending`, it changes to
         `supported` when the recipient bank provides a trace ID, or `unsupported` if the recipient bank doesn't support it.
@@ -259,7 +274,7 @@ class OutboundPayment(StripeObject):
                 State, county, province, or region.
                 """
 
-            carrier: Literal["fedex", "usps"]
+            carrier: Union[Literal["fedex", "usps"], str]
             """
             Open Enum. Carrier of the paper check.
             """
@@ -279,7 +294,9 @@ class OutboundPayment(StripeObject):
             """
             Tracking number for the check.
             """
-            tracking_status: Literal["delivered", "in_transit", "mailed"]
+            tracking_status: Union[
+                Literal["delivered", "in_transit", "mailed"], str
+            ]
             """
             Open Enum. Tracking status of the paper check.
             """

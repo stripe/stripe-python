@@ -11,17 +11,7 @@ class OnrampTransactionLimitsRetrieveParams(RequestOptions):
     The IP address of the customer requesting transaction limits. We support IPv4 and IPv6 addresses.
     """
     destination_network: NotRequired[
-        Literal[
-            "avalanche",
-            "base",
-            "bitcoin",
-            "ethereum",
-            "optimism",
-            "polygon",
-            "solana",
-            "stellar",
-            "worldchain",
-        ]
+        "Literal['avalanche', 'base', 'bitcoin', 'ethereum', 'optimism', 'polygon', 'solana', 'stellar', 'sui', 'worldchain']|str"
     ]
     """
     The destination blockchain network to use for limit calculations.

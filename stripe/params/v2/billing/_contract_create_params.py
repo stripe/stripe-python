@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from decimal import Decimal
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -25,7 +25,14 @@ class ContractCreateParams(TypedDict):
     Currency of the contract.
     """
     include: NotRequired[
-        List[Literal["billing_settings", "pricing_lines", "pricing_overrides"]]
+        List[
+            Union[
+                Literal[
+                    "billing_settings", "pricing_lines", "pricing_overrides"
+                ],
+                str,
+            ]
+        ]
     ]
     """
     Additional fields to include in the response.
@@ -426,7 +433,7 @@ class ContractCreateParamsPricingOverrideMultiplyPricingCriterion(TypedDict):
     """
     Filter by pricing line lookup keys.
     """
-    type: Literal["exclude", "include"]
+    type: Union[Literal["exclude", "include"], str]
     """
     Whether to include or exclude items matching these criteria.
     """

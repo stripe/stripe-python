@@ -6,7 +6,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import sanitize_id
-from typing import ClassVar, List, Optional, cast
+from typing import ClassVar, List, Optional, Union, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -40,190 +40,193 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
             The IP address of the device at provisioning time.
             """
             language: Optional[
-                Literal[
-                    "aa",
-                    "ab",
-                    "ae",
-                    "af",
-                    "ak",
-                    "am",
-                    "an",
-                    "ar",
-                    "as",
-                    "av",
-                    "ay",
-                    "az",
-                    "ba",
-                    "be",
-                    "bg",
-                    "bi",
-                    "bm",
-                    "bn",
-                    "bo",
-                    "br",
-                    "bs",
-                    "ca",
-                    "ce",
-                    "ch",
-                    "co",
-                    "cr",
-                    "cs",
-                    "cu",
-                    "cv",
-                    "cy",
-                    "da",
-                    "de",
-                    "dv",
-                    "dz",
-                    "ee",
-                    "el",
-                    "en",
-                    "eo",
-                    "es",
-                    "et",
-                    "eu",
-                    "fa",
-                    "ff",
-                    "fi",
-                    "fj",
-                    "fo",
-                    "fr",
-                    "fy",
-                    "ga",
-                    "gd",
-                    "gl",
-                    "gn",
-                    "gu",
-                    "gv",
-                    "ha",
-                    "he",
-                    "hi",
-                    "ho",
-                    "hr",
-                    "ht",
-                    "hu",
-                    "hy",
-                    "hz",
-                    "ia",
-                    "id",
-                    "ie",
-                    "ig",
-                    "ii",
-                    "ik",
-                    "io",
-                    "is",
-                    "it",
-                    "iu",
-                    "ja",
-                    "jv",
-                    "ka",
-                    "kg",
-                    "ki",
-                    "kj",
-                    "kk",
-                    "kl",
-                    "km",
-                    "kn",
-                    "ko",
-                    "kr",
-                    "ks",
-                    "ku",
-                    "kv",
-                    "kw",
-                    "ky",
-                    "la",
-                    "lb",
-                    "lg",
-                    "li",
-                    "ln",
-                    "lo",
-                    "lt",
-                    "lu",
-                    "lv",
-                    "mg",
-                    "mh",
-                    "mi",
-                    "mk",
-                    "ml",
-                    "mn",
-                    "mr",
-                    "ms",
-                    "mt",
-                    "my",
-                    "na",
-                    "nb",
-                    "nd",
-                    "ne",
-                    "ng",
-                    "nl",
-                    "nn",
-                    "no",
-                    "nr",
-                    "nv",
-                    "ny",
-                    "oc",
-                    "oj",
-                    "om",
-                    "or",
-                    "os",
-                    "pa",
-                    "pi",
-                    "pl",
-                    "ps",
-                    "pt",
-                    "qu",
-                    "rm",
-                    "rn",
-                    "ro",
-                    "ru",
-                    "rw",
-                    "sa",
-                    "sc",
-                    "sd",
-                    "se",
-                    "sg",
-                    "si",
-                    "sk",
-                    "sl",
-                    "sm",
-                    "sn",
-                    "so",
-                    "sq",
-                    "sr",
-                    "ss",
-                    "st",
-                    "su",
-                    "sv",
-                    "sw",
-                    "ta",
-                    "te",
-                    "tg",
-                    "th",
-                    "ti",
-                    "tk",
-                    "tl",
-                    "tn",
-                    "to",
-                    "tr",
-                    "ts",
-                    "tt",
-                    "tw",
-                    "ty",
-                    "ug",
-                    "uk",
-                    "ur",
-                    "uz",
-                    "ve",
-                    "vi",
-                    "vo",
-                    "wa",
-                    "wo",
-                    "xh",
-                    "yi",
-                    "yo",
-                    "za",
-                    "zh",
-                    "zu",
+                Union[
+                    Literal[
+                        "aa",
+                        "ab",
+                        "ae",
+                        "af",
+                        "ak",
+                        "am",
+                        "an",
+                        "ar",
+                        "as",
+                        "av",
+                        "ay",
+                        "az",
+                        "ba",
+                        "be",
+                        "bg",
+                        "bi",
+                        "bm",
+                        "bn",
+                        "bo",
+                        "br",
+                        "bs",
+                        "ca",
+                        "ce",
+                        "ch",
+                        "co",
+                        "cr",
+                        "cs",
+                        "cu",
+                        "cv",
+                        "cy",
+                        "da",
+                        "de",
+                        "dv",
+                        "dz",
+                        "ee",
+                        "el",
+                        "en",
+                        "eo",
+                        "es",
+                        "et",
+                        "eu",
+                        "fa",
+                        "ff",
+                        "fi",
+                        "fj",
+                        "fo",
+                        "fr",
+                        "fy",
+                        "ga",
+                        "gd",
+                        "gl",
+                        "gn",
+                        "gu",
+                        "gv",
+                        "ha",
+                        "he",
+                        "hi",
+                        "ho",
+                        "hr",
+                        "ht",
+                        "hu",
+                        "hy",
+                        "hz",
+                        "ia",
+                        "id",
+                        "ie",
+                        "ig",
+                        "ii",
+                        "ik",
+                        "io",
+                        "is",
+                        "it",
+                        "iu",
+                        "ja",
+                        "jv",
+                        "ka",
+                        "kg",
+                        "ki",
+                        "kj",
+                        "kk",
+                        "kl",
+                        "km",
+                        "kn",
+                        "ko",
+                        "kr",
+                        "ks",
+                        "ku",
+                        "kv",
+                        "kw",
+                        "ky",
+                        "la",
+                        "lb",
+                        "lg",
+                        "li",
+                        "ln",
+                        "lo",
+                        "lt",
+                        "lu",
+                        "lv",
+                        "mg",
+                        "mh",
+                        "mi",
+                        "mk",
+                        "ml",
+                        "mn",
+                        "mr",
+                        "ms",
+                        "mt",
+                        "my",
+                        "na",
+                        "nb",
+                        "nd",
+                        "ne",
+                        "ng",
+                        "nl",
+                        "nn",
+                        "no",
+                        "nr",
+                        "nv",
+                        "ny",
+                        "oc",
+                        "oj",
+                        "om",
+                        "or",
+                        "os",
+                        "pa",
+                        "pi",
+                        "pl",
+                        "ps",
+                        "pt",
+                        "qu",
+                        "rm",
+                        "rn",
+                        "ro",
+                        "ru",
+                        "rw",
+                        "sa",
+                        "sc",
+                        "sd",
+                        "se",
+                        "sg",
+                        "si",
+                        "sk",
+                        "sl",
+                        "sm",
+                        "sn",
+                        "so",
+                        "sq",
+                        "sr",
+                        "ss",
+                        "st",
+                        "su",
+                        "sv",
+                        "sw",
+                        "ta",
+                        "te",
+                        "tg",
+                        "th",
+                        "ti",
+                        "tk",
+                        "tl",
+                        "tn",
+                        "to",
+                        "tr",
+                        "ts",
+                        "tt",
+                        "tw",
+                        "ty",
+                        "ug",
+                        "uk",
+                        "ur",
+                        "uz",
+                        "ve",
+                        "vi",
+                        "vo",
+                        "wa",
+                        "wo",
+                        "xh",
+                        "yi",
+                        "yo",
+                        "za",
+                        "zh",
+                        "zu",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -241,7 +244,7 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
             """
             The phone number of the device used for tokenization.
             """
-            type: Optional[Literal["other", "phone", "watch"]]
+            type: Optional[Union[Literal["other", "phone", "watch"], str]]
             """
             The type of device used for tokenization.
             """
@@ -270,7 +273,7 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
             A unique reference ID from Visa to represent the card account number.
             """
             token_decision_recommendation: Optional[
-                Literal["approve", "decline", "recommend_id_and_v"]
+                Union[Literal["approve", "decline", "recommend_id_and_v"], str]
             ]
             """
             The network's recommendation to Stripe for this token activation request.
@@ -308,7 +311,7 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
             An evaluation on the trustworthiness of the wallet account between 1 and 5. A higher score indicates more trustworthy.
             """
             card_number_source: Optional[
-                Literal["app", "manual", "on_file", "other"]
+                Union[Literal["app", "manual", "on_file", "other"], str]
             ]
             """
             The method used for tokenizing a card.
@@ -328,35 +331,38 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
             """
             reason_codes: Optional[
                 List[
-                    Literal[
-                        "account_card_too_new",
-                        "account_recently_changed",
-                        "account_too_new",
-                        "account_too_new_since_launch",
-                        "additional_device",
-                        "data_expired",
-                        "defer_id_v_decision",
-                        "device_recently_lost",
-                        "good_activity_history",
-                        "has_suspended_tokens",
-                        "high_risk",
-                        "inactive_account",
-                        "long_account_tenure",
-                        "low_account_score",
-                        "low_device_score",
-                        "low_phone_number_score",
-                        "network_service_error",
-                        "outside_home_territory",
-                        "provisioning_cardholder_mismatch",
-                        "provisioning_device_and_cardholder_mismatch",
-                        "provisioning_device_mismatch",
-                        "same_device_no_prior_authentication",
-                        "same_device_successful_prior_authentication",
-                        "software_update",
-                        "suspicious_activity",
-                        "too_many_different_cardholders",
-                        "too_many_recent_attempts",
-                        "too_many_recent_tokens",
+                    Union[
+                        Literal[
+                            "account_card_too_new",
+                            "account_recently_changed",
+                            "account_too_new",
+                            "account_too_new_since_launch",
+                            "additional_device",
+                            "data_expired",
+                            "defer_id_v_decision",
+                            "device_recently_lost",
+                            "good_activity_history",
+                            "has_suspended_tokens",
+                            "high_risk",
+                            "inactive_account",
+                            "long_account_tenure",
+                            "low_account_score",
+                            "low_device_score",
+                            "low_phone_number_score",
+                            "network_service_error",
+                            "outside_home_territory",
+                            "provisioning_cardholder_mismatch",
+                            "provisioning_device_and_cardholder_mismatch",
+                            "provisioning_device_mismatch",
+                            "same_device_no_prior_authentication",
+                            "same_device_successful_prior_authentication",
+                            "software_update",
+                            "suspicious_activity",
+                            "too_many_different_cardholders",
+                            "too_many_recent_attempts",
+                            "too_many_recent_tokens",
+                        ],
+                        str,
                     ]
                 ]
             ]
@@ -364,7 +370,7 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
             The reasons for suggested tokenization given by the card network.
             """
             suggested_decision: Optional[
-                Literal["approve", "decline", "require_auth"]
+                Union[Literal["approve", "decline", "require_auth"], str]
             ]
             """
             The recommendation on responding to the tokenization request.
@@ -377,7 +383,7 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
 
         device: Optional[Device]
         mastercard: Optional[Mastercard]
-        type: Literal["mastercard", "visa"]
+        type: Union[Literal["mastercard", "visa"], str]
         """
         The network that the token is associated with. An additional hash is included with a name matching this value, containing tokenization data specific to the card network.
         """
@@ -414,7 +420,7 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
     """
     If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
-    network: Literal["mastercard", "visa"]
+    network: Union[Literal["mastercard", "visa"], str]
     """
     The token service provider / card network associated with the token.
     """
@@ -428,30 +434,33 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
     String representing the object's type. Objects of the same type share the same value.
     """
     provisioning_decision: Optional[
-        Literal["approve", "approve_pending_id_and_v", "decline"]
+        Union[Literal["approve", "approve_pending_id_and_v", "decline"], str]
     ]
     """
     The decision made during token provisioning.
     """
-    status: Literal["active", "deleted", "requested", "suspended"]
+    status: Union[Literal["active", "deleted", "requested", "suspended"], str]
     """
     The usage state of the token.
     """
     token_type: Optional[
-        Literal[
-            "card_on_file",
-            "cloud_based",
-            "commerce_platform",
-            "commercial_virtual_account",
-            "secure_element",
-            "static_credential",
+        Union[
+            Literal[
+                "card_on_file",
+                "cloud_based",
+                "commerce_platform",
+                "commercial_virtual_account",
+                "secure_element",
+                "static_credential",
+            ],
+            str,
         ]
     ]
     """
     The type of the token, indicating how it is used.
     """
     wallet_provider: Optional[
-        Literal["apple_pay", "google_pay", "samsung_pay"]
+        Union[Literal["apple_pay", "google_pay", "samsung_pay"], str]
     ]
     """
     The digital wallet for this token, if one was used.

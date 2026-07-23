@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from typing import Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -24,13 +25,16 @@ class FinancialAddressCreateParams(TypedDict):
     """
     Open Enum. The currency the FinancialAddress settles into the FinancialAccount. Currently, only the `usd`, `gbp` and `usdc` values are supported.
     """
-    type: Literal[
-        "ca_bank_account",
-        "crypto_wallet",
-        "gb_bank_account",
-        "mx_bank_account",
-        "sepa_bank_account",
-        "us_bank_account",
+    type: Union[
+        Literal[
+            "ca_bank_account",
+            "crypto_wallet",
+            "gb_bank_account",
+            "mx_bank_account",
+            "sepa_bank_account",
+            "us_bank_account",
+        ],
+        str,
     ]
     """
     The type of FinancialAddress details to provision.
@@ -38,16 +42,19 @@ class FinancialAddressCreateParams(TypedDict):
 
 
 class FinancialAddressCreateParamsCryptoProperties(TypedDict):
-    network: Literal[
-        "arbitrum",
-        "avalanche_c_chain",
-        "base",
-        "ethereum",
-        "optimism",
-        "polygon",
-        "solana",
-        "stellar",
-        "tempo",
+    network: Union[
+        Literal[
+            "arbitrum",
+            "avalanche_c_chain",
+            "base",
+            "ethereum",
+            "optimism",
+            "polygon",
+            "solana",
+            "stellar",
+            "tempo",
+        ],
+        str,
     ]
     """
     The blockchain network of the crypto wallet.

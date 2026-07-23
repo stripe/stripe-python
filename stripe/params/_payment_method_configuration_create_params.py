@@ -292,6 +292,10 @@ class PaymentMethodConfigurationCreateParams(RequestOptions):
     """
     Stripe users in the United States can accept ACH direct debit payments from customers with a US bank account using the Automated Clearing House (ACH) payments system operated by Nacha. Check this [page](https://docs.stripe.com/payments/ach-direct-debit) for more details.
     """
+    vipps: NotRequired["PaymentMethodConfigurationCreateParamsVipps"]
+    """
+    Vipps is a [single-use](https://docs.stripe.com/payments/payment-methods#usage) card wallet payment method used in Norway. It allows customers to [authenticate and approve](https://docs.stripe.com/payments/payment-methods#customer-actions) payments using the Vipps app. Check this [page](https://docs.stripe.com/payments/vipps) for more details.
+    """
     wechat_pay: NotRequired["PaymentMethodConfigurationCreateParamsWechatPay"]
     """
     WeChat, owned by Tencent, is China's leading mobile app with over 1 billion monthly active users. Chinese consumers can use WeChat Pay to pay for goods and services inside of businesses' apps and websites. WeChat Pay users buy most frequently in gaming, e-commerce, travel, online education, and food/nutrition. Check this [page](https://docs.stripe.com/payments/wechat-pay) for more details.
@@ -314,7 +318,7 @@ class PaymentMethodConfigurationCreateParamsAcssDebit(TypedDict):
 class PaymentMethodConfigurationCreateParamsAcssDebitDisplayPreference(
     TypedDict,
 ):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -330,7 +334,7 @@ class PaymentMethodConfigurationCreateParamsAffirm(TypedDict):
 
 
 class PaymentMethodConfigurationCreateParamsAffirmDisplayPreference(TypedDict):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -348,7 +352,7 @@ class PaymentMethodConfigurationCreateParamsAfterpayClearpay(TypedDict):
 class PaymentMethodConfigurationCreateParamsAfterpayClearpayDisplayPreference(
     TypedDict,
 ):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -364,7 +368,7 @@ class PaymentMethodConfigurationCreateParamsAlipay(TypedDict):
 
 
 class PaymentMethodConfigurationCreateParamsAlipayDisplayPreference(TypedDict):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -380,7 +384,7 @@ class PaymentMethodConfigurationCreateParamsAlma(TypedDict):
 
 
 class PaymentMethodConfigurationCreateParamsAlmaDisplayPreference(TypedDict):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -398,7 +402,7 @@ class PaymentMethodConfigurationCreateParamsAmazonPay(TypedDict):
 class PaymentMethodConfigurationCreateParamsAmazonPayDisplayPreference(
     TypedDict,
 ):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -416,7 +420,7 @@ class PaymentMethodConfigurationCreateParamsApplePay(TypedDict):
 class PaymentMethodConfigurationCreateParamsApplePayDisplayPreference(
     TypedDict,
 ):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -434,7 +438,7 @@ class PaymentMethodConfigurationCreateParamsApplePayLater(TypedDict):
 class PaymentMethodConfigurationCreateParamsApplePayLaterDisplayPreference(
     TypedDict,
 ):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -452,7 +456,7 @@ class PaymentMethodConfigurationCreateParamsAuBecsDebit(TypedDict):
 class PaymentMethodConfigurationCreateParamsAuBecsDebitDisplayPreference(
     TypedDict,
 ):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -470,7 +474,7 @@ class PaymentMethodConfigurationCreateParamsBacsDebit(TypedDict):
 class PaymentMethodConfigurationCreateParamsBacsDebitDisplayPreference(
     TypedDict,
 ):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -488,7 +492,7 @@ class PaymentMethodConfigurationCreateParamsBancontact(TypedDict):
 class PaymentMethodConfigurationCreateParamsBancontactDisplayPreference(
     TypedDict,
 ):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -504,7 +508,7 @@ class PaymentMethodConfigurationCreateParamsBillie(TypedDict):
 
 
 class PaymentMethodConfigurationCreateParamsBillieDisplayPreference(TypedDict):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -520,7 +524,7 @@ class PaymentMethodConfigurationCreateParamsBizum(TypedDict):
 
 
 class PaymentMethodConfigurationCreateParamsBizumDisplayPreference(TypedDict):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -536,7 +540,7 @@ class PaymentMethodConfigurationCreateParamsBlik(TypedDict):
 
 
 class PaymentMethodConfigurationCreateParamsBlikDisplayPreference(TypedDict):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -552,7 +556,7 @@ class PaymentMethodConfigurationCreateParamsBoleto(TypedDict):
 
 
 class PaymentMethodConfigurationCreateParamsBoletoDisplayPreference(TypedDict):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -568,7 +572,7 @@ class PaymentMethodConfigurationCreateParamsCard(TypedDict):
 
 
 class PaymentMethodConfigurationCreateParamsCardDisplayPreference(TypedDict):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -586,7 +590,7 @@ class PaymentMethodConfigurationCreateParamsCartesBancaires(TypedDict):
 class PaymentMethodConfigurationCreateParamsCartesBancairesDisplayPreference(
     TypedDict,
 ):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -604,7 +608,7 @@ class PaymentMethodConfigurationCreateParamsCashapp(TypedDict):
 class PaymentMethodConfigurationCreateParamsCashappDisplayPreference(
     TypedDict
 ):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -620,7 +624,7 @@ class PaymentMethodConfigurationCreateParamsCrypto(TypedDict):
 
 
 class PaymentMethodConfigurationCreateParamsCryptoDisplayPreference(TypedDict):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -638,7 +642,7 @@ class PaymentMethodConfigurationCreateParamsCustomerBalance(TypedDict):
 class PaymentMethodConfigurationCreateParamsCustomerBalanceDisplayPreference(
     TypedDict,
 ):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -654,7 +658,7 @@ class PaymentMethodConfigurationCreateParamsEps(TypedDict):
 
 
 class PaymentMethodConfigurationCreateParamsEpsDisplayPreference(TypedDict):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -670,7 +674,7 @@ class PaymentMethodConfigurationCreateParamsFpx(TypedDict):
 
 
 class PaymentMethodConfigurationCreateParamsFpxDisplayPreference(TypedDict):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -688,7 +692,7 @@ class PaymentMethodConfigurationCreateParamsFrMealVoucherConecs(TypedDict):
 class PaymentMethodConfigurationCreateParamsFrMealVoucherConecsDisplayPreference(
     TypedDict,
 ):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -706,7 +710,7 @@ class PaymentMethodConfigurationCreateParamsGiropay(TypedDict):
 class PaymentMethodConfigurationCreateParamsGiropayDisplayPreference(
     TypedDict
 ):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -724,7 +728,7 @@ class PaymentMethodConfigurationCreateParamsGooglePay(TypedDict):
 class PaymentMethodConfigurationCreateParamsGooglePayDisplayPreference(
     TypedDict,
 ):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -740,7 +744,7 @@ class PaymentMethodConfigurationCreateParamsGopay(TypedDict):
 
 
 class PaymentMethodConfigurationCreateParamsGopayDisplayPreference(TypedDict):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -758,7 +762,7 @@ class PaymentMethodConfigurationCreateParamsGrabpay(TypedDict):
 class PaymentMethodConfigurationCreateParamsGrabpayDisplayPreference(
     TypedDict
 ):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -776,7 +780,7 @@ class PaymentMethodConfigurationCreateParamsIdBankTransfer(TypedDict):
 class PaymentMethodConfigurationCreateParamsIdBankTransferDisplayPreference(
     TypedDict,
 ):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -792,7 +796,7 @@ class PaymentMethodConfigurationCreateParamsIdeal(TypedDict):
 
 
 class PaymentMethodConfigurationCreateParamsIdealDisplayPreference(TypedDict):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -808,7 +812,7 @@ class PaymentMethodConfigurationCreateParamsJcb(TypedDict):
 
 
 class PaymentMethodConfigurationCreateParamsJcbDisplayPreference(TypedDict):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -826,7 +830,7 @@ class PaymentMethodConfigurationCreateParamsKakaoPay(TypedDict):
 class PaymentMethodConfigurationCreateParamsKakaoPayDisplayPreference(
     TypedDict,
 ):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -842,7 +846,7 @@ class PaymentMethodConfigurationCreateParamsKlarna(TypedDict):
 
 
 class PaymentMethodConfigurationCreateParamsKlarnaDisplayPreference(TypedDict):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -860,7 +864,7 @@ class PaymentMethodConfigurationCreateParamsKonbini(TypedDict):
 class PaymentMethodConfigurationCreateParamsKonbiniDisplayPreference(
     TypedDict
 ):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -876,7 +880,7 @@ class PaymentMethodConfigurationCreateParamsKrCard(TypedDict):
 
 
 class PaymentMethodConfigurationCreateParamsKrCardDisplayPreference(TypedDict):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -892,7 +896,7 @@ class PaymentMethodConfigurationCreateParamsLink(TypedDict):
 
 
 class PaymentMethodConfigurationCreateParamsLinkDisplayPreference(TypedDict):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -908,7 +912,7 @@ class PaymentMethodConfigurationCreateParamsMbWay(TypedDict):
 
 
 class PaymentMethodConfigurationCreateParamsMbWayDisplayPreference(TypedDict):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -926,7 +930,7 @@ class PaymentMethodConfigurationCreateParamsMobilepay(TypedDict):
 class PaymentMethodConfigurationCreateParamsMobilepayDisplayPreference(
     TypedDict,
 ):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -944,7 +948,7 @@ class PaymentMethodConfigurationCreateParamsMultibanco(TypedDict):
 class PaymentMethodConfigurationCreateParamsMultibancoDisplayPreference(
     TypedDict,
 ):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -962,7 +966,7 @@ class PaymentMethodConfigurationCreateParamsNaverPay(TypedDict):
 class PaymentMethodConfigurationCreateParamsNaverPayDisplayPreference(
     TypedDict,
 ):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -980,7 +984,7 @@ class PaymentMethodConfigurationCreateParamsNzBankAccount(TypedDict):
 class PaymentMethodConfigurationCreateParamsNzBankAccountDisplayPreference(
     TypedDict,
 ):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -996,7 +1000,7 @@ class PaymentMethodConfigurationCreateParamsOxxo(TypedDict):
 
 
 class PaymentMethodConfigurationCreateParamsOxxoDisplayPreference(TypedDict):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -1012,7 +1016,7 @@ class PaymentMethodConfigurationCreateParamsP24(TypedDict):
 
 
 class PaymentMethodConfigurationCreateParamsP24DisplayPreference(TypedDict):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -1030,7 +1034,7 @@ class PaymentMethodConfigurationCreateParamsPayByBank(TypedDict):
 class PaymentMethodConfigurationCreateParamsPayByBankDisplayPreference(
     TypedDict,
 ):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -1046,7 +1050,7 @@ class PaymentMethodConfigurationCreateParamsPayco(TypedDict):
 
 
 class PaymentMethodConfigurationCreateParamsPaycoDisplayPreference(TypedDict):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -1062,7 +1066,7 @@ class PaymentMethodConfigurationCreateParamsPaynow(TypedDict):
 
 
 class PaymentMethodConfigurationCreateParamsPaynowDisplayPreference(TypedDict):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -1078,7 +1082,7 @@ class PaymentMethodConfigurationCreateParamsPaypal(TypedDict):
 
 
 class PaymentMethodConfigurationCreateParamsPaypalDisplayPreference(TypedDict):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -1094,7 +1098,7 @@ class PaymentMethodConfigurationCreateParamsPaypay(TypedDict):
 
 
 class PaymentMethodConfigurationCreateParamsPaypayDisplayPreference(TypedDict):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -1110,7 +1114,7 @@ class PaymentMethodConfigurationCreateParamsPayto(TypedDict):
 
 
 class PaymentMethodConfigurationCreateParamsPaytoDisplayPreference(TypedDict):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -1126,7 +1130,7 @@ class PaymentMethodConfigurationCreateParamsPix(TypedDict):
 
 
 class PaymentMethodConfigurationCreateParamsPixDisplayPreference(TypedDict):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -1144,7 +1148,7 @@ class PaymentMethodConfigurationCreateParamsPromptpay(TypedDict):
 class PaymentMethodConfigurationCreateParamsPromptpayDisplayPreference(
     TypedDict,
 ):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -1160,7 +1164,7 @@ class PaymentMethodConfigurationCreateParamsQris(TypedDict):
 
 
 class PaymentMethodConfigurationCreateParamsQrisDisplayPreference(TypedDict):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -1178,7 +1182,7 @@ class PaymentMethodConfigurationCreateParamsRevolutPay(TypedDict):
 class PaymentMethodConfigurationCreateParamsRevolutPayDisplayPreference(
     TypedDict,
 ):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -1196,7 +1200,7 @@ class PaymentMethodConfigurationCreateParamsSamsungPay(TypedDict):
 class PaymentMethodConfigurationCreateParamsSamsungPayDisplayPreference(
     TypedDict,
 ):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -1214,7 +1218,7 @@ class PaymentMethodConfigurationCreateParamsSatispay(TypedDict):
 class PaymentMethodConfigurationCreateParamsSatispayDisplayPreference(
     TypedDict,
 ):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -1232,7 +1236,7 @@ class PaymentMethodConfigurationCreateParamsScalapay(TypedDict):
 class PaymentMethodConfigurationCreateParamsScalapayDisplayPreference(
     TypedDict,
 ):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -1250,7 +1254,7 @@ class PaymentMethodConfigurationCreateParamsSepaDebit(TypedDict):
 class PaymentMethodConfigurationCreateParamsSepaDebitDisplayPreference(
     TypedDict,
 ):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -1268,7 +1272,7 @@ class PaymentMethodConfigurationCreateParamsShopeepay(TypedDict):
 class PaymentMethodConfigurationCreateParamsShopeepayDisplayPreference(
     TypedDict,
 ):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -1284,7 +1288,7 @@ class PaymentMethodConfigurationCreateParamsSofort(TypedDict):
 
 
 class PaymentMethodConfigurationCreateParamsSofortDisplayPreference(TypedDict):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -1300,7 +1304,7 @@ class PaymentMethodConfigurationCreateParamsSunbit(TypedDict):
 
 
 class PaymentMethodConfigurationCreateParamsSunbitDisplayPreference(TypedDict):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -1316,7 +1320,7 @@ class PaymentMethodConfigurationCreateParamsSwish(TypedDict):
 
 
 class PaymentMethodConfigurationCreateParamsSwishDisplayPreference(TypedDict):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -1332,7 +1336,7 @@ class PaymentMethodConfigurationCreateParamsTwint(TypedDict):
 
 
 class PaymentMethodConfigurationCreateParamsTwintDisplayPreference(TypedDict):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -1348,7 +1352,7 @@ class PaymentMethodConfigurationCreateParamsUpi(TypedDict):
 
 
 class PaymentMethodConfigurationCreateParamsUpiDisplayPreference(TypedDict):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -1366,7 +1370,23 @@ class PaymentMethodConfigurationCreateParamsUsBankAccount(TypedDict):
 class PaymentMethodConfigurationCreateParamsUsBankAccountDisplayPreference(
     TypedDict,
 ):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
+    """
+    The account's preference for whether or not to display this payment method.
+    """
+
+
+class PaymentMethodConfigurationCreateParamsVipps(TypedDict):
+    display_preference: NotRequired[
+        "PaymentMethodConfigurationCreateParamsVippsDisplayPreference"
+    ]
+    """
+    Whether or not the payment method should be displayed.
+    """
+
+
+class PaymentMethodConfigurationCreateParamsVippsDisplayPreference(TypedDict):
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -1384,7 +1404,7 @@ class PaymentMethodConfigurationCreateParamsWechatPay(TypedDict):
 class PaymentMethodConfigurationCreateParamsWechatPayDisplayPreference(
     TypedDict,
 ):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """
@@ -1400,7 +1420,7 @@ class PaymentMethodConfigurationCreateParamsZip(TypedDict):
 
 
 class PaymentMethodConfigurationCreateParamsZipDisplayPreference(TypedDict):
-    preference: NotRequired[Literal["none", "off", "on"]]
+    preference: NotRequired["Literal['none', 'off', 'on']|str"]
     """
     The account's preference for whether or not to display this payment method.
     """

@@ -5,13 +5,15 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
+from stripe._nested_resource_class_methods import nested_resource_class_methods
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
+from typing import ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe._customer import Customer
+    from stripe.billing._alert_notification import AlertNotification
     from stripe.billing._meter import Meter
     from stripe.params.billing._alert_activate_params import (
         AlertActivateParams,
@@ -21,12 +23,16 @@ if TYPE_CHECKING:
     from stripe.params.billing._alert_deactivate_params import (
         AlertDeactivateParams,
     )
+    from stripe.params.billing._alert_list_notifications_params import (
+        AlertListNotificationsParams,
+    )
     from stripe.params.billing._alert_list_params import AlertListParams
     from stripe.params.billing._alert_retrieve_params import (
         AlertRetrieveParams,
     )
 
 
+@nested_resource_class_methods("notification")
 class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
     """
     A billing alert is a resource that notifies you when a certain usage threshold on a meter is crossed. For example, you might create a billing alert to notify you when a certain user made 100 API requests.
@@ -40,7 +46,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
             """
             Limit the scope of the alert to this customer ID
             """
-            type: Literal["customer", "tenant"]
+            type: Union[Literal["customer", "tenant"], str]
 
         class Lte(StripeObject):
             class CustomPricingUnit(StripeObject):
@@ -97,7 +103,9 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
                 A positive integer representing the amount.
                 """
 
-            balance_type: Literal["custom_pricing_unit", "monetary"]
+            balance_type: Union[
+                Literal["custom_pricing_unit", "monetary"], str
+            ]
             """
             The type of this balance. We currently only support `monetary` amounts.
             """
@@ -199,7 +207,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
             """
             The custom pricing unit amount. Present when type is `custom_pricing_unit`.
             """
-            type: Literal["amount", "custom_pricing_unit"]
+            type: Union[Literal["amount", "custom_pricing_unit"], str]
             """
             The type of the threshold amount.
             """
@@ -217,7 +225,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
         Filters to scope the spend calculation.
         """
         group_by: Optional[
-            Literal["billing_cadence", "pricing_plan_subscription"]
+            Union[Literal["billing_cadence", "pricing_plan_subscription"], str]
         ]
         """
         Defines the granularity of spend aggregation.
@@ -254,8 +262,11 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
         """
         _inner_class_types = {"filters": Filter}
 
-    alert_type: Literal[
-        "credit_balance_threshold", "spend_threshold", "usage_threshold"
+    alert_type: Union[
+        Literal[
+            "credit_balance_threshold", "spend_threshold", "usage_threshold"
+        ],
+        str,
     ]
     """
     Defines the type of the alert.
@@ -280,7 +291,7 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
     """
     Encapsulates the alert's configuration to monitor spend on pricing plan subscriptions.
     """
-    status: Optional[Literal["active", "archived", "inactive"]]
+    status: Optional[Union[Literal["active", "archived", "inactive"], str]]
     """
     Status of the alert. This can be active, inactive or archived.
     """
@@ -694,6 +705,42 @@ class Alert(CreateableAPIResource["Alert"], ListableAPIResource["Alert"]):
         instance = cls(id, **params)
         await instance.refresh_async()
         return instance
+
+    @classmethod
+    def list_notifications(
+        cls, id: str, **params: Unpack["AlertListNotificationsParams"]
+    ) -> ListObject["AlertNotification"]:
+        """
+        Lists sent billing alert triggered and recovered notifications for a billing alert.
+        """
+        return cast(
+            ListObject["AlertNotification"],
+            cls._static_request(
+                "get",
+                "/v1/billing/alerts/{id}/notifications".format(
+                    id=sanitize_id(id)
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def list_notifications_async(
+        cls, id: str, **params: Unpack["AlertListNotificationsParams"]
+    ) -> ListObject["AlertNotification"]:
+        """
+        Lists sent billing alert triggered and recovered notifications for a billing alert.
+        """
+        return cast(
+            ListObject["AlertNotification"],
+            await cls._static_request_async(
+                "get",
+                "/v1/billing/alerts/{id}/notifications".format(
+                    id=sanitize_id(id)
+                ),
+                params=params,
+            ),
+        )
 
     _inner_class_types = {
         "credit_balance_threshold": CreditBalanceThreshold,

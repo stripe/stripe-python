@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject, UntypedStripeObject
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
@@ -35,8 +35,8 @@ class EventDestination(StripeObject):
         """
         The name of the Azure partner topic.
         """
-        azure_partner_topic_status: Literal[
-            "activated", "deleted", "never_activated", "unknown"
+        azure_partner_topic_status: Union[
+            Literal["activated", "deleted", "never_activated", "unknown"], str
         ]
         """
         The status of the Azure partner topic.
@@ -56,10 +56,13 @@ class EventDestination(StripeObject):
 
     class StatusDetails(StripeObject):
         class Disabled(StripeObject):
-            reason: Literal[
-                "no_aws_event_source_exists",
-                "no_azure_partner_topic_exists",
-                "user",
+            reason: Union[
+                Literal[
+                    "no_aws_event_source_exists",
+                    "no_azure_partner_topic_exists",
+                    "user",
+                ],
+                str,
             ]
             """
             Reason event destination has been disabled.
@@ -145,7 +148,10 @@ class EventDestination(StripeObject):
     """
     Additional information about event destination status.
     """
-    type: Literal["amazon_eventbridge", "azure_event_grid", "webhook_endpoint"]
+    type: Union[
+        Literal["amazon_eventbridge", "azure_event_grid", "webhook_endpoint"],
+        str,
+    ]
     """
     Event destination type.
     """

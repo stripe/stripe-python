@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -53,7 +53,7 @@ class ShippingRateCreateParamsDeliveryEstimate(TypedDict):
 
 
 class ShippingRateCreateParamsDeliveryEstimateMaximum(TypedDict):
-    unit: Literal["business_day", "day", "hour", "month", "week"]
+    unit: Union[Literal["business_day", "day", "hour", "month", "week"], str]
     """
     A unit of time.
     """
@@ -64,7 +64,7 @@ class ShippingRateCreateParamsDeliveryEstimateMaximum(TypedDict):
 
 
 class ShippingRateCreateParamsDeliveryEstimateMinimum(TypedDict):
-    unit: Literal["business_day", "day", "hour", "month", "week"]
+    unit: Union[Literal["business_day", "day", "hour", "month", "week"], str]
     """
     A unit of time.
     """

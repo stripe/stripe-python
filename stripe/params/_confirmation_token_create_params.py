@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -31,7 +31,7 @@ class ConfirmationTokenCreateParams(RequestOptions):
     """
     Return URL used to confirm the Intent.
     """
-    setup_future_usage: NotRequired[Literal["off_session", "on_session"]]
+    setup_future_usage: NotRequired["Literal['off_session', 'on_session']|str"]
     """
     Indicates that you intend to make future payments with this ConfirmationToken's payment method.
 
@@ -64,7 +64,9 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
     """
     If this is an `Alipay` PaymentMethod, this hash contains details about the Alipay payment method.
     """
-    allow_redisplay: NotRequired[Literal["always", "limited", "unspecified"]]
+    allow_redisplay: NotRequired[
+        "Literal['always', 'limited', 'unspecified']|str"
+    ]
     """
     This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to `unspecified`.
     """
@@ -364,69 +366,73 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
     """
     If this is a TWINT PaymentMethod, this hash contains details about the TWINT payment method.
     """
-    type: Literal[
-        "acss_debit",
-        "affirm",
-        "afterpay_clearpay",
-        "alipay",
-        "alma",
-        "amazon_pay",
-        "au_becs_debit",
-        "bacs_debit",
-        "bancontact",
-        "billie",
-        "bizum",
-        "blik",
-        "boleto",
-        "cashapp",
-        "crypto",
-        "customer_balance",
-        "eps",
-        "fpx",
-        "gift_card",
-        "giropay",
-        "gopay",
-        "grabpay",
-        "id_bank_transfer",
-        "ideal",
-        "kakao_pay",
-        "klarna",
-        "konbini",
-        "kr_card",
-        "link",
-        "mb_way",
-        "mobilepay",
-        "multibanco",
-        "naver_pay",
-        "nz_bank_account",
-        "oxxo",
-        "p24",
-        "pay_by_bank",
-        "payco",
-        "paynow",
-        "paypal",
-        "paypay",
-        "payto",
-        "pix",
-        "promptpay",
-        "qris",
-        "rechnung",
-        "revolut_pay",
-        "samsung_pay",
-        "satispay",
-        "scalapay",
-        "sepa_debit",
-        "shopeepay",
-        "sofort",
-        "stripe_balance",
-        "sunbit",
-        "swish",
-        "tamara",
-        "twint",
-        "upi",
-        "us_bank_account",
-        "wechat_pay",
-        "zip",
+    type: Union[
+        Literal[
+            "acss_debit",
+            "affirm",
+            "afterpay_clearpay",
+            "alipay",
+            "alma",
+            "amazon_pay",
+            "au_becs_debit",
+            "bacs_debit",
+            "bancontact",
+            "billie",
+            "bizum",
+            "blik",
+            "boleto",
+            "cashapp",
+            "crypto",
+            "customer_balance",
+            "eps",
+            "fpx",
+            "gift_card",
+            "giropay",
+            "gopay",
+            "grabpay",
+            "id_bank_transfer",
+            "ideal",
+            "kakao_pay",
+            "klarna",
+            "konbini",
+            "kr_card",
+            "link",
+            "mb_way",
+            "mobilepay",
+            "multibanco",
+            "naver_pay",
+            "nz_bank_account",
+            "oxxo",
+            "p24",
+            "pay_by_bank",
+            "payco",
+            "paynow",
+            "paypal",
+            "paypay",
+            "payto",
+            "pix",
+            "promptpay",
+            "qris",
+            "rechnung",
+            "revolut_pay",
+            "samsung_pay",
+            "satispay",
+            "scalapay",
+            "sepa_debit",
+            "shopeepay",
+            "sofort",
+            "stripe_balance",
+            "sunbit",
+            "swish",
+            "tamara",
+            "twint",
+            "upi",
+            "us_bank_account",
+            "vipps",
+            "wechat_pay",
+            "zip",
+        ],
+        str,
     ]
     """
     The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
@@ -440,6 +446,10 @@ class ConfirmationTokenCreateParamsPaymentMethodData(TypedDict):
     ]
     """
     If this is an `us_bank_account` PaymentMethod, this hash contains details about the US bank account payment method.
+    """
+    vipps: NotRequired["ConfirmationTokenCreateParamsPaymentMethodDataVipps"]
+    """
+    If this is a `vipps` PaymentMethod, this hash contains details about the Vipps payment method.
     """
     wechat_pay: NotRequired[
         "ConfirmationTokenCreateParamsPaymentMethodDataWechatPay"
@@ -693,7 +703,7 @@ class ConfirmationTokenCreateParamsPaymentMethodDataGrabpay(TypedDict):
 
 
 class ConfirmationTokenCreateParamsPaymentMethodDataIdBankTransfer(TypedDict):
-    bank: NotRequired[Literal["bca", "bni", "bri", "cimb", "permata"]]
+    bank: NotRequired["Literal['bca', 'bni', 'bri', 'cimb', 'permata']|str"]
     """
     Bank where the account is held.
     """
@@ -784,7 +794,7 @@ class ConfirmationTokenCreateParamsPaymentMethodDataMultibanco(TypedDict):
 
 
 class ConfirmationTokenCreateParamsPaymentMethodDataNaverPay(TypedDict):
-    funding: NotRequired[Literal["card", "points"]]
+    funding: NotRequired["Literal['card', 'points']|str"]
     """
     Whether to use Naver Pay points or a card to fund this transaction. If not provided, this defaults to `card`.
     """
@@ -820,34 +830,7 @@ class ConfirmationTokenCreateParamsPaymentMethodDataOxxo(TypedDict):
 
 class ConfirmationTokenCreateParamsPaymentMethodDataP24(TypedDict):
     bank: NotRequired[
-        Literal[
-            "alior_bank",
-            "bank_millennium",
-            "bank_nowy_bfg_sa",
-            "bank_pekao_sa",
-            "banki_spbdzielcze",
-            "blik",
-            "bnp_paribas",
-            "boz",
-            "citi_handlowy",
-            "credit_agricole",
-            "envelobank",
-            "etransfer_pocztowy24",
-            "getin_bank",
-            "ideabank",
-            "ing",
-            "inteligo",
-            "mbank_mtransfer",
-            "nest_przelew",
-            "noble_pay",
-            "pbac_z_ipko",
-            "plus_bank",
-            "santander_przelew24",
-            "tmobile_usbugi_bankowe",
-            "toyota_bank",
-            "velobank",
-            "volkswagen_bank",
-        ]
+        "Literal['alior_bank', 'bank_millennium', 'bank_nowy_bfg_sa', 'bank_pekao_sa', 'banki_spbdzielcze', 'blik', 'bnp_paribas', 'boz', 'citi_handlowy', 'credit_agricole', 'envelobank', 'etransfer_pocztowy24', 'getin_bank', 'ideabank', 'ing', 'inteligo', 'mbank_mtransfer', 'nest_przelew', 'noble_pay', 'pbac_z_ipko', 'plus_bank', 'santander_przelew24', 'tmobile_usbugi_bankowe', 'toyota_bank', 'velobank', 'volkswagen_bank']|str"
     ]
     """
     The customer's bank.
@@ -958,7 +941,7 @@ class ConfirmationTokenCreateParamsPaymentMethodDataShopeepay(TypedDict):
 
 
 class ConfirmationTokenCreateParamsPaymentMethodDataSofort(TypedDict):
-    country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
+    country: Union[Literal["AT", "BE", "DE", "ES", "IT", "NL"], str]
     """
     Two-letter ISO code representing the country the bank account is located in.
     """
@@ -1003,7 +986,7 @@ class ConfirmationTokenCreateParamsPaymentMethodDataUpiMandateOptions(
     """
     Amount to be charged for future payments.
     """
-    amount_type: NotRequired[Literal["fixed", "maximum"]]
+    amount_type: NotRequired["Literal['fixed', 'maximum']|str"]
     """
     One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
     """
@@ -1018,7 +1001,7 @@ class ConfirmationTokenCreateParamsPaymentMethodDataUpiMandateOptions(
 
 
 class ConfirmationTokenCreateParamsPaymentMethodDataUsBankAccount(TypedDict):
-    account_holder_type: NotRequired[Literal["company", "individual"]]
+    account_holder_type: NotRequired["Literal['company', 'individual']|str"]
     """
     Account holder type: individual or company.
     """
@@ -1026,7 +1009,7 @@ class ConfirmationTokenCreateParamsPaymentMethodDataUsBankAccount(TypedDict):
     """
     Account number of the bank account.
     """
-    account_type: NotRequired[Literal["checking", "savings"]]
+    account_type: NotRequired["Literal['checking', 'savings']|str"]
     """
     Account type: checkings or savings. Defaults to checking if omitted.
     """
@@ -1038,6 +1021,10 @@ class ConfirmationTokenCreateParamsPaymentMethodDataUsBankAccount(TypedDict):
     """
     Routing number of the bank account.
     """
+
+
+class ConfirmationTokenCreateParamsPaymentMethodDataVipps(TypedDict):
+    pass
 
 
 class ConfirmationTokenCreateParamsPaymentMethodDataWechatPay(TypedDict):
@@ -1088,7 +1075,7 @@ class ConfirmationTokenCreateParamsPaymentMethodOptionsCardInstallmentsPlan(
     For `fixed_count` installment plans, this is required. It represents the interval between installment payments your customer will make to their credit card.
     One of `month`.
     """
-    type: Literal["bonus", "fixed_count", "revolving"]
+    type: Union[Literal["bonus", "fixed_count", "revolving"], str]
     """
     Type of installment plan, one of `fixed_count`, `bonus`, or `revolving`.
     """

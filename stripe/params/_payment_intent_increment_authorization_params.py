@@ -194,6 +194,12 @@ class PaymentIntentIncrementAuthorizationParamsAmountDetailsLineItemPaymentMetho
     """
     Identifier that categorizes the items being purchased using a standardized commodity scheme such as (but not limited to) UNSPSC, NAICS, NAPCS, and so on.
     """
+    ev_charging: NotRequired[
+        "PaymentIntentIncrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsCardEvCharging"
+    ]
+    """
+    EV charging data for this line item.
+    """
     fleet_data: NotRequired[
         "PaymentIntentIncrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsCardFleetData"
     ]
@@ -202,62 +208,117 @@ class PaymentIntentIncrementAuthorizationParamsAmountDetailsLineItemPaymentMetho
     """
 
 
+class PaymentIntentIncrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsCardEvCharging(
+    TypedDict,
+):
+    carbon_footprint_avoided_grams_co2: NotRequired[int]
+    """
+    The carbon footprint avoided by the charging session, in grams of CO2.
+    """
+    charging_ended_at: int
+    """
+    The time the charging session ended, measured in seconds since the Unix epoch.
+    """
+    charging_power_output_capacity_kw: int
+    """
+    The power output capacity of the charging station, in kilowatts (kW).
+    """
+    charging_started_at: int
+    """
+    The time the charging session started, measured in seconds since the Unix epoch.
+    """
+    connector_type: Union[
+        Literal[
+            "ac_gb_t",
+            "ac_j1772",
+            "ac_mennekes",
+            "dc_ccs1",
+            "dc_ccs2",
+            "dc_chademo",
+            "dc_gb_t",
+            "dc_mcs",
+            "nacs",
+        ],
+        str,
+    ]
+    """
+    The type of connector used for the charging session.
+    """
+    estimated_range_added: NotRequired[int]
+    """
+    The estimated distance in kilometers or miles added to the vehicle during the charging session.
+    """
+    estimated_range_left: NotRequired[int]
+    """
+    The estimated distance in kilometers or miles remaining in the vehicle after the charging session.
+    """
+    maximum_power_dispensed_kw: int
+    """
+    The maximum power dispensed during the charging session, in kilowatts (kW).
+    """
+
+
 class PaymentIntentIncrementAuthorizationParamsAmountDetailsLineItemPaymentMethodOptionsCardFleetData(
     TypedDict,
 ):
-    product_type: Literal[
-        "air_conditioning_service",
-        "alcohol",
-        "aviation_fuel_premium",
-        "aviation_fuel_regular",
-        "car_care_detailing",
-        "compressed_natural_gas",
-        "deli",
-        "food_service",
-        "green_gasoline_mid_plus",
-        "green_gasoline_premium_super",
-        "green_gasoline_regular",
-        "grocery",
-        "liquid_natural_gas",
-        "liquid_propane_gas",
-        "lodging",
-        "marine_diesel",
-        "marine_fuel",
-        "merchandise",
-        "mid_plus",
-        "mid_plus_ethanol",
-        "miscellaneous_aviation_products_services",
-        "miscellaneous_fuel",
-        "miscellaneous_marine_products_services",
-        "miscellaneous_vehicle_products_services",
-        "packaged_beverage",
-        "premium_diesel",
-        "premium_super",
-        "premium_super_ethanol",
-        "preventative_maintenance",
-        "regular",
-        "regular_diesel",
-        "regular_ethanol",
-        "repairs",
-        "self_service_car_wash",
-        "shower",
-        "store_service",
-        "tobacco",
-        "vehicle_accessories",
-        "vehicle_parking",
-        "vehicle_parts",
-        "wash_out",
+    product_type: Union[
+        Literal[
+            "air_conditioning_service",
+            "alcohol",
+            "aviation_fuel_premium",
+            "aviation_fuel_regular",
+            "car_care_detailing",
+            "compressed_natural_gas",
+            "deli",
+            "ev_battery_exchanges",
+            "ev_charging_fee",
+            "evc_level_1",
+            "evc_level_2",
+            "evc_level_3",
+            "evc_level_4",
+            "evc_level_5",
+            "food_service",
+            "green_gasoline_mid_plus",
+            "green_gasoline_premium_super",
+            "green_gasoline_regular",
+            "grocery",
+            "liquid_natural_gas",
+            "liquid_propane_gas",
+            "lodging",
+            "marine_diesel",
+            "marine_fuel",
+            "merchandise",
+            "mid_plus",
+            "mid_plus_ethanol",
+            "miscellaneous_aviation_products_services",
+            "miscellaneous_fuel",
+            "miscellaneous_marine_products_services",
+            "miscellaneous_vehicle_products_services",
+            "packaged_beverage",
+            "premium_diesel",
+            "premium_super",
+            "premium_super_ethanol",
+            "preventative_maintenance",
+            "regular",
+            "regular_diesel",
+            "regular_ethanol",
+            "repairs",
+            "self_service_car_wash",
+            "shower",
+            "store_service",
+            "tobacco",
+            "vehicle_accessories",
+            "vehicle_parking",
+            "vehicle_parts",
+            "wash_out",
+        ],
+        str,
     ]
     """
     The type of product being purchased at this line item.
     """
     service_type: NotRequired[
-        Literal[
-            "full_service",
-            "high_speed_diesel",
-            "non_fuel_only",
-            "self_service",
-        ]
+        "Literal['full_service', 'high_speed_diesel', 'non_fuel_only', 'self_service']|str"
     ]
     """
     The type of service received at the acceptor location.
@@ -298,7 +359,7 @@ class PaymentIntentIncrementAuthorizationParamsAmountDetailsLineItemPaymentMetho
     TypedDict,
 ):
     category: NotRequired[
-        Literal["digital_goods", "donation", "physical_goods"]
+        "Literal['digital_goods', 'donation', 'physical_goods']|str"
     ]
     """
     Type of the line item.
@@ -349,7 +410,7 @@ class PaymentIntentIncrementAuthorizationParamsAmountDetailsSurcharge(
     Portion of the amount that corresponds to a surcharge.
     """
     enforce_validation: NotRequired[
-        "Literal['']|Literal['automatic', 'disabled', 'enabled']"
+        "Literal['']|Literal['automatic', 'disabled', 'enabled']|str"
     ]
     """
     Indicate whether to enforce validations on the surcharge amount.
@@ -421,7 +482,7 @@ class PaymentIntentIncrementAuthorizationParamsPaymentMethodOptionsCard(
     TypedDict,
 ):
     request_partial_authorization: NotRequired[
-        Literal["if_available", "never"]
+        "Literal['if_available', 'never']|str"
     ]
     """
     Request partial authorization on this PaymentIntent.

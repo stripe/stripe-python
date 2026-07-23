@@ -12,7 +12,7 @@ class DebitDisputeListParams(TypedDict):
     """
     The page limit.
     """
-    status: NotRequired[Literal["failed", "submitted", "succeeded"]]
+    status: NotRequired["Literal['failed', 'submitted', 'succeeded']|str"]
     """
     Filter by status.
     """

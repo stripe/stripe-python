@@ -7,7 +7,7 @@ from stripe._nested_resource_class_methods import nested_resource_class_methods
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
+from typing import ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -115,20 +115,23 @@ class RedactionJob(
     """
     The objects to redact in this job.
     """
-    status: Literal[
-        "canceled",
-        "canceling",
-        "created",
-        "failed",
-        "ready",
-        "redacting",
-        "succeeded",
-        "validating",
+    status: Union[
+        Literal[
+            "canceled",
+            "canceling",
+            "created",
+            "failed",
+            "ready",
+            "redacting",
+            "succeeded",
+            "validating",
+        ],
+        str,
     ]
     """
     The status of the job.
     """
-    validation_behavior: Optional[Literal["error", "fix"]]
+    validation_behavior: Optional[Union[Literal["error", "fix"], str]]
     """
     Validation behavior determines how a job validates objects for redaction eligibility. Default is `error`.
     """

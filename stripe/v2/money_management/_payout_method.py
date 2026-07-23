@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
@@ -19,7 +19,7 @@ class PayoutMethod(StripeObject):
         """
         The ID of the alternative resource being referenced.
         """
-        type: Literal["external_account", "payment_method"]
+        type: Union[Literal["external_account", "payment_method"], str]
         """
         The type of the alternative reference (e.g., external_account for V1 external accounts).
         """
@@ -116,16 +116,19 @@ class PayoutMethod(StripeObject):
         """
         Optional field, required if network supports memos (only "stellar" currently).
         """
-        network: Literal[
-            "arbitrum",
-            "avalanche_c_chain",
-            "base",
-            "ethereum",
-            "optimism",
-            "polygon",
-            "solana",
-            "stellar",
-            "tempo",
+        network: Union[
+            Literal[
+                "arbitrum",
+                "avalanche_c_chain",
+                "base",
+                "ethereum",
+                "optimism",
+                "polygon",
+                "solana",
+                "stellar",
+                "tempo",
+            ],
+            str,
         ]
         """
         Which rail is being used to make an outbound money movement to this wallet.
@@ -196,11 +199,14 @@ class PayoutMethod(StripeObject):
     Whether the Payout Method is currently unusable for money movement, despite potentially being correctly set up.
     Please reach out to Stripe Support for more information.
     """
-    type: Literal[
-        "bank_account",
-        "card",
-        "crypto_wallet",
-        "network_business_profile_wallet",
+    type: Union[
+        Literal[
+            "bank_account",
+            "card",
+            "crypto_wallet",
+            "network_business_profile_wallet",
+        ],
+        str,
     ]
     """
     Closed Enum. The type of payout method.

@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe.v2._amount import Amount
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
@@ -76,8 +76,11 @@ class SettlementAllocationIntent(StripeObject):
     """
     Reference for the SettlementAllocationIntent. This is the transaction reference used by payments processor to send funds to Stripe .
     """
-    status: Literal[
-        "canceled", "errored", "matched", "pending", "settled", "submitted"
+    status: Union[
+        Literal[
+            "canceled", "errored", "matched", "pending", "settled", "submitted"
+        ],
+        str,
     ]
     """
     SettlementAllocationIntent status.

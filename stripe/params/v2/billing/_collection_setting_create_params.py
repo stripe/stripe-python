@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -109,7 +109,7 @@ class CollectionSettingCreateParamsPaymentMethodOptionsAcssDebit(TypedDict):
     Additional fields for Mandate creation.
     """
     verification_method: NotRequired[
-        Literal["automatic", "instant", "microdeposits"]
+        "Literal['automatic', 'instant', 'microdeposits']|str"
     ]
     """
     Verification method.
@@ -119,14 +119,14 @@ class CollectionSettingCreateParamsPaymentMethodOptionsAcssDebit(TypedDict):
 class CollectionSettingCreateParamsPaymentMethodOptionsAcssDebitMandateOptions(
     TypedDict,
 ):
-    transaction_type: NotRequired[Literal["business", "personal"]]
+    transaction_type: NotRequired["Literal['business', 'personal']|str"]
     """
     Transaction type of the mandate.
     """
 
 
 class CollectionSettingCreateParamsPaymentMethodOptionsBancontact(TypedDict):
-    preferred_language: NotRequired[Literal["de", "en", "fr", "nl"]]
+    preferred_language: NotRequired["Literal['de', 'en', 'fr', 'nl']|str"]
     """
     Preferred language of the Bancontact authorization page that the customer is redirected to.
     """
@@ -144,7 +144,7 @@ class CollectionSettingCreateParamsPaymentMethodOptionsCard(TypedDict):
     Selected network to process the payment on. Depends on the available networks of the card.
     """
     request_three_d_secure: NotRequired[
-        Literal["any", "automatic", "challenge"]
+        "Literal['any', 'automatic', 'challenge']|str"
     ]
     """
     An advanced option 3D Secure. We strongly recommend that you rely on our SCA Engine to automatically prompt your customers
@@ -161,7 +161,7 @@ class CollectionSettingCreateParamsPaymentMethodOptionsCardMandateOptions(
     """
     Amount to be charged for future payments.
     """
-    amount_type: NotRequired[Literal["fixed", "maximum"]]
+    amount_type: NotRequired["Literal['fixed', 'maximum']|str"]
     """
     The AmountType for the mandate. One of `fixed` or `maximum`.
     """
@@ -196,13 +196,7 @@ class CollectionSettingCreateParamsPaymentMethodOptionsCustomerBalanceBankTransf
     Configuration for `eu_bank_transfer` funding type. Required if `type` is `eu_bank_transfer`.
     """
     type: NotRequired[
-        Literal[
-            "eu_bank_transfer",
-            "gb_bank_transfer",
-            "jp_bank_transfer",
-            "mx_bank_transfer",
-            "us_bank_transfer",
-        ]
+        "Literal['eu_bank_transfer', 'gb_bank_transfer', 'jp_bank_transfer', 'mx_bank_transfer', 'us_bank_transfer']|str"
     ]
     """
     The bank transfer type that can be used for funding.
@@ -212,7 +206,7 @@ class CollectionSettingCreateParamsPaymentMethodOptionsCustomerBalanceBankTransf
 class CollectionSettingCreateParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer(
     TypedDict,
 ):
-    country: Literal["BE", "DE", "ES", "FR", "IE", "NL"]
+    country: Union[Literal["BE", "DE", "ES", "FR", "IE", "NL"], str]
     """
     The desired country code of the bank account information.
     """
@@ -233,7 +227,9 @@ class CollectionSettingCreateParamsPaymentMethodOptionsUsBankAccount(
     """
     Additional fields for Financial Connections Session creation.
     """
-    verification_method: Literal["automatic", "instant", "microdeposits"]
+    verification_method: Union[
+        Literal["automatic", "instant", "microdeposits"], str
+    ]
     """
     Verification method.
     """
@@ -250,14 +246,19 @@ class CollectionSettingCreateParamsPaymentMethodOptionsUsBankAccountFinancialCon
     """
     permissions: NotRequired[
         List[
-            Literal["balances", "ownership", "payment_method", "transactions"]
+            Union[
+                Literal[
+                    "balances", "ownership", "payment_method", "transactions"
+                ],
+                str,
+            ]
         ]
     ]
     """
     The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included.
     """
     prefetch: NotRequired[
-        List[Literal["balances", "ownership", "transactions"]]
+        List[Union[Literal["balances", "ownership", "transactions"], str]]
     ]
     """
     List of data features that you would like to retrieve upon account creation.
@@ -267,7 +268,9 @@ class CollectionSettingCreateParamsPaymentMethodOptionsUsBankAccountFinancialCon
 class CollectionSettingCreateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters(
     TypedDict,
 ):
-    account_subcategories: NotRequired[List[Literal["checking", "savings"]]]
+    account_subcategories: NotRequired[
+        List[Union[Literal["checking", "savings"], str]]
+    ]
     """
     The account subcategories to use to filter for selectable accounts.
     """

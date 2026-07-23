@@ -5,7 +5,7 @@ from stripe._api_mode import ApiMode
 from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
 from stripe.v2.core._event import Event, EventNotification
-from typing import Any, Dict, List, Optional, cast
+from typing import Any, Dict, List, Optional, Union, cast
 from typing_extensions import Literal, TYPE_CHECKING, override
 
 if TYPE_CHECKING:
@@ -47,28 +47,34 @@ class V1AccountSignalsIncludingDelinquencyCreatedEvent(Event):
             """
             A brief explanation of how this indicator contributed to the delinquency probability.
             """
-            impact: Literal[
-                "decrease", "neutral", "slight_increase", "strong_increase"
+            impact: Union[
+                Literal[
+                    "decrease", "neutral", "slight_increase", "strong_increase"
+                ],
+                str,
             ]
             """
             The effect this indicator had on the overall risk level.
             """
-            indicator: Literal[
-                "account_balance",
-                "aov",
-                "charge_concentration",
-                "disputes",
-                "dispute_window",
-                "duplicates",
-                "exposure",
-                "firmographic",
-                "lifetime_metrics",
-                "payment_processing",
-                "payment_volume",
-                "payouts",
-                "refunds",
-                "tenure",
-                "transfers",
+            indicator: Union[
+                Literal[
+                    "account_balance",
+                    "aov",
+                    "charge_concentration",
+                    "disputes",
+                    "dispute_window",
+                    "duplicates",
+                    "exposure",
+                    "firmographic",
+                    "lifetime_metrics",
+                    "payment_processing",
+                    "payment_volume",
+                    "payouts",
+                    "refunds",
+                    "tenure",
+                    "transfers",
+                ],
+                str,
             ]
             """
             The name of the specific indicator used in the risk assessment.
@@ -90,8 +96,16 @@ class V1AccountSignalsIncludingDelinquencyCreatedEvent(Event):
         """
         The probability of delinquency. Can be between 0.00 and 100.00.
         """
-        risk_level: Literal[
-            "elevated", "highest", "low", "normal", "not_assessed", "unknown"
+        risk_level: Union[
+            Literal[
+                "elevated",
+                "highest",
+                "low",
+                "normal",
+                "not_assessed",
+                "unknown",
+            ],
+            str,
         ]
         """
         Categorical assessment of the delinquency risk based on probability.

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -11,7 +11,7 @@ class CadenceCreateParams(TypedDict):
     The billing cycle is the object that defines future billing cycle dates.
     """
     include: NotRequired[
-        List[Literal["invoice_discount_rules", "settings_data"]]
+        List[Union[Literal["invoice_discount_rules", "settings_data"], str]]
     ]
     """
     Additional resource to include in the response.
@@ -49,7 +49,7 @@ class CadenceCreateParamsBillingCycle(TypedDict):
     """
     Specific configuration for determining billing dates when type=month.
     """
-    type: Literal["day", "month", "week", "year"]
+    type: Union[Literal["day", "month", "week", "year"], str]
     """
     The frequency at which a cadence bills.
     """

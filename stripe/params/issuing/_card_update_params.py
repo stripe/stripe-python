@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -33,7 +33,7 @@ class CardUpdateParams(TypedDict):
     """
     Rules that control spending for this card. Refer to our [documentation](https://docs.stripe.com/issuing/controls/spending-controls) for more details.
     """
-    status: NotRequired[Literal["active", "canceled", "inactive"]]
+    status: NotRequired["Literal['active', 'canceled', 'inactive']|str"]
     """
     Dictates whether authorizations can be approved on this card. May be blocked from activating cards depending on past-due Cardholder requirements. Defaults to `inactive`. If this card is being canceled because it was lost or stolen, this information should be provided as `cancellation_reason`.
     """
@@ -73,11 +73,11 @@ class CardUpdateParamsShipping(TypedDict):
     """
     Whether a signature is required for card delivery.
     """
-    service: NotRequired[Literal["express", "priority", "standard"]]
+    service: NotRequired["Literal['express', 'priority', 'standard']|str"]
     """
     Shipment service.
     """
-    type: NotRequired[Literal["bulk", "individual"]]
+    type: NotRequired["Literal['bulk', 'individual']|str"]
     """
     Packaging options.
     """
@@ -111,8 +111,11 @@ class CardUpdateParamsShippingAddress(TypedDict):
 
 
 class CardUpdateParamsShippingAddressValidation(TypedDict):
-    mode: Literal[
-        "disabled", "normalization_only", "validation_and_normalization"
+    mode: Union[
+        Literal[
+            "disabled", "normalization_only", "validation_and_normalization"
+        ],
+        str,
     ]
     """
     The address validation capabilities to use.
@@ -1072,8 +1075,16 @@ class CardUpdateParamsSpendingControlsSpendingLimit(TypedDict):
     """
     Array of strings containing [categories](https://docs.stripe.com/api#issuing_authorization_object-merchant_data-category) this limit applies to. Omitting this field will apply the limit to all categories.
     """
-    interval: Literal[
-        "all_time", "daily", "monthly", "per_authorization", "weekly", "yearly"
+    interval: Union[
+        Literal[
+            "all_time",
+            "daily",
+            "monthly",
+            "per_authorization",
+            "weekly",
+            "yearly",
+        ],
+        str,
     ]
     """
     Interval (or event) to which the amount applies.

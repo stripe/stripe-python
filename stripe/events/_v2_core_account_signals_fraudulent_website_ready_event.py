@@ -4,7 +4,7 @@ from stripe._api_mode import ApiMode
 from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
 from stripe.v2.core._event import Event, EventNotification
-from typing import Any, Dict, Optional, cast
+from typing import Any, Dict, Optional, Union, cast
 from typing_extensions import Literal, TYPE_CHECKING, override
 
 if TYPE_CHECKING:
@@ -55,8 +55,16 @@ class V2CoreAccountSignalsFraudulentWebsiteReadyEvent(Event):
         """
         Unique identifier for the fraudulent website evaluation request.
         """
-        risk_level: Literal[
-            "elevated", "highest", "low", "normal", "not_assessed", "unknown"
+        risk_level: Union[
+            Literal[
+                "elevated",
+                "highest",
+                "low",
+                "normal",
+                "not_assessed",
+                "unknown",
+            ],
+            str,
         ]
         """
         Risk level for the fraudulent website signal. If evaluation could not run (like invalid website), we return unknown.

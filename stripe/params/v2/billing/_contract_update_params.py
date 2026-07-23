@@ -2,13 +2,20 @@
 # File generated from our OpenAPI spec
 from decimal import Decimal
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class ContractUpdateParams(TypedDict):
     include: NotRequired[
-        List[Literal["billing_settings", "pricing_lines", "pricing_overrides"]]
+        List[
+            Union[
+                Literal[
+                    "billing_settings", "pricing_lines", "pricing_overrides"
+                ],
+                str,
+            ]
+        ]
     ]
     """
     Additional fields to include in the response.
@@ -36,7 +43,7 @@ class ContractUpdateParamsPricingLineAction(TypedDict):
     """
     Remove a pricing line.
     """
-    type: Literal["add", "remove", "update"]
+    type: Union[Literal["add", "remove", "update"], str]
     """
     The type of pricing line action.
     """
@@ -312,7 +319,7 @@ class ContractUpdateParamsPricingLineActionUpdatePricingPriceDetailsPricingOverr
     """
     Remove a pricing line override.
     """
-    type: Literal["add", "remove", "update"]
+    type: Union[Literal["add", "remove", "update"], str]
     """
     The type of pricing line override action.
     """
@@ -508,7 +515,7 @@ class ContractUpdateParamsPricingOverrideAction(TypedDict):
     """
     Remove a pricing override.
     """
-    type: Literal["add", "remove", "update"]
+    type: Union[Literal["add", "remove", "update"], str]
     """
     The type of pricing override action.
     """
@@ -588,7 +595,7 @@ class ContractUpdateParamsPricingOverrideActionAddMultiplyPricingCriterion(
     """
     Filter by pricing line lookup keys.
     """
-    type: Literal["exclude", "include"]
+    type: Union[Literal["exclude", "include"], str]
     """
     Whether to include or exclude items matching these criteria.
     """

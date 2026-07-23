@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
 from stripe.v2._amount import Amount
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
@@ -49,12 +49,15 @@ class InboundTransfer(StripeObject):
 
     class TransferHistory(StripeObject):
         class BankDebitFailed(StripeObject):
-            failure_reason: Literal[
-                "bank_account_closed",
-                "bank_account_not_found",
-                "bank_debit_could_not_be_processed",
-                "bank_debit_not_authorized",
-                "insufficient_funds",
+            failure_reason: Union[
+                Literal[
+                    "bank_account_closed",
+                    "bank_account_not_found",
+                    "bank_debit_could_not_be_processed",
+                    "bank_debit_not_authorized",
+                    "insufficient_funds",
+                ],
+                str,
             ]
             """
             Open Enum. The return reason for the failed InboundTransfer.
@@ -67,12 +70,15 @@ class InboundTransfer(StripeObject):
             pass
 
         class BankDebitReturned(StripeObject):
-            return_reason: Literal[
-                "bank_account_closed",
-                "bank_account_not_found",
-                "bank_debit_could_not_be_processed",
-                "bank_debit_not_authorized",
-                "insufficient_funds",
+            return_reason: Union[
+                Literal[
+                    "bank_account_closed",
+                    "bank_account_not_found",
+                    "bank_debit_could_not_be_processed",
+                    "bank_debit_not_authorized",
+                    "insufficient_funds",
+                ],
+                str,
             ]
             """
             Open Enum. The return reason for the returned InboundTransfer.
@@ -113,16 +119,19 @@ class InboundTransfer(StripeObject):
         """
         A unique ID for the HistoryEntry.
         """
-        level: Literal["canonical", "debug"]
+        level: Union[Literal["canonical", "debug"], str]
         """
         Open Enum. The Level of the HistoryEntry.
         """
-        type: Literal[
-            "bank_debit_failed",
-            "bank_debit_processing",
-            "bank_debit_queued",
-            "bank_debit_returned",
-            "bank_debit_succeeded",
+        type: Union[
+            Literal[
+                "bank_debit_failed",
+                "bank_debit_processing",
+                "bank_debit_queued",
+                "bank_debit_returned",
+                "bank_debit_succeeded",
+            ],
+            str,
         ]
         """
         Open Enum. The type of the HistoryEntry.

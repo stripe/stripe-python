@@ -3,7 +3,7 @@
 from decimal import Decimal
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -126,7 +126,7 @@ class QuoteCreateParamsAutomaticTaxLiability(TypedDict):
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "application", "self"]
+    type: Union[Literal["account", "application", "self"], str]
     """
     Type of the account referenced in the request.
     """
@@ -160,14 +160,14 @@ class QuoteCreateParamsDiscountDiscountEnd(TypedDict):
     """
     A precise Unix timestamp for the discount to end. Must be in the future.
     """
-    type: Literal["duration", "timestamp"]
+    type: Union[Literal["duration", "timestamp"], str]
     """
     The type of calculation made to determine when the discount ends.
     """
 
 
 class QuoteCreateParamsDiscountDiscountEndDuration(TypedDict):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
     """
@@ -204,7 +204,7 @@ class QuoteCreateParamsInvoiceSettingsIssuer(TypedDict):
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "application", "self"]
+    type: Union[Literal["account", "application", "self"], str]
     """
     Type of the account referenced in the request.
     """
@@ -265,14 +265,14 @@ class QuoteCreateParamsLineItemDiscountDiscountEnd(TypedDict):
     """
     A precise Unix timestamp for the discount to end. Must be in the future.
     """
-    type: Literal["duration", "timestamp"]
+    type: Union[Literal["duration", "timestamp"], str]
     """
     The type of calculation made to determine when the discount ends.
     """
 
 
 class QuoteCreateParamsLineItemDiscountDiscountEndDuration(TypedDict):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
     """
@@ -329,7 +329,9 @@ class QuoteCreateParamsLine(TypedDict):
     """
     Details to identify the subscription schedule the quote line applies to.
     """
-    billing_cycle_anchor: NotRequired[Literal["automatic", "line_starts_at"]]
+    billing_cycle_anchor: NotRequired[
+        "Literal['automatic', 'line_starts_at']|str"
+    ]
     """
     For point-in-time quote lines (having no `ends_at` timestamp), this attribute lets you set or remove whether the subscription's billing cycle anchor is reset at the Quote Line `starts_at` timestamp.For time-span based quote lines (having both `starts_at` and `ends_at`), the only valid value is `automatic`, which removes any previously configured billing cycle anchor resets during the window of time spanning the quote line.
     """
@@ -339,7 +341,9 @@ class QuoteCreateParamsLine(TypedDict):
     """
     A point-in-time operation that cancels an existing subscription schedule at the line's starts_at timestamp. Currently only compatible with `quote_acceptance_date` for `starts_at`. When using cancel_subscription_schedule, the subscription schedule on the quote remains unalterable, except for modifications to the metadata, collection_method or invoice_settings.
     """
-    effective_at: NotRequired[Literal["billing_period_start", "line_start"]]
+    effective_at: NotRequired[
+        "Literal['billing_period_start', 'line_start']|str"
+    ]
     """
     Configures how the quote handles billing for line transitions.
     """
@@ -348,7 +352,7 @@ class QuoteCreateParamsLine(TypedDict):
     Details to identify the end of the time range modified by the proposed change. If not supplied, the quote line is considered a point-in-time operation that only affects the exact timestamp at `starts_at`, and a restricted set of attributes is supported on the quote line.
     """
     proration_behavior: NotRequired[
-        Literal["always_invoice", "create_prorations", "none"]
+        "Literal['always_invoice', 'create_prorations', 'none']|str"
     ]
     """
     Changes to how Stripe handles prorations during the quote line's time span. Affects if and how prorations are created when a future phase starts.
@@ -359,7 +363,9 @@ class QuoteCreateParamsLine(TypedDict):
     """
     Defines how to pause collection for the underlying subscription throughout the duration of the amendment.
     """
-    set_schedule_end: NotRequired[Literal["line_ends_at", "line_starts_at"]]
+    set_schedule_end: NotRequired[
+        "Literal['line_ends_at', 'line_starts_at']|str"
+    ]
     """
     Timestamp helper to end the underlying schedule early, based on the acompanying line's start or end date.
     """
@@ -412,18 +418,21 @@ class QuoteCreateParamsLineAction(TypedDict):
     """
     Details for the `set_metadata` type: specify an array of key-value pairs.
     """
-    type: Literal[
-        "add_discount",
-        "add_item",
-        "add_metadata",
-        "clear_discounts",
-        "clear_metadata",
-        "remove_discount",
-        "remove_item",
-        "remove_metadata",
-        "set_discounts",
-        "set_items",
-        "set_metadata",
+    type: Union[
+        Literal[
+            "add_discount",
+            "add_item",
+            "add_metadata",
+            "clear_discounts",
+            "clear_metadata",
+            "remove_discount",
+            "remove_item",
+            "remove_metadata",
+            "set_discounts",
+            "set_items",
+            "set_metadata",
+        ],
+        str,
     ]
     """
     The type of action the quote line performs.
@@ -474,7 +483,7 @@ class QuoteCreateParamsLineActionAddDiscountSettings(TypedDict):
     Configures service period cycle anchoring.
     """
     start_date: NotRequired[
-        Literal["current_period_end", "current_period_start", "line_start"]
+        "Literal['current_period_end', 'current_period_start', 'line_start']|str"
     ]
     """
     The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `line_start` if omitted.
@@ -490,7 +499,7 @@ class QuoteCreateParamsLineActionAddDiscountSettingsServicePeriodAnchorConfig(
     """
     Anchor the service period to a custom date. Type must be `custom` to specify.
     """
-    type: NotRequired[Literal["custom", "inherit"]]
+    type: NotRequired["Literal['custom', 'inherit']|str"]
     """
     The type of service period anchor config. Defaults to `inherit` if omitted.
     """
@@ -588,14 +597,14 @@ class QuoteCreateParamsLineActionAddItemDiscountDiscountEnd(TypedDict):
     """
     A precise Unix timestamp for the discount to end. Must be in the future.
     """
-    type: Literal["duration", "timestamp"]
+    type: Union[Literal["duration", "timestamp"], str]
     """
     The type of calculation made to determine when the discount ends.
     """
 
 
 class QuoteCreateParamsLineActionAddItemDiscountDiscountEndDuration(TypedDict):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
     """
@@ -613,7 +622,7 @@ class QuoteCreateParamsLineActionAddItemDiscountSettings(TypedDict):
     Configures service period cycle anchoring.
     """
     start_date: NotRequired[
-        Literal["current_period_end", "current_period_start", "line_start"]
+        "Literal['current_period_end', 'current_period_start', 'line_start']|str"
     ]
     """
     The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `line_start` if omitted.
@@ -629,7 +638,7 @@ class QuoteCreateParamsLineActionAddItemDiscountSettingsServicePeriodAnchorConfi
     """
     Anchor the service period to a custom date. Type must be `custom` to specify.
     """
-    type: NotRequired[Literal["custom", "inherit"]]
+    type: NotRequired["Literal['custom', 'inherit']|str"]
     """
     The type of service period anchor config. Defaults to `inherit` if omitted.
     """
@@ -665,7 +674,7 @@ class QuoteCreateParamsLineActionAddItemTrial(TypedDict):
     """
     List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
     """
-    type: Literal["free", "paid"]
+    type: Union[Literal["free", "paid"], str]
     """
     Determines the type of trial for this item.
     """
@@ -720,7 +729,7 @@ class QuoteCreateParamsLineActionSetDiscountSettings(TypedDict):
     Configures service period cycle anchoring.
     """
     start_date: NotRequired[
-        Literal["current_period_end", "current_period_start", "line_start"]
+        "Literal['current_period_end', 'current_period_start', 'line_start']|str"
     ]
     """
     The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `line_start` if omitted.
@@ -736,7 +745,7 @@ class QuoteCreateParamsLineActionSetDiscountSettingsServicePeriodAnchorConfig(
     """
     Anchor the service period to a custom date. Type must be `custom` to specify.
     """
-    type: NotRequired[Literal["custom", "inherit"]]
+    type: NotRequired["Literal['custom', 'inherit']|str"]
     """
     The type of service period anchor config. Defaults to `inherit` if omitted.
     """
@@ -834,14 +843,14 @@ class QuoteCreateParamsLineActionSetItemDiscountDiscountEnd(TypedDict):
     """
     A precise Unix timestamp for the discount to end. Must be in the future.
     """
-    type: Literal["duration", "timestamp"]
+    type: Union[Literal["duration", "timestamp"], str]
     """
     The type of calculation made to determine when the discount ends.
     """
 
 
 class QuoteCreateParamsLineActionSetItemDiscountDiscountEndDuration(TypedDict):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
     """
@@ -859,7 +868,7 @@ class QuoteCreateParamsLineActionSetItemDiscountSettings(TypedDict):
     Configures service period cycle anchoring.
     """
     start_date: NotRequired[
-        Literal["current_period_end", "current_period_start", "line_start"]
+        "Literal['current_period_end', 'current_period_start', 'line_start']|str"
     ]
     """
     The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `line_start` if omitted.
@@ -875,7 +884,7 @@ class QuoteCreateParamsLineActionSetItemDiscountSettingsServicePeriodAnchorConfi
     """
     Anchor the service period to a custom date. Type must be `custom` to specify.
     """
-    type: NotRequired[Literal["custom", "inherit"]]
+    type: NotRequired["Literal['custom', 'inherit']|str"]
     """
     The type of service period anchor config. Defaults to `inherit` if omitted.
     """
@@ -911,7 +920,7 @@ class QuoteCreateParamsLineActionSetItemTrial(TypedDict):
     """
     List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
     """
-    type: Literal["free", "paid"]
+    type: Union[Literal["free", "paid"], str]
     """
     Determines the type of trial for this item.
     """
@@ -926,7 +935,7 @@ class QuoteCreateParamsLineAppliesTo(TypedDict):
     """
     The ID of the schedule the line applies to.
     """
-    type: Literal["new_reference", "subscription_schedule"]
+    type: Union[Literal["new_reference", "subscription_schedule"], str]
     """
     Describes whether the quote line is affecting a new schedule or an existing schedule.
     """
@@ -960,14 +969,17 @@ class QuoteCreateParamsLineEndsAt(TypedDict):
     """
     A precise Unix timestamp.
     """
-    type: Literal[
-        "billing_period_end",
-        "discount_end",
-        "duration",
-        "quote_acceptance_date",
-        "schedule_end",
-        "timestamp",
-        "upcoming_invoice",
+    type: Union[
+        Literal[
+            "billing_period_end",
+            "discount_end",
+            "duration",
+            "quote_acceptance_date",
+            "schedule_end",
+            "timestamp",
+            "upcoming_invoice",
+        ],
+        str,
     ]
     """
     Select a way to pass in `ends_at`.
@@ -982,7 +994,7 @@ class QuoteCreateParamsLineEndsAtDiscountEnd(TypedDict):
 
 
 class QuoteCreateParamsLineEndsAtDuration(TypedDict):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
     """
@@ -997,14 +1009,16 @@ class QuoteCreateParamsLineSetPauseCollection(TypedDict):
     """
     Details of the pause_collection behavior to apply to the amendment.
     """
-    type: Literal["remove", "set"]
+    type: Union[Literal["remove", "set"], str]
     """
     Determines the type of the pause_collection amendment.
     """
 
 
 class QuoteCreateParamsLineSetPauseCollectionSet(TypedDict):
-    behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
+    behavior: Union[
+        Literal["keep_as_draft", "mark_uncollectible", "void"], str
+    ]
     """
     The payment collection behavior for this subscription while paused.
     """
@@ -1023,14 +1037,17 @@ class QuoteCreateParamsLineStartsAt(TypedDict):
     """
     A precise Unix timestamp.
     """
-    type: Literal[
-        "discount_end",
-        "line_ends_at",
-        "now",
-        "quote_acceptance_date",
-        "schedule_end",
-        "timestamp",
-        "upcoming_invoice",
+    type: Union[
+        Literal[
+            "discount_end",
+            "line_ends_at",
+            "now",
+            "quote_acceptance_date",
+            "schedule_end",
+            "timestamp",
+            "upcoming_invoice",
+        ],
+        str,
     ]
     """
     Select a way to pass in `starts_at`.
@@ -1059,7 +1076,7 @@ class QuoteCreateParamsLineTrialSettings(TypedDict):
 
 
 class QuoteCreateParamsLineTrialSettingsEndBehavior(TypedDict):
-    prorate_up_front: NotRequired[Literal["defer", "include"]]
+    prorate_up_front: NotRequired["Literal['defer', 'include']|str"]
     """
     Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
     """
@@ -1102,7 +1119,7 @@ class QuoteCreateParamsSubscriptionData(TypedDict):
     """
     When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. When updating a subscription, the date of which the subscription will be updated using a subscription schedule. The special value `current_period_end` can be provided to update a subscription at the end of its current period. The `effective_date` is ignored if it is in the past when the quote is accepted.
     """
-    end_behavior: NotRequired[Literal["cancel", "release"]]
+    end_behavior: NotRequired["Literal['cancel', 'release']|str"]
     """
     Behavior of the subscription schedule and underlying subscription when it ends.
     """
@@ -1115,7 +1132,7 @@ class QuoteCreateParamsSubscriptionData(TypedDict):
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is accepted. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
     """
     phase_effective_at: NotRequired[
-        Literal["billing_period_start", "phase_start"]
+        "Literal['billing_period_start', 'phase_start']|str"
     ]
     """
     Configures how the subscription schedule handles billing for phase transitions when the quote is accepted.
@@ -1170,12 +1187,15 @@ class QuoteCreateParamsSubscriptionDataBillOnAcceptanceBillFrom(TypedDict):
     """
     A precise Unix timestamp.
     """
-    type: Literal[
-        "line_starts_at",
-        "now",
-        "pause_collection_start",
-        "quote_acceptance_date",
-        "timestamp",
+    type: Union[
+        Literal[
+            "line_starts_at",
+            "now",
+            "pause_collection_start",
+            "quote_acceptance_date",
+            "timestamp",
+        ],
+        str,
     ]
     """
     The type of method to specify the `bill_from` time.
@@ -1212,12 +1232,15 @@ class QuoteCreateParamsSubscriptionDataBillOnAcceptanceBillUntil(TypedDict):
     """
     A precise Unix timestamp.
     """
-    type: Literal[
-        "duration",
-        "line_ends_at",
-        "schedule_end",
-        "timestamp",
-        "upcoming_invoice",
+    type: Union[
+        Literal[
+            "duration",
+            "line_ends_at",
+            "schedule_end",
+            "timestamp",
+            "upcoming_invoice",
+        ],
+        str,
     ]
     """
     The type of method to specify the `bill_until` time.
@@ -1227,7 +1250,7 @@ class QuoteCreateParamsSubscriptionDataBillOnAcceptanceBillUntil(TypedDict):
 class QuoteCreateParamsSubscriptionDataBillOnAcceptanceBillUntilDuration(
     TypedDict,
 ):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
     """
@@ -1257,7 +1280,7 @@ class QuoteCreateParamsSubscriptionDataBillingMode(TypedDict):
     """
     Configure behavior for flexible billing mode.
     """
-    type: Literal["classic", "flexible"]
+    type: Union[Literal["classic", "flexible"], str]
     """
     Controls the calculation and orchestration of prorations and invoices for subscriptions. If no value is passed, the default is `flexible`.
     """
@@ -1354,12 +1377,15 @@ class QuoteCreateParamsSubscriptionDataBillingScheduleBillUntil(TypedDict):
     """
     A precise Unix timestamp.
     """
-    type: Literal[
-        "duration",
-        "line_ends_at",
-        "schedule_end",
-        "timestamp",
-        "upcoming_invoice",
+    type: Union[
+        Literal[
+            "duration",
+            "line_ends_at",
+            "schedule_end",
+            "timestamp",
+            "upcoming_invoice",
+        ],
+        str,
     ]
     """
     The type of method to specify the `bill_until` time.
@@ -1369,7 +1395,7 @@ class QuoteCreateParamsSubscriptionDataBillingScheduleBillUntil(TypedDict):
 class QuoteCreateParamsSubscriptionDataBillingScheduleBillUntilDuration(
     TypedDict,
 ):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
     """
@@ -1430,12 +1456,12 @@ class QuoteCreateParamsSubscriptionDataOverride(TypedDict):
     """
     The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
     """
-    end_behavior: NotRequired[Literal["cancel", "release"]]
+    end_behavior: NotRequired["Literal['cancel', 'release']|str"]
     """
     Behavior of the subscription schedule and underlying subscription when it ends.
     """
     phase_effective_at: NotRequired[
-        Literal["billing_period_start", "phase_start"]
+        "Literal['billing_period_start', 'phase_start']|str"
     ]
     """
     Configures how the subscription schedule handles billing for phase transitions when the quote is accepted.
@@ -1463,7 +1489,7 @@ class QuoteCreateParamsSubscriptionDataOverrideAppliesTo(TypedDict):
     """
     The ID of the schedule the line applies to.
     """
-    type: Literal["new_reference", "subscription_schedule"]
+    type: Union[Literal["new_reference", "subscription_schedule"], str]
     """
     Describes whether the quote line is affecting a new schedule or an existing schedule.
     """
@@ -1497,12 +1523,15 @@ class QuoteCreateParamsSubscriptionDataOverrideBillOnAcceptanceBillFrom(
     """
     A precise Unix timestamp.
     """
-    type: Literal[
-        "line_starts_at",
-        "now",
-        "pause_collection_start",
-        "quote_acceptance_date",
-        "timestamp",
+    type: Union[
+        Literal[
+            "line_starts_at",
+            "now",
+            "pause_collection_start",
+            "quote_acceptance_date",
+            "timestamp",
+        ],
+        str,
     ]
     """
     The type of method to specify the `bill_from` time.
@@ -1541,12 +1570,15 @@ class QuoteCreateParamsSubscriptionDataOverrideBillOnAcceptanceBillUntil(
     """
     A precise Unix timestamp.
     """
-    type: Literal[
-        "duration",
-        "line_ends_at",
-        "schedule_end",
-        "timestamp",
-        "upcoming_invoice",
+    type: Union[
+        Literal[
+            "duration",
+            "line_ends_at",
+            "schedule_end",
+            "timestamp",
+            "upcoming_invoice",
+        ],
+        str,
     ]
     """
     The type of method to specify the `bill_until` time.
@@ -1556,7 +1588,7 @@ class QuoteCreateParamsSubscriptionDataOverrideBillOnAcceptanceBillUntil(
 class QuoteCreateParamsSubscriptionDataOverrideBillOnAcceptanceBillUntilDuration(
     TypedDict,
 ):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
     """
@@ -1675,12 +1707,15 @@ class QuoteCreateParamsSubscriptionDataOverrideBillingScheduleBillUntil(
     """
     A precise Unix timestamp.
     """
-    type: Literal[
-        "duration",
-        "line_ends_at",
-        "schedule_end",
-        "timestamp",
-        "upcoming_invoice",
+    type: Union[
+        Literal[
+            "duration",
+            "line_ends_at",
+            "schedule_end",
+            "timestamp",
+            "upcoming_invoice",
+        ],
+        str,
     ]
     """
     The type of method to specify the `bill_until` time.
@@ -1690,7 +1725,7 @@ class QuoteCreateParamsSubscriptionDataOverrideBillingScheduleBillUntil(
 class QuoteCreateParamsSubscriptionDataOverrideBillingScheduleBillUntilDuration(
     TypedDict,
 ):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
     """

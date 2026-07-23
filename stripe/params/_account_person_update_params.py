@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -110,7 +110,7 @@ class AccountPersonUpdateParams(TypedDict):
     """
     The person's phone number.
     """
-    political_exposure: NotRequired[Literal["existing", "none"]]
+    political_exposure: NotRequired["Literal['existing', 'none']|str"]
     """
     Indicates if the person or any of their representatives, family members, or other closely related persons, declares that they hold or have held an important public job or function, in any jurisdiction.
     """
@@ -449,14 +449,17 @@ class AccountPersonUpdateParamsUsCfpbData(TypedDict):
 class AccountPersonUpdateParamsUsCfpbDataEthnicityDetails(TypedDict):
     ethnicity: NotRequired[
         List[
-            Literal[
-                "cuban",
-                "hispanic_or_latino",
-                "mexican",
-                "not_hispanic_or_latino",
-                "other_hispanic_or_latino",
-                "prefer_not_to_answer",
-                "puerto_rican",
+            Union[
+                Literal[
+                    "cuban",
+                    "hispanic_or_latino",
+                    "mexican",
+                    "not_hispanic_or_latino",
+                    "other_hispanic_or_latino",
+                    "prefer_not_to_answer",
+                    "puerto_rican",
+                ],
+                str,
             ]
         ]
     ]
@@ -472,31 +475,34 @@ class AccountPersonUpdateParamsUsCfpbDataEthnicityDetails(TypedDict):
 class AccountPersonUpdateParamsUsCfpbDataRaceDetails(TypedDict):
     race: NotRequired[
         List[
-            Literal[
-                "african_american",
-                "american_indian_or_alaska_native",
-                "asian",
-                "asian_indian",
-                "black_or_african_american",
-                "chinese",
-                "ethiopian",
-                "filipino",
-                "guamanian_or_chamorro",
-                "haitian",
-                "jamaican",
-                "japanese",
-                "korean",
-                "native_hawaiian",
-                "native_hawaiian_or_other_pacific_islander",
-                "nigerian",
-                "other_asian",
-                "other_black_or_african_american",
-                "other_pacific_islander",
-                "prefer_not_to_answer",
-                "samoan",
-                "somali",
-                "vietnamese",
-                "white",
+            Union[
+                Literal[
+                    "african_american",
+                    "american_indian_or_alaska_native",
+                    "asian",
+                    "asian_indian",
+                    "black_or_african_american",
+                    "chinese",
+                    "ethiopian",
+                    "filipino",
+                    "guamanian_or_chamorro",
+                    "haitian",
+                    "jamaican",
+                    "japanese",
+                    "korean",
+                    "native_hawaiian",
+                    "native_hawaiian_or_other_pacific_islander",
+                    "nigerian",
+                    "other_asian",
+                    "other_black_or_african_american",
+                    "other_pacific_islander",
+                    "prefer_not_to_answer",
+                    "samoan",
+                    "somali",
+                    "vietnamese",
+                    "white",
+                ],
+                str,
             ]
         ]
     ]

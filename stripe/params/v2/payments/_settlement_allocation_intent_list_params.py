@@ -33,9 +33,7 @@ class SettlementAllocationIntentListParams(TypedDict):
     The page size.
     """
     status: NotRequired[
-        Literal[
-            "canceled", "errored", "matched", "pending", "settled", "submitted"
-        ]
+        "Literal['canceled', 'errored', 'matched', 'pending', 'settled', 'submitted']|str"
     ]
     """
     Filter the SettlementAllocationIntents by status.

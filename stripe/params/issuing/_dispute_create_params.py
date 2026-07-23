@@ -71,16 +71,7 @@ class DisputeCreateParamsEvidence(TypedDict):
     Evidence provided when `reason` is 'other'.
     """
     reason: NotRequired[
-        Literal[
-            "canceled",
-            "duplicate",
-            "fraudulent",
-            "merchandise_not_as_described",
-            "no_valid_authorization",
-            "not_received",
-            "other",
-            "service_not_as_described",
-        ]
+        "Literal['canceled', 'duplicate', 'fraudulent', 'merchandise_not_as_described', 'no_valid_authorization', 'not_received', 'other', 'service_not_as_described']|str"
     ]
     """
     The reason for filing the dispute. The evidence should be submitted in the field of the same name.
@@ -122,12 +113,14 @@ class DisputeCreateParamsEvidenceCanceled(TypedDict):
     """
     Description of the merchandise or service that was purchased.
     """
-    product_type: NotRequired["Literal['']|Literal['merchandise', 'service']"]
+    product_type: NotRequired[
+        "Literal['']|Literal['merchandise', 'service']|str"
+    ]
     """
     Whether the product was a merchandise or service.
     """
     return_status: NotRequired[
-        "Literal['']|Literal['merchant_rejected', 'successful']"
+        "Literal['']|Literal['merchant_rejected', 'successful']|str"
     ]
     """
     Result of cardholder's attempt to return the product.
@@ -194,7 +187,7 @@ class DisputeCreateParamsEvidenceMerchandiseNotAsDescribed(TypedDict):
     Description of the cardholder's attempt to return the product.
     """
     return_status: NotRequired[
-        "Literal['']|Literal['merchant_rejected', 'successful']"
+        "Literal['']|Literal['merchant_rejected', 'successful']|str"
     ]
     """
     Result of cardholder's attempt to return the product.
@@ -233,7 +226,9 @@ class DisputeCreateParamsEvidenceNotReceived(TypedDict):
     """
     Description of the merchandise or service that was purchased.
     """
-    product_type: NotRequired["Literal['']|Literal['merchandise', 'service']"]
+    product_type: NotRequired[
+        "Literal['']|Literal['merchandise', 'service']|str"
+    ]
     """
     Whether the product was a merchandise or service.
     """
@@ -252,7 +247,9 @@ class DisputeCreateParamsEvidenceOther(TypedDict):
     """
     Description of the merchandise or service that was purchased.
     """
-    product_type: NotRequired["Literal['']|Literal['merchandise', 'service']"]
+    product_type: NotRequired[
+        "Literal['']|Literal['merchandise', 'service']|str"
+    ]
     """
     Whether the product was a merchandise or service.
     """

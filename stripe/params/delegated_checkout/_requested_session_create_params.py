@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -110,7 +110,7 @@ class RequestedSessionCreateParamsAffiliateAttribution(TypedDict):
     """
     Agent-scoped sub-tracking identifier.
     """
-    touchpoint: Literal["first", "last"]
+    touchpoint: Union[Literal["first", "last"], str]
     """
     Whether this is the first or last touchpoint.
     """
@@ -121,7 +121,7 @@ class RequestedSessionCreateParamsAffiliateAttributionSource(TypedDict):
     """
     The platform where the attribution originated.
     """
-    type: Literal["platform", "url"]
+    type: Union[Literal["platform", "url"], str]
     """
     The type of the attribution source.
     """
@@ -207,7 +207,7 @@ class RequestedSessionCreateParamsPaymentMethodOptions(TypedDict):
     Card-specific payment method options.
     """
     excluded_payment_method_types: NotRequired[
-        List[Literal["affirm", "card", "klarna"]]
+        List[Union[Literal["affirm", "card", "klarna"], str]]
     ]
     """
     The payment method types to exclude from the session.
@@ -216,7 +216,7 @@ class RequestedSessionCreateParamsPaymentMethodOptions(TypedDict):
 
 class RequestedSessionCreateParamsPaymentMethodOptionsCard(TypedDict):
     brands_blocked: NotRequired[
-        List[Literal["american_express", "mastercard", "visa"]]
+        List[Union[Literal["american_express", "mastercard", "visa"], str]]
     ]
     """
     The card brands to exclude from the session.

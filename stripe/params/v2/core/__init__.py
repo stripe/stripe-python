@@ -50,6 +50,9 @@ if TYPE_CHECKING:
         AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialStripePrepaidCard as AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialStripePrepaidCard,
         AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialStripePrepaidCardProtections as AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialStripePrepaidCardProtections,
         AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialStripePrepaidCardProtectionsPspMigration as AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialStripePrepaidCardProtectionsPspMigration,
+        AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialStripeSpendCard as AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialStripeSpendCard,
+        AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialStripeSpendCardProtections as AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialStripeSpendCardProtections,
+        AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialStripeSpendCardProtectionsPspMigration as AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialStripeSpendCardProtectionsPspMigration,
         AccountCreateParamsConfigurationCardCreatorCapabilitiesConsumer as AccountCreateParamsConfigurationCardCreatorCapabilitiesConsumer,
         AccountCreateParamsConfigurationCardCreatorCapabilitiesConsumerCeltic as AccountCreateParamsConfigurationCardCreatorCapabilitiesConsumerCeltic,
         AccountCreateParamsConfigurationCardCreatorCapabilitiesConsumerCelticRevolvingCreditCard as AccountCreateParamsConfigurationCardCreatorCapabilitiesConsumerCelticRevolvingCreditCard,
@@ -653,6 +656,9 @@ if TYPE_CHECKING:
         AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialStripePrepaidCard as AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialStripePrepaidCard,
         AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialStripePrepaidCardProtections as AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialStripePrepaidCardProtections,
         AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialStripePrepaidCardProtectionsPspMigration as AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialStripePrepaidCardProtectionsPspMigration,
+        AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialStripeSpendCard as AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialStripeSpendCard,
+        AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialStripeSpendCardProtections as AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialStripeSpendCardProtections,
+        AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialStripeSpendCardProtectionsPspMigration as AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialStripeSpendCardProtectionsPspMigration,
         AccountUpdateParamsConfigurationCardCreatorCapabilitiesConsumer as AccountUpdateParamsConfigurationCardCreatorCapabilitiesConsumer,
         AccountUpdateParamsConfigurationCardCreatorCapabilitiesConsumerCeltic as AccountUpdateParamsConfigurationCardCreatorCapabilitiesConsumerCeltic,
         AccountUpdateParamsConfigurationCardCreatorCapabilitiesConsumerCelticRevolvingCreditCard as AccountUpdateParamsConfigurationCardCreatorCapabilitiesConsumerCelticRevolvingCreditCard,
@@ -1354,6 +1360,18 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialStripePrepaidCardProtectionsPspMigration": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialStripeSpendCard": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialStripeSpendCardProtections": (
+        "stripe.params.v2.core._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsConfigurationCardCreatorCapabilitiesCommercialStripeSpendCardProtectionsPspMigration": (
         "stripe.params.v2.core._account_create_params",
         False,
     ),
@@ -3707,6 +3725,18 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialStripePrepaidCardProtectionsPspMigration": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialStripeSpendCard": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialStripeSpendCardProtections": (
+        "stripe.params.v2.core._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsConfigurationCardCreatorCapabilitiesCommercialStripeSpendCardProtectionsPspMigration": (
         "stripe.params.v2.core._account_update_params",
         False,
     ),

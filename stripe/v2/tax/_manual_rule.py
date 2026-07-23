@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from decimal import Decimal
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
@@ -107,7 +107,7 @@ class ManualRule(StripeObject):
     """
     Tax rates to be applied.
     """
-    status: Literal["active", "inactive"]
+    status: Union[Literal["active", "inactive"], str]
     """
     The status of the ManualRule object.
     """

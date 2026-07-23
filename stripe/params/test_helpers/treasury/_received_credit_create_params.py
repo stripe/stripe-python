@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -31,7 +31,7 @@ class ReceivedCreditCreateParams(TypedDict):
     """
     Initiating payment method details for the object.
     """
-    network: Literal["ach", "us_domestic_wire"]
+    network: Union[Literal["ach", "us_domestic_wire"], str]
     """
     Specifies the network rails to be used. If not set, will default to the PaymentMethod's preferred network. See the [docs](https://docs.stripe.com/treasury/money-movement/timelines) to learn more about money movement timelines for each network type.
     """

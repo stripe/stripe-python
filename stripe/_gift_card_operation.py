@@ -3,7 +3,7 @@
 from stripe._api_resource import APIResource
 from stripe._expandable_field import ExpandableField
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -202,28 +202,31 @@ class GiftCardOperation(APIResource["GiftCardOperation"]):
     Time at which the object was created. Measured in seconds since the Unix epoch.
     """
     failure_code: Optional[
-        Literal[
-            "action_not_supported",
-            "card_already_activated",
-            "card_expired",
-            "card_not_activated",
-            "do_not_honor",
-            "generic_failure",
-            "insufficient_balance",
-            "invalid_amount",
-            "invalid_currency",
-            "invalid_number",
-            "invalid_pin",
-            "invalid_track_data",
-            "lost_card",
-            "lost_or_stolen_card",
-            "pin_required",
-            "pin_tries_exceeded",
-            "processing_error",
-            "provider_unavailable",
-            "stolen_card",
-            "suspected_fraud",
-            "timeout",
+        Union[
+            Literal[
+                "action_not_supported",
+                "card_already_activated",
+                "card_expired",
+                "card_not_activated",
+                "do_not_honor",
+                "generic_failure",
+                "insufficient_balance",
+                "invalid_amount",
+                "invalid_currency",
+                "invalid_number",
+                "invalid_pin",
+                "invalid_track_data",
+                "lost_card",
+                "lost_or_stolen_card",
+                "pin_required",
+                "pin_tries_exceeded",
+                "processing_error",
+                "provider_unavailable",
+                "stolen_card",
+                "suspected_fraud",
+                "timeout",
+            ],
+            str,
         ]
     ]
     """

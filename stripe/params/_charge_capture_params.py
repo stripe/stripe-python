@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -160,12 +160,15 @@ class ChargeCaptureParamsPaymentDetailsCarRental(TypedDict):
     """
     extra_charges: NotRequired[
         List[
-            Literal[
-                "extra_mileage",
-                "gas",
-                "late_return",
-                "one_way_service",
-                "parking_violation",
+            Union[
+                Literal[
+                    "extra_mileage",
+                    "gas",
+                    "late_return",
+                    "one_way_service",
+                    "parking_violation",
+                ],
+                str,
             ]
         ]
     ]
@@ -194,7 +197,7 @@ class ChargeCaptureParamsPaymentDetailsCarRental(TypedDict):
     """
     Rental rate.
     """
-    rate_interval: NotRequired[Literal["day", "month", "week"]]
+    rate_interval: NotRequired["Literal['day', 'month', 'week']|str"]
     """
     The frequency at which the rate amount is applied. One of `day`, `week` or `month`
     """
@@ -234,7 +237,7 @@ class ChargeCaptureParamsPaymentDetailsCarRentalAffiliate(TypedDict):
 
 
 class ChargeCaptureParamsPaymentDetailsCarRentalDelivery(TypedDict):
-    mode: NotRequired[Literal["email", "phone", "pickup", "post"]]
+    mode: NotRequired["Literal['email', 'phone', 'pickup', 'post']|str"]
     """
     The delivery method for the payment
     """
@@ -266,7 +269,7 @@ class ChargeCaptureParamsPaymentDetailsCarRentalDistance(TypedDict):
     """
     Distance traveled.
     """
-    unit: NotRequired[Literal["kilometers", "miles"]]
+    unit: NotRequired["Literal['kilometers', 'miles']|str"]
     """
     Unit of measurement for the distance traveled. One of `miles` or `kilometers`.
     """
@@ -426,7 +429,7 @@ class ChargeCaptureParamsPaymentDetailsCarRentalDatumDistance(TypedDict):
     """
     Distance traveled.
     """
-    unit: Literal["kilometers", "miles"]
+    unit: Union[Literal["kilometers", "miles"], str]
     """
     Unit of measurement for the distance traveled. One of `miles` or `kilometers`.
     """
@@ -525,13 +528,16 @@ class ChargeCaptureParamsPaymentDetailsCarRentalDatumInsurance(TypedDict):
     """
     Name of the insurance company.
     """
-    insurance_type: Literal[
-        "liability_supplement",
-        "loss_damage_waiver",
-        "other",
-        "partial_damage_waiver",
-        "personal_accident",
-        "personal_effects",
+    insurance_type: Union[
+        Literal[
+            "liability_supplement",
+            "loss_damage_waiver",
+            "other",
+            "partial_damage_waiver",
+            "personal_accident",
+            "personal_effects",
+        ],
+        str,
     ]
     """
     Type of insurance coverage.
@@ -606,7 +612,7 @@ class ChargeCaptureParamsPaymentDetailsCarRentalDatumTotal(TypedDict):
     Rate per unit for the rental.
     """
     rate_unit: NotRequired[
-        Literal["days", "kilometers", "miles", "months", "weeks"]
+        "Literal['days', 'kilometers', 'miles', 'months', 'weeks']|str"
     ]
     """
     Unit of measurement for the rate.
@@ -639,17 +645,20 @@ class ChargeCaptureParamsPaymentDetailsCarRentalDatumTotalExtraCharge(
     """
     Amount of the extra charge in cents.
     """
-    type: Literal[
-        "extra_mileage",
-        "gas",
-        "gps",
-        "late_charge",
-        "one_way_drop_off",
-        "other",
-        "parking",
-        "phone",
-        "regular_mileage",
-        "towing",
+    type: Union[
+        Literal[
+            "extra_mileage",
+            "gas",
+            "gps",
+            "late_charge",
+            "one_way_drop_off",
+            "other",
+            "parking",
+            "phone",
+            "regular_mileage",
+            "towing",
+        ],
+        str,
     ]
     """
     Type of extra charge.
@@ -698,48 +707,13 @@ class ChargeCaptureParamsPaymentDetailsCarRentalDatumVehicle(TypedDict):
     Odometer reading at the time of rental.
     """
     type: NotRequired[
-        Literal[
-            "cargo_van",
-            "compact",
-            "economy",
-            "exotic",
-            "exotic_suv",
-            "fifteen_passenger_van",
-            "four_wheel_drive",
-            "full_size",
-            "intermediate",
-            "large_suv",
-            "large_truck",
-            "luxury",
-            "medium_suv",
-            "midsize",
-            "mini",
-            "minivan",
-            "miscellaneous",
-            "moped",
-            "moving_van",
-            "premium",
-            "regular",
-            "small_medium_truck",
-            "small_suv",
-            "special",
-            "standard",
-            "stretch",
-            "subcompact",
-            "taxi",
-            "twelve_foot_truck",
-            "twelve_passenger_van",
-            "twenty_foot_truck",
-            "twenty_four_foot_truck",
-            "twenty_six_foot_truck",
-            "unique",
-        ]
+        "Literal['cargo_van', 'compact', 'economy', 'exotic', 'exotic_suv', 'fifteen_passenger_van', 'four_wheel_drive', 'full_size', 'intermediate', 'large_suv', 'large_truck', 'luxury', 'medium_suv', 'midsize', 'mini', 'minivan', 'miscellaneous', 'moped', 'moving_van', 'premium', 'regular', 'small_medium_truck', 'small_suv', 'special', 'standard', 'stretch', 'subcompact', 'taxi', 'twelve_foot_truck', 'twelve_passenger_van', 'twenty_foot_truck', 'twenty_four_foot_truck', 'twenty_six_foot_truck', 'unique']|str"
     ]
     """
     Type of the rental vehicle.
     """
     vehicle_class: NotRequired[
-        Literal["business", "economy", "first_class", "premium_economy"]
+        "Literal['business', 'economy', 'first_class', 'premium_economy']|str"
     ]
     """
     Class of the rental vehicle.
@@ -830,7 +804,7 @@ class ChargeCaptureParamsPaymentDetailsEventDetailsAffiliate(TypedDict):
 
 
 class ChargeCaptureParamsPaymentDetailsEventDetailsDelivery(TypedDict):
-    mode: NotRequired[Literal["email", "phone", "pickup", "post"]]
+    mode: NotRequired["Literal['email', 'phone', 'pickup', 'post']|str"]
     """
     The delivery method for the payment
     """
@@ -878,140 +852,7 @@ class ChargeCaptureParamsPaymentDetailsFleetDatum(TypedDict):
 
 class ChargeCaptureParamsPaymentDetailsFleetDatumPrimaryFuelFields(TypedDict):
     brand: NotRequired[
-        Literal[
-            "aafes",
-            "amerada_hess",
-            "amoco_canada",
-            "amoco_petroleum_products",
-            "arco_products",
-            "asda",
-            "ashland_oil",
-            "bfl",
-            "bp_mobil",
-            "bp_oil",
-            "burrnah_major",
-            "butler_arndale",
-            "canadian_tire",
-            "canadian_turbo",
-            "caseys_general_store",
-            "cenex",
-            "chevron_canada",
-            "chevron_usa",
-            "circle_k_stores",
-            "citgo_petroleum",
-            "clark_brands",
-            "conoco_canada",
-            "conoco_inc",
-            "crown_central_petroleum",
-            "diamond_shamrock_inc",
-            "discount_tire",
-            "domo_gas",
-            "elf",
-            "erickson_oil",
-            "esso",
-            "esso_canada",
-            "exxon",
-            "exxonmobil",
-            "family_express",
-            "fas_gas_oil",
-            "federated_coop_sonic",
-            "fina",
-            "fina_inc",
-            "fkg_oil",
-            "flare",
-            "flying_j_inc",
-            "gas_america",
-            "gate_petroleum",
-            "getty_petroleum",
-            "giant_eagle",
-            "grow_mark_inc",
-            "gulf",
-            "gulf_canada",
-            "gulf_chevron",
-            "handy_way_food",
-            "heron",
-            "holiday_stores",
-            "home_depot",
-            "husky",
-            "hyvees",
-            "irving",
-            "irving_oil",
-            "j_sainsbury",
-            "jet_conoco",
-            "krogers",
-            "kuwait",
-            "kwik_trip_inc",
-            "lassus",
-            "loves_country_stores",
-            "mapco_express_inc",
-            "marathon_oil",
-            "martin_bailey_inc_dba_hucks",
-            "maxol",
-            "meineke",
-            "mfa",
-            "mohawk",
-            "mr_gas",
-            "murco",
-            "murphy_oil_canada",
-            "murphy_oil_usa_inc",
-            "nexcom",
-            "nordstrom_oil",
-            "olco",
-            "pdq_store",
-            "pennzoil_products_inc",
-            "petro",
-            "petro_canada",
-            "petro_t",
-            "phillips",
-            "pilot",
-            "pioneer",
-            "pure_oil",
-            "quaker_state",
-            "quarles_oil",
-            "quiktrip",
-            "racetrac_petroleum_inc",
-            "raceway_petroleum",
-            "repsol",
-            "rudy",
-            "safeway",
-            "seven_eleven",
-            "sheetz",
-            "shell",
-            "shell_canada",
-            "shell_oil",
-            "sinclair_oil",
-            "southland_oil",
-            "spar",
-            "speedway",
-            "sun_company_inc",
-            "suncor_sunoco_canada",
-            "tempo",
-            "tesco",
-            "tesoro_alaska",
-            "texaco",
-            "the_pantry_inc",
-            "thornton_oil",
-            "tosco",
-            "total",
-            "travel_centers_of_america",
-            "uk",
-            "ultramar_canada",
-            "unbranded_or_unassigned",
-            "unbranded_unassigned",
-            "union_76",
-            "united_dairy_farmer",
-            "united_refining_kwikfill",
-            "us_oil",
-            "usa_petroleum",
-            "valvoline",
-            "vg",
-            "w_morrison",
-            "warren_equities",
-            "wawa",
-            "western_energetix",
-            "wilco",
-            "zions",
-        ]
+        "Literal['aafes', 'amerada_hess', 'amoco_canada', 'amoco_petroleum_products', 'arco_products', 'asda', 'ashland_oil', 'bfl', 'bp_mobil', 'bp_oil', 'burrnah_major', 'butler_arndale', 'canadian_tire', 'canadian_turbo', 'caseys_general_store', 'cenex', 'chevron_canada', 'chevron_usa', 'circle_k_stores', 'citgo_petroleum', 'clark_brands', 'conoco_canada', 'conoco_inc', 'crown_central_petroleum', 'diamond_shamrock_inc', 'discount_tire', 'domo_gas', 'elf', 'erickson_oil', 'esso', 'esso_canada', 'exxon', 'exxonmobil', 'family_express', 'fas_gas_oil', 'federated_coop_sonic', 'fina', 'fina_inc', 'fkg_oil', 'flare', 'flying_j_inc', 'gas_america', 'gate_petroleum', 'getty_petroleum', 'giant_eagle', 'grow_mark_inc', 'gulf', 'gulf_canada', 'gulf_chevron', 'handy_way_food', 'heron', 'holiday_stores', 'home_depot', 'husky', 'hyvees', 'irving', 'irving_oil', 'j_sainsbury', 'jet_conoco', 'krogers', 'kuwait', 'kwik_trip_inc', 'lassus', 'loves_country_stores', 'mapco_express_inc', 'marathon_oil', 'martin_bailey_inc_dba_hucks', 'maxol', 'meineke', 'mfa', 'mohawk', 'mr_gas', 'murco', 'murphy_oil_canada', 'murphy_oil_usa_inc', 'nexcom', 'nordstrom_oil', 'olco', 'pdq_store', 'pennzoil_products_inc', 'petro', 'petro_canada', 'petro_t', 'phillips', 'pilot', 'pioneer', 'pure_oil', 'quaker_state', 'quarles_oil', 'quiktrip', 'racetrac_petroleum_inc', 'raceway_petroleum', 'repsol', 'rudy', 'safeway', 'seven_eleven', 'sheetz', 'shell', 'shell_canada', 'shell_oil', 'sinclair_oil', 'southland_oil', 'spar', 'speedway', 'sun_company_inc', 'suncor_sunoco_canada', 'tempo', 'tesco', 'tesoro_alaska', 'texaco', 'the_pantry_inc', 'thornton_oil', 'tosco', 'total', 'travel_centers_of_america', 'uk', 'ultramar_canada', 'unbranded_or_unassigned', 'unbranded_unassigned', 'union_76', 'united_dairy_farmer', 'united_refining_kwikfill', 'us_oil', 'usa_petroleum', 'valvoline', 'vg', 'w_morrison', 'warren_equities', 'wawa', 'western_energetix', 'wilco', 'zions']|str"
     ]
     """
     The fuel brand.
@@ -1077,10 +918,13 @@ class ChargeCaptureParamsPaymentDetailsFleetDatumStationServiceLocation(
 
 
 class ChargeCaptureParamsPaymentDetailsFleetDatumVat(TypedDict):
-    iob_indicator: Literal[
-        "issuer_to_iob",
-        "issuer_to_iob_and_incremental_certification",
-        "merchant_does_not_agree_to_iob",
+    iob_indicator: Union[
+        Literal[
+            "issuer_to_iob",
+            "issuer_to_iob_and_incremental_certification",
+            "merchant_does_not_agree_to_iob",
+        ],
+        str,
     ]
     """
     Indicates the merchant's agreement for Invoice on Behalf (IOB) VAT processing.
@@ -1132,7 +976,7 @@ class ChargeCaptureParamsPaymentDetailsFlightAffiliate(TypedDict):
 
 
 class ChargeCaptureParamsPaymentDetailsFlightDelivery(TypedDict):
-    mode: NotRequired[Literal["email", "phone", "pickup", "post"]]
+    mode: NotRequired["Literal['email', 'phone', 'pickup', 'post']|str"]
     """
     The delivery method for the payment
     """
@@ -1196,7 +1040,7 @@ class ChargeCaptureParamsPaymentDetailsFlightSegment(TypedDict):
     The flight number associated with the segment
     """
     service_class: NotRequired[
-        Literal["business", "economy", "first", "premium_economy"]
+        "Literal['business', 'economy', 'first', 'premium_economy']|str"
     ]
     """
     The fare class for the segment.
@@ -1247,9 +1091,7 @@ class ChargeCaptureParamsPaymentDetailsFlightDatum(TypedDict):
     Total cost breakdown.
     """
     transaction_type: NotRequired[
-        Literal[
-            "exchange_ticket", "miscellaneous", "refund", "ticket_purchase"
-        ]
+        "Literal['exchange_ticket', 'miscellaneous', 'refund', 'ticket_purchase']|str"
     ]
     """
     Type of flight transaction.
@@ -1284,8 +1126,11 @@ class ChargeCaptureParamsPaymentDetailsFlightDatumInsurance(TypedDict):
     """
     Insurance company name.
     """
-    insurance_type: Literal[
-        "baggage", "bankruptcy", "cancelation", "emergency", "medical"
+    insurance_type: Union[
+        Literal[
+            "baggage", "bankruptcy", "cancelation", "emergency", "medical"
+        ],
+        str,
     ]
     """
     Type of insurance.
@@ -1348,8 +1193,8 @@ class ChargeCaptureParamsPaymentDetailsFlightDatumSegment(TypedDict):
     """
     Refundable ticket indicator.
     """
-    service_class: Literal[
-        "business", "economy", "first_class", "premium_economy"
+    service_class: Union[
+        Literal["business", "economy", "first_class", "premium_economy"], str
     ]
     """
     Class of service.
@@ -1408,13 +1253,7 @@ class ChargeCaptureParamsPaymentDetailsFlightDatumTotal(TypedDict):
     Total flight amount.
     """
     credit_reason: NotRequired[
-        Literal[
-            "other",
-            "partial_ticket_refund",
-            "passenger_transport_ancillary_cancellation",
-            "ticket_and_ancillary_cancellation",
-            "ticket_cancellation",
-        ]
+        "Literal['other', 'partial_ticket_refund', 'passenger_transport_ancillary_cancellation', 'ticket_and_ancillary_cancellation', 'ticket_cancellation']|str"
     ]
     """
     Reason for credit.
@@ -1454,7 +1293,7 @@ class ChargeCaptureParamsPaymentDetailsFlightDatumTotalExtraCharge(TypedDict):
     Amount of additional charges.
     """
     type: NotRequired[
-        Literal["additional_fees", "ancillary_service_charges", "exchange_fee"]
+        "Literal['additional_fees', 'ancillary_service_charges', 'exchange_fee']|str"
     ]
     """
     Type of additional charges.
@@ -1502,7 +1341,7 @@ class ChargeCaptureParamsPaymentDetailsLodging(TypedDict):
     """
     The booking number associated with the lodging reservation.
     """
-    category: NotRequired[Literal["hotel", "vacation_rental"]]
+    category: NotRequired["Literal['hotel', 'vacation_rental']|str"]
     """
     The lodging category
     """
@@ -1528,13 +1367,16 @@ class ChargeCaptureParamsPaymentDetailsLodging(TypedDict):
     """
     extra_charges: NotRequired[
         List[
-            Literal[
-                "gift_shop",
-                "laundry",
-                "mini_bar",
-                "other",
-                "restaurant",
-                "telephone",
+            Union[
+                Literal[
+                    "gift_shop",
+                    "laundry",
+                    "mini_bar",
+                    "other",
+                    "restaurant",
+                    "telephone",
+                ],
+                str,
             ]
         ]
     ]
@@ -1620,7 +1462,7 @@ class ChargeCaptureParamsPaymentDetailsLodgingAffiliate(TypedDict):
 
 
 class ChargeCaptureParamsPaymentDetailsLodgingDelivery(TypedDict):
-    mode: NotRequired[Literal["email", "phone", "pickup", "post"]]
+    mode: NotRequired["Literal['email', 'phone', 'pickup', 'post']|str"]
     """
     The delivery method for the payment
     """
@@ -1723,16 +1565,7 @@ class ChargeCaptureParamsPaymentDetailsLodgingDatum(TypedDict):
 
 class ChargeCaptureParamsPaymentDetailsLodgingDatumAccommodation(TypedDict):
     accommodation_type: NotRequired[
-        Literal[
-            "apartment",
-            "cabana",
-            "house",
-            "penthouse",
-            "room",
-            "standard",
-            "suite",
-            "villa",
-        ]
+        "Literal['apartment', 'cabana', 'house', 'penthouse', 'room', 'standard', 'suite', 'villa']|str"
     ]
     """
     Type of accommodation.
@@ -1797,7 +1630,7 @@ class ChargeCaptureParamsPaymentDetailsLodgingDatumHost(TypedDict):
     Reference number for the host.
     """
     host_type: NotRequired[
-        Literal["hostel", "hotel", "owner", "rental_agency"]
+        "Literal['hostel', 'hotel', 'owner', 'rental_agency']|str"
     ]
     """
     Type of host.
@@ -1860,8 +1693,8 @@ class ChargeCaptureParamsPaymentDetailsLodgingDatumInsurance(TypedDict):
     """
     Name of the insurance company.
     """
-    insurance_type: Literal[
-        "bankruptcy", "cancelation", "emergency", "medical"
+    insurance_type: Union[
+        Literal["bankruptcy", "cancelation", "emergency", "medical"], str
     ]
     """
     Type of insurance coverage.
@@ -1920,9 +1753,7 @@ class ChargeCaptureParamsPaymentDetailsLodgingDatumTotalExtraCharge(TypedDict):
     Amount of the extra charge in cents.
     """
     type: NotRequired[
-        Literal[
-            "gift_shop", "laundry", "mini_bar", "other", "phone", "restaurant"
-        ]
+        "Literal['gift_shop', 'laundry', 'mini_bar', 'other', 'phone', 'restaurant']|str"
     ]
     """
     Type of extra charge.
@@ -2000,7 +1831,7 @@ class ChargeCaptureParamsPaymentDetailsSubscriptionBillingInterval(TypedDict):
     """
     The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
     """
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
     """

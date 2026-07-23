@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from decimal import Decimal
 from stripe._request_options import RequestOptions
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -16,7 +16,7 @@ class AuthorizationCreateParams(RequestOptions):
     Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://docs.stripe.com/currencies#zero-decimal).
     """
     authorization_method: NotRequired[
-        Literal["chip", "contactless", "keyed_in", "online", "swipe"]
+        "Literal['chip', 'contactless', 'keyed_in', 'online', 'swipe']|str"
     ]
     """
     How the card details were provided. Defaults to online.
@@ -38,7 +38,7 @@ class AuthorizationCreateParams(RequestOptions):
     Fleet-specific information for authorizations using Fleet cards.
     """
     fraud_disputability_likelihood: NotRequired[
-        Literal["neutral", "unknown", "very_likely", "very_unlikely"]
+        "Literal['neutral', 'unknown', 'very_likely', 'very_unlikely']|str"
     ]
     """
     Probability that this transaction can be disputed in the event of fraud. Assessed by comparing the characteristics of the authorization to card network rules.
@@ -75,7 +75,9 @@ class AuthorizationCreateParams(RequestOptions):
     """
     Verifications that Stripe performed on information that the cardholder provided to the merchant.
     """
-    wallet: NotRequired[Literal["apple_pay", "google_pay", "samsung_pay"]]
+    wallet: NotRequired[
+        "Literal['apple_pay', 'google_pay', 'samsung_pay']|str"
+    ]
     """
     The digital wallet used for this transaction. One of `apple_pay`, `google_pay`, or `samsung_pay`. Will populate as `null` when no digital wallet was utilized.
     """
@@ -607,8 +609,11 @@ class AuthorizationCreateParamsRiskAssessmentCardTestingRisk(TypedDict):
     """
     The % of declines due to incorrect verification data (like CVV or expiry) in the past hour, taking place at the same merchant. Higher rates correspond to a greater probability of bad actors attempting to utilize valid card credentials at merchants with verification requirements. Takes on values between 0 and 100.
     """
-    level: Literal[
-        "elevated", "highest", "low", "normal", "not_assessed", "unknown"
+    level: Union[
+        Literal[
+            "elevated", "highest", "low", "normal", "not_assessed", "unknown"
+        ],
+        str,
     ]
     """
     The likelihood that this authorization is associated with card testing activity. This is assessed by evaluating decline activity over the last hour.
@@ -616,8 +621,11 @@ class AuthorizationCreateParamsRiskAssessmentCardTestingRisk(TypedDict):
 
 
 class AuthorizationCreateParamsRiskAssessmentFraudRisk(TypedDict):
-    level: Literal[
-        "elevated", "highest", "low", "normal", "not_assessed", "unknown"
+    level: Union[
+        Literal[
+            "elevated", "highest", "low", "normal", "not_assessed", "unknown"
+        ],
+        str,
     ]
     """
     Stripe's assessment of the likelihood of fraud on an authorization.
@@ -633,8 +641,11 @@ class AuthorizationCreateParamsRiskAssessmentMerchantDisputeRisk(TypedDict):
     """
     The dispute rate observed across all Stripe Issuing authorizations for this merchant. For example, a value of 50 means 50% of authorizations from this merchant on Stripe Issuing have resulted in a dispute. Higher values mean a higher likelihood the authorization is disputed. Takes on values between 0 and 100.
     """
-    level: Literal[
-        "elevated", "highest", "low", "normal", "not_assessed", "unknown"
+    level: Union[
+        Literal[
+            "elevated", "highest", "low", "normal", "not_assessed", "unknown"
+        ],
+        str,
     ]
     """
     The likelihood that authorizations from this merchant will result in a dispute based on their history on Stripe Issuing.
@@ -643,13 +654,13 @@ class AuthorizationCreateParamsRiskAssessmentMerchantDisputeRisk(TypedDict):
 
 class AuthorizationCreateParamsVerificationData(TypedDict):
     address_line1_check: NotRequired[
-        Literal["match", "mismatch", "not_provided"]
+        "Literal['match', 'mismatch', 'not_provided']|str"
     ]
     """
     Whether the cardholder provided an address first line and if it matched the cardholder's `billing.address.line1`.
     """
     address_postal_code_check: NotRequired[
-        Literal["match", "mismatch", "not_provided"]
+        "Literal['match', 'mismatch', 'not_provided']|str"
     ]
     """
     Whether the cardholder provided a postal code and if it matched the cardholder's `billing.address.postal_code`.
@@ -660,11 +671,13 @@ class AuthorizationCreateParamsVerificationData(TypedDict):
     """
     The exemption applied to this authorization.
     """
-    cvc_check: NotRequired[Literal["match", "mismatch", "not_provided"]]
+    cvc_check: NotRequired["Literal['match', 'mismatch', 'not_provided']|str"]
     """
     Whether the cardholder provided a CVC and if it matched Stripe's record.
     """
-    expiry_check: NotRequired[Literal["match", "mismatch", "not_provided"]]
+    expiry_check: NotRequired[
+        "Literal['match', 'mismatch', 'not_provided']|str"
+    ]
     """
     Whether the cardholder provided an expiry date and if it matched Stripe's record.
     """
@@ -679,12 +692,15 @@ class AuthorizationCreateParamsVerificationData(TypedDict):
 class AuthorizationCreateParamsVerificationDataAuthenticationExemption(
     TypedDict,
 ):
-    claimed_by: Literal["acquirer", "issuer"]
+    claimed_by: Union[Literal["acquirer", "issuer"], str]
     """
     The entity that requested the exemption, either the acquiring merchant or the Issuing user.
     """
-    type: Literal[
-        "low_value_transaction", "transaction_risk_analysis", "unknown"
+    type: Union[
+        Literal[
+            "low_value_transaction", "transaction_risk_analysis", "unknown"
+        ],
+        str,
     ]
     """
     The specific exemption claimed for this authorization.
@@ -692,8 +708,9 @@ class AuthorizationCreateParamsVerificationDataAuthenticationExemption(
 
 
 class AuthorizationCreateParamsVerificationDataThreeDSecure(TypedDict):
-    result: Literal[
-        "attempt_acknowledged", "authenticated", "failed", "required"
+    result: Union[
+        Literal["attempt_acknowledged", "authenticated", "failed", "required"],
+        str,
     ]
     """
     The outcome of the 3D Secure authentication request.

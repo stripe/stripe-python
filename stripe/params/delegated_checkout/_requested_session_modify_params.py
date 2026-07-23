@@ -139,7 +139,7 @@ class RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOption(
     """
     The shipping fulfillment option.
     """
-    type: Literal["digital", "shipping"]
+    type: Union[Literal["digital", "shipping"], str]
     """
     The type of fulfillment option.
     """
@@ -182,7 +182,7 @@ class RequestedSessionModifyParamsFulfillmentDetailsSelectedFulfillmentOptionOve
     """
     The shipping fulfillment option.
     """
-    type: Literal["digital", "shipping"]
+    type: Union[Literal["digital", "shipping"], str]
     """
     The type of fulfillment option.
     """
@@ -223,7 +223,7 @@ class RequestedSessionModifyParamsPaymentMethodOptions(TypedDict):
     Card-specific payment method options.
     """
     excluded_payment_method_types: NotRequired[
-        List[Literal["affirm", "card", "klarna"]]
+        List[Union[Literal["affirm", "card", "klarna"], str]]
     ]
     """
     The payment method types to exclude from the session.
@@ -232,7 +232,7 @@ class RequestedSessionModifyParamsPaymentMethodOptions(TypedDict):
 
 class RequestedSessionModifyParamsPaymentMethodOptionsCard(TypedDict):
     brands_blocked: NotRequired[
-        List[Literal["american_express", "mastercard", "visa"]]
+        List[Union[Literal["american_express", "mastercard", "visa"], str]]
     ]
     """
     The card brands to exclude from the session.

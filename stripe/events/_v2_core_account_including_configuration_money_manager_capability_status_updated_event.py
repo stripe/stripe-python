@@ -5,7 +5,7 @@ from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
 from stripe._util import get_api_mode
 from stripe.v2.core._event import Event, EventNotification, RelatedObject
-from typing import Any, Dict, Optional, cast
+from typing import Any, Dict, Optional, Union, cast
 from typing_extensions import Literal, TYPE_CHECKING, override
 
 if TYPE_CHECKING:
@@ -94,33 +94,36 @@ class V2CoreAccountIncludingConfigurationMoneyManagerCapabilityStatusUpdatedEven
     class V2CoreAccountIncludingConfigurationMoneyManagerCapabilityStatusUpdatedEventData(
         StripeObject,
     ):
-        updated_capability: Literal[
-            "business_storage.inbound.cad",
-            "business_storage.inbound.eur",
-            "business_storage.inbound.gbp",
-            "business_storage.inbound.usd",
-            "business_storage.inbound.usdc",
-            "business_storage.outbound.cad",
-            "business_storage.outbound.eur",
-            "business_storage.outbound.gbp",
-            "business_storage.outbound.usd",
-            "business_storage.outbound.usdc",
-            "consumer_storage.inbound.usd",
-            "consumer_storage.inbound.usdc",
-            "consumer_storage.outbound.usd",
-            "consumer_storage.outbound.usdc",
-            "inbound_transfers.bank_accounts",
-            "outbound_payments.bank_accounts",
-            "outbound_payments.cards",
-            "outbound_payments.crypto_wallets",
-            "outbound_payments.financial_accounts",
-            "outbound_payments.paper_checks",
-            "outbound_transfers.bank_accounts",
-            "outbound_transfers.crypto_wallets",
-            "outbound_transfers.financial_accounts",
-            "received_credits.bank_accounts",
-            "received_credits.crypto_wallets",
-            "received_debits.bank_accounts",
+        updated_capability: Union[
+            Literal[
+                "business_storage.inbound.cad",
+                "business_storage.inbound.eur",
+                "business_storage.inbound.gbp",
+                "business_storage.inbound.usd",
+                "business_storage.inbound.usdc",
+                "business_storage.outbound.cad",
+                "business_storage.outbound.eur",
+                "business_storage.outbound.gbp",
+                "business_storage.outbound.usd",
+                "business_storage.outbound.usdc",
+                "consumer_storage.inbound.usd",
+                "consumer_storage.inbound.usdc",
+                "consumer_storage.outbound.usd",
+                "consumer_storage.outbound.usdc",
+                "inbound_transfers.bank_accounts",
+                "outbound_payments.bank_accounts",
+                "outbound_payments.cards",
+                "outbound_payments.crypto_wallets",
+                "outbound_payments.financial_accounts",
+                "outbound_payments.paper_checks",
+                "outbound_transfers.bank_accounts",
+                "outbound_transfers.crypto_wallets",
+                "outbound_transfers.financial_accounts",
+                "received_credits.bank_accounts",
+                "received_credits.crypto_wallets",
+                "received_debits.bank_accounts",
+            ],
+            str,
         ]
         """
         Open Enum. The capability which had its status updated.

@@ -8,7 +8,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
+from typing import ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -112,7 +112,7 @@ class CreditGrant(
         """
         The monetary amount.
         """
-        type: Literal["custom_pricing_unit", "monetary"]
+        type: Union[Literal["custom_pricing_unit", "monetary"], str]
         """
         The type of this amount. We currently only support `monetary` billing credits.
         """
@@ -157,7 +157,7 @@ class CreditGrant(
 
     amount: Amount
     applicability_config: ApplicabilityConfig
-    category: Literal["paid", "promotional"]
+    category: Union[Literal["paid", "promotional"], str]
     """
     The category of this credit grant. This is for tracking purposes and isn't displayed to the customer.
     """

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal
 
 
@@ -55,7 +55,7 @@ class FeeEntry(StripeObject):
         """
         Details for a fee charged by Stripe.
         """
-        type: Literal["application", "network", "stripe"]
+        type: Union[Literal["application", "network", "stripe"], str]
         """
         The type of entity that charged this fee.
         """
@@ -134,13 +134,16 @@ class FeeEntry(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
     """
-    reason: Literal[
-        "other",
-        "processing_fee",
-        "refund",
-        "refund_failure",
-        "reprice",
-        "tier_true_up",
+    reason: Union[
+        Literal[
+            "other",
+            "processing_fee",
+            "refund",
+            "refund_failure",
+            "reprice",
+            "tier_true_up",
+        ],
+        str,
     ]
     """
     The reason this fee entry was created.
@@ -149,7 +152,9 @@ class FeeEntry(StripeObject):
     """
     The tax portion of the fee, if applicable.
     """
-    type: Literal["application_fee", "passthrough_fee", "stripe_fee"]
+    type: Union[
+        Literal["application_fee", "passthrough_fee", "stripe_fee"], str
+    ]
     """
     The category of this fee.
     """

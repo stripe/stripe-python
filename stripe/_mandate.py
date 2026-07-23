@@ -4,7 +4,7 @@ from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -58,7 +58,9 @@ class Mandate(ListableAPIResource["Mandate"]):
 
     class PaymentMethodDetails(StripeObject):
         class AcssDebit(StripeObject):
-            default_for: Optional[List[Literal["invoice", "subscription"]]]
+            default_for: Optional[
+                List[Union[Literal["invoice", "subscription"], str]]
+            ]
             """
             List of Stripe products where this mandate can be selected automatically.
             """
@@ -66,11 +68,13 @@ class Mandate(ListableAPIResource["Mandate"]):
             """
             Description of the interval. Only required if the 'payment_schedule' parameter is 'interval' or 'combined'.
             """
-            payment_schedule: Literal["combined", "interval", "sporadic"]
+            payment_schedule: Union[
+                Literal["combined", "interval", "sporadic"], str
+            ]
             """
             Payment schedule for the mandate.
             """
-            transaction_type: Literal["business", "personal"]
+            transaction_type: Union[Literal["business", "personal"], str]
             """
             Transaction type of the mandate.
             """
@@ -100,12 +104,15 @@ class Mandate(ListableAPIResource["Mandate"]):
             The unique reference identifying the mandate on the Bacs network.
             """
             revocation_reason: Optional[
-                Literal[
-                    "account_closed",
-                    "bank_account_restricted",
-                    "bank_ownership_changed",
-                    "could_not_process",
-                    "debit_not_authorized",
+                Union[
+                    Literal[
+                        "account_closed",
+                        "bank_account_restricted",
+                        "bank_ownership_changed",
+                        "could_not_process",
+                        "debit_not_authorized",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -125,7 +132,7 @@ class Mandate(ListableAPIResource["Mandate"]):
             """
             Date at which the mandate expires.
             """
-            type: Literal["off_session", "on_session"]
+            type: Union[Literal["off_session", "on_session"], str]
             """
             Type of the mandate.
             """
@@ -178,7 +185,7 @@ class Mandate(ListableAPIResource["Mandate"]):
             """
             Amount that will be collected. It is required when `amount_type` is `fixed`.
             """
-            amount_type: Literal["fixed", "maximum"]
+            amount_type: Union[Literal["fixed", "maximum"], str]
             """
             The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively. Defaults to `maximum`.
             """
@@ -186,15 +193,18 @@ class Mandate(ListableAPIResource["Mandate"]):
             """
             Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
             """
-            payment_schedule: Literal[
-                "adhoc",
-                "annual",
-                "daily",
-                "fortnightly",
-                "monthly",
-                "quarterly",
-                "semi_annual",
-                "weekly",
+            payment_schedule: Union[
+                Literal[
+                    "adhoc",
+                    "annual",
+                    "daily",
+                    "fortnightly",
+                    "monthly",
+                    "quarterly",
+                    "semi_annual",
+                    "weekly",
+                ],
+                str,
             ]
             """
             The periodicity at which payments will be collected. Defaults to `adhoc`.
@@ -204,18 +214,21 @@ class Mandate(ListableAPIResource["Mandate"]):
             The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
             """
             purpose: Optional[
-                Literal[
-                    "dependant_support",
-                    "government",
-                    "loan",
-                    "mortgage",
-                    "other",
-                    "pension",
-                    "personal",
-                    "retail",
-                    "salary",
-                    "tax",
-                    "utility",
+                Union[
+                    Literal[
+                        "dependant_support",
+                        "government",
+                        "loan",
+                        "mortgage",
+                        "other",
+                        "pension",
+                        "personal",
+                        "retail",
+                        "salary",
+                        "tax",
+                        "utility",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -227,11 +240,13 @@ class Mandate(ListableAPIResource["Mandate"]):
             """
 
         class Pix(StripeObject):
-            amount_includes_iof: Optional[Literal["always", "never"]]
+            amount_includes_iof: Optional[
+                Union[Literal["always", "never"], str]
+            ]
             """
             Determines if the amount includes the IOF tax.
             """
-            amount_type: Optional[Literal["fixed", "maximum"]]
+            amount_type: Optional[Union[Literal["fixed", "maximum"], str]]
             """
             Type of amount.
             """
@@ -240,8 +255,15 @@ class Mandate(ListableAPIResource["Mandate"]):
             Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`.
             """
             payment_schedule: Optional[
-                Literal[
-                    "halfyearly", "monthly", "quarterly", "weekly", "yearly"
+                Union[
+                    Literal[
+                        "halfyearly",
+                        "monthly",
+                        "quarterly",
+                        "weekly",
+                        "yearly",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -277,7 +299,7 @@ class Mandate(ListableAPIResource["Mandate"]):
             """
             Amount to be charged for future payments.
             """
-            amount_type: Optional[Literal["fixed", "maximum"]]
+            amount_type: Optional[Union[Literal["fixed", "maximum"], str]]
             """
             One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
             """
@@ -379,11 +401,11 @@ class Mandate(ListableAPIResource["Mandate"]):
     """
     payment_method_details: PaymentMethodDetails
     single_use: Optional[SingleUse]
-    status: Literal["active", "inactive", "pending"]
+    status: Union[Literal["active", "inactive", "pending"], str]
     """
     The mandate status indicates whether or not you can use it to initiate a payment.
     """
-    type: Literal["multi_use", "single_use"]
+    type: Union[Literal["multi_use", "single_use"], str]
     """
     The type of the mandate.
     """

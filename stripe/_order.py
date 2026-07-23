@@ -7,7 +7,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
+from typing import ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -47,7 +47,9 @@ class Order(
         Whether Stripe automatically computes tax on this Order.
         """
         status: Optional[
-            Literal["complete", "failed", "requires_location_inputs"]
+            Union[
+                Literal["complete", "failed", "requires_location_inputs"], str
+            ]
         ]
         """
         The status of the most recent automated tax calculation for this Order.
@@ -118,13 +120,16 @@ class Order(
                         Description of the interval. Only required if the 'payment_schedule' parameter is 'interval' or 'combined'.
                         """
                         payment_schedule: Optional[
-                            Literal["combined", "interval", "sporadic"]
+                            Union[
+                                Literal["combined", "interval", "sporadic"],
+                                str,
+                            ]
                         ]
                         """
                         Payment schedule for the mandate.
                         """
                         transaction_type: Optional[
-                            Literal["business", "personal"]
+                            Union[Literal["business", "personal"], str]
                         ]
                         """
                         Transaction type of the mandate.
@@ -132,7 +137,9 @@ class Order(
 
                     mandate_options: Optional[MandateOptions]
                     setup_future_usage: Optional[
-                        Literal["none", "off_session", "on_session"]
+                        Union[
+                            Literal["none", "off_session", "on_session"], str
+                        ]
                     ]
                     """
                     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -148,7 +155,10 @@ class Order(
                     Controls when Stripe will attempt to debit the funds from the customer's account. The date must be a string in YYYY-MM-DD format. The date must be in the future and between 3 and 15 calendar days from now.
                     """
                     verification_method: Optional[
-                        Literal["automatic", "instant", "microdeposits"]
+                        Union[
+                            Literal["automatic", "instant", "microdeposits"],
+                            str,
+                        ]
                     ]
                     """
                     Bank account verification method. The default value is `automatic`.
@@ -157,7 +167,10 @@ class Order(
 
                 class AfterpayClearpay(StripeObject):
                     capture_method: Optional[
-                        Literal["automatic", "automatic_async", "manual"]
+                        Union[
+                            Literal["automatic", "automatic_async", "manual"],
+                            str,
+                        ]
                     ]
                     """
                     Controls when the funds will be captured from the customer's account.
@@ -179,7 +192,7 @@ class Order(
 
                 class Alipay(StripeObject):
                     setup_future_usage: Optional[
-                        Literal["none", "off_session"]
+                        Union[Literal["none", "off_session"], str]
                     ]
                     """
                     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -197,7 +210,7 @@ class Order(
                     Preferred language of the Bancontact authorization page that the customer is redirected to.
                     """
                     setup_future_usage: Optional[
-                        Literal["none", "off_session"]
+                        Union[Literal["none", "off_session"], str]
                     ]
                     """
                     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -210,14 +223,16 @@ class Order(
                     """
 
                 class Card(StripeObject):
-                    capture_method: Literal[
-                        "automatic", "automatic_async", "manual"
+                    capture_method: Union[
+                        Literal["automatic", "automatic_async", "manual"], str
                     ]
                     """
                     Controls when the funds will be captured from the customer's account.
                     """
                     setup_future_usage: Optional[
-                        Literal["none", "off_session", "on_session"]
+                        Union[
+                            Literal["none", "off_session", "on_session"], str
+                        ]
                     ]
                     """
                     Indicates that you intend to make future payments with the payment method.
@@ -242,14 +257,17 @@ class Order(
                         eu_bank_transfer: Optional[EuBankTransfer]
                         requested_address_types: Optional[
                             List[
-                                Literal[
-                                    "aba",
-                                    "iban",
-                                    "sepa",
-                                    "sort_code",
-                                    "spei",
-                                    "swift",
-                                    "zengin",
+                                Union[
+                                    Literal[
+                                        "aba",
+                                        "iban",
+                                        "sepa",
+                                        "sort_code",
+                                        "spei",
+                                        "swift",
+                                        "zengin",
+                                    ],
+                                    str,
                                 ]
                             ]
                         ]
@@ -259,12 +277,15 @@ class Order(
                         Permitted values include: `sort_code`, `zengin`, `iban`, or `spei`.
                         """
                         type: Optional[
-                            Literal[
-                                "eu_bank_transfer",
-                                "gb_bank_transfer",
-                                "jp_bank_transfer",
-                                "mx_bank_transfer",
-                                "us_bank_transfer",
+                            Union[
+                                Literal[
+                                    "eu_bank_transfer",
+                                    "gb_bank_transfer",
+                                    "jp_bank_transfer",
+                                    "mx_bank_transfer",
+                                    "us_bank_transfer",
+                                ],
+                                str,
                             ]
                         ]
                         """
@@ -293,7 +314,7 @@ class Order(
 
                 class Ideal(StripeObject):
                     setup_future_usage: Optional[
-                        Literal["none", "off_session"]
+                        Union[Literal["none", "off_session"], str]
                     ]
                     """
                     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -315,7 +336,9 @@ class Order(
                     Preferred locale of the Klarna checkout page that the customer is redirected to.
                     """
                     setup_future_usage: Optional[
-                        Literal["none", "off_session", "on_session"]
+                        Union[
+                            Literal["none", "off_session", "on_session"], str
+                        ]
                     ]
                     """
                     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -337,7 +360,7 @@ class Order(
                     [Deprecated] This is a legacy parameter that no longer has any function.
                     """
                     setup_future_usage: Optional[
-                        Literal["none", "off_session"]
+                        Union[Literal["none", "off_session"], str]
                     ]
                     """
                     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -384,14 +407,21 @@ class Order(
                             """
                             The tax for a single unit of the line item in minor units. Cannot be a negative number.
                             """
-                            behavior: Literal["exclusive", "inclusive"]
+                            behavior: Union[
+                                Literal["exclusive", "inclusive"], str
+                            ]
                             """
                             The tax behavior for the line item.
                             """
 
                         category: Optional[
-                            Literal[
-                                "digital_goods", "donation", "physical_goods"
+                            Union[
+                                Literal[
+                                    "digital_goods",
+                                    "donation",
+                                    "physical_goods",
+                                ],
+                                str,
                             ]
                         ]
                         """
@@ -445,7 +475,7 @@ class Order(
                     A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
                     """
                     setup_future_usage: Optional[
-                        Literal["none", "off_session"]
+                        Union[Literal["none", "off_session"], str]
                     ]
                     """
                     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -471,7 +501,9 @@ class Order(
 
                     mandate_options: Optional[MandateOptions]
                     setup_future_usage: Optional[
-                        Literal["none", "off_session", "on_session"]
+                        Union[
+                            Literal["none", "off_session", "on_session"], str
+                        ]
                     ]
                     """
                     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -496,7 +528,7 @@ class Order(
                     Preferred language of the SOFORT authorization page that the customer is redirected to.
                     """
                     setup_future_usage: Optional[
-                        Literal["none", "off_session"]
+                        Union[Literal["none", "off_session"], str]
                     ]
                     """
                     Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -518,7 +550,10 @@ class Order(
                     The unique buyer ID for the app ID registered with WeChat Pay. Only required when client is mini_program.
                     """
                     client: Optional[
-                        Literal["android", "ios", "mini_program", "web"]
+                        Union[
+                            Literal["android", "ios", "mini_program", "web"],
+                            str,
+                        ]
                     ]
                     """
                     The client type that the end customer will pay from
@@ -591,28 +626,31 @@ class Order(
             """
             payment_method_types: Optional[
                 List[
-                    Literal[
-                        "acss_debit",
-                        "afterpay_clearpay",
-                        "alipay",
-                        "au_becs_debit",
-                        "bacs_debit",
-                        "bancontact",
-                        "card",
-                        "customer_balance",
-                        "eps",
-                        "fpx",
-                        "giropay",
-                        "grabpay",
-                        "ideal",
-                        "klarna",
-                        "link",
-                        "oxxo",
-                        "p24",
-                        "paypal",
-                        "sepa_debit",
-                        "sofort",
-                        "wechat_pay",
+                    Union[
+                        Literal[
+                            "acss_debit",
+                            "afterpay_clearpay",
+                            "alipay",
+                            "au_becs_debit",
+                            "bacs_debit",
+                            "bancontact",
+                            "card",
+                            "customer_balance",
+                            "eps",
+                            "fpx",
+                            "giropay",
+                            "grabpay",
+                            "ideal",
+                            "klarna",
+                            "link",
+                            "oxxo",
+                            "p24",
+                            "paypal",
+                            "sepa_debit",
+                            "sofort",
+                            "wechat_pay",
+                        ],
+                        str,
                     ]
                 ]
             ]
@@ -650,15 +688,18 @@ class Order(
         Settings describing how the order should configure generated PaymentIntents.
         """
         status: Optional[
-            Literal[
-                "canceled",
-                "complete",
-                "not_required",
-                "processing",
-                "requires_action",
-                "requires_capture",
-                "requires_confirmation",
-                "requires_payment_method",
+            Union[
+                Literal[
+                    "canceled",
+                    "complete",
+                    "not_required",
+                    "processing",
+                    "requires_action",
+                    "requires_capture",
+                    "requires_confirmation",
+                    "requires_payment_method",
+                ],
+                str,
             ]
         ]
         """
@@ -679,22 +720,25 @@ class Order(
             Related guide: [Tax rates](https://docs.stripe.com/billing/taxes/tax-rates)
             """
             taxability_reason: Optional[
-                Literal[
-                    "customer_exempt",
-                    "not_collecting",
-                    "not_subject_to_tax",
-                    "not_supported",
-                    "portion_product_exempt",
-                    "portion_reduced_rated",
-                    "portion_standard_rated",
-                    "product_exempt",
-                    "product_exempt_holiday",
-                    "proportionally_rated",
-                    "reduced_rated",
-                    "reverse_charge",
-                    "standard_rated",
-                    "taxable_basis_reduced",
-                    "zero_rated",
+                Union[
+                    Literal[
+                        "customer_exempt",
+                        "not_collecting",
+                        "not_subject_to_tax",
+                        "not_supported",
+                        "portion_product_exempt",
+                        "portion_reduced_rated",
+                        "portion_standard_rated",
+                        "product_exempt",
+                        "product_exempt_holiday",
+                        "proportionally_rated",
+                        "reduced_rated",
+                        "reverse_charge",
+                        "standard_rated",
+                        "taxable_basis_reduced",
+                        "zero_rated",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -935,22 +979,25 @@ class Order(
                 Related guide: [Tax rates](https://docs.stripe.com/billing/taxes/tax-rates)
                 """
                 taxability_reason: Optional[
-                    Literal[
-                        "customer_exempt",
-                        "not_collecting",
-                        "not_subject_to_tax",
-                        "not_supported",
-                        "portion_product_exempt",
-                        "portion_reduced_rated",
-                        "portion_standard_rated",
-                        "product_exempt",
-                        "product_exempt_holiday",
-                        "proportionally_rated",
-                        "reduced_rated",
-                        "reverse_charge",
-                        "standard_rated",
-                        "taxable_basis_reduced",
-                        "zero_rated",
+                    Union[
+                        Literal[
+                            "customer_exempt",
+                            "not_collecting",
+                            "not_subject_to_tax",
+                            "not_supported",
+                            "portion_product_exempt",
+                            "portion_reduced_rated",
+                            "portion_standard_rated",
+                            "product_exempt",
+                            "product_exempt_holiday",
+                            "proportionally_rated",
+                            "reduced_rated",
+                            "reverse_charge",
+                            "standard_rated",
+                            "taxable_basis_reduced",
+                            "zero_rated",
+                        ],
+                        str,
                     ]
                 ]
                 """
@@ -1064,7 +1111,9 @@ class Order(
     """
     Customer shipping information associated with the order.
     """
-    status: Literal["canceled", "complete", "open", "processing", "submitted"]
+    status: Union[
+        Literal["canceled", "complete", "open", "processing", "submitted"], str
+    ]
     """
     The overall status of the order.
     """

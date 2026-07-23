@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -30,11 +30,14 @@ class AccountLinkCreateParams(RequestOptions):
     """
     The URL that the user will be redirected to upon leaving or completing the linked flow.
     """
-    type: Literal[
-        "account_onboarding",
-        "account_update",
-        "capital_financing_offer",
-        "capital_financing_reporting",
+    type: Union[
+        Literal[
+            "account_onboarding",
+            "account_update",
+            "capital_financing_offer",
+            "capital_financing_reporting",
+        ],
+        str,
     ]
     """
     The type of account link the user is requesting.

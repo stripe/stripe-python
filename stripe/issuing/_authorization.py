@@ -8,7 +8,7 @@ from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._test_helpers import APIResourceTestHelpers
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
+from typing import ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Type, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -82,8 +82,16 @@ class Authorization(
         """
 
     class BalanceResponse(StripeObject):
-        account_type: Literal[
-            "checking", "credit", "default", "other", "savings", "universal"
+        account_type: Union[
+            Literal[
+                "checking",
+                "credit",
+                "default",
+                "other",
+                "savings",
+                "universal",
+            ],
+            str,
         ]
         """
         The cardholder account type affected by this authorization.
@@ -240,281 +248,284 @@ class Authorization(
     class EnrichedMerchantData(StripeObject):
         class Merchant(StripeObject):
             class Industry(StripeObject):
-                id: Literal[
-                    "accessories",
-                    "accounting_and_bookkeeping",
-                    "acupuncture",
-                    "administrative_services",
-                    "adult_entertainment",
-                    "adult_retail",
-                    "advertising_and_marketing",
-                    "advertising_technology",
-                    "agricultural_technology",
-                    "agriculture_and_forestry",
-                    "airlines_and_aviation",
-                    "alternative_medicine",
-                    "alternative_rentals",
-                    "anesthesiologists",
-                    "antiques",
-                    "aquatic_transportation",
-                    "arcades_and_amusement_parks",
-                    "art_dealers_and_galleries",
-                    "arts_and_hobbies",
-                    "atms",
-                    "auctions",
-                    "auto_parts_and_supplies",
-                    "auto_smog_checks",
-                    "auto_tires",
-                    "auto_transmission",
-                    "automotive_dealerships",
-                    "automotive_retail",
-                    "automotive_services",
-                    "bakeries",
-                    "banking_and_finance",
-                    "bars",
-                    "beauty_spas_and_salons",
-                    "beer_wine_and_spirits",
-                    "benefits",
-                    "bicycles",
-                    "billiards_and_pool",
-                    "biotechnology",
-                    "blood_banks_and_centers",
-                    "boat_dealers",
-                    "bookstores",
-                    "bowling",
-                    "breweries_distilleries_and_wineries",
-                    "business_brokers_and_franchises",
-                    "business_services",
-                    "butchers",
-                    "buy_now_pay_later",
-                    "cafes",
-                    "candy_shops",
-                    "cannabis_dispensary",
-                    "car_appraisers",
-                    "car_wash_and_detail",
-                    "cardiologists",
-                    "cards_and_stationery",
-                    "casinos_and_gambling",
-                    "catering",
-                    "charity",
-                    "childcare",
-                    "children_s_clothing",
-                    "children_s_retail",
-                    "chiropractors",
-                    "circuses_and_carnivals",
-                    "cleaning",
-                    "clothing_and_accessories",
-                    "clothing_services",
-                    "commercial_supplies",
-                    "communication_software",
-                    "computers_and_electronics",
-                    "construction_and_home_improvement",
-                    "construction_supplies",
-                    "contractors",
-                    "convenience_stores",
-                    "cosmetics",
-                    "costumes",
-                    "counseling_and_therapy",
-                    "couriers",
-                    "coworking_spaces",
-                    "creative",
-                    "creative_software",
-                    "credit_reporting",
-                    "crm",
-                    "crowdfunding",
-                    "cryptocurrency",
-                    "dance_halls_and_saloons",
-                    "delivery_services",
-                    "dentists",
-                    "department_stores",
-                    "dermatologists",
-                    "design_technology",
-                    "developer_tools",
-                    "digital_money_movement",
-                    "discount_stores",
-                    "education",
-                    "educational_technology",
-                    "electric_vehicle_charging",
-                    "emergency_services",
-                    "employment_services",
-                    "enterprise_software",
-                    "entertainment",
-                    "ents",
-                    "environmental_technology",
-                    "equipment_rentals",
-                    "events_and_event_planning",
-                    "eyewear",
-                    "fairgrounds_and_rodeos",
-                    "family_medicine",
-                    "fast_food",
-                    "fertility",
-                    "financial_management_software",
-                    "financial_planning_and_investments",
-                    "financial_technology",
-                    "fishmongers",
-                    "flea_markets",
-                    "fleet",
-                    "florists",
-                    "food_and_drink",
-                    "food_delivery_services",
-                    "food_trucks",
-                    "fuel_dealers",
-                    "funeral_services",
-                    "furniture",
-                    "gas_stations",
-                    "gastroenterologists",
-                    "general_goods",
-                    "general_surgery",
-                    "gift_and_novelty",
-                    "government",
-                    "grocery_delivery_services",
-                    "gyms_health_and_fitness_centers",
-                    "hair_removal",
-                    "hair_salons_and_barbers",
-                    "hardware",
-                    "hardware_and_home_improvement",
-                    "hospitals_clinics_and_medical_centers",
-                    "household_services",
-                    "hr_platform",
-                    "immigration",
-                    "import_and_export",
-                    "industrial_and_energy",
-                    "inflight_internet_and_entertainment",
-                    "insurance",
-                    "internal_medicine",
-                    "internet",
-                    "jewelry_and_watches",
-                    "landmarks",
-                    "laundry_and_garment_services",
-                    "lawn_and_garden",
-                    "legal_services",
-                    "legal_technology",
-                    "lending",
-                    "lingerie",
-                    "lodging",
-                    "luggage",
-                    "maintenance_and_repair",
-                    "manicures_and_pedicures",
-                    "manufacturing",
-                    "marina",
-                    "marine_supplies",
-                    "marketing_software",
-                    "massage_clinics_and_therapists",
-                    "media",
-                    "medical_and_healthcare_services",
-                    "medical_supplies_and_labs",
-                    "men_s_clothing",
-                    "mental_health_professionals",
-                    "mobile_applications",
-                    "motorcycle_moped_and_scooter_repair",
-                    "museums",
-                    "musical_instruments",
-                    "neurologists",
-                    "news_and_magazines",
-                    "newsstands",
-                    "nutritionists",
-                    "obstetricians_and_gynecologists",
-                    "office_supplies",
-                    "oil_and_gas",
-                    "oncologists",
-                    "online_marketplace",
-                    "ophthalmologists",
-                    "optometrists",
-                    "organizations",
-                    "orthopedic_surgeons",
-                    "other",
-                    "outlets",
-                    "packaging",
-                    "paper",
-                    "parking",
-                    "parks_and_outdoors",
-                    "party_centers",
-                    "pathologists",
-                    "pawn_shops",
-                    "pediatricians",
-                    "pet_grooming",
-                    "pet_services",
-                    "pets",
-                    "pharmacies",
-                    "photography",
-                    "physical_therapy",
-                    "piercings",
-                    "plastic_surgeons",
-                    "podiatrists",
-                    "pregnancy_and_sexual_health",
-                    "professional_services",
-                    "property_management",
-                    "psychiatrists",
-                    "psychics_and_astrologers",
-                    "psychologists",
-                    "public_services",
-                    "public_transportation",
-                    "publishing_software",
-                    "radiologists",
-                    "rails",
-                    "real_estate",
-                    "recreation",
-                    "religious",
-                    "renewable_energy",
-                    "respiratory",
-                    "restaurants",
-                    "retail",
-                    "ride_shares",
-                    "sales_enablement_software",
-                    "security_and_privacy",
-                    "security_and_safety",
-                    "services",
-                    "shipping_and_freight",
-                    "shoes",
-                    "skin_care",
-                    "social_clubs",
-                    "software",
-                    "software_engineering",
-                    "spas",
-                    "specialist_physicans",
-                    "specialty_clothing_and_accessories",
-                    "specialty_foods",
-                    "specialty_groceries",
-                    "specialty_retail",
-                    "sporting_goods",
-                    "storage",
-                    "streaming_services",
-                    "supermarkets_and_grocery_stores",
-                    "swimwear",
-                    "tailors",
-                    "tanning_salons",
-                    "tattoos",
-                    "taxes",
-                    "taxi_and_limousines",
-                    "technology",
-                    "telecommunications",
-                    "television",
-                    "textiles",
-                    "theater_and_cinema",
-                    "tickets_and_reservations",
-                    "tobacco_smoke_and_vape_shops",
-                    "tolls_and_fees",
-                    "tourist_information_and_services",
-                    "towing_and_roadside_assistance",
-                    "toy_stores",
-                    "transportation",
-                    "travel",
-                    "travel_services",
-                    "travel_software",
-                    "urologists",
-                    "utilities",
-                    "vehicle_rentals",
-                    "vending_machine",
-                    "venues",
-                    "veterinarians",
-                    "video_games",
-                    "vintage_and_thrift",
-                    "warehouses_and_wholesale_stores",
-                    "water_and_waste_management_services",
-                    "web_infrastructure",
-                    "wedding_and_bridal",
-                    "women_s_clothing",
-                    "zoos_and_aquariums",
+                id: Union[
+                    Literal[
+                        "accessories",
+                        "accounting_and_bookkeeping",
+                        "acupuncture",
+                        "administrative_services",
+                        "adult_entertainment",
+                        "adult_retail",
+                        "advertising_and_marketing",
+                        "advertising_technology",
+                        "agricultural_technology",
+                        "agriculture_and_forestry",
+                        "airlines_and_aviation",
+                        "alternative_medicine",
+                        "alternative_rentals",
+                        "anesthesiologists",
+                        "antiques",
+                        "aquatic_transportation",
+                        "arcades_and_amusement_parks",
+                        "art_dealers_and_galleries",
+                        "arts_and_hobbies",
+                        "atms",
+                        "auctions",
+                        "auto_parts_and_supplies",
+                        "auto_smog_checks",
+                        "auto_tires",
+                        "auto_transmission",
+                        "automotive_dealerships",
+                        "automotive_retail",
+                        "automotive_services",
+                        "bakeries",
+                        "banking_and_finance",
+                        "bars",
+                        "beauty_spas_and_salons",
+                        "beer_wine_and_spirits",
+                        "benefits",
+                        "bicycles",
+                        "billiards_and_pool",
+                        "biotechnology",
+                        "blood_banks_and_centers",
+                        "boat_dealers",
+                        "bookstores",
+                        "bowling",
+                        "breweries_distilleries_and_wineries",
+                        "business_brokers_and_franchises",
+                        "business_services",
+                        "butchers",
+                        "buy_now_pay_later",
+                        "cafes",
+                        "candy_shops",
+                        "cannabis_dispensary",
+                        "car_appraisers",
+                        "car_wash_and_detail",
+                        "cardiologists",
+                        "cards_and_stationery",
+                        "casinos_and_gambling",
+                        "catering",
+                        "charity",
+                        "childcare",
+                        "children_s_clothing",
+                        "children_s_retail",
+                        "chiropractors",
+                        "circuses_and_carnivals",
+                        "cleaning",
+                        "clothing_and_accessories",
+                        "clothing_services",
+                        "commercial_supplies",
+                        "communication_software",
+                        "computers_and_electronics",
+                        "construction_and_home_improvement",
+                        "construction_supplies",
+                        "contractors",
+                        "convenience_stores",
+                        "cosmetics",
+                        "costumes",
+                        "counseling_and_therapy",
+                        "couriers",
+                        "coworking_spaces",
+                        "creative",
+                        "creative_software",
+                        "credit_reporting",
+                        "crm",
+                        "crowdfunding",
+                        "cryptocurrency",
+                        "dance_halls_and_saloons",
+                        "delivery_services",
+                        "dentists",
+                        "department_stores",
+                        "dermatologists",
+                        "design_technology",
+                        "developer_tools",
+                        "digital_money_movement",
+                        "discount_stores",
+                        "education",
+                        "educational_technology",
+                        "electric_vehicle_charging",
+                        "emergency_services",
+                        "employment_services",
+                        "enterprise_software",
+                        "entertainment",
+                        "ents",
+                        "environmental_technology",
+                        "equipment_rentals",
+                        "events_and_event_planning",
+                        "eyewear",
+                        "fairgrounds_and_rodeos",
+                        "family_medicine",
+                        "fast_food",
+                        "fertility",
+                        "financial_management_software",
+                        "financial_planning_and_investments",
+                        "financial_technology",
+                        "fishmongers",
+                        "flea_markets",
+                        "fleet",
+                        "florists",
+                        "food_and_drink",
+                        "food_delivery_services",
+                        "food_trucks",
+                        "fuel_dealers",
+                        "funeral_services",
+                        "furniture",
+                        "gas_stations",
+                        "gastroenterologists",
+                        "general_goods",
+                        "general_surgery",
+                        "gift_and_novelty",
+                        "government",
+                        "grocery_delivery_services",
+                        "gyms_health_and_fitness_centers",
+                        "hair_removal",
+                        "hair_salons_and_barbers",
+                        "hardware",
+                        "hardware_and_home_improvement",
+                        "hospitals_clinics_and_medical_centers",
+                        "household_services",
+                        "hr_platform",
+                        "immigration",
+                        "import_and_export",
+                        "industrial_and_energy",
+                        "inflight_internet_and_entertainment",
+                        "insurance",
+                        "internal_medicine",
+                        "internet",
+                        "jewelry_and_watches",
+                        "landmarks",
+                        "laundry_and_garment_services",
+                        "lawn_and_garden",
+                        "legal_services",
+                        "legal_technology",
+                        "lending",
+                        "lingerie",
+                        "lodging",
+                        "luggage",
+                        "maintenance_and_repair",
+                        "manicures_and_pedicures",
+                        "manufacturing",
+                        "marina",
+                        "marine_supplies",
+                        "marketing_software",
+                        "massage_clinics_and_therapists",
+                        "media",
+                        "medical_and_healthcare_services",
+                        "medical_supplies_and_labs",
+                        "men_s_clothing",
+                        "mental_health_professionals",
+                        "mobile_applications",
+                        "motorcycle_moped_and_scooter_repair",
+                        "museums",
+                        "musical_instruments",
+                        "neurologists",
+                        "news_and_magazines",
+                        "newsstands",
+                        "nutritionists",
+                        "obstetricians_and_gynecologists",
+                        "office_supplies",
+                        "oil_and_gas",
+                        "oncologists",
+                        "online_marketplace",
+                        "ophthalmologists",
+                        "optometrists",
+                        "organizations",
+                        "orthopedic_surgeons",
+                        "other",
+                        "outlets",
+                        "packaging",
+                        "paper",
+                        "parking",
+                        "parks_and_outdoors",
+                        "party_centers",
+                        "pathologists",
+                        "pawn_shops",
+                        "pediatricians",
+                        "pet_grooming",
+                        "pet_services",
+                        "pets",
+                        "pharmacies",
+                        "photography",
+                        "physical_therapy",
+                        "piercings",
+                        "plastic_surgeons",
+                        "podiatrists",
+                        "pregnancy_and_sexual_health",
+                        "professional_services",
+                        "property_management",
+                        "psychiatrists",
+                        "psychics_and_astrologers",
+                        "psychologists",
+                        "public_services",
+                        "public_transportation",
+                        "publishing_software",
+                        "radiologists",
+                        "rails",
+                        "real_estate",
+                        "recreation",
+                        "religious",
+                        "renewable_energy",
+                        "respiratory",
+                        "restaurants",
+                        "retail",
+                        "ride_shares",
+                        "sales_enablement_software",
+                        "security_and_privacy",
+                        "security_and_safety",
+                        "services",
+                        "shipping_and_freight",
+                        "shoes",
+                        "skin_care",
+                        "social_clubs",
+                        "software",
+                        "software_engineering",
+                        "spas",
+                        "specialist_physicans",
+                        "specialty_clothing_and_accessories",
+                        "specialty_foods",
+                        "specialty_groceries",
+                        "specialty_retail",
+                        "sporting_goods",
+                        "storage",
+                        "streaming_services",
+                        "supermarkets_and_grocery_stores",
+                        "swimwear",
+                        "tailors",
+                        "tanning_salons",
+                        "tattoos",
+                        "taxes",
+                        "taxi_and_limousines",
+                        "technology",
+                        "telecommunications",
+                        "television",
+                        "textiles",
+                        "theater_and_cinema",
+                        "tickets_and_reservations",
+                        "tobacco_smoke_and_vape_shops",
+                        "tolls_and_fees",
+                        "tourist_information_and_services",
+                        "towing_and_roadside_assistance",
+                        "toy_stores",
+                        "transportation",
+                        "travel",
+                        "travel_services",
+                        "travel_software",
+                        "urologists",
+                        "utilities",
+                        "vehicle_rentals",
+                        "vending_machine",
+                        "venues",
+                        "veterinarians",
+                        "video_games",
+                        "vintage_and_thrift",
+                        "warehouses_and_wholesale_stores",
+                        "water_and_waste_management_services",
+                        "web_infrastructure",
+                        "wedding_and_bridal",
+                        "women_s_clothing",
+                        "zoos_and_aquariums",
+                    ],
+                    str,
                 ]
                 """
                 Most specific value of the seller's category.
@@ -636,13 +647,16 @@ class Authorization(
             """
             If `spade` is a data source, this hash contains details provided by Spade.
             """
-            type: Literal[
-                "buy_now_pay_later",
-                "delivery_service",
-                "marketplace",
-                "other",
-                "payment_processor",
-                "platform",
+            type: Union[
+                Literal[
+                    "buy_now_pay_later",
+                    "delivery_service",
+                    "marketplace",
+                    "other",
+                    "payment_processor",
+                    "platform",
+                ],
+                str,
             ]
             """
             Category of the third party.
@@ -741,10 +755,13 @@ class Authorization(
         Answers to prompts presented to the cardholder at the point of sale. Prompted fields vary depending on the configuration of your physical fleet cards. Typical points of sale support only numeric entry.
         """
         purchase_type: Optional[
-            Literal[
-                "fuel_and_non_fuel_purchase",
-                "fuel_purchase",
-                "non_fuel_purchase",
+            Union[
+                Literal[
+                    "fuel_and_non_fuel_purchase",
+                    "fuel_purchase",
+                    "non_fuel_purchase",
+                ],
+                str,
             ]
         ]
         """
@@ -755,7 +772,12 @@ class Authorization(
         More information about the total amount. Typically this information is received from the merchant after the authorization has been approved and the fuel dispensed. This information is not guaranteed to be accurate as some merchants may provide unreliable data.
         """
         service_type: Optional[
-            Literal["full_service", "non_fuel_transaction", "self_service"]
+            Union[
+                Literal[
+                    "full_service", "non_fuel_transaction", "self_service"
+                ],
+                str,
+            ]
         ]
         """
         The type of fuel service.
@@ -770,14 +792,17 @@ class Authorization(
         """
         The method by which the fraud challenge was delivered to the cardholder.
         """
-        status: Literal[
-            "expired", "pending", "rejected", "undeliverable", "verified"
+        status: Union[
+            Literal[
+                "expired", "pending", "rejected", "undeliverable", "verified"
+            ],
+            str,
         ]
         """
         The status of the fraud challenge.
         """
         undeliverable_reason: Optional[
-            Literal["no_phone_number", "unsupported_phone_number"]
+            Union[Literal["no_phone_number", "unsupported_phone_number"], str]
         ]
         """
         If the challenge is not deliverable, the reason why.
@@ -793,27 +818,33 @@ class Authorization(
         The quantity of `unit`s of fuel that was dispensed, represented as a decimal string with at most 12 decimal places.
         """
         type: Optional[
-            Literal[
-                "diesel",
-                "other",
-                "unleaded_plus",
-                "unleaded_regular",
-                "unleaded_super",
+            Union[
+                Literal[
+                    "diesel",
+                    "other",
+                    "unleaded_plus",
+                    "unleaded_regular",
+                    "unleaded_super",
+                ],
+                str,
             ]
         ]
         """
         The type of fuel that was purchased.
         """
         unit: Optional[
-            Literal[
-                "charging_minute",
-                "imperial_gallon",
-                "kilogram",
-                "kilowatt_hour",
-                "liter",
-                "other",
-                "pound",
-                "us_gallon",
+            Union[
+                Literal[
+                    "charging_minute",
+                    "imperial_gallon",
+                    "kilogram",
+                    "kilowatt_hour",
+                    "liter",
+                    "other",
+                    "pound",
+                    "us_gallon",
+                ],
+                str,
             ]
         ]
         """
@@ -946,7 +977,7 @@ class Authorization(
         _inner_class_types = {"amount_details": AmountDetails}
 
     class Redaction(StripeObject):
-        status: Literal["processing", "redacted", "validated"]
+        status: Union[Literal["processing", "redacted", "validated"], str]
         """
         Indicates whether this object and its related objects have been redacted or not.
         """
@@ -1023,28 +1054,31 @@ class Authorization(
         """
         The card network's estimate of the likelihood that an authorization is fraudulent. Takes on values between 1 and 99.
         """
-        reason: Literal[
-            "account_disabled",
-            "card_active",
-            "card_canceled",
-            "card_expired",
-            "card_inactive",
-            "cardholder_blocked",
-            "cardholder_inactive",
-            "cardholder_verification_required",
-            "insecure_authorization_method",
-            "insufficient_funds",
-            "network_fallback",
-            "not_allowed",
-            "pin_blocked",
-            "spending_controls",
-            "stripe_internal_error",
-            "suspected_fraud",
-            "verification_failed",
-            "webhook_approved",
-            "webhook_declined",
-            "webhook_error",
-            "webhook_timeout",
+        reason: Union[
+            Literal[
+                "account_disabled",
+                "card_active",
+                "card_canceled",
+                "card_expired",
+                "card_inactive",
+                "cardholder_blocked",
+                "cardholder_inactive",
+                "cardholder_verification_required",
+                "insecure_authorization_method",
+                "insufficient_funds",
+                "network_fallback",
+                "not_allowed",
+                "pin_blocked",
+                "spending_controls",
+                "stripe_internal_error",
+                "suspected_fraud",
+                "verification_failed",
+                "webhook_approved",
+                "webhook_declined",
+                "webhook_error",
+                "webhook_timeout",
+            ],
+            str,
         ]
         """
         When an authorization is approved or declined by you or by Stripe, this field provides additional detail on the reason for the outcome.
@@ -1064,13 +1098,16 @@ class Authorization(
 
     class TerminalData(StripeObject):
         cardholder_verification_result: Optional[
-            Literal[
-                "failed",
-                "none",
-                "pin",
-                "pin_and_signature",
-                "signature",
-                "unknown",
+            Union[
+                Literal[
+                    "failed",
+                    "none",
+                    "pin",
+                    "pin_and_signature",
+                    "signature",
+                    "unknown",
+                ],
+                str,
             ]
         ]
         """
@@ -1089,190 +1126,193 @@ class Authorization(
                 The IP address of the device at provisioning time.
                 """
                 language: Optional[
-                    Literal[
-                        "aa",
-                        "ab",
-                        "ae",
-                        "af",
-                        "ak",
-                        "am",
-                        "an",
-                        "ar",
-                        "as",
-                        "av",
-                        "ay",
-                        "az",
-                        "ba",
-                        "be",
-                        "bg",
-                        "bi",
-                        "bm",
-                        "bn",
-                        "bo",
-                        "br",
-                        "bs",
-                        "ca",
-                        "ce",
-                        "ch",
-                        "co",
-                        "cr",
-                        "cs",
-                        "cu",
-                        "cv",
-                        "cy",
-                        "da",
-                        "de",
-                        "dv",
-                        "dz",
-                        "ee",
-                        "el",
-                        "en",
-                        "eo",
-                        "es",
-                        "et",
-                        "eu",
-                        "fa",
-                        "ff",
-                        "fi",
-                        "fj",
-                        "fo",
-                        "fr",
-                        "fy",
-                        "ga",
-                        "gd",
-                        "gl",
-                        "gn",
-                        "gu",
-                        "gv",
-                        "ha",
-                        "he",
-                        "hi",
-                        "ho",
-                        "hr",
-                        "ht",
-                        "hu",
-                        "hy",
-                        "hz",
-                        "ia",
-                        "id",
-                        "ie",
-                        "ig",
-                        "ii",
-                        "ik",
-                        "io",
-                        "is",
-                        "it",
-                        "iu",
-                        "ja",
-                        "jv",
-                        "ka",
-                        "kg",
-                        "ki",
-                        "kj",
-                        "kk",
-                        "kl",
-                        "km",
-                        "kn",
-                        "ko",
-                        "kr",
-                        "ks",
-                        "ku",
-                        "kv",
-                        "kw",
-                        "ky",
-                        "la",
-                        "lb",
-                        "lg",
-                        "li",
-                        "ln",
-                        "lo",
-                        "lt",
-                        "lu",
-                        "lv",
-                        "mg",
-                        "mh",
-                        "mi",
-                        "mk",
-                        "ml",
-                        "mn",
-                        "mr",
-                        "ms",
-                        "mt",
-                        "my",
-                        "na",
-                        "nb",
-                        "nd",
-                        "ne",
-                        "ng",
-                        "nl",
-                        "nn",
-                        "no",
-                        "nr",
-                        "nv",
-                        "ny",
-                        "oc",
-                        "oj",
-                        "om",
-                        "or",
-                        "os",
-                        "pa",
-                        "pi",
-                        "pl",
-                        "ps",
-                        "pt",
-                        "qu",
-                        "rm",
-                        "rn",
-                        "ro",
-                        "ru",
-                        "rw",
-                        "sa",
-                        "sc",
-                        "sd",
-                        "se",
-                        "sg",
-                        "si",
-                        "sk",
-                        "sl",
-                        "sm",
-                        "sn",
-                        "so",
-                        "sq",
-                        "sr",
-                        "ss",
-                        "st",
-                        "su",
-                        "sv",
-                        "sw",
-                        "ta",
-                        "te",
-                        "tg",
-                        "th",
-                        "ti",
-                        "tk",
-                        "tl",
-                        "tn",
-                        "to",
-                        "tr",
-                        "ts",
-                        "tt",
-                        "tw",
-                        "ty",
-                        "ug",
-                        "uk",
-                        "ur",
-                        "uz",
-                        "ve",
-                        "vi",
-                        "vo",
-                        "wa",
-                        "wo",
-                        "xh",
-                        "yi",
-                        "yo",
-                        "za",
-                        "zh",
-                        "zu",
+                    Union[
+                        Literal[
+                            "aa",
+                            "ab",
+                            "ae",
+                            "af",
+                            "ak",
+                            "am",
+                            "an",
+                            "ar",
+                            "as",
+                            "av",
+                            "ay",
+                            "az",
+                            "ba",
+                            "be",
+                            "bg",
+                            "bi",
+                            "bm",
+                            "bn",
+                            "bo",
+                            "br",
+                            "bs",
+                            "ca",
+                            "ce",
+                            "ch",
+                            "co",
+                            "cr",
+                            "cs",
+                            "cu",
+                            "cv",
+                            "cy",
+                            "da",
+                            "de",
+                            "dv",
+                            "dz",
+                            "ee",
+                            "el",
+                            "en",
+                            "eo",
+                            "es",
+                            "et",
+                            "eu",
+                            "fa",
+                            "ff",
+                            "fi",
+                            "fj",
+                            "fo",
+                            "fr",
+                            "fy",
+                            "ga",
+                            "gd",
+                            "gl",
+                            "gn",
+                            "gu",
+                            "gv",
+                            "ha",
+                            "he",
+                            "hi",
+                            "ho",
+                            "hr",
+                            "ht",
+                            "hu",
+                            "hy",
+                            "hz",
+                            "ia",
+                            "id",
+                            "ie",
+                            "ig",
+                            "ii",
+                            "ik",
+                            "io",
+                            "is",
+                            "it",
+                            "iu",
+                            "ja",
+                            "jv",
+                            "ka",
+                            "kg",
+                            "ki",
+                            "kj",
+                            "kk",
+                            "kl",
+                            "km",
+                            "kn",
+                            "ko",
+                            "kr",
+                            "ks",
+                            "ku",
+                            "kv",
+                            "kw",
+                            "ky",
+                            "la",
+                            "lb",
+                            "lg",
+                            "li",
+                            "ln",
+                            "lo",
+                            "lt",
+                            "lu",
+                            "lv",
+                            "mg",
+                            "mh",
+                            "mi",
+                            "mk",
+                            "ml",
+                            "mn",
+                            "mr",
+                            "ms",
+                            "mt",
+                            "my",
+                            "na",
+                            "nb",
+                            "nd",
+                            "ne",
+                            "ng",
+                            "nl",
+                            "nn",
+                            "no",
+                            "nr",
+                            "nv",
+                            "ny",
+                            "oc",
+                            "oj",
+                            "om",
+                            "or",
+                            "os",
+                            "pa",
+                            "pi",
+                            "pl",
+                            "ps",
+                            "pt",
+                            "qu",
+                            "rm",
+                            "rn",
+                            "ro",
+                            "ru",
+                            "rw",
+                            "sa",
+                            "sc",
+                            "sd",
+                            "se",
+                            "sg",
+                            "si",
+                            "sk",
+                            "sl",
+                            "sm",
+                            "sn",
+                            "so",
+                            "sq",
+                            "sr",
+                            "ss",
+                            "st",
+                            "su",
+                            "sv",
+                            "sw",
+                            "ta",
+                            "te",
+                            "tg",
+                            "th",
+                            "ti",
+                            "tk",
+                            "tl",
+                            "tn",
+                            "to",
+                            "tr",
+                            "ts",
+                            "tt",
+                            "tw",
+                            "ty",
+                            "ug",
+                            "uk",
+                            "ur",
+                            "uz",
+                            "ve",
+                            "vi",
+                            "vo",
+                            "wa",
+                            "wo",
+                            "xh",
+                            "yi",
+                            "yo",
+                            "za",
+                            "zh",
+                            "zu",
+                        ],
+                        str,
                     ]
                 ]
                 """
@@ -1303,7 +1343,10 @@ class Authorization(
                 A unique reference ID from the network to represent the card account number.
                 """
                 token_decision_recommendation: Optional[
-                    Literal["approve", "decline", "recommend_id_and_v"]
+                    Union[
+                        Literal["approve", "decline", "recommend_id_and_v"],
+                        str,
+                    ]
                 ]
                 """
                 The network's recommendation to Stripe for this token activation request.
@@ -1327,7 +1370,7 @@ class Authorization(
                 An evaluation on the trustworthiness of the wallet account between 1 and 5. A higher score indicates more trustworthy.
                 """
                 card_number_source: Optional[
-                    Literal["app", "manual", "on_file", "other"]
+                    Union[Literal["app", "manual", "on_file", "other"], str]
                 ]
                 """
                 The method used for tokenizing a card.
@@ -1338,35 +1381,38 @@ class Authorization(
                 """
                 reason_codes: Optional[
                     List[
-                        Literal[
-                            "account_card_too_new",
-                            "account_recently_changed",
-                            "account_too_new",
-                            "account_too_new_since_launch",
-                            "additional_device",
-                            "data_expired",
-                            "defer_id_v_decision",
-                            "device_recently_lost",
-                            "good_activity_history",
-                            "has_suspended_tokens",
-                            "high_risk",
-                            "inactive_account",
-                            "long_account_tenure",
-                            "low_account_score",
-                            "low_device_score",
-                            "low_phone_number_score",
-                            "network_service_error",
-                            "outside_home_territory",
-                            "provisioning_cardholder_mismatch",
-                            "provisioning_device_and_cardholder_mismatch",
-                            "provisioning_device_mismatch",
-                            "same_device_no_prior_authentication",
-                            "same_device_successful_prior_authentication",
-                            "software_update",
-                            "suspicious_activity",
-                            "too_many_different_cardholders",
-                            "too_many_recent_attempts",
-                            "too_many_recent_tokens",
+                        Union[
+                            Literal[
+                                "account_card_too_new",
+                                "account_recently_changed",
+                                "account_too_new",
+                                "account_too_new_since_launch",
+                                "additional_device",
+                                "data_expired",
+                                "defer_id_v_decision",
+                                "device_recently_lost",
+                                "good_activity_history",
+                                "has_suspended_tokens",
+                                "high_risk",
+                                "inactive_account",
+                                "long_account_tenure",
+                                "low_account_score",
+                                "low_device_score",
+                                "low_phone_number_score",
+                                "network_service_error",
+                                "outside_home_territory",
+                                "provisioning_cardholder_mismatch",
+                                "provisioning_device_and_cardholder_mismatch",
+                                "provisioning_device_mismatch",
+                                "same_device_no_prior_authentication",
+                                "same_device_successful_prior_authentication",
+                                "software_update",
+                                "suspicious_activity",
+                                "too_many_different_cardholders",
+                                "too_many_recent_attempts",
+                                "too_many_recent_tokens",
+                            ],
+                            str,
                         ]
                     ]
                 ]
@@ -1374,7 +1420,7 @@ class Authorization(
                 The reasons for suggested tokenization given by the card network.
                 """
                 suggested_decision: Optional[
-                    Literal["approve", "decline", "require_auth"]
+                    Union[Literal["approve", "decline", "require_auth"], str]
                 ]
                 """
                 The recommendation on responding to the tokenization request.
@@ -1382,7 +1428,7 @@ class Authorization(
 
             device: Optional[Device]
             mastercard: Optional[Mastercard]
-            type: Literal["mastercard", "visa"]
+            type: Union[Literal["mastercard", "visa"], str]
             """
             The card network for this token.
             """
@@ -1409,19 +1455,24 @@ class Authorization(
         """
         network_data: Optional[NetworkData]
         provisioning_decision: Optional[
-            Literal["approve", "approve_pending_id_and_v", "decline"]
+            Union[
+                Literal["approve", "approve_pending_id_and_v", "decline"], str
+            ]
         ]
         """
         The decision made during token provisioning.
         """
         token_type: Optional[
-            Literal[
-                "card_on_file",
-                "cloud_based",
-                "commerce_platform",
-                "commercial_virtual_account",
-                "secure_element",
-                "static_credential",
+            Union[
+                Literal[
+                    "card_on_file",
+                    "cloud_based",
+                    "commerce_platform",
+                    "commercial_virtual_account",
+                    "secure_element",
+                    "static_credential",
+                ],
+                str,
             ]
         ]
         """
@@ -1445,30 +1496,45 @@ class Authorization(
 
     class VerificationData(StripeObject):
         class AuthenticationExemption(StripeObject):
-            claimed_by: Literal["acquirer", "issuer"]
+            claimed_by: Union[Literal["acquirer", "issuer"], str]
             """
             The entity that requested the exemption, either the acquiring merchant or the Issuing user.
             """
-            type: Literal[
-                "low_value_transaction", "transaction_risk_analysis", "unknown"
+            type: Union[
+                Literal[
+                    "low_value_transaction",
+                    "transaction_risk_analysis",
+                    "unknown",
+                ],
+                str,
             ]
             """
             The specific exemption claimed for this authorization.
             """
 
         class ThreeDSecure(StripeObject):
-            result: Literal[
-                "attempt_acknowledged", "authenticated", "failed", "required"
+            result: Union[
+                Literal[
+                    "attempt_acknowledged",
+                    "authenticated",
+                    "failed",
+                    "required",
+                ],
+                str,
             ]
             """
             The outcome of the 3D Secure authentication request.
             """
 
-        address_line1_check: Literal["match", "mismatch", "not_provided"]
+        address_line1_check: Union[
+            Literal["match", "mismatch", "not_provided"], str
+        ]
         """
         Whether the cardholder provided an address first line and if it matched the cardholder's `billing.address.line1`.
         """
-        address_postal_code_check: Literal["match", "mismatch", "not_provided"]
+        address_postal_code_check: Union[
+            Literal["match", "mismatch", "not_provided"], str
+        ]
         """
         Whether the cardholder provided a postal code and if it matched the cardholder's `billing.address.postal_code`.
         """
@@ -1476,11 +1542,11 @@ class Authorization(
         """
         The exemption applied to this authorization.
         """
-        cvc_check: Literal["match", "mismatch", "not_provided"]
+        cvc_check: Union[Literal["match", "mismatch", "not_provided"], str]
         """
         Whether the cardholder provided a CVC and if it matched Stripe's record.
         """
-        expiry_check: Literal["match", "mismatch", "not_provided"]
+        expiry_check: Union[Literal["match", "mismatch", "not_provided"], str]
         """
         Whether the cardholder provided an expiry date and if it matched Stripe's record.
         """
@@ -1509,8 +1575,8 @@ class Authorization(
     """
     Whether the authorization has been approved.
     """
-    authorization_method: Literal[
-        "chip", "contactless", "keyed_in", "online", "swipe"
+    authorization_method: Union[
+        Literal["chip", "contactless", "keyed_in", "online", "swipe"], str
     ]
     """
     How the card details were provided.
@@ -1524,7 +1590,7 @@ class Authorization(
     """
     You can [create physical or virtual cards](https://docs.stripe.com/issuing) that are issued to cardholders.
     """
-    card_presence: Optional[Literal["not_present", "present"]]
+    card_presence: Optional[Union[Literal["not_present", "present"], str]]
     """
     Whether the card was present at the point of sale for the authorization.
     """
@@ -1605,7 +1671,7 @@ class Authorization(
     """
     History of every time a `pending_request` authorization was approved/declined, either by you directly or by Stripe (e.g. based on your spending_controls). If the merchant changes the authorization by performing an incremental authorization, you can look at this field to see the previous requests for the authorization. This field can be helpful in determining why a given authorization was approved/declined.
     """
-    status: Literal["closed", "expired", "pending", "reversed"]
+    status: Union[Literal["closed", "expired", "pending", "reversed"], str]
     """
     The current status of the authorization in its lifecycle.
     """

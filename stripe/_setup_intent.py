@@ -75,7 +75,7 @@ class SetupIntent(
     OBJECT_NAME: ClassVar[Literal["setup_intent"]] = "setup_intent"
 
     class AutomaticPaymentMethods(StripeObject):
-        allow_redirects: Optional[Literal["always", "never"]]
+        allow_redirects: Optional[Union[Literal["always", "never"], str]]
         """
         Controls whether this SetupIntent will accept redirect-based payment methods.
 
@@ -497,7 +497,9 @@ class SetupIntent(
             """
             The URL for the hosted verification page, which allows customers to verify their bank account.
             """
-            microdeposit_type: Optional[Literal["amounts", "descriptor_code"]]
+            microdeposit_type: Optional[
+                Union[Literal["amounts", "descriptor_code"], str]
+            ]
             """
             The type of the microdeposit sent to the customer. Used to distinguish between different verification methods.
             """
@@ -554,7 +556,9 @@ class SetupIntent(
                 """
                 A URL for custom mandate text
                 """
-                default_for: Optional[List[Literal["invoice", "subscription"]]]
+                default_for: Optional[
+                    List[Union[Literal["invoice", "subscription"], str]]
+                ]
                 """
                 List of Stripe products where this mandate can be selected automatically.
                 """
@@ -563,23 +567,25 @@ class SetupIntent(
                 Description of the interval. Only required if the 'payment_schedule' parameter is 'interval' or 'combined'.
                 """
                 payment_schedule: Optional[
-                    Literal["combined", "interval", "sporadic"]
+                    Union[Literal["combined", "interval", "sporadic"], str]
                 ]
                 """
                 Payment schedule for the mandate.
                 """
-                transaction_type: Optional[Literal["business", "personal"]]
+                transaction_type: Optional[
+                    Union[Literal["business", "personal"], str]
+                ]
                 """
                 Transaction type of the mandate.
                 """
 
-            currency: Optional[Literal["cad", "usd"]]
+            currency: Optional[Union[Literal["cad", "usd"], str]]
             """
             Currency supported by the bank account
             """
             mandate_options: Optional[MandateOptions]
             verification_method: Optional[
-                Literal["automatic", "instant", "microdeposits"]
+                Union[Literal["automatic", "instant", "microdeposits"], str]
             ]
             """
             Bank account verification method. The default value is `automatic`.
@@ -670,7 +676,7 @@ class SetupIntent(
             Selected network to process this SetupIntent on. Depends on the available networks of the card attached to the setup intent. Can be only set confirm-time.
             """
             request_three_d_secure: Optional[
-                Literal["any", "automatic", "challenge"]
+                Union[Literal["any", "automatic", "challenge"], str]
             ]
             """
             We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. If not provided, this value defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
@@ -716,7 +722,7 @@ class SetupIntent(
                 """
                 Amount that will be collected. It is required when `amount_type` is `fixed`.
                 """
-                amount_type: Optional[Literal["fixed", "maximum"]]
+                amount_type: Optional[Union[Literal["fixed", "maximum"], str]]
                 """
                 The type of amount that will be collected. The amount charged must be exact or up to the value of `amount` param for `fixed` or `maximum` type respectively. Defaults to `maximum`.
                 """
@@ -725,15 +731,18 @@ class SetupIntent(
                 Date, in YYYY-MM-DD format, after which payments will not be collected. Defaults to no end date.
                 """
                 payment_schedule: Optional[
-                    Literal[
-                        "adhoc",
-                        "annual",
-                        "daily",
-                        "fortnightly",
-                        "monthly",
-                        "quarterly",
-                        "semi_annual",
-                        "weekly",
+                    Union[
+                        Literal[
+                            "adhoc",
+                            "annual",
+                            "daily",
+                            "fortnightly",
+                            "monthly",
+                            "quarterly",
+                            "semi_annual",
+                            "weekly",
+                        ],
+                        str,
                     ]
                 ]
                 """
@@ -744,18 +753,21 @@ class SetupIntent(
                 The number of payments that will be made during a payment period. Defaults to 1 except for when `payment_schedule` is `adhoc`. In that case, it defaults to no limit.
                 """
                 purpose: Optional[
-                    Literal[
-                        "dependant_support",
-                        "government",
-                        "loan",
-                        "mortgage",
-                        "other",
-                        "pension",
-                        "personal",
-                        "retail",
-                        "salary",
-                        "tax",
-                        "utility",
+                    Union[
+                        Literal[
+                            "dependant_support",
+                            "government",
+                            "loan",
+                            "mortgage",
+                            "other",
+                            "pension",
+                            "personal",
+                            "retail",
+                            "salary",
+                            "tax",
+                            "utility",
+                        ],
+                        str,
                     ]
                 ]
                 """
@@ -775,11 +787,13 @@ class SetupIntent(
                 """
                 Amount to be charged for future payments.
                 """
-                amount_includes_iof: Optional[Literal["always", "never"]]
+                amount_includes_iof: Optional[
+                    Union[Literal["always", "never"], str]
+                ]
                 """
                 Determines if the amount includes the IOF tax.
                 """
-                amount_type: Optional[Literal["fixed", "maximum"]]
+                amount_type: Optional[Union[Literal["fixed", "maximum"], str]]
                 """
                 Type of amount.
                 """
@@ -792,12 +806,15 @@ class SetupIntent(
                 Date when the mandate expires and no further payments will be charged, in `YYYY-MM-DD`.
                 """
                 payment_schedule: Optional[
-                    Literal[
-                        "halfyearly",
-                        "monthly",
-                        "quarterly",
-                        "weekly",
-                        "yearly",
+                    Union[
+                        Literal[
+                            "halfyearly",
+                            "monthly",
+                            "quarterly",
+                            "weekly",
+                            "yearly",
+                        ],
+                        str,
                     ]
                 ]
                 """
@@ -841,7 +858,7 @@ class SetupIntent(
                 """
                 Amount to be charged for future payments.
                 """
-                amount_type: Optional[Literal["fixed", "maximum"]]
+                amount_type: Optional[Union[Literal["fixed", "maximum"], str]]
                 """
                 One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
                 """
@@ -861,7 +878,7 @@ class SetupIntent(
             class FinancialConnections(StripeObject):
                 class Filters(StripeObject):
                     account_subcategories: Optional[
-                        List[Literal["checking", "savings"]]
+                        List[Union[Literal["checking", "savings"], str]]
                     ]
                     """
                     The account subcategories to use to filter for possible accounts to link. Valid subcategories are `checking` and `savings`.
@@ -872,7 +889,7 @@ class SetupIntent(
                     """
 
                 class ManualEntry(StripeObject):
-                    mode: Optional[Literal["automatic", "custom"]]
+                    mode: Optional[Union[Literal["automatic", "custom"], str]]
                     """
                     Settings for configuring manual entry of account details.
                     """
@@ -881,11 +898,14 @@ class SetupIntent(
                 manual_entry: Optional[ManualEntry]
                 permissions: Optional[
                     List[
-                        Literal[
-                            "balances",
-                            "ownership",
-                            "payment_method",
-                            "transactions",
+                        Union[
+                            Literal[
+                                "balances",
+                                "ownership",
+                                "payment_method",
+                                "transactions",
+                            ],
+                            str,
                         ]
                     ]
                 ]
@@ -894,11 +914,14 @@ class SetupIntent(
                 """
                 prefetch: Optional[
                     List[
-                        Literal[
-                            "balances",
-                            "inferred_balances",
-                            "ownership",
-                            "transactions",
+                        Union[
+                            Literal[
+                                "balances",
+                                "inferred_balances",
+                                "ownership",
+                                "transactions",
+                            ],
+                            str,
                         ]
                     ]
                 ]
@@ -923,7 +946,7 @@ class SetupIntent(
             financial_connections: Optional[FinancialConnections]
             mandate_options: Optional[MandateOptions]
             verification_method: Optional[
-                Literal["automatic", "instant", "microdeposits"]
+                Union[Literal["automatic", "instant", "microdeposits"], str]
             ]
             """
             Bank account verification method. The default value is `automatic`.
@@ -967,7 +990,7 @@ class SetupIntent(
         }
 
     class Redaction(StripeObject):
-        status: Literal["processing", "redacted", "validated"]
+        status: Union[Literal["processing", "redacted", "validated"], str]
         """
         Indicates whether this object and its related objects have been redacted or not.
         """
@@ -976,7 +999,9 @@ class SetupIntent(
         class Benefit(StripeObject):
             class FrMealVoucher(StripeObject):
                 enabled: Optional[
-                    Literal["if_payment_method_is_eligible", "never"]
+                    Union[
+                        Literal["if_payment_method_is_eligible", "never"], str
+                    ]
                 ]
                 """
                 Whether meal voucher benefit is enabled for this setup intent.
@@ -1044,69 +1069,73 @@ class SetupIntent(
     """
     excluded_payment_method_types: Optional[
         List[
-            Literal[
-                "acss_debit",
-                "affirm",
-                "afterpay_clearpay",
-                "alipay",
-                "alma",
-                "amazon_pay",
-                "au_becs_debit",
-                "bacs_debit",
-                "bancontact",
-                "billie",
-                "bizum",
-                "blik",
-                "boleto",
-                "card",
-                "cashapp",
-                "crypto",
-                "customer_balance",
-                "eps",
-                "fpx",
-                "gift_card",
-                "giropay",
-                "gopay",
-                "grabpay",
-                "id_bank_transfer",
-                "ideal",
-                "kakao_pay",
-                "klarna",
-                "konbini",
-                "kr_card",
-                "mb_way",
-                "mobilepay",
-                "multibanco",
-                "naver_pay",
-                "nz_bank_account",
-                "oxxo",
-                "p24",
-                "pay_by_bank",
-                "payco",
-                "paynow",
-                "paypal",
-                "paypay",
-                "payto",
-                "pix",
-                "promptpay",
-                "qris",
-                "rechnung",
-                "revolut_pay",
-                "samsung_pay",
-                "satispay",
-                "scalapay",
-                "sepa_debit",
-                "shopeepay",
-                "sofort",
-                "stripe_balance",
-                "sunbit",
-                "swish",
-                "tamara",
-                "twint",
-                "upi",
-                "us_bank_account",
-                "wechat_pay",
-                "zip",
+            Union[
+                Literal[
+                    "acss_debit",
+                    "affirm",
+                    "afterpay_clearpay",
+                    "alipay",
+                    "alma",
+                    "amazon_pay",
+                    "au_becs_debit",
+                    "bacs_debit",
+                    "bancontact",
+                    "billie",
+                    "bizum",
+                    "blik",
+                    "boleto",
+                    "card",
+                    "cashapp",
+                    "crypto",
+                    "customer_balance",
+                    "eps",
+                    "fpx",
+                    "gift_card",
+                    "giropay",
+                    "gopay",
+                    "grabpay",
+                    "id_bank_transfer",
+                    "ideal",
+                    "kakao_pay",
+                    "klarna",
+                    "konbini",
+                    "kr_card",
+                    "mb_way",
+                    "mobilepay",
+                    "multibanco",
+                    "naver_pay",
+                    "nz_bank_account",
+                    "oxxo",
+                    "p24",
+                    "pay_by_bank",
+                    "payco",
+                    "paynow",
+                    "paypal",
+                    "paypay",
+                    "payto",
+                    "pix",
+                    "promptpay",
+                    "qris",
+                    "rechnung",
+                    "revolut_pay",
+                    "samsung_pay",
+                    "satispay",
+                    "scalapay",
+                    "sepa_debit",
+                    "shopeepay",
+                    "sofort",
+                    "stripe_balance",
+                    "sunbit",
+                    "swish",
+                    "tamara",
+                    "twint",
+                    "upi",
+                    "us_bank_account",
+                    "vipps",
+                    "wechat_pay",
+                    "zip",
+                ],
+                str,
             ]
         ]
     ]

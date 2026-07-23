@@ -169,12 +169,15 @@ class Account(
         """
         minority_owned_business_designation: Optional[
             List[
-                Literal[
-                    "lgbtqi_owned_business",
-                    "minority_owned_business",
-                    "none_of_these_apply",
-                    "prefer_not_to_answer",
-                    "women_owned_business",
+                Union[
+                    Literal[
+                        "lgbtqi_owned_business",
+                        "minority_owned_business",
+                        "none_of_these_apply",
+                        "prefer_not_to_answer",
+                        "women_owned_business",
+                    ],
+                    str,
                 ]
             ]
         ]
@@ -852,9 +855,12 @@ class Account(
         This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct.
         """
         ownership_exemption_reason: Optional[
-            Literal[
-                "qualified_entity_exceeds_ownership_threshold",
-                "qualifies_as_financial_institution",
+            Union[
+                Literal[
+                    "qualified_entity_exceeds_ownership_threshold",
+                    "qualifies_as_financial_institution",
+                ],
+                str,
             ]
         ]
         """
@@ -871,30 +877,33 @@ class Account(
         This hash is used to attest that the representative is authorized to act as the representative of their legal entity.
         """
         structure: Optional[
-            Literal[
-                "free_zone_establishment",
-                "free_zone_llc",
-                "government_instrumentality",
-                "governmental_unit",
-                "incorporated_non_profit",
-                "incorporated_partnership",
-                "limited_liability_partnership",
-                "llc",
-                "multi_member_llc",
-                "private_company",
-                "private_corporation",
-                "private_partnership",
-                "public_company",
-                "public_corporation",
-                "public_partnership",
-                "registered_charity",
-                "single_member_llc",
-                "sole_establishment",
-                "sole_proprietorship",
-                "tax_exempt_government_instrumentality",
-                "unincorporated_association",
-                "unincorporated_non_profit",
-                "unincorporated_partnership",
+            Union[
+                Literal[
+                    "free_zone_establishment",
+                    "free_zone_llc",
+                    "government_instrumentality",
+                    "governmental_unit",
+                    "incorporated_non_profit",
+                    "incorporated_partnership",
+                    "limited_liability_partnership",
+                    "llc",
+                    "multi_member_llc",
+                    "private_company",
+                    "private_corporation",
+                    "private_partnership",
+                    "public_company",
+                    "public_corporation",
+                    "public_partnership",
+                    "registered_charity",
+                    "single_member_llc",
+                    "sole_establishment",
+                    "sole_proprietorship",
+                    "tax_exempt_government_instrumentality",
+                    "unincorporated_association",
+                    "unincorporated_non_profit",
+                    "unincorporated_partnership",
+                ],
+                str,
             ]
         ]
         """
@@ -951,25 +960,28 @@ class Account(
             """
 
         class Fees(StripeObject):
-            payer: Literal[
-                "account",
-                "application",
-                "application_custom",
-                "application_express",
-                "application_unified_accounts_beta",
+            payer: Union[
+                Literal[
+                    "account",
+                    "application",
+                    "application_custom",
+                    "application_express",
+                    "application_unified_accounts_beta",
+                ],
+                str,
             ]
             """
             A value indicating the responsible payer of a bundle of Stripe fees for pricing-control eligible products on this account. Learn more about [fee behavior on connected accounts](https://docs.stripe.com/connect/direct-charges-fee-payer-behavior).
             """
 
         class Losses(StripeObject):
-            payments: Literal["application", "stripe"]
+            payments: Union[Literal["application", "stripe"], str]
             """
             A value indicating who is liable when this account can't pay back negative balances from payments.
             """
 
         class StripeDashboard(StripeObject):
-            type: Literal["express", "full", "none"]
+            type: Union[Literal["express", "full", "none"], str]
             """
             A value indicating the Stripe dashboard this account has access to independent of the Connect application.
             """
@@ -982,7 +994,9 @@ class Account(
         `true` if the Connect application retrieving the resource controls the account and can therefore exercise [platform controls](https://docs.stripe.com/connect/platform-controls-for-standard-accounts). Otherwise, this field is null.
         """
         losses: Optional[Losses]
-        requirement_collection: Optional[Literal["application", "stripe"]]
+        requirement_collection: Optional[
+            Union[Literal["application", "stripe"], str]
+        ]
         """
         A value indicating responsibility for collecting requirements on this account. Only returned when the Connect application retrieving the resource controls the account.
         """
@@ -1055,6 +1069,10 @@ class Account(
                 "invalid_url_website_incomplete_under_construction",
                 "invalid_url_website_other",
                 "invalid_value_other",
+                "partner_disabled_dispute_rate",
+                "partner_disabled_responsibilities",
+                "partner_disabled_restricted_business",
+                "partner_disabled_suspected_fraud",
                 "unsupported_business_type",
                 "verification_data_not_found",
                 "verification_directors_mismatch",
@@ -1237,6 +1255,10 @@ class Account(
                 "invalid_url_website_incomplete_under_construction",
                 "invalid_url_website_other",
                 "invalid_value_other",
+                "partner_disabled_dispute_rate",
+                "partner_disabled_responsibilities",
+                "partner_disabled_restricted_business",
+                "partner_disabled_suspected_fraud",
                 "unsupported_business_type",
                 "verification_data_not_found",
                 "verification_directors_mismatch",
@@ -1373,15 +1395,18 @@ class Account(
         charges: Charges
         payouts: Payouts
         rejected_reason: Optional[
-            Literal[
-                "credit",
-                "fraud",
-                "fraud_no_intent_to_fulfill",
-                "fraud_other",
-                "fraud_payment_method_casher",
-                "fraud_payment_method_tester",
-                "other",
-                "terms_of_service",
+            Union[
+                Literal[
+                    "credit",
+                    "fraud",
+                    "fraud_no_intent_to_fulfill",
+                    "fraud_other",
+                    "fraud_payment_method_casher",
+                    "fraud_payment_method_tester",
+                    "other",
+                    "terms_of_service",
+                ],
+                str,
             ]
         ]
         """
@@ -1544,12 +1569,15 @@ class Account(
                 """
                 weekly_payout_days: Optional[
                     List[
-                        Literal[
-                            "friday",
-                            "monday",
-                            "thursday",
-                            "tuesday",
-                            "wednesday",
+                        Union[
+                            Literal[
+                                "friday",
+                                "monday",
+                                "thursday",
+                                "tuesday",
+                                "wednesday",
+                            ],
+                            str,
                         ]
                     ]
                 ]
@@ -1713,7 +1741,12 @@ class Account(
     Business information about the account.
     """
     business_type: Optional[
-        Literal["company", "government_entity", "individual", "non_profit"]
+        Union[
+            Literal[
+                "company", "government_entity", "individual", "non_profit"
+            ],
+            str,
+        ]
     ]
     """
     The business type.
@@ -1793,7 +1826,9 @@ class Account(
     Options for customizing how the account functions within Stripe.
     """
     tos_acceptance: Optional[TosAcceptance]
-    type: Optional[Literal["custom", "express", "none", "standard"]]
+    type: Optional[
+        Union[Literal["custom", "express", "none", "standard"], str]
+    ]
     """
     The Stripe account type. Can be `standard`, `express`, `custom`, or `none`.
     """
@@ -2137,7 +2172,7 @@ class Account(
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
-        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
+        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected.
         """
         return cast(
             "Account",
@@ -2158,7 +2193,7 @@ class Account(
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
-        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
+        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected.
         """
         ...
 
@@ -2167,7 +2202,7 @@ class Account(
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
-        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
+        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected.
         """
         ...
 
@@ -2178,7 +2213,7 @@ class Account(
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
-        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
+        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected.
         """
         return cast(
             "Account",
@@ -2198,7 +2233,7 @@ class Account(
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
-        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
+        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected.
         """
         return cast(
             "Account",
@@ -2219,7 +2254,7 @@ class Account(
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
-        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
+        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected.
         """
         ...
 
@@ -2230,7 +2265,7 @@ class Account(
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
-        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
+        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected.
         """
         ...
 
@@ -2241,7 +2276,7 @@ class Account(
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
-        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
+        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected.
         """
         return cast(
             "Account",

@@ -8,7 +8,7 @@ from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._test_helpers import APIResourceTestHelpers
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
+from typing import ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Type, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -81,15 +81,18 @@ class PersonalizationDesign(
     class RejectionReasons(StripeObject):
         card_logo: Optional[
             List[
-                Literal[
-                    "geographic_location",
-                    "inappropriate",
-                    "network_name",
-                    "non_binary_image",
-                    "non_fiat_currency",
-                    "other",
-                    "other_entity",
-                    "promotional_material",
+                Union[
+                    Literal[
+                        "geographic_location",
+                        "inappropriate",
+                        "network_name",
+                        "non_binary_image",
+                        "non_fiat_currency",
+                        "other",
+                        "other_entity",
+                        "promotional_material",
+                    ],
+                    str,
                 ]
             ]
         ]
@@ -98,14 +101,17 @@ class PersonalizationDesign(
         """
         carrier_text: Optional[
             List[
-                Literal[
-                    "geographic_location",
-                    "inappropriate",
-                    "network_name",
-                    "non_fiat_currency",
-                    "other",
-                    "other_entity",
-                    "promotional_material",
+                Union[
+                    Literal[
+                        "geographic_location",
+                        "inappropriate",
+                        "network_name",
+                        "non_fiat_currency",
+                        "other",
+                        "other_entity",
+                        "promotional_material",
+                    ],
+                    str,
                 ]
             ]
         ]
@@ -155,7 +161,7 @@ class PersonalizationDesign(
     """
     preferences: Preferences
     rejection_reasons: RejectionReasons
-    status: Literal["active", "inactive", "rejected", "review"]
+    status: Union[Literal["active", "inactive", "rejected", "review"], str]
     """
     Whether this personalization design can be used to create cards.
     """

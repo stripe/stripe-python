@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -167,7 +167,7 @@ class InvoiceUpdateParamsAutomaticTaxLiability(TypedDict):
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "application", "self"]
+    type: Union[Literal["account", "application", "self"], str]
     """
     Type of the account referenced in the request.
     """
@@ -212,14 +212,14 @@ class InvoiceUpdateParamsDiscountDiscountEnd(TypedDict):
     """
     A precise Unix timestamp for the discount to end. Must be in the future.
     """
-    type: Literal["duration", "timestamp"]
+    type: Union[Literal["duration", "timestamp"], str]
     """
     The type of calculation made to determine when the discount ends.
     """
 
 
 class InvoiceUpdateParamsDiscountDiscountEndDuration(TypedDict):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
     """
@@ -234,7 +234,7 @@ class InvoiceUpdateParamsIssuer(TypedDict):
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "application", "self"]
+    type: Union[Literal["account", "application", "self"], str]
     """
     Type of the account referenced in the request.
     """
@@ -252,7 +252,7 @@ class InvoiceUpdateParamsPaymentSettings(TypedDict):
     Payment-method-specific configuration to provide to the invoice's PaymentIntent.
     """
     payment_method_types: NotRequired[
-        "Literal['']|List[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'alipay', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'bizum', 'blik', 'boleto', 'card', 'cashapp', 'check_scan', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'momo', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'satispay', 'sepa_credit_transfer', 'sepa_debit', 'sequra', 'sofort', 'stripe_balance', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay']]"
+        "Literal['']|List[Union[Literal['ach_credit_transfer', 'ach_debit', 'acss_debit', 'affirm', 'alipay', 'amazon_pay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'bizum', 'blik', 'boleto', 'card', 'cashapp', 'check_scan', 'crypto', 'custom', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'id_bank_transfer', 'ideal', 'jp_credit_transfer', 'kakao_pay', 'klarna', 'konbini', 'kr_card', 'link', 'mb_way', 'momo', 'multibanco', 'naver_pay', 'nz_bank_account', 'p24', 'pay_by_bank', 'payco', 'paynow', 'paypal', 'payto', 'pix', 'promptpay', 'revolut_pay', 'satispay', 'sepa_credit_transfer', 'sepa_debit', 'sequra', 'sofort', 'stripe_balance', 'swish', 'twint', 'upi', 'us_bank_account', 'wechat_pay'], str]]"
     ]
     """
     The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice).
@@ -362,7 +362,7 @@ class InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsAcssDebit(
     Additional fields for Mandate creation
     """
     verification_method: NotRequired[
-        Literal["automatic", "instant", "microdeposits"]
+        "Literal['automatic', 'instant', 'microdeposits']|str"
     ]
     """
     Verification method for the intent
@@ -372,7 +372,7 @@ class InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsAcssDebit(
 class InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions(
     TypedDict,
 ):
-    transaction_type: NotRequired[Literal["business", "personal"]]
+    transaction_type: NotRequired["Literal['business', 'personal']|str"]
     """
     Transaction type of the mandate.
     """
@@ -381,7 +381,7 @@ class InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOpti
 class InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsBancontact(
     TypedDict,
 ):
-    preferred_language: NotRequired[Literal["de", "en", "fr", "nl"]]
+    preferred_language: NotRequired["Literal['de', 'en', 'fr', 'nl']|str"]
     """
     Preferred language of the Bancontact authorization page that the customer is redirected to.
     """
@@ -405,7 +405,7 @@ class InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCard(TypedDict):
     For more information, see the [installments integration guide](https://docs.stripe.com/payments/installments).
     """
     request_three_d_secure: NotRequired[
-        Literal["any", "automatic", "challenge"]
+        "Literal['any', 'automatic', 'challenge']|str"
     ]
     """
     We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://docs.stripe.com/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://docs.stripe.com/payments/3d-secure/authentication-flow#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
@@ -440,7 +440,7 @@ class InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsCardInstallmentsPlan
     For `fixed_count` installment plans, this is required. It represents the interval between installment payments your customer will make to their credit card.
     One of `month`.
     """
-    type: Literal["bonus", "fixed_count", "revolving"]
+    type: Union[Literal["bonus", "fixed_count", "revolving"], str]
     """
     Type of installment plan, one of `fixed_count`, `bonus`, or `revolving`.
     """
@@ -518,19 +518,7 @@ class InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOptions(
     The maximum amount that can be collected in a single invoice. If you don't specify a maximum, then there is no limit.
     """
     purpose: NotRequired[
-        Literal[
-            "dependant_support",
-            "government",
-            "loan",
-            "mortgage",
-            "other",
-            "pension",
-            "personal",
-            "retail",
-            "salary",
-            "tax",
-            "utility",
-        ]
+        "Literal['dependant_support', 'government', 'loan', 'mortgage', 'other', 'pension', 'personal', 'retail', 'salary', 'tax', 'utility']|str"
     ]
     """
     The purpose for which payments are made. Has a default value based on your merchant category code.
@@ -538,7 +526,7 @@ class InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsPaytoMandateOptions(
 
 
 class InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsPix(TypedDict):
-    amount_includes_iof: NotRequired[Literal["always", "never"]]
+    amount_includes_iof: NotRequired["Literal['always', 'never']|str"]
     """
     Determines if the amount includes the IOF tax. Defaults to `never`.
     """
@@ -570,7 +558,7 @@ class InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsUpiMandateOptions(
     """
     Amount to be charged for future payments.
     """
-    amount_type: NotRequired[Literal["fixed", "maximum"]]
+    amount_type: NotRequired["Literal['fixed', 'maximum']|str"]
     """
     One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
     """
@@ -594,7 +582,7 @@ class InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsUsBankAccount(
     Additional fields for Financial Connections Session creation
     """
     verification_method: NotRequired[
-        Literal["automatic", "instant", "microdeposits"]
+        "Literal['automatic', 'instant', 'microdeposits']|str"
     ]
     """
     Verification method for the intent
@@ -620,8 +608,14 @@ class InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinanci
     """
     prefetch: NotRequired[
         List[
-            Literal[
-                "balances", "inferred_balances", "ownership", "transactions"
+            Union[
+                Literal[
+                    "balances",
+                    "inferred_balances",
+                    "ownership",
+                    "transactions",
+                ],
+                str,
             ]
         ]
     ]
@@ -633,7 +627,9 @@ class InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinanci
 class InvoiceUpdateParamsPaymentSettingsPaymentMethodOptionsUsBankAccountFinancialConnectionsFilters(
     TypedDict,
 ):
-    account_subcategories: NotRequired[List[Literal["checking", "savings"]]]
+    account_subcategories: NotRequired[
+        List[Union[Literal["checking", "savings"], str]]
+    ]
     """
     The account subcategories to use to filter for selectable accounts. Valid subcategories are `checking` and `savings`.
     """
@@ -754,7 +750,7 @@ class InvoiceUpdateParamsShippingCostShippingRateDataDeliveryEstimate(
 class InvoiceUpdateParamsShippingCostShippingRateDataDeliveryEstimateMaximum(
     TypedDict,
 ):
-    unit: Literal["business_day", "day", "hour", "month", "week"]
+    unit: Union[Literal["business_day", "day", "hour", "month", "week"], str]
     """
     A unit of time.
     """
@@ -767,7 +763,7 @@ class InvoiceUpdateParamsShippingCostShippingRateDataDeliveryEstimateMaximum(
 class InvoiceUpdateParamsShippingCostShippingRateDataDeliveryEstimateMinimum(
     TypedDict,
 ):
-    unit: Literal["business_day", "day", "hour", "month", "week"]
+    unit: Union[Literal["business_day", "day", "hour", "month", "week"], str]
     """
     A unit of time.
     """

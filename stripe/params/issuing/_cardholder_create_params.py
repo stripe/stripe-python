@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -41,7 +41,9 @@ class CardholderCreateParams(RequestOptions):
      While phone number is optional if the cardholder will not be creating EU cards, note that this cardholder will not be eligible for 3DS without a phone number. See the [3D Secure documentation](https://docs.stripe.com/issuing/3d-secure#when-is-3d-secure-applied) for more details.
     """
     preferred_locales: NotRequired[
-        List[Literal["da", "de", "en", "es", "fr", "it", "pl", "sv"]]
+        List[
+            Union[Literal["da", "de", "en", "es", "fr", "it", "pl", "sv"], str]
+        ]
     ]
     """
     The cardholder's preferred locales (languages), ordered by preference. Locales can be `da`, `de`, `en`, `es`, `fr`, `it`, `pl`, or `sv`.
@@ -51,11 +53,11 @@ class CardholderCreateParams(RequestOptions):
     """
     Rules that control spending across this cardholder's cards. Refer to our [documentation](https://docs.stripe.com/issuing/controls/spending-controls) for more details.
     """
-    status: NotRequired[Literal["active", "inactive"]]
+    status: NotRequired["Literal['active', 'inactive']|str"]
     """
     Specifies whether to permit authorizations on this cardholder's cards. Defaults to `active`.
     """
-    type: NotRequired[Literal["company", "individual"]]
+    type: NotRequired["Literal['company', 'individual']|str"]
     """
     One of `individual` or `company`. See [Choose a cardholder type](https://docs.stripe.com/issuing/other/choose-cardholder) for more details.
     """
@@ -1136,8 +1138,16 @@ class CardholderCreateParamsSpendingControlsSpendingLimit(TypedDict):
     """
     Array of strings containing [categories](https://docs.stripe.com/api#issuing_authorization_object-merchant_data-category) this limit applies to. Omitting this field will apply the limit to all categories.
     """
-    interval: Literal[
-        "all_time", "daily", "monthly", "per_authorization", "weekly", "yearly"
+    interval: Union[
+        Literal[
+            "all_time",
+            "daily",
+            "monthly",
+            "per_authorization",
+            "weekly",
+            "yearly",
+        ],
+        str,
     ]
     """
     Interval (or event) to which the amount applies.

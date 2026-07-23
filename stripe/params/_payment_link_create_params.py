@@ -3,7 +3,7 @@
 from decimal import Decimal
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -34,7 +34,7 @@ class PaymentLinkCreateParams(RequestOptions):
     """
     Configuration for automatic tax collection.
     """
-    billing_address_collection: NotRequired[Literal["auto", "required"]]
+    billing_address_collection: NotRequired["Literal['auto', 'required']|str"]
     """
     Configuration for collecting the customer's billing address. Defaults to `auto`.
     """
@@ -54,7 +54,7 @@ class PaymentLinkCreateParams(RequestOptions):
     """
     Display additional text for your customers using custom text. You can't set this parameter if `ui_mode` is `custom`.
     """
-    customer_creation: NotRequired[Literal["always", "if_required"]]
+    customer_creation: NotRequired["Literal['always', 'if_required']|str"]
     """
     Configures whether [checkout sessions](https://docs.stripe.com/api/checkout/sessions) created by this payment link create a [Customer](https://docs.stripe.com/api/customers).
     """
@@ -102,7 +102,9 @@ class PaymentLinkCreateParams(RequestOptions):
     """
     A subset of parameters to be passed to PaymentIntent creation for Checkout Sessions in `payment` mode.
     """
-    payment_method_collection: NotRequired[Literal["always", "if_required"]]
+    payment_method_collection: NotRequired[
+        "Literal['always', 'if_required']|str"
+    ]
     """
     Specify whether Checkout should collect a payment method. When set to `if_required`, Checkout will not collect a payment method when the total due for the session is 0.This may occur if the Checkout Session includes a free trial or a discount.
 
@@ -118,54 +120,57 @@ class PaymentLinkCreateParams(RequestOptions):
     """
     payment_method_types: NotRequired[
         List[
-            Literal[
-                "affirm",
-                "afterpay_clearpay",
-                "alipay",
-                "alma",
-                "au_becs_debit",
-                "bacs_debit",
-                "bancontact",
-                "billie",
-                "bizum",
-                "blik",
-                "boleto",
-                "card",
-                "cashapp",
-                "eps",
-                "fpx",
-                "giropay",
-                "gopay",
-                "grabpay",
-                "ideal",
-                "klarna",
-                "konbini",
-                "link",
-                "mb_way",
-                "mobilepay",
-                "multibanco",
-                "oxxo",
-                "p24",
-                "pay_by_bank",
-                "paynow",
-                "paypal",
-                "paypay",
-                "payto",
-                "pix",
-                "promptpay",
-                "qris",
-                "rechnung",
-                "satispay",
-                "sepa_debit",
-                "shopeepay",
-                "sofort",
-                "sunbit",
-                "swish",
-                "twint",
-                "upi",
-                "us_bank_account",
-                "wechat_pay",
-                "zip",
+            Union[
+                Literal[
+                    "affirm",
+                    "afterpay_clearpay",
+                    "alipay",
+                    "alma",
+                    "au_becs_debit",
+                    "bacs_debit",
+                    "bancontact",
+                    "billie",
+                    "bizum",
+                    "blik",
+                    "boleto",
+                    "card",
+                    "cashapp",
+                    "eps",
+                    "fpx",
+                    "giropay",
+                    "gopay",
+                    "grabpay",
+                    "ideal",
+                    "klarna",
+                    "konbini",
+                    "link",
+                    "mb_way",
+                    "mobilepay",
+                    "multibanco",
+                    "oxxo",
+                    "p24",
+                    "pay_by_bank",
+                    "paynow",
+                    "paypal",
+                    "paypay",
+                    "payto",
+                    "pix",
+                    "promptpay",
+                    "qris",
+                    "rechnung",
+                    "satispay",
+                    "sepa_debit",
+                    "shopeepay",
+                    "sofort",
+                    "sunbit",
+                    "swish",
+                    "twint",
+                    "upi",
+                    "us_bank_account",
+                    "wechat_pay",
+                    "zip",
+                ],
+                str,
             ]
         ]
     ]
@@ -197,7 +202,7 @@ class PaymentLinkCreateParams(RequestOptions):
     The shipping rate options to apply to [checkout sessions](https://docs.stripe.com/api/checkout/sessions) created by this payment link.
     """
     submit_type: NotRequired[
-        Literal["auto", "book", "donate", "pay", "subscribe"]
+        "Literal['auto', 'book', 'donate', 'pay', 'subscribe']|str"
     ]
     """
     Describes the type of transaction being performed in order to customize relevant text on the page, such as the submit button. Changing this value will also affect the hostname in the [url](https://docs.stripe.com/api/payment_links/payment_links/object#url) property (example: `donate.stripe.com`).
@@ -227,7 +232,7 @@ class PaymentLinkCreateParamsAfterCompletion(TypedDict):
     """
     Configuration when `type=redirect`.
     """
-    type: Literal["hosted_confirmation", "redirect"]
+    type: Union[Literal["hosted_confirmation", "redirect"], str]
     """
     The specified behavior after the purchase is complete. Either `redirect` or `hosted_confirmation`.
     """
@@ -282,7 +287,7 @@ class PaymentLinkCreateParamsAutomaticTaxLiability(TypedDict):
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "application", "self"]
+    type: Union[Literal["account", "application", "self"], str]
     """
     Type of the account referenced in the request.
     """
@@ -295,13 +300,13 @@ class PaymentLinkCreateParamsConsentCollection(TypedDict):
     """
     Determines the display of payment method reuse agreement text in the UI. If set to `hidden`, it will hide legal text related to the reuse of a payment method.
     """
-    promotions: NotRequired[Literal["auto", "none"]]
+    promotions: NotRequired["Literal['auto', 'none']|str"]
     """
     If set to `auto`, enables the collection of customer consent for promotional communications. The Checkout
     Session will determine whether to display an option to opt into promotional communication
     from the merchant depending on the customer's locale. Only available to US merchants and US customers.
     """
-    terms_of_service: NotRequired[Literal["none", "required"]]
+    terms_of_service: NotRequired["Literal['none', 'required']|str"]
     """
     If set to `required`, it requires customers to check a terms of service checkbox before being able to pay.
     There must be a valid terms of service URL set in your [Dashboard settings](https://dashboard.stripe.com/settings/public).
@@ -311,7 +316,7 @@ class PaymentLinkCreateParamsConsentCollection(TypedDict):
 class PaymentLinkCreateParamsConsentCollectionPaymentMethodReuseAgreement(
     TypedDict,
 ):
-    position: Literal["auto", "hidden"]
+    position: Union[Literal["auto", "hidden"], str]
     """
     Determines the position and visibility of the payment method reuse agreement in the UI. When set to `auto`, Stripe's
     defaults will be used. When set to `hidden`, the payment method reuse agreement text will always be hidden in the UI.
@@ -343,7 +348,7 @@ class PaymentLinkCreateParamsCustomField(TypedDict):
     """
     Configuration for `type=text` fields.
     """
-    type: Literal["dropdown", "numeric", "text"]
+    type: Union[Literal["dropdown", "numeric", "text"], str]
     """
     The type of the field.
     """
@@ -533,7 +538,7 @@ class PaymentLinkCreateParamsInvoiceCreationInvoiceDataIssuer(TypedDict):
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "application", "self"]
+    type: Union[Literal["account", "application", "self"], str]
     """
     Type of the account referenced in the request.
     """
@@ -752,7 +757,7 @@ class PaymentLinkCreateParamsOptionalItemAdjustableQuantity(TypedDict):
 
 class PaymentLinkCreateParamsPaymentIntentData(TypedDict):
     capture_method: NotRequired[
-        Literal["automatic", "automatic_async", "manual"]
+        "Literal['automatic', 'automatic_async', 'manual']|str"
     ]
     """
     Controls when the funds will be captured from the customer's account.
@@ -765,7 +770,7 @@ class PaymentLinkCreateParamsPaymentIntentData(TypedDict):
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that will declaratively set metadata on [Payment Intents](https://docs.stripe.com/api/payment_intents) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
     """
-    setup_future_usage: NotRequired[Literal["off_session", "on_session"]]
+    setup_future_usage: NotRequired["Literal['off_session', 'on_session']|str"]
     """
     Indicates that you intend to [make future payments](https://docs.stripe.com/payments/payment-intents#future-usage) with the payment method collected by this Checkout Session.
 
@@ -814,11 +819,14 @@ class PaymentLinkCreateParamsPaymentMethodOptionsCard(TypedDict):
 class PaymentLinkCreateParamsPaymentMethodOptionsCardRestrictions(TypedDict):
     brands_blocked: NotRequired[
         List[
-            Literal[
-                "american_express",
-                "discover_global_network",
-                "mastercard",
-                "visa",
+            Union[
+                Literal[
+                    "american_express",
+                    "discover_global_network",
+                    "mastercard",
+                    "visa",
+                ],
+                str,
             ]
         ]
     ]
@@ -850,245 +858,248 @@ class PaymentLinkCreateParamsRestrictionsCompletedSessions(TypedDict):
 
 class PaymentLinkCreateParamsShippingAddressCollection(TypedDict):
     allowed_countries: List[
-        Literal[
-            "AC",
-            "AD",
-            "AE",
-            "AF",
-            "AG",
-            "AI",
-            "AL",
-            "AM",
-            "AO",
-            "AQ",
-            "AR",
-            "AT",
-            "AU",
-            "AW",
-            "AX",
-            "AZ",
-            "BA",
-            "BB",
-            "BD",
-            "BE",
-            "BF",
-            "BG",
-            "BH",
-            "BI",
-            "BJ",
-            "BL",
-            "BM",
-            "BN",
-            "BO",
-            "BQ",
-            "BR",
-            "BS",
-            "BT",
-            "BV",
-            "BW",
-            "BY",
-            "BZ",
-            "CA",
-            "CD",
-            "CF",
-            "CG",
-            "CH",
-            "CI",
-            "CK",
-            "CL",
-            "CM",
-            "CN",
-            "CO",
-            "CR",
-            "CV",
-            "CW",
-            "CY",
-            "CZ",
-            "DE",
-            "DJ",
-            "DK",
-            "DM",
-            "DO",
-            "DZ",
-            "EC",
-            "EE",
-            "EG",
-            "EH",
-            "ER",
-            "ES",
-            "ET",
-            "FI",
-            "FJ",
-            "FK",
-            "FO",
-            "FR",
-            "GA",
-            "GB",
-            "GD",
-            "GE",
-            "GF",
-            "GG",
-            "GH",
-            "GI",
-            "GL",
-            "GM",
-            "GN",
-            "GP",
-            "GQ",
-            "GR",
-            "GS",
-            "GT",
-            "GU",
-            "GW",
-            "GY",
-            "HK",
-            "HN",
-            "HR",
-            "HT",
-            "HU",
-            "ID",
-            "IE",
-            "IL",
-            "IM",
-            "IN",
-            "IO",
-            "IQ",
-            "IS",
-            "IT",
-            "JE",
-            "JM",
-            "JO",
-            "JP",
-            "KE",
-            "KG",
-            "KH",
-            "KI",
-            "KM",
-            "KN",
-            "KR",
-            "KW",
-            "KY",
-            "KZ",
-            "LA",
-            "LB",
-            "LC",
-            "LI",
-            "LK",
-            "LR",
-            "LS",
-            "LT",
-            "LU",
-            "LV",
-            "LY",
-            "MA",
-            "MC",
-            "MD",
-            "ME",
-            "MF",
-            "MG",
-            "MK",
-            "ML",
-            "MM",
-            "MN",
-            "MO",
-            "MQ",
-            "MR",
-            "MS",
-            "MT",
-            "MU",
-            "MV",
-            "MW",
-            "MX",
-            "MY",
-            "MZ",
-            "NA",
-            "NC",
-            "NE",
-            "NG",
-            "NI",
-            "NL",
-            "NO",
-            "NP",
-            "NR",
-            "NU",
-            "NZ",
-            "OM",
-            "PA",
-            "PE",
-            "PF",
-            "PG",
-            "PH",
-            "PK",
-            "PL",
-            "PM",
-            "PN",
-            "PR",
-            "PS",
-            "PT",
-            "PY",
-            "QA",
-            "RE",
-            "RO",
-            "RS",
-            "RU",
-            "RW",
-            "SA",
-            "SB",
-            "SC",
-            "SD",
-            "SE",
-            "SG",
-            "SH",
-            "SI",
-            "SJ",
-            "SK",
-            "SL",
-            "SM",
-            "SN",
-            "SO",
-            "SR",
-            "SS",
-            "ST",
-            "SV",
-            "SX",
-            "SZ",
-            "TA",
-            "TC",
-            "TD",
-            "TF",
-            "TG",
-            "TH",
-            "TJ",
-            "TK",
-            "TL",
-            "TM",
-            "TN",
-            "TO",
-            "TR",
-            "TT",
-            "TV",
-            "TW",
-            "TZ",
-            "UA",
-            "UG",
-            "US",
-            "UY",
-            "UZ",
-            "VA",
-            "VC",
-            "VE",
-            "VG",
-            "VN",
-            "VU",
-            "WF",
-            "WS",
-            "XK",
-            "YE",
-            "YT",
-            "ZA",
-            "ZM",
-            "ZW",
-            "ZZ",
+        Union[
+            Literal[
+                "AC",
+                "AD",
+                "AE",
+                "AF",
+                "AG",
+                "AI",
+                "AL",
+                "AM",
+                "AO",
+                "AQ",
+                "AR",
+                "AT",
+                "AU",
+                "AW",
+                "AX",
+                "AZ",
+                "BA",
+                "BB",
+                "BD",
+                "BE",
+                "BF",
+                "BG",
+                "BH",
+                "BI",
+                "BJ",
+                "BL",
+                "BM",
+                "BN",
+                "BO",
+                "BQ",
+                "BR",
+                "BS",
+                "BT",
+                "BV",
+                "BW",
+                "BY",
+                "BZ",
+                "CA",
+                "CD",
+                "CF",
+                "CG",
+                "CH",
+                "CI",
+                "CK",
+                "CL",
+                "CM",
+                "CN",
+                "CO",
+                "CR",
+                "CV",
+                "CW",
+                "CY",
+                "CZ",
+                "DE",
+                "DJ",
+                "DK",
+                "DM",
+                "DO",
+                "DZ",
+                "EC",
+                "EE",
+                "EG",
+                "EH",
+                "ER",
+                "ES",
+                "ET",
+                "FI",
+                "FJ",
+                "FK",
+                "FO",
+                "FR",
+                "GA",
+                "GB",
+                "GD",
+                "GE",
+                "GF",
+                "GG",
+                "GH",
+                "GI",
+                "GL",
+                "GM",
+                "GN",
+                "GP",
+                "GQ",
+                "GR",
+                "GS",
+                "GT",
+                "GU",
+                "GW",
+                "GY",
+                "HK",
+                "HN",
+                "HR",
+                "HT",
+                "HU",
+                "ID",
+                "IE",
+                "IL",
+                "IM",
+                "IN",
+                "IO",
+                "IQ",
+                "IS",
+                "IT",
+                "JE",
+                "JM",
+                "JO",
+                "JP",
+                "KE",
+                "KG",
+                "KH",
+                "KI",
+                "KM",
+                "KN",
+                "KR",
+                "KW",
+                "KY",
+                "KZ",
+                "LA",
+                "LB",
+                "LC",
+                "LI",
+                "LK",
+                "LR",
+                "LS",
+                "LT",
+                "LU",
+                "LV",
+                "LY",
+                "MA",
+                "MC",
+                "MD",
+                "ME",
+                "MF",
+                "MG",
+                "MK",
+                "ML",
+                "MM",
+                "MN",
+                "MO",
+                "MQ",
+                "MR",
+                "MS",
+                "MT",
+                "MU",
+                "MV",
+                "MW",
+                "MX",
+                "MY",
+                "MZ",
+                "NA",
+                "NC",
+                "NE",
+                "NG",
+                "NI",
+                "NL",
+                "NO",
+                "NP",
+                "NR",
+                "NU",
+                "NZ",
+                "OM",
+                "PA",
+                "PE",
+                "PF",
+                "PG",
+                "PH",
+                "PK",
+                "PL",
+                "PM",
+                "PN",
+                "PR",
+                "PS",
+                "PT",
+                "PY",
+                "QA",
+                "RE",
+                "RO",
+                "RS",
+                "RU",
+                "RW",
+                "SA",
+                "SB",
+                "SC",
+                "SD",
+                "SE",
+                "SG",
+                "SH",
+                "SI",
+                "SJ",
+                "SK",
+                "SL",
+                "SM",
+                "SN",
+                "SO",
+                "SR",
+                "SS",
+                "ST",
+                "SV",
+                "SX",
+                "SZ",
+                "TA",
+                "TC",
+                "TD",
+                "TF",
+                "TG",
+                "TH",
+                "TJ",
+                "TK",
+                "TL",
+                "TM",
+                "TN",
+                "TO",
+                "TR",
+                "TT",
+                "TV",
+                "TW",
+                "TZ",
+                "UA",
+                "UG",
+                "US",
+                "UY",
+                "UZ",
+                "VA",
+                "VC",
+                "VE",
+                "VG",
+                "VN",
+                "VU",
+                "WF",
+                "WS",
+                "XK",
+                "YE",
+                "YT",
+                "ZA",
+                "ZM",
+                "ZW",
+                "ZZ",
+            ],
+            str,
         ]
     ]
     """
@@ -1145,7 +1156,7 @@ class PaymentLinkCreateParamsSubscriptionDataInvoiceSettingsIssuer(TypedDict):
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "application", "self"]
+    type: Union[Literal["account", "application", "self"], str]
     """
     Type of the account referenced in the request.
     """
@@ -1163,7 +1174,9 @@ class PaymentLinkCreateParamsSubscriptionDataTrialSettings(TypedDict):
 class PaymentLinkCreateParamsSubscriptionDataTrialSettingsEndBehavior(
     TypedDict,
 ):
-    missing_payment_method: Literal["cancel", "create_invoice", "pause"]
+    missing_payment_method: Union[
+        Literal["cancel", "create_invoice", "pause"], str
+    ]
     """
     Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
     """
@@ -1174,7 +1187,7 @@ class PaymentLinkCreateParamsTaxIdCollection(TypedDict):
     """
     Enable tax ID collection during checkout. Defaults to `false`.
     """
-    required: NotRequired[Literal["if_supported", "never"]]
+    required: NotRequired["Literal['if_supported', 'never']|str"]
     """
     Describes whether a tax ID is required during checkout. Defaults to `never`. You can't set this parameter if `ui_mode` is `custom`.
     """

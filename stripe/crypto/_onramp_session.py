@@ -5,7 +5,7 @@ from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
+from typing import ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -96,6 +96,10 @@ class OnrampSession(
             """
             A stellar address
             """
+            sui: Optional[str]
+            """
+            A Sui address
+            """
             worldchain: Optional[str]
             """
             A worldchain address
@@ -108,8 +112,18 @@ class OnrampSession(
         """
         destination_currencies: Optional[
             List[
-                Literal[
-                    "avax", "btc", "eth", "matic", "sol", "usdc", "wld", "xlm"
+                Union[
+                    Literal[
+                        "avax",
+                        "btc",
+                        "eth",
+                        "matic",
+                        "sol",
+                        "usdc",
+                        "wld",
+                        "xlm",
+                    ],
+                    str,
                 ]
             ]
         ]
@@ -117,29 +131,18 @@ class OnrampSession(
         If a platform wants to lock the currencies an session will support, they can add supported currencies to this array. If left null, the experience will allow selection of all supported destination currencies.
         """
         destination_currency: Optional[
-            Literal["avax", "btc", "eth", "matic", "sol", "usdc", "wld", "xlm"]
+            Union[
+                Literal[
+                    "avax", "btc", "eth", "matic", "sol", "usdc", "wld", "xlm"
+                ],
+                str,
+            ]
         ]
         """
         The selected `destination_currency` to convert the `source` to. This should be a crypto currency code. If `destination_currencies` is set, it must be a value in that array.
         """
         destination_network: Optional[
-            Literal[
-                "avalanche",
-                "base",
-                "bitcoin",
-                "ethereum",
-                "optimism",
-                "polygon",
-                "solana",
-                "stellar",
-                "worldchain",
-            ]
-        ]
-        """
-        The specific crypto network the `destination_currency` is settled on. If `destination_networks` is set, it must be a value in that array.
-        """
-        destination_networks: Optional[
-            List[
+            Union[
                 Literal[
                     "avalanche",
                     "base",
@@ -149,7 +152,31 @@ class OnrampSession(
                     "polygon",
                     "solana",
                     "stellar",
+                    "sui",
                     "worldchain",
+                ],
+                str,
+            ]
+        ]
+        """
+        The specific crypto network the `destination_currency` is settled on. If `destination_networks` is set, it must be a value in that array.
+        """
+        destination_networks: Optional[
+            List[
+                Union[
+                    Literal[
+                        "avalanche",
+                        "base",
+                        "bitcoin",
+                        "ethereum",
+                        "optimism",
+                        "polygon",
+                        "solana",
+                        "stellar",
+                        "sui",
+                        "worldchain",
+                    ],
+                    str,
                 ]
             ]
         ]
@@ -164,7 +191,7 @@ class OnrampSession(
         """
         Whether or not to lock the suggested wallet address.
         """
-        settlement_speed: Optional[Literal["instant", "standard"]]
+        settlement_speed: Optional[Union[Literal["instant", "standard"], str]]
         """
         Speed at which the cryptocurrency is delivered to the wallet
         One of:
@@ -175,7 +202,7 @@ class OnrampSession(
         """
         The amount of fiat we intend to onramp - excluding fees
         """
-        source_currency: Optional[Literal["eur", "gbp", "usd"]]
+        source_currency: Optional[Union[Literal["eur", "gbp", "usd"], str]]
         """
         A fiat currency code
         """

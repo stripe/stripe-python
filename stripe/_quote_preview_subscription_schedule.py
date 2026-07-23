@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._expandable_field import ExpandableField
 from stripe._stripe_object import StripeObject, UntypedStripeObject
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -36,7 +36,7 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
         """
         The ID of the schedule the line applies to.
         """
-        type: Literal["new_reference", "subscription_schedule"]
+        type: Union[Literal["new_reference", "subscription_schedule"], str]
         """
         Describes whether the quote line is affecting a new schedule or an existing schedule.
         """
@@ -52,7 +52,7 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
         """
         Configure behavior for flexible billing mode
         """
-        type: Literal["classic", "flexible"]
+        type: Union[Literal["classic", "flexible"], str]
         """
         Controls how prorations and invoices for subscriptions are calculated and orchestrated.
         """
@@ -96,7 +96,7 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
             """
             If specified, the billing schedule will apply until the specified timestamp.
             """
-            type: Literal["duration", "timestamp"]
+            type: Union[Literal["duration", "timestamp"], str]
             """
             Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
             """
@@ -133,7 +133,7 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
                 """
                 The connected account being referenced when `type` is `account`.
                 """
-                type: Literal["account", "application", "self"]
+                type: Union[Literal["account", "application", "self"], str]
                 """
                 Type of the account referenced.
                 """
@@ -178,7 +178,7 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
                 """
                 The connected account being referenced when `type` is `account`.
                 """
-                type: Literal["account", "application", "self"]
+                type: Union[Literal["account", "application", "self"], str]
                 """
                 Type of the account referenced.
                 """
@@ -233,7 +233,7 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
         Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period
         """
         collection_method: Optional[
-            Literal["charge_automatically", "send_invoice"]
+            Union[Literal["charge_automatically", "send_invoice"], str]
         ]
         """
         Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay the underlying subscription at the end of each billing cycle using the default source attached to the customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`.
@@ -319,7 +319,9 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
                     }
 
                 bill_for: BillFor
-                invoicing_behavior: Literal["invoice", "pending_invoice_item"]
+                invoicing_behavior: Union[
+                    Literal["invoice", "pending_invoice_item"], str
+                ]
                 """
                 Determines how to handle debits and credits when pausing.
                 """
@@ -351,8 +353,8 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
                 """
                 Controls whether Stripe attempts payment on the resumption invoice and how that affects the subscription's status.
                 """
-                proration_behavior: Literal[
-                    "always_invoice", "create_prorations", "none"
+                proration_behavior: Union[
+                    Literal["always_invoice", "create_prorations", "none"], str
                 ]
                 """
                 Determines how to handle prorations resulting from the billing_cycle_anchor change on resume.
@@ -413,8 +415,11 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
                     """
                     A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
                     """
-                    type: Literal[
-                        "min_item_period_end", "phase_end", "timestamp"
+                    type: Union[
+                        Literal[
+                            "min_item_period_end", "phase_end", "timestamp"
+                        ],
+                        str,
                     ]
                     """
                     Select how to calculate the end of the invoice item period.
@@ -425,8 +430,11 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
                     """
                     A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
                     """
-                    type: Literal[
-                        "max_item_period_start", "phase_start", "timestamp"
+                    type: Union[
+                        Literal[
+                            "max_item_period_start", "phase_start", "timestamp"
+                        ],
+                        str,
                     ]
                     """
                     Select how to calculate the start of the invoice item period.
@@ -469,7 +477,7 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
                 """
                 The connected account being referenced when `type` is `account`.
                 """
-                type: Literal["account", "application", "self"]
+                type: Union[Literal["account", "application", "self"], str]
                 """
                 Type of the account referenced.
                 """
@@ -534,15 +542,20 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
                         """
 
                     custom: Optional[Custom]
-                    type: Literal["custom", "inherit"]
+                    type: Union[Literal["custom", "inherit"], str]
                     """
                     The type of service period anchor config.
                     """
                     _inner_class_types = {"custom": Custom}
 
                 service_period_anchor_config: ServicePeriodAnchorConfig
-                start_date: Literal[
-                    "current_period_end", "current_period_start", "phase_start"
+                start_date: Union[
+                    Literal[
+                        "current_period_end",
+                        "current_period_start",
+                        "phase_start",
+                    ],
+                    str,
                 ]
                 """
                 The start date of the discount's service period when applying a coupon or promotion code with a service period duration.
@@ -589,7 +602,7 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
                 """
                 The connected account being referenced when `type` is `account`.
                 """
-                type: Literal["account", "application", "self"]
+                type: Union[Literal["account", "application", "self"], str]
                 """
                 Type of the account referenced.
                 """
@@ -666,17 +679,20 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
                             """
 
                         custom: Optional[Custom]
-                        type: Literal["custom", "inherit"]
+                        type: Union[Literal["custom", "inherit"], str]
                         """
                         The type of service period anchor config.
                         """
                         _inner_class_types = {"custom": Custom}
 
                     service_period_anchor_config: ServicePeriodAnchorConfig
-                    start_date: Literal[
-                        "current_period_end",
-                        "current_period_start",
-                        "phase_start",
+                    start_date: Union[
+                        Literal[
+                            "current_period_end",
+                            "current_period_start",
+                            "phase_start",
+                        ],
+                        str,
                     ]
                     """
                     The start date of the discount's service period when applying a coupon or promotion code with a service period duration.
@@ -712,7 +728,7 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
                 """
                 List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
                 """
-                type: Literal["free", "paid"]
+                type: Union[Literal["free", "paid"], str]
                 """
                 Determines the type of trial for this item.
                 """
@@ -760,7 +776,9 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
             }
 
         class PauseCollection(StripeObject):
-            behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
+            behavior: Union[
+                Literal["keep_as_draft", "mark_uncollectible", "void"], str
+            ]
             """
             The payment collection behavior for this subscription while paused.
             """
@@ -777,7 +795,9 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
 
         class TrialSettings(StripeObject):
             class EndBehavior(StripeObject):
-                prorate_up_front: Optional[Literal["defer", "include"]]
+                prorate_up_front: Optional[
+                    Union[Literal["defer", "include"], str]
+                ]
                 """
                 Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
                 """
@@ -877,7 +897,7 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
         """
         If set to true the entire phase is counted as a trial and the customer will not be charged for any fees.
         """
-        trial_continuation: Optional[Literal["continue", "none"]]
+        trial_continuation: Optional[Union[Literal["continue", "none"], str]]
         """
         Specify behavior of the trial when crossing schedule phase boundaries
         """
@@ -914,7 +934,7 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
         """
         The start of the first period for which the invoice pre-bills.
         """
-        update_behavior: Optional[Literal["prebill", "reset"]]
+        update_behavior: Optional[Union[Literal["prebill", "reset"], str]]
         """
         Whether to cancel or preserve `prebilling` if the subscription is updated during the prebilled period.
         """
@@ -963,7 +983,7 @@ class QuotePreviewSubscriptionSchedule(StripeObject):
     ID of the account who owns the subscription schedule.
     """
     default_settings: DefaultSettings
-    end_behavior: Literal["cancel", "none", "release", "renew"]
+    end_behavior: Union[Literal["cancel", "none", "release", "renew"], str]
     """
     Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running. `cancel` will end the subscription schedule and cancel the underlying subscription.
     """

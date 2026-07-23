@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from typing import Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -29,11 +30,14 @@ class OutboundSetupIntentUpdateParamsPayoutMethodData(TypedDict):
     """
     The type specific details of the card payout method.
     """
-    type: Literal[
-        "bank_account",
-        "card",
-        "crypto_wallet",
-        "network_business_profile_wallet",
+    type: Union[
+        Literal[
+            "bank_account",
+            "card",
+            "crypto_wallet",
+            "network_business_profile_wallet",
+        ],
+        str,
     ]
     """
     Closed Enum. The type of payout method to be created/updated.

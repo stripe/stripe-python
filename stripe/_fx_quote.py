@@ -4,7 +4,7 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
-from typing import ClassVar, Optional, cast
+from typing import ClassVar, Optional, Union, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -88,7 +88,7 @@ class FxQuote(
         """
         The details required to use an FX Quote for a transfer
         """
-        type: Literal["payment", "transfer"]
+        type: Union[Literal["payment", "transfer"], str]
         """
         The transaction type for which the FX Quote will be used.
 
@@ -104,7 +104,7 @@ class FxQuote(
     """
     Unique identifier for the object.
     """
-    lock_duration: Literal["day", "five_minutes", "hour", "none"]
+    lock_duration: Union[Literal["day", "five_minutes", "hour", "none"], str]
     """
     The duration the exchange rate quote remains valid from creation time. Allowed values are none, hour, and day. Note that for the test mode API available in alpha, you can request an extended quote, but it won't be usable for any transactions.
     """
@@ -114,7 +114,7 @@ class FxQuote(
 
     If lock_duration is set to ‘none' this field will be set to null.
     """
-    lock_status: Literal["active", "expired", "none"]
+    lock_status: Union[Literal["active", "expired", "none"], str]
     """
     Lock status of the quote. Transitions from active to expired once past the lock_expires_at timestamp.
 

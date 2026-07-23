@@ -145,12 +145,12 @@ class PaymentEvaluationCreateParamsPaymentDetailsMoneyMovementDetails(
 class PaymentEvaluationCreateParamsPaymentDetailsMoneyMovementDetailsCard(
     TypedDict,
 ):
-    customer_presence: NotRequired[Literal["off_session", "on_session"]]
+    customer_presence: NotRequired["Literal['off_session', 'on_session']|str"]
     """
     Describes the presence of the customer during the payment.
     """
     payment_type: NotRequired[
-        Literal["one_off", "recurring", "setup_one_off", "setup_recurring"]
+        "Literal['one_off', 'recurring', 'setup_one_off', 'setup_recurring']|str"
     ]
     """
     Describes the type of payment.
@@ -165,6 +165,12 @@ class PaymentEvaluationCreateParamsPaymentDetailsPaymentMethodDetails(
     ]
     """
     Billing information associated with the payment evaluation.
+    """
+    card: NotRequired[
+        "PaymentEvaluationCreateParamsPaymentDetailsPaymentMethodDetailsCard"
+    ]
+    """
+    Masked PAN card details to use as an alternative to a payment_method token.
     """
     payment_method: str
     """
@@ -221,6 +227,27 @@ class PaymentEvaluationCreateParamsPaymentDetailsPaymentMethodDetailsBillingDeta
     state: NotRequired[str]
     """
     State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+    """
+
+
+class PaymentEvaluationCreateParamsPaymentDetailsPaymentMethodDetailsCard(
+    TypedDict,
+):
+    exp_month: int
+    """
+    Two-digit number representing the card's expiration month.
+    """
+    exp_year: int
+    """
+    Four-digit number representing the card's expiration year.
+    """
+    first6: str
+    """
+    First six digits of the card number.
+    """
+    last4: str
+    """
+    Last four digits of the card number.
     """
 
 

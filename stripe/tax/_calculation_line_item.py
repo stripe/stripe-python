@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject, UntypedStripeObject
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
@@ -50,7 +50,9 @@ class CalculationLineItem(StripeObject):
             """
             A human-readable name for the jurisdiction imposing the tax.
             """
-            level: Literal["city", "country", "county", "district", "state"]
+            level: Union[
+                Literal["city", "country", "county", "district", "state"], str
+            ]
             """
             Indicates the level of the jurisdiction imposing the tax.
             """
@@ -111,22 +113,25 @@ class CalculationLineItem(StripeObject):
         """
         Details regarding the rate for this tax. This field will be `null` when the tax is not imposed, for example if the product is exempt from tax.
         """
-        taxability_reason: Literal[
-            "customer_exempt",
-            "not_collecting",
-            "not_subject_to_tax",
-            "not_supported",
-            "portion_product_exempt",
-            "portion_reduced_rated",
-            "portion_standard_rated",
-            "product_exempt",
-            "product_exempt_holiday",
-            "proportionally_rated",
-            "reduced_rated",
-            "reverse_charge",
-            "standard_rated",
-            "taxable_basis_reduced",
-            "zero_rated",
+        taxability_reason: Union[
+            Literal[
+                "customer_exempt",
+                "not_collecting",
+                "not_subject_to_tax",
+                "not_supported",
+                "portion_product_exempt",
+                "portion_reduced_rated",
+                "portion_standard_rated",
+                "product_exempt",
+                "product_exempt_holiday",
+                "proportionally_rated",
+                "reduced_rated",
+                "reverse_charge",
+                "standard_rated",
+                "taxable_basis_reduced",
+                "zero_rated",
+            ],
+            str,
         ]
         """
         The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
@@ -184,7 +189,7 @@ class CalculationLineItem(StripeObject):
     """
     A custom identifier for this line item.
     """
-    tax_behavior: Literal["exclusive", "inclusive"]
+    tax_behavior: Union[Literal["exclusive", "inclusive"], str]
     """
     Specifies whether the `amount` includes taxes. If `tax_behavior=inclusive`, then the amount includes taxes.
     """

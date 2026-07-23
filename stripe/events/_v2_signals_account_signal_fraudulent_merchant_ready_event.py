@@ -5,7 +5,7 @@ from stripe._api_mode import ApiMode
 from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
 from stripe.v2.core._event import Event, EventNotification
-from typing import Any, Dict, List, Optional, cast
+from typing import Any, Dict, List, Optional, Union, cast
 from typing_extensions import Literal, TYPE_CHECKING, override
 
 if TYPE_CHECKING:
@@ -48,23 +48,32 @@ class V2SignalsAccountSignalFraudulentMerchantReadyEvent(Event):
                 """
                 A brief explanation of how this indicator contributed to the fraudulent merchant probability.
                 """
-                impact: Literal[
-                    "decrease", "neutral", "slight_increase", "strong_increase"
+                impact: Union[
+                    Literal[
+                        "decrease",
+                        "neutral",
+                        "slight_increase",
+                        "strong_increase",
+                    ],
+                    str,
                 ]
                 """
                 The effect this indicator had on the overall risk level.
                 """
-                indicator: Literal[
-                    "bank_account",
-                    "business_information_and_account_activity",
-                    "disputes",
-                    "failures",
-                    "geolocation",
-                    "other",
-                    "other_related_accounts",
-                    "other_transaction_activity",
-                    "owner_email",
-                    "web_presence",
+                indicator: Union[
+                    Literal[
+                        "bank_account",
+                        "business_information_and_account_activity",
+                        "disputes",
+                        "failures",
+                        "geolocation",
+                        "other",
+                        "other_related_accounts",
+                        "other_transaction_activity",
+                        "owner_email",
+                        "web_presence",
+                    ],
+                    str,
                 ]
                 """
                 The name of the specific indicator used in the risk assessment.
@@ -78,13 +87,16 @@ class V2SignalsAccountSignalFraudulentMerchantReadyEvent(Event):
             """
             The probability of the merchant being fraudulent. Can be between 0.00 and 100.00. May be empty if the risk_level is UNKNOWN or NOT_ASSESSED.
             """
-            risk_level: Literal[
-                "elevated",
-                "highest",
-                "low",
-                "normal",
-                "not_assessed",
-                "unknown",
+            risk_level: Union[
+                Literal[
+                    "elevated",
+                    "highest",
+                    "low",
+                    "normal",
+                    "not_assessed",
+                    "unknown",
+                ],
+                str,
             ]
             """
             Categorical assessment of the fraudulent merchant risk based on probability.

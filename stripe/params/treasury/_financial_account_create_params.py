@@ -108,7 +108,7 @@ class FinancialAccountCreateParamsFeaturesFinancialAddresses(TypedDict):
 
 
 class FinancialAccountCreateParamsFeaturesFinancialAddressesAba(TypedDict):
-    bank: NotRequired[Literal["evolve", "fifth_third", "goldman_sachs"]]
+    bank: NotRequired["Literal['evolve', 'fifth_third', 'goldman_sachs']|str"]
     """
     Requested bank partner
     """
@@ -200,11 +200,11 @@ class FinancialAccountCreateParamsFeaturesOutboundTransfersUsDomesticWire(
 
 
 class FinancialAccountCreateParamsPlatformRestrictions(TypedDict):
-    inbound_flows: NotRequired[Literal["restricted", "unrestricted"]]
+    inbound_flows: NotRequired["Literal['restricted', 'unrestricted']|str"]
     """
     Restricts all inbound money movement.
     """
-    outbound_flows: NotRequired[Literal["restricted", "unrestricted"]]
+    outbound_flows: NotRequired["Literal['restricted', 'unrestricted']|str"]
     """
     Restricts all outbound money movement.
     """

@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from decimal import Decimal
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -61,7 +61,7 @@ class SubscriptionItemUpdateParams(TypedDict):
     Data used to generate a new [Price](https://docs.stripe.com/api/prices) object inline. One of `price` or `price_data` is required.
     """
     proration_behavior: NotRequired[
-        Literal["always_invoice", "create_prorations", "none"]
+        "Literal['always_invoice', 'create_prorations', 'none']|str"
     ]
     """
     Determines how to handle [prorations](https://docs.stripe.com/billing/subscriptions/prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.
@@ -134,14 +134,14 @@ class SubscriptionItemUpdateParamsDiscountDiscountEnd(TypedDict):
     """
     A precise Unix timestamp for the discount to end. Must be in the future.
     """
-    type: Literal["duration", "timestamp"]
+    type: Union[Literal["duration", "timestamp"], str]
     """
     The type of calculation made to determine when the discount ends.
     """
 
 
 class SubscriptionItemUpdateParamsDiscountDiscountEndDuration(TypedDict):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
     """
@@ -159,7 +159,7 @@ class SubscriptionItemUpdateParamsDiscountSettings(TypedDict):
     Configures service period cycle anchoring.
     """
     start_date: NotRequired[
-        Literal["current_period_end", "current_period_start", "now"]
+        "Literal['current_period_end', 'current_period_start', 'now']|str"
     ]
     """
     The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `now` if omitted.
@@ -175,7 +175,9 @@ class SubscriptionItemUpdateParamsDiscountSettingsServicePeriodAnchorConfig(
     """
     Anchor the service period to a custom date. Type must be `custom` to specify.
     """
-    type: NotRequired[Literal["custom", "subscription_service_cycle_anchor"]]
+    type: NotRequired[
+        "Literal['custom', 'subscription_service_cycle_anchor']|str"
+    ]
     """
     The type of service period anchor config. Defaults to `subscription_service_cycle_anchor` if omitted.
     """

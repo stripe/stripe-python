@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired
 
 
@@ -11,11 +11,14 @@ class PaymentAttemptRecordReportEarlyFraudWarningParams(RequestOptions):
     """
     Specifies which fields in the response should be expanded.
     """
-    fraud_type: Literal[
-        "made_with_lost_card",
-        "made_with_stolen_card",
-        "other",
-        "unauthorized_use_of_card",
+    fraud_type: Union[
+        Literal[
+            "made_with_lost_card",
+            "made_with_stolen_card",
+            "other",
+            "unauthorized_use_of_card",
+        ],
+        str,
     ]
     """
     The type of fraud reported in the early fraud warning.

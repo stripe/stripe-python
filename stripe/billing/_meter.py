@@ -7,7 +7,7 @@ from stripe._nested_resource_class_methods import nested_resource_class_methods
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
+from typing import ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -54,7 +54,7 @@ class Meter(
         """
 
     class DefaultAggregation(StripeObject):
-        formula: Literal["count", "last", "sum"]
+        formula: Union[Literal["count", "last", "sum"], str]
         """
         Specifies how events are aggregated.
         """
@@ -89,7 +89,7 @@ class Meter(
     """
     The name of the meter event to record usage for. Corresponds with the `event_name` field on meter events.
     """
-    event_time_window: Optional[Literal["day", "hour"]]
+    event_time_window: Optional[Union[Literal["day", "hour"], str]]
     """
     The time window which meter events have been pre-aggregated for, if any.
     """
@@ -105,7 +105,7 @@ class Meter(
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    status: Literal["active", "inactive"]
+    status: Union[Literal["active", "inactive"], str]
     """
     The meter's status.
     """

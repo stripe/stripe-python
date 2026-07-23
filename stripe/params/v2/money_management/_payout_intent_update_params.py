@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_object import UntypedStripeObject
 from stripe.v2._amount import AmountParam
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 _PayoutIntentUpdateParamsBase = TypedDict(
@@ -108,17 +108,20 @@ class PayoutIntentUpdateParamsToPayoutMethodOptionsBankAccount(TypedDict):
     Per-network configuration options.
     """
     preferred_networks: List[
-        Literal[
-            "ach",
-            "becs",
-            "eft",
-            "fedwire",
-            "fps",
-            "npp",
-            "rtp",
-            "sepa_credit",
-            "sepa_instant",
-            "swift",
+        Union[
+            Literal[
+                "ach",
+                "becs",
+                "eft",
+                "fedwire",
+                "fps",
+                "npp",
+                "rtp",
+                "sepa_credit",
+                "sepa_instant",
+                "swift",
+            ],
+            str,
         ]
     ]
     """
@@ -140,7 +143,7 @@ class PayoutIntentUpdateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOp
 class PayoutIntentUpdateParamsToPayoutMethodOptionsBankAccountPreferredNetworkOptionsAch(
     TypedDict,
 ):
-    submission: NotRequired[Literal["next_day", "same_day"]]
+    submission: NotRequired["Literal['next_day', 'same_day']|str"]
     """
     Open Enum. ACH submission timing.
     """

@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class CadenceUpdateParams(TypedDict):
     include: NotRequired[
-        List[Literal["invoice_discount_rules", "settings_data"]]
+        List[Union[Literal["invoice_discount_rules", "settings_data"], str]]
     ]
     """
     Additional resource to include in the response.

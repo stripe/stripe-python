@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from decimal import Decimal
 from stripe._stripe_object import StripeObject, UntypedStripeObject
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
@@ -152,7 +152,7 @@ class Cadence(StripeObject):
         """
         Specific configuration for determining billing dates when type=month.
         """
-        type: Literal["day", "month", "week", "year"]
+        type: Union[Literal["day", "month", "week", "year"], str]
         """
         The frequency at which a cadence bills.
         """
@@ -253,7 +253,7 @@ class Cadence(StripeObject):
         class Bill(StripeObject):
             class Calculation(StripeObject):
                 class Tax(StripeObject):
-                    type: Literal["automatic", "manual"]
+                    type: Union[Literal["automatic", "manual"], str]
                     """
                     Determines if tax is calculated automatically based on a PTC or manually based on rules defined by the business. Defaults to "manual".
                     """
@@ -321,7 +321,7 @@ class Cadence(StripeObject):
                 class AcssDebit(StripeObject):
                     class MandateOptions(StripeObject):
                         transaction_type: Optional[
-                            Literal["business", "personal"]
+                            Union[Literal["business", "personal"], str]
                         ]
                         """
                         Transaction type of the mandate.
@@ -332,7 +332,10 @@ class Cadence(StripeObject):
                     Additional fields for Mandate creation.
                     """
                     verification_method: Optional[
-                        Literal["automatic", "instant", "microdeposits"]
+                        Union[
+                            Literal["automatic", "instant", "microdeposits"],
+                            str,
+                        ]
                     ]
                     """
                     Verification method.
@@ -341,7 +344,7 @@ class Cadence(StripeObject):
 
                 class Bancontact(StripeObject):
                     preferred_language: Optional[
-                        Literal["de", "en", "fr", "nl"]
+                        Union[Literal["de", "en", "fr", "nl"], str]
                     ]
                     """
                     Preferred language of the Bancontact authorization page that the customer is redirected to.
@@ -353,7 +356,9 @@ class Cadence(StripeObject):
                         """
                         Amount to be charged for future payments.
                         """
-                        amount_type: Optional[Literal["fixed", "maximum"]]
+                        amount_type: Optional[
+                            Union[Literal["fixed", "maximum"], str]
+                        ]
                         """
                         The AmountType for the mandate. One of `fixed` or `maximum`.
                         """
@@ -372,7 +377,7 @@ class Cadence(StripeObject):
                     Selected network to process the payment on. Depends on the available networks of the card.
                     """
                     request_three_d_secure: Optional[
-                        Literal["any", "automatic", "challenge"]
+                        Union[Literal["any", "automatic", "challenge"], str]
                     ]
                     """
                     An advanced option 3D Secure. We strongly recommend that you rely on our SCA Engine to automatically prompt your customers
@@ -385,8 +390,9 @@ class Cadence(StripeObject):
                 class CustomerBalance(StripeObject):
                     class BankTransfer(StripeObject):
                         class EuBankTransfer(StripeObject):
-                            country: Literal[
-                                "BE", "DE", "ES", "FR", "IE", "NL"
+                            country: Union[
+                                Literal["BE", "DE", "ES", "FR", "IE", "NL"],
+                                str,
                             ]
                             """
                             The desired country code of the bank account information.
@@ -397,12 +403,15 @@ class Cadence(StripeObject):
                         Configuration for `eu_bank_transfer` funding type. Required if `type` is `eu_bank_transfer`.
                         """
                         type: Optional[
-                            Literal[
-                                "eu_bank_transfer",
-                                "gb_bank_transfer",
-                                "jp_bank_transfer",
-                                "mx_bank_transfer",
-                                "us_bank_transfer",
+                            Union[
+                                Literal[
+                                    "eu_bank_transfer",
+                                    "gb_bank_transfer",
+                                    "jp_bank_transfer",
+                                    "mx_bank_transfer",
+                                    "us_bank_transfer",
+                                ],
+                                str,
                             ]
                         ]
                         """
@@ -432,7 +441,7 @@ class Cadence(StripeObject):
                     class FinancialConnections(StripeObject):
                         class Filters(StripeObject):
                             account_subcategories: List[
-                                Literal["checking", "savings"]
+                                Union[Literal["checking", "savings"], str]
                             ]
                             """
                             The account subcategories to use to filter for selectable accounts.
@@ -443,18 +452,26 @@ class Cadence(StripeObject):
                         Provide filters for the linked accounts that the customer can select for the payment method.
                         """
                         permissions: List[
-                            Literal[
-                                "balances",
-                                "ownership",
-                                "payment_method",
-                                "transactions",
+                            Union[
+                                Literal[
+                                    "balances",
+                                    "ownership",
+                                    "payment_method",
+                                    "transactions",
+                                ],
+                                str,
                             ]
                         ]
                         """
                         The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included.
                         """
                         prefetch: List[
-                            Literal["balances", "ownership", "transactions"]
+                            Union[
+                                Literal[
+                                    "balances", "ownership", "transactions"
+                                ],
+                                str,
+                            ]
                         ]
                         """
                         List of data features that you would like to retrieve upon account creation.
@@ -465,8 +482,8 @@ class Cadence(StripeObject):
                     """
                     Additional fields for Financial Connections Session creation.
                     """
-                    verification_method: Literal[
-                        "automatic", "instant", "microdeposits"
+                    verification_method: Union[
+                        Literal["automatic", "instant", "microdeposits"], str
                     ]
                     """
                     Verification method.
@@ -595,7 +612,7 @@ class Cadence(StripeObject):
     """
     Settings data that contains expanded billing settings configuration with actual values.
     """
-    status: Literal["active", "canceled"]
+    status: Union[Literal["active", "canceled"], str]
     """
     The current status of the cadence.
     """

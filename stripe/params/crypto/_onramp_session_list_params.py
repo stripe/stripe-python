@@ -11,23 +11,13 @@ class OnrampSessionListParams(RequestOptions):
     Only return onramp sessions that were created during the given date interval.
     """
     destination_currency: NotRequired[
-        Literal["avax", "btc", "eth", "matic", "sol", "usdc", "wld", "xlm"]
+        "Literal['avax', 'btc', 'eth', 'matic', 'sol', 'usdc', 'wld', 'xlm']|str"
     ]
     """
     The destination cryptocurrency to filter by.
     """
     destination_network: NotRequired[
-        Literal[
-            "avalanche",
-            "base",
-            "bitcoin",
-            "ethereum",
-            "optimism",
-            "polygon",
-            "solana",
-            "stellar",
-            "worldchain",
-        ]
+        "Literal['avalanche', 'base', 'bitcoin', 'ethereum', 'optimism', 'polygon', 'solana', 'stellar', 'sui', 'worldchain']|str"
     ]
     """
     The destination blockchain network to filter by.
@@ -49,13 +39,7 @@ class OnrampSessionListParams(RequestOptions):
     An object ID cursor for use in pagination.
     """
     status: NotRequired[
-        Literal[
-            "fulfillment_complete",
-            "fulfillment_processing",
-            "initialized",
-            "rejected",
-            "requires_payment",
-        ]
+        "Literal['fulfillment_complete', 'fulfillment_processing', 'initialized', 'rejected', 'requires_payment']|str"
     ]
     """
     The status of the Onramp Session. One of = `{initialized, rejected, requires_payment, fulfillment_processing, fulfillment_complete}`

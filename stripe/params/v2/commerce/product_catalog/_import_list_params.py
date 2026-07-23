@@ -30,7 +30,7 @@ class ImportListParams(TypedDict):
     Must be an RFC 3339 date & time value, for example: 2022-09-18T13:22:00Z.
     """
     feed_type: NotRequired[
-        Literal["inventory", "pricing", "product", "promotion"]
+        "Literal['inventory', 'pricing', 'product', 'promotion']|str"
     ]
     """
     Filter by the type of feed data being imported.

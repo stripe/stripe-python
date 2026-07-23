@@ -46,7 +46,7 @@ class CalculationCreateParamsCustomerDetails(TypedDict):
     """
     The customer's postal address (for example, home or business location).
     """
-    address_source: NotRequired[Literal["billing", "shipping"]]
+    address_source: NotRequired["Literal['billing', 'shipping']|str"]
     """
     The type of customer address provided.
     """
@@ -59,7 +59,7 @@ class CalculationCreateParamsCustomerDetails(TypedDict):
     The customer's tax IDs. Stripe Tax might consider a transaction with applicable tax IDs to be B2B, which might affect the tax calculation result. Stripe Tax doesn't validate tax IDs for correctness.
     """
     taxability_override: NotRequired[
-        Literal["customer_exempt", "none", "reverse_charge"]
+        "Literal['customer_exempt', 'none', 'reverse_charge']|str"
     ]
     """
     Overrides the tax calculation result to allow you to not collect tax from your customer. Use this if you've manually checked your customer's tax exemptions. Prefer providing the customer's `tax_ids` where possible, which automatically determines whether `reverse_charge` applies.
@@ -253,7 +253,7 @@ class CalculationCreateParamsLineItem(TypedDict):
     """
     A custom identifier for this line item, which must be unique across the line items in the calculation. The reference helps identify each line item in exported [tax reports](https://docs.stripe.com/tax/reports).
     """
-    tax_behavior: NotRequired[Literal["exclusive", "inclusive"]]
+    tax_behavior: NotRequired["Literal['exclusive', 'inclusive']|str"]
     """
     Specifies whether the `amount` includes taxes. Defaults to `exclusive`.
     """
@@ -342,7 +342,7 @@ class CalculationCreateParamsShippingCost(TypedDict):
     """
     If provided, the [shipping rate](https://docs.stripe.com/api/shipping_rates/object)'s `amount`, `tax_code` and `tax_behavior` are used. If you provide a shipping rate, then you cannot pass the `amount`, `tax_code`, or `tax_behavior` parameters.
     """
-    tax_behavior: NotRequired[Literal["exclusive", "inclusive"]]
+    tax_behavior: NotRequired["Literal['exclusive', 'inclusive']|str"]
     """
     Specifies whether the `amount` includes taxes. If `tax_behavior=inclusive`, then the amount includes taxes. Defaults to `exclusive`.
     """

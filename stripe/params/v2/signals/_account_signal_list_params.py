@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -14,7 +14,16 @@ class AccountSignalListParams(TypedDict):
     """
     Maximum number of results to return per page. Defaults to 20.
     """
-    type: List[Literal["fraudulent_merchant", "merchant_delinquency"]]
+    type: List[
+        Union[
+            Literal[
+                "fraudulent_merchant",
+                "merchant_delinquency",
+                "payment_delinquency_exposure",
+            ],
+            str,
+        ]
+    ]
     """
     Signal types to filter by.
     """

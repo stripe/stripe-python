@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from decimal import Decimal
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -25,7 +25,9 @@ class SubscriptionScheduleUpdateParams(TypedDict):
     """
     Object representing the subscription schedule's default settings.
     """
-    end_behavior: NotRequired[Literal["cancel", "none", "release", "renew"]]
+    end_behavior: NotRequired[
+        "Literal['cancel', 'none', 'release', 'renew']|str"
+    ]
     """
     Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running. `cancel` will end the subscription schedule and cancel the underlying subscription.
     """
@@ -54,7 +56,7 @@ class SubscriptionScheduleUpdateParams(TypedDict):
     If specified, the invoicing for the given billing cycle iterations will be processed now.
     """
     proration_behavior: NotRequired[
-        Literal["always_invoice", "create_prorations", "none"]
+        "Literal['always_invoice', 'create_prorations', 'none']|str"
     ]
     """
     If the update changes the billing configuration (item price, quantity, etc.) of the current phase, indicates how prorations from this change should be handled. The default value is `create_prorations`.
@@ -102,7 +104,7 @@ class SubscriptionScheduleUpdateParamsBillingScheduleBillUntil(TypedDict):
     """
     The end date of the billing schedule.
     """
-    type: Literal["duration", "timestamp"]
+    type: Union[Literal["duration", "timestamp"], str]
     """
     Describes how the billing schedule will determine the end date. Either `duration` or `timestamp`.
     """
@@ -200,7 +202,7 @@ class SubscriptionScheduleUpdateParamsDefaultSettingsAutomaticTaxLiability(
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "application", "self"]
+    type: Union[Literal["account", "application", "self"], str]
     """
     Type of the account referenced in the request.
     """
@@ -245,7 +247,7 @@ class SubscriptionScheduleUpdateParamsDefaultSettingsInvoiceSettingsIssuer(
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "application", "self"]
+    type: Union[Literal["account", "application", "self"], str]
     """
     Type of the account referenced in the request.
     """
@@ -297,7 +299,7 @@ class SubscriptionScheduleUpdateParamsPauseSchedulePausePauseAt(TypedDict):
     """
     The Unix timestamp at which to pause the subscription. Required when `type` is `timestamp`.
     """
-    type: Literal["now", "timestamp"]
+    type: Union[Literal["now", "timestamp"], str]
     """
     When to pause the subscription. Use `now` to pause immediately or `timestamp` to pause at a specific time.
     """
@@ -310,7 +312,9 @@ class SubscriptionScheduleUpdateParamsPauseSchedulePauseSettings(TypedDict):
     """
     Controls what to bill for when pausing the subscription.
     """
-    invoicing_behavior: NotRequired[Literal["invoice", "pending_invoice_item"]]
+    invoicing_behavior: NotRequired[
+        "Literal['invoice', 'pending_invoice_item']|str"
+    ]
     """
     Determines whether to generate an invoice for outstanding amounts when pausing.
     """
@@ -381,7 +385,7 @@ class SubscriptionScheduleUpdateParamsPauseScheduleResumeResumeAt(TypedDict):
     """
     The Unix timestamp at which to resume the subscription. Required when `type` is `timestamp`.
     """
-    type: Literal["duration", "now", "timestamp"]
+    type: Union[Literal["duration", "now", "timestamp"], str]
     """
     When to resume the subscription. Use `now` to resume immediately, `duration` to resume after a set duration, or `timestamp` to resume at a specific time.
     """
@@ -412,7 +416,7 @@ class SubscriptionScheduleUpdateParamsPauseScheduleResumeSettings(TypedDict):
     Controls whether Stripe attempts payment on the resumption invoice and how payment affects the subscription's status. The default is `resume_on_payment_attempt`.
     """
     proration_behavior: NotRequired[
-        Literal["always_invoice", "create_prorations", "none"]
+        "Literal['always_invoice', 'create_prorations', 'none']|str"
     ]
     """
     Determines how to handle prorations when the subscription resumes. The default is `create_prorations`.
@@ -511,7 +515,7 @@ class SubscriptionScheduleUpdateParamsPhase(TypedDict):
     If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://docs.stripe.com/billing/subscriptions/pause-payment).
     """
     proration_behavior: NotRequired[
-        Literal["always_invoice", "create_prorations", "none"]
+        "Literal['always_invoice', 'create_prorations', 'none']|str"
     ]
     """
     Controls whether the subscription schedule should create [prorations](https://docs.stripe.com/billing/subscriptions/prorations) when transitioning to this phase if there is a difference in billing configuration. It's different from the request-level [proration_behavior](https://docs.stripe.com/api/subscription_schedules/update#update_subscription_schedule-proration_behavior) parameter which controls what happens if the update request affects the billing configuration (item price, quantity, etc.) of the current phase.
@@ -530,7 +534,7 @@ class SubscriptionScheduleUpdateParamsPhase(TypedDict):
     """
     If set to true the entire phase is counted as a trial and the customer will not be charged for any fees.
     """
-    trial_continuation: NotRequired[Literal["continue", "none"]]
+    trial_continuation: NotRequired["Literal['continue', 'none']|str"]
     """
     Specify trial behavior when crossing phase boundaries
     """
@@ -621,7 +625,7 @@ class SubscriptionScheduleUpdateParamsPhaseAddInvoiceItemDiscountDiscountEnd(
     """
     A precise Unix timestamp for the discount to end. Must be in the future.
     """
-    type: Literal["duration", "timestamp"]
+    type: Union[Literal["duration", "timestamp"], str]
     """
     The type of calculation made to determine when the discount ends.
     """
@@ -630,7 +634,7 @@ class SubscriptionScheduleUpdateParamsPhaseAddInvoiceItemDiscountDiscountEnd(
 class SubscriptionScheduleUpdateParamsPhaseAddInvoiceItemDiscountDiscountEndDuration(
     TypedDict,
 ):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
     """
@@ -656,7 +660,7 @@ class SubscriptionScheduleUpdateParamsPhaseAddInvoiceItemPeriodEnd(TypedDict):
     """
     A precise Unix timestamp for the end of the invoice item period. Must be greater than or equal to `period.start`.
     """
-    type: Literal["min_item_period_end", "phase_end", "timestamp"]
+    type: Union[Literal["min_item_period_end", "phase_end", "timestamp"], str]
     """
     Select how to calculate the end of the invoice item period.
     """
@@ -669,7 +673,9 @@ class SubscriptionScheduleUpdateParamsPhaseAddInvoiceItemPeriodStart(
     """
     A precise Unix timestamp for the start of the invoice item period. Must be less than or equal to `period.end`.
     """
-    type: Literal["max_item_period_start", "phase_start", "timestamp"]
+    type: Union[
+        Literal["max_item_period_start", "phase_start", "timestamp"], str
+    ]
     """
     Select how to calculate the start of the invoice item period.
     """
@@ -716,7 +722,7 @@ class SubscriptionScheduleUpdateParamsPhaseAutomaticTaxLiability(TypedDict):
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "application", "self"]
+    type: Union[Literal["account", "application", "self"], str]
     """
     Type of the account referenced in the request.
     """
@@ -771,7 +777,7 @@ class SubscriptionScheduleUpdateParamsPhaseDiscountDiscountEnd(TypedDict):
     """
     A precise Unix timestamp for the discount to end. Must be in the future.
     """
-    type: Literal["duration", "timestamp"]
+    type: Union[Literal["duration", "timestamp"], str]
     """
     The type of calculation made to determine when the discount ends.
     """
@@ -780,7 +786,7 @@ class SubscriptionScheduleUpdateParamsPhaseDiscountDiscountEnd(TypedDict):
 class SubscriptionScheduleUpdateParamsPhaseDiscountDiscountEndDuration(
     TypedDict,
 ):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
     """
@@ -798,7 +804,7 @@ class SubscriptionScheduleUpdateParamsPhaseDiscountSettings(TypedDict):
     Configures service period cycle anchoring.
     """
     start_date: NotRequired[
-        Literal["current_period_end", "current_period_start", "phase_start"]
+        "Literal['current_period_end', 'current_period_start', 'phase_start']|str"
     ]
     """
     The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `phase_start` if omitted.
@@ -814,7 +820,7 @@ class SubscriptionScheduleUpdateParamsPhaseDiscountSettingsServicePeriodAnchorCo
     """
     Anchor the service period to a custom date. Type must be `custom` to specify.
     """
-    type: NotRequired[Literal["custom", "inherit"]]
+    type: NotRequired["Literal['custom', 'inherit']|str"]
     """
     The type of service period anchor config. Defaults to `inherit` if omitted.
     """
@@ -878,7 +884,7 @@ class SubscriptionScheduleUpdateParamsPhaseInvoiceSettingsIssuer(TypedDict):
     """
     The connected account being referenced when `type` is `account`.
     """
-    type: Literal["account", "application", "self"]
+    type: Union[Literal["account", "application", "self"], str]
     """
     Type of the account referenced in the request.
     """
@@ -978,7 +984,7 @@ class SubscriptionScheduleUpdateParamsPhaseItemDiscountDiscountEnd(TypedDict):
     """
     A precise Unix timestamp for the discount to end. Must be in the future.
     """
-    type: Literal["duration", "timestamp"]
+    type: Union[Literal["duration", "timestamp"], str]
     """
     The type of calculation made to determine when the discount ends.
     """
@@ -987,7 +993,7 @@ class SubscriptionScheduleUpdateParamsPhaseItemDiscountDiscountEnd(TypedDict):
 class SubscriptionScheduleUpdateParamsPhaseItemDiscountDiscountEndDuration(
     TypedDict,
 ):
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
     """
@@ -1005,7 +1011,7 @@ class SubscriptionScheduleUpdateParamsPhaseItemDiscountSettings(TypedDict):
     Configures service period cycle anchoring.
     """
     start_date: NotRequired[
-        Literal["current_period_end", "current_period_start", "phase_start"]
+        "Literal['current_period_end', 'current_period_start', 'phase_start']|str"
     ]
     """
     The start date of the discount's service period when applying a coupon or promotion code with a service period duration. Defaults to `phase_start` if omitted.
@@ -1021,7 +1027,7 @@ class SubscriptionScheduleUpdateParamsPhaseItemDiscountSettingsServicePeriodAnch
     """
     Anchor the service period to a custom date. Type must be `custom` to specify.
     """
-    type: NotRequired[Literal["custom", "inherit"]]
+    type: NotRequired["Literal['custom', 'inherit']|str"]
     """
     The type of service period anchor config. Defaults to `inherit` if omitted.
     """
@@ -1095,14 +1101,16 @@ class SubscriptionScheduleUpdateParamsPhaseItemTrial(TypedDict):
     """
     List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial. Currently only supports at most 1 price ID.
     """
-    type: Literal["free", "paid"]
+    type: Union[Literal["free", "paid"], str]
     """
     Determines the type of trial for this item.
     """
 
 
 class SubscriptionScheduleUpdateParamsPhasePauseCollection(TypedDict):
-    behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
+    behavior: Union[
+        Literal["keep_as_draft", "mark_uncollectible", "void"], str
+    ]
     """
     The payment collection behavior for this subscription while paused.
     """
@@ -1129,7 +1137,7 @@ class SubscriptionScheduleUpdateParamsPhaseTrialSettings(TypedDict):
 
 
 class SubscriptionScheduleUpdateParamsPhaseTrialSettingsEndBehavior(TypedDict):
-    prorate_up_front: NotRequired[Literal["defer", "include"]]
+    prorate_up_front: NotRequired["Literal['defer', 'include']|str"]
     """
     Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
     """
@@ -1140,7 +1148,7 @@ class SubscriptionScheduleUpdateParamsPrebilling(TypedDict):
     """
     This is used to determine the number of billing cycles to prebill.
     """
-    update_behavior: NotRequired[Literal["prebill", "reset"]]
+    update_behavior: NotRequired["Literal['prebill', 'reset']|str"]
     """
     Whether to cancel or preserve `prebilling` if the subscription is updated during the prebilled period. The default value is `reset`.
     """

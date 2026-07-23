@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -26,7 +26,7 @@ class CouponCreateParams(RequestOptions):
     Coupons defined in each available currency option (only supported if `amount_off` is passed). Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
     """
     duration: NotRequired[
-        Literal["forever", "once", "repeating", "service_period"]
+        "Literal['forever', 'once', 'repeating', 'service_period']|str"
     ]
     """
     Specifies how long the discount will be in effect if used on a subscription. Defaults to `once`.
@@ -120,7 +120,7 @@ class CouponCreateParamsServicePeriodIterations(TypedDict):
     """
     The number of iterations the service period will repeat for. Only used when type is `count`, defaults to 1.
     """
-    type: Literal["count", "forever"]
+    type: Union[Literal["count", "forever"], str]
     """
     The type of iterations, defaults to `count` if omitted.
     """

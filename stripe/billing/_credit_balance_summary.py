@@ -4,7 +4,7 @@ from decimal import Decimal
 from stripe._expandable_field import ExpandableField
 from stripe._singleton_api_resource import SingletonAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -87,7 +87,7 @@ class CreditBalanceSummary(SingletonAPIResource["CreditBalanceSummary"]):
             """
             The monetary amount.
             """
-            type: Literal["custom_pricing_unit", "monetary"]
+            type: Union[Literal["custom_pricing_unit", "monetary"], str]
             """
             The type of this amount. We currently only support `monetary` billing credits.
             """
@@ -176,7 +176,7 @@ class CreditBalanceSummary(SingletonAPIResource["CreditBalanceSummary"]):
             """
             The monetary amount.
             """
-            type: Literal["custom_pricing_unit", "monetary"]
+            type: Union[Literal["custom_pricing_unit", "monetary"], str]
             """
             The type of this amount. We currently only support `monetary` billing credits.
             """

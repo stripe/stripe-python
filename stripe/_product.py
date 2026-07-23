@@ -17,6 +17,7 @@ from typing import (
     Iterator,
     List,
     Optional,
+    Union,
     cast,
     overload,
 )
@@ -100,7 +101,10 @@ class Product(
     class ManagedPayments(StripeObject):
         class IneligibilityReason(StripeObject):
             code: Optional[
-                Literal["ineligible_tax_code", "no_tax_code_specified"]
+                Union[
+                    Literal["ineligible_tax_code", "no_tax_code_specified"],
+                    str,
+                ]
             ]
             """
             A code identifying the reason this product can't be used with Managed Payments. Additional values might be added as Managed Payments evolves its eligibility criteria.
@@ -110,7 +114,7 @@ class Product(
             A human-readable description of the reason this product can't be used with Managed Payments.
             """
 
-        eligibility: Optional[Literal["eligible", "ineligible"]]
+        eligibility: Optional[Union[Literal["eligible", "ineligible"], str]]
         """
         Whether this product is eligible for use with Managed Payments. Possible values are `eligible` and `ineligible`.
         """

@@ -4,7 +4,7 @@ from stripe._api_resource import APIResource
 from stripe._list_object import ListObject
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
+from typing import ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -192,7 +192,7 @@ class Transaction(APIResource["Transaction"]):
         """
         The customer's postal address (for example, home or business location).
         """
-        address_source: Optional[Literal["billing", "shipping"]]
+        address_source: Optional[Union[Literal["billing", "shipping"], str]]
         """
         The type of customer address provided.
         """
@@ -204,8 +204,8 @@ class Transaction(APIResource["Transaction"]):
         """
         The customer's tax IDs (for example, EU VAT numbers).
         """
-        taxability_override: Literal[
-            "customer_exempt", "none", "reverse_charge"
+        taxability_override: Union[
+            Literal["customer_exempt", "none", "reverse_charge"], str
         ]
         """
         The taxability override used for taxation.
@@ -259,8 +259,9 @@ class Transaction(APIResource["Transaction"]):
                 """
                 A human-readable name for the jurisdiction imposing the tax.
                 """
-                level: Literal[
-                    "city", "country", "county", "district", "state"
+                level: Union[
+                    Literal["city", "country", "county", "district", "state"],
+                    str,
                 ]
                 """
                 Indicates the level of the jurisdiction imposing the tax.
@@ -322,22 +323,25 @@ class Transaction(APIResource["Transaction"]):
             """
             Details regarding the rate for this tax. This field will be `null` when the tax is not imposed, for example if the product is exempt from tax.
             """
-            taxability_reason: Literal[
-                "customer_exempt",
-                "not_collecting",
-                "not_subject_to_tax",
-                "not_supported",
-                "portion_product_exempt",
-                "portion_reduced_rated",
-                "portion_standard_rated",
-                "product_exempt",
-                "product_exempt_holiday",
-                "proportionally_rated",
-                "reduced_rated",
-                "reverse_charge",
-                "standard_rated",
-                "taxable_basis_reduced",
-                "zero_rated",
+            taxability_reason: Union[
+                Literal[
+                    "customer_exempt",
+                    "not_collecting",
+                    "not_subject_to_tax",
+                    "not_supported",
+                    "portion_product_exempt",
+                    "portion_reduced_rated",
+                    "portion_standard_rated",
+                    "product_exempt",
+                    "product_exempt_holiday",
+                    "proportionally_rated",
+                    "reduced_rated",
+                    "reverse_charge",
+                    "standard_rated",
+                    "taxable_basis_reduced",
+                    "zero_rated",
+                ],
+                str,
             ]
             """
             The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
@@ -363,7 +367,7 @@ class Transaction(APIResource["Transaction"]):
         """
         The ID of an existing [ShippingRate](https://docs.stripe.com/api/shipping_rates/object).
         """
-        tax_behavior: Literal["exclusive", "inclusive"]
+        tax_behavior: Union[Literal["exclusive", "inclusive"], str]
         """
         Specifies whether the `amount` includes taxes. If `tax_behavior=inclusive`, then the amount includes taxes.
         """
@@ -434,7 +438,7 @@ class Transaction(APIResource["Transaction"]):
     """
     The calculation uses the tax rules and rates that are in effect at this timestamp. You can use a date up to 31 days in the past or up to 31 days in the future. If you use a future date, Stripe doesn't guarantee that the expected tax rules and rate being used match the actual rules and rate that will be in effect on that date. We deploy tax changes before their effective date, but not within a fixed window.
     """
-    type: Literal["reversal", "transaction"]
+    type: Union[Literal["reversal", "transaction"], str]
     """
     If `reversal`, this transaction reverses an earlier transaction.
     """

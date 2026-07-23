@@ -6,6 +6,12 @@ from typing_extensions import TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe.billing import analytics as analytics
     from stripe.billing._alert import Alert as Alert
+    from stripe.billing._alert_notification import (
+        AlertNotification as AlertNotification,
+    )
+    from stripe.billing._alert_notification_service import (
+        AlertNotificationService as AlertNotificationService,
+    )
     from stripe.billing._alert_recovered import (
         AlertRecovered as AlertRecovered,
     )
@@ -55,6 +61,11 @@ if TYPE_CHECKING:
 _import_map = {
     "analytics": ("stripe.billing.analytics", True),
     "Alert": ("stripe.billing._alert", False),
+    "AlertNotification": ("stripe.billing._alert_notification", False),
+    "AlertNotificationService": (
+        "stripe.billing._alert_notification_service",
+        False,
+    ),
     "AlertRecovered": ("stripe.billing._alert_recovered", False),
     "AlertService": ("stripe.billing._alert_service", False),
     "AlertTriggered": ("stripe.billing._alert_triggered", False),

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject
-from typing import ClassVar
+from typing import ClassVar, Union
 from typing_extensions import Literal
 
 
@@ -21,17 +21,21 @@ class CustomerConsumerWallet(StripeObject):
     """
     If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
-    network: Literal[
-        "aptos",
-        "avalanche",
-        "base",
-        "bitcoin",
-        "ethereum",
-        "optimism",
-        "polygon",
-        "solana",
-        "stellar",
-        "worldchain",
+    network: Union[
+        Literal[
+            "aptos",
+            "avalanche",
+            "base",
+            "bitcoin",
+            "ethereum",
+            "optimism",
+            "polygon",
+            "solana",
+            "stellar",
+            "sui",
+            "worldchain",
+        ],
+        str,
     ]
     """
     The blockchain network for this wallet

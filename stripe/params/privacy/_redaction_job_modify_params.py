@@ -10,7 +10,7 @@ class RedactionJobModifyParams(RequestOptions):
     """
     Specifies which fields in the response should be expanded.
     """
-    validation_behavior: NotRequired[Literal["error", "fix"]]
+    validation_behavior: NotRequired["Literal['error', 'fix']|str"]
     """
     Determines the validation behavior of the job. Default is `error`.
     """

@@ -40,8 +40,14 @@ class SessionCreateParams(RequestOptions):
     """
     prefetch: NotRequired[
         List[
-            Literal[
-                "balances", "inferred_balances", "ownership", "transactions"
+            Union[
+                Literal[
+                    "balances",
+                    "inferred_balances",
+                    "ownership",
+                    "transactions",
+                ],
+                str,
             ]
         ]
     ]
@@ -56,7 +62,7 @@ class SessionCreateParams(RequestOptions):
     """
     For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
     """
-    ui_mode: NotRequired[Literal["hosted", "modal"]]
+    ui_mode: NotRequired["Literal['hosted', 'modal']|str"]
     """
     The UI mode of the Session. Defaults to `modal`.
     """
@@ -75,7 +81,7 @@ class SessionCreateParamsAccountHolder(TypedDict):
     """
     The ID of Account representing a customer whose accounts you will retrieve. Only available when `type` is `customer`.
     """
-    type: Literal["account", "customer"]
+    type: Union[Literal["account", "customer"], str]
     """
     Type of account holder to collect accounts for.
     """
@@ -84,12 +90,15 @@ class SessionCreateParamsAccountHolder(TypedDict):
 class SessionCreateParamsFilters(TypedDict):
     account_subcategories: NotRequired[
         List[
-            Literal[
-                "checking",
-                "credit_card",
-                "line_of_credit",
-                "mortgage",
-                "savings",
+            Union[
+                Literal[
+                    "checking",
+                    "credit_card",
+                    "line_of_credit",
+                    "mortgage",
+                    "savings",
+                ],
+                str,
             ]
         ]
     ]

@@ -2,13 +2,16 @@
 # File generated from our OpenAPI spec
 from decimal import Decimal
 from stripe._request_options import RequestOptions
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
 class AlertCreateParams(RequestOptions):
-    alert_type: Literal[
-        "credit_balance_threshold", "spend_threshold", "usage_threshold"
+    alert_type: Union[
+        Literal[
+            "credit_balance_threshold", "spend_threshold", "usage_threshold"
+        ],
+        str,
     ]
     """
     The type of alert to create.
@@ -59,7 +62,7 @@ class AlertCreateParamsCreditBalanceThresholdFilter(TypedDict):
     """
     Limit the scope to this credit balance alert only to this customer.
     """
-    type: Literal["customer", "tenant"]
+    type: Union[Literal["customer", "tenant"], str]
     """
     What type of filter is being applied to this credit balance alert.
     """
@@ -125,7 +128,7 @@ class AlertCreateParamsCreditBalanceThresholdFilterCreditGrantsApplicabilityConf
 
 
 class AlertCreateParamsCreditBalanceThresholdLte(TypedDict):
-    balance_type: Literal["custom_pricing_unit", "monetary"]
+    balance_type: Union[Literal["custom_pricing_unit", "monetary"], str]
     """
     Specify the type of this balance. We currently only support `monetary` billing credits.
     """
@@ -173,7 +176,7 @@ class AlertCreateParamsSpendThreshold(TypedDict):
     Filters to scope the spend calculation.
     """
     group_by: NotRequired[
-        Literal["billing_cadence", "pricing_plan_subscription"]
+        "Literal['billing_cadence', 'pricing_plan_subscription']|str"
     ]
     """
     Defines the granularity of spend aggregation. Defaults to `pricing_plan_subscription`.
@@ -214,7 +217,7 @@ class AlertCreateParamsSpendThresholdGte(TypedDict):
     """
     The custom pricing unit amount. Required when type is `custom_pricing_unit`.
     """
-    type: Literal["amount", "custom_pricing_unit"]
+    type: Union[Literal["amount", "custom_pricing_unit"], str]
     """
     The type of the threshold amount.
     """
@@ -249,7 +252,7 @@ class AlertCreateParamsUsageThreshold(TypedDict):
     """
     gte: int
     """
-    Defines the threshold value that triggers the alert.
+    Defines the threshold value that triggers the alert. The value must be greater than 0.
     """
     meter: str
     """

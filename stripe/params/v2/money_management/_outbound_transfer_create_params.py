@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_object import UntypedStripeObject
 from stripe.v2._amount import AmountParam
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 _OutboundTransferCreateParamsBase = TypedDict(
@@ -45,7 +45,7 @@ class OutboundTransferCreateParams(_OutboundTransferCreateParamsBase):
 
 
 class OutboundTransferCreateParamsDeliveryOptions(TypedDict):
-    bank_account: NotRequired[Literal["automatic", "local", "wire"]]
+    bank_account: NotRequired["Literal['automatic', 'local', 'wire']|str"]
     """
     Open Enum. Method for bank account.
     """
@@ -96,17 +96,20 @@ class OutboundTransferCreateParamsToPayoutMethodOptions(TypedDict):
 
 class OutboundTransferCreateParamsToPayoutMethodOptionsBankAccount(TypedDict):
     preferred_networks: List[
-        Literal[
-            "ach",
-            "becs",
-            "eft",
-            "fedwire",
-            "fps",
-            "npp",
-            "rtp",
-            "sepa_credit",
-            "sepa_instant",
-            "swift",
+        Union[
+            Literal[
+                "ach",
+                "becs",
+                "eft",
+                "fedwire",
+                "fps",
+                "npp",
+                "rtp",
+                "sepa_credit",
+                "sepa_instant",
+                "swift",
+            ],
+            str,
         ]
     ]
     """

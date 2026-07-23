@@ -70,7 +70,7 @@ class PriceCreateParams(RequestOptions):
     """
     Each element represents a pricing tier. This parameter requires `billing_scheme` to be set to `tiered`. See also the documentation for `billing_scheme`.
     """
-    tiers_mode: NotRequired[Literal["graduated", "volume"]]
+    tiers_mode: NotRequired["Literal['graduated', 'volume']|str"]
     """
     Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price, in `graduated` tiering pricing can successively change as the quantity grows.
     """
@@ -277,7 +277,7 @@ class PriceCreateParamsTransformQuantity(TypedDict):
     """
     Divide usage by this number.
     """
-    round: Literal["down", "up"]
+    round: Union[Literal["down", "up"], str]
     """
     After division, either round the result `up` or `down`.
     """

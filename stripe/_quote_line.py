@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._expandable_field import ExpandableField
 from stripe._stripe_object import StripeObject, UntypedStripeObject
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -53,15 +53,20 @@ class QuoteLine(StripeObject):
                         """
 
                     custom: Optional[Custom]
-                    type: Literal["custom", "inherit"]
+                    type: Union[Literal["custom", "inherit"], str]
                     """
                     The type of service period anchor config.
                     """
                     _inner_class_types = {"custom": Custom}
 
                 service_period_anchor_config: ServicePeriodAnchorConfig
-                start_date: Literal[
-                    "current_period_end", "current_period_start", "line_start"
+                start_date: Union[
+                    Literal[
+                        "current_period_end",
+                        "current_period_start",
+                        "line_start",
+                    ],
+                    str,
                 ]
                 """
                 The start date of the discount's service period when applying a coupon or promotion code with a service period duration.
@@ -133,17 +138,20 @@ class QuoteLine(StripeObject):
                             """
 
                         custom: Optional[Custom]
-                        type: Literal["custom", "inherit"]
+                        type: Union[Literal["custom", "inherit"], str]
                         """
                         The type of service period anchor config.
                         """
                         _inner_class_types = {"custom": Custom}
 
                     service_period_anchor_config: ServicePeriodAnchorConfig
-                    start_date: Literal[
-                        "current_period_end",
-                        "current_period_start",
-                        "line_start",
+                    start_date: Union[
+                        Literal[
+                            "current_period_end",
+                            "current_period_start",
+                            "line_start",
+                        ],
+                        str,
                     ]
                     """
                     The start date of the discount's service period when applying a coupon or promotion code with a service period duration.
@@ -179,7 +187,7 @@ class QuoteLine(StripeObject):
                 """
                 List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
                 """
-                type: Literal["free", "paid"]
+                type: Union[Literal["free", "paid"], str]
                 """
                 Determines the type of trial for this item.
                 """
@@ -285,15 +293,20 @@ class QuoteLine(StripeObject):
                         """
 
                     custom: Optional[Custom]
-                    type: Literal["custom", "inherit"]
+                    type: Union[Literal["custom", "inherit"], str]
                     """
                     The type of service period anchor config.
                     """
                     _inner_class_types = {"custom": Custom}
 
                 service_period_anchor_config: ServicePeriodAnchorConfig
-                start_date: Literal[
-                    "current_period_end", "current_period_start", "line_start"
+                start_date: Union[
+                    Literal[
+                        "current_period_end",
+                        "current_period_start",
+                        "line_start",
+                    ],
+                    str,
                 ]
                 """
                 The start date of the discount's service period when applying a coupon or promotion code with a service period duration.
@@ -361,17 +374,20 @@ class QuoteLine(StripeObject):
                             """
 
                         custom: Optional[Custom]
-                        type: Literal["custom", "inherit"]
+                        type: Union[Literal["custom", "inherit"], str]
                         """
                         The type of service period anchor config.
                         """
                         _inner_class_types = {"custom": Custom}
 
                     service_period_anchor_config: ServicePeriodAnchorConfig
-                    start_date: Literal[
-                        "current_period_end",
-                        "current_period_start",
-                        "line_start",
+                    start_date: Union[
+                        Literal[
+                            "current_period_end",
+                            "current_period_start",
+                            "line_start",
+                        ],
+                        str,
                     ]
                     """
                     The start date of the discount's service period when applying a coupon or promotion code with a service period duration.
@@ -407,7 +423,7 @@ class QuoteLine(StripeObject):
                 """
                 List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
                 """
-                type: Literal["free", "paid"]
+                type: Union[Literal["free", "paid"], str]
                 """
                 Determines the type of trial for this item.
                 """
@@ -478,18 +494,21 @@ class QuoteLine(StripeObject):
         """
         Details for the `set_metadata` type: specify an array of key-value pairs.
         """
-        type: Literal[
-            "add_discount",
-            "add_item",
-            "add_metadata",
-            "clear_discounts",
-            "clear_metadata",
-            "remove_discount",
-            "remove_item",
-            "remove_metadata",
-            "set_discounts",
-            "set_items",
-            "set_metadata",
+        type: Union[
+            Literal[
+                "add_discount",
+                "add_item",
+                "add_metadata",
+                "clear_discounts",
+                "clear_metadata",
+                "remove_discount",
+                "remove_item",
+                "remove_metadata",
+                "set_discounts",
+                "set_items",
+                "set_metadata",
+            ],
+            str,
         ]
         """
         The type of action the quote line performs.
@@ -512,7 +531,7 @@ class QuoteLine(StripeObject):
         """
         The ID of the schedule the line applies to.
         """
-        type: Literal["new_reference", "subscription_schedule"]
+        type: Union[Literal["new_reference", "subscription_schedule"], str]
         """
         Describes whether the quote line is affecting a new schedule or an existing schedule.
         """
@@ -539,7 +558,7 @@ class QuoteLine(StripeObject):
             """
 
         class Duration(StripeObject):
-            interval: Literal["day", "month", "week", "year"]
+            interval: Union[Literal["day", "month", "week", "year"], str]
             """
             Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
             """
@@ -564,14 +583,17 @@ class QuoteLine(StripeObject):
         """
         A precise Unix timestamp.
         """
-        type: Literal[
-            "billing_period_end",
-            "discount_end",
-            "duration",
-            "quote_acceptance_date",
-            "schedule_end",
-            "timestamp",
-            "upcoming_invoice",
+        type: Union[
+            Literal[
+                "billing_period_end",
+                "discount_end",
+                "duration",
+                "quote_acceptance_date",
+                "schedule_end",
+                "timestamp",
+                "upcoming_invoice",
+            ],
+            str,
         ]
         """
         Select a way to pass in `ends_at`.
@@ -583,7 +605,9 @@ class QuoteLine(StripeObject):
 
     class SetPauseCollection(StripeObject):
         class Set(StripeObject):
-            behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
+            behavior: Union[
+                Literal["keep_as_draft", "mark_uncollectible", "void"], str
+            ]
             """
             The payment collection behavior for this subscription while paused.
             """
@@ -592,7 +616,7 @@ class QuoteLine(StripeObject):
         """
         If specified, payment collection for this subscription will be paused. Note that the subscription status will be unchanged and will not be updated to `paused`. Learn more about [pausing collection](https://docs.stripe.com/billing/subscriptions/pause-payment).
         """
-        type: Literal["remove", "set"]
+        type: Union[Literal["remove", "set"], str]
         """
         Defines the type of the pause_collection behavior for the quote line.
         """
@@ -627,14 +651,17 @@ class QuoteLine(StripeObject):
         """
         A precise Unix timestamp.
         """
-        type: Literal[
-            "discount_end",
-            "line_ends_at",
-            "now",
-            "quote_acceptance_date",
-            "schedule_end",
-            "timestamp",
-            "upcoming_invoice",
+        type: Union[
+            Literal[
+                "discount_end",
+                "line_ends_at",
+                "now",
+                "quote_acceptance_date",
+                "schedule_end",
+                "timestamp",
+                "upcoming_invoice",
+            ],
+            str,
         ]
         """
         Select a way to pass in `starts_at`.
@@ -646,7 +673,7 @@ class QuoteLine(StripeObject):
 
     class TrialSettings(StripeObject):
         class EndBehavior(StripeObject):
-            prorate_up_front: Optional[Literal["defer", "include"]]
+            prorate_up_front: Optional[Union[Literal["defer", "include"], str]]
             """
             Configure how an opt-in following a paid trial is billed when using `billing_behavior: prorate_up_front`.
             """
@@ -665,7 +692,9 @@ class QuoteLine(StripeObject):
     """
     Details to identify the subscription schedule the quote line applies to.
     """
-    billing_cycle_anchor: Optional[Literal["automatic", "line_starts_at"]]
+    billing_cycle_anchor: Optional[
+        Union[Literal["automatic", "line_starts_at"], str]
+    ]
     """
     For point-in-time quote lines (having no `ends_at` timestamp), this attribute lets you set or remove whether the subscription's billing cycle anchor is reset at the Quote Line `starts_at` timestamp.For time-span based quote lines (having both `starts_at` and `ends_at`), the only valid value is `automatic`, which removes any previously configured billing cycle anchor resets during the window of time spanning the quote line.
     """
@@ -673,7 +702,9 @@ class QuoteLine(StripeObject):
     """
     A point-in-time operation that cancels an existing subscription schedule at the line's starts_at timestamp. Currently only compatible with `quote_acceptance_date` for `starts_at`. When using cancel_subscription_schedule, the subscription schedule on the quote remains unalterable, except for modifications to the metadata, collection_method or invoice_settings.
     """
-    effective_at: Optional[Literal["billing_period_start", "line_start"]]
+    effective_at: Optional[
+        Union[Literal["billing_period_start", "line_start"], str]
+    ]
     """
     Configures how the subscription schedule handles billing for phase transitions.
     """
@@ -690,7 +721,7 @@ class QuoteLine(StripeObject):
     String representing the object's type. Objects of the same type share the same value.
     """
     proration_behavior: Optional[
-        Literal["always_invoice", "create_prorations", "none"]
+        Union[Literal["always_invoice", "create_prorations", "none"], str]
     ]
     """
     Changes to how Stripe handles prorations during the quote line's time span. Affects if and how prorations are created when a future phase starts.
@@ -699,7 +730,9 @@ class QuoteLine(StripeObject):
     """
     Details to modify the pause_collection behavior of the subscription schedule.
     """
-    set_schedule_end: Optional[Literal["line_ends_at", "line_starts_at"]]
+    set_schedule_end: Optional[
+        Union[Literal["line_ends_at", "line_starts_at"], str]
+    ]
     """
     Timestamp helper to end the underlying schedule early, based on the acompanying line's start or end date.
     """

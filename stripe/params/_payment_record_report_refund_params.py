@@ -29,7 +29,7 @@ class PaymentRecordReportRefundParams(RequestOptions):
     """
     Set of [key-value pairs](https://docs.stripe.com/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
     """
-    outcome: NotRequired[Literal["failed", "refunded"]]
+    outcome: NotRequired["Literal['failed', 'refunded']|str"]
     """
     The outcome of the reported refund.
     """
@@ -38,7 +38,7 @@ class PaymentRecordReportRefundParams(RequestOptions):
     Processor information for this refund.
     """
     reason: NotRequired[
-        Literal["duplicate", "fraudulent", "requested_by_customer"]
+        "Literal['duplicate', 'fraudulent', 'requested_by_customer']|str"
     ]
     """
     The reason for the refund. One of `duplicate`, `fraudulent`, or `requested_by_customer`.
@@ -70,15 +70,7 @@ class PaymentRecordReportRefundParamsFailed(TypedDict):
     When the reported refund failed. Measured in seconds since the Unix epoch.
     """
     failure_reason: NotRequired[
-        Literal[
-            "charge_for_pending_refund_disputed",
-            "declined",
-            "expired_or_canceled_card",
-            "insufficient_funds",
-            "lost_or_stolen_card",
-            "merchant_request",
-            "unknown",
-        ]
+        "Literal['charge_for_pending_refund_disputed', 'declined', 'expired_or_canceled_card', 'insufficient_funds', 'lost_or_stolen_card', 'merchant_request', 'unknown']|str"
     ]
     """
     Provides the reason for the refund failure. Possible values are: `lost_or_stolen_card`, `expired_or_canceled_card`, `charge_for_pending_refund_disputed`, `insufficient_funds`, `declined`, `merchant_request`, or `unknown`.

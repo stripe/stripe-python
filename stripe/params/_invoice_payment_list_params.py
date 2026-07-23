@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -34,7 +34,7 @@ class InvoicePaymentListParams(RequestOptions):
     """
     A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
     """
-    status: NotRequired[Literal["canceled", "open", "paid"]]
+    status: NotRequired["Literal['canceled', 'open', 'paid']|str"]
     """
     The status of the invoice payments to return.
     """
@@ -68,7 +68,7 @@ class InvoicePaymentListParamsPayment(TypedDict):
     """
     Only return invoice payments associated by this payment record ID.
     """
-    type: Literal["payment_intent", "payment_record"]
+    type: Union[Literal["payment_intent", "payment_record"], str]
     """
     Only return invoice payments associated by this payment type.
     """

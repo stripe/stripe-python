@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject, UntypedStripeObject
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
@@ -39,7 +39,7 @@ class QueryRun(StripeObject):
                 The type of the column.
                 """
 
-            content_type: Literal["csv", "zip"]
+            content_type: Union[Literal["csv", "zip"], str]
             """
             The content type of the file.
             """
@@ -81,7 +81,7 @@ class QueryRun(StripeObject):
 
     class StatusDetails(StripeObject):
         error_code: Optional[
-            Literal["file_size_above_limit", "internal_error"]
+            Union[Literal["file_size_above_limit", "internal_error"], str]
         ]
         """
         Error code categorizing the reason the `QueryRun` failed.

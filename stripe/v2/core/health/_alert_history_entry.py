@@ -3,7 +3,7 @@
 from decimal import Decimal
 from stripe._stripe_object import StripeObject
 from stripe.v2._amount import Amount
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
@@ -42,7 +42,7 @@ class AlertHistoryEntry(StripeObject):
         """
         The error code.
         """
-        http_method: Literal["DELETE", "GET", "POST", "PUT"]
+        http_method: Union[Literal["DELETE", "GET", "POST", "PUT"], str]
         """
         The HTTP method.
         """
@@ -87,7 +87,7 @@ class AlertHistoryEntry(StripeObject):
         """
         The canonical path.
         """
-        http_method: Literal["DELETE", "GET", "POST", "PUT"]
+        http_method: Union[Literal["DELETE", "GET", "POST", "PUT"], str]
         """
         The HTTP method.
         """
@@ -121,7 +121,7 @@ class AlertHistoryEntry(StripeObject):
             The type of the dimension. Determines which field in dimension_details is populated.
             """
 
-        charge_type: Literal["money_moving", "validation"]
+        charge_type: Union[Literal["money_moving", "validation"], str]
         """
         The type of the charge.
         """
@@ -133,76 +133,79 @@ class AlertHistoryEntry(StripeObject):
         """
         Dimensions that describe what subset of payments are impacted.
         """
-        payment_method_type: Literal[
-            "acss_debit",
-            "affirm",
-            "afterpay_clearpay",
-            "alipay",
-            "alma",
-            "amazon_pay",
-            "apple_pay",
-            "au_becs_debit",
-            "bacs_debit",
-            "bancontact",
-            "billie",
-            "blik",
-            "boleto",
-            "card",
-            "card_present",
-            "cartes_bancaires",
-            "cashapp",
-            "crypto",
-            "dummy_passthrough_card",
-            "eps",
-            "fpx",
-            "giropay",
-            "grabpay",
-            "ideal",
-            "interac_present",
-            "kakao_pay",
-            "klarna",
-            "konbini",
-            "kriya",
-            "kr_card",
-            "link",
-            "mb_way",
-            "mobilepay",
-            "mondu",
-            "multibanco",
-            "naver_pay",
-            "ng_bank",
-            "ng_bank_transfer",
-            "ng_card",
-            "ng_market",
-            "ng_ussd",
-            "ng_wallet",
-            "oxxo",
-            "p24",
-            "paper_check",
-            "payco",
-            "paynow",
-            "paypal",
-            "paypay",
-            "payto",
-            "pay_by_bank",
-            "pix",
-            "promptpay",
-            "rechnung",
-            "revolut_pay",
-            "samsung_pay",
-            "satispay",
-            "scalapay",
-            "sepa_debit",
-            "sequra",
-            "sofort",
-            "sunbit",
-            "swish",
-            "twint",
-            "upi",
-            "us_bank_account",
-            "vipps",
-            "wechat_pay",
-            "zip",
+        payment_method_type: Union[
+            Literal[
+                "acss_debit",
+                "affirm",
+                "afterpay_clearpay",
+                "alipay",
+                "alma",
+                "amazon_pay",
+                "apple_pay",
+                "au_becs_debit",
+                "bacs_debit",
+                "bancontact",
+                "billie",
+                "blik",
+                "boleto",
+                "card",
+                "card_present",
+                "cartes_bancaires",
+                "cashapp",
+                "crypto",
+                "dummy_passthrough_card",
+                "eps",
+                "fpx",
+                "giropay",
+                "grabpay",
+                "ideal",
+                "interac_present",
+                "kakao_pay",
+                "klarna",
+                "konbini",
+                "kriya",
+                "kr_card",
+                "link",
+                "mb_way",
+                "mobilepay",
+                "mondu",
+                "multibanco",
+                "naver_pay",
+                "ng_bank",
+                "ng_bank_transfer",
+                "ng_card",
+                "ng_market",
+                "ng_ussd",
+                "ng_wallet",
+                "oxxo",
+                "p24",
+                "paper_check",
+                "payco",
+                "paynow",
+                "paypal",
+                "paypay",
+                "payto",
+                "pay_by_bank",
+                "pix",
+                "promptpay",
+                "rechnung",
+                "revolut_pay",
+                "samsung_pay",
+                "satispay",
+                "scalapay",
+                "sepa_debit",
+                "sequra",
+                "sofort",
+                "sunbit",
+                "swish",
+                "twint",
+                "upi",
+                "us_bank_account",
+                "vipps",
+                "wechat_pay",
+                "zip",
+            ],
+            str,
         ]
         """
         The type of the payment method.
@@ -218,7 +221,9 @@ class AlertHistoryEntry(StripeObject):
         }
 
     class ElementsError(StripeObject):
-        element_type: Optional[Literal["expressCheckout", "payment"]]
+        element_type: Optional[
+            Union[Literal["expressCheckout", "payment"], str]
+        ]
         """
         The type of the element.
         """
@@ -257,7 +262,7 @@ class AlertHistoryEntry(StripeObject):
         _inner_class_types = {"related_object": RelatedObject}
 
     class FraudRate(StripeObject):
-        attack_type: Literal["spike", "sustained_attack"]
+        attack_type: Union[Literal["spike", "sustained_attack"], str]
         """
         Fraud attack type.
         """
@@ -331,11 +336,14 @@ class AlertHistoryEntry(StripeObject):
         """
 
     class MetronomeNotificationLatency(StripeObject):
-        pipeline: Literal[
-            "configuration_triggered",
-            "high_cardinality_usage_triggered",
-            "standard_usage_triggered",
-            "time_triggered",
+        pipeline: Union[
+            Literal[
+                "configuration_triggered",
+                "high_cardinality_usage_triggered",
+                "standard_usage_triggered",
+                "time_triggered",
+            ],
+            str,
         ]
         """
         The impacted Metronome billing pipeline.
@@ -371,76 +379,79 @@ class AlertHistoryEntry(StripeObject):
         """
         The percentage of impacted requests.
         """
-        payment_method_type: Literal[
-            "acss_debit",
-            "affirm",
-            "afterpay_clearpay",
-            "alipay",
-            "alma",
-            "amazon_pay",
-            "apple_pay",
-            "au_becs_debit",
-            "bacs_debit",
-            "bancontact",
-            "billie",
-            "blik",
-            "boleto",
-            "card",
-            "card_present",
-            "cartes_bancaires",
-            "cashapp",
-            "crypto",
-            "dummy_passthrough_card",
-            "eps",
-            "fpx",
-            "giropay",
-            "grabpay",
-            "ideal",
-            "interac_present",
-            "kakao_pay",
-            "klarna",
-            "konbini",
-            "kriya",
-            "kr_card",
-            "link",
-            "mb_way",
-            "mobilepay",
-            "mondu",
-            "multibanco",
-            "naver_pay",
-            "ng_bank",
-            "ng_bank_transfer",
-            "ng_card",
-            "ng_market",
-            "ng_ussd",
-            "ng_wallet",
-            "oxxo",
-            "p24",
-            "paper_check",
-            "payco",
-            "paynow",
-            "paypal",
-            "paypay",
-            "payto",
-            "pay_by_bank",
-            "pix",
-            "promptpay",
-            "rechnung",
-            "revolut_pay",
-            "samsung_pay",
-            "satispay",
-            "scalapay",
-            "sepa_debit",
-            "sequra",
-            "sofort",
-            "sunbit",
-            "swish",
-            "twint",
-            "upi",
-            "us_bank_account",
-            "vipps",
-            "wechat_pay",
-            "zip",
+        payment_method_type: Union[
+            Literal[
+                "acss_debit",
+                "affirm",
+                "afterpay_clearpay",
+                "alipay",
+                "alma",
+                "amazon_pay",
+                "apple_pay",
+                "au_becs_debit",
+                "bacs_debit",
+                "bancontact",
+                "billie",
+                "blik",
+                "boleto",
+                "card",
+                "card_present",
+                "cartes_bancaires",
+                "cashapp",
+                "crypto",
+                "dummy_passthrough_card",
+                "eps",
+                "fpx",
+                "giropay",
+                "grabpay",
+                "ideal",
+                "interac_present",
+                "kakao_pay",
+                "klarna",
+                "konbini",
+                "kriya",
+                "kr_card",
+                "link",
+                "mb_way",
+                "mobilepay",
+                "mondu",
+                "multibanco",
+                "naver_pay",
+                "ng_bank",
+                "ng_bank_transfer",
+                "ng_card",
+                "ng_market",
+                "ng_ussd",
+                "ng_wallet",
+                "oxxo",
+                "p24",
+                "paper_check",
+                "payco",
+                "paynow",
+                "paypal",
+                "paypay",
+                "payto",
+                "pay_by_bank",
+                "pix",
+                "promptpay",
+                "rechnung",
+                "revolut_pay",
+                "samsung_pay",
+                "satispay",
+                "scalapay",
+                "sepa_debit",
+                "sequra",
+                "sofort",
+                "sunbit",
+                "swish",
+                "twint",
+                "upi",
+                "us_bank_account",
+                "vipps",
+                "wechat_pay",
+                "zip",
+            ],
+            str,
         ]
         """
         The type of the payment method.
@@ -563,26 +574,29 @@ class AlertHistoryEntry(StripeObject):
     """
     Populated when type is traffic_volume_drop.
     """
-    transition: Literal["impact_updated", "opened", "resolved"]
+    transition: Union[Literal["impact_updated", "opened", "resolved"], str]
     """
     The type of transition that occurred.
     """
-    type: Literal[
-        "api_error",
-        "api_latency",
-        "authorization_rate_drop",
-        "elements_error",
-        "event_generation_failure",
-        "fraud_rate",
-        "invoice_count_dropped",
-        "issuing_authorization_request_errors",
-        "issuing_authorization_request_timeout",
-        "meter_event_summaries_delayed",
-        "metronome_notification_latency",
-        "payment_method_error",
-        "sepa_debit_delayed",
-        "traffic_volume_drop",
-        "webhook_latency",
+    type: Union[
+        Literal[
+            "api_error",
+            "api_latency",
+            "authorization_rate_drop",
+            "elements_error",
+            "event_generation_failure",
+            "fraud_rate",
+            "invoice_count_dropped",
+            "issuing_authorization_request_errors",
+            "issuing_authorization_request_timeout",
+            "meter_event_summaries_delayed",
+            "metronome_notification_latency",
+            "payment_method_error",
+            "sepa_debit_delayed",
+            "traffic_volume_drop",
+            "webhook_latency",
+        ],
+        str,
     ]
     """
     The type of the alert. Determines which sub-hash field is populated.

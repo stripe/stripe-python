@@ -43,7 +43,7 @@ class GrantedTokenCreateParamsUsageLimits(TypedDict):
     """
     Max amount that can be captured using this SharedPaymentToken
     """
-    recurring_interval: NotRequired[Literal["month", "week", "year"]]
+    recurring_interval: NotRequired["Literal['month', 'week', 'year']|str"]
     """
     The recurring interval at which the shared payment token's amount usage restrictions reset.
     """

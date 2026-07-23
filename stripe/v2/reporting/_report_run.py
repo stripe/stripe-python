@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject, UntypedStripeObject
-from typing import Any, ClassVar, List, Optional
+from typing import Any, ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
@@ -40,7 +40,7 @@ class ReportRun(StripeObject):
                 The type of the column.
                 """
 
-            content_type: Literal["csv", "zip"]
+            content_type: Union[Literal["csv", "zip"], str]
             """
             The content type of the file.
             """

@@ -3,7 +3,7 @@
 from stripe._singleton_api_resource import SingletonAPIResource
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
-from typing import ClassVar, List, Optional, cast
+from typing import ClassVar, List, Optional, Union, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -26,12 +26,14 @@ class Settings(
     OBJECT_NAME: ClassVar[Literal["tax.settings"]] = "tax.settings"
 
     class Defaults(StripeObject):
-        provider: Literal["anrok", "avalara", "sphere", "stripe"]
+        provider: Union[Literal["anrok", "avalara", "sphere", "stripe"], str]
         """
         The tax calculation provider this account uses. Defaults to `stripe` when not using a [third-party provider](https://docs.stripe.com/tax/third-party-apps).
         """
         tax_behavior: Optional[
-            Literal["exclusive", "inclusive", "inferred_by_currency"]
+            Union[
+                Literal["exclusive", "inclusive", "inferred_by_currency"], str
+            ]
         ]
         """
         Default [tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#tax-behavior) used to specify whether the price is considered inclusive of taxes or exclusive of taxes. If the item's price has a tax behavior set, it will take precedence over the default tax behavior.
@@ -98,7 +100,7 @@ class Settings(
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    status: Literal["active", "pending"]
+    status: Union[Literal["active", "pending"], str]
     """
     The status of the Tax `Settings`.
     """

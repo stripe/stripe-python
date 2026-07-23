@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -32,7 +32,7 @@ class ApiKeyCreateParams(TypedDict):
     A public key is required when creating secret keys.
     Publishable keys are not encrypted and a public key should not be included.
     """
-    type: Literal["publishable_key", "secret_key"]
+    type: Union[Literal["publishable_key", "secret_key"], str]
     """
     Type of the API key to create (secret or publishable).
     """

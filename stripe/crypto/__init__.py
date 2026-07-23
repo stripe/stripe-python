@@ -20,6 +20,10 @@ if TYPE_CHECKING:
     from stripe.crypto._customer_service import (
         CustomerService as CustomerService,
     )
+    from stripe.crypto._deposit_address import DepositAddress as DepositAddress
+    from stripe.crypto._deposit_address_service import (
+        DepositAddressService as DepositAddressService,
+    )
     from stripe.crypto._onramp_session import OnrampSession as OnrampSession
     from stripe.crypto._onramp_session_service import (
         OnrampSessionService as OnrampSessionService,
@@ -48,6 +52,8 @@ _import_map = {
         False,
     ),
     "CustomerService": ("stripe.crypto._customer_service", False),
+    "DepositAddress": ("stripe.crypto._deposit_address", False),
+    "DepositAddressService": ("stripe.crypto._deposit_address_service", False),
     "OnrampSession": ("stripe.crypto._onramp_session", False),
     "OnrampSessionService": ("stripe.crypto._onramp_session_service", False),
     "OnrampTransactionLimits": (

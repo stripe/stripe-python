@@ -7,7 +7,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import Any, ClassVar, List, Optional, cast, overload
+from typing import Any, ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -64,7 +64,7 @@ class Coupon(
             """
             The number of iterations the service period will repeat for. Only used when type is `count`.
             """
-            type: Literal["count", "forever"]
+            type: Union[Literal["count", "forever"], str]
             """
             The type of iterations.
             """
@@ -101,7 +101,9 @@ class Coupon(
     """
     Always true for a deleted object
     """
-    duration: Literal["forever", "once", "repeating", "service_period"]
+    duration: Union[
+        Literal["forever", "once", "repeating", "service_period"], str
+    ]
     """
     One of `forever`, `once`, or `repeating`. Describes how long a customer who applies this coupon will get the discount.
     """
@@ -150,7 +152,7 @@ class Coupon(
     """
     Number of times this coupon has been applied to a customer.
     """
-    type: Optional[Literal["amount_off", "percent_off", "script"]]
+    type: Optional[Union[Literal["amount_off", "percent_off", "script"], str]]
     """
     One of `amount_off`, `percent_off`, or `script`. Describes the type of coupon logic used to calculate the discount.
     """

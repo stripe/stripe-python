@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -38,11 +38,14 @@ class AccountLinkCreateParamsUseCase(TypedDict):
     """
     Hash containing configuration options for an Account Link that updates an existing recipient.
     """
-    type: Literal[
-        "account_onboarding",
-        "account_update",
-        "recipient_onboarding",
-        "recipient_update",
+    type: Union[
+        Literal[
+            "account_onboarding",
+            "account_update",
+            "recipient_onboarding",
+            "recipient_update",
+        ],
+        str,
     ]
     """
     Open Enum. The type of Account Link the user is requesting.
@@ -57,7 +60,12 @@ class AccountLinkCreateParamsUseCaseAccountOnboarding(TypedDict):
     Specifies the requirements that Stripe collects from v2/core/accounts in the Onboarding flow.
     """
     configurations: List[
-        Literal["customer", "merchant", "money_manager", "recipient", "storer"]
+        Union[
+            Literal[
+                "customer", "merchant", "money_manager", "recipient", "storer"
+            ],
+            str,
+        ]
     ]
     """
     Open Enum. A v2/core/account can be configured to enable certain functionality. The configuration param targets the v2/core/account_link to collect information for the specified v2/core/account configuration/s.
@@ -75,11 +83,11 @@ class AccountLinkCreateParamsUseCaseAccountOnboarding(TypedDict):
 class AccountLinkCreateParamsUseCaseAccountOnboardingCollectionOptions(
     TypedDict,
 ):
-    fields: NotRequired[Literal["currently_due", "eventually_due"]]
+    fields: NotRequired["Literal['currently_due', 'eventually_due']|str"]
     """
     Specifies whether the platform collects only currently_due requirements (`currently_due`) or both currently_due and eventually_due requirements (`eventually_due`). If you don't specify collection_options, the default value is currently_due.
     """
-    future_requirements: NotRequired[Literal["include", "omit"]]
+    future_requirements: NotRequired["Literal['include', 'omit']|str"]
     """
     Specifies whether the platform collects future_requirements in addition to requirements in Connect Onboarding. The default value is `omit`.
     """
@@ -93,7 +101,12 @@ class AccountLinkCreateParamsUseCaseAccountUpdate(TypedDict):
     Specifies the requirements that Stripe collects from v2/core/accounts in the Onboarding flow.
     """
     configurations: List[
-        Literal["customer", "merchant", "money_manager", "recipient", "storer"]
+        Union[
+            Literal[
+                "customer", "merchant", "money_manager", "recipient", "storer"
+            ],
+            str,
+        ]
     ]
     """
     Open Enum. A v2/account can be configured to enable certain functionality. The configuration param targets the v2/account_link to collect information for the specified v2/account configuration/s.
@@ -109,11 +122,11 @@ class AccountLinkCreateParamsUseCaseAccountUpdate(TypedDict):
 
 
 class AccountLinkCreateParamsUseCaseAccountUpdateCollectionOptions(TypedDict):
-    fields: NotRequired[Literal["currently_due", "eventually_due"]]
+    fields: NotRequired["Literal['currently_due', 'eventually_due']|str"]
     """
     Specifies whether the platform collects only currently_due requirements (`currently_due`) or both currently_due and eventually_due requirements (`eventually_due`). The default value is `currently_due`.
     """
-    future_requirements: NotRequired[Literal["include", "omit"]]
+    future_requirements: NotRequired["Literal['include', 'omit']|str"]
     """
     Specifies whether the platform collects future_requirements in addition to requirements in Connect Onboarding. The default value is `omit`.
     """
@@ -143,11 +156,11 @@ class AccountLinkCreateParamsUseCaseRecipientOnboarding(TypedDict):
 class AccountLinkCreateParamsUseCaseRecipientOnboardingCollectionOptions(
     TypedDict,
 ):
-    fields: NotRequired[Literal["currently_due", "eventually_due"]]
+    fields: NotRequired["Literal['currently_due', 'eventually_due']|str"]
     """
     Specifies whether the platform collects only currently_due requirements (`currently_due`) or both currently_due and eventually_due requirements (`eventually_due`). If you don't specify collection_options, the default value is currently_due.
     """
-    future_requirements: NotRequired[Literal["include", "omit"]]
+    future_requirements: NotRequired["Literal['include', 'omit']|str"]
     """
     Specifies whether the platform collects future_requirements in addition to requirements in Connect Onboarding. The default value is `omit`.
     """
@@ -177,11 +190,11 @@ class AccountLinkCreateParamsUseCaseRecipientUpdate(TypedDict):
 class AccountLinkCreateParamsUseCaseRecipientUpdateCollectionOptions(
     TypedDict
 ):
-    fields: NotRequired[Literal["currently_due", "eventually_due"]]
+    fields: NotRequired["Literal['currently_due', 'eventually_due']|str"]
     """
     Specifies whether the platform collects only currently_due requirements (`currently_due`) or both currently_due and eventually_due requirements (`eventually_due`). The default value is `currently_due`.
     """
-    future_requirements: NotRequired[Literal["include", "omit"]]
+    future_requirements: NotRequired["Literal['include', 'omit']|str"]
     """
     Specifies whether the platform collects future_requirements in addition to requirements in Connect Onboarding. The default value is `omit`.
     """

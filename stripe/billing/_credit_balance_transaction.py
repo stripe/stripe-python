@@ -5,7 +5,7 @@ from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -95,7 +95,7 @@ class CreditBalanceTransaction(
             """
             The monetary amount.
             """
-            type: Literal["custom_pricing_unit", "monetary"]
+            type: Union[Literal["custom_pricing_unit", "monetary"], str]
             """
             The type of this amount. We currently only support `monetary` billing credits.
             """
@@ -121,7 +121,10 @@ class CreditBalanceTransaction(
         """
         Details of the invoice to which the reinstated credits were originally applied. Only present if `type` is `credits_application_invoice_voided`.
         """
-        type: Literal["credits_application_invoice_voided", "credits_granted"]
+        type: Union[
+            Literal["credits_application_invoice_voided", "credits_granted"],
+            str,
+        ]
         """
         The type of credit transaction.
         """
@@ -194,7 +197,7 @@ class CreditBalanceTransaction(
             """
             The monetary amount.
             """
-            type: Literal["custom_pricing_unit", "monetary"]
+            type: Union[Literal["custom_pricing_unit", "monetary"], str]
             """
             The type of this amount. We currently only support `monetary` billing credits.
             """
@@ -218,7 +221,10 @@ class CreditBalanceTransaction(
         """
         Details of how the billing credits were applied to an invoice. Only present if `type` is `credits_applied`.
         """
-        type: Literal["credits_applied", "credits_expired", "credits_voided"]
+        type: Union[
+            Literal["credits_applied", "credits_expired", "credits_voided"],
+            str,
+        ]
         """
         The type of debit transaction.
         """
@@ -263,7 +269,7 @@ class CreditBalanceTransaction(
     """
     ID of the test clock this credit balance transaction belongs to.
     """
-    type: Optional[Literal["credit", "debit"]]
+    type: Optional[Union[Literal["credit", "debit"], str]]
     """
     The type of credit balance transaction (credit or debit).
     """

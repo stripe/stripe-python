@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from decimal import Decimal
 from stripe.v2._amount import AmountParam
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -29,7 +29,7 @@ class ServiceActionCreateParams(TypedDict):
     """
     The length of the interval for assessing service.
     """
-    type: Literal["credit_grant", "credit_grant_per_tenant"]
+    type: Union[Literal["credit_grant", "credit_grant_per_tenant"], str]
     """
     The type of the service action.
     """
@@ -75,7 +75,7 @@ class ServiceActionCreateParamsCreditGrantAmount(TypedDict):
     """
     The monetary amount of the credit grant. Required if `type` is `monetary`.
     """
-    type: Literal["custom_pricing_unit", "monetary"]
+    type: Union[Literal["custom_pricing_unit", "monetary"], str]
     """
     The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
     """
@@ -163,7 +163,7 @@ class ServiceActionCreateParamsCreditGrantPerTenantAmount(TypedDict):
     """
     The monetary amount of the credit grant. Required if `type` is `monetary`.
     """
-    type: Literal["custom_pricing_unit", "monetary"]
+    type: Union[Literal["custom_pricing_unit", "monetary"], str]
     """
     The type of the credit grant amount. We currently support `monetary` and `custom_pricing_unit` billing credits.
     """

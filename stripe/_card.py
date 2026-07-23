@@ -44,7 +44,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
         """
 
     class Redaction(StripeObject):
-        status: Literal["processing", "redacted", "validated"]
+        status: Union[Literal["processing", "redacted", "validated"], str]
         """
         Indicates whether this object and its related objects have been redacted or not.
         """
@@ -82,7 +82,9 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     """
     If `address_zip` was provided, results of the check: `pass`, `fail`, `unavailable`, or `unchecked`.
     """
-    allow_redisplay: Optional[Literal["always", "limited", "unspecified"]]
+    allow_redisplay: Optional[
+        Union[Literal["always", "limited", "unspecified"], str]
+    ]
     """
     This field indicates whether this payment method can be shown again to its customer in a checkout flow. Stripe products such as Checkout and Elements use this field to determine whether a payment method can be shown as a saved payment method in a checkout flow. The field defaults to “unspecified”.
     """
@@ -182,7 +184,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     """
     Redaction status of this card. If not null, this card is associated to a redaction job.
     """
-    regulated_status: Optional[Literal["regulated", "unregulated"]]
+    regulated_status: Optional[Union[Literal["regulated", "unregulated"], str]]
     """
     Status of a card based on the card issuer.
     """

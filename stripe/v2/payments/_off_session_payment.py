@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe.v2._amount import Amount
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, Union
 from typing_extensions import Literal
 
 
@@ -23,9 +23,12 @@ class OffSessionPayment(StripeObject):
     class AmountDetails(StripeObject):
         class Error(StripeObject):
             code: Optional[
-                Literal[
-                    "amount_details_amount_mismatch",
-                    "amount_details_amount_greater_than_tax_shipping_discount",
+                Union[
+                    Literal[
+                        "amount_details_amount_mismatch",
+                        "amount_details_amount_greater_than_tax_shipping_discount",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -126,7 +129,7 @@ class OffSessionPayment(StripeObject):
         """
         The timestamp when this payment is no longer eligible to be captured.
         """
-        capture_method: Literal["automatic", "manual"]
+        capture_method: Union[Literal["automatic", "manual"], str]
         """
         The method to use to capture the payment.
         """
@@ -157,7 +160,9 @@ class OffSessionPayment(StripeObject):
         """
         The pre-configured retry policy to use for the payment.
         """
-        retry_strategy: Literal["heuristic", "none", "scheduled", "smart"]
+        retry_strategy: Union[
+            Literal["heuristic", "none", "scheduled", "smart"], str
+        ]
         """
         Indicates the strategy for how you want Stripe to retry the payment.
         """
@@ -199,7 +204,7 @@ class OffSessionPayment(StripeObject):
     """
     The amount of the application fee requested to be applied to the payment.
     """
-    cadence: Literal["recurring", "unscheduled"]
+    cadence: Union[Literal["recurring", "unscheduled"], str]
     """
     The frequency of the underlying payment.
     """
@@ -221,12 +226,15 @@ class OffSessionPayment(StripeObject):
     An arbitrary string attached to the object. Often useful for displaying to users.
     """
     failure_reason: Optional[
-        Literal[
-            "authorization_expired",
-            "exceeded_retry_window",
-            "no_valid_payment_method",
-            "rejected_by_partner",
-            "retries_exhausted",
+        Union[
+            Literal[
+                "authorization_expired",
+                "exceeded_retry_window",
+                "no_valid_payment_method",
+                "rejected_by_partner",
+                "retries_exhausted",
+            ],
+            str,
         ]
     ]
     """
@@ -296,15 +304,18 @@ class OffSessionPayment(StripeObject):
     [statement descriptor prefix](https://docs.stripe.com/get-started/account/statement-descriptors#static)
     to form the complete statement descriptor that appears on the customer's statement.
     """
-    status: Literal[
-        "canceled",
-        "failed",
-        "paused",
-        "pending",
-        "pending_retry",
-        "processing",
-        "requires_capture",
-        "succeeded",
+    status: Union[
+        Literal[
+            "canceled",
+            "failed",
+            "paused",
+            "pending",
+            "pending_retry",
+            "processing",
+            "requires_capture",
+            "succeeded",
+        ],
+        str,
     ]
     """
     Status of this OffSessionPayment, one of `pending`, `pending_retry`, `processing`,

@@ -7,7 +7,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import sanitize_id
-from typing import ClassVar, List, Optional, cast
+from typing import ClassVar, List, Optional, Union, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -155,18 +155,21 @@ class Cardholder(
         }
 
     class Redaction(StripeObject):
-        status: Literal["processing", "redacted", "validated"]
+        status: Union[Literal["processing", "redacted", "validated"], str]
         """
         Indicates whether this object and its related objects have been redacted or not.
         """
 
     class Requirements(StripeObject):
         disabled_reason: Optional[
-            Literal[
-                "listed",
-                "rejected.listed",
-                "requirements.past_due",
-                "under_review",
+            Union[
+                Literal[
+                    "listed",
+                    "rejected.listed",
+                    "requirements.past_due",
+                    "under_review",
+                ],
+                str,
             ]
         ]
         """
@@ -174,16 +177,19 @@ class Cardholder(
         """
         past_due: Optional[
             List[
-                Literal[
-                    "company.tax_id",
-                    "individual.card_issuing.user_terms_acceptance.date",
-                    "individual.card_issuing.user_terms_acceptance.ip",
-                    "individual.dob.day",
-                    "individual.dob.month",
-                    "individual.dob.year",
-                    "individual.first_name",
-                    "individual.last_name",
-                    "individual.verification.document",
+                Union[
+                    Literal[
+                        "company.tax_id",
+                        "individual.card_issuing.user_terms_acceptance.date",
+                        "individual.card_issuing.user_terms_acceptance.ip",
+                        "individual.dob.day",
+                        "individual.dob.month",
+                        "individual.dob.year",
+                        "individual.first_name",
+                        "individual.last_name",
+                        "individual.verification.document",
+                    ],
+                    str,
                 ]
             ]
         ]
@@ -501,13 +507,16 @@ class Cardholder(
             """
             Array of strings containing [categories](https://docs.stripe.com/api#issuing_authorization_object-merchant_data-category) this limit applies to. Omitting this field will apply the limit to all categories.
             """
-            interval: Literal[
-                "all_time",
-                "daily",
-                "monthly",
-                "per_authorization",
-                "weekly",
-                "yearly",
+            interval: Union[
+                Literal[
+                    "all_time",
+                    "daily",
+                    "monthly",
+                    "per_authorization",
+                    "weekly",
+                    "yearly",
+                ],
+                str,
             ]
             """
             Interval (or event) to which the amount applies.
@@ -1193,7 +1202,9 @@ class Cardholder(
     The cardholder's phone number. This is required for all cardholders who will be creating EU cards. See the [3D Secure documentation](https://docs.stripe.com/issuing/3d-secure#when-is-3d-secure-applied) for more details.
     """
     preferred_locales: Optional[
-        List[Literal["da", "de", "en", "es", "fr", "it", "pl", "sv"]]
+        List[
+            Union[Literal["da", "de", "en", "es", "fr", "it", "pl", "sv"], str]
+        ]
     ]
     """
     The cardholder's preferred locales (languages), ordered by preference. Locales can be `da`, `de`, `en`, `es`, `fr`, `it`, `pl`, or `sv`.
@@ -1208,11 +1219,11 @@ class Cardholder(
     """
     Rules that control spending across this cardholder's cards. Refer to our [documentation](https://docs.stripe.com/issuing/controls/spending-controls) for more details.
     """
-    status: Literal["active", "blocked", "inactive"]
+    status: Union[Literal["active", "blocked", "inactive"], str]
     """
     Specifies whether to permit authorizations on this cardholder's cards.
     """
-    type: Literal["company", "individual"]
+    type: Union[Literal["company", "individual"], str]
     """
     One of `individual` or `company`. See [Choose a cardholder type](https://docs.stripe.com/issuing/other/choose-cardholder) for more details.
     """

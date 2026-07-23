@@ -15,7 +15,9 @@ class DebitDisputeCreateParams(TypedDict):
 
 
 class DebitDisputeCreateParamsBankTransfer(TypedDict):
-    reason: NotRequired[Literal["incorrect_amount_or_date", "unauthorized"]]
+    reason: NotRequired[
+        "Literal['incorrect_amount_or_date', 'unauthorized']|str"
+    ]
     """
     The reason for the dispute.
     """

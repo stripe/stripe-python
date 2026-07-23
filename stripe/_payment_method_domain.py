@@ -6,7 +6,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, Optional, cast, overload
+from typing import ClassVar, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -50,7 +50,7 @@ class PaymentMethodDomain(
             The error message associated with the status of the payment method on the domain.
             """
 
-        status: Literal["active", "inactive"]
+        status: Union[Literal["active", "inactive"], str]
         """
         The status of the payment method on the domain.
         """
@@ -67,7 +67,7 @@ class PaymentMethodDomain(
             The error message associated with the status of the payment method on the domain.
             """
 
-        status: Literal["active", "inactive"]
+        status: Union[Literal["active", "inactive"], str]
         """
         The status of the payment method on the domain.
         """
@@ -84,7 +84,7 @@ class PaymentMethodDomain(
             The error message associated with the status of the payment method on the domain.
             """
 
-        status: Literal["active", "inactive"]
+        status: Union[Literal["active", "inactive"], str]
         """
         The status of the payment method on the domain.
         """
@@ -101,7 +101,7 @@ class PaymentMethodDomain(
             The error message associated with the status of the payment method on the domain.
             """
 
-        status: Literal["active", "inactive"]
+        status: Union[Literal["active", "inactive"], str]
         """
         The status of the payment method on the domain.
         """
@@ -118,7 +118,7 @@ class PaymentMethodDomain(
             The error message associated with the status of the payment method on the domain.
             """
 
-        status: Literal["active", "inactive"]
+        status: Union[Literal["active", "inactive"], str]
         """
         The status of the payment method on the domain.
         """
@@ -135,7 +135,7 @@ class PaymentMethodDomain(
             The error message associated with the status of the payment method on the domain.
             """
 
-        status: Literal["active", "inactive"]
+        status: Union[Literal["active", "inactive"], str]
         """
         The status of the payment method on the domain.
         """

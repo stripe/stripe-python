@@ -3,7 +3,7 @@
 from decimal import Decimal
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -16,7 +16,7 @@ class CreditGrantCreateParams(RequestOptions):
     """
     Configuration specifying what this credit grant applies to. We currently only support `metered` prices that have a [Billing Meter](https://docs.stripe.com/api/billing/meter) attached to them.
     """
-    category: NotRequired[Literal["paid", "promotional"]]
+    category: NotRequired["Literal['paid', 'promotional']|str"]
     """
     The category of this credit grant. It defaults to `paid` if not specified.
     """
@@ -65,7 +65,7 @@ class CreditGrantCreateParamsAmount(TypedDict):
     """
     The monetary amount.
     """
-    type: Literal["custom_pricing_unit", "monetary"]
+    type: Union[Literal["custom_pricing_unit", "monetary"], str]
     """
     The type of this amount. We currently only support `monetary` billing credits.
     """

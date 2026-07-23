@@ -133,8 +133,8 @@ class Payout(
     """
     ID of the v2 FinancialAccount the funds are sent to.
     """
-    reconciliation_status: Literal[
-        "completed", "in_progress", "not_applicable"
+    reconciliation_status: Union[
+        Literal["completed", "in_progress", "not_applicable"], str
     ]
     """
     If `completed`, you can use the [Balance Transactions API](https://docs.stripe.com/api/balance_transactions/list#balance_transaction_list-payout) to list all balance transactions that are paid out in this payout.
@@ -159,7 +159,7 @@ class Payout(
     """
     A value that generates from the beneficiary's bank that allows users to track payouts with their bank. Banks might call this a "reference number" or something similar.
     """
-    type: Literal["bank_account", "card"]
+    type: Union[Literal["bank_account", "card"], str]
     """
     Can be `bank_account` or `card`.
     """

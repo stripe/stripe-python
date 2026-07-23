@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -48,11 +48,14 @@ class CreditUnderwritingRecordReportDecisionParamsDecision(TypedDict):
     """
     Details about the credit limit approved. An approved credit limit is required before you can set a `credit_limit_amount` in the [CreditPolicy API](https://docs.stripe.com/api/issuing/credit_policy/)
     """
-    type: Literal[
-        "additional_information_requested",
-        "application_rejected",
-        "credit_limit_approved",
-        "withdrawn_by_applicant",
+    type: Union[
+        Literal[
+            "additional_information_requested",
+            "application_rejected",
+            "credit_limit_approved",
+            "withdrawn_by_applicant",
+        ],
+        str,
     ]
     """
     Outcome of the decision.
@@ -67,70 +70,73 @@ class CreditUnderwritingRecordReportDecisionParamsDecisionApplicationRejected(
     Details about the `reasons.other` when present.
     """
     reasons: List[
-        Literal[
-            "applicant_is_not_beneficial_owner",
-            "applicant_too_young",
-            "application_is_not_beneficial_owner",
-            "bankruptcy",
-            "business_size_too_small",
-            "current_account_tier_ineligible",
-            "customer_already_exists",
-            "customer_requested_account_closure",
-            "debt_to_cash_balance_ratio_too_high",
-            "debt_to_equity_ratio_too_high",
-            "delinquent_credit_obligations",
-            "dispute_rate_too_high",
-            "duration_of_residence",
-            "excessive_income_or_revenue_obligations",
-            "expenses_to_cash_balance_ratio_too_high",
-            "foreclosure_or_repossession",
-            "frozen_file_at_credit_bureau",
-            "garnishment_or_attachment",
-            "government_loan_program_criteria",
-            "high_concentration_of_clients",
-            "high_risk_industry",
-            "incomplete_application",
-            "inconsistent_monthly_revenues",
-            "insufficient_account_history_with_platform",
-            "insufficient_bank_account_history",
-            "insufficient_cash_balance",
-            "insufficient_cash_flow",
-            "insufficient_collateral",
-            "insufficient_credit_experience",
-            "insufficient_deposits",
-            "insufficient_income",
-            "insufficient_margin_ratio",
-            "insufficient_operating_profit",
-            "insufficient_period_in_operation",
-            "insufficient_reserves",
-            "insufficient_revenue",
-            "insufficient_social_media_performance",
-            "insufficient_time_in_network",
-            "insufficient_trade_credit_insurance",
-            "invalid_business_license",
-            "lacking_cash_account",
-            "late_payment_history_reported_to_bureau",
-            "lien_collection_action_or_judgement",
-            "negative_public_information",
-            "no_credit_file",
-            "other",
-            "outside_supported_country",
-            "outside_supported_state",
-            "poor_payment_history_with_platform",
-            "prior_or_current_legal_action",
-            "prohibited_industry",
-            "rate_of_cash_balance_fluctuation_too_high",
-            "recent_inquiries_on_business_credit_report",
-            "removal_of_bank_account_connection",
-            "revenue_discrepancy",
-            "runway_too_short",
-            "suspected_fraud",
-            "too_many_non_sufficient_funds_or_overdrafts",
-            "unable_to_verify_address",
-            "unable_to_verify_identity",
-            "unable_to_verify_income_or_revenue",
-            "unprofitable",
-            "unsupportable_business_type",
+        Union[
+            Literal[
+                "applicant_is_not_beneficial_owner",
+                "applicant_too_young",
+                "application_is_not_beneficial_owner",
+                "bankruptcy",
+                "business_size_too_small",
+                "current_account_tier_ineligible",
+                "customer_already_exists",
+                "customer_requested_account_closure",
+                "debt_to_cash_balance_ratio_too_high",
+                "debt_to_equity_ratio_too_high",
+                "delinquent_credit_obligations",
+                "dispute_rate_too_high",
+                "duration_of_residence",
+                "excessive_income_or_revenue_obligations",
+                "expenses_to_cash_balance_ratio_too_high",
+                "foreclosure_or_repossession",
+                "frozen_file_at_credit_bureau",
+                "garnishment_or_attachment",
+                "government_loan_program_criteria",
+                "high_concentration_of_clients",
+                "high_risk_industry",
+                "incomplete_application",
+                "inconsistent_monthly_revenues",
+                "insufficient_account_history_with_platform",
+                "insufficient_bank_account_history",
+                "insufficient_cash_balance",
+                "insufficient_cash_flow",
+                "insufficient_collateral",
+                "insufficient_credit_experience",
+                "insufficient_deposits",
+                "insufficient_income",
+                "insufficient_margin_ratio",
+                "insufficient_operating_profit",
+                "insufficient_period_in_operation",
+                "insufficient_reserves",
+                "insufficient_revenue",
+                "insufficient_social_media_performance",
+                "insufficient_time_in_network",
+                "insufficient_trade_credit_insurance",
+                "invalid_business_license",
+                "lacking_cash_account",
+                "late_payment_history_reported_to_bureau",
+                "lien_collection_action_or_judgement",
+                "negative_public_information",
+                "no_credit_file",
+                "other",
+                "outside_supported_country",
+                "outside_supported_state",
+                "poor_payment_history_with_platform",
+                "prior_or_current_legal_action",
+                "prohibited_industry",
+                "rate_of_cash_balance_fluctuation_too_high",
+                "recent_inquiries_on_business_credit_report",
+                "removal_of_bank_account_connection",
+                "revenue_discrepancy",
+                "runway_too_short",
+                "suspected_fraud",
+                "too_many_non_sufficient_funds_or_overdrafts",
+                "unable_to_verify_address",
+                "unable_to_verify_identity",
+                "unable_to_verify_income_or_revenue",
+                "unprofitable",
+                "unsupportable_business_type",
+            ],
+            str,
         ]
     ]
     """
@@ -158,14 +164,17 @@ class CreditUnderwritingRecordReportDecisionParamsUnderwritingException(
     """
     Written explanation for the exception.
     """
-    original_decision_type: Literal[
-        "additional_information_requested",
-        "application_rejected",
-        "credit_limit_approved",
-        "credit_limit_decreased",
-        "credit_line_closed",
-        "no_changes",
-        "withdrawn_by_applicant",
+    original_decision_type: Union[
+        Literal[
+            "additional_information_requested",
+            "application_rejected",
+            "credit_limit_approved",
+            "credit_limit_decreased",
+            "credit_line_closed",
+            "no_changes",
+            "withdrawn_by_applicant",
+        ],
+        str,
     ]
     """
     The decision before the exception was applied.

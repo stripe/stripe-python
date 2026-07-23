@@ -7,7 +7,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import sanitize_id
-from typing import ClassVar, List, Optional, cast
+from typing import ClassVar, List, Optional, Union, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -56,8 +56,16 @@ class Configuration(
     class Features(StripeObject):
         class CustomerUpdate(StripeObject):
             allowed_updates: List[
-                Literal[
-                    "address", "email", "name", "phone", "shipping", "tax_id"
+                Union[
+                    Literal[
+                        "address",
+                        "email",
+                        "name",
+                        "phone",
+                        "shipping",
+                        "tax_id",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -91,15 +99,18 @@ class Configuration(
                 Whether the feature is enabled.
                 """
                 options: List[
-                    Literal[
-                        "customer_service",
-                        "low_quality",
-                        "missing_features",
-                        "other",
-                        "switched_service",
-                        "too_complex",
-                        "too_expensive",
-                        "unused",
+                    Union[
+                        Literal[
+                            "customer_service",
+                            "low_quality",
+                            "missing_features",
+                            "other",
+                            "switched_service",
+                            "too_complex",
+                            "too_expensive",
+                            "unused",
+                        ],
+                        str,
                     ]
                 ]
                 """
@@ -111,7 +122,7 @@ class Configuration(
             """
             Whether the feature is enabled.
             """
-            mode: Literal["at_period_end", "immediately"]
+            mode: Union[Literal["at_period_end", "immediately"], str]
             """
             Whether to cancel subscriptions immediately or at the end of the billing period.
             """
@@ -154,8 +165,11 @@ class Configuration(
 
             class ScheduleAtPeriodEnd(StripeObject):
                 class Condition(StripeObject):
-                    type: Literal[
-                        "decreasing_item_amount", "shortening_interval"
+                    type: Union[
+                        Literal[
+                            "decreasing_item_amount", "shortening_interval"
+                        ],
+                        str,
                     ]
                     """
                     The type of condition.
@@ -172,7 +186,7 @@ class Configuration(
             Determines the value to use for the billing cycle anchor on subscription updates. Valid values are `now` or `unchanged`, and the default value is `unchanged`. Setting the value to `now` resets the subscription's billing cycle anchor to the current time (in UTC). For more information, see the billing cycle [documentation](https://docs.stripe.com/billing/subscriptions/billing-cycle).
             """
             default_allowed_updates: List[
-                Literal["price", "promotion_code", "quantity"]
+                Union[Literal["price", "promotion_code", "quantity"], str]
             ]
             """
             The types of subscription updates that are supported for items listed in the `products` attribute. When empty, subscriptions are not updateable.
@@ -192,7 +206,9 @@ class Configuration(
             Determines how to handle prorations resulting from subscription updates. Valid values are `none`, `create_prorations`, and `always_invoice`. Defaults to a value of `none` if you don't set it during creation.
             """
             schedule_at_period_end: ScheduleAtPeriodEnd
-            trial_update_behavior: Literal["continue_trial", "end_trial"]
+            trial_update_behavior: Union[
+                Literal["continue_trial", "end_trial"], str
+            ]
             """
             Determines how handle updates to trialing subscriptions. Valid values are `end_trial` and `continue_trial`. Defaults to a value of `end_trial` if you don't set it during creation.
             """
