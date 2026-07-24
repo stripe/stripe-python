@@ -26,6 +26,19 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 MOCK_HOST = os.environ.get("STRIPE_MOCK_HOST", "localhost")
 
 
+class RequestSnapshot:
+    """Snapshot of request attributes, captured at handle time.
+
+    With HTTP/1.1 keep-alive, multiple requests reuse the same handler
+    instance whose attributes get overwritten on each request.
+    """
+
+    def __init__(self, handler):
+        self.command = handler.command
+        self.path = handler.path
+        self.headers = handler.headers
+
+
 class MyTestHandler(BaseHTTPRequestHandler):
     protocol_version = "HTTP/1.1"
     timeout = 30
@@ -37,10 +50,10 @@ class MyTestHandler(BaseHTTPRequestHandler):
     @classmethod
     def _add_request(cls, req):
         q = cls.requests[id(cls)]
-        q.put(req)
+        q.put(RequestSnapshot(req))
 
     @classmethod
-    def get_requests(cls, n) -> List[BaseHTTPRequestHandler]:
+    def get_requests(cls, n) -> List[RequestSnapshot]:
         reqs = []
         for _ in range(n):
             reqs.append(cls.requests[id(cls)].get(False))
