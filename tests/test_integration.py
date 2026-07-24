@@ -55,6 +55,12 @@ class MyTestHandler(BaseHTTPRequestHandler):
         return self._do_request()
 
     def _do_request(self):
+        # Drain the request body so it doesn't pollute the next request
+        # on the keep-alive connection.
+        content_length = int(self.headers.get("Content-Length", 0))
+        if content_length:
+            self.rfile.read(content_length)
+
         n = self.__class__.num_requests
         self.__class__.num_requests += 1
         self._add_request(self)
