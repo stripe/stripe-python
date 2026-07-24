@@ -33,7 +33,7 @@ class RequestSnapshot:
     instance whose attributes get overwritten on each request.
     """
 
-    def __init__(self, handler):
+    def __init__(self, handler: BaseHTTPRequestHandler):
         self.command = handler.command
         self.path = handler.path
         self.headers = handler.headers
