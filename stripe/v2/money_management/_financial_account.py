@@ -67,12 +67,6 @@ class FinancialAccount(StripeObject):
         """
         _inner_class_types = {"funded_by": FundedBy}
 
-    class ManagedBy(StripeObject):
-        type: Literal["multiprocessor_settlement"]
-        """
-        Enum describing the Stripe product that is managing this FinancialAccount.
-        """
-
     class MultiprocessorSettlement(StripeObject):
         settlement_currencies: List[str]
         """
@@ -230,11 +224,6 @@ class FinancialAccount(StripeObject):
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
-    managed_by: Optional[ManagedBy]
-    """
-    If this is a managed FinancialAccount, `managed_by` indicates the product that created and manages this FinancialAccount. For managed FinancialAccounts,
-    creation of money management resources can only be orchestrated by the managing product.
-    """
     metadata: Optional[UntypedStripeObject[str]]
     """
     Metadata associated with the FinancialAccount.
@@ -283,7 +272,6 @@ class FinancialAccount(StripeObject):
         "accrued_fees": AccruedFees,
         "balance": Balance,
         "credit": Credit,
-        "managed_by": ManagedBy,
         "multiprocessor_settlement": MultiprocessorSettlement,
         "other": Other,
         "payments": Payments,

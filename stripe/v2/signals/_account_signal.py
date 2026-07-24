@@ -127,6 +127,57 @@ class AccountSignal(StripeObject):
         _inner_class_types = {"indicators": Indicator}
         _field_encodings = {"probability": "decimal_string"}
 
+    class PaymentDelinquencyExposure(StripeObject):
+        class AdditionalDetails(StripeObject):
+            class GrossExposureAmount(StripeObject):
+                currency: str
+                """
+                ISO 4217 currency code.
+                """
+                value: int
+                """
+                Amount in minor units for the given currency.
+                """
+                _field_encodings = {"value": "int64_string"}
+
+            gross_exposure_amount: Optional[GrossExposureAmount]
+            """
+            Total payments still exposed to dispute or refund risk in the event of delinquency.
+            """
+            loss_given_default_in_percentages: Optional[int]
+            """
+            Percentage of Gross Exposure expected to be disputed or refunded and materialize as a loss in the event of delinquency.
+            """
+            predicted_dispute_window_in_days: Optional[int]
+            """
+            Predicted window size in days until dispute is raised.
+            """
+            _inner_class_types = {"gross_exposure_amount": GrossExposureAmount}
+
+        class ExposureAmount(StripeObject):
+            currency: str
+            """
+            ISO 4217 currency code.
+            """
+            value: int
+            """
+            Amount in minor units for the given currency.
+            """
+            _field_encodings = {"value": "int64_string"}
+
+        additional_details: AdditionalDetails
+        """
+        Additional details about the exposure assessment.
+        """
+        exposure_amount: ExposureAmount
+        """
+        The exposure amount if this account becomes delinquent.
+        """
+        _inner_class_types = {
+            "additional_details": AdditionalDetails,
+            "exposure_amount": ExposureAmount,
+        }
+
     account_details: Optional[AccountDetails]
     """
     The account or customer this signal is associated with.
@@ -155,6 +206,10 @@ class AccountSignal(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value of the object field.
     """
+    payment_delinquency_exposure: Optional[PaymentDelinquencyExposure]
+    """
+    Data for the payment delinquency exposure signal. Present only when type is payment_delinquency_exposure.
+    """
     type: Union[
         Literal[
             "fraudulent_merchant",
@@ -170,4 +225,5 @@ class AccountSignal(StripeObject):
         "account_details": AccountDetails,
         "fraudulent_merchant": FraudulentMerchant,
         "merchant_delinquency": MerchantDelinquency,
+        "payment_delinquency_exposure": PaymentDelinquencyExposure,
     }
