@@ -321,6 +321,10 @@ class OffSessionPayment(StripeObject):
     Status of this OffSessionPayment, one of `pending`, `pending_retry`, `processing`,
     `failed`, `canceled`, `requires_capture`, or `succeeded`.
     """
+    target_date: Optional[str]
+    """
+    Provides a way to schedule deferred payments for cards and debits, in YYYY-MM-DD format.
+    """
     test_clock: Optional[str]
     """
     Test clock that can be used to advance the retry attempts in a sandbox.

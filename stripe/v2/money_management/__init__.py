@@ -99,6 +99,12 @@ if TYPE_CHECKING:
     from stripe.v2.money_management._received_debit import (
         ReceivedDebit as ReceivedDebit,
     )
+    from stripe.v2.money_management._received_debit_mandate import (
+        ReceivedDebitMandate as ReceivedDebitMandate,
+    )
+    from stripe.v2.money_management._received_debit_mandate_service import (
+        ReceivedDebitMandateService as ReceivedDebitMandateService,
+    )
     from stripe.v2.money_management._received_debit_service import (
         ReceivedDebitService as ReceivedDebitService,
     )
@@ -231,6 +237,14 @@ _import_map = {
         False,
     ),
     "ReceivedDebit": ("stripe.v2.money_management._received_debit", False),
+    "ReceivedDebitMandate": (
+        "stripe.v2.money_management._received_debit_mandate",
+        False,
+    ),
+    "ReceivedDebitMandateService": (
+        "stripe.v2.money_management._received_debit_mandate_service",
+        False,
+    ),
     "ReceivedDebitService": (
         "stripe.v2.money_management._received_debit_service",
         False,

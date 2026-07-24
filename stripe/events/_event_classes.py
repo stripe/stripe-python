@@ -1138,11 +1138,32 @@ if TYPE_CHECKING:
     from stripe.events._v2_money_management_received_debit_canceled_event import (
         V2MoneyManagementReceivedDebitCanceledEventNotification,
     )
+    from stripe.events._v2_money_management_received_debit_created_event import (
+        V2MoneyManagementReceivedDebitCreatedEventNotification,
+    )
     from stripe.events._v2_money_management_received_debit_failed_event import (
         V2MoneyManagementReceivedDebitFailedEventNotification,
     )
+    from stripe.events._v2_money_management_received_debit_mandate_canceled_event import (
+        V2MoneyManagementReceivedDebitMandateCanceledEventNotification,
+    )
+    from stripe.events._v2_money_management_received_debit_mandate_created_event import (
+        V2MoneyManagementReceivedDebitMandateCreatedEventNotification,
+    )
+    from stripe.events._v2_money_management_received_debit_mandate_expired_event import (
+        V2MoneyManagementReceivedDebitMandateExpiredEventNotification,
+    )
+    from stripe.events._v2_money_management_received_debit_mandate_pending_cancellation_event import (
+        V2MoneyManagementReceivedDebitMandatePendingCancellationEventNotification,
+    )
+    from stripe.events._v2_money_management_received_debit_mandate_updated_event import (
+        V2MoneyManagementReceivedDebitMandateUpdatedEventNotification,
+    )
     from stripe.events._v2_money_management_received_debit_pending_event import (
         V2MoneyManagementReceivedDebitPendingEventNotification,
+    )
+    from stripe.events._v2_money_management_received_debit_scheduled_event import (
+        V2MoneyManagementReceivedDebitScheduledEventNotification,
     )
     from stripe.events._v2_money_management_received_debit_succeeded_event import (
         V2MoneyManagementReceivedDebitSucceededEventNotification,
@@ -1257,6 +1278,9 @@ if TYPE_CHECKING:
     )
     from stripe.events._v2_signals_account_signal_merchant_delinquency_ready_event import (
         V2SignalsAccountSignalMerchantDelinquencyReadyEventNotification,
+    )
+    from stripe.events._v2_signals_account_signal_payment_delinquency_exposure_ready_event import (
+        V2SignalsAccountSignalPaymentDelinquencyExposureReadyEventNotification,
     )
 
 
@@ -2769,13 +2793,41 @@ _V2_EVENT_CLASS_LOOKUP = {
         "stripe.events._v2_money_management_received_debit_canceled_event",
         "V2MoneyManagementReceivedDebitCanceledEvent",
     ),
+    "v2.money_management.received_debit.created": (
+        "stripe.events._v2_money_management_received_debit_created_event",
+        "V2MoneyManagementReceivedDebitCreatedEvent",
+    ),
     "v2.money_management.received_debit.failed": (
         "stripe.events._v2_money_management_received_debit_failed_event",
         "V2MoneyManagementReceivedDebitFailedEvent",
     ),
+    "v2.money_management.received_debit_mandate.canceled": (
+        "stripe.events._v2_money_management_received_debit_mandate_canceled_event",
+        "V2MoneyManagementReceivedDebitMandateCanceledEvent",
+    ),
+    "v2.money_management.received_debit_mandate.created": (
+        "stripe.events._v2_money_management_received_debit_mandate_created_event",
+        "V2MoneyManagementReceivedDebitMandateCreatedEvent",
+    ),
+    "v2.money_management.received_debit_mandate.expired": (
+        "stripe.events._v2_money_management_received_debit_mandate_expired_event",
+        "V2MoneyManagementReceivedDebitMandateExpiredEvent",
+    ),
+    "v2.money_management.received_debit_mandate.pending_cancellation": (
+        "stripe.events._v2_money_management_received_debit_mandate_pending_cancellation_event",
+        "V2MoneyManagementReceivedDebitMandatePendingCancellationEvent",
+    ),
+    "v2.money_management.received_debit_mandate.updated": (
+        "stripe.events._v2_money_management_received_debit_mandate_updated_event",
+        "V2MoneyManagementReceivedDebitMandateUpdatedEvent",
+    ),
     "v2.money_management.received_debit.pending": (
         "stripe.events._v2_money_management_received_debit_pending_event",
         "V2MoneyManagementReceivedDebitPendingEvent",
+    ),
+    "v2.money_management.received_debit.scheduled": (
+        "stripe.events._v2_money_management_received_debit_scheduled_event",
+        "V2MoneyManagementReceivedDebitScheduledEvent",
     ),
     "v2.money_management.received_debit.succeeded": (
         "stripe.events._v2_money_management_received_debit_succeeded_event",
@@ -2928,6 +2980,10 @@ _V2_EVENT_CLASS_LOOKUP = {
     "v2.signals.account_signal.merchant_delinquency_ready": (
         "stripe.events._v2_signals_account_signal_merchant_delinquency_ready_event",
         "V2SignalsAccountSignalMerchantDelinquencyReadyEvent",
+    ),
+    "v2.signals.account_signal.payment_delinquency_exposure_ready": (
+        "stripe.events._v2_signals_account_signal_payment_delinquency_exposure_ready_event",
+        "V2SignalsAccountSignalPaymentDelinquencyExposureReadyEvent",
     ),
 }
 
@@ -4452,13 +4508,41 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
         "stripe.events._v2_money_management_received_debit_canceled_event",
         "V2MoneyManagementReceivedDebitCanceledEventNotification",
     ),
+    "v2.money_management.received_debit.created": (
+        "stripe.events._v2_money_management_received_debit_created_event",
+        "V2MoneyManagementReceivedDebitCreatedEventNotification",
+    ),
     "v2.money_management.received_debit.failed": (
         "stripe.events._v2_money_management_received_debit_failed_event",
         "V2MoneyManagementReceivedDebitFailedEventNotification",
     ),
+    "v2.money_management.received_debit_mandate.canceled": (
+        "stripe.events._v2_money_management_received_debit_mandate_canceled_event",
+        "V2MoneyManagementReceivedDebitMandateCanceledEventNotification",
+    ),
+    "v2.money_management.received_debit_mandate.created": (
+        "stripe.events._v2_money_management_received_debit_mandate_created_event",
+        "V2MoneyManagementReceivedDebitMandateCreatedEventNotification",
+    ),
+    "v2.money_management.received_debit_mandate.expired": (
+        "stripe.events._v2_money_management_received_debit_mandate_expired_event",
+        "V2MoneyManagementReceivedDebitMandateExpiredEventNotification",
+    ),
+    "v2.money_management.received_debit_mandate.pending_cancellation": (
+        "stripe.events._v2_money_management_received_debit_mandate_pending_cancellation_event",
+        "V2MoneyManagementReceivedDebitMandatePendingCancellationEventNotification",
+    ),
+    "v2.money_management.received_debit_mandate.updated": (
+        "stripe.events._v2_money_management_received_debit_mandate_updated_event",
+        "V2MoneyManagementReceivedDebitMandateUpdatedEventNotification",
+    ),
     "v2.money_management.received_debit.pending": (
         "stripe.events._v2_money_management_received_debit_pending_event",
         "V2MoneyManagementReceivedDebitPendingEventNotification",
+    ),
+    "v2.money_management.received_debit.scheduled": (
+        "stripe.events._v2_money_management_received_debit_scheduled_event",
+        "V2MoneyManagementReceivedDebitScheduledEventNotification",
     ),
     "v2.money_management.received_debit.succeeded": (
         "stripe.events._v2_money_management_received_debit_succeeded_event",
@@ -4611,6 +4695,10 @@ _V2_EVENT_NOTIFICATION_CLASS_LOOKUP = {
     "v2.signals.account_signal.merchant_delinquency_ready": (
         "stripe.events._v2_signals_account_signal_merchant_delinquency_ready_event",
         "V2SignalsAccountSignalMerchantDelinquencyReadyEventNotification",
+    ),
+    "v2.signals.account_signal.payment_delinquency_exposure_ready": (
+        "stripe.events._v2_signals_account_signal_payment_delinquency_exposure_ready_event",
+        "V2SignalsAccountSignalPaymentDelinquencyExposureReadyEventNotification",
     ),
 }
 
@@ -5004,8 +5092,15 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2MoneyManagementReceivedCreditReturnedEventNotification",
     "V2MoneyManagementReceivedCreditSucceededEventNotification",
     "V2MoneyManagementReceivedDebitCanceledEventNotification",
+    "V2MoneyManagementReceivedDebitCreatedEventNotification",
     "V2MoneyManagementReceivedDebitFailedEventNotification",
+    "V2MoneyManagementReceivedDebitMandateCanceledEventNotification",
+    "V2MoneyManagementReceivedDebitMandateCreatedEventNotification",
+    "V2MoneyManagementReceivedDebitMandateExpiredEventNotification",
+    "V2MoneyManagementReceivedDebitMandatePendingCancellationEventNotification",
+    "V2MoneyManagementReceivedDebitMandateUpdatedEventNotification",
     "V2MoneyManagementReceivedDebitPendingEventNotification",
+    "V2MoneyManagementReceivedDebitScheduledEventNotification",
     "V2MoneyManagementReceivedDebitSucceededEventNotification",
     "V2MoneyManagementReceivedDebitUpdatedEventNotification",
     "V2MoneyManagementRecipientVerificationCreatedEventNotification",
@@ -5044,4 +5139,5 @@ ALL_EVENT_NOTIFICATIONS = Union[
     "V2ReportingReportRunUpdatedEventNotification",
     "V2SignalsAccountSignalFraudulentMerchantReadyEventNotification",
     "V2SignalsAccountSignalMerchantDelinquencyReadyEventNotification",
+    "V2SignalsAccountSignalPaymentDelinquencyExposureReadyEventNotification",
 ]

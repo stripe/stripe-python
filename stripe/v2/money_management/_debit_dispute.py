@@ -16,12 +16,24 @@ class DebitDispute(StripeObject):
     )
 
     class BankTransfer(StripeObject):
-        network: Literal["ach"]
+        network: Union[Literal["ach", "bacs"], str]
         """
         The bank network the dispute was originated on.
         """
         reason: Optional[
-            Union[Literal["incorrect_amount_or_date", "unauthorized"], str]
+            Union[
+                Literal[
+                    "beneficiary_unrecognized",
+                    "incorrect_amount_or_date",
+                    "mandate_canceled",
+                    "mandate_canceled_by_stripe",
+                    "no_advance_notice",
+                    "originator_requested",
+                    "signature_invalid",
+                    "unauthorized",
+                ],
+                str,
+            ]
         ]
         """
         The reason for the dispute.

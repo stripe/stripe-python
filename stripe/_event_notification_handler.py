@@ -1143,11 +1143,32 @@ if TYPE_CHECKING:
     from stripe.events._v2_money_management_received_debit_canceled_event import (
         V2MoneyManagementReceivedDebitCanceledEventNotification,
     )
+    from stripe.events._v2_money_management_received_debit_created_event import (
+        V2MoneyManagementReceivedDebitCreatedEventNotification,
+    )
     from stripe.events._v2_money_management_received_debit_failed_event import (
         V2MoneyManagementReceivedDebitFailedEventNotification,
     )
+    from stripe.events._v2_money_management_received_debit_mandate_canceled_event import (
+        V2MoneyManagementReceivedDebitMandateCanceledEventNotification,
+    )
+    from stripe.events._v2_money_management_received_debit_mandate_created_event import (
+        V2MoneyManagementReceivedDebitMandateCreatedEventNotification,
+    )
+    from stripe.events._v2_money_management_received_debit_mandate_expired_event import (
+        V2MoneyManagementReceivedDebitMandateExpiredEventNotification,
+    )
+    from stripe.events._v2_money_management_received_debit_mandate_pending_cancellation_event import (
+        V2MoneyManagementReceivedDebitMandatePendingCancellationEventNotification,
+    )
+    from stripe.events._v2_money_management_received_debit_mandate_updated_event import (
+        V2MoneyManagementReceivedDebitMandateUpdatedEventNotification,
+    )
     from stripe.events._v2_money_management_received_debit_pending_event import (
         V2MoneyManagementReceivedDebitPendingEventNotification,
+    )
+    from stripe.events._v2_money_management_received_debit_scheduled_event import (
+        V2MoneyManagementReceivedDebitScheduledEventNotification,
     )
     from stripe.events._v2_money_management_received_debit_succeeded_event import (
         V2MoneyManagementReceivedDebitSucceededEventNotification,
@@ -1262,6 +1283,9 @@ if TYPE_CHECKING:
     )
     from stripe.events._v2_signals_account_signal_merchant_delinquency_ready_event import (
         V2SignalsAccountSignalMerchantDelinquencyReadyEventNotification,
+    )
+    from stripe.events._v2_signals_account_signal_payment_delinquency_exposure_ready_event import (
+        V2SignalsAccountSignalPaymentDelinquencyExposureReadyEventNotification,
     )
     # event-notification-types: The end of the section generated from our OpenAPI spec
 
@@ -6260,6 +6284,19 @@ class StripeEventNotificationHandler:
         )
         return func
 
+    def on_v2_money_management_received_debit_created(
+        self,
+        func: "Callable[[V2MoneyManagementReceivedDebitCreatedEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2MoneyManagementReceivedDebitCreatedEvent` (`v2.money_management.received_debit.created`) event notification.
+        """
+        self._register(
+            "v2.money_management.received_debit.created",
+            func,
+        )
+        return func
+
     def on_v2_money_management_received_debit_failed(
         self,
         func: "Callable[[V2MoneyManagementReceivedDebitFailedEventNotification, StripeClient], None]",
@@ -6273,6 +6310,71 @@ class StripeEventNotificationHandler:
         )
         return func
 
+    def on_v2_money_management_received_debit_mandate_canceled(
+        self,
+        func: "Callable[[V2MoneyManagementReceivedDebitMandateCanceledEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2MoneyManagementReceivedDebitMandateCanceledEvent` (`v2.money_management.received_debit_mandate.canceled`) event notification.
+        """
+        self._register(
+            "v2.money_management.received_debit_mandate.canceled",
+            func,
+        )
+        return func
+
+    def on_v2_money_management_received_debit_mandate_created(
+        self,
+        func: "Callable[[V2MoneyManagementReceivedDebitMandateCreatedEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2MoneyManagementReceivedDebitMandateCreatedEvent` (`v2.money_management.received_debit_mandate.created`) event notification.
+        """
+        self._register(
+            "v2.money_management.received_debit_mandate.created",
+            func,
+        )
+        return func
+
+    def on_v2_money_management_received_debit_mandate_expired(
+        self,
+        func: "Callable[[V2MoneyManagementReceivedDebitMandateExpiredEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2MoneyManagementReceivedDebitMandateExpiredEvent` (`v2.money_management.received_debit_mandate.expired`) event notification.
+        """
+        self._register(
+            "v2.money_management.received_debit_mandate.expired",
+            func,
+        )
+        return func
+
+    def on_v2_money_management_received_debit_mandate_pending_cancellation(
+        self,
+        func: "Callable[[V2MoneyManagementReceivedDebitMandatePendingCancellationEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2MoneyManagementReceivedDebitMandatePendingCancellationEvent` (`v2.money_management.received_debit_mandate.pending_cancellation`) event notification.
+        """
+        self._register(
+            "v2.money_management.received_debit_mandate.pending_cancellation",
+            func,
+        )
+        return func
+
+    def on_v2_money_management_received_debit_mandate_updated(
+        self,
+        func: "Callable[[V2MoneyManagementReceivedDebitMandateUpdatedEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2MoneyManagementReceivedDebitMandateUpdatedEvent` (`v2.money_management.received_debit_mandate.updated`) event notification.
+        """
+        self._register(
+            "v2.money_management.received_debit_mandate.updated",
+            func,
+        )
+        return func
+
     def on_v2_money_management_received_debit_pending(
         self,
         func: "Callable[[V2MoneyManagementReceivedDebitPendingEventNotification, StripeClient], None]",
@@ -6282,6 +6384,19 @@ class StripeEventNotificationHandler:
         """
         self._register(
             "v2.money_management.received_debit.pending",
+            func,
+        )
+        return func
+
+    def on_v2_money_management_received_debit_scheduled(
+        self,
+        func: "Callable[[V2MoneyManagementReceivedDebitScheduledEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2MoneyManagementReceivedDebitScheduledEvent` (`v2.money_management.received_debit.scheduled`) event notification.
+        """
+        self._register(
+            "v2.money_management.received_debit.scheduled",
             func,
         )
         return func
@@ -6776,6 +6891,19 @@ class StripeEventNotificationHandler:
         """
         self._register(
             "v2.signals.account_signal.merchant_delinquency_ready",
+            func,
+        )
+        return func
+
+    def on_v2_signals_account_signal_payment_delinquency_exposure_ready(
+        self,
+        func: "Callable[[V2SignalsAccountSignalPaymentDelinquencyExposureReadyEventNotification, StripeClient], None]",
+    ):
+        """
+        Registers a callback for the `V2SignalsAccountSignalPaymentDelinquencyExposureReadyEvent` (`v2.signals.account_signal.payment_delinquency_exposure_ready`) event notification.
+        """
+        self._register(
+            "v2.signals.account_signal.payment_delinquency_exposure_ready",
             func,
         )
         return func

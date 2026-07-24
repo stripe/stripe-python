@@ -8,3 +8,7 @@ class ReceivedDebitListParams(TypedDict):
     """
     The page limit.
     """
+    received_debit_mandate: NotRequired[str]
+    """
+    Filter by the received debit mandate ID.
+    """

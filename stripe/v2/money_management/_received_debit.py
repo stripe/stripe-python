@@ -26,6 +26,32 @@ class ReceivedDebit(StripeObject):
         """
 
     class BankTransfer(StripeObject):
+        class GbBankAccount(StripeObject):
+            account_holder_name: Optional[str]
+            """
+            The name of the account holder that originated the debit.
+            """
+            bank_name: Optional[str]
+            """
+            The name of the bank the debit originated from.
+            """
+            last4: Optional[str]
+            """
+            Last 4 digits of the bank account number.
+            """
+            network: Literal["bacs"]
+            """
+            Open Enum. The bank network the debit was originated on.
+            """
+            received_debit_mandate: Optional[str]
+            """
+            The ID of the mandate associated with this debit.
+            """
+            sort_code: Optional[str]
+            """
+            The sort code of the bank that originated the debit.
+            """
+
         class UsBankAccount(StripeObject):
             bank_name: Optional[str]
             """
@@ -44,11 +70,18 @@ class ReceivedDebit(StripeObject):
         """
         The Financial Address that was debited.
         """
-        origin_type: Literal["us_bank_account"]
+        gb_bank_account: Optional[GbBankAccount]
+        """
+        Object containing details of the GB Bank Account that originated the debit.
+        Present when the debit was originated via BACS.
+        """
+        origin_type: Union[Literal["gb_bank_account", "us_bank_account"], str]
         """
         Open Enum. Indicates the origin type through which this debit was initiated.
         """
-        payment_method_type: Literal["us_bank_account"]
+        payment_method_type: Union[
+            Literal["gb_bank_account", "us_bank_account"], str
+        ]
         """
         Open Enum. The type of the payment method used to originate the debit.
         """
@@ -56,11 +89,15 @@ class ReceivedDebit(StripeObject):
         """
         The statement descriptor set by the originator of the debit.
         """
-        us_bank_account: UsBankAccount
+        us_bank_account: Optional[UsBankAccount]
         """
-        The payment method used to originate the debit.
+        Object containing details of the US Bank Account that originated the debit.
+        Present when the debit was originated via ACH.
         """
-        _inner_class_types = {"us_bank_account": UsBankAccount}
+        _inner_class_types = {
+            "gb_bank_account": GbBankAccount,
+            "us_bank_account": UsBankAccount,
+        }
 
     class CardSpend(StripeObject):
         class Authorization(StripeObject):
@@ -117,6 +154,7 @@ class ReceivedDebit(StripeObject):
                     "capability_inactive",
                     "financial_address_inactive",
                     "insufficient_funds",
+                    "no_mandate",
                     "stripe_rejected",
                 ],
                 str,
@@ -228,8 +266,22 @@ class ReceivedDebit(StripeObject):
     """
     A link to the Stripe-hosted receipt for this ReceivedDebit.
     """
+    settles_at: Optional[str]
+    """
+    The time at which the scheduled ReceivedDebit is expected to settle.
+    Represented as a RFC 3339 date & time UTC value in millisecond precision, for example: `2022-09-18T13:22:18.123Z`.
+    Only present when status is `scheduled`.
+    """
     status: Union[
-        Literal["canceled", "failed", "pending", "returned", "succeeded"], str
+        Literal[
+            "canceled",
+            "failed",
+            "pending",
+            "returned",
+            "scheduled",
+            "succeeded",
+        ],
+        str,
     ]
     """
     Open Enum. The status of the ReceivedDebit.
