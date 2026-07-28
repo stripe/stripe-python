@@ -26,7 +26,6 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 MOCK_HOST = os.environ.get("STRIPE_MOCK_HOST", "localhost")
 
 
-
 class RequestSnapshot:
     """Snapshot of request attributes, captured at handle time.
 
