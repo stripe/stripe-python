@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import json
-from collections import OrderedDict
 
 from stripe import (
     DEFAULT_API_BASE,
@@ -23,7 +22,12 @@ from stripe._api_version import _ApiVersion
 from stripe._stripe_object import StripeObject
 from stripe._stripe_response import StripeResponse
 from stripe._util import _convert_to_stripe_object, get_api_mode
-from stripe._webhook import Webhook, WebhookSignature
+from stripe._webhook import (
+    Webhook,
+    WebhookSignature,
+    build_v1_event,
+    extract_from_cloud_provider_envelope,
+)
 from stripe._event import Event
 from stripe.v2.core._event import EventNotification
 
@@ -221,7 +225,7 @@ class StripeClient(object):
         tolerance: int = Webhook.DEFAULT_TOLERANCE,
     ) -> "ALL_EVENT_NOTIFICATIONS":
         """
-        This should be your main method for interacting with `EventNotifications`. It's the V2 equivalent of `construct_event()`, but with better typing support.
+        This should be your main method for interacting with Thin Event Notifications. It's the V2 equivalent of `construct_event()`, but with better typing support.
 
         It returns a union representing all known `EventNotification` classes. They have a `type` property that can be used for narrowing, which will get you very specific type support. If parsing an event the SDK isn't familiar with, it'll instead return `UnknownEventNotification`. That's not reflected in the return type of the function (because it messes up type narrowing) but is otherwise intended.
         """
@@ -245,23 +249,38 @@ class StripeClient(object):
         secret: str,
         tolerance: int = Webhook.DEFAULT_TOLERANCE,
     ) -> Event:
-        if hasattr(payload, "decode"):
-            payload = cast(bytes, payload).decode("utf-8")
-
-        WebhookSignature.verify_header(payload, sig_header, secret, tolerance)
-
-        data = json.loads(payload, object_pairs_hook=OrderedDict)
-        event = Event._construct_from(
-            values=data,
-            requestor=self._requestor,
-            api_mode="V1",
+        return Webhook.construct_event(
+            payload,
+            sig_header,
+            secret,
+            tolerance,
+            api_requestor=self._requestor,
         )
-        if event.object == "v2.core.event":  # type: ignore
+
+    def construct_event_from_cloud_provider(
+        self,
+        payload: Union[bytes, str],
+    ) -> Event:
+        """Constructs an Event from an [AWS EventBridge](https://docs.stripe.com/event-destinations/eventbridge) or [Azure Event Grid](https://docs.stripe.com/event-destinations/eventgrid) payload."""
+        inner = extract_from_cloud_provider_envelope(payload)
+        return build_v1_event(inner, self._requestor)
+
+    def parse_event_notification_from_cloud_provider(
+        self,
+        payload: Union[bytes, str],
+    ) -> "ALL_EVENT_NOTIFICATIONS":
+        """Parses a Thin Event Notification from an [AWS EventBridge](https://docs.stripe.com/event-destinations/eventbridge) or [Azure Event Grid](https://docs.stripe.com/event-destinations/eventgrid) payload."""
+        inner = extract_from_cloud_provider_envelope(payload)
+
+        if inner.get("object") == "event":
             raise ValueError(
-                "You passed a thin event notification to StripeClient.construct_event, which expects a webhook payload. Use StripeClient.parse_event_notification instead."
+                "It looks like this cloud event contains a v1 Event. Use construct_event_from_cloud_provider instead."
             )
 
-        return event
+        return cast(
+            "ALL_EVENT_NOTIFICATIONS",
+            EventNotification.from_json(json.dumps(inner), self),
+        )
 
     def raw_request(self, method_: str, url_: str, **params):
         params = params.copy()

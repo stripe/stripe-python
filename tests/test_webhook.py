@@ -83,7 +83,7 @@ class TestWebhook(object):
             stripe.Webhook.construct_event(
                 DUMMY_V2_WEBHOOK_PAYLOAD, header, DUMMY_WEBHOOK_SECRET
             )
-        assert "StripeClient.parse_event_notification" in str(e.value)
+        assert "parse_event_notification" in str(e.value)
 
 
 class TestWebhookSignature(object):

@@ -3,6 +3,7 @@ import json
 import time
 from collections import OrderedDict
 from hashlib import sha256
+from typing import Any, Dict, Optional, Union
 
 # Used for global variables
 import stripe  # noqa: IMP101
@@ -12,12 +13,62 @@ from stripe._error import SignatureVerificationError
 from stripe._api_requestor import _APIRequestor
 
 
+def build_v1_event(values: Dict[str, Any], requestor: _APIRequestor) -> Event:
+    """
+    Internal helper for centralizing v1 event creation
+    """
+    if values.get("object") == "v2.core.event":
+        raise ValueError(
+            "You passed a thin event notification to a method that expects a webhook body. Use the corresponding parse_event_notification* method instead."
+        )
+    return Event._construct_from(
+        values=values, requestor=requestor, api_mode="V1"
+    )
+
+
+def extract_from_cloud_provider_envelope(
+    payload: Union[bytes, str],
+):
+    """
+    Internal helper to extract the inner type from a cloud provider envelope (regardless of what's in there)
+    """
+    if isinstance(payload, bytes):
+        payload = payload.decode("utf-8")
+
+    data = json.loads(payload, object_pairs_hook=OrderedDict)
+
+    # could add as many checks as we want here, but we'll start simple
+    if "detail" in data:
+        # AWS
+        # https://docs.stripe.com/event-destinations/eventbridge#event-structure
+        inner = data["detail"]
+    elif "specversion" in data:
+        # Azure
+        # https://docs.stripe.com/event-destinations/eventgrid#event-structure
+        inner = data["data"]
+    elif isinstance(data.get("id"), str) and data["id"].startswith("evt_"):
+        raise ValueError(
+            "It looks like you passed a Stripe Event directly. Use construct_event instead to parse a webhook payload with signature verification."
+        )
+    else:
+        raise ValueError(
+            "Unrecognized cloud event format. The payload must be an AWS EventBridge or Azure Event Grid event envelope."
+        )
+
+    return inner
+
+
 class Webhook(object):
     DEFAULT_TOLERANCE = 300
 
     @staticmethod
     def construct_event(
-        payload, sig_header, secret, tolerance=DEFAULT_TOLERANCE, api_key=None
+        payload,
+        sig_header,
+        secret,
+        tolerance=DEFAULT_TOLERANCE,
+        api_key=None,
+        api_requestor: Optional[_APIRequestor] = None,
     ):
         if hasattr(payload, "decode"):
             payload = payload.decode("utf-8")
@@ -25,19 +76,13 @@ class Webhook(object):
         WebhookSignature.verify_header(payload, sig_header, secret, tolerance)
 
         data = json.loads(payload, object_pairs_hook=OrderedDict)
-        event = Event._construct_from(
-            values=data,
-            requestor=_APIRequestor._global_with_options(
+        return build_v1_event(
+            data,
+            api_requestor
+            or _APIRequestor._global_with_options(
                 api_key=api_key or stripe.api_key
             ),
-            api_mode="V1",
         )
-
-        if event.object == "v2.core.event":  # type: ignore
-            raise ValueError(
-                "You passed a thin event notification to Webhook.construct_event, which expects a webhook payload. Use StripeClient.parse_event_notification instead."
-            )
-        return event
 
 
 class WebhookSignature(object):
