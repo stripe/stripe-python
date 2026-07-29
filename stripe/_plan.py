@@ -9,7 +9,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
+from typing import ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -71,7 +71,7 @@ class Plan(
         """
         Divide usage by this number.
         """
-        round: Literal["down", "up"]
+        round: Union[Literal["down", "up"], str]
         """
         After division, either round the result `up` or `down`.
         """
@@ -108,7 +108,7 @@ class Plan(
     """
     Unique identifier for the object.
     """
-    interval: Literal["day", "month", "week", "year"]
+    interval: Union[Literal["day", "month", "week", "year"], str]
     """
     The frequency at which a subscription is billed. One of `day`, `week`, `month` or `year`.
     """
@@ -156,7 +156,7 @@ class Plan(
     """
     Default number of trial days when subscribing a customer to this plan using [`trial_from_plan=true`](https://docs.stripe.com/api#create_subscription-trial_from_plan).
     """
-    usage_type: Literal["licensed", "metered"]
+    usage_type: Union[Literal["licensed", "metered"], str]
     """
     Configures how the quantity per period should be determined. Can be either `metered` or `licensed`. `licensed` automatically bills the `quantity` set when adding it to a subscription. `metered` aggregates the total usage based on usage records. Defaults to `licensed`.
     """

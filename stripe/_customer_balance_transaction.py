@@ -5,7 +5,7 @@ from stripe._customer import Customer
 from stripe._expandable_field import ExpandableField
 from stripe._stripe_object import UntypedStripeObject
 from stripe._util import sanitize_id
-from typing import ClassVar, Optional
+from typing import ClassVar, Optional, Union
 from typing_extensions import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -83,19 +83,22 @@ class CustomerBalanceTransaction(APIResource["CustomerBalanceTransaction"]):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    type: Literal[
-        "adjustment",
-        "applied_to_invoice",
-        "checkout_session_subscription_payment",
-        "checkout_session_subscription_payment_canceled",
-        "credit_note",
-        "initial",
-        "invoice_overpaid",
-        "invoice_too_large",
-        "invoice_too_small",
-        "migration",
-        "unapplied_from_invoice",
-        "unspent_receiver_credit",
+    type: Union[
+        Literal[
+            "adjustment",
+            "applied_to_invoice",
+            "checkout_session_subscription_payment",
+            "checkout_session_subscription_payment_canceled",
+            "credit_note",
+            "initial",
+            "invoice_overpaid",
+            "invoice_too_large",
+            "invoice_too_small",
+            "migration",
+            "unapplied_from_invoice",
+            "unspent_receiver_credit",
+        ],
+        str,
     ]
     """
     Transaction type: `adjustment`, `applied_to_invoice`, `credit_note`, `initial`, `invoice_overpaid`, `invoice_too_large`, `invoice_too_small`, `unspent_receiver_credit`, `unapplied_from_invoice`, `checkout_session_subscription_payment`, or `checkout_session_subscription_payment_canceled`. See the [Customer Balance page](https://docs.stripe.com/billing/customer/balance#types) to learn more about transaction types.

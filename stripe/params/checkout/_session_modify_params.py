@@ -3,7 +3,7 @@
 from decimal import Decimal
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -284,7 +284,7 @@ class SessionModifyParamsShippingOptionShippingRateDataDeliveryEstimate(
 class SessionModifyParamsShippingOptionShippingRateDataDeliveryEstimateMaximum(
     TypedDict,
 ):
-    unit: Literal["business_day", "day", "hour", "month", "week"]
+    unit: Union[Literal["business_day", "day", "hour", "month", "week"], str]
     """
     A unit of time.
     """
@@ -297,7 +297,7 @@ class SessionModifyParamsShippingOptionShippingRateDataDeliveryEstimateMaximum(
 class SessionModifyParamsShippingOptionShippingRateDataDeliveryEstimateMinimum(
     TypedDict,
 ):
-    unit: Literal["business_day", "day", "hour", "month", "week"]
+    unit: Union[Literal["business_day", "day", "hour", "month", "week"], str]
     """
     A unit of time.
     """

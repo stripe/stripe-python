@@ -118,6 +118,10 @@ OBJECT_CLASSES: Dict[str, Tuple[str, str]] = {
         "stripe.financial_connections._account_ownership",
         "AccountOwnership",
     ),
+    "financial_connections.authorization": (
+        "stripe.financial_connections._authorization",
+        "Authorization",
+    ),
     "financial_connections.session": (
         "stripe.financial_connections._session",
         "Session",

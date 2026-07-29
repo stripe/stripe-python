@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import UntypedStripeObject
-from typing import Dict, List
+from typing import Dict, List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -24,7 +24,7 @@ class InvoiceRemoveLinesParams(RequestOptions):
 
 
 class InvoiceRemoveLinesParamsLine(TypedDict):
-    behavior: Literal["delete", "unassign"]
+    behavior: Union[Literal["delete", "unassign"], str]
     """
     Either `delete` or `unassign`. Deleted line items are permanently deleted. Unassigned line items can be reassigned to an invoice.
     """

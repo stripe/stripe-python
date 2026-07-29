@@ -68,6 +68,7 @@ if TYPE_CHECKING:
     from stripe.params._account_retrieve_person_params import (
         AccountRetrievePersonParams,
     )
+    from stripe.params._account_unreject_params import AccountUnrejectParams
 
 
 @nested_resource_class_methods("capability")
@@ -164,12 +165,15 @@ class Account(
         """
         minority_owned_business_designation: Optional[
             List[
-                Literal[
-                    "lgbtqi_owned_business",
-                    "minority_owned_business",
-                    "none_of_these_apply",
-                    "prefer_not_to_answer",
-                    "women_owned_business",
+                Union[
+                    Literal[
+                        "lgbtqi_owned_business",
+                        "minority_owned_business",
+                        "none_of_these_apply",
+                        "prefer_not_to_answer",
+                        "women_owned_business",
+                    ],
+                    str,
                 ]
             ]
         ]
@@ -598,6 +602,32 @@ class Account(
             Town/cho-me.
             """
 
+        class AdministrativeAddress(StripeObject):
+            city: Optional[str]
+            """
+            City, district, suburb, town, or village.
+            """
+            country: Optional[str]
+            """
+            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            """
+            line1: Optional[str]
+            """
+            Address line 1, such as the street, PO Box, or company name.
+            """
+            line2: Optional[str]
+            """
+            Address line 2, such as the apartment, suite, unit, or building.
+            """
+            postal_code: Optional[str]
+            """
+            ZIP or postal code.
+            """
+            state: Optional[str]
+            """
+            State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
+            """
+
         class DirectorshipDeclaration(StripeObject):
             date: Optional[int]
             """
@@ -624,6 +654,32 @@ class Account(
             user_agent: Optional[str]
             """
             The user-agent string from the browser where the beneficial owner attestation was made.
+            """
+
+        class PrincipalPlaceOfBusiness(StripeObject):
+            city: Optional[str]
+            """
+            City, district, suburb, town, or village.
+            """
+            country: Optional[str]
+            """
+            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            """
+            line1: Optional[str]
+            """
+            Address line 1, such as the street, PO Box, or company name.
+            """
+            line2: Optional[str]
+            """
+            Address line 2, such as the apartment, suite, unit, or building.
+            """
+            postal_code: Optional[str]
+            """
+            ZIP or postal code.
+            """
+            state: Optional[str]
+            """
+            State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
             """
 
         class RegistrationDate(StripeObject):
@@ -685,6 +741,7 @@ class Account(
         """
         The Kanji variation of the company's primary address (Japan only).
         """
+        administrative_address: Optional[AdministrativeAddress]
         directors_provided: Optional[bool]
         """
         Whether the company's directors have been provided. This Boolean will be `true` if you've manually indicated that all directors are provided via [the `directors_provided` parameter](https://docs.stripe.com/api/accounts/update#update_account-company-directors_provided).
@@ -726,9 +783,12 @@ class Account(
         This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct.
         """
         ownership_exemption_reason: Optional[
-            Literal[
-                "qualified_entity_exceeds_ownership_threshold",
-                "qualifies_as_financial_institution",
+            Union[
+                Literal[
+                    "qualified_entity_exceeds_ownership_threshold",
+                    "qualifies_as_financial_institution",
+                ],
+                str,
             ]
         ]
         """
@@ -738,36 +798,40 @@ class Account(
         """
         The company's phone number (used for verification).
         """
+        principal_place_of_business: Optional[PrincipalPlaceOfBusiness]
         registration_date: Optional[RegistrationDate]
         representative_declaration: Optional[RepresentativeDeclaration]
         """
         This hash is used to attest that the representative is authorized to act as the representative of their legal entity.
         """
         structure: Optional[
-            Literal[
-                "free_zone_establishment",
-                "free_zone_llc",
-                "government_instrumentality",
-                "governmental_unit",
-                "incorporated_non_profit",
-                "incorporated_partnership",
-                "limited_liability_partnership",
-                "llc",
-                "multi_member_llc",
-                "private_company",
-                "private_corporation",
-                "private_partnership",
-                "public_company",
-                "public_corporation",
-                "public_partnership",
-                "registered_charity",
-                "single_member_llc",
-                "sole_establishment",
-                "sole_proprietorship",
-                "tax_exempt_government_instrumentality",
-                "unincorporated_association",
-                "unincorporated_non_profit",
-                "unincorporated_partnership",
+            Union[
+                Literal[
+                    "free_zone_establishment",
+                    "free_zone_llc",
+                    "government_instrumentality",
+                    "governmental_unit",
+                    "incorporated_non_profit",
+                    "incorporated_partnership",
+                    "limited_liability_partnership",
+                    "llc",
+                    "multi_member_llc",
+                    "private_company",
+                    "private_corporation",
+                    "private_partnership",
+                    "public_company",
+                    "public_corporation",
+                    "public_partnership",
+                    "registered_charity",
+                    "single_member_llc",
+                    "sole_establishment",
+                    "sole_proprietorship",
+                    "tax_exempt_government_instrumentality",
+                    "unincorporated_association",
+                    "unincorporated_non_profit",
+                    "unincorporated_partnership",
+                ],
+                str,
             ]
         ]
         """
@@ -793,8 +857,10 @@ class Account(
             "address": Address,
             "address_kana": AddressKana,
             "address_kanji": AddressKanji,
+            "administrative_address": AdministrativeAddress,
             "directorship_declaration": DirectorshipDeclaration,
             "ownership_declaration": OwnershipDeclaration,
+            "principal_place_of_business": PrincipalPlaceOfBusiness,
             "registration_date": RegistrationDate,
             "representative_declaration": RepresentativeDeclaration,
             "verification": Verification,
@@ -802,24 +868,27 @@ class Account(
 
     class Controller(StripeObject):
         class Fees(StripeObject):
-            payer: Literal[
-                "account",
-                "application",
-                "application_custom",
-                "application_express",
+            payer: Union[
+                Literal[
+                    "account",
+                    "application",
+                    "application_custom",
+                    "application_express",
+                ],
+                str,
             ]
             """
             A value indicating the responsible payer of a bundle of Stripe fees for pricing-control eligible products on this account. Learn more about [fee behavior on connected accounts](https://docs.stripe.com/connect/direct-charges-fee-payer-behavior).
             """
 
         class Losses(StripeObject):
-            payments: Literal["application", "stripe"]
+            payments: Union[Literal["application", "stripe"], str]
             """
             A value indicating who is liable when this account can't pay back negative balances from payments.
             """
 
         class StripeDashboard(StripeObject):
-            type: Literal["express", "full", "none"]
+            type: Union[Literal["express", "full", "none"], str]
             """
             A value indicating the Stripe dashboard this account has access to independent of the Connect application.
             """
@@ -830,7 +899,9 @@ class Account(
         `true` if the Connect application retrieving the resource controls the account and can therefore exercise [platform controls](https://docs.stripe.com/connect/platform-controls-for-standard-accounts). Otherwise, this field is null.
         """
         losses: Optional[Losses]
-        requirement_collection: Optional[Literal["application", "stripe"]]
+        requirement_collection: Optional[
+            Union[Literal["application", "stripe"], str]
+        ]
         """
         A value indicating responsibility for collecting requirements on this account. Only returned when the Connect application retrieving the resource controls the account.
         """
@@ -1004,7 +1075,7 @@ class Account(
         """
         errors: Optional[List[Error]]
         """
-        Details about validation and verification failures for `due` requirements that must be resolved.
+        Fields that are `currently_due` and need to be collected again because validation or verification failed.
         """
         eventually_due: Optional[List[str]]
         """
@@ -1159,7 +1230,7 @@ class Account(
         """
         currently_due: Optional[List[str]]
         """
-        Fields that need to be resolved to keep the account enabled. If not resolved by `current_deadline`, these fields will appear in `past_due` as well, and the account is disabled.
+        Fields that need to be resolved to keep the account enabled. If not resolved by `current_deadline`, these fields will appear in `past_due` as well, and the account will be disabled.
         """
         disabled_reason: Optional[
             Literal[
@@ -1185,7 +1256,7 @@ class Account(
         """
         errors: Optional[List[Error]]
         """
-        Details about validation and verification failures for `due` requirements that must be resolved.
+        Fields that are `currently_due` and need to be collected again because validation or verification failed.
         """
         eventually_due: Optional[List[str]]
         """
@@ -1342,12 +1413,15 @@ class Account(
                 """
                 weekly_payout_days: Optional[
                     List[
-                        Literal[
-                            "friday",
-                            "monday",
-                            "thursday",
-                            "tuesday",
-                            "wednesday",
+                        Union[
+                            Literal[
+                                "friday",
+                                "monday",
+                                "thursday",
+                                "tuesday",
+                                "wednesday",
+                            ],
+                            str,
                         ]
                     ]
                 ]
@@ -1436,7 +1510,12 @@ class Account(
     Business information about the account.
     """
     business_type: Optional[
-        Literal["company", "government_entity", "individual", "non_profit"]
+        Union[
+            Literal[
+                "company", "government_entity", "individual", "non_profit"
+            ],
+            str,
+        ]
     ]
     """
     The business type.
@@ -1511,7 +1590,9 @@ class Account(
     Options for customizing how the account functions within Stripe.
     """
     tos_acceptance: Optional[TosAcceptance]
-    type: Optional[Literal["custom", "express", "none", "standard"]]
+    type: Optional[
+        Union[Literal["custom", "express", "none", "standard"], str]
+    ]
     """
     The Stripe account type. Can be `standard`, `express`, `custom`, or `none`.
     """
@@ -1522,7 +1603,7 @@ class Account(
         With [Connect](https://docs.stripe.com/docs/connect), you can create Stripe accounts for your users.
         To do this, you'll first need to [register your platform](https://dashboard.stripe.com/account/applications/settings).
 
-        If you've already collected information for your connected accounts, you [can prefill that information](https://docs.stripe.com/docs/connect/best-practices#onboarding) when
+        If you've already collected information for your connected accounts, you [can prefill that information](https://docs.stripe.com/connect/marketplace/tasks/create#prefill-account-information) when
         creating the account. Connect Onboarding won't ask for the prefilled information during account onboarding.
         You can prefill any information on the account.
         """
@@ -1543,7 +1624,7 @@ class Account(
         With [Connect](https://docs.stripe.com/docs/connect), you can create Stripe accounts for your users.
         To do this, you'll first need to [register your platform](https://dashboard.stripe.com/account/applications/settings).
 
-        If you've already collected information for your connected accounts, you [can prefill that information](https://docs.stripe.com/docs/connect/best-practices#onboarding) when
+        If you've already collected information for your connected accounts, you [can prefill that information](https://docs.stripe.com/connect/marketplace/tasks/create#prefill-account-information) when
         creating the account. Connect Onboarding won't ask for the prefilled information during account onboarding.
         You can prefill any information on the account.
         """
@@ -1855,7 +1936,7 @@ class Account(
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
-        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
+        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected.
         """
         return cast(
             "Account",
@@ -1876,7 +1957,7 @@ class Account(
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
-        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
+        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected.
         """
         ...
 
@@ -1885,7 +1966,7 @@ class Account(
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
-        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
+        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected.
         """
         ...
 
@@ -1896,7 +1977,7 @@ class Account(
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
-        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
+        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected.
         """
         return cast(
             "Account",
@@ -1916,7 +1997,7 @@ class Account(
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
-        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
+        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected.
         """
         return cast(
             "Account",
@@ -1937,7 +2018,7 @@ class Account(
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
-        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
+        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected.
         """
         ...
 
@@ -1948,7 +2029,7 @@ class Account(
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
-        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
+        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected.
         """
         ...
 
@@ -1959,13 +2040,153 @@ class Account(
         """
         With [Connect](https://docs.stripe.com/connect), you can reject accounts that you have flagged as suspicious.
 
-        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected. Test-mode accounts can be rejected at any time. Live-mode accounts can only be rejected after all balances are zero.
+        Only accounts where your platform is liable for negative account balances, which includes Custom and Express accounts, can be rejected.
         """
         return cast(
             "Account",
             await self._request_async(
                 "post",
                 "/v1/accounts/{account}/reject".format(
+                    account=sanitize_id(self._data.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def _cls_unreject(
+        cls, account: str, **params: Unpack["AccountUnrejectParams"]
+    ) -> "Account":
+        """
+        With Connect, you can unreject accounts that you have previously rejected.
+
+        Only accounts that were rejected by your platform can be unrejected. This API cannot be used to unreject accounts that were rejected by Stripe.
+
+        Unreject will only enable charges and/or payouts if there are no other restrictions other than those placed by a previous rejection. If you have separately paused charges and/or payouts outside of rejection, those pauses will remain in place after unrejection.
+        """
+        return cast(
+            "Account",
+            cls._static_request(
+                "post",
+                "/v1/accounts/{account}/unreject".format(
+                    account=sanitize_id(account)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def unreject(
+        account: str, **params: Unpack["AccountUnrejectParams"]
+    ) -> "Account":
+        """
+        With Connect, you can unreject accounts that you have previously rejected.
+
+        Only accounts that were rejected by your platform can be unrejected. This API cannot be used to unreject accounts that were rejected by Stripe.
+
+        Unreject will only enable charges and/or payouts if there are no other restrictions other than those placed by a previous rejection. If you have separately paused charges and/or payouts outside of rejection, those pauses will remain in place after unrejection.
+        """
+        ...
+
+    @overload
+    def unreject(self, **params: Unpack["AccountUnrejectParams"]) -> "Account":
+        """
+        With Connect, you can unreject accounts that you have previously rejected.
+
+        Only accounts that were rejected by your platform can be unrejected. This API cannot be used to unreject accounts that were rejected by Stripe.
+
+        Unreject will only enable charges and/or payouts if there are no other restrictions other than those placed by a previous rejection. If you have separately paused charges and/or payouts outside of rejection, those pauses will remain in place after unrejection.
+        """
+        ...
+
+    @class_method_variant("_cls_unreject")
+    def unreject(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["AccountUnrejectParams"]
+    ) -> "Account":
+        """
+        With Connect, you can unreject accounts that you have previously rejected.
+
+        Only accounts that were rejected by your platform can be unrejected. This API cannot be used to unreject accounts that were rejected by Stripe.
+
+        Unreject will only enable charges and/or payouts if there are no other restrictions other than those placed by a previous rejection. If you have separately paused charges and/or payouts outside of rejection, those pauses will remain in place after unrejection.
+        """
+        return cast(
+            "Account",
+            self._request(
+                "post",
+                "/v1/accounts/{account}/unreject".format(
+                    account=sanitize_id(self._data.get("id"))
+                ),
+                params=params,
+            ),
+        )
+
+    @classmethod
+    async def _cls_unreject_async(
+        cls, account: str, **params: Unpack["AccountUnrejectParams"]
+    ) -> "Account":
+        """
+        With Connect, you can unreject accounts that you have previously rejected.
+
+        Only accounts that were rejected by your platform can be unrejected. This API cannot be used to unreject accounts that were rejected by Stripe.
+
+        Unreject will only enable charges and/or payouts if there are no other restrictions other than those placed by a previous rejection. If you have separately paused charges and/or payouts outside of rejection, those pauses will remain in place after unrejection.
+        """
+        return cast(
+            "Account",
+            await cls._static_request_async(
+                "post",
+                "/v1/accounts/{account}/unreject".format(
+                    account=sanitize_id(account)
+                ),
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    async def unreject_async(
+        account: str, **params: Unpack["AccountUnrejectParams"]
+    ) -> "Account":
+        """
+        With Connect, you can unreject accounts that you have previously rejected.
+
+        Only accounts that were rejected by your platform can be unrejected. This API cannot be used to unreject accounts that were rejected by Stripe.
+
+        Unreject will only enable charges and/or payouts if there are no other restrictions other than those placed by a previous rejection. If you have separately paused charges and/or payouts outside of rejection, those pauses will remain in place after unrejection.
+        """
+        ...
+
+    @overload
+    async def unreject_async(
+        self, **params: Unpack["AccountUnrejectParams"]
+    ) -> "Account":
+        """
+        With Connect, you can unreject accounts that you have previously rejected.
+
+        Only accounts that were rejected by your platform can be unrejected. This API cannot be used to unreject accounts that were rejected by Stripe.
+
+        Unreject will only enable charges and/or payouts if there are no other restrictions other than those placed by a previous rejection. If you have separately paused charges and/or payouts outside of rejection, those pauses will remain in place after unrejection.
+        """
+        ...
+
+    @class_method_variant("_cls_unreject_async")
+    async def unreject_async(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["AccountUnrejectParams"]
+    ) -> "Account":
+        """
+        With Connect, you can unreject accounts that you have previously rejected.
+
+        Only accounts that were rejected by your platform can be unrejected. This API cannot be used to unreject accounts that were rejected by Stripe.
+
+        Unreject will only enable charges and/or payouts if there are no other restrictions other than those placed by a previous rejection. If you have separately paused charges and/or payouts outside of rejection, those pauses will remain in place after unrejection.
+        """
+        return cast(
+            "Account",
+            await self._request_async(
+                "post",
+                "/v1/accounts/{account}/unreject".format(
                     account=sanitize_id(self._data.get("id"))
                 ),
                 params=params,
@@ -2414,7 +2635,7 @@ class Account(
         **params: Unpack["AccountDeletePersonParams"],
     ) -> "Person":
         """
-        Deletes an existing person's relationship to the account's legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the account_opener. If your integration is using the executive parameter, you cannot delete the only verified executive on file.
+        Deletes an existing person's relationship to the account's legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the representative. If your integration is using the executive parameter, you cannot delete the only verified executive on file.
         """
         return cast(
             "Person",
@@ -2435,7 +2656,7 @@ class Account(
         **params: Unpack["AccountDeletePersonParams"],
     ) -> "Person":
         """
-        Deletes an existing person's relationship to the account's legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the account_opener. If your integration is using the executive parameter, you cannot delete the only verified executive on file.
+        Deletes an existing person's relationship to the account's legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the representative. If your integration is using the executive parameter, you cannot delete the only verified executive on file.
         """
         return cast(
             "Person",

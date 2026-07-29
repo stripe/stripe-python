@@ -2,17 +2,17 @@
 # File generated from our OpenAPI spec
 from stripe._request_options import RequestOptions
 from typing import List
-from typing_extensions import Literal, NotRequired, TypedDict
+from typing_extensions import NotRequired
 
 
-class TokenListParams(RequestOptions):
-    card: str
+class PaymentRecordListParams(RequestOptions):
+    created_after: NotRequired[int]
     """
-    The Issuing card identifier to list tokens for.
+    Only return Payment Records that were created after this unix timestamp.
     """
-    created: NotRequired["TokenListParamsCreated|int"]
+    created_before: NotRequired[int]
     """
-    Only return Issuing tokens that were created during the given date interval.
+    Only return Payment Records that were created before this unix timestamp.
     """
     ending_before: NotRequired[str]
     """
@@ -29,29 +29,4 @@ class TokenListParams(RequestOptions):
     starting_after: NotRequired[str]
     """
     A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-    """
-    status: NotRequired[
-        "Literal['active', 'deleted', 'requested', 'suspended']|str"
-    ]
-    """
-    Select Issuing tokens with the given status.
-    """
-
-
-class TokenListParamsCreated(TypedDict):
-    gt: NotRequired[int]
-    """
-    Minimum value to filter by (exclusive)
-    """
-    gte: NotRequired[int]
-    """
-    Minimum value to filter by (inclusive)
-    """
-    lt: NotRequired[int]
-    """
-    Maximum value to filter by (exclusive)
-    """
-    lte: NotRequired[int]
-    """
-    Maximum value to filter by (inclusive)
     """

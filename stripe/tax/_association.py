@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe._api_resource import APIResource
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional, cast
+from typing import ClassVar, List, Optional, Union, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -26,12 +26,15 @@ class Association(APIResource["Association"]):
             """
 
         class Errored(StripeObject):
-            reason: Literal[
-                "another_payment_associated_with_calculation",
-                "calculation_expired",
-                "currency_mismatch",
-                "original_transaction_voided",
-                "unique_reference_violation",
+            reason: Union[
+                Literal[
+                    "another_payment_associated_with_calculation",
+                    "calculation_expired",
+                    "currency_mismatch",
+                    "original_transaction_voided",
+                    "unique_reference_violation",
+                ],
+                str,
             ]
             """
             Details on why we couldn't commit the tax transaction.

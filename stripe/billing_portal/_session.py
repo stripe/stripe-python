@@ -3,7 +3,7 @@
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._stripe_object import StripeObject
-from typing import ClassVar, List, Optional, cast
+from typing import ClassVar, List, Optional, Union, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -57,7 +57,10 @@ class Session(CreateableAPIResource["Session"]):
             """
             Configuration when `after_completion.type=redirect`.
             """
-            type: Literal["hosted_confirmation", "portal_homepage", "redirect"]
+            type: Union[
+                Literal["hosted_confirmation", "portal_homepage", "redirect"],
+                str,
+            ]
             """
             The specified type of behavior after the flow is completed.
             """
@@ -152,11 +155,14 @@ class Session(CreateableAPIResource["Session"]):
         """
         Configuration when `flow.type=subscription_update_confirm`.
         """
-        type: Literal[
-            "payment_method_update",
-            "subscription_cancel",
-            "subscription_update",
-            "subscription_update_confirm",
+        type: Union[
+            Literal[
+                "payment_method_update",
+                "subscription_cancel",
+                "subscription_update",
+                "subscription_update_confirm",
+            ],
+            str,
         ]
         """
         Type of flow that the customer will go through.
@@ -197,54 +203,57 @@ class Session(CreateableAPIResource["Session"]):
     If the object exists in live mode, the value is `true`. If the object exists in test mode, the value is `false`.
     """
     locale: Optional[
-        Literal[
-            "auto",
-            "bg",
-            "cs",
-            "da",
-            "de",
-            "el",
-            "en",
-            "en-AU",
-            "en-CA",
-            "en-GB",
-            "en-IE",
-            "en-IN",
-            "en-NZ",
-            "en-SG",
-            "es",
-            "es-419",
-            "et",
-            "fi",
-            "fil",
-            "fr",
-            "fr-CA",
-            "hr",
-            "hu",
-            "id",
-            "it",
-            "ja",
-            "ko",
-            "lt",
-            "lv",
-            "ms",
-            "mt",
-            "nb",
-            "nl",
-            "pl",
-            "pt",
-            "pt-BR",
-            "ro",
-            "ru",
-            "sk",
-            "sl",
-            "sv",
-            "th",
-            "tr",
-            "vi",
-            "zh",
-            "zh-HK",
-            "zh-TW",
+        Union[
+            Literal[
+                "auto",
+                "bg",
+                "cs",
+                "da",
+                "de",
+                "el",
+                "en",
+                "en-AU",
+                "en-CA",
+                "en-GB",
+                "en-IE",
+                "en-IN",
+                "en-NZ",
+                "en-SG",
+                "es",
+                "es-419",
+                "et",
+                "fi",
+                "fil",
+                "fr",
+                "fr-CA",
+                "hr",
+                "hu",
+                "id",
+                "it",
+                "ja",
+                "ko",
+                "lt",
+                "lv",
+                "ms",
+                "mt",
+                "nb",
+                "nl",
+                "pl",
+                "pt",
+                "pt-BR",
+                "ro",
+                "ru",
+                "sk",
+                "sl",
+                "sv",
+                "th",
+                "tr",
+                "vi",
+                "zh",
+                "zh-HK",
+                "zh-TW",
+            ],
+            str,
         ]
     ]
     """

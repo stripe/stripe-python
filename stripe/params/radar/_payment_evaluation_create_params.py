@@ -116,12 +116,12 @@ class PaymentEvaluationCreateParamsPaymentDetailsMoneyMovementDetails(
 class PaymentEvaluationCreateParamsPaymentDetailsMoneyMovementDetailsCard(
     TypedDict,
 ):
-    customer_presence: NotRequired[Literal["off_session", "on_session"]]
+    customer_presence: NotRequired["Literal['off_session', 'on_session']|str"]
     """
     Describes the presence of the customer during the payment.
     """
     payment_type: NotRequired[
-        Literal["one_off", "recurring", "setup_one_off", "setup_recurring"]
+        "Literal['one_off', 'recurring', 'setup_one_off', 'setup_recurring']|str"
     ]
     """
     Describes the type of payment.

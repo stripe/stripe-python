@@ -4,7 +4,7 @@ from stripe._createable_api_resource import CreateableAPIResource
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
-from typing import ClassVar, List, Optional, cast
+from typing import ClassVar, List, Optional, Union, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -126,12 +126,15 @@ class Request(
     The PaymentMethod to insert into the forwarded request. Forwarding previously consumed PaymentMethods is allowed.
     """
     replacements: List[
-        Literal[
-            "card_cvc",
-            "card_expiry",
-            "card_number",
-            "cardholder_name",
-            "request_signature",
+        Union[
+            Literal[
+                "card_cvc",
+                "card_expiry",
+                "card_number",
+                "cardholder_name",
+                "request_signature",
+            ],
+            str,
         ]
     ]
     """

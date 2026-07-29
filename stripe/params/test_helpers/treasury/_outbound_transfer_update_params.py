@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from typing import List
+from typing import List, Union
 from typing_extensions import Literal, NotRequired, TypedDict
 
 
@@ -20,7 +20,7 @@ class OutboundTransferUpdateParamsTrackingDetails(TypedDict):
     """
     ACH network tracking details.
     """
-    type: Literal["ach", "us_domestic_wire"]
+    type: Union[Literal["ach", "us_domestic_wire"], str]
     """
     The US bank account network used to send funds.
     """

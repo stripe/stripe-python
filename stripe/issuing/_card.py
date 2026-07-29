@@ -8,7 +8,7 @@ from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._test_helpers import APIResourceTestHelpers
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
+from typing import ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Type, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -48,11 +48,14 @@ class Card(
         Timestamp of the most recent fraud warning.
         """
         type: Optional[
-            Literal[
-                "card_testing_exposure",
-                "fraud_dispute_filed",
-                "third_party_reported",
-                "user_indicated_fraud",
+            Union[
+                Literal[
+                    "card_testing_exposure",
+                    "fraud_dispute_filed",
+                    "third_party_reported",
+                    "user_indicated_fraud",
+                ],
+                str,
             ]
         ]
         """
@@ -123,10 +126,13 @@ class Card(
                 State, county, province, or region ([ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2)).
                 """
 
-            mode: Literal[
-                "disabled",
-                "normalization_only",
-                "validation_and_normalization",
+            mode: Union[
+                Literal[
+                    "disabled",
+                    "normalization_only",
+                    "validation_and_normalization",
+                ],
+                str,
             ]
             """
             The address validation capabilities to use.
@@ -136,10 +142,13 @@ class Card(
             The normalized shipping address.
             """
             result: Optional[
-                Literal[
-                    "indeterminate",
-                    "likely_deliverable",
-                    "likely_undeliverable",
+                Union[
+                    Literal[
+                        "indeterminate",
+                        "likely_deliverable",
+                        "likely_undeliverable",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -158,7 +167,15 @@ class Card(
         """
         Address validation details for the shipment.
         """
-        carrier: Optional[Literal["dhl", "fedex", "royal_mail", "usps"]]
+        business_name: Optional[str]
+        """
+        The name of the business at the shipping address, used on the shipping label to ensure delivery when the card is shipped to a cardholder's workplace.
+        """
+        carrier: Optional[
+            Union[
+                Literal["correos", "dhl", "fedex", "royal_mail", "usps"], str
+            ]
+        ]
         """
         The delivery company that shipped a card.
         """
@@ -182,19 +199,22 @@ class Card(
         """
         Whether a signature is required for card delivery. This feature is only supported for US users. Standard shipping service does not support signature on delivery. The default value for standard shipping service is false and for express and priority services is true.
         """
-        service: Literal["express", "priority", "standard"]
+        service: Union[Literal["express", "priority", "standard"], str]
         """
         Shipment service, such as `standard` or `express`.
         """
         status: Optional[
-            Literal[
-                "canceled",
-                "delivered",
-                "failure",
-                "pending",
-                "returned",
-                "shipped",
-                "submitted",
+            Union[
+                Literal[
+                    "canceled",
+                    "delivered",
+                    "failure",
+                    "pending",
+                    "returned",
+                    "shipped",
+                    "submitted",
+                ],
+                str,
             ]
         ]
         """
@@ -208,7 +228,7 @@ class Card(
         """
         A link to the shipping carrier's site where you can view detailed information about a card shipment.
         """
-        type: Literal["bulk", "individual"]
+        type: Union[Literal["bulk", "individual"], str]
         """
         Packaging options.
         """
@@ -528,13 +548,16 @@ class Card(
             """
             Array of strings containing [categories](https://docs.stripe.com/api#issuing_authorization_object-merchant_data-category) this limit applies to. Omitting this field will apply the limit to all categories.
             """
-            interval: Literal[
-                "all_time",
-                "daily",
-                "monthly",
-                "per_authorization",
-                "weekly",
-                "yearly",
+            interval: Union[
+                Literal[
+                    "all_time",
+                    "daily",
+                    "monthly",
+                    "per_authorization",
+                    "weekly",
+                    "yearly",
+                ],
+                str,
             ]
             """
             Interval (or event) to which the amount applies.
@@ -1185,10 +1208,13 @@ class Card(
             Apple Pay Eligibility
             """
             ineligible_reason: Optional[
-                Literal[
-                    "missing_agreement",
-                    "missing_cardholder_contact",
-                    "unsupported_region",
+                Union[
+                    Literal[
+                        "missing_agreement",
+                        "missing_cardholder_contact",
+                        "unsupported_region",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -1201,10 +1227,13 @@ class Card(
             Google Pay Eligibility
             """
             ineligible_reason: Optional[
-                Literal[
-                    "missing_agreement",
-                    "missing_cardholder_contact",
-                    "unsupported_region",
+                Union[
+                    Literal[
+                        "missing_agreement",
+                        "missing_cardholder_contact",
+                        "unsupported_region",
+                    ],
+                    str,
                 ]
             ]
             """
@@ -1318,11 +1347,11 @@ class Card(
     Where and how the card will be shipped.
     """
     spending_controls: SpendingControls
-    status: Literal["active", "canceled", "inactive"]
+    status: Union[Literal["active", "canceled", "inactive"], str]
     """
     Whether authorizations can be approved on this card. May be blocked from activating cards depending on past-due Cardholder requirements. Defaults to `inactive`.
     """
-    type: Literal["physical", "virtual"]
+    type: Union[Literal["physical", "virtual"], str]
     """
     The type of the card.
     """

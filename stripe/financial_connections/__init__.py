@@ -17,6 +17,9 @@ if TYPE_CHECKING:
     from stripe.financial_connections._account_service import (
         AccountService as AccountService,
     )
+    from stripe.financial_connections._authorization import (
+        Authorization as Authorization,
+    )
     from stripe.financial_connections._session import Session as Session
     from stripe.financial_connections._session_service import (
         SessionService as SessionService,
@@ -41,6 +44,7 @@ _import_map = {
         False,
     ),
     "AccountService": ("stripe.financial_connections._account_service", False),
+    "Authorization": ("stripe.financial_connections._authorization", False),
     "Session": ("stripe.financial_connections._session", False),
     "SessionService": ("stripe.financial_connections._session_service", False),
     "Transaction": ("stripe.financial_connections._transaction", False),

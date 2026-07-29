@@ -121,8 +121,10 @@ if TYPE_CHECKING:
         AccountCreateParamsCompanyAddress as AccountCreateParamsCompanyAddress,
         AccountCreateParamsCompanyAddressKana as AccountCreateParamsCompanyAddressKana,
         AccountCreateParamsCompanyAddressKanji as AccountCreateParamsCompanyAddressKanji,
+        AccountCreateParamsCompanyAdministrativeAddress as AccountCreateParamsCompanyAdministrativeAddress,
         AccountCreateParamsCompanyDirectorshipDeclaration as AccountCreateParamsCompanyDirectorshipDeclaration,
         AccountCreateParamsCompanyOwnershipDeclaration as AccountCreateParamsCompanyOwnershipDeclaration,
+        AccountCreateParamsCompanyPrincipalPlaceOfBusiness as AccountCreateParamsCompanyPrincipalPlaceOfBusiness,
         AccountCreateParamsCompanyRegistrationDate as AccountCreateParamsCompanyRegistrationDate,
         AccountCreateParamsCompanyRepresentativeDeclaration as AccountCreateParamsCompanyRepresentativeDeclaration,
         AccountCreateParamsCompanyVerification as AccountCreateParamsCompanyVerification,
@@ -139,8 +141,6 @@ if TYPE_CHECKING:
         AccountCreateParamsDocumentsCompanyRegistrationVerification as AccountCreateParamsDocumentsCompanyRegistrationVerification,
         AccountCreateParamsDocumentsCompanyTaxIdVerification as AccountCreateParamsDocumentsCompanyTaxIdVerification,
         AccountCreateParamsDocumentsProofOfAddress as AccountCreateParamsDocumentsProofOfAddress,
-        AccountCreateParamsDocumentsProofOfRegistration as AccountCreateParamsDocumentsProofOfRegistration,
-        AccountCreateParamsDocumentsProofOfRegistrationSigner as AccountCreateParamsDocumentsProofOfRegistrationSigner,
         AccountCreateParamsDocumentsProofOfUltimateBeneficialOwnership as AccountCreateParamsDocumentsProofOfUltimateBeneficialOwnership,
         AccountCreateParamsDocumentsProofOfUltimateBeneficialOwnershipSigner as AccountCreateParamsDocumentsProofOfUltimateBeneficialOwnershipSigner,
         AccountCreateParamsGroups as AccountCreateParamsGroups,
@@ -389,6 +389,9 @@ if TYPE_CHECKING:
         AccountSessionCreateParamsComponentsTaxSettings as AccountSessionCreateParamsComponentsTaxSettings,
         AccountSessionCreateParamsComponentsTaxSettingsFeatures as AccountSessionCreateParamsComponentsTaxSettingsFeatures,
     )
+    from stripe.params._account_unreject_params import (
+        AccountUnrejectParams as AccountUnrejectParams,
+    )
     from stripe.params._account_update_params import (
         AccountUpdateParams as AccountUpdateParams,
         AccountUpdateParamsBankAccount as AccountUpdateParamsBankAccount,
@@ -469,8 +472,10 @@ if TYPE_CHECKING:
         AccountUpdateParamsCompanyAddress as AccountUpdateParamsCompanyAddress,
         AccountUpdateParamsCompanyAddressKana as AccountUpdateParamsCompanyAddressKana,
         AccountUpdateParamsCompanyAddressKanji as AccountUpdateParamsCompanyAddressKanji,
+        AccountUpdateParamsCompanyAdministrativeAddress as AccountUpdateParamsCompanyAdministrativeAddress,
         AccountUpdateParamsCompanyDirectorshipDeclaration as AccountUpdateParamsCompanyDirectorshipDeclaration,
         AccountUpdateParamsCompanyOwnershipDeclaration as AccountUpdateParamsCompanyOwnershipDeclaration,
+        AccountUpdateParamsCompanyPrincipalPlaceOfBusiness as AccountUpdateParamsCompanyPrincipalPlaceOfBusiness,
         AccountUpdateParamsCompanyRegistrationDate as AccountUpdateParamsCompanyRegistrationDate,
         AccountUpdateParamsCompanyRepresentativeDeclaration as AccountUpdateParamsCompanyRepresentativeDeclaration,
         AccountUpdateParamsCompanyVerification as AccountUpdateParamsCompanyVerification,
@@ -509,6 +514,7 @@ if TYPE_CHECKING:
         AccountUpdateParamsSettingsPayments as AccountUpdateParamsSettingsPayments,
         AccountUpdateParamsSettingsPayouts as AccountUpdateParamsSettingsPayouts,
         AccountUpdateParamsSettingsPayoutsSchedule as AccountUpdateParamsSettingsPayoutsSchedule,
+        AccountUpdateParamsSettingsSepaDebitPayments as AccountUpdateParamsSettingsSepaDebitPayments,
         AccountUpdateParamsSettingsTreasury as AccountUpdateParamsSettingsTreasury,
         AccountUpdateParamsSettingsTreasuryTosAcceptance as AccountUpdateParamsSettingsTreasuryTosAcceptance,
         AccountUpdateParamsTosAcceptance as AccountUpdateParamsTosAcceptance,
@@ -2163,6 +2169,8 @@ if TYPE_CHECKING:
         PaymentLinkModifyParamsAfterCompletionRedirect as PaymentLinkModifyParamsAfterCompletionRedirect,
         PaymentLinkModifyParamsAutomaticTax as PaymentLinkModifyParamsAutomaticTax,
         PaymentLinkModifyParamsAutomaticTaxLiability as PaymentLinkModifyParamsAutomaticTaxLiability,
+        PaymentLinkModifyParamsConsentCollection as PaymentLinkModifyParamsConsentCollection,
+        PaymentLinkModifyParamsConsentCollectionPaymentMethodReuseAgreement as PaymentLinkModifyParamsConsentCollectionPaymentMethodReuseAgreement,
         PaymentLinkModifyParamsCustomField as PaymentLinkModifyParamsCustomField,
         PaymentLinkModifyParamsCustomFieldDropdown as PaymentLinkModifyParamsCustomFieldDropdown,
         PaymentLinkModifyParamsCustomFieldDropdownOption as PaymentLinkModifyParamsCustomFieldDropdownOption,
@@ -2194,6 +2202,7 @@ if TYPE_CHECKING:
         PaymentLinkModifyParamsRestrictions as PaymentLinkModifyParamsRestrictions,
         PaymentLinkModifyParamsRestrictionsCompletedSessions as PaymentLinkModifyParamsRestrictionsCompletedSessions,
         PaymentLinkModifyParamsShippingAddressCollection as PaymentLinkModifyParamsShippingAddressCollection,
+        PaymentLinkModifyParamsShippingOption as PaymentLinkModifyParamsShippingOption,
         PaymentLinkModifyParamsSubscriptionData as PaymentLinkModifyParamsSubscriptionData,
         PaymentLinkModifyParamsSubscriptionDataInvoiceSettings as PaymentLinkModifyParamsSubscriptionDataInvoiceSettings,
         PaymentLinkModifyParamsSubscriptionDataInvoiceSettingsIssuer as PaymentLinkModifyParamsSubscriptionDataInvoiceSettingsIssuer,
@@ -2211,6 +2220,8 @@ if TYPE_CHECKING:
         PaymentLinkUpdateParamsAfterCompletionRedirect as PaymentLinkUpdateParamsAfterCompletionRedirect,
         PaymentLinkUpdateParamsAutomaticTax as PaymentLinkUpdateParamsAutomaticTax,
         PaymentLinkUpdateParamsAutomaticTaxLiability as PaymentLinkUpdateParamsAutomaticTaxLiability,
+        PaymentLinkUpdateParamsConsentCollection as PaymentLinkUpdateParamsConsentCollection,
+        PaymentLinkUpdateParamsConsentCollectionPaymentMethodReuseAgreement as PaymentLinkUpdateParamsConsentCollectionPaymentMethodReuseAgreement,
         PaymentLinkUpdateParamsCustomField as PaymentLinkUpdateParamsCustomField,
         PaymentLinkUpdateParamsCustomFieldDropdown as PaymentLinkUpdateParamsCustomFieldDropdown,
         PaymentLinkUpdateParamsCustomFieldDropdownOption as PaymentLinkUpdateParamsCustomFieldDropdownOption,
@@ -2242,6 +2253,7 @@ if TYPE_CHECKING:
         PaymentLinkUpdateParamsRestrictions as PaymentLinkUpdateParamsRestrictions,
         PaymentLinkUpdateParamsRestrictionsCompletedSessions as PaymentLinkUpdateParamsRestrictionsCompletedSessions,
         PaymentLinkUpdateParamsShippingAddressCollection as PaymentLinkUpdateParamsShippingAddressCollection,
+        PaymentLinkUpdateParamsShippingOption as PaymentLinkUpdateParamsShippingOption,
         PaymentLinkUpdateParamsSubscriptionData as PaymentLinkUpdateParamsSubscriptionData,
         PaymentLinkUpdateParamsSubscriptionDataInvoiceSettings as PaymentLinkUpdateParamsSubscriptionDataInvoiceSettings,
         PaymentLinkUpdateParamsSubscriptionDataInvoiceSettingsIssuer as PaymentLinkUpdateParamsSubscriptionDataInvoiceSettingsIssuer,
@@ -2737,6 +2749,9 @@ if TYPE_CHECKING:
         PaymentMethodUpdateParamsPayto as PaymentMethodUpdateParamsPayto,
         PaymentMethodUpdateParamsUsBankAccount as PaymentMethodUpdateParamsUsBankAccount,
     )
+    from stripe.params._payment_record_list_params import (
+        PaymentRecordListParams as PaymentRecordListParams,
+    )
     from stripe.params._payment_record_report_payment_attempt_canceled_params import (
         PaymentRecordReportPaymentAttemptCanceledParams as PaymentRecordReportPaymentAttemptCanceledParams,
     )
@@ -2964,6 +2979,7 @@ if TYPE_CHECKING:
         QuoteCreateParamsDiscount as QuoteCreateParamsDiscount,
         QuoteCreateParamsFromQuote as QuoteCreateParamsFromQuote,
         QuoteCreateParamsInvoiceSettings as QuoteCreateParamsInvoiceSettings,
+        QuoteCreateParamsInvoiceSettingsCustomField as QuoteCreateParamsInvoiceSettingsCustomField,
         QuoteCreateParamsInvoiceSettingsIssuer as QuoteCreateParamsInvoiceSettingsIssuer,
         QuoteCreateParamsLineItem as QuoteCreateParamsLineItem,
         QuoteCreateParamsLineItemDiscount as QuoteCreateParamsLineItemDiscount,
@@ -2995,6 +3011,7 @@ if TYPE_CHECKING:
         QuoteModifyParamsAutomaticTaxLiability as QuoteModifyParamsAutomaticTaxLiability,
         QuoteModifyParamsDiscount as QuoteModifyParamsDiscount,
         QuoteModifyParamsInvoiceSettings as QuoteModifyParamsInvoiceSettings,
+        QuoteModifyParamsInvoiceSettingsCustomField as QuoteModifyParamsInvoiceSettingsCustomField,
         QuoteModifyParamsInvoiceSettingsIssuer as QuoteModifyParamsInvoiceSettingsIssuer,
         QuoteModifyParamsLineItem as QuoteModifyParamsLineItem,
         QuoteModifyParamsLineItemDiscount as QuoteModifyParamsLineItemDiscount,
@@ -3015,6 +3032,7 @@ if TYPE_CHECKING:
         QuoteUpdateParamsAutomaticTaxLiability as QuoteUpdateParamsAutomaticTaxLiability,
         QuoteUpdateParamsDiscount as QuoteUpdateParamsDiscount,
         QuoteUpdateParamsInvoiceSettings as QuoteUpdateParamsInvoiceSettings,
+        QuoteUpdateParamsInvoiceSettingsCustomField as QuoteUpdateParamsInvoiceSettingsCustomField,
         QuoteUpdateParamsInvoiceSettingsIssuer as QuoteUpdateParamsInvoiceSettingsIssuer,
         QuoteUpdateParamsLineItem as QuoteUpdateParamsLineItem,
         QuoteUpdateParamsLineItemDiscount as QuoteUpdateParamsLineItemDiscount,
@@ -3715,6 +3733,7 @@ if TYPE_CHECKING:
         SubscriptionScheduleCreateParamsDefaultSettingsAutomaticTaxLiability as SubscriptionScheduleCreateParamsDefaultSettingsAutomaticTaxLiability,
         SubscriptionScheduleCreateParamsDefaultSettingsBillingThresholds as SubscriptionScheduleCreateParamsDefaultSettingsBillingThresholds,
         SubscriptionScheduleCreateParamsDefaultSettingsInvoiceSettings as SubscriptionScheduleCreateParamsDefaultSettingsInvoiceSettings,
+        SubscriptionScheduleCreateParamsDefaultSettingsInvoiceSettingsCustomField as SubscriptionScheduleCreateParamsDefaultSettingsInvoiceSettingsCustomField,
         SubscriptionScheduleCreateParamsDefaultSettingsInvoiceSettingsIssuer as SubscriptionScheduleCreateParamsDefaultSettingsInvoiceSettingsIssuer,
         SubscriptionScheduleCreateParamsDefaultSettingsTransferData as SubscriptionScheduleCreateParamsDefaultSettingsTransferData,
         SubscriptionScheduleCreateParamsPhase as SubscriptionScheduleCreateParamsPhase,
@@ -3730,6 +3749,7 @@ if TYPE_CHECKING:
         SubscriptionScheduleCreateParamsPhaseDiscount as SubscriptionScheduleCreateParamsPhaseDiscount,
         SubscriptionScheduleCreateParamsPhaseDuration as SubscriptionScheduleCreateParamsPhaseDuration,
         SubscriptionScheduleCreateParamsPhaseInvoiceSettings as SubscriptionScheduleCreateParamsPhaseInvoiceSettings,
+        SubscriptionScheduleCreateParamsPhaseInvoiceSettingsCustomField as SubscriptionScheduleCreateParamsPhaseInvoiceSettingsCustomField,
         SubscriptionScheduleCreateParamsPhaseInvoiceSettingsIssuer as SubscriptionScheduleCreateParamsPhaseInvoiceSettingsIssuer,
         SubscriptionScheduleCreateParamsPhaseItem as SubscriptionScheduleCreateParamsPhaseItem,
         SubscriptionScheduleCreateParamsPhaseItemBillingThresholds as SubscriptionScheduleCreateParamsPhaseItemBillingThresholds,
@@ -3752,6 +3772,7 @@ if TYPE_CHECKING:
         SubscriptionScheduleModifyParamsDefaultSettingsAutomaticTaxLiability as SubscriptionScheduleModifyParamsDefaultSettingsAutomaticTaxLiability,
         SubscriptionScheduleModifyParamsDefaultSettingsBillingThresholds as SubscriptionScheduleModifyParamsDefaultSettingsBillingThresholds,
         SubscriptionScheduleModifyParamsDefaultSettingsInvoiceSettings as SubscriptionScheduleModifyParamsDefaultSettingsInvoiceSettings,
+        SubscriptionScheduleModifyParamsDefaultSettingsInvoiceSettingsCustomField as SubscriptionScheduleModifyParamsDefaultSettingsInvoiceSettingsCustomField,
         SubscriptionScheduleModifyParamsDefaultSettingsInvoiceSettingsIssuer as SubscriptionScheduleModifyParamsDefaultSettingsInvoiceSettingsIssuer,
         SubscriptionScheduleModifyParamsDefaultSettingsTransferData as SubscriptionScheduleModifyParamsDefaultSettingsTransferData,
         SubscriptionScheduleModifyParamsPhase as SubscriptionScheduleModifyParamsPhase,
@@ -3767,6 +3788,7 @@ if TYPE_CHECKING:
         SubscriptionScheduleModifyParamsPhaseDiscount as SubscriptionScheduleModifyParamsPhaseDiscount,
         SubscriptionScheduleModifyParamsPhaseDuration as SubscriptionScheduleModifyParamsPhaseDuration,
         SubscriptionScheduleModifyParamsPhaseInvoiceSettings as SubscriptionScheduleModifyParamsPhaseInvoiceSettings,
+        SubscriptionScheduleModifyParamsPhaseInvoiceSettingsCustomField as SubscriptionScheduleModifyParamsPhaseInvoiceSettingsCustomField,
         SubscriptionScheduleModifyParamsPhaseInvoiceSettingsIssuer as SubscriptionScheduleModifyParamsPhaseInvoiceSettingsIssuer,
         SubscriptionScheduleModifyParamsPhaseItem as SubscriptionScheduleModifyParamsPhaseItem,
         SubscriptionScheduleModifyParamsPhaseItemBillingThresholds as SubscriptionScheduleModifyParamsPhaseItemBillingThresholds,
@@ -3788,6 +3810,7 @@ if TYPE_CHECKING:
         SubscriptionScheduleUpdateParamsDefaultSettingsAutomaticTaxLiability as SubscriptionScheduleUpdateParamsDefaultSettingsAutomaticTaxLiability,
         SubscriptionScheduleUpdateParamsDefaultSettingsBillingThresholds as SubscriptionScheduleUpdateParamsDefaultSettingsBillingThresholds,
         SubscriptionScheduleUpdateParamsDefaultSettingsInvoiceSettings as SubscriptionScheduleUpdateParamsDefaultSettingsInvoiceSettings,
+        SubscriptionScheduleUpdateParamsDefaultSettingsInvoiceSettingsCustomField as SubscriptionScheduleUpdateParamsDefaultSettingsInvoiceSettingsCustomField,
         SubscriptionScheduleUpdateParamsDefaultSettingsInvoiceSettingsIssuer as SubscriptionScheduleUpdateParamsDefaultSettingsInvoiceSettingsIssuer,
         SubscriptionScheduleUpdateParamsDefaultSettingsTransferData as SubscriptionScheduleUpdateParamsDefaultSettingsTransferData,
         SubscriptionScheduleUpdateParamsPhase as SubscriptionScheduleUpdateParamsPhase,
@@ -3803,6 +3826,7 @@ if TYPE_CHECKING:
         SubscriptionScheduleUpdateParamsPhaseDiscount as SubscriptionScheduleUpdateParamsPhaseDiscount,
         SubscriptionScheduleUpdateParamsPhaseDuration as SubscriptionScheduleUpdateParamsPhaseDuration,
         SubscriptionScheduleUpdateParamsPhaseInvoiceSettings as SubscriptionScheduleUpdateParamsPhaseInvoiceSettings,
+        SubscriptionScheduleUpdateParamsPhaseInvoiceSettingsCustomField as SubscriptionScheduleUpdateParamsPhaseInvoiceSettingsCustomField,
         SubscriptionScheduleUpdateParamsPhaseInvoiceSettingsIssuer as SubscriptionScheduleUpdateParamsPhaseInvoiceSettingsIssuer,
         SubscriptionScheduleUpdateParamsPhaseItem as SubscriptionScheduleUpdateParamsPhaseItem,
         SubscriptionScheduleUpdateParamsPhaseItemBillingThresholds as SubscriptionScheduleUpdateParamsPhaseItemBillingThresholds,
@@ -3909,8 +3933,10 @@ if TYPE_CHECKING:
         TokenCreateParamsAccountCompanyAddress as TokenCreateParamsAccountCompanyAddress,
         TokenCreateParamsAccountCompanyAddressKana as TokenCreateParamsAccountCompanyAddressKana,
         TokenCreateParamsAccountCompanyAddressKanji as TokenCreateParamsAccountCompanyAddressKanji,
+        TokenCreateParamsAccountCompanyAdministrativeAddress as TokenCreateParamsAccountCompanyAdministrativeAddress,
         TokenCreateParamsAccountCompanyDirectorshipDeclaration as TokenCreateParamsAccountCompanyDirectorshipDeclaration,
         TokenCreateParamsAccountCompanyOwnershipDeclaration as TokenCreateParamsAccountCompanyOwnershipDeclaration,
+        TokenCreateParamsAccountCompanyPrincipalPlaceOfBusiness as TokenCreateParamsAccountCompanyPrincipalPlaceOfBusiness,
         TokenCreateParamsAccountCompanyRegistrationDate as TokenCreateParamsAccountCompanyRegistrationDate,
         TokenCreateParamsAccountCompanyRepresentativeDeclaration as TokenCreateParamsAccountCompanyRepresentativeDeclaration,
         TokenCreateParamsAccountCompanyVerification as TokenCreateParamsAccountCompanyVerification,
@@ -4395,11 +4421,19 @@ _import_map = {
         "stripe.params._account_create_params",
         False,
     ),
+    "AccountCreateParamsCompanyAdministrativeAddress": (
+        "stripe.params._account_create_params",
+        False,
+    ),
     "AccountCreateParamsCompanyDirectorshipDeclaration": (
         "stripe.params._account_create_params",
         False,
     ),
     "AccountCreateParamsCompanyOwnershipDeclaration": (
+        "stripe.params._account_create_params",
+        False,
+    ),
+    "AccountCreateParamsCompanyPrincipalPlaceOfBusiness": (
         "stripe.params._account_create_params",
         False,
     ),
@@ -4464,14 +4498,6 @@ _import_map = {
         False,
     ),
     "AccountCreateParamsDocumentsProofOfAddress": (
-        "stripe.params._account_create_params",
-        False,
-    ),
-    "AccountCreateParamsDocumentsProofOfRegistration": (
-        "stripe.params._account_create_params",
-        False,
-    ),
-    "AccountCreateParamsDocumentsProofOfRegistrationSigner": (
         "stripe.params._account_create_params",
         False,
     ),
@@ -5197,6 +5223,7 @@ _import_map = {
         "stripe.params._account_session_create_params",
         False,
     ),
+    "AccountUnrejectParams": ("stripe.params._account_unreject_params", False),
     "AccountUpdateParams": ("stripe.params._account_update_params", False),
     "AccountUpdateParamsBankAccount": (
         "stripe.params._account_update_params",
@@ -5507,11 +5534,19 @@ _import_map = {
         "stripe.params._account_update_params",
         False,
     ),
+    "AccountUpdateParamsCompanyAdministrativeAddress": (
+        "stripe.params._account_update_params",
+        False,
+    ),
     "AccountUpdateParamsCompanyDirectorshipDeclaration": (
         "stripe.params._account_update_params",
         False,
     ),
     "AccountUpdateParamsCompanyOwnershipDeclaration": (
+        "stripe.params._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsCompanyPrincipalPlaceOfBusiness": (
         "stripe.params._account_update_params",
         False,
     ),
@@ -5664,6 +5699,10 @@ _import_map = {
         False,
     ),
     "AccountUpdateParamsSettingsPayoutsSchedule": (
+        "stripe.params._account_update_params",
+        False,
+    ),
+    "AccountUpdateParamsSettingsSepaDebitPayments": (
         "stripe.params._account_update_params",
         False,
     ),
@@ -10711,6 +10750,14 @@ _import_map = {
         "stripe.params._payment_link_modify_params",
         False,
     ),
+    "PaymentLinkModifyParamsConsentCollection": (
+        "stripe.params._payment_link_modify_params",
+        False,
+    ),
+    "PaymentLinkModifyParamsConsentCollectionPaymentMethodReuseAgreement": (
+        "stripe.params._payment_link_modify_params",
+        False,
+    ),
     "PaymentLinkModifyParamsCustomField": (
         "stripe.params._payment_link_modify_params",
         False,
@@ -10835,6 +10882,10 @@ _import_map = {
         "stripe.params._payment_link_modify_params",
         False,
     ),
+    "PaymentLinkModifyParamsShippingOption": (
+        "stripe.params._payment_link_modify_params",
+        False,
+    ),
     "PaymentLinkModifyParamsSubscriptionData": (
         "stripe.params._payment_link_modify_params",
         False,
@@ -10884,6 +10935,14 @@ _import_map = {
         False,
     ),
     "PaymentLinkUpdateParamsAutomaticTaxLiability": (
+        "stripe.params._payment_link_update_params",
+        False,
+    ),
+    "PaymentLinkUpdateParamsConsentCollection": (
+        "stripe.params._payment_link_update_params",
+        False,
+    ),
+    "PaymentLinkUpdateParamsConsentCollectionPaymentMethodReuseAgreement": (
         "stripe.params._payment_link_update_params",
         False,
     ),
@@ -11008,6 +11067,10 @@ _import_map = {
         False,
     ),
     "PaymentLinkUpdateParamsShippingAddressCollection": (
+        "stripe.params._payment_link_update_params",
+        False,
+    ),
+    "PaymentLinkUpdateParamsShippingOption": (
         "stripe.params._payment_link_update_params",
         False,
     ),
@@ -12843,6 +12906,10 @@ _import_map = {
         "stripe.params._payment_method_update_params",
         False,
     ),
+    "PaymentRecordListParams": (
+        "stripe.params._payment_record_list_params",
+        False,
+    ),
     "PaymentRecordReportPaymentAttemptCanceledParams": (
         "stripe.params._payment_record_report_payment_attempt_canceled_params",
         False,
@@ -13233,6 +13300,10 @@ _import_map = {
         "stripe.params._quote_create_params",
         False,
     ),
+    "QuoteCreateParamsInvoiceSettingsCustomField": (
+        "stripe.params._quote_create_params",
+        False,
+    ),
     "QuoteCreateParamsInvoiceSettingsIssuer": (
         "stripe.params._quote_create_params",
         False,
@@ -13297,6 +13368,10 @@ _import_map = {
         "stripe.params._quote_modify_params",
         False,
     ),
+    "QuoteModifyParamsInvoiceSettingsCustomField": (
+        "stripe.params._quote_modify_params",
+        False,
+    ),
     "QuoteModifyParamsInvoiceSettingsIssuer": (
         "stripe.params._quote_modify_params",
         False,
@@ -13335,6 +13410,10 @@ _import_map = {
     ),
     "QuoteUpdateParamsDiscount": ("stripe.params._quote_update_params", False),
     "QuoteUpdateParamsInvoiceSettings": (
+        "stripe.params._quote_update_params",
+        False,
+    ),
+    "QuoteUpdateParamsInvoiceSettingsCustomField": (
         "stripe.params._quote_update_params",
         False,
     ),
@@ -15688,6 +15767,10 @@ _import_map = {
         "stripe.params._subscription_schedule_create_params",
         False,
     ),
+    "SubscriptionScheduleCreateParamsDefaultSettingsInvoiceSettingsCustomField": (
+        "stripe.params._subscription_schedule_create_params",
+        False,
+    ),
     "SubscriptionScheduleCreateParamsDefaultSettingsInvoiceSettingsIssuer": (
         "stripe.params._subscription_schedule_create_params",
         False,
@@ -15745,6 +15828,10 @@ _import_map = {
         False,
     ),
     "SubscriptionScheduleCreateParamsPhaseInvoiceSettings": (
+        "stripe.params._subscription_schedule_create_params",
+        False,
+    ),
+    "SubscriptionScheduleCreateParamsPhaseInvoiceSettingsCustomField": (
         "stripe.params._subscription_schedule_create_params",
         False,
     ),
@@ -15820,6 +15907,10 @@ _import_map = {
         "stripe.params._subscription_schedule_modify_params",
         False,
     ),
+    "SubscriptionScheduleModifyParamsDefaultSettingsInvoiceSettingsCustomField": (
+        "stripe.params._subscription_schedule_modify_params",
+        False,
+    ),
     "SubscriptionScheduleModifyParamsDefaultSettingsInvoiceSettingsIssuer": (
         "stripe.params._subscription_schedule_modify_params",
         False,
@@ -15877,6 +15968,10 @@ _import_map = {
         False,
     ),
     "SubscriptionScheduleModifyParamsPhaseInvoiceSettings": (
+        "stripe.params._subscription_schedule_modify_params",
+        False,
+    ),
+    "SubscriptionScheduleModifyParamsPhaseInvoiceSettingsCustomField": (
         "stripe.params._subscription_schedule_modify_params",
         False,
     ),
@@ -15940,6 +16035,10 @@ _import_map = {
         "stripe.params._subscription_schedule_update_params",
         False,
     ),
+    "SubscriptionScheduleUpdateParamsDefaultSettingsInvoiceSettingsCustomField": (
+        "stripe.params._subscription_schedule_update_params",
+        False,
+    ),
     "SubscriptionScheduleUpdateParamsDefaultSettingsInvoiceSettingsIssuer": (
         "stripe.params._subscription_schedule_update_params",
         False,
@@ -15997,6 +16096,10 @@ _import_map = {
         False,
     ),
     "SubscriptionScheduleUpdateParamsPhaseInvoiceSettings": (
+        "stripe.params._subscription_schedule_update_params",
+        False,
+    ),
+    "SubscriptionScheduleUpdateParamsPhaseInvoiceSettingsCustomField": (
         "stripe.params._subscription_schedule_update_params",
         False,
     ),
@@ -16270,11 +16373,19 @@ _import_map = {
         "stripe.params._token_create_params",
         False,
     ),
+    "TokenCreateParamsAccountCompanyAdministrativeAddress": (
+        "stripe.params._token_create_params",
+        False,
+    ),
     "TokenCreateParamsAccountCompanyDirectorshipDeclaration": (
         "stripe.params._token_create_params",
         False,
     ),
     "TokenCreateParamsAccountCompanyOwnershipDeclaration": (
+        "stripe.params._token_create_params",
+        False,
+    ),
+    "TokenCreateParamsAccountCompanyPrincipalPlaceOfBusiness": (
         "stripe.params._token_create_params",
         False,
     ),

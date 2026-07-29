@@ -252,11 +252,14 @@ class Customer(
             """
             The identified tax country of the customer.
             """
-            source: Literal[
-                "billing_address",
-                "ip_address",
-                "payment_method",
-                "shipping_destination",
+            source: Union[
+                Literal[
+                    "billing_address",
+                    "ip_address",
+                    "payment_method",
+                    "shipping_destination",
+                ],
+                str,
             ]
             """
             The data source used to infer the customer's location.
@@ -266,8 +269,14 @@ class Customer(
             The identified tax state, county, province, or region of the customer.
             """
 
-        automatic_tax: Literal[
-            "failed", "not_collecting", "supported", "unrecognized_location"
+        automatic_tax: Union[
+            Literal[
+                "failed",
+                "not_collecting",
+                "supported",
+                "unrecognized_location",
+            ],
+            str,
         ]
         """
         Surfaces if automatic tax computation is possible given the current customer location information.
@@ -280,7 +289,7 @@ class Customer(
         """
         The identified tax location of the customer.
         """
-        provider: Literal["anrok", "avalara", "sphere", "stripe"]
+        provider: Union[Literal["anrok", "avalara", "sphere", "stripe"], str]
         """
         The tax calculation provider used for location resolution. Defaults to `stripe` when not using a [third-party provider](https://docs.stripe.com/tax/third-party-apps).
         """

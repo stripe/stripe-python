@@ -7,7 +7,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._stripe_object import StripeObject, UntypedStripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
 from stripe._util import class_method_variant, sanitize_id
-from typing import ClassVar, List, Optional, cast, overload
+from typing import ClassVar, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -65,7 +65,7 @@ class Coupon(
     """
     Always true for a deleted object
     """
-    duration: Literal["forever", "once", "repeating"]
+    duration: Union[Literal["forever", "once", "repeating"], str]
     """
     One of `forever`, `once`, or `repeating`. Describes how long a customer who applies this coupon will get the discount.
     """
